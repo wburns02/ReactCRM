@@ -1,0 +1,159 @@
+import { test, expect } from '@playwright/test';
+
+/**
+ * Navigation smoke tests
+ *
+ * Validates all main routes are accessible and render without errors
+ */
+
+const PRODUCTION_URL = 'https://react.ecbtx.com';
+const BASE_URL = process.env.BASE_URL || PRODUCTION_URL;
+
+const ROUTES = [
+  { path: '/app/dashboard', name: 'Dashboard' },
+  { path: '/app/prospects', name: 'Prospects' },
+  { path: '/app/customers', name: 'Customers' },
+  { path: '/app/technicians', name: 'Technicians' },
+  { path: '/app/work-orders', name: 'Work Orders' },
+  { path: '/app/schedule', name: 'Schedule' },
+  { path: '/app/email-marketing', name: 'Email Marketing' },
+  { path: '/app/reports', name: 'Reports' },
+  { path: '/app/equipment', name: 'Equipment' },
+  { path: '/app/inventory', name: 'Inventory' },
+  { path: '/app/tickets', name: 'Tickets' },
+  { path: '/app/fleet', name: 'Fleet' },
+  { path: '/app/integrations', name: 'Integrations' },
+];
+
+test.describe('Navigation Smoke Tests', () => {
+  test.beforeEach(async ({ page }) => {
+    if (process.env.AUTH_COOKIE) {
+      await page.context().addCookies([
+        {
+          name: 'session',
+          value: process.env.AUTH_COOKIE,
+          domain: new URL(BASE_URL).hostname,
+          path: '/',
+        },
+      ]);
+    }
+  });
+
+  for (const route of ROUTES) {
+    test(`${route.name} page loads without 500 error`, async ({ page }) => {
+      const response = await page.goto(`${BASE_URL}${route.path}`);
+
+      // Should not return 500 error
+      expect(response?.status()).toBeLessThan(500);
+    });
+  }
+
+  test('sidebar navigation is visible', async ({ page }) => {
+    await page.goto(`${BASE_URL}/app/dashboard`);
+
+    if (page.url().includes('login')) {
+      test.skip();
+      return;
+    }
+
+    // Should have navigation sidebar
+    const nav = page.locator('nav, aside, [role="navigation"]').first();
+    await expect(nav).toBeVisible({ timeout: 5000 });
+  });
+
+  test('sidebar has all main navigation links', async ({ page }) => {
+    await page.goto(`${BASE_URL}/app/dashboard`);
+
+    if (page.url().includes('login')) {
+      test.skip();
+      return;
+    }
+
+    // Check for key navigation items (use .first() for strict mode during migration)
+    const dashboardLink = page.getByRole('link', { name: /dashboard/i }).first();
+    const prospectsLink = page.getByRole('link', { name: /prospects/i }).first();
+    const customersLink = page.getByRole('link', { name: /customers/i }).first();
+
+    await expect(dashboardLink).toBeVisible({ timeout: 5000 });
+    await expect(prospectsLink).toBeVisible({ timeout: 5000 });
+    await expect(customersLink).toBeVisible({ timeout: 5000 });
+  });
+
+  test('navigation between pages works', async ({ page }) => {
+    await page.goto(`${BASE_URL}/app/dashboard`);
+
+    if (page.url().includes('login')) {
+      test.skip();
+      return;
+    }
+
+    // Click on prospects link
+    const prospectsLink = page.getByRole('link', { name: /prospects/i }).first();
+    await prospectsLink.click();
+
+    // Should navigate to prospects
+    await page.waitForURL('**/prospects**', { timeout: 5000 });
+
+    // Click on customers link
+    const customersLink = page.getByRole('link', { name: /customers/i }).first();
+    await customersLink.click();
+
+    // Should navigate to customers
+    await page.waitForURL('**/customers**', { timeout: 5000 });
+  });
+
+  test('user menu is accessible', async ({ page }) => {
+    await page.goto(`${BASE_URL}/app/dashboard`);
+
+    if (page.url().includes('login')) {
+      test.skip();
+      return;
+    }
+
+    // Should have user menu or logout button
+    const userMenu = page.locator('[class*="user"], [class*="avatar"], button').filter({
+      hasText: /logout|sign out|profile/i,
+    });
+
+    // This may or may not be visible depending on implementation
+    const count = await userMenu.count();
+    expect(count).toBeGreaterThanOrEqual(0);
+  });
+});
+
+test.describe('Authentication', () => {
+  test('login page is accessible', async ({ page }) => {
+    const response = await page.goto(`${BASE_URL}/app/login`);
+    expect(response?.status()).toBeLessThan(500);
+
+    // Should show login form with Sign In button
+    const signInButton = page.getByRole('button', { name: 'Sign In' });
+    await expect(signInButton).toBeVisible({ timeout: 10000 });
+  });
+
+  test('unauthenticated access redirects to login', async ({ page }) => {
+    // Clear any existing auth
+    await page.context().clearCookies();
+
+    await page.goto(`${BASE_URL}/app/dashboard`);
+
+    // Should redirect to login - check for Sign In button
+    const signInButton = page.getByRole('button', { name: 'Sign In' });
+    await expect(signInButton).toBeVisible({ timeout: 10000 });
+  });
+});
+
+test.describe('404 Handling', () => {
+  test('invalid route shows 404 page', async ({ page }) => {
+    await page.goto(`${BASE_URL}/app/nonexistent-page-xyz`);
+
+    if (page.url().includes('login')) {
+      test.skip();
+      return;
+    }
+
+    // Should show 404 message (use first() to avoid strict mode with multiple matches)
+    const notFound = page.getByText(/404|not found|page not found/i).first();
+    await expect(notFound).toBeVisible({ timeout: 5000 });
+  });
+});

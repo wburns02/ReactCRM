@@ -1,0 +1,243 @@
+@import 'tailwindcss';
+
+/* Tell Tailwind where to scan for classes - use glob patterns relative to project root */
+@source "./**/*.{js,ts,jsx,tsx}";
+@source "../index.html";
+
+/*
+ * MAC Septic CRM - React Design Tokens
+ * Mapped from legacy css/hubspot-theme.css
+ * See REACT_MIGRATION_PLAN.md Addendum B
+ */
+
+@theme {
+  /* ============================================
+     COLORS - MAC Brand
+     ============================================ */
+  --color-mac-dark-blue: #104b95;
+  --color-mac-light-blue: #2aabe1;
+  --color-mac-orange: #da6833;
+  --color-mac-navy: #1f2a5c;
+  --color-mac-gray: #707171;
+
+  /* ============================================
+     COLORS - UI Semantic
+     ============================================ */
+  --color-primary: #0091ae;
+  --color-primary-hover: #007a92;
+  --color-primary-light: #e6f4f7;
+
+  --color-cta: #ff7a59;
+  --color-cta-hover: #ff5a2e;
+
+  --color-success: #198754;
+  --color-success-light: #d1e7dd;
+
+  --color-warning: #ffc107;
+  --color-warning-light: #fff3cd;
+
+  --color-danger: #dc3545;
+  --color-danger-light: #f8d7da;
+
+  --color-info: #0dcaf0;
+  --color-info-light: #cff4fc;
+
+  /* ============================================
+     COLORS - Backgrounds
+     ============================================ */
+  --color-bg-body: #f5f8fa;
+  --color-bg-card: #ffffff;
+  --color-bg-sidebar: #fafbfc;
+  --color-bg-hover: #f8f9fa;
+  --color-bg-muted: #f1f3f5;
+  --color-bg-active: #e9ecef;
+
+  /* ============================================
+     COLORS - Borders
+     ============================================ */
+  --color-border: #e1e4e8;
+  --color-border-dark: #cbd6e2;
+  --color-border-light: #f0f1f3;
+
+  /* ============================================
+     COLORS - Text
+     ============================================ */
+  --color-text-primary: #33475b;
+  --color-text-secondary: #6c757d;
+  --color-text-muted: #9ca3af;
+  --color-text-link: #0091ae;
+
+  /* ============================================
+     COLORS - Status (Work Orders)
+     ============================================ */
+  --color-status-draft: #6b7280;
+  --color-status-scheduled: #3b82f6;
+  --color-status-confirmed: #10b981;
+  --color-status-enroute: #f59e0b;
+  --color-status-on-site: #8b5cf6;
+  --color-status-in-progress: #06b6d4;
+  --color-status-completed: #22c55e;
+  --color-status-canceled: #ef4444;
+  --color-status-requires-followup: #f97316;
+
+  /* ============================================
+     COLORS - Priority
+     ============================================ */
+  --color-priority-low: #6b7280;
+  --color-priority-normal: #3b82f6;
+  --color-priority-high: #f59e0b;
+  --color-priority-urgent: #ef4444;
+  --color-priority-emergency: #dc2626;
+
+  /* ============================================
+     COLORS - Prospect Stages
+     ============================================ */
+  --color-stage-new-lead: #3b82f6;
+  --color-stage-contacted: #8b5cf6;
+  --color-stage-qualified: #06b6d4;
+  --color-stage-quoted: #f59e0b;
+  --color-stage-negotiation: #f97316;
+  --color-stage-won: #22c55e;
+  --color-stage-lost: #ef4444;
+
+  /* ============================================
+     TYPOGRAPHY
+     ============================================ */
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+
+  --font-size-xs: 0.6875rem; /* 11px */
+  --font-size-sm: 0.8125rem; /* 13px */
+  --font-size-base: 0.875rem; /* 14px */
+  --font-size-md: 0.9375rem; /* 15px */
+  --font-size-lg: 1rem; /* 16px */
+  --font-size-xl: 1.125rem; /* 18px */
+  --font-size-2xl: 1.25rem; /* 20px */
+  --font-size-3xl: 1.5rem; /* 24px */
+  --font-size-4xl: 1.875rem; /* 30px */
+
+  /* ============================================
+     SPACING (custom names to avoid Tailwind conflicts)
+     ============================================ */
+  --space-xs: 4px;
+  --space-sm: 8px;
+  --space-md: 16px;
+  --space-lg: 24px;
+  --space-xl: 32px;
+  --space-xxl: 48px;
+
+  /* ============================================
+     CONTAINER WIDTHS (for max-w-* utilities)
+     ============================================ */
+  --container-sm: 24rem;  /* 384px */
+  --container-md: 28rem;  /* 448px */
+  --container-lg: 32rem;  /* 512px */
+  --container-xl: 36rem;  /* 576px */
+  --container-2xl: 42rem; /* 672px */
+  --container-3xl: 48rem; /* 768px */
+
+  /* ============================================
+     BORDER RADIUS
+     ============================================ */
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-xl: 12px;
+  --radius-full: 9999px;
+
+  /* ============================================
+     SHADOWS
+     ============================================ */
+  --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.07);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.1);
+  --shadow-xl: 0 20px 25px rgba(0, 0, 0, 0.15);
+}
+
+/* ============================================
+   BASE STYLES
+   ============================================ */
+html {
+  font-family: var(--font-sans);
+  font-size: var(--font-size-base);
+  color: var(--color-text-primary);
+  background-color: var(--color-bg-body);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+}
+
+/* ============================================
+   FOCUS STYLES (Accessibility)
+   ============================================ */
+:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* ============================================
+   UTILITY CLASSES (complement Tailwind)
+   ============================================ */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border-width: 0;
+}
+
+/* Touch target - minimum 44x44px for mobile accessibility */
+.touch-target {
+  min-width: 44px;
+  min-height: 44px;
+}
+
+/* ============================================
+   MOBILE OPTIMIZATIONS
+   ============================================ */
+@media (max-width: 640px) {
+  /* Prevent zoom on input focus on iOS */
+  input[type='text'],
+  input[type='email'],
+  input[type='tel'],
+  input[type='number'],
+  input[type='password'],
+  textarea,
+  select {
+    font-size: 16px;
+  }
+
+  /* Improve scroll performance on mobile */
+  * {
+    -webkit-overflow-scrolling: touch;
+  }
+}
+
+/* Pull-to-refresh visual feedback */
+@supports (overscroll-behavior: contain) {
+  html {
+    overscroll-behavior: contain;
+  }
+}

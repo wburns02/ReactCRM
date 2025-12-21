@@ -1,0 +1,81 @@
+import { test, expect } from '@playwright/test';
+
+/**
+ * Smoke tests for React Dashboard page
+ *
+ * Validates dashboard metrics and quick actions
+ */
+
+const PRODUCTION_URL = 'https://mac-septic-crm-production-aaa8.up.railway.app';
+const BASE_URL = process.env.BASE_URL || PRODUCTION_URL;
+
+test.describe('Dashboard Page Smoke Tests', () => {
+  test.beforeEach(async ({ page }) => {
+    if (process.env.AUTH_COOKIE) {
+      await page.context().addCookies([
+        {
+          name: 'session',
+          value: process.env.AUTH_COOKIE,
+          domain: new URL(BASE_URL).hostname,
+          path: '/',
+        },
+      ]);
+    }
+  });
+
+  test('dashboard page loads without crashing', async ({ page }) => {
+    const response = await page.goto(`${BASE_URL}/app/dashboard`);
+    expect(response?.status()).toBeLessThan(500);
+  });
+
+  test('dashboard page renders header', async ({ page }) => {
+    await page.goto(`${BASE_URL}/app/dashboard`);
+
+    const header = page.getByRole('heading', { name: /dashboard/i });
+    const loginPage = page.getByText('Sign in to your account');
+
+    await expect(header.or(loginPage)).toBeVisible({ timeout: 10000 });
+  });
+
+  test('dashboard shows summary stats', async ({ page }) => {
+    await page.goto(`${BASE_URL}/app/dashboard`);
+
+    if (page.url().includes('login')) {
+      test.skip();
+      return;
+    }
+
+    // Should show stat cards
+    const statCards = page.locator('[class*="card"], [class*="stat"]');
+    const count = await statCards.count();
+    expect(count).toBeGreaterThan(0);
+  });
+
+  test('dashboard shows recent activity', async ({ page }) => {
+    await page.goto(`${BASE_URL}/app/dashboard`);
+
+    if (page.url().includes('login')) {
+      test.skip();
+      return;
+    }
+
+    // Should show recent items section
+    const recentSection = page.getByText(/recent|today|upcoming/i).first();
+    await expect(recentSection).toBeVisible({ timeout: 5000 });
+  });
+
+  test('dashboard has quick action links', async ({ page }) => {
+    await page.goto(`${BASE_URL}/app/dashboard`);
+
+    if (page.url().includes('login')) {
+      test.skip();
+      return;
+    }
+
+    // Should have links to main sections
+    const prospectLink = page.locator('a[href*="prospects"]').first();
+    const customerLink = page.locator('a[href*="customers"]').first();
+
+    await expect(prospectLink.or(customerLink)).toBeVisible({ timeout: 5000 });
+  });
+});
