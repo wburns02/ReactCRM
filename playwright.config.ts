@@ -3,14 +3,21 @@ import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
 /**
- * Playwright configuration for smoke tests
+ * Playwright configuration for one-shot troubleshooting
  *
- * Run all tests: npx playwright test
- * Run with UI: npx playwright test --ui
- * Run specific test: npx playwright test smoke.spec.ts
+ * Commands:
+ *   npx playwright test                    # Run all tests
+ *   npx playwright test --ui               # Run with UI mode for debugging
+ *   npx playwright test --project=health   # Run health checks only
+ *   npx playwright test --project=contracts # Run API contract tests only
+ *   npx playwright test e2e/modules/customers # Run specific module
  *
- * CI: Set BASE_URL env var to target staging
+ * Environment:
+ *   BASE_URL=https://...   # Target staging/production
+ *   LOCAL_DEV=1            # Start local dev server
+ *   CI=true                # CI mode (auto-set by GitHub Actions)
  */
+
 // Production URL for Mac-CRM-React deployment
 const PRODUCTION_URL = 'https://react.ecbtx.com/app';
 
@@ -27,13 +34,27 @@ export default defineConfig({
   forbidOnly: !!process.env.CI,
   retries: process.env.CI ? 2 : 0,
   workers: process.env.CI ? 1 : undefined,
-  reporter: process.env.CI ? 'github' : 'html',
+
+  // Enhanced reporters for debugging
+  reporter: process.env.CI
+    ? [
+        ['github'],
+        ['html', { open: 'never' }],
+        ['json', { outputFile: 'test-results/results.json' }],
+      ]
+    : [
+        ['html', { open: 'on-failure' }],
+        ['list'],
+      ],
 
   use: {
     // Default to production URL - tests run against deployed app
     baseURL: process.env.BASE_URL || PRODUCTION_URL,
+
+    // Debugging artifacts - capture on failure/retry
     trace: 'on-first-retry',
     screenshot: 'only-on-failure',
+    video: 'retain-on-failure',
   },
 
   projects: [
@@ -42,12 +63,47 @@ export default defineConfig({
       name: 'setup',
       testMatch: /auth\.setup\.ts/,
     },
-    // Main tests - run after setup with authenticated state
+
+    // Health checks - session, cookies, API connectivity
     {
-      name: 'chromium',
+      name: 'health',
+      testDir: './e2e/health',
       use: {
         ...devices['Desktop Chrome'],
-        // Use authenticated state from setup
+        storageState: authFile,
+      },
+      dependencies: ['setup'],
+    },
+
+    // API contract tests - fast, no browser needed for most
+    {
+      name: 'contracts',
+      testDir: './e2e/contracts',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: authFile,
+      },
+      dependencies: ['setup'],
+    },
+
+    // Module UI tests
+    {
+      name: 'modules',
+      testDir: './e2e/modules',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: authFile,
+      },
+      dependencies: ['setup'],
+    },
+
+    // Default chromium project for any remaining tests
+    {
+      name: 'chromium',
+      testDir: './e2e',
+      testIgnore: ['**/health/**', '**/contracts/**', '**/modules/**', '**/fixtures/**'],
+      use: {
+        ...devices['Desktop Chrome'],
         storageState: authFile,
       },
       dependencies: ['setup'],
