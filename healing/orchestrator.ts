@@ -441,8 +441,9 @@ async function main(): Promise<void> {
   process.exit(results.overallStatus === 'failing' ? 1 : 0);
 }
 
-// Run if called directly
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Run when this file is executed directly
+const isMain = process.argv[1]?.includes('orchestrator');
+if (isMain) {
   main().catch(console.error);
 }
 
