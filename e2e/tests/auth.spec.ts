@@ -19,8 +19,10 @@ test.describe('Authentication Flow', () => {
     test('login page is accessible and renders correctly', async ({ page }) => {
       await page.goto(`${BASE_URL}/login`);
 
-      // Should show login form
-      await expect(page.getByRole('heading', { name: /sign in|login/i })).toBeVisible({
+      // Should show login form (heading is "Welcome Back" or similar)
+      await expect(
+        page.getByRole('heading', { name: /welcome back|sign in|login/i })
+      ).toBeVisible({
         timeout: 10000,
       });
 
