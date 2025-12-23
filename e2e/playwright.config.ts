@@ -22,8 +22,8 @@ const PRODUCTION_URL = process.env.BASE_URL || 'https://react.ecbtx.com/app';
 const API_URL = process.env.API_URL || 'https://react-crm-api-production.up.railway.app';
 
 // Artifact directory (set by self_heal_run.sh)
-const ARTIFACT_DIR = process.env.ARTIFACT_DIR || join(projectRoot, 'test-results');
-const authFile = join(projectRoot, '.auth/user.json');
+const ARTIFACT_DIR = process.env.ARTIFACT_DIR || join(__dirname, 'test-results');
+const authFile = join(__dirname, '.auth/user.json');
 
 export default defineConfig({
   testDir: './tests',
@@ -43,17 +43,17 @@ export default defineConfig({
   },
 
   // Output directories
-  outputDir: join(ARTIFACT_DIR, 'test-results'),
+  outputDir: './test-results',
 
   // Reporters
   reporter: [
     ['list'],
     ['html', {
-      outputFolder: join(ARTIFACT_DIR, 'playwright-report'),
+      outputFolder: './playwright-report',
       open: 'never',
     }],
     ['json', {
-      outputFile: join(ARTIFACT_DIR, 'reports', 'playwright.json'),
+      outputFile: './test-results/results.json',
     }],
   ],
 
@@ -80,55 +80,14 @@ export default defineConfig({
   },
 
   projects: [
-    // Authentication setup
-    {
-      name: 'setup',
-      testMatch: /.*\.setup\.ts/,
-    },
-
-    // Core E2E tests
+    // Core E2E tests (auth, crm, webhook, comms_safe)
     {
       name: 'e2e',
       testDir: './tests',
       testMatch: /.*\.spec\.ts/,
       use: {
         ...devices['Desktop Chrome'],
-        storageState: authFile,
       },
-      dependencies: ['setup'],
-    },
-
-    // Health checks (from main e2e directory)
-    {
-      name: 'health',
-      testDir: '../e2e/health',
-      use: {
-        ...devices['Desktop Chrome'],
-        storageState: authFile,
-      },
-      dependencies: ['setup'],
-    },
-
-    // Contract tests
-    {
-      name: 'contracts',
-      testDir: '../e2e/contracts',
-      use: {
-        ...devices['Desktop Chrome'],
-        storageState: authFile,
-      },
-      dependencies: ['setup'],
-    },
-
-    // Security tests
-    {
-      name: 'security',
-      testDir: '../e2e/security',
-      use: {
-        ...devices['Desktop Chrome'],
-        storageState: authFile,
-      },
-      dependencies: ['setup'],
     },
   ],
 

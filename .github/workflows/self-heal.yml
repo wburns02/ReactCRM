@@ -14,9 +14,10 @@
 name: Self-Heal
 
 on:
-  # Scheduled runs - default every 12 hours
+  # Scheduled runs - every 12 hours (6 AM and 6 PM UTC)
+  # To change to 24h, edit this cron expression to: '0 6 * * *'
   schedule:
-    - cron: ${{ vars.SELF_HEAL_SCHEDULE || '0 */12 * * *' }}
+    - cron: '0 6,18 * * *'
 
   # Manual trigger
   workflow_dispatch:
