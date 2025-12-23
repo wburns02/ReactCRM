@@ -29,6 +29,7 @@
     "@dnd-kit/sortable": "^10.0.0",
     "@dnd-kit/utilities": "^3.2.2",
     "@hookform/resolvers": "^5.2.2",
+    "@octokit/rest": "^22.0.1",
     "@tanstack/react-query": "^5.90.12",
     "@types/leaflet": "^1.9.21",
     "axios": "^1.13.2",

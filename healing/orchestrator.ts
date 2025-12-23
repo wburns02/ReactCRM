@@ -28,6 +28,7 @@ import {
 } from './triage/classifier';
 import { getLLMManager, LLMProvider } from './llm';
 import { getPlaybookRegistry, Playbook, PlaybookResult } from './playbooks';
+import { createPRCreatorFromEnv, GitHubPRCreator } from './github-pr';
 
 const execAsync = promisify(exec);
 
@@ -353,13 +354,37 @@ export class HealingOrchestrator {
       return;
     }
 
-    // For now, just log - PR creation can be implemented with GitHub API
-    console.log(`${needsPR.length} issues would require PRs (not implemented yet)`);
+    // Skip PR creation in dry-run mode
+    if (this.options.dryRun) {
+      console.log(`${needsPR.length} issues would require PRs (dry-run mode, skipping)`);
+      return;
+    }
 
-    // TODO: Implement GitHub PR creation
-    // - Create branch
-    // - Apply suggested fixes from LLM
-    // - Create PR with failure details
+    // Initialize GitHub PR creator
+    const prCreator = createPRCreatorFromEnv();
+
+    if (!prCreator) {
+      console.log(`${needsPR.length} issues require PRs but GitHub not configured`);
+      console.log('  Set GITHUB_TOKEN, GITHUB_OWNER, GITHUB_REPO to enable PR creation');
+      return;
+    }
+
+    console.log(`Creating PRs for ${needsPR.length} issues...`);
+
+    for (const failure of needsPR) {
+      console.log(`  Creating PR for: ${failure.testName}`);
+
+      const result = await prCreator.createPRForFailure(failure);
+
+      if (result.success) {
+        console.log(`    Created PR #${result.prNumber}: ${result.prUrl}`);
+        this.results.prsCreated.push(result.prUrl!);
+      } else {
+        console.log(`    Failed to create PR: ${result.error}`);
+      }
+    }
+
+    console.log(`PRs created: ${this.results.prsCreated.length}/${needsPR.length}`);
   }
 
   /**
