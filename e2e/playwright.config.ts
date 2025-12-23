@@ -89,6 +89,15 @@ export default defineConfig({
         ...devices['Desktop Chrome'],
       },
     },
+    // Security tests
+    {
+      name: 'security',
+      testDir: './security',
+      testMatch: /.*\.security\.spec\.ts/,
+      use: {
+        ...devices['Desktop Chrome'],
+      },
+    },
   ],
 
   // Global setup/teardown
