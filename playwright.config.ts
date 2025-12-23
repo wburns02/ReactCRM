@@ -97,11 +97,22 @@ export default defineConfig({
       dependencies: ['setup'],
     },
 
+    // Security tests - validate security invariants
+    {
+      name: 'security',
+      testDir: './e2e/security',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: authFile,
+      },
+      dependencies: ['setup'],
+    },
+
     // Default chromium project for any remaining tests
     {
       name: 'chromium',
       testDir: './e2e',
-      testIgnore: ['**/health/**', '**/contracts/**', '**/modules/**', '**/fixtures/**'],
+      testIgnore: ['**/health/**', '**/contracts/**', '**/modules/**', '**/security/**', '**/fixtures/**'],
       use: {
         ...devices['Desktop Chrome'],
         storageState: authFile,
