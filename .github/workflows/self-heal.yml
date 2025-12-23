@@ -1,0 +1,387 @@
+# Self-Healing System Workflow
+#
+# Runs automated E2E tests, security scans, and triage on schedule.
+# Default: Every 12 hours
+# Override: Set SELF_HEAL_SCHEDULE repository variable to change (e.g., "0 0 * * *" for 24h)
+#
+# Features:
+# - Playwright E2E tests with trace capture
+# - Security scanning (pip-audit, bandit)
+# - Failure triage and classification
+# - Artifact collection and upload
+# - Slack/Discord notifications (optional)
+
+name: Self-Heal
+
+on:
+  # Scheduled runs - default every 12 hours
+  schedule:
+    - cron: ${{ vars.SELF_HEAL_SCHEDULE || '0 */12 * * *' }}
+
+  # Manual trigger
+  workflow_dispatch:
+    inputs:
+      projects:
+        description: 'Playwright projects to run (comma-separated)'
+        required: false
+        default: 'health,contracts,e2e'
+        type: string
+      dry_run:
+        description: 'Dry run (no auto-remediation)'
+        required: false
+        default: false
+        type: boolean
+      force_llm:
+        description: 'Force LLM analysis even for known issues'
+        required: false
+        default: false
+        type: boolean
+
+  # Trigger on PR to main (for validation)
+  pull_request:
+    branches: [main, master]
+    paths:
+      - 'src/**'
+      - 'e2e/**'
+      - 'scripts/**'
+      - 'package.json'
+
+env:
+  # URLs
+  BASE_URL: ${{ vars.BASE_URL || 'https://react.ecbtx.com/app' }}
+  API_URL: ${{ vars.API_URL || 'https://react-crm-api-production.up.railway.app' }}
+
+  # Mock mode - ALWAYS true in CI
+  TWILIO_MOCK: 'true'
+
+  # LLM settings
+  ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+  LLM_FALLBACK_ONLY: ${{ vars.LLM_FALLBACK_ONLY || 'true' }}
+
+  # Artifact retention
+  ARTIFACT_RETENTION_DAYS: 14
+
+jobs:
+  # Job 1: Setup and Health Check
+  setup:
+    name: Setup & Health Check
+    runs-on: ubuntu-latest
+    outputs:
+      run_id: ${{ steps.run_id.outputs.value }}
+      api_healthy: ${{ steps.health.outputs.api_healthy }}
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Generate Run ID
+        id: run_id
+        run: echo "value=$(date +%Y%m%d_%H%M%S)_${{ github.run_number }}" >> $GITHUB_OUTPUT
+
+      - name: API Health Check
+        id: health
+        run: |
+          echo "Checking API health at $API_URL..."
+          HEALTH_STATUS=$(curl -s -o /dev/null -w "%{http_code}" "$API_URL/health" || echo "000")
+          echo "Health check status: $HEALTH_STATUS"
+          if [ "$HEALTH_STATUS" = "200" ]; then
+            echo "api_healthy=true" >> $GITHUB_OUTPUT
+          else
+            echo "api_healthy=false" >> $GITHUB_OUTPUT
+            echo "::warning::API health check failed with status $HEALTH_STATUS"
+          fi
+
+  # Job 2: Security Scanning
+  security-scan:
+    name: Security Scan
+    runs-on: ubuntu-latest
+    needs: setup
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Security Tools
+        run: |
+          pip install pip-audit bandit safety
+
+      - name: Create Artifact Directory
+        run: mkdir -p artifacts/reports
+
+      - name: Run pip-audit
+        continue-on-error: true
+        run: |
+          if [ -f requirements.txt ]; then
+            pip-audit --requirement requirements.txt --format json > artifacts/reports/pip-audit.json 2>&1 || true
+          else
+            echo '{"dependencies": [], "message": "No requirements.txt found"}' > artifacts/reports/pip-audit.json
+          fi
+
+      - name: Run bandit
+        continue-on-error: true
+        run: |
+          if [ -d src ]; then
+            bandit -r src/ -f json -o artifacts/reports/bandit.json 2>&1 || true
+          elif [ -d scripts ]; then
+            bandit -r scripts/ -f json -o artifacts/reports/bandit.json 2>&1 || true
+          else
+            echo '{"results": [], "message": "No Python source found"}' > artifacts/reports/bandit.json
+          fi
+
+      - name: Upload Security Reports
+        uses: actions/upload-artifact@v4
+        with:
+          name: security-reports-${{ needs.setup.outputs.run_id }}
+          path: artifacts/reports/
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+
+  # Job 3: Playwright E2E Tests
+  e2e-tests:
+    name: E2E Tests
+    runs-on: ubuntu-latest
+    needs: setup
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Install Playwright Browsers
+        run: npx playwright install chromium --with-deps
+
+      - name: Create Artifact Directory
+        run: mkdir -p artifacts/reports .auth
+
+      - name: Create Auth Placeholder
+        run: |
+          echo '{"cookies": [], "origins": []}' > .auth/user.json
+
+      - name: Run Playwright Tests
+        id: playwright
+        continue-on-error: true
+        env:
+          ARTIFACT_DIR: ./artifacts
+          PROJECTS: ${{ inputs.projects || 'health,e2e' }}
+        run: |
+          cd e2e
+          npx playwright test \
+            --reporter=list,json,html \
+            --output=../artifacts/test-results \
+            2>&1 | tee ../artifacts/playwright.log
+
+          # Capture exit code
+          echo "exit_code=${PIPESTATUS[0]}" >> $GITHUB_OUTPUT
+
+      - name: Generate Test Summary
+        if: always()
+        run: |
+          echo "## Playwright Test Results" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f artifacts/reports/playwright.json ]; then
+            PASSED=$(jq '.stats.expected // 0' artifacts/reports/playwright.json 2>/dev/null || echo 0)
+            FAILED=$(jq '.stats.unexpected // 0' artifacts/reports/playwright.json 2>/dev/null || echo 0)
+            SKIPPED=$(jq '.stats.skipped // 0' artifacts/reports/playwright.json 2>/dev/null || echo 0)
+            echo "| Status | Count |" >> $GITHUB_STEP_SUMMARY
+            echo "|--------|-------|" >> $GITHUB_STEP_SUMMARY
+            echo "| Passed | $PASSED |" >> $GITHUB_STEP_SUMMARY
+            echo "| Failed | $FAILED |" >> $GITHUB_STEP_SUMMARY
+            echo "| Skipped | $SKIPPED |" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No test results found" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload Playwright Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: playwright-report-${{ needs.setup.outputs.run_id }}
+          path: |
+            artifacts/
+            e2e/playwright-report/
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+
+      - name: Upload Traces on Failure
+        uses: actions/upload-artifact@v4
+        if: failure()
+        with:
+          name: playwright-traces-${{ needs.setup.outputs.run_id }}
+          path: |
+            artifacts/test-results/**/*.zip
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+
+  # Job 4: Triage and Analysis
+  triage:
+    name: Triage Failures
+    runs-on: ubuntu-latest
+    needs: [setup, e2e-tests, security-scan]
+    if: always()
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Download Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          path: downloaded-artifacts
+
+      - name: Install Triage Dependencies
+        run: |
+          pip install requests pyyaml
+
+      - name: Run Triage
+        id: triage
+        env:
+          RUN_ID: ${{ needs.setup.outputs.run_id }}
+          DRY_RUN: ${{ inputs.dry_run || 'true' }}
+        run: |
+          mkdir -p artifacts/triage
+
+          # Run triage script if it exists
+          if [ -f scripts/triage.py ]; then
+            python scripts/triage.py \
+              --artifact-dir downloaded-artifacts \
+              --output artifacts/triage/report.json \
+              2>&1 | tee artifacts/triage/triage.log
+          else
+            echo '{"issues": [], "message": "Triage script not found"}' > artifacts/triage/report.json
+          fi
+
+          # Check for critical issues
+          if [ -f artifacts/triage/report.json ]; then
+            CRITICAL=$(jq '[.issues[] | select(.severity == "critical")] | length' artifacts/triage/report.json 2>/dev/null || echo 0)
+            echo "critical_count=$CRITICAL" >> $GITHUB_OUTPUT
+          fi
+
+      - name: Generate Triage Summary
+        if: always()
+        run: |
+          echo "## Triage Summary" >> $GITHUB_STEP_SUMMARY
+          echo "" >> $GITHUB_STEP_SUMMARY
+          if [ -f artifacts/triage/report.json ]; then
+            jq -r '.issues[] | "- [\(.severity)] \(.bucket): \(.summary)"' artifacts/triage/report.json >> $GITHUB_STEP_SUMMARY 2>/dev/null || echo "No issues found" >> $GITHUB_STEP_SUMMARY
+          else
+            echo "No triage report generated" >> $GITHUB_STEP_SUMMARY
+          fi
+
+      - name: Upload Triage Report
+        uses: actions/upload-artifact@v4
+        if: always()
+        with:
+          name: triage-report-${{ needs.setup.outputs.run_id }}
+          path: artifacts/triage/
+          retention-days: ${{ env.ARTIFACT_RETENTION_DAYS }}
+
+  # Job 5: Notification (Optional)
+  notify:
+    name: Notify
+    runs-on: ubuntu-latest
+    needs: [setup, e2e-tests, security-scan, triage]
+    if: always() && (failure() || vars.ALWAYS_NOTIFY == 'true')
+
+    steps:
+      - name: Prepare Notification
+        id: notify_prep
+        run: |
+          if [ "${{ needs.e2e-tests.result }}" = "failure" ]; then
+            echo "status=failed" >> $GITHUB_OUTPUT
+            echo "color=#dc3545" >> $GITHUB_OUTPUT
+          elif [ "${{ needs.security-scan.result }}" = "failure" ]; then
+            echo "status=security_issues" >> $GITHUB_OUTPUT
+            echo "color=#ffc107" >> $GITHUB_OUTPUT
+          else
+            echo "status=passed" >> $GITHUB_OUTPUT
+            echo "color=#28a745" >> $GITHUB_OUTPUT
+          fi
+
+      # Slack notification (if webhook configured)
+      - name: Slack Notification
+        if: vars.SLACK_WEBHOOK_URL != ''
+        uses: slackapi/slack-github-action@v1.25.0
+        with:
+          payload: |
+            {
+              "text": "Self-Heal Run: ${{ steps.notify_prep.outputs.status }}",
+              "attachments": [
+                {
+                  "color": "${{ steps.notify_prep.outputs.color }}",
+                  "fields": [
+                    {"title": "Run ID", "value": "${{ needs.setup.outputs.run_id }}", "short": true},
+                    {"title": "Repository", "value": "${{ github.repository }}", "short": true},
+                    {"title": "E2E Tests", "value": "${{ needs.e2e-tests.result }}", "short": true},
+                    {"title": "Security Scan", "value": "${{ needs.security-scan.result }}", "short": true}
+                  ]
+                }
+              ]
+            }
+        env:
+          SLACK_WEBHOOK_URL: ${{ vars.SLACK_WEBHOOK_URL }}
+          SLACK_WEBHOOK_TYPE: INCOMING_WEBHOOK
+
+      # GitHub Issue on failure (optional)
+      - name: Create Issue on Failure
+        if: failure() && vars.CREATE_ISSUES_ON_FAILURE == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const title = `[Self-Heal] Automated test failure - ${new Date().toISOString().split('T')[0]}`;
+            const body = `
+            ## Self-Heal Run Failed
+
+            **Run ID:** ${{ needs.setup.outputs.run_id }}
+            **Triggered:** ${{ github.event_name }}
+
+            ### Results
+            - E2E Tests: ${{ needs.e2e-tests.result }}
+            - Security Scan: ${{ needs.security-scan.result }}
+            - Triage: ${{ needs.triage.result }}
+
+            ### Artifacts
+            Check the [workflow run](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}) for detailed artifacts.
+
+            ---
+            *This issue was automatically created by the self-heal workflow.*
+            `;
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ['self-heal', 'automated', 'needs-triage']
+            });
+
+  # Job 6: Cleanup old artifacts
+  cleanup:
+    name: Cleanup
+    runs-on: ubuntu-latest
+    needs: [notify]
+    if: always()
+
+    steps:
+      - name: Delete old workflow runs
+        uses: Mattraks/delete-workflow-runs@v2
+        with:
+          token: ${{ github.token }}
+          repository: ${{ github.repository }}
+          retain_days: 30
+          keep_minimum_runs: 10

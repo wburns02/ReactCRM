@@ -217,37 +217,97 @@ npx playwright show-report
 
 ### GPU Detection (RTX 5090 Support)
 
-The system automatically detects GPU availability:
+The system automatically detects GPU availability via `scripts/llm_client.py`:
 
-```typescript
-// healing/llm/gpu-detect.ts
-// Checks for:
-// - NVIDIA GPU via nvidia-smi
-// - CUDA availability
-// - Sufficient VRAM (8GB minimum)
+```python
+# Detection flow:
+# 1. Check nvidia-smi for GPU presence
+# 2. Verify CUDA drivers installed
+# 3. Check VRAM >= 24GB for RTX 5090
+# 4. Test Ollama endpoint connectivity
 ```
+
+Supported GPUs:
+- **RTX 5090** (48GB VRAM) - Full codellama:34b support
+- **RTX 4090** (24GB VRAM) - codellama:34b with quantization
+- **RTX 3090** (24GB VRAM) - codellama:13b recommended
+- **RTX 3080** (10GB VRAM) - codellama:7b or llama3.2
 
 ### LLM Fallback Chain
 
 1. **Ollama (Local)** - Free, private, uses GPU
-   - Model: `llama3.2` or `codellama`
+   - Model: `codellama:34b` (RTX 5090) or `codellama:13b`
    - URL: `http://localhost:11434`
+   - **ALWAYS tried first** - no data leaves machine
 
 2. **Anthropic (Cloud)** - Fallback when Ollama unavailable
    - Model: `claude-3-5-sonnet-20241022`
    - Requires: `ANTHROPIC_API_KEY`
+   - **Only used if local LLM unavailable**
 
-### Starting Ollama
+### Sensitive Data Redaction
+
+**CRITICAL**: Before ANY LLM query, data is redacted via `scripts/redact.py`:
+
+```python
+from scripts.redact import redact_sensitive_data
+
+# Before sending to LLM
+safe_prompt = redact_sensitive_data(error_log)
+
+# Redacts:
+# - API keys → [REDACTED_API_KEY]
+# - Passwords → [REDACTED_PASSWORD]
+# - JWT tokens → [REDACTED_JWT]
+# - Database URLs → [REDACTED_DB_URL]
+# - Email addresses → [REDACTED_EMAIL]
+# - Phone numbers → [REDACTED_PHONE]
+# - IP addresses → [REDACTED_IP]
+# - Credit cards → [REDACTED_CC]
+# - SSNs → [REDACTED_SSN]
+# - AWS keys → [REDACTED_AWS_KEY]
+# - Twilio credentials → [REDACTED_TWILIO]
+```
+
+Allowlisted (NOT redacted):
+- `localhost`, `127.0.0.1`
+- `example.com`, `test@example.com`
+- Already redacted `[REDACTED_*]` tokens
+
+### Starting Ollama with RTX 5090
 
 ```bash
-# Install Ollama
+# Install Ollama (Linux)
 curl -fsSL https://ollama.com/install.sh | sh
 
-# Pull model
-ollama pull llama3.2
+# Windows - download from https://ollama.com/download
 
-# Start server
+# Pull codellama for code analysis
+ollama pull codellama:34b    # RTX 5090 (48GB)
+ollama pull codellama:13b    # RTX 4090/3090 (24GB)
+ollama pull codellama:7b     # RTX 3080 (10GB)
+
+# Start server (uses GPU automatically)
 ollama serve
+
+# Verify GPU usage
+nvidia-smi  # Should show ollama using VRAM
+```
+
+### LLM Environment Variables
+
+```bash
+# Required for Anthropic fallback
+export ANTHROPIC_API_KEY=sk-ant-...
+
+# Optional: Force fallback only (skip local)
+export LLM_FALLBACK_ONLY=true
+
+# Optional: Custom Ollama host
+export OLLAMA_HOST=http://localhost:11434
+
+# Optional: Specific model
+export OLLAMA_MODEL=codellama:34b
 ```
 
 ---

@@ -1,279 +1,377 @@
 #!/usr/bin/env bash
+###############################################################################
+# self_heal_run.sh
 #
-# Self-Healing Runner Script
+# Single entrypoint for CI + cron self-healing runs.
 #
-# This script orchestrates the self-healing system:
-# 1. Sets up environment
-# 2. Runs Playwright tests
-# 3. Classifies failures
-# 4. Applies SAFE remediations
-# 5. Re-runs tests to verify fixes
-# 6. Opens PR/issue for remaining failures
+# Steps:
+#   1. Start Docker Compose stack (with test overrides)
+#   2. Run unit tests + security scanners
+#   3. Run Playwright E2E with trace ON
+#   4. Collect artifacts into artifacts/YYYYMMDD_HHMMSS/
+#   5. Call triage on failures
+#   6. Apply safe remediations
+#   7. Rerun verification after remediation
+#   8. Exit non-zero if unresolved failures remain
 #
 # Usage:
 #   ./scripts/self_heal_run.sh [options]
 #
 # Options:
-#   --dry-run       Run without applying fixes
-#   --skip-llm      Skip LLM analysis (faster)
-#   --projects=X    Test projects to run (health,contracts,modules)
-#   --max-fixes=N   Maximum auto-fixes per run (default: 3)
-#   --schedule=N    Override schedule interval (12 or 24 hours)
+#   --dry-run         Do not apply fixes
+#   --skip-docker     Skip Docker Compose startup
+#   --skip-scanners   Skip security scanners
+#   --max-attempts=N  Max remediation attempts (default: 2)
+#   --projects=X      Playwright projects (default: all)
 #
-# Environment Variables:
-#   HEAL_DRY_RUN=true       Same as --dry-run
-#   HEAL_SKIP_LLM=true      Same as --skip-llm
-#   HEAL_PROJECTS=health    Same as --projects
-#   HEAL_MAX_FIXES=3        Same as --max-fixes
-#   ANTHROPIC_API_KEY       Required for LLM fallback
-#   OLLAMA_HOST             Ollama server URL (default: http://localhost:11434)
-#
+# Environment:
+#   TWILIO_MOCK=true          Force Twilio mock mode
+#   ANTHROPIC_API_KEY         Required for LLM fallback
+#   OLLAMA_HOST               Local LLM endpoint
+#   HEAL_SCHEDULE_HOURS       12 or 24 (for cron config)
+###############################################################################
 
-set -euo pipefail
+set -uo pipefail
 
-# Colors for output
 RED='\033[0;31m'
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
-NC='\033[0m' # No Color
+CYAN='\033[0;36m'
+NC='\033[0m'
 
-# Configuration defaults
-DRY_RUN="${HEAL_DRY_RUN:-false}"
-SKIP_LLM="${HEAL_SKIP_LLM:-false}"
-PROJECTS="${HEAL_PROJECTS:-health,contracts,modules}"
-MAX_FIXES="${HEAL_MAX_FIXES:-3}"
-SCHEDULE_HOURS="${HEAL_SCHEDULE:-12}"
+log_info()    { echo -e "${BLUE}[INFO]${NC} $1"; }
+log_success() { echo -e "${GREEN}[OK]${NC} $1"; }
+log_warn()    { echo -e "${YELLOW}[WARN]${NC} $1"; }
+log_error()   { echo -e "${RED}[ERROR]${NC} $1"; }
+log_step()    { echo -e "${CYAN}[STEP]${NC} $1"; }
 
-# Parse command line arguments
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+PROJECT_ROOT="$(dirname "$SCRIPT_DIR")"
+cd "$PROJECT_ROOT"
+
+###############################################################################
+# Configuration
+###############################################################################
+DRY_RUN="${DRY_RUN:-false}"
+SKIP_DOCKER="${SKIP_DOCKER:-false}"
+SKIP_SCANNERS="${SKIP_SCANNERS:-false}"
+MAX_ATTEMPTS="${MAX_ATTEMPTS:-2}"
+PROJECTS="${PROJECTS:-health,contracts,security}"
+TWILIO_MOCK="${TWILIO_MOCK:-true}"
+
+# Parse arguments
 while [[ $# -gt 0 ]]; do
     case $1 in
-        --dry-run)
-            DRY_RUN="true"
-            shift
-            ;;
-        --skip-llm)
-            SKIP_LLM="true"
-            shift
-            ;;
-        --projects=*)
-            PROJECTS="${1#*=}"
-            shift
-            ;;
-        --max-fixes=*)
-            MAX_FIXES="${1#*=}"
-            shift
-            ;;
-        --schedule=*)
-            SCHEDULE_HOURS="${1#*=}"
-            shift
-            ;;
-        --help|-h)
-            head -40 "$0" | tail -35
-            exit 0
-            ;;
-        *)
-            echo -e "${RED}Unknown option: $1${NC}"
-            exit 1
-            ;;
+        --dry-run)        DRY_RUN="true"; shift ;;
+        --skip-docker)    SKIP_DOCKER="true"; shift ;;
+        --skip-scanners)  SKIP_SCANNERS="true"; shift ;;
+        --max-attempts=*) MAX_ATTEMPTS="${1#*=}"; shift ;;
+        --projects=*)     PROJECTS="${1#*=}"; shift ;;
+        --help|-h)        head -50 "$0" | tail -45; exit 0 ;;
+        *)                log_error "Unknown option: $1"; exit 1 ;;
     esac
 done
 
-# Logging functions
-log_info() {
-    echo -e "${BLUE}[INFO]${NC} $1"
-}
+# Generate run ID and artifact directory
+RUN_ID=$(date +%Y%m%d_%H%M%S)
+ARTIFACT_DIR="$PROJECT_ROOT/artifacts/$RUN_ID"
+mkdir -p "$ARTIFACT_DIR"/{traces,screenshots,logs,reports}
 
-log_success() {
-    echo -e "${GREEN}[SUCCESS]${NC} $1"
-}
+# Export for child processes
+export ARTIFACT_DIR
+export RUN_ID
+export TWILIO_MOCK
+export PW_OUTPUT_DIR="$ARTIFACT_DIR"
 
-log_warn() {
-    echo -e "${YELLOW}[WARN]${NC} $1"
-}
+log_info "=============================================="
+log_info "Self-Healing Run: $RUN_ID"
+log_info "=============================================="
+log_info "Config: dry_run=$DRY_RUN, max_attempts=$MAX_ATTEMPTS"
+log_info "Projects: $PROJECTS"
+log_info "Artifacts: $ARTIFACT_DIR"
+echo ""
 
-log_error() {
-    echo -e "${RED}[ERROR]${NC} $1"
-}
+###############################################################################
+# Step 1: Start Docker Compose stack
+###############################################################################
+log_step "Step 1: Docker Compose stack"
 
-# Generate run ID
-RUN_ID=$(date +%Y%m%d-%H%M%S)-$(head -c 4 /dev/urandom | xxd -p)
-RESULTS_DIR="healing-results/run-${RUN_ID}"
-
-log_info "Self-Healing Run: ${RUN_ID}"
-log_info "Configuration:"
-log_info "  - Dry Run: ${DRY_RUN}"
-log_info "  - Skip LLM: ${SKIP_LLM}"
-log_info "  - Projects: ${PROJECTS}"
-log_info "  - Max Fixes: ${MAX_FIXES}"
-
-# Create results directory
-mkdir -p "${RESULTS_DIR}"
-
-# Step 1: Environment Setup
-log_info "Step 1: Setting up environment..."
-
-# Check Node.js
-if ! command -v node &> /dev/null; then
-    log_error "Node.js is not installed"
-    exit 1
-fi
-
-NODE_VERSION=$(node -v)
-log_info "Node.js version: ${NODE_VERSION}"
-
-# Check npm dependencies
-if [ ! -d "node_modules" ]; then
-    log_info "Installing dependencies..."
-    npm ci
-fi
-
-# Check Playwright browsers
-if ! npx playwright --version &> /dev/null; then
-    log_info "Installing Playwright browsers..."
-    npx playwright install --with-deps chromium
-fi
-
-# Step 2: Run Playwright Tests
-log_info "Step 2: Running Playwright tests..."
-
-TEST_ARGS="--reporter=json"
-IFS=',' read -ra PROJECT_ARRAY <<< "$PROJECTS"
-for project in "${PROJECT_ARRAY[@]}"; do
-    TEST_ARGS="${TEST_ARGS} --project=${project}"
-done
-
-# Run tests and capture output
-set +e
-npx playwright test ${TEST_ARGS} > "${RESULTS_DIR}/test-output.json" 2>&1
-TEST_EXIT_CODE=$?
-set -e
-
-# Parse test results
-if [ -f "${RESULTS_DIR}/test-output.json" ]; then
-    TOTAL_TESTS=$(jq -r '.stats.expected // 0' "${RESULTS_DIR}/test-output.json" 2>/dev/null || echo "0")
-    PASSED_TESTS=$(jq -r '.stats.passed // 0' "${RESULTS_DIR}/test-output.json" 2>/dev/null || echo "0")
-    FAILED_TESTS=$(jq -r '.stats.failed // 0' "${RESULTS_DIR}/test-output.json" 2>/dev/null || echo "0")
-    SKIPPED_TESTS=$(jq -r '.stats.skipped // 0' "${RESULTS_DIR}/test-output.json" 2>/dev/null || echo "0")
+if [ "$SKIP_DOCKER" = "true" ]; then
+    log_warn "Skipping Docker Compose (--skip-docker)"
 else
-    TOTAL_TESTS="unknown"
-    PASSED_TESTS="unknown"
-    FAILED_TESTS="unknown"
-    SKIPPED_TESTS="unknown"
-fi
-
-log_info "Test Results:"
-log_info "  - Total: ${TOTAL_TESTS}"
-log_info "  - Passed: ${PASSED_TESTS}"
-log_info "  - Failed: ${FAILED_TESTS}"
-log_info "  - Skipped: ${SKIPPED_TESTS}"
-
-# If all tests pass, we're done
-if [ "${TEST_EXIT_CODE}" -eq 0 ]; then
-    log_success "All tests passed! No healing needed."
-    echo '{"status": "healthy", "fixes_applied": 0}' > "${RESULTS_DIR}/summary.json"
-    exit 0
-fi
-
-# Step 3: Classify Failures
-log_info "Step 3: Classifying failures..."
-
-# Run the healing orchestrator
-HEAL_ARGS=""
-if [ "${DRY_RUN}" = "true" ]; then
-    HEAL_ARGS="${HEAL_ARGS} --dry-run"
-fi
-if [ "${SKIP_LLM}" = "true" ]; then
-    HEAL_ARGS="${HEAL_ARGS} --skip-llm"
-fi
-HEAL_ARGS="${HEAL_ARGS} --projects=${PROJECTS} --max-fixes=${MAX_FIXES}"
-
-log_info "Running healing orchestrator with args: ${HEAL_ARGS}"
-
-set +e
-npm run heal -- ${HEAL_ARGS} > "${RESULTS_DIR}/healing-output.log" 2>&1
-HEAL_EXIT_CODE=$?
-set -e
-
-# Check healing results
-if [ -f "healing-results/latest.json" ]; then
-    cp "healing-results/latest.json" "${RESULTS_DIR}/healing-summary.json"
-
-    FIXES_APPLIED=$(jq -r '.fixesApplied // 0' "${RESULTS_DIR}/healing-summary.json")
-    FIXES_FAILED=$(jq -r '.fixesFailed // 0' "${RESULTS_DIR}/healing-summary.json")
-    STATUS=$(jq -r '.status // "unknown"' "${RESULTS_DIR}/healing-summary.json")
-
-    log_info "Healing Results:"
-    log_info "  - Status: ${STATUS}"
-    log_info "  - Fixes Applied: ${FIXES_APPLIED}"
-    log_info "  - Fixes Failed: ${FIXES_FAILED}"
-else
-    log_warn "No healing summary found"
-    FIXES_APPLIED=0
-fi
-
-# Step 4: Re-run tests if fixes were applied
-if [ "${FIXES_APPLIED}" -gt 0 ] && [ "${DRY_RUN}" != "true" ]; then
-    log_info "Step 4: Re-running tests after fixes..."
-
-    set +e
-    npx playwright test ${TEST_ARGS} > "${RESULTS_DIR}/test-rerun-output.json" 2>&1
-    RERUN_EXIT_CODE=$?
-    set -e
-
-    if [ "${RERUN_EXIT_CODE}" -eq 0 ]; then
-        log_success "All tests pass after fixes!"
+    # Detect docker compose command
+    if docker compose version &> /dev/null; then
+        DC="docker compose"
     else
-        log_warn "Some tests still failing after fixes"
+        DC="docker-compose"
+    fi
+
+    # Use override file for test configuration
+    DC_FILES="-f docker-compose.yml"
+    if [ -f "docker-compose.override.yml" ]; then
+        DC_FILES="$DC_FILES -f docker-compose.override.yml"
+    fi
+
+    log_info "Starting services with: $DC $DC_FILES up -d"
+    $DC $DC_FILES up -d --wait --timeout 120 2>&1 | tee "$ARTIFACT_DIR/logs/docker-compose.log"
+
+    if [ $? -ne 0 ]; then
+        log_error "Docker Compose failed to start"
+        exit 1
+    fi
+    log_success "Docker stack is up"
+
+    # Wait for health checks
+    sleep 5
+fi
+
+###############################################################################
+# Step 2: Run security scanners
+###############################################################################
+log_step "Step 2: Security scanners"
+
+SCANNER_FAILED=0
+
+if [ "$SKIP_SCANNERS" = "true" ]; then
+    log_warn "Skipping security scanners (--skip-scanners)"
+else
+    # npm audit
+    log_info "Running npm audit..."
+    npm audit --json > "$ARTIFACT_DIR/reports/npm-audit.json" 2>&1 || true
+    npm audit --audit-level=high 2>&1 | tee "$ARTIFACT_DIR/logs/npm-audit.log" || {
+        log_warn "npm audit found issues"
+        SCANNER_FAILED=1
+    }
+
+    # pip-audit (if Python deps exist)
+    if [ -f "requirements.txt" ] || [ -f "requirements-troubleshooting.txt" ]; then
+        log_info "Running pip-audit..."
+        pip-audit --format=json > "$ARTIFACT_DIR/reports/pip-audit.json" 2>&1 || true
+        pip-audit 2>&1 | tee "$ARTIFACT_DIR/logs/pip-audit.log" || {
+            log_warn "pip-audit found issues"
+        }
+    fi
+
+    # bandit (Python security)
+    if [ -d "scripts" ]; then
+        log_info "Running bandit..."
+        bandit -r scripts -f json -o "$ARTIFACT_DIR/reports/bandit.json" 2>&1 || true
+        bandit -r scripts -ll 2>&1 | tee "$ARTIFACT_DIR/logs/bandit.log" || {
+            log_warn "bandit found issues"
+        }
     fi
 fi
 
-# Step 5: Generate summary report
-log_info "Step 5: Generating summary report..."
+###############################################################################
+# Step 3: Run Playwright E2E tests
+###############################################################################
+log_step "Step 3: Playwright E2E tests"
 
-cat > "${RESULTS_DIR}/summary.md" << EOF
-# Self-Healing Run Summary
+# Build Playwright project args
+PW_ARGS="--reporter=json,html,list"
+IFS=',' read -ra PROJ_ARRAY <<< "$PROJECTS"
+for proj in "${PROJ_ARRAY[@]}"; do
+    PW_ARGS="$PW_ARGS --project=$proj"
+done
 
-**Run ID:** ${RUN_ID}
-**Date:** $(date -Iseconds)
+log_info "Running: npx playwright test $PW_ARGS"
 
-## Test Results
+# Run Playwright with trace enabled
+PLAYWRIGHT_JSON="$ARTIFACT_DIR/reports/playwright.json"
+set +e
+npx playwright test $PW_ARGS \
+    --trace=on \
+    --output="$ARTIFACT_DIR/test-results" \
+    2>&1 | tee "$ARTIFACT_DIR/logs/playwright.log"
+PW_EXIT=$?
+set -e
 
-| Metric | Value |
-|--------|-------|
-| Total Tests | ${TOTAL_TESTS} |
-| Passed | ${PASSED_TESTS} |
-| Failed | ${FAILED_TESTS} |
-| Skipped | ${SKIPPED_TESTS} |
+# Move Playwright artifacts
+if [ -d "test-results" ]; then
+    cp -r test-results/* "$ARTIFACT_DIR/test-results/" 2>/dev/null || true
+fi
+if [ -d "playwright-report" ]; then
+    cp -r playwright-report "$ARTIFACT_DIR/reports/playwright-html" 2>/dev/null || true
+fi
 
-## Healing Actions
+# Extract JSON report
+if [ -f "test-results/results.json" ]; then
+    cp "test-results/results.json" "$PLAYWRIGHT_JSON"
+fi
 
-| Metric | Value |
-|--------|-------|
-| Fixes Applied | ${FIXES_APPLIED} |
-| Fixes Failed | ${FIXES_FAILED:-0} |
-| Status | ${STATUS:-completed} |
+if [ $PW_EXIT -eq 0 ]; then
+    log_success "All Playwright tests passed!"
+    TESTS_PASSED=true
+else
+    log_warn "Playwright tests failed (exit code: $PW_EXIT)"
+    TESTS_PASSED=false
+fi
 
-## Artifacts
+###############################################################################
+# Step 4: Triage failures
+###############################################################################
+log_step "Step 4: Triage failures"
 
-- Test output: \`${RESULTS_DIR}/test-output.json\`
-- Healing log: \`${RESULTS_DIR}/healing-output.log\`
-- Screenshots: \`test-results/\`
-- Traces: \`test-results/\`
+TRIAGE_REPORT="$ARTIFACT_DIR/reports/triage.json"
 
-## Configuration
+if [ "$TESTS_PASSED" = "true" ] && [ "$SCANNER_FAILED" -eq 0 ]; then
+    log_success "No failures to triage"
+    echo '{"status": "healthy", "failures": [], "buckets": {}}' > "$TRIAGE_REPORT"
+else
+    log_info "Running triage analysis..."
+    python3 "$SCRIPT_DIR/triage.py" \
+        --artifact-dir="$ARTIFACT_DIR" \
+        --output="$TRIAGE_REPORT" \
+        2>&1 | tee "$ARTIFACT_DIR/logs/triage.log"
 
-- Dry Run: ${DRY_RUN}
-- Skip LLM: ${SKIP_LLM}
-- Projects: ${PROJECTS}
-- Max Fixes: ${MAX_FIXES}
+    if [ -f "$TRIAGE_REPORT" ]; then
+        log_success "Triage report: $TRIAGE_REPORT"
+        # Show summary
+        python3 -c "
+import json
+with open('$TRIAGE_REPORT') as f:
+    t = json.load(f)
+    print(f\"  Status: {t.get('status', 'unknown')}\")
+    print(f\"  Failures: {len(t.get('failures', []))}\")
+    for bucket, items in t.get('buckets', {}).items():
+        print(f\"  - {bucket}: {len(items)}\")
+" 2>/dev/null || true
+    fi
+fi
+
+###############################################################################
+# Step 5: Apply safe remediations
+###############################################################################
+log_step "Step 5: Apply safe remediations"
+
+REMEDIATION_REPORT="$ARTIFACT_DIR/reports/remediation.json"
+ATTEMPT=0
+RESOLVED=false
+
+if [ "$TESTS_PASSED" = "true" ]; then
+    log_success "No remediation needed"
+    echo '{"applied": [], "blocked": [], "status": "healthy"}' > "$REMEDIATION_REPORT"
+    RESOLVED=true
+elif [ "$DRY_RUN" = "true" ]; then
+    log_warn "Dry run mode - skipping remediation"
+    echo '{"applied": [], "blocked": [], "status": "dry_run"}' > "$REMEDIATION_REPORT"
+else
+    while [ $ATTEMPT -lt $MAX_ATTEMPTS ] && [ "$RESOLVED" = "false" ]; do
+        ATTEMPT=$((ATTEMPT + 1))
+        log_info "Remediation attempt $ATTEMPT of $MAX_ATTEMPTS..."
+
+        python3 "$SCRIPT_DIR/repair_orchestrator.py" \
+            --triage-report="$TRIAGE_REPORT" \
+            --artifact-dir="$ARTIFACT_DIR" \
+            --attempt=$ATTEMPT \
+            --output="$REMEDIATION_REPORT" \
+            2>&1 | tee -a "$ARTIFACT_DIR/logs/remediation.log"
+
+        # Check if any fixes were applied
+        FIXES_APPLIED=$(python3 -c "
+import json
+with open('$REMEDIATION_REPORT') as f:
+    r = json.load(f)
+    print(len(r.get('applied', [])))
+" 2>/dev/null || echo "0")
+
+        if [ "$FIXES_APPLIED" = "0" ]; then
+            log_info "No safe fixes could be applied"
+            break
+        fi
+
+        log_info "Applied $FIXES_APPLIED fixes, re-running verification..."
+
+        # Re-run tests to verify fix
+        set +e
+        npx playwright test $PW_ARGS \
+            --trace=on \
+            --output="$ARTIFACT_DIR/test-results-verify-$ATTEMPT" \
+            2>&1 | tee "$ARTIFACT_DIR/logs/playwright-verify-$ATTEMPT.log"
+        VERIFY_EXIT=$?
+        set -e
+
+        if [ $VERIFY_EXIT -eq 0 ]; then
+            log_success "Verification passed after remediation!"
+            RESOLVED=true
+        else
+            log_warn "Verification failed, will retry if attempts remain"
+            # Re-run triage for next iteration
+            python3 "$SCRIPT_DIR/triage.py" \
+                --artifact-dir="$ARTIFACT_DIR" \
+                --output="$TRIAGE_REPORT" \
+                2>&1 >> "$ARTIFACT_DIR/logs/triage.log"
+        fi
+    done
+fi
+
+###############################################################################
+# Step 6: Generate final report
+###############################################################################
+log_step "Step 6: Generate final report"
+
+FINAL_REPORT="$ARTIFACT_DIR/reports/final_summary.json"
+
+python3 << EOF
+import json
+from datetime import datetime
+
+summary = {
+    "run_id": "$RUN_ID",
+    "timestamp": datetime.utcnow().isoformat() + "Z",
+    "resolved": $( [ "$RESOLVED" = "true" ] && echo "true" || echo "false" ),
+    "dry_run": $( [ "$DRY_RUN" = "true" ] && echo "true" || echo "false" ),
+    "attempts": $ATTEMPT,
+    "max_attempts": $MAX_ATTEMPTS,
+    "projects": "$PROJECTS".split(","),
+    "artifacts_dir": "$ARTIFACT_DIR",
+}
+
+# Load triage if exists
+try:
+    with open("$TRIAGE_REPORT") as f:
+        summary["triage"] = json.load(f)
+except:
+    summary["triage"] = None
+
+# Load remediation if exists
+try:
+    with open("$REMEDIATION_REPORT") as f:
+        summary["remediation"] = json.load(f)
+except:
+    summary["remediation"] = None
+
+with open("$FINAL_REPORT", "w") as f:
+    json.dump(summary, f, indent=2)
+
+print(json.dumps(summary, indent=2))
 EOF
 
-log_success "Run complete! Summary saved to ${RESULTS_DIR}/summary.md"
+# Create symlink to latest
+ln -sf "$ARTIFACT_DIR" "$PROJECT_ROOT/artifacts/latest"
+log_success "Final report: $FINAL_REPORT"
 
-# Return appropriate exit code
-if [ "${TEST_EXIT_CODE}" -eq 0 ] || [ "${RERUN_EXIT_CODE:-1}" -eq 0 ]; then
+###############################################################################
+# Step 7: Cleanup and exit
+###############################################################################
+log_step "Step 7: Cleanup"
+
+if [ "$SKIP_DOCKER" != "true" ]; then
+    log_info "Stopping Docker Compose stack..."
+    $DC $DC_FILES down --timeout 30 2>&1 >> "$ARTIFACT_DIR/logs/docker-compose.log" || true
+fi
+
+echo ""
+log_info "=============================================="
+if [ "$RESOLVED" = "true" ]; then
+    log_success "Self-healing run PASSED"
+    log_info "=============================================="
     exit 0
 else
+    log_error "Self-healing run FAILED - unresolved issues remain"
+    log_info "=============================================="
+    log_info "Review artifacts at: $ARTIFACT_DIR"
+    log_info "Triage report: $TRIAGE_REPORT"
     exit 1
 fi

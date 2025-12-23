@@ -1,0 +1,100 @@
+# Docker Compose Override for Testing with Mocks
+#
+# Usage:
+#   docker compose -f docker-compose.yml -f docker-compose.override.yml up
+#
+# Or set COMPOSE_FILE:
+#   export COMPOSE_FILE=docker-compose.yml:docker-compose.override.yml
+#   docker compose up
+#
+# This file:
+# - Adds twilio-mock service to intercept all Twilio API calls
+# - Sets TWILIO_MOCK=true for all services
+# - Disables real external service connections
+
+version: '3.8'
+
+services:
+  # Twilio Mock Server
+  # Intercepts all Twilio REST API calls and returns mock responses
+  twilio-mock:
+    build:
+      context: ./docker/twilio-mock
+      dockerfile: Dockerfile
+    ports:
+      - "5010:5010"
+    environment:
+      - MOCK_SERVER_PORT=5010
+      - LOG_LEVEL=debug
+      - SIMULATE_DELAYS=false
+      - WEBHOOK_URL=http://api:5001/webhooks/twilio/incoming
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:5010/health"]
+      interval: 10s
+      timeout: 5s
+      retries: 3
+    networks:
+      - default
+
+  # Override API to use mock Twilio
+  api:
+    environment:
+      - TWILIO_MOCK=true
+      - TWILIO_API_BASE_URL=http://twilio-mock:5010
+      - TWILIO_ACCOUNT_SID=AC_MOCK_TEST_ACCOUNT
+      - TWILIO_AUTH_TOKEN=mock_auth_token_for_testing
+      - TWILIO_PHONE_NUMBER=+15550001234
+      # Disable real webhook signature validation in mock mode
+      - TWILIO_SKIP_SIGNATURE_VALIDATION=true
+    depends_on:
+      twilio-mock:
+        condition: service_healthy
+
+  # Playwright Test Runner
+  playwright:
+    build:
+      context: .
+      dockerfile: Dockerfile.playwright
+    environment:
+      - BASE_URL=http://frontend:3000/app
+      - API_URL=http://api:5001
+      - TWILIO_MOCK=true
+      - CI=true
+      - ARTIFACT_DIR=/app/artifacts
+    volumes:
+      - ./e2e:/app/e2e:ro
+      - ./artifacts:/app/artifacts
+      - ./.auth:/app/.auth
+    depends_on:
+      frontend:
+        condition: service_started
+      api:
+        condition: service_healthy
+      twilio-mock:
+        condition: service_healthy
+    command: npx playwright test --project=e2e
+
+  # Security Scanner Service
+  security-scanner:
+    image: python:3.11-slim
+    working_dir: /app
+    volumes:
+      - ./:/app:ro
+      - ./artifacts:/app/artifacts
+    environment:
+      - ARTIFACT_DIR=/app/artifacts
+    command: >
+      bash -c "
+        pip install pip-audit bandit safety --quiet &&
+        echo '=== Running pip-audit ===' &&
+        pip-audit --requirement requirements.txt --format json > /app/artifacts/pip-audit.json 2>&1 || true &&
+        echo '=== Running bandit ===' &&
+        bandit -r src/ -f json -o /app/artifacts/bandit.json 2>&1 || true &&
+        echo '=== Security scan complete ==='
+      "
+    profiles:
+      - security
+
+networks:
+  default:
+    name: react-crm-network

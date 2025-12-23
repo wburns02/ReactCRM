@@ -1,0 +1,21 @@
+# Requirements for self-healing troubleshooting system
+#
+# Install with: pip install -r requirements-troubleshooting.txt
+
+# HTTP client (async-capable)
+httpx>=0.26.0
+
+# Data handling
+pyyaml>=6.0
+
+# Security scanning
+pip-audit>=2.6.0
+bandit>=1.7.0
+safety>=2.3.0
+
+# Testing
+pytest>=7.4.0
+requests>=2.31.0
+
+# Optional: Anthropic SDK (fallback LLM)
+# anthropic>=0.18.0  # Only needed if using SDK instead of raw HTTP
