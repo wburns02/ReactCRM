@@ -25,6 +25,8 @@ import { IntegrationsPage } from '@/features/integrations/index.ts';
 import { InvoicesPage } from '@/features/invoicing/InvoicesPage.tsx';
 import { InvoiceDetailPage } from '@/features/invoicing/InvoiceDetailPage.tsx';
 import { PaymentsPage } from '@/features/payments/PaymentsPage.tsx';
+import { QuotesPage } from '@/features/quotes/QuotesPage.tsx';
+import { QuoteDetailPage } from '@/features/quotes/QuoteDetailPage.tsx';
 import { UsersPage } from '@/features/users/UsersPage.tsx';
 import { AdminSettingsPage } from '@/features/admin/AdminSettingsPage.tsx';
 
@@ -102,6 +104,10 @@ export function AppRoutes() {
 
         {/* Payments */}
         <Route path="payments" element={<PaymentsPage />} />
+
+        {/* Quotes */}
+        <Route path="quotes" element={<QuotesPage />} />
+        <Route path="quotes/:id" element={<QuoteDetailPage />} />
 
         {/* Users Management */}
         <Route path="users" element={<UsersPage />} />
