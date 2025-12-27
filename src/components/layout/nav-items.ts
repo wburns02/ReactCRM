@@ -15,6 +15,7 @@ export interface NavGroup {
 
 export const topNavItems: NavItem[] = [
   { path: '/dashboard', label: 'Dashboard', icon: '📊' },
+  { path: '/my-portal', label: 'My Portal', icon: '👤' },
   { path: '/customers', label: 'Customers', icon: '👥' },
   { path: '/prospects', label: 'Prospects', icon: '📋' },
 ];
@@ -47,6 +48,7 @@ export const navGroups: NavGroup[] = [
       { path: '/quotes', label: 'Quotes', icon: '📝' },
       { path: '/invoices', label: 'Invoices', icon: '🧾' },
       { path: '/payments', label: 'Payments', icon: '💳' },
+      { path: '/payroll', label: 'Payroll', icon: '💵' },
     ],
   },
   {
@@ -65,7 +67,9 @@ export const navGroups: NavGroup[] = [
     icon: '📧',
     badge: 'AI',
     items: [
+      { path: '/marketing', label: 'Marketing Hub', icon: '📊' },
       { path: '/email-marketing', label: 'Email Marketing', icon: '📧' },
+      { path: '/marketing/sms', label: 'SMS Consent', icon: '📱' },
       { path: '/reports', label: 'Reports', icon: '📈' },
     ],
   },
@@ -84,6 +88,7 @@ export const navGroups: NavGroup[] = [
     items: [
       { path: '/users', label: 'Users', icon: '👤' },
       { path: '/admin', label: 'Settings', icon: '⚙️' },
+      { path: '/admin/pricing', label: 'Pricing', icon: '💲' },
     ],
   },
 ];

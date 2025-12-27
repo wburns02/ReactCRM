@@ -27,8 +27,14 @@ import { InvoiceDetailPage } from '@/features/invoicing/InvoiceDetailPage.tsx';
 import { PaymentsPage } from '@/features/payments/PaymentsPage.tsx';
 import { QuotesPage } from '@/features/quotes/QuotesPage.tsx';
 import { QuoteDetailPage } from '@/features/quotes/QuoteDetailPage.tsx';
+import { PayrollPage } from '@/features/payroll/PayrollPage.tsx';
 import { UsersPage } from '@/features/users/UsersPage.tsx';
 import { AdminSettingsPage } from '@/features/admin/AdminSettingsPage.tsx';
+import { PricingPage } from '@/features/admin/pricing/PricingPage.tsx';
+import { MarketingHubPage } from '@/features/marketing/MarketingHubPage.tsx';
+import { SmsConsentPage } from '@/features/marketing/sms/SmsConsentPage.tsx';
+import { EmployeePortalPage } from '@/features/portal/EmployeePortalPage.tsx';
+import { RingCentralPage } from '@/features/integrations/ringcentral/RingCentralPage.tsx';
 
 /**
  * App routes - basename="/app" is set in BrowserRouter
@@ -55,6 +61,9 @@ export function AppRoutes() {
         {/* Dashboard */}
         <Route path="dashboard" element={<DashboardPage />} />
 
+        {/* Employee Portal */}
+        <Route path="my-portal" element={<EmployeePortalPage />} />
+
         {/* Prospects */}
         <Route path="prospects" element={<ProspectsPage />} />
         <Route path="prospects/:id" element={<ProspectDetailPage />} />
@@ -73,6 +82,10 @@ export function AppRoutes() {
 
         {/* Schedule */}
         <Route path="schedule" element={<SchedulePage />} />
+
+        {/* Marketing */}
+        <Route path="marketing" element={<MarketingHubPage />} />
+        <Route path="marketing/sms" element={<SmsConsentPage />} />
 
         {/* Email Marketing */}
         <Route path="email-marketing" element={<EmailMarketingPage />} />
@@ -97,6 +110,7 @@ export function AppRoutes() {
 
         {/* Integrations */}
         <Route path="integrations" element={<IntegrationsPage />} />
+        <Route path="integrations/ringcentral" element={<RingCentralPage />} />
 
         {/* Invoices */}
         <Route path="invoices" element={<InvoicesPage />} />
@@ -109,11 +123,15 @@ export function AppRoutes() {
         <Route path="quotes" element={<QuotesPage />} />
         <Route path="quotes/:id" element={<QuoteDetailPage />} />
 
+        {/* Payroll */}
+        <Route path="payroll" element={<PayrollPage />} />
+
         {/* Users Management */}
         <Route path="users" element={<UsersPage />} />
 
         {/* Admin Settings */}
         <Route path="admin" element={<AdminSettingsPage />} />
+        <Route path="admin/pricing" element={<PricingPage />} />
 
         {/* 404 within app */}
         <Route
