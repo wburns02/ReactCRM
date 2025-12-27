@@ -3,7 +3,7 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/features/auth/useAuth.ts';
 import { RCStatusIndicator } from '@/features/phone/index.ts';
 
-import { topNavItems, navGroups } from './nav-items.ts';
+import { topNavItems, navGroups, type NavGroup } from './nav-items.ts';
 
 /**
  * Main app layout with collapsible sidebar navigation
