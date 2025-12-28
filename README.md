@@ -72,3 +72,9 @@ export default defineConfig([
 ])
 ```
 
+## Deployment
+
+This React app is deployed on Railway at `react.ecbtx.com`. The API backend is the FastAPI service at `react-crm-api-production.up.railway.app`.
+
+Environment variables (set in Railway):
+- `VITE_API_URL`: Points to the FastAPI backend (build-time variable)
