@@ -22,11 +22,15 @@ FROM nginx:alpine
 # Copy built files from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Copy custom nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy nginx config template
+COPY nginx.conf /etc/nginx/templates/default.conf.template
 
-# Railway networking expects port 5000
-EXPOSE 5000
+# Railway provides PORT env var - default to 5000 if not set
+ENV PORT=5000
 
-# Run nginx in foreground
+# Expose the port (Railway uses PORT env var)
+EXPOSE ${PORT}
+
+# nginx:alpine image automatically processes templates in /etc/nginx/templates/
+# and replaces ${PORT} with the actual value, outputting to /etc/nginx/conf.d/
 CMD ["nginx", "-g", "daemon off;"]
