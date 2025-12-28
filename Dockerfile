@@ -15,24 +15,24 @@ COPY . .
 # Build production bundle
 RUN npm run build
 
-# Stage 2: Serve with nginx
-FROM nginx:alpine
+# Stage 2: Serve with Node.js
+FROM node:20-alpine
 
-# Install gettext for envsubst command
-RUN apk add --no-cache gettext
+WORKDIR /app
 
-# Copy nginx template for dynamic port substitution
-COPY nginx.conf.template /etc/nginx/conf.d/default.conf.template
+# Install serve globally
+RUN npm install -g serve
 
 # Copy built files from builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist ./dist
 
-# Railway uses dynamic PORT - default to 80 for local dev
-ENV PORT=80
+# Railway sets PORT environment variable
+ENV PORT=3000
 
 # Health check
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
     CMD wget --no-verbose --tries=1 --spider http://localhost:$PORT/ || exit 1
 
-# Start nginx with dynamic port substitution
-CMD /bin/sh -c "envsubst '\$PORT' < /etc/nginx/conf.d/default.conf.template > /etc/nginx/conf.d/default.conf && nginx -g 'daemon off;'"
+# Serve the static files
+# -s enables SPA mode (all routes serve index.html)
+CMD serve -s dist -l $PORT
