@@ -68,6 +68,9 @@ export const navGroups: NavGroup[] = [
     badge: 'AI',
     items: [
       { path: '/marketing', label: 'Marketing Hub', icon: '📊' },
+      { path: '/marketing/ads', label: 'Google Ads', icon: '📈' },
+      { path: '/marketing/reviews', label: 'Reviews', icon: '⭐' },
+      { path: '/marketing/ai-content', label: 'AI Content', icon: '🤖' },
       { path: '/email-marketing', label: 'Email Marketing', icon: '📧' },
       { path: '/marketing/sms', label: 'SMS Consent', icon: '📱' },
       { path: '/reports', label: 'Reports', icon: '📈' },

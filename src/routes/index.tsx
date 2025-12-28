@@ -33,6 +33,9 @@ import { AdminSettingsPage } from '@/features/admin/AdminSettingsPage.tsx';
 import { PricingPage } from '@/features/admin/pricing/PricingPage.tsx';
 import { MarketingHubPage } from '@/features/marketing/MarketingHubPage.tsx';
 import { SmsConsentPage } from '@/features/marketing/sms/SmsConsentPage.tsx';
+import { GoogleAdsPage } from '@/features/marketing/google-ads/GoogleAdsPage.tsx';
+import { ReviewsPage } from '@/features/marketing/reviews/ReviewsPage.tsx';
+import { AIContentPage } from '@/features/marketing/ai-content/AIContentPage.tsx';
 import { EmployeePortalPage } from '@/features/portal/EmployeePortalPage.tsx';
 import { RingCentralPage } from '@/features/integrations/ringcentral/RingCentralPage.tsx';
 
@@ -85,6 +88,9 @@ export function AppRoutes() {
 
         {/* Marketing */}
         <Route path="marketing" element={<MarketingHubPage />} />
+        <Route path="marketing/ads" element={<GoogleAdsPage />} />
+        <Route path="marketing/reviews" element={<ReviewsPage />} />
+        <Route path="marketing/ai-content" element={<AIContentPage />} />
         <Route path="marketing/sms" element={<SmsConsentPage />} />
 
         {/* Email Marketing */}

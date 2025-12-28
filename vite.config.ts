@@ -1,10 +1,6 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import tailwindcss from '@tailwindcss/vite';
-import path from 'path';
-import { fileURLToPath } from 'url';
-
-const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // https://vite.dev/config/
 export default defineConfig({
@@ -12,10 +8,9 @@ export default defineConfig({
     react(),
     tailwindcss(),
   ],
-  root: __dirname,
   resolve: {
     alias: {
-      '@': path.resolve(__dirname, './src'),
+      '@': '/src',
     },
   },
   // Build output goes to /app/* path
@@ -24,6 +19,7 @@ export default defineConfig({
     outDir: 'dist',
     sourcemap: true,
     rollupOptions: {
+      input: 'Z:/ReactCRM/index.html',
       output: {
         manualChunks: {
           'vendor-react': ['react', 'react-dom', 'react-router-dom'],
