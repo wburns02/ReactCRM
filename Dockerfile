@@ -18,18 +18,22 @@ RUN npm run build
 # Stage 2: Serve with nginx
 FROM nginx:alpine
 
-# Copy nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy nginx template for dynamic port substitution
+COPY nginx.conf.template /etc/nginx/conf.d/default.conf.template
+
+# Copy start script
+COPY start.sh /start.sh
+RUN chmod +x /start.sh
 
 # Copy built files from builder stage
 COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Expose port 80
-EXPOSE 80
+# Railway uses dynamic PORT - default to 80 for local dev
+ENV PORT=80
 
-# Health check
+# Health check using dynamic port
 HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost/ || exit 1
+    CMD wget --no-verbose --tries=1 --spider http://localhost:${PORT}/ || exit 1
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start nginx with dynamic port
+CMD ["/start.sh"]
