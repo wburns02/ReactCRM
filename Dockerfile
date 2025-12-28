@@ -27,12 +27,11 @@ RUN npm install -g serve@14
 # Copy built files from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Railway dynamically assigns PORT via environment variable
-# Default to 8080 for local testing
-ENV PORT=8080
+# Railway networking is configured for port 5000
+ENV PORT=5000
 
-# Expose the port (Railway will auto-detect this)
-EXPOSE 8080
+# Expose port 5000 to match Railway networking settings
+EXPOSE 5000
 
 # Serve the static files
 # -s enables SPA mode (all routes serve index.html)
