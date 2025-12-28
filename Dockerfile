@@ -13,19 +13,28 @@ RUN npm ci
 COPY . .
 
 # Build production bundle
+# VITE_API_URL is injected via Railway environment variables at build time
 RUN npm run build
 
-# Stage 2: Serve with nginx
-FROM nginx:alpine
+# Stage 2: Serve with lightweight Node.js server
+FROM node:20-alpine
 
-# Copy built React app to nginx html directory
-COPY --from=builder /app/dist /usr/share/nginx/html
+WORKDIR /app
 
-# Copy custom nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Install serve globally (version 14 for stability)
+RUN npm install -g serve@14
 
-# Railway expects port 5000
-EXPOSE 5000
+# Copy built files from builder stage
+COPY --from=builder /app/dist ./dist
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Railway dynamically assigns PORT via environment variable
+# Default to 8080 for local testing
+ENV PORT=8080
+
+# Expose the port (Railway will auto-detect this)
+EXPOSE 8080
+
+# Serve the static files
+# -s enables SPA mode (all routes serve index.html)
+# Use sh -c to interpolate the PORT variable
+CMD ["sh", "-c", "serve -s dist -l tcp://0.0.0.0:${PORT}"]
