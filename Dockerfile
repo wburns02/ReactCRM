@@ -26,13 +26,12 @@ RUN npm install -g serve
 # Copy built files from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Railway sets PORT environment variable
-ENV PORT=3000
+# Railway injects PORT environment variable dynamically
+# Default to 3000 for local development only
+ARG PORT=3000
+ENV PORT=${PORT}
 
-# Health check
-HEALTHCHECK --interval=30s --timeout=3s --start-period=5s --retries=3 \
-    CMD wget --no-verbose --tries=1 --spider http://localhost:$PORT/ || exit 1
-
-# Serve the static files
+# Serve the static files on Railway's dynamic port
 # -s enables SPA mode (all routes serve index.html)
-CMD serve -s dist -l $PORT
+# The serve package will print "Serving!" on the port which Railway auto-detects
+CMD ["sh", "-c", "echo 'Starting server on port' $PORT && serve -s dist -l $PORT"]
