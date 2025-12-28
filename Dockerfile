@@ -18,6 +18,9 @@ RUN npm run build
 # Stage 2: Serve with nginx
 FROM nginx:alpine
 
+# Install gettext for envsubst command
+RUN apk add --no-cache gettext
+
 # Copy nginx template for dynamic port substitution
 COPY nginx.conf.template /etc/nginx/conf.d/default.conf.template
 
