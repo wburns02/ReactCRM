@@ -6,4 +6,10 @@ dockerfilePath = "Dockerfile"
 restartPolicyType = "ON_FAILURE"
 restartPolicyMaxRetries = 10
 healthcheckPath = "/"
-healthcheckTimeout = 30
+healthcheckTimeout = 60
+numReplicas = 1
+
+# Explicitly set the port Railway should use
+[deploy.healthcheck]
+path = "/"
+timeout = 60
