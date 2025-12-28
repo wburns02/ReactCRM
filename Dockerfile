@@ -1,5 +1,5 @@
 # Multi-stage build for React frontend
-# Stage 1: Build
+# Stage 1: Build React app
 FROM node:20-alpine AS builder
 WORKDIR /app
 
@@ -15,23 +15,17 @@ COPY . .
 # Build production bundle
 RUN npm run build
 
-# Stage 2: Serve with Node.js
-FROM node:20-alpine
+# Stage 2: Serve with nginx
+FROM nginx:alpine
 
-WORKDIR /app
+# Copy built React app to nginx html directory
+COPY --from=builder /app/dist /usr/share/nginx/html
 
-# Install serve globally
-RUN npm install -g serve
+# Copy custom nginx config
+COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# Copy built files from builder stage
-COPY --from=builder /app/dist ./dist
-
-# Railway networking routes to port 5000 by default
-# Use port 5000 to match Railway's expected port
+# Railway expects port 5000
 EXPOSE 5000
-ENV PORT=5000
 
-# Serve the static files
-# -s enables SPA mode (all routes serve index.html)
-# -l tcp://0.0.0.0:PORT binds to all interfaces (required for Docker/Railway)
-CMD ["sh", "-c", "serve -s dist -l tcp://0.0.0.0:$PORT"]
+# Start nginx
+CMD ["nginx", "-g", "daemon off;"]
