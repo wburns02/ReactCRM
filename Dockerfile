@@ -33,4 +33,5 @@ ENV PORT=5000
 
 # Serve the static files
 # -s enables SPA mode (all routes serve index.html)
-CMD ["sh", "-c", "serve -s dist -l $PORT"]
+# -l tcp://0.0.0.0:PORT binds to all interfaces (required for Docker/Railway)
+CMD ["sh", "-c", "serve -s dist -l tcp://0.0.0.0:$PORT"]
