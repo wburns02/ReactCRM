@@ -1,5 +1,5 @@
 import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client.ts';
+import { apiClient, clearAuthToken, hasAuthToken } from '@/api/client.ts';
 
 /**
  * User type from /api/auth/me
@@ -23,10 +23,10 @@ interface AuthResponse {
 }
 
 /**
- * Auth hook - checks session validity via /api/auth/me
+ * Auth hook - checks JWT token validity via /api/auth/me
  *
- * The backend expects session cookie (set at login) and returns user data.
- * On 401, the apiClient interceptor redirects to login page.
+ * The backend expects JWT token in Authorization header and returns user data.
+ * On 401, the apiClient interceptor clears token and redirects to login page.
  */
 export function useAuth() {
   const queryClient = useQueryClient();
@@ -45,6 +45,8 @@ export function useAuth() {
     retry: false,
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes
+    // Only fetch if we have a token
+    enabled: hasAuthToken(),
   });
 
   const user = data?.user;
@@ -55,9 +57,11 @@ export function useAuth() {
     } catch {
       // Ignore logout errors
     }
+    // Clear JWT token from localStorage
+    clearAuthToken();
     queryClient.clear();
-    // Stay within React SPA - navigate to React login page
-    window.location.href = '/app/login';
+    // Navigate to login page (no /app prefix in standalone mode)
+    window.location.href = '/login';
   };
 
   return {

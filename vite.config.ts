@@ -13,8 +13,8 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  // Build output goes to /app/* path
-  base: '/app/',
+  // Standalone deployment - no /app/ prefix
+  base: '/',
   build: {
     outDir: 'dist',
     sourcemap: true,
@@ -32,18 +32,5 @@ export default defineConfig({
   },
   server: {
     port: 5173,
-    // Proxy API calls to backend during development
-    proxy: {
-      // New FastAPI backend (React CRM API v2)
-      '/api/v2': {
-        target: 'http://localhost:5001',
-        changeOrigin: true,
-      },
-      // Legacy Flask backend (for gradual migration)
-      '/api': {
-        target: 'http://localhost:5000',
-        changeOrigin: true,
-      },
-    },
   },
 });

@@ -1,59 +1,78 @@
 import axios, { type AxiosError, type AxiosInstance } from 'axios';
 
 /**
- * API client configured for Flask backend with session cookies
+ * API client configured for Flask backend with JWT tokens
+ * Standalone deployment - API is on separate domain
  */
 
-// In production on react.ecbtx.com, use the Flask backend at crm.ecbtx.com
-// In development, use VITE_API_URL or fall back to /api (proxied by Vite)
-const getApiBaseUrl = (): string => {
-  // Explicit env var takes precedence
-  if (import.meta.env.VITE_API_URL) {
-    return import.meta.env.VITE_API_URL;
-  }
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://crm.ecbtx.com/api';
 
-  // Production on react.ecbtx.com -> use crm.ecbtx.com backend
-  if (typeof window !== 'undefined' && window.location.hostname === 'react.ecbtx.com') {
-    return 'https://crm.ecbtx.com';
-  }
-
-  // Default for local dev (Vite proxy handles it)
-  return '/api';
-};
-
-const API_BASE_URL = getApiBaseUrl();
+// Token storage key
+const TOKEN_KEY = 'auth_token';
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
-  withCredentials: true, // Send session cookies
   headers: {
     'Content-Type': 'application/json',
   },
 });
+
+// Request interceptor - add JWT token to requests
+apiClient.interceptors.request.use(
+  (config) => {
+    const token = localStorage.getItem(TOKEN_KEY);
+    if (token) {
+      config.headers.Authorization = `Bearer ${token}`;
+    }
+    return config;
+  },
+  (error) => Promise.reject(error)
+);
 
 // Response interceptor - handle auth errors globally
 apiClient.interceptors.response.use(
   (response) => response,
   (error: AxiosError) => {
     if (error.response?.status === 401) {
+      // Clear invalid token
+      localStorage.removeItem(TOKEN_KEY);
+
       // Dispatch event for auth state listeners
       window.dispatchEvent(new CustomEvent('auth:expired'));
 
       // Don't redirect to login if already on login page (prevents infinite loop)
       const currentPath = window.location.pathname;
       if (!currentPath.includes('/login')) {
-        // Redirect to React login with return URL
-        // Strip /app prefix since React Router basename handles it
-        // Strip ALL /app prefixes to handle cascading double-prefix bug
-        const pathWithoutBase = currentPath.replace(/^(\/app)+/, '') || '/';
-        const returnUrl = encodeURIComponent(pathWithoutBase + window.location.search);
-        window.location.href = `/app/login?return=${returnUrl}`;
+        // Redirect to login with return URL
+        const returnUrl = encodeURIComponent(currentPath + window.location.search);
+        window.location.href = `/login?return=${returnUrl}`;
       }
     }
 
     return Promise.reject(error);
   }
 );
+
+/**
+ * Store JWT token after login
+ */
+export function setAuthToken(token: string): void {
+  localStorage.setItem(TOKEN_KEY, token);
+}
+
+/**
+ * Clear JWT token on logout
+ */
+export function clearAuthToken(): void {
+  localStorage.removeItem(TOKEN_KEY);
+}
+
+/**
+ * Check if user has a stored token
+ */
+export function hasAuthToken(): boolean {
+  return !!localStorage.getItem(TOKEN_KEY);
+}
 
 /**
  * Type-safe API error

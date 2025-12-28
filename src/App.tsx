@@ -29,7 +29,7 @@ function App() {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter basename="/app">
+        <BrowserRouter>
           <OfflineIndicator />
           <AppRoutes />
         </BrowserRouter>

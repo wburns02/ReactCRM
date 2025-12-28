@@ -1,47 +1,56 @@
+import { lazy, Suspense } from 'react';
 import { Routes, Route, Navigate, Link } from 'react-router-dom';
 import { AppLayout } from '@/components/layout/AppLayout.tsx';
 import { RequireAuth } from '@/features/auth/RequireAuth.tsx';
 import { LoginPage } from '@/features/auth/LoginPage.tsx';
-import { DashboardPage } from '@/features/dashboard/DashboardPage.tsx';
-import { ProspectsPage } from '@/features/prospects/ProspectsPage.tsx';
-import { ProspectDetailPage } from '@/features/prospects/ProspectDetailPage.tsx';
-import { CustomersPage } from '@/features/customers/CustomersPage.tsx';
-import { CustomerDetailPage } from '@/features/customers/CustomerDetailPage.tsx';
-import { TechniciansPage } from '@/features/technicians/TechniciansPage.tsx';
-import { TechnicianDetailPage } from '@/features/technicians/TechnicianDetailPage.tsx';
-import { WorkOrdersPage } from '@/features/workorders/WorkOrdersPage.tsx';
-import { WorkOrderDetailPage } from '@/features/workorders/WorkOrderDetailPage.tsx';
-import { SchedulePage } from '@/features/schedule/SchedulePage.tsx';
-import { EmailMarketingPage } from '@/features/email-marketing/EmailMarketingPage.tsx';
-import { ReportsPage } from '@/features/reports/pages/ReportsPage.tsx';
-import { RevenueReport } from '@/features/reports/pages/RevenueReport.tsx';
-import { TechnicianPerformance } from '@/features/reports/pages/TechnicianPerformance.tsx';
-import { EquipmentPage } from '@/features/equipment/EquipmentPage.tsx';
-import { InventoryPage } from '@/features/inventory/InventoryPage.tsx';
-import { TicketsPage } from '@/features/tickets/TicketsPage.tsx';
-import { TicketDetailPage } from '@/features/tickets/TicketDetailPage.tsx';
-import { FleetMapPage } from '@/features/fleet/index.ts';
-import { IntegrationsPage } from '@/features/integrations/index.ts';
-import { InvoicesPage } from '@/features/invoicing/InvoicesPage.tsx';
-import { InvoiceDetailPage } from '@/features/invoicing/InvoiceDetailPage.tsx';
-import { PaymentsPage } from '@/features/payments/PaymentsPage.tsx';
-import { QuotesPage } from '@/features/quotes/QuotesPage.tsx';
-import { QuoteDetailPage } from '@/features/quotes/QuoteDetailPage.tsx';
-import { PayrollPage } from '@/features/payroll/PayrollPage.tsx';
-import { UsersPage } from '@/features/users/UsersPage.tsx';
-import { AdminSettingsPage } from '@/features/admin/AdminSettingsPage.tsx';
-import { PricingPage } from '@/features/admin/pricing/PricingPage.tsx';
-import { MarketingHubPage } from '@/features/marketing/MarketingHubPage.tsx';
-import { SmsConsentPage } from '@/features/marketing/sms/SmsConsentPage.tsx';
-import { GoogleAdsPage } from '@/features/marketing/google-ads/GoogleAdsPage.tsx';
-import { ReviewsPage } from '@/features/marketing/reviews/ReviewsPage.tsx';
-import { AIContentPage } from '@/features/marketing/ai-content/AIContentPage.tsx';
-import { EmployeePortalPage } from '@/features/portal/EmployeePortalPage.tsx';
-import { RingCentralPage } from '@/features/integrations/ringcentral/RingCentralPage.tsx';
+
+// Loading spinner for lazy-loaded routes
+const PageLoader = () => (
+  <div className="flex items-center justify-center h-full">
+    <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+  </div>
+);
+
+// Lazy load feature modules for code splitting
+const DashboardPage = lazy(() => import('@/features/dashboard/DashboardPage.tsx').then(m => ({ default: m.DashboardPage })));
+const ProspectsPage = lazy(() => import('@/features/prospects/ProspectsPage.tsx').then(m => ({ default: m.ProspectsPage })));
+const ProspectDetailPage = lazy(() => import('@/features/prospects/ProspectDetailPage.tsx').then(m => ({ default: m.ProspectDetailPage })));
+const CustomersPage = lazy(() => import('@/features/customers/CustomersPage.tsx').then(m => ({ default: m.CustomersPage })));
+const CustomerDetailPage = lazy(() => import('@/features/customers/CustomerDetailPage.tsx').then(m => ({ default: m.CustomerDetailPage })));
+const TechniciansPage = lazy(() => import('@/features/technicians/TechniciansPage.tsx').then(m => ({ default: m.TechniciansPage })));
+const TechnicianDetailPage = lazy(() => import('@/features/technicians/TechnicianDetailPage.tsx').then(m => ({ default: m.TechnicianDetailPage })));
+const WorkOrdersPage = lazy(() => import('@/features/workorders/WorkOrdersPage.tsx').then(m => ({ default: m.WorkOrdersPage })));
+const WorkOrderDetailPage = lazy(() => import('@/features/workorders/WorkOrderDetailPage.tsx').then(m => ({ default: m.WorkOrderDetailPage })));
+const SchedulePage = lazy(() => import('@/features/schedule/SchedulePage.tsx').then(m => ({ default: m.SchedulePage })));
+
+// Marketing routes - lazy loaded
+const MarketingHubPage = lazy(() => import('@/features/marketing/MarketingHubPage.tsx').then(m => ({ default: m.MarketingHubPage })));
+const GoogleAdsPage = lazy(() => import('@/features/marketing/google-ads/GoogleAdsPage.tsx').then(m => ({ default: m.GoogleAdsPage })));
+const ReviewsPage = lazy(() => import('@/features/marketing/reviews/ReviewsPage.tsx').then(m => ({ default: m.ReviewsPage })));
+const AIContentPage = lazy(() => import('@/features/marketing/ai-content/AIContentPage.tsx').then(m => ({ default: m.AIContentPage })));
+const EmailMarketingPage = lazy(() => import('@/features/email-marketing/EmailMarketingPage.tsx').then(m => ({ default: m.EmailMarketingPage })));
+
+// Reports - lazy loaded
+const ReportsPage = lazy(() => import('@/features/reports/pages/ReportsPage.tsx').then(m => ({ default: m.ReportsPage })));
+const RevenueReport = lazy(() => import('@/features/reports/pages/RevenueReport.tsx').then(m => ({ default: m.RevenueReport })));
+const TechnicianPerformance = lazy(() => import('@/features/reports/pages/TechnicianPerformance.tsx').then(m => ({ default: m.TechnicianPerformance })));
+
+// Other features - lazy loaded
+const EquipmentPage = lazy(() => import('@/features/equipment/EquipmentPage.tsx').then(m => ({ default: m.EquipmentPage })));
+const InventoryPage = lazy(() => import('@/features/inventory/InventoryPage.tsx').then(m => ({ default: m.InventoryPage })));
+const TicketsPage = lazy(() => import('@/features/tickets/TicketsPage.tsx').then(m => ({ default: m.TicketsPage })));
+const TicketDetailPage = lazy(() => import('@/features/tickets/TicketDetailPage.tsx').then(m => ({ default: m.TicketDetailPage })));
+const FleetMapPage = lazy(() => import('@/features/fleet/index.ts').then(m => ({ default: m.FleetMapPage })));
+const IntegrationsPage = lazy(() => import('@/features/integrations/index.ts').then(m => ({ default: m.IntegrationsPage })));
+const InvoicesPage = lazy(() => import('@/features/invoicing/InvoicesPage.tsx').then(m => ({ default: m.InvoicesPage })));
+const InvoiceDetailPage = lazy(() => import('@/features/invoicing/InvoiceDetailPage.tsx').then(m => ({ default: m.InvoiceDetailPage })));
+const PaymentsPage = lazy(() => import('@/features/payments/PaymentsPage.tsx').then(m => ({ default: m.PaymentsPage })));
+const UsersPage = lazy(() => import('@/features/users/UsersPage.tsx').then(m => ({ default: m.UsersPage })));
+const AdminSettingsPage = lazy(() => import('@/features/admin/AdminSettingsPage.tsx').then(m => ({ default: m.AdminSettingsPage })));
 
 /**
- * App routes - basename="/app" is set in BrowserRouter
- * All paths here are relative to /app/
+ * App routes - standalone deployment at root
+ * Uses React.lazy() for code splitting - each feature loads on demand
  */
 export function AppRoutes() {
   return (
@@ -62,82 +71,69 @@ export function AppRoutes() {
         <Route index element={<Navigate to="/dashboard" replace />} />
 
         {/* Dashboard */}
-        <Route path="dashboard" element={<DashboardPage />} />
-
-        {/* Employee Portal */}
-        <Route path="my-portal" element={<EmployeePortalPage />} />
+        <Route path="dashboard" element={<Suspense fallback={<PageLoader />}><DashboardPage /></Suspense>} />
 
         {/* Prospects */}
-        <Route path="prospects" element={<ProspectsPage />} />
-        <Route path="prospects/:id" element={<ProspectDetailPage />} />
+        <Route path="prospects" element={<Suspense fallback={<PageLoader />}><ProspectsPage /></Suspense>} />
+        <Route path="prospects/:id" element={<Suspense fallback={<PageLoader />}><ProspectDetailPage /></Suspense>} />
 
         {/* Customers */}
-        <Route path="customers" element={<CustomersPage />} />
-        <Route path="customers/:id" element={<CustomerDetailPage />} />
+        <Route path="customers" element={<Suspense fallback={<PageLoader />}><CustomersPage /></Suspense>} />
+        <Route path="customers/:id" element={<Suspense fallback={<PageLoader />}><CustomerDetailPage /></Suspense>} />
 
         {/* Technicians */}
-        <Route path="technicians" element={<TechniciansPage />} />
-        <Route path="technicians/:id" element={<TechnicianDetailPage />} />
+        <Route path="technicians" element={<Suspense fallback={<PageLoader />}><TechniciansPage /></Suspense>} />
+        <Route path="technicians/:id" element={<Suspense fallback={<PageLoader />}><TechnicianDetailPage /></Suspense>} />
 
         {/* Work Orders */}
-        <Route path="work-orders" element={<WorkOrdersPage />} />
-        <Route path="work-orders/:id" element={<WorkOrderDetailPage />} />
+        <Route path="work-orders" element={<Suspense fallback={<PageLoader />}><WorkOrdersPage /></Suspense>} />
+        <Route path="work-orders/:id" element={<Suspense fallback={<PageLoader />}><WorkOrderDetailPage /></Suspense>} />
 
         {/* Schedule */}
-        <Route path="schedule" element={<SchedulePage />} />
+        <Route path="schedule" element={<Suspense fallback={<PageLoader />}><SchedulePage /></Suspense>} />
 
-        {/* Marketing */}
-        <Route path="marketing" element={<MarketingHubPage />} />
-        <Route path="marketing/ads" element={<GoogleAdsPage />} />
-        <Route path="marketing/reviews" element={<ReviewsPage />} />
-        <Route path="marketing/ai-content" element={<AIContentPage />} />
-        <Route path="marketing/sms" element={<SmsConsentPage />} />
+        {/* Marketing Hub */}
+        <Route path="marketing" element={<Suspense fallback={<PageLoader />}><MarketingHubPage /></Suspense>} />
+        <Route path="marketing/ads" element={<Suspense fallback={<PageLoader />}><GoogleAdsPage /></Suspense>} />
+        <Route path="marketing/reviews" element={<Suspense fallback={<PageLoader />}><ReviewsPage /></Suspense>} />
+        <Route path="marketing/ai-content" element={<Suspense fallback={<PageLoader />}><AIContentPage /></Suspense>} />
 
         {/* Email Marketing */}
-        <Route path="email-marketing" element={<EmailMarketingPage />} />
+        <Route path="email-marketing" element={<Suspense fallback={<PageLoader />}><EmailMarketingPage /></Suspense>} />
 
         {/* Reports */}
-        <Route path="reports" element={<ReportsPage />} />
-        <Route path="reports/revenue" element={<RevenueReport />} />
-        <Route path="reports/technicians" element={<TechnicianPerformance />} />
+        <Route path="reports" element={<Suspense fallback={<PageLoader />}><ReportsPage /></Suspense>} />
+        <Route path="reports/revenue" element={<Suspense fallback={<PageLoader />}><RevenueReport /></Suspense>} />
+        <Route path="reports/technicians" element={<Suspense fallback={<PageLoader />}><TechnicianPerformance /></Suspense>} />
 
         {/* Equipment */}
-        <Route path="equipment" element={<EquipmentPage />} />
+        <Route path="equipment" element={<Suspense fallback={<PageLoader />}><EquipmentPage /></Suspense>} />
 
         {/* Inventory */}
-        <Route path="inventory" element={<InventoryPage />} />
+        <Route path="inventory" element={<Suspense fallback={<PageLoader />}><InventoryPage /></Suspense>} />
 
         {/* Tickets */}
-        <Route path="tickets" element={<TicketsPage />} />
-        <Route path="tickets/:id" element={<TicketDetailPage />} />
+        <Route path="tickets" element={<Suspense fallback={<PageLoader />}><TicketsPage /></Suspense>} />
+        <Route path="tickets/:id" element={<Suspense fallback={<PageLoader />}><TicketDetailPage /></Suspense>} />
 
         {/* Fleet Tracking */}
-        <Route path="fleet" element={<FleetMapPage />} />
+        <Route path="fleet" element={<Suspense fallback={<PageLoader />}><FleetMapPage /></Suspense>} />
 
         {/* Integrations */}
-        <Route path="integrations" element={<IntegrationsPage />} />
-        <Route path="integrations/ringcentral" element={<RingCentralPage />} />
+        <Route path="integrations" element={<Suspense fallback={<PageLoader />}><IntegrationsPage /></Suspense>} />
 
         {/* Invoices */}
-        <Route path="invoices" element={<InvoicesPage />} />
-        <Route path="invoices/:id" element={<InvoiceDetailPage />} />
+        <Route path="invoices" element={<Suspense fallback={<PageLoader />}><InvoicesPage /></Suspense>} />
+        <Route path="invoices/:id" element={<Suspense fallback={<PageLoader />}><InvoiceDetailPage /></Suspense>} />
 
         {/* Payments */}
-        <Route path="payments" element={<PaymentsPage />} />
-
-        {/* Quotes */}
-        <Route path="quotes" element={<QuotesPage />} />
-        <Route path="quotes/:id" element={<QuoteDetailPage />} />
-
-        {/* Payroll */}
-        <Route path="payroll" element={<PayrollPage />} />
+        <Route path="payments" element={<Suspense fallback={<PageLoader />}><PaymentsPage /></Suspense>} />
 
         {/* Users Management */}
-        <Route path="users" element={<UsersPage />} />
+        <Route path="users" element={<Suspense fallback={<PageLoader />}><UsersPage /></Suspense>} />
 
         {/* Admin Settings */}
-        <Route path="admin" element={<AdminSettingsPage />} />
-        <Route path="admin/pricing" element={<PricingPage />} />
+        <Route path="admin" element={<Suspense fallback={<PageLoader />}><AdminSettingsPage /></Suspense>} />
 
         {/* 404 within app */}
         <Route

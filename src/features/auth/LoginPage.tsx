@@ -4,7 +4,7 @@ import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { z } from 'zod';
 import { useQueryClient } from '@tanstack/react-query';
-import { apiClient, getErrorMessage } from '@/api/client.ts';
+import { apiClient, getErrorMessage, setAuthToken, hasAuthToken } from '@/api/client.ts';
 import { Button } from '@/components/ui/Button.tsx';
 import { Input } from '@/components/ui/Input.tsx';
 import { Label } from '@/components/ui/Label.tsx';
@@ -31,11 +31,8 @@ export function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Get return URL from query params
-  // Note: paths should NOT include /app since BrowserRouter has basename="/app"
-  // Strip any /app prefix to prevent double /app/app/ in URL
-  const rawReturnUrl = searchParams.get('return') || '/dashboard';
-  const returnUrl = rawReturnUrl.replace(/^(\/app)+/, '') || '/dashboard';
+  // Get return URL from query params (standalone mode - no /app prefix)
+  const returnUrl = searchParams.get('return') || '/dashboard';
 
   const {
     register,
@@ -50,18 +47,20 @@ export function LoginPage() {
     },
   });
 
-  // Check if already logged in
+  // Check if already logged in (has valid token)
   useEffect(() => {
-    const checkAuth = async () => {
-      try {
-        await apiClient.get('/auth/me');
-        // Already authenticated, redirect
-        navigate(returnUrl, { replace: true });
-      } catch {
-        // Not authenticated, stay on login
-      }
-    };
-    checkAuth();
+    if (hasAuthToken()) {
+      const checkAuth = async () => {
+        try {
+          await apiClient.get('/auth/me');
+          // Token is valid, redirect
+          navigate(returnUrl, { replace: true });
+        } catch {
+          // Token is invalid, stay on login
+        }
+      };
+      checkAuth();
+    }
   }, [navigate, returnUrl]);
 
   const onSubmit = async (data: LoginFormData) => {
@@ -74,8 +73,13 @@ export function LoginPage() {
         password: data.password,
       });
 
-      // If login successful, invalidate any cached queries and redirect
-      if (response.data?.token || response.data?.user) {
+      // If login successful, store JWT token and redirect
+      if (response.data?.token) {
+        setAuthToken(response.data.token);
+        queryClient.clear();
+        navigate(returnUrl, { replace: true });
+      } else if (response.data?.user) {
+        // Fallback for session-based auth during transition
         queryClient.clear();
         navigate(returnUrl, { replace: true });
       }
