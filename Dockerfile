@@ -27,11 +27,9 @@ RUN npm install -g serve@14
 # Copy built files from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Railway injects PORT=8080 - use that port
-# serve uses the PORT env var automatically with -l flag
-EXPOSE 8080
+# Railway networking is configured for port 5000
+EXPOSE 5000
 
-# Serve the static files on Railway's PORT (defaults to 8080)
+# Serve the static files on port 5000 (matching Railway networking config)
 # -s enables SPA mode (all routes serve index.html)
-# -l with PORT env var - Railway sets PORT=8080
-CMD ["sh", "-c", "serve -s dist -l tcp://0.0.0.0:${PORT:-8080}"]
+CMD ["serve", "-s", "dist", "-l", "tcp://0.0.0.0:5000"]
