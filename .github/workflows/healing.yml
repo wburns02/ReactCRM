@@ -33,7 +33,7 @@ on:
 
 env:
   NODE_VERSION: '20'
-  BASE_URL: ${{ secrets.STAGING_URL || 'https://react.ecbtx.com/app' }}
+  BASE_URL: ${{ secrets.STAGING_URL || 'https://react.ecbtx.com' }}
   API_URL: ${{ secrets.API_URL || 'https://react-crm-api-production.up.railway.app' }}
 
 jobs:
