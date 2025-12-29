@@ -248,7 +248,7 @@ function WorkOrderMarker({ workOrder, position }: { workOrder: WorkOrder; positi
             </p>
           )}
 
-          <Link to={`/app/work-orders/${workOrder.id}`}>
+          <Link to={`/work-orders/${workOrder.id}`}>
             <Button variant="primary" size="sm" className="w-full">
               View Details
             </Button>
