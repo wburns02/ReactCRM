@@ -20,6 +20,7 @@ import { dirname, join } from 'path';
 
 // Production URL for Mac-CRM-React deployment
 const PRODUCTION_URL = 'https://react.ecbtx.com/app';
+const LOCAL_URL = 'http://localhost:5173';
 
 // ES module compatible __dirname
 const __filename = fileURLToPath(import.meta.url);
@@ -49,7 +50,8 @@ export default defineConfig({
 
   use: {
     // Default to production URL - tests run against deployed app
-    baseURL: process.env.BASE_URL || PRODUCTION_URL,
+    // Set LOCAL_DEV=1 to test against local dev server
+    baseURL: process.env.BASE_URL || (process.env.LOCAL_DEV ? LOCAL_URL : PRODUCTION_URL),
 
     // Debugging artifacts - capture on failure/retry
     trace: 'on-first-retry',

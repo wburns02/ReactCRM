@@ -2,9 +2,6 @@ import { test as setup, expect } from '@playwright/test';
 import { fileURLToPath } from 'url';
 import { dirname, join } from 'path';
 
-const PRODUCTION_URL = 'https://react.ecbtx.com/app';
-const BASE_URL = process.env.BASE_URL || PRODUCTION_URL;
-
 // ES module compatible __dirname
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -16,9 +13,10 @@ const authFile = join(__dirname, '../.auth/user.json');
  * Authentication setup - runs before all tests
  * Logs in and saves session state for reuse
  */
-setup('authenticate', async ({ page }) => {
-  // Navigate to login page
-  await page.goto(`${BASE_URL}/login`);
+setup('authenticate', async ({ page, baseURL }) => {
+  // Navigate to login page (use baseURL from config, strip /app suffix for login)
+  const loginUrl = baseURL?.replace(/\/app\/?$/, '') + '/login';
+  await page.goto(loginUrl);
 
   // Wait for login form to be visible
   await expect(page.getByRole('button', { name: 'Sign In' })).toBeVisible({ timeout: 10000 });
