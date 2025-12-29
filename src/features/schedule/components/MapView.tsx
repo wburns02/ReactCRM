@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
+import { useWorkOrders, useUnscheduledWorkOrders } from '@/api/hooks/useWorkOrders.ts';
 import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
 import { Badge } from '@/components/ui/Badge.tsx';
 import { Button } from '@/components/ui/Button.tsx';
@@ -27,6 +27,63 @@ L.Icon.Default.mergeOptions({
   iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
   shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
 });
+
+// San Marcos, TX center for mock coordinates
+const SAN_MARCOS_CENTER: [number, number] = [29.8833, -97.9414];
+
+/**
+ * Generate deterministic mock coordinates for work orders without lat/lng
+ * Uses address matching first, then falls back to hash-based generation
+ */
+function generateMockCoordinates(workOrder: WorkOrder): [number, number] {
+  // Known address mappings for San Marcos area
+  const addressMappings: Record<string, [number, number]> = {
+    '326 n lbj': [29.8855, -97.9406],
+    'lbj drive': [29.8855, -97.9406],
+    'n lbj': [29.8855, -97.9406],
+    '568 gravel': [29.8830, -97.9450],
+    'gravel st': [29.8830, -97.9450],
+    'gravel street': [29.8830, -97.9450],
+    '1200 wonder': [29.8600, -97.9500],
+    'wonder world': [29.8600, -97.9500],
+    '450 hopkins': [29.8900, -97.9400],
+    'hopkins st': [29.8900, -97.9400],
+    '789 aquarena': [29.8700, -97.9200],
+    'aquarena springs': [29.8700, -97.9200],
+  };
+
+  // Check if address matches any known mapping
+  const address = (workOrder.service_address_line1 || '').toLowerCase();
+  for (const [pattern, coords] of Object.entries(addressMappings)) {
+    if (address.includes(pattern)) {
+      return coords;
+    }
+  }
+
+  // Generate deterministic offset from customer/work order ID
+  const seed = workOrder.id || workOrder.customer_id || 0;
+  const seedNum = typeof seed === 'string' ? parseInt(seed, 10) || seed.length : seed;
+
+  // Create pseudo-random but deterministic offsets
+  const latOffset = ((seedNum * 17) % 100 - 50) / 1000;
+  const lngOffset = ((seedNum * 31) % 100 - 50) / 1000;
+
+  return [
+    SAN_MARCOS_CENTER[0] + latOffset,
+    SAN_MARCOS_CENTER[1] + lngOffset,
+  ];
+}
+
+/**
+ * Get coordinates for a work order - real if available, mock if not
+ */
+function getWorkOrderCoordinates(workOrder: WorkOrder): [number, number] {
+  if (workOrder.service_latitude && workOrder.service_longitude) {
+    return [workOrder.service_latitude, workOrder.service_longitude];
+  }
+  return generateMockCoordinates(workOrder);
+}
+
 
 /**
  * Create custom colored marker icon
@@ -71,6 +128,8 @@ function getStatusColor(status: WorkOrderStatus): string {
       return '#0091ae'; // MAC blue
     case 'requires_followup':
       return '#8b5cf6'; // purple
+    case 'draft':
+      return '#6b7280'; // gray for unscheduled/draft
     default:
       return '#6b7280'; // gray
   }
@@ -142,12 +201,12 @@ function FitBounds({ bounds }: { bounds: L.LatLngBoundsExpression | null }) {
 /**
  * Work Order Marker with popup
  */
-function WorkOrderMarker({ workOrder }: { workOrder: WorkOrder }) {
+function WorkOrderMarker({ workOrder, position }: { workOrder: WorkOrder; position: [number, number] }) {
   const icon = createColoredIcon(getStatusColor(workOrder.status as WorkOrderStatus));
 
   return (
     <Marker
-      position={[workOrder.service_latitude!, workOrder.service_longitude!]}
+      position={position}
       icon={icon}
     >
       <Popup>
@@ -255,6 +314,10 @@ function MapLegend() {
       <div className="font-semibold mb-2 text-gray-900">Work Order Status</div>
       <div className="space-y-1">
         <div className="flex items-center gap-2">
+          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#6b7280' }} />
+          <span>Unscheduled/Draft</span>
+        </div>
+        <div className="flex items-center gap-2">
           <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#0091ae' }} />
           <span>Scheduled/Confirmed</span>
         </div>
@@ -295,11 +358,14 @@ export function MapView() {
   const [showTechnicians, setShowTechnicians] = useState(true);
   const [showCompleted, setShowCompleted] = useState(false);
 
-  // Fetch work orders
+  // Fetch scheduled work orders
   const { data: workOrdersData, isLoading: woLoading, isError: woError } = useWorkOrders({
     page: 1,
     page_size: 200,
   });
+
+  // Fetch unscheduled work orders
+  const { data: unscheduledData, isLoading: unscheduledLoading } = useUnscheduledWorkOrders();
 
   // Fetch technicians
   const { data: techniciansData, isLoading: techLoading } = useTechnicians({
@@ -307,38 +373,56 @@ export function MapView() {
     page_size: 100,
   });
 
-  // Filter work orders for the current week and with location data
-  const workOrdersWithLocation = useMemo(() => {
-    if (!workOrdersData?.items) return [];
+  // Combine and filter work orders for map display
+  const workOrdersForMap = useMemo(() => {
+    const allWorkOrders: Array<{ workOrder: WorkOrder; position: [number, number] }> = [];
+    const seenIds = new Set<string | number>();
 
-    return workOrdersData.items.filter((wo) => {
-      // Must have location data
-      if (!wo.service_latitude || !wo.service_longitude) return false;
+    // Add unscheduled work orders first (they always show)
+    if (unscheduledData?.items) {
+      unscheduledData.items.forEach((wo) => {
+        // Apply technician filter
+        if (filters.technician && wo.assigned_technician !== filters.technician) return;
 
-      // Apply technician filter
-      if (filters.technician && wo.assigned_technician !== filters.technician) return false;
+        const position = getWorkOrderCoordinates(wo);
+        allWorkOrders.push({ workOrder: wo, position });
+        seenIds.add(wo.id);
+      });
+    }
 
-      // Apply status filter
-      if (filters.statuses.length > 0 && !filters.statuses.includes(wo.status)) return false;
+    // Add scheduled work orders
+    if (workOrdersData?.items) {
+      workOrdersData.items.forEach((wo) => {
+        // Skip if already added from unscheduled
+        if (seenIds.has(wo.id)) return;
 
-      // Hide completed unless toggled on
-      if (!showCompleted && wo.status === 'completed') return false;
+        // Apply technician filter
+        if (filters.technician && wo.assigned_technician !== filters.technician) return;
 
-      // For the map, show scheduled work orders (within a reasonable date range)
-      // Show all if no date filter, or show for the selected date range
-      if (wo.scheduled_date) {
-        // Show work orders from 7 days ago to 7 days ahead
-        const woDate = new Date(wo.scheduled_date);
-        const rangeStart = new Date();
-        rangeStart.setDate(rangeStart.getDate() - 7);
-        const rangeEnd = new Date();
-        rangeEnd.setDate(rangeEnd.getDate() + 7);
-        if (woDate < rangeStart || woDate > rangeEnd) return false;
-      }
+        // Apply status filter
+        if (filters.statuses.length > 0 && !filters.statuses.includes(wo.status)) return;
 
-      return true;
-    });
-  }, [workOrdersData, filters, showCompleted]);
+        // Hide completed unless toggled on
+        if (!showCompleted && wo.status === 'completed') return;
+
+        // For scheduled work orders, show within a reasonable date range
+        if (wo.scheduled_date) {
+          const woDate = new Date(wo.scheduled_date);
+          const rangeStart = new Date();
+          rangeStart.setDate(rangeStart.getDate() - 7);
+          const rangeEnd = new Date();
+          rangeEnd.setDate(rangeEnd.getDate() + 7);
+          if (woDate < rangeStart || woDate > rangeEnd) return;
+        }
+
+        const position = getWorkOrderCoordinates(wo);
+        allWorkOrders.push({ workOrder: wo, position });
+        seenIds.add(wo.id);
+      });
+    }
+
+    return allWorkOrders;
+  }, [workOrdersData, unscheduledData, filters, showCompleted]);
 
   // Filter technicians with location data
   const techniciansWithLocation = useMemo(() => {
@@ -353,8 +437,8 @@ export function MapView() {
   const bounds = useMemo(() => {
     const allPoints: [number, number][] = [];
 
-    workOrdersWithLocation.forEach((wo) => {
-      allPoints.push([wo.service_latitude!, wo.service_longitude!]);
+    workOrdersForMap.forEach(({ position }) => {
+      allPoints.push(position);
     });
 
     techniciansWithLocation.forEach((tech) => {
@@ -372,12 +456,12 @@ export function MapView() {
     }
 
     return L.latLngBounds(allPoints);
-  }, [workOrdersWithLocation, techniciansWithLocation]);
+  }, [workOrdersForMap, techniciansWithLocation]);
 
-  // Default center (Austin, TX area)
-  const defaultCenter: [number, number] = [30.2672, -97.7431];
+  // Default center (San Marcos, TX area)
+  const defaultCenter: [number, number] = SAN_MARCOS_CENTER;
 
-  if (woLoading || techLoading) {
+  if (woLoading || techLoading || unscheduledLoading) {
     return (
       <div className="bg-bg-muted rounded-lg flex items-center justify-center h-[600px]">
         <div className="text-center">
@@ -425,7 +509,7 @@ export function MapView() {
 
       {/* Stats */}
       <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] bg-white rounded-lg shadow-lg px-4 py-2 text-sm">
-        <span className="font-medium">{workOrdersWithLocation.length}</span> work orders
+        <span className="font-medium">{workOrdersForMap.length}</span> work orders
         {showTechnicians && (
           <>
             {' · '}
@@ -438,7 +522,7 @@ export function MapView() {
       <div className="rounded-lg overflow-hidden border border-border" style={{ height: '600px' }}>
         <MapContainer
           center={defaultCenter}
-          zoom={10}
+          zoom={12}
           style={{ height: '100%', width: '100%' }}
           scrollWheelZoom={true}
         >
@@ -451,8 +535,8 @@ export function MapView() {
           <FitBounds bounds={bounds} />
 
           {/* Work Order Markers */}
-          {workOrdersWithLocation.map((wo) => (
-            <WorkOrderMarker key={wo.id} workOrder={wo} />
+          {workOrdersForMap.map(({ workOrder, position }) => (
+            <WorkOrderMarker key={workOrder.id} workOrder={workOrder} position={position} />
           ))}
 
           {/* Technician Markers */}
@@ -466,12 +550,12 @@ export function MapView() {
       <MapLegend />
 
       {/* Empty state */}
-      {workOrdersWithLocation.length === 0 && techniciansWithLocation.length === 0 && (
+      {workOrdersForMap.length === 0 && techniciansWithLocation.length === 0 && (
         <div className="absolute inset-0 flex items-center justify-center bg-white/80 rounded-lg">
           <div className="text-center p-6">
             <p className="text-text-secondary mb-2">No locations to display</p>
             <p className="text-sm text-text-muted">
-              Work orders need service address coordinates to appear on the map
+              No work orders found matching current filters
             </p>
           </div>
         </div>
