@@ -110,11 +110,25 @@ export default defineConfig({
       dependencies: ['setup'],
     },
 
+    // Full site audit - comprehensive crawler
+    {
+      name: 'audit',
+      testDir: './e2e/audit',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: authFile,
+        navigationTimeout: 30000,
+        actionTimeout: 10000,
+      },
+      dependencies: ['setup'],
+      fullyParallel: false,
+    },
+
     // Default chromium project for any remaining tests
     {
       name: 'chromium',
       testDir: './e2e',
-      testIgnore: ['**/health/**', '**/contracts/**', '**/modules/**', '**/security/**', '**/fixtures/**'],
+      testIgnore: ['**/health/**', '**/contracts/**', '**/modules/**', '**/security/**', '**/audit/**', '**/fixtures/**'],
       use: {
         ...devices['Desktop Chrome'],
         storageState: authFile,
