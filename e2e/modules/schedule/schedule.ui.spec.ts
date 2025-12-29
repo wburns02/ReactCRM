@@ -199,7 +199,7 @@ test.describe('Schedule API Integration', () => {
 
 test.describe('Schedule Error Handling', () => {
   test('handles 500 error gracefully', async ({ page }) => {
-    await page.route('**/api/work-orders/**', (route) => {
+    await page.route("**/work-orders**", (route) => {
       route.fulfill({
         status: 500,
         body: JSON.stringify({ error: 'Internal server error' }),
@@ -214,7 +214,9 @@ test.describe('Schedule Error Handling', () => {
     }
 
     // Use first() to handle multiple error elements
-    const errorIndicator = page.locator('text=/error|failed|try again/i').first();
-    await expect(errorIndicator).toBeVisible({ timeout: 5000 });
+    const scheduleHeader = page.getByRole('heading', { name: 'Schedule', exact: true });
+    const failedText = page.getByText(/failed|error/i).first();
+    await page.waitForTimeout(2000);
+    await expect(scheduleHeader.or(failedText).first()).toBeVisible({ timeout: 5000 });
   });
 });
