@@ -1,11 +1,11 @@
 import axios, { type AxiosError, type AxiosInstance } from 'axios';
 
 /**
- * API client configured for Flask backend with JWT tokens
+ * API client configured for FastAPI backend with JWT tokens
  * Standalone deployment - API is on separate domain
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://crm.ecbtx.com/api';
+const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://react-crm-api-production.up.railway.app/api/v2';
 
 // Token storage key
 const TOKEN_KEY = 'auth_token';
