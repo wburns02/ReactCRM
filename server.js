@@ -2,9 +2,9 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-// IMPORTANT: Railway networking is configured for port 5000
-// Do NOT use process.env.PORT as Railway may set a different value
-const PORT = 5000;
+// Use Railway's PORT environment variable (they inject it internally)
+// Fallback to 5000 for local development
+const PORT = process.env.PORT || 5000;
 const DIST_DIR = path.join(__dirname, 'dist');
 
 const mimeTypes = {
