@@ -251,6 +251,59 @@ export function useUpdateWorkOrderStatus() {
 }
 
 /**
+ * Unschedule a work order (remove from schedule, return to draft)
+ * Used for bi-directional drag-drop: dragging scheduled event back to unscheduled area
+ */
+export function useUnscheduleWorkOrder() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: string): Promise<WorkOrder> => {
+      const response = await apiClient.patch('/work-orders/' + id, {
+        scheduled_date: null,
+        assigned_technician: null,
+        time_window_start: null,
+        status: 'draft',
+      });
+      return response.data;
+    },
+    onSuccess: (_, id) => {
+      // Invalidate all work order queries to refresh views
+      queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: workOrderKeys.detail(id) });
+      queryClient.invalidateQueries({ queryKey: scheduleKeys.unscheduled() });
+    },
+  });
+}
+
+/**
+ * Update work order duration (estimated_duration_hours)
+ * Used for resize events in schedule views
+ */
+export function useUpdateWorkOrderDuration() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      id,
+      duration,
+    }: {
+      id: string;
+      duration: number;
+    }): Promise<WorkOrder> => {
+      const response = await apiClient.patch('/work-orders/' + id, {
+        estimated_duration_hours: duration,
+      });
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
+      queryClient.invalidateQueries({ queryKey: workOrderKeys.detail(variables.id) });
+    },
+  });
+}
+
+/**
  * Schedule stats hook
  * Computes stats from work orders data
  */

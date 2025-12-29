@@ -1,8 +1,8 @@
-import { useMemo } from 'react';
-import { useDroppable } from '@dnd-kit/core';
-import { Link } from 'react-router-dom';
+import { useMemo, useState, useRef, useCallback, useEffect } from 'react';
+import { useDroppable, useDraggable } from '@dnd-kit/core';
+import { CSS } from '@dnd-kit/utilities';
 import { Badge } from '@/components/ui/Badge.tsx';
-import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
+import { useWorkOrders, useUpdateWorkOrderDuration } from '@/api/hooks/useWorkOrders.ts';
 import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
 import {
   type WorkOrder,
@@ -19,6 +19,15 @@ import {
   type DropTargetData,
 } from '@/api/types/schedule.ts';
 import { useScheduleStore } from '../store/scheduleStore.ts';
+
+/** Height of one hour slot in pixels */
+const HOUR_HEIGHT = 64;
+
+/** Minimum duration in hours */
+const MIN_DURATION = 0.5;
+
+/** Maximum duration in hours */
+const MAX_DURATION = 8;
 
 /**
  * Get priority color class
@@ -55,6 +64,128 @@ function getStatusVariant(status: WorkOrderStatus): 'default' | 'success' | 'war
 }
 
 /**
+ * Draggable and resizable work order block for day view
+ */
+function DraggableWorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
+  const updateDuration = useUpdateWorkOrderDuration();
+  const [isResizing, setIsResizing] = useState(false);
+  const [resizeDuration, setResizeDuration] = useState<number | null>(null);
+  const startY = useRef(0);
+  const startDuration = useRef(0);
+
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: `scheduled-${workOrder.id}`,
+    data: {
+      workOrder,
+      isScheduled: true,
+      originalDate: workOrder.scheduled_date,
+      originalTechnician: workOrder.assigned_technician,
+    },
+    disabled: isResizing,
+  });
+
+  const handleResizeStart = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setIsResizing(true);
+    startY.current = e.clientY;
+    startDuration.current = workOrder.estimated_duration_hours || 1;
+    setResizeDuration(startDuration.current);
+  }, [workOrder.estimated_duration_hours]);
+
+  const handleResizeMove = useCallback((e: MouseEvent) => {
+    if (!isResizing) return;
+    const deltaY = e.clientY - startY.current;
+    const deltaHours = deltaY / HOUR_HEIGHT;
+    const newDuration = Math.max(MIN_DURATION, Math.min(MAX_DURATION, startDuration.current + deltaHours));
+    setResizeDuration(Math.round(newDuration * 2) / 2); // Round to nearest 0.5
+  }, [isResizing]);
+
+  const handleResizeEnd = useCallback(() => {
+    if (!isResizing || resizeDuration === null) return;
+    setIsResizing(false);
+
+    // Only update if duration changed
+    if (resizeDuration !== (workOrder.estimated_duration_hours || 1)) {
+      updateDuration.mutate({
+        id: workOrder.id,
+        duration: resizeDuration,
+      });
+    }
+    setResizeDuration(null);
+  }, [isResizing, resizeDuration, workOrder.id, workOrder.estimated_duration_hours, updateDuration]);
+
+  // Add global mouse listeners when resizing
+  useEffect(() => {
+    if (isResizing) {
+      document.addEventListener('mousemove', handleResizeMove);
+      document.addEventListener('mouseup', handleResizeEnd);
+      return () => {
+        document.removeEventListener('mousemove', handleResizeMove);
+        document.removeEventListener('mouseup', handleResizeEnd);
+      };
+    }
+  }, [isResizing, handleResizeMove, handleResizeEnd]);
+
+  const style = {
+    transform: CSS.Translate.toString(transform),
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  const displayDuration = resizeDuration ?? (workOrder.estimated_duration_hours || 1);
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={{
+        ...style,
+        height: `${displayDuration * HOUR_HEIGHT - 8}px`,
+        minHeight: '56px',
+      }}
+      {...attributes}
+      {...(isResizing ? {} : listeners)}
+      data-testid={`scheduled-wo-${workOrder.id}`}
+      className={`
+        absolute inset-1 rounded border-l-4 p-1.5 overflow-hidden
+        hover:shadow-md transition-shadow
+        ${isResizing ? 'cursor-ns-resize' : 'cursor-grab active:cursor-grabbing'}
+        ${getPriorityBgColor(workOrder.priority as Priority)}
+        ${isDragging ? 'shadow-lg ring-2 ring-primary z-50' : ''}
+        ${isResizing ? 'ring-2 ring-primary z-50' : ''}
+      `}
+    >
+      <div className="flex items-start justify-between gap-1">
+        <span className="text-xs font-medium text-text-primary truncate">
+          {workOrder.customer_name || `#${workOrder.customer_id}`}
+        </span>
+        <Badge
+          variant={getStatusVariant(workOrder.status as WorkOrderStatus)}
+          className="text-[9px] px-1 py-0 shrink-0"
+        >
+          {WORK_ORDER_STATUS_LABELS[workOrder.status as WorkOrderStatus]?.slice(0, 3)}
+        </Badge>
+      </div>
+      <p className="text-[10px] text-text-secondary truncate">
+        {JOB_TYPE_LABELS[workOrder.job_type as JobType]}
+      </p>
+      {isResizing && (
+        <div className="absolute bottom-1 right-1 text-[9px] font-medium text-primary bg-white/80 px-1 rounded">
+          {displayDuration}h
+        </div>
+      )}
+      {/* Resize handle */}
+      <div
+        onMouseDown={handleResizeStart}
+        className="absolute bottom-0 left-0 right-0 h-2 cursor-ns-resize hover:bg-primary/20 transition-colors group"
+        title="Drag to resize"
+      >
+        <div className="absolute bottom-0.5 left-1/2 -translate-x-1/2 w-8 h-1 rounded-full bg-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
+      </div>
+    </div>
+  );
+}
+
+/**
  * Droppable time slot cell
  */
 function TimeSlotCell({
@@ -81,8 +212,6 @@ function TimeSlotCell({
 
   // Render work order if assigned to this slot
   if (workOrder) {
-    const durationHours = workOrder.estimated_duration_hours || 1;
-
     return (
       <div
         ref={setNodeRef}
@@ -91,33 +220,7 @@ function TimeSlotCell({
           ${isLunchHour ? 'bg-gray-100' : ''}
         `}
       >
-        <Link
-          to={`/app/work-orders/${workOrder.id}`}
-          className={`
-            absolute inset-1 rounded border-l-4 p-1.5 overflow-hidden
-            hover:shadow-md transition-shadow cursor-pointer
-            ${getPriorityBgColor(workOrder.priority as Priority)}
-          `}
-          style={{
-            height: `calc(${durationHours * 100}% - 8px)`,
-            minHeight: '56px',
-          }}
-        >
-          <div className="flex items-start justify-between gap-1">
-            <span className="text-xs font-medium text-text-primary truncate">
-              {workOrder.customer_name || `#${workOrder.customer_id}`}
-            </span>
-            <Badge
-              variant={getStatusVariant(workOrder.status as WorkOrderStatus)}
-              className="text-[9px] px-1 py-0 shrink-0"
-            >
-              {WORK_ORDER_STATUS_LABELS[workOrder.status as WorkOrderStatus]?.slice(0, 3)}
-            </Badge>
-          </div>
-          <p className="text-[10px] text-text-secondary truncate">
-            {JOB_TYPE_LABELS[workOrder.job_type as JobType]}
-          </p>
-        </Link>
+        <DraggableWorkOrderBlock workOrder={workOrder} />
       </div>
     );
   }

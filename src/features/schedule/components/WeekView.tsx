@@ -1,6 +1,6 @@
 import { useMemo } from 'react';
-import { useDroppable } from '@dnd-kit/core';
-import { Link } from 'react-router-dom';
+import { useDroppable, useDraggable } from '@dnd-kit/core';
+import { CSS } from '@dnd-kit/utilities';
 import { Card, CardHeader, CardContent } from '@/components/ui/Card.tsx';
 import { Badge } from '@/components/ui/Badge.tsx';
 import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
@@ -53,6 +53,67 @@ function getPriorityColor(priority: Priority): string {
     default:
       return 'border-l-primary bg-bg-card';
   }
+}
+
+
+/**
+ * Draggable scheduled work order card
+ * Can be dragged back to unscheduled or to a different day/tech
+ */
+function DraggableScheduledCard({ workOrder }: { workOrder: WorkOrder }) {
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: `scheduled-${workOrder.id}`,
+    data: {
+      workOrder,
+      isScheduled: true,
+      originalDate: workOrder.scheduled_date,
+      originalTechnician: workOrder.assigned_technician,
+    },
+  });
+
+  const style = {
+    transform: CSS.Translate.toString(transform),
+    opacity: isDragging ? 0.5 : 1,
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+      data-testid={`scheduled-wo-${workOrder.id}`}
+      className={`
+        block p-2 rounded border-l-4 hover:shadow-md transition-shadow cursor-grab active:cursor-grabbing
+        ${getPriorityColor(workOrder.priority as Priority)}
+        ${isDragging ? 'shadow-lg ring-2 ring-primary' : ''}
+      `}
+    >
+      <div className="flex items-start justify-between gap-1 mb-1">
+        <span className="text-xs font-medium text-text-primary truncate">
+          {formatTimeDisplay(workOrder.time_window_start)}
+        </span>
+        <Badge
+          variant={getStatusVariant(workOrder.status as WorkOrderStatus)}
+          className="text-[10px] px-1 py-0"
+        >
+          {WORK_ORDER_STATUS_LABELS[workOrder.status as WorkOrderStatus]?.slice(0, 4) ||
+            workOrder.status}
+        </Badge>
+      </div>
+      <p className="text-xs text-text-primary font-medium truncate">
+        {workOrder.customer_name || `Customer #${workOrder.customer_id}`}
+      </p>
+      <p className="text-[10px] text-text-secondary truncate">
+        {JOB_TYPE_LABELS[workOrder.job_type as JobType] || workOrder.job_type}
+      </p>
+      {workOrder.assigned_technician && (
+        <p className="text-[10px] text-text-muted truncate mt-1">
+          {workOrder.assigned_technician}
+        </p>
+      )}
+    </div>
+  );
 }
 
 /**
@@ -124,38 +185,7 @@ function DroppableDay({
         ) : (
           <div className="space-y-2">
             {workOrders.map((wo) => (
-              <Link
-                key={wo.id}
-                to={`/app/work-orders/${wo.id}`}
-                className={`
-                  block p-2 rounded border-l-4 hover:shadow-md transition-shadow
-                  ${getPriorityColor(wo.priority as Priority)}
-                `}
-              >
-                <div className="flex items-start justify-between gap-1 mb-1">
-                  <span className="text-xs font-medium text-text-primary truncate">
-                    {formatTimeDisplay(wo.time_window_start)}
-                  </span>
-                  <Badge
-                    variant={getStatusVariant(wo.status as WorkOrderStatus)}
-                    className="text-[10px] px-1 py-0"
-                  >
-                    {WORK_ORDER_STATUS_LABELS[wo.status as WorkOrderStatus]?.slice(0, 4) ||
-                      wo.status}
-                  </Badge>
-                </div>
-                <p className="text-xs text-text-primary font-medium truncate">
-                  {wo.customer_name || `Customer #${wo.customer_id}`}
-                </p>
-                <p className="text-[10px] text-text-secondary truncate">
-                  {JOB_TYPE_LABELS[wo.job_type as JobType] || wo.job_type}
-                </p>
-                {wo.assigned_technician && (
-                  <p className="text-[10px] text-text-muted truncate mt-1">
-                    {wo.assigned_technician}
-                  </p>
-                )}
-              </Link>
+              <DraggableScheduledCard key={wo.id} workOrder={wo} />
             ))}
             {/* Drop zone at bottom when there are items */}
             {isOver && (

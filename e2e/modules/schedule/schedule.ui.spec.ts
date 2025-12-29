@@ -3,33 +3,20 @@ import { test, expect } from '@playwright/test';
 /**
  * Smoke tests for React Schedule page
  *
- * Validates scheduling functionality matches legacy CRM behavior
+ * Validates scheduling functionality matches legacy CRM behavior.
+ * Uses playwright's baseURL from config and storageState for auth (JWT token in localStorage).
  */
 
-const PRODUCTION_URL = 'https://mac-septic-crm-production-aaa8.up.railway.app';
-const BASE_URL = process.env.BASE_URL || PRODUCTION_URL;
-
 test.describe('Schedule Page Smoke Tests', () => {
-  test.beforeEach(async ({ page }) => {
-    if (process.env.AUTH_COOKIE) {
-      await page.context().addCookies([
-        {
-          name: 'session',
-          value: process.env.AUTH_COOKIE,
-          domain: new URL(BASE_URL).hostname,
-          path: '/',
-        },
-      ]);
-    }
-  });
+  // Auth is handled by storageState from auth.setup.ts - JWT token loaded from localStorage
 
   test('schedule page loads without crashing', async ({ page }) => {
-    const response = await page.goto(`${BASE_URL}/app/schedule`);
+    const response = await page.goto('/schedule');
     expect(response?.status()).toBeLessThan(500);
   });
 
   test('schedule page renders header', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/schedule`);
+    await page.goto('/schedule');
 
     const header = page.getByRole('heading', { name: /schedule/i });
     const loginPage = page.getByText('Sign in to your account');
@@ -38,7 +25,7 @@ test.describe('Schedule Page Smoke Tests', () => {
   });
 
   test('schedule page has view toggle buttons', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/schedule`);
+    await page.goto('/schedule');
 
     if (page.url().includes('login')) {
       test.skip();
@@ -53,7 +40,7 @@ test.describe('Schedule Page Smoke Tests', () => {
   });
 
   test('schedule page has date navigation', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/schedule`);
+    await page.goto('/schedule');
 
     if (page.url().includes('login')) {
       test.skip();
@@ -68,7 +55,7 @@ test.describe('Schedule Page Smoke Tests', () => {
   });
 
   test('schedule page has unscheduled panel', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/schedule`);
+    await page.goto('/schedule');
 
     if (page.url().includes('login')) {
       test.skip();
@@ -83,7 +70,7 @@ test.describe('Schedule Page Smoke Tests', () => {
 
 test.describe('Schedule View Modes', () => {
   test('week view displays correctly', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/schedule`);
+    await page.goto('/schedule');
 
     if (page.url().includes('login')) {
       test.skip();
@@ -102,7 +89,7 @@ test.describe('Schedule View Modes', () => {
   });
 
   test('day view displays correctly', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/schedule`);
+    await page.goto('/schedule');
 
     if (page.url().includes('login')) {
       test.skip();
@@ -120,7 +107,7 @@ test.describe('Schedule View Modes', () => {
   });
 
   test('tech view displays correctly', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/schedule`);
+    await page.goto('/schedule');
 
     if (page.url().includes('login')) {
       test.skip();
@@ -138,7 +125,7 @@ test.describe('Schedule View Modes', () => {
   });
 
   test('map view displays correctly', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/schedule`);
+    await page.goto('/schedule');
 
     if (page.url().includes('login')) {
       test.skip();
@@ -158,7 +145,7 @@ test.describe('Schedule View Modes', () => {
 
 test.describe('Schedule Drag and Drop', () => {
   test('unscheduled items are draggable', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/schedule`);
+    await page.goto('/schedule');
 
     if (page.url().includes('login')) {
       test.skip();
@@ -176,9 +163,12 @@ test.describe('Schedule Drag and Drop', () => {
 
 test.describe('Schedule API Integration', () => {
   test('schedule API returns valid response', async ({ request }) => {
+    // Use the FastAPI backend directly for API tests
+    const apiUrl = process.env.VITE_API_URL || 'https://react-crm-api-production.up.railway.app/api/v2';
     const today = new Date().toISOString().split('T')[0];
+
     const response = await request.get(
-      `${BASE_URL}/api/work-orders/?scheduled_date=${today}`,
+      `${apiUrl}/work-orders/?scheduled_date=${today}`,
       {
         headers: { 'Content-Type': 'application/json' },
       }
@@ -194,7 +184,9 @@ test.describe('Schedule API Integration', () => {
   });
 
   test('technicians API returns valid response', async ({ request }) => {
-    const response = await request.get(`${BASE_URL}/api/technicians/`, {
+    const apiUrl = process.env.VITE_API_URL || 'https://react-crm-api-production.up.railway.app/api/v2';
+
+    const response = await request.get(`${apiUrl}/technicians/`, {
       headers: { 'Content-Type': 'application/json' },
     });
 
@@ -217,7 +209,7 @@ test.describe('Schedule Error Handling', () => {
       });
     });
 
-    await page.goto(`${BASE_URL}/app/schedule`);
+    await page.goto('/schedule');
 
     if (page.url().includes('login')) {
       test.skip();

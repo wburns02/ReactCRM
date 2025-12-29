@@ -5,13 +5,14 @@ import {
   type DragStartEvent,
   DragOverlay,
   PointerSensor,
+  KeyboardSensor,
   useSensor,
   useSensors,
   closestCenter,
 } from '@dnd-kit/core';
 import { useQueryClient } from '@tanstack/react-query';
 import { Badge } from '@/components/ui/Badge.tsx';
-import { useAssignWorkOrder, workOrderKeys, scheduleKeys } from '@/api/hooks/useWorkOrders.ts';
+import { useAssignWorkOrder, useUnscheduleWorkOrder, workOrderKeys, scheduleKeys } from '@/api/hooks/useWorkOrders.ts';
 import {
   type WorkOrder,
   type Priority,
@@ -23,6 +24,11 @@ import { type DropTargetData } from '@/api/types/schedule.ts';
 
 interface ScheduleDndContextProps {
   children: ReactNode;
+}
+
+interface DragData {
+  workOrder: WorkOrder;
+  isScheduled?: boolean;
 }
 
 /**
@@ -38,8 +44,9 @@ const PRIORITY_COLORS: Record<Priority, string> = {
 
 /**
  * Drag overlay card shown while dragging
+ * Shows different label for scheduled (Moving) vs unscheduled (Scheduling)
  */
-function DragOverlayCard({ workOrder }: { workOrder: WorkOrder }) {
+function DragOverlayCard({ workOrder, isScheduled }: { workOrder: WorkOrder; isScheduled: boolean }) {
   return (
     <div
       className={`
@@ -48,6 +55,24 @@ function DragOverlayCard({ workOrder }: { workOrder: WorkOrder }) {
         p-3 shadow-xl cursor-grabbing w-64
       `}
     >
+      {/* Action label */}
+      <div className="flex items-center gap-1 mb-2 text-[10px] text-primary font-semibold uppercase tracking-wide">
+        {isScheduled ? (
+          <>
+            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+            </svg>
+            Moving
+          </>
+        ) : (
+          <>
+            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Scheduling
+          </>
+        )}
+      </div>
       <div className="flex items-start justify-between gap-2 mb-1">
         <span className="font-medium text-sm text-text-primary truncate">
           {workOrder.customer_name || `Customer #${workOrder.customer_id}`}
@@ -63,6 +88,9 @@ function DragOverlayCard({ workOrder }: { workOrder: WorkOrder }) {
       <div className="mt-2 text-xs font-medium text-primary">
         {PRIORITY_LABELS[workOrder.priority as Priority]} Priority
       </div>
+      <div className="mt-1 text-[9px] text-text-muted">
+        Press Escape to cancel
+      </div>
     </div>
   );
 }
@@ -76,35 +104,85 @@ function DragOverlayCard({ workOrder }: { workOrder: WorkOrder }) {
  * - Optimistic updates with rollback on error
  */
 export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
-  const [activeWorkOrder, setActiveWorkOrder] = useState<WorkOrder | null>(null);
+  const [activeDragData, setActiveDragData] = useState<DragData | null>(null);
   const queryClient = useQueryClient();
   const assignWorkOrder = useAssignWorkOrder();
+  const unscheduleWorkOrder = useUnscheduleWorkOrder();
 
-  // Configure drag sensors - require 8px movement to start drag
+  // Configure drag sensors - pointer with 8px activation + keyboard for accessibility
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
         distance: 8,
       },
-    })
+    }),
+    useSensor(KeyboardSensor)
   );
 
   const handleDragStart = (event: DragStartEvent) => {
     const { active } = event;
     const workOrder = active.data.current?.workOrder as WorkOrder | undefined;
-    setActiveWorkOrder(workOrder || null);
+    const isScheduled = active.data.current?.isScheduled as boolean | undefined;
+    if (workOrder) {
+      setActiveDragData({ workOrder, isScheduled: !!isScheduled });
+    }
   };
 
   const handleDragEnd = (event: DragEndEvent) => {
     const { active, over } = event;
-    setActiveWorkOrder(null);
+    setActiveDragData(null);
 
     if (!over) return;
 
     const workOrder = active.data.current?.workOrder as WorkOrder | undefined;
     if (!workOrder) return;
 
-    // Get drop target data
+    // Check if dropped on unschedule zone
+    const overData = over.data.current as { type?: string } | undefined;
+    if (overData?.type === 'unschedule') {
+      // Only unschedule if it was a scheduled work order
+      if (active.data.current?.isScheduled) {
+        // Optimistic update - add to unscheduled cache
+        const previousLists = queryClient.getQueryData(workOrderKeys.lists());
+        const previousUnscheduled = queryClient.getQueryData(scheduleKeys.unscheduled());
+
+        queryClient.setQueryData(
+          scheduleKeys.unscheduled(),
+          (oldData: { items: WorkOrder[] } | undefined) => {
+            if (!oldData) return { items: [{ ...workOrder, scheduled_date: null, status: 'draft' }], total: 1, page: 1, page_size: 200 };
+            return {
+              ...oldData,
+              items: [...oldData.items, { ...workOrder, scheduled_date: null, status: 'draft' }],
+            };
+          }
+        );
+
+        // Remove from scheduled lists
+        queryClient.setQueryData(workOrderKeys.lists(), (oldData: { items: WorkOrder[] } | undefined) => {
+          if (!oldData) return oldData;
+          return {
+            ...oldData,
+            items: oldData.items.map((wo: WorkOrder) =>
+              wo.id === workOrder.id
+                ? { ...wo, scheduled_date: null, assigned_technician: null, time_window_start: null, status: 'draft' }
+                : wo
+            ),
+          };
+        });
+
+        // Perform actual API call
+        unscheduleWorkOrder.mutate(workOrder.id, {
+          onError: () => {
+            // Rollback on error
+            queryClient.setQueryData(workOrderKeys.lists(), previousLists);
+            queryClient.setQueryData(scheduleKeys.unscheduled(), previousUnscheduled);
+          },
+        });
+      }
+      return;
+    }
+
+    // Get drop target data for scheduling
     const dropData = over.data.current as DropTargetData | undefined;
     if (!dropData?.date) return;
 
@@ -174,7 +252,7 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
   };
 
   const handleDragCancel = () => {
-    setActiveWorkOrder(null);
+    setActiveDragData(null);
   };
 
   return (
@@ -189,7 +267,12 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
 
       {/* Drag overlay - shown while dragging */}
       <DragOverlay dropAnimation={null}>
-        {activeWorkOrder ? <DragOverlayCard workOrder={activeWorkOrder} /> : null}
+        {activeDragData ? (
+          <DragOverlayCard
+            workOrder={activeDragData.workOrder}
+            isScheduled={!!activeDragData.isScheduled}
+          />
+        ) : null}
       </DragOverlay>
     </DndContext>
   );

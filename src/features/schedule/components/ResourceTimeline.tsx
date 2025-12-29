@@ -1,7 +1,8 @@
-import { useMemo } from 'react';
-import { useDroppable } from '@dnd-kit/core';
+import { useMemo, useState, useRef, useCallback, useEffect } from 'react';
+import { useDroppable, useDraggable } from '@dnd-kit/core';
+import { CSS } from '@dnd-kit/utilities';
 import { format, startOfWeek, addDays, addHours, isSameDay, parseISO } from 'date-fns';
-import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
+import { useWorkOrders, useUpdateWorkOrderDuration } from '@/api/hooks/useWorkOrders.ts';
 import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
 import { useScheduleStore } from '../store/scheduleStore.ts';
 import {
@@ -29,6 +30,15 @@ const PRIORITY_BG_COLORS: Record<Priority, string> = {
   normal: 'bg-blue-100',
   low: 'bg-gray-100',
 };
+
+/** Width of one hour slot in pixels */
+const HOUR_WIDTH = 60;
+
+/** Minimum duration in hours */
+const MIN_DURATION = 0.5;
+
+/** Maximum duration in hours */
+const MAX_DURATION = 8;
 
 /**
  * Technician row header
@@ -101,23 +111,94 @@ function TimeSlotCell({ technicianId, date, hour, workOrders }: TimeSlotCellProp
 }
 
 /**
- * Work order block displayed in timeline
+ * Work order block displayed in timeline (draggable + resizable)
  */
 function WorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
+  const updateDuration = useUpdateWorkOrderDuration();
+  const [isResizing, setIsResizing] = useState(false);
+  const [resizeDuration, setResizeDuration] = useState<number | null>(null);
+  const startX = useRef(0);
+  const startDuration = useRef(0);
+
+  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
+    id: `scheduled-${workOrder.id}`,
+    data: {
+      workOrder,
+      isScheduled: true,
+      originalDate: workOrder.scheduled_date,
+      originalTechnician: workOrder.assigned_technician,
+    },
+    disabled: isResizing,
+  });
+
+  const handleResizeStart = useCallback((e: React.MouseEvent) => {
+    e.stopPropagation();
+    e.preventDefault();
+    setIsResizing(true);
+    startX.current = e.clientX;
+    startDuration.current = workOrder.estimated_duration_hours || 1;
+    setResizeDuration(startDuration.current);
+  }, [workOrder.estimated_duration_hours]);
+
+  const handleResizeMove = useCallback((e: MouseEvent) => {
+    if (!isResizing) return;
+    const deltaX = e.clientX - startX.current;
+    const deltaHours = deltaX / HOUR_WIDTH;
+    const newDuration = Math.max(MIN_DURATION, Math.min(MAX_DURATION, startDuration.current + deltaHours));
+    setResizeDuration(Math.round(newDuration * 2) / 2); // Round to nearest 0.5
+  }, [isResizing]);
+
+  const handleResizeEnd = useCallback(() => {
+    if (!isResizing || resizeDuration === null) return;
+    setIsResizing(false);
+
+    // Only update if duration changed
+    if (resizeDuration !== (workOrder.estimated_duration_hours || 1)) {
+      updateDuration.mutate({
+        id: workOrder.id,
+        duration: resizeDuration,
+      });
+    }
+    setResizeDuration(null);
+  }, [isResizing, resizeDuration, workOrder.id, workOrder.estimated_duration_hours, updateDuration]);
+
+  // Add global mouse listeners when resizing
+  useEffect(() => {
+    if (isResizing) {
+      document.addEventListener('mousemove', handleResizeMove);
+      document.addEventListener('mouseup', handleResizeEnd);
+      return () => {
+        document.removeEventListener('mousemove', handleResizeMove);
+        document.removeEventListener('mouseup', handleResizeEnd);
+      };
+    }
+  }, [isResizing, handleResizeMove, handleResizeEnd]);
+
   const priority = (workOrder.priority as Priority) || 'normal';
-  const duration = workOrder.estimated_duration_hours || 1;
+  const displayDuration = resizeDuration ?? (workOrder.estimated_duration_hours || 1);
+
+  const style = {
+    transform: CSS.Translate.toString(transform),
+    opacity: isDragging ? 0.5 : 1,
+    width: `${Math.max(displayDuration, 0.5) * HOUR_WIDTH - 8}px`,
+  };
 
   return (
     <div
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...(isResizing ? {} : listeners)}
+      data-testid={`scheduled-wo-${workOrder.id}`}
       className={`
-        p-1.5 rounded text-xs mb-1 cursor-pointer
+        relative p-1.5 rounded text-xs mb-1
+        ${isResizing ? 'cursor-ew-resize' : 'cursor-grab active:cursor-grabbing'}
         border-l-4 ${PRIORITY_COLORS[priority]}
         ${PRIORITY_BG_COLORS[priority]}
         hover:shadow-md transition-shadow
+        ${isDragging ? 'shadow-lg ring-2 ring-primary z-50' : ''}
+        ${isResizing ? 'ring-2 ring-primary z-50' : ''}
       `}
-      style={{
-        minWidth: `${Math.max(duration, 1) * 60 - 8}px`,
-      }}
       title={`${workOrder.customer_name} - ${JOB_TYPE_LABELS[workOrder.job_type as JobType] || workOrder.job_type}`}
     >
       <div className="font-medium text-text-primary truncate">
@@ -125,6 +206,19 @@ function WorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
       </div>
       <div className="text-text-muted truncate">
         {JOB_TYPE_LABELS[workOrder.job_type as JobType] || workOrder.job_type}
+      </div>
+      {isResizing && (
+        <div className="absolute top-0 right-1 text-[9px] font-medium text-primary bg-white/80 px-1 rounded">
+          {displayDuration}h
+        </div>
+      )}
+      {/* Resize handle (right edge) */}
+      <div
+        onMouseDown={handleResizeStart}
+        className="absolute top-0 right-0 bottom-0 w-2 cursor-ew-resize hover:bg-primary/20 transition-colors group"
+        title="Drag to resize"
+      >
+        <div className="absolute right-0.5 top-1/2 -translate-y-1/2 w-1 h-6 rounded-full bg-gray-400 opacity-0 group-hover:opacity-100 transition-opacity" />
       </div>
     </div>
   );
