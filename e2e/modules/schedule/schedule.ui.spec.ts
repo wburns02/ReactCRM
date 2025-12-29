@@ -18,7 +18,8 @@ test.describe('Schedule Page Smoke Tests', () => {
   test('schedule page renders header', async ({ page }) => {
     await page.goto('/schedule');
 
-    const header = page.getByRole('heading', { name: /schedule/i });
+    // Use exact match for main Schedule heading to avoid matching sub-headings
+    const header = page.getByRole('heading', { name: 'Schedule', exact: true });
     const loginPage = page.getByText('Sign in to your account');
 
     await expect(header.or(loginPage)).toBeVisible({ timeout: 10000 });
@@ -32,11 +33,9 @@ test.describe('Schedule Page Smoke Tests', () => {
       return;
     }
 
-    // Should have view mode buttons (Week, Day, Tech, Map)
-    const weekButton = page.getByRole('button', { name: /week/i });
-    const dayButton = page.getByRole('button', { name: /day/i });
-
-    await expect(weekButton.or(dayButton)).toBeVisible({ timeout: 5000 });
+    // Should have view mode buttons - use first() to handle multiple matches
+    const weekButton = page.getByRole('button', { name: 'Week', exact: true });
+    await expect(weekButton).toBeVisible({ timeout: 5000 });
   });
 
   test('schedule page has date navigation', async ({ page }) => {
@@ -47,11 +46,9 @@ test.describe('Schedule Page Smoke Tests', () => {
       return;
     }
 
-    // Should have navigation arrows or date picker
-    const prevButton = page.locator('button').filter({ hasText: /<|prev|←/i }).first();
-    const nextButton = page.locator('button').filter({ hasText: />|next|→/i }).first();
-
-    await expect(prevButton.or(nextButton)).toBeVisible({ timeout: 5000 });
+    // Look for Today button which is always present in date navigation
+    const todayButton = page.getByRole('button', { name: 'Today' });
+    await expect(todayButton).toBeVisible({ timeout: 5000 });
   });
 
   test('schedule page has unscheduled panel', async ({ page }) => {
@@ -62,9 +59,9 @@ test.describe('Schedule Page Smoke Tests', () => {
       return;
     }
 
-    // Should have unscheduled work orders section
-    const unscheduledSection = page.getByText(/unscheduled/i);
-    await expect(unscheduledSection).toBeVisible({ timeout: 5000 });
+    // Look for the Unscheduled Work Orders heading specifically
+    const unscheduledHeading = page.getByRole('heading', { name: 'Unscheduled Work Orders' });
+    await expect(unscheduledHeading).toBeVisible({ timeout: 5000 });
   });
 });
 
@@ -77,7 +74,7 @@ test.describe('Schedule View Modes', () => {
       return;
     }
 
-    const weekButton = page.getByRole('button', { name: /week/i });
+    const weekButton = page.getByRole('button', { name: 'Week', exact: true });
     if (await weekButton.isVisible({ timeout: 3000 })) {
       await weekButton.click();
 
@@ -96,7 +93,7 @@ test.describe('Schedule View Modes', () => {
       return;
     }
 
-    const dayButton = page.getByRole('button', { name: /day/i });
+    const dayButton = page.getByRole('button', { name: 'Day', exact: true });
     if (await dayButton.isVisible({ timeout: 3000 })) {
       await dayButton.click();
 
@@ -114,7 +111,7 @@ test.describe('Schedule View Modes', () => {
       return;
     }
 
-    const techButton = page.getByRole('button', { name: /tech/i });
+    const techButton = page.getByRole('button', { name: 'Tech', exact: true });
     if (await techButton.isVisible({ timeout: 3000 })) {
       await techButton.click();
 
@@ -132,7 +129,7 @@ test.describe('Schedule View Modes', () => {
       return;
     }
 
-    const mapButton = page.getByRole('button', { name: /map/i });
+    const mapButton = page.getByRole('button', { name: 'Map', exact: true });
     if (await mapButton.isVisible({ timeout: 3000 })) {
       await mapButton.click();
 
@@ -216,7 +213,8 @@ test.describe('Schedule Error Handling', () => {
       return;
     }
 
-    const errorIndicator = page.locator('text=/error|failed|try again/i');
+    // Use first() to handle multiple error elements
+    const errorIndicator = page.locator('text=/error|failed|try again/i').first();
     await expect(errorIndicator).toBeVisible({ timeout: 5000 });
   });
 });
