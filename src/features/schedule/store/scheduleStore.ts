@@ -1,11 +1,13 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-export type ScheduleView = 'week' | 'day' | 'tech' | 'map';
+export type ScheduleView = 'week' | 'day' | 'tech' | 'map' | 'timeline';
 
 export interface ScheduleFilters {
   technician: string | null;
+  technicianId: number | null;
   statuses: string[];
+  status: string | null;
   region: string | null;
 }
 
@@ -66,7 +68,9 @@ export const useScheduleStore = create<ScheduleState>()(
       currentDate: getWeekStart(new Date()),
       filters: {
         technician: null,
+        technicianId: null,
         statuses: [],
+        status: null,
         region: null,
       },
       unscheduledPanelOpen: false,
@@ -136,7 +140,9 @@ export const useScheduleStore = create<ScheduleState>()(
         set({
           filters: {
             technician: null,
+            technicianId: null,
             statuses: [],
+            status: null,
             region: null,
           },
         }),

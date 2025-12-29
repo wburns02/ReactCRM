@@ -1,6 +1,8 @@
+import { useMemo, useState } from 'react';
 import { Button } from '@/components/ui/Button.tsx';
 import { Select } from '@/components/ui/Select.tsx';
 import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
+import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
 import { useScheduleStore } from '../store/scheduleStore.ts';
 import { formatWeekRange } from '@/api/types/schedule.ts';
 import { WORK_ORDER_STATUS_LABELS, type WorkOrderStatus } from '@/api/types/workOrder.ts';
@@ -53,13 +55,29 @@ export function ScheduleToolbar() {
     filters,
     setTechnicianFilter,
     setStatusFilter,
+    setRegionFilter,
     toggleUnscheduledPanel,
     unscheduledPanelOpen,
   } = useScheduleStore();
 
+  // State for optimize modal/action
+  const [isOptimizing, setIsOptimizing] = useState(false);
+
   // Fetch technicians for filter dropdown
   const { data: techniciansData } = useTechnicians({ page: 1, page_size: 100, active_only: true });
   const technicians = techniciansData?.items || [];
+
+  // Fetch work orders to get unique regions
+  const { data: workOrdersData } = useWorkOrders();
+
+  // Get unique regions from work orders
+  const regions = useMemo(() => {
+    const cities = new Set<string>();
+    (workOrdersData?.items || []).forEach((wo) => {
+      if (wo.service_city) cities.add(wo.service_city);
+    });
+    return Array.from(cities).sort();
+  }, [workOrdersData?.items]);
 
   // Navigation based on current view
   const handlePrevious = () => {
@@ -91,7 +109,7 @@ export function ScheduleToolbar() {
     return formatWeekRange(currentDate);
   };
 
-  // Status options for multi-select (simplified for now)
+  // Status options for filter
   const statusOptions: WorkOrderStatus[] = [
     'draft',
     'scheduled',
@@ -101,6 +119,16 @@ export function ScheduleToolbar() {
     'in_progress',
     'completed',
   ];
+
+  // Handle optimize action
+  const handleOptimize = async () => {
+    setIsOptimizing(true);
+    // TODO: Implement route optimization API call
+    setTimeout(() => {
+      setIsOptimizing(false);
+      alert('Route optimization feature coming soon!');
+    }, 1000);
+  };
 
   return (
     <div className="bg-bg-card border border-border rounded-lg p-4 mb-6">
@@ -118,6 +146,12 @@ export function ScheduleToolbar() {
             shortcut="D"
             isActive={currentView === 'day'}
             onClick={() => setView('day')}
+          />
+          <ViewTab
+            label="Timeline"
+            shortcut="L"
+            isActive={currentView === 'timeline'}
+            onClick={() => setView('timeline')}
           />
           <ViewTab
             label="Tech"
@@ -153,6 +187,20 @@ export function ScheduleToolbar() {
 
         {/* Filters */}
         <div className="flex items-center gap-3">
+          {/* Region Filter */}
+          <Select
+            value={filters.region || ''}
+            onChange={(e) => setRegionFilter(e.target.value || null)}
+            className="w-32 text-sm"
+          >
+            <option value="">All Regions</option>
+            {regions.map((region) => (
+              <option key={region} value={region}>
+                {region}
+              </option>
+            ))}
+          </Select>
+
           {/* Technician Filter */}
           <Select
             value={filters.technician || ''}
@@ -181,13 +229,34 @@ export function ScheduleToolbar() {
             ))}
           </Select>
 
-          {/* Unscheduled Toggle */}
+          {/* Optimize Button */}
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={handleOptimize}
+            disabled={isOptimizing}
+            className="flex items-center gap-1"
+          >
+            {isOptimizing ? (
+              <>
+                <span className="animate-spin">⚙️</span>
+                Optimizing...
+              </>
+            ) : (
+              <>
+                🚀 Optimize
+              </>
+            )}
+          </Button>
+
+          {/* Unscheduled Toggle (keeping for legacy panel support) */}
           <Button
             variant={unscheduledPanelOpen ? 'primary' : 'secondary'}
             size="sm"
             onClick={toggleUnscheduledPanel}
+            className="hidden lg:flex"
           >
-            Unscheduled
+            📋 Panel
           </Button>
         </div>
       </div>

@@ -8,16 +8,20 @@ import { WeekView } from './components/WeekView.tsx';
 import { DayView } from './components/DayView.tsx';
 import { TechView } from './components/TechView.tsx';
 import { MapView } from './components/MapView.tsx';
+import { ResourceTimeline } from './components/ResourceTimeline.tsx';
 import { UnscheduledPanel } from './components/UnscheduledPanel.tsx';
+import { UnscheduledOrdersTable } from './components/UnscheduledOrdersTable.tsx';
 
 /**
  * Schedule Page - Main scheduling interface
  *
  * Features:
- * - Multiple views: Week, Day, Tech, Map
- * - Drag-drop from unscheduled panel to schedule
- * - Technician and status filtering
- * - Statistics dashboard
+ * - Multiple views: Week, Day, Timeline, Tech, Map
+ * - Unscheduled orders table at top with drag-drop
+ * - Resource timeline with technicians as rows
+ * - Technician, status, and region filtering
+ * - Statistics dashboard with revenue, rating, utilization
+ * - Route optimization placeholder
  */
 export function SchedulePage() {
   const { currentView } = useScheduleStore();
@@ -29,6 +33,8 @@ export function SchedulePage() {
         return <WeekView />;
       case 'day':
         return <DayView />;
+      case 'timeline':
+        return <ResourceTimeline />;
       case 'tech':
         return <TechView />;
       case 'map':
@@ -59,6 +65,9 @@ export function SchedulePage() {
           </div>
         </div>
 
+        {/* Unscheduled Work Orders Table - Top Section */}
+        <UnscheduledOrdersTable />
+
         {/* Statistics Dashboard */}
         <ScheduleStats />
 
@@ -68,8 +77,8 @@ export function SchedulePage() {
         {/* Active View */}
         {renderView()}
 
-        {/* Legend (only for week/day views) */}
-        {(currentView === 'week' || currentView === 'day') && (
+        {/* Legend (only for week/day/timeline views) */}
+        {(currentView === 'week' || currentView === 'day' || currentView === 'timeline') && (
           <div className="mt-6 bg-bg-card border border-border rounded-lg p-4">
             <div className="flex flex-wrap items-center gap-6 text-xs">
               <span className="text-text-secondary font-medium">Priority:</span>
@@ -91,7 +100,7 @@ export function SchedulePage() {
               </div>
               <span className="text-text-secondary ml-4 font-medium">Drag:</span>
               <span className="text-text-secondary">
-                Open the Unscheduled panel and drag jobs onto the calendar
+                Drag jobs from the table above onto the calendar
               </span>
             </div>
           </div>
