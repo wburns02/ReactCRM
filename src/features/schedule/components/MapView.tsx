@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
-import { useWorkOrders, useUnscheduledWorkOrders } from '@/api/hooks/useWorkOrders.ts';
+import { useWorkOrders, useUnscheduledWorkOrders, useAssignWorkOrder } from '@/api/hooks/useWorkOrders.ts';
 import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
 import { Badge } from '@/components/ui/Badge.tsx';
 import { Button } from '@/components/ui/Button.tsx';
@@ -199,10 +199,53 @@ function FitBounds({ bounds }: { bounds: L.LatLngBoundsExpression | null }) {
 }
 
 /**
- * Work Order Marker with popup
+ * Work Order Marker with popup - includes inline Schedule and Change Tech actions
  */
-function WorkOrderMarker({ workOrder, position }: { workOrder: WorkOrder; position: [number, number] }) {
+function WorkOrderMarker({
+  workOrder,
+  position,
+  technicians
+}: {
+  workOrder: WorkOrder;
+  position: [number, number];
+  technicians: Technician[];
+}) {
   const icon = createColoredIcon(getStatusColor(workOrder.status as WorkOrderStatus));
+  const [editMode, setEditMode] = useState<'none' | 'schedule' | 'tech'>('none');
+  const [formDate, setFormDate] = useState(workOrder.scheduled_date || '');
+  const [formTime, setFormTime] = useState(workOrder.time_window_start || '');
+  const [formTech, setFormTech] = useState(workOrder.assigned_technician || '');
+
+  const assignWorkOrder = useAssignWorkOrder();
+
+  const handleScheduleSave = () => {
+    assignWorkOrder.mutate({
+      id: workOrder.id,
+      date: formDate || undefined,
+      timeStart: formTime || undefined,
+      technician: workOrder.assigned_technician || undefined,
+    }, {
+      onSuccess: () => setEditMode('none'),
+    });
+  };
+
+  const handleTechSave = () => {
+    assignWorkOrder.mutate({
+      id: workOrder.id,
+      date: workOrder.scheduled_date || undefined,
+      timeStart: workOrder.time_window_start || undefined,
+      technician: formTech || undefined,
+    }, {
+      onSuccess: () => setEditMode('none'),
+    });
+  };
+
+  const handleCancelEdit = () => {
+    setEditMode('none');
+    setFormDate(workOrder.scheduled_date || '');
+    setFormTime(workOrder.time_window_start || '');
+    setFormTech(workOrder.assigned_technician || '');
+  };
 
   return (
     <Marker
@@ -210,7 +253,7 @@ function WorkOrderMarker({ workOrder, position }: { workOrder: WorkOrder; positi
       icon={icon}
     >
       <Popup>
-        <div className="min-w-[200px]">
+        <div className="min-w-[280px]">
           <div className="flex items-center justify-between gap-2 mb-2">
             <Badge variant={getStatusVariant(workOrder.status as WorkOrderStatus)}>
               {WORK_ORDER_STATUS_LABELS[workOrder.status as WorkOrderStatus]}
@@ -228,17 +271,110 @@ function WorkOrderMarker({ workOrder, position }: { workOrder: WorkOrder; positi
             {JOB_TYPE_LABELS[workOrder.job_type as JobType]}
           </p>
 
-          {workOrder.scheduled_date && (
-            <p className="text-xs text-gray-500 mb-1">
-              {workOrder.scheduled_date}
-              {workOrder.time_window_start && ` at ${formatTimeDisplay(workOrder.time_window_start)}`}
-            </p>
+          {/* Schedule Section */}
+          {editMode === 'schedule' ? (
+            <div className="bg-gray-50 rounded p-2 mb-2 space-y-2">
+              <div className="flex gap-2">
+                <input
+                  type="date"
+                  value={formDate}
+                  onChange={(e) => setFormDate(e.target.value)}
+                  className="flex-1 text-xs border border-gray-300 rounded px-2 py-1"
+                />
+                <input
+                  type="time"
+                  value={formTime}
+                  onChange={(e) => setFormTime(e.target.value)}
+                  className="w-24 text-xs border border-gray-300 rounded px-2 py-1"
+                />
+              </div>
+              <div className="flex gap-1">
+                <Button
+                  variant="primary"
+                  size="sm"
+                  className="flex-1 h-6 text-xs"
+                  onClick={handleScheduleSave}
+                  disabled={assignWorkOrder.isPending}
+                >
+                  {assignWorkOrder.isPending ? 'Saving...' : 'Save'}
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="h-6 text-xs"
+                  onClick={handleCancelEdit}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-center justify-between mb-1">
+              <p className="text-xs text-gray-500">
+                {workOrder.scheduled_date
+                  ? `${workOrder.scheduled_date}${workOrder.time_window_start ? ` @ ${formatTimeDisplay(workOrder.time_window_start)}` : ''}`
+                  : 'Not scheduled'}
+              </p>
+              <Button
+                variant="secondary"
+                size="sm"
+                className="h-6 text-xs px-2"
+                onClick={() => setEditMode('schedule')}
+              >
+                {workOrder.scheduled_date ? 'Reschedule' : 'Schedule'}
+              </Button>
+            </div>
           )}
 
-          {workOrder.assigned_technician && (
-            <p className="text-xs text-gray-500 mb-2">
-              Tech: {workOrder.assigned_technician}
-            </p>
+          {/* Technician Section */}
+          {editMode === 'tech' ? (
+            <div className="bg-gray-50 rounded p-2 mb-2 space-y-2">
+              <select
+                value={formTech}
+                onChange={(e) => setFormTech(e.target.value)}
+                className="w-full text-xs border border-gray-300 rounded px-2 py-1"
+              >
+                <option value="">Unassigned</option>
+                {technicians.map((tech) => (
+                  <option key={tech.id} value={`${tech.first_name} ${tech.last_name}`}>
+                    {tech.first_name} {tech.last_name}
+                  </option>
+                ))}
+              </select>
+              <div className="flex gap-1">
+                <Button
+                  variant="primary"
+                  size="sm"
+                  className="flex-1 h-6 text-xs"
+                  onClick={handleTechSave}
+                  disabled={assignWorkOrder.isPending}
+                >
+                  {assignWorkOrder.isPending ? 'Assigning...' : 'Assign'}
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  className="h-6 text-xs"
+                  onClick={handleCancelEdit}
+                >
+                  Cancel
+                </Button>
+              </div>
+            </div>
+          ) : (
+            <div className="flex items-center justify-between mb-2">
+              <p className="text-xs text-gray-500">
+                Tech: {workOrder.assigned_technician || 'Unassigned'}
+              </p>
+              <Button
+                variant="secondary"
+                size="sm"
+                className="h-6 text-xs px-2"
+                onClick={() => setEditMode('tech')}
+              >
+                Change
+              </Button>
+            </div>
           )}
 
           {workOrder.service_address_line1 && (
@@ -536,7 +672,12 @@ export function MapView() {
 
           {/* Work Order Markers */}
           {workOrdersForMap.map(({ workOrder, position }) => (
-            <WorkOrderMarker key={workOrder.id} workOrder={workOrder} position={position} />
+            <WorkOrderMarker
+              key={workOrder.id}
+              workOrder={workOrder}
+              position={position}
+              technicians={techniciansData?.items || []}
+            />
           ))}
 
           {/* Technician Markers */}
