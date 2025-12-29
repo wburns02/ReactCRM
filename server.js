@@ -2,7 +2,8 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-const PORT = process.env.PORT || 5000;
+// Railway networking is configured for port 5000, so use that directly
+const PORT = 5000;
 const DIST_DIR = path.join(__dirname, 'dist');
 
 const mimeTypes = {
