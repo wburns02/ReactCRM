@@ -2,21 +2,10 @@ const http = require('http');
 const fs = require('fs');
 const path = require('path');
 
-// Railway networking is configured for port 5000, so use that directly
+// IMPORTANT: Railway networking is configured for port 5000
+// Do NOT use process.env.PORT as Railway may set a different value
 const PORT = 5000;
 const DIST_DIR = path.join(__dirname, 'dist');
-
-// Startup verification
-console.log('Starting server...');
-console.log('PORT:', PORT);
-console.log('DIST_DIR:', DIST_DIR);
-console.log('DIST_DIR exists:', fs.existsSync(DIST_DIR));
-
-if (fs.existsSync(DIST_DIR)) {
-  console.log('DIST_DIR contents:', fs.readdirSync(DIST_DIR));
-  const indexPath = path.join(DIST_DIR, 'index.html');
-  console.log('index.html exists:', fs.existsSync(indexPath));
-}
 
 const mimeTypes = {
   '.html': 'text/html',
@@ -33,18 +22,19 @@ const mimeTypes = {
 };
 
 const server = http.createServer((req, res) => {
-  console.log(`${new Date().toISOString()} - ${req.method} ${req.url}`);
-
-  // Health check endpoint
-  if (req.url === '/health' || req.url === '/healthz') {
-    res.writeHead(200, { 'Content-Type': 'application/json' });
-    res.end(JSON.stringify({ status: 'ok', port: PORT }));
-    return;
+  // Health check - responds immediately
+  if (req.url === '/health' || req.url === '/healthz' || req.url === '/') {
+    if (req.url === '/health' || req.url === '/healthz') {
+      res.writeHead(200, { 'Content-Type': 'text/plain' });
+      res.end('OK');
+      return;
+    }
   }
 
+  // Serve static files
   let filePath = path.join(DIST_DIR, req.url === '/' ? 'index.html' : req.url);
 
-  // Handle SPA routing - if file doesn't exist, serve index.html
+  // SPA routing - serve index.html for non-file routes
   if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
     filePath = path.join(DIST_DIR, 'index.html');
   }
@@ -54,25 +44,9 @@ const server = http.createServer((req, res) => {
 
   fs.readFile(filePath, (err, content) => {
     if (err) {
-      console.error('Error reading file:', filePath, err.message);
-      if (err.code === 'ENOENT') {
-        // Serve index.html for SPA routing
-        fs.readFile(path.join(DIST_DIR, 'index.html'), (err2, content2) => {
-          if (err2) {
-            console.error('Error reading index.html:', err2.message);
-            res.writeHead(500);
-            res.end('Server Error - index.html not found');
-          } else {
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            res.end(content2);
-          }
-        });
-      } else {
-        res.writeHead(500);
-        res.end('Server Error');
-      }
+      res.writeHead(500);
+      res.end('Server Error');
     } else {
-      // Add cache headers for static assets
       const headers = { 'Content-Type': contentType };
       if (ext !== '.html') {
         headers['Cache-Control'] = 'public, max-age=31536000, immutable';
@@ -84,10 +58,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on http://0.0.0.0:${PORT}`);
-  console.log('Server ready to accept connections');
-});
-
-server.on('error', (err) => {
-  console.error('Server error:', err);
+  console.log(`Server running on port ${PORT}`);
 });

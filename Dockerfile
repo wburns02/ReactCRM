@@ -13,29 +13,23 @@ RUN npm ci
 COPY . .
 
 # Build production bundle
-# VITE_API_URL is injected via Railway environment variables at build time
 RUN npm run build
 
-# List build output for debugging
-RUN ls -la dist/
+# Verify build output
+RUN ls -la dist/ && test -f dist/index.html
 
-# Stage 2: Serve with nginx
-FROM nginx:alpine
-
-# Remove default nginx config
-RUN rm /etc/nginx/conf.d/default.conf
-
-# Copy custom nginx config
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Stage 2: Serve with Node.js
+FROM node:20-alpine
+WORKDIR /app
 
 # Copy built files from builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+COPY --from=builder /app/dist ./dist
 
-# List copied files for debugging
-RUN ls -la /usr/share/nginx/html/
+# Copy the server
+COPY server.js ./
 
-# Railway networking expects port 5000
+# Railway expects port 5000
 EXPOSE 5000
 
-# Start nginx
-CMD ["nginx", "-g", "daemon off;"]
+# Start the server
+CMD ["node", "server.js"]
