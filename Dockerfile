@@ -26,11 +26,11 @@ COPY --from=builder /app/dist ./dist
 # Copy the server
 COPY server.js ./
 
-# Railway provides PORT env var - default to 5000 if not set
-ENV PORT=5000
+# Railway provides PORT env var - default to 8080 if not set
+ENV PORT=8080
 
 # Expose the port
-EXPOSE 5000
+EXPOSE 8080
 
 # Start the server
 CMD ["node", "server.js"]
