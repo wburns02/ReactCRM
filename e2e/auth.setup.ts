@@ -21,9 +21,9 @@ setup('authenticate', async ({ page, baseURL }) => {
   // Wait for login form to be visible
   await expect(page.getByRole('button', { name: 'Sign In' })).toBeVisible({ timeout: 10000 });
 
-  // Fill in credentials
-  await page.fill('input[name="email"], input[type="email"]', process.env.TEST_EMAIL || 'will@macseptic.com');
-  await page.fill('input[name="password"], input[type="password"]', process.env.TEST_PASSWORD || '#Espn2025');
+  // Fill in credentials (test user in FastAPI database)
+  await page.fill('input[name="email"], input[type="email"]', process.env.TEST_EMAIL || 'test@macseptic.com');
+  await page.fill('input[name="password"], input[type="password"]', process.env.TEST_PASSWORD || 'TestPassword123');
 
   // Click sign in button
   await page.getByRole('button', { name: 'Sign In' }).click();
