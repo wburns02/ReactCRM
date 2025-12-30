@@ -13,8 +13,8 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  // Standalone deployment - no /app/ prefix
-  base: '/',
+  // Production deployment at /app/ prefix
+  base: '/app/',
   build: {
     outDir: 'dist',
     sourcemap: true,
