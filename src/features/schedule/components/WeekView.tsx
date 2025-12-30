@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { useDroppable, useDraggable } from '@dnd-kit/core';
+import { Link } from 'react-router-dom';
 import { CSS } from '@dnd-kit/utilities';
 import { Card, CardHeader, CardContent } from '@/components/ui/Card.tsx';
 import { Badge } from '@/components/ui/Badge.tsx';

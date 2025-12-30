@@ -1,5 +1,5 @@
 import { useState, useMemo } from 'react';
-import { useDraggable } from '@dnd-kit/core';
+import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import { Input } from '@/components/ui/Input.tsx';
 import { Badge } from '@/components/ui/Badge.tsx';
@@ -159,6 +159,12 @@ const COLUMNS: ColumnDef[] = [
 export function UnscheduledOrdersTable() {
   const { data, isLoading, isError } = useUnscheduledWorkOrders();
 
+  // Droppable zone for unscheduling work orders (drag scheduled items here)
+  const { setNodeRef: setDropRef, isOver: isDropOver } = useDroppable({
+    id: 'unscheduled-drop-zone',
+    data: { type: 'unschedule' },
+  });
+
   const [isExpanded, setIsExpanded] = useState(true);
   const [searchQuery, setSearchQuery] = useState('');
   const [sort, setSort] = useState<SortState>({ field: 'priority', direction: 'desc' });
@@ -257,7 +263,15 @@ export function UnscheduledOrdersTable() {
   const totalCount = data?.items?.length || 0;
 
   return (
-    <div className="bg-bg-card border border-border rounded-lg mb-6 overflow-hidden">
+    <div
+      ref={setDropRef}
+      data-testid="unscheduled-drop-zone"
+      className={`bg-bg-card border rounded-lg mb-6 overflow-hidden transition-all ${
+        isDropOver
+          ? 'border-primary ring-2 ring-primary/30 bg-primary/5'
+          : 'border-border'
+      }`}
+    >
       {/* Header */}
       <div
         className="flex items-center justify-between px-4 py-3 bg-bg-muted border-b border-border cursor-pointer hover:bg-bg-hover transition-colors"

@@ -277,33 +277,6 @@ export function useUnscheduleWorkOrder() {
 }
 
 /**
- * Update work order duration (estimated_duration_hours)
- * Used for resize events in schedule views
- */
-export function useUpdateWorkOrderDuration() {
-  const queryClient = useQueryClient();
-
-  return useMutation({
-    mutationFn: async ({
-      id,
-      duration,
-    }: {
-      id: string;
-      duration: number;
-    }): Promise<WorkOrder> => {
-      const response = await apiClient.patch('/work-orders/' + id, {
-        estimated_duration_hours: duration,
-      });
-      return response.data;
-    },
-    onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
-      queryClient.invalidateQueries({ queryKey: workOrderKeys.detail(variables.id) });
-    },
-  });
-}
-
-/**
  * Schedule stats hook
  * Computes stats from work orders data
  */
