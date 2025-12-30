@@ -7,8 +7,7 @@ const path = require('path');
 const PORT = process.env.PORT || 5000;
 const DIST_DIR = path.join(__dirname, 'dist');
 
-// App is deployed at /app/ path prefix
-const APP_PREFIX = '/app';
+// App is deployed at root - no path prefix
 
 const mimeTypes = {
   '.html': 'text/html',
@@ -34,11 +33,7 @@ const server = http.createServer((req, res) => {
     }
   }
 
-  // Strip /app prefix from URL for file lookup
   let urlPath = req.url;
-  if (urlPath.startsWith(APP_PREFIX)) {
-    urlPath = urlPath.slice(APP_PREFIX.length) || '/';
-  }
 
   // Serve static files
   let filePath = path.join(DIST_DIR, urlPath === '/' ? 'index.html' : urlPath);
