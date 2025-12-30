@@ -55,10 +55,10 @@ const AdminSettingsPage = lazy(() => import('@/features/admin/AdminSettingsPage.
 export function AppRoutes() {
   return (
     <Routes>
-      {/* Public login route at /app/login */}
+      {/* Public login route at /login */}
       <Route path="/login" element={<LoginPage />} />
 
-      {/* Protected app routes at /app/* */}
+      {/* Protected app routes at /* */}
       <Route
         path="/"
         element={

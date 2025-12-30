@@ -34,7 +34,7 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   handleGoToDashboard = () => {
-    window.location.href = '/app/dashboard';
+    window.location.href = '/dashboard';
   };
 
   render() {

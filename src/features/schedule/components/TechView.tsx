@@ -112,7 +112,7 @@ function DroppableTechCard({
 function WorkOrderCard({ workOrder }: { workOrder: WorkOrder }) {
   return (
     <Link
-      to={`/app/work-orders/${workOrder.id}`}
+      to={`/work-orders/${workOrder.id}`}
       className={`
         block p-3 rounded-lg border-l-4 bg-white
         hover:shadow-md transition-shadow

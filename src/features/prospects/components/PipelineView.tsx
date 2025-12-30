@@ -91,7 +91,7 @@ function ProspectCard({
       {/* Header with name and value */}
       <div className="flex items-start justify-between gap-2 mb-2">
         <Link
-          to={`/app/prospects/${prospect.id}`}
+          to={`/prospects/${prospect.id}`}
           className="font-medium text-text-primary hover:text-primary text-sm line-clamp-1"
           onClick={(e) => e.stopPropagation()}
         >
@@ -142,7 +142,7 @@ function ProspectCard({
       {/* Quick actions */}
       <div className="mt-2 pt-2 border-t border-border flex gap-2">
         <Link
-          to={`/app/prospects/${prospect.id}`}
+          to={`/prospects/${prospect.id}`}
           className="flex-1 text-center text-xs py-1 rounded bg-bg-subtle hover:bg-bg-hover text-text-secondary"
           onClick={(e) => e.stopPropagation()}
         >

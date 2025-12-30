@@ -19,8 +19,8 @@ Object.defineProperty(window, 'matchMedia', {
 
 // Mock window.location for auth redirects
 const mockLocation = {
-  href: 'http://localhost:5173/app/prospects',
-  pathname: '/app/prospects',
+  href: 'http://localhost:5173/prospects',
+  pathname: '/prospects',
   search: '',
   assign: vi.fn(),
   replace: vi.fn(),
