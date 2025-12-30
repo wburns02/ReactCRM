@@ -14,8 +14,8 @@ const authFile = join(__dirname, '../.auth/user.json');
  * Logs in and saves session state for reuse
  */
 setup('authenticate', async ({ page, baseURL }) => {
-  // Navigate to login page (use baseURL from config, strip /app suffix for login)
-  const loginUrl = baseURL?.replace(/\/app\/?$/, '') + '/login';
+  // Navigate to login page (baseURL is /app, login is at /app/login)
+  const loginUrl = (baseURL || 'https://react.ecbtx.com/app') + '/login';
   await page.goto(loginUrl);
 
   // Wait for login form to be visible

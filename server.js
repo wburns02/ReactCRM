@@ -7,6 +7,9 @@ const path = require('path');
 const PORT = process.env.PORT || 5000;
 const DIST_DIR = path.join(__dirname, 'dist');
 
+// App is deployed at /app/ path prefix
+const APP_PREFIX = '/app';
+
 const mimeTypes = {
   '.html': 'text/html',
   '.js': 'application/javascript',
@@ -31,8 +34,14 @@ const server = http.createServer((req, res) => {
     }
   }
 
+  // Strip /app prefix from URL for file lookup
+  let urlPath = req.url;
+  if (urlPath.startsWith(APP_PREFIX)) {
+    urlPath = urlPath.slice(APP_PREFIX.length) || '/';
+  }
+
   // Serve static files
-  let filePath = path.join(DIST_DIR, req.url === '/' ? 'index.html' : req.url);
+  let filePath = path.join(DIST_DIR, urlPath === '/' ? 'index.html' : urlPath);
 
   // SPA routing - serve index.html for non-file routes
   if (!fs.existsSync(filePath) || fs.statSync(filePath).isDirectory()) {
@@ -58,5 +67,5 @@ const server = http.createServer((req, res) => {
 });
 
 server.listen(PORT, '0.0.0.0', () => {
-  console.log(`Server running on port ${PORT}`);
+  console.log('Server running on port ' + PORT);
 });

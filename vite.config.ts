@@ -13,8 +13,8 @@ export default defineConfig({
       '@': '/src',
     },
   },
-  // Production deployment at /app/ prefix
-  base: '/app/',
+  // Standalone - BrowserRouter handles /app basename
+  base: '/',
   build: {
     outDir: 'dist',
     sourcemap: true,
