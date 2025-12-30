@@ -10,19 +10,19 @@ const PRODUCTION_URL = 'https://react.ecbtx.com';
 const BASE_URL = process.env.BASE_URL || PRODUCTION_URL;
 
 const ROUTES = [
-  { path: '/app/dashboard', name: 'Dashboard' },
-  { path: '/app/prospects', name: 'Prospects' },
-  { path: '/app/customers', name: 'Customers' },
-  { path: '/app/technicians', name: 'Technicians' },
-  { path: '/app/work-orders', name: 'Work Orders' },
-  { path: '/app/schedule', name: 'Schedule' },
-  { path: '/app/email-marketing', name: 'Email Marketing' },
-  { path: '/app/reports', name: 'Reports' },
-  { path: '/app/equipment', name: 'Equipment' },
-  { path: '/app/inventory', name: 'Inventory' },
-  { path: '/app/tickets', name: 'Tickets' },
-  { path: '/app/fleet', name: 'Fleet' },
-  { path: '/app/integrations', name: 'Integrations' },
+  { path: '/dashboard', name: 'Dashboard' },
+  { path: '/prospects', name: 'Prospects' },
+  { path: '/customers', name: 'Customers' },
+  { path: '/technicians', name: 'Technicians' },
+  { path: '/work-orders', name: 'Work Orders' },
+  { path: '/schedule', name: 'Schedule' },
+  { path: '/email-marketing', name: 'Email Marketing' },
+  { path: '/reports', name: 'Reports' },
+  { path: '/equipment', name: 'Equipment' },
+  { path: '/inventory', name: 'Inventory' },
+  { path: '/tickets', name: 'Tickets' },
+  { path: '/fleet', name: 'Fleet' },
+  { path: '/integrations', name: 'Integrations' },
 ];
 
 test.describe('Navigation Smoke Tests', () => {
@@ -68,7 +68,7 @@ test.describe('Navigation Smoke Tests', () => {
   }
 
   test('sidebar navigation is visible', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -81,7 +81,7 @@ test.describe('Navigation Smoke Tests', () => {
   });
 
   test('sidebar has all main navigation links', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -99,7 +99,7 @@ test.describe('Navigation Smoke Tests', () => {
   });
 
   test('navigation between pages works', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -122,7 +122,7 @@ test.describe('Navigation Smoke Tests', () => {
   });
 
   test('user menu is accessible', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -145,7 +145,7 @@ test.describe('Authentication', () => {
     // Clear cookies to test unauthenticated login page
     await page.context().clearCookies();
 
-    const response = await page.goto(`${BASE_URL}/app/login`, {
+    const response = await page.goto(`${BASE_URL}/login`, {
       waitUntil: 'domcontentloaded',
     });
     expect(response?.status()).toBeLessThan(500);
@@ -159,7 +159,7 @@ test.describe('Authentication', () => {
     // Clear any existing auth
     await page.context().clearCookies();
 
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     // Should redirect to login - check for Sign In button
     const signInButton = page.getByRole('button', { name: 'Sign In' });
@@ -169,7 +169,7 @@ test.describe('Authentication', () => {
 
 test.describe('404 Handling', () => {
   test('invalid route shows 404 page', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/nonexistent-page-xyz`);
+    await page.goto(`${BASE_URL}/nonexistent-page-xyz`);
 
     if (page.url().includes('login')) {
       test.skip();

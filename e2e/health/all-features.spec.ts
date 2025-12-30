@@ -73,7 +73,7 @@ test.describe('All Features Navigation Tests', () => {
     test(`${feature.name} page loads without errors`, async ({ page }) => {
       const consoleErrors = collectConsoleErrors(page);
 
-      const response = await page.goto(`${BASE_URL}/app${feature.path}`);
+      const response = await page.goto(`${BASE_URL}${feature.path}`);
 
       // Should not return 500 error
       expect(response?.status()).toBeLessThan(500);
@@ -139,7 +139,7 @@ test.describe('Sidebar Navigation Tests', () => {
   });
 
   test('all sidebar links are visible and clickable', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     if (await isOnLoginPage(page)) {
       test.skip();
@@ -161,7 +161,7 @@ test.describe('Sidebar Navigation Tests', () => {
   });
 
   test('clicking sidebar links navigates correctly', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     if (await isOnLoginPage(page)) {
       test.skip();
@@ -173,58 +173,52 @@ test.describe('Sidebar Navigation Tests', () => {
     // Test navigation to Prospects (use first() during migration)
     const prospectsLink = page.getByRole('link', { name: /prospects/i }).first();
     await prospectsLink.click();
-    await page.waitForURL(/\/app\/prospects/);
+    await page.waitForURL(/\/prospects/);
 
-    // URL should be correct (no double /app/)
-    expect(page.url()).toContain('/app/prospects');
-    expect(page.url()).not.toContain('/app/app/');
+    // URL should be correct
+    expect(page.url()).toContain('/prospects');
 
     // Test navigation to Customers
     const customersLink = page.getByRole('link', { name: /customers/i });
     await customersLink.click();
-    await page.waitForURL(/\/app\/customers/);
+    await page.waitForURL(/\/customers/);
 
-    expect(page.url()).toContain('/app/customers');
-    expect(page.url()).not.toContain('/app/app/');
+    expect(page.url()).toContain('/customers');
   });
 });
 
-test.describe('Double /app/ Bug Verification', () => {
-  test('root redirect does not create double /app/', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/`);
+test.describe('Root URL Redirect', () => {
+  test('root URL redirects to dashboard or login', async ({ page }) => {
+    await page.goto(`${BASE_URL}/`);
 
     // Wait for redirect to complete
     await page.waitForLoadState('networkidle');
 
-    // Check final URL
+    // Check final URL - should be either dashboard or login
     const url = page.url();
-
-    // If not on login page, should be at /app/dashboard (not /app/app/dashboard)
-    if (!url.includes('login')) {
-      expect(url).toContain('/app/dashboard');
-      expect(url).not.toContain('/app/app/');
-    }
+    const isValidRedirect = url.includes('/dashboard') || url.includes('/login');
+    expect(isValidRedirect).toBe(true);
   });
 
-  test('direct navigation maintains single /app/ prefix', async ({ page }) => {
+  test('direct navigation works correctly', async ({ page }) => {
     // Navigate to various paths directly
     const testPaths = ['/dashboard', '/prospects', '/customers', '/work-orders'];
 
     for (const path of testPaths) {
-      await page.goto(`${BASE_URL}/app${path}`);
+      await page.goto(`${BASE_URL}${path}`);
       await page.waitForLoadState('networkidle');
 
       const url = page.url();
-      if (!url.includes('login')) {
-        expect(url).not.toContain('/app/app/');
-      }
+      // Should either stay on the page or redirect to login
+      const isValid = url.includes(path) || url.includes('/login');
+      expect(isValid).toBe(true);
     }
   });
 });
 
 test.describe('404 Page Tests', () => {
   test('404 page shows correct content', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/nonexistent-page-xyz`);
+    await page.goto(`${BASE_URL}/nonexistent-page-xyz`);
 
     if (await isOnLoginPage(page)) {
       test.skip();
@@ -237,7 +231,7 @@ test.describe('404 Page Tests', () => {
   });
 
   test('404 page "Go to Dashboard" link works', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/nonexistent-page-xyz`);
+    await page.goto(`${BASE_URL}/nonexistent-page-xyz`);
 
     if (await isOnLoginPage(page)) {
       test.skip();
@@ -249,10 +243,9 @@ test.describe('404 Page Tests', () => {
     await expect(dashboardLink).toBeVisible();
     await dashboardLink.click();
 
-    // Should navigate to dashboard without double /app/
-    await page.waitForURL(/\/app\/dashboard/);
-    expect(page.url()).toContain('/app/dashboard');
-    expect(page.url()).not.toContain('/app/app/');
+    // Should navigate to dashboard
+    await page.waitForURL(/\/dashboard/);
+    expect(page.url()).toContain('/dashboard');
   });
 });
 
@@ -262,7 +255,7 @@ test.describe('Login Flow Tests', () => {
 
     // Clear cookies to test unauthenticated login page
     await page.context().clearCookies();
-    await page.goto(`${BASE_URL}/app/login`);
+    await page.goto(`${BASE_URL}/login`);
 
     // Should show login form - use .first() since multiple elements match
     const loginForm = page.locator('form').first();

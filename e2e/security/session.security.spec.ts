@@ -14,7 +14,7 @@ const API_BASE = process.env.API_URL || 'https://react-crm-api-production.up.rai
 
 test.describe('Session Cookie Security', () => {
   test('session cookie has HttpOnly flag', async ({ page, context }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     const cookies = await context.cookies();
     const sessionCookie = cookies.find(c => c.name === 'session');
@@ -28,7 +28,7 @@ test.describe('Session Cookie Security', () => {
   });
 
   test('session cookie has Secure flag', async ({ page, context }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     const cookies = await context.cookies();
     const sessionCookie = cookies.find(c => c.name === 'session');
@@ -42,7 +42,7 @@ test.describe('Session Cookie Security', () => {
   });
 
   test('session cookie has SameSite attribute', async ({ page, context }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     const cookies = await context.cookies();
     const sessionCookie = cookies.find(c => c.name === 'session');
@@ -56,7 +56,7 @@ test.describe('Session Cookie Security', () => {
   });
 
   test('session cookie has reasonable expiry', async ({ page, context }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     const cookies = await context.cookies();
     const sessionCookie = cookies.find(c => c.name === 'session');
@@ -80,7 +80,7 @@ test.describe('Session Fixation Prevention', () => {
     await context.clearCookies();
 
     // Get initial session (if any)
-    await page.goto(`${BASE_URL}/app/login`);
+    await page.goto(`${BASE_URL}/login`);
     const cookiesBefore = await context.cookies();
     const sessionBefore = cookiesBefore.find(c => c.name === 'session')?.value;
 
@@ -103,7 +103,7 @@ test.describe('Session Fixation Prevention', () => {
       },
     ]);
 
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     // Should NOT be authenticated with arbitrary session
     const isOnLogin = page.url().includes('login');
@@ -122,7 +122,7 @@ test.describe('Session Fixation Prevention', () => {
 test.describe('Session Termination', () => {
   test('logout invalidates session', async ({ page, context }) => {
     // Skip if not authenticated
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
     if (page.url().includes('login')) {
       test.skip();
       return;
@@ -208,7 +208,7 @@ test.describe('Session Timeout', () => {
     // This is a template - actual timeout testing would require waiting
     // or manipulating session timestamps
 
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -231,7 +231,7 @@ test.describe('Session Timeout', () => {
 
 test.describe('Session Data Security', () => {
   test('session token is not exposed in URL', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     // Session token should never appear in URL
     expect(page.url()).not.toContain('session=');
@@ -240,7 +240,7 @@ test.describe('Session Data Security', () => {
   });
 
   test('session token is not exposed in page source', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     const content = await page.content();
 

@@ -19,7 +19,7 @@ import { dirname, join } from 'path';
  */
 
 // Production URL for Mac-CRM-React deployment
-const PRODUCTION_URL = 'https://react.ecbtx.com/app';
+const PRODUCTION_URL = 'https://react.ecbtx.com';
 const LOCAL_URL = 'http://localhost:5173';
 
 // ES module compatible __dirname

@@ -56,7 +56,7 @@ test.describe('Authentication Security', () => {
   test.describe('Session Security', () => {
     test('session cookie has secure attributes', async ({ page, context }) => {
       // Login to get session cookie
-      await page.goto(`${BASE_URL}/app/login`);
+      await page.goto(`${BASE_URL}/login`);
 
       // If already logged in, clear and retry
       const cookies = await context.cookies();
@@ -74,7 +74,7 @@ test.describe('Authentication Security', () => {
     });
 
     test('no sensitive data in localStorage', async ({ page }) => {
-      await page.goto(`${BASE_URL}/app/dashboard`);
+      await page.goto(`${BASE_URL}/dashboard`);
 
       // Check localStorage for sensitive patterns
       const sensitivePatterns = [
@@ -109,7 +109,7 @@ test.describe('Authentication Security', () => {
     });
 
     test('no credentials in sessionStorage', async ({ page }) => {
-      await page.goto(`${BASE_URL}/app/dashboard`);
+      await page.goto(`${BASE_URL}/dashboard`);
 
       const sessionStorage = await page.evaluate(() => {
         const items: Record<string, string> = {};
@@ -142,7 +142,7 @@ test.describe('Authentication Security', () => {
       const page = await context.newPage();
 
       try {
-        await page.goto(`${BASE_URL}/app/customers`);
+        await page.goto(`${BASE_URL}/customers`);
 
         // Should redirect to login or show login UI
         const isOnLogin = page.url().includes('login');

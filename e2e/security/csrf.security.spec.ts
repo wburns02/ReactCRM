@@ -14,7 +14,7 @@ const API_BASE = process.env.API_URL || 'https://react-crm-api-production.up.rai
 test.describe('CSRF Protection', () => {
   test.describe('SameSite Cookie Protection', () => {
     test('session cookie has SameSite attribute', async ({ page, context }) => {
-      await page.goto(`${BASE_URL}/app/login`);
+      await page.goto(`${BASE_URL}/login`);
 
       const cookies = await context.cookies();
       const sessionCookie = cookies.find(c => c.name === 'session');
@@ -129,7 +129,7 @@ test.describe('CSRF Protection', () => {
   test.describe('Safe Methods', () => {
     test('GET requests do not modify state', async ({ page }) => {
       // Navigate to a page with GET
-      await page.goto(`${BASE_URL}/app/customers`);
+      await page.goto(`${BASE_URL}/customers`);
 
       // Verify no state-changing operations in URL
       expect(page.url()).not.toContain('delete');
@@ -138,7 +138,7 @@ test.describe('CSRF Protection', () => {
     });
 
     test('links use GET, forms use POST', async ({ page }) => {
-      await page.goto(`${BASE_URL}/app/dashboard`);
+      await page.goto(`${BASE_URL}/dashboard`);
 
       // Check that delete actions use buttons/forms, not links
       const dangerousLinks = await page.locator('a[href*="delete"]').count();
@@ -153,7 +153,7 @@ test.describe('CSRF Protection', () => {
 test.describe('Token-Based CSRF Protection', () => {
   test('CSRF token is included in forms', async ({ page }) => {
     // Skip if not logged in
-    await page.goto(`${BASE_URL}/app/customers`);
+    await page.goto(`${BASE_URL}/customers`);
 
     if (page.url().includes('login')) {
       test.skip();

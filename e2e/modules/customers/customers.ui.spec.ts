@@ -24,12 +24,12 @@ test.describe('Customers Page Smoke Tests', () => {
   });
 
   test('customers page loads without crashing', async ({ page }) => {
-    const response = await page.goto(`${BASE_URL}/app/customers`);
+    const response = await page.goto(`${BASE_URL}/customers`);
     expect(response?.status()).toBeLessThan(500);
   });
 
   test('customers page renders header', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/customers`);
+    await page.goto(`${BASE_URL}/customers`);
 
     const header = page.getByRole('heading', { name: /customers/i });
     const loginPage = page.getByText('Sign in to your account');
@@ -38,7 +38,7 @@ test.describe('Customers Page Smoke Tests', () => {
   });
 
   test('customers page has add button', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/customers`);
+    await page.goto(`${BASE_URL}/customers`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -50,7 +50,7 @@ test.describe('Customers Page Smoke Tests', () => {
   });
 
   test('customers page has search/filter functionality', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/customers`);
+    await page.goto(`${BASE_URL}/customers`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -80,7 +80,7 @@ test.describe('Customers Page Smoke Tests', () => {
 
 test.describe('Customer Detail Page', () => {
   test('customer detail page loads', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/customers`);
+    await page.goto(`${BASE_URL}/customers`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -88,7 +88,7 @@ test.describe('Customer Detail Page', () => {
     }
 
     // Click on first customer in list (if any exist)
-    const customerLink = page.locator('a[href*="/app/customers/"]').first();
+    const customerLink = page.locator('a[href*="/customers/"]').first();
 
     if (await customerLink.isVisible({ timeout: 5000 })) {
       await customerLink.click();
@@ -100,14 +100,14 @@ test.describe('Customer Detail Page', () => {
   });
 
   test('customer detail has edit button', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/customers`);
+    await page.goto(`${BASE_URL}/customers`);
 
     if (page.url().includes('login')) {
       test.skip();
       return;
     }
 
-    const customerLink = page.locator('a[href*="/app/customers/"]').first();
+    const customerLink = page.locator('a[href*="/customers/"]').first();
 
     if (await customerLink.isVisible({ timeout: 5000 })) {
       await customerLink.click();
@@ -118,14 +118,14 @@ test.describe('Customer Detail Page', () => {
   });
 
   test('customer detail shows work order history', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/customers`);
+    await page.goto(`${BASE_URL}/customers`);
 
     if (page.url().includes('login')) {
       test.skip();
       return;
     }
 
-    const customerLink = page.locator('a[href*="/app/customers/"]').first();
+    const customerLink = page.locator('a[href*="/customers/"]').first();
 
     if (await customerLink.isVisible({ timeout: 5000 })) {
       await customerLink.click();
@@ -138,7 +138,7 @@ test.describe('Customer Detail Page', () => {
 
 test.describe('Customer Form Modal', () => {
   test('add customer form opens', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/customers`);
+    await page.goto(`${BASE_URL}/customers`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -154,7 +154,7 @@ test.describe('Customer Form Modal', () => {
   });
 
   test('customer form has required fields', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/customers`);
+    await page.goto(`${BASE_URL}/customers`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -170,7 +170,7 @@ test.describe('Customer Form Modal', () => {
   });
 
   test('customer form can be cancelled', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/customers`);
+    await page.goto(`${BASE_URL}/customers`);
 
     if (page.url().includes('login')) {
       test.skip();

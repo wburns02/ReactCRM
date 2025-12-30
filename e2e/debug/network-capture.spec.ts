@@ -30,7 +30,7 @@ test('Capture network traffic on work orders and schedule pages', async ({ page 
   });
 
   console.log('\n=== WORK ORDERS PAGE ===');
-  await page.goto('https://react.ecbtx.com/app/work-orders');
+  await page.goto('https://react.ecbtx.com/work-orders');
   await page.waitForLoadState('networkidle');
   await page.waitForTimeout(3000);
 
@@ -63,7 +63,7 @@ test('Capture network traffic on work orders and schedule pages', async ({ page 
   apiCalls.length = 0;
 
   console.log('\n=== SCHEDULE PAGE ===');
-  await page.goto('https://react.ecbtx.com/app/schedule');
+  await page.goto('https://react.ecbtx.com/schedule');
   await page.waitForLoadState('networkidle');
   await page.waitForTimeout(3000);
 

@@ -24,12 +24,12 @@ test.describe('Dashboard Page Smoke Tests', () => {
   });
 
   test('dashboard page loads without crashing', async ({ page }) => {
-    const response = await page.goto(`${BASE_URL}/app/dashboard`);
+    const response = await page.goto(`${BASE_URL}/dashboard`);
     expect(response?.status()).toBeLessThan(500);
   });
 
   test('dashboard page renders header', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     const header = page.getByRole('heading', { name: /dashboard/i });
     const loginPage = page.getByText('Sign in to your account');
@@ -38,7 +38,7 @@ test.describe('Dashboard Page Smoke Tests', () => {
   });
 
   test('dashboard shows summary stats', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -52,7 +52,7 @@ test.describe('Dashboard Page Smoke Tests', () => {
   });
 
   test('dashboard shows recent activity', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -65,7 +65,7 @@ test.describe('Dashboard Page Smoke Tests', () => {
   });
 
   test('dashboard has quick action links', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/dashboard`);
+    await page.goto(`${BASE_URL}/dashboard`);
 
     if (page.url().includes('login')) {
       test.skip();

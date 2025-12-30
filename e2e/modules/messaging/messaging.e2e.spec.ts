@@ -31,7 +31,7 @@ test.describe('Messaging - SMS', () => {
       return;
     }
 
-    await page.goto(`/app/customers/${customerWithPhone.id}`);
+    await page.goto(`/customers/${customerWithPhone.id}`);
 
     // Click send SMS button (adjust selector as needed)
     await page.click('button:has-text("Send SMS"), button:has-text("Message")');
@@ -82,7 +82,7 @@ test.describe('Messaging - Email', () => {
       return;
     }
 
-    await page.goto(`/app/customers/${customerWithEmail.id}`);
+    await page.goto(`/customers/${customerWithEmail.id}`);
 
     // Click send email button (adjust selector as needed)
     await page.click('button:has-text("Send Email"), button:has-text("Email")');

@@ -24,12 +24,12 @@ test.describe('Work Orders Page Smoke Tests', () => {
   });
 
   test('work orders page loads without crashing', async ({ page }) => {
-    const response = await page.goto(`${BASE_URL}/app/work-orders`);
+    const response = await page.goto(`${BASE_URL}/work-orders`);
     expect(response?.status()).toBeLessThan(500);
   });
 
   test('work orders page renders header', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/work-orders`);
+    await page.goto(`${BASE_URL}/work-orders`);
 
     const header = page.getByRole('heading', { name: /work orders/i });
     const loginPage = page.getByText('Sign in to your account');
@@ -38,7 +38,7 @@ test.describe('Work Orders Page Smoke Tests', () => {
   });
 
   test('work orders page has status filters', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/work-orders`);
+    await page.goto(`${BASE_URL}/work-orders`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -51,7 +51,7 @@ test.describe('Work Orders Page Smoke Tests', () => {
   });
 
   test('work orders page has date filters', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/work-orders`);
+    await page.goto(`${BASE_URL}/work-orders`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -81,14 +81,14 @@ test.describe('Work Orders Page Smoke Tests', () => {
 
 test.describe('Work Order Detail Page', () => {
   test('work order detail page loads', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/work-orders`);
+    await page.goto(`${BASE_URL}/work-orders`);
 
     if (page.url().includes('login')) {
       test.skip();
       return;
     }
 
-    const workOrderLink = page.locator('a[href*="/app/work-orders/"]').first();
+    const workOrderLink = page.locator('a[href*="/work-orders/"]').first();
 
     if (await workOrderLink.isVisible({ timeout: 5000 })) {
       await workOrderLink.click();
@@ -99,14 +99,14 @@ test.describe('Work Order Detail Page', () => {
   });
 
   test('work order detail shows status badge', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/work-orders`);
+    await page.goto(`${BASE_URL}/work-orders`);
 
     if (page.url().includes('login')) {
       test.skip();
       return;
     }
 
-    const workOrderLink = page.locator('a[href*="/app/work-orders/"]').first();
+    const workOrderLink = page.locator('a[href*="/work-orders/"]').first();
 
     if (await workOrderLink.isVisible({ timeout: 5000 })) {
       await workOrderLink.click();
@@ -118,14 +118,14 @@ test.describe('Work Order Detail Page', () => {
   });
 
   test('work order detail shows customer info', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/work-orders`);
+    await page.goto(`${BASE_URL}/work-orders`);
 
     if (page.url().includes('login')) {
       test.skip();
       return;
     }
 
-    const workOrderLink = page.locator('a[href*="/app/work-orders/"]').first();
+    const workOrderLink = page.locator('a[href*="/work-orders/"]').first();
 
     if (await workOrderLink.isVisible({ timeout: 5000 })) {
       await workOrderLink.click();
@@ -139,14 +139,14 @@ test.describe('Work Order Detail Page', () => {
 
 test.describe('Work Order Status Workflow', () => {
   test('work order has valid status transitions', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/work-orders`);
+    await page.goto(`${BASE_URL}/work-orders`);
 
     if (page.url().includes('login')) {
       test.skip();
       return;
     }
 
-    const workOrderLink = page.locator('a[href*="/app/work-orders/"]').first();
+    const workOrderLink = page.locator('a[href*="/work-orders/"]').first();
 
     if (await workOrderLink.isVisible({ timeout: 5000 })) {
       await workOrderLink.click();
@@ -172,7 +172,7 @@ test.describe('Work Order Error Handling', () => {
       });
     });
 
-    await page.goto(`${BASE_URL}/app/work-orders`);
+    await page.goto(`${BASE_URL}/work-orders`);
 
     if (page.url().includes('login')) {
       test.skip();

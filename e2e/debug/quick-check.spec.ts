@@ -11,7 +11,7 @@ test('Quick check login page', async ({ page }) => {
     errors.push('PAGE ERROR: ' + err.message);
   });
 
-  await page.goto('https://react.ecbtx.com/app/login');
+  await page.goto('https://react.ecbtx.com/login');
   await page.waitForTimeout(5000);
 
   console.log('URL:', page.url());

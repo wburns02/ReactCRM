@@ -2,7 +2,7 @@ import { test, expect } from '@playwright/test';
 
 test('Check work orders API with auth', async ({ page }) => {
   // Navigate to app to get auth token
-  await page.goto('https://react.ecbtx.com/app/dashboard');
+  await page.goto('https://react.ecbtx.com/dashboard');
   await page.waitForLoadState('networkidle');
 
   // Get auth token from localStorage

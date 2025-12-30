@@ -66,7 +66,7 @@ test.describe('Routing - No Double /app/ Links', () => {
     await page.waitForLoadState('networkidle');
 
     // Get all internal app links
-    const links = page.locator('a[href^="/app/"], a[href^="/"]');
+    const links = page.locator('a[href^="/"]');
     const count = await links.count();
 
     // Each link should NOT contain /app/app/

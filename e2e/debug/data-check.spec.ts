@@ -1,7 +1,7 @@
 import { test, expect } from '@playwright/test';
 
 test('Check all data endpoints', async ({ page }) => {
-  await page.goto('https://react.ecbtx.com/app/dashboard');
+  await page.goto('https://react.ecbtx.com/dashboard');
   await page.waitForLoadState('networkidle');
 
   const token = await page.evaluate(() => localStorage.getItem('auth_token'));

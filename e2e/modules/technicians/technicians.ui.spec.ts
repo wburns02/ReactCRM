@@ -24,12 +24,12 @@ test.describe('Technicians Page Smoke Tests', () => {
   });
 
   test('technicians page loads without crashing', async ({ page }) => {
-    const response = await page.goto(`${BASE_URL}/app/technicians`);
+    const response = await page.goto(`${BASE_URL}/technicians`);
     expect(response?.status()).toBeLessThan(500);
   });
 
   test('technicians page renders header', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/technicians`);
+    await page.goto(`${BASE_URL}/technicians`);
 
     const header = page.getByRole('heading', { name: /technician/i });
     const loginPage = page.getByText('Sign in to your account');
@@ -38,7 +38,7 @@ test.describe('Technicians Page Smoke Tests', () => {
   });
 
   test('technicians page shows technician list', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/technicians`);
+    await page.goto(`${BASE_URL}/technicians`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -68,14 +68,14 @@ test.describe('Technicians Page Smoke Tests', () => {
 
 test.describe('Technician Detail Page', () => {
   test('technician detail page loads', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/technicians`);
+    await page.goto(`${BASE_URL}/technicians`);
 
     if (page.url().includes('login')) {
       test.skip();
       return;
     }
 
-    const techLink = page.locator('a[href*="/app/technicians/"]').first();
+    const techLink = page.locator('a[href*="/technicians/"]').first();
 
     if (await techLink.isVisible({ timeout: 5000 })) {
       await techLink.click();
@@ -86,14 +86,14 @@ test.describe('Technician Detail Page', () => {
   });
 
   test('technician detail shows skills', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/technicians`);
+    await page.goto(`${BASE_URL}/technicians`);
 
     if (page.url().includes('login')) {
       test.skip();
       return;
     }
 
-    const techLink = page.locator('a[href*="/app/technicians/"]').first();
+    const techLink = page.locator('a[href*="/technicians/"]').first();
 
     if (await techLink.isVisible({ timeout: 5000 })) {
       await techLink.click();

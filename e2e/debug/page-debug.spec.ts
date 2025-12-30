@@ -14,7 +14,7 @@ test('Debug page rendering', async ({ page }) => {
 
   // Navigate to work orders
   console.log('Navigating to work orders page...');
-  await page.goto('https://react.ecbtx.com/app/work-orders');
+  await page.goto('https://react.ecbtx.com/work-orders');
   await page.waitForLoadState('networkidle');
   await page.waitForTimeout(5000); // Extra wait
 
@@ -71,7 +71,7 @@ test('Debug page rendering', async ({ page }) => {
 
   // Also check the schedule page
   console.log('\n=== SCHEDULE PAGE ===');
-  await page.goto('https://react.ecbtx.com/app/schedule');
+  await page.goto('https://react.ecbtx.com/schedule');
   await page.waitForLoadState('networkidle');
   await page.waitForTimeout(3000);
 

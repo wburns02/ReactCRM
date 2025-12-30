@@ -24,12 +24,12 @@ test.describe('Invoices Page Smoke Tests', () => {
   });
 
   test('invoices page loads without crashing', async ({ page }) => {
-    const response = await page.goto(`${BASE_URL}/app/invoices`);
+    const response = await page.goto(`${BASE_URL}/invoices`);
     expect(response?.status()).toBeLessThan(500);
   });
 
   test('invoices page renders header', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/invoices`);
+    await page.goto(`${BASE_URL}/invoices`);
 
     const header = page.getByRole('heading', { name: /invoices/i });
     const loginPage = page.getByText('Sign in to your account');
@@ -38,7 +38,7 @@ test.describe('Invoices Page Smoke Tests', () => {
   });
 
   test('invoices page has create button', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/invoices`);
+    await page.goto(`${BASE_URL}/invoices`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -50,7 +50,7 @@ test.describe('Invoices Page Smoke Tests', () => {
   });
 
   test('invoices page has status filter', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/invoices`);
+    await page.goto(`${BASE_URL}/invoices`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -79,7 +79,7 @@ test.describe('Invoices Page Smoke Tests', () => {
 
 test.describe('Invoice Form', () => {
   test('create invoice form opens', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/invoices`);
+    await page.goto(`${BASE_URL}/invoices`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -94,7 +94,7 @@ test.describe('Invoice Form', () => {
   });
 
   test('invoice form has required fields', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/invoices`);
+    await page.goto(`${BASE_URL}/invoices`);
 
     if (page.url().includes('login')) {
       test.skip();
@@ -109,7 +109,7 @@ test.describe('Invoice Form', () => {
   });
 
   test('invoice form shows totals calculation', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/invoices`);
+    await page.goto(`${BASE_URL}/invoices`);
 
     if (page.url().includes('login')) {
       test.skip();

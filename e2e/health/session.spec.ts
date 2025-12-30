@@ -78,7 +78,7 @@ test.describe('Session & Cookie Health', () => {
 
   test('protected page loads when authenticated', async ({ page }) => {
     // Navigate to a protected route
-    await page.goto('/app/dashboard');
+    await page.goto('/dashboard');
 
     // Should NOT redirect to login
     await expect(page).not.toHaveURL(/\/login/);
@@ -96,7 +96,7 @@ test.describe('Session & Cookie Health', () => {
 
     try {
       // Try to access protected route
-      await page.goto('/app/customers');
+      await page.goto('/customers');
 
       // Legacy backend may either:
       // 1. Redirect to login

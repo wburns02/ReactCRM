@@ -31,14 +31,14 @@ test.describe('Prospects Page Smoke Tests', () => {
   });
 
   test('app loads without crashing', async ({ page }) => {
-    const response = await page.goto(`${BASE_URL}/app/prospects`);
+    const response = await page.goto(`${BASE_URL}/prospects`);
     
     // Should either load the page or redirect to login
     expect(response?.status()).toBeLessThan(500);
   });
 
   test('prospects page renders header', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/prospects`);
+    await page.goto(`${BASE_URL}/prospects`);
 
     // Wait for either the page header or login redirect
     const header = page.getByRole('heading', { name: /prospects/i });
@@ -50,7 +50,7 @@ test.describe('Prospects Page Smoke Tests', () => {
   });
 
   test('prospects page has accessible structure', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/prospects`);
+    await page.goto(`${BASE_URL}/prospects`);
     
     // Skip if redirected to login
     if (page.url().includes('login')) {
@@ -99,7 +99,7 @@ test.describe('Error Handling', () => {
       });
     });
 
-    await page.goto(`${BASE_URL}/app/prospects`);
+    await page.goto(`${BASE_URL}/prospects`);
     
     // Skip if redirected to login
     if (page.url().includes('login')) {
@@ -118,7 +118,7 @@ test.describe('Error Handling', () => {
       route.abort('failed');
     });
 
-    await page.goto(`${BASE_URL}/app/prospects`);
+    await page.goto(`${BASE_URL}/prospects`);
     
     // Skip if redirected to login
     if (page.url().includes('login')) {

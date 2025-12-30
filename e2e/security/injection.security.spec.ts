@@ -87,7 +87,7 @@ test.describe('XSS Prevention', () => {
   ];
 
   test('user input is escaped in page output', async ({ page }) => {
-    await page.goto(`${BASE_URL}/app/customers?search=${encodeURIComponent(xssPayloads[0])}`);
+    await page.goto(`${BASE_URL}/customers?search=${encodeURIComponent(xssPayloads[0])}`);
 
     // The XSS payload should NOT execute
     // Check that no alert dialog appeared
@@ -114,7 +114,7 @@ test.describe('XSS Prevention', () => {
 
   test('stored XSS is prevented', async ({ page }) => {
     // Skip if not authenticated
-    await page.goto(`${BASE_URL}/app/customers`);
+    await page.goto(`${BASE_URL}/customers`);
     if (page.url().includes('login')) {
       test.skip();
       return;
