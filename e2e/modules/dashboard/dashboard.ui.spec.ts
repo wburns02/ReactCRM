@@ -6,7 +6,7 @@ import { test, expect } from '@playwright/test';
  * Validates dashboard metrics and quick actions
  */
 
-const PRODUCTION_URL = 'https://mac-septic-crm-production-aaa8.up.railway.app';
+const PRODUCTION_URL = 'https://react.ecbtx.com';
 const BASE_URL = process.env.BASE_URL || PRODUCTION_URL;
 
 test.describe('Dashboard Page Smoke Tests', () => {

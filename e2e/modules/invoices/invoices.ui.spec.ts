@@ -6,7 +6,7 @@ import { test, expect } from '@playwright/test';
  * Validates invoice CRUD functionality
  */
 
-const PRODUCTION_URL = 'https://mac-septic-crm-production-aaa8.up.railway.app';
+const PRODUCTION_URL = 'https://react.ecbtx.com';
 const BASE_URL = process.env.BASE_URL || PRODUCTION_URL;
 
 test.describe('Invoices Page Smoke Tests', () => {

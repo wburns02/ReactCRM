@@ -219,6 +219,7 @@ jobs:
         env:
           CI: true
           BASE_URL: ${{ env.BASE_URL }}
+          API_URL: ${{ env.API_URL }}
           TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
 
