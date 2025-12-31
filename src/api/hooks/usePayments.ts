@@ -149,7 +149,7 @@ export function usePaymentStats() {
     queryKey: paymentKeys.stats(),
     queryFn: async () => {
       // Fetch all payments for stats calculation
-      const { data } = await apiClient.get('/payments?page=1&page_size=1000');
+      const { data } = await apiClient.get('/payments?page=1&page_size=500');
       const payments: Payment[] = Array.isArray(data) ? data : data.items || [];
 
       const stats = {

@@ -49,8 +49,9 @@ export function PaymentForm({
   const isEdit = !!payment;
 
   // Fetch customers and invoices for dropdowns
+  // Note: customers max=500, invoices max=100 per backend validation
   const { data: customersData } = useCustomers({ page: 1, page_size: 200 });
-  const { data: invoicesData } = useInvoices({ page: 1, page_size: 200 });
+  const { data: invoicesData } = useInvoices({ page: 1, page_size: 100 });
 
   const customers = customersData?.items || [];
   const invoices = invoicesData?.items || [];
