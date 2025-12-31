@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useRCStatus, useCallLog, useInitiateCall } from './api.ts';
+import { useRCStatus, useCallLog, useInitiateCall, useSyncCalls, useExtensions } from './api.ts';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
 import { Button } from '@/components/ui/Button.tsx';
 import { Input } from '@/components/ui/Input.tsx';
@@ -15,8 +15,13 @@ import type { CallRecord } from './types.ts';
  */
 export function PhonePage() {
   const { data: status, isLoading: statusLoading } = useRCStatus();
-  const { data: calls, isLoading: callsLoading } = useCallLog({ limit: 50 });
+  const { data: callsData, isLoading: callsLoading } = useCallLog({ page_size: 50 });
+  const { data: extensions } = useExtensions();
   const initiateMutation = useInitiateCall();
+  const syncMutation = useSyncCalls();
+
+  // Get calls array from paginated response
+  const calls = callsData?.items || [];
 
   const [dialerOpen, setDialerOpen] = useState(false);
   const [quickDialNumber, setQuickDialNumber] = useState('');
@@ -27,15 +32,16 @@ export function PhonePage() {
   const [playingRecording, setPlayingRecording] = useState<string | null>(null);
 
   // Calculate call statistics
-  const stats = calls ? {
+  const stats = calls.length > 0 ? {
     totalCalls: calls.length,
     inboundCalls: calls.filter(c => c.direction === 'inbound').length,
     outboundCalls: calls.filter(c => c.direction === 'outbound').length,
-    totalDuration: calls.reduce((sum, c) => sum + c.duration, 0),
-    avgDuration: calls.length > 0 ? Math.round(calls.reduce((sum, c) => sum + c.duration, 0) / calls.length) : 0,
+    totalDuration: calls.reduce((sum, c) => sum + (c.duration_seconds || 0), 0),
+    avgDuration: calls.length > 0 ? Math.round(calls.reduce((sum, c) => sum + (c.duration_seconds || 0), 0) / calls.length) : 0,
     withRecordings: calls.filter(c => c.recording_url).length,
     todayCalls: calls.filter(c => {
-      const callDate = new Date(c.started_at).toDateString();
+      if (!c.start_time) return false;
+      const callDate = new Date(c.start_time).toDateString();
       const today = new Date().toDateString();
       return callDate === today;
     }).length,
@@ -46,23 +52,35 @@ export function PhonePage() {
     // Tab filter
     if (activeTab === 'inbound' && call.direction !== 'inbound') return false;
     if (activeTab === 'outbound' && call.direction !== 'outbound') return false;
-    if (activeTab === 'missed' && call.duration > 0) return false;
+    if (activeTab === 'missed' && (call.duration_seconds || 0) > 0) return false;
 
     // Search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      return call.from.includes(query) ||
-             call.to.includes(query) ||
+      return call.from_number.includes(query) ||
+             call.to_number.includes(query) ||
              call.disposition?.toLowerCase().includes(query);
     }
     return true;
   }) || [];
 
+  // Get default from_number from extensions
+  const defaultFromNumber = extensions?.[0]?.phoneNumber || '';
+
+  // Sync calls from RingCentral
+  const handleSyncCalls = async () => {
+    try {
+      await syncMutation.mutateAsync(24);
+    } catch (error) {
+      console.error('Failed to sync calls:', error);
+    }
+  };
+
   // Quick dial handler
   const handleQuickDial = async () => {
     if (!quickDialNumber.trim()) return;
     try {
-      await initiateMutation.mutateAsync({ to_number: quickDialNumber });
+      await initiateMutation.mutateAsync({ to_number: quickDialNumber, from_number: defaultFromNumber || undefined });
       setQuickDialNumber('');
     } catch (error) {
       console.error('Failed to initiate call:', error);
@@ -70,8 +88,8 @@ export function PhonePage() {
   };
 
   // Format duration
-  const formatDuration = (seconds: number): string => {
-    if (seconds === 0) return 'Missed';
+  const formatDuration = (seconds: number | null | undefined): string => {
+    if (!seconds || seconds === 0) return 'Missed';
     const hrs = Math.floor(seconds / 3600);
     const mins = Math.floor((seconds % 3600) / 60);
     const secs = seconds % 60;
@@ -109,6 +127,15 @@ export function PhonePage() {
           <p className="text-text-secondary">Manage calls, recordings, and communications</p>
         </div>
         <div className="flex items-center gap-3">
+          {/* Sync Button */}
+          <Button
+            variant="secondary"
+            onClick={handleSyncCalls}
+            disabled={syncMutation.isPending}
+            className="gap-2"
+          >
+            {syncMutation.isPending ? 'Syncing...' : 'Sync Calls'}
+          </Button>
           {/* Connection Status */}
           <div className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
             status?.connected
@@ -244,7 +271,7 @@ export function PhonePage() {
               <h4 className="text-sm font-medium text-text-secondary mb-2">Recent Numbers</h4>
               <div className="space-y-2">
                 {calls?.slice(0, 5).map((call, idx) => {
-                  const number = call.direction === 'inbound' ? call.from : call.to;
+                  const number = call.direction === 'inbound' ? call.from_number : call.to_number;
                   return (
                     <button
                       key={idx}
@@ -258,7 +285,7 @@ export function PhonePage() {
                         <span className="font-mono text-sm">{formatPhone(number)}</span>
                       </div>
                       <span className="text-xs text-text-muted">
-                        {formatDuration(call.duration)}
+                        {formatDuration(call.duration_seconds)}
                       </span>
                     </button>
                   );
@@ -355,7 +382,7 @@ export function PhonePage() {
             setSelectedCall(null);
           }}
           callId={selectedCall.id}
-          phoneNumber={selectedCall.direction === 'inbound' ? selectedCall.from : selectedCall.to}
+          phoneNumber={selectedCall.direction === 'inbound' ? selectedCall.from_number : selectedCall.to_number}
         />
       )}
     </div>
@@ -375,7 +402,7 @@ function CallLogItem({
 }: {
   call: CallRecord;
   formatPhone: (phone: string) => string;
-  formatDuration: (seconds: number) => string;
+  formatDuration: (seconds: number | null | undefined) => string;
   onAddDisposition: () => void;
   isPlaying: boolean;
   onPlayRecording: () => void;
@@ -406,7 +433,7 @@ function CallLogItem({
     }
   };
 
-  const isMissed = call.duration === 0;
+  const isMissed = !call.duration_seconds || call.duration_seconds === 0;
   const isInbound = call.direction === 'inbound';
 
   return (
@@ -431,15 +458,15 @@ function CallLogItem({
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1">
             <span className="font-semibold text-text-primary font-mono">
-              {formatPhone(isInbound ? call.from : call.to)}
+              {formatPhone(isInbound ? call.from_number : call.to_number)}
             </span>
             <Badge variant={isMissed ? 'danger' : isInbound ? 'success' : 'warning'}>
               {isMissed ? 'Missed' : isInbound ? 'Inbound' : 'Outbound'}
             </Badge>
           </div>
           <div className="flex items-center gap-4 text-sm text-text-secondary">
-            <span>⏱️ {formatDuration(call.duration)}</span>
-            <span>📅 {formatDate(call.started_at)}</span>
+            <span>⏱️ {formatDuration(call.duration_seconds)}</span>
+            <span>📅 {formatDate(call.start_time)}</span>
           </div>
 
           {/* Recording Player */}

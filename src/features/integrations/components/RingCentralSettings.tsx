@@ -40,9 +40,9 @@ export function RingCentralSettings() {
               <div className="flex items-center justify-between">
                 <div>
                   <p className="font-medium text-text-primary">Connection Status</p>
-                  {status?.connected && status.user_name && (
+                  {status?.connected && status.account_name && (
                     <p className="text-sm text-text-secondary">
-                      Connected as: {status.user_name} (Ext. {status.extension})
+                      Connected to: {status.account_name} 
                     </p>
                   )}
                 </div>
