@@ -31,7 +31,7 @@ test.describe('Technicians Page Smoke Tests', () => {
   test('technicians page renders header', async ({ page }) => {
     await page.goto(`${BASE_URL}/technicians`);
 
-    const header = page.getByRole('heading', { name: /technician/i });
+    const header = page.getByRole('heading', { name: 'Technicians', exact: true });
     const loginPage = page.getByText('Sign in to your account');
 
     await expect(header.or(loginPage)).toBeVisible({ timeout: 10000 });
@@ -52,11 +52,13 @@ test.describe('Technicians Page Smoke Tests', () => {
   });
 
   test('API endpoint returns valid response', async ({ request }) => {
-    const response = await request.get(`${BASE_URL}/api/technicians/`, {
+    const apiUrl = process.env.API_URL || 'https://react-crm-api-production.up.railway.app/api/v2';
+    const response = await request.get(`${apiUrl}/technicians`, {
       headers: { 'Content-Type': 'application/json' },
     });
 
-    expect([200, 401, 500]).toContain(response.status());
+    // Accept 200 (success) or 401 (auth required) - 500 should not occur
+    expect([200, 401]).toContain(response.status());
 
     if (response.status() === 200) {
       const data = await response.json();

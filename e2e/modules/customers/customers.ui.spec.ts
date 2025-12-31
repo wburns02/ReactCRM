@@ -63,11 +63,13 @@ test.describe('Customers Page Smoke Tests', () => {
   });
 
   test('API endpoint returns valid response', async ({ request }) => {
-    const response = await request.get(`${BASE_URL}/api/customers/`, {
+    const apiUrl = process.env.API_URL || 'https://react-crm-api-production.up.railway.app/api/v2';
+    const response = await request.get(`${apiUrl}/customers`, {
       headers: { 'Content-Type': 'application/json' },
     });
 
-    expect([200, 401, 500]).toContain(response.status());
+    // Accept 200 (success) or 401 (auth required) - 500 should not occur
+    expect([200, 401]).toContain(response.status());
 
     if (response.status() === 200) {
       const data = await response.json();
