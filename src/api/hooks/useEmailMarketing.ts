@@ -117,7 +117,7 @@ export function useTemplates(category?: string) {
       if (category) params.append('category', category);
       params.append('include_system', 'true');
 
-      const { data } = await apiClient.get(`/api/email-marketing/templates?${params}`);
+      const { data } = await apiClient.get(`/email-marketing/templates?${params}`);
       return Array.isArray(data) ? data : [];
     },
   });
@@ -127,7 +127,7 @@ export function useTemplate(id: string) {
   return useQuery({
     queryKey: emailMarketingKeys.template(id),
     queryFn: async (): Promise<EmailTemplate> => {
-      const { data } = await apiClient.get(`/api/email-marketing/templates/${id}`);
+      const { data } = await apiClient.get(`/email-marketing/templates/${id}`);
       return data.template;
     },
     enabled: !!id,
@@ -153,7 +153,7 @@ export function useUpdateTemplate() {
 
   return useMutation({
     mutationFn: async ({ id, template }: { id: string; template: Partial<TemplateFormData> }): Promise<{ success: boolean }> => {
-      const { data } = await apiClient.put(`/api/email-marketing/templates/${id}`, template);
+      const { data } = await apiClient.put(`/email-marketing/templates/${id}`, template);
       return data;
     },
     onSuccess: (_, { id }) => {
@@ -166,7 +166,7 @@ export function useUpdateTemplate() {
 export function usePreviewTemplate() {
   return useMutation({
     mutationFn: async ({ id, sampleData }: { id: string; sampleData: Record<string, string> }): Promise<{ success: boolean; preview: string }> => {
-      const { data } = await apiClient.post(`/api/email-marketing/templates/${id}/preview`, sampleData);
+      const { data } = await apiClient.post(`/email-marketing/templates/${id}/preview`, sampleData);
       return data;
     },
   });
@@ -190,7 +190,7 @@ export function useSegmentCustomers(segment: string, limit = 100) {
   return useQuery({
     queryKey: emailMarketingKeys.segmentCustomers(segment),
     queryFn: async () => {
-      const { data } = await apiClient.get(`/api/email-marketing/segments/${segment}/customers?limit=${limit}`);
+      const { data } = await apiClient.get(`/email-marketing/segments/${segment}/customers?limit=${limit}`);
       return data;
     },
     enabled: !!segment,
@@ -208,7 +208,7 @@ export function useCampaigns(status?: string) {
       const params = new URLSearchParams();
       if (status) params.append('status', status);
 
-      const { data } = await apiClient.get(`/api/email-marketing/campaigns?${params}`);
+      const { data } = await apiClient.get(`/email-marketing/campaigns?${params}`);
       return Array.isArray(data) ? data : [];
     },
   });
@@ -218,7 +218,7 @@ export function useCampaign(id: string) {
   return useQuery({
     queryKey: emailMarketingKeys.campaign(id),
     queryFn: async (): Promise<Campaign> => {
-      const { data } = await apiClient.get(`/api/email-marketing/campaigns/${id}`);
+      const { data } = await apiClient.get(`/email-marketing/campaigns/${id}`);
       return data.campaign;
     },
     enabled: !!id,
@@ -244,7 +244,7 @@ export function useSendCampaign() {
 
   return useMutation({
     mutationFn: async (id: string): Promise<{ success: boolean }> => {
-      const { data } = await apiClient.post(`/api/email-marketing/campaigns/${id}/send`);
+      const { data } = await apiClient.post(`/email-marketing/campaigns/${id}/send`);
       return data;
     },
     onSuccess: (_, id) => {
@@ -259,7 +259,7 @@ export function useDeleteCampaign() {
 
   return useMutation({
     mutationFn: async (id: string): Promise<{ success: boolean }> => {
-      const { data } = await apiClient.delete(`/api/email-marketing/campaigns/${id}`);
+      const { data } = await apiClient.delete(`/email-marketing/campaigns/${id}`);
       return data;
     },
     onSuccess: () => {
@@ -301,7 +301,7 @@ export function useApproveSuggestion() {
 
   return useMutation({
     mutationFn: async (id: string): Promise<{ success: boolean; campaign_id?: string }> => {
-      const { data } = await apiClient.post(`/api/email-marketing/ai/suggestions/${id}/approve`);
+      const { data } = await apiClient.post(`/email-marketing/ai/suggestions/${id}/approve`);
       return data;
     },
     onSuccess: () => {
@@ -316,7 +316,7 @@ export function useDismissSuggestion() {
 
   return useMutation({
     mutationFn: async (id: string): Promise<{ success: boolean }> => {
-      const { data } = await apiClient.post(`/api/email-marketing/ai/suggestions/${id}/dismiss`);
+      const { data } = await apiClient.post(`/email-marketing/ai/suggestions/${id}/dismiss`);
       return data;
     },
     onSuccess: () => {
@@ -358,7 +358,7 @@ export function useAnalytics(days = 30) {
   return useQuery({
     queryKey: emailMarketingKeys.analytics(days),
     queryFn: async (): Promise<Analytics> => {
-      const { data } = await apiClient.get(`/api/email-marketing/analytics?days=${days}`);
+      const { data } = await apiClient.get(`/email-marketing/analytics?days=${days}`);
       return data;
     },
   });
