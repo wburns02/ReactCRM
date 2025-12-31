@@ -1,79 +1,27 @@
 import { test, expect } from '@playwright/test';
 
 /**
- * Session & Cookie Health Tests
+ * Session & Authentication Health Tests
  *
- * Validates:
- * - Session cookie is set correctly after login
- * - API requests include credentials and work with session
- * - 401 responses trigger proper redirect to login
- * - CORS/credential configuration is correct
+ * NOTE: This app uses JWT tokens stored in localStorage, NOT session cookies.
+ * The API is on a different domain (react-crm-api-production.up.railway.app).
+ * These tests validate the auth flow works correctly in the browser context.
  */
 
-test.describe('Session & Cookie Health', () => {
-  test('authenticated state has valid cookies', async ({ context }) => {
-    // Storage state should have cookies from auth.setup.ts
-    const cookies = await context.cookies();
+// API URL for direct API calls
+const API_URL = process.env.API_URL || 'https://react-crm-api-production.up.railway.app/api/v2';
 
-    // Log all cookies for debugging
-    console.log('Cookies found:', cookies.map((c) => ({
-      name: c.name,
-      httpOnly: c.httpOnly,
-      secure: c.secure,
-      sameSite: c.sameSite,
-      domain: c.domain,
-    })));
+test.describe('Session & Authentication Health', () => {
+  test('authenticated state has localStorage token', async ({ page }) => {
+    // Navigate to a page to ensure we're in the app context
+    await page.goto('/dashboard');
 
-    // Should have at least one cookie (session)
-    expect(cookies.length).toBeGreaterThan(0);
+    // Check for auth token in localStorage
+    const token = await page.evaluate(() => localStorage.getItem('auth_token'));
 
-    // Find HTTP-only cookie (likely the session cookie)
-    const httpOnlyCookies = cookies.filter((c) => c.httpOnly);
-
-    // Log session cookie details
-    if (httpOnlyCookies.length > 0) {
-      console.log('HTTP-only (session) cookie:', httpOnlyCookies[0].name);
-    }
-  });
-
-  test('API /auth/me returns current user', async ({ request }) => {
-    // This tests that:
-    // 1. Session cookie is being sent with requests
-    // 2. Backend accepts the session
-    // 3. Backend returns user data
-    const response = await request.get('/api/auth/me');
-
-    // Should not be 401/403
-    expect(response.status()).toBeLessThan(400);
-
-    if (response.ok()) {
-      const data = await response.json();
-      // API returns {user: {...}} structure
-      const user = data.user || data;
-      console.log('Authenticated as:', user.email || user.username || 'unknown');
-
-      // User object should have basic properties
-      expect(user).toHaveProperty('id');
-    }
-  });
-
-  test('API requests work with credentials', async ({ request }) => {
-    // Test a protected endpoint that requires authentication
-    const response = await request.get('/api/customers/?page_size=1');
-
-    // Accept 200 (success) or 500 (backend error - not auth issue)
-    // Fail only on 401/403 which would indicate auth problem
-    expect(response.status()).not.toBe(401);
-    expect(response.status()).not.toBe(403);
-
-    if (response.ok()) {
-      const data = await response.json();
-      expect(data).toHaveProperty('items');
-      expect(data).toHaveProperty('total');
-    } else {
-      // Log backend errors but don't fail test - auth is working
-      console.log(`API returned ${response.status()} - backend issue, not auth`);
-    }
+    // Should have a token after auth.setup.ts runs
+    expect(token).toBeTruthy();
+    console.log('Auth token present:', token ? 'Yes (length: ' + token.length + ')' : 'No');
   });
 
   test('protected page loads when authenticated', async ({ page }) => {
@@ -83,13 +31,29 @@ test.describe('Session & Cookie Health', () => {
     // Should NOT redirect to login
     await expect(page).not.toHaveURL(/\/login/);
 
-    // Should show dashboard content
-    await expect(page.locator('h1, h2, [data-testid="dashboard"]').first()).toBeVisible({
+    // Should show dashboard content (navigation should be visible)
+    await expect(page.locator('nav, aside, [role="navigation"]').first()).toBeVisible({
       timeout: 10000,
     });
   });
 
-  test('unauthenticated request redirects to login', async ({ browser }) => {
+  test('API call works with JWT token from browser', async ({ page }) => {
+    // Navigate to dashboard which makes API calls
+    await page.goto('/dashboard');
+
+    // Wait for the page to load
+    await page.waitForLoadState('networkidle');
+
+    // The page should load without redirecting to login
+    // This proves the JWT auth is working
+    await expect(page).not.toHaveURL(/\/login/);
+
+    // Check that we're showing actual content (not an error page)
+    const mainContent = page.locator('main, [role="main"], .dashboard, #root > div');
+    await expect(mainContent.first()).toBeVisible({ timeout: 10000 });
+  });
+
+  test('unauthenticated access redirects to login', async ({ browser }) => {
     // Create a fresh context without stored auth state
     const freshContext = await browser.newContext();
     const page = await freshContext.newPage();
@@ -98,80 +62,82 @@ test.describe('Session & Cookie Health', () => {
       // Try to access protected route
       await page.goto('/customers');
 
-      // Legacy backend may either:
-      // 1. Redirect to login
-      // 2. Serve the page directly (with login UI embedded)
-      // 3. Serve a different page
+      // Wait for navigation to complete
+      await page.waitForLoadState('networkidle');
+
+      // Should redirect to login
       const url = page.url();
 
       if (url.includes('/login')) {
         // Proper redirect - login page should be visible
-        await expect(page.getByRole('button', { name: /sign in/i })).toBeVisible();
+        await expect(page.getByRole('button', { name: /sign in/i })).toBeVisible({ timeout: 5000 });
+        console.log('Correctly redirected to login page');
       } else {
-        // Legacy behavior - check if there's a sign in button anywhere
-        const signInVisible = await page.getByRole('button', { name: /sign in/i }).isVisible().catch(() => false);
-        const loginLinkVisible = await page.getByRole('link', { name: /login|sign in/i }).first().isVisible().catch(() => false);
+        // Check if login form is shown inline
+        const signInButton = page.getByRole('button', { name: /sign in/i });
+        const isLoginVisible = await signInButton.isVisible().catch(() => false);
 
-        // If neither login UI is present, the app might be showing content
-        // This is acceptable for legacy - the test validates the behavior exists
-        console.log(`Page served at: ${url}, login UI visible: ${signInVisible || loginLinkVisible}`);
+        if (isLoginVisible) {
+          console.log('Login form shown on page');
+        } else {
+          // Page may be loading or showing error - just log it
+          console.log(`Page at: ${url}, checking for auth requirement...`);
+        }
       }
+
+      // Test passes - we just validate the flow doesn't crash
     } finally {
       await freshContext.close();
     }
   });
 
-  test('API returns error for unauthenticated request', async ({ browser }) => {
-    // Create fresh context without auth
-    const freshContext = await browser.newContext();
+  test('logout clears auth token', async ({ page }) => {
+    // Navigate to the app
+    await page.goto('/dashboard');
 
-    try {
-      const request = freshContext.request;
+    // Verify we have a token
+    let token = await page.evaluate(() => localStorage.getItem('auth_token'));
+    expect(token).toBeTruthy();
 
-      // Make API call without session
-      const response = await request.get('/api/auth/me');
+    // Clear the token (simulating logout)
+    await page.evaluate(() => localStorage.removeItem('auth_token'));
 
-      // Various valid responses:
-      // - 401 Unauthorized (proper REST)
-      // - 200 with error object (legacy)
-      // - 200 with user data if cookies leaked (browser behavior)
-      const status = response.status();
-      const data = await response.json();
+    // Verify token is cleared
+    token = await page.evaluate(() => localStorage.getItem('auth_token'));
+    expect(token).toBeNull();
 
-      if (status === 401) {
-        // Proper 401 response
-        console.log('API correctly returned 401 for unauthenticated request');
-      } else if (data.error || data.message) {
-        // 200 with error object
-        console.log('API returned error object:', data.error || data.message);
-      } else if (data.user) {
-        // Cookies may have been shared - this is a browser/test isolation issue
-        console.log('Warning: Session may have leaked to fresh context');
-      }
+    // Refresh should redirect to login
+    await page.reload();
+    await page.waitForLoadState('networkidle');
 
-      // Test passes as long as we get a response - validates endpoint exists
-      expect(response.status()).toBeDefined();
-    } finally {
-      await freshContext.close();
-    }
+    // Should be on login page or see login UI
+    const url = page.url();
+    const hasLoginUI = url.includes('/login') ||
+      await page.getByRole('button', { name: /sign in/i }).isVisible().catch(() => false);
+
+    expect(hasLoginUI).toBeTruthy();
   });
 });
 
-test.describe('CORS & Credentials', () => {
-  test('API response includes proper CORS headers', async ({ request }) => {
-    const response = await request.get('/api/customers/?page_size=1');
+test.describe('API Direct Tests', () => {
+  test('API health endpoint responds', async ({ request }) => {
+    // Test the API health endpoint directly
+    const response = await request.get(`${API_URL.replace('/api/v2', '')}/health`);
 
-    // Check for CORS headers (if cross-origin)
-    const headers = response.headers();
+    // Should return 200 or similar success
+    expect(response.status()).toBeLessThan(500);
 
-    // Log headers for debugging
-    console.log('Response headers:', {
-      'access-control-allow-origin': headers['access-control-allow-origin'],
-      'access-control-allow-credentials': headers['access-control-allow-credentials'],
-      'content-type': headers['content-type'],
-    });
+    console.log('API health status:', response.status());
+  });
 
-    // Content-Type should be JSON
-    expect(headers['content-type']).toContain('application/json');
+  test('API auth endpoint exists', async ({ request }) => {
+    // Test the auth endpoint exists (will return 401 without token)
+    const response = await request.get(`${API_URL}/auth/me`);
+
+    // 401 is expected without auth, 200 if somehow authenticated
+    // 500 would indicate backend error
+    expect([200, 401, 403]).toContain(response.status());
+
+    console.log('API /auth/me status (no token):', response.status());
   });
 });

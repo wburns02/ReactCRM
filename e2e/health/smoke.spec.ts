@@ -64,8 +64,10 @@ test.describe('Prospects Page Smoke Tests', () => {
   });
 
   test('API endpoint returns valid response', async ({ request }) => {
-    // Direct API test - useful for contract verification
-    const response = await request.get(`${BASE_URL}/api/prospects/`, {
+    // Direct API test - API is on separate domain
+    const API_URL = process.env.API_URL || 'https://react-crm-api-production.up.railway.app/api/v2';
+
+    const response = await request.get(`${API_URL}/prospects/`, {
       headers: {
         'Content-Type': 'application/json',
       },

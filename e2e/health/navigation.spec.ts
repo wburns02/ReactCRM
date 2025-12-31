@@ -155,15 +155,40 @@ test.describe('Authentication', () => {
     await expect(signInButton).toBeVisible({ timeout: 10000 });
   });
 
-  test('unauthenticated access redirects to login', async ({ page }) => {
-    // Clear any existing auth
-    await page.context().clearCookies();
+  test('unauthenticated access redirects to login', async ({ browser }) => {
+    // Create fresh context without any auth state
+    const freshContext = await browser.newContext();
+    const page = await freshContext.newPage();
 
-    await page.goto(`${BASE_URL}/dashboard`);
+    try {
+      // Navigate to app first to get the right origin for localStorage
+      await page.goto(`${BASE_URL}/login`);
 
-    // Should redirect to login - check for Sign In button
-    const signInButton = page.getByRole('button', { name: 'Sign In' });
-    await expect(signInButton).toBeVisible({ timeout: 10000 });
+      // Explicitly clear auth token to ensure unauthenticated state
+      await page.evaluate(() => {
+        localStorage.removeItem('auth_token');
+        sessionStorage.clear();
+      });
+
+      // Clear cookies too
+      await freshContext.clearCookies();
+
+      // Now try to access protected route
+      await page.goto(`${BASE_URL}/dashboard`);
+      await page.waitForLoadState('networkidle');
+
+      // Should either:
+      // 1. Redirect to login page
+      // 2. Show login form on the page
+      const url = page.url();
+      const signInButton = page.getByRole('button', { name: /sign in/i });
+
+      const isOnLogin = url.includes('/login') || await signInButton.isVisible().catch(() => false);
+
+      expect(isOnLogin).toBe(true);
+    } finally {
+      await freshContext.close();
+    }
   });
 });
 

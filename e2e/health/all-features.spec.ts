@@ -178,10 +178,10 @@ test.describe('Sidebar Navigation Tests', () => {
     // URL should be correct
     expect(page.url()).toContain('/prospects');
 
-    // Test navigation to Customers
-    const customersLink = page.getByRole('link', { name: /customers/i });
+    // Test navigation to Customers (use first() as there may be multiple matches)
+    const customersLink = page.getByRole('link', { name: /customers/i }).first();
     await customersLink.click();
-    await page.waitForURL(/\/customers/);
+    await page.waitForURL(/\/customers/, { timeout: 10000 });
 
     expect(page.url()).toContain('/customers');
   });
@@ -271,16 +271,19 @@ test.describe('Login Flow Tests', () => {
 });
 
 test.describe('API Response Tests', () => {
+  // API is on a separate domain from the frontend
+  const API_URL = process.env.API_URL || 'https://react-crm-api-production.up.railway.app/api/v2';
+
   const API_ENDPOINTS = [
-    { path: '/api/prospects/', name: 'Prospects API' },
-    { path: '/api/customers/', name: 'Customers API' },
-    { path: '/api/work-orders/', name: 'Work Orders API' },
-    { path: '/api/technicians/', name: 'Technicians API' },
+    { path: '/prospects/', name: 'Prospects API' },
+    { path: '/customers/', name: 'Customers API' },
+    { path: '/work-orders', name: 'Work Orders API' },
+    { path: '/technicians/', name: 'Technicians API' },
   ];
 
   for (const endpoint of API_ENDPOINTS) {
     test(`${endpoint.name} returns valid response`, async ({ request }) => {
-      const response = await request.get(`${BASE_URL}${endpoint.path}`, {
+      const response = await request.get(`${API_URL}${endpoint.path}`, {
         headers: {
           'Content-Type': 'application/json',
         },
