@@ -18,7 +18,7 @@ import { test, expect } from '@playwright/test';
  * - Webhook handling (mock signatures)
  */
 
-const BASE_URL = process.env.BASE_URL || 'https://react.ecbtx.com/app';
+const BASE_URL = process.env.BASE_URL || 'https://react.ecbtx.com';
 const API_URL = process.env.API_URL || 'https://react-crm-api-production.up.railway.app';
 
 // Verify we're in mock mode - ABORT if not

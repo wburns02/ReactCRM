@@ -7,7 +7,7 @@ import { test, expect } from '@playwright/test';
  * back to the unscheduled area to unschedule them.
  */
 
-const BASE_URL = process.env.BASE_URL || 'https://react.ecbtx.com/app';
+const BASE_URL = process.env.BASE_URL || 'https://react.ecbtx.com';
 
 test.describe('Schedule - Bi-Directional Drag (Unschedule)', () => {
   test.beforeEach(async ({ page }) => {

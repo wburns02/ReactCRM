@@ -197,7 +197,7 @@ test.describe('Full Site Audit', () => {
   for (const route of ALL_ROUTES) {
     test(`Audit route: ${route}`, async () => {
       const startTime = Date.now();
-      const fullUrl = `${BASE_URL}/app${route}`;
+      const fullUrl = `${BASE_URL}${route}`;
 
       const routeAudit: RouteAudit = {
         route,

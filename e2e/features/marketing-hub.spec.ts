@@ -1,6 +1,6 @@
 import { test, expect } from '@playwright/test';
 
-const BASE_URL = process.env.BASE_URL || 'https://react.ecbtx.com/app';
+const BASE_URL = process.env.BASE_URL || 'https://react.ecbtx.com';
 
 test.describe('Marketing Hub', () => {
   test.beforeEach(async ({ page }) => {

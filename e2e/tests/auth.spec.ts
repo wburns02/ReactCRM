@@ -12,7 +12,7 @@ import { test, expect } from '@playwright/test';
  * - Protected route enforcement
  */
 
-const BASE_URL = process.env.BASE_URL || 'https://react.ecbtx.com/app';
+const BASE_URL = process.env.BASE_URL || 'https://react.ecbtx.com';
 
 test.describe('Authentication Flow', () => {
   test.describe('Login Page', () => {

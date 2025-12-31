@@ -11,7 +11,7 @@ import { test, expect } from '@playwright/test';
  * - Search and filtering
  */
 
-const BASE_URL = process.env.BASE_URL || 'https://react.ecbtx.com/app';
+const BASE_URL = process.env.BASE_URL || 'https://react.ecbtx.com';
 
 test.describe('Dashboard', () => {
   test('dashboard loads with key metrics', async ({ page }) => {

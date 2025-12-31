@@ -18,7 +18,7 @@ const __dirname = dirname(__filename);
 const projectRoot = dirname(__dirname);
 
 // URLs
-const PRODUCTION_URL = process.env.BASE_URL || 'https://react.ecbtx.com/app';
+const PRODUCTION_URL = process.env.BASE_URL || 'https://react.ecbtx.com';
 const API_URL = process.env.API_URL || 'https://react-crm-api-production.up.railway.app';
 
 // Artifact directory (set by self_heal_run.sh)
