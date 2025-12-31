@@ -3,6 +3,7 @@ import { useDraggable, useDroppable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import { Input } from '@/components/ui/Input.tsx';
 import { Badge } from '@/components/ui/Badge.tsx';
+import { Button } from '@/components/ui/Button.tsx';
 import { useUnscheduledWorkOrders } from '@/api/hooks/useWorkOrders.ts';
 import {
   type WorkOrder,
@@ -157,7 +158,7 @@ const COLUMNS: ColumnDef[] = [
  * Rows are draggable and can be dropped onto the calendar below.
  */
 export function UnscheduledOrdersTable() {
-  const { data, isLoading, isError } = useUnscheduledWorkOrders();
+  const { data, isLoading, isError, refetch, isFetching } = useUnscheduledWorkOrders();
 
   // Droppable zone for unscheduling work orders (drag scheduled items here)
   const { setNodeRef: setDropRef, isOver: isDropOver } = useDroppable({
@@ -323,10 +324,19 @@ export function UnscheduledOrdersTable() {
       {/* Table */}
       {isExpanded && (
         <div className="overflow-x-auto max-h-[300px] overflow-y-auto">
-          {isLoading ? (
+          {isLoading || isFetching ? (
             <div className="p-8 text-center text-text-muted">Loading unscheduled work orders...</div>
           ) : isError ? (
-            <div className="p-8 text-center text-danger">Failed to load work orders</div>
+            <div className="p-8 text-center">
+              <p className="text-danger mb-3">Failed to load work orders</p>
+              <Button
+                variant="secondary"
+                size="sm"
+                onClick={() => refetch()}
+              >
+                Retry
+              </Button>
+            </div>
           ) : filteredWorkOrders.length === 0 ? (
             <div className="p-8 text-center text-text-muted">
               {searchQuery || regionFilter !== 'all'

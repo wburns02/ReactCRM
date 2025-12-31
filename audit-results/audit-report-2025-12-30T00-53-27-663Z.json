@@ -1,0 +1,718 @@
+{
+  "timestamp": "2025-12-30T00:53:27.663Z",
+  "baseUrl": "https://react.ecbtx.com",
+  "apiUrl": "https://react-crm-api-production.up.railway.app/api/v2",
+  "duration": 52308,
+  "summary": {
+    "totalRoutes": 19,
+    "successfulRoutes": 19,
+    "failedRoutes": 0,
+    "authRequiredRoutes": 0,
+    "totalConsoleErrors": 27,
+    "totalNetworkErrors": 4,
+    "totalApiErrors": 24,
+    "totalInteractionsFailed": 0
+  },
+  "routes": [
+    {
+      "route": "/dashboard",
+      "url": "https://react.ecbtx.com/app/dashboard",
+      "status": "success",
+      "loadTime": 2518,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 26,
+      "interactionsAttempted": 1,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/prospects",
+      "url": "https://react.ecbtx.com/app/prospects",
+      "status": "success",
+      "loadTime": 1149,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 18,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/customers",
+      "url": "https://react.ecbtx.com/app/customers",
+      "status": "success",
+      "loadTime": 1779,
+      "consoleErrors": 3,
+      "networkErrors": 0,
+      "apiErrors": 3,
+      "clickableElements": 23,
+      "interactionsAttempted": 1,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/work-orders",
+      "url": "https://react.ecbtx.com/app/work-orders",
+      "status": "success",
+      "loadTime": 1148,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 16,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/schedule",
+      "url": "https://react.ecbtx.com/app/schedule",
+      "status": "success",
+      "loadTime": 1751,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 31,
+      "interactionsAttempted": 1,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/technicians",
+      "url": "https://react.ecbtx.com/app/technicians",
+      "status": "success",
+      "loadTime": 1755,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 23,
+      "interactionsAttempted": 1,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/fleet",
+      "url": "https://react.ecbtx.com/app/fleet",
+      "status": "success",
+      "loadTime": 1108,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 15,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/equipment",
+      "url": "https://react.ecbtx.com/app/equipment",
+      "status": "success",
+      "loadTime": 1132,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 16,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/inventory",
+      "url": "https://react.ecbtx.com/app/inventory",
+      "status": "success",
+      "loadTime": 1154,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 16,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/tickets",
+      "url": "https://react.ecbtx.com/app/tickets",
+      "status": "success",
+      "loadTime": 1174,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 16,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/invoices",
+      "url": "https://react.ecbtx.com/app/invoices",
+      "status": "success",
+      "loadTime": 15132,
+      "consoleErrors": 4,
+      "networkErrors": 2,
+      "apiErrors": 2,
+      "clickableElements": 15,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/payments",
+      "url": "https://react.ecbtx.com/app/payments",
+      "status": "success",
+      "loadTime": 15120,
+      "consoleErrors": 8,
+      "networkErrors": 2,
+      "apiErrors": 6,
+      "clickableElements": 15,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/reports",
+      "url": "https://react.ecbtx.com/app/reports",
+      "status": "success",
+      "loadTime": 1388,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 24,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/email-marketing",
+      "url": "https://react.ecbtx.com/app/email-marketing",
+      "status": "success",
+      "loadTime": 1114,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 15,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/integrations",
+      "url": "https://react.ecbtx.com/app/integrations",
+      "status": "success",
+      "loadTime": 1124,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 17,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/users",
+      "url": "https://react.ecbtx.com/app/users",
+      "status": "success",
+      "loadTime": 1137,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 16,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/admin",
+      "url": "https://react.ecbtx.com/app/admin",
+      "status": "success",
+      "loadTime": 1116,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 19,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/intel",
+      "url": "https://react.ecbtx.com/app/intel",
+      "status": "success",
+      "loadTime": 764,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 16,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/settings",
+      "url": "https://react.ecbtx.com/app/settings",
+      "status": "success",
+      "loadTime": 745,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 16,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    }
+  ],
+  "errors": [
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/prospects/?page=1&page_size=100 returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/prospects/?page=1&page_size=100",
+      "route": "/dashboard",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:52:35.207Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/dashboard",
+      "route": "/dashboard",
+      "timestamp": "2025-12-30T00:52:35.209Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/prospects/?page=1&page_size=20 returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/prospects/?page=1&page_size=20",
+      "route": "/prospects",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:52:36.998Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/prospects",
+      "route": "/prospects",
+      "timestamp": "2025-12-30T00:52:36.998Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/attachments/?entity_type=customer&entity_id=1&page_size=100 returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/attachments/?entity_type=customer&entity_id=1&page_size=100",
+      "route": "/customers/1",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:52:39.178Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/customers/1",
+      "route": "/customers/1",
+      "timestamp": "2025-12-30T00:52:39.178Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/ringcentral/calls?limit=5&customer_id=1 returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/ringcentral/calls?limit=5&customer_id=1",
+      "route": "/customers/1",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:52:39.178Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/customers/1",
+      "route": "/customers/1",
+      "timestamp": "2025-12-30T00:52:39.178Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/activities/?page_size=100&customer_id=1 returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/activities/?page_size=100&customer_id=1",
+      "route": "/customers/1",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:52:39.179Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/customers/1",
+      "route": "/customers/1",
+      "timestamp": "2025-12-30T00:52:39.179Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/customers/?page=1&page_size=200 returned 422",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/customers/?page=1&page_size=200",
+      "route": "/work-orders",
+      "statusCode": 422,
+      "timestamp": "2025-12-30T00:52:39.961Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 422 ()",
+      "url": "https://react.ecbtx.com/app/work-orders",
+      "route": "/work-orders",
+      "timestamp": "2025-12-30T00:52:39.962Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/customers/?page=1&page_size=200 returned 422",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/customers/?page=1&page_size=200",
+      "route": "/work-orders",
+      "statusCode": 422,
+      "timestamp": "2025-12-30T00:52:41.870Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 422 ()",
+      "url": "https://react.ecbtx.com/app/work-orders",
+      "route": "/work-orders",
+      "timestamp": "2025-12-30T00:52:41.870Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/samsara/vehicles returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/samsara/vehicles",
+      "route": "/fleet",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:52:44.659Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/fleet",
+      "route": "/fleet",
+      "timestamp": "2025-12-30T00:52:44.659Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/equipment/?page=1&page_size=20 returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/equipment/?page=1&page_size=20",
+      "route": "/equipment",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:52:45.817Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/equipment",
+      "route": "/equipment",
+      "timestamp": "2025-12-30T00:52:45.817Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/inventory/?page=1&page_size=20&low_stock=false returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/inventory/?page=1&page_size=20&low_stock=false",
+      "route": "/inventory",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:52:46.972Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/inventory",
+      "route": "/inventory",
+      "timestamp": "2025-12-30T00:52:46.972Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/tickets/?page=1&page_size=20 returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/tickets/?page=1&page_size=20",
+      "route": "/tickets",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:52:48.190Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/tickets",
+      "route": "/tickets",
+      "timestamp": "2025-12-30T00:52:48.190Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/customers/?page=1&page_size=200 returned 422",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/customers/?page=1&page_size=200",
+      "route": "/invoices",
+      "statusCode": 422,
+      "timestamp": "2025-12-30T00:52:49.300Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 422 ()",
+      "url": "https://react.ecbtx.com/app/invoices",
+      "route": "/invoices",
+      "timestamp": "2025-12-30T00:52:49.300Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Mixed Content: The page at 'https://react.ecbtx.com/app/invoices' was loaded over HTTPS, but requested an insecure XMLHttpRequest endpoint 'http://react-crm-api-production.up.railway.app/api/v2/invoices/?page=1&page_size=20'. This request has been blocked; the content must be served over HTTPS.",
+      "url": "https://react.ecbtx.com/app/invoices",
+      "route": "/invoices",
+      "timestamp": "2025-12-30T00:52:49.391Z"
+    },
+    {
+      "type": "network",
+      "severity": "error",
+      "message": "Request failed: http://react-crm-api-production.up.railway.app/api/v2/invoices/?page=1&page_size=20 - mixed-content",
+      "url": "http://react-crm-api-production.up.railway.app/api/v2/invoices/?page=1&page_size=20",
+      "route": "/invoices",
+      "timestamp": "2025-12-30T00:52:49.394Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/customers/?page=1&page_size=200 returned 422",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/customers/?page=1&page_size=200",
+      "route": "/invoices",
+      "statusCode": 422,
+      "timestamp": "2025-12-30T00:52:50.393Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 422 ()",
+      "url": "https://react.ecbtx.com/app/invoices",
+      "route": "/invoices",
+      "timestamp": "2025-12-30T00:52:50.393Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Mixed Content: The page at 'https://react.ecbtx.com/app/invoices' was loaded over HTTPS, but requested an insecure XMLHttpRequest endpoint 'http://react-crm-api-production.up.railway.app/api/v2/invoices/?page=1&page_size=20'. This request has been blocked; the content must be served over HTTPS.",
+      "url": "https://react.ecbtx.com/app/invoices",
+      "route": "/invoices",
+      "timestamp": "2025-12-30T00:52:50.487Z"
+    },
+    {
+      "type": "network",
+      "severity": "error",
+      "message": "Request failed: http://react-crm-api-production.up.railway.app/api/v2/invoices/?page=1&page_size=20 - mixed-content",
+      "url": "http://react-crm-api-production.up.railway.app/api/v2/invoices/?page=1&page_size=20",
+      "route": "/invoices",
+      "timestamp": "2025-12-30T00:52:50.492Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/customers/?page=1&page_size=200 returned 422",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/customers/?page=1&page_size=200",
+      "route": "/payments",
+      "statusCode": 422,
+      "timestamp": "2025-12-30T00:53:04.421Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 422 ()",
+      "url": "https://react.ecbtx.com/app/payments",
+      "route": "/payments",
+      "timestamp": "2025-12-30T00:53:04.421Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/payments?page=1&page_size=1000 returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/payments?page=1&page_size=1000",
+      "route": "/payments",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:53:04.468Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/payments",
+      "route": "/payments",
+      "timestamp": "2025-12-30T00:53:04.468Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/payments?page=1&page_size=20 returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/payments?page=1&page_size=20",
+      "route": "/payments",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:53:04.472Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/payments",
+      "route": "/payments",
+      "timestamp": "2025-12-30T00:53:04.472Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Mixed Content: The page at 'https://react.ecbtx.com/app/payments' was loaded over HTTPS, but requested an insecure XMLHttpRequest endpoint 'http://react-crm-api-production.up.railway.app/api/v2/invoices/?page=1&page_size=200'. This request has been blocked; the content must be served over HTTPS.",
+      "url": "https://react.ecbtx.com/app/payments",
+      "route": "/payments",
+      "timestamp": "2025-12-30T00:53:04.473Z"
+    },
+    {
+      "type": "network",
+      "severity": "error",
+      "message": "Request failed: http://react-crm-api-production.up.railway.app/api/v2/invoices/?page=1&page_size=200 - mixed-content",
+      "url": "http://react-crm-api-production.up.railway.app/api/v2/invoices/?page=1&page_size=200",
+      "route": "/payments",
+      "timestamp": "2025-12-30T00:53:04.473Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/customers/?page=1&page_size=200 returned 422",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/customers/?page=1&page_size=200",
+      "route": "/payments",
+      "statusCode": 422,
+      "timestamp": "2025-12-30T00:53:05.501Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 422 ()",
+      "url": "https://react.ecbtx.com/app/payments",
+      "route": "/payments",
+      "timestamp": "2025-12-30T00:53:05.501Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/payments?page=1&page_size=1000 returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/payments?page=1&page_size=1000",
+      "route": "/payments",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:53:05.533Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/payments",
+      "route": "/payments",
+      "timestamp": "2025-12-30T00:53:05.533Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/payments?page=1&page_size=20 returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/payments?page=1&page_size=20",
+      "route": "/payments",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:53:05.534Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/payments",
+      "route": "/payments",
+      "timestamp": "2025-12-30T00:53:05.534Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Mixed Content: The page at 'https://react.ecbtx.com/app/payments' was loaded over HTTPS, but requested an insecure XMLHttpRequest endpoint 'http://react-crm-api-production.up.railway.app/api/v2/invoices/?page=1&page_size=200'. This request has been blocked; the content must be served over HTTPS.",
+      "url": "https://react.ecbtx.com/app/payments",
+      "route": "/payments",
+      "timestamp": "2025-12-30T00:53:05.543Z"
+    },
+    {
+      "type": "network",
+      "severity": "error",
+      "message": "Request failed: http://react-crm-api-production.up.railway.app/api/v2/invoices/?page=1&page_size=200 - mixed-content",
+      "url": "http://react-crm-api-production.up.railway.app/api/v2/invoices/?page=1&page_size=200",
+      "route": "/payments",
+      "timestamp": "2025-12-30T00:53:05.544Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/email-marketing/status returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/email-marketing/status",
+      "route": "/email-marketing",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:53:21.031Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/email-marketing",
+      "route": "/email-marketing",
+      "timestamp": "2025-12-30T00:53:21.031Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/samsara/vehicles returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/samsara/vehicles",
+      "route": "/integrations",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:53:22.162Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/integrations",
+      "route": "/integrations",
+      "timestamp": "2025-12-30T00:53:22.162Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/admin/users returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/admin/users",
+      "route": "/users",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:53:23.342Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/users",
+      "route": "/users",
+      "timestamp": "2025-12-30T00:53:23.343Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/admin/settings/system returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/admin/settings/system",
+      "route": "/admin",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:53:24.469Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/app/admin",
+      "route": "/admin",
+      "timestamp": "2025-12-30T00:53:24.469Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API /dashboard/summary returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/dashboard/summary",
+      "route": "api-audit",
+      "statusCode": 404,
+      "timestamp": "2025-12-30T00:53:27.595Z"
+    }
+  ],
+  "recommendations": [
+    "Fix 24 API errors - check backend availability and error handling",
+    "Address 27 console errors - may indicate React rendering issues",
+    "Investigate 4 network failures - check CORS, DNS, and connectivity",
+    "Optimize 2 slow routes (>5s load time): /invoices, /payments"
+  ]
+}

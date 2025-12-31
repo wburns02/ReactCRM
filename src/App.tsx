@@ -11,7 +11,8 @@ const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: 30_000, // 30 seconds
-      retry: 1, // Single retry for transient failures
+      retry: 3, // Retry 3 times for transient failures (CORS, network issues)
+      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000), // Exponential backoff
       refetchOnWindowFocus: false,
     },
   },
