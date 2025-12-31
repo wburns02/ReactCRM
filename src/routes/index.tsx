@@ -48,6 +48,13 @@ const PaymentsPage = lazy(() => import('@/features/payments/PaymentsPage.tsx').t
 const UsersPage = lazy(() => import('@/features/users/UsersPage.tsx').then(m => ({ default: m.UsersPage })));
 const AdminSettingsPage = lazy(() => import('@/features/admin/AdminSettingsPage.tsx').then(m => ({ default: m.AdminSettingsPage })));
 
+// Employee Portal & Payroll - lazy loaded
+const EmployeePortalPage = lazy(() => import('@/features/employee/EmployeePortalPage.tsx').then(m => ({ default: m.EmployeePortalPage })));
+const PayrollPage = lazy(() => import('@/features/payroll/PayrollPage.tsx').then(m => ({ default: m.PayrollPage })));
+
+// Phone/Communications - lazy loaded
+const PhonePage = lazy(() => import('@/features/phone/index.ts').then(m => ({ default: m.PhonePage })));
+
 /**
  * App routes - standalone deployment at root
  * Uses React.lazy() for code splitting - each feature loads on demand
@@ -55,10 +62,10 @@ const AdminSettingsPage = lazy(() => import('@/features/admin/AdminSettingsPage.
 export function AppRoutes() {
   return (
     <Routes>
-      {/* Public login route at /login */}
+      {/* Public login route at /app/login */}
       <Route path="/login" element={<LoginPage />} />
 
-      {/* Protected app routes at /* */}
+      {/* Protected app routes at /app/* */}
       <Route
         path="/"
         element={
@@ -134,6 +141,15 @@ export function AppRoutes() {
 
         {/* Admin Settings */}
         <Route path="admin" element={<Suspense fallback={<PageLoader />}><AdminSettingsPage /></Suspense>} />
+
+        {/* Employee Portal - Mobile-first for field technicians */}
+        <Route path="employee" element={<Suspense fallback={<PageLoader />}><EmployeePortalPage /></Suspense>} />
+
+        {/* Payroll Management */}
+        <Route path="payroll" element={<Suspense fallback={<PageLoader />}><PayrollPage /></Suspense>} />
+
+        {/* Phone/Communications */}
+        <Route path="phone" element={<Suspense fallback={<PageLoader />}><PhonePage /></Suspense>} />
 
         {/* 404 within app */}
         <Route

@@ -54,6 +54,7 @@ export function AppLayout() {
         { path: '/work-orders', label: 'Work Orders', icon: '🔧' },
         { path: '/schedule', label: 'Schedule', icon: '📅' },
         { path: '/technicians', label: 'Technicians', icon: '👷' },
+        { path: '/employee', label: 'Employee Portal', icon: '📱' },
       ],
     },
     {
@@ -61,7 +62,7 @@ export function AppLayout() {
       label: 'Communications',
       icon: '📞',
       items: [
-        // Phone features will be added here when implemented
+        { path: '/phone', label: 'Phone Dashboard', icon: '📞' },
         { path: '/integrations', label: 'Integrations', icon: '🔌' },
       ],
     },
@@ -72,6 +73,7 @@ export function AppLayout() {
       items: [
         { path: '/invoices', label: 'Invoices', icon: '🧾' },
         { path: '/payments', label: 'Payments', icon: '💳' },
+        { path: '/payroll', label: 'Payroll', icon: '💵' },
       ],
     },
     {
