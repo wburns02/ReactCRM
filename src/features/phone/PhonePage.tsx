@@ -65,7 +65,7 @@ export function PhonePage() {
   }) || [];
 
   // Get default from_number from extensions
-  const defaultFromNumber = extensions?.[0]?.phoneNumber || '';
+  const defaultFromNumber = extensions?.[0]?.extension_number || '';
 
   // Sync calls from RingCentral
   const handleSyncCalls = async () => {
