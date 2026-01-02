@@ -1,5 +1,5 @@
 import { useQuery, useMutation } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { apiClient, withFallback } from '@/api/client';
 
 /**
  * Predictive Maintenance Types
@@ -59,47 +59,78 @@ export interface PredictionFilters {
 }
 
 /**
+ * Default values for 404 fallback
+ */
+const DEFAULT_SUMMARY: PredictionSummary = {
+  total_customers_at_risk: 0,
+  high_risk_count: 0,
+  medium_risk_count: 0,
+  low_risk_count: 0,
+  predicted_revenue_30_days: 0,
+  predicted_revenue_90_days: 0,
+  average_days_between_service: 0,
+};
+
+/**
  * Get prediction summary/dashboard stats
+ * Returns default summary if endpoint not implemented (404)
  */
 export function usePredictionSummary() {
   return useQuery({
     queryKey: ['predictive-maintenance', 'summary'],
     queryFn: async (): Promise<PredictionSummary> => {
-      const { data } = await apiClient.get('/predictive-maintenance/summary');
-      return data;
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/predictive-maintenance/summary');
+          return data;
+        },
+        DEFAULT_SUMMARY
+      );
     },
   });
 }
 
 /**
  * Get maintenance predictions with filters
+ * Returns empty list if endpoint not implemented (404)
  */
 export function useMaintenancePredictions(filters?: PredictionFilters) {
   return useQuery({
     queryKey: ['predictive-maintenance', 'predictions', filters],
     queryFn: async (): Promise<{ items: MaintenancePrediction[]; total: number }> => {
-      const { data } = await apiClient.get('/predictive-maintenance/predictions', {
-        params: filters,
-      });
-      return data;
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/predictive-maintenance/predictions', {
+            params: filters,
+          });
+          return data;
+        },
+        { items: [], total: 0 }
+      );
     },
   });
 }
 
 /**
  * Get high-risk predictions only
+ * Returns empty array if endpoint not implemented (404)
  */
 export function useHighRiskPredictions(limit = 10) {
   return useQuery({
     queryKey: ['predictive-maintenance', 'high-risk', limit],
     queryFn: async (): Promise<MaintenancePrediction[]> => {
-      const { data } = await apiClient.get('/predictive-maintenance/predictions', {
-        params: {
-          risk_level: 'high',
-          page_size: limit,
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/predictive-maintenance/predictions', {
+            params: {
+              risk_level: 'high',
+              page_size: limit,
+            },
+          });
+          return data.items || [];
         },
-      });
-      return data.items || [];
+        []
+      );
     },
   });
 }
@@ -120,15 +151,21 @@ export function useCustomerPrediction(customerId: number) {
 
 /**
  * Get maintenance alerts
+ * Returns empty array if endpoint not implemented (404)
  */
 export function useMaintenanceAlerts(unreadOnly = false) {
   return useQuery({
     queryKey: ['predictive-maintenance', 'alerts', unreadOnly],
     queryFn: async (): Promise<MaintenanceAlert[]> => {
-      const { data } = await apiClient.get('/predictive-maintenance/alerts', {
-        params: { unread_only: unreadOnly },
-      });
-      return data.alerts || [];
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/predictive-maintenance/alerts', {
+            params: { unread_only: unreadOnly },
+          });
+          return data.alerts || [];
+        },
+        []
+      );
     },
   });
 }
@@ -158,15 +195,21 @@ export function useCreateFromPrediction() {
 
 /**
  * Get predictions for a date range (for calendar view)
+ * Returns empty array if endpoint not implemented (404)
  */
 export function usePredictionCalendar(startDate: string, endDate: string) {
   return useQuery({
     queryKey: ['predictive-maintenance', 'calendar', startDate, endDate],
     queryFn: async (): Promise<{ date: string; predictions: MaintenancePrediction[] }[]> => {
-      const { data } = await apiClient.get('/predictive-maintenance/calendar', {
-        params: { start_date: startDate, end_date: endDate },
-      });
-      return data.days || [];
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/predictive-maintenance/calendar', {
+            params: { start_date: startDate, end_date: endDate },
+          });
+          return data.days || [];
+        },
+        []
+      );
     },
     enabled: !!startDate && !!endDate,
   });

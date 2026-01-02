@@ -148,3 +148,36 @@ export function getErrorMessage(error: unknown): string {
   }
   return 'An unexpected error occurred';
 }
+
+/**
+ * Check if error is a 404 Not Found
+ * Used to gracefully handle endpoints that don't exist yet
+ */
+export function is404Error(error: unknown): boolean {
+  if (axios.isAxiosError(error)) {
+    return error.response?.status === 404;
+  }
+  return false;
+}
+
+/**
+ * Wrapper for API calls that gracefully handles 404 by returning a default value.
+ * Use this for endpoints that may not be implemented yet on the backend.
+ *
+ * @param apiFn - The async API function to call
+ * @param defaultValue - The value to return if the endpoint returns 404
+ * @returns The API response or default value on 404
+ */
+export async function withFallback<T>(
+  apiFn: () => Promise<T>,
+  defaultValue: T
+): Promise<T> {
+  try {
+    return await apiFn();
+  } catch (error) {
+    if (is404Error(error)) {
+      return defaultValue;
+    }
+    throw error;
+  }
+}

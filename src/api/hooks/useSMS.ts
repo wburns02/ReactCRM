@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { apiClient, withFallback } from '@/api/client';
 
 /**
  * SMS Types
@@ -78,6 +78,33 @@ export interface SMSConversation {
 }
 
 /**
+ * Default values for 404 fallback
+ */
+const DEFAULT_SETTINGS: SMSSettings = {
+  twilio_enabled: false,
+  auto_appointment_reminder: false,
+  reminder_hours_before: 24,
+  auto_service_complete: false,
+  auto_invoice_sent: false,
+  auto_payment_reminder: false,
+  payment_reminder_days: 7,
+  quiet_hours_enabled: false,
+  quiet_start: '22:00',
+  quiet_end: '07:00',
+  total_opted_out: 0,
+};
+
+const DEFAULT_STATS: SMSStats = {
+  total_sent: 0,
+  total_delivered: 0,
+  total_failed: 0,
+  delivery_rate: 0,
+  messages_today: 0,
+  messages_this_month: 0,
+  opt_out_count: 0,
+};
+
+/**
  * Query keys for SMS
  */
 export const smsKeys = {
@@ -94,13 +121,19 @@ export const smsKeys = {
 
 /**
  * Get SMS settings
+ * Returns defaults if endpoint not implemented (404)
  */
 export function useSMSSettings() {
   return useQuery({
     queryKey: smsKeys.settings(),
     queryFn: async (): Promise<SMSSettings> => {
-      const { data } = await apiClient.get('/sms/settings');
-      return data;
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/sms/settings');
+          return data;
+        },
+        DEFAULT_SETTINGS
+      );
     },
   });
 }
@@ -124,26 +157,38 @@ export function useUpdateSMSSettings() {
 
 /**
  * Get SMS stats
+ * Returns defaults if endpoint not implemented (404)
  */
 export function useSMSStats() {
   return useQuery({
     queryKey: smsKeys.stats(),
     queryFn: async (): Promise<SMSStats> => {
-      const { data } = await apiClient.get('/sms/stats');
-      return data;
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/sms/stats');
+          return data;
+        },
+        DEFAULT_STATS
+      );
     },
   });
 }
 
 /**
  * Get SMS templates
+ * Returns empty array if endpoint not implemented (404)
  */
 export function useSMSTemplates() {
   return useQuery({
     queryKey: smsKeys.templates(),
     queryFn: async (): Promise<SMSTemplate[]> => {
-      const { data } = await apiClient.get('/sms/templates');
-      return data.templates || [];
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/sms/templates');
+          return data.templates || [];
+        },
+        []
+      );
     },
   });
 }
@@ -233,31 +278,43 @@ export function useSendSMS() {
 
 /**
  * Get SMS messages
+ * Returns empty list if endpoint not implemented (404)
  */
 export function useSMSMessages(filters?: { customer_id?: number; status?: string; limit?: number }) {
   return useQuery({
     queryKey: smsKeys.messages(filters),
     queryFn: async (): Promise<{ messages: SMSMessage[]; total: number }> => {
-      const params = new URLSearchParams();
-      if (filters?.customer_id) params.append('customer_id', filters.customer_id.toString());
-      if (filters?.status) params.append('status', filters.status);
-      if (filters?.limit) params.append('limit', filters.limit.toString());
+      return withFallback(
+        async () => {
+          const params = new URLSearchParams();
+          if (filters?.customer_id) params.append('customer_id', filters.customer_id.toString());
+          if (filters?.status) params.append('status', filters.status);
+          if (filters?.limit) params.append('limit', filters.limit.toString());
 
-      const { data } = await apiClient.get(`/sms/messages?${params.toString()}`);
-      return data;
+          const { data } = await apiClient.get(`/sms/messages?${params.toString()}`);
+          return data;
+        },
+        { messages: [], total: 0 }
+      );
     },
   });
 }
 
 /**
  * Get SMS conversations list
+ * Returns empty array if endpoint not implemented (404)
  */
 export function useSMSConversations() {
   return useQuery({
     queryKey: smsKeys.conversations(),
     queryFn: async (): Promise<SMSConversation[]> => {
-      const { data } = await apiClient.get('/sms/conversations');
-      return data.conversations || [];
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/sms/conversations');
+          return data.conversations || [];
+        },
+        []
+      );
     },
     refetchInterval: 30000, // Poll every 30 seconds
   });
@@ -265,13 +322,19 @@ export function useSMSConversations() {
 
 /**
  * Get conversation with a customer
+ * Returns empty array if endpoint not implemented (404)
  */
 export function useSMSConversation(customerId: number) {
   return useQuery({
     queryKey: smsKeys.conversation(customerId),
     queryFn: async (): Promise<SMSMessage[]> => {
-      const { data } = await apiClient.get(`/sms/conversations/${customerId}`);
-      return data.messages || [];
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get(`/sms/conversations/${customerId}`);
+          return data.messages || [];
+        },
+        []
+      );
     },
     enabled: !!customerId,
   });

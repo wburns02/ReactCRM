@@ -1,5 +1,5 @@
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { apiClient, withFallback } from '@/api/client';
 
 /**
  * Service Interval Types
@@ -57,6 +57,18 @@ export interface ServiceIntervalStats {
 }
 
 /**
+ * Default values for 404 fallback
+ */
+const DEFAULT_STATS: ServiceIntervalStats = {
+  total_customers_with_intervals: 0,
+  upcoming_services: 0,
+  due_services: 0,
+  overdue_services: 0,
+  reminders_sent_today: 0,
+  reminders_pending: 0,
+};
+
+/**
  * Query keys for service intervals
  */
 export const serviceIntervalKeys = {
@@ -75,13 +87,19 @@ export const serviceIntervalKeys = {
 
 /**
  * Get all service intervals
+ * Returns empty array if endpoint not implemented (404)
  */
 export function useServiceIntervals() {
   return useQuery({
     queryKey: serviceIntervalKeys.lists(),
     queryFn: async (): Promise<ServiceInterval[]> => {
-      const { data } = await apiClient.get('/service-intervals/');
-      return data.intervals || [];
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/service-intervals/');
+          return data.intervals || [];
+        },
+        []
+      );
     },
   });
 }
@@ -158,6 +176,7 @@ export function useDeleteServiceInterval() {
 
 /**
  * Get customer service schedules
+ * Returns empty list if endpoint not implemented (404)
  */
 export function useCustomerServiceSchedules(filters?: {
   status?: string;
@@ -170,26 +189,37 @@ export function useCustomerServiceSchedules(filters?: {
       schedules: CustomerServiceSchedule[];
       total: number;
     }> => {
-      const params = new URLSearchParams();
-      if (filters?.status) params.append('status', filters.status);
-      if (filters?.customer_id) params.append('customer_id', filters.customer_id.toString());
-      if (filters?.limit) params.append('limit', filters.limit.toString());
+      return withFallback(
+        async () => {
+          const params = new URLSearchParams();
+          if (filters?.status) params.append('status', filters.status);
+          if (filters?.customer_id) params.append('customer_id', filters.customer_id.toString());
+          if (filters?.limit) params.append('limit', filters.limit.toString());
 
-      const { data } = await apiClient.get(`/service-intervals/schedules?${params.toString()}`);
-      return data;
+          const { data } = await apiClient.get(`/service-intervals/schedules?${params.toString()}`);
+          return data;
+        },
+        { schedules: [], total: 0 }
+      );
     },
   });
 }
 
 /**
  * Get schedules for a specific customer
+ * Returns empty array if endpoint not implemented (404)
  */
 export function useCustomerSchedule(customerId: number) {
   return useQuery({
     queryKey: serviceIntervalKeys.customerSchedule(customerId),
     queryFn: async (): Promise<CustomerServiceSchedule[]> => {
-      const { data } = await apiClient.get(`/service-intervals/customer/${customerId}/schedules`);
-      return data.schedules || [];
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get(`/service-intervals/customer/${customerId}/schedules`);
+          return data.schedules || [];
+        },
+        []
+      );
     },
     enabled: !!customerId,
   });
@@ -263,30 +293,42 @@ export function useUpdateCustomerSchedule() {
 
 /**
  * Get pending reminders
+ * Returns empty array if endpoint not implemented (404)
  */
 export function useServiceReminders(filters?: { status?: string; limit?: number }) {
   return useQuery({
     queryKey: serviceIntervalKeys.reminders(),
     queryFn: async (): Promise<ServiceReminder[]> => {
-      const params = new URLSearchParams();
-      if (filters?.status) params.append('status', filters.status);
-      if (filters?.limit) params.append('limit', filters.limit.toString());
+      return withFallback(
+        async () => {
+          const params = new URLSearchParams();
+          if (filters?.status) params.append('status', filters.status);
+          if (filters?.limit) params.append('limit', filters.limit.toString());
 
-      const { data } = await apiClient.get(`/service-intervals/reminders?${params.toString()}`);
-      return data.reminders || [];
+          const { data } = await apiClient.get(`/service-intervals/reminders?${params.toString()}`);
+          return data.reminders || [];
+        },
+        []
+      );
     },
   });
 }
 
 /**
  * Get service interval stats
+ * Returns default stats if endpoint not implemented (404)
  */
 export function useServiceIntervalStats() {
   return useQuery({
     queryKey: serviceIntervalKeys.stats(),
     queryFn: async (): Promise<ServiceIntervalStats> => {
-      const { data } = await apiClient.get('/service-intervals/stats');
-      return data;
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/service-intervals/stats');
+          return data;
+        },
+        DEFAULT_STATS
+      );
     },
   });
 }

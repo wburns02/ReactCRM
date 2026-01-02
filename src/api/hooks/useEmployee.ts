@@ -1,5 +1,5 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client.ts';
+import { apiClient, withFallback } from '@/api/client.ts';
 import type {
   EmployeeJob,
   TimeClockEntry,
@@ -12,14 +12,39 @@ import type {
 } from '@/api/types/employee.ts';
 
 /**
+ * Default values for 404 fallback
+ */
+const DEFAULT_DASHBOARD_STATS: EmployeeDashboardStats = {
+  jobs_today: 0,
+  jobs_completed_today: 0,
+  hours_today: 0,
+  is_clocked_in: false,
+};
+
+const DEFAULT_PROFILE: EmployeeProfile = {
+  id: '',
+  first_name: '',
+  last_name: '',
+  email: '',
+  role: 'technician',
+  is_active: true,
+};
+
+/**
  * Employee Dashboard Stats
+ * Returns defaults if endpoint not implemented (404)
  */
 export function useEmployeeDashboard() {
   return useQuery({
     queryKey: ['employee', 'dashboard'],
     queryFn: async (): Promise<EmployeeDashboardStats> => {
-      const { data } = await apiClient.get('/employee/dashboard');
-      return data;
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/employee/dashboard');
+          return data;
+        },
+        DEFAULT_DASHBOARD_STATS
+      );
     },
     refetchInterval: 60000, // Refresh every minute
   });
@@ -27,27 +52,39 @@ export function useEmployeeDashboard() {
 
 /**
  * Employee Profile
+ * Returns defaults if endpoint not implemented (404)
  */
 export function useEmployeeProfile() {
   return useQuery({
     queryKey: ['employee', 'profile'],
     queryFn: async (): Promise<EmployeeProfile> => {
-      const { data } = await apiClient.get('/employee/profile');
-      return data;
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/employee/profile');
+          return data;
+        },
+        DEFAULT_PROFILE
+      );
     },
   });
 }
 
 /**
  * Today's Jobs
+ * Returns empty array if endpoint not implemented (404)
  */
 export function useEmployeeJobs(date?: string) {
   return useQuery({
     queryKey: ['employee', 'jobs', date],
     queryFn: async (): Promise<EmployeeJob[]> => {
-      const params = date ? { date } : {};
-      const { data } = await apiClient.get('/employee/jobs', { params });
-      return data.jobs || [];
+      return withFallback(
+        async () => {
+          const params = date ? { date } : {};
+          const { data } = await apiClient.get('/employee/jobs', { params });
+          return data.jobs || [];
+        },
+        []
+      );
     },
   });
 }
@@ -68,13 +105,19 @@ export function useEmployeeJob(jobId: string) {
 
 /**
  * Job Checklist
+ * Returns empty array if endpoint not implemented (404)
  */
 export function useJobChecklist(jobId: string) {
   return useQuery({
     queryKey: ['employee', 'jobs', jobId, 'checklist'],
     queryFn: async (): Promise<ChecklistItem[]> => {
-      const { data } = await apiClient.get(`/employee/jobs/${jobId}/checklist`);
-      return data.items || [];
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get(`/employee/jobs/${jobId}/checklist`);
+          return data.items || [];
+        },
+        []
+      );
     },
     enabled: !!jobId,
   });
@@ -107,13 +150,19 @@ export function useUpdateJob() {
 
 /**
  * Time Clock - Current Status
+ * Returns null if endpoint not implemented (404)
  */
 export function useTimeClockStatus() {
   return useQuery({
     queryKey: ['employee', 'timeclock', 'status'],
     queryFn: async (): Promise<TimeClockEntry | null> => {
-      const { data } = await apiClient.get('/employee/timeclock/status');
-      return data.entry || null;
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/employee/timeclock/status');
+          return data.entry || null;
+        },
+        null
+      );
     },
     refetchInterval: 30000, // Refresh every 30 seconds
   });
@@ -157,13 +206,19 @@ export function useClockOut() {
 
 /**
  * Time Clock - History
+ * Returns empty array if endpoint not implemented (404)
  */
 export function useTimeClockHistory(params?: { start_date?: string; end_date?: string }) {
   return useQuery({
     queryKey: ['employee', 'timeclock', 'history', params],
     queryFn: async (): Promise<TimeClockEntry[]> => {
-      const { data } = await apiClient.get('/employee/timeclock/history', { params });
-      return data.entries || [];
+      return withFallback(
+        async () => {
+          const { data } = await apiClient.get('/employee/timeclock/history', { params });
+          return data.entries || [];
+        },
+        []
+      );
     },
   });
 }
