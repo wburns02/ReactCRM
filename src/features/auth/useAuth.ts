@@ -1,5 +1,7 @@
+import { useEffect } from 'react';
 import { useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiClient, clearAuthToken, hasAuthToken } from '@/api/client.ts';
+import { setUser as setSentryUser } from '@/lib/sentry';
 
 /**
  * User type from /api/auth/me
@@ -51,12 +53,28 @@ export function useAuth() {
 
   const user = data?.user;
 
+  // Set user context in Sentry for error tracking
+  useEffect(() => {
+    if (user) {
+      setSentryUser({
+        id: user.id,
+        email: user.email,
+        username: `${user.first_name} ${user.last_name}`,
+        role: user.role,
+      });
+    } else {
+      setSentryUser(null);
+    }
+  }, [user]);
+
   const logout = async () => {
     try {
       await apiClient.post('/auth/logout');
     } catch {
       // Ignore logout errors
     }
+    // Clear user from Sentry
+    setSentryUser(null);
     // Clear JWT token from localStorage
     clearAuthToken();
     queryClient.clear();

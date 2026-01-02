@@ -1,5 +1,9 @@
+import { memo } from 'react';
+
 /**
  * MetricCard - Display a key metric with optional change percentage
+ *
+ * Memoized for performance in dashboards with many cards.
  */
 
 interface MetricCardProps {
@@ -11,7 +15,7 @@ interface MetricCardProps {
   className?: string;
 }
 
-export function MetricCard({
+export const MetricCard = memo(function MetricCard({
   title,
   value,
   changePercent,
@@ -72,4 +76,4 @@ export function MetricCard({
       </div>
     </div>
   );
-}
+});

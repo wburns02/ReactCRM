@@ -1,0 +1,32 @@
+{
+  "timestamp": "2025-12-31T15:07:16.200Z",
+  "baseUrl": "https://react.ecbtx.com",
+  "apiUrl": "https://react-crm-api-production.up.railway.app/api/v2",
+  "duration": 1796,
+  "summary": {
+    "totalRoutes": 1,
+    "successfulRoutes": 1,
+    "failedRoutes": 0,
+    "authRequiredRoutes": 0,
+    "totalConsoleErrors": 0,
+    "totalNetworkErrors": 0,
+    "totalApiErrors": 0,
+    "totalInteractionsFailed": 0
+  },
+  "routes": [
+    {
+      "route": "/schedule",
+      "url": "https://react.ecbtx.com/app/schedule",
+      "status": "success",
+      "loadTime": 1796,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 16,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    }
+  ],
+  "errors": [],
+  "recommendations": []
+}

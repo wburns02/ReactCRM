@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { AppRoutes } from '@/routes/index.tsx';
 import { ErrorBoundary } from '@/components/ErrorBoundary.tsx';
 import { OfflineIndicator } from '@/features/mobile/OfflineIndicator';
+import { ToastProvider } from '@/components/ui/Toast';
 import './index.css';
 import 'leaflet/dist/leaflet.css';
 
@@ -30,10 +31,12 @@ function App() {
   return (
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
-        <BrowserRouter basename="/">
-          <OfflineIndicator />
-          <AppRoutes />
-        </BrowserRouter>
+        <ToastProvider>
+          <BrowserRouter basename="/">
+            <OfflineIndicator />
+            <AppRoutes />
+          </BrowserRouter>
+        </ToastProvider>
       </QueryClientProvider>
     </ErrorBoundary>
   );

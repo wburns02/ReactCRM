@@ -6,11 +6,11 @@ const BASE_URL = process.env.BASE_URL || 'https://react.ecbtx.com';
 const navGroups = {
   'operations': ['Work Orders', 'Schedule', 'Technicians'],
   'communications': ['Integrations'],
-  'financial': ['Quotes', 'Invoices', 'Payments', 'Payroll'],
+  'financial': ['Invoices', 'Payments', 'Payroll'],
   'assets': ['Inventory', 'Equipment', 'Fleet Map'],
-  'marketing': ['Marketing Hub', 'Email Marketing', 'SMS Consent', 'Reports'],
+  'marketing': ['Marketing Hub', 'Email Marketing', 'Reports'],
   'support': ['Tickets'],
-  'system': ['Users', 'Settings', 'Pricing'],
+  'system': ['Users', 'Settings'],
 };
 
 // Find which group a nav item belongs to
@@ -31,7 +31,6 @@ test.describe('Navigation', () => {
   // Top-level nav items (always visible)
   const topNavItems = [
     { path: '/dashboard', label: 'Dashboard' },
-    { path: '/my-portal', label: 'My Portal' },
     { path: '/customers', label: 'Customers' },
     { path: '/prospects', label: 'Prospects' },
   ];
@@ -42,7 +41,6 @@ test.describe('Navigation', () => {
     { path: '/schedule', label: 'Schedule', group: 'Operations' },
     { path: '/technicians', label: 'Technicians', group: 'Operations' },
     { path: '/integrations', label: 'Integrations', group: 'Communications' },
-    { path: '/quotes', label: 'Quotes', group: 'Financial' },
     { path: '/invoices', label: 'Invoices', group: 'Financial' },
     { path: '/payments', label: 'Payments', group: 'Financial' },
     { path: '/payroll', label: 'Payroll', group: 'Financial' },
@@ -51,12 +49,10 @@ test.describe('Navigation', () => {
     { path: '/fleet', label: 'Fleet Map', group: 'Assets' },
     { path: '/marketing', label: 'Marketing Hub', group: 'Marketing' },
     { path: '/email-marketing', label: 'Email Marketing', group: 'Marketing' },
-    { path: '/marketing/sms', label: 'SMS Consent', group: 'Marketing' },
     { path: '/reports', label: 'Reports', group: 'Marketing' },
     { path: '/tickets', label: 'Tickets', group: 'Support' },
     { path: '/users', label: 'Users', group: 'System' },
     { path: '/admin', label: 'Settings', group: 'System' },
-    { path: '/admin/pricing', label: 'Pricing', group: 'System' },
   ];
 
   // Test top-level navigation items

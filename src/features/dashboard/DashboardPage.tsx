@@ -13,6 +13,7 @@ import {
   type WorkOrderStatus,
   type JobType,
 } from '@/api/types/workOrder.ts';
+import { AIDispatchStats } from '@/features/ai-dispatch';
 
 /**
  * Dashboard page - overview of prospects and customers
@@ -182,6 +183,9 @@ export function DashboardPage() {
             </div>
           </CardContent>
         </Card>
+
+        {/* AI Dispatch Stats - 2026 Differentiator */}
+        <AIDispatchStats className="lg:col-span-2" />
       </div>
 
       {/* Quick Actions */}

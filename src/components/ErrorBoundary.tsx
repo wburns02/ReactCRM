@@ -1,36 +1,59 @@
 import { Component, type ReactNode } from 'react';
 import { Button } from './ui/Button.tsx';
 import { Card } from './ui/Card.tsx';
+import { captureException, addBreadcrumb } from '@/lib/sentry';
 
 interface Props {
   children: ReactNode;
+  /** Optional fallback to render on error */
+  fallback?: ReactNode;
 }
 
 interface State {
   hasError: boolean;
   error: Error | null;
+  errorId: string | null;
 }
 
 /**
  * Error boundary for React app
- * Catches React errors and provides recovery options
+ * Catches React errors, reports to Sentry, and provides recovery options
  */
 export class ErrorBoundary extends Component<Props, State> {
   constructor(props: Props) {
     super(props);
-    this.state = { hasError: false, error: null };
+    this.state = { hasError: false, error: null, errorId: null };
   }
 
-  static getDerivedStateFromError(error: Error): State {
+  static getDerivedStateFromError(error: Error): Partial<State> {
     return { hasError: true, error };
   }
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
+    // Log to console in development
     console.error('React Error Boundary caught error:', error, errorInfo);
+
+    // Add breadcrumb for context
+    addBreadcrumb(
+      'React Error Boundary triggered',
+      'error',
+      { componentStack: errorInfo.componentStack },
+      'error'
+    );
+
+    // Report to Sentry
+    captureException(error, {
+      componentStack: errorInfo.componentStack,
+      errorBoundary: true,
+    });
+
+    // Generate error ID for user reference
+    const errorId = `ERR-${Date.now().toString(36).toUpperCase()}`;
+    this.setState({ errorId });
   }
 
   handleRetry = () => {
-    this.setState({ hasError: false, error: null });
+    this.setState({ hasError: false, error: null, errorId: null });
   };
 
   handleGoToDashboard = () => {
@@ -39,6 +62,11 @@ export class ErrorBoundary extends Component<Props, State> {
 
   render() {
     if (this.state.hasError) {
+      // Use custom fallback if provided
+      if (this.props.fallback) {
+        return this.props.fallback;
+      }
+
       return (
         <div className="flex items-center justify-center min-h-[400px] p-6">
           <Card className="max-w-md w-full p-6 text-center">
@@ -49,6 +77,11 @@ export class ErrorBoundary extends Component<Props, State> {
             <p className="text-text-secondary mb-4">
               The page encountered an error. You can try again or return to the dashboard.
             </p>
+            {this.state.errorId && (
+              <p className="text-xs text-text-muted mb-4">
+                Error ID: <code className="bg-bg-muted px-1 rounded">{this.state.errorId}</code>
+              </p>
+            )}
             {import.meta.env.DEV && this.state.error && (
               <pre className="text-left text-xs bg-bg-muted p-3 rounded mb-4 overflow-auto max-h-32">
                 {this.state.error.message}

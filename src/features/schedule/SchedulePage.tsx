@@ -11,6 +11,7 @@ import { MapView } from './components/MapView.tsx';
 import { ResourceTimeline } from './components/ResourceTimeline.tsx';
 import { UnscheduledPanel } from './components/UnscheduledPanel.tsx';
 import { UnscheduledOrdersTable } from './components/UnscheduledOrdersTable.tsx';
+import { AIDispatchAssistant } from '@/features/ai-dispatch';
 
 /**
  * Schedule Page - Main scheduling interface
@@ -109,6 +110,9 @@ export function SchedulePage() {
 
       {/* Unscheduled Panel (slide-out) */}
       <UnscheduledPanel />
+
+      {/* AI Dispatch Assistant - Floating button */}
+      <AIDispatchAssistant />
     </ScheduleDndContext>
   );
 }

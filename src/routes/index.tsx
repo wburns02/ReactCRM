@@ -4,6 +4,15 @@ import { AppLayout } from '@/components/layout/AppLayout.tsx';
 import { RequireAuth } from '@/features/auth/RequireAuth.tsx';
 import { LoginPage } from '@/features/auth/LoginPage.tsx';
 
+// Portal routes - lazy loaded
+const PortalLayout = lazy(() => import('@/features/portal/index.ts').then(m => ({ default: m.PortalLayout })));
+const PortalLoginPage = lazy(() => import('@/features/portal/index.ts').then(m => ({ default: m.PortalLoginPage })));
+const PortalDashboardPage = lazy(() => import('@/features/portal/index.ts').then(m => ({ default: m.PortalDashboardPage })));
+const PortalWorkOrdersPage = lazy(() => import('@/features/portal/index.ts').then(m => ({ default: m.PortalWorkOrdersPage })));
+const PortalInvoicesPage = lazy(() => import('@/features/portal/index.ts').then(m => ({ default: m.PortalInvoicesPage })));
+const PortalRequestServicePage = lazy(() => import('@/features/portal/index.ts').then(m => ({ default: m.PortalRequestServicePage })));
+const RequirePortalAuth = lazy(() => import('@/features/portal/index.ts').then(m => ({ default: m.RequirePortalAuth })));
+
 // Loading spinner for lazy-loaded routes
 const PageLoader = () => (
   <div className="flex items-center justify-center h-full">
@@ -48,6 +57,19 @@ const PaymentsPage = lazy(() => import('@/features/payments/PaymentsPage.tsx').t
 const UsersPage = lazy(() => import('@/features/users/UsersPage.tsx').then(m => ({ default: m.UsersPage })));
 const AdminSettingsPage = lazy(() => import('@/features/admin/AdminSettingsPage.tsx').then(m => ({ default: m.AdminSettingsPage })));
 
+// Predictive Maintenance - lazy loaded
+const PredictiveMaintenancePage = lazy(() => import('@/features/predictive-maintenance/index.ts').then(m => ({ default: m.PredictiveMaintenancePage })));
+
+// Notifications - lazy loaded
+const NotificationsListPage = lazy(() => import('@/features/notifications/index.ts').then(m => ({ default: m.NotificationsListPage })));
+const NotificationSettingsPage = lazy(() => import('@/features/notifications/index.ts').then(m => ({ default: m.NotificationSettingsPage })));
+
+// SMS - lazy loaded
+const SMSSettingsPage = lazy(() => import('@/features/sms/index.ts').then(m => ({ default: m.SMSSettingsPage })));
+
+// Service Intervals - lazy loaded
+const ServiceIntervalsPage = lazy(() => import('@/features/service-intervals/index.ts').then(m => ({ default: m.ServiceIntervalsPage })));
+
 /**
  * App routes - standalone deployment at root
  * Uses React.lazy() for code splitting - each feature loads on demand
@@ -57,6 +79,24 @@ export function AppRoutes() {
     <Routes>
       {/* Public login route at /login */}
       <Route path="/login" element={<LoginPage />} />
+
+      {/* Customer Portal routes at /portal */}
+      <Route path="/portal/login" element={<Suspense fallback={<PageLoader />}><PortalLoginPage /></Suspense>} />
+      <Route
+        path="/portal"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <RequirePortalAuth>
+              <PortalLayout />
+            </RequirePortalAuth>
+          </Suspense>
+        }
+      >
+        <Route index element={<Suspense fallback={<PageLoader />}><PortalDashboardPage /></Suspense>} />
+        <Route path="work-orders" element={<Suspense fallback={<PageLoader />}><PortalWorkOrdersPage /></Suspense>} />
+        <Route path="invoices" element={<Suspense fallback={<PageLoader />}><PortalInvoicesPage /></Suspense>} />
+        <Route path="request-service" element={<Suspense fallback={<PageLoader />}><PortalRequestServicePage /></Suspense>} />
+      </Route>
 
       {/* Protected app routes at /* */}
       <Route
@@ -91,6 +131,9 @@ export function AppRoutes() {
 
         {/* Schedule */}
         <Route path="schedule" element={<Suspense fallback={<PageLoader />}><SchedulePage /></Suspense>} />
+
+        {/* Predictive Maintenance */}
+        <Route path="predictive-maintenance" element={<Suspense fallback={<PageLoader />}><PredictiveMaintenancePage /></Suspense>} />
 
         {/* Marketing Hub */}
         <Route path="marketing" element={<Suspense fallback={<PageLoader />}><MarketingHubPage /></Suspense>} />
@@ -134,6 +177,16 @@ export function AppRoutes() {
 
         {/* Admin Settings */}
         <Route path="admin" element={<Suspense fallback={<PageLoader />}><AdminSettingsPage /></Suspense>} />
+
+        {/* Notifications */}
+        <Route path="notifications" element={<Suspense fallback={<PageLoader />}><NotificationsListPage /></Suspense>} />
+        <Route path="settings/notifications" element={<Suspense fallback={<PageLoader />}><NotificationSettingsPage /></Suspense>} />
+
+        {/* SMS */}
+        <Route path="settings/sms" element={<Suspense fallback={<PageLoader />}><SMSSettingsPage /></Suspense>} />
+
+        {/* Service Intervals */}
+        <Route path="service-intervals" element={<Suspense fallback={<PageLoader />}><ServiceIntervalsPage /></Suspense>} />
 
         {/* 404 within app */}
         <Route

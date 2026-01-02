@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/features/auth/useAuth.ts';
 import { RCStatusIndicator } from '@/features/phone/index.ts';
+import { NotificationCenter } from '@/features/notifications/index.ts';
 
 /**
  * Navigation item type
@@ -54,6 +55,8 @@ export function AppLayout() {
         { path: '/work-orders', label: 'Work Orders', icon: '🔧' },
         { path: '/schedule', label: 'Schedule', icon: '📅' },
         { path: '/technicians', label: 'Technicians', icon: '👷' },
+        { path: '/service-intervals', label: 'Service Intervals', icon: '🔄' },
+        { path: '/predictive-maintenance', label: 'AI Predictions', icon: '🤖' },
       ],
     },
     {
@@ -139,6 +142,14 @@ export function AppLayout() {
 
   return (
     <div className="flex h-screen bg-bg-body">
+      {/* Skip to main content link - visible only on focus for keyboard users */}
+      <a
+        href="#main-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-[200] focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:bg-primary focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+      >
+        Skip to main content
+      </a>
+
       {/* Sidebar */}
       <aside className="w-64 bg-bg-sidebar border-r border-border flex flex-col overflow-hidden">
         {/* Logo */}
@@ -244,9 +255,10 @@ export function AppLayout() {
       </aside>
 
       {/* Main content */}
-      <main className="flex-1 overflow-auto flex flex-col">
-        {/* Top bar with RingCentral status */}
-        <div className="h-12 border-b border-border bg-bg-card px-6 flex items-center justify-end">
+      <main id="main-content" className="flex-1 overflow-auto flex flex-col" tabIndex={-1}>
+        {/* Top bar with notifications and RingCentral status */}
+        <div className="h-12 border-b border-border bg-bg-card px-6 flex items-center justify-end gap-4">
+          <NotificationCenter />
           <RCStatusIndicator />
         </div>
 

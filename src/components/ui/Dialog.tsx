@@ -1,7 +1,19 @@
-import { type ReactNode } from 'react';
+import { type ReactNode, useEffect, useRef, useCallback } from 'react';
 import { createPortal } from 'react-dom';
 import { cn } from '@/lib/utils.ts';
 import { Button } from './Button.tsx';
+
+/**
+ * Focusable element selectors for focus trap
+ */
+const FOCUSABLE_SELECTORS = [
+  'a[href]',
+  'button:not([disabled])',
+  'input:not([disabled])',
+  'select:not([disabled])',
+  'textarea:not([disabled])',
+  '[tabindex]:not([tabindex="-1"])',
+].join(',');
 
 export interface DialogProps {
   open: boolean;
@@ -9,25 +21,119 @@ export interface DialogProps {
   children: ReactNode;
   /** Prevent closing when clicking overlay */
   disableOverlayClose?: boolean;
+  /** Label for accessibility (required for screen readers) */
+  ariaLabel?: string;
+  /** ID of element that labels the dialog */
+  ariaLabelledBy?: string;
+  /** ID of element that describes the dialog */
+  ariaDescribedBy?: string;
 }
 
 /**
  * Dialog/Modal component - accessible modal overlay
  *
- * Uses React Portal for proper stacking context
- * Traps focus and handles Escape key
+ * Features:
+ * - Uses React Portal for proper stacking context
+ * - Traps focus within dialog (Tab cycles through focusable elements)
+ * - Handles Escape key to close
+ * - Returns focus to trigger element on close
+ * - Prevents body scroll when open
+ * - ARIA attributes for screen readers
  */
-export function Dialog({ open, onClose, children, disableOverlayClose }: DialogProps) {
+export function Dialog({
+  open,
+  onClose,
+  children,
+  disableOverlayClose,
+  ariaLabel,
+  ariaLabelledBy,
+  ariaDescribedBy,
+}: DialogProps) {
+  const contentRef = useRef<HTMLDivElement>(null);
+  const previousActiveElement = useRef<HTMLElement | null>(null);
+
+  // Store previously focused element when opening
+  useEffect(() => {
+    if (open) {
+      previousActiveElement.current = document.activeElement as HTMLElement;
+    }
+  }, [open]);
+
+  // Focus trap and keyboard handling
+  const handleKeyDown = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose();
+        return;
+      }
+
+      // Tab key focus trapping
+      if (e.key === 'Tab' && contentRef.current) {
+        const focusableElements = contentRef.current.querySelectorAll<HTMLElement>(
+          FOCUSABLE_SELECTORS
+        );
+        const focusable = Array.from(focusableElements).filter(
+          (el) => el.offsetParent !== null
+        );
+
+        if (focusable.length === 0) return;
+
+        const firstElement = focusable[0];
+        const lastElement = focusable[focusable.length - 1];
+
+        if (e.shiftKey) {
+          // Shift+Tab: if on first, go to last
+          if (document.activeElement === firstElement) {
+            e.preventDefault();
+            lastElement.focus();
+          }
+        } else {
+          // Tab: if on last, go to first
+          if (document.activeElement === lastElement) {
+            e.preventDefault();
+            firstElement.focus();
+          }
+        }
+      }
+    },
+    [onClose]
+  );
+
+  // Focus first element when dialog opens
+  useEffect(() => {
+    if (!open || !contentRef.current) return;
+
+    // Focus first focusable element
+    const focusableElements = contentRef.current.querySelectorAll<HTMLElement>(
+      FOCUSABLE_SELECTORS
+    );
+    const focusable = Array.from(focusableElements).filter(
+      (el) => el.offsetParent !== null
+    );
+
+    if (focusable.length > 0) {
+      requestAnimationFrame(() => {
+        focusable[0].focus();
+      });
+    }
+
+    // Prevent body scroll
+    const originalOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+
+    return () => {
+      document.body.style.overflow = originalOverflow;
+      // Return focus on close
+      if (previousActiveElement.current) {
+        previousActiveElement.current.focus();
+      }
+    };
+  }, [open]);
+
   if (!open) return null;
 
   const handleOverlayClick = () => {
     if (!disableOverlayClose) {
-      onClose();
-    }
-  };
-
-  const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Escape') {
       onClose();
     }
   };
@@ -37,6 +143,9 @@ export function Dialog({ open, onClose, children, disableOverlayClose }: DialogP
       className="fixed inset-0 z-50 flex items-center justify-center"
       role="dialog"
       aria-modal="true"
+      aria-label={ariaLabel}
+      aria-labelledby={ariaLabelledBy}
+      aria-describedby={ariaDescribedBy}
       onKeyDown={handleKeyDown}
     >
       {/* Overlay */}
@@ -46,7 +155,7 @@ export function Dialog({ open, onClose, children, disableOverlayClose }: DialogP
         aria-hidden="true"
       />
       {/* Content */}
-      <div className="relative z-10 max-h-[90vh] overflow-auto">
+      <div ref={contentRef} className="relative z-10 max-h-[90vh] overflow-auto">
         {children}
       </div>
     </div>,

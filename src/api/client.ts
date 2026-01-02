@@ -1,4 +1,5 @@
 import axios, { type AxiosError, type AxiosInstance } from 'axios';
+import { addBreadcrumb, captureException } from '@/lib/sentry';
 
 /**
  * API client configured for FastAPI backend with JWT tokens
@@ -20,23 +21,65 @@ export const apiClient: AxiosInstance = axios.create({
   },
 });
 
-// Request interceptor - add JWT token to requests
+// Request interceptor - add JWT token and track request
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem(TOKEN_KEY);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;
     }
+
+    // Add breadcrumb for API request tracking
+    addBreadcrumb(
+      `API ${config.method?.toUpperCase()} ${config.url}`,
+      'http',
+      { method: config.method, url: config.url },
+      'info'
+    );
+
     return config;
   },
   (error) => Promise.reject(error)
 );
 
-// Response interceptor - handle auth errors globally
+// Response interceptor - handle auth errors and track responses
 apiClient.interceptors.response.use(
-  (response) => response,
+  (response) => {
+    // Track successful responses for debugging context
+    addBreadcrumb(
+      `API ${response.status} ${response.config.url}`,
+      'http',
+      { status: response.status, url: response.config.url },
+      'info'
+    );
+    return response;
+  },
   (error: AxiosError) => {
-    if (error.response?.status === 401) {
+    // Track failed responses
+    const status = error.response?.status;
+    const url = error.config?.url;
+
+    addBreadcrumb(
+      `API Error ${status || 'network'} ${url}`,
+      'http',
+      {
+        status,
+        url,
+        message: error.message,
+      },
+      'error'
+    );
+
+    // Capture 5xx errors to Sentry (server errors)
+    if (status && status >= 500) {
+      captureException(error, {
+        url,
+        status,
+        response: error.response?.data,
+      });
+    }
+
+    if (status === 401) {
       // Clear invalid token
       localStorage.removeItem(TOKEN_KEY);
 

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { formatDate } from '@/lib/utils.ts';
 import { ACTIVITY_TYPE_LABELS, ACTIVITY_TYPE_ICONS, type Activity } from '@/api/types/activity.ts';
 import { cn } from '@/lib/utils.ts';
@@ -11,8 +12,10 @@ export interface NoteCardProps {
 /**
  * Individual activity/note card component
  * Displays a single activity with type icon, description, and metadata
+ *
+ * Memoized for performance in activity lists.
  */
-export function NoteCard({ activity, onEdit, onDelete }: NoteCardProps) {
+export const NoteCard = memo(function NoteCard({ activity, onEdit, onDelete }: NoteCardProps) {
   const icon = ACTIVITY_TYPE_ICONS[activity.activity_type];
   const label = ACTIVITY_TYPE_LABELS[activity.activity_type];
 
@@ -104,4 +107,4 @@ export function NoteCard({ activity, onEdit, onDelete }: NoteCardProps) {
       </div>
     </div>
   );
-}
+});

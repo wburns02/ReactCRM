@@ -1,4 +1,6 @@
-import { test as base, expect, APIRequestContext } from '@playwright/test';
+import { test as base, expect, APIRequestContext, request as playwrightRequest } from '@playwright/test';
+import * as fs from 'fs';
+import * as path from 'path';
 
 /**
  * API test fixture for contract testing.
@@ -8,21 +10,67 @@ import { test as base, expect, APIRequestContext } from '@playwright/test';
  *
  * Features:
  *   - Pre-configured API request context with auth
+ *   - Uses correct API URL (not frontend URL)
+ *   - Extracts auth token from storage state
  *   - Helper methods for common API patterns
  *   - Response validation utilities
  */
+
+const API_BASE_URL = process.env.API_URL || 'https://react-crm-api-production.up.railway.app';
+// Auth file is at project root, not in e2e folder
+const AUTH_FILE = path.join(process.cwd(), '.auth', 'user.json');
 
 type ApiFixtures = {
   api: APIRequestContext;
 };
 
+/**
+ * Extract auth token from storage state file.
+ */
+function getAuthToken(): string | null {
+  try {
+    if (!fs.existsSync(AUTH_FILE)) {
+      return null;
+    }
+    const storageState = JSON.parse(fs.readFileSync(AUTH_FILE, 'utf-8'));
+    // Look for auth_token in localStorage entries
+    const origins = storageState.origins || [];
+    for (const origin of origins) {
+      const localStorage = origin.localStorage || [];
+      for (const item of localStorage) {
+        if (item.name === 'auth_token') {
+          return item.value;
+        }
+      }
+    }
+    return null;
+  } catch {
+    return null;
+  }
+}
+
 export const test = base.extend<ApiFixtures>({
   /**
-   * Authenticated API request context.
-   * Inherits storage state from auth.setup.ts.
+   * Authenticated API request context pointing to the backend API.
    */
-  api: async ({ request }, use) => {
-    await use(request);
+  api: async ({}, use) => {
+    const token = getAuthToken();
+    const headers: Record<string, string> = {
+      'Content-Type': 'application/json',
+    };
+
+    if (token) {
+      headers['Authorization'] = `Bearer ${token}`;
+    }
+
+    // Create a new API context with the correct base URL and auth header
+    const apiContext = await playwrightRequest.newContext({
+      baseURL: API_BASE_URL,
+      extraHTTPHeaders: headers,
+    });
+
+    await use(apiContext);
+    await apiContext.dispose();
   },
 });
 
@@ -69,9 +117,10 @@ export const customerShape = {
 
 /**
  * Common work order fields to validate.
+ * Note: Work order IDs are UUIDs (strings), not integers.
  */
 export const workOrderShape = {
-  id: expect.any(Number),
+  id: expect.any(String),  // UUIDs are strings
   customer_id: expect.any(Number),
   job_type: expect.any(String),
   status: expect.any(String),

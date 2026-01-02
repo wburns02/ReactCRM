@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import { useOffline } from '@/hooks/useOffline';
 import { Button } from '@/components/ui/Button';
 
@@ -7,9 +8,18 @@ import { Button } from '@/components/ui/Button';
  */
 export function OfflineIndicator() {
   const { isOnline, pendingCount, isSyncing, syncNow } = useOffline();
+  const [syncError, setSyncError] = useState<string | null>(null);
 
-  // Don't show anything if online and no pending items
-  if (isOnline && pendingCount === 0) {
+  const handleSync = async () => {
+    setSyncError(null);
+    const result = await syncNow();
+    if (result.errors.length > 0) {
+      setSyncError(result.errors.join(', '));
+    }
+  };
+
+  // Don't show anything if online, no pending items, and no errors
+  if (isOnline && pendingCount === 0 && !syncError) {
     return null;
   }
 
@@ -48,10 +58,30 @@ export function OfflineIndicator() {
             <Button
               variant="ghost"
               size="sm"
-              onClick={syncNow}
+              onClick={handleSync}
               className="text-white hover:bg-white/20"
             >
               Sync Now
+            </Button>
+          </div>
+        </div>
+      )}
+
+      {/* Sync error banner */}
+      {syncError && (
+        <div className="bg-danger text-white px-4 py-2">
+          <div className="flex items-center justify-between max-w-screen-xl mx-auto">
+            <div className="flex items-center gap-2 text-sm">
+              <span>❌</span>
+              <span>Sync failed: {syncError}</span>
+            </div>
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => setSyncError(null)}
+              className="text-white hover:bg-white/20"
+            >
+              Dismiss
             </Button>
           </div>
         </div>

@@ -1,3 +1,4 @@
+import { memo } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
 import { Badge } from '@/components/ui/Badge.tsx';
 import { Button } from '@/components/ui/Button.tsx';
@@ -16,8 +17,10 @@ interface IntegrationCardProps {
 
 /**
  * Card showing integration status and actions
+ *
+ * Memoized for performance.
  */
-export function IntegrationCard({
+export const IntegrationCard = memo(function IntegrationCard({
   name,
   description,
   icon,
@@ -86,4 +89,4 @@ export function IntegrationCard({
       </CardContent>
     </Card>
   );
-}
+});

@@ -1,0 +1,1 @@
+export { PredictiveMaintenancePage } from './PredictiveMaintenancePage';
