@@ -70,6 +70,13 @@ const SMSSettingsPage = lazy(() => import('@/features/sms/index.ts').then(m => (
 // Service Intervals - lazy loaded
 const ServiceIntervalsPage = lazy(() => import('@/features/service-intervals/index.ts').then(m => ({ default: m.ServiceIntervalsPage })));
 
+// Employee Portal & Payroll - lazy loaded
+const EmployeePortalPage = lazy(() => import('@/features/employee/EmployeePortalPage.tsx').then(m => ({ default: m.EmployeePortalPage })));
+const PayrollPage = lazy(() => import('@/features/payroll/PayrollPage.tsx').then(m => ({ default: m.PayrollPage })));
+
+// Phone/Communications - lazy loaded
+const PhonePage = lazy(() => import('@/features/phone/index.ts').then(m => ({ default: m.PhonePage })));
+
 /**
  * App routes - standalone deployment at root
  * Uses React.lazy() for code splitting - each feature loads on demand
@@ -77,7 +84,7 @@ const ServiceIntervalsPage = lazy(() => import('@/features/service-intervals/ind
 export function AppRoutes() {
   return (
     <Routes>
-      {/* Public login route at /login */}
+      {/* Public login route at /app/login */}
       <Route path="/login" element={<LoginPage />} />
 
       {/* Customer Portal routes at /portal */}
@@ -187,6 +194,15 @@ export function AppRoutes() {
 
         {/* Service Intervals */}
         <Route path="service-intervals" element={<Suspense fallback={<PageLoader />}><ServiceIntervalsPage /></Suspense>} />
+
+        {/* Employee Portal - Mobile-first for field technicians */}
+        <Route path="employee" element={<Suspense fallback={<PageLoader />}><EmployeePortalPage /></Suspense>} />
+
+        {/* Payroll Management */}
+        <Route path="payroll" element={<Suspense fallback={<PageLoader />}><PayrollPage /></Suspense>} />
+
+        {/* Phone/Communications */}
+        <Route path="phone" element={<Suspense fallback={<PageLoader />}><PhonePage /></Suspense>} />
 
         {/* 404 within app */}
         <Route

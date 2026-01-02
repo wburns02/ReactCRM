@@ -3,6 +3,7 @@
  * Exports all public components and hooks
  */
 
+export { PhonePage } from './PhonePage.tsx';
 export { DialButton } from './components/DialButton.tsx';
 export { DialerModal } from './components/DialerModal.tsx';
 export { CallDispositionModal } from './components/CallDispositionModal.tsx';

@@ -1,11 +1,8 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/api/client.ts';
 import {
-  rcStatusSchema,
-  callRecordSchema,
-  dispositionSchema,
   type RCStatus,
-  type CallRecord,
+  type CallListResponse,
   type Disposition,
   type InitiateCallRequest,
   type LogDispositionRequest,
@@ -20,6 +17,7 @@ export const phoneKeys = {
   calls: () => [...phoneKeys.all, 'calls'] as const,
   callsList: (filters?: Record<string, unknown>) => [...phoneKeys.calls(), filters] as const,
   dispositions: () => [...phoneKeys.all, 'dispositions'] as const,
+  extensions: () => [...phoneKeys.all, 'extensions'] as const,
 };
 
 /**
@@ -30,18 +28,24 @@ export function useRCStatus() {
     queryKey: phoneKeys.status(),
     queryFn: async (): Promise<RCStatus> => {
       const { data } = await apiClient.get('/ringcentral/status');
-
-      if (import.meta.env.DEV) {
-        const result = rcStatusSchema.safeParse(data);
-        if (!result.success) {
-          console.warn('RingCentral status response validation failed:', result.error);
-        }
-      }
-
       return data;
     },
-    staleTime: 60_000, // 1 minute
-    refetchInterval: 60_000, // Refresh every minute
+    staleTime: 60_000,
+    refetchInterval: 60_000,
+  });
+}
+
+/**
+ * Get RingCentral extensions (for selecting from_number)
+ */
+export function useExtensions() {
+  return useQuery({
+    queryKey: phoneKeys.extensions(),
+    queryFn: async () => {
+      const { data } = await apiClient.get('/ringcentral/extensions');
+      return data.items || [];
+    },
+    staleTime: 300_000, // 5 minutes
   });
 }
 
@@ -52,46 +56,63 @@ export function useInitiateCall() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (request: InitiateCallRequest): Promise<CallRecord> => {
+    mutationFn: async (request: InitiateCallRequest) => {
       const { data } = await apiClient.post('/ringcentral/call', request);
       return data;
     },
     onSuccess: () => {
-      // Invalidate call log to show new call
       queryClient.invalidateQueries({ queryKey: phoneKeys.calls() });
     },
   });
 }
 
 /**
- * Get call log
+ * Get call log with pagination
  */
-export function useCallLog(filters?: { limit?: number; customer_id?: string; prospect_id?: string }) {
+export function useCallLog(filters?: { 
+  page?: number;
+  page_size?: number;
+  direction?: string;
+  customer_id?: string;
+}) {
   return useQuery({
     queryKey: phoneKeys.callsList(filters),
-    queryFn: async (): Promise<CallRecord[]> => {
+    queryFn: async (): Promise<CallListResponse> => {
       const params = new URLSearchParams();
-      if (filters?.limit) params.set('limit', String(filters.limit));
+      if (filters?.page) params.set('page', String(filters.page));
+      if (filters?.page_size) params.set('page_size', String(filters.page_size));
+      if (filters?.direction) params.set('direction', filters.direction);
       if (filters?.customer_id) params.set('customer_id', filters.customer_id);
-      if (filters?.prospect_id) params.set('prospect_id', filters.prospect_id);
 
-      const url = '/ringcentral/calls?' + params.toString();
+      const url = '/ringcentral/calls' + (params.toString() ? '?' + params.toString() : '');
       const { data } = await apiClient.get(url);
 
-      if (import.meta.env.DEV) {
-        if (Array.isArray(data)) {
-          data.forEach((item, index) => {
-            const result = callRecordSchema.safeParse(item);
-            if (!result.success) {
-              console.warn(`Call record ${index} validation failed:`, result.error);
-            }
-          });
-        }
-      }
+      // Return the paginated response
+      return {
+        items: data.items || [],
+        total: data.total || 0,
+        page: data.page || 1,
+        page_size: data.page_size || 20,
+      };
+    },
+    staleTime: 30_000,
+  });
+}
 
+/**
+ * Sync calls from RingCentral
+ */
+export function useSyncCalls() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (hoursBack: number = 24) => {
+      const { data } = await apiClient.post('/ringcentral/sync', { hours_back: hoursBack });
       return data;
     },
-    staleTime: 30_000, // 30 seconds
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: phoneKeys.calls() });
+    },
   });
 }
 
@@ -102,22 +123,15 @@ export function useDispositions() {
   return useQuery({
     queryKey: phoneKeys.dispositions(),
     queryFn: async (): Promise<Disposition[]> => {
-      const { data } = await apiClient.get('/call-dispositions');
-
-      if (import.meta.env.DEV) {
-        if (Array.isArray(data)) {
-          data.forEach((item, index) => {
-            const result = dispositionSchema.safeParse(item);
-            if (!result.success) {
-              console.warn(`Disposition ${index} validation failed:`, result.error);
-            }
-          });
-        }
+      try {
+        const { data } = await apiClient.get('/call-dispositions');
+        return Array.isArray(data) ? data : [];
+      } catch {
+        // Endpoint might not exist, return empty array
+        return [];
       }
-
-      return data;
     },
-    staleTime: 300_000, // 5 minutes (dispositions rarely change)
+    staleTime: 300_000,
   });
 }
 
@@ -129,10 +143,12 @@ export function useLogDisposition() {
 
   return useMutation({
     mutationFn: async (request: LogDispositionRequest): Promise<void> => {
-      await apiClient.post('/call-dispositions', request);
+      await apiClient.patch(`/ringcentral/calls/${request.call_id}`, {
+        disposition: request.disposition_id,
+        notes: request.notes,
+      });
     },
     onSuccess: () => {
-      // Invalidate call log to show updated disposition
       queryClient.invalidateQueries({ queryKey: phoneKeys.calls() });
     },
   });

@@ -156,7 +156,7 @@ function WorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
     if (resizeDuration !== (workOrder.estimated_duration_hours || 1)) {
       updateDuration.mutate({
         id: workOrder.id,
-        duration: resizeDuration,
+        durationHours: resizeDuration,
       });
     }
     setResizeDuration(null);
