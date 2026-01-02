@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useRCStatus, useCallLog, useInitiateCall, useSyncCalls, useMyExtension } from './api.ts';
+import { useRCStatus, useCallLog, useInitiateCall, useSyncCalls, useMyExtension, useTwilioStatus, useTwilioCall } from './api.ts';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
 import { Button } from '@/components/ui/Button.tsx';
 import { Input } from '@/components/ui/Input.tsx';
@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/Badge.tsx';
 import { formatDate } from '@/lib/utils.ts';
 import { DialerModal } from './components/DialerModal.tsx';
 import { CallDispositionModal } from './components/CallDispositionModal.tsx';
+import { PhoneSettings, usePhoneProvider } from './components/PhoneSettings.tsx';
 import type { CallRecord } from './types.ts';
 
 /**
@@ -14,11 +15,18 @@ import type { CallRecord } from './types.ts';
  * Features: Call stats, dialer, call log, recordings, AI transcriptions
  */
 export function PhonePage() {
-  const { data: status, isLoading: statusLoading } = useRCStatus();
+  const phoneProvider = usePhoneProvider();
+  const { data: rcStatus, isLoading: rcStatusLoading } = useRCStatus();
+  const { data: twilioStatus, isLoading: twilioStatusLoading } = useTwilioStatus();
   const { data: callsData, isLoading: callsLoading } = useCallLog({ page_size: 50 });
   const { data: myExtension } = useMyExtension();
-  const initiateMutation = useInitiateCall();
+  const rcCallMutation = useInitiateCall();
+  const twilioCallMutation = useTwilioCall();
   const syncMutation = useSyncCalls();
+
+  // Get status based on selected provider
+  const status = phoneProvider === 'ringcentral' ? rcStatus : twilioStatus;
+  const statusLoading = phoneProvider === 'ringcentral' ? rcStatusLoading : twilioStatusLoading;
 
   // Get calls array from paginated response
   const calls = callsData?.items || [];
@@ -30,6 +38,7 @@ export function PhonePage() {
   const [selectedCall, setSelectedCall] = useState<CallRecord | null>(null);
   const [dispositionModalOpen, setDispositionModalOpen] = useState(false);
   const [playingRecording, setPlayingRecording] = useState<string | null>(null);
+  const [showSettings, setShowSettings] = useState(false);
 
   // Calculate call statistics
   const stats = calls.length > 0 ? {
@@ -76,16 +85,28 @@ export function PhonePage() {
     }
   };
 
-  // Quick dial handler
+  // Quick dial handler - uses selected provider
   const handleQuickDial = async () => {
     if (!quickDialNumber.trim()) return;
     try {
-      await initiateMutation.mutateAsync({ to_number: quickDialNumber, from_number: defaultFromNumber || undefined });
+      if (phoneProvider === 'ringcentral') {
+        await rcCallMutation.mutateAsync({
+          to_number: quickDialNumber,
+          from_number: defaultFromNumber || undefined
+        });
+      } else {
+        await twilioCallMutation.mutateAsync({
+          to_number: quickDialNumber,
+          record: true,
+        });
+      }
       setQuickDialNumber('');
     } catch (error) {
       console.error('Failed to initiate call:', error);
     }
   };
+
+  const isCallPending = rcCallMutation.isPending || twilioCallMutation.isPending;
 
   // Format duration
   const formatDuration = (seconds: number | null | undefined): string => {
@@ -127,6 +148,14 @@ export function PhonePage() {
           <p className="text-text-secondary">Manage calls, recordings, and communications</p>
         </div>
         <div className="flex items-center gap-3">
+          {/* Settings Button */}
+          <Button
+            variant="secondary"
+            onClick={() => setShowSettings(!showSettings)}
+            className="gap-2"
+          >
+            {showSettings ? 'Hide Settings' : 'Settings'}
+          </Button>
           {/* Sync Button */}
           <Button
             variant="secondary"
@@ -136,12 +165,15 @@ export function PhonePage() {
           >
             {syncMutation.isPending ? 'Syncing...' : 'Sync Calls'}
           </Button>
-          {/* Connection Status */}
+          {/* Connection Status with Provider Badge */}
           <div className={`flex items-center gap-2 px-4 py-2 rounded-lg ${
             status?.connected
               ? 'bg-success/10 border border-success/30'
               : 'bg-danger/10 border border-danger/30'
           }`}>
+            <Badge variant="default" className="text-xs">
+              {phoneProvider === 'ringcentral' ? 'RC' : 'Twilio'}
+            </Badge>
             <div className={`w-3 h-3 rounded-full ${
               status?.connected ? 'bg-success animate-pulse' : 'bg-danger'
             }`} />
@@ -157,6 +189,11 @@ export function PhonePage() {
           </Button>
         </div>
       </div>
+
+      {/* Settings Panel (Collapsible) */}
+      {showSettings && (
+        <PhoneSettings />
+      )}
 
       {/* Stats Cards */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
@@ -226,10 +263,10 @@ export function PhonePage() {
               />
               <Button
                 onClick={handleQuickDial}
-                disabled={!quickDialNumber.trim() || initiateMutation.isPending}
+                disabled={!quickDialNumber.trim() || isCallPending}
                 className="px-4"
               >
-                {initiateMutation.isPending ? '📞' : '📞'}
+                {isCallPending ? '...' : '📞'}
               </Button>
             </div>
 

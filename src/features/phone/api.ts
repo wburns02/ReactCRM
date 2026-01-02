@@ -169,3 +169,58 @@ export function useLogDisposition() {
     },
   });
 }
+
+
+// ============ Twilio Integration ============
+
+export const twilioKeys = {
+  all: ['twilio'] as const,
+  status: () => [...twilioKeys.all, 'status'] as const,
+  calls: () => [...twilioKeys.all, 'calls'] as const,
+};
+
+/**
+ * Get Twilio connection status
+ */
+export function useTwilioStatus() {
+  return useQuery({
+    queryKey: twilioKeys.status(),
+    queryFn: async () => {
+      const { data } = await apiClient.get('/twilio/status');
+      return data;
+    },
+    staleTime: 60_000,
+    refetchInterval: 60_000,
+  });
+}
+
+/**
+ * Initiate a call via Twilio (direct call, no "ring your phone first")
+ */
+export function useTwilioCall() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (request: { to_number: string; from_number?: string; record?: boolean }) => {
+      const { data } = await apiClient.post('/twilio/call', request);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: twilioKeys.calls() });
+    },
+  });
+}
+
+/**
+ * Get Twilio call logs
+ */
+export function useTwilioCalls(limit: number = 50) {
+  return useQuery({
+    queryKey: [...twilioKeys.calls(), limit],
+    queryFn: async () => {
+      const { data } = await apiClient.get(`/twilio/calls?limit=${limit}`);
+      return data;
+    },
+    staleTime: 30_000,
+  });
+}
