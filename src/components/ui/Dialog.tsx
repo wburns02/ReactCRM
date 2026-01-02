@@ -111,11 +111,14 @@ export function Dialog({
       (el) => el.offsetParent !== null
     );
 
-    if (focusable.length > 0) {
-      requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      if (focusable.length > 0) {
         focusable[0].focus();
-      });
-    }
+      } else if (contentRef.current) {
+        // Fallback: focus the content container itself
+        contentRef.current.focus();
+      }
+    });
 
     // Prevent body scroll
     const originalOverflow = document.body.style.overflow;
@@ -154,8 +157,12 @@ export function Dialog({
         onClick={handleOverlayClick}
         aria-hidden="true"
       />
-      {/* Content */}
-      <div ref={contentRef} className="relative z-10 max-h-[90vh] overflow-auto">
+      {/* Content - tabIndex for fallback focus when no focusable elements */}
+      <div
+        ref={contentRef}
+        className="relative z-10 max-h-[90vh] overflow-auto focus:outline-none"
+        tabIndex={-1}
+      >
         {children}
       </div>
     </div>,
