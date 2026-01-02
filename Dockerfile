@@ -25,11 +25,11 @@ WORKDIR /app
 # Copy built files from builder stage
 COPY --from=builder /app/dist ./dist
 
-# Copy the server
-COPY server.js ./
+# Copy the server (using .mjs extension for explicit ES module)
+COPY server.mjs ./
 
 # Railway expects port 5000
 EXPOSE 5000
 
 # Start the server
-CMD ["node", "server.js"]
+CMD ["node", "server.mjs"]
