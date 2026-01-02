@@ -108,6 +108,11 @@ export const aiDispatchKeys = {
 /**
  * Get pending AI dispatch suggestions
  * Returns empty array if endpoint not implemented yet (404)
+ *
+ * NOTE: The /ai/dispatch/suggestions endpoint may not exist in all backend deployments.
+ * This hook gracefully handles 404 by returning an empty array.
+ * The browser console will still log the 404 as "Failed to load resource" - this is
+ * expected browser behavior and not a bug. We minimize frequency with staleTime and retry:false.
  */
 export function useAIDispatchSuggestions() {
   return useQuery({
@@ -127,7 +132,13 @@ export function useAIDispatchSuggestions() {
         throw error;
       }
     },
-    refetchInterval: 30000, // Refresh every 30 seconds
+    // Disable retries for unimplemented endpoints to reduce console errors
+    retry: false,
+    // Longer stale time since endpoint may not exist
+    staleTime: 5 * 60 * 1000, // 5 minutes
+    // Only refetch when window regains focus, not on interval
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
   });
 }
 

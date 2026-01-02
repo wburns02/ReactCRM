@@ -10,13 +10,19 @@ import * as Sentry from '@sentry/react';
 const SENTRY_DSN = import.meta.env.VITE_SENTRY_DSN;
 const IS_PRODUCTION = import.meta.env.PROD;
 
+// Track if we've already logged the missing DSN warning
+let sentryWarningLogged = false;
+
 /**
  * Initialize Sentry
  */
 export function initSentry() {
   if (!SENTRY_DSN) {
-    if (IS_PRODUCTION) {
-      console.warn('Sentry DSN not configured. Error tracking disabled.');
+    // Only log warning once in production, and only if not already shown
+    if (IS_PRODUCTION && !sentryWarningLogged) {
+      sentryWarningLogged = true;
+      // Use console.info instead of warn to reduce noise in browser console
+      console.info('[Sentry] DSN not configured. Error tracking disabled.');
     }
     return;
   }
