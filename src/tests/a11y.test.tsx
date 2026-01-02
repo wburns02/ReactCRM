@@ -4,6 +4,7 @@
  * Uses axe-core to verify WCAG compliance.
  * Run with: npm run test:ci
  */
+import React from 'react';
 import { describe, it, expect } from 'vitest';
 import { render } from '@testing-library/react';
 import { configureAxe, toHaveNoViolations } from 'jest-axe';
