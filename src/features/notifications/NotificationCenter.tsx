@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState, memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import {
   useNotifications,
@@ -50,19 +50,20 @@ function formatRelativeTime(dateString: string): string {
 
 /**
  * Single notification item
+ * Memoized to prevent unnecessary re-renders in list
  */
-function NotificationItem({
+const NotificationItem = memo(function NotificationItem({
   notification,
   onMarkRead,
 }: {
   notification: Notification;
   onMarkRead: (id: string) => void;
 }) {
-  const handleClick = () => {
+  const handleClick = useCallback(() => {
     if (!notification.read) {
       onMarkRead(notification.id);
     }
-  };
+  }, [notification.id, notification.read, onMarkRead]);
 
   return (
     <div
@@ -105,7 +106,7 @@ function NotificationItem({
       </div>
     </div>
   );
-}
+});
 
 /**
  * Notification Center Dropdown

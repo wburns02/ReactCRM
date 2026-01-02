@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, memo } from 'react';
 import { useDraggable } from '@dnd-kit/core';
 import { CSS } from '@dnd-kit/utilities';
 import { Button } from '@/components/ui/Button.tsx';
@@ -27,8 +27,13 @@ const PRIORITY_COLORS: Record<Priority, string> = {
 
 /**
  * Draggable work order row in the unscheduled panel
+ * Memoized to prevent unnecessary re-renders when parent list updates
  */
-function DraggableWorkOrderRow({ workOrder }: { workOrder: WorkOrder }) {
+const DraggableWorkOrderRow = memo(function DraggableWorkOrderRow({
+  workOrder,
+}: {
+  workOrder: WorkOrder;
+}) {
   const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
     id: workOrder.id,
     data: { workOrder },
@@ -80,7 +85,7 @@ function DraggableWorkOrderRow({ workOrder }: { workOrder: WorkOrder }) {
       )}
     </div>
   );
-}
+});
 
 /**
  * Sortable column header

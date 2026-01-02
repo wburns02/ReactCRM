@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo, memo } from 'react';
 import { Link } from 'react-router-dom';
 import {
   DndContext,
@@ -50,8 +50,9 @@ const STAGE_HEADER_COLORS: Record<ProspectStage, string> = {
 
 /**
  * Draggable prospect card
+ * Memoized to prevent unnecessary re-renders during drag operations
  */
-function ProspectCard({
+const ProspectCard = memo(function ProspectCard({
   prospect,
   onEdit,
   isDragging,
@@ -162,7 +163,7 @@ function ProspectCard({
       </div>
     </div>
   );
-}
+});
 
 /**
  * Overlay card shown while dragging
@@ -189,8 +190,9 @@ function DragOverlayCard({ prospect }: { prospect: Prospect }) {
 
 /**
  * Pipeline column for a stage
+ * Memoized to prevent re-renders when other columns change
  */
-function PipelineColumn({
+const PipelineColumn = memo(function PipelineColumn({
   stage,
   color,
   prospects,
@@ -237,7 +239,7 @@ function PipelineColumn({
       </div>
     </div>
   );
-}
+});
 
 /**
  * Main Pipeline/Kanban view component
