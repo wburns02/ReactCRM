@@ -107,13 +107,25 @@ export const aiDispatchKeys = {
 
 /**
  * Get pending AI dispatch suggestions
+ * Returns empty array if endpoint not implemented yet (404)
  */
 export function useAIDispatchSuggestions() {
   return useQuery({
     queryKey: aiDispatchKeys.suggestions(),
     queryFn: async (): Promise<AIDispatchSuggestion[]> => {
-      const { data } = await apiClient.get('/ai/dispatch/suggestions');
-      return data.suggestions || [];
+      try {
+        const { data } = await apiClient.get('/ai/dispatch/suggestions');
+        return data.suggestions || [];
+      } catch (error: unknown) {
+        // Return empty array if endpoint not implemented (404)
+        if (error && typeof error === 'object' && 'response' in error) {
+          const axiosError = error as { response?: { status?: number } };
+          if (axiosError.response?.status === 404) {
+            return [];
+          }
+        }
+        throw error;
+      }
     },
     refetchInterval: 30000, // Refresh every 30 seconds
   });
@@ -187,27 +199,62 @@ export function useDismissAISuggestion() {
 
 /**
  * Get AI dispatch history
+ * Returns empty array if endpoint not implemented yet (404)
  */
 export function useAIDispatchHistory(limit?: number) {
   return useQuery({
     queryKey: aiDispatchKeys.history(),
     queryFn: async (): Promise<AIDispatchHistory[]> => {
-      const params = limit ? `?limit=${limit}` : '';
-      const { data } = await apiClient.get(`/ai/dispatch/history${params}`);
-      return data.history || [];
+      try {
+        const params = limit ? `?limit=${limit}` : '';
+        const { data } = await apiClient.get(`/ai/dispatch/history${params}`);
+        return data.history || [];
+      } catch (error: unknown) {
+        // Return empty array if endpoint not implemented (404)
+        if (error && typeof error === 'object' && 'response' in error) {
+          const axiosError = error as { response?: { status?: number } };
+          if (axiosError.response?.status === 404) {
+            return [];
+          }
+        }
+        throw error;
+      }
     },
   });
 }
 
 /**
+ * Default stats when endpoint not implemented
+ */
+const DEFAULT_AI_STATS: AIDispatchStats = {
+  suggestions_today: 0,
+  suggestions_accepted: 0,
+  auto_executions: 0,
+  time_saved_minutes: 0,
+  acceptance_rate: 0,
+};
+
+/**
  * Get AI dispatch stats
+ * Returns default stats if endpoint not implemented yet (404)
  */
 export function useAIDispatchStats() {
   return useQuery({
     queryKey: aiDispatchKeys.stats(),
     queryFn: async (): Promise<AIDispatchStats> => {
-      const { data } = await apiClient.get('/ai/dispatch/stats');
-      return data;
+      try {
+        const { data } = await apiClient.get('/ai/dispatch/stats');
+        return data;
+      } catch (error: unknown) {
+        // Return default stats if endpoint not implemented (404)
+        if (error && typeof error === 'object' && 'response' in error) {
+          const axiosError = error as { response?: { status?: number } };
+          if (axiosError.response?.status === 404) {
+            return DEFAULT_AI_STATS;
+          }
+        }
+        throw error;
+      }
     },
   });
 }
@@ -268,7 +315,18 @@ export function useAIRouteOptimize() {
 }
 
 /**
+ * Default predictions when endpoint not implemented
+ */
+const DEFAULT_PREDICTIONS = {
+  estimated_duration_minutes: 0,
+  predicted_parts: [],
+  similar_jobs: [],
+  recommended_technician: null,
+};
+
+/**
  * Get AI predictions for a work order
+ * Returns default predictions if endpoint not implemented yet (404)
  */
 export function useAIWorkOrderPredictions(workOrderId: string) {
   return useQuery({
@@ -279,8 +337,19 @@ export function useAIWorkOrderPredictions(workOrderId: string) {
       similar_jobs: { id: string; solution: string; success: boolean }[];
       recommended_technician: { id: number; name: string; reason: string } | null;
     }> => {
-      const { data } = await apiClient.get(`/ai/dispatch/work-orders/${workOrderId}/predictions`);
-      return data;
+      try {
+        const { data } = await apiClient.get(`/ai/dispatch/work-orders/${workOrderId}/predictions`);
+        return data;
+      } catch (error: unknown) {
+        // Return default predictions if endpoint not implemented (404)
+        if (error && typeof error === 'object' && 'response' in error) {
+          const axiosError = error as { response?: { status?: number } };
+          if (axiosError.response?.status === 404) {
+            return DEFAULT_PREDICTIONS;
+          }
+        }
+        throw error;
+      }
     },
     enabled: !!workOrderId,
   });
