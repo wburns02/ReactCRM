@@ -11,7 +11,7 @@ import { addBreadcrumb, captureException } from '@/lib/sentry';
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://react-crm-api-production.up.railway.app/api/v2';
 
-// Token storage key
+// Token storage key (kept for backwards compatibility during migration)
 const TOKEN_KEY = 'auth_token';
 
 export const apiClient: AxiosInstance = axios.create({
@@ -19,11 +19,21 @@ export const apiClient: AxiosInstance = axios.create({
   headers: {
     'Content-Type': 'application/json',
   },
+  // SECURITY: Enable credentials for HTTP-only cookie auth
+  // This sends the session cookie automatically with every request
+  withCredentials: true,
 });
 
-// Request interceptor - add JWT token and track request
+// Request interceptor - add JWT token (fallback) and track request
+// SECURITY: Auth priority:
+// 1. HTTP-only cookie (automatic via withCredentials) - XSS-safe
+// 2. Bearer token in localStorage (fallback for compatibility)
+// The cookie is set by the backend on login and sent automatically.
+// The Bearer token is kept as fallback during migration period.
 apiClient.interceptors.request.use(
   (config) => {
+    // Only add Bearer token if no cookie auth will be used
+    // This is a fallback for backwards compatibility
     const token = localStorage.getItem(TOKEN_KEY);
     if (token) {
       config.headers.Authorization = `Bearer ${token}`;

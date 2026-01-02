@@ -1,8 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
 import { Badge } from '@/components/ui/Badge.tsx';
-import { useRCStatus, useTwilioStatus, useMyExtension } from '../api.ts';
+import { useRCStatus, useTwilioStatus } from '../api.ts';
 
 type PhoneProvider = 'ringcentral' | 'twilio';
 
@@ -18,7 +17,6 @@ export function PhoneSettings({ onProviderChange }: PhoneSettingsProps) {
 
   const { data: rcStatus, isLoading: rcLoading } = useRCStatus();
   const { data: twilioStatus, isLoading: twilioLoading } = useTwilioStatus();
-  const { data: myExtension } = useMyExtension();
 
   useEffect(() => {
     localStorage.setItem('phone_provider', selectedProvider);
@@ -85,7 +83,7 @@ export function PhoneSettings({ onProviderChange }: PhoneSettingsProps) {
 }
 
 export function usePhoneProvider(): PhoneProvider {
-  const [provider, setProvider] = useState<PhoneProvider>(() => {
+  const [provider] = useState<PhoneProvider>(() => {
     const stored = localStorage.getItem('phone_provider');
     return (stored as PhoneProvider) || 'ringcentral';
   });

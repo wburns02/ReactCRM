@@ -4,6 +4,7 @@ import { AppRoutes } from '@/routes/index.tsx';
 import { ErrorBoundary } from '@/components/ErrorBoundary.tsx';
 import { OfflineIndicator } from '@/features/mobile/OfflineIndicator';
 import { ToastProvider } from '@/components/ui/Toast';
+import { SessionTimeoutProvider } from '@/components/SessionTimeoutProvider';
 import './index.css';
 import 'leaflet/dist/leaflet.css';
 
@@ -32,10 +33,12 @@ function App() {
     <ErrorBoundary>
       <QueryClientProvider client={queryClient}>
         <ToastProvider>
-          <BrowserRouter basename="/">
-            <OfflineIndicator />
-            <AppRoutes />
-          </BrowserRouter>
+          <SessionTimeoutProvider>
+            <BrowserRouter basename="/">
+              <OfflineIndicator />
+              <AppRoutes />
+            </BrowserRouter>
+          </SessionTimeoutProvider>
         </ToastProvider>
       </QueryClientProvider>
     </ErrorBoundary>
