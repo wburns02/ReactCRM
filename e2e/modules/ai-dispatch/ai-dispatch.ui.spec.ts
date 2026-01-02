@@ -111,8 +111,8 @@ test.describe('AI Dispatch Assistant', () => {
     const panelTitle = page.getByRole('heading', { name: /AI Dispatch Assistant/i });
     await expect(panelTitle).toBeVisible({ timeout: 5000 });
 
-    // Click minimize button
-    const minimizeButton = page.getByRole('button', { name: /Minimize/i });
+    // Click minimize button (use the aria-label one in the header)
+    const minimizeButton = page.getByLabel('Minimize');
     await minimizeButton.click();
 
     // Panel title should no longer be visible
