@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/Button.tsx';
-import { useInitiateCall } from '../api.ts';
+import { useInitiateCall, useMyExtension } from '../api.ts';
 import type { InitiateCallRequest } from '../types.ts';
 
 interface DialButtonProps {
@@ -26,12 +26,15 @@ export function DialButton({
 }: DialButtonProps) {
   const [isDialing, setIsDialing] = useState(false);
   const initiateMutation = useInitiateCall();
+  const { data: myExtension } = useMyExtension();
 
   const handleCall = async () => {
     setIsDialing(true);
 
     const request: InitiateCallRequest = {
       to_number: phoneNumber,
+      // Use the current user's own extension
+      from_number: myExtension?.extension_number,
     };
 
     if (customerId) {

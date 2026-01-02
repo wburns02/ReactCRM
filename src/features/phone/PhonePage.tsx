@@ -1,5 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
-import { useRCStatus, useCallLog, useInitiateCall, useSyncCalls, useExtensions } from './api.ts';
+import { useRCStatus, useCallLog, useInitiateCall, useSyncCalls, useMyExtension } from './api.ts';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
 import { Button } from '@/components/ui/Button.tsx';
 import { Input } from '@/components/ui/Input.tsx';
@@ -16,7 +16,7 @@ import type { CallRecord } from './types.ts';
 export function PhonePage() {
   const { data: status, isLoading: statusLoading } = useRCStatus();
   const { data: callsData, isLoading: callsLoading } = useCallLog({ page_size: 50 });
-  const { data: extensions } = useExtensions();
+  const { data: myExtension } = useMyExtension();
   const initiateMutation = useInitiateCall();
   const syncMutation = useSyncCalls();
 
@@ -64,8 +64,8 @@ export function PhonePage() {
     return true;
   }) || [];
 
-  // Get default from_number from extensions
-  const defaultFromNumber = extensions?.[0]?.extension_number || '';
+  // Use the current user's own extension (not first in list)
+  const defaultFromNumber = myExtension?.extension_number || '';
 
   // Sync calls from RingCentral
   const handleSyncCalls = async () => {

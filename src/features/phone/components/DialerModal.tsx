@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import { Button } from '@/components/ui/Button.tsx';
 import { Input } from '@/components/ui/Input.tsx';
-import { useInitiateCall, useExtensions } from '../api.ts';
+import { useInitiateCall, useMyExtension } from '../api.ts';
 
 interface DialerModalProps {
   open: boolean;
@@ -16,8 +16,9 @@ interface DialerModalProps {
 export function DialerModal({ open, onClose, customerId, prospectId }: DialerModalProps) {
   const [phoneNumber, setPhoneNumber] = useState('');
   const initiateMutation = useInitiateCall();
-  const { data: extensions } = useExtensions();
-  const defaultFromNumber = extensions?.[0]?.extension_number || '';
+  const { data: myExtension } = useMyExtension();
+  // Use the current user's own extension (not first in list which might be boss's)
+  const defaultFromNumber = myExtension?.extension_number || '';
 
   const handleDigit = (digit: string) => {
     setPhoneNumber((prev) => prev + digit);

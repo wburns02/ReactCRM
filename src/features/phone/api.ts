@@ -18,6 +18,7 @@ export const phoneKeys = {
   callsList: (filters?: Record<string, unknown>) => [...phoneKeys.calls(), filters] as const,
   dispositions: () => [...phoneKeys.all, 'dispositions'] as const,
   extensions: () => [...phoneKeys.all, 'extensions'] as const,
+  myExtension: () => [...phoneKeys.all, 'my-extension'] as const,
 };
 
 /**
@@ -32,6 +33,21 @@ export function useRCStatus() {
     },
     staleTime: 60_000,
     refetchInterval: 60_000,
+  });
+}
+
+/**
+ * Get the current user's own RingCentral extension.
+ * This is YOUR extension, not a list of all extensions.
+ */
+export function useMyExtension() {
+  return useQuery({
+    queryKey: phoneKeys.myExtension(),
+    queryFn: async () => {
+      const { data } = await apiClient.get('/ringcentral/my-extension');
+      return data;
+    },
+    staleTime: 300_000, // 5 minutes
   });
 }
 
