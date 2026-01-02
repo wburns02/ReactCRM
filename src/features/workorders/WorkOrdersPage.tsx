@@ -102,14 +102,8 @@ export function WorkOrdersPage() {
       effectiveFilters.scheduled_date = today;
     } else if (quickFilter === 'unscheduled') {
       effectiveFilters.status = 'draft';
-    } else if (quickFilter === 'emergency') {
-      effectiveFilters.priority = 'emergency';
     }
-
-    // Apply dropdown filters
-    if (jobTypeFilter) effectiveFilters.job_type = jobTypeFilter;
-    if (priorityFilter) effectiveFilters.priority = priorityFilter;
-    if (technicianFilter) effectiveFilters.assigned_technician = technicianFilter;
+    // Note: emergency, job_type, priority, technician filters applied client-side
 
     // For kanban view, fetch more items
     if (viewMode === 'kanban') {
@@ -117,7 +111,7 @@ export function WorkOrdersPage() {
     }
 
     return effectiveFilters;
-  }, [filters, jobTypeFilter, priorityFilter, technicianFilter, quickFilter, viewMode]);
+  }, [filters, quickFilter, viewMode]);
 
   const { data, isLoading, error } = useWorkOrders(apiFilters);
   const stats = useScheduleStats();
@@ -431,8 +425,8 @@ export function WorkOrdersPage() {
                   >
                     <option value="">All Technicians</option>
                     {technicians?.items?.map((tech) => (
-                      <option key={tech.id} value={tech.name}>
-                        {tech.name}
+                      <option key={tech.id} value={tech.full_name || (tech.first_name + ' ' + tech.last_name)}>
+                        {tech.full_name || (tech.first_name + ' ' + tech.last_name)}
                       </option>
                     ))}
                   </Select>
@@ -613,7 +607,7 @@ export function WorkOrdersPage() {
 function KanbanCard({
   workOrder,
   onEdit,
-  onStatusChange,
+  onStatusChange: _onStatusChange,
 }: {
   workOrder: WorkOrder;
   onEdit: (wo: WorkOrder) => void;
