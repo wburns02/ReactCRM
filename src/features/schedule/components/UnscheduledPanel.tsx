@@ -180,6 +180,7 @@ export function UnscheduledPanel() {
         onClick={() => setUnscheduledPanelOpen(true)}
         className="fixed right-0 top-1/2 -translate-y-1/2 bg-primary text-white px-2 py-4 rounded-l-lg shadow-lg hover:bg-primary-hover transition-colors z-40"
         title="Open Unscheduled Jobs"
+        aria-label={`Open unscheduled jobs panel, ${data?.items?.length || 0} jobs`}
       >
         <span className="writing-mode-vertical text-sm font-medium">
           Unscheduled ({data?.items?.length || 0})
@@ -199,6 +200,7 @@ export function UnscheduledPanel() {
           onClick={() => setUnscheduledPanelOpen(false)}
           className="text-text-muted hover:text-text-primary p-1"
           title="Close panel"
+          aria-label="Close unscheduled jobs panel"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -228,13 +230,13 @@ export function UnscheduledPanel() {
 
       {/* Sort headers */}
       <div className="flex items-center gap-2 px-3 py-2 border-b border-border bg-bg-subtle text-xs text-text-secondary">
-        <button onClick={() => toggleSort('priority')} className="hover:text-primary">
+        <button onClick={() => toggleSort('priority')} className="hover:text-primary" aria-label="Sort by priority">
           Pri <SortIndicator field="priority" />
         </button>
-        <button onClick={() => toggleSort('customer')} className="hover:text-primary flex-1">
+        <button onClick={() => toggleSort('customer')} className="hover:text-primary flex-1" aria-label="Sort by customer name">
           Customer <SortIndicator field="customer" />
         </button>
-        <button onClick={() => toggleSort('city')} className="hover:text-primary">
+        <button onClick={() => toggleSort('city')} className="hover:text-primary" aria-label="Sort by city">
           City <SortIndicator field="city" />
         </button>
       </div>
