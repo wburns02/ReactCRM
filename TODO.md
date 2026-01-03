@@ -9,25 +9,25 @@ This file drives overnight autonomous loops. Each task is atomic and completable
 
 ---
 
-## PHASE 1: CALL CENTER & TELEPHONY
+## PHASE 1: CALL CENTER & TELEPHONY ✅ COMPLETE
 
 ### Backend API (react-crm-api)
-- [ ] PRIORITY:HIGH - Create CallLog SQLAlchemy model (id, direction, caller, callee, duration, recording_url, transcript, disposition, created_at)
-- [ ] Create CallDisposition model (id, name, description, color, is_active)
-- [ ] Create GET /api/v2/calls endpoint with pagination and filters (date_range, direction, disposition)
-- [ ] Create GET /api/v2/calls/{id} endpoint for call details
-- [ ] Create GET /api/v2/call-dispositions endpoint
-- [ ] Create POST /api/v2/calls/{id}/disposition endpoint to set disposition
-- [ ] Create GET /api/v2/calls/analytics endpoint (call volume by hour, missed calls, avg duration)
+- [x] PRIORITY:HIGH - Create CallLog (already existed) SQLAlchemy model (id, direction, caller, callee, duration, recording_url, transcript, disposition, created_at)
+- [x] Create CallDisposition model (id, name, description, color, is_active)
+- [x] Create GET /api/v2/calls endpoint with pagination and filters (date_range, direction, disposition)
+- [x] Create GET /api/v2/calls/{id} endpoint for call details
+- [x] Create GET /api/v2/call-dispositions endpoint
+- [x] Create POST /api/v2/calls/{id}/disposition endpoint to set disposition
+- [x] Create GET /api/v2/calls/analytics endpoint (call volume by hour, missed calls, avg duration)
 
 ### Frontend Components (ReactCRM)
-- [ ] Create src/features/calls/api/calls.ts with React Query hooks (useCalls, useCall, useCallDispositions)
-- [ ] Create src/features/calls/components/CallList.tsx - paginated table with filters
-- [ ] Create src/features/calls/components/CallDetails.tsx - individual call view
-- [ ] Create src/features/calls/components/CallRecordingPlayer.tsx - audio player component
-- [ ] Create src/features/calls/components/DispositionBadge.tsx - colored disposition display
-- [ ] Create src/features/calls/pages/CallsPage.tsx - main calls route
-- [ ] Add /calls route to router and navigation
+- [x] Create src/features/calls/api/calls.ts with React Query hooks (useCalls, useCall, useCallDispositions)
+- [x] Create src/features/calls/components/CallList.tsx - paginated table with filters
+- [x] Create src/features/calls/components/CallDetails.tsx - individual call view
+- [x] Create src/features/calls/components/CallRecordingPlayer.tsx - audio player component
+- [x] Create src/features/calls/components/DispositionBadge.tsx - colored disposition display
+- [x] Create src/features/calls/pages/CallsPage.tsx - main calls route
+- [x] Add /calls route to router and navigation
 
 ---
 

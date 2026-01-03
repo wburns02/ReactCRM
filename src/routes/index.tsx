@@ -77,6 +77,9 @@ const PayrollPage = lazy(() => import('@/features/payroll/PayrollPage.tsx').then
 // Phone/Communications - lazy loaded
 const PhonePage = lazy(() => import('@/features/phone/index.ts').then(m => ({ default: m.PhonePage })));
 
+// Calls/Call Center - lazy loaded
+const CallsPage = lazy(() => import('@/features/calls/index.ts').then(m => ({ default: m.CallsPage })));
+
 /**
  * App routes - standalone deployment at root
  * Uses React.lazy() for code splitting - each feature loads on demand
@@ -203,6 +206,9 @@ export function AppRoutes() {
 
         {/* Phone/Communications */}
         <Route path="phone" element={<Suspense fallback={<PageLoader />}><PhonePage /></Suspense>} />
+
+        {/* Calls/Call Center */}
+        <Route path="calls" element={<Suspense fallback={<PageLoader />}><CallsPage /></Suspense>} />
 
         {/* 404 within app */}
         <Route

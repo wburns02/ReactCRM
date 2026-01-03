@@ -65,6 +65,7 @@ export function AppLayout() {
       label: 'Communications',
       icon: '📞',
       items: [
+        { path: '/calls', label: 'Call Center', icon: '📞' },
         { path: '/phone', label: 'Phone Dashboard', icon: '📞' },
         { path: '/integrations', label: 'Integrations', icon: '🔌' },
       ],
