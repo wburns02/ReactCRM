@@ -31,27 +31,27 @@ This file drives overnight autonomous loops. Each task is atomic and completable
 
 ---
 
-## PHASE 2: COMPLIANCE & REGULATORY
+## PHASE 2: COMPLIANCE & REGULATORY ✅ COMPLETE
 
 ### Backend API
-- [ ] Create License model (id, type, number, issued_date, expiry_date, status, notes)
-- [ ] Create Certification model (id, technician_id, name, issued_date, expiry_date, document_url)
-- [ ] Create Inspection model (id, customer_id, scheduled_date, completed_date, result, inspector, notes)
-- [ ] Create GET /api/v2/compliance/licenses endpoint
-- [ ] Create POST /api/v2/compliance/licenses endpoint
-- [ ] Create GET /api/v2/compliance/certifications endpoint
-- [ ] Create GET /api/v2/compliance/inspections endpoint
-- [ ] Create GET /api/v2/compliance/alerts endpoint (items expiring in 30/60/90 days)
-- [ ] Create GET /api/v2/compliance/dashboard endpoint (summary stats)
+- [x] Create License model (id, type, number, issued_date, expiry_date, status, notes) - already existed
+- [x] Create Certification model (id, technician_id, name, issued_date, expiry_date, document_url) - already existed
+- [x] Create Inspection model (id, customer_id, scheduled_date, completed_date, result, inspector, notes) - already existed
+- [x] Create GET /api/v2/compliance/licenses endpoint - already existed
+- [x] Create POST /api/v2/compliance/licenses endpoint - already existed
+- [x] Create GET /api/v2/compliance/certifications endpoint - already existed
+- [x] Create GET /api/v2/compliance/inspections endpoint - already existed
+- [x] Create GET /api/v2/compliance/alerts endpoint (items expiring in 30/60/90 days) - already existed
+- [x] Create GET /api/v2/compliance/dashboard endpoint (summary stats) - already existed
 
 ### Frontend Components
-- [ ] Create src/features/compliance/api/compliance.ts with React Query hooks
-- [ ] Create src/features/compliance/components/LicenseList.tsx
-- [ ] Create src/features/compliance/components/CertificationList.tsx
-- [ ] Create src/features/compliance/components/InspectionCalendar.tsx
-- [ ] Create src/features/compliance/components/ComplianceAlerts.tsx - expiration warnings
-- [ ] Create src/features/compliance/pages/ComplianceDashboard.tsx
-- [ ] Add /compliance route to router and navigation
+- [x] Create src/features/compliance/api/compliance.ts with React Query hooks
+- [x] Create src/features/compliance/components/LicenseList.tsx
+- [x] Create src/features/compliance/components/CertificationList.tsx
+- [x] Create src/features/compliance/components/InspectionList.tsx (replaced InspectionCalendar)
+- [x] Create src/features/compliance/components/ComplianceAlerts.tsx - expiration warnings
+- [x] Create src/features/compliance/pages/ComplianceDashboard.tsx
+- [x] Add /compliance route to router and navigation
 
 ---
 

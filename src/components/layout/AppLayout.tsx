@@ -57,6 +57,7 @@ export function AppLayout() {
         { path: '/technicians', label: 'Technicians', icon: '👷' },
         { path: '/employee', label: 'Employee Portal', icon: '📱' },
         { path: '/service-intervals', label: 'Service Intervals', icon: '🔄' },
+        { path: '/compliance', label: 'Compliance', icon: '✅' },
         { path: '/predictive-maintenance', label: 'AI Predictions', icon: '🤖' },
       ],
     },
