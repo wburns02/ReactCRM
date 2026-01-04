@@ -313,12 +313,26 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
     isManualDisconnectRef.current = false;
 
     try {
+      // Validate WebSocket URL before attempting connection
+      if (!opts.url || !opts.url.startsWith('ws://') && !opts.url.startsWith('wss://')) {
+        console.info('[WebSocket] No valid WebSocket URL configured, skipping connection');
+        setStatus('disconnected');
+        return;
+      }
+
       setStatus('connecting');
       opts.onStatusChange?.('connecting');
 
       // Add auth token to WebSocket URL if available
       const token = localStorage.getItem('auth_token');
-      const wsUrl = new URL(opts.url);
+      let wsUrl: URL;
+      try {
+        wsUrl = new URL(opts.url);
+      } catch {
+        console.info('[WebSocket] Invalid WebSocket URL, skipping connection');
+        setStatus('disconnected');
+        return;
+      }
       if (token) {
         wsUrl.searchParams.set('token', token);
       }
