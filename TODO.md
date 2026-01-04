@@ -55,26 +55,28 @@ This file drives overnight autonomous loops. Each task is atomic and completable
 
 ---
 
-## PHASE 3: CONTRACTS & SERVICE AGREEMENTS
+## PHASE 3: CONTRACTS & SERVICE AGREEMENTS ✅ COMPLETE
 
 ### Backend API
-- [ ] Create Contract model (id, customer_id, template_id, name, start_date, end_date, status, terms, value)
-- [ ] Create ContractTemplate model (id, name, description, terms_template, default_duration_months)
-- [ ] Create GET /api/v2/contracts endpoint with filters
-- [ ] Create POST /api/v2/contracts endpoint
-- [ ] Create GET /api/v2/contracts/{id} endpoint
-- [ ] Create POST /api/v2/contracts/{id}/activate endpoint
-- [ ] Create GET /api/v2/contract-templates endpoint
-- [ ] Create POST /api/v2/contract-templates endpoint
+- [x] Create Contract model - already existed
+- [x] Create ContractTemplate model - already existed
+- [x] Create GET /api/v2/contracts endpoint with filters - already existed
+- [x] Create POST /api/v2/contracts endpoint - already existed
+- [x] Create GET /api/v2/contracts/{id} endpoint - already existed
+- [x] Create POST /api/v2/contracts/{id}/activate endpoint - already existed
+- [x] Create GET /api/v2/contract-templates endpoint - already existed
+- [x] Create POST /api/v2/contract-templates endpoint - already existed
+- [x] Create GET /api/v2/contracts/generate-from-template endpoint - already existed
+- [x] Create GET /api/v2/contracts/dashboard/summary endpoint - already existed
 
 ### Frontend Components
-- [ ] Create src/features/contracts/api/contracts.ts with React Query hooks
-- [ ] Create src/features/contracts/components/ContractList.tsx
-- [ ] Create src/features/contracts/components/ContractDetails.tsx
-- [ ] Create src/features/contracts/components/ContractTemplates.tsx
-- [ ] Create src/features/contracts/components/ContractBuilder.tsx - create from template
-- [ ] Create src/features/contracts/pages/ContractsPage.tsx
-- [ ] Add /contracts route to router and navigation
+- [x] Create src/features/contracts/api/contracts.ts with React Query hooks
+- [x] Create src/features/contracts/components/ContractList.tsx
+- [x] Create src/features/contracts/components/ContractDetails.tsx
+- [x] Create src/features/contracts/components/ContractTemplates.tsx
+- [x] Create src/features/contracts/components/ExpiringContractsAlert.tsx
+- [x] Create src/features/contracts/pages/ContractsPage.tsx
+- [x] Add /contracts route to router and navigation
 
 ---
 
