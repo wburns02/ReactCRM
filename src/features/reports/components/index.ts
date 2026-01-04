@@ -3,3 +3,7 @@ export { DateRangePicker } from './DateRangePicker.tsx';
 export { ExportButton } from './ExportButton.tsx';
 export { RevenueChart } from './RevenueChart.tsx';
 export { ServiceTypeBreakdown } from './ServiceTypeBreakdown.tsx';
+export { RevenueByServiceChart } from './RevenueByServiceChart.tsx';
+export { RevenueByTechnicianChart } from './RevenueByTechnicianChart.tsx';
+export { CLVReport } from './CLVReport.tsx';
+export { TechnicianPerformanceTable } from './TechnicianPerformanceTable.tsx';

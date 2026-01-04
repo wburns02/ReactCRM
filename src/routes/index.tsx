@@ -43,6 +43,9 @@ const EmailMarketingPage = lazy(() => import('@/features/email-marketing/EmailMa
 const ReportsPage = lazy(() => import('@/features/reports/pages/ReportsPage.tsx').then(m => ({ default: m.ReportsPage })));
 const RevenueReport = lazy(() => import('@/features/reports/pages/RevenueReport.tsx').then(m => ({ default: m.RevenueReport })));
 const TechnicianPerformance = lazy(() => import('@/features/reports/pages/TechnicianPerformance.tsx').then(m => ({ default: m.TechnicianPerformance })));
+const CLVReportPage = lazy(() => import('@/features/reports/pages/CLVReportPage.tsx').then(m => ({ default: m.CLVReportPage })));
+const ServiceReportPage = lazy(() => import('@/features/reports/pages/ServiceReportPage.tsx').then(m => ({ default: m.ServiceReportPage })));
+const LocationReportPage = lazy(() => import('@/features/reports/pages/LocationReportPage.tsx').then(m => ({ default: m.LocationReportPage })));
 
 // Other features - lazy loaded
 const EquipmentPage = lazy(() => import('@/features/equipment/EquipmentPage.tsx').then(m => ({ default: m.EquipmentPage })));
@@ -173,6 +176,9 @@ export function AppRoutes() {
         <Route path="reports" element={<Suspense fallback={<PageLoader />}><ReportsPage /></Suspense>} />
         <Route path="reports/revenue" element={<Suspense fallback={<PageLoader />}><RevenueReport /></Suspense>} />
         <Route path="reports/technicians" element={<Suspense fallback={<PageLoader />}><TechnicianPerformance /></Suspense>} />
+        <Route path="reports/clv" element={<Suspense fallback={<PageLoader />}><CLVReportPage /></Suspense>} />
+        <Route path="reports/service" element={<Suspense fallback={<PageLoader />}><ServiceReportPage /></Suspense>} />
+        <Route path="reports/location" element={<Suspense fallback={<PageLoader />}><LocationReportPage /></Suspense>} />
 
         {/* Equipment */}
         <Route path="equipment" element={<Suspense fallback={<PageLoader />}><EquipmentPage /></Suspense>} />

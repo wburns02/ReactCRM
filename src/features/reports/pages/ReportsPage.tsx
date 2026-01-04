@@ -186,6 +186,42 @@ export function ReportsPage() {
                 </div>
               </Link>
               <Link
+                to="/reports/clv"
+                className="flex items-center gap-3 p-4 border border-border rounded-lg hover:bg-bg-hover transition-colors"
+              >
+                <span className="text-2xl">💎</span>
+                <div>
+                  <h4 className="font-semibold text-text-primary">Customer Lifetime Value</h4>
+                  <p className="text-sm text-text-secondary">
+                    Customer value and retention analysis
+                  </p>
+                </div>
+              </Link>
+              <Link
+                to="/reports/service"
+                className="flex items-center gap-3 p-4 border border-border rounded-lg hover:bg-bg-hover transition-colors"
+              >
+                <span className="text-2xl">🔧</span>
+                <div>
+                  <h4 className="font-semibold text-text-primary">Revenue by Service</h4>
+                  <p className="text-sm text-text-secondary">
+                    Revenue breakdown by service type
+                  </p>
+                </div>
+              </Link>
+              <Link
+                to="/reports/location"
+                className="flex items-center gap-3 p-4 border border-border rounded-lg hover:bg-bg-hover transition-colors"
+              >
+                <span className="text-2xl">📍</span>
+                <div>
+                  <h4 className="font-semibold text-text-primary">Revenue by Location</h4>
+                  <p className="text-sm text-text-secondary">
+                    Geographic revenue analysis
+                  </p>
+                </div>
+              </Link>
+              <Link
                 to="/customers"
                 className="flex items-center gap-3 p-4 border border-border rounded-lg hover:bg-bg-hover transition-colors"
               >
