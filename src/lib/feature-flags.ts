@@ -16,4 +16,7 @@ export const FEATURE_FLAGS = {
 
   // Advanced features
   advancedReporting: true,
+
+  // Document management - disabled until backend endpoint exists
+  attachments: false,
 } as const;

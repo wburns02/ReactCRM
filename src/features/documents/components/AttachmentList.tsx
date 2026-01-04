@@ -1,5 +1,6 @@
 import { useState } from 'react';
 import { useDocuments, useDeleteDocument, useDownloadDocument } from '@/api/hooks/useDocuments.ts';
+import { FEATURE_FLAGS } from '@/lib/feature-flags.ts';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
 import { Button } from '@/components/ui/Button.tsx';
 import { ConfirmDialog } from '@/components/ui/Dialog.tsx';
@@ -51,6 +52,11 @@ export function AttachmentList({ entityId, entityType }: AttachmentListProps) {
       handleDownload(document);
     }
   };
+
+  // Don't render anything if attachments feature is disabled
+  if (!FEATURE_FLAGS.attachments) {
+    return null;
+  }
 
   return (
     <>

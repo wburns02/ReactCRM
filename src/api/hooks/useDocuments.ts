@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '../client.ts';
+import { FEATURE_FLAGS } from '@/lib/feature-flags.ts';
 import {
   documentListResponseSchema,
   uploadResponseSchema,
@@ -23,11 +24,17 @@ export const documentKeys = {
 
 /**
  * Fetch documents for an entity
+ * Note: Disabled until backend /attachments/ endpoint is implemented
  */
 export function useDocuments(entityId: string | undefined, entityType: EntityType) {
   return useQuery({
     queryKey: documentKeys.byEntity(entityType, entityId!),
     queryFn: async (): Promise<DocumentListResponse> => {
+      // Return empty list if attachments feature is disabled
+      if (!FEATURE_FLAGS.attachments) {
+        return { items: [], total: 0, page: 1, page_size: 100 };
+      }
+
       const params = new URLSearchParams({
         entity_type: entityType,
         entity_id: entityId!,
@@ -46,7 +53,7 @@ export function useDocuments(entityId: string | undefined, entityType: EntityTyp
 
       return data;
     },
-    enabled: !!entityId,
+    enabled: !!entityId && FEATURE_FLAGS.attachments,
     staleTime: 30_000, // 30 seconds
   });
 }
