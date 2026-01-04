@@ -59,6 +59,7 @@ export function AppLayout() {
         { path: '/service-intervals', label: 'Service Intervals', icon: '🔄' },
         { path: '/compliance', label: 'Compliance', icon: '✅' },
         { path: '/contracts', label: 'Contracts', icon: '📄' },
+        { path: '/timesheets', label: 'Timesheets', icon: '⏱️' },
         { path: '/predictive-maintenance', label: 'AI Predictions', icon: '🤖' },
       ],
     },

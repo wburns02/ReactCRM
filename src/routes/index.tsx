@@ -86,6 +86,9 @@ const ComplianceDashboard = lazy(() => import('@/features/compliance/index.ts').
 // Contracts - lazy loaded
 const ContractsPage = lazy(() => import('@/features/contracts/index.ts').then(m => ({ default: m.ContractsPage })));
 
+// Time Tracking - lazy loaded
+const TimesheetsPage = lazy(() => import('@/features/time-tracking/index.ts').then(m => ({ default: m.TimesheetsPage })));
+
 /**
  * App routes - standalone deployment at root
  * Uses React.lazy() for code splitting - each feature loads on demand
@@ -221,6 +224,9 @@ export function AppRoutes() {
 
         {/* Contracts */}
         <Route path="contracts" element={<Suspense fallback={<PageLoader />}><ContractsPage /></Suspense>} />
+
+        {/* Timesheets */}
+        <Route path="timesheets" element={<Suspense fallback={<PageLoader />}><TimesheetsPage /></Suspense>} />
 
         {/* 404 within app */}
         <Route
