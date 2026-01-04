@@ -365,3 +365,125 @@ export function useAIWorkOrderPredictions(workOrderId: string) {
     enabled: !!workOrderId,
   });
 }
+
+/**
+ * Extended technician info for dispatch display
+ */
+export interface TechnicianDispatchInfo {
+  id: number;
+  name: string;
+  avatar_url?: string;
+  skills: string[];
+  current_location?: {
+    lat: number;
+    lng: number;
+    address?: string;
+  };
+  distance_miles?: number;
+  eta_minutes?: number;
+  jobs_today: number;
+  is_available: boolean;
+  next_available_at?: string;
+}
+
+/**
+ * Get technician availability and location for dispatch
+ * Returns empty array if endpoint not implemented yet (404)
+ */
+export function useTechnicianDispatchInfo() {
+  return useQuery({
+    queryKey: [...aiDispatchKeys.all, 'technicians'],
+    queryFn: async (): Promise<TechnicianDispatchInfo[]> => {
+      try {
+        const { data } = await apiClient.get('/ai/dispatch/technicians');
+        return data.technicians || [];
+      } catch (error: unknown) {
+        // Return empty array if endpoint not implemented (404)
+        if (error && typeof error === 'object' && 'response' in error) {
+          const axiosError = error as { response?: { status?: number } };
+          if (axiosError.response?.status === 404) {
+            return [];
+          }
+        }
+        throw error;
+      }
+    },
+    retry: false,
+    staleTime: 30_000, // 30 seconds - technician locations change frequently
+    refetchInterval: false,
+    refetchOnWindowFocus: false,
+  });
+}
+
+/**
+ * Get AI suggestions for a specific work order
+ * Returns suggestions tailored to a particular job
+ */
+export function useAIWorkOrderSuggestions(workOrderId: string | undefined) {
+  return useQuery({
+    queryKey: [...aiDispatchKeys.all, 'work-order-suggestions', workOrderId],
+    queryFn: async (): Promise<AIDispatchSuggestion[]> => {
+      try {
+        const { data } = await apiClient.get(`/ai/dispatch/work-orders/${workOrderId}/suggestions`);
+        return data.suggestions || [];
+      } catch (error: unknown) {
+        // Return empty array if endpoint not implemented (404)
+        if (error && typeof error === 'object' && 'response' in error) {
+          const axiosError = error as { response?: { status?: number } };
+          if (axiosError.response?.status === 404) {
+            return [];
+          }
+        }
+        throw error;
+      }
+    },
+    enabled: !!workOrderId,
+    retry: false,
+    staleTime: 60_000, // 1 minute
+  });
+}
+
+/**
+ * Modify an existing suggestion (update parameters before executing)
+ */
+export function useModifyAISuggestion() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (params: {
+      suggestion_id: string;
+      modifications: {
+        technician_id?: number;
+        suggested_time?: string;
+        notes?: string;
+      };
+    }): Promise<AIDispatchSuggestion> => {
+      const { data } = await apiClient.patch(
+        `/ai/dispatch/suggestions/${params.suggestion_id}`,
+        params.modifications
+      );
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: aiDispatchKeys.suggestions() });
+    },
+  });
+}
+
+/**
+ * Request AI to analyze current schedule and generate new suggestions
+ */
+export function useRefreshAISuggestions() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (): Promise<{ suggestions_generated: number }> => {
+      const { data } = await apiClient.post('/ai/dispatch/analyze');
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: aiDispatchKeys.suggestions() });
+      queryClient.invalidateQueries({ queryKey: aiDispatchKeys.stats() });
+    },
+  });
+}

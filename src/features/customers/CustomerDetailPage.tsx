@@ -28,6 +28,7 @@ import type { CustomerFormData } from '@/api/types/customer.ts';
 import { ActivityTimeline } from '@/features/activities';
 import { AttachmentList } from '@/features/documents';
 import { DialButton, CallLog } from '@/features/phone/index.ts';
+import { CustomerHealthScore } from './components/CustomerHealthScore.tsx';
 
 /**
  * Customer detail page - view/edit individual customer
@@ -150,6 +151,9 @@ export function CustomerDetailPage() {
           </div>
         </Card>
       )}
+
+      {/* Customer Health Score */}
+      <CustomerHealthScore customer={customer} className="mb-6" />
 
       <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
         {/* Contact Information */}

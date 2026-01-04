@@ -3,6 +3,7 @@ import { Outlet, Link, useLocation } from 'react-router-dom';
 import { useAuth } from '@/features/auth/useAuth.ts';
 import { RCStatusIndicator } from '@/features/phone/index.ts';
 import { NotificationCenter } from '@/features/notifications/index.ts';
+import { ConnectionStatus } from '@/components/ui/ConnectionStatus';
 
 /**
  * Navigation item type
@@ -52,6 +53,7 @@ export function AppLayout() {
       label: 'Operations',
       icon: '📝',
       items: [
+        { path: '/command-center', label: 'Command Center', icon: '🎯' },
         { path: '/work-orders', label: 'Work Orders', icon: '🔧' },
         { path: '/schedule', label: 'Schedule', icon: '📅' },
         { path: '/technicians', label: 'Technicians', icon: '👷' },
@@ -264,8 +266,9 @@ export function AppLayout() {
 
       {/* Main content */}
       <main id="main-content" className="flex-1 overflow-auto flex flex-col" tabIndex={-1}>
-        {/* Top bar with notifications and RingCentral status */}
+        {/* Top bar with connection status, notifications and RingCentral status */}
         <div className="h-12 border-b border-border bg-bg-card px-6 flex items-center justify-end gap-4">
+          <ConnectionStatus showTooltip size="sm" />
           <NotificationCenter />
           <RCStatusIndicator />
         </div>

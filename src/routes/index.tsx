@@ -22,6 +22,7 @@ const PageLoader = () => (
 
 // Lazy load feature modules for code splitting
 const DashboardPage = lazy(() => import('@/features/dashboard/DashboardPage.tsx').then(m => ({ default: m.DashboardPage })));
+const CommandCenter = lazy(() => import('@/features/dashboard/CommandCenter.tsx').then(m => ({ default: m.CommandCenter })));
 const ProspectsPage = lazy(() => import('@/features/prospects/ProspectsPage.tsx').then(m => ({ default: m.ProspectsPage })));
 const ProspectDetailPage = lazy(() => import('@/features/prospects/ProspectDetailPage.tsx').then(m => ({ default: m.ProspectDetailPage })));
 const CustomersPage = lazy(() => import('@/features/customers/CustomersPage.tsx').then(m => ({ default: m.CustomersPage })));
@@ -47,8 +48,12 @@ const CLVReportPage = lazy(() => import('@/features/reports/pages/CLVReportPage.
 const ServiceReportPage = lazy(() => import('@/features/reports/pages/ServiceReportPage.tsx').then(m => ({ default: m.ServiceReportPage })));
 const LocationReportPage = lazy(() => import('@/features/reports/pages/LocationReportPage.tsx').then(m => ({ default: m.LocationReportPage })));
 
+// Analytics - lazy loaded
+const FTFRDashboard = lazy(() => import('@/features/analytics/index.ts').then(m => ({ default: m.FTFRDashboard })));
+
 // Other features - lazy loaded
 const EquipmentPage = lazy(() => import('@/features/equipment/EquipmentPage.tsx').then(m => ({ default: m.EquipmentPage })));
+const EquipmentHealthPage = lazy(() => import('@/features/equipment/index.ts').then(m => ({ default: m.EquipmentHealthPage })));
 const InventoryPage = lazy(() => import('@/features/inventory/InventoryPage.tsx').then(m => ({ default: m.InventoryPage })));
 const TicketsPage = lazy(() => import('@/features/tickets/TicketsPage.tsx').then(m => ({ default: m.TicketsPage })));
 const TicketDetailPage = lazy(() => import('@/features/tickets/TicketDetailPage.tsx').then(m => ({ default: m.TicketDetailPage })));
@@ -140,6 +145,7 @@ export function AppRoutes() {
 
         {/* Dashboard */}
         <Route path="dashboard" element={<Suspense fallback={<PageLoader />}><DashboardPage /></Suspense>} />
+        <Route path="command-center" element={<Suspense fallback={<PageLoader />}><CommandCenter /></Suspense>} />
 
         {/* Prospects */}
         <Route path="prospects" element={<Suspense fallback={<PageLoader />}><ProspectsPage /></Suspense>} />
@@ -180,8 +186,12 @@ export function AppRoutes() {
         <Route path="reports/service" element={<Suspense fallback={<PageLoader />}><ServiceReportPage /></Suspense>} />
         <Route path="reports/location" element={<Suspense fallback={<PageLoader />}><LocationReportPage /></Suspense>} />
 
+        {/* Analytics */}
+        <Route path="analytics/ftfr" element={<Suspense fallback={<PageLoader />}><FTFRDashboard /></Suspense>} />
+
         {/* Equipment */}
         <Route path="equipment" element={<Suspense fallback={<PageLoader />}><EquipmentPage /></Suspense>} />
+        <Route path="equipment/health" element={<Suspense fallback={<PageLoader />}><EquipmentHealthPage /></Suspense>} />
 
         {/* Inventory */}
         <Route path="inventory" element={<Suspense fallback={<PageLoader />}><InventoryPage /></Suspense>} />
