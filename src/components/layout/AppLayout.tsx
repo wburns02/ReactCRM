@@ -123,6 +123,7 @@ export function AppLayout() {
       items: [
         { path: '/users', label: 'Users', icon: '👤' },
         { path: '/admin', label: 'Settings', icon: '⚙️' },
+        { path: '/admin/import', label: 'Data Import', icon: '📥' },
       ],
     },
   ];

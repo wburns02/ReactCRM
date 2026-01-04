@@ -92,6 +92,9 @@ const TimesheetsPage = lazy(() => import('@/features/time-tracking/index.ts').th
 // Job Costing - lazy loaded
 const JobCostingPage = lazy(() => import('@/features/job-costing/index.ts').then(m => ({ default: m.JobCostingPage })));
 
+// Data Import - lazy loaded
+const DataImportPage = lazy(() => import('@/features/import/index.ts').then(m => ({ default: m.DataImportPage })));
+
 /**
  * App routes - standalone deployment at root
  * Uses React.lazy() for code splitting - each feature loads on demand
@@ -233,6 +236,9 @@ export function AppRoutes() {
 
         {/* Job Costing */}
         <Route path="job-costing" element={<Suspense fallback={<PageLoader />}><JobCostingPage /></Suspense>} />
+
+        {/* Data Import */}
+        <Route path="admin/import" element={<Suspense fallback={<PageLoader />}><DataImportPage /></Suspense>} />
 
         {/* 404 within app */}
         <Route
