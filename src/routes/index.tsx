@@ -50,6 +50,7 @@ const LocationReportPage = lazy(() => import('@/features/reports/pages/LocationR
 
 // Analytics - lazy loaded
 const FTFRDashboard = lazy(() => import('@/features/analytics/index.ts').then(m => ({ default: m.FTFRDashboard })));
+const BIDashboard = lazy(() => import('@/features/analytics/index.ts').then(m => ({ default: m.BIDashboard })));
 
 // Other features - lazy loaded
 const EquipmentPage = lazy(() => import('@/features/equipment/EquipmentPage.tsx').then(m => ({ default: m.EquipmentPage })));
@@ -103,6 +104,9 @@ const JobCostingPage = lazy(() => import('@/features/job-costing/index.ts').then
 // Data Import - lazy loaded
 const DataImportPage = lazy(() => import('@/features/import/index.ts').then(m => ({ default: m.DataImportPage })));
 
+// Onboarding - lazy loaded
+const OnboardingWizard = lazy(() => import('@/features/onboarding/index.ts').then(m => ({ default: m.OnboardingWizard })));
+
 /**
  * App routes - standalone deployment at root
  * Uses React.lazy() for code splitting - each feature loads on demand
@@ -110,8 +114,20 @@ const DataImportPage = lazy(() => import('@/features/import/index.ts').then(m =>
 export function AppRoutes() {
   return (
     <Routes>
-      {/* Public login route at /app/login */}
+      {/* Public login route */}
       <Route path="/login" element={<LoginPage />} />
+
+      {/* Onboarding wizard for new users */}
+      <Route
+        path="/onboarding"
+        element={
+          <RequireAuth>
+            <Suspense fallback={<PageLoader />}>
+              <OnboardingWizard />
+            </Suspense>
+          </RequireAuth>
+        }
+      />
 
       {/* Customer Portal routes at /portal */}
       <Route path="/portal/login" element={<Suspense fallback={<PageLoader />}><PortalLoginPage /></Suspense>} />
@@ -188,6 +204,7 @@ export function AppRoutes() {
 
         {/* Analytics */}
         <Route path="analytics/ftfr" element={<Suspense fallback={<PageLoader />}><FTFRDashboard /></Suspense>} />
+        <Route path="analytics/bi" element={<Suspense fallback={<PageLoader />}><BIDashboard /></Suspense>} />
 
         {/* Equipment */}
         <Route path="equipment" element={<Suspense fallback={<PageLoader />}><EquipmentPage /></Suspense>} />

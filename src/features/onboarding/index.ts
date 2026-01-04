@@ -1,0 +1,27 @@
+// Main components
+export { OnboardingWizard } from './OnboardingWizard';
+export { OnboardingStep, StepSection } from './OnboardingStep';
+export { OnboardingCheck } from './OnboardingCheck';
+
+// Step components
+export { CompanySetupStep } from './steps/CompanySetupStep';
+export { ImportCustomersStep } from './steps/ImportCustomersStep';
+export { AddTechniciansStep } from './steps/AddTechniciansStep';
+export { ConfigureServicesStep } from './steps/ConfigureServicesStep';
+export { ConnectIntegrationsStep } from './steps/ConnectIntegrationsStep';
+export { CompletionStep } from './steps/CompletionStep';
+
+// Hook and utilities
+export {
+  useOnboarding,
+  isOnboardingCompleted,
+  resetOnboarding,
+  ONBOARDING_STEPS,
+  type OnboardingStepName,
+  type OnboardingData,
+  type CompanyData,
+  type ImportedCustomer,
+  type OnboardingTechnician,
+  type ServiceType,
+  type IntegrationStatus,
+} from './useOnboarding';

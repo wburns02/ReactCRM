@@ -111,6 +111,15 @@ export function AppLayout() {
       ],
     },
     {
+      name: 'analytics',
+      label: 'Analytics',
+      icon: '📊',
+      items: [
+        { path: '/analytics/bi', label: 'BI Dashboard', icon: '📊' },
+        { path: '/analytics/ftfr', label: 'First-Time Fix Rate', icon: '✔' },
+      ],
+    },
+    {
       name: 'support',
       label: 'Support',
       icon: '🎫',
