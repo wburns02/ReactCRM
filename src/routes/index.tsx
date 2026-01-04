@@ -89,6 +89,9 @@ const ContractsPage = lazy(() => import('@/features/contracts/index.ts').then(m 
 // Time Tracking - lazy loaded
 const TimesheetsPage = lazy(() => import('@/features/time-tracking/index.ts').then(m => ({ default: m.TimesheetsPage })));
 
+// Job Costing - lazy loaded
+const JobCostingPage = lazy(() => import('@/features/job-costing/index.ts').then(m => ({ default: m.JobCostingPage })));
+
 /**
  * App routes - standalone deployment at root
  * Uses React.lazy() for code splitting - each feature loads on demand
@@ -227,6 +230,9 @@ export function AppRoutes() {
 
         {/* Timesheets */}
         <Route path="timesheets" element={<Suspense fallback={<PageLoader />}><TimesheetsPage /></Suspense>} />
+
+        {/* Job Costing */}
+        <Route path="job-costing" element={<Suspense fallback={<PageLoader />}><JobCostingPage /></Suspense>} />
 
         {/* 404 within app */}
         <Route

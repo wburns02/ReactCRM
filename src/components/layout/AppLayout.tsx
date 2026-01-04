@@ -81,6 +81,7 @@ export function AppLayout() {
         { path: '/invoices', label: 'Invoices', icon: '🧾' },
         { path: '/payments', label: 'Payments', icon: '💳' },
         { path: '/payroll', label: 'Payroll', icon: '💵' },
+        { path: '/job-costing', label: 'Job Costing', icon: '💹' },
       ],
     },
     {
