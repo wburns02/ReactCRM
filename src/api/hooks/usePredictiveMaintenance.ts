@@ -81,7 +81,7 @@ export function usePredictionSummary() {
     queryFn: async (): Promise<PredictionSummary> => {
       return withFallback(
         async () => {
-          const { data } = await apiClient.get('/predictive-maintenance/summary');
+          const { data } = await apiClient.get('/predictions/summary');
           return data;
         },
         DEFAULT_SUMMARY
@@ -100,7 +100,7 @@ export function useMaintenancePredictions(filters?: PredictionFilters) {
     queryFn: async (): Promise<{ items: MaintenancePrediction[]; total: number }> => {
       return withFallback(
         async () => {
-          const { data } = await apiClient.get('/predictive-maintenance/predictions', {
+          const { data } = await apiClient.get('/predictions/predictions', {
             params: filters,
           });
           return data;
@@ -121,7 +121,7 @@ export function useHighRiskPredictions(limit = 10) {
     queryFn: async (): Promise<MaintenancePrediction[]> => {
       return withFallback(
         async () => {
-          const { data } = await apiClient.get('/predictive-maintenance/predictions', {
+          const { data } = await apiClient.get('/predictions/predictions', {
             params: {
               risk_level: 'high',
               page_size: limit,
@@ -142,7 +142,7 @@ export function useCustomerPrediction(customerId: number) {
   return useQuery({
     queryKey: ['predictive-maintenance', 'customer', customerId],
     queryFn: async (): Promise<MaintenancePrediction> => {
-      const { data } = await apiClient.get(`/predictive-maintenance/customer/${customerId}`);
+      const { data } = await apiClient.get(`/predictions/customer/${customerId}`);
       return data;
     },
     enabled: !!customerId,
@@ -159,7 +159,7 @@ export function useMaintenanceAlerts(unreadOnly = false) {
     queryFn: async (): Promise<MaintenanceAlert[]> => {
       return withFallback(
         async () => {
-          const { data } = await apiClient.get('/predictive-maintenance/alerts', {
+          const { data } = await apiClient.get('/predictions/alerts', {
             params: { unread_only: unreadOnly },
           });
           return data.alerts || [];
@@ -176,7 +176,7 @@ export function useMaintenanceAlerts(unreadOnly = false) {
 export function useMarkAlertRead() {
   return useMutation({
     mutationFn: async (alertId: string): Promise<void> => {
-      await apiClient.post(`/predictive-maintenance/alerts/${alertId}/read`);
+      await apiClient.post(`/predictions/alerts/${alertId}/read`);
     },
   });
 }
@@ -187,7 +187,7 @@ export function useMarkAlertRead() {
 export function useCreateFromPrediction() {
   return useMutation({
     mutationFn: async (predictionId: string): Promise<{ work_order_id: string }> => {
-      const { data } = await apiClient.post(`/predictive-maintenance/predictions/${predictionId}/create-work-order`);
+      const { data } = await apiClient.post(`/predictions/predictions/${predictionId}/create-work-order`);
       return data;
     },
   });
@@ -203,7 +203,7 @@ export function usePredictionCalendar(startDate: string, endDate: string) {
     queryFn: async (): Promise<{ date: string; predictions: MaintenancePrediction[] }[]> => {
       return withFallback(
         async () => {
-          const { data } = await apiClient.get('/predictive-maintenance/calendar', {
+          const { data } = await apiClient.get('/predictions/calendar', {
             params: { start_date: startDate, end_date: endDate },
           });
           return data.days || [];
@@ -221,7 +221,7 @@ export function usePredictionCalendar(startDate: string, endDate: string) {
 export function useRefreshPredictions() {
   return useMutation({
     mutationFn: async (): Promise<{ updated_count: number }> => {
-      const { data } = await apiClient.post('/predictive-maintenance/refresh');
+      const { data } = await apiClient.post('/predictions/refresh');
       return data;
     },
   });
