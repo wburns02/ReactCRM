@@ -76,35 +76,25 @@ function parseRoute(pathname: string): { recordType?: string; recordId?: string 
 }
 
 /**
- * Compute demo users based on pathname (deterministic)
- * In production, this would be replaced with real WebSocket data
+ * Presence users from WebSocket connection
+ * This will be populated by real-time WebSocket data in Phase 2.2
  */
-function computeDemoUsers(pathname: string): PresenceUser[] {
-  const demoUsers: PresenceUser[] = [];
+let presenceUsersCache: PresenceUser[] = [];
 
-  // Only show demo users on specific pages for realism
-  if (pathname.includes('/customers/') || pathname.includes('/work-orders/')) {
-    // Use a deterministic approach based on pathname
-    const pathHash = pathname.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
-    if (pathHash % 3 === 0) {
-      const { recordType, recordId } = parseRoute(pathname);
-      const demoUser: PresenceUser = {
-        id: 'demo-user-1',
-        name: 'Sarah Johnson',
-        initials: 'SJ',
-        email: 'sarah@example.com',
-        color: generateUserColor('demo-user-1'),
-        currentPage: pathname,
-        recordType,
-        recordId,
-        lastSeen: new Date(),
-        isOnline: true,
-      };
-      demoUsers.push(demoUser);
-    }
-  }
+/**
+ * Set presence users from WebSocket
+ * Called by the WebSocket connection handler
+ */
+export function setPresenceUsers(users: PresenceUser[]): void {
+  presenceUsersCache = users;
+}
 
-  return demoUsers;
+/**
+ * Get current presence users
+ * Returns real-time users from WebSocket connection
+ */
+function getPresenceUsers(): PresenceUser[] {
+  return presenceUsersCache;
 }
 
 /**
@@ -126,8 +116,8 @@ export function usePresence() {
     const { recordType, recordId } = parseRoute(location.pathname);
     const connected = hasUser;
 
-    // Get demo users for current page
-    const allUsers = hasUser ? computeDemoUsers(location.pathname) : [];
+    // Get real-time presence users from WebSocket
+    const allUsers = hasUser ? getPresenceUsers() : [];
 
     // Filter users (excluding self)
     const users = allUsers.filter(u => u.id !== user?.id);

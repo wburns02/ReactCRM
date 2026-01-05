@@ -754,8 +754,11 @@ export function CommandCenter() {
       .filter((wo) => wo.status === 'completed')
       .reduce((sum, wo) => sum + (revenuePerJobType[wo.job_type] || 200), 0);
 
-    // Mock average completion time
-    const avgTime = completed > 0 ? '1.5h' : '--';
+    // Calculate average completion time from work order estimated durations
+    const completedJobs = todaysJobs.filter((wo) => wo.status === 'completed');
+    const avgTime = completedJobs.length > 0
+      ? `${(completedJobs.reduce((sum, wo) => sum + (wo.estimated_duration_hours || 1.5), 0) / completedJobs.length).toFixed(1)}h`
+      : '--';
 
     return { completed, scheduled, revenue, avgTime };
   }, [workOrders, todayStr]);
@@ -844,23 +847,6 @@ export function CommandCenter() {
           createdAt: new Date(),
         });
       });
-
-    // Add some mock alerts for demonstration
-    if (generatedAlerts.length === 0 && workOrders.length > 0) {
-      // Only add mock alerts if we have data but no real alerts
-      const randomJob = workOrders.find((wo) => wo.status === 'in_progress');
-      if (randomJob) {
-        generatedAlerts.push({
-          id: 'mock-parts',
-          type: 'parts_needed',
-          severity: 'info',
-          message: 'Parts request: 4" PVC fitting needed for repair',
-          workOrderId: randomJob.id,
-          technicianName: randomJob.assigned_technician || undefined,
-          createdAt: new Date(),
-        });
-      }
-    }
 
     return generatedAlerts;
   }, [workOrders, todayStr]);
