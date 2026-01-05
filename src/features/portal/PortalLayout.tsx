@@ -50,6 +50,12 @@ export function PortalLayout() {
               >
                 Request Service
               </Link>
+              <Link
+                to="/portal/profile"
+                className="text-text-secondary hover:text-text-primary transition-colors"
+              >
+                Profile
+              </Link>
             </nav>
 
             <Button variant="ghost" size="sm" onClick={handleLogout}>
@@ -66,6 +72,7 @@ export function PortalLayout() {
           <Link to="/portal/work-orders" className="text-xs text-text-secondary">Work Orders</Link>
           <Link to="/portal/invoices" className="text-xs text-text-secondary">Invoices</Link>
           <Link to="/portal/request-service" className="text-xs text-text-secondary">Request</Link>
+          <Link to="/portal/profile" className="text-xs text-text-secondary">Profile</Link>
         </div>
       </nav>
 

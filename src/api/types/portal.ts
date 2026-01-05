@@ -12,6 +12,27 @@ export interface PortalCustomer {
   city: string;
   state: string;
   zip: string;
+  notification_preferences?: NotificationPreferences;
+  created_at?: string;
+}
+
+export interface NotificationPreferences {
+  email_reminders: boolean;
+  sms_reminders: boolean;
+  tech_arrival_alerts: boolean;
+  invoice_notifications: boolean;
+}
+
+export interface TechnicianLocation {
+  technician_id: string;
+  technician_name: string;
+  lat: number;
+  lng: number;
+  heading?: number;
+  speed?: number;
+  timestamp: string;
+  eta_minutes?: number;
+  status: 'en_route' | 'arrived' | 'working' | 'offline';
 }
 
 export interface PortalWorkOrder {
@@ -20,10 +41,35 @@ export interface PortalWorkOrder {
   service_type: string;
   status: 'scheduled' | 'in_progress' | 'completed' | 'cancelled';
   scheduled_date?: string;
+  scheduled_time?: string;
   completed_date?: string;
+  technician_id?: string;
   technician_name?: string;
+  technician_phone?: string;
   notes?: string;
   total_amount?: number;
+  service_address?: string;
+  items?: WorkOrderItem[];
+}
+
+export interface WorkOrderItem {
+  id: string;
+  description: string;
+  quantity: number;
+  unit_price: number;
+  total: number;
+}
+
+export interface CustomerProfileUpdate {
+  first_name?: string;
+  last_name?: string;
+  email?: string;
+  phone?: string;
+  address?: string;
+  city?: string;
+  state?: string;
+  zip?: string;
+  notification_preferences?: NotificationPreferences;
 }
 
 export interface PortalInvoice {

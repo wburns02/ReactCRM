@@ -1,4 +1,4 @@
-import { useQuery, useMutation } from '@tanstack/react-query';
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/api/client.ts';
 import type {
   PortalCustomer,
@@ -9,6 +9,8 @@ import type {
   PortalLoginResponse,
   PortalVerifyInput,
   PortalVerifyResponse,
+  TechnicianLocation,
+  CustomerProfileUpdate,
 } from '@/api/types/portal.ts';
 
 /**
@@ -89,6 +91,60 @@ export function usePayInvoice() {
     mutationFn: async (invoiceId: string): Promise<{ payment_url: string }> => {
       const { data } = await apiClient.post(`/portal/invoices/${invoiceId}/pay`);
       return data;
+    },
+  });
+}
+
+/**
+ * Work Order Details
+ */
+
+export function usePortalWorkOrder(workOrderId: string) {
+  return useQuery({
+    queryKey: ['portal', 'work-order', workOrderId],
+    queryFn: async (): Promise<PortalWorkOrder> => {
+      const { data } = await apiClient.get(`/portal/work-orders/${workOrderId}`);
+      return data.work_order;
+    },
+    enabled: !!workOrderId,
+  });
+}
+
+/**
+ * Technician Location Tracking
+ */
+
+export function useTechnicianLocation(workOrderId: string) {
+  return useQuery({
+    queryKey: ['portal', 'technician-location', workOrderId],
+    queryFn: async (): Promise<TechnicianLocation | null> => {
+      try {
+        const { data } = await apiClient.get(`/portal/work-orders/${workOrderId}/technician-location`);
+        return data.location;
+      } catch {
+        return null;
+      }
+    },
+    enabled: !!workOrderId,
+    refetchInterval: 10000, // Refresh every 10 seconds for real-time tracking
+    staleTime: 5000,
+  });
+}
+
+/**
+ * Customer Profile
+ */
+
+export function useUpdateCustomerProfile() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (updates: CustomerProfileUpdate): Promise<PortalCustomer> => {
+      const { data } = await apiClient.patch('/portal/customer', updates);
+      return data.customer;
+    },
+    onSuccess: (customer) => {
+      queryClient.setQueryData(['portal', 'customer'], customer);
     },
   });
 }
