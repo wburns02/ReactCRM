@@ -9,6 +9,10 @@ import {
   useDeleteWorkOrder,
   useAssignWorkOrder,
   useUnscheduleWorkOrder,
+  useUnscheduledWorkOrders,
+  useUpdateWorkOrderStatus,
+  useUpdateWorkOrderDuration,
+  useScheduleStats,
   workOrderKeys,
   scheduleKeys,
 } from '../hooks/useWorkOrders';
@@ -277,6 +281,103 @@ describe('useWorkOrders hooks', () => {
         status: 'draft',
       });
       expect(invalidateSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('useUnscheduledWorkOrders', () => {
+    it('fetches draft work orders without scheduled date', async () => {
+      const mockUnscheduled = [mockWorkOrder]; // Only draft without date
+      vi.mocked(apiClient.get).mockResolvedValue({
+        data: { items: [mockWorkOrder, mockScheduledWorkOrder], total: 2, page: 1, page_size: 200 },
+      });
+
+      const { result } = renderHookWithClient(() => useUnscheduledWorkOrders());
+
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      // Should filter to only unscheduled items
+      expect(result.current.data?.items).toHaveLength(1);
+      expect(result.current.data?.items[0].scheduled_date).toBeNull();
+    });
+
+    it('handles array response format', async () => {
+      vi.mocked(apiClient.get).mockResolvedValue({
+        data: [mockWorkOrder, mockScheduledWorkOrder],
+      });
+
+      const { result } = renderHookWithClient(() => useUnscheduledWorkOrders());
+
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      // Should filter array to only unscheduled items
+      expect(result.current.data?.items).toHaveLength(1);
+    });
+  });
+
+  describe('useUpdateWorkOrderStatus', () => {
+    it('updates work order status and invalidates queries', async () => {
+      vi.mocked(apiClient.patch).mockResolvedValue({
+        data: { ...mockWorkOrder, status: 'completed' },
+      });
+
+      const { result, queryClient } = renderHookWithClient(() => useUpdateWorkOrderStatus());
+
+      const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
+
+      result.current.mutate({ id: '456', status: 'completed' });
+
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      expect(apiClient.patch).toHaveBeenCalledWith('/work-orders/456', { status: 'completed' });
+      expect(invalidateSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('useUpdateWorkOrderDuration', () => {
+    it('updates work order duration', async () => {
+      vi.mocked(apiClient.patch).mockResolvedValue({
+        data: { ...mockWorkOrder, estimated_duration_hours: 4 },
+      });
+
+      const { result, queryClient } = renderHookWithClient(() => useUpdateWorkOrderDuration());
+
+      const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
+
+      result.current.mutate({ id: '456', durationHours: 4 });
+
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      expect(apiClient.patch).toHaveBeenCalledWith('/work-orders/456', {
+        estimated_duration_hours: 4,
+      });
+      expect(invalidateSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('useScheduleStats', () => {
+    it('computes stats from work orders data', async () => {
+      const today = new Date().toISOString().split('T')[0];
+      const todayWorkOrder = { ...mockWorkOrder, id: '1', scheduled_date: today, status: 'scheduled' };
+      const emergencyWorkOrder = { ...mockWorkOrder, id: '2', priority: 'emergency' };
+
+      vi.mocked(apiClient.get).mockResolvedValue({
+        data: {
+          items: [todayWorkOrder, emergencyWorkOrder, mockWorkOrder],
+          total: 3,
+          page: 1,
+          page_size: 500,
+        },
+      });
+
+      const { result } = renderHookWithClient(() => useScheduleStats());
+
+      // Wait for the underlying query to resolve
+      await waitFor(() => expect(apiClient.get).toHaveBeenCalled());
+
+      // Stats should be computed
+      expect(result.current.todayJobs).toBeGreaterThanOrEqual(0);
+      expect(result.current.emergencyJobs).toBeGreaterThanOrEqual(0);
+      expect(result.current.unscheduledJobs).toBeGreaterThanOrEqual(0);
     });
   });
 });

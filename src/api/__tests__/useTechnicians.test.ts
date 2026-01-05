@@ -18,6 +18,8 @@ import {
   useTechnicians,
   useTechnician,
   useCreateTechnician,
+  useUpdateTechnician,
+  useDeleteTechnician,
   technicianKeys,
 } from '../hooks/useTechnicians';
 
@@ -122,6 +124,47 @@ describe('useTechnicians hooks', () => {
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
       expect(invalidateSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('useUpdateTechnician', () => {
+    it('updates technician and invalidates queries', async () => {
+      vi.mocked(apiClient.patch).mockResolvedValue({
+        data: { ...mockTechnician, hourly_rate: 50.00 },
+      });
+
+      const { result, queryClient } = renderHookWithClient(() => useUpdateTechnician());
+
+      const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
+
+      result.current.mutate({
+        id: 'tech-1',
+        data: { hourly_rate: 50.00 },
+      });
+
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      expect(apiClient.patch).toHaveBeenCalledWith('/technicians/tech-1', { hourly_rate: 50.00 });
+      expect(invalidateSpy).toHaveBeenCalled();
+    });
+  });
+
+  describe('useDeleteTechnician', () => {
+    it('deletes technician and invalidates list queries', async () => {
+      vi.mocked(apiClient.delete).mockResolvedValue({});
+
+      const { result, queryClient } = renderHookWithClient(() => useDeleteTechnician());
+
+      const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
+
+      result.current.mutate('tech-1');
+
+      await waitFor(() => expect(result.current.isSuccess).toBe(true));
+
+      expect(apiClient.delete).toHaveBeenCalledWith('/technicians/tech-1');
+      expect(invalidateSpy).toHaveBeenCalledWith({
+        queryKey: technicianKeys.lists(),
+      });
     });
   });
 });
