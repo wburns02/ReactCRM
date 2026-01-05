@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { useAIWorkOrderPredictions } from '@/api/hooks/useAIDispatch';
 import { cn } from '@/lib/utils';
@@ -9,8 +8,6 @@ import { cn } from '@/lib/utils';
 interface PreDispatchIntelligenceProps {
   workOrderId: string;
   className?: string;
-  /** Compact mode for embedding in work order detail */
-  compact?: boolean;
 }
 
 /**
@@ -27,7 +24,6 @@ interface PreDispatchIntelligenceProps {
 export function PreDispatchIntelligence({
   workOrderId,
   className,
-  compact = false,
 }: PreDispatchIntelligenceProps) {
   const [showAllParts, setShowAllParts] = useState(false);
   const [showAllSimilarJobs, setShowAllSimilarJobs] = useState(false);

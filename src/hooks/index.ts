@@ -45,3 +45,10 @@ export {
   type RealtimeNotificationOptions,
   type UseRealtimeNotificationsReturn,
 } from './useRealtimeNotifications';
+
+// PWA hooks
+export {
+  usePWA,
+  useOnlineStatus,
+  type PWAState,
+} from './usePWA';

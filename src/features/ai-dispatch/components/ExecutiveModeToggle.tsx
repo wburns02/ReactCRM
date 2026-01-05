@@ -2,7 +2,6 @@ import { useState } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Switch } from '@/components/ui/Switch';
-import { Button } from '@/components/ui/Button';
 import { useExecutiveMode, type ExecutiveModeSettings } from '@/api/hooks/useAIDispatch';
 import { cn } from '@/lib/utils';
 
@@ -193,7 +192,7 @@ export function ExecutiveModeToggle() {
             </div>
             <Switch
               checked={settings.showNotifications}
-              onCheckedChange={(checked) => setSettings({ showNotifications: checked })}
+              onCheckedChange={(checked: boolean) => setSettings({ showNotifications: checked })}
             />
           </div>
 

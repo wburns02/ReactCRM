@@ -10,7 +10,7 @@ export default defineConfig({
     tailwindcss(),
     VitePWA({
       registerType: 'autoUpdate',
-      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'mask-icon.svg'],
+      includeAssets: ['favicon.ico', 'apple-touch-icon.png', 'pwa-192x192.svg', 'pwa-512x512.svg'],
       manifest: {
         name: 'ECBTX CRM',
         short_name: 'ECBTX',
@@ -18,9 +18,13 @@ export default defineConfig({
         theme_color: '#1e3a5f',
         background_color: '#ffffff',
         display: 'standalone',
-        orientation: 'portrait',
+        orientation: 'any',
         scope: '/',
         start_url: '/',
+        categories: ['business', 'productivity'],
+        lang: 'en-US',
+        dir: 'ltr',
+        prefer_related_applications: false,
         icons: [
           {
             src: '/pwa-192x192.svg',
@@ -38,27 +42,149 @@ export default defineConfig({
             type: 'image/svg+xml',
             purpose: 'maskable',
           },
+          {
+            src: '/apple-touch-icon.png',
+            sizes: '180x180',
+            type: 'image/png',
+          },
+        ],
+        shortcuts: [
+          {
+            name: 'New Work Order',
+            short_name: 'New Job',
+            url: '/dispatch?action=new',
+          },
+          {
+            name: 'Dispatch Board',
+            short_name: 'Dispatch',
+            url: '/dispatch',
+          },
+          {
+            name: 'Customers',
+            short_name: 'Customers',
+            url: '/customers',
+          },
         ],
       },
       workbox: {
-        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2}'],
+        // Precache app shell
+        globPatterns: ['**/*.{js,css,html,ico,png,svg,woff2,woff,ttf}'],
+        // Don't precache source maps
+        globIgnores: ['**/*.map'],
+        // Clean old caches
+        cleanupOutdatedCaches: true,
+        // Skip waiting to activate new SW immediately
+        skipWaiting: true,
+        clientsClaim: true,
+        // Runtime caching strategies
         runtimeCaching: [
+          // API calls - Network First with fallback
           {
             urlPattern: /^https:\/\/react-crm-api-production\.up\.railway\.app\/api\/v2\//,
             handler: 'NetworkFirst',
             options: {
               cacheName: 'api-cache',
               expiration: {
-                maxEntries: 100,
+                maxEntries: 200,
                 maxAgeSeconds: 60 * 60 * 24, // 24 hours
               },
               cacheableResponse: {
                 statuses: [0, 200],
               },
               networkTimeoutSeconds: 10,
+              // Background sync for failed requests
+              backgroundSync: {
+                name: 'api-queue',
+                options: {
+                  maxRetentionTime: 60 * 24, // 24 hours in minutes
+                },
+              },
+            },
+          },
+          // Static assets from CDN - Cache First
+          {
+            urlPattern: /^https:\/\/cdn\./,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'cdn-cache',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          // Google Fonts stylesheets - Stale While Revalidate
+          {
+            urlPattern: /^https:\/\/fonts\.googleapis\.com/,
+            handler: 'StaleWhileRevalidate',
+            options: {
+              cacheName: 'google-fonts-stylesheets',
+              expiration: {
+                maxEntries: 10,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+              },
+            },
+          },
+          // Google Fonts webfonts - Cache First
+          {
+            urlPattern: /^https:\/\/fonts\.gstatic\.com/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'google-fonts-webfonts',
+              expiration: {
+                maxEntries: 30,
+                maxAgeSeconds: 60 * 60 * 24 * 365, // 1 year
+              },
+              cacheableResponse: {
+                statuses: [0, 200],
+              },
+            },
+          },
+          // Images - Cache First with long expiration
+          {
+            urlPattern: /\.(?:png|gif|jpg|jpeg|webp|svg|ico)$/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'images-cache',
+              expiration: {
+                maxEntries: 100,
+                maxAgeSeconds: 60 * 60 * 24 * 30, // 30 days
+              },
+            },
+          },
+          // Mapbox tiles - Cache First
+          {
+            urlPattern: /^https:\/\/api\.mapbox\.com/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'mapbox-cache',
+              expiration: {
+                maxEntries: 500,
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+              },
+            },
+          },
+          // Leaflet tiles - Cache First
+          {
+            urlPattern: /^https:\/\/.*tile.*\.openstreetmap\.org/,
+            handler: 'CacheFirst',
+            options: {
+              cacheName: 'osm-tiles-cache',
+              expiration: {
+                maxEntries: 500,
+                maxAgeSeconds: 60 * 60 * 24 * 7, // 7 days
+              },
             },
           },
         ],
+      },
+      // Development options
+      devOptions: {
+        enabled: false,
+        type: 'module',
       },
     }),
   ],

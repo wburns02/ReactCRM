@@ -7,6 +7,7 @@ import { ToastProvider } from '@/components/ui/Toast';
 import { SessionTimeoutProvider } from '@/components/SessionTimeoutProvider';
 import { WebSocketProvider } from '@/providers/WebSocketProvider';
 import { OnboardingCheck } from '@/features/onboarding/OnboardingCheck';
+import { PWAProvider } from '@/components/pwa';
 import { initWebVitals } from '@/lib/webVitals';
 import './index.css';
 import 'leaflet/dist/leaflet.css';
@@ -47,7 +48,8 @@ const queryClient = new QueryClient({
  * 4. WebSocketProvider - real-time updates
  * 5. SessionTimeoutProvider - session management
  * 6. BrowserRouter - client-side routing
- * 7. OnboardingCheck - redirects new users to onboarding wizard
+ * 7. PWAProvider - install prompts, update notifications, offline banner
+ * 8. OnboardingCheck - redirects new users to onboarding wizard
  */
 function App() {
   return (
@@ -57,10 +59,12 @@ function App() {
           <WebSocketProvider autoConnect>
             <SessionTimeoutProvider>
               <BrowserRouter basename="/">
-                <OnboardingCheck>
-                  <OfflineIndicator />
-                  <AppRoutes />
-                </OnboardingCheck>
+                <PWAProvider>
+                  <OnboardingCheck>
+                    <OfflineIndicator />
+                    <AppRoutes />
+                  </OnboardingCheck>
+                </PWAProvider>
               </BrowserRouter>
             </SessionTimeoutProvider>
           </WebSocketProvider>
