@@ -1,0 +1,794 @@
+{
+  "timestamp": "2026-01-05T16:44:09.342Z",
+  "baseUrl": "https://react.ecbtx.com",
+  "apiUrl": "https://react-crm-api-production.up.railway.app/api/v2",
+  "duration": 87539,
+  "summary": {
+    "totalRoutes": 40,
+    "successfulRoutes": 40,
+    "failedRoutes": 0,
+    "authRequiredRoutes": 0,
+    "totalConsoleErrors": 17,
+    "totalNetworkErrors": 0,
+    "totalApiErrors": 17,
+    "totalInteractionsFailed": 9
+  },
+  "routes": [
+    {
+      "route": "/dashboard",
+      "url": "https://react.ecbtx.com/dashboard",
+      "status": "success",
+      "loadTime": 3180,
+      "consoleErrors": 2,
+      "networkErrors": 0,
+      "apiErrors": 2,
+      "clickableElements": 45,
+      "interactionsAttempted": 1,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/prospects",
+      "url": "https://react.ecbtx.com/prospects",
+      "status": "success",
+      "loadTime": 5914,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 130,
+      "interactionsAttempted": 3,
+      "interactionsFailed": 2
+    },
+    {
+      "route": "/customers",
+      "url": "https://react.ecbtx.com/customers",
+      "status": "success",
+      "loadTime": 6105,
+      "consoleErrors": 2,
+      "networkErrors": 0,
+      "apiErrors": 2,
+      "clickableElements": 128,
+      "interactionsAttempted": 3,
+      "interactionsFailed": 2
+    },
+    {
+      "route": "/work-orders",
+      "url": "https://react.ecbtx.com/work-orders",
+      "status": "success",
+      "loadTime": 3437,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 82,
+      "interactionsAttempted": 3,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/schedule",
+      "url": "https://react.ecbtx.com/schedule",
+      "status": "success",
+      "loadTime": 4461,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 50,
+      "interactionsAttempted": 3,
+      "interactionsFailed": 1
+    },
+    {
+      "route": "/technicians",
+      "url": "https://react.ecbtx.com/technicians",
+      "status": "success",
+      "loadTime": 6060,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 126,
+      "interactionsAttempted": 3,
+      "interactionsFailed": 2
+    },
+    {
+      "route": "/fleet",
+      "url": "https://react.ecbtx.com/fleet",
+      "status": "success",
+      "loadTime": 1159,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 25,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/equipment",
+      "url": "https://react.ecbtx.com/equipment",
+      "status": "success",
+      "loadTime": 1426,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 26,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/inventory",
+      "url": "https://react.ecbtx.com/inventory",
+      "status": "success",
+      "loadTime": 1456,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 26,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/tickets",
+      "url": "https://react.ecbtx.com/tickets",
+      "status": "success",
+      "loadTime": 1676,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 26,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/invoices",
+      "url": "https://react.ecbtx.com/invoices",
+      "status": "success",
+      "loadTime": 1414,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 26,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/payments",
+      "url": "https://react.ecbtx.com/payments",
+      "status": "success",
+      "loadTime": 1404,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 28,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/reports",
+      "url": "https://react.ecbtx.com/reports",
+      "status": "success",
+      "loadTime": 1218,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 37,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/email-marketing",
+      "url": "https://react.ecbtx.com/email-marketing",
+      "status": "success",
+      "loadTime": 1291,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 33,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/integrations",
+      "url": "https://react.ecbtx.com/integrations",
+      "status": "success",
+      "loadTime": 1777,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 29,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/users",
+      "url": "https://react.ecbtx.com/users",
+      "status": "success",
+      "loadTime": 1199,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 38,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/admin",
+      "url": "https://react.ecbtx.com/admin",
+      "status": "success",
+      "loadTime": 1184,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 31,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/employee",
+      "url": "https://react.ecbtx.com/employee",
+      "status": "success",
+      "loadTime": 1409,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 26,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/service-intervals",
+      "url": "https://react.ecbtx.com/service-intervals",
+      "status": "success",
+      "loadTime": 1170,
+      "consoleErrors": 2,
+      "networkErrors": 0,
+      "apiErrors": 2,
+      "clickableElements": 28,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/compliance",
+      "url": "https://react.ecbtx.com/compliance",
+      "status": "success",
+      "loadTime": 2318,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 29,
+      "interactionsAttempted": 1,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/contracts",
+      "url": "https://react.ecbtx.com/contracts",
+      "status": "success",
+      "loadTime": 1215,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 28,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/timesheets",
+      "url": "https://react.ecbtx.com/timesheets",
+      "status": "success",
+      "loadTime": 1450,
+      "consoleErrors": 3,
+      "networkErrors": 0,
+      "apiErrors": 3,
+      "clickableElements": 28,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/predictive-maintenance",
+      "url": "https://react.ecbtx.com/predictive-maintenance",
+      "status": "success",
+      "loadTime": 1182,
+      "consoleErrors": 2,
+      "networkErrors": 0,
+      "apiErrors": 2,
+      "clickableElements": 26,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/calls",
+      "url": "https://react.ecbtx.com/calls",
+      "status": "success",
+      "loadTime": 1371,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 26,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/phone",
+      "url": "https://react.ecbtx.com/phone",
+      "status": "success",
+      "loadTime": 1322,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 57,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/payroll",
+      "url": "https://react.ecbtx.com/payroll",
+      "status": "success",
+      "loadTime": 1210,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 29,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/job-costing",
+      "url": "https://react.ecbtx.com/job-costing",
+      "status": "success",
+      "loadTime": 1373,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 25,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/marketing",
+      "url": "https://react.ecbtx.com/marketing",
+      "status": "success",
+      "loadTime": 7409,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 41,
+      "interactionsAttempted": 3,
+      "interactionsFailed": 2
+    },
+    {
+      "route": "/marketing/ads",
+      "url": "https://react.ecbtx.com/marketing/ads",
+      "status": "success",
+      "loadTime": 1305,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 30,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/marketing/reviews",
+      "url": "https://react.ecbtx.com/marketing/reviews",
+      "status": "success",
+      "loadTime": 1256,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 27,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/marketing/ai-content",
+      "url": "https://react.ecbtx.com/marketing/ai-content",
+      "status": "success",
+      "loadTime": 1417,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 36,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/reports/revenue",
+      "url": "https://react.ecbtx.com/reports/revenue",
+      "status": "success",
+      "loadTime": 1747,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 35,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/reports/technicians",
+      "url": "https://react.ecbtx.com/reports/technicians",
+      "status": "success",
+      "loadTime": 1332,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 36,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/reports/clv",
+      "url": "https://react.ecbtx.com/reports/clv",
+      "status": "success",
+      "loadTime": 1465,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 26,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/reports/service",
+      "url": "https://react.ecbtx.com/reports/service",
+      "status": "success",
+      "loadTime": 1874,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 32,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/reports/location",
+      "url": "https://react.ecbtx.com/reports/location",
+      "status": "success",
+      "loadTime": 1405,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 32,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/notifications",
+      "url": "https://react.ecbtx.com/notifications",
+      "status": "success",
+      "loadTime": 3714,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 35,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/settings/notifications",
+      "url": "https://react.ecbtx.com/settings/notifications",
+      "status": "success",
+      "loadTime": 2581,
+      "consoleErrors": 1,
+      "networkErrors": 0,
+      "apiErrors": 1,
+      "clickableElements": 37,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/settings/sms",
+      "url": "https://react.ecbtx.com/settings/sms",
+      "status": "success",
+      "loadTime": 1795,
+      "consoleErrors": 3,
+      "networkErrors": 0,
+      "apiErrors": 3,
+      "clickableElements": 32,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    },
+    {
+      "route": "/admin/import",
+      "url": "https://react.ecbtx.com/admin/import",
+      "status": "success",
+      "loadTime": 1858,
+      "consoleErrors": 0,
+      "networkErrors": 0,
+      "apiErrors": 0,
+      "clickableElements": 25,
+      "interactionsAttempted": 0,
+      "interactionsFailed": 0
+    }
+  ],
+  "errors": [
+    {
+      "type": "api",
+      "severity": "error",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/ai/dispatch/stats returned 500",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/ai/dispatch/stats",
+      "route": "/dashboard",
+      "statusCode": 500,
+      "timestamp": "2026-01-05T16:42:39.930Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 500 ()",
+      "url": "https://react.ecbtx.com/dashboard",
+      "route": "/dashboard",
+      "timestamp": "2026-01-05T16:42:39.932Z"
+    },
+    {
+      "type": "api",
+      "severity": "error",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/ai/dispatch/stats returned 500",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/ai/dispatch/stats",
+      "route": "/schedule",
+      "statusCode": 500,
+      "timestamp": "2026-01-05T16:42:41.037Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 500 ()",
+      "url": "https://react.ecbtx.com/schedule",
+      "route": "/schedule",
+      "timestamp": "2026-01-05T16:42:41.037Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/work-orders?page=1&page_size=1000 returned 422",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/work-orders?page=1&page_size=1000",
+      "route": "/customers/132",
+      "statusCode": 422,
+      "timestamp": "2026-01-05T16:42:49.136Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 422 ()",
+      "url": "https://react.ecbtx.com/customers/132",
+      "route": "/customers/132",
+      "timestamp": "2026-01-05T16:42:49.136Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/work-orders?page=1&page_size=1000 returned 422",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/work-orders?page=1&page_size=1000",
+      "route": "/customers/132",
+      "statusCode": 422,
+      "timestamp": "2026-01-05T16:42:50.300Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 422 ()",
+      "url": "https://react.ecbtx.com/customers/132",
+      "route": "/customers/132",
+      "timestamp": "2026-01-05T16:42:50.301Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/service-intervals/stats returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/service-intervals/stats",
+      "route": "/service-intervals",
+      "statusCode": 404,
+      "timestamp": "2026-01-05T16:43:25.311Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/service-intervals",
+      "route": "/service-intervals",
+      "timestamp": "2026-01-05T16:43:25.311Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/service-intervals/schedules?limit=50 returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/service-intervals/schedules?limit=50",
+      "route": "/service-intervals",
+      "statusCode": 404,
+      "timestamp": "2026-01-05T16:43:25.321Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/service-intervals",
+      "route": "/service-intervals",
+      "timestamp": "2026-01-05T16:43:25.321Z"
+    },
+    {
+      "type": "api",
+      "severity": "error",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/payroll/stats returned 500",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/payroll/stats",
+      "route": "/timesheets",
+      "statusCode": 500,
+      "timestamp": "2026-01-05T16:43:30.246Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 500 ()",
+      "url": "https://react.ecbtx.com/timesheets",
+      "route": "/timesheets",
+      "timestamp": "2026-01-05T16:43:30.246Z"
+    },
+    {
+      "type": "api",
+      "severity": "error",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/payroll/time-entries?page=1&page_size=20 returned 500",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/payroll/time-entries?page=1&page_size=20",
+      "route": "/timesheets",
+      "statusCode": 500,
+      "timestamp": "2026-01-05T16:43:30.246Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 500 ()",
+      "url": "https://react.ecbtx.com/timesheets",
+      "route": "/timesheets",
+      "timestamp": "2026-01-05T16:43:30.246Z"
+    },
+    {
+      "type": "api",
+      "severity": "error",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/payroll/current returned 500",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/payroll/current",
+      "route": "/timesheets",
+      "statusCode": 500,
+      "timestamp": "2026-01-05T16:43:30.262Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 500 ()",
+      "url": "https://react.ecbtx.com/timesheets",
+      "route": "/timesheets",
+      "timestamp": "2026-01-05T16:43:30.263Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/predictions/alerts?unread_only=false returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/predictions/alerts?unread_only=false",
+      "route": "/predictive-maintenance",
+      "statusCode": 404,
+      "timestamp": "2026-01-05T16:43:31.602Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/predictive-maintenance",
+      "route": "/predictive-maintenance",
+      "timestamp": "2026-01-05T16:43:31.602Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/predictions/predictions?page=1&page_size=20 returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/predictions/predictions?page=1&page_size=20",
+      "route": "/predictive-maintenance",
+      "statusCode": 404,
+      "timestamp": "2026-01-05T16:43:31.604Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/predictive-maintenance",
+      "route": "/predictive-maintenance",
+      "timestamp": "2026-01-05T16:43:31.604Z"
+    },
+    {
+      "type": "api",
+      "severity": "error",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/calls/dispositions returned 500",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/calls/dispositions",
+      "route": "/calls",
+      "statusCode": 500,
+      "timestamp": "2026-01-05T16:43:32.971Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 500 ()",
+      "url": "https://react.ecbtx.com/calls",
+      "route": "/calls",
+      "timestamp": "2026-01-05T16:43:32.971Z"
+    },
+    {
+      "type": "api",
+      "severity": "error",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/payroll/periods returned 500",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/payroll/periods",
+      "route": "/payroll",
+      "statusCode": 500,
+      "timestamp": "2026-01-05T16:43:35.615Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 500 ()",
+      "url": "https://react.ecbtx.com/payroll",
+      "route": "/payroll",
+      "timestamp": "2026-01-05T16:43:35.615Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/notifications/preferences returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/notifications/preferences",
+      "route": "/settings/notifications",
+      "statusCode": 404,
+      "timestamp": "2026-01-05T16:44:02.661Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/settings/notifications",
+      "route": "/settings/notifications",
+      "timestamp": "2026-01-05T16:44:02.661Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/sms/templates returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/sms/templates",
+      "route": "/settings/sms",
+      "statusCode": 404,
+      "timestamp": "2026-01-05T16:44:04.821Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/settings/sms",
+      "route": "/settings/sms",
+      "timestamp": "2026-01-05T16:44:04.821Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/sms/settings returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/sms/settings",
+      "route": "/settings/sms",
+      "statusCode": 404,
+      "timestamp": "2026-01-05T16:44:04.823Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/settings/sms",
+      "route": "/settings/sms",
+      "timestamp": "2026-01-05T16:44:04.823Z"
+    },
+    {
+      "type": "api",
+      "severity": "warning",
+      "message": "API GET https://react-crm-api-production.up.railway.app/api/v2/sms/stats returned 404",
+      "url": "https://react-crm-api-production.up.railway.app/api/v2/sms/stats",
+      "route": "/settings/sms",
+      "statusCode": 404,
+      "timestamp": "2026-01-05T16:44:04.904Z"
+    },
+    {
+      "type": "console",
+      "severity": "error",
+      "message": "Failed to load resource: the server responded with a status of 404 ()",
+      "url": "https://react.ecbtx.com/settings/sms",
+      "route": "/settings/sms",
+      "timestamp": "2026-01-05T16:44:04.904Z"
+    }
+  ],
+  "recommendations": [
+    "Fix 17 API errors - check backend availability and error handling",
+    "Address 17 console errors - may indicate React rendering issues",
+    "Optimize 4 slow routes (>5s load time): /prospects, /customers, /technicians, /marketing"
+  ]
+}

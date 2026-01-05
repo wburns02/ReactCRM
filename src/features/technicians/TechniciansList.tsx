@@ -1,9 +1,123 @@
+import { memo, useCallback } from 'react';
 import { Link } from 'react-router-dom';
 import { Badge } from '@/components/ui/Badge.tsx';
 import { Button } from '@/components/ui/Button.tsx';
 import { formatPhone } from '@/lib/utils.ts';
 import { TECHNICIAN_SKILL_LABELS } from '@/api/types/technician.ts';
 import type { Technician, TechnicianSkill } from '@/api/types/technician.ts';
+
+/**
+ * Props for memoized row component
+ */
+interface TechnicianRowProps {
+  technician: Technician;
+  onEdit?: (technician: Technician) => void;
+  onDelete?: (technician: Technician) => void;
+}
+
+/**
+ * Memoized table row - prevents re-render unless props change
+ */
+const TableTechnicianRow = memo(function TableTechnicianRow({
+  technician,
+  onEdit,
+  onDelete,
+}: TechnicianRowProps) {
+  return (
+    <tr
+      className="hover:bg-bg-hover transition-colors"
+      tabIndex={0}
+    >
+      <td className="px-4 py-3">
+        <div>
+          <p className="font-medium text-text-primary">
+            {technician.first_name} {technician.last_name}
+          </p>
+          {technician.employee_id && (
+            <p className="text-sm text-text-secondary">
+              ID: {technician.employee_id}
+            </p>
+          )}
+        </div>
+      </td>
+      <td className="px-4 py-3">
+        <div className="text-sm">
+          {technician.email && (
+            <a
+              href={'mailto:' + technician.email}
+              className="text-text-link hover:underline block"
+            >
+              {technician.email}
+            </a>
+          )}
+          {technician.phone && (
+            <span className="text-text-secondary">{formatPhone(technician.phone)}</span>
+          )}
+        </div>
+      </td>
+      <td className="px-4 py-3">
+        <div className="flex flex-wrap gap-1">
+          {technician.skills && technician.skills.length > 0 ? (
+            technician.skills.slice(0, 3).map((skill) => (
+              <Badge key={skill} variant="default" className="text-xs">
+                {TECHNICIAN_SKILL_LABELS[skill as TechnicianSkill] || skill}
+              </Badge>
+            ))
+          ) : (
+            <span className="text-text-muted text-sm">-</span>
+          )}
+          {technician.skills && technician.skills.length > 3 && (
+            <Badge variant="default" className="text-xs">
+              +{technician.skills.length - 3}
+            </Badge>
+          )}
+        </div>
+      </td>
+      <td className="px-4 py-3 text-sm text-text-secondary">
+        {technician.assigned_vehicle || '-'}
+      </td>
+      <td className="px-4 py-3">
+        <Badge variant={technician.is_active ? 'success' : 'default'}>
+          {technician.is_active ? 'Active' : 'Inactive'}
+        </Badge>
+      </td>
+      <td className="px-4 py-3 text-right">
+        <div className="flex justify-end gap-2">
+          <Link to={`/technicians/${technician.id}`}>
+            <Button
+              variant="ghost"
+              size="sm"
+              aria-label={'View ' + technician.first_name + ' ' + technician.last_name}
+            >
+              View
+            </Button>
+          </Link>
+          {onEdit && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onEdit(technician)}
+              aria-label={'Edit ' + technician.first_name + ' ' + technician.last_name}
+            >
+              Edit
+            </Button>
+          )}
+          {onDelete && (
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={() => onDelete(technician)}
+              aria-label={'Delete ' + technician.first_name + ' ' + technician.last_name}
+              className="text-danger hover:text-danger"
+            >
+              Delete
+            </Button>
+          )}
+        </div>
+      </td>
+    </tr>
+  );
+});
 
 interface TechniciansListProps {
   technicians: Technician[];
@@ -36,6 +150,10 @@ export function TechniciansList({
   if (isLoading) {
     return <LoadingSkeleton />;
   }
+
+  // Memoized callbacks for child components
+  const handleEdit = useCallback((technician: Technician) => onEdit?.(technician), [onEdit]);
+  const handleDelete = useCallback((technician: Technician) => onDelete?.(technician), [onDelete]);
 
   if (technicians.length === 0) {
     return (
@@ -76,99 +194,12 @@ export function TechniciansList({
           </thead>
           <tbody className="divide-y divide-border-light">
             {technicians.map((technician) => (
-              <tr
+              <TableTechnicianRow
                 key={technician.id}
-                className="hover:bg-bg-hover transition-colors"
-                tabIndex={0}
-              >
-                <td className="px-4 py-3">
-                  <div>
-                    <p className="font-medium text-text-primary">
-                      {technician.first_name} {technician.last_name}
-                    </p>
-                    {technician.employee_id && (
-                      <p className="text-sm text-text-secondary">
-                        ID: {technician.employee_id}
-                      </p>
-                    )}
-                  </div>
-                </td>
-                <td className="px-4 py-3">
-                  <div className="text-sm">
-                    {technician.email && (
-                      <a
-                        href={'mailto:' + technician.email}
-                        className="text-text-link hover:underline block"
-                      >
-                        {technician.email}
-                      </a>
-                    )}
-                    {technician.phone && (
-                      <span className="text-text-secondary">{formatPhone(technician.phone)}</span>
-                    )}
-                  </div>
-                </td>
-                <td className="px-4 py-3">
-                  <div className="flex flex-wrap gap-1">
-                    {technician.skills && technician.skills.length > 0 ? (
-                      technician.skills.slice(0, 3).map((skill) => (
-                        <Badge key={skill} variant="default" className="text-xs">
-                          {TECHNICIAN_SKILL_LABELS[skill as TechnicianSkill] || skill}
-                        </Badge>
-                      ))
-                    ) : (
-                      <span className="text-text-muted text-sm">-</span>
-                    )}
-                    {technician.skills && technician.skills.length > 3 && (
-                      <Badge variant="default" className="text-xs">
-                        +{technician.skills.length - 3}
-                      </Badge>
-                    )}
-                  </div>
-                </td>
-                <td className="px-4 py-3 text-sm text-text-secondary">
-                  {technician.assigned_vehicle || '-'}
-                </td>
-                <td className="px-4 py-3">
-                  <Badge variant={technician.is_active ? 'success' : 'default'}>
-                    {technician.is_active ? 'Active' : 'Inactive'}
-                  </Badge>
-                </td>
-                <td className="px-4 py-3 text-right">
-                  <div className="flex justify-end gap-2">
-                    <Link to={`/technicians/${technician.id}`}>
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        aria-label={'View ' + technician.first_name + ' ' + technician.last_name}
-                      >
-                        View
-                      </Button>
-                    </Link>
-                    {onEdit && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => onEdit(technician)}
-                        aria-label={'Edit ' + technician.first_name + ' ' + technician.last_name}
-                      >
-                        Edit
-                      </Button>
-                    )}
-                    {onDelete && (
-                      <Button
-                        variant="ghost"
-                        size="sm"
-                        onClick={() => onDelete(technician)}
-                        aria-label={'Delete ' + technician.first_name + ' ' + technician.last_name}
-                        className="text-danger hover:text-danger"
-                      >
-                        Delete
-                      </Button>
-                    )}
-                  </div>
-                </td>
-              </tr>
+                technician={technician}
+                onEdit={onEdit ? handleEdit : undefined}
+                onDelete={onDelete ? handleDelete : undefined}
+              />
             ))}
           </tbody>
         </table>
