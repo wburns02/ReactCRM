@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Button.tsx';
 import { Input } from '@/components/ui/Input.tsx';
 import { Label } from '@/components/ui/Label.tsx';
 import { useFleetLocations } from '@/features/fleet/api.ts';
+import { toastSuccess } from '@/components/ui/Toast';
 
 /**
  * Samsara GPS configuration settings
@@ -19,7 +20,7 @@ export function SamsaraSettings() {
     // In a real implementation, this would call an API to save the settings
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsSaving(false);
-    alert('Samsara settings saved (demo only)');
+    toastSuccess('Samsara settings saved (demo only)');
   };
 
   return (

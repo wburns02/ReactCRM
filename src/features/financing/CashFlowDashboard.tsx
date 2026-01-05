@@ -16,6 +16,7 @@ import {
 import type { CashFlowPeriod } from '@/api/types/fintech';
 import { formatCurrency, formatDate, cn } from '@/lib/utils';
 import { getErrorMessage } from '@/api/client';
+import { toastSuccess, toastError } from '@/components/ui/Toast';
 
 export function CashFlowDashboard() {
   const [period, setPeriod] = useState<CashFlowPeriod>('weekly');
@@ -475,9 +476,9 @@ function CollectionRecommendationsCard() {
         invoice_ids: [],
         channel: 'email',
       });
-      alert('Payment reminder sent successfully');
+      toastSuccess('Payment reminder sent successfully');
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(`Error: ${getErrorMessage(error)}`);
     }
   };
 

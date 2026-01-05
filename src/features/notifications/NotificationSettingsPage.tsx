@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { toastSuccess, toastError, toastWarning } from '@/components/ui/Toast';
 import {
   useNotificationPreferences,
   useUpdateNotificationPreferences,
@@ -82,7 +83,7 @@ export function NotificationSettingsPage() {
 
   const handleEnablePush = async () => {
     if (!vapidData?.public_key) {
-      alert('Push notification configuration not available');
+      toastWarning('Push notification configuration not available');
       return;
     }
 
@@ -101,7 +102,7 @@ export function NotificationSettingsPage() {
       }
     } catch (error) {
       console.error('Failed to enable push:', error);
-      alert('Failed to enable push notifications');
+      toastError('Failed to enable push notifications');
     } finally {
       setIsSubscribing(false);
     }
@@ -113,17 +114,17 @@ export function NotificationSettingsPage() {
       await unregisterSubscription.mutateAsync(subscriptionId);
     } catch (error) {
       console.error('Failed to disable push:', error);
-      alert('Failed to disable push notifications');
+      toastError('Failed to disable push notifications');
     }
   };
 
   const handleTestNotification = async () => {
     try {
       await sendTestNotification.mutateAsync();
-      alert('Test notification sent! Check your device.');
+      toastSuccess('Test notification sent! Check your device.');
     } catch (error) {
       console.error('Failed to send test:', error);
-      alert('Failed to send test notification');
+      toastError('Failed to send test notification');
     }
   };
 

@@ -17,6 +17,7 @@ import { DEVICE_TYPE_LABELS } from '@/api/types/iot';
 import type { Device, DeviceAlert, MaintenanceRecommendation } from '@/api/types/iot';
 import { formatDate, cn } from '@/lib/utils';
 import { getErrorMessage } from '@/api/client';
+import { toastError } from '@/components/ui/Toast';
 
 export function IoTDashboard() {
   const { data: devices, isLoading: devicesLoading } = useDevices();
@@ -120,7 +121,7 @@ function AlertsSection({
     try {
       await acknowledgeAlert.mutateAsync(alertId);
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(`Error: ${getErrorMessage(error)}`);
     }
   };
 
@@ -340,7 +341,7 @@ function MaintenanceRecommendationsCard({
         scheduled_date: new Date().toISOString().split('T')[0],
       });
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(`Error: ${getErrorMessage(error)}`);
     }
   };
 

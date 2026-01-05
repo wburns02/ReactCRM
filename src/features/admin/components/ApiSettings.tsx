@@ -15,6 +15,7 @@ import {
 } from '@/api/hooks/useAdmin.ts';
 import { OAUTH_SCOPES, type OAuthClient, type ApiAccessToken } from '@/api/types/admin.ts';
 import { getErrorMessage } from '@/api/client.ts';
+import { toastError, toastWarning } from '@/components/ui/Toast';
 import { cn, formatDate } from '@/lib/utils.ts';
 
 /**
@@ -130,7 +131,7 @@ function OAuthClientsSection({
     try {
       await deleteClient.mutateAsync(id);
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(getErrorMessage(error));
     }
   };
 
@@ -142,7 +143,7 @@ function OAuthClientsSection({
       const result = await regenerateSecret.mutateAsync(id);
       onSecretRegenerated(clientId, result.client_secret);
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(getErrorMessage(error));
     }
   };
 
@@ -301,7 +302,7 @@ function ApiTokensSection({
     try {
       await deleteToken.mutateAsync(id);
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(getErrorMessage(error));
     }
   };
 
@@ -400,7 +401,7 @@ function CreateOAuthClientDialog({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || formData.scopes.length === 0) {
-      alert('Please provide a name and select at least one scope');
+      toastWarning('Please provide a name and select at least one scope');
       return;
     }
     try {
@@ -408,7 +409,7 @@ function CreateOAuthClientDialog({
       setFormData({ name: '', description: '', scopes: [], rate_limit: 1000 });
       onCreated(client);
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(getErrorMessage(error));
     }
   };
 
@@ -524,7 +525,7 @@ function CreateApiTokenDialog({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || formData.scopes.length === 0) {
-      alert('Please provide a name and select at least one scope');
+      toastWarning('Please provide a name and select at least one scope');
       return;
     }
     try {
@@ -536,7 +537,7 @@ function CreateApiTokenDialog({
       setFormData({ name: '', scopes: [], expires_in_days: 90 });
       onCreated(result.access_token);
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(getErrorMessage(error));
     }
   };
 

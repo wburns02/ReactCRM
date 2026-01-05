@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
+import { toastError } from '@/components/ui/Toast';
 import { usePortalInvoices, usePayInvoice } from '@/api/hooks/usePortal';
 
 /**
@@ -33,7 +34,7 @@ export function PortalInvoicesPage() {
       }
     } catch (error) {
       console.error('Payment failed:', error);
-      alert('Failed to initiate payment. Please try again.');
+      toastError('Failed to initiate payment. Please try again.');
     } finally {
       setPayingId(null);
     }

@@ -3,6 +3,7 @@ import { OnboardingStep, StepSection } from '../OnboardingStep';
 import { FormField } from '@/components/ui/FormField';
 import { Button } from '@/components/ui/Button';
 import { cn } from '@/lib/utils';
+import { toastWarning } from '@/components/ui/Toast';
 import type { CompanyData } from '../useOnboarding';
 
 export interface CompanySetupStepProps {
@@ -45,13 +46,13 @@ export function CompanySetupStep({
 
     // Validate file type
     if (!file.type.startsWith('image/')) {
-      alert('Please select an image file');
+      toastWarning('Please select an image file');
       return;
     }
 
     // Validate file size (max 2MB)
     if (file.size > 2 * 1024 * 1024) {
-      alert('Image must be smaller than 2MB');
+      toastWarning('Image must be smaller than 2MB');
       return;
     }
 

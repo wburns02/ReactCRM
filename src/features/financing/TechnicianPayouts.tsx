@@ -17,6 +17,7 @@ import {
 } from '@/api/hooks/useFintech';
 import { formatCurrency, formatDate, cn } from '@/lib/utils';
 import { getErrorMessage } from '@/api/client';
+import { toastError } from '@/components/ui/Toast';
 
 interface TechnicianPayoutsProps {
   technicianId: string;
@@ -45,7 +46,7 @@ export function TechnicianPayouts({ technicianId, technicianName }: TechnicianPa
       setShowPayoutDialog(false);
       setPayoutAmount('');
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(`Error: ${getErrorMessage(error)}`);
     }
   };
 

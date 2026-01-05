@@ -15,6 +15,7 @@ import {
 import type { SetupStep } from '@/api/types/onboarding';
 import { cn } from '@/lib/utils';
 import { getErrorMessage } from '@/api/client';
+import { toastError } from '@/components/ui/Toast';
 
 export function SetupWizard() {
   const { data: progress, isLoading } = useOnboardingProgress();
@@ -60,7 +61,7 @@ export function SetupWizard() {
     try {
       await skipStep.mutateAsync(stepId);
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(getErrorMessage(error));
     }
   };
 
@@ -68,7 +69,7 @@ export function SetupWizard() {
     try {
       await completeOnboarding.mutateAsync();
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(getErrorMessage(error));
     }
   };
 

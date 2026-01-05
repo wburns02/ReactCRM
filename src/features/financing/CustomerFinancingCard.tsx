@@ -17,6 +17,7 @@ import {
 import { FINANCING_PROVIDER_LABELS } from '@/api/types/fintech';
 import { formatCurrency } from '@/lib/utils';
 import { getErrorMessage } from '@/api/client';
+import { toastError } from '@/components/ui/Toast';
 
 interface CustomerFinancingCardProps {
   customerId: string;
@@ -51,7 +52,7 @@ export function CustomerFinancingCard({
       });
       onFinancingApplied?.();
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(getErrorMessage(error));
     }
   };
 
@@ -65,7 +66,7 @@ export function CustomerFinancingCard({
       setGeneratedLink(result.link);
       setShowLinkDialog(true);
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(getErrorMessage(error));
     }
   };
 

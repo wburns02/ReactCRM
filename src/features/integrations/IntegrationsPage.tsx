@@ -4,6 +4,7 @@ import { RingCentralSettings } from './components/RingCentralSettings.tsx';
 import { SamsaraSettings } from './components/SamsaraSettings.tsx';
 import { useRCStatus } from '@/features/phone/api.ts';
 import { useFleetLocations } from '@/features/fleet/api.ts';
+import { toastInfo, toastSuccess } from '@/components/ui/Toast';
 
 /**
  * Integrations management page
@@ -77,14 +78,14 @@ export function IntegrationsPage() {
               }
               onTest={
                 integration.connected
-                  ? () => alert(`Testing ${integration.name} connection...`)
+                  ? () => toastInfo(`Testing ${integration.name} connection...`)
                   : undefined
               }
               onDisconnect={
                 integration.connected
                   ? () => {
                       if (confirm(`Disconnect ${integration.name}?`)) {
-                        alert('Disconnected (demo only)');
+                        toastSuccess('Disconnected (demo only)');
                       }
                     }
                   : undefined

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/Button.tsx';
 import { Card } from '@/components/ui/Card.tsx';
 import { ConfirmDialog } from '@/components/ui/Dialog.tsx';
+import { toastError } from '@/components/ui/Toast';
 import { UsersList } from './components/UsersList.tsx';
 import { UserForm } from './components/UserForm.tsx';
 import { PermissionsMatrix } from './components/PermissionsMatrix.tsx';
@@ -48,7 +49,7 @@ export function UsersPage() {
       setFormOpen(false);
       setSelectedUser(null);
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(`Error: ${getErrorMessage(error)}`);
     }
   };
 
@@ -58,7 +59,7 @@ export function UsersPage() {
       await deactivateUser.mutateAsync(confirmDeactivate.id);
       setConfirmDeactivate(null);
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(`Error: ${getErrorMessage(error)}`);
     }
   };
 

@@ -4,6 +4,7 @@ import { useForm } from 'react-hook-form';
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
+import { toastError } from '@/components/ui/Toast';
 import { useCreateServiceRequest, usePortalCustomer } from '@/api/hooks/usePortal';
 import type { ServiceRequest } from '@/api/types/portal';
 
@@ -34,7 +35,7 @@ export function PortalRequestServicePage() {
       setSubmitted(true);
     } catch (error) {
       console.error('Failed to submit request:', error);
-      alert('Failed to submit request. Please try again or call us.');
+      toastError('Failed to submit request. Please try again or call us.');
     }
   };
 

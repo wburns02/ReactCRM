@@ -7,6 +7,7 @@ import { Badge } from '@/components/ui/Badge.tsx';
 import { useIntegrationSettings, useUpdateIntegrationSettings } from '@/api/hooks/useAdmin.ts';
 import { getErrorMessage } from '@/api/client.ts';
 import { formatDate } from '@/lib/utils.ts';
+import { toastSuccess, toastError } from '@/components/ui/Toast';
 
 export function IntegrationSettings() {
   const { data: settings, isLoading } = useIntegrationSettings();
@@ -38,9 +39,9 @@ export function IntegrationSettings() {
     e.preventDefault();
     try {
       await updateSettings.mutateAsync(formData);
-      alert('Integration settings saved successfully!');
+      toastSuccess('Integration settings saved successfully!');
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(`Error: ${getErrorMessage(error)}`);
     }
   };
 

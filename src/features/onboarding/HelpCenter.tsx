@@ -17,6 +17,7 @@ import {
 import type { HelpArticle, ChatMessage } from '@/api/types/onboarding';
 import { cn } from '@/lib/utils';
 import { getErrorMessage } from '@/api/client';
+import { toastError } from '@/components/ui/Toast';
 
 type HelpTab = 'browse' | 'search' | 'chat';
 
@@ -250,7 +251,7 @@ function ArticleView({
     try {
       await rateArticle.mutateAsync({ article_id: articleId, helpful });
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(getErrorMessage(error));
     }
   };
 

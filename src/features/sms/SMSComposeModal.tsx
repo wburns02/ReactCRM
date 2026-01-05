@@ -3,6 +3,7 @@ import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Dialog, DialogContent, DialogHeader, DialogBody } from '@/components/ui/Dialog';
 import { useSendSMS, useSMSTemplates } from '@/api/hooks/useSMS';
+import { toastError } from '@/components/ui/Toast';
 
 interface SMSComposeModalProps {
   open: boolean;
@@ -57,7 +58,7 @@ export function SMSComposeModal({
       onClose();
       setMessage('');
     } catch (error) {
-      alert('Failed to send SMS');
+      toastError('Failed to send SMS');
     }
   };
 

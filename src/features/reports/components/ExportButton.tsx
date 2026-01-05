@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { toastError } from '@/components/ui/Toast';
 import { exportReport } from '../api.ts';
 import type { DateRange, ExportFormat } from '../types.ts';
 
@@ -42,7 +43,7 @@ export function ExportButton({ reportType, dateRange, className = '' }: ExportBu
       window.URL.revokeObjectURL(url);
     } catch (error) {
       console.error('Export failed:', error);
-      alert('Failed to export report. Please try again.');
+      toastError('Failed to export report. Please try again.');
     } finally {
       setIsExporting(false);
     }

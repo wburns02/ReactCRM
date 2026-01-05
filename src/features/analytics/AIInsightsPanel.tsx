@@ -14,6 +14,7 @@ import {
 import type { AnomalyAlert, PrescriptiveInsight, Prediction } from '@/api/types/analytics';
 import { formatCurrency, formatDate, cn } from '@/lib/utils';
 import { getErrorMessage } from '@/api/client';
+import { toastError } from '@/components/ui/Toast';
 
 type InsightsTab = 'anomalies' | 'insights' | 'predictions';
 
@@ -158,7 +159,7 @@ function AnomaliesTab({ anomalies }: { anomalies: AnomalyAlert[] }) {
     try {
       await dismissAnomaly.mutateAsync({ anomaly_id: anomalyId });
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(getErrorMessage(error));
     }
   };
 
@@ -307,7 +308,7 @@ function InsightsTab({ insights }: { insights: PrescriptiveInsight[] }) {
         action_params: params,
       });
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(getErrorMessage(error));
     }
   };
 

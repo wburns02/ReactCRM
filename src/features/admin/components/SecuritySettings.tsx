@@ -5,6 +5,7 @@ import { Label } from '@/components/ui/Label.tsx';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
 import { useSecuritySettings, useUpdateSecuritySettings } from '@/api/hooks/useAdmin.ts';
 import { getErrorMessage } from '@/api/client.ts';
+import { toastSuccess, toastError } from '@/components/ui/Toast';
 
 export function SecuritySettings() {
   const { data: settings, isLoading } = useSecuritySettings();
@@ -38,9 +39,9 @@ export function SecuritySettings() {
     e.preventDefault();
     try {
       await updateSettings.mutateAsync(formData);
-      alert('Security settings saved successfully!');
+      toastSuccess('Security settings saved successfully!');
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(`Error: ${getErrorMessage(error)}`);
     }
   };
 

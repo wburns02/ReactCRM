@@ -6,6 +6,7 @@ import { Select } from '@/components/ui/Select.tsx';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
 import { useNotificationSettings, useUpdateNotificationSettings } from '@/api/hooks/useAdmin.ts';
 import { getErrorMessage } from '@/api/client.ts';
+import { toastSuccess, toastError } from '@/components/ui/Toast';
 
 export function NotificationSettings() {
   const { data: settings, isLoading } = useNotificationSettings();
@@ -45,9 +46,9 @@ export function NotificationSettings() {
     e.preventDefault();
     try {
       await updateSettings.mutateAsync(formData);
-      alert('Notification settings saved successfully!');
+      toastSuccess('Notification settings saved successfully!');
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(`Error: ${getErrorMessage(error)}`);
     }
   };
 

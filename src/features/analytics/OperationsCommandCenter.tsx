@@ -17,6 +17,7 @@ import {
 import type { TechnicianLocation, OperationsAlert, DispatchQueueItem } from '@/api/types/analytics';
 import { formatCurrency, cn } from '@/lib/utils';
 import { getErrorMessage } from '@/api/client';
+import { toastError } from '@/components/ui/Toast';
 
 export function OperationsCommandCenter() {
   const { data: locations, isLoading: locationsLoading } = useTechnicianLocations();
@@ -152,7 +153,7 @@ function AlertsBar({
     try {
       await acknowledgeAlert.mutateAsync(alertId);
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(`Error: ${getErrorMessage(error)}`);
     }
   };
 
@@ -285,7 +286,7 @@ function DispatchQueueCard({
         technician_id: technicianId,
       });
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(`Error: ${getErrorMessage(error)}`);
     }
   };
 

@@ -6,6 +6,7 @@ import { Select } from '@/components/ui/Select.tsx';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
 import { useSystemSettings, useUpdateSystemSettings } from '@/api/hooks/useAdmin.ts';
 import { getErrorMessage } from '@/api/client.ts';
+import { toastSuccess, toastError } from '@/components/ui/Toast';
 
 export function GeneralSettings() {
   const { data: settings, isLoading } = useSystemSettings();
@@ -35,9 +36,9 @@ export function GeneralSettings() {
     e.preventDefault();
     try {
       await updateSettings.mutateAsync(formData);
-      alert('Settings saved successfully!');
+      toastSuccess('Settings saved successfully!');
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(`Error: ${getErrorMessage(error)}`);
     }
   };
 

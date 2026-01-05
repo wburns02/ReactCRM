@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
+import { toastSuccess, toastError } from '@/components/ui/Toast';
 import {
   useSMSSettings,
   useUpdateSMSSettings,
@@ -81,9 +82,9 @@ export function SMSSettingsPage() {
   const handleTestConnection = async () => {
     try {
       const result = await testConnection.mutateAsync();
-      alert(result.message);
+      toastSuccess(result.message);
     } catch (error) {
-      alert('Failed to test connection');
+      toastError('Failed to test connection');
     }
   };
 
@@ -101,7 +102,7 @@ export function SMSSettingsPage() {
       setEditingTemplate(null);
       setTemplateForm({ name: '', type: 'custom', content: '', is_active: true });
     } catch (error) {
-      alert('Failed to save template');
+      toastError('Failed to save template');
     }
   };
 
@@ -121,7 +122,7 @@ export function SMSSettingsPage() {
     try {
       await deleteTemplate.mutateAsync(id);
     } catch (error) {
-      alert('Failed to delete template');
+      toastError('Failed to delete template');
     }
   };
 

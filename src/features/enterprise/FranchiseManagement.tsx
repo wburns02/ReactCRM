@@ -15,6 +15,7 @@ import {
 import type { FranchiseRoyalty, Territory } from '@/api/types/enterprise';
 import { formatCurrency, formatDate, cn } from '@/lib/utils';
 import { getErrorMessage } from '@/api/client';
+import { toastError } from '@/components/ui/Toast';
 
 type FranchiseTab = 'royalties' | 'territories';
 
@@ -92,7 +93,7 @@ function RoyaltiesTab({ franchiseId }: { franchiseId?: string }) {
         paid_date: new Date().toISOString().split('T')[0],
       });
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(getErrorMessage(error));
     }
   };
 

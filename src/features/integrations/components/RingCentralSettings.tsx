@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Button.tsx';
 import { Input } from '@/components/ui/Input.tsx';
 import { Label } from '@/components/ui/Label.tsx';
 import { useRCStatus } from '@/features/phone/api.ts';
+import { toastSuccess } from '@/components/ui/Toast';
 
 /**
  * RingCentral configuration settings
@@ -19,7 +20,7 @@ export function RingCentralSettings() {
     // In a real implementation, this would call an API to save the credentials
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsSaving(false);
-    alert('RingCentral settings saved (demo only)');
+    toastSuccess('RingCentral settings saved (demo only)');
   };
 
   return (

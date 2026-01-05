@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Button } from '@/components/ui/Button';
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
 import { Input } from '@/components/ui/Input';
+import { toastSuccess, toastError } from '@/components/ui/Toast';
 import {
   useServiceIntervals,
   useCustomerServiceSchedules,
@@ -91,7 +92,7 @@ export function ServiceIntervalsPage() {
         is_active: true,
       });
     } catch (error) {
-      alert('Failed to save interval');
+      toastError('Failed to save interval');
     }
   };
 
@@ -113,7 +114,7 @@ export function ServiceIntervalsPage() {
     try {
       await deleteInterval.mutateAsync(id);
     } catch (error) {
-      alert('Failed to delete interval');
+      toastError('Failed to delete interval');
     }
   };
 
@@ -125,18 +126,18 @@ export function ServiceIntervalsPage() {
         schedule_id: schedule.id,
         scheduled_date: date,
       });
-      alert('Work order created successfully!');
+      toastSuccess('Work order created successfully!');
     } catch (error) {
-      alert('Failed to create work order');
+      toastError('Failed to create work order');
     }
   };
 
   const handleSendReminder = async (scheduleId: string, type: 'sms' | 'email') => {
     try {
       await sendReminder.mutateAsync({ schedule_id: scheduleId, reminder_type: type });
-      alert('Reminder sent successfully!');
+      toastSuccess('Reminder sent successfully!');
     } catch (error) {
-      alert('Failed to send reminder');
+      toastError('Failed to send reminder');
     }
   };
 

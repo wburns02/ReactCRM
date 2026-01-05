@@ -16,6 +16,7 @@ import {
 import type { Role, UserRoleAssignment, Permission } from '@/api/types/enterprise';
 import { formatDate, cn } from '@/lib/utils';
 import { getErrorMessage } from '@/api/client';
+import { toastError } from '@/components/ui/Toast';
 
 type PermissionsTab = 'roles' | 'assignments' | 'audit';
 
@@ -74,7 +75,7 @@ function RolesTab() {
     try {
       await deleteRole.mutateAsync(roleId);
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(getErrorMessage(error));
     }
   };
 
