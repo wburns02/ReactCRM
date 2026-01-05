@@ -19,6 +19,7 @@ import {
 import { InvoiceForm } from './components/InvoiceForm.tsx';
 import { InvoiceStatusBadge } from './components/InvoiceStatusBadge.tsx';
 import { LineItemsTable } from './components/LineItemsTable.tsx';
+import { CustomerFinancingCard } from '@/features/financing';
 import { formatDate, formatCurrency } from '@/lib/utils.ts';
 import type { InvoiceFormData } from '@/api/types/invoice.ts';
 
@@ -295,6 +296,19 @@ export function InvoiceDetailPage() {
                 </Link>
               </CardContent>
             </Card>
+          )}
+
+          {/* Financing Options - show for unpaid invoices */}
+          {invoice.status !== 'paid' && invoice.status !== 'void' && invoice.total >= 500 && (
+            <CustomerFinancingCard
+              customerId={String(invoice.customer_id)}
+              customerEmail={invoice.customer?.email ?? undefined}
+              invoiceId={invoice.id}
+              amount={invoice.total}
+              onFinancingApplied={() => {
+                // Optionally refresh invoice or show success message
+              }}
+            />
           )}
 
           {/* Metadata */}
