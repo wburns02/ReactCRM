@@ -9,6 +9,7 @@ export type OnboardingStepName =
   | 'technicians'
   | 'services'
   | 'integrations'
+  | 'firstWorkOrder'
   | 'complete';
 
 /**
@@ -48,6 +49,27 @@ export interface OnboardingTechnician {
 }
 
 /**
+ * Enhanced technician with roles and certifications
+ */
+export interface EnhancedTechnician extends OnboardingTechnician {
+  role: 'technician' | 'lead_technician' | 'supervisor';
+  certifications: string[];
+  sendInvite: boolean;
+}
+
+/**
+ * First work order data
+ */
+export interface FirstWorkOrderData {
+  customerId: string | null;
+  customerName: string;
+  serviceType: string;
+  scheduledDate: string;
+  scheduledTime: string;
+  notes: string;
+}
+
+/**
  * Service type configured in step 4
  */
 export interface ServiceType {
@@ -74,6 +96,7 @@ export interface OnboardingData {
   technicians: OnboardingTechnician[];
   services: ServiceType[];
   integrations: IntegrationStatus;
+  firstWorkOrder: FirstWorkOrderData | null;
 }
 
 /**
@@ -116,6 +139,12 @@ export const ONBOARDING_STEPS: {
     isOptional: true,
   },
   {
+    name: 'firstWorkOrder',
+    title: 'First Work Order',
+    description: 'Create your first job',
+    isOptional: true,
+  },
+  {
     name: 'complete',
     title: 'All Done!',
     description: 'You are ready to go',
@@ -147,6 +176,7 @@ function getDefaultData(): OnboardingData {
       quickbooks: false,
       stripe: false,
     },
+    firstWorkOrder: null,
   };
 }
 
@@ -395,6 +425,28 @@ export function useOnboarding() {
   }, []);
 
   /**
+   * Save first work order
+   */
+  const saveFirstWorkOrder = useCallback((workOrder: FirstWorkOrderData) => {
+    setData((prev) => ({
+      ...prev,
+      firstWorkOrder: workOrder,
+    }));
+  }, []);
+
+  /**
+   * Update technician (for enhanced technician data)
+   */
+  const updateTechnician = useCallback((technicianId: string, updates: Partial<OnboardingTechnician>) => {
+    setData((prev) => ({
+      ...prev,
+      technicians: prev.technicians.map((t) =>
+        t.id === technicianId ? { ...t, ...updates } : t
+      ),
+    }));
+  }, []);
+
+  /**
    * Complete onboarding
    */
   const completeOnboarding = useCallback(() => {
@@ -419,6 +471,7 @@ export function useOnboarding() {
       case 'technicians':
       case 'services':
       case 'integrations':
+      case 'firstWorkOrder':
         return true; // Optional steps are always valid
       case 'complete':
         return true;
@@ -454,10 +507,12 @@ export function useOnboarding() {
     clearCustomers,
     addTechnician,
     removeTechnician,
+    updateTechnician,
     updateServices,
     addService,
     removeService,
     updateIntegrations,
+    saveFirstWorkOrder,
     completeOnboarding,
   };
 }

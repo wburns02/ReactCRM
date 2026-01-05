@@ -4,6 +4,7 @@ import { Button } from '@/components/ui/Button';
 import { FormField } from '@/components/ui/FormField';
 import { Card } from '@/components/ui/Card';
 import { cn } from '@/lib/utils';
+import { CSVColumnMapper, type ColumnMapping } from './CSVColumnMapper';
 import type { ImportedCustomer } from '../useOnboarding';
 
 export interface ImportCustomersStepProps {
@@ -21,6 +22,11 @@ interface ManualCustomerForm {
   email: string;
   phone: string;
   address: string;
+}
+
+interface CSVParseData {
+  headers: string[];
+  rows: string[][];
 }
 
 const EMPTY_FORM: ManualCustomerForm = {
@@ -64,6 +70,26 @@ function parseCSV(content: string): ImportedCustomer[] {
 }
 
 /**
+ * Apply column mapping to raw CSV data
+ */
+function applyMapping(rows: string[][], mapping: ColumnMapping): ImportedCustomer[] {
+  return rows
+    .filter(row => mapping.name !== null && row[mapping.name]?.trim())
+    .map((row, idx) => ({
+      id: `import-${Date.now()}-${idx}`,
+      name: mapping.name !== null ? row[mapping.name] || '' : '',
+      email: mapping.email !== null ? row[mapping.email] || '' : '',
+      phone: mapping.phone !== null ? row[mapping.phone] || '' : '',
+      address: [
+        mapping.address !== null ? row[mapping.address] : '',
+        mapping.city !== null ? row[mapping.city] : '',
+        mapping.state !== null ? row[mapping.state] : '',
+        mapping.zipCode !== null ? row[mapping.zipCode] : '',
+      ].filter(Boolean).join(', '),
+    }));
+}
+
+/**
  * Step 2: Import Customers
  * CSV upload or manual entry for customer import
  */
@@ -78,6 +104,8 @@ export function ImportCustomersStep({
 }: ImportCustomersStepProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [showManualForm, setShowManualForm] = useState(false);
+  const [showColumnMapper, setShowColumnMapper] = useState(false);
+  const [csvData, setCsvData] = useState<CSVParseData | null>(null);
   const [manualForm, setManualForm] = useState<ManualCustomerForm>(EMPTY_FORM);
   const [error, setError] = useState<string | null>(null);
   const fileInputRef = useRef<HTMLInputElement>(null);
@@ -121,7 +149,7 @@ export function ImportCustomersStep({
     }
   };
 
-  const processFile = (file: File) => {
+  const processFile = (file: File, useMapper: boolean = false) => {
     setError(null);
 
     // Validate file type
@@ -135,14 +163,35 @@ export function ImportCustomersStep({
     reader.onload = (e) => {
       try {
         const content = e.target?.result as string;
-        const parsed = parseCSV(content);
+        const lines = content.trim().split('\n');
 
-        if (parsed.length === 0) {
-          setError('No valid customers found in CSV. Make sure it has headers and data.');
+        if (lines.length < 2) {
+          setError('CSV file must have a header row and at least one data row.');
           return;
         }
 
-        onAddCustomers(parsed);
+        const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
+        const rows = lines.slice(1).map(line =>
+          line.split(',').map(v => v.trim().replace(/^"|"$/g, ''))
+        );
+
+        if (useMapper) {
+          // Show the column mapper for manual mapping
+          setCsvData({ headers, rows });
+          setShowColumnMapper(true);
+        } else {
+          // Try auto-detection
+          const parsed = parseCSV(content);
+
+          if (parsed.length === 0) {
+            // Auto-detection failed, show the mapper
+            setCsvData({ headers, rows });
+            setShowColumnMapper(true);
+            return;
+          }
+
+          onAddCustomers(parsed);
+        }
       } catch {
         setError('Failed to parse CSV file. Please check the format.');
       }
@@ -151,6 +200,24 @@ export function ImportCustomersStep({
       setError('Failed to read file');
     };
     reader.readAsText(file);
+  };
+
+  const handleColumnMapComplete = (mapping: ColumnMapping) => {
+    if (csvData) {
+      const customers = applyMapping(csvData.rows, mapping);
+      if (customers.length === 0) {
+        setError('No valid customers found with the selected mapping. Make sure the Name column has values.');
+        return;
+      }
+      onAddCustomers(customers);
+      setShowColumnMapper(false);
+      setCsvData(null);
+    }
+  };
+
+  const handleMapperCancel = () => {
+    setShowColumnMapper(false);
+    setCsvData(null);
   };
 
   const handleClickUpload = () => {
@@ -191,8 +258,18 @@ export function ImportCustomersStep({
       onSkip={onSkip}
     >
       <div className="space-y-8">
+        {/* CSV Column Mapper */}
+        {showColumnMapper && csvData && (
+          <CSVColumnMapper
+            headers={csvData.headers}
+            sampleData={csvData.rows}
+            onMapComplete={handleColumnMapComplete}
+            onCancel={handleMapperCancel}
+          />
+        )}
+
         {/* Upload Zone */}
-        {!showManualForm && (
+        {!showManualForm && !showColumnMapper && (
           <StepSection title="Upload CSV">
             <div
               onDragEnter={handleDragEnter}
@@ -254,7 +331,7 @@ export function ImportCustomersStep({
         )}
 
         {/* Manual Entry Form */}
-        {showManualForm && (
+        {showManualForm && !showColumnMapper && (
           <StepSection title="Add Customer Manually">
             <Card className="p-4">
               <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -307,7 +384,7 @@ export function ImportCustomersStep({
         )}
 
         {/* Imported Customers List */}
-        {customers.length > 0 && (
+        {customers.length > 0 && !showColumnMapper && (
           <StepSection title={`Imported Customers (${customers.length})`}>
             <div className="flex justify-end mb-2">
               <Button

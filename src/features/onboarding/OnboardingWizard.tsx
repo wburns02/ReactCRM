@@ -4,6 +4,7 @@ import { ImportCustomersStep } from './steps/ImportCustomersStep';
 import { AddTechniciansStep } from './steps/AddTechniciansStep';
 import { ConfigureServicesStep } from './steps/ConfigureServicesStep';
 import { ConnectIntegrationsStep } from './steps/ConnectIntegrationsStep';
+import { FirstWorkOrderStep } from './steps/FirstWorkOrderStep';
 import { CompletionStep } from './steps/CompletionStep';
 import { cn } from '@/lib/utils';
 
@@ -32,6 +33,7 @@ export function OnboardingWizard() {
     addService,
     removeService,
     updateIntegrations,
+    saveFirstWorkOrder,
     completeOnboarding,
   } = useOnboarding();
 
@@ -96,6 +98,18 @@ export function OnboardingWizard() {
           <ConnectIntegrationsStep
             integrations={data.integrations}
             onUpdateIntegrations={updateIntegrations}
+            onNext={nextStep}
+            onBack={prevStep}
+            onSkip={skipStep}
+          />
+        );
+      case 'firstWorkOrder':
+        return (
+          <FirstWorkOrderStep
+            customers={data.customers}
+            services={data.services}
+            workOrder={data.firstWorkOrder}
+            onSaveWorkOrder={saveFirstWorkOrder}
             onNext={nextStep}
             onBack={prevStep}
             onSkip={skipStep}

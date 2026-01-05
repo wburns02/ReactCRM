@@ -12,6 +12,9 @@ export { AddTechniciansStep } from './steps/AddTechniciansStep';
 export { ConfigureServicesStep } from './steps/ConfigureServicesStep';
 export { ConnectIntegrationsStep } from './steps/ConnectIntegrationsStep';
 export { CompletionStep } from './steps/CompletionStep';
+export { FirstWorkOrderStep } from './steps/FirstWorkOrderStep';
+export { TechnicianInviteStep } from './steps/TechnicianInviteStep';
+export { CSVColumnMapper, type ColumnMapping } from './steps/CSVColumnMapper';
 
 // Hook and utilities
 export {
@@ -24,6 +27,8 @@ export {
   type CompanyData,
   type ImportedCustomer,
   type OnboardingTechnician,
+  type EnhancedTechnician,
+  type FirstWorkOrderData,
   type ServiceType,
   type IntegrationStatus,
 } from './useOnboarding';
