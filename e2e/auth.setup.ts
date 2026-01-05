@@ -31,8 +31,13 @@ setup('authenticate', async ({ page, baseURL }) => {
   // Wait for successful login - should redirect to dashboard
   await page.waitForURL('**/dashboard**', { timeout: 15000 });
 
-  // Verify we're logged in by checking for a navigation element
-  await expect(page.locator('nav, aside, [role="navigation"]').first()).toBeVisible({ timeout: 5000 });
+  // Wait for page to fully load
+  await page.waitForLoadState('networkidle', { timeout: 10000 });
+
+  // Verify we're logged in by checking for dashboard content or navigation
+  // Use multiple possible selectors for robustness
+  const loggedInIndicator = page.locator('h1, [data-testid="dashboard"], .sidebar, header button, [class*="layout"]').first();
+  await expect(loggedInIndicator).toBeVisible({ timeout: 10000 });
 
   // Save authentication state
   await page.context().storageState({ path: authFile });

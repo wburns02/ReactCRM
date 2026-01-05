@@ -29,6 +29,12 @@ export {
   FormRadioGroup,
 } from './FormField';
 
+export { Checkbox, CheckboxGroup } from './Checkbox';
+export type { CheckboxProps, CheckboxGroupProps } from './Checkbox';
+
+export { Radio, RadioGroup } from './Radio';
+export type { RadioProps, RadioGroupProps } from './Radio';
+
 // Layout Components
 export { Card, CardHeader, CardTitle, CardDescription, CardContent } from './Card';
 

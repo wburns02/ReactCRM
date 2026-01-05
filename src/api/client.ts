@@ -1,18 +1,29 @@
 import axios, { type AxiosError, type AxiosInstance } from 'axios';
 import { addBreadcrumb, captureException } from '@/lib/sentry';
+import {
+  getSecurityHeaders,
+  clearSessionState,
+  markSessionInvalid,
+  dispatchSecurityEvent,
+  hasLegacyToken,
+  getLegacyToken,
+  cleanupLegacyAuth,
+} from '@/lib/security';
 
 /**
- * API client configured for FastAPI backend with JWT tokens
+ * API client configured for FastAPI backend with secure cookie auth
  * Standalone deployment - API is on separate domain (Railway)
+ *
+ * SECURITY ARCHITECTURE:
+ * - Primary: HTTP-only, Secure, SameSite=Strict cookies (XSS-safe)
+ * - CSRF tokens sent in header for state-changing requests
+ * - Legacy Bearer token support for migration (will be removed)
  *
  * Backend: https://react-crm-api-production.up.railway.app/api/v2
  * Repository: wburns02/react-crm-api
  */
 
 const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://react-crm-api-production.up.railway.app/api/v2';
-
-// Token storage key (kept for backwards compatibility during migration)
-const TOKEN_KEY = 'auth_token';
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -24,26 +35,35 @@ export const apiClient: AxiosInstance = axios.create({
   withCredentials: true,
 });
 
-// Request interceptor - add JWT token (fallback) and track request
-// SECURITY: Auth priority:
-// 1. HTTP-only cookie (automatic via withCredentials) - XSS-safe
-// 2. Bearer token in localStorage (fallback for compatibility)
-// The cookie is set by the backend on login and sent automatically.
-// The Bearer token is kept as fallback during migration period.
+/**
+ * Request interceptor
+ * - Adds CSRF token for state-changing requests
+ * - Adds legacy Bearer token (migration period only)
+ * - Tracks requests for debugging
+ */
 apiClient.interceptors.request.use(
   (config) => {
-    // Only add Bearer token if no cookie auth will be used
-    // This is a fallback for backwards compatibility
-    const token = localStorage.getItem(TOKEN_KEY);
-    if (token) {
-      config.headers.Authorization = `Bearer ${token}`;
+    const method = config.method?.toUpperCase() || 'GET';
+
+    // SECURITY: Add CSRF token and other security headers
+    const securityHeaders = getSecurityHeaders(method);
+    Object.assign(config.headers, securityHeaders);
+
+    // MIGRATION: Add Bearer token from localStorage if exists
+    // This will be removed after full migration to cookie auth
+    // TODO: Remove this block after migration is complete
+    if (hasLegacyToken()) {
+      const token = getLegacyToken();
+      if (token) {
+        config.headers.Authorization = `Bearer ${token}`;
+      }
     }
 
     // Add breadcrumb for API request tracking
     addBreadcrumb(
-      `API ${config.method?.toUpperCase()} ${config.url}`,
+      `API ${method} ${config.url}`,
       'http',
-      { method: config.method, url: config.url },
+      { method, url: config.url },
       'info'
     );
 
@@ -52,7 +72,13 @@ apiClient.interceptors.request.use(
   (error) => Promise.reject(error)
 );
 
-// Response interceptor - handle auth errors and track responses
+/**
+ * Response interceptor
+ * - Handles authentication errors (401)
+ * - Handles CSRF errors (403 with CSRF message)
+ * - Tracks responses for debugging
+ * - Reports server errors to Sentry
+ */
 apiClient.interceptors.response.use(
   (response) => {
     // Track successful responses for debugging context
@@ -89,12 +115,15 @@ apiClient.interceptors.response.use(
       });
     }
 
+    // Handle authentication errors
     if (status === 401) {
-      // Clear invalid token
-      localStorage.removeItem(TOKEN_KEY);
+      // SECURITY: Clear all auth state
+      markSessionInvalid();
+      clearSessionState();
+      cleanupLegacyAuth();
 
-      // Dispatch event for auth state listeners
-      window.dispatchEvent(new CustomEvent('auth:expired'));
+      // Dispatch security event for listeners
+      dispatchSecurityEvent('session:expired');
 
       // Don't redirect to login if already on login page (prevents infinite loop)
       const currentPath = window.location.pathname;
@@ -105,30 +134,71 @@ apiClient.interceptors.response.use(
       }
     }
 
+    // Handle CSRF errors
+    if (status === 403) {
+      const responseData = error.response?.data as Record<string, unknown> | undefined;
+      const errorMessage = responseData?.error || responseData?.detail || '';
+      if (typeof errorMessage === 'string' && errorMessage.toLowerCase().includes('csrf')) {
+        dispatchSecurityEvent('csrf:missing');
+        // Refresh the page to get a new CSRF token
+        window.location.reload();
+      }
+    }
+
     return Promise.reject(error);
   }
 );
 
+// ============================================
+// Auth Token Functions (Migration Period)
+// ============================================
+
 /**
  * Store JWT token after login
+ * @deprecated Will be removed after cookie auth migration
+ * The backend should set HTTP-only cookies directly
  */
 export function setAuthToken(token: string): void {
-  localStorage.setItem(TOKEN_KEY, token);
+  // MIGRATION: Store in localStorage for backwards compatibility
+  // This will be removed once backend sets HTTP-only cookies
+  localStorage.setItem('auth_token', token);
 }
 
 /**
  * Clear JWT token on logout
+ * @deprecated Will be removed after cookie auth migration
  */
 export function clearAuthToken(): void {
-  localStorage.removeItem(TOKEN_KEY);
+  cleanupLegacyAuth();
+  clearSessionState();
 }
 
 /**
- * Check if user has a stored token
+ * Check if user has a stored token or active session
+ * Uses session state first (faster), falls back to legacy token check
  */
 export function hasAuthToken(): boolean {
-  return !!localStorage.getItem(TOKEN_KEY);
+  // Check session state first
+  const sessionState = sessionStorage.getItem('session_state');
+  if (sessionState) {
+    try {
+      const state = JSON.parse(sessionState);
+      if (state.isAuthenticated) {
+        return true;
+      }
+    } catch {
+      // Ignore parse errors
+    }
+  }
+
+  // MIGRATION: Fall back to legacy token check
+  return hasLegacyToken();
 }
+
+/**
+ * Get session state for UI display
+ */
+export { getSessionState } from '@/lib/security';
 
 /**
  * Type-safe API error

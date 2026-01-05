@@ -212,18 +212,20 @@ export function DropdownMenu({ children, className, align = 'start' }: DropdownM
     if (!items || items.length === 0) return;
 
     switch (e.key) {
-      case 'ArrowDown':
+      case 'ArrowDown': {
         e.preventDefault();
         const nextIndex = activeIndex < items.length - 1 ? activeIndex + 1 : 0;
         setActiveIndex(nextIndex);
         (items[nextIndex] as HTMLElement)?.focus();
         break;
-      case 'ArrowUp':
+      }
+      case 'ArrowUp': {
         e.preventDefault();
         const prevIndex = activeIndex > 0 ? activeIndex - 1 : items.length - 1;
         setActiveIndex(prevIndex);
         (items[prevIndex] as HTMLElement)?.focus();
         break;
+      }
       case 'Home':
         e.preventDefault();
         setActiveIndex(0);

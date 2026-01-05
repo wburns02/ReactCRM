@@ -13,6 +13,7 @@ const tabs: Tab[] = [
   { id: 'notifications', label: 'Notifications', icon: '📧', path: '/admin?tab=notifications' },
   { id: 'integrations', label: 'Integrations', icon: '🔌', path: '/admin?tab=integrations' },
   { id: 'security', label: 'Security', icon: '🔒', path: '/admin?tab=security' },
+  { id: 'api', label: 'API', icon: '🔑', path: '/admin?tab=api' },
 ];
 
 export function SettingsTabs() {

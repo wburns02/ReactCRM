@@ -1,5 +1,5 @@
-import { lazy, Suspense } from 'react';
-import { Routes, Route, Navigate, Link } from 'react-router-dom';
+import React, { lazy, Suspense } from 'react';
+import { Routes, Route, Navigate, Link, useSearchParams } from 'react-router-dom';
 import { AppLayout } from '@/components/layout/AppLayout.tsx';
 import { RequireAuth } from '@/features/auth/RequireAuth.tsx';
 import { LoginPage } from '@/features/auth/LoginPage.tsx';
@@ -19,6 +19,28 @@ const PageLoader = () => (
     <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
   </div>
 );
+
+// Widget wrapper that parses URL params and passes to child widget
+function WidgetWrapper({ children }: { children: React.ReactElement }) {
+  const [searchParams] = useSearchParams();
+
+  // Parse all URL params into props
+  const widgetProps: Record<string, string | number | boolean> = {};
+  searchParams.forEach((value, key) => {
+    // Try to parse as number or boolean
+    if (value === 'true') widgetProps[key] = true;
+    else if (value === 'false') widgetProps[key] = false;
+    else if (!isNaN(Number(value)) && value !== '') widgetProps[key] = Number(value);
+    else widgetProps[key] = value;
+  });
+
+  // Clone child with parsed props
+  return (
+    <div className="min-h-screen bg-bg-body p-4 flex items-center justify-center">
+      {React.cloneElement(children, widgetProps)}
+    </div>
+  );
+}
 
 // Lazy load feature modules for code splitting
 const DashboardPage = lazy(() => import('@/features/dashboard/DashboardPage.tsx').then(m => ({ default: m.DashboardPage })));
@@ -51,6 +73,16 @@ const LocationReportPage = lazy(() => import('@/features/reports/pages/LocationR
 // Analytics - lazy loaded
 const FTFRDashboard = lazy(() => import('@/features/analytics/index.ts').then(m => ({ default: m.FTFRDashboard })));
 const BIDashboard = lazy(() => import('@/features/analytics/index.ts').then(m => ({ default: m.BIDashboard })));
+const OperationsCommandCenter = lazy(() => import('@/features/analytics/index.ts').then(m => ({ default: m.OperationsCommandCenter })));
+const FinancialDashboard = lazy(() => import('@/features/analytics/index.ts').then(m => ({ default: m.FinancialDashboard })));
+const PerformanceScorecard = lazy(() => import('@/features/analytics/index.ts').then(m => ({ default: m.PerformanceScorecard })));
+const AIInsightsPanel = lazy(() => import('@/features/analytics/index.ts').then(m => ({ default: m.AIInsightsPanel })));
+
+// Enterprise - lazy loaded
+const MultiRegionDashboard = lazy(() => import('@/features/enterprise/index.ts').then(m => ({ default: m.MultiRegionDashboard })));
+const FranchiseManagement = lazy(() => import('@/features/enterprise/index.ts').then(m => ({ default: m.FranchiseManagement })));
+const RolePermissions = lazy(() => import('@/features/enterprise/index.ts').then(m => ({ default: m.RolePermissions })));
+const EnterpriseComplianceDashboard = lazy(() => import('@/features/enterprise/index.ts').then(m => ({ default: m.ComplianceDashboard })));
 
 // Other features - lazy loaded
 const EquipmentPage = lazy(() => import('@/features/equipment/EquipmentPage.tsx').then(m => ({ default: m.EquipmentPage })));
@@ -104,8 +136,18 @@ const JobCostingPage = lazy(() => import('@/features/job-costing/index.ts').then
 // Data Import - lazy loaded
 const DataImportPage = lazy(() => import('@/features/import/index.ts').then(m => ({ default: m.DataImportPage })));
 
+// Embeddable Widgets - lazy loaded
+const BookingWidget = lazy(() => import('@/features/widgets/index.ts').then(m => ({ default: m.BookingWidget })));
+const PaymentWidget = lazy(() => import('@/features/widgets/index.ts').then(m => ({ default: m.PaymentWidget })));
+const StatusWidget = lazy(() => import('@/features/widgets/index.ts').then(m => ({ default: m.StatusWidget })));
+
+// Marketplace - lazy loaded
+const MarketplacePage = lazy(() => import('@/features/marketplace/index.ts').then(m => ({ default: m.MarketplacePage })));
+
 // Onboarding - lazy loaded
 const OnboardingWizard = lazy(() => import('@/features/onboarding/index.ts').then(m => ({ default: m.OnboardingWizard })));
+const SetupWizard = lazy(() => import('@/features/onboarding/index.ts').then(m => ({ default: m.SetupWizard })));
+const HelpCenter = lazy(() => import('@/features/onboarding/index.ts').then(m => ({ default: m.HelpCenter })));
 
 /**
  * App routes - standalone deployment at root
@@ -116,6 +158,38 @@ export function AppRoutes() {
     <Routes>
       {/* Public login route */}
       <Route path="/login" element={<LoginPage />} />
+
+      {/* Public embeddable widget routes */}
+      <Route
+        path="/embed/booking"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <WidgetWrapper>
+              <BookingWidget companyId="" />
+            </WidgetWrapper>
+          </Suspense>
+        }
+      />
+      <Route
+        path="/embed/payment"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <WidgetWrapper>
+              <PaymentWidget companyId="" />
+            </WidgetWrapper>
+          </Suspense>
+        }
+      />
+      <Route
+        path="/embed/status"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <WidgetWrapper>
+              <StatusWidget companyId="" />
+            </WidgetWrapper>
+          </Suspense>
+        }
+      />
 
       {/* Onboarding wizard for new users */}
       <Route
@@ -205,6 +279,16 @@ export function AppRoutes() {
         {/* Analytics */}
         <Route path="analytics/ftfr" element={<Suspense fallback={<PageLoader />}><FTFRDashboard /></Suspense>} />
         <Route path="analytics/bi" element={<Suspense fallback={<PageLoader />}><BIDashboard /></Suspense>} />
+        <Route path="analytics/operations" element={<Suspense fallback={<PageLoader />}><OperationsCommandCenter /></Suspense>} />
+        <Route path="analytics/financial" element={<Suspense fallback={<PageLoader />}><FinancialDashboard /></Suspense>} />
+        <Route path="analytics/performance" element={<Suspense fallback={<PageLoader />}><PerformanceScorecard /></Suspense>} />
+        <Route path="analytics/insights" element={<Suspense fallback={<PageLoader />}><AIInsightsPanel /></Suspense>} />
+
+        {/* Enterprise */}
+        <Route path="enterprise/regions" element={<Suspense fallback={<PageLoader />}><MultiRegionDashboard /></Suspense>} />
+        <Route path="enterprise/franchises" element={<Suspense fallback={<PageLoader />}><FranchiseManagement /></Suspense>} />
+        <Route path="enterprise/permissions" element={<Suspense fallback={<PageLoader />}><RolePermissions /></Suspense>} />
+        <Route path="enterprise/compliance" element={<Suspense fallback={<PageLoader />}><EnterpriseComplianceDashboard /></Suspense>} />
 
         {/* Equipment */}
         <Route path="equipment" element={<Suspense fallback={<PageLoader />}><EquipmentPage /></Suspense>} />
@@ -272,6 +356,14 @@ export function AppRoutes() {
 
         {/* Data Import */}
         <Route path="admin/import" element={<Suspense fallback={<PageLoader />}><DataImportPage /></Suspense>} />
+
+        {/* Help & Support */}
+        <Route path="help" element={<Suspense fallback={<PageLoader />}><HelpCenter /></Suspense>} />
+        <Route path="setup" element={<Suspense fallback={<PageLoader />}><SetupWizard /></Suspense>} />
+
+        {/* Marketplace */}
+        <Route path="marketplace" element={<Suspense fallback={<PageLoader />}><MarketplacePage /></Suspense>} />
+        <Route path="marketplace/:slug" element={<Suspense fallback={<PageLoader />}><MarketplacePage /></Suspense>} />
 
         {/* 404 within app */}
         <Route

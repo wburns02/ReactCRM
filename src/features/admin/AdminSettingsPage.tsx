@@ -4,6 +4,7 @@ import { GeneralSettings } from './components/GeneralSettings.tsx';
 import { NotificationSettings } from './components/NotificationSettings.tsx';
 import { IntegrationSettings } from './components/IntegrationSettings.tsx';
 import { SecuritySettings } from './components/SecuritySettings.tsx';
+import { ApiSettings } from './components/ApiSettings.tsx';
 
 /**
  * Admin Settings Page
@@ -34,6 +35,7 @@ export function AdminSettingsPage() {
           {activeTab === 'notifications' && <NotificationSettings />}
           {activeTab === 'integrations' && <IntegrationSettings />}
           {activeTab === 'security' && <SecuritySettings />}
+          {activeTab === 'api' && <ApiSettings />}
         </div>
       </div>
     </div>

@@ -2,6 +2,8 @@
 export { OnboardingWizard } from './OnboardingWizard';
 export { OnboardingStep, StepSection } from './OnboardingStep';
 export { OnboardingCheck } from './OnboardingCheck';
+export { SetupWizard } from './SetupWizard';
+export { HelpCenter } from './HelpCenter';
 
 // Step components
 export { CompanySetupStep } from './steps/CompanySetupStep';

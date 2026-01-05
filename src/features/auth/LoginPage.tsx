@@ -9,6 +9,11 @@ import { Button } from '@/components/ui/Button.tsx';
 import { Input } from '@/components/ui/Input.tsx';
 import { Label } from '@/components/ui/Label.tsx';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
+import {
+  markSessionValidated,
+  sanitizeRedirectUrl,
+  cleanupLegacyAuth,
+} from '@/lib/security';
 
 /**
  * Login form validation schema
@@ -22,6 +27,11 @@ type LoginFormData = z.infer<typeof loginSchema>;
 
 /**
  * Login page - handles user authentication
+ *
+ * SECURITY:
+ * - Supports both cookie auth (preferred) and token auth (migration)
+ * - Sanitizes redirect URLs to prevent open redirect attacks
+ * - Cleans up legacy tokens on successful cookie auth
  */
 export function LoginPage() {
   const navigate = useNavigate();
@@ -31,8 +41,9 @@ export function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Get return URL from query params (standalone mode - no /app prefix)
-  const returnUrl = searchParams.get('return') || '/dashboard';
+  // SECURITY: Sanitize return URL to prevent open redirect
+  const rawReturnUrl = searchParams.get('return') || '/dashboard';
+  const returnUrl = sanitizeRedirectUrl(rawReturnUrl);
 
   const {
     register,
@@ -47,16 +58,19 @@ export function LoginPage() {
     },
   });
 
-  // Check if already logged in (has valid token)
+  // Check if already logged in (has valid session/token)
   useEffect(() => {
     if (hasAuthToken()) {
       const checkAuth = async () => {
         try {
-          await apiClient.get('/auth/me');
-          // Token is valid, redirect
-          navigate(returnUrl, { replace: true });
+          const { data } = await apiClient.get('/auth/me');
+          if (data?.user) {
+            // Session is valid, update state and redirect
+            markSessionValidated(data.user.id);
+            navigate(returnUrl, { replace: true });
+          }
         } catch {
-          // Token is invalid, stay on login
+          // Session is invalid, stay on login
         }
       };
       checkAuth();
@@ -73,13 +87,20 @@ export function LoginPage() {
         password: data.password,
       });
 
-      // If login successful, store JWT token and redirect
-      if (response.data?.token) {
-        setAuthToken(response.data.token);
+      // SECURITY: Handle different auth responses
+      // Priority: cookie auth (HTTP-only) > token auth (legacy)
+      if (response.data?.user) {
+        // Cookie-based auth (preferred) - backend sets HTTP-only cookie
+        // Mark session as valid and clean up any legacy tokens
+        markSessionValidated(response.data.user.id);
+        cleanupLegacyAuth();
         queryClient.clear();
         navigate(returnUrl, { replace: true });
-      } else if (response.data?.user) {
-        // Fallback for session-based auth during transition
+      } else if (response.data?.token) {
+        // MIGRATION: Token-based auth (legacy fallback)
+        // Store token and mark session
+        setAuthToken(response.data.token);
+        markSessionValidated();
         queryClient.clear();
         navigate(returnUrl, { replace: true });
       }

@@ -19,6 +19,9 @@ export { useDebounce, useDebouncedCallback } from './useDebounce';
 // WebSocket hooks
 export {
   useWebSocket,
+  usePresence,
+  useTechnicianLocations,
+  WS_EVENTS,
   type WebSocketStatus,
   type WebSocketMessageType,
   type WebSocketMessage,
@@ -27,6 +30,9 @@ export {
   type NotificationPayload,
   type UseWebSocketOptions,
   type UseWebSocketReturn,
+  type PresenceUser,
+  type TechnicianLocation,
+  type WSEventType,
   isDispatchUpdate,
   isJobStatus,
   isNotification,

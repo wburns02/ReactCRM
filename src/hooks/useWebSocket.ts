@@ -526,3 +526,130 @@ export function isJobStatus(message: WebSocketMessage): message is WebSocketMess
 export function isNotification(message: WebSocketMessage): message is WebSocketMessage<NotificationPayload> {
   return message.type === 'notification';
 }
+
+// ============================================
+// Presence Types
+// ============================================
+
+export interface PresenceUser {
+  id: string;
+  name: string;
+  email: string;
+  avatar?: string;
+  status: 'online' | 'away' | 'busy';
+  currentPage?: string;
+  lastSeen: string;
+}
+
+export interface TechnicianLocation {
+  technicianId: string;
+  lat: number;
+  lng: number;
+  heading?: number;
+  speed?: number;
+  timestamp: string;
+  workOrderId?: string;
+}
+
+// ============================================
+// Presence Hook
+// ============================================
+
+/**
+ * Tracks online users and their status
+ */
+export function usePresence(ws: UseWebSocketReturn, currentPage?: string) {
+  const [users, setUsers] = useState<PresenceUser[]>([]);
+
+  // Update presence when page changes
+  useEffect(() => {
+    if (ws.isConnected) {
+      ws.send('system_message', { action: 'presence_update', status: 'online', currentPage });
+    }
+  }, [ws, currentPage]);
+
+  // Listen for presence updates
+  useEffect(() => {
+    if (ws.lastMessage?.type === 'system_message') {
+      const payload = ws.lastMessage.payload as { action?: string; users?: PresenceUser[]; user?: PresenceUser };
+      if (payload.action === 'presence_list' && payload.users) {
+        setUsers(payload.users);
+      } else if (payload.action === 'user_joined' && payload.user) {
+        setUsers(prev => [...prev.filter(u => u.id !== payload.user!.id), payload.user!]);
+      } else if (payload.action === 'user_left' && payload.user) {
+        setUsers(prev => prev.filter(u => u.id !== payload.user!.id));
+      }
+    }
+  }, [ws.lastMessage]);
+
+  return {
+    users,
+    onlineCount: users.filter(u => u.status === 'online').length,
+  };
+}
+
+// ============================================
+// Technician Location Hook
+// ============================================
+
+/**
+ * Real-time technician location tracking
+ */
+export function useTechnicianLocations(ws: UseWebSocketReturn) {
+  const [locations, setLocations] = useState<Map<string, TechnicianLocation>>(new Map());
+
+  useEffect(() => {
+    if (ws.lastMessage?.type === 'technician_location') {
+      const location = ws.lastMessage.payload as TechnicianLocation;
+      setLocations(prev => {
+        const updated = new Map(prev);
+        updated.set(location.technicianId, location);
+        return updated;
+      });
+    }
+  }, [ws.lastMessage]);
+
+  const getLocation = useCallback((technicianId: string) => {
+    return locations.get(technicianId);
+  }, [locations]);
+
+  const getAllLocations = useCallback(() => {
+    return Array.from(locations.values());
+  }, [locations]);
+
+  return {
+    locations,
+    getLocation,
+    getAllLocations,
+  };
+}
+
+// ============================================
+// WebSocket Event Constants
+// ============================================
+
+export const WS_EVENTS = {
+  // Dispatch & Work Orders
+  DISPATCH_UPDATE: 'dispatch_update' as const,
+  WORK_ORDER_UPDATE: 'work_order_update' as const,
+  JOB_STATUS: 'job_status' as const,
+
+  // Schedule
+  SCHEDULE_CHANGE: 'schedule_change' as const,
+
+  // Payments
+  PAYMENT_RECEIVED: 'payment_received' as const,
+
+  // Technician
+  TECHNICIAN_LOCATION: 'technician_location' as const,
+
+  // Notifications
+  NOTIFICATION: 'notification' as const,
+
+  // System
+  SYSTEM_MESSAGE: 'system_message' as const,
+  PING: 'ping' as const,
+  PONG: 'pong' as const,
+} as const;
+
+export type WSEventType = typeof WS_EVENTS[keyof typeof WS_EVENTS];

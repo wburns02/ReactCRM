@@ -2,6 +2,7 @@ import {
   useState,
   useRef,
   useEffect,
+  useId,
   type ReactNode,
   type ReactElement,
   cloneElement,
@@ -62,7 +63,7 @@ export function Tooltip({
   const tooltipRef = useRef<HTMLDivElement>(null);
   const showTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
   const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-  const tooltipId = useRef(`tooltip-${Math.random().toString(36).slice(2, 9)}`);
+  const tooltipId = useId();
 
   // Calculate position
   const calculatePosition = () => {
@@ -185,7 +186,7 @@ export function Tooltip({
       children.props.onBlur?.(e);
       hide();
     },
-    'aria-describedby': isVisible ? tooltipId.current : undefined,
+    'aria-describedby': isVisible ? tooltipId : undefined,
   });
 
   return (
@@ -197,7 +198,7 @@ export function Tooltip({
         createPortal(
           <div
             ref={tooltipRef}
-            id={tooltipId.current}
+            id={tooltipId}
             role="tooltip"
             className={cn(
               'fixed z-[100] max-w-xs rounded-md bg-bg-inverse px-3 py-1.5 text-sm text-text-inverse shadow-md',

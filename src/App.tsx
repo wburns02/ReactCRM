@@ -20,14 +20,19 @@ initWebVitals({
   },
 });
 
-// Create a client with error handling defaults
+// Create a client with performance-optimized defaults
 const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
-      staleTime: 30_000, // 30 seconds
-      retry: 3, // Retry 3 times for transient failures (CORS, network issues)
-      retryDelay: (attemptIndex) => Math.min(1000 * 2 ** attemptIndex, 10000), // Exponential backoff
+      staleTime: 60_000, // 1 minute - reduce unnecessary refetches
+      gcTime: 5 * 60_000, // 5 minutes - keep data in cache longer
+      retry: 1, // Single retry - faster failure feedback
+      retryDelay: 1000, // Simple 1s delay between retries
       refetchOnWindowFocus: false,
+      refetchOnReconnect: 'always', // Always refetch on reconnect
+    },
+    mutations: {
+      retry: 0, // No retries for mutations - let user retry explicitly
     },
   },
 });
