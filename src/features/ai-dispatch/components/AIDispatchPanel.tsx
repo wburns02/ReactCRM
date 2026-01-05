@@ -1,4 +1,4 @@
-import { useState, useCallback, memo, useMemo } from 'react';
+import { useState, useCallback, memo, useMemo, useEffect, useRef } from 'react';
 import { Card } from '@/components/ui/Card';
 import { Badge } from '@/components/ui/Badge';
 import { Skeleton } from '@/components/ui/Skeleton';
@@ -10,12 +10,14 @@ import {
   useDismissAISuggestion,
   useAIDispatchHistory,
   useAIDispatchStats,
+  useExecutiveMode,
   type AIDispatchSuggestion,
 } from '@/api/hooks/useAIDispatch';
 import { useTechnicians } from '@/api/hooks/useTechnicians';
-import { toastSuccess, toastError } from '@/components/ui/Toast';
+import { toastSuccess, toastError, toastInfo } from '@/components/ui/Toast';
 import { AICommandInput } from './AICommandInput';
 import { DispatchSuggestionCard, DispatchSuggestionCardSkeletonList } from './DispatchSuggestionCard';
+import { ExecutiveModeToggle } from './ExecutiveModeToggle';
 import { cn } from '@/lib/utils';
 
 /**
@@ -67,6 +69,60 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
   const promptMutation = useAIDispatchPrompt();
   const executeMutation = useExecuteAIAction();
   const dismissMutation = useDismissAISuggestion();
+
+  // Executive Mode for auto-execution
+  const executiveMode = useExecutiveMode();
+  const autoExecutedRef = useRef<Set<string>>(new Set());
+
+  // Auto-execute high-confidence suggestions in Executive Mode
+  useEffect(() => {
+    if (!executiveMode.settings.enabled || loadingSuggestions) return;
+
+    const eligibleSuggestions = suggestions.filter(
+      (s) =>
+        executiveMode.canAutoExecute(s) &&
+        !autoExecutedRef.current.has(s.id) &&
+        s.actions.length > 0
+    );
+
+    // Auto-execute eligible suggestions (one at a time to avoid conflicts)
+    if (eligibleSuggestions.length > 0 && !executeMutation.isPending) {
+      const suggestion = eligibleSuggestions[0];
+      const primaryAction = suggestion.actions.find((a) => a.type === 'primary') || suggestion.actions[0];
+
+      // Mark as auto-executed to prevent duplicate execution
+      autoExecutedRef.current.add(suggestion.id);
+
+      // Execute the action
+      executeMutation
+        .mutateAsync({
+          suggestion_id: suggestion.id,
+          action_id: primaryAction.id,
+        })
+        .then((result) => {
+          if (result.success) {
+            executiveMode.incrementAutoExecutionCount();
+            if (executiveMode.settings.showNotifications) {
+              toastInfo(
+                'Auto-Executed',
+                `${suggestion.title} - ${result.message}`
+              );
+            }
+            onSuggestionExecuted?.(suggestion);
+          }
+        })
+        .catch(() => {
+          // Remove from auto-executed set on failure so it can be retried manually
+          autoExecutedRef.current.delete(suggestion.id);
+        });
+    }
+  }, [
+    suggestions,
+    executiveMode,
+    loadingSuggestions,
+    executeMutation,
+    onSuggestionExecuted,
+  ]);
 
   // Filter out expired suggestions and apply user filter
   const filteredSuggestions = useMemo(() => {
@@ -166,19 +222,28 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
         onClick={() => setIsExpanded(true)}
         className={cn(
           'fixed bottom-6 right-6 z-50 flex items-center gap-2',
-          'bg-gradient-to-r from-primary to-purple-600 text-white',
-          'px-4 py-3 rounded-full shadow-lg',
+          executiveMode.settings.enabled
+            ? 'bg-gradient-to-r from-purple-500 to-primary'
+            : 'bg-gradient-to-r from-primary to-purple-600',
+          'text-white px-4 py-3 rounded-full shadow-lg',
           'hover:shadow-xl transition-all duration-200',
           'animate-in slide-in-from-bottom-4',
           className
         )}
       >
-        <span className="text-xl">AI</span>
-        <span className="font-medium">AI Dispatch</span>
+        <span className={cn('text-xl', executiveMode.settings.enabled && 'animate-pulse')}>
+          AI
+        </span>
+        <span className="font-medium">
+          {executiveMode.settings.enabled ? 'Executive Mode' : 'AI Dispatch'}
+        </span>
         {highPriorityCount > 0 && (
           <span className="bg-white text-primary px-2 py-0.5 rounded-full text-xs font-bold">
             {highPriorityCount}
           </span>
+        )}
+        {executiveMode.settings.enabled && (
+          <span className="w-2 h-2 rounded-full bg-success animate-pulse" />
         )}
       </button>
     );
@@ -213,6 +278,11 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
             </button>
           )}
         </div>
+      </div>
+
+      {/* Executive Mode Toggle */}
+      <div className="p-4 border-b border-border">
+        <ExecutiveModeToggle />
       </div>
 
       {/* Command Input */}

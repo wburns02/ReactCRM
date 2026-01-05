@@ -1,3 +1,4 @@
+import { useState, useRef, useEffect, useCallback } from 'react';
 import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/api/client';
 
@@ -486,4 +487,123 @@ export function useRefreshAISuggestions() {
       queryClient.invalidateQueries({ queryKey: aiDispatchKeys.stats() });
     },
   });
+}
+
+/**
+ * Executive Mode Settings
+ *
+ * Executive Mode enables autonomous execution of high-confidence AI suggestions.
+ * When enabled, suggestions above the threshold are automatically executed without
+ * human confirmation, making the AI truly "agentic".
+ */
+export interface ExecutiveModeSettings {
+  /** Whether executive mode is enabled */
+  enabled: boolean;
+  /** Minimum confidence threshold for auto-execution (0.8-1.0 recommended) */
+  confidenceThreshold: number;
+  /** Suggestion types that can be auto-executed */
+  allowedTypes: AIDispatchSuggestion['type'][];
+  /** Maximum number of auto-executions per hour (safety limit) */
+  maxAutoExecutionsPerHour: number;
+  /** Show toast notification for each auto-execution */
+  showNotifications: boolean;
+  /** Require WebSocket connection for auto-execution */
+  requireConnection: boolean;
+}
+
+const EXECUTIVE_MODE_STORAGE_KEY = 'ai-dispatch-executive-mode';
+
+const DEFAULT_EXECUTIVE_SETTINGS: ExecutiveModeSettings = {
+  enabled: false,
+  confidenceThreshold: 0.9, // 90% confidence required
+  allowedTypes: ['assign', 'reschedule', 'route_optimize'],
+  maxAutoExecutionsPerHour: 10,
+  showNotifications: true,
+  requireConnection: true,
+};
+
+/**
+ * Load executive mode settings from localStorage
+ */
+function loadExecutiveSettings(): ExecutiveModeSettings {
+  try {
+    const stored = localStorage.getItem(EXECUTIVE_MODE_STORAGE_KEY);
+    if (stored) {
+      const parsed = JSON.parse(stored);
+      return { ...DEFAULT_EXECUTIVE_SETTINGS, ...parsed };
+    }
+  } catch {
+    // Ignore parse errors
+  }
+  return DEFAULT_EXECUTIVE_SETTINGS;
+}
+
+/**
+ * Save executive mode settings to localStorage
+ */
+function saveExecutiveSettings(settings: ExecutiveModeSettings): void {
+  try {
+    localStorage.setItem(EXECUTIVE_MODE_STORAGE_KEY, JSON.stringify(settings));
+  } catch {
+    // Ignore storage errors
+  }
+}
+
+/**
+ * Hook for Executive Mode settings management
+ *
+ * Executive Mode turns the AI dispatch assistant into an autonomous agent
+ * that can execute high-confidence suggestions without human approval.
+ */
+export function useExecutiveMode() {
+  const [settings, setSettingsState] = useState<ExecutiveModeSettings>(loadExecutiveSettings);
+  const [autoExecutionCount, setAutoExecutionCount] = useState(0);
+  const lastResetRef = useRef<Date>(new Date());
+
+  // Reset count every hour
+  useEffect(() => {
+    const interval = setInterval(() => {
+      const now = new Date();
+      if (now.getTime() - lastResetRef.current.getTime() >= 3600000) {
+        setAutoExecutionCount(0);
+        lastResetRef.current = now;
+      }
+    }, 60000); // Check every minute
+
+    return () => clearInterval(interval);
+  }, []);
+
+  const setSettings = useCallback((update: Partial<ExecutiveModeSettings>) => {
+    setSettingsState((prev) => {
+      const newSettings = { ...prev, ...update };
+      saveExecutiveSettings(newSettings);
+      return newSettings;
+    });
+  }, []);
+
+  const toggleEnabled = useCallback(() => {
+    setSettings({ enabled: !settings.enabled });
+  }, [settings.enabled, setSettings]);
+
+  const canAutoExecute = useCallback((suggestion: AIDispatchSuggestion): boolean => {
+    if (!settings.enabled) return false;
+    if (suggestion.confidence < settings.confidenceThreshold) return false;
+    if (!settings.allowedTypes.includes(suggestion.type)) return false;
+    if (autoExecutionCount >= settings.maxAutoExecutionsPerHour) return false;
+    return true;
+  }, [settings, autoExecutionCount]);
+
+  const incrementAutoExecutionCount = useCallback(() => {
+    setAutoExecutionCount((prev) => prev + 1);
+  }, []);
+
+  return {
+    settings,
+    setSettings,
+    toggleEnabled,
+    canAutoExecute,
+    incrementAutoExecutionCount,
+    autoExecutionCount,
+    remainingAutoExecutions: settings.maxAutoExecutionsPerHour - autoExecutionCount,
+  };
 }
