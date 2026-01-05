@@ -249,13 +249,13 @@ export function CustomersList({
   const endItem = Math.min(page * pageSize, total);
   const isMobileOrTablet = useIsMobileOrTablet();
 
+  // Memoized callbacks for child components - must be called before any conditional returns
+  const handleEdit = useCallback((customer: Customer) => onEdit?.(customer), [onEdit]);
+  const handleDelete = useCallback((customer: Customer) => onDelete?.(customer), [onDelete]);
+
   if (isLoading) {
     return <LoadingSkeleton isMobile={isMobileOrTablet} />;
   }
-
-  // Memoized callbacks for child components
-  const handleEdit = useCallback((customer: Customer) => onEdit?.(customer), [onEdit]);
-  const handleDelete = useCallback((customer: Customer) => onDelete?.(customer), [onDelete]);
 
   if (customers.length === 0) {
     return (

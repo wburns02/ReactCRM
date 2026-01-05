@@ -294,6 +294,10 @@ export function WorkOrdersList({
   const endItem = Math.min(page * pageSize, total);
   const isMobileOrTablet = useIsMobileOrTablet();
 
+  // Memoized callbacks for child components - must be called before any conditional returns
+  const handleEdit = useCallback((wo: WorkOrder) => onEdit?.(wo), [onEdit]);
+  const handleDelete = useCallback((wo: WorkOrder) => onDelete?.(wo), [onDelete]);
+
   if (isLoading) {
     return <LoadingSkeleton isMobile={isMobileOrTablet} />;
   }
@@ -307,10 +311,6 @@ export function WorkOrdersList({
       </div>
     );
   }
-
-  // Memoized callbacks for child components
-  const handleEdit = useCallback((wo: WorkOrder) => onEdit?.(wo), [onEdit]);
-  const handleDelete = useCallback((wo: WorkOrder) => onDelete?.(wo), [onDelete]);
 
   // Mobile card view
   if (isMobileOrTablet) {
