@@ -97,9 +97,9 @@ export function LoginPage() {
         queryClient.clear();
         navigate(returnUrl, { replace: true });
       } else if (response.data?.token) {
-        // MIGRATION: Token-based auth (legacy fallback)
-        // Store token and mark session
-        setAuthToken(response.data.token);
+        // SECURITY: Backend sets HTTP-only cookie, no need to store token in localStorage
+        // Clean up any legacy tokens that might exist
+        cleanupLegacyAuth();
         markSessionValidated();
         queryClient.clear();
         navigate(returnUrl, { replace: true });

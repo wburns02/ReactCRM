@@ -35,6 +35,11 @@ setup('authenticate', async ({ page, baseURL }) => {
   // This simulates an existing user who has already completed onboarding
   await page.evaluate(() => {
     localStorage.setItem('crm_onboarding_completed', 'true');
+    // SECURITY: Clean up any legacy auth tokens - use HTTP-only cookies instead
+    localStorage.removeItem('auth_token');
+    localStorage.removeItem('token');
+    localStorage.removeItem('jwt');
+    localStorage.removeItem('access_token');
   });
 
   // If we're on onboarding, navigate to dashboard
