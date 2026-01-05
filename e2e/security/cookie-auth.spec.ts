@@ -5,6 +5,9 @@
 import { test, expect } from '@playwright/test';
 
 test.describe('Cookie Auth Security', () => {
+  // These tests need to run without authentication to test login flows
+  test.use({ storageState: { cookies: [], origins: [] } });
+
   test.describe('Session Management', () => {
     test('should redirect to login when not authenticated', async ({ page }) => {
       // Clear any existing cookies

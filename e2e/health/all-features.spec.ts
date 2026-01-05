@@ -66,6 +66,14 @@ test.describe('All Features Navigation Tests', () => {
         },
       ]);
     }
+
+    // Navigate to base URL first to set localStorage in correct origin
+    await page.goto(BASE_URL);
+
+    // Mark onboarding as completed to bypass the wizard
+    await page.evaluate(() => {
+      localStorage.setItem('crm_onboarding_completed', 'true');
+    });
   });
 
   // Test each feature individually
@@ -250,11 +258,12 @@ test.describe('404 Page Tests', () => {
 });
 
 test.describe('Login Flow Tests', () => {
+  // Use fresh browser context without auth for login tests
+  test.use({ storageState: { cookies: [], origins: [] } });
+
   test('login page loads correctly', async ({ page }) => {
     const consoleErrors = collectConsoleErrors(page);
 
-    // Clear cookies to test unauthenticated login page
-    await page.context().clearCookies();
     await page.goto(`${BASE_URL}/login`);
 
     // Should show login form - use .first() since multiple elements match

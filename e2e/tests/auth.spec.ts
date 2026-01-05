@@ -12,6 +12,9 @@ import { test, expect } from '@playwright/test';
 const BASE_URL = process.env.BASE_URL || 'https://react.ecbtx.com';
 
 test.describe('Authentication Flow', () => {
+  // These tests need to run without authentication
+  test.use({ storageState: { cookies: [], origins: [] } });
+
   test.describe('Login Page', () => {
     test('login page is accessible and renders correctly', async ({ page }) => {
       await page.goto(`${BASE_URL}/login`);

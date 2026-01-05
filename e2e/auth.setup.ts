@@ -28,8 +28,19 @@ setup('authenticate', async ({ page, baseURL }) => {
   // Click sign in button
   await page.getByRole('button', { name: 'Sign In' }).click();
 
-  // Wait for successful login - should redirect to dashboard
-  await page.waitForURL('**/dashboard**', { timeout: 15000 });
+  // Wait for successful login - may redirect to dashboard or onboarding
+  await page.waitForURL(/\/(dashboard|onboarding)/, { timeout: 15000 });
+
+  // Set onboarding as completed to bypass wizard for tests
+  // This simulates an existing user who has already completed onboarding
+  await page.evaluate(() => {
+    localStorage.setItem('crm_onboarding_completed', 'true');
+  });
+
+  // If we're on onboarding, navigate to dashboard
+  if (page.url().includes('/onboarding')) {
+    await page.goto((baseURL || 'https://react.ecbtx.com') + '/dashboard');
+  }
 
   // Wait for page to fully load
   await page.waitForLoadState('networkidle', { timeout: 10000 });

@@ -141,9 +141,10 @@ test.describe('Navigation Smoke Tests', () => {
 });
 
 test.describe('Authentication', () => {
+  // Use fresh browser context without auth for login tests
+  test.use({ storageState: { cookies: [], origins: [] } });
+
   test('login page is accessible', async ({ page }) => {
-    // Clear cookies to test unauthenticated login page
-    await page.context().clearCookies();
 
     const response = await page.goto(`${BASE_URL}/login`, {
       waitUntil: 'domcontentloaded',
