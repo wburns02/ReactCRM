@@ -1,6 +1,7 @@
-import { useMemo } from 'react';
+import { useState, useEffect, useMemo, useCallback, useRef } from 'react';
 import { useLocation } from 'react-router-dom';
 import { useAuth } from '@/features/auth/useAuth.ts';
+import { useOptionalWebSocketContext } from '@/providers/WebSocketProvider';
 
 /**
  * Presence user type
@@ -76,33 +77,34 @@ function parseRoute(pathname: string): { recordType?: string; recordId?: string 
 }
 
 /**
- * Presence users from WebSocket connection
- * This will be populated by real-time WebSocket data in Phase 2.2
+ * Transform raw WebSocket presence data to PresenceUser
  */
-let presenceUsersCache: PresenceUser[] = [];
-
-/**
- * Set presence users from WebSocket
- * Called by the WebSocket connection handler
- */
-export function setPresenceUsers(users: PresenceUser[]): void {
-  presenceUsersCache = users;
-}
-
-/**
- * Get current presence users
- * Returns real-time users from WebSocket connection
- */
-function getPresenceUsers(): PresenceUser[] {
-  return presenceUsersCache;
+function transformPresenceData(data: {
+  id: string;
+  name: string;
+  email: string;
+  status?: string;
+  currentPage?: string;
+  lastSeen?: string;
+}): PresenceUser {
+  return {
+    id: data.id,
+    name: data.name,
+    initials: getInitials(data.name),
+    email: data.email,
+    color: generateUserColor(data.id),
+    currentPage: data.currentPage || '',
+    ...parseRoute(data.currentPage || ''),
+    lastSeen: data.lastSeen ? new Date(data.lastSeen) : new Date(),
+    isOnline: data.status === 'online' || data.status === 'busy',
+  };
 }
 
 /**
  * Hook for real-time presence tracking
  *
  * Tracks which users are viewing which pages/records in real-time.
- * Currently uses simulated demo data. In production, this would
- * connect to a WebSocket server for real-time presence updates.
+ * Connects to WebSocket for real-time presence updates.
  *
  * @returns Presence state and helpers
  */
@@ -110,17 +112,116 @@ export function usePresence() {
   const { user } = useAuth();
   const location = useLocation();
   const hasUser = !!user;
+  const ws = useOptionalWebSocketContext();
 
-  // Compute all presence state from current context
+  // State for presence users
+  const [presenceUsers, setPresenceUsers] = useState<PresenceUser[]>([]);
+  const lastPageRef = useRef<string>('');
+
+  // Subscribe to presence events from WebSocket
+  useEffect(() => {
+    if (!ws) return;
+
+    // Subscribe to presence list updates
+    const unsubscribe = ws.subscribe('system_message' as never, (message) => {
+      const payload = message.payload as {
+        action?: string;
+        users?: Array<{
+          id: string;
+          name: string;
+          email: string;
+          status?: string;
+          currentPage?: string;
+          lastSeen?: string;
+        }>;
+        user?: {
+          id: string;
+          name: string;
+          email: string;
+          status?: string;
+          currentPage?: string;
+          lastSeen?: string;
+        };
+      };
+
+      if (payload.action === 'presence_list' && payload.users) {
+        // Full presence list update
+        setPresenceUsers(payload.users.map(transformPresenceData));
+      } else if (payload.action === 'user_joined' && payload.user) {
+        // User joined - add or update
+        setPresenceUsers(prev => {
+          const filtered = prev.filter(u => u.id !== payload.user!.id);
+          return [...filtered, transformPresenceData(payload.user!)];
+        });
+      } else if (payload.action === 'user_left' && payload.user) {
+        // User left - remove
+        setPresenceUsers(prev => prev.filter(u => u.id !== payload.user!.id));
+      } else if (payload.action === 'presence_update' && payload.user) {
+        // User presence updated
+        setPresenceUsers(prev => {
+          const idx = prev.findIndex(u => u.id === payload.user!.id);
+          if (idx >= 0) {
+            const updated = [...prev];
+            updated[idx] = transformPresenceData(payload.user!);
+            return updated;
+          }
+          return [...prev, transformPresenceData(payload.user!)];
+        });
+      }
+    });
+
+    return unsubscribe;
+  }, [ws]);
+
+  // Send presence update when page changes
+  useEffect(() => {
+    if (!ws?.isConnected || !hasUser || location.pathname === lastPageRef.current) {
+      return;
+    }
+
+    lastPageRef.current = location.pathname;
+    const { recordType, recordId } = parseRoute(location.pathname);
+
+    ws.send('system_message' as never, {
+      action: 'presence_update',
+      status: 'online',
+      currentPage: location.pathname,
+      recordType,
+      recordId,
+    });
+  }, [ws, ws?.isConnected, hasUser, location.pathname]);
+
+  // Send presence update on mount and cleanup on unmount
+  useEffect(() => {
+    if (!ws?.isConnected || !hasUser) {
+      return;
+    }
+
+    // Announce online when connected
+    ws.send('system_message' as never, {
+      action: 'presence_update',
+      status: 'online',
+      currentPage: location.pathname,
+    });
+
+    // Announce offline when disconnecting
+    return () => {
+      if (ws?.isConnected) {
+        ws.send('system_message' as never, {
+          action: 'presence_update',
+          status: 'offline',
+        });
+      }
+    };
+  }, [ws, ws?.isConnected, hasUser, location.pathname]);
+
+  // Compute presence state
   const presenceState = useMemo(() => {
     const { recordType, recordId } = parseRoute(location.pathname);
-    const connected = hasUser;
+    const connected = hasUser && (ws?.isConnected ?? false);
 
-    // Get real-time presence users from WebSocket
-    const allUsers = hasUser ? getPresenceUsers() : [];
-
-    // Filter users (excluding self)
-    const users = allUsers.filter(u => u.id !== user?.id);
+    // Filter out self
+    const users = presenceUsers.filter(u => u.id !== user?.id);
 
     // Users viewing the same page
     const usersOnSamePage = users.filter(
@@ -146,7 +247,18 @@ export function usePresence() {
       connected,
       currentRecord,
     };
-  }, [hasUser, user?.id, location.pathname]);
+  }, [hasUser, user?.id, location.pathname, presenceUsers, ws?.isConnected]);
+
+  // Update presence status
+  const updateStatus = useCallback((status: 'online' | 'away' | 'busy') => {
+    if (!ws?.isConnected) return;
+
+    ws.send('system_message' as never, {
+      action: 'presence_update',
+      status,
+      currentPage: location.pathname,
+    });
+  }, [ws, location.pathname]);
 
   return {
     /** All presence users (excluding self) */
@@ -165,6 +277,8 @@ export function usePresence() {
     getUserColor: generateUserColor,
     /** Get initials from name */
     getInitials,
+    /** Update own presence status */
+    updateStatus,
   };
 }
 
