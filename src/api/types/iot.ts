@@ -78,7 +78,7 @@ export const deviceSchema = z.object({
   signal_strength: z.number().optional().nullable(), // 0-100
   firmware_version: z.string().optional().nullable(),
   is_active: z.boolean(),
-  metadata: z.record(z.unknown()).optional().nullable(),
+  metadata: z.record(z.string(), z.unknown()).optional().nullable(),
   created_at: z.string(),
   updated_at: z.string().optional().nullable(),
 });
@@ -92,7 +92,7 @@ export const deviceReadingSchema = z.object({
   id: z.string(),
   device_id: z.string(),
   timestamp: z.string(),
-  readings: z.record(z.union([z.number(), z.string(), z.boolean()])),
+  readings: z.record(z.string(), z.union([z.number(), z.string(), z.boolean()])),
   // Common reading fields (also in readings object)
   temperature: z.number().optional().nullable(),
   humidity: z.number().optional().nullable(),

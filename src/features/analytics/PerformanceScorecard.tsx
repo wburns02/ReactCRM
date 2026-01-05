@@ -5,7 +5,8 @@
 import { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
+// Badge available for future use
+// import { Badge } from '@/components/ui/Badge';
 import { usePerformanceSummary } from '@/api/hooks/useAnalytics';
 import type { TechnicianScore, KPITrend } from '@/api/types/analytics';
 import { formatCurrency, cn } from '@/lib/utils';
@@ -280,7 +281,7 @@ function TechnicianLeaderboard({
               </tr>
             </thead>
             <tbody>
-              {sortedScores.map((tech, index) => (
+              {sortedScores.map((tech) => (
                 <tr
                   key={tech.technician_id}
                   className="border-b border-border hover:bg-background-secondary/50"

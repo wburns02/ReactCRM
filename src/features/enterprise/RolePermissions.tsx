@@ -13,7 +13,7 @@ import {
   useCurrentPermissions,
   useDeleteRole,
 } from '@/api/hooks/useEnterprise';
-import type { Role, UserRoleAssignment, AuditLog, Permission } from '@/api/types/enterprise';
+import type { Role, UserRoleAssignment, Permission } from '@/api/types/enterprise';
 import { formatDate, cn } from '@/lib/utils';
 import { getErrorMessage } from '@/api/client';
 

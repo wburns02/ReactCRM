@@ -6,10 +6,7 @@ import { useState } from 'react';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
-import {
-  useFinancialSnapshot,
-  useARAgingDetails,
-} from '@/api/hooks/useAnalytics';
+import { useFinancialSnapshot } from '@/api/hooks/useAnalytics';
 import type { RevenuePeriod, ARAgingBucket, MarginByJobType } from '@/api/types/analytics';
 import { formatCurrency, cn } from '@/lib/utils';
 
@@ -163,7 +160,7 @@ function ARAgingCard({ buckets }: { buckets: ARAgingBucket[] }) {
     '90_plus': 'bg-error',
   };
 
-  const totalAmount = buckets.reduce((sum, b) => sum + b.amount, 0);
+  // Total for future use: buckets.reduce((sum, b) => sum + b.amount, 0)
 
   return (
     <Card>

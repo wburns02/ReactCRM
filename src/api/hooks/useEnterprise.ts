@@ -5,22 +5,24 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/api/client';
 import {
-  Region,
   regionSchema,
-  RegionPerformance,
   regionPerformanceSchema,
-  FranchiseRoyalty,
   franchiseRoyaltySchema,
-  Territory,
   territorySchema,
-  Role,
   roleSchema,
-  UserRoleAssignment,
   userRoleAssignmentSchema,
-  AuditLog,
   auditLogSchema,
-  ComplianceReport,
   complianceReportSchema,
+} from '@/api/types/enterprise';
+import type {
+  Region,
+  RegionPerformance,
+  FranchiseRoyalty,
+  Territory,
+  Role,
+  UserRoleAssignment,
+  AuditLog,
+  ComplianceReport,
   MultiRegionFilters,
   RegionComparison,
 } from '@/api/types/enterprise';

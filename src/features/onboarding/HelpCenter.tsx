@@ -14,7 +14,7 @@ import {
   useAIHelpChat,
   useRateArticle,
 } from '@/api/hooks/useOnboarding';
-import type { HelpCategory, HelpArticle, ChatMessage } from '@/api/types/onboarding';
+import type { HelpArticle, ChatMessage } from '@/api/types/onboarding';
 import { cn } from '@/lib/utils';
 import { getErrorMessage } from '@/api/client';
 
@@ -158,7 +158,7 @@ function BrowseTab({
                   >
                     <span>{cat.icon}</span>
                     <span className="flex-1">{cat.name}</span>
-                    <Badge variant="outline" className="text-xs">
+                    <Badge variant="secondary" className="text-xs">
                       {cat.article_count}
                     </Badge>
                   </button>
@@ -224,7 +224,7 @@ function ArticleCard({
               <span>•</span>
               <div className="flex gap-1">
                 {article.tags.slice(0, 3).map((tag) => (
-                  <Badge key={tag} variant="outline" className="text-xs">
+                  <Badge key={tag} variant="secondary" className="text-xs">
                     {tag}
                   </Badge>
                 ))}
@@ -299,14 +299,14 @@ function ArticleView({
           <p className="text-text-secondary text-center">Was this article helpful?</p>
           <div className="flex justify-center gap-4 mt-4">
             <Button
-              variant="outline"
+              variant="secondary"
               onClick={() => handleRate(true)}
               disabled={rateArticle.isPending}
             >
               👍 Yes ({article.helpful_count})
             </Button>
             <Button
-              variant="outline"
+              variant="secondary"
               onClick={() => handleRate(false)}
               disabled={rateArticle.isPending}
             >

@@ -5,27 +5,29 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/api/client';
 import {
-  OnboardingProgress,
   onboardingProgressSchema,
+  importJobSchema,
+  tutorialSchema,
+  userTutorialProgressSchema,
+  releaseNoteSchema,
+  helpArticleSchema,
+  helpCategorySchema,
+  chatMessageSchema,
+  supportTicketSchema,
+} from '@/api/types/onboarding';
+import type {
+  OnboardingProgress,
   SetupStep,
   ImportJob,
-  importJobSchema,
   ImportSource,
   ImportMapping,
   Tutorial,
-  tutorialSchema,
   UserTutorialProgress,
-  userTutorialProgressSchema,
   ReleaseNote,
-  releaseNoteSchema,
   HelpArticle,
-  helpArticleSchema,
   HelpCategory,
-  helpCategorySchema,
   ChatMessage,
-  chatMessageSchema,
   SupportTicket,
-  supportTicketSchema,
 } from '@/api/types/onboarding';
 import { z } from 'zod';
 

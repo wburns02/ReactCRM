@@ -288,7 +288,7 @@ export function StatusWidget({
               #{workOrder.trackingCode}
             </p>
           </div>
-          <Badge variant={currentStatus.color} size="lg">
+          <Badge variant={currentStatus.color}>
             {currentStatus.label}
           </Badge>
         </div>

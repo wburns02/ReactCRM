@@ -3,14 +3,13 @@
  * Anomaly detection, prescriptive insights, and predictions
  */
 import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import {
   useAIInsights,
   useDismissAnomaly,
   useExecuteInsightAction,
-  useMetricExplanation,
 } from '@/api/hooks/useAnalytics';
 import type { AnomalyAlert, PrescriptiveInsight, Prediction } from '@/api/types/analytics';
 import { formatCurrency, formatDate, cn } from '@/lib/utils';

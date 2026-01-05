@@ -8,7 +8,7 @@ import { Button } from '@/components/ui/Button';
 import { Badge } from '@/components/ui/Badge';
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/Dialog';
 import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/Label';
+// Label available for future use in form fields
 import {
   useFinancingOffers,
   useRequestFinancing,

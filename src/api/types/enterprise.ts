@@ -121,7 +121,7 @@ export const permissionSchema = z.object({
   resource: z.string(), // e.g., "customers", "work_orders", "invoices"
   actions: z.array(z.enum(['create', 'read', 'update', 'delete', 'export', 'approve'])),
   scope: z.enum(['own', 'team', 'region', 'all']), // Data visibility scope
-  conditions: z.record(z.unknown()).optional().nullable(), // Additional conditions
+  conditions: z.record(z.string(), z.unknown()).optional().nullable(), // Additional conditions
 });
 
 export type Permission = z.infer<typeof permissionSchema>;
@@ -174,11 +174,11 @@ export const auditLogSchema = z.object({
   region_id: z.string().optional().nullable(),
   ip_address: z.string().optional().nullable(),
   user_agent: z.string().optional().nullable(),
-  changes: z.record(z.object({
+  changes: z.record(z.string(), z.object({
     old_value: z.unknown(),
     new_value: z.unknown(),
   })).optional().nullable(),
-  metadata: z.record(z.unknown()).optional().nullable(),
+  metadata: z.record(z.string(), z.unknown()).optional().nullable(),
 });
 
 export type AuditLog = z.infer<typeof auditLogSchema>;

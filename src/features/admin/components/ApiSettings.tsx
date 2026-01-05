@@ -285,11 +285,12 @@ function OAuthClientRow({
  */
 function ApiTokensSection({
   onCreateClick,
-  onTokenCreated,
+  onTokenCreated: _onTokenCreated,
 }: {
   onCreateClick: () => void;
   onTokenCreated: (token: string) => void;
 }) {
+  // _onTokenCreated is available for future use when token creation returns the new token
   const { data: tokens, isLoading } = useApiTokens();
   const deleteToken = useDeleteApiToken();
 

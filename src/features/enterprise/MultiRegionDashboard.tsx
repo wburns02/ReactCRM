@@ -11,12 +11,12 @@ import {
   useRegionPerformance,
   useRegionComparison,
 } from '@/api/hooks/useEnterprise';
-import type { Region, RegionPerformance, MultiRegionFilters } from '@/api/types/enterprise';
-import { formatCurrency, formatDate, cn } from '@/lib/utils';
+import type { Region, MultiRegionFilters } from '@/api/types/enterprise';
+import { formatCurrency, cn } from '@/lib/utils';
 
 export function MultiRegionDashboard() {
   const [selectedMetric, setSelectedMetric] = useState<string>('total_revenue');
-  const [dateRange, setDateRange] = useState<MultiRegionFilters>({
+  const [dateRange] = useState<MultiRegionFilters>({
     include_all_regions: true,
   });
 

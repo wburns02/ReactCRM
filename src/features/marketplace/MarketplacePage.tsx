@@ -4,13 +4,13 @@
  */
 import { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
+import { Card, CardContent } from '@/components/ui/Card';
 import { Button } from '@/components/ui/Button';
 import { Input } from '@/components/ui/Input';
 import { Badge } from '@/components/ui/Badge';
 import { Skeleton } from '@/components/ui/Skeleton';
 import { Tabs, TabList, TabTrigger, TabContent } from '@/components/ui/Tabs';
-import { cn } from '@/lib/utils';
+// cn utility available for conditional class names if needed
 import {
   useMarketplaceApps,
   useFeaturedApps,
@@ -82,7 +82,7 @@ export function MarketplacePage() {
           <TabTrigger value="installed">
             Installed
             {installedApps && installedApps.length > 0 && (
-              <Badge variant="primary" size="sm" className="ml-2">
+              <Badge variant="primary" className="ml-2">
                 {installedApps.length}
               </Badge>
             )}
@@ -99,7 +99,7 @@ export function MarketplacePage() {
                 placeholder="Search integrations..."
                 className="max-w-md"
               />
-              <Button type="submit" variant="outline">
+              <Button type="submit" variant="secondary">
                 Search
               </Button>
               {filters.search && (
@@ -183,7 +183,7 @@ export function MarketplacePage() {
                     <p className="text-text-muted">No integrations found</p>
                     {filters.search && (
                       <Button
-                        variant="link"
+                        variant="ghost"
                         onClick={() => {
                           setSearchQuery('');
                           updateFilter('search', undefined);
@@ -207,7 +207,7 @@ export function MarketplacePage() {
               {appsData && appsData.total > appsData.pageSize && (
                 <div className="flex items-center justify-center gap-2 mt-6">
                   <Button
-                    variant="outline"
+                    variant="secondary"
                     size="sm"
                     disabled={appsData.page <= 1}
                     onClick={() => updateFilter('page', String(appsData.page - 1))}
@@ -218,7 +218,7 @@ export function MarketplacePage() {
                     Page {appsData.page} of {Math.ceil(appsData.total / appsData.pageSize)}
                   </span>
                   <Button
-                    variant="outline"
+                    variant="secondary"
                     size="sm"
                     disabled={appsData.page >= Math.ceil(appsData.total / appsData.pageSize)}
                     onClick={() => updateFilter('page', String(appsData.page + 1))}
@@ -320,7 +320,7 @@ function InstalledAppCard({ installed }: { installed: InstalledApp }) {
           <div className="flex-1">
             <div className="flex items-center gap-2">
               <h3 className="font-medium text-text-primary">{installed.app.name}</h3>
-              <Badge variant={statusBadge.variant} size="sm">
+              <Badge variant={statusBadge.variant}>
                 {statusBadge.label}
               </Badge>
             </div>
@@ -334,14 +334,14 @@ function InstalledAppCard({ installed }: { installed: InstalledApp }) {
           </div>
           <div className="flex items-center gap-2">
             <Button
-              variant="outline"
+              variant="secondary"
               size="sm"
               onClick={handleSync}
               disabled={sync.isPending}
             >
               {sync.isPending ? 'Syncing...' : 'Sync'}
             </Button>
-            <Button variant="outline" size="sm">
+            <Button variant="secondary" size="sm">
               Settings
             </Button>
             <Button

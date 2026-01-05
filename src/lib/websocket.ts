@@ -190,7 +190,7 @@ class WebSocketManager {
   private startHeartbeat(): void {
     this.heartbeatInterval = setInterval(() => {
       if (this.socket?.readyState === WebSocket.OPEN) {
-        this.send({ type: 'ping', payload: null, timestamp: new Date().toISOString() });
+        this.send({ type: 'ping', payload: {} });
       }
     }, 30000); // 30 seconds
   }

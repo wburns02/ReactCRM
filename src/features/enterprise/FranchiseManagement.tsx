@@ -12,7 +12,7 @@ import {
   useTerritories,
   useRegions,
 } from '@/api/hooks/useEnterprise';
-import type { FranchiseRoyalty, Territory, Region } from '@/api/types/enterprise';
+import type { FranchiseRoyalty, Territory } from '@/api/types/enterprise';
 import { formatCurrency, formatDate, cn } from '@/lib/utils';
 import { getErrorMessage } from '@/api/client';
 

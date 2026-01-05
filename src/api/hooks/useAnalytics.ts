@@ -5,20 +5,22 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/api/client';
 import {
-  TechnicianLocation,
   technicianLocationSchema,
-  OperationsAlert,
   operationsAlertSchema,
-  TodayStats,
   todayStatsSchema,
-  DispatchQueueItem,
   dispatchQueueItemSchema,
-  FinancialSnapshot,
   financialSnapshotSchema,
-  PerformanceSummary,
   performanceSummarySchema,
-  AIInsightsSummary,
   aiInsightsSummarySchema,
+} from '@/api/types/analytics';
+import type {
+  TechnicianLocation,
+  OperationsAlert,
+  TodayStats,
+  DispatchQueueItem,
+  FinancialSnapshot,
+  PerformanceSummary,
+  AIInsightsSummary,
   DashboardFilters,
 } from '@/api/types/analytics';
 import { z } from 'zod';

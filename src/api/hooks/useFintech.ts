@@ -5,23 +5,25 @@
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '@/api/client';
 import {
-  FinancingApplication,
   financingApplicationSchema,
-  FinancingOffer,
   financingOfferSchema,
+  technicianPayoutSchema,
+  technicianEarningsSchema,
+  cashFlowForecastSchema,
+  arAgingSchema,
+  revenueIntelligenceSchema,
+} from '@/api/types/fintech';
+import type {
+  FinancingApplication,
+  FinancingOffer,
   FinancingPrequalRequest,
   TechnicianPayout,
-  technicianPayoutSchema,
   TechnicianEarnings,
-  technicianEarningsSchema,
   InstantPayoutRequest,
   CashFlowForecast,
-  cashFlowForecastSchema,
   CashFlowPeriod,
   ARAgingReport,
-  arAgingSchema,
   RevenueIntelligence,
-  revenueIntelligenceSchema,
 } from '@/api/types/fintech';
 import { z } from 'zod';
 

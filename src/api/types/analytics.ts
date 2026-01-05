@@ -201,7 +201,7 @@ export const prescriptiveInsightSchema = z.object({
   actions: z.array(z.object({
     label: z.string(),
     action_type: z.string(),
-    params: z.record(z.unknown()).optional(),
+    params: z.record(z.string(), z.unknown()).optional(),
   })),
   expires_at: z.string().optional().nullable(),
 });

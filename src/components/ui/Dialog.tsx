@@ -17,7 +17,9 @@ const FOCUSABLE_SELECTORS = [
 
 export interface DialogProps {
   open: boolean;
-  onClose: () => void;
+  onClose?: () => void;
+  /** Alias for onClose for compatibility */
+  onOpenChange?: (open: boolean) => void;
   children: ReactNode;
   /** Prevent closing when clicking overlay */
   disableOverlayClose?: boolean;
@@ -43,12 +45,18 @@ export interface DialogProps {
 export function Dialog({
   open,
   onClose,
+  onOpenChange,
   children,
   disableOverlayClose,
   ariaLabel,
   ariaLabelledBy,
   ariaDescribedBy,
 }: DialogProps) {
+  // Support both onClose and onOpenChange patterns
+  const handleClose = () => {
+    onClose?.();
+    onOpenChange?.(false);
+  };
   const contentRef = useRef<HTMLDivElement>(null);
   const previousActiveElement = useRef<HTMLElement | null>(null);
 
@@ -63,7 +71,7 @@ export function Dialog({
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
       if (e.key === 'Escape') {
-        onClose();
+        handleClose();
         return;
       }
 
@@ -96,7 +104,7 @@ export function Dialog({
         }
       }
     },
-    [onClose]
+    [handleClose]
   );
 
   // Focus first element when dialog opens
@@ -137,7 +145,7 @@ export function Dialog({
 
   const handleOverlayClick = () => {
     if (!disableOverlayClose) {
-      onClose();
+      handleClose();
     }
   };
 
@@ -236,6 +244,22 @@ export function DialogHeader({ children, className, onClose }: DialogHeaderProps
         </button>
       )}
     </div>
+  );
+}
+
+/**
+ * DialogTitle - Accessible title for dialogs
+ */
+export interface DialogTitleProps {
+  children: ReactNode;
+  className?: string;
+}
+
+export function DialogTitle({ children, className }: DialogTitleProps) {
+  return (
+    <h2 className={cn('font-semibold text-lg text-text-primary', className)}>
+      {children}
+    </h2>
   );
 }
 

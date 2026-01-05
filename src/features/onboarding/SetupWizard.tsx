@@ -12,7 +12,7 @@ import {
   useSkipSetupStep,
   useCompleteOnboarding,
 } from '@/api/hooks/useOnboarding';
-import type { SetupStep, OnboardingProgress } from '@/api/types/onboarding';
+import type { SetupStep } from '@/api/types/onboarding';
 import { cn } from '@/lib/utils';
 import { getErrorMessage } from '@/api/client';
 
@@ -225,7 +225,7 @@ function StepCard({
               {step.description}
             </p>
             <div className="flex items-center gap-2 mt-2">
-              <Badge variant="outline" className="text-xs">
+              <Badge variant="secondary" className="text-xs">
                 ~{step.estimated_minutes} min
               </Badge>
               {step.is_required && (
@@ -310,7 +310,7 @@ function StepContent({
   );
 }
 
-function ImportStepContent({ step, onComplete }: { step: SetupStep; onComplete: () => void }) {
+function ImportStepContent({ step: _step, onComplete: _onComplete }: { step: SetupStep; onComplete: () => void }) {
   const importSources = [
     { id: 'csv', label: 'CSV File', icon: '📄', description: 'Upload a spreadsheet' },
     { id: 'quickbooks', label: 'QuickBooks', icon: '📊', description: 'Import from QuickBooks' },
@@ -339,7 +339,7 @@ function ImportStepContent({ step, onComplete }: { step: SetupStep; onComplete: 
   );
 }
 
-function ConfigurationStepContent({ step, onComplete }: { step: SetupStep; onComplete: () => void }) {
+function ConfigurationStepContent({ step: _step, onComplete: _onComplete }: { step: SetupStep; onComplete: () => void }) {
   return (
     <div className="space-y-4">
       <p className="text-sm text-text-secondary">
@@ -349,21 +349,21 @@ function ConfigurationStepContent({ step, onComplete }: { step: SetupStep; onCom
         <div className="p-4 rounded-lg bg-background-secondary">
           <h4 className="font-medium">Service Types</h4>
           <p className="text-sm text-text-muted">Define the services you offer</p>
-          <Button variant="outline" size="sm" className="mt-2">
+          <Button variant="secondary" size="sm" className="mt-2">
             Add Service Types
           </Button>
         </div>
         <div className="p-4 rounded-lg bg-background-secondary">
           <h4 className="font-medium">Business Hours</h4>
           <p className="text-sm text-text-muted">Set your operating schedule</p>
-          <Button variant="outline" size="sm" className="mt-2">
+          <Button variant="secondary" size="sm" className="mt-2">
             Set Hours
           </Button>
         </div>
         <div className="p-4 rounded-lg bg-background-secondary">
           <h4 className="font-medium">Pricing</h4>
           <p className="text-sm text-text-muted">Configure default pricing</p>
-          <Button variant="outline" size="sm" className="mt-2">
+          <Button variant="secondary" size="sm" className="mt-2">
             Set Pricing
           </Button>
         </div>
@@ -372,7 +372,7 @@ function ConfigurationStepContent({ step, onComplete }: { step: SetupStep; onCom
   );
 }
 
-function IntegrationsStepContent({ step, onComplete }: { step: SetupStep; onComplete: () => void }) {
+function IntegrationsStepContent({ step: _step, onComplete: _onComplete }: { step: SetupStep; onComplete: () => void }) {
   const integrations = [
     { id: 'stripe', label: 'Stripe', icon: '💳', connected: false },
     { id: 'quickbooks', label: 'QuickBooks', icon: '📊', connected: false },
@@ -395,7 +395,7 @@ function IntegrationsStepContent({ step, onComplete }: { step: SetupStep; onComp
               <span className="text-2xl">{integration.icon}</span>
               <span className="font-medium">{integration.label}</span>
             </div>
-            <Button variant={integration.connected ? 'outline' : 'primary'} size="sm">
+            <Button variant={integration.connected ? 'secondary' : 'primary'} size="sm">
               {integration.connected ? 'Connected' : 'Connect'}
             </Button>
           </div>
@@ -405,7 +405,7 @@ function IntegrationsStepContent({ step, onComplete }: { step: SetupStep; onComp
   );
 }
 
-function TeamStepContent({ step, onComplete }: { step: SetupStep; onComplete: () => void }) {
+function TeamStepContent({ step: _step, onComplete: _onComplete }: { step: SetupStep; onComplete: () => void }) {
   return (
     <div className="space-y-4">
       <p className="text-sm text-text-secondary">
@@ -426,7 +426,7 @@ function TeamStepContent({ step, onComplete }: { step: SetupStep; onComplete: ()
       <div className="p-4 rounded-lg bg-background-secondary">
         <h4 className="font-medium">Add Technicians</h4>
         <p className="text-sm text-text-muted">Set up technician profiles</p>
-        <Button variant="outline" size="sm" className="mt-2">
+        <Button variant="secondary" size="sm" className="mt-2">
           Add Technician
         </Button>
       </div>
@@ -434,7 +434,7 @@ function TeamStepContent({ step, onComplete }: { step: SetupStep; onComplete: ()
   );
 }
 
-function GenericStepContent({ step, onComplete }: { step: SetupStep; onComplete: () => void }) {
+function GenericStepContent({ step, onComplete: _onComplete }: { step: SetupStep; onComplete: () => void }) {
   return (
     <div className="text-center py-8">
       <p className="text-text-secondary">{step.description}</p>
