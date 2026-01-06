@@ -3,7 +3,107 @@
  */
 import { useState, useCallback, useEffect } from 'react';
 import { useMutation, useQuery } from '@tanstack/react-query';
-import { aiApi, type AIMessage, type AIChatSession, type AIContext, type AISuggestion } from '@/api/ai';
+import { aiApi, type AIMessage, type AIChatSession, type AIContext, type AISuggestion, type AIChatResponse } from '@/api/ai';
+
+/**
+ * Generate demo responses when backend is not available
+ */
+function generateDemoResponse(message: string): AIChatResponse {
+  const lowerMessage = message.toLowerCase();
+  let responseContent = '';
+
+  // Customer-related queries
+  if (lowerMessage.includes('customer') || lowerMessage.includes('find') || lowerMessage.includes('lookup') || lowerMessage.includes('search')) {
+    responseContent = `I'd be happy to help you find customer information! In demo mode, I can show you how this works:
+
+**To search for a customer**, you can:
+1. Go to the **Customers** page from the sidebar
+2. Use the search bar to find by name, email, or phone
+3. Click on any customer to see their full details
+
+Once the AI backend is connected, I'll be able to search and display customer information directly in this chat!`;
+  }
+  // Scheduling queries
+  else if (lowerMessage.includes('schedule') || lowerMessage.includes('time') || lowerMessage.includes('slot') || lowerMessage.includes('appointment')) {
+    responseContent = `Great question about scheduling! Here's what I can help with:
+
+**Current scheduling features:**
+- View the **Schedule** page for the calendar view
+- Drag and drop work orders to reschedule
+- See technician availability at a glance
+
+**Coming soon with AI:**
+- Automatic optimal time slot suggestions
+- Route optimization for multiple jobs
+- Conflict detection and resolution`;
+  }
+  // Work order queries
+  else if (lowerMessage.includes('work order') || lowerMessage.includes('job') || lowerMessage.includes('service')) {
+    responseContent = `I can help with work orders! Here's a quick overview:
+
+**To manage work orders:**
+1. Go to **Work Orders** to see all jobs
+2. Click **+ New Work Order** to create one
+3. Use filters to find specific orders
+
+**AI-powered features (coming soon):**
+- Predict job duration based on history
+- Recommend parts likely needed
+- Match best technician for the job`;
+  }
+  // Analytics queries
+  else if (lowerMessage.includes('revenue') || lowerMessage.includes('report') || lowerMessage.includes('analytics') || lowerMessage.includes('stats')) {
+    responseContent = `For analytics and reporting, check out:
+
+**Available dashboards:**
+- **BI Dashboard** - Revenue, trends, KPIs
+- **First-Time Fix Rate** - Service quality metrics
+- **Reports** - Detailed revenue and performance reports
+
+**AI insights (coming soon):**
+- Anomaly detection
+- Trend predictions
+- Automated weekly summaries`;
+  }
+  // Hello/greeting
+  else if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+    responseContent = `Hello! Welcome to the AI Assistant demo mode.
+
+I'm running in demo mode because the AI backend isn't connected yet. But I can still help you navigate the CRM!
+
+**Try asking me about:**
+- Finding customers
+- Scheduling work orders
+- Viewing analytics
+- Creating invoices`;
+  }
+  // Default response
+  else {
+    responseContent = `Thanks for your message! I'm currently running in **demo mode** since the AI backend isn't connected yet.
+
+Here are some things I can help you with right now:
+
+- **"Find a customer"** - I'll show you how to search
+- **"Schedule a job"** - Tips for using the calendar
+- **"Show revenue"** - Navigate to analytics
+- **"Create work order"** - Step-by-step guidance
+
+Once the AI backend is live, I'll be able to:
+- Search data and answer questions directly
+- Execute actions like scheduling and creating records
+- Provide intelligent recommendations`;
+  }
+
+  return {
+    message: {
+      id: `demo-${Date.now()}`,
+      role: 'assistant',
+      content: responseContent,
+      timestamp: new Date().toISOString(),
+    },
+    session_id: `demo-session-${Date.now()}`,
+  };
+}
 
 /**
  * Query keys for AI features
@@ -49,14 +149,26 @@ export function useAIChat(initialContext?: AIContext) {
     }
   }, [initialContext]);
 
-  // Send message mutation
+  // Send message mutation with demo mode fallback
   const sendMessageMutation = useMutation({
     mutationFn: async (message: string) => {
-      return aiApi.chat({
-        message,
-        session_id: sessionId || undefined,
-        context,
-      });
+      try {
+        return await aiApi.chat({
+          message,
+          session_id: sessionId || undefined,
+          context,
+        });
+      } catch (error: unknown) {
+        // Check for 404/422 errors - backend not ready, use demo mode
+        if (error && typeof error === 'object' && 'response' in error) {
+          const axiosError = error as { response?: { status?: number } };
+          if (axiosError.response?.status === 404 || axiosError.response?.status === 422) {
+            // Return demo response
+            return generateDemoResponse(message);
+          }
+        }
+        throw error;
+      }
     },
     onMutate: (message) => {
       // Optimistically add user message
