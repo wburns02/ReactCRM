@@ -27,6 +27,8 @@ import {
   useJourneys,
   usePlaybooks,
 } from '@/api/hooks/useCustomerSuccess.ts';
+import { PlaybookDetailModal } from './components/PlaybookDetailModal.tsx';
+import type { Playbook } from '@/api/types/customerSuccess.ts';
 
 type TabId = 'executive' | 'overview' | 'surveys' | 'campaigns' | 'escalations' | 'segments' | 'journeys' | 'playbooks' | 'collaboration';
 
@@ -284,6 +286,34 @@ function JourneysTab() {
 
 function PlaybooksTab() {
   const { data: playbooksData, isLoading } = usePlaybooks();
+  const [selectedPlaybook, setSelectedPlaybook] = useState<Playbook | null>(null);
+  const [showTriggerModal, setShowTriggerModal] = useState(false);
+  const [playbookToTrigger, setPlaybookToTrigger] = useState<Playbook | null>(null);
+
+  const handleSelectPlaybook = (playbook: Playbook) => {
+    setSelectedPlaybook(playbook);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedPlaybook(null);
+  };
+
+  const handleTriggerPlaybook = (playbook: Playbook) => {
+    setPlaybookToTrigger(playbook);
+    setShowTriggerModal(true);
+    // Close detail modal if open
+    setSelectedPlaybook(null);
+  };
+
+  const handleEditPlaybook = (playbook: Playbook) => {
+    // For now, show alert - full edit form would be a larger feature
+    alert(`Edit playbook: ${playbook.name}\n\nPlaybook editing is coming soon!`);
+  };
+
+  const handleCreatePlaybook = () => {
+    // For now, show alert - full create form would be a larger feature
+    alert('Create new playbook\n\nPlaybook creation is coming soon!');
+  };
 
   if (isLoading) {
     return (
@@ -294,21 +324,65 @@ function PlaybooksTab() {
   }
 
   return (
-    <PlaybookList
-      playbooks={playbooksData?.items || []}
-      onSelectPlaybook={(playbook) => {
-        console.log('Selected playbook:', playbook);
-      }}
-      onCreatePlaybook={() => {
-        console.log('Create playbook');
-      }}
-      onEditPlaybook={(playbook) => {
-        console.log('Edit playbook:', playbook);
-      }}
-      onTriggerPlaybook={(playbook) => {
-        console.log('Trigger playbook:', playbook);
-      }}
-    />
+    <>
+      <PlaybookList
+        playbooks={playbooksData?.items || []}
+        selectedPlaybookId={selectedPlaybook?.id}
+        onSelectPlaybook={handleSelectPlaybook}
+        onCreatePlaybook={handleCreatePlaybook}
+        onEditPlaybook={handleEditPlaybook}
+        onTriggerPlaybook={handleTriggerPlaybook}
+      />
+
+      {/* Playbook Detail Modal */}
+      {selectedPlaybook && (
+        <PlaybookDetailModal
+          playbook={selectedPlaybook}
+          isOpen={true}
+          onClose={handleCloseModal}
+          onTrigger={handleTriggerPlaybook}
+          onEdit={handleEditPlaybook}
+        />
+      )}
+
+      {/* Trigger Confirmation Modal */}
+      {showTriggerModal && playbookToTrigger && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+          <div
+            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+            onClick={() => setShowTriggerModal(false)}
+          />
+          <div className="relative bg-bg-primary border border-border rounded-xl shadow-2xl w-full max-w-md p-6">
+            <h3 className="text-lg font-bold text-text-primary mb-2">
+              Trigger Playbook
+            </h3>
+            <p className="text-sm text-text-secondary mb-4">
+              To trigger "{playbookToTrigger.name}", please select a customer from the At-Risk table on the Overview tab, or use the API directly.
+            </p>
+            <p className="text-xs text-text-muted mb-4">
+              Playbook triggering requires selecting a specific customer to run the playbook against.
+            </p>
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setShowTriggerModal(false)}
+                className="px-4 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
+              >
+                Close
+              </button>
+              <button
+                onClick={() => {
+                  setShowTriggerModal(false);
+                  // Navigate to overview tab could be added here
+                }}
+                className="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-primary-hover transition-colors"
+              >
+                Go to Overview
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+    </>
   );
 }
 
