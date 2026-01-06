@@ -44,6 +44,7 @@ export function AppLayout() {
     { path: '/dashboard', label: 'Dashboard', icon: '📊' },
     { path: '/customers', label: 'Customers', icon: '👥' },
     { path: '/prospects', label: 'Prospects', icon: '📋' },
+    { path: '/customer-success', label: 'Customer Success', icon: '💚' },
   ];
 
   // Collapsible navigation groups - matching legacy structure
