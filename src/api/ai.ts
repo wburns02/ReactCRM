@@ -76,7 +76,7 @@ export interface AIContext {
 }
 
 /**
- * Chat request payload
+ * Chat request payload (frontend format)
  */
 export interface AIChatRequest {
   message: string;
@@ -86,7 +86,7 @@ export interface AIChatRequest {
 }
 
 /**
- * Chat response
+ * Chat response (frontend format)
  */
 export interface AIChatResponse {
   message: AIMessage;
@@ -95,24 +95,98 @@ export interface AIChatResponse {
 }
 
 /**
+ * Backend chat message format
+ */
+interface BackendChatMessage {
+  role: 'user' | 'assistant' | 'system';
+  content: string;
+}
+
+/**
+ * Backend chat request format
+ */
+interface BackendChatRequest {
+  messages: BackendChatMessage[];
+  conversation_id?: string;
+  max_tokens?: number;
+  temperature?: number;
+  system_prompt?: string;
+}
+
+/**
+ * Backend chat response format
+ */
+interface BackendChatResponse {
+  content: string;
+  conversation_id?: string;
+  usage?: Record<string, unknown>;
+  model?: string;
+  error?: string;
+}
+
+/**
  * AI API Functions
  */
 export const aiApi = {
   /**
    * Send a chat message to the AI assistant
+   * Transforms frontend format to backend format and back
    */
   async chat(request: AIChatRequest): Promise<AIChatResponse> {
-    const { data } = await apiClient.post('/ai/chat', request);
-    return data;
+    // Transform frontend request to backend format
+    const backendRequest: BackendChatRequest = {
+      messages: [
+        {
+          role: 'user',
+          content: request.message,
+        },
+      ],
+      conversation_id: request.session_id,
+    };
+
+    // Add context as system prompt if provided
+    if (request.context) {
+      backendRequest.system_prompt = `You are a helpful CRM assistant. Current context: ${JSON.stringify(request.context)}`;
+    }
+
+    const { data } = await apiClient.post<BackendChatResponse>('/ai/chat', backendRequest);
+
+    // Check for error response
+    if (data.error) {
+      throw new Error(data.error);
+    }
+
+    // Transform backend response to frontend format
+    const response: AIChatResponse = {
+      message: {
+        id: `ai-${Date.now()}`,
+        role: 'assistant',
+        content: data.content,
+        timestamp: new Date().toISOString(),
+      },
+      session_id: data.conversation_id || request.session_id || `session-${Date.now()}`,
+    };
+
+    return response;
   },
 
   /**
    * Get chat history
    */
-  async getChatHistory(sessionId?: string): Promise<AIChatSession[]> {
-    const params = sessionId ? `?session_id=${sessionId}` : '';
-    const { data } = await apiClient.get(`/ai/chat/history${params}`);
-    return data.sessions || [];
+  async getChatHistory(): Promise<AIChatSession[]> {
+    // Use conversations endpoint
+    const { data } = await apiClient.get('/ai/conversations');
+    // Transform to frontend format
+    if (Array.isArray(data)) {
+      return data.map((conv: { id: string; title?: string; created_at?: string; updated_at?: string }) => ({
+        id: conv.id,
+        title: conv.title || 'Conversation',
+        messages: [],
+        created_at: conv.created_at || new Date().toISOString(),
+        updated_at: conv.updated_at || new Date().toISOString(),
+      }));
+    }
+    return [];
   },
 
   /**
