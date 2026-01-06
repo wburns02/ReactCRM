@@ -38,7 +38,8 @@ const STEP_TYPE_CONFIG: Record<string, { label: string; icon: string; color: str
   call: { label: 'Call', icon: '📞', color: 'text-blue-500' },
   email: { label: 'Email', icon: '📧', color: 'text-green-500' },
   meeting: { label: 'Meeting', icon: '📅', color: 'text-purple-500' },
-  internal: { label: 'Internal', icon: '📝', color: 'text-gray-500' },
+  internal: { label: 'Internal', icon: '📝', color: 'text-slate-500' },
+  internal_task: { label: 'Internal Task', icon: '📋', color: 'text-slate-500' },
   review: { label: 'Review', icon: '👀', color: 'text-amber-500' },
   documentation: { label: 'Documentation', icon: '📄', color: 'text-cyan-500' },
   training: { label: 'Training', icon: '🎓', color: 'text-violet-500' },
@@ -51,38 +52,38 @@ function StepCard({ step, index }: { step: PlaybookStep; index: number }) {
   const stepConfig = STEP_TYPE_CONFIG[step.step_type] || { label: step.step_type, icon: '📋', color: 'text-gray-500' };
 
   return (
-    <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-800">
+    <div className="border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden bg-white dark:bg-gray-800 shadow-sm">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full p-4 flex items-start gap-4 text-left hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
+        className="w-full p-4 flex items-start gap-4 text-left hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
       >
         {/* Step number */}
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-semibold text-sm">
+        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-semibold text-sm shadow-sm">
           {index + 1}
         </div>
 
         {/* Step info */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1 flex-wrap">
+          <div className="flex items-center gap-3 mb-1.5 flex-wrap">
             <span className={cn('text-lg', stepConfig.color)}>{stepConfig.icon}</span>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
+            <span className="text-xs px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200 font-medium">
               {stepConfig.label}
             </span>
             {step.due_days && (
-              <span className="text-xs text-gray-500 dark:text-gray-400">
+              <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
                 Due in {step.due_days} day{step.due_days !== 1 ? 's' : ''}
               </span>
             )}
           </div>
-          <h4 className="font-medium text-gray-900 dark:text-white">{step.name}</h4>
+          <h4 className="font-semibold text-gray-900 dark:text-white text-base">{step.name}</h4>
           {step.description && (
-            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">{step.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1.5 line-clamp-2">{step.description}</p>
           )}
         </div>
 
         {/* Expand icon */}
         <svg
-          className={cn('w-5 h-5 text-gray-400 transition-transform flex-shrink-0', isExpanded && 'rotate-180')}
+          className={cn('w-5 h-5 text-gray-400 dark:text-gray-500 transition-transform flex-shrink-0', isExpanded && 'rotate-180')}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -93,14 +94,14 @@ function StepCard({ step, index }: { step: PlaybookStep; index: number }) {
 
       {/* Expanded content */}
       {isExpanded && (
-        <div className="px-4 pb-4 pt-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-850">
+        <div className="px-4 pb-4 pt-3 border-t border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50">
           <div className="pl-12 space-y-4">
             {step.instructions && (
               <div>
-                <h5 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">
+                <h5 className="text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-2">
                   Instructions
                 </h5>
-                <div className="text-sm text-gray-700 dark:text-gray-200 whitespace-pre-wrap bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
+                <div className="text-sm text-gray-700 dark:text-gray-200 whitespace-pre-wrap bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-600">
                   {step.instructions}
                 </div>
               </div>
@@ -108,24 +109,39 @@ function StepCard({ step, index }: { step: PlaybookStep; index: number }) {
 
             {step.talk_track && (
               <div>
-                <h5 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">
+                <h5 className="text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-2">
                   Talk Track
                 </h5>
-                <div className="text-sm text-gray-700 dark:text-gray-200 whitespace-pre-wrap bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700 border-l-4 border-l-primary">
+                <div className="text-sm text-gray-700 dark:text-gray-200 whitespace-pre-wrap bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-600 border-l-4 border-l-primary">
                   {step.talk_track}
                 </div>
               </div>
             )}
 
-            <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400 flex-wrap">
+            <div className="flex items-center gap-4 text-xs text-gray-600 dark:text-gray-300 flex-wrap">
               {step.default_assignee_role && (
-                <span>Assignee: {step.default_assignee_role}</span>
+                <span className="flex items-center gap-1">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                  </svg>
+                  {step.default_assignee_role}
+                </span>
               )}
               {step.days_from_start !== undefined && step.days_from_start > 0 && (
-                <span>Starts day {step.days_from_start}</span>
+                <span className="flex items-center gap-1">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                  </svg>
+                  Day {step.days_from_start}
+                </span>
               )}
               {step.is_required && (
-                <span className="text-amber-600 dark:text-amber-400">Required</span>
+                <span className="text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                  Required
+                </span>
               )}
             </div>
           </div>
