@@ -28,7 +28,9 @@ import {
   usePlaybooks,
 } from '@/api/hooks/useCustomerSuccess.ts';
 import { PlaybookDetailModal } from './components/PlaybookDetailModal.tsx';
-import type { Playbook } from '@/api/types/customerSuccess.ts';
+import { JourneyDetailModal } from './components/JourneyDetailModal.tsx';
+import { SegmentDetailModal } from './components/SegmentDetailModal.tsx';
+import type { Playbook, Journey, Segment } from '@/api/types/customerSuccess.ts';
 
 type TabId = 'executive' | 'overview' | 'surveys' | 'campaigns' | 'escalations' | 'segments' | 'journeys' | 'playbooks' | 'collaboration';
 
@@ -229,6 +231,27 @@ function OverviewTab() {
 
 function SegmentsTab() {
   const { data: segmentsData, isLoading } = useSegments();
+  const [selectedSegment, setSelectedSegment] = useState<Segment | null>(null);
+
+  const handleSelectSegment = (segment: Segment) => {
+    setSelectedSegment(segment);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedSegment(null);
+  };
+
+  const handleEditSegment = (segment: Segment) => {
+    alert(`Edit segment: ${segment.name}\n\nSegment editing is coming soon!`);
+  };
+
+  const handleCreateSegment = () => {
+    alert('Create new segment\n\nSegment creation is coming soon!');
+  };
+
+  const handleViewMembers = (segment: Segment) => {
+    alert(`View members of "${segment.name}"\n\n${segment.customer_count || 0} customers in this segment.\n\nMember list view is coming soon!`);
+  };
 
   if (isLoading) {
     return (
@@ -239,23 +262,55 @@ function SegmentsTab() {
   }
 
   return (
-    <SegmentList
-      segments={segmentsData?.items || []}
-      onSelectSegment={(segment) => {
-        console.log('Selected segment:', segment);
-      }}
-      onCreateSegment={() => {
-        console.log('Create segment');
-      }}
-      onEditSegment={(segment) => {
-        console.log('Edit segment:', segment);
-      }}
-    />
+    <>
+      <SegmentList
+        segments={segmentsData?.items || []}
+        selectedSegmentId={selectedSegment?.id}
+        onSelectSegment={handleSelectSegment}
+        onCreateSegment={handleCreateSegment}
+        onEditSegment={handleEditSegment}
+      />
+
+      {/* Segment Detail Modal */}
+      {selectedSegment && (
+        <SegmentDetailModal
+          segment={selectedSegment}
+          isOpen={true}
+          onClose={handleCloseModal}
+          onEdit={handleEditSegment}
+          onViewMembers={handleViewMembers}
+        />
+      )}
+    </>
   );
 }
 
 function JourneysTab() {
   const { data: journeysData, isLoading } = useJourneys();
+  const [selectedJourney, setSelectedJourney] = useState<Journey | null>(null);
+
+  const handleSelectJourney = (journey: Journey) => {
+    setSelectedJourney(journey);
+  };
+
+  const handleCloseModal = () => {
+    setSelectedJourney(null);
+  };
+
+  const handleEditJourney = (journey: Journey) => {
+    alert(`Edit journey: ${journey.name}\n\nJourney editing is coming soon!`);
+  };
+
+  const handleCreateJourney = () => {
+    alert('Create new journey\n\nJourney creation is coming soon!');
+  };
+
+  const handleToggleActive = (journey: Journey) => {
+    const newStatus = journey.status === 'active' ? 'paused' : 'active';
+    alert(`${newStatus === 'active' ? 'Activating' : 'Pausing'} journey: ${journey.name}\n\nThis action would ${newStatus === 'active' ? 'start' : 'pause'} the journey and ${newStatus === 'active' ? 'allow new enrollments' : 'stop processing for enrolled customers'}.\n\nJourney status toggling is coming soon!`);
+    // Close modal after action feedback
+    setSelectedJourney(null);
+  };
 
   if (isLoading) {
     return (
@@ -266,21 +321,27 @@ function JourneysTab() {
   }
 
   return (
-    <JourneyList
-      journeys={journeysData?.items || []}
-      onSelectJourney={(journey) => {
-        console.log('Selected journey:', journey);
-      }}
-      onCreateJourney={() => {
-        console.log('Create journey');
-      }}
-      onEditJourney={(journey) => {
-        console.log('Edit journey:', journey);
-      }}
-      onToggleActive={(journey) => {
-        console.log('Toggle journey:', journey);
-      }}
-    />
+    <>
+      <JourneyList
+        journeys={journeysData?.items || []}
+        selectedJourneyId={selectedJourney?.id}
+        onSelectJourney={handleSelectJourney}
+        onCreateJourney={handleCreateJourney}
+        onEditJourney={handleEditJourney}
+        onToggleActive={handleToggleActive}
+      />
+
+      {/* Journey Detail Modal */}
+      {selectedJourney && (
+        <JourneyDetailModal
+          journey={selectedJourney}
+          isOpen={true}
+          onClose={handleCloseModal}
+          onToggleActive={handleToggleActive}
+          onEdit={handleEditJourney}
+        />
+      )}
+    </>
   );
 }
 

@@ -1,0 +1,240 @@
+/**
+ * Segment Detail Modal Component
+ *
+ * Shows segment details, rules, and membership info.
+ */
+
+import { cn } from '@/lib/utils.ts';
+import type { Segment, SegmentType } from '@/api/types/customerSuccess.ts';
+
+interface SegmentDetailModalProps {
+  segment: Segment;
+  isOpen: boolean;
+  onClose: () => void;
+  onEdit?: (segment: Segment) => void;
+  onViewMembers?: (segment: Segment) => void;
+}
+
+const TYPE_CONFIG: Record<SegmentType, { label: string; icon: string; className: string }> = {
+  static: { label: 'Static', icon: '📌', className: 'bg-blue-500/10 text-blue-500' },
+  dynamic: { label: 'Dynamic', icon: '🔄', className: 'bg-purple-500/10 text-purple-500' },
+  ai_generated: { label: 'AI Generated', icon: '🤖', className: 'bg-cyan-500/10 text-cyan-500' },
+};
+
+function formatCurrency(amount: number | null | undefined): string {
+  if (amount === null || amount === undefined) return '—';
+  return new Intl.NumberFormat('en-US', {
+    style: 'currency',
+    currency: 'USD',
+    minimumFractionDigits: 0,
+    maximumFractionDigits: 0,
+  }).format(amount);
+}
+
+export function SegmentDetailModal({
+  segment,
+  isOpen,
+  onClose,
+  onEdit,
+  onViewMembers,
+}: SegmentDetailModalProps) {
+  if (!isOpen) return null;
+
+  const typeConfig = TYPE_CONFIG[segment.segment_type];
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-start justify-center pt-10 sm:pt-20 px-4">
+      {/* Backdrop */}
+      <div
+        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        onClick={onClose}
+      />
+
+      {/* Modal */}
+      <div className="relative bg-bg-primary border border-border rounded-xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden">
+        {/* Header */}
+        <div className="flex-shrink-0 p-6 border-b border-border">
+          <div className="flex items-start justify-between">
+            <div>
+              <div className="flex items-center gap-2 mb-2">
+                <span className={cn('px-2 py-0.5 text-xs rounded-full', typeConfig.className)}>
+                  {typeConfig.icon} {typeConfig.label}
+                </span>
+                {segment.is_active ? (
+                  <span className="px-2 py-0.5 text-xs rounded-full bg-success/10 text-success">Active</span>
+                ) : (
+                  <span className="px-2 py-0.5 text-xs rounded-full bg-text-muted/10 text-text-muted">Inactive</span>
+                )}
+              </div>
+              <h2 className="text-xl font-bold text-text-primary">{segment.name}</h2>
+              {segment.description && (
+                <p className="text-sm text-text-secondary mt-1">{segment.description}</p>
+              )}
+            </div>
+            <button
+              onClick={onClose}
+              className="p-2 text-text-muted hover:text-text-primary transition-colors"
+            >
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+          {/* Metrics */}
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+            <div className="bg-bg-secondary rounded-lg border border-border p-4 text-center">
+              <p className="text-2xl font-bold text-text-primary">{segment.customer_count || 0}</p>
+              <p className="text-xs text-text-muted">Customers</p>
+            </div>
+            <div className="bg-bg-secondary rounded-lg border border-border p-4 text-center">
+              <p className="text-2xl font-bold text-text-primary">{formatCurrency(segment.total_arr)}</p>
+              <p className="text-xs text-text-muted">Total ARR</p>
+            </div>
+            <div className="bg-bg-secondary rounded-lg border border-border p-4 text-center">
+              <p className="text-2xl font-bold text-text-primary">
+                {segment.avg_health_score !== null && segment.avg_health_score !== undefined
+                  ? segment.avg_health_score.toFixed(0)
+                  : '—'}
+              </p>
+              <p className="text-xs text-text-muted">Avg Health Score</p>
+            </div>
+            <div className="bg-bg-secondary rounded-lg border border-border p-4 text-center">
+              <p className={cn(
+                'text-2xl font-bold',
+                (segment.churn_risk_count || 0) > 0 ? 'text-danger' : 'text-success'
+              )}>
+                {segment.churn_risk_count || 0}
+              </p>
+              <p className="text-xs text-text-muted">At Risk</p>
+            </div>
+          </div>
+
+          {/* Rules */}
+          {segment.rules ? (
+            <div>
+              <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-3">
+                Segment Rules
+              </h3>
+              <div className="bg-bg-secondary rounded-lg border border-border p-4">
+                <pre className="text-sm text-text-secondary whitespace-pre-wrap overflow-x-auto">
+                  {JSON.stringify(segment.rules as object, null, 2)}
+                </pre>
+              </div>
+            </div>
+          ) : null}
+
+          {/* Automation */}
+          {(segment.on_entry_playbook_id || segment.on_entry_journey_id ||
+            segment.on_exit_playbook_id || segment.on_exit_journey_id) && (
+            <div>
+              <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-3">
+                Automation
+              </h3>
+              <div className="space-y-2">
+                {segment.on_entry_playbook_id && (
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="text-success">→</span>
+                    <span className="text-text-secondary">On entry: Trigger Playbook #{segment.on_entry_playbook_id}</span>
+                  </div>
+                )}
+                {segment.on_entry_journey_id && (
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="text-success">→</span>
+                    <span className="text-text-secondary">On entry: Enroll in Journey #{segment.on_entry_journey_id}</span>
+                  </div>
+                )}
+                {segment.on_exit_playbook_id && (
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="text-danger">←</span>
+                    <span className="text-text-secondary">On exit: Trigger Playbook #{segment.on_exit_playbook_id}</span>
+                  </div>
+                )}
+                {segment.on_exit_journey_id && (
+                  <div className="flex items-center gap-2 text-sm">
+                    <span className="text-danger">←</span>
+                    <span className="text-text-secondary">On exit: Enroll in Journey #{segment.on_exit_journey_id}</span>
+                  </div>
+                )}
+              </div>
+            </div>
+          )}
+
+          {/* Tags */}
+          {segment.tags && segment.tags.length > 0 && (
+            <div>
+              <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-3">
+                Tags
+              </h3>
+              <div className="flex flex-wrap gap-2">
+                {segment.tags.map((tag, index) => (
+                  <span
+                    key={index}
+                    className="px-2 py-1 bg-bg-tertiary text-text-secondary text-sm rounded"
+                  >
+                    {tag}
+                  </span>
+                ))}
+              </div>
+            </div>
+          )}
+
+          {/* Update Info */}
+          {segment.segment_type === 'dynamic' && (
+            <div className="bg-bg-tertiary rounded-lg p-4">
+              <div className="flex items-center justify-between text-sm">
+                <span className="text-text-muted">Auto-update frequency</span>
+                <span className="text-text-primary">{segment.update_frequency_hours || 24} hours</span>
+              </div>
+              {segment.last_evaluated_at && (
+                <div className="flex items-center justify-between text-sm mt-2">
+                  <span className="text-text-muted">Last evaluated</span>
+                  <span className="text-text-primary">
+                    {new Date(segment.last_evaluated_at).toLocaleString()}
+                  </span>
+                </div>
+              )}
+              {segment.next_evaluation_at && (
+                <div className="flex items-center justify-between text-sm mt-2">
+                  <span className="text-text-muted">Next evaluation</span>
+                  <span className="text-text-primary">
+                    {new Date(segment.next_evaluation_at).toLocaleString()}
+                  </span>
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+
+        {/* Footer */}
+        <div className="flex-shrink-0 p-4 border-t border-border bg-bg-secondary flex items-center justify-end gap-3">
+          {onViewMembers && (
+            <button
+              onClick={() => onViewMembers(segment)}
+              className="px-4 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
+              </svg>
+              View Members
+            </button>
+          )}
+          {onEdit && (
+            <button
+              onClick={() => onEdit(segment)}
+              className="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-primary-hover transition-colors flex items-center gap-2"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z" />
+              </svg>
+              Edit Segment
+            </button>
+          )}
+        </div>
+      </div>
+    </div>
+  );
+}

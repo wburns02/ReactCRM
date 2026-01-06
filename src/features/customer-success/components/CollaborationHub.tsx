@@ -219,7 +219,7 @@ function ResourceTypeIcon({ type }: { type: ResourceType }) {
   return icons[type];
 }
 
-function ResourceCard({ resource, onSelect }: { resource: Resource; onSelect: (r: Resource) => void }) {
+function ResourceCard({ resource, onSelect, isSelected }: { resource: Resource; onSelect: (r: Resource) => void; isSelected?: boolean }) {
   const categoryColors: Record<ResourceCategory, string> = {
     onboarding: 'bg-success/10 text-success',
     training: 'bg-info/10 text-info',
@@ -232,7 +232,10 @@ function ResourceCard({ resource, onSelect }: { resource: Resource; onSelect: (r
   return (
     <div
       onClick={() => onSelect(resource)}
-      className="bg-bg-card rounded-xl border border-border p-6 hover:shadow-md transition-all cursor-pointer relative"
+      className={cn(
+        "bg-bg-card rounded-xl border p-6 hover:shadow-md transition-all cursor-pointer relative",
+        isSelected ? "border-primary ring-2 ring-primary/20" : "border-border"
+      )}
     >
       {resource.is_featured && (
         <div className="absolute -top-2 -right-2 px-2 py-0.5 bg-warning text-white text-xs font-medium rounded-full">
@@ -369,11 +372,145 @@ function QuickSearch({ onSearch }: { onSearch: (query: string) => void }) {
   );
 }
 
+// Resource Detail Modal
+function ResourceDetailModal({ resource, isOpen, onClose }: { resource: Resource; isOpen: boolean; onClose: () => void }) {
+  if (!isOpen) return null;
+
+  const categoryColors: Record<ResourceCategory, string> = {
+    onboarding: 'bg-success/10 text-success',
+    training: 'bg-info/10 text-info',
+    playbooks: 'bg-warning/10 text-warning',
+    processes: 'bg-primary/10 text-primary',
+    best_practices: 'bg-purple-100 text-purple-700',
+    templates: 'bg-pink-100 text-pink-700',
+  };
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
+      <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      <div className="relative bg-bg-primary border border-border rounded-xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden">
+        {/* Header */}
+        <div className="flex-shrink-0 p-6 border-b border-border">
+          <div className="flex items-start justify-between">
+            <div className="flex items-start gap-4">
+              <div className={cn('p-3 rounded-lg', categoryColors[resource.category])}>
+                <ResourceTypeIcon type={resource.type} />
+              </div>
+              <div>
+                <div className="flex items-center gap-2 mb-1">
+                  <span className={cn('px-2 py-0.5 text-xs rounded-full', categoryColors[resource.category])}>
+                    {resource.category.replace('_', ' ')}
+                  </span>
+                  <span className="text-xs text-text-muted capitalize">{resource.type}</span>
+                </div>
+                <h2 className="text-xl font-bold text-text-primary">{resource.title}</h2>
+              </div>
+            </div>
+            <button onClick={onClose} className="p-2 text-text-muted hover:text-text-primary transition-colors">
+              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        {/* Content */}
+        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+          {resource.description && (
+            <div>
+              <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2">Description</h3>
+              <p className="text-text-secondary">{resource.description}</p>
+            </div>
+          )}
+
+          {resource.content && (
+            <div>
+              <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2">Content</h3>
+              <div className="bg-bg-secondary rounded-lg border border-border p-4 text-text-secondary whitespace-pre-wrap">
+                {resource.content}
+              </div>
+            </div>
+          )}
+
+          <div className="flex flex-wrap gap-2">
+            {resource.tags.map((tag) => (
+              <span key={tag} className="px-2 py-1 bg-bg-tertiary text-text-muted text-sm rounded">
+                {tag}
+              </span>
+            ))}
+          </div>
+
+          <div className="grid grid-cols-3 gap-4 pt-4 border-t border-border">
+            <div className="text-center">
+              <p className="text-2xl font-bold text-text-primary">{resource.views}</p>
+              <p className="text-xs text-text-muted">Views</p>
+            </div>
+            <div className="text-center">
+              <p className="text-2xl font-bold text-text-primary">{resource.likes}</p>
+              <p className="text-xs text-text-muted">Likes</p>
+            </div>
+            <div className="text-center">
+              <p className="text-sm font-medium text-text-primary">{resource.author}</p>
+              <p className="text-xs text-text-muted">Author</p>
+            </div>
+          </div>
+        </div>
+
+        {/* Footer */}
+        <div className="flex-shrink-0 p-4 border-t border-border bg-bg-secondary flex items-center justify-between">
+          <p className="text-xs text-text-muted">
+            Updated: {new Date(resource.updated_at).toLocaleDateString()}
+          </p>
+          <div className="flex gap-2">
+            <button
+              onClick={() => alert('Like functionality coming soon!')}
+              className="px-4 py-2 text-sm text-text-secondary hover:text-primary transition-colors flex items-center gap-1"
+            >
+              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+              </svg>
+              Like
+            </button>
+            {resource.url && (
+              <a
+                href={resource.url}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-primary-hover transition-colors flex items-center gap-1"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14" />
+                </svg>
+                Open Resource
+              </a>
+            )}
+            {!resource.url && (
+              <button
+                onClick={() => alert(`Opening "${resource.title}"...\n\nResource viewer coming soon!`)}
+                className="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-primary-hover transition-colors flex items-center gap-1"
+              >
+                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                </svg>
+                View
+              </button>
+            )}
+          </div>
+        </div>
+      </div>
+    </div>
+  );
+}
+
 // Main Component
 export function CollaborationHub() {
   const [activeTab, setActiveTab] = useState<'resources' | 'notes' | 'activity'>('resources');
   const [selectedCategory, setSelectedCategory] = useState<ResourceCategory | 'all'>('all');
   const [searchQuery, setSearchQuery] = useState('');
+  const [selectedResource, setSelectedResource] = useState<Resource | null>(null);
+  const [noteText, setNoteText] = useState('');
+  const [noteVisibility, setNoteVisibility] = useState<'team' | 'manager' | 'all'>('team');
 
   const filteredResources = sampleResources.filter((r) => {
     const matchesCategory = selectedCategory === 'all' || r.category === selectedCategory;
@@ -384,6 +521,23 @@ export function CollaborationHub() {
     return matchesCategory && matchesSearch;
   });
 
+  const handleSelectResource = (resource: Resource) => {
+    setSelectedResource(resource);
+  };
+
+  const handlePostNote = () => {
+    if (!noteText.trim()) {
+      alert('Please enter a note before posting.');
+      return;
+    }
+    alert(`Note posted successfully!\n\nVisibility: ${noteVisibility}\nContent: ${noteText.substring(0, 100)}${noteText.length > 100 ? '...' : ''}\n\nNote posting to backend coming soon!`);
+    setNoteText('');
+  };
+
+  const handleAddResource = () => {
+    alert('Add new resource\n\nResource upload is coming soon!');
+  };
+
   return (
     <div className="space-y-6">
       {/* Header */}
@@ -392,7 +546,10 @@ export function CollaborationHub() {
           <h2 className="text-xl font-semibold text-text-primary">Collaboration Hub</h2>
           <p className="text-sm text-text-muted">Team resources, documentation, and shared knowledge</p>
         </div>
-        <button className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-dark flex items-center gap-2">
+        <button
+          onClick={handleAddResource}
+          className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-dark flex items-center gap-2"
+        >
           <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
           </svg>
@@ -458,7 +615,8 @@ export function CollaborationHub() {
                   <ResourceCard
                     key={resource.id}
                     resource={resource}
-                    onSelect={() => {}}
+                    onSelect={handleSelectResource}
+                    isSelected={selectedResource?.id === resource.id}
                   />
                 ))}
               </div>
@@ -471,7 +629,8 @@ export function CollaborationHub() {
               <ResourceCard
                 key={resource.id}
                 resource={resource}
-                onSelect={() => {}}
+                onSelect={handleSelectResource}
+                isSelected={selectedResource?.id === resource.id}
               />
             ))}
           </div>
@@ -494,16 +653,25 @@ export function CollaborationHub() {
           <div className="bg-bg-card rounded-xl border border-border p-4">
             <textarea
               placeholder="Share an update or insight with your team..."
+              value={noteText}
+              onChange={(e) => setNoteText(e.target.value)}
               className="w-full px-3 py-2 border border-border rounded-lg bg-bg-primary text-text-primary resize-none focus:outline-none focus:ring-2 focus:ring-primary"
               rows={3}
             />
             <div className="flex items-center justify-between mt-3">
-              <select className="text-sm border border-border rounded-lg px-3 py-1.5 bg-bg-primary text-text-secondary">
+              <select
+                value={noteVisibility}
+                onChange={(e) => setNoteVisibility(e.target.value as 'team' | 'manager' | 'all')}
+                className="text-sm border border-border rounded-lg px-3 py-1.5 bg-bg-primary text-text-secondary"
+              >
                 <option value="team">Team Only</option>
                 <option value="manager">Managers</option>
                 <option value="all">Everyone</option>
               </select>
-              <button className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-dark">
+              <button
+                onClick={handlePostNote}
+                className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-dark"
+              >
                 Post Note
               </button>
             </div>
@@ -545,6 +713,15 @@ export function CollaborationHub() {
             ))}
           </div>
         </div>
+      )}
+
+      {/* Resource Detail Modal */}
+      {selectedResource && (
+        <ResourceDetailModal
+          resource={selectedResource}
+          isOpen={true}
+          onClose={() => setSelectedResource(null)}
+        />
       )}
     </div>
   );
