@@ -239,3 +239,68 @@ The seed endpoint:
 2. `fix: Resolve SQLAlchemy reserved attribute name conflicts`
 3. `feat(cs): Add Enterprise Customer Success Platform frontend`
 4. `feat(admin): Add Customer Success seed data endpoint`
+
+---
+
+## Customer Success Platform Debugging - 2026-01-06
+
+### Issues Identified
+
+#### 1. Frontend: Overview Tab Crash ✅ FIXED
+- **Error**: `TypeError: Cannot read properties of undefined (reading 'slice')`
+- **Root Cause**: AtRiskTable component expected `risk_factors` array but API returns undefined
+- **Fix**:
+  - Added defensive null check `(customer.risk_factors || []).slice(...)`
+  - Transform API response in OverviewTab to match expected interface
+- **Commit**: `fix(customer-success): Fix Overview tab crash due to undefined risk_factors`
+
+#### 2. Backend: Journeys API 500 Error 🔄 IN PROGRESS
+- **Error**: `GET /api/v2/cs/journeys/` returns 500 Internal Server Error
+- **Root Cause**: Schema/Model mismatch - missing columns in database
+  - `status` column doesn't exist (model expects enum)
+  - `priority` column doesn't exist (used for ordering)
+  - `active_enrolled`, `completed_count`, `goal_achieved_count` fields missing
+- **Fixes Applied**:
+  1. Created migration 013_fix_journey_schema.py to add missing columns
+  2. Made migration idempotent with DO blocks to handle existing columns
+  3. Added missing enum values to JourneyStepType (segment_update, health_check, slack_notification, custom)
+  4. Added missing enum values to JourneyType (risk_mitigation, advocacy)
+  5. Added detailed error handling to list_journeys endpoint
+
+#### 3. Backend: Tasks API 500 Error 🔄 IN PROGRESS
+- **Error**: `GET /api/v2/cs/tasks/?status=pending` returns 500
+- **Root Cause**: Similar schema/model issues
+- **Fix**: Added detailed error handling to expose actual error message
+
+### Backend Commits (react-crm-api)
+1. `fix(cs): Fix Journey schema/model mismatch causing 500 errors`
+2. `fix(migration): Make journey schema migration idempotent`
+3. `fix(schema): Add missing enum values to Journey schemas`
+4. `fix(cs): Add detailed error handling to Journeys and Tasks APIs`
+
+### Verification Status ✅ ALL FIXED
+- [x] Wait for Railway deployment to complete
+- [x] Test `/api/v2/cs/journeys/` endpoint - 200 OK
+- [x] Test `/api/v2/cs/tasks/` endpoint - 200 OK
+- [x] Verify Overview tab loads correctly - Shows health scores and at-risk customers
+- [x] Verify Journeys tab loads correctly - Shows 3 journeys
+
+### Additional Fixes Applied
+1. **SQLAlchemy case syntax** - Changed `func.case()` to `case()` import
+2. **Metadata field conflict** - Renamed `metadata` to `task_data` in schema to avoid SQLAlchemy MetaData collision
+
+### Final Backend Commits (react-crm-api)
+1. `fix(cs): Fix Journey schema/model mismatch causing 500 errors`
+2. `fix(migration): Make journey schema migration idempotent`
+3. `fix(schema): Add missing enum values to Journey schemas`
+4. `fix(cs): Add detailed error handling to Journeys and Tasks APIs`
+5. `fix(cs): Revert model to match existing database schema`
+6. `fix(cs): Fix SQLAlchemy case syntax in tasks API`
+7. `fix(cs): Rename metadata to task_data to avoid SQLAlchemy conflict`
+
+### Summary
+All Customer Success platform errors have been resolved:
+- **Overview tab**: Now displays Customer Health Overview with 100 customers, health distribution, and at-risk customers table
+- **Journeys tab**: Shows 3 journeys (Advocacy Development, Onboarding Journey, Risk Mitigation Journey)
+- **Playbooks tab**: Was already working
+- **Tasks/Touchpoints**: API endpoints functional
