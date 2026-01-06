@@ -214,7 +214,7 @@ export function AtRiskTable({
                       </td>
                       <td className="px-4 py-4">
                         <div className="flex flex-wrap gap-1 max-w-xs">
-                          {customer.risk_factors.slice(0, 2).map((factor, i) => (
+                          {(customer.risk_factors || []).slice(0, 2).map((factor, i) => (
                             <span
                               key={i}
                               className="px-2 py-0.5 bg-danger/10 text-danger text-xs rounded-full"
@@ -222,10 +222,13 @@ export function AtRiskTable({
                               {factor}
                             </span>
                           ))}
-                          {customer.risk_factors.length > 2 && (
+                          {(customer.risk_factors || []).length > 2 && (
                             <span className="px-2 py-0.5 bg-bg-tertiary text-text-muted text-xs rounded-full">
-                              +{customer.risk_factors.length - 2}
+                              +{(customer.risk_factors || []).length - 2}
                             </span>
+                          )}
+                          {(!customer.risk_factors || customer.risk_factors.length === 0) && (
+                            <span className="text-text-muted text-xs">—</span>
                           )}
                         </div>
                       </td>

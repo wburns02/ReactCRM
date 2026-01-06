@@ -147,7 +147,16 @@ function OverviewTab() {
         {/* At-Risk Customers */}
         <div className="lg:col-span-2">
           <AtRiskTable
-            customers={atRiskData?.items || []}
+            customers={(atRiskData?.items || []).map((item: { customer_id: number; overall_score: number; health_status: string; churn_probability?: number; score_trend?: string }) => ({
+              id: item.customer_id,
+              customer_id: item.customer_id,
+              customer_name: `Customer #${item.customer_id}`,
+              overall_score: item.overall_score,
+              status: item.health_status as 'healthy' | 'at_risk' | 'critical' | 'churned',
+              trend: item.score_trend as 'improving' | 'stable' | 'declining' | null,
+              risk_factors: [],
+              churn_probability: item.churn_probability,
+            }))}
             onSelectCustomer={(customer) => {
               console.log('Selected customer:', customer);
             }}
