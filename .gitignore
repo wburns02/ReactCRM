@@ -43,3 +43,4 @@ yarn-error.log*
 # TypeScript cache
 *.tsbuildinfo
 .aider*
+audit-results/
