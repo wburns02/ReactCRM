@@ -62,7 +62,6 @@ export function AppLayout() {
         { path: '/compliance', label: 'Compliance', icon: '✅' },
         { path: '/contracts', label: 'Contracts', icon: '📄' },
         { path: '/timesheets', label: 'Timesheets', icon: '⏱️' },
-        { path: '/predictive-maintenance', label: 'AI Predictions', icon: '🤖' },
       ],
     },
     {
@@ -111,12 +110,15 @@ export function AppLayout() {
       ],
     },
     {
-      name: 'analytics',
-      label: 'Analytics',
-      icon: '📊',
+      name: 'ai-analytics',
+      label: 'AI & Analytics',
+      icon: '🤖',
+      badge: 'GPU',
       items: [
+        { path: '/ai-assistant', label: 'AI Assistant', icon: '✨' },
         { path: '/analytics/bi', label: 'BI Dashboard', icon: '📊' },
         { path: '/analytics/ftfr', label: 'First-Time Fix Rate', icon: '✔' },
+        { path: '/predictive-maintenance', label: 'AI Predictions', icon: '🔮' },
       ],
     },
     {

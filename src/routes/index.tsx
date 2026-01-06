@@ -118,6 +118,9 @@ const PayrollPage = lazy(() => import('@/features/payroll/PayrollPage.tsx').then
 // Phone/Communications - lazy loaded
 const PhonePage = lazy(() => import('@/features/phone/index.ts').then(m => ({ default: m.PhonePage })));
 
+// AI Assistant - lazy loaded
+const AIAssistantPage = lazy(() => import('@/features/ai-assistant/index.ts').then(m => ({ default: m.AIAssistantPage })));
+
 // Calls/Call Center - lazy loaded
 const CallsPage = lazy(() => import('@/features/calls/index.ts').then(m => ({ default: m.CallsPage })));
 
@@ -364,6 +367,9 @@ export function AppRoutes() {
         {/* Marketplace */}
         <Route path="marketplace" element={<Suspense fallback={<PageLoader />}><MarketplacePage /></Suspense>} />
         <Route path="marketplace/:slug" element={<Suspense fallback={<PageLoader />}><MarketplacePage /></Suspense>} />
+
+        {/* AI Assistant */}
+        <Route path="ai-assistant" element={<Suspense fallback={<PageLoader />}><AIAssistantPage /></Suspense>} />
 
         {/* 404 within app */}
         <Route
