@@ -151,12 +151,9 @@ export const aiApi = {
 
     const { data } = await apiClient.post<BackendChatResponse>('/ai/chat', backendRequest);
 
-    // Check for error response
-    if (data.error) {
-      throw new Error(data.error);
-    }
-
     // Transform backend response to frontend format
+    // Note: If the backend returned an error, the content will contain the error message
+    // We still return it as a valid response so the user sees the message
     const response: AIChatResponse = {
       message: {
         id: `ai-${Date.now()}`,
