@@ -130,6 +130,9 @@ const ComplianceDashboard = lazy(() => import('@/features/compliance/index.ts').
 // Contracts - lazy loaded
 const ContractsPage = lazy(() => import('@/features/contracts/index.ts').then(m => ({ default: m.ContractsPage })));
 
+// Customer Success - lazy loaded
+const CustomerSuccessPage = lazy(() => import('@/features/customer-success/index.ts').then(m => ({ default: m.CustomerSuccessPage })));
+
 // Time Tracking - lazy loaded
 const TimesheetsPage = lazy(() => import('@/features/time-tracking/index.ts').then(m => ({ default: m.TimesheetsPage })));
 
@@ -350,6 +353,9 @@ export function AppRoutes() {
 
         {/* Contracts */}
         <Route path="contracts" element={<Suspense fallback={<PageLoader />}><ContractsPage /></Suspense>} />
+
+        {/* Customer Success */}
+        <Route path="customer-success" element={<Suspense fallback={<PageLoader />}><CustomerSuccessPage /></Suspense>} />
 
         {/* Timesheets */}
         <Route path="timesheets" element={<Suspense fallback={<PageLoader />}><TimesheetsPage /></Suspense>} />
