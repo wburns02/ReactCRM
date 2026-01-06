@@ -48,41 +48,41 @@ const STEP_TYPE_CONFIG: Record<string, { label: string; icon: string; color: str
 
 function StepCard({ step, index }: { step: PlaybookStep; index: number }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const stepConfig = STEP_TYPE_CONFIG[step.step_type] || { label: step.step_type, icon: '📋', color: 'text-text-secondary' };
+  const stepConfig = STEP_TYPE_CONFIG[step.step_type] || { label: step.step_type, icon: '📋', color: 'text-gray-500' };
 
   return (
-    <div className="border border-border rounded-lg overflow-hidden">
+    <div className="border border-gray-200 dark:border-gray-700 rounded-lg overflow-hidden bg-white dark:bg-gray-800">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full p-4 flex items-start gap-4 text-left hover:bg-bg-tertiary/50 transition-colors"
+        className="w-full p-4 flex items-start gap-4 text-left hover:bg-gray-50 dark:hover:bg-gray-750 transition-colors"
       >
         {/* Step number */}
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold text-sm">
+        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/20 text-primary flex items-center justify-center font-semibold text-sm">
           {index + 1}
         </div>
 
         {/* Step info */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex items-center gap-2 mb-1 flex-wrap">
             <span className={cn('text-lg', stepConfig.color)}>{stepConfig.icon}</span>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-bg-tertiary text-text-muted">
+            <span className="text-xs px-2 py-0.5 rounded-full bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300">
               {stepConfig.label}
             </span>
             {step.due_days && (
-              <span className="text-xs text-text-muted">
+              <span className="text-xs text-gray-500 dark:text-gray-400">
                 Due in {step.due_days} day{step.due_days !== 1 ? 's' : ''}
               </span>
             )}
           </div>
-          <h4 className="font-medium text-text-primary">{step.name}</h4>
+          <h4 className="font-medium text-gray-900 dark:text-white">{step.name}</h4>
           {step.description && (
-            <p className="text-sm text-text-secondary mt-1 line-clamp-2">{step.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1 line-clamp-2">{step.description}</p>
           )}
         </div>
 
         {/* Expand icon */}
         <svg
-          className={cn('w-5 h-5 text-text-muted transition-transform', isExpanded && 'rotate-180')}
+          className={cn('w-5 h-5 text-gray-400 transition-transform flex-shrink-0', isExpanded && 'rotate-180')}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -93,14 +93,14 @@ function StepCard({ step, index }: { step: PlaybookStep; index: number }) {
 
       {/* Expanded content */}
       {isExpanded && (
-        <div className="px-4 pb-4 pt-0 border-t border-border bg-bg-tertiary/30">
+        <div className="px-4 pb-4 pt-3 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-850">
           <div className="pl-12 space-y-4">
             {step.instructions && (
               <div>
-                <h5 className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">
+                <h5 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">
                   Instructions
                 </h5>
-                <div className="text-sm text-text-secondary whitespace-pre-wrap bg-bg-secondary p-3 rounded-lg">
+                <div className="text-sm text-gray-700 dark:text-gray-200 whitespace-pre-wrap bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700">
                   {step.instructions}
                 </div>
               </div>
@@ -108,16 +108,16 @@ function StepCard({ step, index }: { step: PlaybookStep; index: number }) {
 
             {step.talk_track && (
               <div>
-                <h5 className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">
+                <h5 className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">
                   Talk Track
                 </h5>
-                <div className="text-sm text-text-secondary whitespace-pre-wrap bg-bg-secondary p-3 rounded-lg border-l-4 border-primary">
+                <div className="text-sm text-gray-700 dark:text-gray-200 whitespace-pre-wrap bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-700 border-l-4 border-l-primary">
                   {step.talk_track}
                 </div>
               </div>
             )}
 
-            <div className="flex items-center gap-4 text-xs text-text-muted">
+            <div className="flex items-center gap-4 text-xs text-gray-500 dark:text-gray-400 flex-wrap">
               {step.default_assignee_role && (
                 <span>Assignee: {step.default_assignee_role}</span>
               )}
@@ -125,7 +125,7 @@ function StepCard({ step, index }: { step: PlaybookStep; index: number }) {
                 <span>Starts day {step.days_from_start}</span>
               )}
               {step.is_required && (
-                <span className="text-warning">Required</span>
+                <span className="text-amber-600 dark:text-amber-400">Required</span>
               )}
             </div>
           </div>
@@ -151,14 +151,14 @@ export function PlaybookDetailModal({
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-10 sm:pt-20 px-4">
       {/* Backdrop */}
       <div
-        className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+        className="absolute inset-0 bg-black/50"
         onClick={onClose}
       />
 
       {/* Modal */}
-      <div className="relative bg-bg-primary border border-border rounded-xl shadow-2xl w-full max-w-3xl max-h-[85vh] flex flex-col overflow-hidden">
+      <div className="relative bg-white dark:bg-gray-900 border border-border rounded-xl shadow-2xl w-full max-w-3xl max-h-[85vh] flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex-shrink-0 p-6 border-b border-border">
+        <div className="flex-shrink-0 p-6 border-b border-border bg-gray-50 dark:bg-gray-800">
           <div className="flex items-start justify-between">
             <div>
               <div className="flex items-center gap-2 mb-2">
@@ -171,9 +171,9 @@ export function PlaybookDetailModal({
                   </span>
                 )}
               </div>
-              <h2 className="text-xl font-bold text-text-primary">{playbook.name}</h2>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">{playbook.name}</h2>
               {playbook.description && (
-                <p className="text-sm text-text-secondary mt-1">{playbook.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{playbook.description}</p>
               )}
             </div>
             <button
@@ -187,49 +187,49 @@ export function PlaybookDetailModal({
           </div>
 
           {/* Stats */}
-          <div className="flex items-center gap-6 mt-4 text-sm">
+          <div className="flex items-center gap-6 mt-4 text-sm flex-wrap">
             <div className="flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
-              <span className="text-text-secondary">{steps.length} steps</span>
+              <span className="text-gray-600 dark:text-gray-300">{steps.length} steps</span>
             </div>
 
             {playbook.estimated_hours && (
               <div className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span className="text-text-secondary">{playbook.estimated_hours}h estimated</span>
+                <span className="text-gray-600 dark:text-gray-300">{playbook.estimated_hours}h estimated</span>
               </div>
             )}
 
             {playbook.target_completion_days && (
               <div className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
                 </svg>
-                <span className="text-text-secondary">{playbook.target_completion_days} days target</span>
+                <span className="text-gray-600 dark:text-gray-300">{playbook.target_completion_days} days target</span>
               </div>
             )}
 
             {playbook.times_triggered !== undefined && playbook.times_triggered > 0 && (
               <div className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                 </svg>
-                <span className="text-text-secondary">{playbook.times_triggered} runs</span>
+                <span className="text-gray-600 dark:text-gray-300">{playbook.times_triggered} runs</span>
               </div>
             )}
 
             {playbook.success_rate !== null && playbook.success_rate !== undefined && (
               <div className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
                 <span className={cn(
-                  playbook.success_rate >= 70 ? 'text-success' :
-                  playbook.success_rate >= 40 ? 'text-warning' : 'text-danger'
+                  playbook.success_rate >= 70 ? 'text-green-500' :
+                  playbook.success_rate >= 40 ? 'text-amber-500' : 'text-red-500'
                 )}>
                   {playbook.success_rate.toFixed(0)}% success
                 </span>
@@ -239,9 +239,9 @@ export function PlaybookDetailModal({
 
           {/* Trigger info */}
           {playbook.trigger_type && playbook.trigger_type !== 'manual' && (
-            <div className="mt-4 p-3 bg-bg-tertiary rounded-lg">
-              <p className="text-sm text-text-secondary">
-                <span className="font-medium text-text-primary">Auto-trigger:</span>{' '}
+            <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-900/30 rounded-lg border border-amber-200 dark:border-amber-800">
+              <p className="text-sm text-amber-800 dark:text-amber-200">
+                <span className="font-medium">Auto-trigger:</span>{' '}
                 {playbook.trigger_type.replace('_', ' ')}
                 {playbook.trigger_health_threshold && (
                   <span> when health score {'<'} {playbook.trigger_health_threshold}</span>
@@ -255,12 +255,12 @@ export function PlaybookDetailModal({
         </div>
 
         {/* Steps */}
-        <div className="flex-1 overflow-y-auto p-6">
-          <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-4">
+        <div className="flex-1 overflow-y-auto p-6 bg-white dark:bg-gray-900">
+          <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-4">
             Playbook Steps
           </h3>
           {steps.length === 0 ? (
-            <div className="text-center py-8 text-text-muted">
+            <div className="text-center py-8 text-gray-500">
               <p>No steps defined for this playbook</p>
             </div>
           ) : (
@@ -273,11 +273,11 @@ export function PlaybookDetailModal({
         </div>
 
         {/* Footer */}
-        <div className="flex-shrink-0 p-4 border-t border-border bg-bg-secondary flex items-center justify-end gap-3">
+        <div className="flex-shrink-0 p-4 border-t border-border bg-gray-50 dark:bg-gray-800 flex items-center justify-end gap-3">
           {onEdit && (
             <button
               onClick={() => onEdit(playbook)}
-              className="px-4 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
+              className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               Edit Playbook
             </button>
