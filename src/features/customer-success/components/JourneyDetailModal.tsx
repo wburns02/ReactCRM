@@ -51,41 +51,41 @@ const STEP_TYPE_CONFIG: Record<string, { label: string; icon: string; color: str
 
 function StepCard({ step, index }: { step: JourneyStep; index: number }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const stepConfig = STEP_TYPE_CONFIG[step.step_type] || { label: step.step_type, icon: '📋', color: 'text-text-secondary' };
+  const stepConfig = STEP_TYPE_CONFIG[step.step_type] || { label: step.step_type, icon: '📋', color: 'text-gray-500' };
 
   return (
-    <div className="border border-border rounded-lg overflow-hidden">
+    <div className="border border-gray-300 dark:border-gray-600 rounded-lg overflow-hidden bg-white dark:bg-gray-800 shadow-sm">
       <button
         onClick={() => setIsExpanded(!isExpanded)}
-        className="w-full p-4 flex items-start gap-4 text-left hover:bg-bg-tertiary/50 transition-colors"
+        className="w-full p-4 flex items-start gap-4 text-left hover:bg-gray-50 dark:hover:bg-gray-700/50 transition-colors"
       >
         {/* Step number */}
-        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary/10 text-primary flex items-center justify-center font-semibold text-sm">
+        <div className="flex-shrink-0 w-8 h-8 rounded-full bg-primary text-white flex items-center justify-center font-semibold text-sm shadow-sm">
           {index + 1}
         </div>
 
         {/* Step info */}
         <div className="flex-1 min-w-0">
-          <div className="flex items-center gap-2 mb-1">
+          <div className="flex items-center gap-3 mb-1.5 flex-wrap">
             <span className={cn('text-lg', stepConfig.color)}>{stepConfig.icon}</span>
-            <span className="text-xs px-2 py-0.5 rounded-full bg-bg-tertiary text-text-muted">
+            <span className="text-xs px-2.5 py-1 rounded-full bg-gray-100 dark:bg-gray-600 text-gray-700 dark:text-gray-200 font-medium">
               {stepConfig.label}
             </span>
             {step.wait_duration_hours && (
-              <span className="text-xs text-text-muted">
+              <span className="text-xs text-gray-500 dark:text-gray-400 font-medium">
                 Wait {step.wait_duration_hours}h
               </span>
             )}
           </div>
-          <h4 className="font-medium text-text-primary">{step.name}</h4>
+          <h4 className="font-semibold text-gray-900 dark:text-white text-base">{step.name}</h4>
           {step.description && (
-            <p className="text-sm text-text-secondary mt-1 line-clamp-2">{step.description}</p>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mt-1.5 line-clamp-2">{step.description}</p>
           )}
         </div>
 
         {/* Expand icon */}
         <svg
-          className={cn('w-5 h-5 text-text-muted transition-transform', isExpanded && 'rotate-180')}
+          className={cn('w-5 h-5 text-gray-400 dark:text-gray-500 transition-transform flex-shrink-0', isExpanded && 'rotate-180')}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
@@ -96,14 +96,14 @@ function StepCard({ step, index }: { step: JourneyStep; index: number }) {
 
       {/* Expanded content */}
       {isExpanded && (
-        <div className="px-4 pb-4 pt-0 border-t border-border bg-bg-tertiary/30">
+        <div className="px-4 pb-4 pt-3 border-t border-gray-200 dark:border-gray-600 bg-gray-50 dark:bg-gray-700/50">
           <div className="pl-12 space-y-4">
             {step.condition_rules ? (
               <div>
-                <h5 className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">
+                <h5 className="text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-2">
                   Condition Rules
                 </h5>
-                <pre className="text-sm text-text-secondary whitespace-pre-wrap bg-bg-secondary p-3 rounded-lg overflow-x-auto">
+                <pre className="text-sm text-gray-700 dark:text-gray-200 whitespace-pre-wrap bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-600 overflow-x-auto">
                   {JSON.stringify(step.condition_rules as object, null, 2)}
                 </pre>
               </div>
@@ -111,24 +111,34 @@ function StepCard({ step, index }: { step: JourneyStep; index: number }) {
 
             {step.action_config ? (
               <div>
-                <h5 className="text-xs font-semibold text-text-muted uppercase tracking-wide mb-2">
+                <h5 className="text-xs font-semibold text-gray-600 dark:text-gray-300 uppercase tracking-wide mb-2">
                   Action Configuration
                 </h5>
-                <pre className="text-sm text-text-secondary whitespace-pre-wrap bg-bg-secondary p-3 rounded-lg border-l-4 border-primary overflow-x-auto">
+                <pre className="text-sm text-gray-700 dark:text-gray-200 whitespace-pre-wrap bg-white dark:bg-gray-800 p-3 rounded-lg border border-gray-200 dark:border-gray-600 border-l-4 border-l-primary overflow-x-auto">
                   {JSON.stringify(step.action_config as object, null, 2)}
                 </pre>
               </div>
             ) : null}
 
-            <div className="flex items-center gap-4 text-xs text-text-muted">
+            <div className="flex items-center gap-4 text-xs text-gray-600 dark:text-gray-300 flex-wrap">
               {step.wait_until_time && (
-                <span>Wait until: {step.wait_until_time}</span>
+                <span className="flex items-center gap-1">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Wait until: {step.wait_until_time}
+                </span>
               )}
               {step.is_required && (
-                <span className="text-warning">Required</span>
+                <span className="text-amber-600 dark:text-amber-400 font-medium flex items-center gap-1">
+                  <svg className="w-3.5 h-3.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+                  </svg>
+                  Required
+                </span>
               )}
               {!step.is_active && (
-                <span className="text-text-muted">Inactive</span>
+                <span className="text-gray-500 dark:text-gray-400">Inactive</span>
               )}
             </div>
           </div>
@@ -160,9 +170,9 @@ export function JourneyDetailModal({
       />
 
       {/* Modal */}
-      <div className="relative bg-bg-primary border border-border rounded-xl shadow-2xl w-full max-w-3xl max-h-[85vh] flex flex-col overflow-hidden">
+      <div className="relative bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl w-full max-w-3xl max-h-[85vh] flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex-shrink-0 p-6 border-b border-border">
+        <div className="flex-shrink-0 p-6 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
           <div className="flex items-start justify-between">
             <div>
               <div className="flex items-center gap-2 mb-2">
@@ -173,14 +183,14 @@ export function JourneyDetailModal({
                   {statusConfig.label}
                 </span>
               </div>
-              <h2 className="text-xl font-bold text-text-primary">{journey.name}</h2>
+              <h2 className="text-xl font-bold text-gray-900 dark:text-white">{journey.name}</h2>
               {journey.description && (
-                <p className="text-sm text-text-secondary mt-1">{journey.description}</p>
+                <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{journey.description}</p>
               )}
             </div>
             <button
               onClick={onClose}
-              className="p-2 text-text-muted hover:text-text-primary transition-colors"
+              className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
             >
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
@@ -191,45 +201,45 @@ export function JourneyDetailModal({
           {/* Stats */}
           <div className="flex items-center gap-6 mt-4 text-sm flex-wrap">
             <div className="flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
               </svg>
-              <span className="text-text-secondary">{journey.step_count || steps.length} steps</span>
+              <span className="text-gray-600 dark:text-gray-300">{journey.step_count || steps.length} steps</span>
             </div>
 
             <div className="flex items-center gap-1.5">
-              <svg className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 20h5v-2a3 3 0 00-5.356-1.857M17 20H7m10 0v-2c0-.656-.126-1.283-.356-1.857M7 20H2v-2a3 3 0 015.356-1.857M7 20v-2c0-.656.126-1.283.356-1.857m0 0a5.002 5.002 0 019.288 0M15 7a3 3 0 11-6 0 3 3 0 016 0z" />
               </svg>
-              <span className="text-text-secondary">{journey.active_enrollments || journey.active_enrolled || 0} enrolled</span>
+              <span className="text-gray-600 dark:text-gray-300">{journey.active_enrollments || journey.active_enrolled || 0} enrolled</span>
             </div>
 
             {journey.total_enrolled !== undefined && journey.total_enrolled > 0 && (
               <div className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                 </svg>
-                <span className="text-text-secondary">{journey.total_enrolled} total enrolled</span>
+                <span className="text-gray-600 dark:text-gray-300">{journey.total_enrolled} total enrolled</span>
               </div>
             )}
 
             {journey.completed_count !== undefined && journey.completed_count > 0 && (
               <div className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span className="text-text-secondary">{journey.completed_count} completed</span>
+                <span className="text-gray-600 dark:text-gray-300">{journey.completed_count} completed</span>
               </div>
             )}
 
             {journey.conversion_rate !== null && journey.conversion_rate !== undefined && (
               <div className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
                 <span className={cn(
-                  journey.conversion_rate >= 50 ? 'text-success' :
-                  journey.conversion_rate >= 25 ? 'text-warning' : 'text-danger'
+                  journey.conversion_rate >= 50 ? 'text-green-500' :
+                  journey.conversion_rate >= 25 ? 'text-amber-500' : 'text-red-500'
                 )}>
                   {journey.conversion_rate.toFixed(1)}% conversion
                 </span>
@@ -238,19 +248,19 @@ export function JourneyDetailModal({
 
             {journey.avg_completion_days !== null && journey.avg_completion_days !== undefined && (
               <div className="flex items-center gap-1.5">
-                <svg className="w-4 h-4 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <svg className="w-4 h-4 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
                 </svg>
-                <span className="text-text-secondary">{journey.avg_completion_days.toFixed(1)} days avg</span>
+                <span className="text-gray-600 dark:text-gray-300">{journey.avg_completion_days.toFixed(1)} days avg</span>
               </div>
             )}
           </div>
 
           {/* Trigger info */}
           {journey.trigger_type && journey.trigger_type !== 'manual' && (
-            <div className="mt-4 p-3 bg-bg-tertiary rounded-lg">
-              <p className="text-sm text-text-secondary">
-                <span className="font-medium text-text-primary">Trigger:</span>{' '}
+            <div className="mt-4 p-3 bg-amber-50 dark:bg-amber-900/30 rounded-lg border border-amber-200 dark:border-amber-800">
+              <p className="text-sm text-amber-800 dark:text-amber-200">
+                <span className="font-medium">Trigger:</span>{' '}
                 {journey.trigger_type.replace('_', ' ')}
                 {journey.trigger_event && (
                   <span> on "{journey.trigger_event}"</span>
@@ -261,12 +271,12 @@ export function JourneyDetailModal({
         </div>
 
         {/* Steps */}
-        <div className="flex-1 overflow-y-auto p-6">
-          <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-4">
+        <div className="flex-1 overflow-y-auto p-6 bg-white dark:bg-gray-900">
+          <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-4">
             Journey Steps
           </h3>
           {steps.length === 0 ? (
-            <div className="text-center py-8 text-text-muted">
+            <div className="text-center py-8 text-gray-500">
               <p>No steps defined for this journey</p>
             </div>
           ) : (
@@ -279,11 +289,11 @@ export function JourneyDetailModal({
         </div>
 
         {/* Footer */}
-        <div className="flex-shrink-0 p-4 border-t border-border bg-bg-secondary flex items-center justify-end gap-3">
+        <div className="flex-shrink-0 p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 flex items-center justify-end gap-3">
           {onEdit && (
             <button
               onClick={() => onEdit(journey)}
-              className="px-4 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
+              className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white transition-colors"
             >
               Edit Journey
             </button>

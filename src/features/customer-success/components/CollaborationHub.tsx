@@ -377,20 +377,20 @@ function ResourceDetailModal({ resource, isOpen, onClose }: { resource: Resource
   if (!isOpen) return null;
 
   const categoryColors: Record<ResourceCategory, string> = {
-    onboarding: 'bg-success/10 text-success',
-    training: 'bg-info/10 text-info',
-    playbooks: 'bg-warning/10 text-warning',
-    processes: 'bg-primary/10 text-primary',
-    best_practices: 'bg-purple-100 text-purple-700',
-    templates: 'bg-pink-100 text-pink-700',
+    onboarding: 'bg-green-500/10 text-green-600 dark:text-green-400',
+    training: 'bg-blue-500/10 text-blue-600 dark:text-blue-400',
+    playbooks: 'bg-amber-500/10 text-amber-600 dark:text-amber-400',
+    processes: 'bg-cyan-500/10 text-cyan-600 dark:text-cyan-400',
+    best_practices: 'bg-purple-500/10 text-purple-600 dark:text-purple-400',
+    templates: 'bg-pink-500/10 text-pink-600 dark:text-pink-400',
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
       <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
-      <div className="relative bg-bg-primary border border-border rounded-xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden">
+      <div className="relative bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl w-full max-w-2xl max-h-[85vh] flex flex-col overflow-hidden">
         {/* Header */}
-        <div className="flex-shrink-0 p-6 border-b border-border">
+        <div className="flex-shrink-0 p-6 border-b border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800">
           <div className="flex items-start justify-between">
             <div className="flex items-start gap-4">
               <div className={cn('p-3 rounded-lg', categoryColors[resource.category])}>
@@ -398,15 +398,15 @@ function ResourceDetailModal({ resource, isOpen, onClose }: { resource: Resource
               </div>
               <div>
                 <div className="flex items-center gap-2 mb-1">
-                  <span className={cn('px-2 py-0.5 text-xs rounded-full', categoryColors[resource.category])}>
+                  <span className={cn('px-2 py-0.5 text-xs rounded-full font-medium', categoryColors[resource.category])}>
                     {resource.category.replace('_', ' ')}
                   </span>
-                  <span className="text-xs text-text-muted capitalize">{resource.type}</span>
+                  <span className="text-xs text-gray-500 dark:text-gray-400 capitalize">{resource.type}</span>
                 </div>
-                <h2 className="text-xl font-bold text-text-primary">{resource.title}</h2>
+                <h2 className="text-xl font-bold text-gray-900 dark:text-white">{resource.title}</h2>
               </div>
             </div>
-            <button onClick={onClose} className="p-2 text-text-muted hover:text-text-primary transition-colors">
+            <button onClick={onClose} className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors">
               <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
               </svg>
@@ -415,18 +415,18 @@ function ResourceDetailModal({ resource, isOpen, onClose }: { resource: Resource
         </div>
 
         {/* Content */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6">
+        <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-white dark:bg-gray-900">
           {resource.description && (
             <div>
-              <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2">Description</h3>
-              <p className="text-text-secondary">{resource.description}</p>
+              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Description</h3>
+              <p className="text-gray-600 dark:text-gray-300">{resource.description}</p>
             </div>
           )}
 
           {resource.content && (
             <div>
-              <h3 className="text-sm font-semibold text-text-muted uppercase tracking-wide mb-2">Content</h3>
-              <div className="bg-bg-secondary rounded-lg border border-border p-4 text-text-secondary whitespace-pre-wrap">
+              <h3 className="text-sm font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide mb-2">Content</h3>
+              <div className="bg-gray-50 dark:bg-gray-800 rounded-lg border border-gray-200 dark:border-gray-700 p-4 text-gray-700 dark:text-gray-200 whitespace-pre-wrap">
                 {resource.content}
               </div>
             </div>
@@ -434,37 +434,37 @@ function ResourceDetailModal({ resource, isOpen, onClose }: { resource: Resource
 
           <div className="flex flex-wrap gap-2">
             {resource.tags.map((tag) => (
-              <span key={tag} className="px-2 py-1 bg-bg-tertiary text-text-muted text-sm rounded">
+              <span key={tag} className="px-2 py-1 bg-gray-100 dark:bg-gray-700 text-gray-600 dark:text-gray-300 text-sm rounded">
                 {tag}
               </span>
             ))}
           </div>
 
-          <div className="grid grid-cols-3 gap-4 pt-4 border-t border-border">
+          <div className="grid grid-cols-3 gap-4 pt-4 border-t border-gray-200 dark:border-gray-700">
             <div className="text-center">
-              <p className="text-2xl font-bold text-text-primary">{resource.views}</p>
-              <p className="text-xs text-text-muted">Views</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">{resource.views}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Views</p>
             </div>
             <div className="text-center">
-              <p className="text-2xl font-bold text-text-primary">{resource.likes}</p>
-              <p className="text-xs text-text-muted">Likes</p>
+              <p className="text-2xl font-bold text-gray-900 dark:text-white">{resource.likes}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Likes</p>
             </div>
             <div className="text-center">
-              <p className="text-sm font-medium text-text-primary">{resource.author}</p>
-              <p className="text-xs text-text-muted">Author</p>
+              <p className="text-sm font-medium text-gray-900 dark:text-white">{resource.author}</p>
+              <p className="text-xs text-gray-500 dark:text-gray-400">Author</p>
             </div>
           </div>
         </div>
 
         {/* Footer */}
-        <div className="flex-shrink-0 p-4 border-t border-border bg-bg-secondary flex items-center justify-between">
-          <p className="text-xs text-text-muted">
+        <div className="flex-shrink-0 p-4 border-t border-gray-200 dark:border-gray-700 bg-gray-50 dark:bg-gray-800 flex items-center justify-between">
+          <p className="text-xs text-gray-500 dark:text-gray-400">
             Updated: {new Date(resource.updated_at).toLocaleDateString()}
           </p>
           <div className="flex gap-2">
             <button
               onClick={() => alert('Like functionality coming soon!')}
-              className="px-4 py-2 text-sm text-text-secondary hover:text-primary transition-colors flex items-center gap-1"
+              className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary transition-colors flex items-center gap-1"
             >
               <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
