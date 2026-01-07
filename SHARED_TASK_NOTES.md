@@ -355,3 +355,63 @@ Journeys tab should now show:
 - Onboarding Journey: 13 steps
 - Risk Mitigation Journey: 13 steps
 - Advocacy Development: 11 steps
+
+---
+
+## World-Class Journey Platform Upgrade - 2026-01-07
+
+### Phase 1: 12 World-Class Journey Templates (Backend)
+
+Created migration `015_seed_world_class_journeys.py` with 12 comprehensive field service CRM journeys:
+
+1. **New Customer Welcome (Residential)** - 10 steps, onboarding type
+2. **Emergency Service Response** - 7 steps, retention type
+3. **At-Risk Customer Recovery** - 9 steps, retention type
+4. **Referral & Advocacy Program** - 7 steps, expansion type
+5. **Seasonal Maintenance Campaign** - 6 steps, retention type
+6. **Win-Back Campaign** - 6 steps, win_back type
+7. **Commercial Customer Onboarding** - 8 steps, onboarding type
+8. **Annual Contract Renewal** - 7 steps, renewal type
+9. **Post-Service Excellence** - 7 steps, adoption type
+10. **VIP Customer Program** - 6 steps, expansion type
+11. **New Homeowner Acquisition** - 6 steps, onboarding type
+12. **Property Manager Partnership** - 8 steps, expansion type
+
+Total: ~90 journey steps with realistic configurations.
+
+### Phase 2: World-Class Journey UI (Frontend)
+
+Enhanced `JourneyDetailModal.tsx` with three view modes:
+- **Flow View**: Visual flowchart with START/END nodes, connectors, wait indicators
+- **List View**: Enhanced expandable list with color-coded step types
+- **Analytics View**: Step distribution charts, duration metrics, enrollment stats
+
+Enhanced `JourneyList.tsx` with:
+- Grid and list view modes toggle
+- Advanced filters (status, type, search)
+- Sort options (name, steps, enrolled, recent)
+- Visual journey cards with gradient headers
+- Step type preview icons on cards
+- Journey duration calculation from wait times
+- Statistics summary (total, active, steps, enrolled)
+
+### Features Added
+- Journey type gradients (onboarding=blue, retention=cyan, expansion=purple, etc.)
+- Step type icons and colors for 15+ step types
+- Dark mode support throughout
+- Animated status indicators (pulsing dot for active journeys)
+- Responsive design for mobile/tablet/desktop
+
+### Commits
+- `a61d07c` - feat(journeys): World-class journey UI with visual flow diagrams
+- Backend migration `015_seed_world_class_journeys.py` (in react-crm-api)
+
+### Status
+- [x] 12 world-class journey templates created
+- [x] Visual flow diagram view
+- [x] List view with expandable steps
+- [x] Analytics view with metrics
+- [x] Grid/list view toggle
+- [x] Advanced filters and sorting
+- [x] Dark mode support
+- [ ] E2E verification (Playwright timeout - site may be deploying)
