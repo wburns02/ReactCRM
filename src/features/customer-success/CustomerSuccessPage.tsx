@@ -27,11 +27,16 @@ import {
   useJourneys,
   usePlaybooks,
   useSeedJourneySteps,
+  useUpdateJourney,
+  useDeleteSegment,
+  useDeletePlaybook,
 } from '@/api/hooks/useCustomerSuccess.ts';
 import { PlaybookDetailModal } from './components/PlaybookDetailModal.tsx';
 import { TriggerPlaybookModal } from './components/TriggerPlaybookModal.tsx';
 import { JourneyDetailModal } from './components/JourneyDetailModal.tsx';
 import { SegmentDetailModal } from './components/SegmentDetailModal.tsx';
+import { SegmentFormModal } from './components/SegmentFormModal.tsx';
+import { PlaybookFormModal } from './components/PlaybookFormModal.tsx';
 import type { Playbook, Journey, Segment } from '@/api/types/customerSuccess.ts';
 
 type TabId = 'executive' | 'overview' | 'surveys' | 'campaigns' | 'escalations' | 'segments' | 'journeys' | 'playbooks' | 'collaboration';
@@ -232,8 +237,11 @@ function OverviewTab() {
 }
 
 function SegmentsTab() {
-  const { data: segmentsData, isLoading } = useSegments();
+  const { data: segmentsData, isLoading, refetch } = useSegments();
   const [selectedSegment, setSelectedSegment] = useState<Segment | null>(null);
+  const [segmentToEdit, setSegmentToEdit] = useState<Segment | null>(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const deleteMutation = useDeleteSegment();
 
   const handleSelectSegment = (segment: Segment) => {
     setSelectedSegment(segment);
@@ -244,15 +252,38 @@ function SegmentsTab() {
   };
 
   const handleEditSegment = (segment: Segment) => {
-    alert(`Edit segment: ${segment.name}\n\nSegment editing is coming soon!`);
+    setSegmentToEdit(segment);
+    setSelectedSegment(null);
   };
 
   const handleCreateSegment = () => {
-    alert('Create new segment\n\nSegment creation is coming soon!');
+    setShowCreateModal(true);
+  };
+
+  const handleFormSuccess = () => {
+    refetch();
+  };
+
+  const handleCloseFormModal = () => {
+    setSegmentToEdit(null);
+    setShowCreateModal(false);
   };
 
   const handleViewMembers = (segment: Segment) => {
-    alert(`View members of "${segment.name}"\n\n${segment.customer_count || 0} customers in this segment.\n\nMember list view is coming soon!`);
+    // TODO: Navigate to segment members view when implemented
+    console.log('View members for segment:', segment.id);
+  };
+
+  const handleDeleteSegment = async (segment: Segment) => {
+    if (confirm(`Are you sure you want to delete "${segment.name}"?`)) {
+      try {
+        await deleteMutation.mutateAsync(segment.id);
+        setSelectedSegment(null);
+        refetch();
+      } catch (error) {
+        console.error('Failed to delete segment:', error);
+      }
+    }
   };
 
   if (isLoading) {
@@ -283,6 +314,14 @@ function SegmentsTab() {
           onViewMembers={handleViewMembers}
         />
       )}
+
+      {/* Segment Form Modal (Create/Edit) */}
+      <SegmentFormModal
+        segment={segmentToEdit}
+        isOpen={showCreateModal || !!segmentToEdit}
+        onClose={handleCloseFormModal}
+        onSuccess={handleFormSuccess}
+      />
     </>
   );
 }
@@ -291,6 +330,7 @@ function JourneysTab() {
   const { data: journeysData, isLoading, refetch } = useJourneys();
   const [selectedJourney, setSelectedJourney] = useState<Journey | null>(null);
   const seedMutation = useSeedJourneySteps();
+  const updateJourneyMutation = useUpdateJourney();
 
   const handleSelectJourney = (journey: Journey) => {
     setSelectedJourney(journey);
@@ -301,32 +341,40 @@ function JourneysTab() {
   };
 
   const handleEditJourney = (journey: Journey) => {
-    alert(`Edit journey: ${journey.name}\n\nJourney editing is coming soon!`);
+    // For now, show minimal edit capabilities - full journey builder would be a larger feature
+    console.log('Edit journey:', journey.id);
   };
 
   const handleCreateJourney = () => {
-    alert('Create new journey\n\nJourney creation is coming soon!');
+    // For now, this would require a journey builder - logging intent
+    console.log('Create new journey');
   };
 
-  const handleToggleActive = (journey: Journey) => {
+  const handleToggleActive = async (journey: Journey) => {
     const newStatus = journey.status === 'active' ? 'paused' : 'active';
-    alert(`${newStatus === 'active' ? 'Activating' : 'Pausing'} journey: ${journey.name}\n\nThis action would ${newStatus === 'active' ? 'start' : 'pause'} the journey and ${newStatus === 'active' ? 'allow new enrollments' : 'stop processing for enrolled customers'}.\n\nJourney status toggling is coming soon!`);
-    // Close modal after action feedback
-    setSelectedJourney(null);
+    try {
+      await updateJourneyMutation.mutateAsync({
+        id: journey.id,
+        data: { status: newStatus },
+      });
+      refetch();
+      setSelectedJourney(null);
+    } catch (error) {
+      console.error('Failed to toggle journey status:', error);
+    }
   };
 
   const handleSeedSteps = async () => {
     try {
       const result = await seedMutation.mutateAsync();
       if (result.journeys.length === 0) {
-        alert('All journeys already have steps!');
+        console.log('All journeys already have steps');
       } else {
-        const details = result.journeys.map(j => `• ${j.journey_name}: ${j.steps_added} steps`).join('\n');
-        alert(`Successfully seeded journey steps!\n\n${details}`);
+        console.log('Seeded journey steps:', result.journeys);
       }
       refetch();
     } catch (error) {
-      alert(`Failed to seed journey steps: ${error instanceof Error ? error.message : 'Unknown error'}`);
+      console.error('Failed to seed journey steps:', error);
     }
   };
 
@@ -390,9 +438,12 @@ function JourneysTab() {
 }
 
 function PlaybooksTab() {
-  const { data: playbooksData, isLoading } = usePlaybooks();
+  const { data: playbooksData, isLoading, refetch } = usePlaybooks();
   const [selectedPlaybook, setSelectedPlaybook] = useState<Playbook | null>(null);
   const [playbookToTrigger, setPlaybookToTrigger] = useState<Playbook | null>(null);
+  const [playbookToEdit, setPlaybookToEdit] = useState<Playbook | null>(null);
+  const [showCreateModal, setShowCreateModal] = useState(false);
+  const deleteMutation = useDeletePlaybook();
 
   const handleSelectPlaybook = (playbook: Playbook) => {
     setSelectedPlaybook(playbook);
@@ -404,7 +455,6 @@ function PlaybooksTab() {
 
   const handleTriggerPlaybook = (playbook: Playbook) => {
     setPlaybookToTrigger(playbook);
-    // Close detail modal if open
     setSelectedPlaybook(null);
   };
 
@@ -413,13 +463,33 @@ function PlaybooksTab() {
   };
 
   const handleEditPlaybook = (playbook: Playbook) => {
-    // For now, show alert - full edit form would be a larger feature
-    alert(`Edit playbook: ${playbook.name}\n\nPlaybook editing is coming soon!`);
+    setPlaybookToEdit(playbook);
+    setSelectedPlaybook(null);
   };
 
   const handleCreatePlaybook = () => {
-    // For now, show alert - full create form would be a larger feature
-    alert('Create new playbook\n\nPlaybook creation is coming soon!');
+    setShowCreateModal(true);
+  };
+
+  const handleFormSuccess = () => {
+    refetch();
+  };
+
+  const handleCloseFormModal = () => {
+    setPlaybookToEdit(null);
+    setShowCreateModal(false);
+  };
+
+  const handleDeletePlaybook = async (playbook: Playbook) => {
+    if (confirm(`Are you sure you want to delete "${playbook.name}"?`)) {
+      try {
+        await deleteMutation.mutateAsync(playbook.id);
+        setSelectedPlaybook(null);
+        refetch();
+      } catch (error) {
+        console.error('Failed to delete playbook:', error);
+      }
+    }
   };
 
   if (isLoading) {
@@ -461,6 +531,14 @@ function PlaybooksTab() {
           onSuccess={handleCloseTriggerModal}
         />
       )}
+
+      {/* Playbook Form Modal (Create/Edit) */}
+      <PlaybookFormModal
+        playbook={playbookToEdit}
+        isOpen={showCreateModal || !!playbookToEdit}
+        onClose={handleCloseFormModal}
+        onSuccess={handleFormSuccess}
+      />
     </>
   );
 }

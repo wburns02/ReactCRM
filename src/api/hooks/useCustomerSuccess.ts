@@ -278,6 +278,34 @@ export function useCreateJourney() {
   });
 }
 
+export function useUpdateJourney() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: Partial<JourneyFormData> }): Promise<Journey> => {
+      const response = await apiClient.patch(`/cs/journeys/${id}`, data);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: csKeys.journeyDetail(variables.id) });
+      queryClient.invalidateQueries({ queryKey: csKeys.journeys });
+    },
+  });
+}
+
+export function useDeleteJourney() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number): Promise<void> => {
+      await apiClient.delete(`/cs/journeys/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: csKeys.journeys });
+    },
+  });
+}
+
 export function useEnrollCustomer() {
   const queryClient = useQueryClient();
 
@@ -290,6 +318,59 @@ export function useEnrollCustomer() {
       queryClient.invalidateQueries({ queryKey: csKeys.journeyEnrollments(variables.journey_id) });
       queryClient.invalidateQueries({ queryKey: csKeys.customerEnrollments(variables.customer_id) });
     },
+  });
+}
+
+export function usePauseEnrollment() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (enrollmentId: number): Promise<{ status: string; message: string }> => {
+      const response = await apiClient.post(`/cs/journeys/enrollments/${enrollmentId}/pause`);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: csKeys.journeys });
+    },
+  });
+}
+
+export function useResumeEnrollment() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (enrollmentId: number): Promise<{ status: string; message: string }> => {
+      const response = await apiClient.post(`/cs/journeys/enrollments/${enrollmentId}/resume`);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: csKeys.journeys });
+    },
+  });
+}
+
+export function useExitEnrollment() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ enrollmentId, reason }: { enrollmentId: number; reason?: string }): Promise<{ status: string; message: string }> => {
+      const response = await apiClient.post(`/cs/journeys/enrollments/${enrollmentId}/exit`, { reason });
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: csKeys.journeys });
+    },
+  });
+}
+
+export function useJourneyEnrollments(journeyId: number | undefined) {
+  return useQuery({
+    queryKey: csKeys.journeyEnrollments(journeyId!),
+    queryFn: async () => {
+      const { data } = await apiClient.get(`/cs/journeys/${journeyId}/enrollments`);
+      return data;
+    },
+    enabled: !!journeyId,
   });
 }
 
@@ -425,6 +506,34 @@ export function useCreatePlaybook() {
   });
 }
 
+export function useUpdatePlaybook() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: Partial<PlaybookFormData> }): Promise<Playbook> => {
+      const response = await apiClient.patch(`/cs/playbooks/${id}`, data);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: csKeys.playbookDetail(variables.id) });
+      queryClient.invalidateQueries({ queryKey: csKeys.playbooks });
+    },
+  });
+}
+
+export function useDeletePlaybook() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number): Promise<void> => {
+      await apiClient.delete(`/cs/playbooks/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: csKeys.playbooks });
+    },
+  });
+}
+
 export function useTriggerPlaybook() {
   const queryClient = useQueryClient();
 
@@ -436,7 +545,61 @@ export function useTriggerPlaybook() {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: csKeys.playbookExecutions(variables.playbook_id) });
       queryClient.invalidateQueries({ queryKey: csKeys.customerExecutions(variables.customer_id) });
+      queryClient.invalidateQueries({ queryKey: csKeys.tasks });
     },
+  });
+}
+
+export function usePausePlaybookExecution() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (executionId: number): Promise<{ status: string; message: string }> => {
+      const response = await apiClient.post(`/cs/playbooks/executions/${executionId}/pause`);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: csKeys.playbooks });
+    },
+  });
+}
+
+export function useResumePlaybookExecution() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (executionId: number): Promise<{ status: string; message: string }> => {
+      const response = await apiClient.post(`/cs/playbooks/executions/${executionId}/resume`);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: csKeys.playbooks });
+    },
+  });
+}
+
+export function useCancelPlaybookExecution() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ executionId, reason }: { executionId: number; reason?: string }): Promise<{ status: string; message: string }> => {
+      const response = await apiClient.post(`/cs/playbooks/executions/${executionId}/cancel`, { reason });
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: csKeys.playbooks });
+    },
+  });
+}
+
+export function usePlaybookExecutions(playbookId: number | undefined) {
+  return useQuery({
+    queryKey: csKeys.playbookExecutions(playbookId!),
+    queryFn: async () => {
+      const { data } = await apiClient.get(`/cs/playbooks/${playbookId}/executions`);
+      return data;
+    },
+    enabled: !!playbookId,
   });
 }
 
@@ -527,6 +690,34 @@ export function useCompleteCSTask() {
   });
 }
 
+export function useDeleteCSTask() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number): Promise<void> => {
+      await apiClient.delete(`/cs/tasks/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: csKeys.tasks });
+    },
+  });
+}
+
+export function useSnoozeCSTask() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, snoozedUntil }: { id: number; snoozedUntil: string }): Promise<CSTask> => {
+      const response = await apiClient.post(`/cs/tasks/${id}/snooze`, { snoozed_until: snoozedUntil });
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: csKeys.taskDetail(variables.id) });
+      queryClient.invalidateQueries({ queryKey: csKeys.tasks });
+    },
+  });
+}
+
 export function useTaskSummary(userId?: number) {
   return useQuery({
     queryKey: csKeys.taskSummary(userId),
@@ -588,6 +779,34 @@ export function useCreateTouchpoint() {
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: csKeys.touchpoints });
       queryClient.invalidateQueries({ queryKey: csKeys.customerTimeline(variables.customer_id, 90) });
+    },
+  });
+}
+
+export function useUpdateTouchpoint() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: Partial<TouchpointFormData> }): Promise<Touchpoint> => {
+      const response = await apiClient.patch(`/cs/touchpoints/${id}`, data);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: csKeys.touchpointDetail(variables.id) });
+      queryClient.invalidateQueries({ queryKey: csKeys.touchpoints });
+    },
+  });
+}
+
+export function useDeleteTouchpoint() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number): Promise<void> => {
+      await apiClient.delete(`/cs/touchpoints/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: csKeys.touchpoints });
     },
   });
 }
