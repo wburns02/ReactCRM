@@ -293,6 +293,65 @@ export function useEnrollCustomer() {
   });
 }
 
+export interface JourneyStepFormData {
+  name: string;
+  description?: string;
+  step_type: string;
+  step_order: number;
+  wait_duration_hours?: number;
+  condition_rules?: Record<string, unknown>;
+  action_config?: Record<string, unknown>;
+  is_required?: boolean;
+  is_active?: boolean;
+}
+
+export function useCreateJourneyStep() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ journeyId, data }: { journeyId: number; data: JourneyStepFormData }) => {
+      const response = await apiClient.post(`/cs/journeys/${journeyId}/steps`, {
+        journey_id: journeyId,
+        ...data,
+      });
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: csKeys.journeyDetail(variables.journeyId) });
+      queryClient.invalidateQueries({ queryKey: csKeys.journeys });
+    },
+  });
+}
+
+export function useUpdateJourneyStep() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ journeyId, stepId, data }: { journeyId: number; stepId: number; data: Partial<JourneyStepFormData> }) => {
+      const response = await apiClient.patch(`/cs/journeys/${journeyId}/steps/${stepId}`, data);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: csKeys.journeyDetail(variables.journeyId) });
+      queryClient.invalidateQueries({ queryKey: csKeys.journeys });
+    },
+  });
+}
+
+export function useDeleteJourneyStep() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ journeyId, stepId }: { journeyId: number; stepId: number }) => {
+      await apiClient.delete(`/cs/journeys/${journeyId}/steps/${stepId}`);
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: csKeys.journeyDetail(variables.journeyId) });
+      queryClient.invalidateQueries({ queryKey: csKeys.journeys });
+    },
+  });
+}
+
 // ============================================
 // Playbook Hooks
 // ============================================
