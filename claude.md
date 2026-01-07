@@ -16,6 +16,7 @@
 | 3 | **NO double /api** in API calls |
 | 4 | **Drag-and-drop mutations MUST succeed** with 200 (no 500s) |
 | 5 | **Relentless mode** — never ask to continue, just keep fixing |
+| 6 | **NEVER use `railway up`** — always deploy via git push to GitHub |
 
 **When to use Playwright:** ANY UI check, error reproduction, drag test, page load
 
@@ -156,6 +157,7 @@ When user activates this mode:
 - Wait for permission to push
 - Leave working code uncommitted
 - Stop after local success without deploying
+- Use `railway up` or `railway redeploy` — these commands do not work
 
 ---
 
