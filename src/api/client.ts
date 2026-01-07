@@ -117,20 +117,29 @@ apiClient.interceptors.response.use(
 
     // Handle authentication errors
     if (status === 401) {
-      // SECURITY: Clear all auth state
-      markSessionInvalid();
-      clearSessionState();
-      cleanupLegacyAuth();
+      // Skip auth handling for optional endpoints that should fail silently
+      // These endpoints are non-critical features that work without auth
+      const optionalEndpoints = ['/roles'];
+      const isOptionalEndpoint = optionalEndpoints.some(
+        (endpoint) => url?.includes(endpoint)
+      );
 
-      // Dispatch security event for listeners
-      dispatchSecurityEvent('session:expired');
+      if (!isOptionalEndpoint) {
+        // SECURITY: Clear all auth state
+        markSessionInvalid();
+        clearSessionState();
+        cleanupLegacyAuth();
 
-      // Don't redirect to login if already on login page (prevents infinite loop)
-      const currentPath = window.location.pathname;
-      if (!currentPath.includes('/login')) {
-        // Redirect to login with return URL
-        const returnUrl = encodeURIComponent(currentPath + window.location.search);
-        window.location.href = `/login?return=${returnUrl}`;
+        // Dispatch security event for listeners
+        dispatchSecurityEvent('session:expired');
+
+        // Don't redirect to login if already on login page (prevents infinite loop)
+        const currentPath = window.location.pathname;
+        if (!currentPath.includes('/login')) {
+          // Redirect to login with return URL
+          const returnUrl = encodeURIComponent(currentPath + window.location.search);
+          window.location.href = `/login?return=${returnUrl}`;
+        }
       }
     }
 
@@ -256,6 +265,42 @@ export async function withFallback<T>(
     return await apiFn();
   } catch (error) {
     if (is404Error(error)) {
+      return defaultValue;
+    }
+    throw error;
+  }
+}
+
+/**
+ * Check if error is a 401 Unauthorized
+ */
+export function is401Error(error: unknown): boolean {
+  if (axios.isAxiosError(error)) {
+    return error.response?.status === 401;
+  }
+  return false;
+}
+
+/**
+ * Wrapper for API calls that gracefully handles 401/404 by returning a default value.
+ * Use this for optional features that should fail silently when user is not authenticated
+ * or endpoint doesn't exist (e.g., role switching, demo mode features).
+ *
+ * NOTE: The 401 interceptor in client.ts may still redirect to login before this catches.
+ * This wrapper catches errors that propagate after the interceptor runs.
+ *
+ * @param apiFn - The async API function to call
+ * @param defaultValue - The value to return if the endpoint returns 401 or 404
+ * @returns The API response or default value on 401/404
+ */
+export async function withAuthFallback<T>(
+  apiFn: () => Promise<T>,
+  defaultValue: T
+): Promise<T> {
+  try {
+    return await apiFn();
+  } catch (error) {
+    if (is404Error(error) || is401Error(error)) {
       return defaultValue;
     }
     throw error;

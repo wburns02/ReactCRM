@@ -6,7 +6,7 @@
  */
 
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient, withFallback } from '../client';
+import { apiClient, withAuthFallback } from '../client';
 
 // ============================================
 // Types
@@ -107,12 +107,13 @@ async function switchRole(roleKey: RoleKey): Promise<RoleSwitchResponse> {
 
 /**
  * Hook to check if current user is in demo mode
+ * Uses withAuthFallback to handle 401/404 gracefully (returns default for non-auth users)
  */
 export function useDemoStatus() {
   return useQuery({
     queryKey: roleKeys.status(),
     queryFn: () =>
-      withFallback(fetchDemoStatus, {
+      withAuthFallback(fetchDemoStatus, {
         is_demo_mode: false,
         demo_user_email: null,
         available_roles: null,
@@ -126,12 +127,13 @@ export function useDemoStatus() {
 /**
  * Hook to fetch available roles
  * Only returns roles for demo users
+ * Uses withAuthFallback to handle 401/404 gracefully (returns default for non-auth users)
  */
 export function useRoles() {
   return useQuery({
     queryKey: roleKeys.list(),
     queryFn: () =>
-      withFallback(fetchRoles, {
+      withAuthFallback(fetchRoles, {
         roles: [],
         current_role: null,
         is_demo_user: false,
