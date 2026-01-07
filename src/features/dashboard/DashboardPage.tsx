@@ -14,6 +14,7 @@ import {
   type JobType,
 } from '@/api/types/workOrder.ts';
 import { AIDispatchStats } from '@/features/ai-dispatch';
+import { RoleDashboard } from '@/components/Dashboard';
 
 /**
  * Dashboard page - overview of prospects and customers
@@ -81,6 +82,9 @@ export function DashboardPage() {
 
   return (
     <div className="p-6">
+      {/* Role-Specific Dashboard (for demo users) */}
+      <RoleDashboard />
+
       {/* Header */}
       <div className="mb-6">
         <h1 className="text-2xl font-semibold text-text-primary">Dashboard</h1>

@@ -6,6 +6,8 @@ import { OfflineIndicator } from '@/features/mobile/OfflineIndicator';
 import { ToastProvider } from '@/components/ui/Toast';
 import { SessionTimeoutProvider } from '@/components/SessionTimeoutProvider';
 import { WebSocketProvider } from '@/providers/WebSocketProvider';
+import { RoleProvider } from '@/providers/RoleProvider';
+import { RoleSwitcher } from '@/components/RoleSwitcher';
 import { OnboardingCheck } from '@/features/onboarding/OnboardingCheck';
 import { PWAProvider } from '@/components/pwa';
 import { initWebVitals } from '@/lib/webVitals';
@@ -48,8 +50,9 @@ const queryClient = new QueryClient({
  * 4. WebSocketProvider - real-time updates
  * 5. SessionTimeoutProvider - session management
  * 6. BrowserRouter - client-side routing
- * 7. PWAProvider - install prompts, update notifications, offline banner
- * 8. OnboardingCheck - redirects new users to onboarding wizard
+ * 7. RoleProvider - demo mode role switching
+ * 8. PWAProvider - install prompts, update notifications, offline banner
+ * 9. OnboardingCheck - redirects new users to onboarding wizard
  */
 function App() {
   return (
@@ -59,12 +62,15 @@ function App() {
           <WebSocketProvider autoConnect>
             <SessionTimeoutProvider>
               <BrowserRouter basename="/">
-                <PWAProvider>
-                  <OnboardingCheck>
-                    <OfflineIndicator />
-                    <AppRoutes />
-                  </OnboardingCheck>
-                </PWAProvider>
+                <RoleProvider>
+                  <PWAProvider>
+                    <OnboardingCheck>
+                      <OfflineIndicator />
+                      <RoleSwitcher />
+                      <AppRoutes />
+                    </OnboardingCheck>
+                  </PWAProvider>
+                </RoleProvider>
               </BrowserRouter>
             </SessionTimeoutProvider>
           </WebSocketProvider>
