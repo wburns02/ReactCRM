@@ -304,3 +304,54 @@ All Customer Success platform errors have been resolved:
 - **Journeys tab**: Shows 3 journeys (Advocacy Development, Onboarding Journey, Risk Mitigation Journey)
 - **Playbooks tab**: Was already working
 - **Tasks/Touchpoints**: API endpoints functional
+
+---
+
+## Journey Step Count Display Fix - 2026-01-07
+
+### Problem
+Journey section showed "0 steps" for all journeys despite data existing in the database.
+
+### Root Cause Analysis
+
+**Database verification (via Railway CLI):**
+- 3 journeys exist (IDs 19, 20, 21)
+- 37 journey steps exist with correct `journey_id` foreign keys
+- Step counts: Onboarding=13, Risk Mitigation=13, Advocacy=11
+
+**Backend API analysis:**
+- `/api/v2/cs/journeys/` uses `selectinload(Journey.steps)` to eager-load steps
+- Returns `steps: list[JourneyStepResponse]` in response
+- Does NOT return a separate `step_count` computed field
+
+**Frontend bug in JourneyList.tsx line 118:**
+- Was using: `{journey.step_count ?? 0} steps`
+- API doesn't return `step_count`, only `steps` array
+- This caused 0 to always display (fallback value)
+
+### Fix Applied
+**File:** `src/features/customer-success/components/JourneyList.tsx`
+**Line:** 118
+**Change:**
+```typescript
+// Before:
+{journey.step_count ?? 0} steps
+
+// After:
+{journey.steps?.length ?? journey.step_count ?? 0} steps
+```
+
+### Commits
+- `dff2060` - fix(cs): Fix journey step count display to use steps array
+
+### Verification
+- [x] Database has journey data (3 journeys, 37 steps)
+- [x] Backend API returns steps array correctly
+- [x] Frontend fix committed and pushed
+- [ ] E2E verification via Playwright (blocked by login credentials)
+
+### Expected Result After Deployment
+Journeys tab should now show:
+- Onboarding Journey: 13 steps
+- Risk Mitigation Journey: 13 steps
+- Advocacy Development: 11 steps
