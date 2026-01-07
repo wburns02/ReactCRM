@@ -415,3 +415,111 @@ Enhanced `JourneyList.tsx` with:
 - [x] Advanced filters and sorting
 - [x] Dark mode support
 - [ ] E2E verification (Playwright timeout - site may be deploying)
+
+---
+
+## Command Center Major Overhaul - 2026-01-07
+
+### Implemented Features (from mac-crm-improve.sh spec)
+
+#### 1. Dispatch Queue Priority Redesign ✅
+- Moved dispatch queue to LEFT side (primary action zone)
+- Added pulsing "X unassigned" badge with animation
+- Color-coded priority borders:
+  - Emergency: red border + red background
+  - Urgent: orange border + orange background
+  - High: yellow border
+  - Normal: blue border
+  - Low: green border
+- Priority legend in header
+- Draggable job items with visual feedback
+- Job cards show customer name, job type, address, created time
+- "Assign to..." dropdown and "Details" button on each card
+
+#### 2. Behind Indicator Enhancement ✅
+- Red alert banner when 0% utilization with techs on duty
+- Pulsing animation for low utilization warning (< 30%)
+- Warning icon (⚠️) on utilization stat when behind
+- Red text color for critical stats
+- "View Schedule" quick action button in alert banner
+
+#### 3. KPI Cards Enhancement ✅
+- Mini sparkline charts on each card showing trends
+- Click-to-drill-down navigation (Jobs Completed → Work Orders page)
+- "No data" text styling instead of "--" placeholder
+- Trend arrows with color coding (↑ green, ↓ red)
+- Pulsing "BEHIND" badge when completion rate < 50%
+- Cards highlight with red border when behind schedule
+
+#### 4. Map Interactivity Overhaul ✅
+- Enhanced technician markers with initials (e.g., "JD" for John Doe)
+- Larger markers (40x40px) with better visibility
+- Detailed popups showing:
+  - Tech photo placeholder with initials
+  - Status badge (Available/Busy/Offline) with colors
+  - Phone number with 📞 emoji
+  - Skills list (up to 3)
+  - Current job details if busy
+  - Assigned vehicle
+  - "Ready for assignment" hint for available techs
+- Status count legend in header (Available/Busy/Offline counts)
+
+#### 5. Navigation Optimization ✅
+- Keyboard shortcuts system:
+  - `g` + `d` → Go to Dashboard
+  - `g` + `s` → Go to Schedule
+  - `g` + `c` → Go to Customers
+  - `g` + `w` → Go to Work Orders
+  - `g` + `t` → Go to Technicians
+  - `?` → Show shortcuts modal
+  - `Escape` → Close modal
+- Keyboard shortcuts modal with instructions
+- Toast notifications when navigating via shortcuts
+
+#### 6. Real-time Enhancements ✅
+- Connection status indicator (Live/Disconnected)
+- Green pulsing dot for "Live" status
+- "Updated [timestamp]" display with auto-refresh
+- Auto-refresh every 30 seconds
+- Toast notification system:
+  - Success (green) for job assignments
+  - Info (blue) for navigation and drill-downs
+  - Error (red) for failures
+  - Auto-dismiss after 5 seconds
+
+### CSS Animations Added
+- `animate-pulse-subtle`: Subtle opacity pulse for urgent items
+- `animate-slide-in-right`: Toast slide-in animation
+- `animate-bounce-subtle`: Bounce for attention
+- `animate-glow-red`: Red glow for emergency items
+- Enhanced Leaflet popup styling
+- Technician marker hover effects
+
+### Tests Created
+- `e2e/tests/command-center.spec.ts` with 34 test cases covering:
+  - Navigation to all sidebar items
+  - Core functionality (title, stats, KPIs, map, queue)
+  - Dispatch queue interactions
+  - Map interactions (zoom, markers)
+  - KPI card drill-down
+  - Keyboard shortcuts
+  - Responsive design (mobile, tablet, desktop)
+  - Accessibility
+  - Real-time features
+
+### Commits
+- `ad9b059` - feat(command-center): Major Command Center overhaul with enhanced features
+
+### Verification Status ✅ COMPLETE
+- [x] Build passes with no TypeScript errors
+- [x] Pushed to GitHub
+- [x] Railway deployment successful
+- [x] Production verification via Playwright:
+  - [x] Page title visible
+  - [x] Live indicator working
+  - [x] Dispatch queue with unassigned badge
+  - [x] Map with technician markers
+  - [x] Full Schedule button
+  - [x] New Work Order button
+  - [x] Keyboard shortcuts modal (? key)
+  - [x] KPI cards with sparklines
