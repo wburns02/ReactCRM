@@ -895,3 +895,780 @@ export function useActivityFeed(limit: number = 20) {
     staleTime: 30_000,
   });
 }
+
+// ============================================
+// Survey Hooks
+// ============================================
+
+export interface SurveyFilters {
+  page?: number;
+  page_size?: number;
+  survey_type?: string;
+  status?: string;
+  search?: string;
+}
+
+export interface SurveyFormData {
+  name: string;
+  description?: string;
+  survey_type?: string;
+  trigger_type?: string;
+  scheduled_at?: string;
+  target_segment_id?: number;
+  is_anonymous?: boolean;
+  allow_multiple_responses?: boolean;
+  send_reminder?: boolean;
+  reminder_days?: number;
+  questions?: SurveyQuestionFormData[];
+}
+
+export interface SurveyQuestionFormData {
+  text: string;
+  description?: string;
+  question_type: string;
+  order?: number;
+  is_required?: boolean;
+  scale_min?: number;
+  scale_max?: number;
+  scale_min_label?: string;
+  scale_max_label?: string;
+  options?: string[];
+}
+
+export const surveyKeys = {
+  surveys: ['cs', 'surveys'] as const,
+  surveysList: (filters: SurveyFilters) => [...surveyKeys.surveys, 'list', filters] as const,
+  surveyDetail: (id: number) => [...surveyKeys.surveys, 'detail', id] as const,
+  surveyResponses: (id: number) => [...surveyKeys.surveys, 'responses', id] as const,
+  surveyAnalytics: (id: number) => [...surveyKeys.surveys, 'analytics', id] as const,
+};
+
+export function useSurveys(filters: SurveyFilters = {}) {
+  return useQuery({
+    queryKey: surveyKeys.surveysList(filters),
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (filters.page) params.set('page', String(filters.page));
+      if (filters.page_size) params.set('page_size', String(filters.page_size));
+      if (filters.survey_type) params.set('survey_type', filters.survey_type);
+      if (filters.status) params.set('status', filters.status);
+      if (filters.search) params.set('search', filters.search);
+
+      const { data } = await apiClient.get(`/cs/surveys/?${params}`);
+      return data;
+    },
+    staleTime: 30_000,
+  });
+}
+
+export function useSurvey(id: number | undefined) {
+  return useQuery({
+    queryKey: surveyKeys.surveyDetail(id!),
+    queryFn: async () => {
+      const { data } = await apiClient.get(`/cs/surveys/${id}`);
+      return data;
+    },
+    enabled: !!id,
+  });
+}
+
+export function useCreateSurvey() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: SurveyFormData) => {
+      const response = await apiClient.post('/cs/surveys/', data);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: surveyKeys.surveys });
+    },
+  });
+}
+
+export function useUpdateSurvey() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: Partial<SurveyFormData> }) => {
+      const response = await apiClient.patch(`/cs/surveys/${id}`, data);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: surveyKeys.surveyDetail(variables.id) });
+      queryClient.invalidateQueries({ queryKey: surveyKeys.surveys });
+    },
+  });
+}
+
+export function useDeleteSurvey() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      await apiClient.delete(`/cs/surveys/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: surveyKeys.surveys });
+    },
+  });
+}
+
+export function useActivateSurvey() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      const response = await apiClient.post(`/cs/surveys/${id}/activate`);
+      return response.data;
+    },
+    onSuccess: (_, id) => {
+      queryClient.invalidateQueries({ queryKey: surveyKeys.surveyDetail(id) });
+      queryClient.invalidateQueries({ queryKey: surveyKeys.surveys });
+    },
+  });
+}
+
+export function usePauseSurvey() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      const response = await apiClient.post(`/cs/surveys/${id}/pause`);
+      return response.data;
+    },
+    onSuccess: (_, id) => {
+      queryClient.invalidateQueries({ queryKey: surveyKeys.surveyDetail(id) });
+      queryClient.invalidateQueries({ queryKey: surveyKeys.surveys });
+    },
+  });
+}
+
+export function useSurveyAnalytics(id: number | undefined) {
+  return useQuery({
+    queryKey: surveyKeys.surveyAnalytics(id!),
+    queryFn: async () => {
+      const { data } = await apiClient.get(`/cs/surveys/${id}/analytics`);
+      return data;
+    },
+    enabled: !!id,
+    staleTime: 60_000,
+  });
+}
+
+export function useSurveyResponses(surveyId: number | undefined, filters: { page?: number; sentiment?: string } = {}) {
+  return useQuery({
+    queryKey: surveyKeys.surveyResponses(surveyId!),
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (filters.page) params.set('page', String(filters.page));
+      if (filters.sentiment) params.set('sentiment', filters.sentiment);
+
+      const { data } = await apiClient.get(`/cs/surveys/${surveyId}/responses?${params}`);
+      return data;
+    },
+    enabled: !!surveyId,
+  });
+}
+
+// ============================================
+// Campaign Hooks
+// ============================================
+
+export interface CampaignFilters {
+  page?: number;
+  page_size?: number;
+  campaign_type?: string;
+  status?: string;
+  search?: string;
+}
+
+export interface CampaignFormData {
+  name: string;
+  description?: string;
+  campaign_type?: string;
+  primary_channel?: string;
+  target_segment_id?: number;
+  start_date?: string;
+  end_date?: string;
+  is_recurring?: boolean;
+  allow_re_enrollment?: boolean;
+  goal_type?: string;
+  goal_metric?: string;
+  goal_target?: number;
+  steps?: CampaignStepFormData[];
+}
+
+export interface CampaignStepFormData {
+  name: string;
+  description?: string;
+  step_type: string;
+  order?: number;
+  delay_days?: number;
+  delay_hours?: number;
+  subject?: string;
+  content?: string;
+  content_html?: string;
+  cta_text?: string;
+  cta_url?: string;
+}
+
+export const campaignKeys = {
+  campaigns: ['cs', 'campaigns'] as const,
+  campaignsList: (filters: CampaignFilters) => [...campaignKeys.campaigns, 'list', filters] as const,
+  campaignDetail: (id: number) => [...campaignKeys.campaigns, 'detail', id] as const,
+  campaignEnrollments: (id: number) => [...campaignKeys.campaigns, 'enrollments', id] as const,
+  campaignAnalytics: (id: number) => [...campaignKeys.campaigns, 'analytics', id] as const,
+};
+
+export function useCampaigns(filters: CampaignFilters = {}) {
+  return useQuery({
+    queryKey: campaignKeys.campaignsList(filters),
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (filters.page) params.set('page', String(filters.page));
+      if (filters.page_size) params.set('page_size', String(filters.page_size));
+      if (filters.campaign_type) params.set('campaign_type', filters.campaign_type);
+      if (filters.status) params.set('status', filters.status);
+      if (filters.search) params.set('search', filters.search);
+
+      const { data } = await apiClient.get(`/cs/campaigns/?${params}`);
+      return data;
+    },
+    staleTime: 30_000,
+  });
+}
+
+export function useCampaign(id: number | undefined) {
+  return useQuery({
+    queryKey: campaignKeys.campaignDetail(id!),
+    queryFn: async () => {
+      const { data } = await apiClient.get(`/cs/campaigns/${id}`);
+      return data;
+    },
+    enabled: !!id,
+  });
+}
+
+export function useCreateCampaign() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: CampaignFormData) => {
+      const response = await apiClient.post('/cs/campaigns/', data);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: campaignKeys.campaigns });
+    },
+  });
+}
+
+export function useUpdateCampaign() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: Partial<CampaignFormData> }) => {
+      const response = await apiClient.patch(`/cs/campaigns/${id}`, data);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: campaignKeys.campaignDetail(variables.id) });
+      queryClient.invalidateQueries({ queryKey: campaignKeys.campaigns });
+    },
+  });
+}
+
+export function useDeleteCampaign() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      await apiClient.delete(`/cs/campaigns/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: campaignKeys.campaigns });
+    },
+  });
+}
+
+export function useLaunchCampaign() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      const response = await apiClient.post(`/cs/campaigns/${id}/launch`);
+      return response.data;
+    },
+    onSuccess: (_, id) => {
+      queryClient.invalidateQueries({ queryKey: campaignKeys.campaignDetail(id) });
+      queryClient.invalidateQueries({ queryKey: campaignKeys.campaigns });
+    },
+  });
+}
+
+export function usePauseCampaign() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      const response = await apiClient.post(`/cs/campaigns/${id}/pause`);
+      return response.data;
+    },
+    onSuccess: (_, id) => {
+      queryClient.invalidateQueries({ queryKey: campaignKeys.campaignDetail(id) });
+      queryClient.invalidateQueries({ queryKey: campaignKeys.campaigns });
+    },
+  });
+}
+
+export function useEnrollInCampaign() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ campaignId, customerId }: { campaignId: number; customerId: number }) => {
+      const response = await apiClient.post(`/cs/campaigns/${campaignId}/enroll`, { customer_id: customerId });
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: campaignKeys.campaignEnrollments(variables.campaignId) });
+      queryClient.invalidateQueries({ queryKey: campaignKeys.campaigns });
+    },
+  });
+}
+
+export function useCampaignAnalytics(id: number | undefined) {
+  return useQuery({
+    queryKey: campaignKeys.campaignAnalytics(id!),
+    queryFn: async () => {
+      const { data } = await apiClient.get(`/cs/campaigns/${id}/analytics`);
+      return data;
+    },
+    enabled: !!id,
+    staleTime: 60_000,
+  });
+}
+
+// ============================================
+// Escalation Hooks
+// ============================================
+
+export interface EscalationFilters {
+  page?: number;
+  page_size?: number;
+  escalation_type?: string;
+  severity?: string;
+  status?: string;
+  customer_id?: number;
+  assigned_to_user_id?: number;
+  search?: string;
+}
+
+export interface EscalationFormData {
+  customer_id: number;
+  title: string;
+  description: string;
+  escalation_type?: string;
+  severity?: string;
+  priority?: number;
+  assigned_to_user_id?: number;
+  escalated_to_user_id?: number;
+  sla_hours?: number;
+  revenue_at_risk?: number;
+  churn_probability?: number;
+  impact_description?: string;
+  tags?: string[];
+}
+
+export interface EscalationNoteFormData {
+  content: string;
+  note_type?: string;
+  is_internal?: boolean;
+}
+
+export const escalationKeys = {
+  escalations: ['cs', 'escalations'] as const,
+  escalationsList: (filters: EscalationFilters) => [...escalationKeys.escalations, 'list', filters] as const,
+  escalationDetail: (id: number) => [...escalationKeys.escalations, 'detail', id] as const,
+  escalationAnalytics: () => [...escalationKeys.escalations, 'analytics'] as const,
+};
+
+export function useEscalations(filters: EscalationFilters = {}) {
+  return useQuery({
+    queryKey: escalationKeys.escalationsList(filters),
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (filters.page) params.set('page', String(filters.page));
+      if (filters.page_size) params.set('page_size', String(filters.page_size));
+      if (filters.escalation_type) params.set('escalation_type', filters.escalation_type);
+      if (filters.severity) params.set('severity', filters.severity);
+      if (filters.status) params.set('status', filters.status);
+      if (filters.customer_id) params.set('customer_id', String(filters.customer_id));
+      if (filters.assigned_to_user_id) params.set('assigned_to_user_id', String(filters.assigned_to_user_id));
+      if (filters.search) params.set('search', filters.search);
+
+      const { data } = await apiClient.get(`/cs/escalations/?${params}`);
+      return data;
+    },
+    staleTime: 30_000,
+  });
+}
+
+export function useEscalation(id: number | undefined) {
+  return useQuery({
+    queryKey: escalationKeys.escalationDetail(id!),
+    queryFn: async () => {
+      const { data } = await apiClient.get(`/cs/escalations/${id}`);
+      return data;
+    },
+    enabled: !!id,
+  });
+}
+
+export function useCreateEscalation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: EscalationFormData) => {
+      const response = await apiClient.post('/cs/escalations/', data);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: escalationKeys.escalations });
+    },
+  });
+}
+
+export function useUpdateEscalation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: Partial<EscalationFormData> }) => {
+      const response = await apiClient.patch(`/cs/escalations/${id}`, data);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: escalationKeys.escalationDetail(variables.id) });
+      queryClient.invalidateQueries({ queryKey: escalationKeys.escalations });
+    },
+  });
+}
+
+export function useDeleteEscalation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      await apiClient.delete(`/cs/escalations/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: escalationKeys.escalations });
+    },
+  });
+}
+
+export function useAddEscalationNote() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ escalationId, data }: { escalationId: number; data: EscalationNoteFormData }) => {
+      const response = await apiClient.post(`/cs/escalations/${escalationId}/notes`, data);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: escalationKeys.escalationDetail(variables.escalationId) });
+    },
+  });
+}
+
+export function useResolveEscalation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, resolution_summary, resolution_category }: { id: number; resolution_summary: string; resolution_category: string }) => {
+      const response = await apiClient.post(`/cs/escalations/${id}/resolve`, null, {
+        params: { resolution_summary, resolution_category },
+      });
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: escalationKeys.escalationDetail(variables.id) });
+      queryClient.invalidateQueries({ queryKey: escalationKeys.escalations });
+    },
+  });
+}
+
+export function useCloseEscalation() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, customer_satisfaction }: { id: number; customer_satisfaction?: number }) => {
+      const params = customer_satisfaction ? `?customer_satisfaction=${customer_satisfaction}` : '';
+      const response = await apiClient.post(`/cs/escalations/${id}/close${params}`);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: escalationKeys.escalationDetail(variables.id) });
+      queryClient.invalidateQueries({ queryKey: escalationKeys.escalations });
+    },
+  });
+}
+
+export function useEscalationAnalytics(days: number = 30) {
+  return useQuery({
+    queryKey: escalationKeys.escalationAnalytics(),
+    queryFn: async () => {
+      const { data } = await apiClient.get(`/cs/escalations/analytics/summary?days=${days}`);
+      return data;
+    },
+    staleTime: 60_000,
+  });
+}
+
+// ============================================
+// Collaboration Hub Hooks
+// ============================================
+
+export interface ResourceFilters {
+  page?: number;
+  page_size?: number;
+  resource_type?: string;
+  category?: string;
+  search?: string;
+  is_featured?: boolean;
+  is_pinned?: boolean;
+}
+
+export interface ResourceFormData {
+  title: string;
+  description?: string;
+  resource_type: string;
+  category?: string;
+  content?: string;
+  content_html?: string;
+  url?: string;
+  tags?: string[];
+  is_featured?: boolean;
+  is_pinned?: boolean;
+  visibility?: string;
+}
+
+export interface TeamNoteFilters {
+  page?: number;
+  page_size?: number;
+  customer_id?: number;
+  category?: string;
+  search?: string;
+  is_pinned?: boolean;
+}
+
+export interface TeamNoteFormData {
+  title: string;
+  content: string;
+  content_html?: string;
+  customer_id?: number;
+  category?: string;
+  tags?: string[];
+  is_pinned?: boolean;
+  visibility?: string;
+}
+
+export const collaborationKeys = {
+  resources: ['cs', 'collaboration', 'resources'] as const,
+  resourcesList: (filters: ResourceFilters) => [...collaborationKeys.resources, 'list', filters] as const,
+  resourceDetail: (id: number) => [...collaborationKeys.resources, 'detail', id] as const,
+  notes: ['cs', 'collaboration', 'notes'] as const,
+  notesList: (filters: TeamNoteFilters) => [...collaborationKeys.notes, 'list', filters] as const,
+  noteDetail: (id: number) => [...collaborationKeys.notes, 'detail', id] as const,
+  activity: ['cs', 'collaboration', 'activity'] as const,
+};
+
+export function useResources(filters: ResourceFilters = {}) {
+  return useQuery({
+    queryKey: collaborationKeys.resourcesList(filters),
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (filters.page) params.set('page', String(filters.page));
+      if (filters.page_size) params.set('page_size', String(filters.page_size));
+      if (filters.resource_type) params.set('resource_type', filters.resource_type);
+      if (filters.category) params.set('category', filters.category);
+      if (filters.search) params.set('search', filters.search);
+      if (filters.is_featured !== undefined) params.set('is_featured', String(filters.is_featured));
+      if (filters.is_pinned !== undefined) params.set('is_pinned', String(filters.is_pinned));
+
+      const { data } = await apiClient.get(`/cs/collaboration/resources?${params}`);
+      return data;
+    },
+    staleTime: 30_000,
+  });
+}
+
+export function useResource(id: number | undefined) {
+  return useQuery({
+    queryKey: collaborationKeys.resourceDetail(id!),
+    queryFn: async () => {
+      const { data } = await apiClient.get(`/cs/collaboration/resources/${id}`);
+      return data;
+    },
+    enabled: !!id,
+  });
+}
+
+export function useCreateResource() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: ResourceFormData) => {
+      const response = await apiClient.post('/cs/collaboration/resources', data);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: collaborationKeys.resources });
+    },
+  });
+}
+
+export function useUpdateResource() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: Partial<ResourceFormData> }) => {
+      const response = await apiClient.patch(`/cs/collaboration/resources/${id}`, data);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: collaborationKeys.resourceDetail(variables.id) });
+      queryClient.invalidateQueries({ queryKey: collaborationKeys.resources });
+    },
+  });
+}
+
+export function useDeleteResource() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      await apiClient.delete(`/cs/collaboration/resources/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: collaborationKeys.resources });
+    },
+  });
+}
+
+export function useLikeResource() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      const response = await apiClient.post(`/cs/collaboration/resources/${id}/like`);
+      return response.data;
+    },
+    onSuccess: (_, id) => {
+      queryClient.invalidateQueries({ queryKey: collaborationKeys.resourceDetail(id) });
+      queryClient.invalidateQueries({ queryKey: collaborationKeys.resources });
+    },
+  });
+}
+
+export function useUnlikeResource() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      const response = await apiClient.delete(`/cs/collaboration/resources/${id}/like`);
+      return response.data;
+    },
+    onSuccess: (_, id) => {
+      queryClient.invalidateQueries({ queryKey: collaborationKeys.resourceDetail(id) });
+      queryClient.invalidateQueries({ queryKey: collaborationKeys.resources });
+    },
+  });
+}
+
+export function useTeamNotes(filters: TeamNoteFilters = {}) {
+  return useQuery({
+    queryKey: collaborationKeys.notesList(filters),
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (filters.page) params.set('page', String(filters.page));
+      if (filters.page_size) params.set('page_size', String(filters.page_size));
+      if (filters.customer_id) params.set('customer_id', String(filters.customer_id));
+      if (filters.category) params.set('category', filters.category);
+      if (filters.search) params.set('search', filters.search);
+      if (filters.is_pinned !== undefined) params.set('is_pinned', String(filters.is_pinned));
+
+      const { data } = await apiClient.get(`/cs/collaboration/notes?${params}`);
+      return data;
+    },
+    staleTime: 30_000,
+  });
+}
+
+export function useTeamNote(id: number | undefined) {
+  return useQuery({
+    queryKey: collaborationKeys.noteDetail(id!),
+    queryFn: async () => {
+      const { data } = await apiClient.get(`/cs/collaboration/notes/${id}`);
+      return data;
+    },
+    enabled: !!id,
+  });
+}
+
+export function useCreateTeamNote() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (data: TeamNoteFormData) => {
+      const response = await apiClient.post('/cs/collaboration/notes', data);
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: collaborationKeys.notes });
+    },
+  });
+}
+
+export function useUpdateTeamNote() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ id, data }: { id: number; data: Partial<TeamNoteFormData> }) => {
+      const response = await apiClient.patch(`/cs/collaboration/notes/${id}`, data);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: collaborationKeys.noteDetail(variables.id) });
+      queryClient.invalidateQueries({ queryKey: collaborationKeys.notes });
+    },
+  });
+}
+
+export function useDeleteTeamNote() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: number) => {
+      await apiClient.delete(`/cs/collaboration/notes/${id}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: collaborationKeys.notes });
+    },
+  });
+}
+
+export function useCollaborationActivity(filters: { activity_type?: string; customer_id?: number } = {}) {
+  return useQuery({
+    queryKey: collaborationKeys.activity,
+    queryFn: async () => {
+      const params = new URLSearchParams();
+      if (filters.activity_type) params.set('activity_type', filters.activity_type);
+      if (filters.customer_id) params.set('customer_id', String(filters.customer_id));
+
+      const { data } = await apiClient.get(`/cs/collaboration/activity?${params}`);
+      return data;
+    },
+    staleTime: 30_000,
+  });
+}

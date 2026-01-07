@@ -1,6 +1,6 @@
 # Claude Code Documentation - ECBTX CRM
 
-> **Version:** v2.0 — December 31, 2025
+> **Version:** v2.1 — January 7, 2026
 > **Status:** Production
 
 ---
@@ -24,6 +24,47 @@
 - `"Fix until all tests pass and zero console errors"`
 
 > **CRITICAL**: This document contains binding rules. Violations (especially faked Playwright usage or reintroduction of banned bugs) invalidate the entire response.
+
+---
+
+## Current Feature: Role-Switching Demo
+
+**Demo User:** `will@macseptic.com`
+**Purpose:** When this user logs in, show a floating role switcher to demo different CRM views.
+
+### Available Roles
+
+| Role | Display Name | Icon | Focus |
+|------|-------------|------|-------|
+| `admin` | Administrator | 👑 | Full system access |
+| `executive` | Executive | 📊 | High-level KPIs |
+| `manager` | Operations Manager | 📋 | Day-to-day ops |
+| `technician` | Field Technician | 🔧 | Mobile work orders |
+| `phone_agent` | Phone Agent | 📞 | Customer service |
+| `dispatcher` | Dispatcher | 🗺️ | Schedule management |
+| `billing` | Billing Specialist | 💰 | Invoicing/payments |
+
+### Implementation Requirements
+
+**Backend (FastAPI):**
+- `app/models/role_view.py` - SQLAlchemy model
+- `app/schemas/role_view.py` - Pydantic schemas
+- `app/services/role_view_service.py` - Business logic
+- `app/api/v2/endpoints/roles.py` - API endpoints
+- `app/core/demo_mode.py` - Middleware/dependencies
+
+**Frontend (React):**
+- `src/context/RoleContext.tsx` - State management
+- `src/components/RoleSwitcher/` - UI component
+- `src/components/Dashboard/RoleDashboard.tsx` - Role-specific views
+- `src/components/Navigation/RoleBasedNav.tsx` - Dynamic nav
+
+**API Endpoints:**
+| Method | Endpoint | Description |
+|--------|----------|-------------|
+| GET | `/api/v2/roles` | List available roles (demo user only) |
+| POST | `/api/v2/roles/switch` | Switch active role |
+| GET | `/api/v2/roles/current` | Get current role config |
 
 ---
 
