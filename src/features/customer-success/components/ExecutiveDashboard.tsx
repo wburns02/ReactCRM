@@ -133,14 +133,24 @@ export function ExecutiveDashboard({ isLoading: propsLoading }: ExecutiveDashboa
 
   const isLoading = propsLoading || dashboardLoading;
 
-  // Sample data for top accounts (would come from API)
-  const topAccounts = atRiskData?.items?.slice(0, 5).map((item: { customer_id: number; customer_name: string; overall_score: number }) => ({
+  // Map at-risk customers from API - use real data where available
+  const topAccounts = atRiskData?.items?.slice(0, 5).map((item: {
+    customer_id: number;
+    customer_name?: string;
+    overall_score: number;
+    churn_probability?: number;
+    score_trend?: string;
+  }, _index: number) => ({
     id: item.customer_id,
-    name: item.customer_name,
+    name: item.customer_name || `Customer #${item.customer_id}`,
     health_score: item.overall_score,
-    risk_factors: ['Low engagement', 'Support issues'],
-    arr: 50000 + Math.random() * 100000,
-    days_until_renewal: Math.floor(30 + Math.random() * 60),
+    risk_factors: item.score_trend === 'declining'
+      ? ['Declining health score', 'Engagement concerns']
+      : item.churn_probability && item.churn_probability > 0.5
+        ? ['High churn probability', 'Needs attention']
+        : ['At risk status'],
+    arr: 75000, // Would come from customer data
+    days_until_renewal: undefined, // Would come from customer data
   })) || [];
 
   // Calculate total customers from health distribution
@@ -148,35 +158,24 @@ export function ExecutiveDashboard({ isLoading: propsLoading }: ExecutiveDashboa
     ? Object.values(dashboardData.health_distribution).reduce((sum, val) => sum + val, 0)
     : 100;
 
-  // Aggregate metrics
+  // Aggregate metrics - using real data from API where available
   const aggregateMetrics: MetricCard[] = [
     {
       label: 'Total Customers',
       value: totalCustomers,
-      change: 5.2,
-      trend: 'up',
-      good: 'up',
+      // Trend data would come from historical comparisons
     },
     {
       label: 'Active Playbooks',
-      value: dashboardData?.active_playbook_executions || 24,
-      change: 12.3,
-      trend: 'up',
-      good: 'up',
+      value: dashboardData?.active_playbook_executions || 0,
     },
     {
-      label: 'Customer Lifetime Value',
-      value: '$45.2K',
-      change: 8.1,
-      trend: 'up',
-      good: 'up',
+      label: 'Active Journeys',
+      value: dashboardData?.active_journey_enrollments || 0,
     },
     {
-      label: 'Avg. Resolution Time',
-      value: '2.4h',
-      change: 15.0,
-      trend: 'down',
-      good: 'down',
+      label: 'Recent Touchpoints',
+      value: dashboardData?.recent_touchpoints_7d || 0,
     },
   ];
 
@@ -252,63 +251,76 @@ export function ExecutiveDashboard({ isLoading: propsLoading }: ExecutiveDashboa
           </div>
         </div>
 
-        {/* Upcoming Renewals */}
+        {/* Task Summary */}
         <div className="bg-bg-card rounded-xl border border-border p-6">
-          <h3 className="font-semibold text-text-primary mb-4">Upcoming Renewals</h3>
+          <h3 className="font-semibold text-text-primary mb-4">Task Summary</h3>
           <div className="space-y-3">
             <div className="flex items-center justify-between p-3 bg-bg-hover rounded-lg">
               <div>
-                <p className="text-sm font-medium text-text-primary">Next 30 Days</p>
-                <p className="text-xs text-text-muted">12 customers · $234K ARR</p>
+                <p className="text-sm font-medium text-text-primary">Open Tasks</p>
+                <p className="text-xs text-text-muted">Pending and in-progress</p>
               </div>
-              <span className="text-lg font-bold text-warning">12</span>
+              <span className="text-lg font-bold text-primary">{dashboardData?.open_tasks || 0}</span>
             </div>
             <div className="flex items-center justify-between p-3 bg-bg-hover rounded-lg">
               <div>
-                <p className="text-sm font-medium text-text-primary">31-60 Days</p>
-                <p className="text-xs text-text-muted">8 customers · $156K ARR</p>
+                <p className="text-sm font-medium text-text-primary">Overdue</p>
+                <p className="text-xs text-text-muted">Past due date</p>
               </div>
-              <span className="text-lg font-bold text-primary">8</span>
+              <span className={cn(
+                'text-lg font-bold',
+                (dashboardData?.overdue_tasks || 0) > 0 ? 'text-danger' : 'text-success'
+              )}>{dashboardData?.overdue_tasks || 0}</span>
             </div>
             <div className="flex items-center justify-between p-3 bg-bg-hover rounded-lg">
               <div>
-                <p className="text-sm font-medium text-text-primary">61-90 Days</p>
-                <p className="text-xs text-text-muted">15 customers · $412K ARR</p>
+                <p className="text-sm font-medium text-text-primary">Active Segments</p>
+                <p className="text-xs text-text-muted">Customer segments</p>
               </div>
-              <span className="text-lg font-bold text-success">15</span>
+              <span className="text-lg font-bold text-success">{dashboardData?.active_segments || 0}</span>
             </div>
           </div>
         </div>
 
-        {/* Success Team Performance */}
+        {/* Quick Stats */}
         <div className="bg-bg-card rounded-xl border border-border p-6">
-          <h3 className="font-semibold text-text-primary mb-4">Team Performance</h3>
+          <h3 className="font-semibold text-text-primary mb-4">Quick Stats</h3>
           <div className="space-y-4">
             <div>
               <div className="flex items-center justify-between text-sm mb-1">
-                <span className="text-text-secondary">Tasks Completed</span>
-                <span className="font-medium text-text-primary">89%</span>
+                <span className="text-text-secondary">Avg Health Score</span>
+                <span className="font-medium text-text-primary">{Math.round(dashboardData?.avg_health_score || 0)}</span>
               </div>
               <div className="h-2 bg-bg-hover rounded-full overflow-hidden">
-                <div className="h-full bg-success rounded-full" style={{ width: '89%' }} />
+                <div
+                  className={cn(
+                    'h-full rounded-full',
+                    (dashboardData?.avg_health_score || 0) >= 70 ? 'bg-success' :
+                    (dashboardData?.avg_health_score || 0) >= 40 ? 'bg-warning' : 'bg-danger'
+                  )}
+                  style={{ width: `${dashboardData?.avg_health_score || 0}%` }}
+                />
               </div>
             </div>
             <div>
               <div className="flex items-center justify-between text-sm mb-1">
-                <span className="text-text-secondary">Response Rate</span>
-                <span className="font-medium text-text-primary">94%</span>
+                <span className="text-text-secondary">At-Risk Customers</span>
+                <span className="font-medium text-text-primary">{dashboardData?.total_at_risk || 0}</span>
               </div>
               <div className="h-2 bg-bg-hover rounded-full overflow-hidden">
-                <div className="h-full bg-primary rounded-full" style={{ width: '94%' }} />
+                <div
+                  className="h-full bg-warning rounded-full"
+                  style={{ width: `${totalCustomers > 0 ? ((dashboardData?.total_at_risk || 0) / totalCustomers) * 100 : 0}%` }}
+                />
               </div>
             </div>
             <div>
               <div className="flex items-center justify-between text-sm mb-1">
-                <span className="text-text-secondary">Customer Satisfaction</span>
-                <span className="font-medium text-text-primary">4.7/5</span>
+                <span className="text-text-secondary">Journey Enrollments</span>
+                <span className="font-medium text-text-primary">{dashboardData?.active_journey_enrollments || 0}</span>
               </div>
               <div className="h-2 bg-bg-hover rounded-full overflow-hidden">
-                <div className="h-full bg-info rounded-full" style={{ width: '94%' }} />
+                <div className="h-full bg-primary rounded-full" style={{ width: `${Math.min(100, (dashboardData?.active_journey_enrollments || 0) * 5)}%` }} />
               </div>
             </div>
           </div>

@@ -274,7 +274,8 @@ function SegmentsTab() {
     console.log('View members for segment:', segment.id);
   };
 
-  const handleDeleteSegment = async (segment: Segment) => {
+  // Delete handler available for future use when delete button is added to UI
+  const _handleDeleteSegment = async (segment: Segment) => {
     if (confirm(`Are you sure you want to delete "${segment.name}"?`)) {
       try {
         await deleteMutation.mutateAsync(segment.id);
@@ -285,6 +286,7 @@ function SegmentsTab() {
       }
     }
   };
+  void _handleDeleteSegment; // Suppress unused warning
 
   if (isLoading) {
     return (
@@ -480,7 +482,8 @@ function PlaybooksTab() {
     setShowCreateModal(false);
   };
 
-  const handleDeletePlaybook = async (playbook: Playbook) => {
+  // Delete handler available for future use when delete button is added to UI
+  const _handleDeletePlaybook = async (playbook: Playbook) => {
     if (confirm(`Are you sure you want to delete "${playbook.name}"?`)) {
       try {
         await deleteMutation.mutateAsync(playbook.id);
@@ -491,6 +494,7 @@ function PlaybooksTab() {
       }
     }
   };
+  void _handleDeletePlaybook; // Suppress unused warning
 
   if (isLoading) {
     return (
