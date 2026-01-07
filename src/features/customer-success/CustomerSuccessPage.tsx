@@ -26,6 +26,7 @@ import {
   useSegments,
   useJourneys,
   usePlaybooks,
+  useSeedJourneySteps,
 } from '@/api/hooks/useCustomerSuccess.ts';
 import { PlaybookDetailModal } from './components/PlaybookDetailModal.tsx';
 import { TriggerPlaybookModal } from './components/TriggerPlaybookModal.tsx';
@@ -287,8 +288,9 @@ function SegmentsTab() {
 }
 
 function JourneysTab() {
-  const { data: journeysData, isLoading } = useJourneys();
+  const { data: journeysData, isLoading, refetch } = useJourneys();
   const [selectedJourney, setSelectedJourney] = useState<Journey | null>(null);
+  const seedMutation = useSeedJourneySteps();
 
   const handleSelectJourney = (journey: Journey) => {
     setSelectedJourney(journey);
@@ -313,6 +315,24 @@ function JourneysTab() {
     setSelectedJourney(null);
   };
 
+  const handleSeedSteps = async () => {
+    try {
+      const result = await seedMutation.mutateAsync();
+      if (result.journeys.length === 0) {
+        alert('All journeys already have steps!');
+      } else {
+        const details = result.journeys.map(j => `• ${j.journey_name}: ${j.steps_added} steps`).join('\n');
+        alert(`Successfully seeded journey steps!\n\n${details}`);
+      }
+      refetch();
+    } catch (error) {
+      alert(`Failed to seed journey steps: ${error instanceof Error ? error.message : 'Unknown error'}`);
+    }
+  };
+
+  // Check if any journeys are empty (no steps)
+  const hasEmptyJourneys = journeysData?.items?.some(j => !j.steps || j.steps.length === 0);
+
   if (isLoading) {
     return (
       <div className="flex items-center justify-center py-12">
@@ -323,6 +343,29 @@ function JourneysTab() {
 
   return (
     <>
+      {/* Seed Steps Button - show if there are empty journeys */}
+      {hasEmptyJourneys && (
+        <div className="mb-4 p-4 bg-yellow-50 dark:bg-yellow-900/20 border border-yellow-200 dark:border-yellow-800 rounded-lg">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-sm font-medium text-yellow-800 dark:text-yellow-200">
+                Some journeys have no steps configured
+              </p>
+              <p className="text-xs text-yellow-600 dark:text-yellow-400 mt-1">
+                Click the button to populate journeys with comprehensive best-practice steps
+              </p>
+            </div>
+            <button
+              onClick={handleSeedSteps}
+              disabled={seedMutation.isPending}
+              className="px-4 py-2 bg-yellow-600 hover:bg-yellow-700 disabled:bg-yellow-400 text-white text-sm font-medium rounded-lg transition-colors"
+            >
+              {seedMutation.isPending ? 'Seeding...' : 'Seed Journey Steps'}
+            </button>
+          </div>
+        </div>
+      )}
+
       <JourneyList
         journeys={journeysData?.items || []}
         selectedJourneyId={selectedJourney?.id}

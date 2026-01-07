@@ -352,6 +352,31 @@ export function useDeleteJourneyStep() {
   });
 }
 
+export interface SeedJourneyStepsResponse {
+  status: string;
+  message: string;
+  journeys: Array<{
+    journey_id: number;
+    journey_name: string;
+    steps_added: number;
+  }>;
+}
+
+export function useSeedJourneySteps() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (): Promise<SeedJourneyStepsResponse> => {
+      const response = await apiClient.post('/cs/journeys/seed-steps');
+      return response.data;
+    },
+    onSuccess: () => {
+      // Invalidate all journey queries to refresh the data
+      queryClient.invalidateQueries({ queryKey: csKeys.journeys });
+    },
+  });
+}
+
 // ============================================
 // Playbook Hooks
 // ============================================
