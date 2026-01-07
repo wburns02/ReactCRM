@@ -1,4 +1,4 @@
-import { useMemo, useState, useEffect, useCallback } from 'react';
+import { useMemo, useState, useEffect, useCallback, useRef } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
@@ -20,12 +20,13 @@ import {
 } from '@/api/types/workOrder.ts';
 import type { Technician } from '@/api/types/technician.ts';
 
-// Fix Leaflet default marker icon issue with bundlers
+// Fix Leaflet default marker icon issue - DISABLE default markers entirely
+// We only use custom DivIcon markers for technicians
 delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: unknown })._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+  iconUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+  iconRetinaUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
+  shadowUrl: '',
 });
 
 // San Marcos, TX center (company location)
@@ -65,6 +66,14 @@ interface Toast {
 }
 
 // ============================================
+// Assignment Confirmation Modal Types
+// ============================================
+interface AssignmentConfirmation {
+  job: WorkOrder;
+  technician: TechnicianWithStatus;
+}
+
+// ============================================
 // Keyboard Shortcuts Config
 // ============================================
 const KEYBOARD_SHORTCUTS = [
@@ -84,12 +93,19 @@ const KEYBOARD_SHORTCUTS = [
 /**
  * Create custom colored marker icon for technicians
  */
-function createTechnicianIcon(status: TechnicianStatus, initials: string = 'T'): L.DivIcon {
+function createTechnicianIcon(status: TechnicianStatus, initials: string = 'T', isDropTarget: boolean = false): L.DivIcon {
   const colors: Record<TechnicianStatus, string> = {
     available: '#22c55e', // green
     busy: '#f59e0b', // yellow/amber
     offline: '#6b7280', // gray
   };
+
+  const borderColor = isDropTarget ? '#3b82f6' : 'white';
+  const borderWidth = isDropTarget ? '4px' : '3px';
+  const scale = isDropTarget ? 'scale(1.2)' : 'scale(1)';
+  const boxShadow = isDropTarget
+    ? '0 0 20px rgba(59, 130, 246, 0.8), 0 2px 8px rgba(0,0,0,0.5)'
+    : '0 2px 8px rgba(0,0,0,0.5)';
 
   return L.divIcon({
     className: 'technician-marker',
@@ -99,8 +115,8 @@ function createTechnicianIcon(status: TechnicianStatus, initials: string = 'T'):
         width: 40px;
         height: 40px;
         border-radius: 50%;
-        border: 3px solid white;
-        box-shadow: 0 2px 8px rgba(0,0,0,0.5);
+        border: ${borderWidth} solid ${borderColor};
+        box-shadow: ${boxShadow};
         display: flex;
         align-items: center;
         justify-content: center;
@@ -108,7 +124,8 @@ function createTechnicianIcon(status: TechnicianStatus, initials: string = 'T'):
         font-size: 14px;
         font-weight: bold;
         cursor: pointer;
-        transition: transform 0.2s;
+        transition: all 0.2s ease;
+        transform: ${scale};
       ">${initials}</div>
     `,
     iconSize: [40, 40],
@@ -262,6 +279,97 @@ function KeyboardShortcutsModal({ isOpen, onClose }: { isOpen: boolean; onClose:
         </div>
         <div className="mt-4 pt-4 border-t border-border text-xs text-text-muted">
           Press <kbd className="px-1 py-0.5 bg-bg-secondary border border-border rounded">?</kbd> anytime to show this menu
+        </div>
+      </div>
+    </div>
+  );
+}
+
+// ============================================
+// Assignment Confirmation Modal
+// ============================================
+function AssignmentConfirmModal({
+  confirmation,
+  onConfirm,
+  onCancel,
+  isAssigning,
+}: {
+  confirmation: AssignmentConfirmation | null;
+  onConfirm: () => void;
+  onCancel: () => void;
+  isAssigning: boolean;
+}) {
+  if (!confirmation) return null;
+
+  const { job, technician } = confirmation;
+  const techName = `${technician.first_name} ${technician.last_name}`;
+  const jobType = JOB_TYPE_LABELS[job.job_type as JobType] || job.job_type;
+  const address = job.service_address_line1 || 'No address';
+
+  return (
+    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center" onClick={onCancel}>
+      <div
+        className="bg-bg-card border border-border rounded-lg p-6 max-w-md w-full mx-4 shadow-xl"
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div className="flex items-center gap-3 mb-4">
+          <div className="w-12 h-12 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xl">
+            🚐
+          </div>
+          <div>
+            <h2 className="text-lg font-semibold text-text-primary">Assign Job?</h2>
+            <p className="text-sm text-text-muted">Confirm technician assignment</p>
+          </div>
+        </div>
+
+        <div className="bg-bg-secondary rounded-lg p-4 mb-4 space-y-3">
+          <div>
+            <p className="text-xs text-text-muted uppercase tracking-wide">Job</p>
+            <p className="font-medium text-text-primary">{jobType}</p>
+            <p className="text-sm text-text-secondary">📍 {address}</p>
+          </div>
+          <div className="border-t border-border pt-3">
+            <p className="text-xs text-text-muted uppercase tracking-wide">Assign To</p>
+            <div className="flex items-center gap-2 mt-1">
+              <div className={cn(
+                'w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold',
+                technician.status === 'available' && 'bg-green-500',
+                technician.status === 'busy' && 'bg-yellow-500',
+                technician.status === 'offline' && 'bg-gray-400'
+              )}>
+                {technician.first_name?.[0]}{technician.last_name?.[0]}
+              </div>
+              <div>
+                <p className="font-medium text-text-primary">{techName}</p>
+                <p className="text-xs text-text-muted capitalize">{technician.status}</p>
+              </div>
+            </div>
+          </div>
+          {job.priority === 'emergency' || job.priority === 'urgent' ? (
+            <div className="border-t border-border pt-3">
+              <Badge variant="danger" className="text-xs">
+                {PRIORITY_LABELS[job.priority as Priority]} Priority
+              </Badge>
+            </div>
+          ) : null}
+        </div>
+
+        <div className="flex gap-3">
+          <Button
+            variant="secondary"
+            className="flex-1"
+            onClick={onCancel}
+            disabled={isAssigning}
+          >
+            Cancel
+          </Button>
+          <Button
+            className="flex-1"
+            onClick={onConfirm}
+            disabled={isAssigning}
+          >
+            {isAssigning ? 'Assigning...' : 'Confirm Assignment'}
+          </Button>
         </div>
       </div>
     </div>
@@ -483,28 +591,71 @@ function QuickStatsRow({
 }
 
 /**
- * Technician Marker on Map - Enhanced with more info
+ * Technician Marker on Map - ONLY technicians, with drop target support
  */
 function TechnicianMapMarker({
   tech,
-  onDrop: _onDrop,
+  isDropTarget,
+  onDragOver,
+  onDragLeave,
+  onDrop,
 }: {
   tech: TechnicianWithStatus;
-  onDrop?: (techId: string) => void;
+  isDropTarget: boolean;
+  onDragOver: (techId: string) => void;
+  onDragLeave: () => void;
+  onDrop: (techId: string) => void;
 }) {
   const position = generateTechCoordinates(tech);
   const initials = `${tech.first_name?.[0] || ''}${tech.last_name?.[0] || ''}`;
-  const icon = createTechnicianIcon(tech.status, initials);
+  const icon = createTechnicianIcon(tech.status, initials, isDropTarget);
+  const markerRef = useRef<L.Marker>(null);
+
+  // Set up drop zone on the marker's DOM element
+  useEffect(() => {
+    const marker = markerRef.current;
+    if (!marker) return;
+
+    const element = marker.getElement();
+    if (!element) return;
+
+    const handleDragOver = (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      if (e.dataTransfer) {
+        e.dataTransfer.dropEffect = 'move';
+      }
+      onDragOver(tech.id);
+    };
+
+    const handleDragLeave = (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onDragLeave();
+    };
+
+    const handleDrop = (e: DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      onDrop(tech.id);
+    };
+
+    element.addEventListener('dragover', handleDragOver);
+    element.addEventListener('dragleave', handleDragLeave);
+    element.addEventListener('drop', handleDrop);
+
+    return () => {
+      element.removeEventListener('dragover', handleDragOver);
+      element.removeEventListener('dragleave', handleDragLeave);
+      element.removeEventListener('drop', handleDrop);
+    };
+  }, [tech.id, onDragOver, onDragLeave, onDrop]);
 
   return (
     <Marker
+      ref={markerRef}
       position={position}
       icon={icon}
-      eventHandlers={{
-        click: () => {
-          // Marker click handled by Popup
-        },
-      }}
     >
       <Popup>
         <div className="min-w-[220px] p-1">
@@ -579,16 +730,22 @@ function TechnicianMapMarker({
 }
 
 /**
- * Live Technician Map Section - Enhanced
+ * Live Technician Map Section - ONLY shows technician markers
  */
 function LiveTechnicianMap({
   technicians,
   isLoading,
-  onTechnicianDrop,
+  dropTargetTechId,
+  onDragOver,
+  onDragLeave,
+  onDrop,
 }: {
   technicians: TechnicianWithStatus[];
   isLoading: boolean;
-  onTechnicianDrop?: (techId: string) => void;
+  dropTargetTechId: string | null;
+  onDragOver: (techId: string) => void;
+  onDragLeave: () => void;
+  onDrop: (techId: string) => void;
 }) {
   const bounds = useMemo(() => {
     if (technicians.length === 0) return null;
@@ -622,7 +779,10 @@ function LiveTechnicianMap({
   };
 
   return (
-    <Card className="h-[400px]">
+    <Card className={cn(
+      'h-[400px] transition-all',
+      dropTargetTechId && 'ring-2 ring-blue-500 ring-offset-2'
+    )}>
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle>Live Technician Map</CardTitle>
@@ -641,6 +801,11 @@ function LiveTechnicianMap({
             </span>
           </div>
         </div>
+        {dropTargetTechId && (
+          <p className="text-xs text-blue-600 font-medium mt-1 animate-pulse">
+            Drop on a technician to assign the job
+          </p>
+        )}
       </CardHeader>
       <CardContent className="h-[320px] p-0">
         <div className="h-full rounded-b-lg overflow-hidden">
@@ -655,11 +820,15 @@ function LiveTechnicianMap({
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             <FitBounds bounds={bounds} />
+            {/* ONLY render technician markers - NO customer markers */}
             {technicians.map((tech) => (
               <TechnicianMapMarker
                 key={tech.id}
                 tech={tech}
-                onDrop={onTechnicianDrop}
+                isDropTarget={dropTargetTechId === tech.id}
+                onDragOver={onDragOver}
+                onDragLeave={onDragLeave}
+                onDrop={onDrop}
               />
             ))}
           </MapContainer>
@@ -849,21 +1018,26 @@ function ActiveAlertsPanel({
 }
 
 /**
- * Enhanced Dispatch Queue Panel - Now Primary Action Zone on Left
+ * Enhanced Dispatch Queue Panel - Draggable items
  */
 function DispatchQueue({
   unassignedJobs,
   technicians,
   isLoading,
   onAssign,
+  onDragStart,
+  onDragEnd,
+  draggedJobId,
 }: {
   unassignedJobs: WorkOrder[];
   technicians: Technician[];
   isLoading: boolean;
   onAssign?: (jobId: string, techName: string) => void;
+  onDragStart: (jobId: string) => void;
+  onDragEnd: () => void;
+  draggedJobId: string | null;
 }) {
   const [assigningId, setAssigningId] = useState<string | null>(null);
-  const [draggedJobId, setDraggedJobId] = useState<string | null>(null);
   const assignWorkOrder = useAssignWorkOrder();
 
   const handleQuickAssign = (workOrderId: string, technicianName: string) => {
@@ -885,13 +1059,13 @@ function DispatchQueue({
   };
 
   const handleDragStart = (e: React.DragEvent, jobId: string) => {
-    setDraggedJobId(jobId);
-    e.dataTransfer.setData('text/plain', jobId);
+    e.dataTransfer.setData('application/job-id', jobId);
     e.dataTransfer.effectAllowed = 'move';
+    onDragStart(jobId);
   };
 
   const handleDragEnd = () => {
-    setDraggedJobId(null);
+    onDragEnd();
   };
 
   if (isLoading) {
@@ -1014,10 +1188,11 @@ function DispatchQueue({
               onDragStart={(e) => handleDragStart(e, job.id)}
               onDragEnd={handleDragEnd}
               data-testid="dispatch-queue-item"
+              data-job-id={job.id}
               className={cn(
                 'p-3 rounded-lg border-2 cursor-grab active:cursor-grabbing transition-all',
                 'hover:shadow-md hover:scale-[1.01]',
-                draggedJobId === job.id && 'opacity-50 scale-95',
+                draggedJobId === job.id && 'opacity-50 scale-95 ring-2 ring-blue-500',
                 getPriorityColor(job.priority),
                 job.priority === 'emergency' && 'animate-pulse-subtle'
               )}
@@ -1134,6 +1309,14 @@ export function CommandCenter() {
   const [showShortcuts, setShowShortcuts] = useState(false);
   const [keySequence, setKeySequence] = useState<string[]>([]);
 
+  // Drag and drop state
+  const [draggedJobId, setDraggedJobId] = useState<string | null>(null);
+  const [dropTargetTechId, setDropTargetTechId] = useState<string | null>(null);
+  const [assignmentConfirmation, setAssignmentConfirmation] = useState<AssignmentConfirmation | null>(null);
+  const [isAssigning, setIsAssigning] = useState(false);
+
+  const assignWorkOrder = useAssignWorkOrder();
+
   // Keyboard shortcuts handler
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -1147,6 +1330,7 @@ export function CommandCenter() {
       // Handle escape
       if (key === 'escape') {
         setShowShortcuts(false);
+        setAssignmentConfirmation(null);
         setKeySequence([]);
         return;
       }
@@ -1345,13 +1529,78 @@ export function CommandCenter() {
     return generatedAlerts;
   }, [workOrders, todayStr]);
 
-  const handleJobAssign = (_jobId: string, techName: string) => {
-    addToast('success', `Job assigned to ${techName}`);
-  };
+  // Drag and drop handlers
+  const handleDragStart = useCallback((jobId: string) => {
+    setDraggedJobId(jobId);
+  }, []);
 
-  const handleMetricDrillDown = (metric: string) => {
+  const handleDragEnd = useCallback(() => {
+    setDraggedJobId(null);
+    setDropTargetTechId(null);
+  }, []);
+
+  const handleDragOverTech = useCallback((techId: string) => {
+    setDropTargetTechId(techId);
+  }, []);
+
+  const handleDragLeaveTech = useCallback(() => {
+    setDropTargetTechId(null);
+  }, []);
+
+  const handleDropOnTech = useCallback((techId: string) => {
+    if (!draggedJobId) return;
+
+    const job = unscheduledJobs.find(j => j.id === draggedJobId);
+    const tech = techniciansWithStatus.find(t => t.id === techId);
+
+    if (job && tech) {
+      // Show confirmation modal
+      setAssignmentConfirmation({ job, technician: tech });
+    }
+
+    setDraggedJobId(null);
+    setDropTargetTechId(null);
+  }, [draggedJobId, unscheduledJobs, techniciansWithStatus]);
+
+  const handleConfirmAssignment = useCallback(() => {
+    if (!assignmentConfirmation) return;
+
+    const { job, technician } = assignmentConfirmation;
+    const techName = `${technician.first_name} ${technician.last_name}`;
+    const today = new Date().toISOString().split('T')[0];
+
+    setIsAssigning(true);
+    assignWorkOrder.mutate(
+      {
+        id: job.id,
+        technician: techName,
+        date: today,
+      },
+      {
+        onSuccess: () => {
+          addToast('success', `Job assigned to ${techName}`);
+          setAssignmentConfirmation(null);
+          setIsAssigning(false);
+        },
+        onError: () => {
+          addToast('error', 'Failed to assign job. Please try again.');
+          setIsAssigning(false);
+        },
+      }
+    );
+  }, [assignmentConfirmation, assignWorkOrder, addToast]);
+
+  const handleCancelAssignment = useCallback(() => {
+    setAssignmentConfirmation(null);
+  }, []);
+
+  const handleJobAssign = useCallback((_jobId: string, techName: string) => {
+    addToast('success', `Job assigned to ${techName}`);
+  }, [addToast]);
+
+  const handleMetricDrillDown = useCallback((metric: string) => {
     addToast('info', `Drilling down into ${metric}...`);
-  };
+  }, [addToast]);
 
   return (
     <div className="p-6">
@@ -1360,6 +1609,14 @@ export function CommandCenter() {
 
       {/* Keyboard Shortcuts Modal */}
       <KeyboardShortcutsModal isOpen={showShortcuts} onClose={() => setShowShortcuts(false)} />
+
+      {/* Assignment Confirmation Modal */}
+      <AssignmentConfirmModal
+        confirmation={assignmentConfirmation}
+        onConfirm={handleConfirmAssignment}
+        onCancel={handleCancelAssignment}
+        isAssigning={isAssigning}
+      />
 
       {/* Header */}
       <div className="mb-6">
@@ -1424,6 +1681,9 @@ export function CommandCenter() {
             technicians={technicians}
             isLoading={isLoading}
             onAssign={handleJobAssign}
+            onDragStart={handleDragStart}
+            onDragEnd={handleDragEnd}
+            draggedJobId={draggedJobId}
           />
         </div>
 
@@ -1432,6 +1692,10 @@ export function CommandCenter() {
           <LiveTechnicianMap
             technicians={techniciansWithStatus}
             isLoading={isLoading}
+            dropTargetTechId={dropTargetTechId}
+            onDragOver={handleDragOverTech}
+            onDragLeave={handleDragLeaveTech}
+            onDrop={handleDropOnTech}
           />
           <ActiveAlertsPanel alerts={alerts} isLoading={isLoading} />
         </div>
