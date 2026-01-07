@@ -33,8 +33,16 @@ setup('authenticate', async ({ page, baseURL }) => {
 
   // Set onboarding as completed to bypass wizard for tests
   // This simulates an existing user who has already completed onboarding
+  // Also set session state so the auth check passes
   await page.evaluate(() => {
     localStorage.setItem('crm_onboarding_completed', 'true');
+    // Set session state - this is needed for the auth check to pass
+    // The session_state in sessionStorage indicates authentication status
+    sessionStorage.setItem('session_state', JSON.stringify({
+      isAuthenticated: true,
+      lastValidated: Date.now(),
+      userId: '2', // Test user ID
+    }));
     // SECURITY: Clean up any legacy auth tokens - use HTTP-only cookies instead
     localStorage.removeItem('auth_token');
     localStorage.removeItem('token');
