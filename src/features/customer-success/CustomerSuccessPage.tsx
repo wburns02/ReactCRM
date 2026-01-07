@@ -28,6 +28,7 @@ import {
   usePlaybooks,
 } from '@/api/hooks/useCustomerSuccess.ts';
 import { PlaybookDetailModal } from './components/PlaybookDetailModal.tsx';
+import { TriggerPlaybookModal } from './components/TriggerPlaybookModal.tsx';
 import { JourneyDetailModal } from './components/JourneyDetailModal.tsx';
 import { SegmentDetailModal } from './components/SegmentDetailModal.tsx';
 import type { Playbook, Journey, Segment } from '@/api/types/customerSuccess.ts';
@@ -348,7 +349,6 @@ function JourneysTab() {
 function PlaybooksTab() {
   const { data: playbooksData, isLoading } = usePlaybooks();
   const [selectedPlaybook, setSelectedPlaybook] = useState<Playbook | null>(null);
-  const [showTriggerModal, setShowTriggerModal] = useState(false);
   const [playbookToTrigger, setPlaybookToTrigger] = useState<Playbook | null>(null);
 
   const handleSelectPlaybook = (playbook: Playbook) => {
@@ -361,9 +361,12 @@ function PlaybooksTab() {
 
   const handleTriggerPlaybook = (playbook: Playbook) => {
     setPlaybookToTrigger(playbook);
-    setShowTriggerModal(true);
     // Close detail modal if open
     setSelectedPlaybook(null);
+  };
+
+  const handleCloseTriggerModal = () => {
+    setPlaybookToTrigger(null);
   };
 
   const handleEditPlaybook = (playbook: Playbook) => {
@@ -406,42 +409,14 @@ function PlaybooksTab() {
         />
       )}
 
-      {/* Trigger Confirmation Modal */}
-      {showTriggerModal && playbookToTrigger && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
-          <div
-            className="absolute inset-0 bg-black/60 backdrop-blur-sm"
-            onClick={() => setShowTriggerModal(false)}
-          />
-          <div className="relative bg-bg-primary border border-border rounded-xl shadow-2xl w-full max-w-md p-6">
-            <h3 className="text-lg font-bold text-text-primary mb-2">
-              Trigger Playbook
-            </h3>
-            <p className="text-sm text-text-secondary mb-4">
-              To trigger "{playbookToTrigger.name}", please select a customer from the At-Risk table on the Overview tab, or use the API directly.
-            </p>
-            <p className="text-xs text-text-muted mb-4">
-              Playbook triggering requires selecting a specific customer to run the playbook against.
-            </p>
-            <div className="flex justify-end gap-3">
-              <button
-                onClick={() => setShowTriggerModal(false)}
-                className="px-4 py-2 text-sm text-text-secondary hover:text-text-primary transition-colors"
-              >
-                Close
-              </button>
-              <button
-                onClick={() => {
-                  setShowTriggerModal(false);
-                  // Navigate to overview tab could be added here
-                }}
-                className="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-primary-hover transition-colors"
-              >
-                Go to Overview
-              </button>
-            </div>
-          </div>
-        </div>
+      {/* Trigger Playbook Modal with Customer Selection */}
+      {playbookToTrigger && (
+        <TriggerPlaybookModal
+          playbook={playbookToTrigger}
+          isOpen={true}
+          onClose={handleCloseTriggerModal}
+          onSuccess={handleCloseTriggerModal}
+        />
       )}
     </>
   );
