@@ -747,3 +747,239 @@ export interface TouchpointFilters {
   start_date?: string;
   end_date?: string;
 }
+
+// ============================================
+// CSM Task Queue Types (Outcome-Driven CS)
+// ============================================
+
+export type CSMTaskQueuePriority = 'urgent' | 'high' | 'standard' | 'low';
+export type CSMTaskQueueStatus = 'pending' | 'in_progress' | 'completed' | 'cancelled' | 'blocked' | 'snoozed';
+export type CSMOutcomeType = 'connected' | 'voicemail' | 'no_answer' | 'rescheduled' | 'completed' | 'escalated';
+export type CSMObjectiveAchieved = 'yes' | 'no' | 'partial';
+export type CSMSentiment = 'positive' | 'neutral' | 'frustrated' | 'angry';
+export type CSMTaskTypeCategory = 'onboarding' | 'adoption' | 'retention' | 'expansion' | 'renewal';
+export type QualityGateType = 'boolean' | 'select' | 'text' | 'rating';
+
+// Quality Gate Definition (embedded in TaskType)
+export interface QualityGate {
+  id: string;
+  question: string;
+  gate_type: QualityGateType;
+  required: boolean;
+  options?: string[];
+  order: number;
+}
+
+// Task Type Definition
+export const csmTaskTypeSchema = z.object({
+  id: z.number(),
+  name: z.string(),
+  slug: z.string(),
+  description: z.string().nullable(),
+  category: z.enum(['onboarding', 'adoption', 'retention', 'expansion', 'renewal']),
+  default_priority: z.enum(['urgent', 'high', 'standard', 'low']),
+  sla_hours: z.number(),
+  playbook_id: z.number().nullable(),
+  required_outcomes: z.array(z.string()).default([]),
+  quality_gates: z.array(z.object({
+    id: z.string(),
+    question: z.string(),
+    gate_type: z.enum(['boolean', 'select', 'text', 'rating']),
+    required: z.boolean(),
+    options: z.array(z.string()).optional(),
+    order: z.number(),
+  })).default([]),
+  auto_trigger_conditions: z.record(z.string(), z.unknown()).nullable(),
+  is_active: z.boolean().default(true),
+  created_at: z.string().nullable(),
+});
+
+export type CSMTaskType = z.infer<typeof csmTaskTypeSchema>;
+
+// Objection Handler (embedded in Playbook)
+export interface ObjectionHandler {
+  id: string;
+  trigger: string;
+  response: string;
+  order: number;
+}
+
+// CSM Playbook (with scripts and objection handlers)
+export const csmPlaybookSchema = z.object({
+  id: z.number(),
+  task_type_id: z.number().nullable(),
+  name: z.string(),
+  version: z.string().default('1.0'),
+  objective: z.string(),
+  context_fields: z.array(z.string()).default([]),
+  opening_script: z.string(),
+  key_questions: z.array(z.string()).default([]),
+  objection_handlers: z.array(z.object({
+    id: z.string(),
+    trigger: z.string(),
+    response: z.string(),
+    order: z.number(),
+  })).default([]),
+  success_criteria: z.string(),
+  estimated_duration_minutes: z.number().default(15),
+  is_active: z.boolean().default(true),
+  updated_at: z.string().nullable(),
+});
+
+export type CSMPlaybook = z.infer<typeof csmPlaybookSchema>;
+
+// CSM Queue Task (the main task entity)
+export const csmQueueTaskSchema = z.object({
+  id: z.number(),
+  customer_id: z.number(),
+  csm_id: z.number().nullable(),
+  task_type_id: z.number(),
+  task_type_slug: z.string().nullable(),
+  task_type_name: z.string().nullable(),
+
+  // Priority
+  priority: z.enum(['urgent', 'high', 'standard', 'low']),
+  priority_score: z.number().default(0),
+
+  // Status
+  status: z.enum(['pending', 'in_progress', 'completed', 'cancelled', 'blocked', 'snoozed']).default('pending'),
+
+  // Timing
+  due_date: z.string().nullable(),
+  snooze_until: z.string().nullable(),
+
+  // Outcome (filled when completed)
+  outcome_type: z.enum(['connected', 'voicemail', 'no_answer', 'rescheduled', 'completed', 'escalated']).nullable(),
+  objective_achieved: z.enum(['yes', 'no', 'partial']).nullable(),
+  outcome_notes: z.string().nullable(),
+  sentiment: z.enum(['positive', 'neutral', 'frustrated', 'angry']).nullable(),
+  next_action: z.string().nullable(),
+  next_action_date: z.string().nullable(),
+
+  // Quality gates (JSON of completed gates)
+  quality_gates_completed: z.record(z.string(), z.unknown()).nullable(),
+
+  // Related playbook
+  playbook_id: z.number().nullable(),
+
+  // Customer context (populated on fetch)
+  customer_name: z.string().nullable(),
+  customer_email: z.string().nullable(),
+  customer_arr: z.number().nullable(),
+  customer_health_score: z.number().nullable(),
+  customer_health_status: z.enum(['healthy', 'at_risk', 'critical', 'churned']).nullable(),
+  customer_tier: z.string().nullable(),
+  customer_renewal_date: z.string().nullable(),
+  days_overdue: z.number().nullable(),
+
+  // Timestamps
+  created_at: z.string().nullable(),
+  started_at: z.string().nullable(),
+  completed_at: z.string().nullable(),
+
+  // Metadata
+  metadata: z.record(z.string(), z.unknown()).nullable(),
+});
+
+export type CSMQueueTask = z.infer<typeof csmQueueTaskSchema>;
+
+export const csmQueueTaskListResponseSchema = z.object({
+  items: z.array(csmQueueTaskSchema),
+  total: z.number(),
+  page: z.number(),
+  page_size: z.number(),
+});
+
+export type CSMQueueTaskListResponse = z.infer<typeof csmQueueTaskListResponseSchema>;
+
+// Task with full context (for detail view)
+export interface CSMTaskWithContext {
+  task: CSMQueueTask;
+  task_type: CSMTaskType;
+  playbook: CSMPlaybook | null;
+  customer: {
+    id: number;
+    name: string;
+    email: string;
+    phone: string | null;
+    arr: number | null;
+    health_score: number | null;
+    health_status: HealthStatus | null;
+    tier: string | null;
+    renewal_date: string | null;
+    churn_probability: number | null;
+    days_since_last_contact: number | null;
+    contacts: Array<{
+      name: string;
+      email: string;
+      role: string;
+      is_champion: boolean;
+    }>;
+  };
+  interaction_history: Touchpoint[];
+}
+
+// Task Outcome submission
+export interface CSMTaskOutcomeFormData {
+  outcome_type: CSMOutcomeType;
+  objective_achieved?: CSMObjectiveAchieved;
+  blocker_reason?: string;
+  sentiment?: CSMSentiment;
+  next_action_required: boolean;
+  next_action_date?: string;
+  next_action_notes?: string;
+  quality_gate_responses: Record<string, string | boolean | number>;
+  notes: string;
+}
+
+// Reschedule request
+export interface CSMTaskRescheduleData {
+  new_due_date: string;
+  reason: string;
+}
+
+// Escalation request
+export interface CSMTaskEscalateData {
+  reason: string;
+  escalate_to?: number;
+}
+
+// Weekly Outcomes Metrics
+export interface CSMWeeklyOutcomes {
+  period_start: string;
+  period_end: string;
+  outcomes: {
+    onboarding_completions: { actual: number; goal: number };
+    at_risk_saves: { actual: number; goal: number };
+    health_improvements: number;
+    renewals_secured: { amount: number; count: number };
+    expansion_pipeline: { amount: number; count: number };
+  };
+  activity: {
+    calls_made: number;
+    emails_sent: number;
+    tasks_completed: number;
+  };
+  comparison: {
+    team_average: number;
+    your_score: number;
+    percentile: number;
+  };
+  trend_vs_last_week: number; // percentage change
+}
+
+// CSM Task Queue Filters
+export interface CSMQueueFilters {
+  page?: number;
+  page_size?: number;
+  status?: CSMTaskQueueStatus | CSMTaskQueueStatus[];
+  priority?: CSMTaskQueuePriority | CSMTaskQueuePriority[];
+  task_type_slug?: string;
+  category?: CSMTaskTypeCategory;
+  due_before?: string;
+  due_after?: string;
+  csm_id?: number;
+  customer_id?: number;
+  sort_by?: 'priority_score' | 'due_date' | 'created_at';
+  sort_order?: 'asc' | 'desc';
+}

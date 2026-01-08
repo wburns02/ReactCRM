@@ -1672,3 +1672,245 @@ export function useCollaborationActivity(filters: { activity_type?: string; cust
     staleTime: 30_000,
   });
 }
+
+// ============================================
+// CSM Task Queue Hooks (Outcome-Driven CS)
+// ============================================
+
+import type {
+  CSMQueueTask,
+  CSMQueueTaskListResponse,
+  CSMQueueFilters,
+  CSMTaskWithContext,
+  CSMTaskOutcomeFormData,
+  CSMTaskRescheduleData,
+  CSMTaskEscalateData,
+  CSMWeeklyOutcomes,
+  CSMTaskType,
+  CSMPlaybook,
+} from '../types/customerSuccess.ts';
+
+// Query keys for CSM Queue
+export const csmQueueKeys = {
+  queue: ['csm', 'queue'] as const,
+  queueList: (filters: CSMQueueFilters) => [...csmQueueKeys.queue, 'list', filters] as const,
+  taskDetail: (id: number) => [...csmQueueKeys.queue, 'task', id] as const,
+  taskWithContext: (id: number) => [...csmQueueKeys.queue, 'task-context', id] as const,
+  weeklyOutcomes: () => [...csmQueueKeys.queue, 'weekly-outcomes'] as const,
+  teamOutcomes: () => [...csmQueueKeys.queue, 'team-outcomes'] as const,
+  taskTypes: () => [...csmQueueKeys.queue, 'task-types'] as const,
+  playbooks: () => [...csmQueueKeys.queue, 'playbooks'] as const,
+};
+
+/**
+ * Fetch the prioritized CSM task queue
+ */
+export function useCSMTaskQueue(filters: CSMQueueFilters = {}) {
+  return useQuery({
+    queryKey: csmQueueKeys.queueList(filters),
+    queryFn: async (): Promise<CSMQueueTaskListResponse> => {
+      const params = new URLSearchParams();
+      if (filters.page) params.set('page', String(filters.page));
+      if (filters.page_size) params.set('page_size', String(filters.page_size));
+      if (filters.status) {
+        const statuses = Array.isArray(filters.status) ? filters.status : [filters.status];
+        statuses.forEach(s => params.append('status', s));
+      }
+      if (filters.priority) {
+        const priorities = Array.isArray(filters.priority) ? filters.priority : [filters.priority];
+        priorities.forEach(p => params.append('priority', p));
+      }
+      if (filters.task_type_slug) params.set('task_type_slug', filters.task_type_slug);
+      if (filters.category) params.set('category', filters.category);
+      if (filters.due_before) params.set('due_before', filters.due_before);
+      if (filters.due_after) params.set('due_after', filters.due_after);
+      if (filters.csm_id) params.set('csm_id', String(filters.csm_id));
+      if (filters.customer_id) params.set('customer_id', String(filters.customer_id));
+      if (filters.sort_by) params.set('sort_by', filters.sort_by);
+      if (filters.sort_order) params.set('sort_order', filters.sort_order);
+
+      const { data } = await apiClient.get(`/cs/csm-tasks/queue?${params}`);
+      return data;
+    },
+    staleTime: 15_000, // Refresh queue frequently
+  });
+}
+
+/**
+ * Fetch a single CSM task with full context (playbook, customer, history)
+ */
+export function useCSMTaskWithContext(taskId: number | undefined) {
+  return useQuery({
+    queryKey: csmQueueKeys.taskWithContext(taskId!),
+    queryFn: async (): Promise<CSMTaskWithContext> => {
+      const { data } = await apiClient.get(`/cs/csm-tasks/${taskId}/context`);
+      return data;
+    },
+    enabled: !!taskId,
+  });
+}
+
+/**
+ * Fetch available task types
+ */
+export function useCSMTaskTypes() {
+  return useQuery({
+    queryKey: csmQueueKeys.taskTypes(),
+    queryFn: async (): Promise<CSMTaskType[]> => {
+      const { data } = await apiClient.get('/cs/csm-tasks/types');
+      return data;
+    },
+    staleTime: 300_000, // Task types change rarely
+  });
+}
+
+/**
+ * Fetch CSM playbooks
+ */
+export function useCSMPlaybooks() {
+  return useQuery({
+    queryKey: csmQueueKeys.playbooks(),
+    queryFn: async (): Promise<CSMPlaybook[]> => {
+      const { data } = await apiClient.get('/cs/csm-playbooks');
+      return data;
+    },
+    staleTime: 300_000,
+  });
+}
+
+/**
+ * Fetch weekly outcome metrics for the current CSM
+ */
+export function useCSMWeeklyOutcomes() {
+  return useQuery({
+    queryKey: csmQueueKeys.weeklyOutcomes(),
+    queryFn: async (): Promise<CSMWeeklyOutcomes> => {
+      const { data } = await apiClient.get('/cs/csm-tasks/outcomes/weekly');
+      return data;
+    },
+    staleTime: 60_000,
+  });
+}
+
+/**
+ * Fetch team-level outcome metrics (for managers)
+ */
+export function useCSMTeamOutcomes() {
+  return useQuery({
+    queryKey: csmQueueKeys.teamOutcomes(),
+    queryFn: async (): Promise<CSMWeeklyOutcomes[]> => {
+      const { data } = await apiClient.get('/cs/csm-tasks/outcomes/team');
+      return data;
+    },
+    staleTime: 60_000,
+  });
+}
+
+/**
+ * Start a task (mark as in_progress)
+ */
+export function useStartCSMTask() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (taskId: number): Promise<CSMQueueTask> => {
+      const { data } = await apiClient.post(`/cs/csm-tasks/${taskId}/start`);
+      return data;
+    },
+    onSuccess: (_, taskId) => {
+      queryClient.invalidateQueries({ queryKey: csmQueueKeys.queue });
+      queryClient.invalidateQueries({ queryKey: csmQueueKeys.taskWithContext(taskId) });
+    },
+  });
+}
+
+/**
+ * Complete a task with outcome and quality gates
+ */
+export function useCompleteCSMTask() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ taskId, data }: { taskId: number; data: CSMTaskOutcomeFormData }): Promise<CSMQueueTask> => {
+      const response = await apiClient.post(`/cs/csm-tasks/${taskId}/complete`, data);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: csmQueueKeys.queue });
+      queryClient.invalidateQueries({ queryKey: csmQueueKeys.taskWithContext(variables.taskId) });
+      queryClient.invalidateQueries({ queryKey: csmQueueKeys.weeklyOutcomes() });
+    },
+  });
+}
+
+/**
+ * Reschedule a task
+ */
+export function useRescheduleCSMTask() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ taskId, data }: { taskId: number; data: CSMTaskRescheduleData }): Promise<CSMQueueTask> => {
+      const response = await apiClient.post(`/cs/csm-tasks/${taskId}/reschedule`, data);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: csmQueueKeys.queue });
+      queryClient.invalidateQueries({ queryKey: csmQueueKeys.taskWithContext(variables.taskId) });
+    },
+  });
+}
+
+/**
+ * Escalate a task
+ */
+export function useEscalateCSMTask() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ taskId, data }: { taskId: number; data: CSMTaskEscalateData }): Promise<CSMQueueTask> => {
+      const response = await apiClient.post(`/cs/csm-tasks/${taskId}/escalate`, data);
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: csmQueueKeys.queue });
+      queryClient.invalidateQueries({ queryKey: csmQueueKeys.taskWithContext(variables.taskId) });
+    },
+  });
+}
+
+/**
+ * Snooze a task
+ */
+export function useSnoozeCSMTask() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({ taskId, snoozeUntil, reason }: { taskId: number; snoozeUntil: string; reason: string }): Promise<CSMQueueTask> => {
+      const response = await apiClient.post(`/cs/csm-tasks/${taskId}/snooze`, { snooze_until: snoozeUntil, reason });
+      return response.data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: csmQueueKeys.queue });
+      queryClient.invalidateQueries({ queryKey: csmQueueKeys.taskWithContext(variables.taskId) });
+    },
+  });
+}
+
+/**
+ * Trigger task generation for all/specific customers
+ */
+export function useGenerateCSMTasks() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (customerId?: number): Promise<{ tasks_created: number; tasks_skipped: number }> => {
+      const params = customerId ? `?customer_id=${customerId}` : '';
+      const { data } = await apiClient.post(`/cs/csm-tasks/generate${params}`);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: csmQueueKeys.queue });
+    },
+  });
+}
