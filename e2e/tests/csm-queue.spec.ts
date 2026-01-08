@@ -33,7 +33,8 @@ test.describe('CSM Task Queue', () => {
 
     // Verify queue stats are displayed
     await expect(page.getByText('Total Tasks')).toBeVisible();
-    await expect(page.getByText('Urgent')).toBeVisible();
+    // Verify at least one urgent element exists (stats or filter or section header)
+    await expect(page.getByText('Urgent Priority').first()).toBeVisible();
 
     // Verify priority filters exist
     await expect(page.getByText('Priority:')).toBeVisible();
@@ -78,14 +79,14 @@ test.describe('CSM Task Queue', () => {
     const firstTaskCard = page.locator('[class*="rounded-lg"][class*="border"][class*="cursor-pointer"]').first();
     await firstTaskCard.click();
 
-    // Verify task detail panel opens
-    await expect(page.getByRole('tab', { name: /Playbook/i })).toBeVisible({ timeout: 10000 });
-    await expect(page.getByRole('tab', { name: /Customer/i })).toBeVisible();
-    await expect(page.getByRole('tab', { name: /History/i })).toBeVisible();
-    await expect(page.getByRole('tab', { name: /Complete/i })).toBeVisible();
+    // Verify task detail panel opens - tabs are buttons in TaskDetailView
+    await expect(page.getByRole('button', { name: /Playbook/i })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByRole('button', { name: /Customer/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /History/i })).toBeVisible();
+    await expect(page.getByRole('button', { name: /Complete/i }).first()).toBeVisible();
 
     // Verify playbook content is displayed
-    await expect(page.getByText('Objective')).toBeVisible({ timeout: 5000 });
+    await expect(page.getByText('Objective').first()).toBeVisible({ timeout: 5000 });
 
     // Take screenshot
     await page.screenshot({ path: 'e2e/screenshots/csm-task-detail.png' });
@@ -106,8 +107,11 @@ test.describe('CSM Task Queue', () => {
     const firstTaskCard = page.locator('[class*="rounded-lg"][class*="border"][class*="cursor-pointer"]').first();
     await firstTaskCard.click();
 
-    // Click Customer tab
-    const customerTab = page.getByRole('tab', { name: /Customer/i });
+    // Wait for task detail panel to open
+    await expect(page.getByRole('button', { name: /Playbook/i })).toBeVisible({ timeout: 10000 });
+
+    // Click Customer tab (buttons in TaskDetailView, not tabs)
+    const customerTab = page.getByRole('button', { name: /Customer/i });
     await customerTab.click();
 
     // Verify customer context is displayed
@@ -134,8 +138,11 @@ test.describe('CSM Task Queue', () => {
     const firstTaskCard = page.locator('[class*="rounded-lg"][class*="border"][class*="cursor-pointer"]').first();
     await firstTaskCard.click();
 
-    // Click Complete tab
-    const completeTab = page.getByRole('tab', { name: /Complete/i });
+    // Wait for task detail panel to open
+    await expect(page.getByRole('button', { name: /Playbook/i })).toBeVisible({ timeout: 10000 });
+
+    // Click Complete tab (buttons in TaskDetailView, not tabs)
+    const completeTab = page.getByRole('button', { name: /Complete/i }).first();
     await completeTab.click();
 
     // Verify outcome form elements
