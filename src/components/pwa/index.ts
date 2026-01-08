@@ -6,4 +6,4 @@ export { InstallPrompt } from './InstallPrompt';
 export { UpdatePrompt } from './UpdatePrompt';
 export { PushNotificationPrompt } from './PushNotificationPrompt';
 export { PWAProvider } from './PWAProvider';
-export { OfflineBanner } from './OfflineBanner';
+export { OfflineBanner, SyncStatusIndicator } from './OfflineBanner';

@@ -13,6 +13,13 @@ const PortalInvoicesPage = lazy(() => import('@/features/portal/index.ts').then(
 const PortalRequestServicePage = lazy(() => import('@/features/portal/index.ts').then(m => ({ default: m.PortalRequestServicePage })));
 const RequirePortalAuth = lazy(() => import('@/features/portal/index.ts').then(m => ({ default: m.RequirePortalAuth })));
 
+// Public tracking page - lazy loaded (no auth required)
+const CustomerTrackingPage = lazy(() => import('@/features/tracking/index.ts').then(m => ({ default: m.CustomerTrackingPage })));
+
+// Tracking dashboard - lazy loaded
+const TrackingDashboard = lazy(() => import('@/features/tracking/index.ts').then(m => ({ default: m.TrackingDashboard })));
+const TechnicianTracker = lazy(() => import('@/features/tracking/index.ts').then(m => ({ default: m.TechnicianTracker })));
+
 // Loading spinner for lazy-loaded routes
 const PageLoader = () => (
   <div className="flex items-center justify-center h-full">
@@ -150,6 +157,8 @@ const StatusWidget = lazy(() => import('@/features/widgets/index.ts').then(m => 
 // Marketplace - lazy loaded
 const MarketplacePage = lazy(() => import('@/features/marketplace/index.ts').then(m => ({ default: m.MarketplacePage })));
 
+// GPS Tracking - lazy loaded
+
 // Onboarding - lazy loaded
 const OnboardingWizard = lazy(() => import('@/features/onboarding/index.ts').then(m => ({ default: m.OnboardingWizard })));
 const SetupWizard = lazy(() => import('@/features/onboarding/index.ts').then(m => ({ default: m.SetupWizard })));
@@ -193,6 +202,16 @@ export function AppRoutes() {
             <WidgetWrapper>
               <StatusWidget companyId="" />
             </WidgetWrapper>
+          </Suspense>
+        }
+      />
+
+      {/* Public Customer Tracking - no auth required */}
+      <Route
+        path="/track/:token"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <CustomerTrackingPage />
           </Suspense>
         }
       />
@@ -306,6 +325,10 @@ export function AppRoutes() {
         {/* Tickets */}
         <Route path="tickets" element={<Suspense fallback={<PageLoader />}><TicketsPage /></Suspense>} />
         <Route path="tickets/:id" element={<Suspense fallback={<PageLoader />}><TicketDetailPage /></Suspense>} />
+
+        {/* GPS Tracking - Real-Time Technician Tracking */}
+        <Route path="tracking" element={<Suspense fallback={<PageLoader />}><TrackingDashboard /></Suspense>} />
+        <Route path="tracking/dispatch" element={<Suspense fallback={<PageLoader />}><TechnicianTracker /></Suspense>} />
 
         {/* Fleet Tracking */}
         <Route path="fleet" element={<Suspense fallback={<PageLoader />}><FleetMapPage /></Suspense>} />

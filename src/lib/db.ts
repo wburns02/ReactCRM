@@ -29,6 +29,7 @@ interface CRMDatabase extends DBSchema {
       'by-updated': string;
       'by-status': string;
       'by-customer': number;
+      'by-technician': string;
     };
   };
   // Cached technicians
@@ -40,6 +41,25 @@ interface CRMDatabase extends DBSchema {
   appState: {
     key: string;
     value: unknown;
+  };
+  // Offline photo queue
+  photoQueue: {
+    key: string;
+    value: QueuedPhoto;
+    indexes: {
+      'by-workOrder': string;
+      'by-status': string;
+      'by-timestamp': number;
+    };
+  };
+  // Offline signatures
+  signatures: {
+    key: string;
+    value: StoredSignature;
+    indexes: {
+      'by-workOrder': string;
+      'by-status': string;
+    };
   };
 }
 
@@ -89,11 +109,24 @@ export interface CachedWorkOrder {
   customer_id: number;
   job_type: string;
   status: string;
+  priority?: string;
   scheduled_date?: string;
+  time_window_start?: string;
+  time_window_end?: string;
+  estimated_duration_hours?: number;
   technician_id?: number;
+  assigned_technician?: string;
+  assigned_vehicle?: string;
+  service_address_line1?: string;
+  service_city?: string;
+  service_state?: string;
+  service_postal_code?: string;
   notes?: string;
+  customer_name?: string;
   updated_at: string;
   _cachedAt: number;
+  _isOffline?: boolean; // True if created/modified offline
+  _pendingSync?: boolean; // True if changes not yet synced
 }
 
 export interface CachedTechnician {
@@ -105,8 +138,34 @@ export interface CachedTechnician {
   _cachedAt: number;
 }
 
+export interface QueuedPhoto {
+  id: string;
+  workOrderId: string;
+  blob: Blob;
+  filename: string;
+  mimeType: string;
+  capturedAt: number;
+  status: 'pending' | 'uploading' | 'uploaded' | 'failed';
+  uploadProgress?: number;
+  retries: number;
+  lastError?: string;
+  uploadedUrl?: string;
+}
+
+export interface StoredSignature {
+  id: string;
+  workOrderId: string;
+  signatureData: string; // base64 PNG
+  signerName: string;
+  signerType: 'customer' | 'technician';
+  capturedAt: number;
+  status: 'pending' | 'uploaded' | 'failed';
+  retries: number;
+  lastError?: string;
+}
+
 const DB_NAME = 'ecbtx-crm';
-const DB_VERSION = 1;
+const DB_VERSION = 2; // Bumped for new stores
 
 let dbInstance: IDBPDatabase<CRMDatabase> | null = null;
 
@@ -117,7 +176,7 @@ export async function getDB(): Promise<IDBPDatabase<CRMDatabase>> {
   if (dbInstance) return dbInstance;
 
   dbInstance = await openDB<CRMDatabase>(DB_NAME, DB_VERSION, {
-    upgrade(db) {
+    upgrade(db, _oldVersion, _newVersion) {
       // Sync Queue store
       if (!db.objectStoreNames.contains('syncQueue')) {
         const syncStore = db.createObjectStore('syncQueue', { keyPath: 'id' });
@@ -137,6 +196,7 @@ export async function getDB(): Promise<IDBPDatabase<CRMDatabase>> {
         workOrderStore.createIndex('by-updated', 'updated_at');
         workOrderStore.createIndex('by-status', 'status');
         workOrderStore.createIndex('by-customer', 'customer_id');
+        workOrderStore.createIndex('by-technician', 'assigned_technician');
       }
 
       // Technicians store
@@ -147,6 +207,21 @@ export async function getDB(): Promise<IDBPDatabase<CRMDatabase>> {
       // App State store
       if (!db.objectStoreNames.contains('appState')) {
         db.createObjectStore('appState');
+      }
+
+      // Photo Queue store (new in v2)
+      if (!db.objectStoreNames.contains('photoQueue')) {
+        const photoStore = db.createObjectStore('photoQueue', { keyPath: 'id' });
+        photoStore.createIndex('by-workOrder', 'workOrderId');
+        photoStore.createIndex('by-status', 'status');
+        photoStore.createIndex('by-timestamp', 'capturedAt');
+      }
+
+      // Signatures store (new in v2)
+      if (!db.objectStoreNames.contains('signatures')) {
+        const sigStore = db.createObjectStore('signatures', { keyPath: 'id' });
+        sigStore.createIndex('by-workOrder', 'workOrderId');
+        sigStore.createIndex('by-status', 'status');
       }
     },
   });
@@ -481,4 +556,235 @@ export async function importSyncQueue(jsonData: string): Promise<number> {
     tx.done,
   ]);
   return items.length;
+}
+
+// ============================================
+// Photo Queue Operations
+// ============================================
+
+/**
+ * Add a photo to the offline queue
+ */
+export async function addPhotoToQueue(photo: Omit<QueuedPhoto, 'id' | 'retries' | 'status'>): Promise<string> {
+  const db = await getDB();
+  const id = crypto.randomUUID();
+  const queuedPhoto: QueuedPhoto = {
+    ...photo,
+    id,
+    status: 'pending',
+    retries: 0,
+  };
+  await db.add('photoQueue', queuedPhoto);
+  return id;
+}
+
+/**
+ * Get all pending photos for a work order
+ */
+export async function getPhotosForWorkOrder(workOrderId: string): Promise<QueuedPhoto[]> {
+  const db = await getDB();
+  return db.getAllFromIndex('photoQueue', 'by-workOrder', workOrderId);
+}
+
+/**
+ * Get all pending photos
+ */
+export async function getPendingPhotos(): Promise<QueuedPhoto[]> {
+  const db = await getDB();
+  return db.getAllFromIndex('photoQueue', 'by-status', 'pending');
+}
+
+/**
+ * Update photo status
+ */
+export async function updatePhotoStatus(
+  id: string,
+  status: QueuedPhoto['status'],
+  uploadedUrl?: string,
+  error?: string
+): Promise<void> {
+  const db = await getDB();
+  const photo = await db.get('photoQueue', id);
+  if (photo) {
+    const updated: QueuedPhoto = {
+      ...photo,
+      status,
+      uploadedUrl: uploadedUrl ?? photo.uploadedUrl,
+      lastError: error ?? photo.lastError,
+      retries: status === 'failed' ? photo.retries + 1 : photo.retries,
+    };
+    await db.put('photoQueue', updated);
+  }
+}
+
+/**
+ * Update photo upload progress
+ */
+export async function updatePhotoProgress(id: string, progress: number): Promise<void> {
+  const db = await getDB();
+  const photo = await db.get('photoQueue', id);
+  if (photo) {
+    await db.put('photoQueue', { ...photo, uploadProgress: progress, status: 'uploading' });
+  }
+}
+
+/**
+ * Remove a photo from the queue
+ */
+export async function removePhotoFromQueue(id: string): Promise<void> {
+  const db = await getDB();
+  await db.delete('photoQueue', id);
+}
+
+/**
+ * Get photo queue stats
+ */
+export async function getPhotoQueueStats(): Promise<{
+  pending: number;
+  uploading: number;
+  uploaded: number;
+  failed: number;
+}> {
+  const db = await getDB();
+  const [pending, uploading, uploaded, failed] = await Promise.all([
+    db.countFromIndex('photoQueue', 'by-status', 'pending'),
+    db.countFromIndex('photoQueue', 'by-status', 'uploading'),
+    db.countFromIndex('photoQueue', 'by-status', 'uploaded'),
+    db.countFromIndex('photoQueue', 'by-status', 'failed'),
+  ]);
+  return { pending, uploading, uploaded, failed };
+}
+
+// ============================================
+// Signature Operations
+// ============================================
+
+/**
+ * Store a signature for later upload
+ */
+export async function storeSignature(signature: Omit<StoredSignature, 'id' | 'retries' | 'status'>): Promise<string> {
+  const db = await getDB();
+  const id = crypto.randomUUID();
+  const storedSig: StoredSignature = {
+    ...signature,
+    id,
+    status: 'pending',
+    retries: 0,
+  };
+  await db.add('signatures', storedSig);
+  return id;
+}
+
+/**
+ * Get signature for a work order
+ */
+export async function getSignatureForWorkOrder(workOrderId: string): Promise<StoredSignature | undefined> {
+  const db = await getDB();
+  const signatures = await db.getAllFromIndex('signatures', 'by-workOrder', workOrderId);
+  return signatures[0]; // Return most recent
+}
+
+/**
+ * Get all pending signatures
+ */
+export async function getPendingSignatures(): Promise<StoredSignature[]> {
+  const db = await getDB();
+  return db.getAllFromIndex('signatures', 'by-status', 'pending');
+}
+
+/**
+ * Update signature status
+ */
+export async function updateSignatureStatus(
+  id: string,
+  status: StoredSignature['status'],
+  error?: string
+): Promise<void> {
+  const db = await getDB();
+  const sig = await db.get('signatures', id);
+  if (sig) {
+    const updated: StoredSignature = {
+      ...sig,
+      status,
+      lastError: error ?? sig.lastError,
+      retries: status === 'failed' ? sig.retries + 1 : sig.retries,
+    };
+    await db.put('signatures', updated);
+  }
+}
+
+/**
+ * Remove a signature from storage
+ */
+export async function removeSignature(id: string): Promise<void> {
+  const db = await getDB();
+  await db.delete('signatures', id);
+}
+
+/**
+ * Get signature stats
+ */
+export async function getSignatureStats(): Promise<{
+  pending: number;
+  uploaded: number;
+  failed: number;
+}> {
+  const db = await getDB();
+  const [pending, uploaded, failed] = await Promise.all([
+    db.countFromIndex('signatures', 'by-status', 'pending'),
+    db.countFromIndex('signatures', 'by-status', 'uploaded'),
+    db.countFromIndex('signatures', 'by-status', 'failed'),
+  ]);
+  return { pending, uploaded, failed };
+}
+
+// ============================================
+// Enhanced Work Order Cache with Technician Filter
+// ============================================
+
+/**
+ * Get cached work orders for a specific technician
+ */
+export async function getCachedWorkOrdersByTechnician(technicianName: string): Promise<CachedWorkOrder[]> {
+  const db = await getDB();
+  return db.getAllFromIndex('workOrders', 'by-technician', technicianName);
+}
+
+/**
+ * Update a single cached work order
+ */
+export async function updateCachedWorkOrder(workOrder: CachedWorkOrder): Promise<void> {
+  const db = await getDB();
+  await db.put('workOrders', { ...workOrder, _cachedAt: Date.now() });
+}
+
+/**
+ * Mark a cached work order as having pending sync
+ */
+export async function markWorkOrderPendingSync(id: string): Promise<void> {
+  const db = await getDB();
+  const wo = await db.get('workOrders', id);
+  if (wo) {
+    await db.put('workOrders', { ...wo, _pendingSync: true });
+  }
+}
+
+/**
+ * Clear pending sync flag for a work order
+ */
+export async function clearWorkOrderPendingSync(id: string): Promise<void> {
+  const db = await getDB();
+  const wo = await db.get('workOrders', id);
+  if (wo) {
+    await db.put('workOrders', { ...wo, _pendingSync: false });
+  }
+}
+
+/**
+ * Get all work orders with pending sync
+ */
+export async function getWorkOrdersWithPendingSync(): Promise<CachedWorkOrder[]> {
+  const db = await getDB();
+  const all = await db.getAll('workOrders');
+  return all.filter(wo => wo._pendingSync === true);
 }
