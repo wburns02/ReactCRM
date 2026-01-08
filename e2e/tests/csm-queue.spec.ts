@@ -117,7 +117,7 @@ test.describe('CSM Task Queue', () => {
 
     // Verify customer context is displayed
     await expect(page.getByText('Customer Overview')).toBeVisible({ timeout: 5000 });
-    await expect(page.getByText('Health Score')).toBeVisible();
+    await expect(page.getByText('Health Score', { exact: true })).toBeVisible();
     await expect(page.getByText('ARR')).toBeVisible();
 
     // Take screenshot
