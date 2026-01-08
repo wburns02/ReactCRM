@@ -1,0 +1,55 @@
+# Percy Visual Regression Testing Configuration
+# https://docs.percy.io/docs/cli-configuration
+
+version: 2
+
+# Snapshot settings
+snapshot:
+  # Widths to capture (desktop and tablet)
+  widths:
+    - 1280
+    - 768
+
+  # Minimum height for snapshots
+  min-height: 1024
+
+  # Percy CSS to inject into every snapshot
+  # Useful for hiding dynamic content like timestamps
+  percy-css: |
+    /* Hide timestamps and other dynamic content */
+    [data-testid="timestamp"],
+    [data-testid="current-time"],
+    .timestamp,
+    time {
+      visibility: hidden !important;
+    }
+
+    /* Disable animations for consistent snapshots */
+    *, *::before, *::after {
+      animation-duration: 0s !important;
+      animation-delay: 0s !important;
+      transition-duration: 0s !important;
+      transition-delay: 0s !important;
+    }
+
+    /* Hide loading spinners */
+    .loading-spinner,
+    [data-testid="loading"],
+    .animate-spin {
+      visibility: hidden !important;
+    }
+
+# Discovery settings for asset handling
+discovery:
+  # Wait for network idle before taking snapshots
+  network-idle-timeout: 250
+
+  # Allowed hostnames for assets
+  allowed-hostnames:
+    - react.ecbtx.com
+    - react-crm-api-production.up.railway.app
+
+# Upload settings
+upload:
+  # Number of files to upload in parallel
+  files: 5

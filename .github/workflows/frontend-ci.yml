@@ -45,14 +45,12 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint -- --format=stylish
-        continue-on-error: true
 
       - name: Check formatting (if prettier configured)
         run: |
           if [ -f ".prettierrc" ] || grep -q "prettier" package.json; then
-            npx prettier --check "src/**/*.{ts,tsx,css}" || true
+            npx prettier --check "src/**/*.{ts,tsx,css}"
           fi
-        continue-on-error: true
 
   typecheck:
     name: TypeScript Check
@@ -94,11 +92,10 @@ jobs:
       - name: Run unit tests
         run: |
           if grep -q '"test"' package.json && ! grep -q '"test": "echo' package.json; then
-            npm test -- --run --coverage || true
+            npm test -- --run --coverage
           else
             echo "No test script configured or tests skipped"
           fi
-        continue-on-error: true
 
   build:
     name: Production Build
@@ -158,13 +155,10 @@ jobs:
           cache: 'npm'
 
       - name: Run npm audit
-        run: npm audit --audit-level=high || true
-        continue-on-error: true
+        run: npm audit --audit-level=high
 
       - name: Check for known vulnerabilities
-        run: |
-          npx audit-ci --high || true
-        continue-on-error: true
+        run: npx audit-ci --high
 
   summary:
     name: CI Summary

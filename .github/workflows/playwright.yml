@@ -45,12 +45,11 @@ jobs:
         run: npx playwright test --project=e2e
         env:
           CI: true
-          BASE_URL: ${{ github.event.inputs.base_url || secrets.STAGING_URL || 'https://react.ecbtx.com/app' }}
+          BASE_URL: ${{ github.event.inputs.base_url || secrets.STAGING_URL || 'https://react.ecbtx.com' }}
           API_URL: ${{ secrets.API_URL || 'https://react-crm-api-production.up.railway.app' }}
           TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
           TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
           TWILIO_MOCK: 'true'
-        continue-on-error: true
 
       - name: Upload HTML report
         if: always()
@@ -67,5 +66,58 @@ jobs:
         with:
           name: test-artifacts
           path: e2e/test-results/
+          retention-days: 7
+          if-no-files-found: ignore
+
+  visual-regression:
+    name: Visual Regression Tests (Percy)
+    timeout-minutes: 30
+    runs-on: ubuntu-latest
+    # Only run if PERCY_TOKEN is available
+    if: ${{ secrets.PERCY_TOKEN != '' }}
+    needs: test  # Run after E2E tests pass
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: 'npm'
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Install Percy CLI
+        run: npm install --save-dev @percy/cli @percy/playwright
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps chromium
+
+      - name: Create Auth Placeholder
+        run: |
+          mkdir -p e2e/.auth
+          echo '{"cookies": [], "origins": []}' > e2e/.auth/user.json
+
+      - name: Run Percy Visual Tests
+        run: npx percy exec -- npx playwright test e2e/tests/visual-regression.spec.ts
+        env:
+          CI: true
+          PERCY_TOKEN: ${{ secrets.PERCY_TOKEN }}
+          BASE_URL: ${{ github.event.inputs.base_url || secrets.STAGING_URL || 'https://react.ecbtx.com' }}
+          API_URL: ${{ secrets.API_URL || 'https://react-crm-api-production.up.railway.app' }}
+          TEST_EMAIL: ${{ secrets.TEST_EMAIL }}
+          TEST_PASSWORD: ${{ secrets.TEST_PASSWORD }}
+
+      - name: Upload Percy logs on failure
+        if: failure()
+        uses: actions/upload-artifact@v4
+        with:
+          name: percy-logs
+          path: |
+            ~/.percy/
+            e2e/test-results/
           retention-days: 7
           if-no-files-found: ignore
