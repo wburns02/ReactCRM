@@ -37,8 +37,8 @@ test.describe('Campaigns Tab', () => {
     // Should show Nurture Campaigns heading
     await expect(page.getByRole('heading', { name: /Nurture Campaigns/i })).toBeVisible({ timeout: 10000 });
 
-    // Should show Create Campaign button
-    await expect(page.getByRole('button', { name: /Create Campaign/i })).toBeVisible();
+    // Should show Create Campaign button (use first() since there may be multiple)
+    await expect(page.getByRole('button', { name: /Create Campaign/i }).first()).toBeVisible();
   });
 
   test('can filter campaigns by goal', async ({ page }) => {
