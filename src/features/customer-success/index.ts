@@ -36,3 +36,6 @@ export { EscalationManagement } from './components/EscalationManagement.tsx';
 
 // Team Collaboration Hub
 export { CollaborationHub } from './components/CollaborationHub.tsx';
+
+// AI Insights Hub
+export { AIInsightsHub } from './components/AIInsightsHub.tsx';

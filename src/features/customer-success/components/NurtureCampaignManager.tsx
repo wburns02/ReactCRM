@@ -12,8 +12,9 @@
 
 import { useState } from 'react';
 import { cn } from '@/lib/utils.ts';
+import { useCampaigns, useCampaign, useLaunchCampaign, usePauseCampaign } from '@/api/hooks/useCustomerSuccess.ts';
 
-// Types
+// Types for UI display (mapped from API types)
 export type CampaignType = 'email' | 'in_app' | 'webinar' | 'sms' | 'multi_channel';
 export type CampaignStatus = 'draft' | 'scheduled' | 'active' | 'paused' | 'completed';
 export type CampaignGoal = 'onboarding' | 'adoption' | 'retention' | 'expansion' | 'reactivation' | 'education';
@@ -57,101 +58,99 @@ export interface ABTest {
   confidence?: number;
 }
 
-// Sample data
-const sampleCampaigns: Campaign[] = [
-  {
-    id: 1,
-    name: 'New Customer Onboarding',
-    type: 'multi_channel',
-    status: 'active',
-    goal: 'onboarding',
-    description: 'Welcome new customers and guide them through setup',
-    target_segment_name: 'New Customers (Last 30 Days)',
-    start_date: '2026-01-01',
-    sent_count: 145,
-    open_rate: 68.5,
-    click_rate: 42.3,
-    conversion_rate: 85.2,
-    steps: [
-      { id: 1, order: 1, name: 'Welcome Email', type: 'email', subject: 'Welcome to our platform!' },
-      { id: 2, order: 2, name: 'Wait 1 Day', type: 'delay', delay_days: 1 },
-      { id: 3, order: 3, name: 'Setup Guide', type: 'email', subject: 'Quick start guide to get you running' },
-      { id: 4, order: 4, name: 'In-app Tour', type: 'in_app', content: 'Interactive product tour' },
-      { id: 5, order: 5, name: 'Wait 3 Days', type: 'delay', delay_days: 3 },
-      { id: 6, order: 6, name: 'Check Progress', type: 'condition', condition: 'has_completed_setup' },
-    ],
-    ab_test: {
-      id: 1,
-      variant_a: { name: 'Video Tutorial', sent: 72, conversions: 58 },
-      variant_b: { name: 'Written Guide', sent: 73, conversions: 51 },
-      winner: 'a',
-      confidence: 94.5,
-    },
-    created_at: '2025-12-15',
-  },
-  {
-    id: 2,
-    name: 'Feature Adoption Push',
-    type: 'email',
-    status: 'active',
-    goal: 'adoption',
-    description: 'Encourage adoption of underutilized features',
-    target_segment_name: 'Low Feature Usage',
-    sent_count: 234,
-    open_rate: 52.1,
-    click_rate: 28.7,
-    conversion_rate: 15.3,
-    steps: [
-      { id: 1, order: 1, name: 'Feature Highlight', type: 'email', subject: 'Did you know you can do this?' },
-      { id: 2, order: 2, name: 'Wait 5 Days', type: 'delay', delay_days: 5 },
-      { id: 3, order: 3, name: 'Success Story', type: 'email', subject: 'See how others use this feature' },
-    ],
-    created_at: '2026-01-02',
-  },
-  {
-    id: 3,
-    name: 'At-Risk Re-engagement',
-    type: 'multi_channel',
-    status: 'active',
-    goal: 'retention',
-    description: 'Re-engage customers showing signs of churn',
-    target_segment_name: 'At-Risk Customers',
-    sent_count: 45,
-    open_rate: 45.2,
-    click_rate: 22.1,
-    conversion_rate: 31.1,
-    steps: [
-      { id: 1, order: 1, name: 'Check-in Email', type: 'email', subject: 'We noticed you\'ve been away' },
-      { id: 2, order: 2, name: 'CSM Alert', type: 'action', content: 'Notify assigned CSM' },
-    ],
-    created_at: '2026-01-03',
-  },
-  {
-    id: 4,
-    name: 'Quarterly Webinar Series',
-    type: 'webinar',
-    status: 'scheduled',
-    goal: 'education',
-    description: 'Educational webinars on best practices',
-    target_segment_name: 'All Active Customers',
-    start_date: '2026-01-20',
-    sent_count: 0,
-    steps: [],
-    created_at: '2026-01-05',
-  },
-  {
-    id: 5,
-    name: 'Expansion Opportunity',
-    type: 'email',
-    status: 'draft',
-    goal: 'expansion',
-    description: 'Upsell to customers with high usage',
-    target_segment_name: 'High Usage - Low Plan',
-    sent_count: 0,
-    steps: [],
-    created_at: '2026-01-06',
-  },
-];
+// Helper function to map API campaign type to UI type
+function mapCampaignType(apiType: string | undefined): CampaignType {
+  const typeMap: Record<string, CampaignType> = {
+    nurture: 'email',
+    onboarding: 'multi_channel',
+    adoption: 'email',
+    renewal: 'email',
+    expansion: 'email',
+    winback: 'multi_channel',
+    custom: 'multi_channel',
+    email: 'email',
+    in_app: 'in_app',
+    sms: 'sms',
+    multi_channel: 'multi_channel',
+  };
+  return typeMap[apiType || ''] || 'email';
+}
+
+// Helper function to map API status to UI status
+function mapCampaignStatus(apiStatus: string | undefined): CampaignStatus {
+  const statusMap: Record<string, CampaignStatus> = {
+    draft: 'draft',
+    active: 'active',
+    paused: 'paused',
+    completed: 'completed',
+    archived: 'completed',
+    scheduled: 'scheduled',
+  };
+  return statusMap[apiStatus || ''] || 'draft';
+}
+
+// Helper function to map API campaign type to goal
+function mapCampaignGoal(apiType: string | undefined): CampaignGoal {
+  const goalMap: Record<string, CampaignGoal> = {
+    nurture: 'retention',
+    onboarding: 'onboarding',
+    adoption: 'adoption',
+    renewal: 'retention',
+    expansion: 'expansion',
+    winback: 'reactivation',
+    custom: 'education',
+  };
+  return goalMap[apiType || ''] || 'retention';
+}
+
+// Helper function to map API step type to UI step type
+function mapStepType(apiType: string | undefined): 'email' | 'delay' | 'condition' | 'action' | 'in_app' {
+  const stepTypeMap: Record<string, 'email' | 'delay' | 'condition' | 'action' | 'in_app'> = {
+    email: 'email',
+    in_app_message: 'in_app',
+    sms: 'email',
+    task: 'action',
+    wait: 'delay',
+    condition: 'condition',
+  };
+  return stepTypeMap[apiType || ''] || 'email';
+}
+
+// Transform API campaign to UI campaign
+function transformCampaign(apiCampaign: Record<string, unknown>): Campaign {
+  const steps = Array.isArray(apiCampaign.steps)
+    ? apiCampaign.steps.map((step: Record<string, unknown>) => ({
+        id: step.id as number,
+        order: step.order as number,
+        name: step.name as string,
+        type: mapStepType(step.step_type as string),
+        delay_days: ((step.delay_days as number) || 0) + ((step.delay_hours as number) || 0) / 24,
+        subject: step.subject as string | undefined,
+        content: step.content as string | undefined,
+        condition: step.condition_rules ? JSON.stringify(step.condition_rules) : undefined,
+      }))
+    : [];
+
+  return {
+    id: apiCampaign.id as number,
+    name: apiCampaign.name as string,
+    type: mapCampaignType(apiCampaign.campaign_type as string || apiCampaign.primary_channel as string),
+    status: mapCampaignStatus(apiCampaign.status as string),
+    goal: mapCampaignGoal(apiCampaign.campaign_type as string),
+    description: apiCampaign.description as string | undefined,
+    target_segment_id: apiCampaign.target_segment_id as number | undefined,
+    target_segment_name: apiCampaign.target_segment_name as string | undefined,
+    start_date: apiCampaign.start_date as string | undefined,
+    end_date: apiCampaign.end_date as string | undefined,
+    sent_count: (apiCampaign.enrolled_count as number) || 0,
+    open_rate: apiCampaign.avg_engagement_score as number | undefined,
+    click_rate: undefined, // Not directly available from API
+    conversion_rate: apiCampaign.conversion_rate as number | undefined,
+    steps,
+    ab_test: undefined, // A/B testing not yet implemented in API
+    created_at: apiCampaign.created_at as string,
+  };
+}
 
 // Components
 function CampaignTypeIcon({ type }: { type: CampaignType }) {
@@ -395,14 +394,117 @@ function ABTestResults({ test }: { test: ABTest }) {
   );
 }
 
+// Loading Skeleton Component
+function CampaignCardSkeleton() {
+  return (
+    <div className="bg-bg-card rounded-xl border border-border p-6 animate-pulse">
+      <div className="flex items-start justify-between mb-4">
+        <div className="flex items-center gap-3">
+          <div className="w-10 h-10 rounded-lg bg-bg-hover" />
+          <div>
+            <div className="h-5 w-40 bg-bg-hover rounded mb-2" />
+            <div className="h-3 w-24 bg-bg-hover rounded" />
+          </div>
+        </div>
+        <div className="h-6 w-16 bg-bg-hover rounded-full" />
+      </div>
+      <div className="h-4 w-full bg-bg-hover rounded mb-4" />
+      <div className="grid grid-cols-4 gap-4 mb-4">
+        {[...Array(4)].map((_, i) => (
+          <div key={i} className="text-center">
+            <div className="h-8 w-16 bg-bg-hover rounded mx-auto mb-1" />
+            <div className="h-3 w-12 bg-bg-hover rounded mx-auto" />
+          </div>
+        ))}
+      </div>
+    </div>
+  );
+}
+
 // Main Component
 export function NurtureCampaignManager() {
-  const [selectedCampaign, setSelectedCampaign] = useState<Campaign | null>(null);
+  const [selectedCampaignId, setSelectedCampaignId] = useState<number | null>(null);
   const [filter, setFilter] = useState<CampaignGoal | 'all'>('all');
 
-  const filteredCampaigns = filter === 'all'
-    ? sampleCampaigns
-    : sampleCampaigns.filter(c => c.goal === filter);
+  // Map UI goal filter to API campaign_type
+  const getCampaignTypeFilter = (goal: CampaignGoal | 'all'): string | undefined => {
+    if (goal === 'all') return undefined;
+    const goalToTypeMap: Record<CampaignGoal, string> = {
+      onboarding: 'onboarding',
+      adoption: 'adoption',
+      retention: 'renewal',
+      expansion: 'expansion',
+      reactivation: 'winback',
+      education: 'custom',
+    };
+    return goalToTypeMap[goal];
+  };
+
+  // Fetch campaigns from API
+  const { data: campaignsData, isLoading, error } = useCampaigns({
+    campaign_type: getCampaignTypeFilter(filter),
+  });
+
+  // Fetch selected campaign details
+  const { data: selectedCampaignData } = useCampaign(selectedCampaignId ?? undefined);
+
+  // Mutations for campaign actions
+  const launchMutation = useLaunchCampaign();
+  const pauseMutation = usePauseCampaign();
+
+  // Transform API campaigns to UI format
+  const campaigns: Campaign[] = campaignsData?.items
+    ? campaignsData.items.map((item: Record<string, unknown>) => transformCampaign(item))
+    : [];
+
+  // Transform selected campaign
+  const selectedCampaign: Campaign | null = selectedCampaignData
+    ? transformCampaign(selectedCampaignData as Record<string, unknown>)
+    : null;
+
+  // Handle campaign selection
+  const handleSelectCampaign = (campaign: Campaign) => {
+    setSelectedCampaignId(campaign.id);
+  };
+
+  // Handle launch campaign
+  const handleLaunchCampaign = async (campaignId: number) => {
+    try {
+      await launchMutation.mutateAsync(campaignId);
+    } catch (err) {
+      console.error('Failed to launch campaign:', err);
+    }
+  };
+
+  // Handle pause campaign
+  const handlePauseCampaign = async (campaignId: number) => {
+    try {
+      await pauseMutation.mutateAsync(campaignId);
+    } catch (err) {
+      console.error('Failed to pause campaign:', err);
+    }
+  };
+
+  // Error state
+  if (error) {
+    return (
+      <div className="space-y-6">
+        <div className="flex items-center justify-between">
+          <div>
+            <h2 className="text-xl font-semibold text-text-primary">Nurture Campaigns</h2>
+            <p className="text-sm text-text-muted">Automated customer engagement sequences</p>
+          </div>
+        </div>
+        <div className="bg-red-50 border border-red-200 rounded-xl p-8 text-center">
+          <svg className="w-12 h-12 text-red-400 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+          </svg>
+          <h3 className="text-lg font-semibold text-red-800 mb-2">Error Loading Campaigns</h3>
+          <p className="text-red-600">Unable to load campaign data. Please try again later.</p>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
@@ -445,16 +547,48 @@ export function NurtureCampaignManager() {
         ))}
       </div>
 
+      {/* Loading State */}
+      {isLoading && (
+        <div className="grid md:grid-cols-2 gap-6">
+          {[...Array(4)].map((_, i) => (
+            <CampaignCardSkeleton key={i} />
+          ))}
+        </div>
+      )}
+
+      {/* Empty State */}
+      {!isLoading && campaigns.length === 0 && (
+        <div className="bg-bg-card rounded-xl border border-border p-12 text-center">
+          <svg className="w-16 h-16 text-text-muted mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+          </svg>
+          <h3 className="text-lg font-semibold text-text-primary mb-2">No Campaigns Found</h3>
+          <p className="text-text-muted mb-6">
+            {filter === 'all'
+              ? 'Get started by creating your first nurture campaign.'
+              : `No ${filter} campaigns found. Try a different filter or create a new campaign.`}
+          </p>
+          <button className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-dark inline-flex items-center gap-2">
+            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            Create Campaign
+          </button>
+        </div>
+      )}
+
       {/* Campaign Grid */}
-      <div className="grid md:grid-cols-2 gap-6">
-        {filteredCampaigns.map((campaign) => (
-          <CampaignCard
-            key={campaign.id}
-            campaign={campaign}
-            onSelect={setSelectedCampaign}
-          />
-        ))}
-      </div>
+      {!isLoading && campaigns.length > 0 && (
+        <div className="grid md:grid-cols-2 gap-6">
+          {campaigns.map((campaign) => (
+            <CampaignCard
+              key={campaign.id}
+              campaign={campaign}
+              onSelect={handleSelectCampaign}
+            />
+          ))}
+        </div>
+      )}
 
       {/* Selected Campaign Detail */}
       {selectedCampaign && (
@@ -464,14 +598,44 @@ export function NurtureCampaignManager() {
               <h3 className="text-lg font-semibold text-text-primary">{selectedCampaign.name}</h3>
               <p className="text-sm text-text-muted">{selectedCampaign.description}</p>
             </div>
-            <button
-              onClick={() => setSelectedCampaign(null)}
-              className="text-text-muted hover:text-text-primary"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+            <div className="flex items-center gap-2">
+              {/* Campaign Actions */}
+              {selectedCampaign.status === 'draft' && (
+                <button
+                  onClick={() => handleLaunchCampaign(selectedCampaign.id)}
+                  disabled={launchMutation.isPending}
+                  className="px-3 py-1.5 text-sm font-medium text-white bg-success rounded-lg hover:bg-success/90 disabled:opacity-50"
+                >
+                  {launchMutation.isPending ? 'Launching...' : 'Launch'}
+                </button>
+              )}
+              {selectedCampaign.status === 'active' && (
+                <button
+                  onClick={() => handlePauseCampaign(selectedCampaign.id)}
+                  disabled={pauseMutation.isPending}
+                  className="px-3 py-1.5 text-sm font-medium text-white bg-warning rounded-lg hover:bg-warning/90 disabled:opacity-50"
+                >
+                  {pauseMutation.isPending ? 'Pausing...' : 'Pause'}
+                </button>
+              )}
+              {selectedCampaign.status === 'paused' && (
+                <button
+                  onClick={() => handleLaunchCampaign(selectedCampaign.id)}
+                  disabled={launchMutation.isPending}
+                  className="px-3 py-1.5 text-sm font-medium text-white bg-success rounded-lg hover:bg-success/90 disabled:opacity-50"
+                >
+                  {launchMutation.isPending ? 'Resuming...' : 'Resume'}
+                </button>
+              )}
+              <button
+                onClick={() => setSelectedCampaignId(null)}
+                className="text-text-muted hover:text-text-primary"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           </div>
 
           <div className="grid lg:grid-cols-2 gap-6">
