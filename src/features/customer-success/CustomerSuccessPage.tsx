@@ -20,6 +20,7 @@ import { NurtureCampaignManager } from './components/NurtureCampaignManager.tsx'
 import { EscalationManagement } from './components/EscalationManagement.tsx';
 import { CollaborationHub } from './components/CollaborationHub.tsx';
 import { AIInsightsHub } from './components/AIInsightsHub.tsx';
+import { AIGuide } from './segments/AIGuide.tsx';
 import {
   useCSDashboardOverview,
   useAtRiskCustomers,
@@ -40,7 +41,7 @@ import { SegmentFormModal } from './components/SegmentFormModal.tsx';
 import { PlaybookFormModal } from './components/PlaybookFormModal.tsx';
 import type { Playbook, Journey, Segment } from '@/api/types/customerSuccess.ts';
 
-type TabId = 'executive' | 'overview' | 'surveys' | 'campaigns' | 'ai-insights' | 'escalations' | 'segments' | 'journeys' | 'playbooks' | 'collaboration';
+type TabId = 'executive' | 'overview' | 'ai-guide' | 'surveys' | 'campaigns' | 'ai-insights' | 'escalations' | 'segments' | 'journeys' | 'playbooks' | 'collaboration';
 
 const TABS: { id: TabId; label: string; icon: React.ReactNode }[] = [
   {
@@ -58,6 +59,15 @@ const TABS: { id: TabId; label: string; icon: React.ReactNode }[] = [
     icon: (
       <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+      </svg>
+    ),
+  },
+  {
+    id: 'ai-guide',
+    label: 'Find Customers',
+    icon: (
+      <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
       </svg>
     ),
   },
@@ -597,6 +607,7 @@ export function CustomerSuccessPage() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         {activeTab === 'executive' && <ExecutiveDashboard />}
         {activeTab === 'overview' && <OverviewTab />}
+        {activeTab === 'ai-guide' && <AIGuide />}
         {activeTab === 'surveys' && <SurveySystem />}
         {activeTab === 'campaigns' && <NurtureCampaignManager />}
         {activeTab === 'ai-insights' && <AIInsightsHub />}

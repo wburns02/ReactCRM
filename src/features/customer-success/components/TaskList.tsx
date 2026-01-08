@@ -226,7 +226,7 @@ export function TaskList({
   const [sortBy, setSortBy] = useState<'due_date' | 'priority' | 'created'>('due_date');
 
   const filteredTasks = useMemo(() => {
-    let filtered = tasks.filter((task) => {
+    const filtered = tasks.filter((task) => {
       if (filterStatus === 'active') {
         if (task.status === 'completed' || task.status === 'cancelled') {
           return false;

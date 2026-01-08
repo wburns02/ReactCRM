@@ -52,3 +52,28 @@ export {
   useOnlineStatus,
   type PWAState,
 } from './usePWA';
+
+// Segment Builder hooks
+export {
+  segmentBuilderKeys,
+  useSegmentsList,
+  useSegmentDetail,
+  useSegmentMembers,
+  useCreateSegment,
+  useUpdateSegment,
+  useDeleteSegment,
+  useDuplicateSegment,
+  useSegmentPreview,
+  useParseNaturalLanguage,
+  useSegmentSuggestions,
+  useSmartSegments,
+  useSegmentAnalytics,
+  useSegmentRuleState,
+  type SegmentMember,
+  type SegmentMembersResponse,
+  type SegmentPreviewResult,
+  type ParsedSegmentQuery,
+  type SegmentSuggestion,
+  type SmartSegment,
+  type SegmentAnalytics,
+} from './useSegments';

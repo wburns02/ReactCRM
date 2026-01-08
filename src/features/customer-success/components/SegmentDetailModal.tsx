@@ -2,10 +2,15 @@
  * Segment Detail Modal Component
  *
  * Shows segment details, rules, and membership info.
+ * Includes bulk actions menu for segment operations.
  */
 
+import { useState } from 'react';
 import { cn } from '@/lib/utils.ts';
 import type { Segment, SegmentType } from '@/api/types/customerSuccess.ts';
+import { BulkActionsMenu, ExportModal, BulkScheduleModal } from '../segments/index.ts';
+import type { ExportOptions, BulkScheduleOptions } from '../segments/index.ts';
+import { useSegmentActions } from '@/hooks/useSegmentActions.ts';
 
 interface SegmentDetailModalProps {
   segment: Segment;
@@ -38,9 +43,38 @@ export function SegmentDetailModal({
   onEdit,
   onViewMembers,
 }: SegmentDetailModalProps) {
+  const [showExportModal, setShowExportModal] = useState(false);
+  const [showScheduleModal, setShowScheduleModal] = useState(false);
+  const [showTagModal, setShowTagModal] = useState(false);
+  const [showAssignModal, setShowAssignModal] = useState(false);
+  const [newTag, setNewTag] = useState('');
+
+  const segmentActions = useSegmentActions(segment.id, segment.name);
+
   if (!isOpen) return null;
 
   const typeConfig = TYPE_CONFIG[segment.segment_type];
+
+  const handleExport = async (options: ExportOptions) => {
+    await segmentActions.exportSegment(options);
+  };
+
+  const handleSchedule = async (options: BulkScheduleOptions) => {
+    await segmentActions.scheduleService(options);
+  };
+
+  const handleAddTag = async () => {
+    if (newTag.trim()) {
+      await segmentActions.addTag(newTag.trim());
+      setNewTag('');
+      setShowTagModal(false);
+    }
+  };
+
+  const handleAssign = async (method: 'auto' | 'round_robin') => {
+    await segmentActions.assignToRep(undefined, method);
+    setShowAssignModal(false);
+  };
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center pt-10 sm:pt-20 px-4">
@@ -71,14 +105,28 @@ export function SegmentDetailModal({
                 <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">{segment.description}</p>
               )}
             </div>
-            <button
-              onClick={onClose}
-              className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
-            >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
-              </svg>
-            </button>
+            <div className="flex items-center gap-2">
+              <BulkActionsMenu
+                segment={segment}
+                onEmailAll={segmentActions.openEmailComposer}
+                onCreateCallList={() => segmentActions.createCallList()}
+                onScheduleService={() => setShowScheduleModal(true)}
+                onExport={() => setShowExportModal(true)}
+                onAddTag={() => setShowTagModal(true)}
+                onAssignToRep={() => setShowAssignModal(true)}
+                onLaunchCampaign={segmentActions.openCampaignLauncher}
+                onCreateTasks={() => segmentActions.createTasks({ taskType: 'follow_up', title: `Follow up - ${segment.name}` })}
+                onCreateWorkOrders={() => setShowScheduleModal(true)}
+              />
+              <button
+                onClick={onClose}
+                className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
+              >
+                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                </svg>
+              </button>
+            </div>
           </div>
         </div>
 
@@ -235,6 +283,96 @@ export function SegmentDetailModal({
           )}
         </div>
       </div>
+
+      {/* Export Modal */}
+      <ExportModal
+        segment={segment}
+        isOpen={showExportModal}
+        onClose={() => setShowExportModal(false)}
+        onExport={handleExport}
+        isExporting={segmentActions.isExporting}
+      />
+
+      {/* Bulk Schedule Modal */}
+      <BulkScheduleModal
+        segment={segment}
+        isOpen={showScheduleModal}
+        onClose={() => setShowScheduleModal(false)}
+        onSchedule={handleSchedule}
+        isScheduling={segmentActions.isScheduling}
+      />
+
+      {/* Tag Modal (Simple inline) */}
+      {showTagModal && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center px-4">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setShowTagModal(false)} />
+          <div className="relative bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl w-full max-w-md p-6">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Add Tag to Segment</h3>
+            <input
+              type="text"
+              value={newTag}
+              onChange={(e) => setNewTag(e.target.value)}
+              placeholder="Enter tag name..."
+              className="w-full px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent mb-4"
+              autoFocus
+            />
+            <div className="flex justify-end gap-3">
+              <button
+                onClick={() => setShowTagModal(false)}
+                className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+              >
+                Cancel
+              </button>
+              <button
+                onClick={handleAddTag}
+                disabled={!newTag.trim() || segmentActions.isTagging}
+                className="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-primary-hover disabled:opacity-50 disabled:cursor-not-allowed"
+              >
+                {segmentActions.isTagging ? 'Adding...' : 'Add Tag'}
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* Assign Modal (Simple inline) */}
+      {showAssignModal && (
+        <div className="fixed inset-0 z-[60] flex items-center justify-center px-4">
+          <div className="absolute inset-0 bg-black/50" onClick={() => setShowAssignModal(false)} />
+          <div className="relative bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl w-full max-w-md p-6">
+            <h3 className="text-lg font-bold text-gray-900 dark:text-white mb-4">Assign Customers to Reps</h3>
+            <p className="text-sm text-gray-600 dark:text-gray-300 mb-4">
+              Choose how to distribute {segment.customer_count || 0} customers among your team.
+            </p>
+            <div className="space-y-2 mb-4">
+              <button
+                onClick={() => handleAssign('auto')}
+                disabled={segmentActions.isAssigning}
+                className="w-full p-3 text-left rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary hover:bg-primary/5 transition-all"
+              >
+                <p className="font-medium text-gray-900 dark:text-white">Auto-Assign</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">System assigns based on rep availability</p>
+              </button>
+              <button
+                onClick={() => handleAssign('round_robin')}
+                disabled={segmentActions.isAssigning}
+                className="w-full p-3 text-left rounded-lg border border-gray-300 dark:border-gray-600 hover:border-primary hover:bg-primary/5 transition-all"
+              >
+                <p className="font-medium text-gray-900 dark:text-white">Round Robin</p>
+                <p className="text-xs text-gray-500 dark:text-gray-400">Distribute evenly among all active reps</p>
+              </button>
+            </div>
+            <div className="flex justify-end">
+              <button
+                onClick={() => setShowAssignModal(false)}
+                className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-gray-900 dark:hover:text-white"
+              >
+                Cancel
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 }

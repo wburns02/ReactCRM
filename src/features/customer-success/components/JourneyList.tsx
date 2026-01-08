@@ -393,7 +393,7 @@ export function JourneyList({
   const [sortBy, setSortBy] = useState<SortOption>('name');
 
   const filteredAndSortedJourneys = useMemo(() => {
-    let filtered = journeys.filter((journey) => {
+    const filtered = journeys.filter((journey) => {
       if (filterStatus !== 'all' && journey.status !== filterStatus) {
         return false;
       }

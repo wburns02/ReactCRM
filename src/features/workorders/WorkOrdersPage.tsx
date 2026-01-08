@@ -95,7 +95,7 @@ export function WorkOrdersPage() {
     const weekEnd = new Date(weekStart);
     weekEnd.setDate(weekEnd.getDate() + 6);
 
-    let effectiveFilters: WorkOrderFilters = { ...filters };
+    const effectiveFilters: WorkOrderFilters = { ...filters };
 
     // Apply quick filters
     if (quickFilter === 'today') {
