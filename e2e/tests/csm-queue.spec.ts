@@ -80,10 +80,11 @@ test.describe('CSM Task Queue', () => {
     await firstTaskCard.click();
 
     // Verify task detail panel opens - tabs are buttons in TaskDetailView
-    await expect(page.getByRole('button', { name: /Playbook/i })).toBeVisible({ timeout: 10000 });
-    await expect(page.getByRole('button', { name: /Customer/i })).toBeVisible();
-    await expect(page.getByRole('button', { name: /History/i })).toBeVisible();
-    await expect(page.getByRole('button', { name: /Complete/i }).first()).toBeVisible();
+    // Use exact: true to distinguish 'Playbook' tab from 'Playbooks' nav item
+    await expect(page.getByRole('button', { name: 'Playbook', exact: true })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByRole('button', { name: 'Customer', exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'History', exact: true })).toBeVisible();
+    await expect(page.getByRole('button', { name: 'Complete', exact: true })).toBeVisible();
 
     // Verify playbook content is displayed
     await expect(page.getByText('Objective').first()).toBeVisible({ timeout: 5000 });
@@ -108,10 +109,10 @@ test.describe('CSM Task Queue', () => {
     await firstTaskCard.click();
 
     // Wait for task detail panel to open
-    await expect(page.getByRole('button', { name: /Playbook/i })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByRole('button', { name: 'Playbook', exact: true })).toBeVisible({ timeout: 10000 });
 
     // Click Customer tab (buttons in TaskDetailView, not tabs)
-    const customerTab = page.getByRole('button', { name: /Customer/i });
+    const customerTab = page.getByRole('button', { name: 'Customer', exact: true });
     await customerTab.click();
 
     // Verify customer context is displayed
@@ -139,10 +140,10 @@ test.describe('CSM Task Queue', () => {
     await firstTaskCard.click();
 
     // Wait for task detail panel to open
-    await expect(page.getByRole('button', { name: /Playbook/i })).toBeVisible({ timeout: 10000 });
+    await expect(page.getByRole('button', { name: 'Playbook', exact: true })).toBeVisible({ timeout: 10000 });
 
     // Click Complete tab (buttons in TaskDetailView, not tabs)
-    const completeTab = page.getByRole('button', { name: /Complete/i }).first();
+    const completeTab = page.getByRole('button', { name: 'Complete', exact: true });
     await completeTab.click();
 
     // Verify outcome form elements
