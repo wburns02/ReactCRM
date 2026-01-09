@@ -356,13 +356,206 @@ export function WorkOrderDetailPage() {
           </Card>
 
           {/* Notes */}
-          {workOrder.notes && (
+          <Card>
+            <CardHeader>
+              <CardTitle>Notes</CardTitle>
+            </CardHeader>
+            <CardContent>
+              {workOrder.notes ? (
+                <p className="text-text-secondary whitespace-pre-wrap">{workOrder.notes}</p>
+              ) : (
+                <p className="text-text-muted italic">No notes added</p>
+              )}
+            </CardContent>
+          </Card>
+
+          {/* Quick Actions */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Quick Actions</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <Button
+                  variant="secondary"
+                  className="flex flex-col items-center gap-2 h-auto py-4"
+                  onClick={() => setActiveTab('documentation')}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                  <span className="text-xs">Photos</span>
+                </Button>
+                <Button
+                  variant="secondary"
+                  className="flex flex-col items-center gap-2 h-auto py-4"
+                  onClick={() => setActiveTab('communication')}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z" />
+                  </svg>
+                  <span className="text-xs">SMS</span>
+                </Button>
+                <Button
+                  variant="secondary"
+                  className="flex flex-col items-center gap-2 h-auto py-4"
+                  onClick={() => setActiveTab('payment')}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 9V7a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2m2 4h10a2 2 0 002-2v-6a2 2 0 00-2-2H9a2 2 0 00-2 2v6a2 2 0 002 2zm7-5a2 2 0 11-4 0 2 2 0 014 0z" />
+                  </svg>
+                  <span className="text-xs">Payment</span>
+                </Button>
+                <Button
+                  variant="secondary"
+                  className="flex flex-col items-center gap-2 h-auto py-4"
+                  onClick={() => {
+                    if (workOrder.service_latitude && workOrder.service_longitude) {
+                      window.open(`https://maps.google.com/maps?daddr=${workOrder.service_latitude},${workOrder.service_longitude}`, '_blank');
+                    }
+                  }}
+                  disabled={!workOrder.service_latitude || !workOrder.service_longitude}
+                >
+                  <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 20l-5.447-2.724A1 1 0 013 16.382V5.618a1 1 0 011.447-.894L9 7m0 13l6-3m-6 3V7m6 10l4.553 2.276A1 1 0 0021 18.382V7.618a1 1 0 00-.553-.894L15 4m0 13V4m0 0L9 7" />
+                  </svg>
+                  <span className="text-xs">Navigate</span>
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Completion Checklist */}
+          <Card>
+            <CardHeader>
+              <CardTitle>Completion Checklist</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-3">
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {photos.some(p => p.metadata.photoType === 'before') ? (
+                      <svg className="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg className="w-5 h-5 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" strokeWidth={2} />
+                      </svg>
+                    )}
+                    <span className={photos.some(p => p.metadata.photoType === 'before') ? 'text-text-muted line-through' : ''}>Before photo</span>
+                  </div>
+                  <Badge variant={photos.some(p => p.metadata.photoType === 'before') ? 'success' : 'default'}>
+                    {photos.some(p => p.metadata.photoType === 'before') ? 'Done' : 'Required'}
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {photos.some(p => p.metadata.photoType === 'after') ? (
+                      <svg className="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg className="w-5 h-5 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" strokeWidth={2} />
+                      </svg>
+                    )}
+                    <span className={photos.some(p => p.metadata.photoType === 'after') ? 'text-text-muted line-through' : ''}>After photo</span>
+                  </div>
+                  <Badge variant={photos.some(p => p.metadata.photoType === 'after') ? 'success' : 'default'}>
+                    {photos.some(p => p.metadata.photoType === 'after') ? 'Done' : 'Required'}
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {customerSignature ? (
+                      <svg className="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg className="w-5 h-5 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" strokeWidth={2} />
+                      </svg>
+                    )}
+                    <span className={customerSignature ? 'text-text-muted line-through' : ''}>Customer signature</span>
+                  </div>
+                  <Badge variant={customerSignature ? 'success' : 'default'}>
+                    {customerSignature ? 'Done' : 'Required'}
+                  </Badge>
+                </div>
+                <div className="flex items-center justify-between">
+                  <div className="flex items-center gap-2">
+                    {technicianSignature ? (
+                      <svg className="w-5 h-5 text-success" fill="currentColor" viewBox="0 0 20 20">
+                        <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                      </svg>
+                    ) : (
+                      <svg className="w-5 h-5 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10" strokeWidth={2} />
+                      </svg>
+                    )}
+                    <span className={technicianSignature ? 'text-text-muted line-through' : ''}>Tech signature</span>
+                  </div>
+                  <Badge variant={technicianSignature ? 'success' : 'default'}>
+                    {technicianSignature ? 'Done' : 'Required'}
+                  </Badge>
+                </div>
+              </div>
+
+              {/* Progress bar */}
+              <div className="mt-4 pt-4 border-t">
+                <div className="flex items-center justify-between text-sm mb-2">
+                  <span className="text-text-secondary">Completion</span>
+                  <span className="font-medium">
+                    {[
+                      photos.some(p => p.metadata.photoType === 'before'),
+                      photos.some(p => p.metadata.photoType === 'after'),
+                      !!customerSignature,
+                      !!technicianSignature,
+                    ].filter(Boolean).length}/4
+                  </span>
+                </div>
+                <div className="h-2 bg-bg-muted rounded-full overflow-hidden">
+                  <div
+                    className="h-full bg-success transition-all duration-300"
+                    style={{
+                      width: `${([
+                        photos.some(p => p.metadata.photoType === 'before'),
+                        photos.some(p => p.metadata.photoType === 'after'),
+                        !!customerSignature,
+                        !!technicianSignature,
+                      ].filter(Boolean).length / 4) * 100}%`
+                    }}
+                  />
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* Mini Map Preview (if GPS coords available) */}
+          {workOrder.service_latitude && workOrder.service_longitude && (
             <Card>
               <CardHeader>
-                <CardTitle>Notes</CardTitle>
+                <CardTitle>Location</CardTitle>
               </CardHeader>
-              <CardContent>
-                <p className="text-text-secondary whitespace-pre-wrap">{workOrder.notes}</p>
+              <CardContent className="p-0">
+                <a
+                  href={`https://maps.google.com/?q=${workOrder.service_latitude},${workOrder.service_longitude}`}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block"
+                >
+                  <img
+                    src={`https://maps.googleapis.com/maps/api/staticmap?center=${workOrder.service_latitude},${workOrder.service_longitude}&zoom=15&size=600x200&markers=color:red%7C${workOrder.service_latitude},${workOrder.service_longitude}&key=AIzaSyBFw0Qbyq9zTFTd-tUY6dZWTgaQzuU17R8`}
+                    alt="Service location map"
+                    className="w-full h-[200px] object-cover rounded-b-lg"
+                    onError={(e) => {
+                      // Hide the card if map fails to load
+                      (e.target as HTMLImageElement).parentElement?.parentElement?.parentElement?.classList.add('hidden');
+                    }}
+                  />
+                </a>
               </CardContent>
             </Card>
           )}
