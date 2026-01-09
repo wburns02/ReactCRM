@@ -12,6 +12,7 @@ export { AutomatedReminders } from './AutomatedReminders.tsx';
 export { CustomerPortalLink } from './CustomerPortalLink.tsx';
 export { VoiceCallLog } from './VoiceCallLog.tsx';
 export { NotificationTemplates } from './NotificationTemplates.tsx';
+export { NotificationButtons } from './NotificationButtons.tsx';
 
 // Hooks
 export {

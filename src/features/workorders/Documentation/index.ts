@@ -9,6 +9,7 @@
 export { PhotoCapture, type CapturedPhoto, type PhotoCaptureProps } from './PhotoCapture';
 export { PhotoGallery, type PhotoGalleryProps } from './PhotoGallery';
 export { PhotoRequirements, type PhotoRequirementsProps } from './PhotoRequirements';
+export { PhotoSection, type PhotoSectionProps } from './PhotoSection';
 
 // Signature components
 export { SignatureCapture, type SignatureData, type SignatureCaptureProps } from './SignatureCapture';

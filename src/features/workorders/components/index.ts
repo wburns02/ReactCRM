@@ -19,3 +19,6 @@ export { StatusWorkflow } from './StatusWorkflow';
 // Offline components
 export { default as PhotoQueue } from './PhotoQueue';
 export { default as OfflineSignature } from './OfflineSignature';
+
+// Form components - Customer selection
+export { CustomerSelect } from './CustomerSelect';

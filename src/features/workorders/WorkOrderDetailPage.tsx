@@ -3,6 +3,7 @@ import { useParams, useNavigate, Link } from 'react-router-dom';
 import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
 import { Button } from '@/components/ui/Button.tsx';
 import { Badge } from '@/components/ui/Badge.tsx';
+import { Tabs, TabList, TabTrigger, TabContent } from '@/components/ui/Tabs.tsx';
 import {
   Dialog,
   DialogContent,
@@ -17,6 +18,7 @@ import {
 } from '@/api/hooks/useWorkOrders.ts';
 import { WorkOrderForm } from './components/WorkOrderForm.tsx';
 import { StatusWorkflow } from './components/StatusWorkflow.tsx';
+import { WorkOrderTimeline } from './components/WorkOrderTimeline.tsx';
 import { DialButton } from '@/features/phone/components/DialButton.tsx';
 import { formatDate } from '@/lib/utils.ts';
 import {
@@ -27,7 +29,25 @@ import {
   type WorkOrderStatus,
   type JobType,
   type Priority,
+  type PhotoType,
+  type WorkOrderPhoto,
+  type WorkOrderSignature,
+  type ActivityLogEntry,
 } from '@/api/types/workOrder.ts';
+
+// Documentation components
+import { PhotoCapture, type CapturedPhoto } from './Documentation/PhotoCapture.tsx';
+import { PhotoGallery } from './Documentation/PhotoGallery.tsx';
+import { SignatureCapture, type SignatureData } from './Documentation/SignatureCapture.tsx';
+import { SignaturePairDisplay } from './Documentation/SignatureDisplay.tsx';
+
+// Communication components
+import { SMSConversation } from './Communications/SMSConversation.tsx';
+import { NotificationCenter } from './Communications/NotificationCenter.tsx';
+
+// Payment components
+import { PaymentProcessor } from './Payments/PaymentProcessor.tsx';
+import { InvoiceGenerator, type CustomerInfo, type WorkOrderReference } from './Payments/InvoiceGenerator.tsx';
 
 /**
  * Get badge variant based on status
@@ -82,6 +102,27 @@ export function WorkOrderDetailPage() {
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
 
+  // Tab state
+  const [activeTab, setActiveTab] = useState('overview');
+
+  // Documentation state
+  const [photos, setPhotos] = useState<WorkOrderPhoto[]>([]);
+  const [customerSignature, setCustomerSignature] = useState<WorkOrderSignature | undefined>();
+  const [technicianSignature, setTechnicianSignature] = useState<WorkOrderSignature | undefined>();
+  const [isCapturingPhoto, setIsCapturingPhoto] = useState(false);
+  const [capturePhotoType, setCapturePhotoType] = useState<PhotoType>('before');
+
+  // Activity log (mock data for now - would come from API)
+  const [activityLog] = useState<ActivityLogEntry[]>([
+    {
+      id: '1',
+      type: 'created',
+      description: 'Work order created',
+      userName: 'System',
+      timestamp: workOrder?.created_at || new Date().toISOString(),
+    },
+  ]);
+
   const handleUpdate = useCallback(
     async (data: WorkOrderFormData) => {
       if (id) {
@@ -98,6 +139,61 @@ export function WorkOrderDetailPage() {
       navigate('/work-orders');
     }
   }, [id, deleteMutation, navigate]);
+
+  // Photo handlers
+  const handleStartPhotoCapture = useCallback((type: PhotoType) => {
+    setCapturePhotoType(type);
+    setIsCapturingPhoto(true);
+  }, []);
+
+  const handlePhotoCapture = useCallback((photo: CapturedPhoto) => {
+    const workOrderPhoto: WorkOrderPhoto = {
+      id: photo.id,
+      workOrderId: id || '',
+      data: photo.data,
+      thumbnail: photo.thumbnail,
+      metadata: photo.metadata,
+      uploadStatus: 'pending',
+      createdAt: new Date().toISOString(),
+    };
+    setPhotos((prev) => [...prev, workOrderPhoto]);
+    setIsCapturingPhoto(false);
+  }, [id]);
+
+  const handleDeletePhoto = useCallback((photoId: string) => {
+    setPhotos((prev) => prev.filter((p) => p.id !== photoId));
+  }, []);
+
+  // Signature handlers
+  const handleCustomerSignature = useCallback((signature: SignatureData) => {
+    setCustomerSignature({
+      id: crypto.randomUUID(),
+      workOrderId: id || '',
+      type: 'customer',
+      signerName: signature.signerName,
+      data: signature.data,
+      timestamp: signature.timestamp,
+      uploadStatus: 'pending',
+    });
+  }, [id]);
+
+  const handleTechnicianSignature = useCallback((signature: SignatureData) => {
+    setTechnicianSignature({
+      id: crypto.randomUUID(),
+      workOrderId: id || '',
+      type: 'technician',
+      signerName: signature.signerName,
+      data: signature.data,
+      timestamp: signature.timestamp,
+      uploadStatus: 'pending',
+    });
+  }, [id]);
+
+  // Notification handlers
+  const handleSendNotification = useCallback((type: 'reminder' | 'enroute' | 'complete') => {
+    // Would integrate with communication API
+    console.log('Sending notification:', type);
+  }, []);
 
   if (isLoading) {
     return (
@@ -171,11 +267,23 @@ export function WorkOrderDetailPage() {
         </div>
       </div>
 
-      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-        {/* Left Column - Main Info */}
-        <div className="lg:col-span-2 space-y-6">
-          {/* Customer Info */}
-          <Card>
+      {/* Tabs Navigation */}
+      <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-6">
+        <TabList>
+          <TabTrigger value="overview">Overview</TabTrigger>
+          <TabTrigger value="documentation">Documentation</TabTrigger>
+          <TabTrigger value="communication">Communication</TabTrigger>
+          <TabTrigger value="payment">Payment</TabTrigger>
+          <TabTrigger value="history">History</TabTrigger>
+        </TabList>
+
+        {/* Overview Tab Content */}
+        <TabContent value="overview">
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+            {/* Left Column - Main Info */}
+            <div className="lg:col-span-2 space-y-6">
+              {/* Customer Info */}
+              <Card>
             <CardHeader>
               <CardTitle>Customer</CardTitle>
             </CardHeader>
@@ -389,6 +497,266 @@ export function WorkOrderDetailPage() {
           </Card>
         </div>
       </div>
+        </TabContent>
+
+        {/* Documentation Tab Content */}
+        <TabContent value="documentation">
+          <div className="space-y-8">
+            {/* Photo Capture Dialog */}
+            {isCapturingPhoto && (
+              <Dialog open={isCapturingPhoto} onClose={() => setIsCapturingPhoto(false)}>
+                <DialogContent size="lg">
+                  <DialogHeader onClose={() => setIsCapturingPhoto(false)}>
+                    Capture Photo
+                  </DialogHeader>
+                  <DialogBody className="p-0">
+                    <PhotoCapture
+                      workOrderId={id || ''}
+                      photoType={capturePhotoType}
+                      onCapture={handlePhotoCapture}
+                      onCancel={() => setIsCapturingPhoto(false)}
+                    />
+                  </DialogBody>
+                </DialogContent>
+              </Dialog>
+            )}
+
+            {/* Required Photos Section */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Required Photos</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">
+                  {(['before', 'after', 'lid', 'tank'] as PhotoType[]).map((type) => {
+                    const hasPhoto = photos.some((p) => p.metadata.photoType === type);
+                    return (
+                      <button
+                        key={type}
+                        onClick={() => handleStartPhotoCapture(type)}
+                        className={`
+                          p-4 rounded-lg border-2 border-dashed text-center transition-colors
+                          ${hasPhoto
+                            ? 'border-success bg-success/10 text-success'
+                            : 'border-border hover:border-primary hover:bg-bg-hover'
+                          }
+                        `}
+                      >
+                        {hasPhoto ? (
+                          <svg className="w-8 h-8 mx-auto mb-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                          </svg>
+                        ) : (
+                          <svg className="w-8 h-8 mx-auto mb-2 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z" />
+                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 13a3 3 0 11-6 0 3 3 0 016 0z" />
+                          </svg>
+                        )}
+                        <span className="text-sm font-medium capitalize">{type}</span>
+                      </button>
+                    );
+                  })}
+                </div>
+                <div className="mt-4">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => handleStartPhotoCapture('other')}
+                  >
+                    Add Additional Photo
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Photo Gallery */}
+            {photos.length > 0 && (
+              <Card>
+                <CardHeader>
+                  <CardTitle>Photo Gallery ({photos.length})</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  <PhotoGallery
+                    photos={photos}
+                    onDelete={handleDeletePhoto}
+                    editable
+                  />
+                </CardContent>
+              </Card>
+            )}
+
+            {/* Signatures Section */}
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              {/* Customer Signature */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Customer Signature</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {customerSignature ? (
+                    <SignaturePairDisplay customerSignature={customerSignature} />
+                  ) : (
+                    <SignatureCapture
+                      type="customer"
+                      onSave={handleCustomerSignature}
+                      signerName={customerName}
+                    />
+                  )}
+                </CardContent>
+              </Card>
+
+              {/* Technician Signature */}
+              <Card>
+                <CardHeader>
+                  <CardTitle>Technician Signature</CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {technicianSignature ? (
+                    <SignaturePairDisplay technicianSignature={technicianSignature} />
+                  ) : (
+                    <SignatureCapture
+                      type="technician"
+                      onSave={handleTechnicianSignature}
+                      signerName={workOrder.assigned_technician || ''}
+                    />
+                  )}
+                </CardContent>
+              </Card>
+            </div>
+          </div>
+        </TabContent>
+
+        {/* Communication Tab Content */}
+        <TabContent value="communication">
+          <div className="space-y-6">
+            {/* Quick Actions */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Quick Notifications</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <div className="flex flex-wrap gap-3">
+                  <Button
+                    variant="secondary"
+                    onClick={() => handleSendNotification('reminder')}
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
+                    </svg>
+                    Send Reminder
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    onClick={() => handleSendNotification('enroute')}
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                    Tech En Route
+                  </Button>
+                  <Button
+                    variant="secondary"
+                    onClick={() => handleSendNotification('complete')}
+                  >
+                    <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                    </svg>
+                    Service Complete
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* SMS Conversation */}
+            <Card>
+              <CardHeader>
+                <CardTitle>SMS Conversation</CardTitle>
+              </CardHeader>
+              <CardContent className="p-0">
+                <SMSConversation
+                  customerId={workOrder.customer_id}
+                  workOrderId={id}
+                  customerName={customerName}
+                  customerPhone={workOrder.customer?.phone || undefined}
+                />
+              </CardContent>
+            </Card>
+
+            {/* Notification History */}
+            <Card>
+              <CardHeader>
+                <CardTitle>Notification History</CardTitle>
+              </CardHeader>
+              <CardContent>
+                <NotificationCenter
+                  workOrderId={id}
+                  customerId={workOrder.customer_id}
+                />
+              </CardContent>
+            </Card>
+          </div>
+        </TabContent>
+
+        {/* Payment Tab Content */}
+        <TabContent value="payment">
+          <div className="space-y-6">
+            {/* Invoice Generator */}
+            <InvoiceGenerator
+              customer={{
+                id: workOrder.customer_id,
+                firstName: workOrder.customer?.first_name || '',
+                lastName: workOrder.customer?.last_name || '',
+                email: workOrder.customer?.email || undefined,
+                phone: workOrder.customer?.phone || undefined,
+                address: workOrder.service_address_line1 ? {
+                  line1: workOrder.service_address_line1,
+                  line2: workOrder.service_address_line2 || undefined,
+                  city: workOrder.service_city || '',
+                  state: workOrder.service_state || 'TX',
+                  postalCode: workOrder.service_postal_code || '',
+                } : undefined,
+              } as CustomerInfo}
+              workOrder={{
+                id: workOrder.id,
+                jobType: workOrder.job_type,
+                scheduledDate: workOrder.scheduled_date || undefined,
+                status: workOrder.status,
+              } as WorkOrderReference}
+              onInvoiceCreated={(invoiceId) => {
+                console.log('Invoice created:', invoiceId);
+              }}
+            />
+
+            {/* Payment Processor */}
+            <PaymentProcessor
+              workOrderId={workOrder.id}
+              amount={0} // Would come from invoice totals
+              customerName={customerName}
+              onSuccess={(transactionId) => {
+                console.log('Payment successful:', transactionId);
+              }}
+            />
+          </div>
+        </TabContent>
+
+        {/* History Tab Content */}
+        <TabContent value="history">
+          <Card>
+            <CardHeader>
+              <CardTitle>Activity Timeline</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <WorkOrderTimeline
+                activities={activityLog}
+                showUserNames
+                collapsible
+                initialVisibleCount={10}
+              />
+            </CardContent>
+          </Card>
+        </TabContent>
+      </Tabs>
 
       {/* Edit Modal */}
       <WorkOrderForm

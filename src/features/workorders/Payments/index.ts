@@ -8,6 +8,7 @@
 // Components
 export { InvoiceGenerator, type InvoiceGeneratorProps, type CustomerInfo, type WorkOrderReference } from './InvoiceGenerator.tsx';
 export { PaymentProcessor, type PaymentProcessorProps } from './PaymentProcessor.tsx';
+export { PaymentSection, type PaymentSectionProps } from './PaymentSection.tsx';
 export { PaymentLinkGenerator, type PaymentLinkGeneratorProps } from './PaymentLinkGenerator.tsx';
 export { PriceCalculator, type PriceCalculatorProps } from './PriceCalculator.tsx';
 export { DiscountManager, type DiscountManagerProps } from './DiscountManager.tsx';
