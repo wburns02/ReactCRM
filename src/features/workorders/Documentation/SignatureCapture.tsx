@@ -61,7 +61,7 @@ export function SignatureCapture({
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
 
     // Get container dimensions
@@ -142,7 +142,7 @@ export function SignatureCapture({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
 
     ctx.beginPath();
@@ -165,7 +165,7 @@ export function SignatureCapture({
     // Draw a dot for single taps
     const canvas = canvasRef.current;
     if (canvas) {
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext('2d', { willReadFrequently: true });
       if (ctx) {
         ctx.beginPath();
         ctx.arc(point.x, point.y, 1, 0, Math.PI * 2);
@@ -209,7 +209,7 @@ export function SignatureCapture({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return;
 
     const rect = canvas.getBoundingClientRect();
@@ -250,7 +250,7 @@ export function SignatureCapture({
     const canvas = canvasRef.current;
     if (!canvas) return true;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext('2d', { willReadFrequently: true });
     if (!ctx) return true;
 
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -307,7 +307,11 @@ export function SignatureCapture({
           onChange={(e) => setSignerName(e.target.value)}
           placeholder={`Enter ${typeLabel.toLowerCase()} name`}
           disabled={disabled}
+          className={!signerName.trim() && hasSignature ? 'border-danger' : ''}
         />
+        {!signerName.trim() && hasSignature && (
+          <p className="text-xs text-danger">Please enter the {typeLabel.toLowerCase()} name to save the signature</p>
+        )}
       </div>
 
       {/* Signature Canvas */}

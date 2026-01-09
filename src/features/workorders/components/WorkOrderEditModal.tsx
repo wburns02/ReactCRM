@@ -948,6 +948,7 @@ export function WorkOrderEditModal({
                                 <SignatureCapture
                                   type="technician"
                                   onSave={(sig) => handleSignatureSave('technician', sig)}
+                                  signerName={watch('assigned_technician') || ''}
                                 />
                               )}
                             </div>
