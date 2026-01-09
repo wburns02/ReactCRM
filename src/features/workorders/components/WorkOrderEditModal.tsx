@@ -13,7 +13,7 @@
  * 6. History - Activity timeline
  */
 
-import { useState, useMemo, useCallback, useEffect } from 'react';
+import { useState, useMemo, useCallback } from 'react';
 import { useForm, Controller } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import {
@@ -46,6 +46,7 @@ import WorkOrderTimeline from './WorkOrderTimeline';
 // Hooks and types
 import { useCustomers } from '@/api/hooks/useCustomers';
 import { useTechnicians } from '@/api/hooks/useTechnicians';
+import { useWorkOrderPhotoOperations } from '@/api/hooks/useWorkOrderPhotos';
 import {
   workOrderFormSchema,
   type WorkOrderFormData,
@@ -316,7 +317,25 @@ export function WorkOrderEditModal({
 
   // Photo capture state
   const [capturePhotoType, setCapturePhotoType] = useState<PhotoType | null>(null);
-  const [photos, setPhotos] = useState<WorkOrderPhoto[]>([]);
+
+  // Photos from API when editing existing work order
+  const {
+    photos: apiPhotos,
+    uploadPhoto,
+    isUploading: _isUploading,
+    deletePhoto,
+    isDeleting: _isDeleting,
+  } = useWorkOrderPhotoOperations(workOrder?.id);
+
+  // Note: isUploading and isDeleting are available for UI feedback if needed
+  void _isUploading;
+  void _isDeleting;
+
+  // Local photos for new work orders (will be uploaded after creation)
+  const [localPhotos, setLocalPhotos] = useState<WorkOrderPhoto[]>([]);
+
+  // Combine API photos with local photos
+  const photos = isEdit ? apiPhotos : localPhotos;
 
   // Signature state
   const [signatures, setSignatures] = useState<{
@@ -383,12 +402,8 @@ export function WorkOrderEditModal({
 
   const customerId = watch('customer_id');
 
-  // Load photos from work order if editing
-  useEffect(() => {
-    if (extendedWorkOrder?.photos) {
-      setPhotos(extendedWorkOrder.photos);
-    }
-  }, [extendedWorkOrder?.photos]);
+  // Note: Photos are now fetched via useWorkOrderPhotoOperations hook for edit mode
+  // No need to load from extendedWorkOrder.photos as the hook handles this
 
   // Required photos checklist based on job type
   const requiredPhotos: RequiredPhoto[] = useMemo(() => {
@@ -421,24 +436,51 @@ export function WorkOrderEditModal({
   }, [watch, photos]);
 
   // Handle photo capture
-  const handlePhotoCapture = useCallback((photo: CapturedPhoto) => {
-    const newPhoto: WorkOrderPhoto = {
-      id: photo.id,
-      workOrderId: workOrder?.id || 'new',
-      data: photo.data,
-      thumbnail: photo.thumbnail,
-      metadata: photo.metadata,
-      uploadStatus: 'pending',
-      createdAt: new Date().toISOString(),
-    };
-    setPhotos((prev) => [...prev, newPhoto]);
+  const handlePhotoCapture = useCallback(async (photo: CapturedPhoto) => {
     setCapturePhotoType(null);
-  }, [workOrder?.id]);
+
+    if (isEdit && workOrder?.id) {
+      // For existing work orders, upload directly to API
+      try {
+        await uploadPhoto({
+          data: photo.data,
+          thumbnail: photo.thumbnail,
+          metadata: photo.metadata,
+        });
+        console.log('[WorkOrderEditModal] Photo uploaded successfully');
+      } catch (err) {
+        console.error('[WorkOrderEditModal] Photo upload failed:', err);
+      }
+    } else {
+      // For new work orders, store locally until work order is created
+      const newPhoto: WorkOrderPhoto = {
+        id: photo.id,
+        workOrderId: 'new',
+        data: photo.data,
+        thumbnail: photo.thumbnail,
+        metadata: photo.metadata,
+        uploadStatus: 'pending',
+        createdAt: new Date().toISOString(),
+      };
+      setLocalPhotos((prev) => [...prev, newPhoto]);
+    }
+  }, [isEdit, workOrder?.id, uploadPhoto]);
 
   // Handle photo delete
-  const handlePhotoDelete = useCallback((photoId: string) => {
-    setPhotos((prev) => prev.filter((p) => p.id !== photoId));
-  }, []);
+  const handlePhotoDelete = useCallback(async (photoId: string) => {
+    if (isEdit && workOrder?.id) {
+      // For existing work orders, delete via API
+      try {
+        await deletePhoto(photoId);
+        console.log('[WorkOrderEditModal] Photo deleted successfully');
+      } catch (err) {
+        console.error('[WorkOrderEditModal] Photo delete failed:', err);
+      }
+    } else {
+      // For new work orders, remove from local state
+      setLocalPhotos((prev) => prev.filter((p) => p.id !== photoId));
+    }
+  }, [isEdit, workOrder?.id, deletePhoto]);
 
   // Handle signature save
   const handleSignatureSave = useCallback((type: 'customer' | 'technician', signature: SignatureData) => {
@@ -451,7 +493,7 @@ export function WorkOrderEditModal({
   const handleClose = () => {
     reset();
     setActiveTab('details');
-    setPhotos([]);
+    setLocalPhotos([]);
     setSignatures({});
     setCapturePhotoType(null);
     onClose();

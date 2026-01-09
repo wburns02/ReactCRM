@@ -16,6 +16,7 @@ import {
   useUpdateWorkOrder,
   useDeleteWorkOrder,
 } from '@/api/hooks/useWorkOrders.ts';
+import { useWorkOrderPhotoOperations } from '@/api/hooks/useWorkOrderPhotos.ts';
 import { WorkOrderForm } from './components/WorkOrderForm.tsx';
 import { StatusWorkflow } from './components/StatusWorkflow.tsx';
 import { WorkOrderTimeline } from './components/WorkOrderTimeline.tsx';
@@ -30,7 +31,6 @@ import {
   type JobType,
   type Priority,
   type PhotoType,
-  type WorkOrderPhoto,
   type WorkOrderSignature,
   type ActivityLogEntry,
 } from '@/api/types/workOrder.ts';
@@ -106,8 +106,21 @@ export function WorkOrderDetailPage() {
   // Tab state
   const [activeTab, setActiveTab] = useState('overview');
 
-  // Documentation state
-  const [photos, setPhotos] = useState<WorkOrderPhoto[]>([]);
+  // Documentation state - Photos now use API hook
+  const {
+    photos,
+    isLoading: _photosLoading,
+    uploadPhoto,
+    isUploading: _isUploading,
+    deletePhoto,
+    isDeleting: _isDeleting,
+  } = useWorkOrderPhotoOperations(id);
+
+  // Note: Loading states available for UI feedback if needed
+  void _photosLoading;
+  void _isUploading;
+  void _isDeleting;
+
   const [customerSignature, setCustomerSignature] = useState<WorkOrderSignature | undefined>();
   const [technicianSignature, setTechnicianSignature] = useState<WorkOrderSignature | undefined>();
   const [isCapturingPhoto, setIsCapturingPhoto] = useState(false);
@@ -147,23 +160,30 @@ export function WorkOrderDetailPage() {
     setIsCapturingPhoto(true);
   }, []);
 
-  const handlePhotoCapture = useCallback((photo: CapturedPhoto) => {
-    const workOrderPhoto: WorkOrderPhoto = {
-      id: photo.id,
-      workOrderId: id || '',
-      data: photo.data,
-      thumbnail: photo.thumbnail,
-      metadata: photo.metadata,
-      uploadStatus: 'pending',
-      createdAt: new Date().toISOString(),
-    };
-    setPhotos((prev) => [...prev, workOrderPhoto]);
+  const handlePhotoCapture = useCallback(async (photo: CapturedPhoto) => {
     setIsCapturingPhoto(false);
-  }, [id]);
 
-  const handleDeletePhoto = useCallback((photoId: string) => {
-    setPhotos((prev) => prev.filter((p) => p.id !== photoId));
-  }, []);
+    // Upload photo to API
+    try {
+      await uploadPhoto({
+        data: photo.data,
+        thumbnail: photo.thumbnail,
+        metadata: photo.metadata,
+      });
+      console.log('[WorkOrderDetail] Photo uploaded successfully');
+    } catch (err) {
+      console.error('[WorkOrderDetail] Photo upload failed:', err);
+    }
+  }, [uploadPhoto]);
+
+  const handleDeletePhoto = useCallback(async (photoId: string) => {
+    try {
+      await deletePhoto(photoId);
+      console.log('[WorkOrderDetail] Photo deleted successfully');
+    } catch (err) {
+      console.error('[WorkOrderDetail] Photo delete failed:', err);
+    }
+  }, [deletePhoto]);
 
   // Signature handlers
   const handleCustomerSignature = useCallback((signature: SignatureData) => {
