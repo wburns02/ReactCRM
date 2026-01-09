@@ -46,7 +46,8 @@ interface SpeechRecognitionConstructor {
 }
 
 // Extended Window type for speech recognition
-interface WindowWithSpeech extends Window {
+// Using local interface to avoid conflicts with other SpeechRecognition declarations
+interface WindowWithSpeech {
   SpeechRecognition?: SpeechRecognitionConstructor;
   webkitSpeechRecognition?: SpeechRecognitionConstructor;
 }
