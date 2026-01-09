@@ -1,6 +1,8 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { apiClient } from '@/api/client';
+import { TemplateModal } from '../components/TemplateModal';
 
 interface Template {
   id: number;
@@ -15,6 +17,9 @@ interface Template {
  * All Templates - Template Library
  */
 export function AllTemplates() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [editingTemplate, setEditingTemplate] = useState<Template | null>(null);
+
   const { data: templates, isLoading } = useQuery({
     queryKey: ['message-templates'],
     queryFn: async () => {
@@ -37,7 +42,13 @@ export function AllTemplates() {
           <h1 className="text-2xl font-semibold text-text-primary">Message Templates</h1>
           <p className="text-text-muted">Manage your SMS and email templates</p>
         </div>
-        <button className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium">
+        <button
+          onClick={() => {
+            setEditingTemplate(null);
+            setIsModalOpen(true);
+          }}
+          className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium"
+        >
           Create Template
         </button>
       </div>
@@ -112,7 +123,13 @@ export function AllTemplates() {
                       </p>
                     </div>
                   </div>
-                  <button className="text-text-muted hover:text-text-primary">
+                  <button
+                    onClick={() => {
+                      setEditingTemplate(template);
+                      setIsModalOpen(true);
+                    }}
+                    className="text-text-muted hover:text-text-primary"
+                  >
                     Edit
                   </button>
                 </div>
@@ -121,6 +138,16 @@ export function AllTemplates() {
           </div>
         )}
       </div>
+
+      {/* Template Modal */}
+      <TemplateModal
+        open={isModalOpen}
+        onClose={() => {
+          setIsModalOpen(false);
+          setEditingTemplate(null);
+        }}
+        template={editingTemplate}
+      />
     </div>
   );
 }

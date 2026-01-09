@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { apiClient } from '@/api/client';
+import { SMSComposeModal } from '@/features/sms/SMSComposeModal';
 
 interface Conversation {
   id: number;
@@ -17,6 +18,7 @@ interface Conversation {
  */
 export function SMSInbox() {
   const [searchQuery, setSearchQuery] = useState('');
+  const [isComposeOpen, setIsComposeOpen] = useState(false);
 
   const { data: conversations, isLoading } = useQuery({
     queryKey: ['sms-conversations', searchQuery],
@@ -41,7 +43,10 @@ export function SMSInbox() {
             <h1 className="text-xl font-semibold text-text-primary">SMS Inbox</h1>
             <p className="text-sm text-text-muted">Manage SMS conversations</p>
           </div>
-          <button className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium">
+          <button
+            onClick={() => setIsComposeOpen(true)}
+            className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium"
+          >
             New Message
           </button>
         </div>
@@ -104,6 +109,12 @@ export function SMSInbox() {
           </div>
         )}
       </div>
+
+      {/* Compose Modal */}
+      <SMSComposeModal
+        open={isComposeOpen}
+        onClose={() => setIsComposeOpen(false)}
+      />
     </div>
   );
 }

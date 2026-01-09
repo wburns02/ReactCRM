@@ -1,11 +1,17 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { apiClient } from '@/api/client';
+import { SMSComposeModal } from '@/features/sms/SMSComposeModal';
+import { EmailComposeModal } from '../components/EmailComposeModal';
 
 /**
  * Communications Overview - Unified Inbox Dashboard
  */
 export function CommunicationsOverview() {
+  const [isSMSModalOpen, setIsSMSModalOpen] = useState(false);
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+
   const { data: stats } = useQuery({
     queryKey: ['communications-stats'],
     queryFn: async () => {
@@ -21,6 +27,31 @@ export function CommunicationsOverview() {
         };
       }
     },
+  });
+
+  // Fetch recent activity
+  interface ActivityItem {
+    id: number;
+    type: 'sms' | 'email';
+    customer_name: string;
+    preview: string;
+    timestamp: string;
+    direction: 'inbound' | 'outbound';
+  }
+
+  const { data: recentActivity, isLoading: activityLoading } = useQuery<ActivityItem[]>({
+    queryKey: ['communications-activity'],
+    queryFn: async () => {
+      try {
+        const response = await apiClient.get('/communications/activity', {
+          params: { limit: 10 }
+        });
+        return response.data.items || response.data || [];
+      } catch {
+        return [];
+      }
+    },
+    refetchInterval: 30000, // Refresh every 30 seconds
   });
 
   const channels = [
@@ -85,21 +116,64 @@ export function CommunicationsOverview() {
         <div className="p-4 border-b border-border">
           <h2 className="font-medium text-text-primary">Recent Activity</h2>
         </div>
-        <div className="p-8 text-center text-text-muted">
-          <span className="text-4xl block mb-2">💬</span>
-          <p>No recent messages</p>
-          <p className="text-sm mt-2">Messages from all channels will appear here</p>
-        </div>
+        {activityLoading ? (
+          <div className="p-8 flex items-center justify-center">
+            <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
+          </div>
+        ) : recentActivity && recentActivity.length > 0 ? (
+          <div className="divide-y divide-border">
+            {recentActivity.map((item) => (
+              <Link
+                key={item.id}
+                to={item.type === 'sms' ? '/communications/sms' : '/communications/email-inbox'}
+                className="block p-4 hover:bg-bg-hover transition-colors"
+              >
+                <div className="flex items-start gap-3">
+                  <div className={`w-8 h-8 rounded-full flex items-center justify-center ${
+                    item.type === 'sms' ? 'bg-blue-500/10 text-blue-500' : 'bg-purple-500/10 text-purple-500'
+                  }`}>
+                    {item.type === 'sms' ? '📱' : '📧'}
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="flex items-center justify-between">
+                      <span className="font-medium text-text-primary truncate">
+                        {item.customer_name}
+                      </span>
+                      <span className="text-xs text-text-muted ml-2">
+                        {item.timestamp}
+                      </span>
+                    </div>
+                    <p className="text-sm text-text-secondary truncate">
+                      {item.direction === 'outbound' ? '→ ' : '← '}{item.preview}
+                    </p>
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
+        ) : (
+          <div className="p-8 text-center text-text-muted">
+            <span className="text-4xl block mb-2">💬</span>
+            <p>No recent messages</p>
+            <p className="text-sm mt-2">Messages from all channels will appear here</p>
+          </div>
+        )}
       </div>
 
       {/* Quick Actions */}
       <div className="mt-6 grid grid-cols-2 lg:grid-cols-4 gap-4">
-        <button className="bg-bg-card border border-border rounded-lg p-4 text-left hover:border-primary transition-colors">
+        <button
+          onClick={() => setIsSMSModalOpen(true)}
+          className="bg-bg-card border border-border rounded-lg p-4 text-left hover:border-primary transition-colors"
+        >
           <span className="text-2xl block mb-2">✉️</span>
           <p className="font-medium text-text-primary">Send SMS</p>
           <p className="text-sm text-text-muted">Quick message</p>
         </button>
-        <button className="bg-bg-card border border-border rounded-lg p-4 text-left hover:border-primary transition-colors">
+        <button
+          onClick={() => setIsEmailModalOpen(true)}
+          className="bg-bg-card border border-border rounded-lg p-4 text-left hover:border-primary transition-colors"
+        >
           <span className="text-2xl block mb-2">📧</span>
           <p className="font-medium text-text-primary">Send Email</p>
           <p className="text-sm text-text-muted">Compose email</p>
@@ -121,6 +195,16 @@ export function CommunicationsOverview() {
           <p className="text-sm text-text-muted">Auto-reminders</p>
         </Link>
       </div>
+
+      {/* Modals */}
+      <SMSComposeModal
+        open={isSMSModalOpen}
+        onClose={() => setIsSMSModalOpen(false)}
+      />
+      <EmailComposeModal
+        open={isEmailModalOpen}
+        onClose={() => setIsEmailModalOpen(false)}
+      />
     </div>
   );
 }

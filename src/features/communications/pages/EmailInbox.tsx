@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { apiClient } from '@/api/client';
+import { EmailComposeModal } from '../components/EmailComposeModal';
 
 interface EmailConversation {
   id: number;
@@ -19,6 +20,7 @@ interface EmailConversation {
 export function EmailInbox() {
   const [searchQuery, setSearchQuery] = useState('');
   const [filter, setFilter] = useState<'all' | 'unread'>('all');
+  const [isComposeOpen, setIsComposeOpen] = useState(false);
 
   const { data: emails, isLoading } = useQuery({
     queryKey: ['email-conversations', searchQuery, filter],
@@ -46,7 +48,10 @@ export function EmailInbox() {
             <h1 className="text-xl font-semibold text-text-primary">Email Inbox</h1>
             <p className="text-sm text-text-muted">Customer email conversations</p>
           </div>
-          <button className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium">
+          <button
+            onClick={() => setIsComposeOpen(true)}
+            className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium"
+          >
             Compose
           </button>
         </div>
@@ -122,6 +127,12 @@ export function EmailInbox() {
           </div>
         )}
       </div>
+
+      {/* Compose Modal */}
+      <EmailComposeModal
+        open={isComposeOpen}
+        onClose={() => setIsComposeOpen(false)}
+      />
     </div>
   );
 }

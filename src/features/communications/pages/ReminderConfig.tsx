@@ -1,21 +1,25 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
 import { apiClient } from '@/api/client';
+import { ReminderModal } from '../components/ReminderModal';
 
 interface Reminder {
-  id: number;
+  id: number | string;
   name: string;
   trigger: string;
   timing: string;
   channels: string[];
   enabled: boolean;
-  last_sent: string | null;
+  last_sent?: string | null;
 }
 
 /**
  * Auto-Reminder Configuration
  */
 export function ReminderConfig() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const { data: reminders, isLoading } = useQuery({
     queryKey: ['auto-reminders'],
     queryFn: async () => {
@@ -72,7 +76,10 @@ export function ReminderConfig() {
           <h1 className="text-2xl font-semibold text-text-primary">Auto-Reminders</h1>
           <p className="text-text-muted">Configure automatic customer reminders</p>
         </div>
-        <button className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium">
+        <button
+          onClick={() => setIsModalOpen(true)}
+          className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium"
+        >
           Create Reminder
         </button>
       </div>
@@ -147,6 +154,12 @@ export function ReminderConfig() {
           </div>
         )}
       </div>
+
+      {/* Create Reminder Modal */}
+      <ReminderModal
+        open={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+      />
     </div>
   );
 }
