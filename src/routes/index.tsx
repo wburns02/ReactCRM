@@ -20,6 +20,49 @@ const CustomerTrackingPage = lazy(() => import('@/features/tracking/index.ts').t
 const TrackingDashboard = lazy(() => import('@/features/tracking/index.ts').then(m => ({ default: m.TrackingDashboard })));
 const TechnicianTracker = lazy(() => import('@/features/tracking/index.ts').then(m => ({ default: m.TechnicianTracker })));
 
+// ============================================================================
+// NEW LAZY IMPORTS - FIELD SERVICE
+// ============================================================================
+const FieldLayout = lazy(() => import('@/features/field/FieldLayout.tsx').then(m => ({ default: m.FieldLayout })));
+const MyJobsPage = lazy(() => import('@/features/field/pages/MyJobsPage.tsx').then(m => ({ default: m.MyJobsPage })));
+const JobDetailPage = lazy(() => import('@/features/field/pages/JobDetailPage.tsx').then(m => ({ default: m.JobDetailPage })));
+const JobCompletionFlow = lazy(() => import('@/features/field/pages/JobCompletionFlow.tsx').then(m => ({ default: m.JobCompletionFlow })));
+const RouteView = lazy(() => import('@/features/field/pages/RouteView.tsx').then(m => ({ default: m.RouteView })));
+const RouteDetail = lazy(() => import('@/features/field/pages/RouteDetail.tsx').then(m => ({ default: m.RouteDetail })));
+const TechStatsPage = lazy(() => import('@/features/field/pages/TechStatsPage.tsx').then(m => ({ default: m.TechStatsPage })));
+const TechProfilePage = lazy(() => import('@/features/field/pages/TechProfilePage.tsx').then(m => ({ default: m.TechProfilePage })));
+
+// ============================================================================
+// NEW LAZY IMPORTS - COMMUNICATIONS
+// ============================================================================
+const CommunicationsOverview = lazy(() => import('@/features/communications/pages/CommunicationsOverview.tsx').then(m => ({ default: m.CommunicationsOverview })));
+const SMSInbox = lazy(() => import('@/features/communications/pages/SMSInbox.tsx').then(m => ({ default: m.SMSInbox })));
+const SMSConversation = lazy(() => import('@/features/communications/pages/SMSConversation.tsx').then(m => ({ default: m.SMSConversation })));
+const EmailInbox = lazy(() => import('@/features/communications/pages/EmailInbox.tsx').then(m => ({ default: m.EmailInbox })));
+const EmailConversation = lazy(() => import('@/features/communications/pages/EmailConversation.tsx').then(m => ({ default: m.EmailConversation })));
+const AllTemplates = lazy(() => import('@/features/communications/pages/AllTemplates.tsx').then(m => ({ default: m.AllTemplates })));
+const SMSTemplates = lazy(() => import('@/features/communications/pages/SMSTemplates.tsx').then(m => ({ default: m.SMSTemplates })));
+const EmailTemplates = lazy(() => import('@/features/communications/pages/EmailTemplates.tsx').then(m => ({ default: m.EmailTemplates })));
+const ReminderConfig = lazy(() => import('@/features/communications/pages/ReminderConfig.tsx').then(m => ({ default: m.ReminderConfig })));
+const ReminderDetail = lazy(() => import('@/features/communications/pages/ReminderDetail.tsx').then(m => ({ default: m.ReminderDetail })));
+
+// ============================================================================
+// NEW LAZY IMPORTS - BILLING
+// ============================================================================
+const BillingOverview = lazy(() => import('@/features/billing/pages/BillingOverview.tsx').then(m => ({ default: m.BillingOverview })));
+const EstimatesPage = lazy(() => import('@/features/billing/pages/EstimatesPage.tsx').then(m => ({ default: m.EstimatesPage })));
+const EstimateDetailPage = lazy(() => import('@/features/billing/pages/EstimateDetailPage.tsx').then(m => ({ default: m.EstimateDetailPage })));
+const PaymentPlansPage = lazy(() => import('@/features/billing/pages/PaymentPlansPage.tsx').then(m => ({ default: m.PaymentPlansPage })));
+const PublicPaymentPage = lazy(() => import('@/features/billing/pages/PublicPaymentPage.tsx').then(m => ({ default: m.PublicPaymentPage })));
+const InvoiceCreatePage = lazy(() => import('@/features/invoicing/InvoiceCreatePage.tsx').then(m => ({ default: m.InvoiceCreatePage })));
+
+// ============================================================================
+// NEW LAZY IMPORTS - WORK ORDERS VIEWS
+// ============================================================================
+const CalendarView = lazy(() => import('@/features/workorders/views/CalendarView.tsx').then(m => ({ default: m.CalendarView })));
+const KanbanBoard = lazy(() => import('@/features/workorders/views/KanbanBoard.tsx').then(m => ({ default: m.KanbanBoard })));
+const MapView = lazy(() => import('@/features/workorders/views/MapView.tsx').then(m => ({ default: m.MapView })));
+
 // Loading spinner for lazy-loaded routes
 const PageLoader = () => (
   <div className="flex items-center justify-center h-full">
@@ -216,6 +259,16 @@ export function AppRoutes() {
         }
       />
 
+      {/* Public Payment Page - no auth required */}
+      <Route
+        path="/pay/:token"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <PublicPaymentPage />
+          </Suspense>
+        }
+      />
+
       {/* Onboarding wizard for new users */}
       <Route
         path="/onboarding"
@@ -244,6 +297,26 @@ export function AppRoutes() {
         <Route path="work-orders" element={<Suspense fallback={<PageLoader />}><PortalWorkOrdersPage /></Suspense>} />
         <Route path="invoices" element={<Suspense fallback={<PageLoader />}><PortalInvoicesPage /></Suspense>} />
         <Route path="request-service" element={<Suspense fallback={<PageLoader />}><PortalRequestServicePage /></Suspense>} />
+      </Route>
+
+      {/* Field Service Routes - Mobile Technician Experience */}
+      <Route
+        path="/field"
+        element={
+          <RequireAuth>
+            <Suspense fallback={<PageLoader />}>
+              <FieldLayout />
+            </Suspense>
+          </RequireAuth>
+        }
+      >
+        <Route index element={<Suspense fallback={<PageLoader />}><MyJobsPage /></Suspense>} />
+        <Route path="job/:id" element={<Suspense fallback={<PageLoader />}><JobDetailPage /></Suspense>} />
+        <Route path="job/:id/complete" element={<Suspense fallback={<PageLoader />}><JobCompletionFlow /></Suspense>} />
+        <Route path="route" element={<Suspense fallback={<PageLoader />}><RouteView /></Suspense>} />
+        <Route path="route/:jobId" element={<Suspense fallback={<PageLoader />}><RouteDetail /></Suspense>} />
+        <Route path="stats" element={<Suspense fallback={<PageLoader />}><TechStatsPage /></Suspense>} />
+        <Route path="profile" element={<Suspense fallback={<PageLoader />}><TechProfilePage /></Suspense>} />
       </Route>
 
       {/* Protected app routes at /* */}
@@ -276,6 +349,9 @@ export function AppRoutes() {
 
         {/* Work Orders */}
         <Route path="work-orders" element={<Suspense fallback={<PageLoader />}><WorkOrdersPage /></Suspense>} />
+        <Route path="work-orders/calendar" element={<Suspense fallback={<PageLoader />}><CalendarView /></Suspense>} />
+        <Route path="work-orders/board" element={<Suspense fallback={<PageLoader />}><KanbanBoard /></Suspense>} />
+        <Route path="work-orders/map" element={<Suspense fallback={<PageLoader />}><MapView /></Suspense>} />
         <Route path="work-orders/:id" element={<Suspense fallback={<PageLoader />}><WorkOrderDetailPage /></Suspense>} />
 
         {/* Schedule */}
@@ -343,6 +419,13 @@ export function AppRoutes() {
         {/* Payments */}
         <Route path="payments" element={<Suspense fallback={<PageLoader />}><PaymentsPage /></Suspense>} />
 
+        {/* Billing - Estimates & Payment Plans */}
+        <Route path="estimates" element={<Suspense fallback={<PageLoader />}><EstimatesPage /></Suspense>} />
+        <Route path="estimates/:id" element={<Suspense fallback={<PageLoader />}><EstimateDetailPage /></Suspense>} />
+        <Route path="invoices/new" element={<Suspense fallback={<PageLoader />}><InvoiceCreatePage /></Suspense>} />
+        <Route path="billing/overview" element={<Suspense fallback={<PageLoader />}><BillingOverview /></Suspense>} />
+        <Route path="billing/payment-plans" element={<Suspense fallback={<PageLoader />}><PaymentPlansPage /></Suspense>} />
+
         {/* Users Management */}
         <Route path="users" element={<Suspense fallback={<PageLoader />}><UsersPage /></Suspense>} />
 
@@ -370,6 +453,18 @@ export function AppRoutes() {
 
         {/* Calls/Call Center */}
         <Route path="calls" element={<Suspense fallback={<PageLoader />}><CallsPage /></Suspense>} />
+
+        {/* Communications - Unified Inbox & Messaging */}
+        <Route path="communications" element={<Suspense fallback={<PageLoader />}><CommunicationsOverview /></Suspense>} />
+        <Route path="communications/sms" element={<Suspense fallback={<PageLoader />}><SMSInbox /></Suspense>} />
+        <Route path="communications/sms/:id" element={<Suspense fallback={<PageLoader />}><SMSConversation /></Suspense>} />
+        <Route path="communications/email-inbox" element={<Suspense fallback={<PageLoader />}><EmailInbox /></Suspense>} />
+        <Route path="communications/email-inbox/:id" element={<Suspense fallback={<PageLoader />}><EmailConversation /></Suspense>} />
+        <Route path="communications/templates" element={<Suspense fallback={<PageLoader />}><AllTemplates /></Suspense>} />
+        <Route path="communications/templates/sms" element={<Suspense fallback={<PageLoader />}><SMSTemplates /></Suspense>} />
+        <Route path="communications/templates/email" element={<Suspense fallback={<PageLoader />}><EmailTemplates /></Suspense>} />
+        <Route path="communications/reminders" element={<Suspense fallback={<PageLoader />}><ReminderConfig /></Suspense>} />
+        <Route path="communications/reminders/:id" element={<Suspense fallback={<PageLoader />}><ReminderDetail /></Suspense>} />
 
         {/* Compliance */}
         <Route path="compliance" element={<Suspense fallback={<PageLoader />}><ComplianceDashboard /></Suspense>} />

@@ -56,6 +56,7 @@ export function AppLayout() {
       items: [
         { path: '/command-center', label: 'Command Center', icon: '🎯' },
         { path: '/work-orders', label: 'Work Orders', icon: '🔧' },
+        { path: '/tracking', label: 'Tracking', icon: '🗺️', badge: 'LIVE' },
         { path: '/schedule', label: 'Schedule', icon: '📅' },
         { path: '/technicians', label: 'Technicians', icon: '👷' },
         { path: '/employee', label: 'Employee Portal', icon: '📱' },
@@ -70,8 +71,13 @@ export function AppLayout() {
       label: 'Communications',
       icon: '📞',
       items: [
+        { path: '/communications', label: 'Inbox & Messages', icon: '💬' },
+        { path: '/communications/sms', label: 'SMS Inbox', icon: '📱' },
+        { path: '/communications/email-inbox', label: 'Email Inbox', icon: '📧' },
         { path: '/calls', label: 'Call Center', icon: '📞' },
-        { path: '/phone', label: 'Phone Dashboard', icon: '📞' },
+        { path: '/phone', label: 'Phone Dashboard', icon: '☎️' },
+        { path: '/communications/templates', label: 'Message Templates', icon: '📝' },
+        { path: '/communications/reminders', label: 'Auto-Reminders', icon: '🔔' },
         { path: '/integrations', label: 'Integrations', icon: '🔌' },
       ],
     },
@@ -82,6 +88,8 @@ export function AppLayout() {
       items: [
         { path: '/invoices', label: 'Invoices', icon: '🧾' },
         { path: '/payments', label: 'Payments', icon: '💳' },
+        { path: '/estimates', label: 'Estimates', icon: '📊' },
+        { path: '/billing/payment-plans', label: 'Payment Plans', icon: '📈' },
         { path: '/payroll', label: 'Payroll', icon: '💵' },
         { path: '/job-costing', label: 'Job Costing', icon: '💹' },
       ],
