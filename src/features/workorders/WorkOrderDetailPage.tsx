@@ -44,6 +44,7 @@ import { SignaturePairDisplay } from './Documentation/SignatureDisplay.tsx';
 // Communication components
 import { SMSConversation } from './Communications/SMSConversation.tsx';
 import { NotificationCenter } from './Communications/NotificationCenter.tsx';
+import { TwilioSMSPanel } from './Communications/TwilioSMSPanel.tsx';
 
 // Payment components
 import { PaymentProcessor } from './Payments/PaymentProcessor.tsx';
@@ -861,10 +862,18 @@ export function WorkOrderDetailPage() {
               </CardContent>
             </Card>
 
-            {/* SMS Conversation */}
+            {/* Twilio SMS Panel */}
+            <TwilioSMSPanel
+              customerId={workOrder.customer_id}
+              customerName={customerName}
+              customerPhone={workOrder.customer?.phone || undefined}
+              workOrderId={id}
+            />
+
+            {/* SMS Conversation History */}
             <Card>
               <CardHeader>
-                <CardTitle>SMS Conversation</CardTitle>
+                <CardTitle>SMS Conversation History</CardTitle>
               </CardHeader>
               <CardContent className="p-0">
                 <SMSConversation
