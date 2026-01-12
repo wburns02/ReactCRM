@@ -73,9 +73,9 @@ jobs:
     name: Visual Regression Tests (Percy)
     timeout-minutes: 30
     runs-on: ubuntu-latest
-    # Only run if PERCY_TOKEN is available
-    if: ${{ secrets.PERCY_TOKEN != '' }}
     needs: test  # Run after E2E tests pass
+    # Skip this job for now until Percy is configured
+    if: false
 
     steps:
       - name: Checkout code
