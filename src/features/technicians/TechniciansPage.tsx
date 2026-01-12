@@ -39,7 +39,7 @@ export function TechniciansPage() {
     page: 1,
     page_size: PAGE_SIZE,
     search: "",
-    active_only: false,
+    active_only: true,  // Only show active technicians by default
   });
 
   // Form modal state
