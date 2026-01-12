@@ -33,6 +33,41 @@ export async function navigateAndCheckAuth(page: Page, path: string): Promise<bo
 }
 
 /**
+ * Check if we're on the login page (authentication required).
+ * Use this to skip tests that require authentication when running without credentials.
+ */
+export async function isOnLoginPage(page: Page): Promise<boolean> {
+  await page.waitForLoadState('networkidle');
+  const url = page.url();
+  if (url.includes('/login')) return true;
+
+  // Also check if login form is visible (in case URL check fails)
+  const loginButton = page.getByRole('button', { name: /sign in/i });
+  return await loginButton.isVisible({ timeout: 2000 }).catch(() => false);
+}
+
+/**
+ * Navigate to a page and skip the test if authentication is required.
+ * Use in tests that need authenticated access but run in CI without credentials.
+ *
+ * @example
+ * test('should display dashboard', async ({ page }) => {
+ *   await gotoWithAuthCheck(page, '/dashboard');
+ *   // test continues only if authenticated
+ * });
+ */
+export async function gotoWithAuthCheck(
+  page: Page,
+  path: string,
+  test: { skip: (skip: boolean, reason: string) => void }
+): Promise<void> {
+  await page.goto(`${BASE_URL}${path}`);
+  if (await isOnLoginPage(page)) {
+    test.skip(true, 'Authentication required - skipping in CI');
+  }
+}
+
+/**
  * Wait for page to be fully loaded and interactive.
  */
 export async function waitForPageReady(page: Page): Promise<void> {
@@ -481,6 +516,8 @@ export const testUtils = {
 
   // Navigation
   navigateAndCheckAuth,
+  isOnLoginPage,
+  gotoWithAuthCheck,
   waitForPageReady,
   ensureAuthenticated,
 
