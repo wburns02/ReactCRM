@@ -4,20 +4,33 @@
  * Similar to Uber/DoorDash tracking experience
  */
 
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { MapContainer, TileLayer, Marker, Polyline, useMap } from 'react-leaflet';
-import L from 'leaflet';
-import { cn } from '@/lib/utils.ts';
-import { usePublicTracking } from '@/hooks/useGPSTracking.ts';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import {
-  Truck, MapPin, Clock, CheckCircle, Phone, Navigation,
-  RefreshCw, AlertCircle, User
-} from 'lucide-react';
+  MapContainer,
+  TileLayer,
+  Marker,
+  Polyline,
+  useMap,
+} from "react-leaflet";
+import L from "leaflet";
+import { cn } from "@/lib/utils.ts";
+import { usePublicTracking } from "@/hooks/useGPSTracking.ts";
+import {
+  Truck,
+  MapPin,
+  Clock,
+  CheckCircle,
+  Phone,
+  Navigation,
+  RefreshCw,
+  AlertCircle,
+  User,
+} from "lucide-react";
 
 // Custom icons for the tracking map
 const technicianIcon = L.divIcon({
-  className: 'custom-marker',
+  className: "custom-marker",
   html: `
     <div style="
       background: linear-gradient(135deg, #3B82F6 0%, #2563EB 100%);
@@ -43,7 +56,7 @@ const technicianIcon = L.divIcon({
 });
 
 const destinationIcon = L.divIcon({
-  className: 'custom-marker',
+  className: "custom-marker",
   html: `
     <div style="
       background: linear-gradient(135deg, #10B981 0%, #059669 100%);
@@ -78,10 +91,7 @@ function MapUpdater({ techLat, techLng, destLat, destLng }: MapUpdaterProps) {
 
   useEffect(() => {
     if (techLat && techLng) {
-      const bounds = L.latLngBounds(
-        [techLat, techLng],
-        [destLat, destLng]
-      );
+      const bounds = L.latLngBounds([techLat, techLng], [destLat, destLng]);
       map.fitBounds(bounds, { padding: [50, 50] });
     } else {
       map.setView([destLat, destLng], 14);
@@ -91,48 +101,56 @@ function MapUpdater({ techLat, techLng, destLat, destLng }: MapUpdaterProps) {
   return null;
 }
 
-const statusConfig: Record<string, { color: string; bgColor: string; icon: typeof Truck; message: string }> = {
+const statusConfig: Record<
+  string,
+  { color: string; bgColor: string; icon: typeof Truck; message: string }
+> = {
   scheduled: {
-    color: 'text-gray-600',
-    bgColor: 'bg-gray-100',
+    color: "text-gray-600",
+    bgColor: "bg-gray-100",
     icon: Clock,
-    message: 'Your service is scheduled',
+    message: "Your service is scheduled",
   },
   en_route: {
-    color: 'text-blue-600',
-    bgColor: 'bg-blue-100',
+    color: "text-blue-600",
+    bgColor: "bg-blue-100",
     icon: Truck,
-    message: 'Your technician is on the way!',
+    message: "Your technician is on the way!",
   },
   arriving_soon: {
-    color: 'text-green-600',
-    bgColor: 'bg-green-100',
+    color: "text-green-600",
+    bgColor: "bg-green-100",
     icon: Navigation,
-    message: 'Almost there!',
+    message: "Almost there!",
   },
   arrived: {
-    color: 'text-green-600',
-    bgColor: 'bg-green-100',
+    color: "text-green-600",
+    bgColor: "bg-green-100",
     icon: MapPin,
-    message: 'Your technician has arrived',
+    message: "Your technician has arrived",
   },
   in_progress: {
-    color: 'text-blue-600',
-    bgColor: 'bg-blue-100',
+    color: "text-blue-600",
+    bgColor: "bg-blue-100",
     icon: User,
-    message: 'Service in progress',
+    message: "Service in progress",
   },
   completed: {
-    color: 'text-green-600',
-    bgColor: 'bg-green-100',
+    color: "text-green-600",
+    bgColor: "bg-green-100",
     icon: CheckCircle,
-    message: 'Service completed!',
+    message: "Service completed!",
   },
 };
 
 export function CustomerTrackingPage() {
   const { token } = useParams<{ token: string }>();
-  const { data: trackingInfo, isLoading, error, refetch } = usePublicTracking(token || '');
+  const {
+    data: trackingInfo,
+    isLoading,
+    error,
+    refetch,
+  } = usePublicTracking(token || "");
   const [_lastRefresh, setLastRefresh] = useState(new Date());
 
   useEffect(() => {
@@ -162,7 +180,8 @@ export function CustomerTrackingPage() {
             Tracking Link Not Found
           </h1>
           <p className="text-gray-600">
-            This tracking link may have expired or is invalid. Please contact our office for assistance.
+            This tracking link may have expired or is invalid. Please contact
+            our office for assistance.
           </p>
         </div>
       </div>
@@ -172,9 +191,10 @@ export function CustomerTrackingPage() {
   const config = statusConfig[trackingInfo.status] || statusConfig.scheduled;
   const StatusIcon = config.icon;
 
-  const showMap = trackingInfo.technician_latitude &&
-                  trackingInfo.technician_longitude &&
-                  trackingInfo.status !== 'completed';
+  const showMap =
+    trackingInfo.technician_latitude &&
+    trackingInfo.technician_longitude &&
+    trackingInfo.status !== "completed";
 
   return (
     <div className="min-h-screen bg-gray-50">
@@ -183,8 +203,12 @@ export function CustomerTrackingPage() {
         <div className="max-w-2xl mx-auto px-4 py-4">
           <div className="flex items-center justify-between">
             <div>
-              <h1 className="text-lg font-semibold text-gray-900">Track Your Service</h1>
-              <p className="text-sm text-gray-500">{trackingInfo.service_type}</p>
+              <h1 className="text-lg font-semibold text-gray-900">
+                Track Your Service
+              </h1>
+              <p className="text-sm text-gray-500">
+                {trackingInfo.service_type}
+              </p>
             </div>
             <button
               onClick={() => refetch()}
@@ -199,52 +223,60 @@ export function CustomerTrackingPage() {
       {/* Main Content */}
       <main className="max-w-2xl mx-auto p-4 space-y-4">
         {/* Status Card */}
-        <div className={cn('rounded-2xl p-6 shadow-sm', config.bgColor)}>
+        <div className={cn("rounded-2xl p-6 shadow-sm", config.bgColor)}>
           <div className="flex items-center gap-4">
-            <div className={cn(
-              'w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-sm',
-              config.color
-            )}>
+            <div
+              className={cn(
+                "w-14 h-14 rounded-full bg-white flex items-center justify-center shadow-sm",
+                config.color,
+              )}
+            >
               <StatusIcon className="w-7 h-7" />
             </div>
             <div className="flex-1">
-              <h2 className={cn('text-xl font-semibold', config.color)}>
+              <h2 className={cn("text-xl font-semibold", config.color)}>
                 {config.message}
               </h2>
-              <p className="text-gray-600 mt-1">{trackingInfo.status_message}</p>
+              <p className="text-gray-600 mt-1">
+                {trackingInfo.status_message}
+              </p>
             </div>
           </div>
 
           {/* ETA Display */}
-          {trackingInfo.eta_minutes !== undefined && trackingInfo.status === 'en_route' && (
-            <div className="mt-6 flex items-center justify-center">
-              <div className="text-center">
-                <div className="text-5xl font-bold text-gray-900">
-                  {trackingInfo.eta_minutes}
-                </div>
-                <div className="text-gray-500 mt-1">minutes away</div>
-                {trackingInfo.eta_arrival_time && (
-                  <div className="text-sm text-gray-400 mt-1">
-                    Arriving around {trackingInfo.eta_arrival_time}
+          {trackingInfo.eta_minutes !== undefined &&
+            trackingInfo.status === "en_route" && (
+              <div className="mt-6 flex items-center justify-center">
+                <div className="text-center">
+                  <div className="text-5xl font-bold text-gray-900">
+                    {trackingInfo.eta_minutes}
                   </div>
-                )}
+                  <div className="text-gray-500 mt-1">minutes away</div>
+                  {trackingInfo.eta_arrival_time && (
+                    <div className="text-sm text-gray-400 mt-1">
+                      Arriving around {trackingInfo.eta_arrival_time}
+                    </div>
+                  )}
+                </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
 
         {/* Map */}
         {showMap && (
           <div className="rounded-2xl overflow-hidden shadow-sm bg-white">
             <MapContainer
-              center={[trackingInfo.destination_latitude, trackingInfo.destination_longitude]}
+              center={[
+                trackingInfo.destination_latitude,
+                trackingInfo.destination_longitude,
+              ]}
               zoom={14}
               className="h-[300px]"
               zoomControl={false}
             >
               <TileLayer
                 url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-                attribution='&copy; OpenStreetMap'
+                attribution="&copy; OpenStreetMap"
               />
 
               <MapUpdater
@@ -255,34 +287,48 @@ export function CustomerTrackingPage() {
               />
 
               {/* Technician Marker */}
-              {trackingInfo.technician_latitude && trackingInfo.technician_longitude && (
-                <Marker
-                  position={[trackingInfo.technician_latitude, trackingInfo.technician_longitude]}
-                  icon={technicianIcon}
-                />
-              )}
+              {trackingInfo.technician_latitude &&
+                trackingInfo.technician_longitude && (
+                  <Marker
+                    position={[
+                      trackingInfo.technician_latitude,
+                      trackingInfo.technician_longitude,
+                    ]}
+                    icon={technicianIcon}
+                  />
+                )}
 
               {/* Destination Marker */}
               <Marker
-                position={[trackingInfo.destination_latitude, trackingInfo.destination_longitude]}
+                position={[
+                  trackingInfo.destination_latitude,
+                  trackingInfo.destination_longitude,
+                ]}
                 icon={destinationIcon}
               />
 
               {/* Route Line */}
-              {trackingInfo.technician_latitude && trackingInfo.technician_longitude && (
-                <Polyline
-                  positions={[
-                    [trackingInfo.technician_latitude, trackingInfo.technician_longitude],
-                    [trackingInfo.destination_latitude, trackingInfo.destination_longitude]
-                  ]}
-                  pathOptions={{
-                    color: '#3B82F6',
-                    weight: 4,
-                    opacity: 0.6,
-                    dashArray: '10, 10',
-                  }}
-                />
-              )}
+              {trackingInfo.technician_latitude &&
+                trackingInfo.technician_longitude && (
+                  <Polyline
+                    positions={[
+                      [
+                        trackingInfo.technician_latitude,
+                        trackingInfo.technician_longitude,
+                      ],
+                      [
+                        trackingInfo.destination_latitude,
+                        trackingInfo.destination_longitude,
+                      ],
+                    ]}
+                    pathOptions={{
+                      color: "#3B82F6",
+                      weight: 4,
+                      opacity: 0.6,
+                      dashArray: "10, 10",
+                    }}
+                  />
+                )}
             </MapContainer>
 
             {/* Distance Display */}
@@ -313,7 +359,9 @@ export function CustomerTrackingPage() {
                 <div className="font-semibold text-gray-900">
                   {trackingInfo.technician_name}
                 </div>
-                <div className="text-sm text-gray-500">Your Service Technician</div>
+                <div className="text-sm text-gray-500">
+                  Your Service Technician
+                </div>
               </div>
               <a
                 href="tel:+1234567890"
@@ -335,18 +383,25 @@ export function CustomerTrackingPage() {
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Scheduled Date</span>
-              <span className="text-gray-900">{trackingInfo.scheduled_date}</span>
+              <span className="text-gray-900">
+                {trackingInfo.scheduled_date}
+              </span>
             </div>
             <div className="flex justify-between">
               <span className="text-gray-500">Work Order</span>
-              <span className="text-gray-900">#{trackingInfo.work_order_id}</span>
+              <span className="text-gray-900">
+                #{trackingInfo.work_order_id}
+              </span>
             </div>
           </div>
         </div>
 
         {/* Footer */}
         <div className="text-center text-xs text-gray-400 py-4">
-          <p>Last updated: {new Date(trackingInfo.last_updated).toLocaleTimeString()}</p>
+          <p>
+            Last updated:{" "}
+            {new Date(trackingInfo.last_updated).toLocaleTimeString()}
+          </p>
           <p className="mt-1">Powered by ECBTX CRM</p>
         </div>
       </main>

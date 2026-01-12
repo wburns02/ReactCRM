@@ -1,16 +1,16 @@
-import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 /**
  * Billing Overview Dashboard
  */
 export function BillingOverview() {
   const { data: stats } = useQuery({
-    queryKey: ['billing-stats'],
+    queryKey: ["billing-stats"],
     queryFn: async () => {
       try {
-        const response = await apiClient.get('/billing/stats');
+        const response = await apiClient.get("/billing/stats");
         return response.data;
       } catch {
         return {
@@ -25,42 +25,49 @@ export function BillingOverview() {
 
   const kpis = [
     {
-      label: 'Total Revenue (MTD)',
+      label: "Total Revenue (MTD)",
       value: `$${(stats?.total_revenue || 0).toLocaleString()}`,
-      icon: '💰',
-      color: 'text-success',
+      icon: "💰",
+      color: "text-success",
     },
     {
-      label: 'Outstanding Invoices',
+      label: "Outstanding Invoices",
       value: `$${(stats?.outstanding_invoices || 0).toLocaleString()}`,
-      icon: '🧾',
-      color: 'text-warning',
+      icon: "🧾",
+      color: "text-warning",
     },
     {
-      label: 'Pending Estimates',
+      label: "Pending Estimates",
       value: stats?.pending_estimates || 0,
-      icon: '📊',
-      color: 'text-info',
+      icon: "📊",
+      color: "text-info",
     },
     {
-      label: 'Active Payment Plans',
+      label: "Active Payment Plans",
       value: stats?.active_payment_plans || 0,
-      icon: '📈',
-      color: 'text-primary',
+      icon: "📈",
+      color: "text-primary",
     },
   ];
 
   return (
     <div className="p-6">
       <div className="mb-6">
-        <h1 className="text-2xl font-semibold text-text-primary">Billing Overview</h1>
-        <p className="text-text-muted">Financial metrics and billing management</p>
+        <h1 className="text-2xl font-semibold text-text-primary">
+          Billing Overview
+        </h1>
+        <p className="text-text-muted">
+          Financial metrics and billing management
+        </p>
       </div>
 
       {/* KPI Cards */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         {kpis.map((kpi, index) => (
-          <div key={index} className="bg-bg-card border border-border rounded-lg p-4">
+          <div
+            key={index}
+            className="bg-bg-card border border-border rounded-lg p-4"
+          >
             <div className="flex items-center gap-2 mb-2">
               <span className="text-xl">{kpi.icon}</span>
               <span className="text-sm text-text-muted">{kpi.label}</span>
@@ -97,7 +104,9 @@ export function BillingOverview() {
             </div>
             <div>
               <h3 className="font-medium text-text-primary">Estimates</h3>
-              <p className="text-sm text-text-muted">Create & manage estimates</p>
+              <p className="text-sm text-text-muted">
+                Create & manage estimates
+              </p>
             </div>
           </div>
         </Link>

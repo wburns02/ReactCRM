@@ -2,37 +2,37 @@
  * Fintech Types for CRM
  * Customer financing, technician payouts, cash flow intelligence
  */
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Financing Provider enum
  */
 export const financingProviderSchema = z.enum([
-  'wisetack',
-  'affirm',
-  'greensky',
-  'internal',
+  "wisetack",
+  "affirm",
+  "greensky",
+  "internal",
 ]);
 export type FinancingProvider = z.infer<typeof financingProviderSchema>;
 
 export const FINANCING_PROVIDER_LABELS: Record<FinancingProvider, string> = {
-  wisetack: 'Wisetack',
-  affirm: 'Affirm',
-  greensky: 'GreenSky',
-  internal: 'In-House Financing',
+  wisetack: "Wisetack",
+  affirm: "Affirm",
+  greensky: "GreenSky",
+  internal: "In-House Financing",
 };
 
 /**
  * Financing Application Status
  */
 export const financingStatusSchema = z.enum([
-  'pending',
-  'prequalified',
-  'approved',
-  'funded',
-  'declined',
-  'expired',
-  'cancelled',
+  "pending",
+  "prequalified",
+  "approved",
+  "funded",
+  "declined",
+  "expired",
+  "cancelled",
 ]);
 export type FinancingStatus = z.infer<typeof financingStatusSchema>;
 
@@ -70,11 +70,13 @@ export const financingOfferSchema = z.object({
   provider: financingProviderSchema,
   min_amount: z.number(),
   max_amount: z.number(),
-  terms: z.array(z.object({
-    term_months: z.number(),
-    apr: z.number(),
-    monthly_payment_per_1000: z.number(), // Monthly payment per $1000 financed
-  })),
+  terms: z.array(
+    z.object({
+      term_months: z.number(),
+      apr: z.number(),
+      monthly_payment_per_1000: z.number(), // Monthly payment per $1000 financed
+    }),
+  ),
   promo_apr: z.number().optional().nullable(), // Promotional APR if available
   promo_term_months: z.number().optional().nullable(),
   expires_at: z.string().optional().nullable(),
@@ -97,18 +99,18 @@ export interface FinancingPrequalRequest {
  * Technician Payout types
  */
 export const payoutStatusSchema = z.enum([
-  'pending',
-  'processing',
-  'completed',
-  'failed',
-  'cancelled',
+  "pending",
+  "processing",
+  "completed",
+  "failed",
+  "cancelled",
 ]);
 export type PayoutStatus = z.infer<typeof payoutStatusSchema>;
 
 export const payoutTypeSchema = z.enum([
-  'standard', // Next business day
-  'instant', // Same day (higher fee)
-  'scheduled', // Weekly/bi-weekly
+  "standard", // Next business day
+  "instant", // Same day (higher fee)
+  "scheduled", // Weekly/bi-weekly
 ]);
 export type PayoutType = z.infer<typeof payoutTypeSchema>;
 
@@ -147,14 +149,16 @@ export const technicianEarningsSchema = z.object({
   gross_earnings: z.number(),
   available_for_instant_payout: z.number(),
   pending_payout: z.number(),
-  jobs: z.array(z.object({
-    work_order_id: z.string(),
-    customer_name: z.string(),
-    job_type: z.string(),
-    completed_at: z.string(),
-    duration_hours: z.number(),
-    earnings: z.number(),
-  })),
+  jobs: z.array(
+    z.object({
+      work_order_id: z.string(),
+      customer_name: z.string(),
+      job_type: z.string(),
+      completed_at: z.string(),
+      duration_hours: z.number(),
+      earnings: z.number(),
+    }),
+  ),
 });
 
 export type TechnicianEarnings = z.infer<typeof technicianEarningsSchema>;
@@ -171,33 +175,33 @@ export interface InstantPayoutRequest {
 /**
  * Cash Flow Types
  */
-export const cashFlowPeriodSchema = z.enum([
-  'daily',
-  'weekly',
-  'monthly',
-]);
+export const cashFlowPeriodSchema = z.enum(["daily", "weekly", "monthly"]);
 export type CashFlowPeriod = z.infer<typeof cashFlowPeriodSchema>;
 
 export const cashFlowForecastSchema = z.object({
   period: cashFlowPeriodSchema,
   start_date: z.string(),
   end_date: z.string(),
-  forecasts: z.array(z.object({
-    date: z.string(),
-    projected_revenue: z.number(),
-    projected_expenses: z.number(),
-    projected_cash_flow: z.number(),
-    confidence: z.number(), // 0-1 confidence score
-    factors: z.array(z.string()), // What factors influenced this forecast
-  })),
+  forecasts: z.array(
+    z.object({
+      date: z.string(),
+      projected_revenue: z.number(),
+      projected_expenses: z.number(),
+      projected_cash_flow: z.number(),
+      confidence: z.number(), // 0-1 confidence score
+      factors: z.array(z.string()), // What factors influenced this forecast
+    }),
+  ),
   current_cash: z.number(),
   projected_ending_cash: z.number(),
-  alerts: z.array(z.object({
-    type: z.enum(['low_cash', 'high_ar', 'late_payments', 'seasonal_dip']),
-    severity: z.enum(['info', 'warning', 'critical']),
-    message: z.string(),
-    recommended_action: z.string().optional(),
-  })),
+  alerts: z.array(
+    z.object({
+      type: z.enum(["low_cash", "high_ar", "late_payments", "seasonal_dip"]),
+      severity: z.enum(["info", "warning", "critical"]),
+      message: z.string(),
+      recommended_action: z.string().optional(),
+    }),
+  ),
 });
 
 export type CashFlowForecast = z.infer<typeof cashFlowForecastSchema>;
@@ -211,14 +215,16 @@ export const arAgingSchema = z.object({
   days_31_60: z.number(),
   days_61_90: z.number(),
   over_90: z.number(),
-  customers_at_risk: z.array(z.object({
-    customer_id: z.string(),
-    customer_name: z.string(),
-    total_outstanding: z.number(),
-    oldest_invoice_days: z.number(),
-    payment_history_score: z.number(), // 0-100
-    recommended_action: z.string(),
-  })),
+  customers_at_risk: z.array(
+    z.object({
+      customer_id: z.string(),
+      customer_name: z.string(),
+      total_outstanding: z.number(),
+      oldest_invoice_days: z.number(),
+      payment_history_score: z.number(), // 0-100
+      recommended_action: z.string(),
+    }),
+  ),
   collection_rate: z.number(), // Percentage collected on time
 });
 
@@ -234,18 +240,22 @@ export const revenueIntelligenceSchema = z.object({
   recurring_revenue: z.number(),
   one_time_revenue: z.number(),
   average_invoice_value: z.number(),
-  revenue_by_service: z.array(z.object({
-    service_type: z.string(),
-    revenue: z.number(),
-    percentage: z.number(),
-    trend: z.enum(['up', 'down', 'stable']),
-  })),
-  top_customers: z.array(z.object({
-    customer_id: z.string(),
-    customer_name: z.string(),
-    lifetime_value: z.number(),
-    ytd_revenue: z.number(),
-  })),
+  revenue_by_service: z.array(
+    z.object({
+      service_type: z.string(),
+      revenue: z.number(),
+      percentage: z.number(),
+      trend: z.enum(["up", "down", "stable"]),
+    }),
+  ),
+  top_customers: z.array(
+    z.object({
+      customer_id: z.string(),
+      customer_name: z.string(),
+      lifetime_value: z.number(),
+      ytd_revenue: z.number(),
+    }),
+  ),
   seasonal_trend: z.object({
     is_peak_season: z.boolean(),
     expected_change_pct: z.number(),

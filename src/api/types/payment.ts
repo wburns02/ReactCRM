@@ -1,44 +1,44 @@
-import { z } from 'zod';
-import { paginatedResponseSchema } from './common.ts';
+import { z } from "zod";
+import { paginatedResponseSchema } from "./common.ts";
 
 /**
  * Payment Method enum
  */
 export const paymentMethodSchema = z.enum([
-  'card',
-  'cash',
-  'check',
-  'payment_link',
-  'bank_transfer',
-  'other',
+  "card",
+  "cash",
+  "check",
+  "payment_link",
+  "bank_transfer",
+  "other",
 ]);
 export type PaymentMethod = z.infer<typeof paymentMethodSchema>;
 
 export const PAYMENT_METHOD_LABELS: Record<PaymentMethod, string> = {
-  card: 'Card',
-  cash: 'Cash',
-  check: 'Check',
-  payment_link: 'Payment Link',
-  bank_transfer: 'Bank Transfer',
-  other: 'Other',
+  card: "Card",
+  cash: "Cash",
+  check: "Check",
+  payment_link: "Payment Link",
+  bank_transfer: "Bank Transfer",
+  other: "Other",
 };
 
 /**
  * Payment Status enum
  */
 export const paymentStatusSchema = z.enum([
-  'pending',
-  'completed',
-  'failed',
-  'refunded',
+  "pending",
+  "completed",
+  "failed",
+  "refunded",
 ]);
 export type PaymentStatus = z.infer<typeof paymentStatusSchema>;
 
 export const PAYMENT_STATUS_LABELS: Record<PaymentStatus, string> = {
-  pending: 'Pending',
-  completed: 'Completed',
-  failed: 'Failed',
-  refunded: 'Refunded',
+  pending: "Pending",
+  completed: "Completed",
+  failed: "Failed",
+  refunded: "Refunded",
 };
 
 /**
@@ -49,13 +49,16 @@ export const paymentSchema = z.object({
   invoice_id: z.string().nullable().optional(),
   customer_id: z.union([z.string(), z.number()]).transform(String),
   customer_name: z.string().nullable().optional(),
-  customer: z.object({
-    id: z.union([z.string(), z.number()]).transform(String),
-    first_name: z.string(),
-    last_name: z.string(),
-    email: z.string().nullable().optional(),
-    phone: z.string().nullable().optional(),
-  }).nullable().optional(),
+  customer: z
+    .object({
+      id: z.union([z.string(), z.number()]).transform(String),
+      first_name: z.string(),
+      last_name: z.string(),
+      email: z.string().nullable().optional(),
+      phone: z.string().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
   amount: z.number(),
   payment_method: paymentMethodSchema,
   status: paymentStatusSchema,
@@ -93,14 +96,14 @@ export interface PaymentFilters {
  */
 export const paymentFormSchema = z.object({
   invoice_id: z.string().optional(),
-  customer_id: z.coerce.number().min(1, 'Customer is required'),
-  amount: z.coerce.number().min(0.01, 'Amount must be greater than 0'),
+  customer_id: z.coerce.number().min(1, "Customer is required"),
+  amount: z.coerce.number().min(0.01, "Amount must be greater than 0"),
   payment_method: paymentMethodSchema,
-  status: paymentStatusSchema.default('completed'),
+  status: paymentStatusSchema.default("completed"),
   transaction_id: z.string().optional(),
   reference_number: z.string().optional(),
   notes: z.string().optional(),
-  payment_date: z.string().min(1, 'Payment date is required'),
+  payment_date: z.string().min(1, "Payment date is required"),
 });
 
 export type PaymentFormData = z.infer<typeof paymentFormSchema>;

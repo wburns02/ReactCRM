@@ -1,13 +1,18 @@
-import { useMemo } from 'react';
-import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
-import { usePayments } from '@/api/hooks/usePayments.ts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { cn, formatCurrency, formatDate } from '@/lib/utils.ts';
-import type { Customer } from '@/api/types/customer.ts';
-import type { WorkOrder } from '@/api/types/workOrder.ts';
-import type { Payment } from '@/api/types/payment.ts';
+import { useMemo } from "react";
+import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
+import { usePayments } from "@/api/hooks/usePayments.ts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { cn, formatCurrency, formatDate } from "@/lib/utils.ts";
+import type { Customer } from "@/api/types/customer.ts";
+import type { WorkOrder } from "@/api/types/workOrder.ts";
+import type { Payment } from "@/api/types/payment.ts";
 
 interface CustomerHealthScoreProps {
   /** Customer to analyze */
@@ -16,7 +21,7 @@ interface CustomerHealthScoreProps {
   className?: string;
 }
 
-type ChurnRisk = 'low' | 'medium' | 'high';
+type ChurnRisk = "low" | "medium" | "high";
 
 interface CustomerHealthMetrics {
   // Churn risk
@@ -51,22 +56,22 @@ interface CustomerHealthMetrics {
 function calculateCustomerHealth(
   customer: Customer,
   workOrders: WorkOrder[],
-  payments: Payment[]
+  payments: Payment[],
 ): CustomerHealthMetrics {
   const now = new Date();
   const recommendations: string[] = [];
 
   // Filter to this customer's data
   const customerWorkOrders = workOrders.filter(
-    (wo) => String(wo.customer_id) === String(customer.id)
+    (wo) => String(wo.customer_id) === String(customer.id),
   );
   const customerPayments = payments.filter(
-    (p) => String(p.customer_id) === String(customer.id)
+    (p) => String(p.customer_id) === String(customer.id),
   );
 
   // Completed orders
   const completedOrders = customerWorkOrders.filter(
-    (wo) => wo.status === 'completed'
+    (wo) => wo.status === "completed",
   );
   const totalOrders = customerWorkOrders.length;
 
@@ -90,16 +95,15 @@ function calculateCustomerHealth(
 
   // Also count actual payments
   const totalPaymentsAmount = customerPayments
-    .filter((p) => p.status === 'completed')
+    .filter((p) => p.status === "completed")
     .reduce((sum, p) => sum + (p.amount || 0), 0);
 
   if (totalPaymentsAmount > lifetimeValue) {
     lifetimeValue = totalPaymentsAmount;
   }
 
-  const averageOrderValue = completedOrders.length > 0
-    ? lifetimeValue / completedOrders.length
-    : 0;
+  const averageOrderValue =
+    completedOrders.length > 0 ? lifetimeValue / completedOrders.length : 0;
 
   // Calculate last contact date
   let lastContactDate: string | null = null;
@@ -131,9 +135,9 @@ function calculateCustomerHealth(
 
   if (allDates.length > 0) {
     allDates.sort((a, b) => b.getTime() - a.getTime());
-    lastContactDate = allDates[0].toISOString().split('T')[0];
+    lastContactDate = allDates[0].toISOString().split("T")[0];
     daysSinceLastContact = Math.floor(
-      (now.getTime() - allDates[0].getTime()) / (24 * 60 * 60 * 1000)
+      (now.getTime() - allDates[0].getTime()) / (24 * 60 * 60 * 1000),
     );
   }
 
@@ -166,11 +170,16 @@ function calculateCustomerHealth(
 
   // Calculate payment score
   let paymentScore = 70; // Base score
-  const completedPayments = customerPayments.filter((p) => p.status === 'completed').length;
-  const failedPayments = customerPayments.filter((p) => p.status === 'failed').length;
+  const completedPayments = customerPayments.filter(
+    (p) => p.status === "completed",
+  ).length;
+  const failedPayments = customerPayments.filter(
+    (p) => p.status === "failed",
+  ).length;
 
   if (completedPayments > 0) {
-    const successRate = completedPayments / (completedPayments + failedPayments);
+    const successRate =
+      completedPayments / (completedPayments + failedPayments);
     paymentScore = Math.round(successRate * 100);
   }
 
@@ -217,44 +226,51 @@ function calculateCustomerHealth(
   churnRiskScore = Math.max(0, Math.min(100, churnRiskScore));
 
   // Determine churn risk level
-  let churnRisk: ChurnRisk = 'low';
+  let churnRisk: ChurnRisk = "low";
   if (churnRiskScore >= 70) {
-    churnRisk = 'high';
+    churnRisk = "high";
   } else if (churnRiskScore >= 40) {
-    churnRisk = 'medium';
+    churnRisk = "medium";
   }
 
   // Generate recommendations
   if (daysSinceLastContact > 180) {
-    recommendations.push('Schedule a check-in call - no contact in 6+ months');
+    recommendations.push("Schedule a check-in call - no contact in 6+ months");
   }
 
   if (daysSinceLastContact > 365 && completedOrders.length > 0) {
-    recommendations.push('Consider re-engagement campaign - high churn risk');
+    recommendations.push("Consider re-engagement campaign - high churn risk");
   }
 
   if (engagementScore < 40) {
-    recommendations.push('Increase engagement with service reminders or promotions');
+    recommendations.push(
+      "Increase engagement with service reminders or promotions",
+    );
   }
 
   if (paymentScore < 80 && completedOrders.length > 2) {
-    recommendations.push('Review payment terms - consider offering payment plans');
+    recommendations.push(
+      "Review payment terms - consider offering payment plans",
+    );
   }
 
-  if (completedOrders.length >= 3 && !customer.lead_notes?.toLowerCase().includes('loyalty')) {
-    recommendations.push('Potential candidate for loyalty program');
+  if (
+    completedOrders.length >= 3 &&
+    !customer.lead_notes?.toLowerCase().includes("loyalty")
+  ) {
+    recommendations.push("Potential candidate for loyalty program");
   }
 
   if (lifetimeValue > 2000) {
-    recommendations.push('High-value customer - prioritize service quality');
+    recommendations.push("High-value customer - prioritize service quality");
   }
 
-  if (customer.customer_type === 'commercial' && completedOrders.length > 0) {
-    recommendations.push('Explore maintenance contract opportunity');
+  if (customer.customer_type === "commercial" && completedOrders.length > 0) {
+    recommendations.push("Explore maintenance contract opportunity");
   }
 
-  if (churnRisk === 'low' && engagementScore > 70) {
-    recommendations.push('Request referral - highly engaged customer');
+  if (churnRisk === "low" && engagementScore > 70) {
+    recommendations.push("Request referral - highly engaged customer");
   }
 
   return {
@@ -284,7 +300,10 @@ function calculateCustomerHealth(
  * - Last contact date
  * - Recommended actions
  */
-export function CustomerHealthScore({ customer, className }: CustomerHealthScoreProps) {
+export function CustomerHealthScore({
+  customer,
+  className,
+}: CustomerHealthScoreProps) {
   // Fetch work orders and payments for this customer
   const { data: workOrdersData } = useWorkOrders({
     page: 1,
@@ -311,35 +330,43 @@ export function CustomerHealthScore({ customer, className }: CustomerHealthScore
     const workOrders = allWorkOrdersData?.items || workOrdersData?.items || [];
     const payments = allPaymentsData?.items || paymentsData?.items || [];
     return calculateCustomerHealth(customer, workOrders, payments);
-  }, [customer, allWorkOrdersData, workOrdersData, allPaymentsData, paymentsData]);
+  }, [
+    customer,
+    allWorkOrdersData,
+    workOrdersData,
+    allPaymentsData,
+    paymentsData,
+  ]);
 
   // Get churn risk color
   const getChurnRiskColor = (risk: ChurnRisk) => {
     switch (risk) {
-      case 'low':
-        return 'text-success';
-      case 'medium':
-        return 'text-warning';
-      case 'high':
-        return 'text-danger';
+      case "low":
+        return "text-success";
+      case "medium":
+        return "text-warning";
+      case "high":
+        return "text-danger";
     }
   };
 
-  const getChurnRiskBadge = (risk: ChurnRisk): 'success' | 'warning' | 'danger' => {
+  const getChurnRiskBadge = (
+    risk: ChurnRisk,
+  ): "success" | "warning" | "danger" => {
     switch (risk) {
-      case 'low':
-        return 'success';
-      case 'medium':
-        return 'warning';
-      case 'high':
-        return 'danger';
+      case "low":
+        return "success";
+      case "medium":
+        return "warning";
+      case "high":
+        return "danger";
     }
   };
 
   const getScoreColor = (score: number) => {
-    if (score >= 70) return 'text-success';
-    if (score >= 40) return 'text-warning';
-    return 'text-danger';
+    if (score >= 70) return "text-success";
+    if (score >= 40) return "text-warning";
+    return "text-danger";
   };
 
   return (
@@ -348,7 +375,9 @@ export function CustomerHealthScore({ customer, className }: CustomerHealthScore
         <div className="flex items-center justify-between">
           <CardTitle>Customer Health</CardTitle>
           <Badge variant={getChurnRiskBadge(health.churnRisk)}>
-            {health.churnRisk.charAt(0).toUpperCase() + health.churnRisk.slice(1)} Churn Risk
+            {health.churnRisk.charAt(0).toUpperCase() +
+              health.churnRisk.slice(1)}{" "}
+            Churn Risk
           </Badge>
         </div>
       </CardHeader>
@@ -370,7 +399,12 @@ export function CustomerHealthScore({ customer, className }: CustomerHealthScore
           {/* Engagement Score */}
           <div className="p-3 rounded-lg bg-bg-muted">
             <p className="text-xs text-text-muted mb-1">Engagement</p>
-            <p className={cn('text-lg font-bold', getScoreColor(health.engagementScore))}>
+            <p
+              className={cn(
+                "text-lg font-bold",
+                getScoreColor(health.engagementScore),
+              )}
+            >
               {health.engagementScore}%
             </p>
             <p className="text-xs text-text-secondary mt-1">
@@ -381,28 +415,41 @@ export function CustomerHealthScore({ customer, className }: CustomerHealthScore
           {/* Last Contact */}
           <div className="p-3 rounded-lg bg-bg-muted">
             <p className="text-xs text-text-muted mb-1">Last Contact</p>
-            <p className={cn(
-              'text-lg font-bold',
-              health.daysSinceLastContact > 180 ? 'text-danger' :
-              health.daysSinceLastContact > 90 ? 'text-warning' : 'text-text-primary'
-            )}>
-              {health.lastContactDate ? formatDate(health.lastContactDate) : 'Never'}
+            <p
+              className={cn(
+                "text-lg font-bold",
+                health.daysSinceLastContact > 180
+                  ? "text-danger"
+                  : health.daysSinceLastContact > 90
+                    ? "text-warning"
+                    : "text-text-primary",
+              )}
+            >
+              {health.lastContactDate
+                ? formatDate(health.lastContactDate)
+                : "Never"}
             </p>
             <p className="text-xs text-text-secondary mt-1">
               {health.daysSinceLastContact < 365
                 ? `${health.daysSinceLastContact} days ago`
-                : '1+ year ago'}
+                : "1+ year ago"}
             </p>
           </div>
 
           {/* Payment Health */}
           <div className="p-3 rounded-lg bg-bg-muted">
             <p className="text-xs text-text-muted mb-1">Payment Score</p>
-            <p className={cn('text-lg font-bold', getScoreColor(health.paymentScore))}>
+            <p
+              className={cn(
+                "text-lg font-bold",
+                getScoreColor(health.paymentScore),
+              )}
+            >
               {health.paymentScore}%
             </p>
             <p className="text-xs text-text-secondary mt-1">
-              {health.totalPayments} payment{health.totalPayments !== 1 ? 's' : ''} on file
+              {health.totalPayments} payment
+              {health.totalPayments !== 1 ? "s" : ""} on file
             </p>
           </div>
         </div>
@@ -410,17 +457,27 @@ export function CustomerHealthScore({ customer, className }: CustomerHealthScore
         {/* Churn Risk Indicator */}
         <div className="mb-4">
           <div className="flex items-center justify-between mb-2">
-            <span className="text-sm text-text-secondary">Churn Risk Score</span>
-            <span className={cn('text-sm font-medium', getChurnRiskColor(health.churnRisk))}>
+            <span className="text-sm text-text-secondary">
+              Churn Risk Score
+            </span>
+            <span
+              className={cn(
+                "text-sm font-medium",
+                getChurnRiskColor(health.churnRisk),
+              )}
+            >
               {health.churnRiskScore}%
             </span>
           </div>
           <div className="w-full bg-bg-muted rounded-full h-2">
             <div
               className={cn(
-                'h-2 rounded-full transition-all',
-                health.churnRisk === 'low' ? 'bg-success' :
-                health.churnRisk === 'medium' ? 'bg-warning' : 'bg-danger'
+                "h-2 rounded-full transition-all",
+                health.churnRisk === "low"
+                  ? "bg-success"
+                  : health.churnRisk === "medium"
+                    ? "bg-warning"
+                    : "bg-danger",
               )}
               style={{ width: `${health.churnRiskScore}%` }}
             />
@@ -430,10 +487,15 @@ export function CustomerHealthScore({ customer, className }: CustomerHealthScore
         {/* Recommendations */}
         {health.recommendations.length > 0 && (
           <div className="border-t border-border pt-4">
-            <p className="text-sm font-medium text-text-primary mb-2">Recommended Actions</p>
+            <p className="text-sm font-medium text-text-primary mb-2">
+              Recommended Actions
+            </p>
             <ul className="space-y-2">
               {health.recommendations.map((rec, i) => (
-                <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
+                <li
+                  key={i}
+                  className="flex items-start gap-2 text-sm text-text-secondary"
+                >
                   <span className="text-primary mt-0.5">-</span>
                   {rec}
                 </li>

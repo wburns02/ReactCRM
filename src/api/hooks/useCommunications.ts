@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '../client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "../client.ts";
 import {
   communicationListResponseSchema,
   type Communication,
@@ -7,16 +7,18 @@ import {
   type CommunicationFilters,
   type SendSMSData,
   type SendEmailData,
-} from '../types/communication.ts';
+} from "../types/communication.ts";
 
 /**
  * Query keys for communications
  */
 export const communicationKeys = {
-  all: ['communications'] as const,
-  lists: () => [...communicationKeys.all, 'list'] as const,
-  list: (filters: CommunicationFilters) => [...communicationKeys.lists(), filters] as const,
-  history: (customerId: string) => [...communicationKeys.all, 'history', customerId] as const,
+  all: ["communications"] as const,
+  lists: () => [...communicationKeys.all, "list"] as const,
+  list: (filters: CommunicationFilters) =>
+    [...communicationKeys.lists(), filters] as const,
+  history: (customerId: string) =>
+    [...communicationKeys.all, "history", customerId] as const,
 };
 
 /**
@@ -28,16 +30,21 @@ export function useCommunicationHistory(customerId: string | undefined) {
     queryFn: async (): Promise<CommunicationListResponse> => {
       const params = new URLSearchParams({
         customer_id: customerId!,
-        page_size: '100',
+        page_size: "100",
       });
 
-      const { data } = await apiClient.get(`/communications/history?${params.toString()}`);
+      const { data } = await apiClient.get(
+        `/communications/history?${params.toString()}`,
+      );
 
       // Validate response in development
       if (import.meta.env.DEV) {
         const result = communicationListResponseSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Communication history response validation failed:', result.error);
+          console.warn(
+            "Communication history response validation failed:",
+            result.error,
+          );
         }
       }
 
@@ -56,7 +63,7 @@ export function useSendSMS() {
 
   return useMutation({
     mutationFn: async (data: SendSMSData): Promise<Communication> => {
-      const response = await apiClient.post('/sms/send', data);
+      const response = await apiClient.post("/sms/send", data);
       return response.data;
     },
     onSuccess: (_, variables) => {
@@ -77,7 +84,7 @@ export function useSendEmail() {
 
   return useMutation({
     mutationFn: async (data: SendEmailData): Promise<Communication> => {
-      const response = await apiClient.post('/email/send', data);
+      const response = await apiClient.post("/email/send", data);
       return response.data;
     },
     onSuccess: (_, variables) => {

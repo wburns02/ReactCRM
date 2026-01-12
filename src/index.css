@@ -1,4 +1,4 @@
-@import 'tailwindcss';
+@import "tailwindcss";
 
 /* Tell Tailwind where to scan for classes - use glob patterns relative to project root */
 @source "./**/*.{js,ts,jsx,tsx}";
@@ -103,7 +103,9 @@
   /* ============================================
      TYPOGRAPHY
      ============================================ */
-  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+  --font-sans:
+    -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue",
+    Arial, sans-serif;
 
   --font-size-xs: 0.6875rem; /* 11px */
   --font-size-sm: 0.8125rem; /* 13px */
@@ -128,10 +130,10 @@
   /* ============================================
      CONTAINER WIDTHS (for max-w-* utilities)
      ============================================ */
-  --container-sm: 24rem;  /* 384px */
-  --container-md: 28rem;  /* 448px */
-  --container-lg: 32rem;  /* 512px */
-  --container-xl: 36rem;  /* 576px */
+  --container-sm: 24rem; /* 384px */
+  --container-md: 28rem; /* 448px */
+  --container-lg: 32rem; /* 512px */
+  --container-xl: 36rem; /* 576px */
   --container-2xl: 42rem; /* 672px */
   --container-3xl: 48rem; /* 768px */
 
@@ -219,11 +221,11 @@ body {
    ============================================ */
 @media (max-width: 640px) {
   /* Prevent zoom on input focus on iOS */
-  input[type='text'],
-  input[type='email'],
-  input[type='tel'],
-  input[type='number'],
-  input[type='password'],
+  input[type="text"],
+  input[type="email"],
+  input[type="tel"],
+  input[type="number"],
+  input[type="password"],
   textarea,
   select {
     font-size: 16px;
@@ -329,7 +331,8 @@ body {
 
 /* Subtle pulse for urgent items */
 @keyframes pulse-subtle {
-  0%, 100% {
+  0%,
+  100% {
     opacity: 1;
   }
   50% {
@@ -359,7 +362,8 @@ body {
 
 /* Bounce animation for attention */
 @keyframes bounce-subtle {
-  0%, 100% {
+  0%,
+  100% {
     transform: translateY(0);
   }
   50% {
@@ -373,7 +377,8 @@ body {
 
 /* Glow effect for emergency items */
 @keyframes glow-red {
-  0%, 100% {
+  0%,
+  100% {
     box-shadow: 0 0 5px rgba(239, 68, 68, 0.5);
   }
   50% {
@@ -414,6 +419,7 @@ body {
 
 /* Keyboard shortcut hints */
 kbd {
-  font-family: ui-monospace, SFMono-Regular, 'SF Mono', Menlo, Consolas, monospace;
+  font-family:
+    ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   font-size: 0.75rem;
 }

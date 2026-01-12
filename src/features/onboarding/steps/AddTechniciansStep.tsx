@@ -1,10 +1,10 @@
-import { useState, type ChangeEvent } from 'react';
-import { OnboardingStep, StepSection } from '../OnboardingStep';
-import { Button } from '@/components/ui/Button';
-import { FormField } from '@/components/ui/FormField';
-import { Card } from '@/components/ui/Card';
-import { cn } from '@/lib/utils';
-import type { OnboardingTechnician } from '../useOnboarding';
+import { useState, type ChangeEvent } from "react";
+import { OnboardingStep, StepSection } from "../OnboardingStep";
+import { Button } from "@/components/ui/Button";
+import { FormField } from "@/components/ui/FormField";
+import { Card } from "@/components/ui/Card";
+import { cn } from "@/lib/utils";
+import type { OnboardingTechnician } from "../useOnboarding";
 
 export interface AddTechniciansStepProps {
   technicians: OnboardingTechnician[];
@@ -24,22 +24,22 @@ interface TechnicianForm {
 }
 
 const EMPTY_FORM: TechnicianForm = {
-  firstName: '',
-  lastName: '',
-  email: '',
-  phone: '',
+  firstName: "",
+  lastName: "",
+  email: "",
+  phone: "",
   skills: [],
 };
 
 const AVAILABLE_SKILLS = [
-  { id: 'pumping', label: 'Pumping' },
-  { id: 'inspection', label: 'Inspection' },
-  { id: 'repair', label: 'Repair' },
-  { id: 'installation', label: 'Installation' },
-  { id: 'grease_trap', label: 'Grease Trap' },
-  { id: 'emergency', label: 'Emergency Response' },
-  { id: 'maintenance', label: 'Maintenance' },
-  { id: 'diagnostics', label: 'Diagnostics' },
+  { id: "pumping", label: "Pumping" },
+  { id: "inspection", label: "Inspection" },
+  { id: "repair", label: "Repair" },
+  { id: "installation", label: "Installation" },
+  { id: "grease_trap", label: "Grease Trap" },
+  { id: "emergency", label: "Emergency Response" },
+  { id: "maintenance", label: "Maintenance" },
+  { id: "diagnostics", label: "Diagnostics" },
 ];
 
 /**
@@ -57,11 +57,10 @@ export function AddTechniciansStep({
   const [form, setForm] = useState<TechnicianForm>(EMPTY_FORM);
   const [showForm, setShowForm] = useState(technicians.length === 0);
 
-  const handleChange = (field: keyof TechnicianForm) => (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
-    setForm((prev) => ({ ...prev, [field]: e.target.value }));
-  };
+  const handleChange =
+    (field: keyof TechnicianForm) => (e: ChangeEvent<HTMLInputElement>) => {
+      setForm((prev) => ({ ...prev, [field]: e.target.value }));
+    };
 
   const handleSkillToggle = (skillId: string) => {
     setForm((prev) => ({
@@ -113,14 +112,14 @@ export function AddTechniciansStep({
                   label="First Name"
                   placeholder="John"
                   value={form.firstName}
-                  onChange={handleChange('firstName')}
+                  onChange={handleChange("firstName")}
                   required
                 />
                 <FormField
                   label="Last Name"
                   placeholder="Smith"
                   value={form.lastName}
-                  onChange={handleChange('lastName')}
+                  onChange={handleChange("lastName")}
                   required
                 />
                 <FormField
@@ -128,14 +127,14 @@ export function AddTechniciansStep({
                   type="email"
                   placeholder="john@company.com"
                   value={form.email}
-                  onChange={handleChange('email')}
+                  onChange={handleChange("email")}
                 />
                 <FormField
                   label="Phone"
                   type="tel"
                   placeholder="(555) 123-4567"
                   value={form.phone}
-                  onChange={handleChange('phone')}
+                  onChange={handleChange("phone")}
                 />
               </div>
 
@@ -151,10 +150,10 @@ export function AddTechniciansStep({
                       type="button"
                       onClick={() => handleSkillToggle(skill.id)}
                       className={cn(
-                        'px-3 py-1.5 rounded-full text-sm border transition-colors',
+                        "px-3 py-1.5 rounded-full text-sm border transition-colors",
                         form.skills.includes(skill.id)
-                          ? 'bg-primary text-white border-primary'
-                          : 'bg-bg-card text-text-primary border-border hover:border-primary'
+                          ? "bg-primary text-white border-primary"
+                          : "bg-bg-card text-text-primary border-border hover:border-primary",
                       )}
                     >
                       {skill.label}
@@ -200,10 +199,7 @@ export function AddTechniciansStep({
           <StepSection title={`Your Technicians (${technicians.length})`}>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {technicians.map((tech) => (
-                <Card
-                  key={tech.id}
-                  className="p-4 relative group"
-                >
+                <Card key={tech.id} className="p-4 relative group">
                   <button
                     type="button"
                     onClick={() => onRemoveTechnician(tech.id)}
@@ -215,7 +211,8 @@ export function AddTechniciansStep({
                   <div className="flex items-start gap-3">
                     <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
                       <span className="text-primary font-medium">
-                        {tech.firstName[0]}{tech.lastName[0]}
+                        {tech.firstName[0]}
+                        {tech.lastName[0]}
                       </span>
                     </div>
                     <div className="flex-1 min-w-0">
@@ -223,7 +220,9 @@ export function AddTechniciansStep({
                         {tech.firstName} {tech.lastName}
                       </p>
                       {tech.email && (
-                        <p className="text-sm text-text-muted truncate">{tech.email}</p>
+                        <p className="text-sm text-text-muted truncate">
+                          {tech.email}
+                        </p>
                       )}
                       {tech.phone && (
                         <p className="text-sm text-text-muted">{tech.phone}</p>
@@ -231,7 +230,9 @@ export function AddTechniciansStep({
                       {tech.skills.length > 0 && (
                         <div className="flex flex-wrap gap-1 mt-2">
                           {tech.skills.map((skillId) => {
-                            const skill = AVAILABLE_SKILLS.find((s) => s.id === skillId);
+                            const skill = AVAILABLE_SKILLS.find(
+                              (s) => s.id === skillId,
+                            );
                             return (
                               <span
                                 key={skillId}

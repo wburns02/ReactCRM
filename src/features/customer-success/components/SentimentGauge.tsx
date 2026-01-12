@@ -9,14 +9,14 @@
  * - Configurable sizes
  */
 
-import { useState, useEffect, useMemo } from 'react';
-import { cn } from '@/lib/utils.ts';
+import { useState, useEffect, useMemo } from "react";
+import { cn } from "@/lib/utils.ts";
 
 interface SentimentGaugeProps {
   value: number; // -100 to +100
   previousValue?: number; // For trend indication
   label?: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   showTrend?: boolean;
   animated?: boolean;
   className?: string;
@@ -52,38 +52,41 @@ const SIZE_CONFIG = {
 
 // Get sentiment label based on score
 function getSentimentLabel(value: number): string {
-  if (value >= 70) return 'Excellent';
-  if (value >= 40) return 'Great';
-  if (value >= 20) return 'Good';
-  if (value >= 0) return 'Neutral';
-  if (value >= -20) return 'Concerned';
-  if (value >= -50) return 'Poor';
-  return 'Critical';
+  if (value >= 70) return "Excellent";
+  if (value >= 40) return "Great";
+  if (value >= 20) return "Good";
+  if (value >= 0) return "Neutral";
+  if (value >= -20) return "Concerned";
+  if (value >= -50) return "Poor";
+  return "Critical";
 }
 
 // Get color based on value
 function getSentimentColor(value: number): string {
-  if (value >= 50) return '#22c55e'; // green-500
-  if (value >= 20) return '#84cc16'; // lime-500
-  if (value >= 0) return '#eab308'; // yellow-500
-  if (value >= -20) return '#f97316'; // orange-500
-  if (value >= -50) return '#ef4444'; // red-500
-  return '#dc2626'; // red-600
+  if (value >= 50) return "#22c55e"; // green-500
+  if (value >= 20) return "#84cc16"; // lime-500
+  if (value >= 0) return "#eab308"; // yellow-500
+  if (value >= -20) return "#f97316"; // orange-500
+  if (value >= -50) return "#ef4444"; // red-500
+  return "#dc2626"; // red-600
 }
 
 // Get trend icon and color
-function getTrendInfo(current: number, previous: number): { icon: string; color: string; label: string } {
+function getTrendInfo(
+  current: number,
+  previous: number,
+): { icon: string; color: string; label: string } {
   const diff = current - previous;
-  if (diff > 5) return { icon: '↑', color: 'text-success', label: `+${diff}` };
-  if (diff < -5) return { icon: '↓', color: 'text-danger', label: `${diff}` };
-  return { icon: '→', color: 'text-text-muted', label: '0' };
+  if (diff > 5) return { icon: "↑", color: "text-success", label: `+${diff}` };
+  if (diff < -5) return { icon: "↓", color: "text-danger", label: `${diff}` };
+  return { icon: "→", color: "text-text-muted", label: "0" };
 }
 
 export function SentimentGauge({
   value,
   previousValue,
-  label = 'Sentiment Score',
-  size = 'md',
+  label = "Sentiment Score",
+  size = "md",
   showTrend = true,
   animated = true,
   className,
@@ -178,12 +181,13 @@ export function SentimentGauge({
 
   const sentimentColor = getSentimentColor(displayValue);
   const sentimentLabel = getSentimentLabel(displayValue);
-  const trendInfo = previousValue !== undefined && showTrend
-    ? getTrendInfo(clampedValue, previousValue)
-    : null;
+  const trendInfo =
+    previousValue !== undefined && showTrend
+      ? getTrendInfo(clampedValue, previousValue)
+      : null;
 
   return (
-    <div className={cn('flex flex-col items-center', className)}>
+    <div className={cn("flex flex-col items-center", className)}>
       <svg
         width={config.width}
         height={config.height}
@@ -192,7 +196,13 @@ export function SentimentGauge({
       >
         {/* Gradient definition */}
         <defs>
-          <linearGradient id={`sentimentGradient-${size}`} x1="0%" y1="0%" x2="100%" y2="0%">
+          <linearGradient
+            id={`sentimentGradient-${size}`}
+            x1="0%"
+            y1="0%"
+            x2="100%"
+            y2="0%"
+          >
             <stop offset="0%" stopColor="#dc2626" />
             <stop offset="25%" stopColor="#f97316" />
             <stop offset="50%" stopColor="#eab308" />
@@ -200,7 +210,13 @@ export function SentimentGauge({
             <stop offset="100%" stopColor="#22c55e" />
           </linearGradient>
           {/* Glow filter */}
-          <filter id={`glow-${size}`} x="-50%" y="-50%" width="200%" height="200%">
+          <filter
+            id={`glow-${size}`}
+            x="-50%"
+            y="-50%"
+            width="200%"
+            height="200%"
+          >
             <feGaussianBlur stdDeviation="2" result="coloredBlur" />
             <feMerge>
               <feMergeNode in="coloredBlur" />
@@ -282,12 +298,7 @@ export function SentimentGauge({
           fill={sentimentColor}
           className="transition-colors duration-300"
         />
-        <circle
-          cx={centerX}
-          cy={centerY}
-          r="3"
-          fill="white"
-        />
+        <circle cx={centerX} cy={centerY} r="3" fill="white" />
 
         {/* Value text */}
         <text
@@ -295,10 +306,11 @@ export function SentimentGauge({
           y={centerY - config.radius / 2 - 5}
           textAnchor="middle"
           dominantBaseline="middle"
-          style={{ fontSize: `${config.fontSize}px`, fontWeight: 'bold' }}
+          style={{ fontSize: `${config.fontSize}px`, fontWeight: "bold" }}
           fill={sentimentColor}
         >
-          {displayValue >= 0 ? '+' : ''}{displayValue}
+          {displayValue >= 0 ? "+" : ""}
+          {displayValue}
         </text>
 
         {/* Scale labels */}
@@ -306,7 +318,7 @@ export function SentimentGauge({
           x={centerX - config.radius + 5}
           y={centerY + 15}
           textAnchor="start"
-          style={{ fontSize: '10px' }}
+          style={{ fontSize: "10px" }}
           className="fill-text-muted"
         >
           -100
@@ -315,7 +327,7 @@ export function SentimentGauge({
           x={centerX}
           y={centerY - config.radius - 5}
           textAnchor="middle"
-          style={{ fontSize: '10px' }}
+          style={{ fontSize: "10px" }}
           className="fill-text-muted"
         >
           0
@@ -324,7 +336,7 @@ export function SentimentGauge({
           x={centerX + config.radius - 5}
           y={centerY + 15}
           textAnchor="end"
-          style={{ fontSize: '10px' }}
+          style={{ fontSize: "10px" }}
           className="fill-text-muted"
         >
           +100
@@ -337,16 +349,23 @@ export function SentimentGauge({
         <div className="flex items-center justify-center gap-2 mt-1">
           <span
             className={cn(
-              'px-2 py-0.5 rounded-full text-xs font-medium',
-              displayValue >= 50 ? 'bg-success/10 text-success' :
-              displayValue >= 0 ? 'bg-warning/10 text-warning' :
-              'bg-danger/10 text-danger'
+              "px-2 py-0.5 rounded-full text-xs font-medium",
+              displayValue >= 50
+                ? "bg-success/10 text-success"
+                : displayValue >= 0
+                  ? "bg-warning/10 text-warning"
+                  : "bg-danger/10 text-danger",
             )}
           >
             {sentimentLabel}
           </span>
           {trendInfo && (
-            <span className={cn('text-xs font-medium flex items-center gap-0.5', trendInfo.color)}>
+            <span
+              className={cn(
+                "text-xs font-medium flex items-center gap-0.5",
+                trendInfo.color,
+              )}
+            >
               {trendInfo.icon} {trendInfo.label}
             </span>
           )}
@@ -369,13 +388,14 @@ export function SentimentGaugeInline({
   const color = getSentimentColor(clampedValue);
 
   return (
-    <div className={cn('flex items-center gap-2', className)}>
+    <div className={cn("flex items-center gap-2", className)}>
       <div className="relative w-24 h-2 bg-bg-tertiary rounded-full overflow-hidden">
         {/* Gradient background */}
         <div
           className="absolute inset-0 opacity-30"
           style={{
-            background: 'linear-gradient(to right, #dc2626, #f97316, #eab308, #84cc16, #22c55e)',
+            background:
+              "linear-gradient(to right, #dc2626, #f97316, #eab308, #84cc16, #22c55e)",
           }}
         />
         {/* Indicator */}
@@ -383,14 +403,15 @@ export function SentimentGaugeInline({
           className="absolute top-0 bottom-0 w-1 rounded-full transition-all duration-500"
           style={{
             left: `${normalized * 100}%`,
-            transform: 'translateX(-50%)',
+            transform: "translateX(-50%)",
             backgroundColor: color,
             boxShadow: `0 0 4px ${color}`,
           }}
         />
       </div>
       <span className="text-sm font-medium" style={{ color }}>
-        {clampedValue >= 0 ? '+' : ''}{clampedValue}
+        {clampedValue >= 0 ? "+" : ""}
+        {clampedValue}
       </span>
     </div>
   );
@@ -415,8 +436,12 @@ export function SentimentGaugeMini({
   const offset = circumference - normalized * circumference;
 
   return (
-    <div className={cn('flex flex-col items-center', className)}>
-      <svg width={size} height={size / 2 + 10} viewBox={`0 0 ${size} ${size / 2 + 10}`}>
+    <div className={cn("flex flex-col items-center", className)}>
+      <svg
+        width={size}
+        height={size / 2 + 10}
+        viewBox={`0 0 ${size} ${size / 2 + 10}`}
+      >
         {/* Background arc */}
         <path
           d={`M 5 ${size / 2} A ${radius} ${radius} 0 0 1 ${size - 5} ${size / 2}`}
@@ -442,10 +467,11 @@ export function SentimentGaugeMini({
           x={size / 2}
           y={size / 2 - 5}
           textAnchor="middle"
-          style={{ fontSize: '12px', fontWeight: 'bold' }}
+          style={{ fontSize: "12px", fontWeight: "bold" }}
           fill={color}
         >
-          {clampedValue >= 0 ? '+' : ''}{clampedValue}
+          {clampedValue >= 0 ? "+" : ""}
+          {clampedValue}
         </text>
       </svg>
     </div>

@@ -10,10 +10,10 @@
  * - Large touch targets (44px min)
  */
 
-import { useState, useCallback } from 'react';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
-import { cn } from '@/lib/utils';
+import { useState, useCallback } from "react";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 
 // ============================================
 // Types
@@ -33,7 +33,7 @@ interface OfflineIndicatorProps {
 // ============================================
 
 function formatLastSync(date: Date | undefined): string {
-  if (!date) return 'Never';
+  if (!date) return "Never";
 
   const now = new Date();
   const diff = now.getTime() - date.getTime();
@@ -41,10 +41,10 @@ function formatLastSync(date: Date | undefined): string {
   const hours = Math.floor(diff / 3600000);
   const days = Math.floor(diff / 86400000);
 
-  if (minutes < 1) return 'Just now';
+  if (minutes < 1) return "Just now";
   if (minutes < 60) return `${minutes}m ago`;
   if (hours < 24) return `${hours}h ago`;
-  if (days === 1) return 'Yesterday';
+  if (days === 1) return "Yesterday";
   return `${days} days ago`;
 }
 
@@ -58,18 +58,22 @@ interface CompactIndicatorProps {
   onTap?: () => void;
 }
 
-function CompactIndicator({ isOffline, pendingChanges = 0, onTap }: CompactIndicatorProps) {
+function CompactIndicator({
+  isOffline,
+  pendingChanges = 0,
+  onTap,
+}: CompactIndicatorProps) {
   return (
     <button
       onClick={onTap}
       className="flex items-center gap-1.5 min-h-[44px] min-w-[44px] px-2 touch-manipulation"
-      aria-label={isOffline ? 'Offline mode' : 'Online'}
+      aria-label={isOffline ? "Offline mode" : "Online"}
     >
       {/* Connection status dot */}
       <span
         className={cn(
-          'w-2.5 h-2.5 rounded-full',
-          isOffline ? 'bg-warning animate-pulse' : 'bg-success'
+          "w-2.5 h-2.5 rounded-full",
+          isOffline ? "bg-warning animate-pulse" : "bg-success",
         )}
       />
 
@@ -105,8 +109,10 @@ function FullIndicator({
   return (
     <div
       className={cn(
-        'rounded-lg p-4',
-        isOffline ? 'bg-warning/10 border border-warning/20' : 'bg-success/10 border border-success/20'
+        "rounded-lg p-4",
+        isOffline
+          ? "bg-warning/10 border border-warning/20"
+          : "bg-success/10 border border-success/20",
       )}
     >
       {/* Status Header */}
@@ -114,18 +120,26 @@ function FullIndicator({
         <div className="flex items-center gap-2">
           <span
             className={cn(
-              'w-3 h-3 rounded-full',
-              isOffline ? 'bg-warning animate-pulse' : 'bg-success'
+              "w-3 h-3 rounded-full",
+              isOffline ? "bg-warning animate-pulse" : "bg-success",
             )}
           />
-          <span className={cn('font-semibold', isOffline ? 'text-warning' : 'text-success')}>
-            {isOffline ? 'Offline Mode' : 'Online'}
+          <span
+            className={cn(
+              "font-semibold",
+              isOffline ? "text-warning" : "text-success",
+            )}
+          >
+            {isOffline ? "Offline Mode" : "Online"}
           </span>
         </div>
 
         {/* Sync Icon */}
         {isSyncing && (
-          <svg className="w-5 h-5 animate-spin text-primary" viewBox="0 0 24 24">
+          <svg
+            className="w-5 h-5 animate-spin text-primary"
+            viewBox="0 0 24 24"
+          >
             <circle
               className="opacity-25"
               cx="12"
@@ -148,24 +162,33 @@ function FullIndicator({
       <div className="grid grid-cols-2 gap-4 mb-4">
         <div>
           <p className="text-xs text-text-secondary">Pending Changes</p>
-          <p className={cn('text-lg font-bold', pendingChanges > 0 ? 'text-warning' : 'text-text-primary')}>
+          <p
+            className={cn(
+              "text-lg font-bold",
+              pendingChanges > 0 ? "text-warning" : "text-text-primary",
+            )}
+          >
             {pendingChanges}
           </p>
         </div>
         <div>
           <p className="text-xs text-text-secondary">Last Sync</p>
-          <p className="text-lg font-bold text-text-primary">{formatLastSync(lastSyncTime)}</p>
+          <p className="text-lg font-bold text-text-primary">
+            {formatLastSync(lastSyncTime)}
+          </p>
         </div>
       </div>
 
       {/* Description */}
       {isOffline ? (
         <p className="text-sm text-warning mb-4">
-          You are working offline. Changes will sync automatically when connection is restored.
+          You are working offline. Changes will sync automatically when
+          connection is restored.
         </p>
       ) : pendingChanges > 0 ? (
         <p className="text-sm text-text-secondary mb-4">
-          You have {pendingChanges} change{pendingChanges !== 1 ? 's' : ''} waiting to sync.
+          You have {pendingChanges} change{pendingChanges !== 1 ? "s" : ""}{" "}
+          waiting to sync.
         </p>
       ) : (
         <p className="text-sm text-success mb-4">All changes are synced.</p>
@@ -202,7 +225,12 @@ function FullIndicator({
             </>
           ) : (
             <>
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -245,13 +273,21 @@ function ExpandablePanel({
   return (
     <div className="relative">
       {/* Compact trigger */}
-      <CompactIndicator isOffline={isOffline} pendingChanges={pendingChanges} onTap={onToggle} />
+      <CompactIndicator
+        isOffline={isOffline}
+        pendingChanges={pendingChanges}
+        onTap={onToggle}
+      />
 
       {/* Expanded panel */}
       {isExpanded && (
         <>
           {/* Backdrop */}
-          <div className="fixed inset-0 z-40" onClick={onToggle} aria-hidden="true" />
+          <div
+            className="fixed inset-0 z-40"
+            onClick={onToggle}
+            aria-hidden="true"
+          />
 
           {/* Panel */}
           <div className="absolute top-full right-0 mt-2 z-50 w-72 shadow-xl rounded-lg bg-bg-card border border-border">
@@ -340,13 +376,22 @@ interface OfflineBannerProps {
   onDismiss?: () => void;
 }
 
-export function OfflineBanner({ isOffline, pendingChanges = 0, onDismiss }: OfflineBannerProps) {
+export function OfflineBanner({
+  isOffline,
+  pendingChanges = 0,
+  onDismiss,
+}: OfflineBannerProps) {
   if (!isOffline) return null;
 
   return (
     <div className="bg-warning text-white px-4 py-2 flex items-center justify-between">
       <div className="flex items-center gap-2">
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -365,8 +410,18 @@ export function OfflineBanner({ isOffline, pendingChanges = 0, onDismiss }: Offl
           className="p-1 hover:bg-white/20 rounded min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation"
           aria-label="Dismiss"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
       )}
@@ -379,40 +434,76 @@ export function OfflineBanner({ isOffline, pendingChanges = 0, onDismiss }: Offl
 // ============================================
 
 interface SyncStatusToastProps {
-  status: 'syncing' | 'success' | 'error';
+  status: "syncing" | "success" | "error";
   message?: string;
   onDismiss?: () => void;
 }
 
-export function SyncStatusToast({ status, message, onDismiss }: SyncStatusToastProps) {
+export function SyncStatusToast({
+  status,
+  message,
+  onDismiss,
+}: SyncStatusToastProps) {
   const statusConfig = {
     syncing: {
-      bg: 'bg-primary',
+      bg: "bg-primary",
       icon: (
         <svg className="w-5 h-5 animate-spin" viewBox="0 0 24 24">
-          <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" fill="none" />
-          <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+          <circle
+            className="opacity-25"
+            cx="12"
+            cy="12"
+            r="10"
+            stroke="currentColor"
+            strokeWidth="4"
+            fill="none"
+          />
+          <path
+            className="opacity-75"
+            fill="currentColor"
+            d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+          />
         </svg>
       ),
-      defaultMessage: 'Syncing changes...',
+      defaultMessage: "Syncing changes...",
     },
     success: {
-      bg: 'bg-success',
+      bg: "bg-success",
       icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M5 13l4 4L19 7"
+          />
         </svg>
       ),
-      defaultMessage: 'All changes synced',
+      defaultMessage: "All changes synced",
     },
     error: {
-      bg: 'bg-danger',
+      bg: "bg-danger",
       icon: (
-        <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        <svg
+          className="w-5 h-5"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
         </svg>
       ),
-      defaultMessage: 'Sync failed',
+      defaultMessage: "Sync failed",
     },
   };
 
@@ -421,22 +512,32 @@ export function SyncStatusToast({ status, message, onDismiss }: SyncStatusToastP
   return (
     <div
       className={cn(
-        'fixed bottom-4 left-4 right-4 z-50 rounded-lg p-4 text-white flex items-center justify-between shadow-lg',
-        config.bg
+        "fixed bottom-4 left-4 right-4 z-50 rounded-lg p-4 text-white flex items-center justify-between shadow-lg",
+        config.bg,
       )}
     >
       <div className="flex items-center gap-3">
         {config.icon}
         <span className="font-medium">{message || config.defaultMessage}</span>
       </div>
-      {onDismiss && status !== 'syncing' && (
+      {onDismiss && status !== "syncing" && (
         <button
           onClick={onDismiss}
           className="p-1 hover:bg-white/20 rounded min-h-[44px] min-w-[44px] flex items-center justify-center touch-manipulation"
           aria-label="Dismiss"
         >
-          <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className="w-5 h-5"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
       )}

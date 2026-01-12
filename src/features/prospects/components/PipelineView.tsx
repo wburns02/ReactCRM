@@ -1,5 +1,5 @@
-import { useState, useMemo, memo } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, useMemo, memo } from "react";
+import { Link } from "react-router-dom";
 import {
   DndContext,
   type DragEndEvent,
@@ -9,18 +9,21 @@ import {
   useSensor,
   useSensors,
   closestCenter,
-} from '@dnd-kit/core';
-import { useSortable } from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
-import { useQueryClient } from '@tanstack/react-query';
-import { type Prospect } from '@/api/types/prospect.ts';
+} from "@dnd-kit/core";
+import { useSortable } from "@dnd-kit/sortable";
+import { CSS } from "@dnd-kit/utilities";
+import { useQueryClient } from "@tanstack/react-query";
+import { type Prospect } from "@/api/types/prospect.ts";
 import {
   type ProspectStage,
   ProspectStage as Stages,
   PROSPECT_STAGE_LABELS,
   LEAD_SOURCE_LABELS,
-} from '@/api/types/common.ts';
-import { useUpdateProspectStage, prospectKeys } from '@/api/hooks/useProspects.ts';
+} from "@/api/types/common.ts";
+import {
+  useUpdateProspectStage,
+  prospectKeys,
+} from "@/api/hooks/useProspects.ts";
 
 interface PipelineViewProps {
   prospects: Prospect[];
@@ -29,23 +32,23 @@ interface PipelineViewProps {
 
 // Pipeline stage configuration
 const PIPELINE_STAGES: { stage: ProspectStage; color: string }[] = [
-  { stage: Stages.NEW_LEAD, color: 'bg-gray-100 border-gray-300' },
-  { stage: Stages.CONTACTED, color: 'bg-blue-50 border-blue-300' },
-  { stage: Stages.QUALIFIED, color: 'bg-purple-50 border-purple-300' },
-  { stage: Stages.QUOTED, color: 'bg-yellow-50 border-yellow-300' },
-  { stage: Stages.NEGOTIATION, color: 'bg-orange-50 border-orange-300' },
-  { stage: Stages.WON, color: 'bg-green-50 border-green-300' },
-  { stage: Stages.LOST, color: 'bg-red-50 border-red-300' },
+  { stage: Stages.NEW_LEAD, color: "bg-gray-100 border-gray-300" },
+  { stage: Stages.CONTACTED, color: "bg-blue-50 border-blue-300" },
+  { stage: Stages.QUALIFIED, color: "bg-purple-50 border-purple-300" },
+  { stage: Stages.QUOTED, color: "bg-yellow-50 border-yellow-300" },
+  { stage: Stages.NEGOTIATION, color: "bg-orange-50 border-orange-300" },
+  { stage: Stages.WON, color: "bg-green-50 border-green-300" },
+  { stage: Stages.LOST, color: "bg-red-50 border-red-300" },
 ];
 
 const STAGE_HEADER_COLORS: Record<ProspectStage, string> = {
-  new_lead: 'bg-gray-500',
-  contacted: 'bg-blue-500',
-  qualified: 'bg-purple-500',
-  quoted: 'bg-yellow-500',
-  negotiation: 'bg-orange-500',
-  won: 'bg-green-500',
-  lost: 'bg-red-500',
+  new_lead: "bg-gray-500",
+  contacted: "bg-blue-500",
+  qualified: "bg-purple-500",
+  quoted: "bg-yellow-500",
+  negotiation: "bg-orange-500",
+  won: "bg-green-500",
+  lost: "bg-red-500",
 };
 
 /**
@@ -86,7 +89,7 @@ const ProspectCard = memo(function ProspectCard({
       className={`
         bg-white rounded-lg border border-border p-3 shadow-sm cursor-grab active:cursor-grabbing
         hover:shadow-md transition-shadow
-        ${isCurrentlyDragging ? 'opacity-50 shadow-lg ring-2 ring-primary' : ''}
+        ${isCurrentlyDragging ? "opacity-50 shadow-lg ring-2 ring-primary" : ""}
       `}
     >
       {/* Header with name and value */}
@@ -203,14 +206,23 @@ const PipelineColumn = memo(function PipelineColumn({
   prospects: Prospect[];
   onEdit?: (prospect: Prospect) => void;
 }) {
-  const totalValue = prospects.reduce((sum, p) => sum + (p.estimated_value || 0), 0);
+  const totalValue = prospects.reduce(
+    (sum, p) => sum + (p.estimated_value || 0),
+    0,
+  );
 
   return (
-    <div className={`flex flex-col min-w-[280px] max-w-[280px] rounded-lg border ${color}`}>
+    <div
+      className={`flex flex-col min-w-[280px] max-w-[280px] rounded-lg border ${color}`}
+    >
       {/* Column header */}
-      <div className={`${STAGE_HEADER_COLORS[stage]} text-white px-3 py-2 rounded-t-lg`}>
+      <div
+        className={`${STAGE_HEADER_COLORS[stage]} text-white px-3 py-2 rounded-t-lg`}
+      >
         <div className="flex items-center justify-between">
-          <h3 className="font-semibold text-sm">{PROSPECT_STAGE_LABELS[stage]}</h3>
+          <h3 className="font-semibold text-sm">
+            {PROSPECT_STAGE_LABELS[stage]}
+          </h3>
           <span className="bg-white/20 px-2 py-0.5 rounded-full text-xs">
             {prospects.length}
           </span>
@@ -233,7 +245,11 @@ const PipelineColumn = memo(function PipelineColumn({
           </div>
         ) : (
           prospects.map((prospect) => (
-            <ProspectCard key={prospect.id} prospect={prospect} onEdit={onEdit} />
+            <ProspectCard
+              key={prospect.id}
+              prospect={prospect}
+              onEdit={onEdit}
+            />
           ))
         )}
       </div>
@@ -255,7 +271,7 @@ export function PipelineView({ prospects, onEdit }: PipelineViewProps) {
       activationConstraint: {
         distance: 8, // Start dragging after 8px movement
       },
-    })
+    }),
   );
 
   // Group prospects by stage
@@ -280,7 +296,7 @@ export function PipelineView({ prospects, onEdit }: PipelineViewProps) {
     // Sort by estimated value descending within each stage
     Object.keys(grouped).forEach((stage) => {
       grouped[stage as ProspectStage].sort(
-        (a, b) => (b.estimated_value || 0) - (a.estimated_value || 0)
+        (a, b) => (b.estimated_value || 0) - (a.estimated_value || 0),
       );
     });
 
@@ -330,10 +346,10 @@ export function PipelineView({ prospects, onEdit }: PipelineViewProps) {
         return {
           ...oldData,
           items: oldData.items.map((p: Prospect) =>
-            p.id === prospectId ? { ...p, prospect_stage: targetStage } : p
+            p.id === prospectId ? { ...p, prospect_stage: targetStage } : p,
           ),
         };
-      }
+      },
     );
 
     // Perform the actual update
@@ -344,32 +360,42 @@ export function PipelineView({ prospects, onEdit }: PipelineViewProps) {
           // Rollback on error
           queryClient.invalidateQueries({ queryKey: prospectKeys.lists() });
         },
-      }
+      },
     );
   };
 
   // Calculate totals
   const totalProspects = prospects.length;
-  const totalValue = prospects.reduce((sum, p) => sum + (p.estimated_value || 0), 0);
-  const wonValue = prospectsByStage.won.reduce((sum, p) => sum + (p.estimated_value || 0), 0);
+  const totalValue = prospects.reduce(
+    (sum, p) => sum + (p.estimated_value || 0),
+    0,
+  );
+  const wonValue = prospectsByStage.won.reduce(
+    (sum, p) => sum + (p.estimated_value || 0),
+    0,
+  );
 
   return (
     <div className="h-full flex flex-col">
       {/* Summary bar */}
       <div className="flex items-center gap-6 px-4 py-3 bg-bg-subtle border-b border-border">
         <div className="text-sm">
-          <span className="text-text-muted">Total Prospects:</span>{' '}
-          <span className="font-semibold text-text-primary">{totalProspects}</span>
+          <span className="text-text-muted">Total Prospects:</span>{" "}
+          <span className="font-semibold text-text-primary">
+            {totalProspects}
+          </span>
         </div>
         <div className="text-sm">
-          <span className="text-text-muted">Pipeline Value:</span>{' '}
+          <span className="text-text-muted">Pipeline Value:</span>{" "}
           <span className="font-semibold text-text-primary">
             ${totalValue.toLocaleString()}
           </span>
         </div>
         <div className="text-sm">
-          <span className="text-text-muted">Won Value:</span>{' '}
-          <span className="font-semibold text-green-600">${wonValue.toLocaleString()}</span>
+          <span className="text-text-muted">Won Value:</span>{" "}
+          <span className="font-semibold text-green-600">
+            ${wonValue.toLocaleString()}
+          </span>
         </div>
       </div>
 
@@ -395,7 +421,9 @@ export function PipelineView({ prospects, onEdit }: PipelineViewProps) {
 
           {/* Drag overlay */}
           <DragOverlay>
-            {activeProspect ? <DragOverlayCard prospect={activeProspect} /> : null}
+            {activeProspect ? (
+              <DragOverlayCard prospect={activeProspect} />
+            ) : null}
           </DragOverlay>
         </DndContext>
       </div>

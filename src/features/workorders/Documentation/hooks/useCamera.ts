@@ -4,9 +4,9 @@
  * Provides camera access, preview streaming, photo capture,
  * and facing mode switching for work order photo documentation.
  */
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect } from "react";
 
-export type FacingMode = 'user' | 'environment';
+export type FacingMode = "user" | "environment";
 
 export interface CameraState {
   isActive: boolean;
@@ -38,7 +38,7 @@ export function useCamera(): UseCameraResult {
     isActive: false,
     isLoading: false,
     error: null,
-    facingMode: 'environment',
+    facingMode: "environment",
     hasPermission: null,
     stream: null,
   });
@@ -50,21 +50,22 @@ export function useCamera(): UseCameraResult {
     try {
       const result = await navigator.mediaDevices.getUserMedia({ video: true });
       // Immediately stop the test stream
-      result.getTracks().forEach(track => track.stop());
-      setState(prev => ({ ...prev, hasPermission: true, error: null }));
+      result.getTracks().forEach((track) => track.stop());
+      setState((prev) => ({ ...prev, hasPermission: true, error: null }));
       return true;
     } catch (err) {
       const error = err as Error;
-      const errorMessage = error.name === 'NotAllowedError'
-        ? 'Camera permission denied. Please allow camera access to take photos.'
-        : error.name === 'NotFoundError'
-        ? 'No camera found on this device.'
-        : `Camera error: ${error.message}`;
+      const errorMessage =
+        error.name === "NotAllowedError"
+          ? "Camera permission denied. Please allow camera access to take photos."
+          : error.name === "NotFoundError"
+            ? "No camera found on this device."
+            : `Camera error: ${error.message}`;
 
-      setState(prev => ({
+      setState((prev) => ({
         ...prev,
         hasPermission: false,
-        error: errorMessage
+        error: errorMessage,
       }));
       return false;
     }
@@ -73,108 +74,113 @@ export function useCamera(): UseCameraResult {
   /**
    * Start camera with specified facing mode
    */
-  const startCamera = useCallback(async (facingMode: FacingMode = 'environment'): Promise<boolean> => {
-    setState(prev => ({ ...prev, isLoading: true, error: null }));
+  const startCamera = useCallback(
+    async (facingMode: FacingMode = "environment"): Promise<boolean> => {
+      setState((prev) => ({ ...prev, isLoading: true, error: null }));
 
-    try {
-      // Check for camera support
-      if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
-        throw new Error('Camera not supported in this browser');
-      }
-
-      // Stop any existing stream first
-      if (streamRef.current) {
-        streamRef.current.getTracks().forEach(track => track.stop());
-      }
-
-      const constraints: MediaStreamConstraints = {
-        video: {
-          facingMode: { ideal: facingMode },
-          width: { ideal: 1920 },
-          height: { ideal: 1080 },
-        },
-        audio: false,
-      };
-
-      const stream = await navigator.mediaDevices.getUserMedia(constraints);
-      streamRef.current = stream;
-
-      if (videoRef.current) {
-        videoRef.current.srcObject = stream;
-        await videoRef.current.play();
-      }
-
-      setState(prev => ({
-        ...prev,
-        isActive: true,
-        isLoading: false,
-        facingMode,
-        hasPermission: true,
-        stream,
-        error: null,
-      }));
-
-      return true;
-    } catch (err) {
-      const error = err as Error;
-      let errorMessage = 'Failed to access camera';
-
-      if (error.name === 'NotAllowedError') {
-        errorMessage = 'Camera permission denied. Please allow camera access.';
-      } else if (error.name === 'NotFoundError') {
-        errorMessage = 'No camera found on this device.';
-      } else if (error.name === 'NotReadableError') {
-        errorMessage = 'Camera is already in use by another application.';
-      } else if (error.name === 'OverconstrainedError') {
-        // Try again with basic constraints
-        try {
-          const stream = await navigator.mediaDevices.getUserMedia({
-            video: true,
-            audio: false
-          });
-          streamRef.current = stream;
-
-          if (videoRef.current) {
-            videoRef.current.srcObject = stream;
-            await videoRef.current.play();
-          }
-
-          setState(prev => ({
-            ...prev,
-            isActive: true,
-            isLoading: false,
-            facingMode,
-            hasPermission: true,
-            stream,
-            error: null,
-          }));
-          return true;
-        } catch {
-          errorMessage = 'Camera constraints not supported.';
+      try {
+        // Check for camera support
+        if (!navigator.mediaDevices || !navigator.mediaDevices.getUserMedia) {
+          throw new Error("Camera not supported in this browser");
         }
-      } else {
-        errorMessage = `Camera error: ${error.message}`;
+
+        // Stop any existing stream first
+        if (streamRef.current) {
+          streamRef.current.getTracks().forEach((track) => track.stop());
+        }
+
+        const constraints: MediaStreamConstraints = {
+          video: {
+            facingMode: { ideal: facingMode },
+            width: { ideal: 1920 },
+            height: { ideal: 1080 },
+          },
+          audio: false,
+        };
+
+        const stream = await navigator.mediaDevices.getUserMedia(constraints);
+        streamRef.current = stream;
+
+        if (videoRef.current) {
+          videoRef.current.srcObject = stream;
+          await videoRef.current.play();
+        }
+
+        setState((prev) => ({
+          ...prev,
+          isActive: true,
+          isLoading: false,
+          facingMode,
+          hasPermission: true,
+          stream,
+          error: null,
+        }));
+
+        return true;
+      } catch (err) {
+        const error = err as Error;
+        let errorMessage = "Failed to access camera";
+
+        if (error.name === "NotAllowedError") {
+          errorMessage =
+            "Camera permission denied. Please allow camera access.";
+        } else if (error.name === "NotFoundError") {
+          errorMessage = "No camera found on this device.";
+        } else if (error.name === "NotReadableError") {
+          errorMessage = "Camera is already in use by another application.";
+        } else if (error.name === "OverconstrainedError") {
+          // Try again with basic constraints
+          try {
+            const stream = await navigator.mediaDevices.getUserMedia({
+              video: true,
+              audio: false,
+            });
+            streamRef.current = stream;
+
+            if (videoRef.current) {
+              videoRef.current.srcObject = stream;
+              await videoRef.current.play();
+            }
+
+            setState((prev) => ({
+              ...prev,
+              isActive: true,
+              isLoading: false,
+              facingMode,
+              hasPermission: true,
+              stream,
+              error: null,
+            }));
+            return true;
+          } catch {
+            errorMessage = "Camera constraints not supported.";
+          }
+        } else {
+          errorMessage = `Camera error: ${error.message}`;
+        }
+
+        setState((prev) => ({
+          ...prev,
+          isActive: false,
+          isLoading: false,
+          hasPermission:
+            error.name === "NotAllowedError" ? false : prev.hasPermission,
+          error: errorMessage,
+          stream: null,
+        }));
+
+        return false;
       }
-
-      setState(prev => ({
-        ...prev,
-        isActive: false,
-        isLoading: false,
-        hasPermission: error.name === 'NotAllowedError' ? false : prev.hasPermission,
-        error: errorMessage,
-        stream: null,
-      }));
-
-      return false;
-    }
-  }, []);
+    },
+    [],
+  );
 
   /**
    * Stop camera and release resources
    */
   const stopCamera = useCallback(() => {
     if (streamRef.current) {
-      streamRef.current.getTracks().forEach(track => {
+      streamRef.current.getTracks().forEach((track) => {
         track.stop();
       });
       streamRef.current = null;
@@ -184,7 +190,7 @@ export function useCamera(): UseCameraResult {
       videoRef.current.srcObject = null;
     }
 
-    setState(prev => ({
+    setState((prev) => ({
       ...prev,
       isActive: false,
       stream: null,
@@ -201,13 +207,13 @@ export function useCamera(): UseCameraResult {
     }
 
     const video = videoRef.current;
-    const canvas = document.createElement('canvas');
+    const canvas = document.createElement("canvas");
 
     // Use video's natural dimensions for best quality
     canvas.width = video.videoWidth;
     canvas.height = video.videoHeight;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) {
       return null;
     }
@@ -216,7 +222,7 @@ export function useCamera(): UseCameraResult {
     ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     // Convert to base64 JPEG (quality 0.92)
-    const dataUrl = canvas.toDataURL('image/jpeg', 0.92);
+    const dataUrl = canvas.toDataURL("image/jpeg", 0.92);
 
     return dataUrl;
   }, [state.isActive]);
@@ -225,13 +231,14 @@ export function useCamera(): UseCameraResult {
    * Switch between front and back camera
    */
   const switchFacingMode = useCallback(async () => {
-    const newMode: FacingMode = state.facingMode === 'environment' ? 'user' : 'environment';
+    const newMode: FacingMode =
+      state.facingMode === "environment" ? "user" : "environment";
 
     if (state.isActive) {
       stopCamera();
       await startCamera(newMode);
     } else {
-      setState(prev => ({ ...prev, facingMode: newMode }));
+      setState((prev) => ({ ...prev, facingMode: newMode }));
     }
   }, [state.facingMode, state.isActive, stopCamera, startCamera]);
 
@@ -239,7 +246,7 @@ export function useCamera(): UseCameraResult {
   useEffect(() => {
     return () => {
       if (streamRef.current) {
-        streamRef.current.getTracks().forEach(track => track.stop());
+        streamRef.current.getTracks().forEach((track) => track.stop());
       }
     };
   }, []);

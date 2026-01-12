@@ -3,12 +3,12 @@
  * Exports all public components and hooks
  */
 
-export { PhonePage } from './PhonePage.tsx';
-export { DialButton } from './components/DialButton.tsx';
-export { DialerModal } from './components/DialerModal.tsx';
-export { CallDispositionModal } from './components/CallDispositionModal.tsx';
-export { RCStatusIndicator } from './components/RCStatusIndicator.tsx';
-export { CallLog } from './components/CallLog.tsx';
+export { PhonePage } from "./PhonePage.tsx";
+export { DialButton } from "./components/DialButton.tsx";
+export { DialerModal } from "./components/DialerModal.tsx";
+export { CallDispositionModal } from "./components/CallDispositionModal.tsx";
+export { RCStatusIndicator } from "./components/RCStatusIndicator.tsx";
+export { CallLog } from "./components/CallLog.tsx";
 
 export {
   useRCStatus,
@@ -16,7 +16,7 @@ export {
   useCallLog,
   useDispositions,
   useLogDisposition,
-} from './api.ts';
+} from "./api.ts";
 
 export type {
   RCStatus,
@@ -26,4 +26,4 @@ export type {
   DispositionCategory,
   InitiateCallRequest,
   LogDispositionRequest,
-} from './types.ts';
+} from "./types.ts";

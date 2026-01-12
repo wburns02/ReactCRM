@@ -4,8 +4,8 @@
  * Custom hooks for SMS, email, and notification management.
  */
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client.ts';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client.ts";
 import type {
   SMSNotification,
   SMSConversation,
@@ -13,29 +13,34 @@ import type {
   ScheduledNotification,
   CustomerSMSPreferences,
   SMSDeliveryStats,
-} from '@/api/types/sms.ts';
+} from "@/api/types/sms.ts";
 import type {
   CommunicationFilters,
   CommunicationListResponse,
   SendSMSData,
   SendEmailData,
-} from '@/api/types/communication.ts';
+} from "@/api/types/communication.ts";
 
 // ============================================================================
 // Query Keys
 // ============================================================================
 
 export const communicationKeys = {
-  all: ['communications'] as const,
-  lists: () => [...communicationKeys.all, 'list'] as const,
-  list: (filters: CommunicationFilters) => [...communicationKeys.lists(), filters] as const,
-  history: (workOrderId: string) => [...communicationKeys.all, 'history', workOrderId] as const,
-  conversation: (customerId: string) => [...communicationKeys.all, 'conversation', customerId] as const,
-  scheduled: () => [...communicationKeys.all, 'scheduled'] as const,
-  preferences: (customerId: string) => [...communicationKeys.all, 'preferences', customerId] as const,
-  stats: () => [...communicationKeys.all, 'stats'] as const,
-  templates: () => [...communicationKeys.all, 'templates'] as const,
-  calls: (workOrderId: string) => [...communicationKeys.all, 'calls', workOrderId] as const,
+  all: ["communications"] as const,
+  lists: () => [...communicationKeys.all, "list"] as const,
+  list: (filters: CommunicationFilters) =>
+    [...communicationKeys.lists(), filters] as const,
+  history: (workOrderId: string) =>
+    [...communicationKeys.all, "history", workOrderId] as const,
+  conversation: (customerId: string) =>
+    [...communicationKeys.all, "conversation", customerId] as const,
+  scheduled: () => [...communicationKeys.all, "scheduled"] as const,
+  preferences: (customerId: string) =>
+    [...communicationKeys.all, "preferences", customerId] as const,
+  stats: () => [...communicationKeys.all, "stats"] as const,
+  templates: () => [...communicationKeys.all, "templates"] as const,
+  calls: (workOrderId: string) =>
+    [...communicationKeys.all, "calls", workOrderId] as const,
 };
 
 // ============================================================================
@@ -56,14 +61,14 @@ export function useSendSMS() {
   return useMutation<SendNotificationResponse, Error, SendSMSParams>({
     mutationFn: async ({ to, message, customerId, templateId }) => {
       const payload: SendSMSData = {
-        customer_id: customerId || '',
+        customer_id: customerId || "",
         phone: to,
         message,
         template_id: templateId,
       };
       const response = await apiClient.post<SendNotificationResponse>(
-        '/communications/sms',
-        payload
+        "/communications/sms",
+        payload,
       );
       return response.data;
     },
@@ -103,15 +108,15 @@ export function useSendEmail() {
   return useMutation<SendNotificationResponse, Error, SendEmailParams>({
     mutationFn: async ({ to, subject, body, customerId, templateId }) => {
       const payload: SendEmailData = {
-        customer_id: customerId || '',
+        customer_id: customerId || "",
         email: to,
         subject,
         message: body,
         template_id: templateId,
       };
       const response = await apiClient.post<SendNotificationResponse>(
-        '/communications/email',
-        payload
+        "/communications/email",
+        payload,
       );
       return response.data;
     },
@@ -142,7 +147,7 @@ export function useNotificationHistory(workOrderId: string, enabled = true) {
     queryKey: communicationKeys.history(workOrderId),
     queryFn: async () => {
       const response = await apiClient.get<NotificationHistoryResponse>(
-        `/work-orders/${workOrderId}/communications`
+        `/work-orders/${workOrderId}/communications`,
       );
       return response.data;
     },
@@ -159,7 +164,7 @@ export function useConversation(customerId: string, enabled = true) {
     queryKey: communicationKeys.conversation(customerId),
     queryFn: async () => {
       const response = await apiClient.get<SMSConversation>(
-        `/customers/${customerId}/sms-conversation`
+        `/customers/${customerId}/sms-conversation`,
       );
       return response.data;
     },
@@ -177,8 +182,8 @@ export function useCommunications(filters: CommunicationFilters = {}) {
     queryKey: communicationKeys.list(filters),
     queryFn: async () => {
       const response = await apiClient.get<CommunicationListResponse>(
-        '/communications',
-        { params: filters }
+        "/communications",
+        { params: filters },
       );
       return response.data;
     },
@@ -195,7 +200,7 @@ export function useResendNotification() {
   return useMutation<SendNotificationResponse, Error, string>({
     mutationFn: async (notificationId) => {
       const response = await apiClient.post<SendNotificationResponse>(
-        `/communications/${notificationId}/resend`
+        `/communications/${notificationId}/resend`,
       );
       return response.data;
     },
@@ -214,7 +219,7 @@ export function useScheduledNotifications() {
     queryKey: communicationKeys.scheduled(),
     queryFn: async () => {
       const response = await apiClient.get<{ items: ScheduledNotification[] }>(
-        '/communications/scheduled'
+        "/communications/scheduled",
       );
       return response.data.items;
     },
@@ -233,7 +238,9 @@ export function useCancelScheduledNotification() {
       await apiClient.delete(`/communications/scheduled/${notificationId}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: communicationKeys.scheduled() });
+      queryClient.invalidateQueries({
+        queryKey: communicationKeys.scheduled(),
+      });
     },
   });
 }
@@ -247,7 +254,7 @@ export function useCustomerSMSPreferences(customerId: string, enabled = true) {
     queryKey: communicationKeys.preferences(customerId),
     queryFn: async () => {
       const response = await apiClient.get<CustomerSMSPreferences>(
-        `/customers/${customerId}/sms-preferences`
+        `/customers/${customerId}/sms-preferences`,
       );
       return response.data;
     },
@@ -270,7 +277,7 @@ export function useUpdateSMSPreferences() {
     mutationFn: async ({ customerId, preferences }) => {
       const response = await apiClient.patch<CustomerSMSPreferences>(
         `/customers/${customerId}/sms-preferences`,
-        preferences
+        preferences,
       );
       return response.data;
     },
@@ -291,7 +298,7 @@ export function useSMSDeliveryStats() {
     queryKey: communicationKeys.stats(),
     queryFn: async () => {
       const response = await apiClient.get<SMSDeliveryStats>(
-        '/communications/stats'
+        "/communications/stats",
       );
       return response.data;
     },
@@ -318,7 +325,7 @@ export function useGeneratePortalLink() {
     mutationFn: async ({ workOrderId, expirationHours = 72 }) => {
       const response = await apiClient.post<PortalLinkResponse>(
         `/work-orders/${workOrderId}/portal-link`,
-        { expiration_hours: expirationHours }
+        { expiration_hours: expirationHours },
       );
       return response.data;
     },
@@ -333,9 +340,9 @@ export interface VoiceCall {
   id: string;
   workOrderId: string;
   customerId: string;
-  direction: 'inbound' | 'outbound';
+  direction: "inbound" | "outbound";
   duration: number; // seconds
-  status: 'completed' | 'missed' | 'voicemail' | 'busy' | 'failed';
+  status: "completed" | "missed" | "voicemail" | "busy" | "failed";
   fromPhone: string;
   toPhone: string;
   recordingUrl?: string;
@@ -356,7 +363,7 @@ export function useVoiceCallLog(workOrderId: string, enabled = true) {
     queryKey: communicationKeys.calls(workOrderId),
     queryFn: async () => {
       const response = await apiClient.get<VoiceCallLogResponse>(
-        `/work-orders/${workOrderId}/calls`
+        `/work-orders/${workOrderId}/calls`,
       );
       return response.data;
     },
@@ -371,7 +378,11 @@ export function useVoiceCallLog(workOrderId: string, enabled = true) {
 export function useAddCallNote() {
   const queryClient = useQueryClient();
 
-  return useMutation<VoiceCall, Error, { callId: string; workOrderId: string; notes: string }>({
+  return useMutation<
+    VoiceCall,
+    Error,
+    { callId: string; workOrderId: string; notes: string }
+  >({
     mutationFn: async ({ callId, notes }) => {
       const response = await apiClient.patch<VoiceCall>(`/calls/${callId}`, {
         notes,
@@ -391,7 +402,7 @@ export function useAddCallNote() {
 // ============================================================================
 
 interface TestNotificationParams {
-  type: 'sms' | 'email';
+  type: "sms" | "email";
   templateId: string;
   testPhone?: string;
   testEmail?: string;
@@ -401,13 +412,13 @@ export function useSendTestNotification() {
   return useMutation<SendNotificationResponse, Error, TestNotificationParams>({
     mutationFn: async ({ type, templateId, testPhone, testEmail }) => {
       const response = await apiClient.post<SendNotificationResponse>(
-        '/communications/test',
+        "/communications/test",
         {
           type,
           template_id: templateId,
           test_phone: testPhone,
           test_email: testEmail,
-        }
+        },
       );
       return response.data;
     },

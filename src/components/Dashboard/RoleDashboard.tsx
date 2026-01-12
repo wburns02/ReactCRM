@@ -5,10 +5,10 @@
  * Each role gets a customized view focused on their responsibilities.
  */
 
-import { Link } from 'react-router-dom';
-import { useOptionalRole, type RoleKey } from '@/providers';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { cn } from '@/lib/utils';
+import { Link } from "react-router-dom";
+import { useOptionalRole, type RoleKey } from "@/providers";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { cn } from "@/lib/utils";
 
 // ============================================
 // Quick Action Types
@@ -24,172 +24,172 @@ interface QuickAction {
 
 const QUICK_ACTIONS: Record<string, QuickAction> = {
   create_work_order: {
-    key: 'create_work_order',
-    label: 'New Work Order',
-    icon: '🔧',
-    route: '/work-orders/new',
-    description: 'Create a new work order',
+    key: "create_work_order",
+    label: "New Work Order",
+    icon: "🔧",
+    route: "/work-orders/new",
+    description: "Create a new work order",
   },
   add_customer: {
-    key: 'add_customer',
-    label: 'Add Customer',
-    icon: '👤',
-    route: '/customers/new',
-    description: 'Add a new customer',
+    key: "add_customer",
+    label: "Add Customer",
+    icon: "👤",
+    route: "/customers/new",
+    description: "Add a new customer",
   },
   view_reports: {
-    key: 'view_reports',
-    label: 'View Reports',
-    icon: '📊',
-    route: '/reports',
-    description: 'Access analytics and reports',
+    key: "view_reports",
+    label: "View Reports",
+    icon: "📊",
+    route: "/reports",
+    description: "Access analytics and reports",
   },
   manage_users: {
-    key: 'manage_users',
-    label: 'Manage Users',
-    icon: '👥',
-    route: '/users',
-    description: 'User administration',
+    key: "manage_users",
+    label: "Manage Users",
+    icon: "👥",
+    route: "/users",
+    description: "User administration",
   },
   view_schedule: {
-    key: 'view_schedule',
-    label: 'View Schedule',
-    icon: '📅',
-    route: '/schedule',
-    description: 'View and manage schedule',
+    key: "view_schedule",
+    label: "View Schedule",
+    icon: "📅",
+    route: "/schedule",
+    description: "View and manage schedule",
   },
   assign_technician: {
-    key: 'assign_technician',
-    label: 'Assign Work',
-    icon: '🎯',
-    route: '/schedule',
-    description: 'Assign work to technicians',
+    key: "assign_technician",
+    label: "Assign Work",
+    icon: "🎯",
+    route: "/schedule",
+    description: "Assign work to technicians",
   },
   contact_customer: {
-    key: 'contact_customer',
-    label: 'Contact Customer',
-    icon: '📞',
-    route: '/customers',
-    description: 'Contact a customer',
+    key: "contact_customer",
+    label: "Contact Customer",
+    icon: "📞",
+    route: "/customers",
+    description: "Contact a customer",
   },
   start_job: {
-    key: 'start_job',
-    label: 'Start Job',
-    icon: '▶️',
-    route: '/my-schedule',
-    description: 'Start your next job',
+    key: "start_job",
+    label: "Start Job",
+    icon: "▶️",
+    route: "/my-schedule",
+    description: "Start your next job",
   },
   complete_job: {
-    key: 'complete_job',
-    label: 'Complete Job',
-    icon: '✅',
-    route: '/work-orders',
-    description: 'Mark a job complete',
+    key: "complete_job",
+    label: "Complete Job",
+    icon: "✅",
+    route: "/work-orders",
+    description: "Mark a job complete",
   },
   add_notes: {
-    key: 'add_notes',
-    label: 'Add Notes',
-    icon: '📝',
-    route: '/work-orders',
-    description: 'Add notes to a job',
+    key: "add_notes",
+    label: "Add Notes",
+    icon: "📝",
+    route: "/work-orders",
+    description: "Add notes to a job",
   },
   call_customer: {
-    key: 'call_customer',
-    label: 'Call Customer',
-    icon: '📱',
-    route: '/customers',
-    description: 'Call a customer',
+    key: "call_customer",
+    label: "Call Customer",
+    icon: "📱",
+    route: "/customers",
+    description: "Call a customer",
   },
   search_customer: {
-    key: 'search_customer',
-    label: 'Search Customer',
-    icon: '🔍',
-    route: '/customers',
-    description: 'Find a customer',
+    key: "search_customer",
+    label: "Search Customer",
+    icon: "🔍",
+    route: "/customers",
+    description: "Find a customer",
   },
   schedule_appointment: {
-    key: 'schedule_appointment',
-    label: 'Schedule Appt',
-    icon: '📆',
-    route: '/schedule',
-    description: 'Schedule an appointment',
+    key: "schedule_appointment",
+    label: "Schedule Appt",
+    icon: "📆",
+    route: "/schedule",
+    description: "Schedule an appointment",
   },
   send_sms: {
-    key: 'send_sms',
-    label: 'Send SMS',
-    icon: '💬',
-    route: '/communications',
-    description: 'Send a text message',
+    key: "send_sms",
+    label: "Send SMS",
+    icon: "💬",
+    route: "/communications",
+    description: "Send a text message",
   },
   assign_job: {
-    key: 'assign_job',
-    label: 'Assign Job',
-    icon: '🎯',
-    route: '/schedule',
-    description: 'Assign a job to a tech',
+    key: "assign_job",
+    label: "Assign Job",
+    icon: "🎯",
+    route: "/schedule",
+    description: "Assign a job to a tech",
   },
   optimize_routes: {
-    key: 'optimize_routes',
-    label: 'Optimize Routes',
-    icon: '🗺️',
-    route: '/schedule-map',
-    description: 'Optimize technician routes',
+    key: "optimize_routes",
+    label: "Optimize Routes",
+    icon: "🗺️",
+    route: "/schedule-map",
+    description: "Optimize technician routes",
   },
   contact_technician: {
-    key: 'contact_technician',
-    label: 'Contact Tech',
-    icon: '📡',
-    route: '/technicians',
-    description: 'Contact a technician',
+    key: "contact_technician",
+    label: "Contact Tech",
+    icon: "📡",
+    route: "/technicians",
+    description: "Contact a technician",
   },
   reschedule: {
-    key: 'reschedule',
-    label: 'Reschedule',
-    icon: '🔄',
-    route: '/schedule',
-    description: 'Reschedule a job',
+    key: "reschedule",
+    label: "Reschedule",
+    icon: "🔄",
+    route: "/schedule",
+    description: "Reschedule a job",
   },
   create_invoice: {
-    key: 'create_invoice',
-    label: 'Create Invoice',
-    icon: '📄',
-    route: '/invoices/new',
-    description: 'Create a new invoice',
+    key: "create_invoice",
+    label: "Create Invoice",
+    icon: "📄",
+    route: "/invoices/new",
+    description: "Create a new invoice",
   },
   record_payment: {
-    key: 'record_payment',
-    label: 'Record Payment',
-    icon: '💳',
-    route: '/payments',
-    description: 'Record a payment',
+    key: "record_payment",
+    label: "Record Payment",
+    icon: "💳",
+    route: "/payments",
+    description: "Record a payment",
   },
   send_reminder: {
-    key: 'send_reminder',
-    label: 'Send Reminder',
-    icon: '⏰',
-    route: '/invoices',
-    description: 'Send payment reminder',
+    key: "send_reminder",
+    label: "Send Reminder",
+    icon: "⏰",
+    route: "/invoices",
+    description: "Send payment reminder",
   },
   generate_statement: {
-    key: 'generate_statement',
-    label: 'Generate Statement',
-    icon: '📋',
-    route: '/reports/statements',
-    description: 'Generate a statement',
+    key: "generate_statement",
+    label: "Generate Statement",
+    icon: "📋",
+    route: "/reports/statements",
+    description: "Generate a statement",
   },
   export_data: {
-    key: 'export_data',
-    label: 'Export Data',
-    icon: '📤',
-    route: '/reports',
-    description: 'Export data to CSV',
+    key: "export_data",
+    label: "Export Data",
+    icon: "📤",
+    route: "/reports",
+    description: "Export data to CSV",
   },
   schedule_review: {
-    key: 'schedule_review',
-    label: 'Schedule Review',
-    icon: '📅',
-    route: '/reports',
-    description: 'Schedule a review meeting',
+    key: "schedule_review",
+    label: "Schedule Review",
+    icon: "📅",
+    route: "/reports",
+    description: "Schedule a review meeting",
   },
 };
 
@@ -197,87 +197,90 @@ const QUICK_ACTIONS: Record<string, QuickAction> = {
 // Role Header Configs
 // ============================================
 
-const ROLE_CONFIGS: Record<RoleKey, {
-  title: string;
-  subtitle: string;
-  gradient: string;
-  modules: { name: string; route: string; icon: string }[];
-}> = {
+const ROLE_CONFIGS: Record<
+  RoleKey,
+  {
+    title: string;
+    subtitle: string;
+    gradient: string;
+    modules: { name: string; route: string; icon: string }[];
+  }
+> = {
   admin: {
-    title: 'Administrator Dashboard',
-    subtitle: 'Full system access and management',
-    gradient: 'from-purple-600 to-purple-800',
+    title: "Administrator Dashboard",
+    subtitle: "Full system access and management",
+    gradient: "from-purple-600 to-purple-800",
     modules: [
-      { name: 'Users', route: '/users', icon: '👥' },
-      { name: 'Settings', route: '/settings', icon: '⚙️' },
-      { name: 'Reports', route: '/reports', icon: '📊' },
-      { name: 'System', route: '/admin', icon: '🔧' },
+      { name: "Users", route: "/users", icon: "👥" },
+      { name: "Settings", route: "/settings", icon: "⚙️" },
+      { name: "Reports", route: "/reports", icon: "📊" },
+      { name: "System", route: "/admin", icon: "🔧" },
     ],
   },
   executive: {
-    title: 'Executive Dashboard',
-    subtitle: 'High-level KPIs and business intelligence',
-    gradient: 'from-blue-600 to-blue-800',
+    title: "Executive Dashboard",
+    subtitle: "High-level KPIs and business intelligence",
+    gradient: "from-blue-600 to-blue-800",
     modules: [
-      { name: 'Revenue', route: '/reports/revenue', icon: '💰' },
-      { name: 'Analytics', route: '/analytics', icon: '📈' },
-      { name: 'Forecasts', route: '/predictions', icon: '🔮' },
-      { name: 'Customer Success', route: '/customer-success', icon: '🎯' },
+      { name: "Revenue", route: "/reports/revenue", icon: "💰" },
+      { name: "Analytics", route: "/analytics", icon: "📈" },
+      { name: "Forecasts", route: "/predictions", icon: "🔮" },
+      { name: "Customer Success", route: "/customer-success", icon: "🎯" },
     ],
   },
   manager: {
-    title: 'Operations Dashboard',
-    subtitle: 'Team management and scheduling oversight',
-    gradient: 'from-green-600 to-green-800',
+    title: "Operations Dashboard",
+    subtitle: "Team management and scheduling oversight",
+    gradient: "from-green-600 to-green-800",
     modules: [
-      { name: 'Schedule', route: '/schedule', icon: '📅' },
-      { name: 'Team', route: '/technicians', icon: '👷' },
-      { name: 'Work Orders', route: '/work-orders', icon: '🔧' },
-      { name: 'Customers', route: '/customers', icon: '👤' },
+      { name: "Schedule", route: "/schedule", icon: "📅" },
+      { name: "Team", route: "/technicians", icon: "👷" },
+      { name: "Work Orders", route: "/work-orders", icon: "🔧" },
+      { name: "Customers", route: "/customers", icon: "👤" },
     ],
   },
   technician: {
-    title: 'Field Technician Dashboard',
-    subtitle: 'Your jobs and assignments',
-    gradient: 'from-orange-600 to-orange-800',
+    title: "Field Technician Dashboard",
+    subtitle: "Your jobs and assignments",
+    gradient: "from-orange-600 to-orange-800",
     modules: [
-      { name: 'My Jobs', route: '/my-schedule', icon: '📋' },
-      { name: 'Equipment', route: '/equipment', icon: '🔩' },
-      { name: 'Route', route: '/schedule-map', icon: '🗺️' },
-      { name: 'Time', route: '/time-tracking', icon: '⏱️' },
+      { name: "My Jobs", route: "/my-schedule", icon: "📋" },
+      { name: "Equipment", route: "/equipment", icon: "🔩" },
+      { name: "Route", route: "/schedule-map", icon: "🗺️" },
+      { name: "Time", route: "/time-tracking", icon: "⏱️" },
     ],
   },
   phone_agent: {
-    title: 'Phone Agent Dashboard',
-    subtitle: 'Customer service and scheduling',
-    gradient: 'from-cyan-600 to-cyan-800',
+    title: "Phone Agent Dashboard",
+    subtitle: "Customer service and scheduling",
+    gradient: "from-cyan-600 to-cyan-800",
     modules: [
-      { name: 'Customers', route: '/customers', icon: '👤' },
-      { name: 'Calls', route: '/calls', icon: '📞' },
-      { name: 'Schedule', route: '/schedule', icon: '📅' },
-      { name: 'Messages', route: '/communications', icon: '💬' },
+      { name: "Customers", route: "/customers", icon: "👤" },
+      { name: "Calls", route: "/calls", icon: "📞" },
+      { name: "Schedule", route: "/schedule", icon: "📅" },
+      { name: "Messages", route: "/communications", icon: "💬" },
     ],
   },
   dispatcher: {
-    title: 'Dispatch Dashboard',
-    subtitle: 'Route management and live tracking',
-    gradient: 'from-indigo-600 to-indigo-800',
+    title: "Dispatch Dashboard",
+    subtitle: "Route management and live tracking",
+    gradient: "from-indigo-600 to-indigo-800",
     modules: [
-      { name: 'Live Map', route: '/schedule-map', icon: '🗺️' },
-      { name: 'Schedule', route: '/schedule', icon: '📅' },
-      { name: 'Fleet', route: '/fleet', icon: '🚛' },
-      { name: 'Techs', route: '/technicians', icon: '👷' },
+      { name: "Live Map", route: "/schedule-map", icon: "🗺️" },
+      { name: "Schedule", route: "/schedule", icon: "📅" },
+      { name: "Fleet", route: "/fleet", icon: "🚛" },
+      { name: "Techs", route: "/technicians", icon: "👷" },
     ],
   },
   billing: {
-    title: 'Billing Dashboard',
-    subtitle: 'Invoicing and payment management',
-    gradient: 'from-emerald-600 to-emerald-800',
+    title: "Billing Dashboard",
+    subtitle: "Invoicing and payment management",
+    gradient: "from-emerald-600 to-emerald-800",
     modules: [
-      { name: 'Invoices', route: '/invoices', icon: '📄' },
-      { name: 'Payments', route: '/payments', icon: '💳' },
-      { name: 'Aging', route: '/reports/aging', icon: '📊' },
-      { name: 'Customers', route: '/customers', icon: '👤' },
+      { name: "Invoices", route: "/invoices", icon: "📄" },
+      { name: "Payments", route: "/payments", icon: "💳" },
+      { name: "Aging", route: "/reports/aging", icon: "📊" },
+      { name: "Customers", route: "/customers", icon: "👤" },
     ],
   },
 };
@@ -304,8 +307,8 @@ export function RoleDashboard() {
       {/* Role Banner */}
       <div
         className={cn(
-          'rounded-xl p-6 mb-6 text-white',
-          `bg-gradient-to-r ${roleConfig.gradient}`
+          "rounded-xl p-6 mb-6 text-white",
+          `bg-gradient-to-r ${roleConfig.gradient}`,
         )}
       >
         <div className="flex items-center gap-4 mb-4">
@@ -356,8 +359,12 @@ export function RoleDashboard() {
                   >
                     <span className="text-2xl">{action.icon}</span>
                     <div>
-                      <div className="font-medium text-text-primary">{action.label}</div>
-                      <div className="text-xs text-text-muted">{action.description}</div>
+                      <div className="font-medium text-text-primary">
+                        {action.label}
+                      </div>
+                      <div className="text-xs text-text-muted">
+                        {action.description}
+                      </div>
                     </div>
                   </Link>
                 );
@@ -373,7 +380,8 @@ export function RoleDashboard() {
           <div className="flex items-center gap-2 text-sm text-text-secondary">
             <span>💡</span>
             <span>
-              You're viewing the CRM as a <strong>{currentRole.display_name}</strong>.
+              You're viewing the CRM as a{" "}
+              <strong>{currentRole.display_name}</strong>.
               {currentRole.description && ` ${currentRole.description}`}
             </span>
           </div>

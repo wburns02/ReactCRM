@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from "react";
 
 /**
  * BeforeInstallPromptEvent interface
@@ -7,7 +7,7 @@ import { useState, useEffect, useCallback, useRef } from 'react';
 interface BeforeInstallPromptEvent extends Event {
   readonly platforms: string[];
   readonly userChoice: Promise<{
-    outcome: 'accepted' | 'dismissed';
+    outcome: "accepted" | "dismissed";
     platform: string;
   }>;
   prompt(): Promise<void>;
@@ -39,7 +39,7 @@ export interface PWAState {
   isDismissed: boolean;
 }
 
-const DISMISS_KEY = 'pwa-install-dismissed';
+const DISMISS_KEY = "pwa-install-dismissed";
 const DISMISS_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 /**
@@ -64,8 +64,9 @@ export function usePWA(): PWAState {
 
   // Check if running as installed PWA
   const isPWA =
-    window.matchMedia('(display-mode: standalone)').matches ||
-    (window.navigator as Navigator & { standalone?: boolean }).standalone === true;
+    window.matchMedia("(display-mode: standalone)").matches ||
+    (window.navigator as Navigator & { standalone?: boolean }).standalone ===
+      true;
 
   // Check if iOS
   const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -104,28 +105,34 @@ export function usePWA(): PWAState {
       deferredPromptRef.current = null;
     };
 
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    window.addEventListener('appinstalled', handleAppInstalled);
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("appinstalled", handleAppInstalled);
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-      window.removeEventListener('appinstalled', handleAppInstalled);
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handleBeforeInstallPrompt,
+      );
+      window.removeEventListener("appinstalled", handleAppInstalled);
     };
   }, []);
 
   // Check service worker status
   useEffect(() => {
-    if ('serviceWorker' in navigator) {
+    if ("serviceWorker" in navigator) {
       navigator.serviceWorker.ready.then((registration) => {
         registrationRef.current = registration;
         setIsServiceWorkerReady(true);
 
         // Check for updates
-        registration.addEventListener('updatefound', () => {
+        registration.addEventListener("updatefound", () => {
           const newWorker = registration.installing;
           if (newWorker) {
-            newWorker.addEventListener('statechange', () => {
-              if (newWorker.state === 'installed' && navigator.serviceWorker.controller) {
+            newWorker.addEventListener("statechange", () => {
+              if (
+                newWorker.state === "installed" &&
+                navigator.serviceWorker.controller
+              ) {
                 setHasUpdate(true);
               }
             });
@@ -134,7 +141,7 @@ export function usePWA(): PWAState {
       });
 
       // Listen for controller change (new service worker activated)
-      navigator.serviceWorker.addEventListener('controllerchange', () => {
+      navigator.serviceWorker.addEventListener("controllerchange", () => {
         window.location.reload();
       });
     }
@@ -150,7 +157,7 @@ export function usePWA(): PWAState {
       await deferredPromptRef.current.prompt();
       const choice = await deferredPromptRef.current.userChoice;
 
-      if (choice.outcome === 'accepted') {
+      if (choice.outcome === "accepted") {
         setIsInstalled(true);
         setIsInstallable(false);
         deferredPromptRef.current = null;
@@ -159,7 +166,7 @@ export function usePWA(): PWAState {
 
       return false;
     } catch (error) {
-      console.error('Install prompt error:', error);
+      console.error("Install prompt error:", error);
       return false;
     }
   }, []);
@@ -167,7 +174,7 @@ export function usePWA(): PWAState {
   // Update the app
   const updateApp = useCallback(() => {
     if (registrationRef.current?.waiting) {
-      registrationRef.current.waiting.postMessage({ type: 'SKIP_WAITING' });
+      registrationRef.current.waiting.postMessage({ type: "SKIP_WAITING" });
     }
   }, []);
 
@@ -201,12 +208,12 @@ export function useOnlineStatus(): boolean {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, []);
 

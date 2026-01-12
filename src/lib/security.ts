@@ -13,8 +13,8 @@
 // CSRF Protection
 // ============================================
 
-const CSRF_COOKIE_NAME = 'csrf_token';
-const CSRF_HEADER_NAME = 'X-CSRF-Token';
+const CSRF_COOKIE_NAME = "csrf_token";
+const CSRF_HEADER_NAME = "X-CSRF-Token";
 
 /**
  * Get CSRF token from cookie
@@ -22,9 +22,9 @@ const CSRF_HEADER_NAME = 'X-CSRF-Token';
  * We read it and send it in the header for state-changing requests
  */
 export function getCSRFToken(): string | null {
-  const cookies = document.cookie.split(';');
+  const cookies = document.cookie.split(";");
   for (const cookie of cookies) {
-    const [name, value] = cookie.trim().split('=');
+    const [name, value] = cookie.trim().split("=");
     if (name === CSRF_COOKIE_NAME) {
       return decodeURIComponent(value);
     }
@@ -36,7 +36,7 @@ export function getCSRFToken(): string | null {
  * Check if request method requires CSRF protection
  */
 export function requiresCSRF(method: string): boolean {
-  const safeMethods = ['GET', 'HEAD', 'OPTIONS', 'TRACE'];
+  const safeMethods = ["GET", "HEAD", "OPTIONS", "TRACE"];
   return !safeMethods.includes(method.toUpperCase());
 }
 
@@ -62,7 +62,7 @@ interface SessionState {
   userId?: string;
 }
 
-const SESSION_KEY = 'session_state';
+const SESSION_KEY = "session_state";
 const SESSION_VALIDATION_INTERVAL = 5 * 60 * 1000; // 5 minutes
 
 /**
@@ -136,7 +136,9 @@ export function markSessionInvalid(): void {
  * Check if a specific cookie exists (not HTTP-only cookies)
  */
 export function hasCookie(name: string): boolean {
-  return document.cookie.split(';').some((c) => c.trim().startsWith(name + '='));
+  return document.cookie
+    .split(";")
+    .some((c) => c.trim().startsWith(name + "="));
 }
 
 /**
@@ -151,15 +153,18 @@ export function deleteCookie(name: string): void {
 // ============================================
 
 export type SecurityEventType =
-  | 'session:expired'
-  | 'session:invalid'
-  | 'csrf:missing'
-  | 'auth:logout';
+  | "session:expired"
+  | "session:invalid"
+  | "csrf:missing"
+  | "auth:logout";
 
 /**
  * Dispatch a security event
  */
-export function dispatchSecurityEvent(type: SecurityEventType, detail?: Record<string, unknown>): void {
+export function dispatchSecurityEvent(
+  type: SecurityEventType,
+  detail?: Record<string, unknown>,
+): void {
   window.dispatchEvent(new CustomEvent(type, { detail }));
 }
 
@@ -168,7 +173,7 @@ export function dispatchSecurityEvent(type: SecurityEventType, detail?: Record<s
  */
 export function onSecurityEvent(
   type: SecurityEventType,
-  handler: (event: CustomEvent) => void
+  handler: (event: CustomEvent) => void,
 ): () => void {
   const listener = (e: Event) => handler(e as CustomEvent);
   window.addEventListener(type, listener);
@@ -180,7 +185,7 @@ export function onSecurityEvent(
 // ============================================
 
 // Legacy token key (to be removed after migration)
-const LEGACY_TOKEN_KEY = 'auth_token';
+const LEGACY_TOKEN_KEY = "auth_token";
 
 /**
  * Check if legacy token exists (for migration)
@@ -209,9 +214,9 @@ export function clearLegacyToken(): void {
 export function cleanupLegacyAuth(): void {
   localStorage.removeItem(LEGACY_TOKEN_KEY);
   // Also clear any other legacy keys
-  localStorage.removeItem('token');
-  localStorage.removeItem('jwt');
-  localStorage.removeItem('access_token');
+  localStorage.removeItem("token");
+  localStorage.removeItem("jwt");
+  localStorage.removeItem("access_token");
 }
 
 // ============================================
@@ -244,7 +249,7 @@ export function getSecurityHeaders(method: string): Record<string, string> {
  * Uses built-in browser APIs for basic sanitization
  */
 export function sanitizeHTML(html: string): string {
-  const div = document.createElement('div');
+  const div = document.createElement("div");
   div.textContent = html;
   return div.innerHTML;
 }
@@ -271,21 +276,26 @@ export function isSafeUrl(url: string, allowedOrigins: string[] = []): boolean {
 /**
  * Sanitize redirect URL to prevent open redirect attacks
  */
-export function sanitizeRedirectUrl(url: string, fallback = '/dashboard'): string {
+export function sanitizeRedirectUrl(
+  url: string,
+  fallback = "/dashboard",
+): string {
   // Must start with / for relative URLs
-  if (!url.startsWith('/')) {
+  if (!url.startsWith("/")) {
     return fallback;
   }
 
   // Prevent protocol-relative URLs
-  if (url.startsWith('//')) {
+  if (url.startsWith("//")) {
     return fallback;
   }
 
   // Remove any javascript: or data: schemes that might be encoded
   const decoded = decodeURIComponent(url);
-  if (decoded.toLowerCase().includes('javascript:') ||
-      decoded.toLowerCase().includes('data:')) {
+  if (
+    decoded.toLowerCase().includes("javascript:") ||
+    decoded.toLowerCase().includes("data:")
+  ) {
     return fallback;
   }
 

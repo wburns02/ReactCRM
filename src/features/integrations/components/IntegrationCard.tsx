@@ -1,7 +1,12 @@
-import { memo } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
+import { memo } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
 
 interface IntegrationCardProps {
   name: string;
@@ -42,8 +47,8 @@ export const IntegrationCard = memo(function IntegrationCard({
               <p className="text-sm text-text-secondary mt-1">{description}</p>
             </div>
           </div>
-          <Badge variant={connected ? 'success' : 'default'}>
-            {connected ? 'Connected' : 'Not Connected'}
+          <Badge variant={connected ? "success" : "default"}>
+            {connected ? "Connected" : "Not Connected"}
           </Badge>
         </div>
       </CardHeader>

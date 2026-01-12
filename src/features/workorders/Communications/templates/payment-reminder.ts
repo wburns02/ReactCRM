@@ -5,9 +5,9 @@
  */
 
 export const paymentReminderTemplate = {
-  id: 'payment-reminder',
-  name: 'Payment Reminder',
-  subject: 'Payment Reminder - Invoice {{invoice_number}}',
+  id: "payment-reminder",
+  name: "Payment Reminder",
+  subject: "Payment Reminder - Invoice {{invoice_number}}",
   smsTemplate: `Hi {{customer_first_name}}, friendly reminder: Invoice #{{invoice_number}} for {{invoice_amount}} is due {{due_date}}. Pay online: {{invoice_link}} - MAC Septic {{company_phone}}`,
   emailTemplate: `Dear {{customer_name}},
 
@@ -44,17 +44,17 @@ Best regards,
 MAC Septic Billing Department
 {{company_phone}}`,
   variables: [
-    'customer_name',
-    'customer_first_name',
-    'invoice_number',
-    'invoice_amount',
-    'due_date',
-    'days_overdue',
-    'work_order_number',
-    'service_date',
-    'service_type',
-    'invoice_link',
-    'company_phone',
+    "customer_name",
+    "customer_first_name",
+    "invoice_number",
+    "invoice_amount",
+    "due_date",
+    "days_overdue",
+    "work_order_number",
+    "service_date",
+    "service_type",
+    "invoice_link",
+    "company_phone",
   ],
 };
 

@@ -1,13 +1,16 @@
-import { create } from 'zustand';
-import { persist, devtools } from 'zustand/middleware';
-import type { WorkOrderStatus, Priority } from '@/api/types/workOrder';
-import type { SortOrder, WorkOrderFilterState } from '../utils/workOrderHelpers';
-import { DEFAULT_FILTERS } from '../utils/workOrderHelpers';
+import { create } from "zustand";
+import { persist, devtools } from "zustand/middleware";
+import type { WorkOrderStatus, Priority } from "@/api/types/workOrder";
+import type {
+  SortOrder,
+  WorkOrderFilterState,
+} from "../utils/workOrderHelpers";
+import { DEFAULT_FILTERS } from "../utils/workOrderHelpers";
 
 /**
  * View mode options for work order display
  */
-export type ViewMode = 'list' | 'kanban';
+export type ViewMode = "list" | "kanban";
 
 /**
  * Work order UI state
@@ -95,23 +98,23 @@ export type WorkOrderStore = WorkOrderUIState & WorkOrderStoreActions;
  * Default Kanban column order
  */
 const DEFAULT_KANBAN_ORDER: WorkOrderStatus[] = [
-  'draft',
-  'scheduled',
-  'confirmed',
-  'enroute',
-  'on_site',
-  'in_progress',
-  'completed',
-  'requires_followup',
-  'canceled',
+  "draft",
+  "scheduled",
+  "confirmed",
+  "enroute",
+  "on_site",
+  "in_progress",
+  "completed",
+  "requires_followup",
+  "canceled",
 ];
 
 /**
  * Default sort order
  */
 const DEFAULT_SORT_ORDER: SortOrder = {
-  field: 'scheduled_date',
-  direction: 'asc',
+  field: "scheduled_date",
+  direction: "asc",
 };
 
 /**
@@ -119,12 +122,12 @@ const DEFAULT_SORT_ORDER: SortOrder = {
  */
 const initialState: WorkOrderUIState = {
   selectedWorkOrderId: null,
-  viewMode: 'list',
+  viewMode: "list",
   filters: DEFAULT_FILTERS,
   sortOrder: DEFAULT_SORT_ORDER,
   isFilterPanelOpen: false,
   isDetailPanelOpen: false,
-  searchQuery: '',
+  searchQuery: "",
   expandedIds: new Set<string>(),
   kanbanColumnOrder: DEFAULT_KANBAN_ORDER,
 };
@@ -163,7 +166,7 @@ export const useWorkOrderStore = create<WorkOrderStore>()(
 
         toggleViewMode: () => {
           set((state) => ({
-            viewMode: state.viewMode === 'list' ? 'kanban' : 'list',
+            viewMode: state.viewMode === "list" ? "kanban" : "list",
           }));
         },
 
@@ -208,7 +211,7 @@ export const useWorkOrderStore = create<WorkOrderStore>()(
         clearFilters: () => {
           set({
             filters: DEFAULT_FILTERS,
-            searchQuery: '',
+            searchQuery: "",
           });
         },
 
@@ -220,7 +223,7 @@ export const useWorkOrderStore = create<WorkOrderStore>()(
             filters.technicianId !== null ||
             filters.dateFrom !== null ||
             filters.dateTo !== null ||
-            filters.searchQuery !== ''
+            filters.searchQuery !== ""
           );
         },
 
@@ -233,7 +236,7 @@ export const useWorkOrderStore = create<WorkOrderStore>()(
           set((state) => ({
             sortOrder: {
               ...state.sortOrder,
-              direction: state.sortOrder.direction === 'asc' ? 'desc' : 'asc',
+              direction: state.sortOrder.direction === "asc" ? "desc" : "asc",
             },
           }));
         },
@@ -291,7 +294,7 @@ export const useWorkOrderStore = create<WorkOrderStore>()(
         },
       }),
       {
-        name: 'workorder-store',
+        name: "workorder-store",
         // Only persist user preferences, not session state
         partialize: (state) => ({
           viewMode: state.viewMode,
@@ -323,10 +326,10 @@ export const useWorkOrderStore = create<WorkOrderStore>()(
           },
           removeItem: (name) => localStorage.removeItem(name),
         },
-      }
+      },
     ),
-    { name: 'WorkOrderStore' }
-  )
+    { name: "WorkOrderStore" },
+  ),
 );
 
 /**

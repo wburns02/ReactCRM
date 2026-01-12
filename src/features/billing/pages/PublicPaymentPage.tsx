@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { useParams } from 'react-router-dom';
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useState } from "react";
+import { useParams } from "react-router-dom";
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 /**
  * Public Payment Page - No Authentication Required
@@ -9,11 +9,15 @@ import { apiClient } from '@/api/client';
  */
 export function PublicPaymentPage() {
   const { token } = useParams<{ token: string }>();
-  const [email, setEmail] = useState('');
+  const [email, setEmail] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
 
-  const { data: paymentLink, isLoading, error } = useQuery({
-    queryKey: ['payment-link', token],
+  const {
+    data: paymentLink,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["payment-link", token],
     queryFn: async () => {
       const response = await apiClient.get(`/pay/${token}`);
       return response.data;
@@ -47,21 +51,26 @@ export function PublicPaymentPage() {
       <div className="min-h-screen bg-bg-body flex items-center justify-center p-4">
         <div className="max-w-md w-full bg-bg-card border border-border rounded-lg p-8 text-center">
           <span className="text-5xl block mb-4">❌</span>
-          <h1 className="text-xl font-semibold text-text-primary mb-2">Invalid Payment Link</h1>
+          <h1 className="text-xl font-semibold text-text-primary mb-2">
+            Invalid Payment Link
+          </h1>
           <p className="text-text-muted">
-            This payment link is invalid or has expired. Please contact the business for a new link.
+            This payment link is invalid or has expired. Please contact the
+            business for a new link.
           </p>
         </div>
       </div>
     );
   }
 
-  if (paymentLink.status === 'paid') {
+  if (paymentLink.status === "paid") {
     return (
       <div className="min-h-screen bg-bg-body flex items-center justify-center p-4">
         <div className="max-w-md w-full bg-bg-card border border-border rounded-lg p-8 text-center">
           <span className="text-5xl block mb-4">✅</span>
-          <h1 className="text-xl font-semibold text-success mb-2">Payment Complete</h1>
+          <h1 className="text-xl font-semibold text-success mb-2">
+            Payment Complete
+          </h1>
           <p className="text-text-muted mb-4">
             Thank you! Your payment has been processed successfully.
           </p>
@@ -79,7 +88,9 @@ export function PublicPaymentPage() {
         {/* Company Header */}
         <div className="text-center mb-6">
           <span className="text-4xl block mb-2">🚽</span>
-          <h1 className="text-xl font-semibold text-text-primary">MAC Septic</h1>
+          <h1 className="text-xl font-semibold text-text-primary">
+            MAC Septic
+          </h1>
           <p className="text-text-muted">Secure Online Payment</p>
         </div>
 
@@ -90,12 +101,14 @@ export function PublicPaymentPage() {
             <div className="flex justify-between items-start mb-4">
               <div>
                 <p className="text-sm text-text-muted">Invoice</p>
-                <p className="font-medium text-text-primary">#{paymentLink.invoice_number}</p>
+                <p className="font-medium text-text-primary">
+                  #{paymentLink.invoice_number}
+                </p>
               </div>
               <div className="text-right">
                 <p className="text-sm text-text-muted">Amount Due</p>
                 <p className="text-2xl font-bold text-primary">
-                  ${paymentLink.amount?.toLocaleString() || '0'}
+                  ${paymentLink.amount?.toLocaleString() || "0"}
                 </p>
               </div>
             </div>
@@ -103,18 +116,24 @@ export function PublicPaymentPage() {
             <div className="space-y-2">
               <div className="flex justify-between text-sm">
                 <span className="text-text-muted">Customer</span>
-                <span className="text-text-primary">{paymentLink.customer_name}</span>
+                <span className="text-text-primary">
+                  {paymentLink.customer_name}
+                </span>
               </div>
               {paymentLink.description && (
                 <div className="flex justify-between text-sm">
                   <span className="text-text-muted">Description</span>
-                  <span className="text-text-primary">{paymentLink.description}</span>
+                  <span className="text-text-primary">
+                    {paymentLink.description}
+                  </span>
                 </div>
               )}
               {paymentLink.expires_at && (
                 <div className="flex justify-between text-sm">
                   <span className="text-text-muted">Expires</span>
-                  <span className="text-text-primary">{paymentLink.expires_at}</span>
+                  <span className="text-text-primary">
+                    {paymentLink.expires_at}
+                  </span>
                 </div>
               )}
             </div>
@@ -150,12 +169,15 @@ export function PublicPaymentPage() {
               disabled={isProcessing || !email}
               className="w-full py-3 bg-primary text-white rounded-lg font-medium disabled:opacity-50"
             >
-              {isProcessing ? 'Processing...' : `Pay $${paymentLink.amount?.toLocaleString() || '0'}`}
+              {isProcessing
+                ? "Processing..."
+                : `Pay $${paymentLink.amount?.toLocaleString() || "0"}`}
             </button>
 
             <p className="text-xs text-text-muted text-center mt-4">
               <span className="mr-1">🔒</span>
-              Payments are securely processed. Your card information is never stored.
+              Payments are securely processed. Your card information is never
+              stored.
             </p>
           </div>
         </div>

@@ -1,13 +1,13 @@
-import { memo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Card } from '@/components/ui/Card.tsx';
-import { formatPhone } from '@/lib/utils.ts';
-import { useIsMobileOrTablet } from '@/hooks/useMediaQuery';
-import { PROSPECT_STAGE_LABELS } from '@/api/types/common.ts';
-import { CUSTOMER_TYPE_LABELS } from '@/api/types/customer.ts';
-import type { Customer } from '@/api/types/customer.ts';
+import { memo, useCallback } from "react";
+import { Link } from "react-router-dom";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Card } from "@/components/ui/Card.tsx";
+import { formatPhone } from "@/lib/utils.ts";
+import { useIsMobileOrTablet } from "@/hooks/useMediaQuery";
+import { PROSPECT_STAGE_LABELS } from "@/api/types/common.ts";
+import { CUSTOMER_TYPE_LABELS } from "@/api/types/customer.ts";
+import type { Customer } from "@/api/types/customer.ts";
 
 /**
  * Props for memoized row components
@@ -38,11 +38,12 @@ const MobileCustomerCard = memo(function MobileCustomerCard({
         <div className="ml-2">
           {customer.prospect_stage ? (
             <Badge variant="stage" stage={customer.prospect_stage}>
-              {PROSPECT_STAGE_LABELS[customer.prospect_stage] || customer.prospect_stage}
+              {PROSPECT_STAGE_LABELS[customer.prospect_stage] ||
+                customer.prospect_stage}
             </Badge>
           ) : (
-            <Badge variant={customer.is_active ? 'success' : 'default'}>
-              {customer.is_active ? 'Active' : 'Inactive'}
+            <Badge variant={customer.is_active ? "success" : "default"}>
+              {customer.is_active ? "Active" : "Inactive"}
             </Badge>
           )}
         </div>
@@ -53,7 +54,7 @@ const MobileCustomerCard = memo(function MobileCustomerCard({
           <div className="flex items-center gap-2">
             <span className="text-text-muted">📧</span>
             <a
-              href={'mailto:' + customer.email}
+              href={"mailto:" + customer.email}
               className="text-text-link hover:underline truncate"
             >
               {customer.email}
@@ -63,10 +64,7 @@ const MobileCustomerCard = memo(function MobileCustomerCard({
         {customer.phone && (
           <div className="flex items-center gap-2">
             <span className="text-text-muted">📱</span>
-            <a
-              href={'tel:' + customer.phone}
-              className="text-text-secondary"
-            >
+            <a href={"tel:" + customer.phone} className="text-text-secondary">
               {formatPhone(customer.phone)}
             </a>
           </div>
@@ -76,7 +74,7 @@ const MobileCustomerCard = memo(function MobileCustomerCard({
             <span className="text-text-muted">📍</span>
             <span className="text-text-secondary">
               {customer.city && customer.state
-                ? customer.city + ', ' + customer.state
+                ? customer.city + ", " + customer.state
                 : customer.city || customer.state}
             </span>
           </div>
@@ -85,8 +83,9 @@ const MobileCustomerCard = memo(function MobileCustomerCard({
           <div className="flex items-center gap-2">
             <span className="text-text-muted">🏷️</span>
             <span className="text-text-secondary">
-              {CUSTOMER_TYPE_LABELS[customer.customer_type as keyof typeof CUSTOMER_TYPE_LABELS] ||
-                customer.customer_type}
+              {CUSTOMER_TYPE_LABELS[
+                customer.customer_type as keyof typeof CUSTOMER_TYPE_LABELS
+              ] || customer.customer_type}
             </span>
           </div>
         )}
@@ -132,53 +131,56 @@ const TableCustomerRow = memo(function TableCustomerRow({
   onDelete,
 }: CustomerRowProps) {
   return (
-    <tr
-      className="hover:bg-bg-hover transition-colors"
-      tabIndex={0}
-    >
+    <tr className="hover:bg-bg-hover transition-colors" tabIndex={0}>
       <td className="px-4 py-3">
         <div>
           <p className="font-medium text-text-primary">
             {customer.first_name} {customer.last_name}
           </p>
-          <p className="text-sm text-text-secondary">
-            ID: {customer.id}
-          </p>
+          <p className="text-sm text-text-secondary">ID: {customer.id}</p>
         </div>
       </td>
       <td className="px-4 py-3">
         <div className="text-sm">
           {customer.email && (
             <a
-              href={'mailto:' + customer.email}
+              href={"mailto:" + customer.email}
               className="text-text-link hover:underline block"
             >
               {customer.email}
             </a>
           )}
           {customer.phone && (
-            <span className="text-text-secondary">{formatPhone(customer.phone)}</span>
+            <span className="text-text-secondary">
+              {formatPhone(customer.phone)}
+            </span>
           )}
         </div>
       </td>
       <td className="px-4 py-3 text-sm text-text-secondary">
         {customer.city && customer.state
-          ? customer.city + ', ' + customer.state
-          : customer.city || customer.state || '-'}
+          ? customer.city + ", " + customer.state
+          : customer.city || customer.state || "-"}
       </td>
       <td className="px-4 py-3 text-sm">
-        {customer.customer_type && CUSTOMER_TYPE_LABELS[customer.customer_type as keyof typeof CUSTOMER_TYPE_LABELS]
-          ? CUSTOMER_TYPE_LABELS[customer.customer_type as keyof typeof CUSTOMER_TYPE_LABELS]
-          : customer.customer_type || '-'}
+        {customer.customer_type &&
+        CUSTOMER_TYPE_LABELS[
+          customer.customer_type as keyof typeof CUSTOMER_TYPE_LABELS
+        ]
+          ? CUSTOMER_TYPE_LABELS[
+              customer.customer_type as keyof typeof CUSTOMER_TYPE_LABELS
+            ]
+          : customer.customer_type || "-"}
       </td>
       <td className="px-4 py-3">
         {customer.prospect_stage ? (
           <Badge variant="stage" stage={customer.prospect_stage}>
-            {PROSPECT_STAGE_LABELS[customer.prospect_stage] || customer.prospect_stage}
+            {PROSPECT_STAGE_LABELS[customer.prospect_stage] ||
+              customer.prospect_stage}
           </Badge>
         ) : (
-          <Badge variant={customer.is_active ? 'success' : 'default'}>
-            {customer.is_active ? 'Active' : 'Inactive'}
+          <Badge variant={customer.is_active ? "success" : "default"}>
+            {customer.is_active ? "Active" : "Inactive"}
           </Badge>
         )}
       </td>
@@ -188,7 +190,9 @@ const TableCustomerRow = memo(function TableCustomerRow({
             <Button
               variant="ghost"
               size="sm"
-              aria-label={'View ' + customer.first_name + ' ' + customer.last_name}
+              aria-label={
+                "View " + customer.first_name + " " + customer.last_name
+              }
             >
               View
             </Button>
@@ -198,7 +202,9 @@ const TableCustomerRow = memo(function TableCustomerRow({
               variant="ghost"
               size="sm"
               onClick={() => onEdit(customer)}
-              aria-label={'Edit ' + customer.first_name + ' ' + customer.last_name}
+              aria-label={
+                "Edit " + customer.first_name + " " + customer.last_name
+              }
             >
               Edit
             </Button>
@@ -208,7 +214,9 @@ const TableCustomerRow = memo(function TableCustomerRow({
               variant="ghost"
               size="sm"
               onClick={() => onDelete(customer)}
-              aria-label={'Delete ' + customer.first_name + ' ' + customer.last_name}
+              aria-label={
+                "Delete " + customer.first_name + " " + customer.last_name
+              }
               className="text-danger hover:text-danger"
             >
               Delete
@@ -250,8 +258,14 @@ export function CustomersList({
   const isMobileOrTablet = useIsMobileOrTablet();
 
   // Memoized callbacks for child components - must be called before any conditional returns
-  const handleEdit = useCallback((customer: Customer) => onEdit?.(customer), [onEdit]);
-  const handleDelete = useCallback((customer: Customer) => onDelete?.(customer), [onDelete]);
+  const handleEdit = useCallback(
+    (customer: Customer) => onEdit?.(customer),
+    [onEdit],
+  );
+  const handleDelete = useCallback(
+    (customer: Customer) => onDelete?.(customer),
+    [onDelete],
+  );
 
   if (isLoading) {
     return <LoadingSkeleton isMobile={isMobileOrTablet} />;
@@ -261,8 +275,12 @@ export function CustomersList({
     return (
       <div className="text-center py-12">
         <div className="text-4xl mb-4">👥</div>
-        <h3 className="text-lg font-medium text-text-primary mb-2">No customers found</h3>
-        <p className="text-text-secondary">Try adjusting your filters or add a new customer.</p>
+        <h3 className="text-lg font-medium text-text-primary mb-2">
+          No customers found
+        </h3>
+        <p className="text-text-secondary">
+          Try adjusting your filters or add a new customer.
+        </p>
       </div>
     );
   }
@@ -323,22 +341,40 @@ export function CustomersList({
         <table className="w-full" role="grid" aria-label="Customers list">
           <thead>
             <tr className="border-b border-border bg-bg-muted">
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Name
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Contact
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Location
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Type
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Status
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Actions
               </th>
             </tr>

@@ -1,6 +1,6 @@
-import { useRef, type ReactNode, type CSSProperties } from 'react';
-import { useVirtualizer, type VirtualItem } from '@tanstack/react-virtual';
-import { cn } from '@/lib/utils';
+import { useRef, type ReactNode, type CSSProperties } from "react";
+import { useVirtualizer, type VirtualItem } from "@tanstack/react-virtual";
+import { cn } from "@/lib/utils";
 
 /**
  * VirtualList - Efficient rendering of large lists
@@ -27,9 +27,9 @@ interface VirtualListProps<T> {
   /** Key extractor for items */
   getItemKey?: (item: T, index: number) => string | number;
   /** Accessible label for the list */
-  'aria-label'?: string;
+  "aria-label"?: string;
   /** Role for list items (default: listitem) */
-  itemRole?: 'listitem' | 'option' | 'row';
+  itemRole?: "listitem" | "option" | "row";
 }
 
 export function VirtualList<T>({
@@ -37,12 +37,12 @@ export function VirtualList<T>({
   estimatedItemHeight,
   renderItem,
   overscan = 5,
-  height = '100%',
+  height = "100%",
   className,
   emptyState,
   getItemKey,
-  'aria-label': ariaLabel,
-  itemRole = 'listitem',
+  "aria-label": ariaLabel,
+  itemRole = "listitem",
 }: VirtualListProps<T>) {
   const parentRef = useRef<HTMLDivElement>(null);
 
@@ -63,12 +63,12 @@ export function VirtualList<T>({
   const virtualItems = virtualizer.getVirtualItems();
 
   // Determine container role based on item role
-  const containerRole = itemRole === 'option' ? 'listbox' : 'list';
+  const containerRole = itemRole === "option" ? "listbox" : "list";
 
   return (
     <div
       ref={parentRef}
-      className={cn('overflow-auto', className)}
+      className={cn("overflow-auto", className)}
       style={{ height }}
       role={containerRole}
       aria-label={ariaLabel}
@@ -82,17 +82,17 @@ export function VirtualList<T>({
       <div
         style={{
           height: `${virtualizer.getTotalSize()}px`,
-          width: '100%',
-          position: 'relative',
+          width: "100%",
+          position: "relative",
         }}
       >
         {virtualItems.map((virtualItem: VirtualItem) => {
           const item = items[virtualItem.index];
           const style: CSSProperties = {
-            position: 'absolute',
+            position: "absolute",
             top: 0,
             left: 0,
-            width: '100%',
+            width: "100%",
             height: `${virtualItem.size}px`,
             transform: `translateY(${virtualItem.start}px)`,
           };
@@ -139,7 +139,7 @@ interface VirtualTableProps<T> {
   /** Key extractor */
   getRowKey?: (item: T, index: number) => string | number;
   /** Accessible label for the table */
-  'aria-label'?: string;
+  "aria-label"?: string;
   /** Caption for the table */
   caption?: string;
 }
@@ -155,7 +155,7 @@ export function VirtualTable<T>({
   emptyState,
   onRowClick,
   getRowKey,
-  'aria-label': ariaLabel,
+  "aria-label": ariaLabel,
   caption,
 }: VirtualTableProps<T>) {
   const parentRef = useRef<HTMLDivElement>(null);
@@ -178,7 +178,10 @@ export function VirtualTable<T>({
 
   return (
     <div
-      className={cn('overflow-hidden border border-border rounded-lg', className)}
+      className={cn(
+        "overflow-hidden border border-border rounded-lg",
+        className,
+      )}
       role="table"
       aria-label={ariaLabel}
       aria-rowcount={items.length + 1} // +1 for header row
@@ -200,7 +203,10 @@ export function VirtualTable<T>({
               role="columnheader"
               aria-colindex={colIndex + 1}
               className="px-4 py-3 text-left text-sm font-medium text-text-primary"
-              style={{ width: header.width || 'auto', flex: header.width ? 'none' : 1 }}
+              style={{
+                width: header.width || "auto",
+                flex: header.width ? "none" : 1,
+              }}
             >
               {header.label}
             </div>
@@ -219,8 +225,8 @@ export function VirtualTable<T>({
         <div
           style={{
             height: `${virtualizer.getTotalSize()}px`,
-            width: '100%',
-            position: 'relative',
+            width: "100%",
+            position: "relative",
           }}
         >
           {virtualRows.map((virtualRow: VirtualItem) => {
@@ -233,21 +239,22 @@ export function VirtualTable<T>({
                 aria-rowindex={rowIndex}
                 tabIndex={onRowClick ? 0 : undefined}
                 className={cn(
-                  'flex border-b border-border last:border-b-0',
-                  onRowClick && 'cursor-pointer hover:bg-bg-hover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset',
-                  virtualRow.index % 2 === 0 ? 'bg-bg-card' : 'bg-bg-body'
+                  "flex border-b border-border last:border-b-0",
+                  onRowClick &&
+                    "cursor-pointer hover:bg-bg-hover focus:outline-none focus:ring-2 focus:ring-primary focus:ring-inset",
+                  virtualRow.index % 2 === 0 ? "bg-bg-card" : "bg-bg-body",
                 )}
                 style={{
-                  position: 'absolute',
+                  position: "absolute",
                   top: 0,
                   left: 0,
-                  width: '100%',
+                  width: "100%",
                   height: `${virtualRow.size}px`,
                   transform: `translateY(${virtualRow.start}px)`,
                 }}
                 onClick={() => onRowClick?.(item, virtualRow.index)}
                 onKeyDown={(e) => {
-                  if (onRowClick && (e.key === 'Enter' || e.key === ' ')) {
+                  if (onRowClick && (e.key === "Enter" || e.key === " ")) {
                     e.preventDefault();
                     onRowClick(item, virtualRow.index);
                   }
@@ -259,7 +266,10 @@ export function VirtualTable<T>({
                     role="cell"
                     aria-colindex={colIndex + 1}
                     className="px-4 py-3 text-sm text-text-secondary truncate"
-                    style={{ width: header.width || 'auto', flex: header.width ? 'none' : 1 }}
+                    style={{
+                      width: header.width || "auto",
+                      flex: header.width ? "none" : 1,
+                    }}
                   >
                     {renderCell(item, header.key, virtualRow.index)}
                   </div>

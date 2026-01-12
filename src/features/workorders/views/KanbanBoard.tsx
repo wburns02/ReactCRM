@@ -1,6 +1,6 @@
-import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 interface WorkOrder {
   id: number;
@@ -18,11 +18,11 @@ interface WorkOrder {
  */
 export function KanbanBoard() {
   const { data: workOrders, isLoading } = useQuery({
-    queryKey: ['work-orders-kanban'],
+    queryKey: ["work-orders-kanban"],
     queryFn: async () => {
       try {
-        const response = await apiClient.get('/work-orders/', {
-          params: { limit: 100 }
+        const response = await apiClient.get("/work-orders/", {
+          params: { limit: 100 },
         });
         return response.data.items || response.data || [];
       } catch {
@@ -32,24 +32,30 @@ export function KanbanBoard() {
   });
 
   const columns = [
-    { id: 'scheduled', label: 'Scheduled', color: 'border-info' },
-    { id: 'dispatched', label: 'Dispatched', color: 'border-warning' },
-    { id: 'in_progress', label: 'In Progress', color: 'border-primary' },
-    { id: 'completed', label: 'Completed', color: 'border-success' },
+    { id: "scheduled", label: "Scheduled", color: "border-info" },
+    { id: "dispatched", label: "Dispatched", color: "border-warning" },
+    { id: "in_progress", label: "In Progress", color: "border-primary" },
+    { id: "completed", label: "Completed", color: "border-success" },
   ];
 
   const getColumnOrders = (status: string) => {
-    return workOrders?.filter((wo: WorkOrder) =>
-      wo.status?.toLowerCase() === status.toLowerCase()
-    ) || [];
+    return (
+      workOrders?.filter(
+        (wo: WorkOrder) => wo.status?.toLowerCase() === status.toLowerCase(),
+      ) || []
+    );
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority?.toLowerCase()) {
-      case 'high': return 'bg-danger/20 text-danger';
-      case 'urgent': return 'bg-danger text-white';
-      case 'medium': return 'bg-warning/20 text-warning';
-      default: return 'bg-text-muted/20 text-text-muted';
+      case "high":
+        return "bg-danger/20 text-danger";
+      case "urgent":
+        return "bg-danger text-white";
+      case "medium":
+        return "bg-warning/20 text-warning";
+      default:
+        return "bg-text-muted/20 text-text-muted";
     }
   };
 
@@ -58,7 +64,9 @@ export function KanbanBoard() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-text-primary">Work Orders Board</h1>
+          <h1 className="text-2xl font-semibold text-text-primary">
+            Work Orders Board
+          </h1>
           <p className="text-text-muted">Kanban view of work order status</p>
         </div>
         <div className="flex gap-2">
@@ -100,7 +108,9 @@ export function KanbanBoard() {
                 {/* Column Header */}
                 <div className="p-3 border-b border-border">
                   <div className="flex items-center justify-between">
-                    <h3 className="font-medium text-text-primary">{column.label}</h3>
+                    <h3 className="font-medium text-text-primary">
+                      {column.label}
+                    </h3>
                     <span className="px-2 py-0.5 bg-bg-hover rounded-full text-sm text-text-muted">
                       {orders.length}
                     </span>
@@ -121,9 +131,13 @@ export function KanbanBoard() {
                         className="block p-3 bg-bg-body border border-border rounded-lg hover:border-primary transition-colors"
                       >
                         <div className="flex items-start justify-between mb-2">
-                          <span className="text-xs text-text-muted">#{wo.id}</span>
+                          <span className="text-xs text-text-muted">
+                            #{wo.id}
+                          </span>
                           {wo.priority && (
-                            <span className={`px-1.5 py-0.5 rounded text-xs ${getPriorityColor(wo.priority)}`}>
+                            <span
+                              className={`px-1.5 py-0.5 rounded text-xs ${getPriorityColor(wo.priority)}`}
+                            >
                               {wo.priority}
                             </span>
                           )}
@@ -131,11 +145,15 @@ export function KanbanBoard() {
                         <h4 className="font-medium text-text-primary text-sm mb-1">
                           {wo.customer_name}
                         </h4>
-                        <p className="text-xs text-text-muted mb-2">{wo.service_type}</p>
+                        <p className="text-xs text-text-muted mb-2">
+                          {wo.service_type}
+                        </p>
                         <div className="flex items-center justify-between text-xs text-text-muted">
                           <span>{wo.scheduled_date}</span>
                           {wo.technician_name && (
-                            <span className="truncate ml-2">{wo.technician_name}</span>
+                            <span className="truncate ml-2">
+                              {wo.technician_name}
+                            </span>
                           )}
                         </div>
                       </Link>

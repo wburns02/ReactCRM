@@ -1,10 +1,10 @@
-import { apiClient } from './client';
+import { apiClient } from "./client";
 import {
   addToSyncQueue,
   getSyncQueueOrdered,
   type SyncQueueItem,
-} from '@/lib/db';
-import type { AxiosRequestConfig, AxiosResponse } from 'axios';
+} from "@/lib/db";
+import type { AxiosRequestConfig, AxiosResponse } from "axios";
 
 // ============================================
 // Types
@@ -12,9 +12,9 @@ import type { AxiosRequestConfig, AxiosResponse } from 'axios';
 
 export interface OfflineRequestOptions {
   /** Entity type for the request (used for sync queue categorization) */
-  entity: SyncQueueItem['entity'];
+  entity: SyncQueueItem["entity"];
   /** Operation type */
-  type: SyncQueueItem['type'];
+  type: SyncQueueItem["type"];
   /** Priority (lower = higher priority, default 10) */
   priority?: number;
   /** Whether to queue when offline (default true for mutations) */
@@ -46,10 +46,10 @@ export const offlineClient = {
    */
   async get<T = unknown>(
     url: string,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<AxiosResponse<T>> {
     if (!navigator.onLine) {
-      throw new OfflineError('Cannot fetch data while offline');
+      throw new OfflineError("Cannot fetch data while offline");
     }
     return apiClient.get<T>(url, config);
   },
@@ -61,7 +61,7 @@ export const offlineClient = {
     url: string,
     data?: unknown,
     options?: OfflineRequestOptions,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<OfflineAwareResponse<T>> {
     if (navigator.onLine) {
       const response = await apiClient.post<T>(url, data, config);
@@ -69,11 +69,11 @@ export const offlineClient = {
     }
 
     if (options?.queueWhenOffline === false) {
-      throw new OfflineError('Cannot create while offline');
+      throw new OfflineError("Cannot create while offline");
     }
 
     // Queue for later sync
-    const queueId = await queueRequest(url, 'POST', data, options);
+    const queueId = await queueRequest(url, "POST", data, options);
 
     return {
       data: (options?.optimisticResponse ?? data) as T,
@@ -89,7 +89,7 @@ export const offlineClient = {
     url: string,
     data?: unknown,
     options?: OfflineRequestOptions,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<OfflineAwareResponse<T>> {
     if (navigator.onLine) {
       const response = await apiClient.put<T>(url, data, config);
@@ -97,10 +97,10 @@ export const offlineClient = {
     }
 
     if (options?.queueWhenOffline === false) {
-      throw new OfflineError('Cannot update while offline');
+      throw new OfflineError("Cannot update while offline");
     }
 
-    const queueId = await queueRequest(url, 'PUT', data, options);
+    const queueId = await queueRequest(url, "PUT", data, options);
 
     return {
       data: (options?.optimisticResponse ?? data) as T,
@@ -116,7 +116,7 @@ export const offlineClient = {
     url: string,
     data?: unknown,
     options?: OfflineRequestOptions,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<OfflineAwareResponse<T>> {
     if (navigator.onLine) {
       const response = await apiClient.patch<T>(url, data, config);
@@ -124,10 +124,10 @@ export const offlineClient = {
     }
 
     if (options?.queueWhenOffline === false) {
-      throw new OfflineError('Cannot update while offline');
+      throw new OfflineError("Cannot update while offline");
     }
 
-    const queueId = await queueRequest(url, 'PATCH', data, options);
+    const queueId = await queueRequest(url, "PATCH", data, options);
 
     return {
       data: (options?.optimisticResponse ?? data) as T,
@@ -142,7 +142,7 @@ export const offlineClient = {
   async delete<T = unknown>(
     url: string,
     options?: OfflineRequestOptions,
-    config?: AxiosRequestConfig
+    config?: AxiosRequestConfig,
   ): Promise<OfflineAwareResponse<T>> {
     if (navigator.onLine) {
       const response = await apiClient.delete<T>(url, config);
@@ -150,10 +150,10 @@ export const offlineClient = {
     }
 
     if (options?.queueWhenOffline === false) {
-      throw new OfflineError('Cannot delete while offline');
+      throw new OfflineError("Cannot delete while offline");
     }
 
-    const queueId = await queueRequest(url, 'DELETE', null, options);
+    const queueId = await queueRequest(url, "DELETE", null, options);
 
     return {
       data: (options?.optimisticResponse ?? { success: true }) as T,
@@ -169,14 +169,14 @@ export const offlineClient = {
 
 async function queueRequest(
   url: string,
-  method: 'POST' | 'PUT' | 'PATCH' | 'DELETE',
+  method: "POST" | "PUT" | "PATCH" | "DELETE",
   data: unknown,
-  options?: OfflineRequestOptions
+  options?: OfflineRequestOptions,
 ): Promise<string> {
   const entity = options?.entity ?? inferEntityFromUrl(url);
   const type = options?.type ?? inferTypeFromMethod(method);
 
-  const queueItem: Omit<SyncQueueItem, 'id' | 'timestamp' | 'retries'> = {
+  const queueItem: Omit<SyncQueueItem, "id" | "timestamp" | "retries"> = {
     entity,
     type,
     data,
@@ -188,31 +188,31 @@ async function queueRequest(
   return addToSyncQueue(queueItem);
 }
 
-function inferEntityFromUrl(url: string): SyncQueueItem['entity'] {
+function inferEntityFromUrl(url: string): SyncQueueItem["entity"] {
   const normalizedUrl = url.toLowerCase();
 
-  if (normalizedUrl.includes('/customers')) return 'customer';
-  if (normalizedUrl.includes('/work-orders')) return 'workOrder';
-  if (normalizedUrl.includes('/invoices')) return 'invoice';
-  if (normalizedUrl.includes('/payments')) return 'payment';
-  if (normalizedUrl.includes('/prospects')) return 'prospect';
-  if (normalizedUrl.includes('/activities')) return 'activity';
+  if (normalizedUrl.includes("/customers")) return "customer";
+  if (normalizedUrl.includes("/work-orders")) return "workOrder";
+  if (normalizedUrl.includes("/invoices")) return "invoice";
+  if (normalizedUrl.includes("/payments")) return "payment";
+  if (normalizedUrl.includes("/prospects")) return "prospect";
+  if (normalizedUrl.includes("/activities")) return "activity";
 
   // Default to customer if can't infer
-  return 'customer';
+  return "customer";
 }
 
-function inferTypeFromMethod(method: string): SyncQueueItem['type'] {
+function inferTypeFromMethod(method: string): SyncQueueItem["type"] {
   switch (method) {
-    case 'POST':
-      return 'create';
-    case 'PUT':
-    case 'PATCH':
-      return 'update';
-    case 'DELETE':
-      return 'delete';
+    case "POST":
+      return "create";
+    case "PUT":
+    case "PATCH":
+      return "update";
+    case "DELETE":
+      return "delete";
     default:
-      return 'update';
+      return "update";
   }
 }
 
@@ -223,9 +223,9 @@ function inferTypeFromMethod(method: string): SyncQueueItem['type'] {
 export class OfflineError extends Error {
   readonly isOfflineError = true;
 
-  constructor(message: string = 'Operation unavailable while offline') {
+  constructor(message: string = "Operation unavailable while offline") {
     super(message);
-    this.name = 'OfflineError';
+    this.name = "OfflineError";
   }
 }
 
@@ -233,8 +233,10 @@ export class OfflineError extends Error {
  * Type guard for OfflineError
  */
 export function isOfflineError(error: unknown): error is OfflineError {
-  return error instanceof OfflineError ||
-    (error instanceof Error && (error as OfflineError).isOfflineError === true);
+  return (
+    error instanceof OfflineError ||
+    (error instanceof Error && (error as OfflineError).isOfflineError === true)
+  );
 }
 
 // ============================================
@@ -247,8 +249,8 @@ export function isOfflineError(error: unknown): error is OfflineError {
 export async function createWithOfflineSupport<T, R = T>(
   endpoint: string,
   data: T,
-  entity: SyncQueueItem['entity'],
-  optimisticId?: string
+  entity: SyncQueueItem["entity"],
+  optimisticId?: string,
 ): Promise<OfflineAwareResponse<R>> {
   const optimisticResponse = optimisticId
     ? { ...data, id: optimisticId, _isOptimistic: true }
@@ -256,7 +258,7 @@ export async function createWithOfflineSupport<T, R = T>(
 
   return offlineClient.post<R>(endpoint, data, {
     entity,
-    type: 'create',
+    type: "create",
     optimisticResponse,
     priority: 5, // Higher priority for creates
   });
@@ -269,8 +271,8 @@ export async function updateWithOfflineSupport<T, R = T>(
   endpoint: string,
   id: string | number,
   data: Partial<T>,
-  entity: SyncQueueItem['entity'],
-  currentData?: T
+  entity: SyncQueueItem["entity"],
+  currentData?: T,
 ): Promise<OfflineAwareResponse<R>> {
   const optimisticResponse = currentData
     ? { ...currentData, ...data, _isOptimistic: true }
@@ -278,7 +280,7 @@ export async function updateWithOfflineSupport<T, R = T>(
 
   return offlineClient.patch<R>(`${endpoint}/${id}`, data, {
     entity,
-    type: 'update',
+    type: "update",
     optimisticResponse,
     priority: 10,
   });
@@ -290,11 +292,11 @@ export async function updateWithOfflineSupport<T, R = T>(
 export async function deleteWithOfflineSupport<R = { success: boolean }>(
   endpoint: string,
   id: string | number,
-  entity: SyncQueueItem['entity']
+  entity: SyncQueueItem["entity"],
 ): Promise<OfflineAwareResponse<R>> {
   return offlineClient.delete<R>(`${endpoint}/${id}`, {
     entity,
-    type: 'delete',
+    type: "delete",
     optimisticResponse: { success: true, id },
     priority: 15, // Lower priority for deletes
   });
@@ -308,12 +310,12 @@ export async function deleteWithOfflineSupport<R = { success: boolean }>(
  * Get pending operations for a specific entity
  */
 export async function getPendingOperations(
-  entity?: SyncQueueItem['entity']
+  entity?: SyncQueueItem["entity"],
 ): Promise<SyncQueueItem[]> {
   const queue = await getSyncQueueOrdered();
 
   if (entity) {
-    return queue.filter(item => item.entity === entity);
+    return queue.filter((item) => item.entity === entity);
   }
 
   return queue;
@@ -323,7 +325,7 @@ export async function getPendingOperations(
  * Check if there are pending operations
  */
 export async function hasPendingOperations(
-  entity?: SyncQueueItem['entity']
+  entity?: SyncQueueItem["entity"],
 ): Promise<boolean> {
   const pending = await getPendingOperations(entity);
   return pending.length > 0;
@@ -332,7 +334,9 @@ export async function hasPendingOperations(
 /**
  * Get count of pending operations by entity
  */
-export async function getPendingOperationCounts(): Promise<Record<string, number>> {
+export async function getPendingOperationCounts(): Promise<
+  Record<string, number>
+> {
   const queue = await getSyncQueueOrdered();
   const counts: Record<string, number> = {};
 

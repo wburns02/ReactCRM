@@ -1,4 +1,4 @@
-import { memo } from 'react';
+import { memo } from "react";
 
 /**
  * MetricCard - Display a key metric with optional change percentage
@@ -11,7 +11,7 @@ interface MetricCardProps {
   value: string | number;
   changePercent?: number | null;
   icon?: string;
-  format?: 'number' | 'currency' | 'percent';
+  format?: "number" | "currency" | "percent";
   className?: string;
 }
 
@@ -20,42 +20,42 @@ export const MetricCard = memo(function MetricCard({
   value,
   changePercent,
   icon,
-  format = 'number',
-  className = '',
+  format = "number",
+  className = "",
 }: MetricCardProps) {
   // Format the value based on type
   const formattedValue = (() => {
-    if (typeof value === 'string') return value;
+    if (typeof value === "string") return value;
 
     switch (format) {
-      case 'currency':
-        return new Intl.NumberFormat('en-US', {
-          style: 'currency',
-          currency: 'USD',
+      case "currency":
+        return new Intl.NumberFormat("en-US", {
+          style: "currency",
+          currency: "USD",
           minimumFractionDigits: 0,
           maximumFractionDigits: 0,
         }).format(value);
-      case 'percent':
+      case "percent":
         return `${value.toFixed(1)}%`;
       default:
-        return new Intl.NumberFormat('en-US').format(value);
+        return new Intl.NumberFormat("en-US").format(value);
     }
   })();
 
   // Determine change color and arrow
   const changeColor =
     changePercent === null || changePercent === undefined
-      ? 'text-text-muted'
+      ? "text-text-muted"
       : changePercent >= 0
-        ? 'text-success'
-        : 'text-danger';
+        ? "text-success"
+        : "text-danger";
 
   const changeArrow =
     changePercent === null || changePercent === undefined
-      ? ''
+      ? ""
       : changePercent >= 0
-        ? '↑'
-        : '↓';
+        ? "↑"
+        : "↓";
 
   return (
     <div
@@ -68,7 +68,9 @@ export const MetricCard = memo(function MetricCard({
       <div className="flex items-end justify-between">
         <p className="text-3xl font-bold text-text-primary">{formattedValue}</p>
         {changePercent !== null && changePercent !== undefined && (
-          <div className={`text-sm font-medium ${changeColor} flex items-center gap-1`}>
+          <div
+            className={`text-sm font-medium ${changeColor} flex items-center gap-1`}
+          >
             <span>{changeArrow}</span>
             <span>{Math.abs(changePercent).toFixed(1)}%</span>
           </div>

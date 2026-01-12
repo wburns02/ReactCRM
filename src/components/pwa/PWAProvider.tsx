@@ -1,7 +1,7 @@
-import type { ReactNode } from 'react';
-import { InstallPrompt } from './InstallPrompt';
-import { UpdatePrompt } from './UpdatePrompt';
-import { OfflineBanner } from './OfflineBanner';
+import type { ReactNode } from "react";
+import { InstallPrompt } from "./InstallPrompt";
+import { UpdatePrompt } from "./UpdatePrompt";
+import { OfflineBanner } from "./OfflineBanner";
 
 interface PWAProviderProps {
   children: ReactNode;

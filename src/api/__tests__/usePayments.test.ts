@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { waitFor } from '@testing-library/react';
-import { renderHookWithClient } from './test-utils';
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { waitFor } from "@testing-library/react";
+import { renderHookWithClient } from "./test-utils";
 import {
   usePayments,
   usePayment,
@@ -9,11 +9,11 @@ import {
   useDeletePayment,
   usePaymentStats,
   paymentKeys,
-} from '../hooks/usePayments';
-import { apiClient } from '../client';
+} from "../hooks/usePayments";
+import { apiClient } from "../client";
 
 // Mock the API client
-vi.mock('../client', () => ({
+vi.mock("../client", () => ({
   apiClient: {
     get: vi.fn(),
     post: vi.fn(),
@@ -23,18 +23,18 @@ vi.mock('../client', () => ({
 }));
 
 const mockPayment = {
-  id: 'pay-123',
-  invoice_id: 'inv-456',
-  customer_id: '789',
-  customer_name: 'John Doe',
+  id: "pay-123",
+  invoice_id: "inv-456",
+  customer_id: "789",
+  customer_name: "John Doe",
   amount: 162.38,
-  payment_method: 'credit_card',
-  status: 'completed',
-  payment_date: '2025-01-02',
-  reference_number: 'REF-2025-001',
-  notes: 'Payment for pest control service',
-  created_at: '2025-01-02T10:00:00Z',
-  updated_at: '2025-01-02T10:00:00Z',
+  payment_method: "credit_card",
+  status: "completed",
+  payment_date: "2025-01-02",
+  reference_number: "REF-2025-001",
+  notes: "Payment for pest control service",
+  created_at: "2025-01-02T10:00:00Z",
+  updated_at: "2025-01-02T10:00:00Z",
 };
 
 const mockListResponse = {
@@ -44,7 +44,7 @@ const mockListResponse = {
   items: [mockPayment],
 };
 
-describe('usePayments hooks', () => {
+describe("usePayments hooks", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -53,19 +53,27 @@ describe('usePayments hooks', () => {
     vi.resetAllMocks();
   });
 
-  describe('paymentKeys', () => {
-    it('generates correct query keys', () => {
-      expect(paymentKeys.all).toEqual(['payments']);
-      expect(paymentKeys.lists()).toEqual(['payments', 'list']);
-      expect(paymentKeys.list({ page: 1 })).toEqual(['payments', 'list', { page: 1 }]);
-      expect(paymentKeys.details()).toEqual(['payments', 'detail']);
-      expect(paymentKeys.detail('pay-123')).toEqual(['payments', 'detail', 'pay-123']);
-      expect(paymentKeys.stats()).toEqual(['payments', 'stats']);
+  describe("paymentKeys", () => {
+    it("generates correct query keys", () => {
+      expect(paymentKeys.all).toEqual(["payments"]);
+      expect(paymentKeys.lists()).toEqual(["payments", "list"]);
+      expect(paymentKeys.list({ page: 1 })).toEqual([
+        "payments",
+        "list",
+        { page: 1 },
+      ]);
+      expect(paymentKeys.details()).toEqual(["payments", "detail"]);
+      expect(paymentKeys.detail("pay-123")).toEqual([
+        "payments",
+        "detail",
+        "pay-123",
+      ]);
+      expect(paymentKeys.stats()).toEqual(["payments", "stats"]);
     });
   });
 
-  describe('usePayments', () => {
-    it('fetches payments list successfully', async () => {
+  describe("usePayments", () => {
+    it("fetches payments list successfully", async () => {
       vi.mocked(apiClient.get).mockResolvedValue({ data: mockListResponse });
 
       const { result } = renderHookWithClient(() => usePayments());
@@ -73,10 +81,10 @@ describe('usePayments hooks', () => {
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
       expect(result.current.data).toEqual(mockListResponse);
-      expect(apiClient.get).toHaveBeenCalledWith('/payments?');
+      expect(apiClient.get).toHaveBeenCalledWith("/payments?");
     });
 
-    it('handles array response format', async () => {
+    it("handles array response format", async () => {
       // Backend sometimes returns bare arrays
       vi.mocked(apiClient.get).mockResolvedValue({ data: [mockPayment] });
 
@@ -92,36 +100,36 @@ describe('usePayments hooks', () => {
       });
     });
 
-    it('passes filters to query params', async () => {
+    it("passes filters to query params", async () => {
       vi.mocked(apiClient.get).mockResolvedValue({ data: mockListResponse });
 
       const filters = {
         page: 2,
         page_size: 10,
-        status: 'completed',
-        payment_method: 'credit_card',
-        customer_id: '789',
+        status: "completed",
+        payment_method: "credit_card",
+        customer_id: "789",
       };
       const { result } = renderHookWithClient(() => usePayments(filters));
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
       expect(apiClient.get).toHaveBeenCalledWith(
-        expect.stringContaining('page=2')
+        expect.stringContaining("page=2"),
       );
       expect(apiClient.get).toHaveBeenCalledWith(
-        expect.stringContaining('page_size=10')
+        expect.stringContaining("page_size=10"),
       );
       expect(apiClient.get).toHaveBeenCalledWith(
-        expect.stringContaining('status=completed')
+        expect.stringContaining("status=completed"),
       );
       expect(apiClient.get).toHaveBeenCalledWith(
-        expect.stringContaining('payment_method=credit_card')
+        expect.stringContaining("payment_method=credit_card"),
       );
     });
 
-    it('handles API errors', async () => {
-      const error = new Error('Network error');
+    it("handles API errors", async () => {
+      const error = new Error("Network error");
       vi.mocked(apiClient.get).mockRejectedValue(error);
 
       const { result } = renderHookWithClient(() => usePayments());
@@ -132,47 +140,49 @@ describe('usePayments hooks', () => {
     });
   });
 
-  describe('usePayment', () => {
-    it('fetches single payment by ID', async () => {
+  describe("usePayment", () => {
+    it("fetches single payment by ID", async () => {
       vi.mocked(apiClient.get).mockResolvedValue({ data: mockPayment });
 
-      const { result } = renderHookWithClient(() => usePayment('pay-123'));
+      const { result } = renderHookWithClient(() => usePayment("pay-123"));
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
       expect(result.current.data).toEqual(mockPayment);
-      expect(apiClient.get).toHaveBeenCalledWith('/payments/pay-123');
+      expect(apiClient.get).toHaveBeenCalledWith("/payments/pay-123");
     });
 
-    it('does not fetch when id is undefined', () => {
+    it("does not fetch when id is undefined", () => {
       const { result } = renderHookWithClient(() => usePayment(undefined));
 
       expect(result.current.isPending).toBe(true);
-      expect(result.current.fetchStatus).toBe('idle');
+      expect(result.current.fetchStatus).toBe("idle");
       expect(apiClient.get).not.toHaveBeenCalled();
     });
   });
 
-  describe('useRecordPayment', () => {
-    it('records payment and invalidates list and stats queries', async () => {
+  describe("useRecordPayment", () => {
+    it("records payment and invalidates list and stats queries", async () => {
       vi.mocked(apiClient.post).mockResolvedValue({ data: mockPayment });
 
-      const { result, queryClient } = renderHookWithClient(() => useRecordPayment());
+      const { result, queryClient } = renderHookWithClient(() =>
+        useRecordPayment(),
+      );
 
-      const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
+      const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
 
       const newPayment = {
-        invoice_id: 'inv-456',
+        invoice_id: "inv-456",
         amount: 162.38,
-        payment_method: 'credit_card',
-        payment_date: '2025-01-02',
+        payment_method: "credit_card",
+        payment_date: "2025-01-02",
       };
 
       result.current.mutate(newPayment);
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-      expect(apiClient.post).toHaveBeenCalledWith('/payments', newPayment);
+      expect(apiClient.post).toHaveBeenCalledWith("/payments", newPayment);
       expect(invalidateSpy).toHaveBeenCalledWith({
         queryKey: paymentKeys.lists(),
       });
@@ -182,24 +192,30 @@ describe('usePayments hooks', () => {
     });
   });
 
-  describe('useUpdatePayment', () => {
-    it('updates payment and invalidates queries', async () => {
-      vi.mocked(apiClient.patch).mockResolvedValue({ data: { ...mockPayment, status: 'pending' } });
+  describe("useUpdatePayment", () => {
+    it("updates payment and invalidates queries", async () => {
+      vi.mocked(apiClient.patch).mockResolvedValue({
+        data: { ...mockPayment, status: "pending" },
+      });
 
-      const { result, queryClient } = renderHookWithClient(() => useUpdatePayment());
+      const { result, queryClient } = renderHookWithClient(() =>
+        useUpdatePayment(),
+      );
 
-      const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
+      const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
 
       result.current.mutate({
-        id: 'pay-123',
-        data: { status: 'pending' },
+        id: "pay-123",
+        data: { status: "pending" },
       });
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-      expect(apiClient.patch).toHaveBeenCalledWith('/payments/pay-123', { status: 'pending' });
+      expect(apiClient.patch).toHaveBeenCalledWith("/payments/pay-123", {
+        status: "pending",
+      });
       expect(invalidateSpy).toHaveBeenCalledWith({
-        queryKey: paymentKeys.detail('pay-123'),
+        queryKey: paymentKeys.detail("pay-123"),
       });
       expect(invalidateSpy).toHaveBeenCalledWith({
         queryKey: paymentKeys.lists(),
@@ -210,19 +226,21 @@ describe('usePayments hooks', () => {
     });
   });
 
-  describe('useDeletePayment', () => {
-    it('deletes payment and invalidates list and stats queries', async () => {
+  describe("useDeletePayment", () => {
+    it("deletes payment and invalidates list and stats queries", async () => {
       vi.mocked(apiClient.delete).mockResolvedValue({});
 
-      const { result, queryClient } = renderHookWithClient(() => useDeletePayment());
+      const { result, queryClient } = renderHookWithClient(() =>
+        useDeletePayment(),
+      );
 
-      const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
+      const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
 
-      result.current.mutate('pay-123');
+      result.current.mutate("pay-123");
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-      expect(apiClient.delete).toHaveBeenCalledWith('/payments/pay-123');
+      expect(apiClient.delete).toHaveBeenCalledWith("/payments/pay-123");
       expect(invalidateSpy).toHaveBeenCalledWith({
         queryKey: paymentKeys.lists(),
       });
@@ -232,16 +250,42 @@ describe('usePayments hooks', () => {
     });
   });
 
-  describe('usePaymentStats', () => {
-    it('calculates payment statistics', async () => {
+  describe("usePaymentStats", () => {
+    it("calculates payment statistics", async () => {
       const mockPayments = [
-        { ...mockPayment, id: '1', status: 'completed', amount: 100, payment_date: new Date().toISOString() },
-        { ...mockPayment, id: '2', status: 'completed', amount: 200, payment_date: new Date().toISOString() },
-        { ...mockPayment, id: '3', status: 'pending', amount: 150, payment_date: new Date().toISOString() },
-        { ...mockPayment, id: '4', status: 'failed', amount: 50, payment_date: '2024-01-01' },
+        {
+          ...mockPayment,
+          id: "1",
+          status: "completed",
+          amount: 100,
+          payment_date: new Date().toISOString(),
+        },
+        {
+          ...mockPayment,
+          id: "2",
+          status: "completed",
+          amount: 200,
+          payment_date: new Date().toISOString(),
+        },
+        {
+          ...mockPayment,
+          id: "3",
+          status: "pending",
+          amount: 150,
+          payment_date: new Date().toISOString(),
+        },
+        {
+          ...mockPayment,
+          id: "4",
+          status: "failed",
+          amount: 50,
+          payment_date: "2024-01-01",
+        },
       ];
 
-      vi.mocked(apiClient.get).mockResolvedValue({ data: { items: mockPayments } });
+      vi.mocked(apiClient.get).mockResolvedValue({
+        data: { items: mockPayments },
+      });
 
       const { result } = renderHookWithClient(() => usePaymentStats());
 
@@ -256,7 +300,7 @@ describe('usePayments hooks', () => {
       });
     });
 
-    it('handles array response format', async () => {
+    it("handles array response format", async () => {
       vi.mocked(apiClient.get).mockResolvedValue({ data: [] });
 
       const { result } = renderHookWithClient(() => usePaymentStats());

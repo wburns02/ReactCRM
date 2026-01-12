@@ -1,7 +1,7 @@
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { PROSPECT_STAGE_LABELS } from '@/api/types/common.ts';
-import type { CustomerFilters as CustomerFiltersType } from '@/api/types/customer.ts';
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { PROSPECT_STAGE_LABELS } from "@/api/types/common.ts";
+import type { CustomerFilters as CustomerFiltersType } from "@/api/types/customer.ts";
 
 interface CustomerFiltersProps {
   filters: CustomerFiltersType;
@@ -11,7 +11,10 @@ interface CustomerFiltersProps {
 /**
  * Filter bar for customers list
  */
-export function CustomerFilters({ filters, onFilterChange }: CustomerFiltersProps) {
+export function CustomerFilters({
+  filters,
+  onFilterChange,
+}: CustomerFiltersProps) {
   return (
     <div className="flex flex-wrap gap-4 p-4">
       {/* Search */}
@@ -19,7 +22,7 @@ export function CustomerFilters({ filters, onFilterChange }: CustomerFiltersProp
         <Input
           type="search"
           placeholder="Search customers..."
-          value={filters.search || ''}
+          value={filters.search || ""}
           onChange={(e) => onFilterChange({ search: e.target.value })}
           aria-label="Search customers"
         />
@@ -28,8 +31,10 @@ export function CustomerFilters({ filters, onFilterChange }: CustomerFiltersProp
       {/* Stage filter */}
       <div className="w-48">
         <Select
-          value={filters.prospect_stage || ''}
-          onChange={(e) => onFilterChange({ prospect_stage: e.target.value || undefined })}
+          value={filters.prospect_stage || ""}
+          onChange={(e) =>
+            onFilterChange({ prospect_stage: e.target.value || undefined })
+          }
           aria-label="Filter by stage"
         >
           <option value="">All Stages</option>

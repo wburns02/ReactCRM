@@ -1,68 +1,78 @@
-import { useState } from 'react';
-import { Card, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
-import { Label } from '@/components/ui/Label.tsx';
+import { useState } from "react";
+import { Card, CardContent } from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { Label } from "@/components/ui/Label.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   useTemplates,
   useCreateTemplate,
   useUpdateTemplate,
   usePreviewTemplate,
-} from '@/api/hooks/useEmailMarketing.ts';
+} from "@/api/hooks/useEmailMarketing.ts";
 import {
   TEMPLATE_CATEGORIES,
   type SubscriptionTier,
   type EmailTemplate,
-} from '@/api/types/emailMarketing.ts';
+} from "@/api/types/emailMarketing.ts";
 
 interface TemplatesTabProps {
   tier: SubscriptionTier;
 }
 
 export function TemplatesTab({ tier }: TemplatesTabProps) {
-  const [categoryFilter, setCategoryFilter] = useState<string>('');
+  const [categoryFilter, setCategoryFilter] = useState<string>("");
   const [isCreateOpen, setIsCreateOpen] = useState(false);
   const [isPreviewOpen, setIsPreviewOpen] = useState(false);
-  const [selectedTemplate, setSelectedTemplate] = useState<EmailTemplate | null>(null);
-  const [previewHtml, setPreviewHtml] = useState<string>('');
+  const [selectedTemplate, setSelectedTemplate] =
+    useState<EmailTemplate | null>(null);
+  const [previewHtml, setPreviewHtml] = useState<string>("");
   const [formData, setFormData] = useState({
-    name: '',
-    category: '',
-    subject_template: '',
-    body_html: '',
-    body_text: '',
+    name: "",
+    category: "",
+    subject_template: "",
+    body_html: "",
+    body_text: "",
   });
 
-  const { data: templates = [], isLoading } = useTemplates(categoryFilter || undefined);
+  const { data: templates = [], isLoading } = useTemplates(
+    categoryFilter || undefined,
+  );
   const createTemplate = useCreateTemplate();
   const updateTemplate = useUpdateTemplate();
   const previewTemplate = usePreviewTemplate();
 
-  const canCreate = tier !== 'none';
+  const canCreate = tier !== "none";
 
   // Separate system and custom templates
   const systemTemplates = templates.filter((t) => t.is_system);
   const customTemplates = templates.filter((t) => !t.is_system);
 
   const handleCreate = async () => {
-    if (!formData.name || !formData.subject_template || !formData.body_html) return;
+    if (!formData.name || !formData.subject_template || !formData.body_html)
+      return;
 
     try {
       await createTemplate.mutateAsync(formData);
       setIsCreateOpen(false);
-      setFormData({ name: '', category: '', subject_template: '', body_html: '', body_text: '' });
+      setFormData({
+        name: "",
+        category: "",
+        subject_template: "",
+        body_html: "",
+        body_text: "",
+      });
     } catch (err) {
-      console.error('Failed to create template:', err);
+      console.error("Failed to create template:", err);
     }
   };
 
@@ -72,10 +82,10 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
       const result = await previewTemplate.mutateAsync({
         id: template.id,
         sampleData: {
-          first_name: 'John',
-          last_name: 'Doe',
-          business_name: 'MAC Septic',
-          months_since_service: '18',
+          first_name: "John",
+          last_name: "Doe",
+          business_name: "MAC Septic",
+          months_since_service: "18",
         },
       });
       setPreviewHtml(result.preview || template.body_html);
@@ -88,10 +98,10 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
   const handleEdit = (template: EmailTemplate) => {
     setFormData({
       name: template.name,
-      category: template.category || '',
+      category: template.category || "",
       subject_template: template.subject_template,
       body_html: template.body_html,
-      body_text: template.body_text || '',
+      body_text: template.body_text || "",
     });
     setSelectedTemplate(template);
     setIsCreateOpen(true);
@@ -106,9 +116,15 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
         });
         setIsCreateOpen(false);
         setSelectedTemplate(null);
-        setFormData({ name: '', category: '', subject_template: '', body_html: '', body_text: '' });
+        setFormData({
+          name: "",
+          category: "",
+          subject_template: "",
+          body_html: "",
+          body_text: "",
+        });
       } catch (err) {
-        console.error('Failed to update template:', err);
+        console.error("Failed to update template:", err);
       }
     } else {
       await handleCreate();
@@ -135,13 +151,21 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
         >
           <option value="">All Categories</option>
           {TEMPLATE_CATEGORIES.map((cat) => (
-            <option key={cat.value} value={cat.value}>{cat.label}</option>
+            <option key={cat.value} value={cat.value}>
+              {cat.label}
+            </option>
           ))}
         </Select>
         <Button
           onClick={() => {
             setSelectedTemplate(null);
-            setFormData({ name: '', category: '', subject_template: '', body_html: '', body_text: '' });
+            setFormData({
+              name: "",
+              category: "",
+              subject_template: "",
+              body_html: "",
+              body_text: "",
+            });
             setIsCreateOpen(true);
           }}
           disabled={!canCreate}
@@ -158,14 +182,21 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
           </h3>
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {systemTemplates.map((template) => (
-              <Card key={template.id} className="hover:shadow-md transition-shadow">
+              <Card
+                key={template.id}
+                className="hover:shadow-md transition-shadow"
+              >
                 <CardContent className="py-4">
                   <div className="flex items-start justify-between mb-2">
                     <div>
-                      <h4 className="font-medium text-text-primary">{template.name}</h4>
+                      <h4 className="font-medium text-text-primary">
+                        {template.name}
+                      </h4>
                       {template.category && (
                         <Badge variant="default" className="mt-1">
-                          {TEMPLATE_CATEGORIES.find((c) => c.value === template.category)?.label || template.category}
+                          {TEMPLATE_CATEGORIES.find(
+                            (c) => c.value === template.category,
+                          )?.label || template.category}
                         </Badge>
                       )}
                     </div>
@@ -175,11 +206,19 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
                     {template.subject_template}
                   </p>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="secondary" onClick={() => handlePreview(template)}>
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      onClick={() => handlePreview(template)}
+                    >
                       Preview
                     </Button>
                     {canCreate && (
-                      <Button size="sm" variant="secondary" onClick={() => handleEdit(template)}>
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={() => handleEdit(template)}
+                      >
                         Duplicate
                       </Button>
                     )}
@@ -200,24 +239,34 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
           <Card>
             <CardContent className="py-8 text-center">
               <p className="text-text-secondary mb-4">
-                No custom templates yet. Create one or duplicate a system template.
+                No custom templates yet. Create one or duplicate a system
+                template.
               </p>
               {canCreate && (
-                <Button onClick={() => setIsCreateOpen(true)}>Create Template</Button>
+                <Button onClick={() => setIsCreateOpen(true)}>
+                  Create Template
+                </Button>
               )}
             </CardContent>
           </Card>
         ) : (
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
             {customTemplates.map((template) => (
-              <Card key={template.id} className="hover:shadow-md transition-shadow">
+              <Card
+                key={template.id}
+                className="hover:shadow-md transition-shadow"
+              >
                 <CardContent className="py-4">
                   <div className="flex items-start justify-between mb-2">
                     <div>
-                      <h4 className="font-medium text-text-primary">{template.name}</h4>
+                      <h4 className="font-medium text-text-primary">
+                        {template.name}
+                      </h4>
                       {template.category && (
                         <Badge variant="default" className="mt-1">
-                          {TEMPLATE_CATEGORIES.find((c) => c.value === template.category)?.label || template.category}
+                          {TEMPLATE_CATEGORIES.find(
+                            (c) => c.value === template.category,
+                          )?.label || template.category}
                         </Badge>
                       )}
                     </div>
@@ -226,11 +275,19 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
                     {template.subject_template}
                   </p>
                   <div className="flex gap-2">
-                    <Button size="sm" variant="secondary" onClick={() => handlePreview(template)}>
+                    <Button
+                      size="sm"
+                      variant="secondary"
+                      onClick={() => handlePreview(template)}
+                    >
                       Preview
                     </Button>
                     {canCreate && (
-                      <Button size="sm" variant="secondary" onClick={() => handleEdit(template)}>
+                      <Button
+                        size="sm"
+                        variant="secondary"
+                        onClick={() => handleEdit(template)}
+                      >
                         Edit
                       </Button>
                     )}
@@ -246,7 +303,9 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
       <Dialog open={isCreateOpen} onClose={() => setIsCreateOpen(false)}>
         <DialogContent size="lg">
           <DialogHeader onClose={() => setIsCreateOpen(false)}>
-            {selectedTemplate && !selectedTemplate.is_system ? 'Edit Template' : 'Create Template'}
+            {selectedTemplate && !selectedTemplate.is_system
+              ? "Edit Template"
+              : "Create Template"}
           </DialogHeader>
           <DialogBody>
             <div className="space-y-4">
@@ -256,7 +315,9 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
                   <Input
                     id="name"
                     value={formData.name}
-                    onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, name: e.target.value })
+                    }
                     placeholder="e.g., Pumping Reminder"
                   />
                 </div>
@@ -265,11 +326,15 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
                   <Select
                     id="category"
                     value={formData.category}
-                    onChange={(e) => setFormData({ ...formData, category: e.target.value })}
+                    onChange={(e) =>
+                      setFormData({ ...formData, category: e.target.value })
+                    }
                   >
                     <option value="">Select category</option>
                     {TEMPLATE_CATEGORIES.map((cat) => (
-                      <option key={cat.value} value={cat.value}>{cat.label}</option>
+                      <option key={cat.value} value={cat.value}>
+                        {cat.label}
+                      </option>
                     ))}
                   </Select>
                 </div>
@@ -279,11 +344,16 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
                 <Input
                   id="subject"
                   value={formData.subject_template}
-                  onChange={(e) => setFormData({ ...formData, subject_template: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({
+                      ...formData,
+                      subject_template: e.target.value,
+                    })
+                  }
                   placeholder="e.g., Time for your septic pumping, {{first_name}}!"
                 />
                 <p className="text-xs text-text-muted mt-1">
-                  Use {'{{variable}}'} for personalization
+                  Use {"{{variable}}"} for personalization
                 </p>
               </div>
               <div>
@@ -291,7 +361,9 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
                 <Textarea
                   id="body_html"
                   value={formData.body_html}
-                  onChange={(e) => setFormData({ ...formData, body_html: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, body_html: e.target.value })
+                  }
                   placeholder="Write your email content here..."
                   rows={10}
                   className="font-mono text-sm"
@@ -302,7 +374,9 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
                 <Textarea
                   id="body_text"
                   value={formData.body_text}
-                  onChange={(e) => setFormData({ ...formData, body_text: e.target.value })}
+                  onChange={(e) =>
+                    setFormData({ ...formData, body_text: e.target.value })
+                  }
                   placeholder="Plain text version for email clients that don't support HTML"
                   rows={4}
                 />
@@ -315,9 +389,17 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
             </Button>
             <Button
               onClick={handleSave}
-              disabled={!formData.name || !formData.subject_template || !formData.body_html || createTemplate.isPending || updateTemplate.isPending}
+              disabled={
+                !formData.name ||
+                !formData.subject_template ||
+                !formData.body_html ||
+                createTemplate.isPending ||
+                updateTemplate.isPending
+              }
             >
-              {createTemplate.isPending || updateTemplate.isPending ? 'Saving...' : 'Save Template'}
+              {createTemplate.isPending || updateTemplate.isPending
+                ? "Saving..."
+                : "Save Template"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -332,7 +414,9 @@ export function TemplatesTab({ tier }: TemplatesTabProps) {
           <DialogBody>
             <div className="mb-4 p-3 bg-bg-muted rounded">
               <p className="text-sm text-text-muted">Subject:</p>
-              <p className="font-medium text-text-primary">{selectedTemplate?.subject_template}</p>
+              <p className="font-medium text-text-primary">
+                {selectedTemplate?.subject_template}
+              </p>
             </div>
             <div
               className="border border-border rounded p-4 bg-white"

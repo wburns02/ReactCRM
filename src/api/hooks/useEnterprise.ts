@@ -2,8 +2,8 @@
  * Enterprise API Hooks
  * Multi-region, franchise, permissions management
  */
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 import {
   regionSchema,
   regionPerformanceSchema,
@@ -13,7 +13,7 @@ import {
   userRoleAssignmentSchema,
   auditLogSchema,
   complianceReportSchema,
-} from '@/api/types/enterprise';
+} from "@/api/types/enterprise";
 import type {
   Region,
   RegionPerformance,
@@ -25,41 +25,44 @@ import type {
   ComplianceReport,
   MultiRegionFilters,
   RegionComparison,
-} from '@/api/types/enterprise';
-import { z } from 'zod';
+} from "@/api/types/enterprise";
+import { z } from "zod";
 
 // Query keys
 export const enterpriseKeys = {
   regions: {
-    all: ['enterprise', 'regions'] as const,
-    list: () => [...enterpriseKeys.regions.all, 'list'] as const,
-    detail: (id: string) => [...enterpriseKeys.regions.all, 'detail', id] as const,
+    all: ["enterprise", "regions"] as const,
+    list: () => [...enterpriseKeys.regions.all, "list"] as const,
+    detail: (id: string) =>
+      [...enterpriseKeys.regions.all, "detail", id] as const,
     performance: (filters?: MultiRegionFilters) =>
-      [...enterpriseKeys.regions.all, 'performance', filters] as const,
+      [...enterpriseKeys.regions.all, "performance", filters] as const,
     comparison: (metric: string) =>
-      [...enterpriseKeys.regions.all, 'comparison', metric] as const,
+      [...enterpriseKeys.regions.all, "comparison", metric] as const,
   },
   franchise: {
-    all: ['enterprise', 'franchise'] as const,
+    all: ["enterprise", "franchise"] as const,
     royalties: (franchiseId?: string) =>
-      [...enterpriseKeys.franchise.all, 'royalties', franchiseId] as const,
+      [...enterpriseKeys.franchise.all, "royalties", franchiseId] as const,
     territories: (regionId?: string) =>
-      [...enterpriseKeys.franchise.all, 'territories', regionId] as const,
+      [...enterpriseKeys.franchise.all, "territories", regionId] as const,
   },
   permissions: {
-    all: ['enterprise', 'permissions'] as const,
-    roles: () => [...enterpriseKeys.permissions.all, 'roles'] as const,
-    role: (id: string) => [...enterpriseKeys.permissions.all, 'role', id] as const,
+    all: ["enterprise", "permissions"] as const,
+    roles: () => [...enterpriseKeys.permissions.all, "roles"] as const,
+    role: (id: string) =>
+      [...enterpriseKeys.permissions.all, "role", id] as const,
     userAssignments: (userId?: string) =>
-      [...enterpriseKeys.permissions.all, 'assignments', userId] as const,
-    currentPermissions: () => [...enterpriseKeys.permissions.all, 'current'] as const,
+      [...enterpriseKeys.permissions.all, "assignments", userId] as const,
+    currentPermissions: () =>
+      [...enterpriseKeys.permissions.all, "current"] as const,
   },
   audit: {
-    all: ['enterprise', 'audit'] as const,
+    all: ["enterprise", "audit"] as const,
     logs: (filters?: Record<string, unknown>) =>
-      [...enterpriseKeys.audit.all, 'logs', filters] as const,
+      [...enterpriseKeys.audit.all, "logs", filters] as const,
     compliance: (regionId?: string) =>
-      [...enterpriseKeys.audit.all, 'compliance', regionId] as const,
+      [...enterpriseKeys.audit.all, "compliance", regionId] as const,
   },
 };
 
@@ -74,7 +77,7 @@ export function useRegions() {
   return useQuery({
     queryKey: enterpriseKeys.regions.list(),
     queryFn: async (): Promise<Region[]> => {
-      const { data } = await apiClient.get('/enterprise/regions');
+      const { data } = await apiClient.get("/enterprise/regions");
       return z.array(regionSchema).parse(data.regions || data);
     },
   });
@@ -102,9 +105,9 @@ export function useCreateRegion() {
 
   return useMutation({
     mutationFn: async (
-      region: Omit<Region, 'id' | 'created_at' | 'updated_at'>
+      region: Omit<Region, "id" | "created_at" | "updated_at">,
     ): Promise<Region> => {
-      const { data } = await apiClient.post('/enterprise/regions', region);
+      const { data } = await apiClient.post("/enterprise/regions", region);
       return regionSchema.parse(data.region || data);
     },
     onSuccess: () => {
@@ -127,12 +130,17 @@ export function useUpdateRegion() {
       id: string;
       updates: Partial<Region>;
     }): Promise<Region> => {
-      const { data } = await apiClient.patch(`/enterprise/regions/${id}`, updates);
+      const { data } = await apiClient.patch(
+        `/enterprise/regions/${id}`,
+        updates,
+      );
       return regionSchema.parse(data.region || data);
     },
     onSuccess: (data) => {
       queryClient.setQueryData(enterpriseKeys.regions.detail(data.id), data);
-      queryClient.invalidateQueries({ queryKey: enterpriseKeys.regions.list() });
+      queryClient.invalidateQueries({
+        queryKey: enterpriseKeys.regions.list(),
+      });
     },
   });
 }
@@ -144,7 +152,7 @@ export function useRegionPerformance(filters?: MultiRegionFilters) {
   return useQuery({
     queryKey: enterpriseKeys.regions.performance(filters),
     queryFn: async (): Promise<RegionPerformance[]> => {
-      const { data } = await apiClient.get('/enterprise/regions/performance', {
+      const { data } = await apiClient.get("/enterprise/regions/performance", {
         params: filters,
       });
       return z.array(regionPerformanceSchema).parse(data.performance || data);
@@ -160,7 +168,7 @@ export function useRegionComparison(metric: string) {
   return useQuery({
     queryKey: enterpriseKeys.regions.comparison(metric),
     queryFn: async (): Promise<RegionComparison> => {
-      const { data } = await apiClient.get('/enterprise/regions/compare', {
+      const { data } = await apiClient.get("/enterprise/regions/compare", {
         params: { metric },
       });
       return data;
@@ -182,7 +190,9 @@ export function useFranchiseRoyalties(franchiseId?: string) {
     queryKey: enterpriseKeys.franchise.royalties(franchiseId),
     queryFn: async (): Promise<FranchiseRoyalty[]> => {
       const params = franchiseId ? { franchise_id: franchiseId } : {};
-      const { data } = await apiClient.get('/enterprise/franchise/royalties', { params });
+      const { data } = await apiClient.get("/enterprise/franchise/royalties", {
+        params,
+      });
       return z.array(franchiseRoyaltySchema).parse(data.royalties || data);
     },
   });
@@ -200,11 +210,16 @@ export function useGenerateRoyaltyInvoice() {
       period_start: string;
       period_end: string;
     }): Promise<FranchiseRoyalty> => {
-      const { data } = await apiClient.post('/enterprise/franchise/royalties/generate', params);
+      const { data } = await apiClient.post(
+        "/enterprise/franchise/royalties/generate",
+        params,
+      );
       return franchiseRoyaltySchema.parse(data.royalty || data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: enterpriseKeys.franchise.royalties() });
+      queryClient.invalidateQueries({
+        queryKey: enterpriseKeys.franchise.royalties(),
+      });
     },
   });
 }
@@ -223,12 +238,14 @@ export function useMarkRoyaltyPaid() {
     }): Promise<FranchiseRoyalty> => {
       const { data } = await apiClient.post(
         `/enterprise/franchise/royalties/${params.royalty_id}/paid`,
-        params
+        params,
       );
       return franchiseRoyaltySchema.parse(data.royalty || data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: enterpriseKeys.franchise.royalties() });
+      queryClient.invalidateQueries({
+        queryKey: enterpriseKeys.franchise.royalties(),
+      });
     },
   });
 }
@@ -241,7 +258,9 @@ export function useTerritories(regionId?: string) {
     queryKey: enterpriseKeys.franchise.territories(regionId),
     queryFn: async (): Promise<Territory[]> => {
       const params = regionId ? { region_id: regionId } : {};
-      const { data } = await apiClient.get('/enterprise/territories', { params });
+      const { data } = await apiClient.get("/enterprise/territories", {
+        params,
+      });
       return z.array(territorySchema).parse(data.territories || data);
     },
   });
@@ -255,13 +274,18 @@ export function useCreateTerritory() {
 
   return useMutation({
     mutationFn: async (
-      territory: Omit<Territory, 'id' | 'created_at'>
+      territory: Omit<Territory, "id" | "created_at">,
     ): Promise<Territory> => {
-      const { data } = await apiClient.post('/enterprise/territories', territory);
+      const { data } = await apiClient.post(
+        "/enterprise/territories",
+        territory,
+      );
       return territorySchema.parse(data.territory || data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: enterpriseKeys.franchise.territories() });
+      queryClient.invalidateQueries({
+        queryKey: enterpriseKeys.franchise.territories(),
+      });
     },
   });
 }
@@ -280,11 +304,16 @@ export function useUpdateTerritory() {
       id: string;
       updates: Partial<Territory>;
     }): Promise<Territory> => {
-      const { data } = await apiClient.patch(`/enterprise/territories/${id}`, updates);
+      const { data } = await apiClient.patch(
+        `/enterprise/territories/${id}`,
+        updates,
+      );
       return territorySchema.parse(data.territory || data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: enterpriseKeys.franchise.territories() });
+      queryClient.invalidateQueries({
+        queryKey: enterpriseKeys.franchise.territories(),
+      });
     },
   });
 }
@@ -300,7 +329,7 @@ export function useRoles() {
   return useQuery({
     queryKey: enterpriseKeys.permissions.roles(),
     queryFn: async (): Promise<Role[]> => {
-      const { data } = await apiClient.get('/enterprise/roles');
+      const { data } = await apiClient.get("/enterprise/roles");
       return z.array(roleSchema).parse(data.roles || data);
     },
   });
@@ -328,13 +357,18 @@ export function useCreateRole() {
 
   return useMutation({
     mutationFn: async (
-      role: Omit<Role, 'id' | 'is_system_role' | 'user_count' | 'created_at' | 'updated_at'>
+      role: Omit<
+        Role,
+        "id" | "is_system_role" | "user_count" | "created_at" | "updated_at"
+      >,
     ): Promise<Role> => {
-      const { data } = await apiClient.post('/enterprise/roles', role);
+      const { data } = await apiClient.post("/enterprise/roles", role);
       return roleSchema.parse(data.role || data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: enterpriseKeys.permissions.roles() });
+      queryClient.invalidateQueries({
+        queryKey: enterpriseKeys.permissions.roles(),
+      });
     },
   });
 }
@@ -353,12 +387,17 @@ export function useUpdateRole() {
       id: string;
       updates: Partial<Role>;
     }): Promise<Role> => {
-      const { data } = await apiClient.patch(`/enterprise/roles/${id}`, updates);
+      const { data } = await apiClient.patch(
+        `/enterprise/roles/${id}`,
+        updates,
+      );
       return roleSchema.parse(data.role || data);
     },
     onSuccess: (data) => {
       queryClient.setQueryData(enterpriseKeys.permissions.role(data.id), data);
-      queryClient.invalidateQueries({ queryKey: enterpriseKeys.permissions.roles() });
+      queryClient.invalidateQueries({
+        queryKey: enterpriseKeys.permissions.roles(),
+      });
     },
   });
 }
@@ -374,7 +413,9 @@ export function useDeleteRole() {
       await apiClient.delete(`/enterprise/roles/${id}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: enterpriseKeys.permissions.roles() });
+      queryClient.invalidateQueries({
+        queryKey: enterpriseKeys.permissions.roles(),
+      });
     },
   });
 }
@@ -387,7 +428,9 @@ export function useUserRoleAssignments(userId?: string) {
     queryKey: enterpriseKeys.permissions.userAssignments(userId),
     queryFn: async (): Promise<UserRoleAssignment[]> => {
       const params = userId ? { user_id: userId } : {};
-      const { data } = await apiClient.get('/enterprise/role-assignments', { params });
+      const { data } = await apiClient.get("/enterprise/role-assignments", {
+        params,
+      });
       return z.array(userRoleAssignmentSchema).parse(data.assignments || data);
     },
   });
@@ -406,11 +449,16 @@ export function useAssignRole() {
       region_id?: string;
       expires_at?: string;
     }): Promise<UserRoleAssignment> => {
-      const { data } = await apiClient.post('/enterprise/role-assignments', params);
+      const { data } = await apiClient.post(
+        "/enterprise/role-assignments",
+        params,
+      );
       return userRoleAssignmentSchema.parse(data.assignment || data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: enterpriseKeys.permissions.userAssignments() });
+      queryClient.invalidateQueries({
+        queryKey: enterpriseKeys.permissions.userAssignments(),
+      });
     },
   });
 }
@@ -426,7 +474,9 @@ export function useRemoveRoleAssignment() {
       await apiClient.delete(`/enterprise/role-assignments/${assignmentId}`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: enterpriseKeys.permissions.userAssignments() });
+      queryClient.invalidateQueries({
+        queryKey: enterpriseKeys.permissions.userAssignments(),
+      });
     },
   });
 }
@@ -446,7 +496,7 @@ export function useCurrentPermissions() {
       }[];
       regions: string[]; // Region IDs user has access to
     }> => {
-      const { data } = await apiClient.get('/enterprise/permissions/me');
+      const { data } = await apiClient.get("/enterprise/permissions/me");
       return data;
     },
     staleTime: 5 * 60 * 1000,
@@ -478,7 +528,9 @@ export function useAuditLogs(filters?: {
       page: number;
       page_size: number;
     }> => {
-      const { data } = await apiClient.get('/enterprise/audit/logs', { params: filters });
+      const { data } = await apiClient.get("/enterprise/audit/logs", {
+        params: filters,
+      });
       return {
         logs: z.array(auditLogSchema).parse(data.logs || []),
         total: data.total || 0,
@@ -497,10 +549,13 @@ export function useExportAuditLogs() {
     mutationFn: async (filters: {
       start_date: string;
       end_date: string;
-      format: 'csv' | 'json';
+      format: "csv" | "json";
       region_id?: string;
     }): Promise<{ download_url: string }> => {
-      const { data } = await apiClient.post('/enterprise/audit/export', filters);
+      const { data } = await apiClient.post(
+        "/enterprise/audit/export",
+        filters,
+      );
       return data;
     },
   });
@@ -514,7 +569,9 @@ export function useComplianceReport(regionId?: string) {
     queryKey: enterpriseKeys.audit.compliance(regionId),
     queryFn: async (): Promise<ComplianceReport> => {
       const params = regionId ? { region_id: regionId } : {};
-      const { data } = await apiClient.get('/enterprise/compliance/report', { params });
+      const { data } = await apiClient.get("/enterprise/compliance/report", {
+        params,
+      });
       return complianceReportSchema.parse(data);
     },
     staleTime: 30 * 60 * 1000, // 30 minutes

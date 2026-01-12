@@ -2,19 +2,23 @@
  * Performance Scorecard
  * Technician performance metrics and KPI trends
  */
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
+import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
 // Badge available for future use
 // import { Badge } from '@/components/ui/Badge';
-import { usePerformanceSummary } from '@/api/hooks/useAnalytics';
-import type { TechnicianScore, KPITrend } from '@/api/types/analytics';
-import { formatCurrency, cn } from '@/lib/utils';
+import { usePerformanceSummary } from "@/api/hooks/useAnalytics";
+import type { TechnicianScore, KPITrend } from "@/api/types/analytics";
+import { formatCurrency, cn } from "@/lib/utils";
 
-type SortField = 'overall_rank' | 'first_time_fix_rate' | 'customer_satisfaction' | 'revenue_generated';
+type SortField =
+  | "overall_rank"
+  | "first_time_fix_rate"
+  | "customer_satisfaction"
+  | "revenue_generated";
 
 export function PerformanceScorecard() {
-  const [sortBy, setSortBy] = useState<SortField>('overall_rank');
+  const [sortBy, setSortBy] = useState<SortField>("overall_rank");
   const { data: summary, isLoading } = usePerformanceSummary();
 
   return (
@@ -22,7 +26,9 @@ export function PerformanceScorecard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">Performance Scorecard</h1>
+          <h1 className="text-2xl font-bold text-text-primary">
+            Performance Scorecard
+          </h1>
           <p className="text-text-secondary">
             Track technician performance and key metrics
           </p>
@@ -33,7 +39,10 @@ export function PerformanceScorecard() {
       {isLoading ? (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           {Array.from({ length: 4 }).map((_, i) => (
-            <div key={i} className="h-40 bg-background-secondary animate-pulse rounded-lg" />
+            <div
+              key={i}
+              className="h-40 bg-background-secondary animate-pulse rounded-lg"
+            />
           ))}
         </div>
       ) : summary ? (
@@ -49,7 +58,7 @@ export function PerformanceScorecard() {
             />
             <KPICard
               label="Customer Satisfaction"
-              value={`${(summary.team_averages.customer_satisfaction).toFixed(1)}/5`}
+              value={`${summary.team_averages.customer_satisfaction.toFixed(1)}/5`}
               target={4.5}
               actual={summary.team_averages.customer_satisfaction}
               maxTarget={5}
@@ -114,28 +123,40 @@ function KPICard({
   const progress = maxTarget
     ? (actual / maxTarget) * 100
     : lowerIsBetter
-    ? Math.min(100, (target / actual) * 100)
-    : Math.min(100, (actual / target) * 100);
+      ? Math.min(100, (target / actual) * 100)
+      : Math.min(100, (actual / target) * 100);
 
   return (
-    <Card className={cn(isOnTarget ? 'border-success/50' : 'border-warning/50')}>
+    <Card
+      className={cn(isOnTarget ? "border-success/50" : "border-warning/50")}
+    >
       <CardContent className="pt-4">
         <div className="flex items-center gap-2 mb-2">
           <span className="text-xl">{icon}</span>
           <span className="text-xs text-text-muted uppercase">{label}</span>
         </div>
-        <p className={cn('text-2xl font-bold', isOnTarget ? 'text-success' : 'text-warning')}>
+        <p
+          className={cn(
+            "text-2xl font-bold",
+            isOnTarget ? "text-success" : "text-warning",
+          )}
+        >
           {value}
         </p>
         <div className="mt-2">
           <div className="h-2 bg-background-secondary rounded-full overflow-hidden">
             <div
-              className={cn('h-full rounded-full', isOnTarget ? 'bg-success' : 'bg-warning')}
+              className={cn(
+                "h-full rounded-full",
+                isOnTarget ? "bg-success" : "bg-warning",
+              )}
               style={{ width: `${progress}%` }}
             />
           </div>
           <p className="text-xs text-text-muted mt-1">
-            Target: {lowerIsBetter ? '≤' : '≥'}{target}{maxTarget ? '' : '%'}
+            Target: {lowerIsBetter ? "≤" : "≥"}
+            {target}
+            {maxTarget ? "" : "%"}
           </p>
         </div>
       </CardContent>
@@ -144,7 +165,7 @@ function KPICard({
 }
 
 function KPITrendsCard({ trends }: { trends: KPITrend[] }) {
-  const [selectedMetric, setSelectedMetric] = useState(trends[0]?.metric || '');
+  const [selectedMetric, setSelectedMetric] = useState(trends[0]?.metric || "");
   const selectedTrend = trends.find((t) => t.metric === selectedMetric);
 
   return (
@@ -156,7 +177,7 @@ function KPITrendsCard({ trends }: { trends: KPITrend[] }) {
             {trends.map((trend) => (
               <Button
                 key={trend.metric}
-                variant={selectedMetric === trend.metric ? 'primary' : 'ghost'}
+                variant={selectedMetric === trend.metric ? "primary" : "ghost"}
                 size="sm"
                 onClick={() => setSelectedMetric(trend.metric)}
               >
@@ -174,27 +195,41 @@ function KPITrendsCard({ trends }: { trends: KPITrend[] }) {
               <div>
                 <p className="text-xs text-text-muted">Current</p>
                 <p className="text-3xl font-bold">
-                  {formatMetricValue(selectedTrend.metric, selectedTrend.current_value)}
+                  {formatMetricValue(
+                    selectedTrend.metric,
+                    selectedTrend.current_value,
+                  )}
                 </p>
               </div>
               <div className="text-right">
                 <p className="text-xs text-text-muted">Previous</p>
                 <p className="text-xl text-text-secondary">
-                  {formatMetricValue(selectedTrend.metric, selectedTrend.previous_value)}
+                  {formatMetricValue(
+                    selectedTrend.metric,
+                    selectedTrend.previous_value,
+                  )}
                 </p>
               </div>
-              <div className={cn(
-                'flex items-center gap-1 px-3 py-1 rounded-full',
-                selectedTrend.trend === 'up' ? 'bg-success/20 text-success' :
-                selectedTrend.trend === 'down' ? 'bg-error/20 text-error' :
-                'bg-text-muted/20 text-text-muted'
-              )}>
+              <div
+                className={cn(
+                  "flex items-center gap-1 px-3 py-1 rounded-full",
+                  selectedTrend.trend === "up"
+                    ? "bg-success/20 text-success"
+                    : selectedTrend.trend === "down"
+                      ? "bg-error/20 text-error"
+                      : "bg-text-muted/20 text-text-muted",
+                )}
+              >
                 <span>
-                  {selectedTrend.trend === 'up' ? '↑' :
-                   selectedTrend.trend === 'down' ? '↓' : '→'}
+                  {selectedTrend.trend === "up"
+                    ? "↑"
+                    : selectedTrend.trend === "down"
+                      ? "↓"
+                      : "→"}
                 </span>
                 <span className="font-medium">
-                  {selectedTrend.change_pct >= 0 ? '+' : ''}{selectedTrend.change_pct.toFixed(1)}%
+                  {selectedTrend.change_pct >= 0 ? "+" : ""}
+                  {selectedTrend.change_pct.toFixed(1)}%
                 </span>
               </div>
             </div>
@@ -202,7 +237,9 @@ function KPITrendsCard({ trends }: { trends: KPITrend[] }) {
             {/* Mini chart (placeholder) */}
             <div className="h-32 bg-background-secondary rounded-lg flex items-end justify-between p-4 gap-1">
               {selectedTrend.data_points.slice(-14).map((point, i) => {
-                const max = Math.max(...selectedTrend.data_points.map((p) => p.value));
+                const max = Math.max(
+                  ...selectedTrend.data_points.map((p) => p.value),
+                );
                 const height = (point.value / max) * 100;
                 return (
                   <div
@@ -235,15 +272,15 @@ function TechnicianLeaderboard({
   onSortChange: (field: SortField) => void;
 }) {
   const sortedScores = [...scores].sort((a, b) => {
-    if (sortBy === 'overall_rank') return a.overall_rank - b.overall_rank;
+    if (sortBy === "overall_rank") return a.overall_rank - b.overall_rank;
     return b[sortBy] - a[sortBy];
   });
 
   const sortOptions: { field: SortField; label: string }[] = [
-    { field: 'overall_rank', label: 'Rank' },
-    { field: 'first_time_fix_rate', label: 'FTFR' },
-    { field: 'customer_satisfaction', label: 'CSAT' },
-    { field: 'revenue_generated', label: 'Revenue' },
+    { field: "overall_rank", label: "Rank" },
+    { field: "first_time_fix_rate", label: "FTFR" },
+    { field: "customer_satisfaction", label: "CSAT" },
+    { field: "revenue_generated", label: "Revenue" },
   ];
 
   return (
@@ -255,7 +292,7 @@ function TechnicianLeaderboard({
             {sortOptions.map((opt) => (
               <Button
                 key={opt.field}
-                variant={sortBy === opt.field ? 'primary' : 'ghost'}
+                variant={sortBy === opt.field ? "primary" : "ghost"}
                 size="sm"
                 onClick={() => onSortChange(opt.field)}
               >
@@ -276,7 +313,9 @@ function TechnicianLeaderboard({
                 <th className="text-right py-3 px-2 font-medium">FTFR</th>
                 <th className="text-right py-3 px-2 font-medium">CSAT</th>
                 <th className="text-right py-3 px-2 font-medium">Repeat %</th>
-                <th className="text-right py-3 px-2 font-medium">Utilization</th>
+                <th className="text-right py-3 px-2 font-medium">
+                  Utilization
+                </th>
                 <th className="text-right py-3 px-2 font-medium">Revenue</th>
               </tr>
             </thead>
@@ -289,12 +328,16 @@ function TechnicianLeaderboard({
                   <td className="py-3 px-2">
                     <div className="flex items-center gap-2">
                       {tech.overall_rank <= 3 ? (
-                        <span className={cn(
-                          'w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold',
-                          tech.overall_rank === 1 ? 'bg-yellow-500' :
-                          tech.overall_rank === 2 ? 'bg-gray-400' :
-                          'bg-amber-700'
-                        )}>
+                        <span
+                          className={cn(
+                            "w-6 h-6 rounded-full flex items-center justify-center text-white text-xs font-bold",
+                            tech.overall_rank === 1
+                              ? "bg-yellow-500"
+                              : tech.overall_rank === 2
+                                ? "bg-gray-400"
+                                : "bg-amber-700",
+                          )}
+                        >
                           {tech.overall_rank}
                         </span>
                       ) : (
@@ -303,11 +346,15 @@ function TechnicianLeaderboard({
                         </span>
                       )}
                       {tech.rank_change !== 0 && (
-                        <span className={cn(
-                          'text-xs',
-                          tech.rank_change > 0 ? 'text-success' : 'text-error'
-                        )}>
-                          {tech.rank_change > 0 ? '↑' : '↓'}
+                        <span
+                          className={cn(
+                            "text-xs",
+                            tech.rank_change > 0
+                              ? "text-success"
+                              : "text-error",
+                          )}
+                        >
+                          {tech.rank_change > 0 ? "↑" : "↓"}
                           {Math.abs(tech.rank_change)}
                         </span>
                       )}
@@ -316,7 +363,9 @@ function TechnicianLeaderboard({
                   <td className="py-3 px-2">
                     <span className="font-medium">{tech.technician_name}</span>
                   </td>
-                  <td className="text-right py-3 px-2">{tech.jobs_completed}</td>
+                  <td className="text-right py-3 px-2">
+                    {tech.jobs_completed}
+                  </td>
                   <td className="text-right py-3 px-2">
                     <MetricBadge
                       value={tech.first_time_fix_rate * 100}
@@ -365,7 +414,7 @@ function MetricBadge({
   value,
   thresholds,
   lowerIsBetter = false,
-  suffix = '',
+  suffix = "",
   maxDecimals = 1,
 }: {
   value: number;
@@ -382,37 +431,42 @@ function MetricBadge({
     : value >= thresholds.warning && value < thresholds.good;
 
   return (
-    <span className={cn(
-      'px-2 py-0.5 rounded text-xs font-medium',
-      isGood ? 'bg-success/20 text-success' :
-      isWarning ? 'bg-warning/20 text-warning' :
-      'bg-error/20 text-error'
-    )}>
-      {value.toFixed(maxDecimals)}{suffix}
+    <span
+      className={cn(
+        "px-2 py-0.5 rounded text-xs font-medium",
+        isGood
+          ? "bg-success/20 text-success"
+          : isWarning
+            ? "bg-warning/20 text-warning"
+            : "bg-error/20 text-error",
+      )}
+    >
+      {value.toFixed(maxDecimals)}
+      {suffix}
     </span>
   );
 }
 
 function formatMetricLabel(metric: string): string {
   const labels: Record<string, string> = {
-    first_time_fix_rate: 'FTFR',
-    customer_satisfaction: 'CSAT',
-    repeat_visit_rate: 'Repeat Rate',
-    utilization_rate: 'Utilization',
-    revenue: 'Revenue',
-    jobs_completed: 'Jobs',
+    first_time_fix_rate: "FTFR",
+    customer_satisfaction: "CSAT",
+    repeat_visit_rate: "Repeat Rate",
+    utilization_rate: "Utilization",
+    revenue: "Revenue",
+    jobs_completed: "Jobs",
   };
   return labels[metric] || metric;
 }
 
 function formatMetricValue(metric: string, value: number): string {
-  if (metric.includes('rate') || metric.includes('utilization')) {
+  if (metric.includes("rate") || metric.includes("utilization")) {
     return `${(value * 100).toFixed(1)}%`;
   }
-  if (metric === 'customer_satisfaction') {
+  if (metric === "customer_satisfaction") {
     return `${value.toFixed(1)}/5`;
   }
-  if (metric === 'revenue') {
+  if (metric === "revenue") {
     return formatCurrency(value);
   }
   return value.toFixed(0);

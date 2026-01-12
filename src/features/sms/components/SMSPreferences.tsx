@@ -6,19 +6,19 @@
  * opt-in/opt-out status, and timing preferences.
  */
 
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { toastSuccess, toastError } from '@/components/ui/Toast';
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Input } from "@/components/ui/Input";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 import {
   useCustomerSMSPreferences,
   useUpdateCustomerSMSPreferences,
   useOptOutCustomer,
   useOptInCustomer,
-} from '@/api/hooks/useSMSNotifications';
-import type { CustomerSMSPreferences, OptOutStatus } from '@/api/types/sms';
-import { SMSService } from '../services/SMSService';
+} from "@/api/hooks/useSMSNotifications";
+import type { CustomerSMSPreferences, OptOutStatus } from "@/api/types/sms";
+import { SMSService } from "../services/SMSService";
 
 // =============================================================================
 // Toggle Component
@@ -32,25 +32,33 @@ interface ToggleProps {
   description?: string;
 }
 
-function Toggle({ checked, onChange, disabled, label, description }: ToggleProps) {
+function Toggle({
+  checked,
+  onChange,
+  disabled,
+  label,
+  description,
+}: ToggleProps) {
   return (
     <div className="flex items-center justify-between py-3">
       <div className="flex-1">
         {label && <p className="font-medium text-text-primary">{label}</p>}
-        {description && <p className="text-sm text-text-muted">{description}</p>}
+        {description && (
+          <p className="text-sm text-text-muted">{description}</p>
+        )}
       </div>
       <button
         type="button"
         onClick={() => onChange(!checked)}
         disabled={disabled}
         className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-          checked ? 'bg-primary' : 'bg-gray-300'
-        } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+          checked ? "bg-primary" : "bg-gray-300"
+        } ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
         aria-label={label}
       >
         <span
           className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-            checked ? 'translate-x-6' : 'translate-x-1'
+            checked ? "translate-x-6" : "translate-x-1"
           }`}
         />
       </button>
@@ -64,15 +72,17 @@ function Toggle({ checked, onChange, disabled, label, description }: ToggleProps
 
 function OptOutStatusBadge({ status }: { status: OptOutStatus }) {
   const config = {
-    opted_in: { bg: 'bg-success/20', text: 'text-success', label: 'Opted In' },
-    opted_out: { bg: 'bg-danger/20', text: 'text-danger', label: 'Opted Out' },
-    pending: { bg: 'bg-warning/20', text: 'text-warning', label: 'Pending' },
+    opted_in: { bg: "bg-success/20", text: "text-success", label: "Opted In" },
+    opted_out: { bg: "bg-danger/20", text: "text-danger", label: "Opted Out" },
+    pending: { bg: "bg-warning/20", text: "text-warning", label: "Pending" },
   };
 
   const { bg, text, label } = config[status];
 
   return (
-    <span className={`px-3 py-1 rounded-full text-sm font-medium ${bg} ${text}`}>
+    <span
+      className={`px-3 py-1 rounded-full text-sm font-medium ${bg} ${text}`}
+    >
       {label}
     </span>
   );
@@ -103,12 +113,18 @@ export function SMSPreferences({
   compact = false,
   readOnly = false,
 }: SMSPreferencesProps) {
-  const { data: preferences, isLoading, refetch } = useCustomerSMSPreferences(customerId);
+  const {
+    data: preferences,
+    isLoading,
+    refetch,
+  } = useCustomerSMSPreferences(customerId);
   const updatePreferences = useUpdateCustomerSMSPreferences();
   const optOutMutation = useOptOutCustomer();
   const optInMutation = useOptInCustomer();
 
-  const [localPreferences, setLocalPreferences] = useState<Partial<CustomerSMSPreferences>>({});
+  const [localPreferences, setLocalPreferences] = useState<
+    Partial<CustomerSMSPreferences>
+  >({});
   const [hasChanges, setHasChanges] = useState(false);
 
   // Initialize local state when preferences load
@@ -122,7 +138,7 @@ export function SMSPreferences({
   // Update local preference
   const updateLocal = <K extends keyof CustomerSMSPreferences>(
     key: K,
-    value: CustomerSMSPreferences[K]
+    value: CustomerSMSPreferences[K],
   ) => {
     setLocalPreferences((prev) => ({ ...prev, [key]: value }));
     setHasChanges(true);
@@ -136,24 +152,28 @@ export function SMSPreferences({
         preferences: localPreferences,
       });
       setHasChanges(false);
-      toastSuccess('SMS preferences saved successfully');
+      toastSuccess("SMS preferences saved successfully");
       onSave?.(result);
     } catch (error) {
-      toastError('Failed to save SMS preferences');
+      toastError("Failed to save SMS preferences");
     }
   };
 
   // Handle opt-out
   const handleOptOut = async () => {
-    if (!confirm('Are you sure you want to opt out? You will no longer receive SMS notifications.')) {
+    if (
+      !confirm(
+        "Are you sure you want to opt out? You will no longer receive SMS notifications.",
+      )
+    ) {
       return;
     }
     try {
       await optOutMutation.mutateAsync(customerId);
       refetch();
-      toastSuccess('Successfully opted out of SMS notifications');
+      toastSuccess("Successfully opted out of SMS notifications");
     } catch (error) {
-      toastError('Failed to opt out');
+      toastError("Failed to opt out");
     }
   };
 
@@ -162,9 +182,9 @@ export function SMSPreferences({
     try {
       await optInMutation.mutateAsync(customerId);
       refetch();
-      toastSuccess('Successfully opted in to SMS notifications');
+      toastSuccess("Successfully opted in to SMS notifications");
     } catch (error) {
-      toastError('Failed to opt in');
+      toastError("Failed to opt in");
     }
   };
 
@@ -177,7 +197,7 @@ export function SMSPreferences({
     );
   }
 
-  const isOptedOut = localPreferences.opt_out_status === 'opted_out';
+  const isOptedOut = localPreferences.opt_out_status === "opted_out";
 
   // Compact view for embedding in customer detail
   if (compact) {
@@ -187,35 +207,63 @@ export function SMSPreferences({
           <div>
             <h4 className="font-medium text-text-primary">SMS Notifications</h4>
             <p className="text-sm text-text-muted">
-              {customerPhone ? SMSService.formatPhoneForDisplay(customerPhone) : 'No phone on file'}
+              {customerPhone
+                ? SMSService.formatPhoneForDisplay(customerPhone)
+                : "No phone on file"}
             </p>
           </div>
-          <OptOutStatusBadge status={localPreferences.opt_out_status || 'opted_in'} />
+          <OptOutStatusBadge
+            status={localPreferences.opt_out_status || "opted_in"}
+          />
         </div>
 
         {!isOptedOut && (
           <div className="grid grid-cols-2 gap-2 text-sm">
             <div className="flex items-center gap-2">
-              <span className={localPreferences.appointment_reminders ? 'text-success' : 'text-gray-400'}>
-                {localPreferences.appointment_reminders ? 'x' : '-'}
+              <span
+                className={
+                  localPreferences.appointment_reminders
+                    ? "text-success"
+                    : "text-gray-400"
+                }
+              >
+                {localPreferences.appointment_reminders ? "x" : "-"}
               </span>
               <span>Appointment Reminders</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className={localPreferences.on_my_way_alerts ? 'text-success' : 'text-gray-400'}>
-                {localPreferences.on_my_way_alerts ? 'x' : '-'}
+              <span
+                className={
+                  localPreferences.on_my_way_alerts
+                    ? "text-success"
+                    : "text-gray-400"
+                }
+              >
+                {localPreferences.on_my_way_alerts ? "x" : "-"}
               </span>
               <span>On My Way Alerts</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className={localPreferences.invoice_notifications ? 'text-success' : 'text-gray-400'}>
-                {localPreferences.invoice_notifications ? 'x' : '-'}
+              <span
+                className={
+                  localPreferences.invoice_notifications
+                    ? "text-success"
+                    : "text-gray-400"
+                }
+              >
+                {localPreferences.invoice_notifications ? "x" : "-"}
               </span>
               <span>Invoice Notifications</span>
             </div>
             <div className="flex items-center gap-2">
-              <span className={localPreferences.payment_reminders ? 'text-success' : 'text-gray-400'}>
-                {localPreferences.payment_reminders ? 'x' : '-'}
+              <span
+                className={
+                  localPreferences.payment_reminders
+                    ? "text-success"
+                    : "text-gray-400"
+                }
+              >
+                {localPreferences.payment_reminders ? "x" : "-"}
               </span>
               <span>Payment Reminders</span>
             </div>
@@ -237,15 +285,20 @@ export function SMSPreferences({
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-semibold text-text-primary">SMS Notification Preferences</h2>
+          <h2 className="text-xl font-semibold text-text-primary">
+            SMS Notification Preferences
+          </h2>
           {customerName && (
             <p className="text-text-muted">
               {customerName}
-              {customerPhone && ` - ${SMSService.formatPhoneForDisplay(customerPhone)}`}
+              {customerPhone &&
+                ` - ${SMSService.formatPhoneForDisplay(customerPhone)}`}
             </p>
           )}
         </div>
-        <OptOutStatusBadge status={localPreferences.opt_out_status || 'opted_in'} />
+        <OptOutStatusBadge
+          status={localPreferences.opt_out_status || "opted_in"}
+        />
       </div>
 
       {/* Opt-Out Warning */}
@@ -256,10 +309,14 @@ export function SMSPreferences({
             <div>
               <h4 className="font-medium text-danger">Customer Opted Out</h4>
               <p className="text-sm text-text-secondary mt-1">
-                This customer has opted out of SMS notifications. No automated messages will be sent.
+                This customer has opted out of SMS notifications. No automated
+                messages will be sent.
                 {localPreferences.opt_out_date && (
                   <span className="block mt-1">
-                    Opted out on: {new Date(localPreferences.opt_out_date).toLocaleDateString()}
+                    Opted out on:{" "}
+                    {new Date(
+                      localPreferences.opt_out_date,
+                    ).toLocaleDateString()}
                   </span>
                 )}
               </p>
@@ -271,7 +328,9 @@ export function SMSPreferences({
                   disabled={optInMutation.isPending}
                   className="mt-3"
                 >
-                  {optInMutation.isPending ? 'Processing...' : 'Re-enable SMS Notifications'}
+                  {optInMutation.isPending
+                    ? "Processing..."
+                    : "Re-enable SMS Notifications"}
                 </Button>
               )}
             </div>
@@ -291,7 +350,7 @@ export function SMSPreferences({
             label="Enable SMS Notifications"
             description="Receive appointment reminders, updates, and invoices via text message"
             checked={localPreferences.sms_enabled ?? true}
-            onChange={(v) => updateLocal('sms_enabled', v)}
+            onChange={(v) => updateLocal("sms_enabled", v)}
             disabled={readOnly || isOptedOut}
           />
 
@@ -304,7 +363,9 @@ export function SMSPreferences({
                 disabled={optOutMutation.isPending}
                 className="text-danger hover:bg-danger/10"
               >
-                {optOutMutation.isPending ? 'Processing...' : 'Opt Out of All SMS'}
+                {optOutMutation.isPending
+                  ? "Processing..."
+                  : "Opt Out of All SMS"}
               </Button>
               <p className="text-xs text-text-muted mt-2">
                 You can also text STOP to our number to opt out.
@@ -325,7 +386,7 @@ export function SMSPreferences({
               label="Booking Confirmations"
               description="Receive confirmation when appointments are scheduled"
               checked={localPreferences.booking_confirmation ?? true}
-              onChange={(v) => updateLocal('booking_confirmation', v)}
+              onChange={(v) => updateLocal("booking_confirmation", v)}
               disabled={readOnly}
             />
 
@@ -333,7 +394,7 @@ export function SMSPreferences({
               label="Appointment Reminders"
               description="Receive reminders before scheduled appointments"
               checked={localPreferences.appointment_reminders ?? true}
-              onChange={(v) => updateLocal('appointment_reminders', v)}
+              onChange={(v) => updateLocal("appointment_reminders", v)}
               disabled={readOnly}
             />
 
@@ -341,7 +402,7 @@ export function SMSPreferences({
               label="On My Way Alerts"
               description="Get notified when your technician is en route with ETA"
               checked={localPreferences.on_my_way_alerts ?? true}
-              onChange={(v) => updateLocal('on_my_way_alerts', v)}
+              onChange={(v) => updateLocal("on_my_way_alerts", v)}
               disabled={readOnly}
             />
 
@@ -349,7 +410,7 @@ export function SMSPreferences({
               label="Service Complete Notifications"
               description="Receive notification when service is completed"
               checked={localPreferences.service_complete ?? true}
-              onChange={(v) => updateLocal('service_complete', v)}
+              onChange={(v) => updateLocal("service_complete", v)}
               disabled={readOnly}
             />
 
@@ -357,7 +418,7 @@ export function SMSPreferences({
               label="Invoice Notifications"
               description="Receive invoices and payment confirmations via text"
               checked={localPreferences.invoice_notifications ?? true}
-              onChange={(v) => updateLocal('invoice_notifications', v)}
+              onChange={(v) => updateLocal("invoice_notifications", v)}
               disabled={readOnly}
             />
 
@@ -365,7 +426,7 @@ export function SMSPreferences({
               label="Payment Reminders"
               description="Receive reminders for outstanding invoices"
               checked={localPreferences.payment_reminders ?? true}
-              onChange={(v) => updateLocal('payment_reminders', v)}
+              onChange={(v) => updateLocal("payment_reminders", v)}
               disabled={readOnly}
             />
 
@@ -373,7 +434,7 @@ export function SMSPreferences({
               label="Review Requests"
               description="Receive requests to leave a review after service"
               checked={localPreferences.review_requests ?? true}
-              onChange={(v) => updateLocal('review_requests', v)}
+              onChange={(v) => updateLocal("review_requests", v)}
               disabled={readOnly}
             />
 
@@ -381,7 +442,7 @@ export function SMSPreferences({
               label="Marketing Messages"
               description="Receive promotional offers and company updates"
               checked={localPreferences.marketing_messages ?? false}
-              onChange={(v) => updateLocal('marketing_messages', v)}
+              onChange={(v) => updateLocal("marketing_messages", v)}
               disabled={readOnly}
             />
           </CardContent>
@@ -407,12 +468,17 @@ export function SMSPreferences({
                   max="72"
                   value={localPreferences.preferred_reminder_hours ?? 24}
                   onChange={(e) =>
-                    updateLocal('preferred_reminder_hours', parseInt(e.target.value) || 24)
+                    updateLocal(
+                      "preferred_reminder_hours",
+                      parseInt(e.target.value) || 24,
+                    )
                   }
                   disabled={readOnly}
                   className="w-24"
                 />
-                <span className="text-text-secondary">hours before appointment</span>
+                <span className="text-text-secondary">
+                  hours before appointment
+                </span>
               </div>
               <p className="text-xs text-text-muted mt-1">
                 In addition to the 2-hour reminder
@@ -425,7 +491,7 @@ export function SMSPreferences({
                 label="Quiet Hours"
                 description="Don't send notifications during specific hours"
                 checked={localPreferences.quiet_hours_enabled ?? false}
-                onChange={(v) => updateLocal('quiet_hours_enabled', v)}
+                onChange={(v) => updateLocal("quiet_hours_enabled", v)}
                 disabled={readOnly}
               />
 
@@ -437,8 +503,10 @@ export function SMSPreferences({
                     </label>
                     <input
                       type="time"
-                      value={localPreferences.quiet_start ?? '21:00'}
-                      onChange={(e) => updateLocal('quiet_start', e.target.value)}
+                      value={localPreferences.quiet_start ?? "21:00"}
+                      onChange={(e) =>
+                        updateLocal("quiet_start", e.target.value)
+                      }
                       disabled={readOnly}
                       className="px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary"
                     />
@@ -450,8 +518,8 @@ export function SMSPreferences({
                     </label>
                     <input
                       type="time"
-                      value={localPreferences.quiet_end ?? '08:00'}
-                      onChange={(e) => updateLocal('quiet_end', e.target.value)}
+                      value={localPreferences.quiet_end ?? "08:00"}
+                      onChange={(e) => updateLocal("quiet_end", e.target.value)}
                       disabled={readOnly}
                       className="px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary"
                     />
@@ -475,8 +543,8 @@ export function SMSPreferences({
             </label>
             <Input
               type="tel"
-              value={localPreferences.primary_phone ?? customerPhone ?? ''}
-              onChange={(e) => updateLocal('primary_phone', e.target.value)}
+              value={localPreferences.primary_phone ?? customerPhone ?? ""}
+              onChange={(e) => updateLocal("primary_phone", e.target.value)}
               disabled={readOnly}
               placeholder="(555) 123-4567"
             />
@@ -488,8 +556,8 @@ export function SMSPreferences({
             </label>
             <Input
               type="tel"
-              value={localPreferences.alternate_phone ?? ''}
-              onChange={(e) => updateLocal('alternate_phone', e.target.value)}
+              value={localPreferences.alternate_phone ?? ""}
+              onChange={(e) => updateLocal("alternate_phone", e.target.value)}
               disabled={readOnly}
               placeholder="(555) 123-4567"
             />
@@ -512,11 +580,8 @@ export function SMSPreferences({
           >
             Cancel
           </Button>
-          <Button
-            onClick={handleSave}
-            disabled={updatePreferences.isPending}
-          >
-            {updatePreferences.isPending ? 'Saving...' : 'Save Preferences'}
+          <Button onClick={handleSave} disabled={updatePreferences.isPending}>
+            {updatePreferences.isPending ? "Saving..." : "Save Preferences"}
           </Button>
         </div>
       )}

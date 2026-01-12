@@ -1,10 +1,15 @@
-import { useState } from 'react';
-import { useCallLog } from '../api.ts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { formatDate } from '@/lib/utils.ts';
-import { CallDispositionModal } from './CallDispositionModal.tsx';
-import type { CallRecord } from '../types.ts';
+import { useState } from "react";
+import { useCallLog } from "../api.ts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { formatDate } from "@/lib/utils.ts";
+import { CallDispositionModal } from "./CallDispositionModal.tsx";
+import type { CallRecord } from "../types.ts";
 
 interface CallLogProps {
   customerId?: string;
@@ -13,7 +18,11 @@ interface CallLogProps {
   showTitle?: boolean;
 }
 
-export function CallLog({ customerId, limit = 10, showTitle = true }: CallLogProps) {
+export function CallLog({
+  customerId,
+  limit = 10,
+  showTitle = true,
+}: CallLogProps) {
   const { data: callsData, isLoading } = useCallLog({
     page_size: limit,
     customer_id: customerId,
@@ -29,16 +38,23 @@ export function CallLog({ customerId, limit = 10, showTitle = true }: CallLogPro
   };
 
   const formatDuration = (seconds: number | null | undefined): string => {
-    if (!seconds) return '0s';
+    if (!seconds) return "0s";
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return mins > 0 ? mins + 'm ' + secs + 's' : secs + 's';
+    return mins > 0 ? mins + "m " + secs + "s" : secs + "s";
   };
 
   const formatPhoneNumber = (phone: string): string => {
-    const digits = phone.replace(/\D/g, '');
+    const digits = phone.replace(/\D/g, "");
     if (digits.length === 10) {
-      return '(' + digits.slice(0, 3) + ') ' + digits.slice(3, 6) + '-' + digits.slice(6);
+      return (
+        "(" +
+        digits.slice(0, 3) +
+        ") " +
+        digits.slice(3, 6) +
+        "-" +
+        digits.slice(6)
+      );
     }
     return phone;
   };
@@ -46,7 +62,11 @@ export function CallLog({ customerId, limit = 10, showTitle = true }: CallLogPro
   if (isLoading) {
     return (
       <Card>
-        {showTitle && <CardHeader><CardTitle>Call History</CardTitle></CardHeader>}
+        {showTitle && (
+          <CardHeader>
+            <CardTitle>Call History</CardTitle>
+          </CardHeader>
+        )}
         <CardContent>
           <div className="animate-pulse space-y-3">
             <div className="h-16 bg-bg-muted rounded" />
@@ -61,7 +81,11 @@ export function CallLog({ customerId, limit = 10, showTitle = true }: CallLogPro
   if (calls.length === 0) {
     return (
       <Card>
-        {showTitle && <CardHeader><CardTitle>Call History</CardTitle></CardHeader>}
+        {showTitle && (
+          <CardHeader>
+            <CardTitle>Call History</CardTitle>
+          </CardHeader>
+        )}
         <CardContent>
           <div className="text-center py-8">
             <p className="text-text-muted">No calls recorded yet</p>
@@ -74,32 +98,63 @@ export function CallLog({ customerId, limit = 10, showTitle = true }: CallLogPro
   return (
     <>
       <Card>
-        {showTitle && <CardHeader><CardTitle>Call History</CardTitle></CardHeader>}
+        {showTitle && (
+          <CardHeader>
+            <CardTitle>Call History</CardTitle>
+          </CardHeader>
+        )}
         <CardContent>
           <div className="space-y-3">
             {calls.map((call) => (
-              <div key={call.id} className="p-3 rounded-lg border border-border hover:bg-bg-hover transition-colors">
+              <div
+                key={call.id}
+                className="p-3 rounded-lg border border-border hover:bg-bg-hover transition-colors"
+              >
                 <div className="flex items-start justify-between mb-2">
                   <div className="flex-1">
                     <div className="flex items-center gap-2 mb-1">
-                      <Badge variant={call.direction === 'inbound' ? 'default' : 'warning'}>
-                        {call.direction === 'inbound' ? 'Inbound' : 'Outbound'}
+                      <Badge
+                        variant={
+                          call.direction === "inbound" ? "default" : "warning"
+                        }
+                      >
+                        {call.direction === "inbound" ? "Inbound" : "Outbound"}
                       </Badge>
-                      <span className="text-sm text-text-secondary">{formatDuration(call.duration_seconds)}</span>
+                      <span className="text-sm text-text-secondary">
+                        {formatDuration(call.duration_seconds)}
+                      </span>
                     </div>
                     <p className="font-medium text-text-primary font-mono">
-                      {call.direction === 'inbound' ? 'From: ' + formatPhoneNumber(call.from_number) : 'To: ' + formatPhoneNumber(call.to_number)}
+                      {call.direction === "inbound"
+                        ? "From: " + formatPhoneNumber(call.from_number)
+                        : "To: " + formatPhoneNumber(call.to_number)}
                     </p>
-                    {call.start_time && <p className="text-xs text-text-muted">{formatDate(call.start_time)}</p>}
+                    {call.start_time && (
+                      <p className="text-xs text-text-muted">
+                        {formatDate(call.start_time)}
+                      </p>
+                    )}
                   </div>
                   <div className="flex flex-col items-end gap-2">
                     {call.disposition ? (
                       <Badge variant="success">{call.disposition}</Badge>
                     ) : (
-                      <button onClick={() => handleAddDisposition(call)} className="text-xs text-primary hover:underline">Add disposition</button>
+                      <button
+                        onClick={() => handleAddDisposition(call)}
+                        className="text-xs text-primary hover:underline"
+                      >
+                        Add disposition
+                      </button>
                     )}
                     {call.recording_url && (
-                      <a href={call.recording_url} target="_blank" rel="noopener noreferrer" className="text-xs text-text-link hover:underline">Listen to recording</a>
+                      <a
+                        href={call.recording_url}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-xs text-text-link hover:underline"
+                      >
+                        Listen to recording
+                      </a>
                     )}
                   </div>
                 </div>
@@ -111,9 +166,16 @@ export function CallLog({ customerId, limit = 10, showTitle = true }: CallLogPro
       {selectedCall && (
         <CallDispositionModal
           open={dispositionModalOpen}
-          onClose={() => { setDispositionModalOpen(false); setSelectedCall(null); }}
+          onClose={() => {
+            setDispositionModalOpen(false);
+            setSelectedCall(null);
+          }}
           callId={selectedCall.id}
-          phoneNumber={selectedCall.direction === 'inbound' ? selectedCall.from_number : selectedCall.to_number}
+          phoneNumber={
+            selectedCall.direction === "inbound"
+              ? selectedCall.from_number
+              : selectedCall.to_number
+          }
         />
       )}
     </>

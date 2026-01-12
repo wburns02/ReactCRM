@@ -5,26 +5,26 @@
  * Displays invoice details with line items and provides multiple payment processing options.
  */
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Card } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
+import { useState } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Card } from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
-import { useMutation } from '@tanstack/react-query';
-import { toastSuccess, toastError } from '@/components/ui/Toast.tsx';
-import { formatCurrency } from './utils/pricingEngine.ts';
+} from "@/components/ui/Dialog.tsx";
+import { useMutation } from "@tanstack/react-query";
+import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
+import { formatCurrency } from "./utils/pricingEngine.ts";
 import {
   useProcessPayment,
   useCreateInvoice,
   useGeneratePaymentLink,
   type ProcessPaymentParams,
-} from './hooks/usePayments.ts';
+} from "./hooks/usePayments.ts";
 
 // ============================================================================
 // TYPES
@@ -43,14 +43,14 @@ export interface PaymentSectionProps {
   subtotal?: number;
   tax?: number;
   total?: number;
-  paymentStatus: 'unpaid' | 'partial' | 'paid';
+  paymentStatus: "unpaid" | "partial" | "paid";
   amountPaid?: number;
   invoiceId?: string;
   onPaymentSuccess?: (transactionId: string) => void;
   onInvoiceGenerated?: (invoiceId: string) => void;
 }
 
-type PaymentMethod = 'card' | 'link' | 'financing' | 'cash';
+type PaymentMethod = "card" | "link" | "financing" | "cash";
 
 // ============================================================================
 // COMPONENT
@@ -69,8 +69,12 @@ export function PaymentSection({
   onPaymentSuccess,
   onInvoiceGenerated,
 }: PaymentSectionProps) {
-  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(null);
-  const [currentInvoiceId, setCurrentInvoiceId] = useState<string | undefined>(invoiceId);
+  const [paymentMethod, setPaymentMethod] = useState<PaymentMethod | null>(
+    null,
+  );
+  const [currentInvoiceId, setCurrentInvoiceId] = useState<string | undefined>(
+    invoiceId,
+  );
 
   // Mutations
   const processPaymentMutation = useProcessPayment();
@@ -83,22 +87,22 @@ export function PaymentSection({
       const params: ProcessPaymentParams = {
         workOrderId,
         amount: total - amountPaid,
-        method: method === 'link' || method === 'financing' ? 'card' : method,
+        method: method === "link" || method === "financing" ? "card" : method,
         invoiceId: currentInvoiceId,
       };
       return processPaymentMutation.mutateAsync(params);
     },
     onSuccess: (data) => {
       if (data.success && data.transactionId) {
-        toastSuccess('Payment processed successfully');
+        toastSuccess("Payment processed successfully");
         onPaymentSuccess?.(data.transactionId);
       } else {
-        toastError(data.error || 'Payment processing failed');
+        toastError(data.error || "Payment processing failed");
       }
       setPaymentMethod(null);
     },
     onError: () => {
-      toastError('Payment processing failed');
+      toastError("Payment processing failed");
     },
   });
 
@@ -121,44 +125,45 @@ export function PaymentSection({
     },
     onSuccess: (data) => {
       setCurrentInvoiceId(data.id);
-      toastSuccess('Invoice generated successfully');
+      toastSuccess("Invoice generated successfully");
       onInvoiceGenerated?.(data.id);
     },
     onError: () => {
-      toastError('Failed to generate invoice');
+      toastError("Failed to generate invoice");
     },
   });
 
   // Send payment link handler
   const handleSendPaymentLink = async () => {
     if (!currentInvoiceId) {
-      toastError('Please generate an invoice first');
+      toastError("Please generate an invoice first");
       return;
     }
 
     try {
-      const result = await generatePaymentLinkMutation.mutateAsync(currentInvoiceId);
+      const result =
+        await generatePaymentLinkMutation.mutateAsync(currentInvoiceId);
       // Copy link to clipboard
       await navigator.clipboard.writeText(result.url);
-      toastSuccess('Payment link copied to clipboard');
+      toastSuccess("Payment link copied to clipboard");
       setPaymentMethod(null);
     } catch {
-      toastError('Failed to generate payment link');
+      toastError("Failed to generate payment link");
     }
   };
 
   // Get status badge variant
   const statusVariant = {
-    unpaid: 'danger',
-    partial: 'warning',
-    paid: 'success',
-  }[paymentStatus] as 'danger' | 'warning' | 'success';
+    unpaid: "danger",
+    partial: "warning",
+    paid: "success",
+  }[paymentStatus] as "danger" | "warning" | "success";
 
   // Get status display text
   const statusText = {
-    unpaid: 'Unpaid',
-    partial: 'Partial',
-    paid: 'Paid',
+    unpaid: "Unpaid",
+    partial: "Partial",
+    paid: "Paid",
   }[paymentStatus];
 
   // Amount due calculation
@@ -168,27 +173,45 @@ export function PaymentSection({
     <div className="grid md:grid-cols-2 gap-6">
       {/* Invoice Preview */}
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Invoice Details</h3>
+        <h3 className="text-lg font-semibold text-text-primary">
+          Invoice Details
+        </h3>
         <Card className="p-4">
           {lineItems.length === 0 ? (
-            <p className="text-center text-text-muted py-4">No invoice generated</p>
+            <p className="text-center text-text-muted py-4">
+              No invoice generated
+            </p>
           ) : (
             <div className="space-y-4">
               <table className="w-full text-sm">
                 <thead>
                   <tr className="border-b border-border">
-                    <th className="text-left py-2 text-text-secondary font-medium">Description</th>
-                    <th className="text-right py-2 text-text-secondary font-medium">Qty</th>
-                    <th className="text-right py-2 text-text-secondary font-medium">Price</th>
-                    <th className="text-right py-2 text-text-secondary font-medium">Total</th>
+                    <th className="text-left py-2 text-text-secondary font-medium">
+                      Description
+                    </th>
+                    <th className="text-right py-2 text-text-secondary font-medium">
+                      Qty
+                    </th>
+                    <th className="text-right py-2 text-text-secondary font-medium">
+                      Price
+                    </th>
+                    <th className="text-right py-2 text-text-secondary font-medium">
+                      Total
+                    </th>
                   </tr>
                 </thead>
                 <tbody>
                   {lineItems.map((item, i) => (
                     <tr key={i} className="border-b border-border">
-                      <td className="py-2 text-text-primary">{item.description}</td>
-                      <td className="text-right py-2 text-text-secondary">{item.quantity}</td>
-                      <td className="text-right py-2 text-text-secondary">{formatCurrency(item.unitPrice)}</td>
+                      <td className="py-2 text-text-primary">
+                        {item.description}
+                      </td>
+                      <td className="text-right py-2 text-text-secondary">
+                        {item.quantity}
+                      </td>
+                      <td className="text-right py-2 text-text-secondary">
+                        {formatCurrency(item.unitPrice)}
+                      </td>
                       <td className="text-right py-2 text-text-primary font-medium">
                         {formatCurrency(item.quantity * item.unitPrice)}
                       </td>
@@ -200,11 +223,15 @@ export function PaymentSection({
               <div className="border-t border-border pt-2 space-y-1">
                 <div className="flex justify-between text-sm">
                   <span className="text-text-secondary">Subtotal</span>
-                  <span className="text-text-primary">{formatCurrency(subtotal)}</span>
+                  <span className="text-text-primary">
+                    {formatCurrency(subtotal)}
+                  </span>
                 </div>
                 <div className="flex justify-between text-sm">
                   <span className="text-text-secondary">Tax</span>
-                  <span className="text-text-primary">{formatCurrency(tax)}</span>
+                  <span className="text-text-primary">
+                    {formatCurrency(tax)}
+                  </span>
                 </div>
                 <div className="flex justify-between font-bold text-lg pt-2 border-t border-border">
                   <span className="text-text-primary">Total</span>
@@ -268,16 +295,23 @@ export function PaymentSection({
 
       {/* Payment Processing */}
       <div className="space-y-4">
-        <h3 className="text-lg font-semibold text-text-primary">Payment Processing</h3>
+        <h3 className="text-lg font-semibold text-text-primary">
+          Payment Processing
+        </h3>
 
         <div className="grid gap-2">
           {/* Card Payment - Green */}
           <Button
             className="w-full justify-start bg-success hover:bg-success/90 text-white"
-            onClick={() => setPaymentMethod('card')}
-            disabled={paymentStatus === 'paid'}
+            onClick={() => setPaymentMethod("card")}
+            disabled={paymentStatus === "paid"}
           >
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-4 h-4 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -291,10 +325,15 @@ export function PaymentSection({
           {/* Send Payment Link - Blue (Primary) */}
           <Button
             className="w-full justify-start"
-            onClick={() => setPaymentMethod('link')}
-            disabled={paymentStatus === 'paid'}
+            onClick={() => setPaymentMethod("link")}
+            disabled={paymentStatus === "paid"}
           >
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-4 h-4 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -309,10 +348,15 @@ export function PaymentSection({
           <Button
             variant="secondary"
             className="w-full justify-start border-warning text-warning hover:bg-warning/10"
-            onClick={() => setPaymentMethod('financing')}
-            disabled={paymentStatus === 'paid'}
+            onClick={() => setPaymentMethod("financing")}
+            disabled={paymentStatus === "paid"}
           >
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-4 h-4 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -327,10 +371,15 @@ export function PaymentSection({
           <Button
             variant="ghost"
             className="w-full justify-start"
-            onClick={() => setPaymentMethod('cash')}
-            disabled={paymentStatus === 'paid'}
+            onClick={() => setPaymentMethod("cash")}
+            disabled={paymentStatus === "paid"}
           >
-            <svg className="w-4 h-4 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-4 h-4 mr-2"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -354,15 +403,21 @@ export function PaymentSection({
             <div className="text-sm text-text-secondary space-y-1">
               <div className="flex justify-between">
                 <span>Amount Due:</span>
-                <span className="font-medium text-text-primary">{formatCurrency(amountDue)}</span>
+                <span className="font-medium text-text-primary">
+                  {formatCurrency(amountDue)}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span>Amount Paid:</span>
-                <span className="font-medium text-success">{formatCurrency(amountPaid)}</span>
+                <span className="font-medium text-success">
+                  {formatCurrency(amountPaid)}
+                </span>
               </div>
               <div className="flex justify-between border-t border-border pt-2 mt-2">
                 <span>Total:</span>
-                <span className="font-bold text-text-primary">{formatCurrency(total)}</span>
+                <span className="font-bold text-text-primary">
+                  {formatCurrency(total)}
+                </span>
               </div>
             </div>
           </div>
@@ -370,7 +425,10 @@ export function PaymentSection({
       </div>
 
       {/* Card Payment Modal */}
-      <Dialog open={paymentMethod === 'card'} onClose={() => setPaymentMethod(null)}>
+      <Dialog
+        open={paymentMethod === "card"}
+        onClose={() => setPaymentMethod(null)}
+      >
         <DialogContent size="sm">
           <DialogHeader onClose={() => setPaymentMethod(null)}>
             Process Card Payment
@@ -383,7 +441,9 @@ export function PaymentSection({
               <div className="p-4 bg-bg-hover rounded-lg">
                 <div className="flex justify-between text-lg">
                   <span className="font-medium">Amount:</span>
-                  <span className="font-bold text-primary">{formatCurrency(amountDue)}</span>
+                  <span className="font-bold text-primary">
+                    {formatCurrency(amountDue)}
+                  </span>
                 </div>
               </div>
               <p className="text-sm text-text-muted">
@@ -396,17 +456,20 @@ export function PaymentSection({
               Cancel
             </Button>
             <Button
-              onClick={() => processPayment.mutate('card')}
+              onClick={() => processPayment.mutate("card")}
               disabled={processPayment.isPending}
             >
-              {processPayment.isPending ? 'Processing...' : 'Process Payment'}
+              {processPayment.isPending ? "Processing..." : "Process Payment"}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
       {/* Payment Link Modal */}
-      <Dialog open={paymentMethod === 'link'} onClose={() => setPaymentMethod(null)}>
+      <Dialog
+        open={paymentMethod === "link"}
+        onClose={() => setPaymentMethod(null)}
+      >
         <DialogContent size="sm">
           <DialogHeader onClose={() => setPaymentMethod(null)}>
             Send Payment Link
@@ -414,12 +477,15 @@ export function PaymentSection({
           <DialogBody>
             <div className="space-y-4">
               <p className="text-text-secondary">
-                Generate a payment link that can be sent to the customer via email or SMS.
+                Generate a payment link that can be sent to the customer via
+                email or SMS.
               </p>
               <div className="p-4 bg-bg-hover rounded-lg">
                 <div className="flex justify-between text-lg">
                   <span className="font-medium">Amount:</span>
-                  <span className="font-bold text-primary">{formatCurrency(amountDue)}</span>
+                  <span className="font-bold text-primary">
+                    {formatCurrency(amountDue)}
+                  </span>
                 </div>
               </div>
             </div>
@@ -430,16 +496,23 @@ export function PaymentSection({
             </Button>
             <Button
               onClick={handleSendPaymentLink}
-              disabled={generatePaymentLinkMutation.isPending || !currentInvoiceId}
+              disabled={
+                generatePaymentLinkMutation.isPending || !currentInvoiceId
+              }
             >
-              {generatePaymentLinkMutation.isPending ? 'Generating...' : 'Generate & Copy Link'}
+              {generatePaymentLinkMutation.isPending
+                ? "Generating..."
+                : "Generate & Copy Link"}
             </Button>
           </DialogFooter>
         </DialogContent>
       </Dialog>
 
       {/* Financing Modal */}
-      <Dialog open={paymentMethod === 'financing'} onClose={() => setPaymentMethod(null)}>
+      <Dialog
+        open={paymentMethod === "financing"}
+        onClose={() => setPaymentMethod(null)}
+      >
         <DialogContent size="sm">
           <DialogHeader onClose={() => setPaymentMethod(null)}>
             Offer Financing
@@ -452,23 +525,33 @@ export function PaymentSection({
               <div className="p-4 bg-bg-hover rounded-lg">
                 <div className="flex justify-between text-lg">
                   <span className="font-medium">Total Amount:</span>
-                  <span className="font-bold text-primary">{formatCurrency(total)}</span>
+                  <span className="font-bold text-primary">
+                    {formatCurrency(total)}
+                  </span>
                 </div>
               </div>
               <div className="space-y-2">
-                <p className="text-sm font-medium text-text-primary">Available Plans:</p>
+                <p className="text-sm font-medium text-text-primary">
+                  Available Plans:
+                </p>
                 <div className="space-y-2 text-sm">
                   <div className="flex justify-between p-2 bg-bg-hover/50 rounded">
                     <span>6 months @ 0% APR</span>
-                    <span className="font-medium">{formatCurrency(total / 6)}/mo</span>
+                    <span className="font-medium">
+                      {formatCurrency(total / 6)}/mo
+                    </span>
                   </div>
                   <div className="flex justify-between p-2 bg-bg-hover/50 rounded">
                     <span>12 months @ 9.99% APR</span>
-                    <span className="font-medium">{formatCurrency((total * 1.0999) / 12)}/mo</span>
+                    <span className="font-medium">
+                      {formatCurrency((total * 1.0999) / 12)}/mo
+                    </span>
                   </div>
                   <div className="flex justify-between p-2 bg-bg-hover/50 rounded">
                     <span>24 months @ 14.99% APR</span>
-                    <span className="font-medium">{formatCurrency((total * 1.1499) / 24)}/mo</span>
+                    <span className="font-medium">
+                      {formatCurrency((total * 1.1499) / 24)}/mo
+                    </span>
                   </div>
                 </div>
               </div>
@@ -478,10 +561,12 @@ export function PaymentSection({
             <Button variant="secondary" onClick={() => setPaymentMethod(null)}>
               Cancel
             </Button>
-            <Button onClick={() => {
-              toastSuccess('Financing application would be initiated');
-              setPaymentMethod(null);
-            }}>
+            <Button
+              onClick={() => {
+                toastSuccess("Financing application would be initiated");
+                setPaymentMethod(null);
+              }}
+            >
               Start Application
             </Button>
           </DialogFooter>
@@ -489,7 +574,10 @@ export function PaymentSection({
       </Dialog>
 
       {/* Cash/Check Modal */}
-      <Dialog open={paymentMethod === 'cash'} onClose={() => setPaymentMethod(null)}>
+      <Dialog
+        open={paymentMethod === "cash"}
+        onClose={() => setPaymentMethod(null)}
+      >
         <DialogContent size="sm">
           <DialogHeader onClose={() => setPaymentMethod(null)}>
             Record Cash/Check Payment
@@ -502,7 +590,9 @@ export function PaymentSection({
               <div className="p-4 bg-bg-hover rounded-lg">
                 <div className="flex justify-between text-lg">
                   <span className="font-medium">Amount Due:</span>
-                  <span className="font-bold text-primary">{formatCurrency(amountDue)}</span>
+                  <span className="font-bold text-primary">
+                    {formatCurrency(amountDue)}
+                  </span>
                 </div>
               </div>
             </div>
@@ -512,10 +602,10 @@ export function PaymentSection({
               Cancel
             </Button>
             <Button
-              onClick={() => processPayment.mutate('cash')}
+              onClick={() => processPayment.mutate("cash")}
               disabled={processPayment.isPending}
             >
-              {processPayment.isPending ? 'Recording...' : 'Record Payment'}
+              {processPayment.isPending ? "Recording..." : "Record Payment"}
             </Button>
           </DialogFooter>
         </DialogContent>

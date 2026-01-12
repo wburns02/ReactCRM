@@ -1,13 +1,18 @@
-import { useState, useEffect, memo } from 'react';
-import { useOptionalWebSocketContext } from '@/providers/WebSocketProvider';
-import { useSyncStatus } from '@/hooks/useOffline';
-import { cn } from '@/lib/utils';
+import { useState, useEffect, memo } from "react";
+import { useOptionalWebSocketContext } from "@/providers/WebSocketProvider";
+import { useSyncStatus } from "@/hooks/useOffline";
+import { cn } from "@/lib/utils";
 
 // ============================================
 // Types
 // ============================================
 
-export type ConnectionState = 'online' | 'offline' | 'connecting' | 'syncing' | 'error';
+export type ConnectionState =
+  | "online"
+  | "offline"
+  | "connecting"
+  | "syncing"
+  | "error";
 
 export interface ConnectionStatusProps {
   /** Whether to show text label (default: false for compact mode) */
@@ -17,7 +22,7 @@ export interface ConnectionStatusProps {
   /** Custom class name */
   className?: string;
   /** Size variant */
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
 }
 
 // ============================================
@@ -35,54 +40,54 @@ const STATUS_CONFIG: Record<
   }
 > = {
   online: {
-    color: 'text-success',
-    bgColor: 'bg-success',
-    label: 'Connected',
-    icon: 'check',
+    color: "text-success",
+    bgColor: "bg-success",
+    label: "Connected",
+    icon: "check",
   },
   offline: {
-    color: 'text-text-muted',
-    bgColor: 'bg-text-muted',
-    label: 'Offline',
-    icon: 'offline',
+    color: "text-text-muted",
+    bgColor: "bg-text-muted",
+    label: "Offline",
+    icon: "offline",
   },
   connecting: {
-    color: 'text-warning',
-    bgColor: 'bg-warning',
-    label: 'Connecting...',
-    icon: 'connecting',
+    color: "text-warning",
+    bgColor: "bg-warning",
+    label: "Connecting...",
+    icon: "connecting",
     pulse: true,
   },
   syncing: {
-    color: 'text-info',
-    bgColor: 'bg-info',
-    label: 'Syncing...',
-    icon: 'sync',
+    color: "text-info",
+    bgColor: "bg-info",
+    label: "Syncing...",
+    icon: "sync",
     pulse: true,
   },
   error: {
-    color: 'text-danger',
-    bgColor: 'bg-danger',
-    label: 'Connection Error',
-    icon: 'error',
+    color: "text-danger",
+    bgColor: "bg-danger",
+    label: "Connection Error",
+    icon: "error",
   },
 };
 
 const SIZE_CONFIG = {
   sm: {
-    dot: 'w-2 h-2',
-    container: 'gap-1.5 text-xs',
-    icon: 'w-3 h-3',
+    dot: "w-2 h-2",
+    container: "gap-1.5 text-xs",
+    icon: "w-3 h-3",
   },
   md: {
-    dot: 'w-2.5 h-2.5',
-    container: 'gap-2 text-sm',
-    icon: 'w-4 h-4',
+    dot: "w-2.5 h-2.5",
+    container: "gap-2 text-sm",
+    icon: "w-4 h-4",
   },
   lg: {
-    dot: 'w-3 h-3',
-    container: 'gap-2.5 text-base',
-    icon: 'w-5 h-5',
+    dot: "w-3 h-3",
+    container: "gap-2.5 text-base",
+    icon: "w-5 h-5",
   },
 };
 
@@ -92,15 +97,30 @@ const SIZE_CONFIG = {
 
 function StatusIcon({ type, className }: { type: string; className?: string }) {
   switch (type) {
-    case 'check':
+    case "check":
       return (
-        <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+        <svg
+          className={className}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M5 13l4 4L19 7"
+          />
         </svg>
       );
-    case 'offline':
+    case "offline":
       return (
-        <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg
+          className={className}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -109,9 +129,13 @@ function StatusIcon({ type, className }: { type: string; className?: string }) {
           />
         </svg>
       );
-    case 'connecting':
+    case "connecting":
       return (
-        <svg className={cn(className, 'animate-spin')} fill="none" viewBox="0 0 24 24">
+        <svg
+          className={cn(className, "animate-spin")}
+          fill="none"
+          viewBox="0 0 24 24"
+        >
           <circle
             className="opacity-25"
             cx="12"
@@ -127,9 +151,14 @@ function StatusIcon({ type, className }: { type: string; className?: string }) {
           />
         </svg>
       );
-    case 'sync':
+    case "sync":
       return (
-        <svg className={cn(className, 'animate-spin')} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg
+          className={cn(className, "animate-spin")}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -138,9 +167,14 @@ function StatusIcon({ type, className }: { type: string; className?: string }) {
           />
         </svg>
       );
-    case 'error':
+    case "error":
       return (
-        <svg className={className} fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <svg
+          className={className}
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
           <path
             strokeLinecap="round"
             strokeLinejoin="round"
@@ -177,7 +211,7 @@ export const ConnectionStatus = memo(function ConnectionStatus({
   showLabel = false,
   showTooltip = true,
   className,
-  size = 'sm',
+  size = "sm",
 }: ConnectionStatusProps) {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const wsContext = useOptionalWebSocketContext();
@@ -188,12 +222,12 @@ export const ConnectionStatus = memo(function ConnectionStatus({
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, []);
 
@@ -201,29 +235,32 @@ export const ConnectionStatus = memo(function ConnectionStatus({
   const getConnectionState = (): ConnectionState => {
     // Offline takes precedence
     if (!isOnline) {
-      return 'offline';
+      return "offline";
     }
 
     // Check WebSocket status
     if (wsContext) {
-      if (wsContext.status === 'error') {
-        return 'error';
+      if (wsContext.status === "error") {
+        return "error";
       }
-      if (wsContext.status === 'connecting' || wsContext.status === 'reconnecting') {
-        return 'connecting';
+      if (
+        wsContext.status === "connecting" ||
+        wsContext.status === "reconnecting"
+      ) {
+        return "connecting";
       }
     }
 
     // Check sync status
-    if (syncStatus.status === 'syncing') {
-      return 'syncing';
+    if (syncStatus.status === "syncing") {
+      return "syncing";
     }
 
-    if (syncStatus.status === 'error') {
-      return 'error';
+    if (syncStatus.status === "error") {
+      return "error";
     }
 
-    return 'online';
+    return "online";
   };
 
   const state = getConnectionState();
@@ -235,7 +272,7 @@ export const ConnectionStatus = memo(function ConnectionStatus({
     const lines: string[] = [config.label];
 
     if (!isOnline) {
-      lines.push('Browser is offline');
+      lines.push("Browser is offline");
     }
 
     if (wsContext) {
@@ -253,16 +290,16 @@ export const ConnectionStatus = memo(function ConnectionStatus({
       lines.push(`Last sync: ${syncStatus.lastSync.toLocaleTimeString()}`);
     }
 
-    return lines.join('\n');
+    return lines.join("\n");
   };
 
   return (
     <div
       className={cn(
-        'inline-flex items-center',
+        "inline-flex items-center",
         sizeConfig.container,
         config.color,
-        className
+        className,
       )}
       title={showTooltip ? getTooltipContent() : undefined}
       role="status"
@@ -272,27 +309,25 @@ export const ConnectionStatus = memo(function ConnectionStatus({
       <span className="relative flex">
         <span
           className={cn(
-            'rounded-full',
+            "rounded-full",
             sizeConfig.dot,
             config.bgColor,
-            config.pulse && 'animate-pulse'
+            config.pulse && "animate-pulse",
           )}
         />
         {config.pulse && (
           <span
             className={cn(
-              'absolute inline-flex rounded-full opacity-75 animate-ping',
+              "absolute inline-flex rounded-full opacity-75 animate-ping",
               sizeConfig.dot,
-              config.bgColor
+              config.bgColor,
             )}
           />
         )}
       </span>
 
       {/* Label */}
-      {showLabel && (
-        <span className="font-medium">{config.label}</span>
-      )}
+      {showLabel && <span className="font-medium">{config.label}</span>}
     </div>
   );
 });
@@ -325,31 +360,40 @@ export const ConnectionStatusExtended = memo(function ConnectionStatusExtended({
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, []);
 
   const getOverallState = (): ConnectionState => {
-    if (!isOnline) return 'offline';
-    if (wsContext?.status === 'error') return 'error';
-    if (wsContext?.status === 'connecting' || wsContext?.status === 'reconnecting') return 'connecting';
-    if (syncStatus.status === 'syncing') return 'syncing';
-    if (syncStatus.status === 'error') return 'error';
-    return 'online';
+    if (!isOnline) return "offline";
+    if (wsContext?.status === "error") return "error";
+    if (
+      wsContext?.status === "connecting" ||
+      wsContext?.status === "reconnecting"
+    )
+      return "connecting";
+    if (syncStatus.status === "syncing") return "syncing";
+    if (syncStatus.status === "error") return "error";
+    return "online";
   };
 
   const state = getOverallState();
   const config = STATUS_CONFIG[state];
 
   return (
-    <div className={cn('flex items-center gap-3 p-2 rounded-lg bg-bg-card border border-border', className)}>
+    <div
+      className={cn(
+        "flex items-center gap-3 p-2 rounded-lg bg-bg-card border border-border",
+        className,
+      )}
+    >
       {/* Main Status */}
-      <div className={cn('flex items-center gap-2', config.color)}>
+      <div className={cn("flex items-center gap-2", config.color)}>
         <StatusIcon type={config.icon} className="w-4 h-4" />
         <span className="font-medium text-sm">{config.label}</span>
       </div>
@@ -364,8 +408,8 @@ export const ConnectionStatusExtended = memo(function ConnectionStatusExtended({
           <span className="flex items-center gap-1">
             <span
               className={cn(
-                'w-1.5 h-1.5 rounded-full',
-                wsContext.isConnected ? 'bg-success' : 'bg-text-muted'
+                "w-1.5 h-1.5 rounded-full",
+                wsContext.isConnected ? "bg-success" : "bg-text-muted",
               )}
             />
             WS
@@ -383,7 +427,11 @@ export const ConnectionStatusExtended = memo(function ConnectionStatusExtended({
         {/* Last Sync */}
         {syncStatus.lastSync && (
           <span>
-            Last sync: {syncStatus.lastSync.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            Last sync:{" "}
+            {syncStatus.lastSync.toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
           </span>
         )}
       </div>
@@ -403,7 +451,9 @@ export interface ConnectionDotProps {
  * Minimal connection dot indicator
  * Just shows a colored dot based on connection state
  */
-export const ConnectionDot = memo(function ConnectionDot({ className }: ConnectionDotProps) {
+export const ConnectionDot = memo(function ConnectionDot({
+  className,
+}: ConnectionDotProps) {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const wsContext = useOptionalWebSocketContext();
 
@@ -411,12 +461,12 @@ export const ConnectionDot = memo(function ConnectionDot({ className }: Connecti
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, []);
 
@@ -426,16 +476,18 @@ export const ConnectionDot = memo(function ConnectionDot({ className }: Connecti
   return (
     <span
       className={cn(
-        'inline-block w-2 h-2 rounded-full',
+        "inline-block w-2 h-2 rounded-full",
         isConnected
-          ? 'bg-success'
+          ? "bg-success"
           : isConnecting
-          ? 'bg-warning animate-pulse'
-          : 'bg-text-muted',
-        className
+            ? "bg-warning animate-pulse"
+            : "bg-text-muted",
+        className,
       )}
       role="status"
-      aria-label={isConnected ? 'Connected' : isConnecting ? 'Connecting' : 'Disconnected'}
+      aria-label={
+        isConnected ? "Connected" : isConnecting ? "Connecting" : "Disconnected"
+      }
     />
   );
 });

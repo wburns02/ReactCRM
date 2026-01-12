@@ -9,19 +9,19 @@
  * - Visual feedback for saved signatures
  */
 
-import { useState, useRef, useEffect, useCallback } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { useOnlineStatus } from '@/hooks/usePWA';
-import { apiClient } from '@/api/client';
+import { useState, useRef, useEffect, useCallback } from "react";
+import { Button } from "@/components/ui/Button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { useOnlineStatus } from "@/hooks/usePWA";
+import { apiClient } from "@/api/client";
 import {
   storeSignature,
   getSignatureForWorkOrder,
   updateSignatureStatus,
   removeSignature,
   type StoredSignature,
-} from '@/lib/db';
+} from "@/lib/db";
 
 // ============================================
 // Types
@@ -29,7 +29,7 @@ import {
 
 interface OfflineSignatureProps {
   workOrderId: string;
-  signerType: 'customer' | 'technician';
+  signerType: "customer" | "technician";
   onSignatureCapture?: (signatureData: string) => void;
   onSignatureUploaded?: () => void;
   label?: string;
@@ -44,7 +44,9 @@ interface Point {
 // Signature Canvas Hook
 // ============================================
 
-function useSignatureCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>) {
+function useSignatureCanvas(
+  canvasRef: React.RefObject<HTMLCanvasElement | null>,
+) {
   const [isDrawing, setIsDrawing] = useState(false);
   const [hasSignature, setHasSignature] = useState(false);
   const lastPointRef = useRef<Point | null>(null);
@@ -52,7 +54,7 @@ function useSignatureCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
   const getCanvasContext = useCallback(() => {
     const canvas = canvasRef.current;
     if (!canvas) return null;
-    return canvas.getContext('2d');
+    return canvas.getContext("2d");
   }, [canvasRef]);
 
   const getPoint = useCallback(
@@ -64,7 +66,7 @@ function useSignatureCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
       const scaleX = canvas.width / rect.width;
       const scaleY = canvas.height / rect.height;
 
-      if ('touches' in e) {
+      if ("touches" in e) {
         const touch = e.touches[0];
         return {
           x: (touch.clientX - rect.left) * scaleX,
@@ -77,7 +79,7 @@ function useSignatureCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
         y: (e.clientY - rect.top) * scaleY,
       };
     },
-    [canvasRef]
+    [canvasRef],
   );
 
   const startDrawing = useCallback(
@@ -93,7 +95,7 @@ function useSignatureCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
       ctx.beginPath();
       ctx.moveTo(point.x, point.y);
     },
-    [getPoint, getCanvasContext]
+    [getPoint, getCanvasContext],
   );
 
   const draw = useCallback(
@@ -106,10 +108,10 @@ function useSignatureCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
       const ctx = getCanvasContext();
       if (!ctx) return;
 
-      ctx.strokeStyle = '#000000';
+      ctx.strokeStyle = "#000000";
       ctx.lineWidth = 2;
-      ctx.lineCap = 'round';
-      ctx.lineJoin = 'round';
+      ctx.lineCap = "round";
+      ctx.lineJoin = "round";
 
       if (lastPointRef.current) {
         ctx.beginPath();
@@ -121,7 +123,7 @@ function useSignatureCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
       lastPointRef.current = point;
       setHasSignature(true);
     },
-    [isDrawing, getPoint, getCanvasContext]
+    [isDrawing, getPoint, getCanvasContext],
   );
 
   const stopDrawing = useCallback(() => {
@@ -141,7 +143,7 @@ function useSignatureCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
   const toDataURL = useCallback((): string | null => {
     const canvas = canvasRef.current;
     if (!canvas || !hasSignature) return null;
-    return canvas.toDataURL('image/png');
+    return canvas.toDataURL("image/png");
   }, [canvasRef, hasSignature]);
 
   // Set up event listeners
@@ -164,22 +166,22 @@ function useSignatureCanvas(canvasRef: React.RefObject<HTMLCanvasElement | null>
     };
     const handleTouchEnd = () => stopDrawing();
 
-    canvas.addEventListener('mousedown', handleMouseDown);
-    canvas.addEventListener('mousemove', handleMouseMove);
-    canvas.addEventListener('mouseup', handleMouseUp);
-    canvas.addEventListener('mouseleave', handleMouseLeave);
-    canvas.addEventListener('touchstart', handleTouchStart, { passive: false });
-    canvas.addEventListener('touchmove', handleTouchMove, { passive: false });
-    canvas.addEventListener('touchend', handleTouchEnd);
+    canvas.addEventListener("mousedown", handleMouseDown);
+    canvas.addEventListener("mousemove", handleMouseMove);
+    canvas.addEventListener("mouseup", handleMouseUp);
+    canvas.addEventListener("mouseleave", handleMouseLeave);
+    canvas.addEventListener("touchstart", handleTouchStart, { passive: false });
+    canvas.addEventListener("touchmove", handleTouchMove, { passive: false });
+    canvas.addEventListener("touchend", handleTouchEnd);
 
     return () => {
-      canvas.removeEventListener('mousedown', handleMouseDown);
-      canvas.removeEventListener('mousemove', handleMouseMove);
-      canvas.removeEventListener('mouseup', handleMouseUp);
-      canvas.removeEventListener('mouseleave', handleMouseLeave);
-      canvas.removeEventListener('touchstart', handleTouchStart);
-      canvas.removeEventListener('touchmove', handleTouchMove);
-      canvas.removeEventListener('touchend', handleTouchEnd);
+      canvas.removeEventListener("mousedown", handleMouseDown);
+      canvas.removeEventListener("mousemove", handleMouseMove);
+      canvas.removeEventListener("mouseup", handleMouseUp);
+      canvas.removeEventListener("mouseleave", handleMouseLeave);
+      canvas.removeEventListener("touchstart", handleTouchStart);
+      canvas.removeEventListener("touchmove", handleTouchMove);
+      canvas.removeEventListener("touchend", handleTouchEnd);
     };
   }, [startDrawing, draw, stopDrawing, canvasRef]);
 
@@ -201,8 +203,9 @@ export function OfflineSignature({
   const canvasRef = useRef<HTMLCanvasElement>(null);
   const { hasSignature, clear, toDataURL } = useSignatureCanvas(canvasRef);
 
-  const [signerName, setSignerName] = useState('');
-  const [existingSignature, setExistingSignature] = useState<StoredSignature | null>(null);
+  const [signerName, setSignerName] = useState("");
+  const [existingSignature, setExistingSignature] =
+    useState<StoredSignature | null>(null);
   const [isSaving, setIsSaving] = useState(false);
   const [isUploading, setIsUploading] = useState(false);
   const [showSaved, setShowSaved] = useState(false);
@@ -229,24 +232,25 @@ export function OfflineSignature({
           signer_name: signature.signerName,
           signer_type: signature.signerType,
         });
-        await updateSignatureStatus(signature.id, 'uploaded');
+        await updateSignatureStatus(signature.id, "uploaded");
         onSignatureUploaded?.();
         return true;
       } catch (err) {
-        console.error('Signature upload failed:', err);
-        const errorMessage = err instanceof Error ? err.message : 'Upload failed';
-        await updateSignatureStatus(signature.id, 'failed', errorMessage);
+        console.error("Signature upload failed:", err);
+        const errorMessage =
+          err instanceof Error ? err.message : "Upload failed";
+        await updateSignatureStatus(signature.id, "failed", errorMessage);
         return false;
       } finally {
         setIsUploading(false);
       }
     },
-    [workOrderId, onSignatureUploaded]
+    [workOrderId, onSignatureUploaded],
   );
 
   // Auto-upload pending signature when coming online
   useEffect(() => {
-    if (isOnline && existingSignature?.status === 'pending') {
+    if (isOnline && existingSignature?.status === "pending") {
       uploadSignature(existingSignature);
     }
   }, [isOnline, existingSignature, uploadSignature]);
@@ -254,7 +258,7 @@ export function OfflineSignature({
   // Save signature
   const handleSave = useCallback(async () => {
     if (!hasSignature || !signerName.trim()) {
-      alert('Please sign and enter your name');
+      alert("Please sign and enter your name");
       return;
     }
 
@@ -292,8 +296,8 @@ export function OfflineSignature({
         uploadSignature(newSig);
       }
     } catch (err) {
-      console.error('Failed to save signature:', err);
-      alert('Failed to save signature. Please try again.');
+      console.error("Failed to save signature:", err);
+      alert("Failed to save signature. Please try again.");
     } finally {
       setIsSaving(false);
     }
@@ -312,7 +316,7 @@ export function OfflineSignature({
   // Clear signature
   const handleClear = useCallback(async () => {
     clear();
-    setSignerName('');
+    setSignerName("");
     if (existingSignature) {
       await removeSignature(existingSignature.id);
       setExistingSignature(null);
@@ -323,7 +327,9 @@ export function OfflineSignature({
   // Render
   // ============================================
 
-  const displayLabel = label || (signerType === 'customer' ? 'Customer Signature' : 'Technician Signature');
+  const displayLabel =
+    label ||
+    (signerType === "customer" ? "Customer Signature" : "Technician Signature");
 
   return (
     <Card>
@@ -331,28 +337,24 @@ export function OfflineSignature({
         <div className="flex items-center justify-between">
           <CardTitle className="text-base">{displayLabel}</CardTitle>
           <div className="flex items-center gap-2">
-            {existingSignature?.status === 'pending' && (
+            {existingSignature?.status === "pending" && (
               <Badge variant="warning">Pending Upload</Badge>
             )}
-            {existingSignature?.status === 'uploaded' && (
+            {existingSignature?.status === "uploaded" && (
               <Badge variant="success">Saved</Badge>
             )}
-            {existingSignature?.status === 'failed' && (
+            {existingSignature?.status === "failed" && (
               <Badge variant="danger">Upload Failed</Badge>
             )}
-            {showSaved && (
-              <Badge variant="success">Saved!</Badge>
-            )}
-            {!isOnline && (
-              <Badge variant="default">Offline</Badge>
-            )}
+            {showSaved && <Badge variant="success">Saved!</Badge>}
+            {!isOnline && <Badge variant="default">Offline</Badge>}
           </div>
         </div>
       </CardHeader>
       <CardContent>
         {/* Signature canvas */}
         <div className="border border-border-primary rounded-lg bg-white mb-4">
-          {existingSignature?.status === 'uploaded' ? (
+          {existingSignature?.status === "uploaded" ? (
             // Show saved signature image
             <div className="relative">
               <img
@@ -361,11 +363,7 @@ export function OfflineSignature({
                 className="w-full h-32 object-contain"
               />
               <div className="absolute bottom-2 right-2">
-                <Button
-                  variant="ghost"
-                  size="sm"
-                  onClick={handleClear}
-                >
+                <Button variant="ghost" size="sm" onClick={handleClear}>
                   Clear
                 </Button>
               </div>
@@ -376,7 +374,7 @@ export function OfflineSignature({
               width={600}
               height={200}
               className="w-full h-32 touch-none cursor-crosshair"
-              style={{ touchAction: 'none' }}
+              style={{ touchAction: "none" }}
             />
           )}
         </div>
@@ -392,20 +390,24 @@ export function OfflineSignature({
             onChange={(e) => setSignerName(e.target.value)}
             placeholder="Enter full name"
             className="w-full px-3 py-2 border border-border-primary rounded-lg focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
-            disabled={existingSignature?.status === 'uploaded'}
+            disabled={existingSignature?.status === "uploaded"}
           />
         </div>
 
         {/* Action buttons */}
         <div className="flex items-center gap-2">
-          {existingSignature?.status !== 'uploaded' && (
+          {existingSignature?.status !== "uploaded" && (
             <>
               <Button
                 onClick={handleSave}
                 disabled={!hasSignature || !signerName.trim() || isSaving}
                 size="sm"
               >
-                {isSaving ? 'Saving...' : isUploading ? 'Uploading...' : 'Save Signature'}
+                {isSaving
+                  ? "Saving..."
+                  : isUploading
+                    ? "Uploading..."
+                    : "Save Signature"}
               </Button>
               <Button
                 variant="secondary"
@@ -418,7 +420,7 @@ export function OfflineSignature({
             </>
           )}
 
-          {existingSignature?.status === 'failed' && isOnline && (
+          {existingSignature?.status === "failed" && isOnline && (
             <Button
               variant="secondary"
               onClick={() => uploadSignature(existingSignature)}

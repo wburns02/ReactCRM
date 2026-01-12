@@ -2,17 +2,24 @@
  * TechnicianTracker Component
  * Shows live technician locations with avatars, status, and position updates
  */
-import { useState, useEffect, useCallback, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from 'react-leaflet';
-import * as L from 'leaflet';
-import type { WorkOrder } from '@/api/types/workOrder';
-import { STATUS_COLORS } from '@/api/types/workOrder';
-import 'leaflet/dist/leaflet.css';
+import { useState, useEffect, useCallback, useMemo } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Polyline,
+  useMap,
+} from "react-leaflet";
+import * as L from "leaflet";
+import type { WorkOrder } from "@/api/types/workOrder";
+import { STATUS_COLORS } from "@/api/types/workOrder";
+import "leaflet/dist/leaflet.css";
 
 // Fix Leaflet default marker icons
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
 // @ts-expect-error - Leaflet type issue with default icon
 delete L.Icon.Default.prototype._getIconUrl;
@@ -40,7 +47,7 @@ export interface TrackedTechnician {
   name: string;
   avatarUrl?: string;
   phone?: string;
-  status: 'active' | 'idle' | 'offline' | 'on_break';
+  status: "active" | "idle" | "offline" | "on_break";
   currentPosition: TechnicianPosition | null;
   positionHistory: TechnicianPosition[];
   currentWorkOrderId?: string;
@@ -82,17 +89,17 @@ export interface TechnicianTrackerProps {
 // ============================================
 
 const TECHNICIAN_STATUS_COLORS = {
-  active: '#22c55e',
-  idle: '#f59e0b',
-  offline: '#6b7280',
-  on_break: '#8b5cf6',
+  active: "#22c55e",
+  idle: "#f59e0b",
+  offline: "#6b7280",
+  on_break: "#8b5cf6",
 } as const;
 
 const TECHNICIAN_STATUS_LABELS = {
-  active: 'Active',
-  idle: 'Idle',
-  offline: 'Offline',
-  on_break: 'On Break',
+  active: "Active",
+  idle: "Idle",
+  offline: "Offline",
+  on_break: "On Break",
 } as const;
 
 // ============================================
@@ -101,7 +108,7 @@ const TECHNICIAN_STATUS_LABELS = {
 
 function createTechnicianMarker(
   technician: TrackedTechnician,
-  isSelected = false
+  isSelected = false,
 ): L.DivIcon {
   const color = TECHNICIAN_STATUS_COLORS[technician.status];
   const size = isSelected ? 56 : 48;
@@ -109,7 +116,7 @@ function createTechnicianMarker(
   const heading = technician.currentPosition?.heading || 0;
 
   return L.divIcon({
-    className: 'technician-marker',
+    className: "technician-marker",
     html: `
       <div style="
         position: relative;
@@ -131,10 +138,13 @@ function createTechnicianMarker(
           align-items: center;
           justify-content: center;
           transform: rotate(${heading}deg);
-          ${technician.status === 'active' ? 'animation: techPulse 2s ease-in-out infinite;' : ''}
+          ${technician.status === "active" ? "animation: techPulse 2s ease-in-out infinite;" : ""}
         ">
           <!-- Direction arrow -->
-          ${technician.currentPosition?.speed && technician.currentPosition.speed > 2 ? `
+          ${
+            technician.currentPosition?.speed &&
+            technician.currentPosition.speed > 2
+              ? `
             <div style="
               position: absolute;
               top: -6px;
@@ -146,7 +156,9 @@ function createTechnicianMarker(
               border-right: 6px solid transparent;
               border-bottom: 10px solid ${color};
             "></div>
-          ` : ''}
+          `
+              : ""
+          }
         </div>
 
         <!-- Avatar or icon -->
@@ -164,20 +176,24 @@ function createTechnicianMarker(
           justify-content: center;
           overflow: hidden;
         ">
-          ${technician.avatarUrl
-            ? `<img src="${technician.avatarUrl}" alt="${technician.name}" style="
+          ${
+            technician.avatarUrl
+              ? `<img src="${technician.avatarUrl}" alt="${technician.name}" style="
                 width: 100%;
                 height: 100%;
                 object-fit: cover;
               "/>`
-            : `<svg width="${innerSize * 0.6}" height="${innerSize * 0.6}" viewBox="0 0 24 24" fill="${color}">
+              : `<svg width="${innerSize * 0.6}" height="${innerSize * 0.6}" viewBox="0 0 24 24" fill="${color}">
                 <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z"/>
               </svg>`
           }
         </div>
 
         <!-- Speed indicator -->
-        ${technician.currentPosition?.speed && technician.currentPosition.speed > 2 ? `
+        ${
+          technician.currentPosition?.speed &&
+          technician.currentPosition.speed > 2
+            ? `
           <div style="
             position: absolute;
             bottom: -8px;
@@ -194,7 +210,9 @@ function createTechnicianMarker(
           ">
             ${Math.round(technician.currentPosition.speed)} mph
           </div>
-        ` : ''}
+        `
+            : ""
+        }
       </div>
 
       <style>
@@ -214,14 +232,21 @@ function createTechnicianMarker(
 // Map Bounds Component
 // ============================================
 
-function MapBoundsUpdater({ technicians }: { technicians: TrackedTechnician[] }) {
+function MapBoundsUpdater({
+  technicians,
+}: {
+  technicians: TrackedTechnician[];
+}) {
   const map = useMap();
 
   useEffect(() => {
     const validTechnicians = technicians.filter((t) => t.currentPosition);
     if (validTechnicians.length > 0) {
       const bounds = L.latLngBounds(
-        validTechnicians.map((t) => [t.currentPosition!.lat, t.currentPosition!.lng])
+        validTechnicians.map((t) => [
+          t.currentPosition!.lat,
+          t.currentPosition!.lng,
+        ]),
       );
       map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14 });
     }
@@ -272,7 +297,10 @@ function TechnicianPopupContent({
               className="w-2 h-2 rounded-full"
               style={{ backgroundColor: statusColor }}
             />
-            <span className="text-xs font-medium" style={{ color: statusColor }}>
+            <span
+              className="text-xs font-medium"
+              style={{ color: statusColor }}
+            >
               {statusLabel}
             </span>
           </div>
@@ -284,14 +312,18 @@ function TechnicianPopupContent({
         <div className="grid grid-cols-2 gap-2 text-xs text-gray-600 mb-3">
           {technician.currentPosition.speed !== undefined && (
             <div>
-              <span className="text-gray-400">Speed:</span>{' '}
-              <span className="font-medium">{Math.round(technician.currentPosition.speed)} mph</span>
+              <span className="text-gray-400">Speed:</span>{" "}
+              <span className="font-medium">
+                {Math.round(technician.currentPosition.speed)} mph
+              </span>
             </div>
           )}
           {technician.currentPosition.accuracy && (
             <div>
-              <span className="text-gray-400">Accuracy:</span>{' '}
-              <span className="font-medium">{Math.round(technician.currentPosition.accuracy)}m</span>
+              <span className="text-gray-400">Accuracy:</span>{" "}
+              <span className="font-medium">
+                {Math.round(technician.currentPosition.accuracy)}m
+              </span>
             </div>
           )}
         </div>
@@ -300,43 +332,47 @@ function TechnicianPopupContent({
       {/* Vehicle Info */}
       {technician.vehicleInfo && (
         <div className="text-xs text-gray-600 mb-3 pb-3 border-b">
-          <span className="text-gray-400">Vehicle:</span>{' '}
+          <span className="text-gray-400">Vehicle:</span>{" "}
           <span className="font-medium">{technician.vehicleInfo.name}</span>
           {technician.vehicleInfo.licensePlate && (
-            <span className="ml-1 text-gray-400">({technician.vehicleInfo.licensePlate})</span>
+            <span className="ml-1 text-gray-400">
+              ({technician.vehicleInfo.licensePlate})
+            </span>
           )}
         </div>
       )}
 
       {/* Assigned Jobs */}
-      {technician.assignedWorkOrders && technician.assignedWorkOrders.length > 0 && (
-        <div className="mb-3">
-          <p className="text-xs text-gray-400 mb-1">Assigned Jobs:</p>
-          <div className="space-y-1">
-            {technician.assignedWorkOrders.slice(0, 3).map((wo) => (
-              <div key={wo.id} className="flex items-center gap-2 text-xs">
-                <span
-                  className="w-2 h-2 rounded-full"
-                  style={{ backgroundColor: STATUS_COLORS[wo.status] }}
-                />
-                <span className="truncate flex-1">
-                  {wo.customer_name || wo.service_address_line1}
-                </span>
-              </div>
-            ))}
-            {technician.assignedWorkOrders.length > 3 && (
-              <p className="text-xs text-gray-400">
-                +{technician.assignedWorkOrders.length - 3} more
-              </p>
-            )}
+      {technician.assignedWorkOrders &&
+        technician.assignedWorkOrders.length > 0 && (
+          <div className="mb-3">
+            <p className="text-xs text-gray-400 mb-1">Assigned Jobs:</p>
+            <div className="space-y-1">
+              {technician.assignedWorkOrders.slice(0, 3).map((wo) => (
+                <div key={wo.id} className="flex items-center gap-2 text-xs">
+                  <span
+                    className="w-2 h-2 rounded-full"
+                    style={{ backgroundColor: STATUS_COLORS[wo.status] }}
+                  />
+                  <span className="truncate flex-1">
+                    {wo.customer_name || wo.service_address_line1}
+                  </span>
+                </div>
+              ))}
+              {technician.assignedWorkOrders.length > 3 && (
+                <p className="text-xs text-gray-400">
+                  +{technician.assignedWorkOrders.length - 3} more
+                </p>
+              )}
+            </div>
           </div>
-        </div>
-      )}
+        )}
 
       {/* Last Updated */}
       {technician.currentPosition && (
         <p className="text-xs text-gray-400">
-          Updated {new Date(technician.currentPosition.timestamp).toLocaleTimeString()}
+          Updated{" "}
+          {new Date(technician.currentPosition.timestamp).toLocaleTimeString()}
         </p>
       )}
 
@@ -372,7 +408,9 @@ function TechnicianInfoCard({
     <button
       onClick={onClick}
       className={`flex items-center gap-3 p-3 rounded-lg transition-all ${
-        isSelected ? 'bg-blue-50 ring-2 ring-blue-500' : 'bg-white hover:bg-gray-50'
+        isSelected
+          ? "bg-blue-50 ring-2 ring-blue-500"
+          : "bg-white hover:bg-gray-50"
       }`}
     >
       {/* Avatar */}
@@ -408,11 +446,12 @@ function TechnicianInfoCard({
       </div>
 
       {/* Speed */}
-      {technician.currentPosition?.speed && technician.currentPosition.speed > 2 && (
-        <span className="text-xs font-medium text-gray-500">
-          {Math.round(technician.currentPosition.speed)} mph
-        </span>
-      )}
+      {technician.currentPosition?.speed &&
+        technician.currentPosition.speed > 2 && (
+          <span className="text-xs font-medium text-gray-500">
+            {Math.round(technician.currentPosition.speed)} mph
+          </span>
+        )}
     </button>
   );
 }
@@ -427,11 +466,11 @@ export function TechnicianTracker({
   onTechnicianClick,
   showTrail = false,
   trailLength = 10,
-  height = '500px',
+  height = "500px",
   center = { lat: 29.4252, lng: -98.4946 },
   zoom = 11,
   showInfoCards = true,
-  className = '',
+  className = "",
   onRequestUpdate,
 }: TechnicianTrackerProps) {
   const [technicians, setTechnicians] = useState(initialTechnicians);
@@ -453,7 +492,7 @@ export function TechnicianTracker({
         setTechnicians(updated);
         setLastUpdate(new Date());
       } catch (error) {
-        console.error('Failed to update technician positions:', error);
+        console.error("Failed to update technician positions:", error);
       }
     }, updateInterval);
 
@@ -466,18 +505,18 @@ export function TechnicianTracker({
       setSelectedTechId(technician.id);
       onTechnicianClick?.(technician);
     },
-    [onTechnicianClick]
+    [onTechnicianClick],
   );
 
   // Get technicians with valid positions
   const validTechnicians = useMemo(
     () => technicians.filter((t) => t.currentPosition),
-    [technicians]
+    [technicians],
   );
 
   // Online/Offline counts
-  const onlineCount = technicians.filter((t) => t.status !== 'offline').length;
-  const activeCount = technicians.filter((t) => t.status === 'active').length;
+  const onlineCount = technicians.filter((t) => t.status !== "offline").length;
+  const activeCount = technicians.filter((t) => t.status === "active").length;
 
   return (
     <div className={`flex gap-4 ${className}`}>
@@ -489,13 +528,11 @@ export function TechnicianTracker({
         <MapContainer
           center={[center.lat, center.lng]}
           zoom={zoom}
-          style={{ height: '100%', width: '100%' }}
+          style={{ height: "100%", width: "100%" }}
           zoomControl={true}
           attributionControl={false}
         >
-          <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-          />
+          <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
 
           <MapBoundsUpdater technicians={validTechnicians} />
 
@@ -514,7 +551,7 @@ export function TechnicianTracker({
                     color: TECHNICIAN_STATUS_COLORS[tech.status],
                     weight: 3,
                     opacity: 0.5,
-                    dashArray: '6, 6',
+                    dashArray: "6, 6",
                   }}
                 />
               );
@@ -528,7 +565,10 @@ export function TechnicianTracker({
             return (
               <Marker
                 key={tech.id}
-                position={[tech.currentPosition!.lat, tech.currentPosition!.lng]}
+                position={[
+                  tech.currentPosition!.lat,
+                  tech.currentPosition!.lng,
+                ]}
                 icon={markerIcon}
                 eventHandlers={{
                   click: () => handleTechnicianClick(tech),

@@ -9,15 +9,18 @@
  * - Ability to refine and save segments
  */
 
-import { useState, useRef, useEffect } from 'react';
-import { cn } from '@/lib/utils.ts';
-import type { SegmentRuleSet } from '@/api/types/customerSuccess.ts';
-import { useParseNaturalLanguage, type ParsedSegmentQuery } from '@/hooks/useSegments.ts';
-import { RuleSummary } from './components/RuleGroup.tsx';
+import { useState, useRef, useEffect } from "react";
+import { cn } from "@/lib/utils.ts";
+import type { SegmentRuleSet } from "@/api/types/customerSuccess.ts";
+import {
+  useParseNaturalLanguage,
+  type ParsedSegmentQuery,
+} from "@/hooks/useSegments.ts";
+import { RuleSummary } from "./components/RuleGroup.tsx";
 
 interface ChatMessage {
   id: string;
-  role: 'user' | 'assistant';
+  role: "user" | "assistant";
   content: string;
   timestamp: Date;
   parsedResult?: ParsedSegmentQuery;
@@ -30,12 +33,18 @@ interface AISegmentChatProps {
 }
 
 const QUICK_SUGGESTIONS = [
-  { label: 'High-value customers', query: 'Show me high-value enterprise customers' },
-  { label: 'At-risk accounts', query: 'Find customers at risk of churning' },
-  { label: 'Renewal soon', query: 'Customers with renewals in the next 60 days' },
-  { label: 'Low engagement', query: 'Customers with low engagement scores' },
-  { label: 'New signups', query: 'New customers from the last 30 days' },
-  { label: 'Expansion ready', query: 'Healthy customers ready for expansion' },
+  {
+    label: "High-value customers",
+    query: "Show me high-value enterprise customers",
+  },
+  { label: "At-risk accounts", query: "Find customers at risk of churning" },
+  {
+    label: "Renewal soon",
+    query: "Customers with renewals in the next 60 days",
+  },
+  { label: "Low engagement", query: "Customers with low engagement scores" },
+  { label: "New signups", query: "New customers from the last 30 days" },
+  { label: "Expansion ready", query: "Healthy customers ready for expansion" },
 ];
 
 export function AISegmentChat({
@@ -45,13 +54,14 @@ export function AISegmentChat({
 }: AISegmentChatProps) {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
-      id: 'welcome',
-      role: 'assistant',
-      content: 'Hello! I can help you create customer segments using natural language. Try describing the customers you want to find, like "high-value enterprise customers at risk of churning" or "new customers who haven\'t completed onboarding".',
+      id: "welcome",
+      role: "assistant",
+      content:
+        'Hello! I can help you create customer segments using natural language. Try describing the customers you want to find, like "high-value enterprise customers at risk of churning" or "new customers who haven\'t completed onboarding".',
       timestamp: new Date(),
     },
   ]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [isProcessing, setIsProcessing] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
@@ -59,7 +69,7 @@ export function AISegmentChat({
 
   // Auto-scroll to bottom
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const handleSend = async (query: string = input) => {
@@ -67,13 +77,13 @@ export function AISegmentChat({
 
     const userMessage: ChatMessage = {
       id: `user-${Date.now()}`,
-      role: 'user',
+      role: "user",
       content: query.trim(),
       timestamp: new Date(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    setInput('');
+    setInput("");
     setIsProcessing(true);
 
     try {
@@ -81,7 +91,7 @@ export function AISegmentChat({
 
       const assistantMessage: ChatMessage = {
         id: `assistant-${Date.now()}`,
-        role: 'assistant',
+        role: "assistant",
         content: `I understand you're looking for ${result.suggested_name}. Here's what I found:`,
         timestamp: new Date(),
         parsedResult: result,
@@ -91,8 +101,9 @@ export function AISegmentChat({
     } catch {
       const errorMessage: ChatMessage = {
         id: `error-${Date.now()}`,
-        role: 'assistant',
-        content: 'I had trouble understanding that request. Could you try rephrasing it? For example: "Show me customers with health score below 50" or "Find enterprise accounts that haven\'t had a QBR in 90 days".',
+        role: "assistant",
+        content:
+          'I had trouble understanding that request. Could you try rephrasing it? For example: "Show me customers with health score below 50" or "Find enterprise accounts that haven\'t had a QBR in 90 days".',
         timestamp: new Date(),
       };
 
@@ -120,28 +131,47 @@ export function AISegmentChat({
   const handleClearChat = () => {
     setMessages([
       {
-        id: 'welcome-new',
-        role: 'assistant',
-        content: 'Chat cleared. How can I help you create a new segment?',
+        id: "welcome-new",
+        role: "assistant",
+        content: "Chat cleared. How can I help you create a new segment?",
         timestamp: new Date(),
       },
     ]);
   };
 
   return (
-    <div className={cn('flex flex-col h-full bg-white dark:bg-gray-900', className)}>
+    <div
+      className={cn(
+        "flex flex-col h-full bg-white dark:bg-gray-900",
+        className,
+      )}
+    >
       {/* Header */}
       <div className="flex-shrink-0 p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center">
-              <svg className="w-5 h-5 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+              <svg
+                className="w-5 h-5 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+                />
               </svg>
             </div>
             <div>
-              <h3 className="font-semibold text-gray-900 dark:text-white">AI Segment Builder</h3>
-              <p className="text-xs text-gray-500 dark:text-gray-400">Describe your segment in natural language</p>
+              <h3 className="font-semibold text-gray-900 dark:text-white">
+                AI Segment Builder
+              </h3>
+              <p className="text-xs text-gray-500 dark:text-gray-400">
+                Describe your segment in natural language
+              </p>
             </div>
           </div>
 
@@ -150,8 +180,18 @@ export function AISegmentChat({
             className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
             title="Clear chat"
           >
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+              />
             </svg>
           </button>
         </div>
@@ -163,16 +203,16 @@ export function AISegmentChat({
           <div
             key={message.id}
             className={cn(
-              'flex',
-              message.role === 'user' ? 'justify-end' : 'justify-start'
+              "flex",
+              message.role === "user" ? "justify-end" : "justify-start",
             )}
           >
             <div
               className={cn(
-                'max-w-[80%] rounded-2xl px-4 py-3',
-                message.role === 'user'
-                  ? 'bg-primary text-white rounded-br-md'
-                  : 'bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-bl-md'
+                "max-w-[80%] rounded-2xl px-4 py-3",
+                message.role === "user"
+                  ? "bg-primary text-white rounded-br-md"
+                  : "bg-gray-100 dark:bg-gray-800 text-gray-900 dark:text-white rounded-bl-md",
               )}
             >
               <p className="text-sm">{message.content}</p>
@@ -185,15 +225,21 @@ export function AISegmentChat({
                     <div className="flex-1 h-2 bg-gray-200 dark:bg-gray-600 rounded-full overflow-hidden">
                       <div
                         className={cn(
-                          'h-full rounded-full transition-all',
-                          message.parsedResult.confidence >= 0.8 ? 'bg-green-500' :
-                          message.parsedResult.confidence >= 0.6 ? 'bg-yellow-500' : 'bg-red-500'
+                          "h-full rounded-full transition-all",
+                          message.parsedResult.confidence >= 0.8
+                            ? "bg-green-500"
+                            : message.parsedResult.confidence >= 0.6
+                              ? "bg-yellow-500"
+                              : "bg-red-500",
                         )}
-                        style={{ width: `${message.parsedResult.confidence * 100}%` }}
+                        style={{
+                          width: `${message.parsedResult.confidence * 100}%`,
+                        }}
                       />
                     </div>
                     <span className="text-xs text-gray-500 dark:text-gray-400">
-                      {Math.round(message.parsedResult.confidence * 100)}% confidence
+                      {Math.round(message.parsedResult.confidence * 100)}%
+                      confidence
                     </span>
                   </div>
 
@@ -224,7 +270,9 @@ export function AISegmentChat({
                     )}
                     {onEditInBuilder && (
                       <button
-                        onClick={() => handleEditInBuilder(message.parsedResult!.rules)}
+                        onClick={() =>
+                          handleEditInBuilder(message.parsedResult!.rules)
+                        }
                         className="px-4 py-2 text-gray-600 dark:text-gray-300 text-sm font-medium hover:bg-gray-100 dark:hover:bg-gray-700 rounded-lg transition-colors"
                       >
                         Refine in Builder
@@ -235,7 +283,10 @@ export function AISegmentChat({
               )}
 
               <span className="text-xs opacity-60 mt-2 block">
-                {message.timestamp.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+                {message.timestamp.toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })}
               </span>
             </div>
           </div>
@@ -247,8 +298,14 @@ export function AISegmentChat({
             <div className="bg-gray-100 dark:bg-gray-800 rounded-2xl rounded-bl-md px-4 py-3">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" />
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.2s' }} />
-                <div className="w-2 h-2 bg-gray-400 rounded-full animate-bounce" style={{ animationDelay: '0.4s' }} />
+                <div
+                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                  style={{ animationDelay: "0.2s" }}
+                />
+                <div
+                  className="w-2 h-2 bg-gray-400 rounded-full animate-bounce"
+                  style={{ animationDelay: "0.4s" }}
+                />
               </div>
             </div>
           </div>
@@ -260,7 +317,9 @@ export function AISegmentChat({
       {/* Quick Suggestions */}
       <div className="flex-shrink-0 px-4 py-2 border-t border-gray-200 dark:border-gray-700">
         <div className="flex items-center gap-2 overflow-x-auto pb-2">
-          <span className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">Try:</span>
+          <span className="text-xs text-gray-500 dark:text-gray-400 whitespace-nowrap">
+            Try:
+          </span>
           {QUICK_SUGGESTIONS.map((suggestion, index) => (
             <button
               key={index}
@@ -282,7 +341,7 @@ export function AISegmentChat({
               value={input}
               onChange={(e) => setInput(e.target.value)}
               onKeyDown={(e) => {
-                if (e.key === 'Enter' && !e.shiftKey) {
+                if (e.key === "Enter" && !e.shiftKey) {
                   e.preventDefault();
                   handleSend();
                 }
@@ -290,24 +349,34 @@ export function AISegmentChat({
               placeholder="Describe the customers you want to find..."
               rows={1}
               className="w-full px-4 py-3 text-sm bg-gray-100 dark:bg-gray-800 border-0 rounded-xl resize-none focus:outline-none focus:ring-2 focus:ring-primary/20 text-gray-900 dark:text-white placeholder-gray-400"
-              style={{ minHeight: '48px', maxHeight: '120px' }}
+              style={{ minHeight: "48px", maxHeight: "120px" }}
             />
           </div>
           <button
             onClick={() => handleSend()}
             disabled={!input.trim() || isProcessing}
             className={cn(
-              'p-3 rounded-xl transition-colors',
+              "p-3 rounded-xl transition-colors",
               input.trim() && !isProcessing
-                ? 'bg-primary text-white hover:bg-primary-hover'
-                : 'bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed'
+                ? "bg-primary text-white hover:bg-primary-hover"
+                : "bg-gray-200 dark:bg-gray-700 text-gray-400 cursor-not-allowed",
             )}
           >
             {isProcessing ? (
               <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-current" />
             ) : (
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M14 5l7 7m0 0l-7 7m7-7H3"
+                />
               </svg>
             )}
           </button>
@@ -330,7 +399,7 @@ export function AISegmentChatCompact({
   onApplySegment?: (data: { name: string; rules: SegmentRuleSet }) => void;
   className?: string;
 }) {
-  const [query, setQuery] = useState('');
+  const [query, setQuery] = useState("");
   const [result, setResult] = useState<ParsedSegmentQuery | null>(null);
   const parseMutation = useParseNaturalLanguage();
 
@@ -346,15 +415,27 @@ export function AISegmentChatCompact({
   };
 
   return (
-    <div className={cn('space-y-4', className)}>
+    <div className={cn("space-y-4", className)}>
       {/* Header */}
       <div className="flex items-center gap-2">
         <div className="w-8 h-8 rounded-full bg-gradient-to-br from-primary to-purple-500 flex items-center justify-center">
-          <svg className="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z" />
+          <svg
+            className="w-4 h-4 text-white"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"
+            />
           </svg>
         </div>
-        <span className="font-medium text-gray-900 dark:text-white">AI Segment Builder</span>
+        <span className="font-medium text-gray-900 dark:text-white">
+          AI Segment Builder
+        </span>
       </div>
 
       {/* Input */}
@@ -364,7 +445,7 @@ export function AISegmentChatCompact({
           value={query}
           onChange={(e) => setQuery(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === "Enter") {
               e.preventDefault();
               handleSubmit();
             }
@@ -380,8 +461,18 @@ export function AISegmentChatCompact({
           {parseMutation.isPending ? (
             <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-current" />
           ) : (
-            <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+            <svg
+              className="w-5 h-5"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M14 5l7 7m0 0l-7 7m7-7H3"
+              />
             </svg>
           )}
         </button>
@@ -391,20 +482,33 @@ export function AISegmentChatCompact({
       {result && (
         <div className="bg-gray-50 dark:bg-gray-800 rounded-xl p-4">
           <div className="flex items-center justify-between mb-2">
-            <h4 className="font-medium text-gray-900 dark:text-white">{result.suggested_name}</h4>
-            <span className={cn(
-              'px-2 py-0.5 text-xs rounded-full',
-              result.confidence >= 0.8 ? 'bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400' :
-              result.confidence >= 0.6 ? 'bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400' :
-              'bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400'
-            )}>
+            <h4 className="font-medium text-gray-900 dark:text-white">
+              {result.suggested_name}
+            </h4>
+            <span
+              className={cn(
+                "px-2 py-0.5 text-xs rounded-full",
+                result.confidence >= 0.8
+                  ? "bg-green-100 text-green-700 dark:bg-green-900/30 dark:text-green-400"
+                  : result.confidence >= 0.6
+                    ? "bg-yellow-100 text-yellow-700 dark:bg-yellow-900/30 dark:text-yellow-400"
+                    : "bg-red-100 text-red-700 dark:bg-red-900/30 dark:text-red-400",
+              )}
+            >
               {Math.round(result.confidence * 100)}% match
             </span>
           </div>
-          <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">{result.explanation}</p>
+          <p className="text-sm text-gray-600 dark:text-gray-300 mb-3">
+            {result.explanation}
+          </p>
           {onApplySegment && (
             <button
-              onClick={() => onApplySegment({ name: result.suggested_name, rules: result.rules })}
+              onClick={() =>
+                onApplySegment({
+                  name: result.suggested_name,
+                  rules: result.rules,
+                })
+              }
               className="w-full px-4 py-2 bg-primary text-white text-sm font-medium rounded-lg hover:bg-primary-hover transition-colors"
             >
               Create Segment

@@ -2,22 +2,28 @@
  * Customer Financing Card Component
  * Shows financing options and allows sending financing link
  */
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/Dialog';
-import { Input } from '@/components/ui/Input';
+import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/Dialog";
+import { Input } from "@/components/ui/Input";
 // Label available for future use in form fields
 import {
   useFinancingOffers,
   useRequestFinancing,
   useGenerateFinancingLink,
-} from '@/api/hooks/useFintech';
-import { FINANCING_PROVIDER_LABELS } from '@/api/types/fintech';
-import { formatCurrency } from '@/lib/utils';
-import { getErrorMessage } from '@/api/client';
-import { toastError } from '@/components/ui/Toast';
+} from "@/api/hooks/useFintech";
+import { FINANCING_PROVIDER_LABELS } from "@/api/types/fintech";
+import { formatCurrency } from "@/lib/utils";
+import { getErrorMessage } from "@/api/client";
+import { toastError } from "@/components/ui/Toast";
 
 interface CustomerFinancingCardProps {
   customerId: string;
@@ -48,7 +54,7 @@ export function CustomerFinancingCard({
         customer_id: customerId,
         amount,
         invoice_id: invoiceId,
-        provider: provider as 'wisetack' | 'affirm' | 'greensky' | 'internal',
+        provider: provider as "wisetack" | "affirm" | "greensky" | "internal",
       });
       onFinancingApplied?.();
     } catch (error) {
@@ -78,11 +84,11 @@ export function CustomerFinancingCard({
         setTimeout(() => setCopied(false), 2000);
       } catch {
         // Fallback
-        const textarea = document.createElement('textarea');
+        const textarea = document.createElement("textarea");
         textarea.value = generatedLink;
         document.body.appendChild(textarea);
         textarea.select();
-        document.execCommand('copy');
+        document.execCommand("copy");
         document.body.removeChild(textarea);
         setCopied(true);
         setTimeout(() => setCopied(false), 2000);
@@ -126,19 +132,24 @@ export function CustomerFinancingCard({
                         {FINANCING_PROVIDER_LABELS[offer.provider]}
                       </h4>
                       <p className="text-sm text-text-muted">
-                        Finance {formatCurrency(offer.min_amount)} - {formatCurrency(offer.max_amount)}
+                        Finance {formatCurrency(offer.min_amount)} -{" "}
+                        {formatCurrency(offer.max_amount)}
                       </p>
                     </div>
-                    {offer.promo_apr !== null && offer.promo_apr !== undefined && (
-                      <Badge className="bg-success/10 text-success">
-                        {offer.promo_apr === 0 ? '0% APR Promo' : `${offer.promo_apr}% APR Promo`}
-                      </Badge>
-                    )}
+                    {offer.promo_apr !== null &&
+                      offer.promo_apr !== undefined && (
+                        <Badge className="bg-success/10 text-success">
+                          {offer.promo_apr === 0
+                            ? "0% APR Promo"
+                            : `${offer.promo_apr}% APR Promo`}
+                        </Badge>
+                      )}
                   </div>
 
                   <div className="grid grid-cols-3 gap-2 mb-3">
                     {offer.terms.slice(0, 3).map((term) => {
-                      const monthlyPayment = (amount / 1000) * term.monthly_payment_per_1000;
+                      const monthlyPayment =
+                        (amount / 1000) * term.monthly_payment_per_1000;
                       return (
                         <div
                           key={term.term_months}
@@ -162,7 +173,9 @@ export function CustomerFinancingCard({
                     onClick={() => handleRequestFinancing(offer.provider)}
                     disabled={requestFinancing.isPending}
                   >
-                    {requestFinancing.isPending ? 'Processing...' : 'Send Application'}
+                    {requestFinancing.isPending
+                      ? "Processing..."
+                      : "Send Application"}
                   </Button>
                 </div>
               ))}
@@ -174,7 +187,9 @@ export function CustomerFinancingCard({
                   onClick={handleGenerateLink}
                   disabled={generateLink.isPending}
                 >
-                  {generateLink.isPending ? 'Generating...' : 'Generate Financing Link'}
+                  {generateLink.isPending
+                    ? "Generating..."
+                    : "Generate Financing Link"}
                 </Button>
                 <p className="text-xs text-text-muted text-center mt-2">
                   Send a link for customer to apply on their own
@@ -196,18 +211,14 @@ export function CustomerFinancingCard({
               Share this link with your customer to apply for financing:
             </p>
             <div className="relative">
-              <Input
-                value={generatedLink || ''}
-                readOnly
-                className="pr-20"
-              />
+              <Input value={generatedLink || ""} readOnly className="pr-20" />
               <Button
                 variant="ghost"
                 size="sm"
                 className="absolute right-1 top-1"
                 onClick={handleCopyLink}
               >
-                {copied ? 'Copied!' : 'Copy'}
+                {copied ? "Copied!" : "Copy"}
               </Button>
             </div>
             {customerEmail && (

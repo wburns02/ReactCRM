@@ -1,32 +1,32 @@
-import { useState, memo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
+import { useState, memo, useCallback } from "react";
+import { Link } from "react-router-dom";
 import {
   useNotifications,
   useNotificationStats,
   useMarkNotificationRead,
   useMarkAllNotificationsRead,
   type Notification,
-} from '@/api/hooks/useNotifications';
+} from "@/api/hooks/useNotifications";
 
 /**
  * Notification icon based on type
  */
-function getNotificationIcon(type: Notification['type']): string {
+function getNotificationIcon(type: Notification["type"]): string {
   switch (type) {
-    case 'work_order':
-      return '🔧';
-    case 'schedule':
-      return '📅';
-    case 'payment':
-      return '💳';
-    case 'message':
-      return '💬';
-    case 'alert':
-      return '⚠️';
-    case 'system':
-      return '🔔';
+    case "work_order":
+      return "🔧";
+    case "schedule":
+      return "📅";
+    case "payment":
+      return "💳";
+    case "message":
+      return "💬";
+    case "alert":
+      return "⚠️";
+    case "system":
+      return "🔔";
     default:
-      return '📌';
+      return "📌";
   }
 }
 
@@ -41,7 +41,7 @@ function formatRelativeTime(dateString: string): string {
   const diffHours = Math.floor(diffMins / 60);
   const diffDays = Math.floor(diffHours / 24);
 
-  if (diffMins < 1) return 'Just now';
+  if (diffMins < 1) return "Just now";
   if (diffMins < 60) return `${diffMins}m ago`;
   if (diffHours < 24) return `${diffHours}h ago`;
   if (diffDays < 7) return `${diffDays}d ago`;
@@ -69,16 +69,20 @@ const NotificationItem = memo(function NotificationItem({
     <div
       onClick={handleClick}
       className={`p-3 border-b border-border last:border-b-0 cursor-pointer transition-colors ${
-        notification.read ? 'bg-bg-card' : 'bg-primary-light/30'
+        notification.read ? "bg-bg-card" : "bg-primary-light/30"
       } hover:bg-bg-hover`}
     >
       <div className="flex gap-3">
-        <span className="text-lg">{getNotificationIcon(notification.type)}</span>
+        <span className="text-lg">
+          {getNotificationIcon(notification.type)}
+        </span>
         <div className="flex-1 min-w-0">
           <div className="flex items-start justify-between gap-2">
             <h4
               className={`text-sm truncate ${
-                notification.read ? 'font-normal text-text-secondary' : 'font-medium text-text-primary'
+                notification.read
+                  ? "font-normal text-text-secondary"
+                  : "font-medium text-text-primary"
               }`}
             >
               {notification.title}
@@ -87,7 +91,9 @@ const NotificationItem = memo(function NotificationItem({
               <span className="flex-shrink-0 w-2 h-2 rounded-full bg-primary mt-1.5" />
             )}
           </div>
-          <p className="text-xs text-text-muted mt-0.5 line-clamp-2">{notification.body}</p>
+          <p className="text-xs text-text-muted mt-0.5 line-clamp-2">
+            {notification.body}
+          </p>
           <div className="flex items-center justify-between mt-1">
             <span className="text-xs text-text-muted">
               {formatRelativeTime(notification.created_at)}
@@ -114,7 +120,9 @@ const NotificationItem = memo(function NotificationItem({
 export function NotificationCenter() {
   const [isOpen, setIsOpen] = useState(false);
   const { data: stats } = useNotificationStats();
-  const { data: notificationsData, isLoading } = useNotifications({ limit: 20 });
+  const { data: notificationsData, isLoading } = useNotifications({
+    limit: 20,
+  });
   const markRead = useMarkNotificationRead();
   const markAllRead = useMarkAllNotificationsRead();
 
@@ -140,7 +148,7 @@ export function NotificationCenter() {
         <span className="text-xl">🔔</span>
         {unreadCount > 0 && (
           <span className="absolute -top-0.5 -right-0.5 min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-danger rounded-full flex items-center justify-center">
-            {unreadCount > 99 ? '99+' : unreadCount}
+            {unreadCount > 99 ? "99+" : unreadCount}
           </span>
         )}
       </button>
@@ -149,7 +157,10 @@ export function NotificationCenter() {
       {isOpen && (
         <>
           {/* Backdrop */}
-          <div className="fixed inset-0 z-40" onClick={() => setIsOpen(false)} />
+          <div
+            className="fixed inset-0 z-40"
+            onClick={() => setIsOpen(false)}
+          />
 
           {/* Dropdown Panel */}
           <div className="absolute right-0 top-full mt-2 w-80 sm:w-96 bg-bg-card rounded-lg shadow-lg border border-border z-50 overflow-hidden">
@@ -219,7 +230,7 @@ export function NotificationBadge() {
 
   return (
     <span className="min-w-[18px] h-[18px] px-1 text-[10px] font-bold text-white bg-danger rounded-full flex items-center justify-center">
-      {unreadCount > 99 ? '99+' : unreadCount}
+      {unreadCount > 99 ? "99+" : unreadCount}
     </span>
   );
 }

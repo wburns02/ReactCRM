@@ -32,14 +32,14 @@ export interface TechnicianLocation {
   speed?: number;
   timestamp: string;
   eta_minutes?: number;
-  status: 'en_route' | 'arrived' | 'working' | 'offline';
+  status: "en_route" | "arrived" | "working" | "offline";
 }
 
 export interface PortalWorkOrder {
   id: string;
   work_order_number: string;
   service_type: string;
-  status: 'scheduled' | 'in_progress' | 'completed' | 'cancelled';
+  status: "scheduled" | "in_progress" | "completed" | "cancelled";
   scheduled_date?: string;
   scheduled_time?: string;
   completed_date?: string;
@@ -78,7 +78,7 @@ export interface PortalInvoice {
   work_order_id: string;
   amount: number;
   amount_paid: number;
-  status: 'pending' | 'paid' | 'overdue';
+  status: "pending" | "paid" | "overdue";
   due_date: string;
   created_at: string;
 }
@@ -86,7 +86,7 @@ export interface PortalInvoice {
 export interface ServiceRequest {
   service_type: string;
   preferred_date?: string;
-  preferred_time?: 'morning' | 'afternoon' | 'evening';
+  preferred_time?: "morning" | "afternoon" | "evening";
   description: string;
   urgent: boolean;
 }

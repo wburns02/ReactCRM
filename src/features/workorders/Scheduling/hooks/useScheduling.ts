@@ -3,33 +3,33 @@
  * Custom hooks for scheduling-related operations
  */
 
-import { useMemo } from 'react';
-import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
-import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
+import { useMemo } from "react";
+import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
+import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
 import type {
   WorkOrder,
   SchedulingConflict,
   SchedulingSuggestion,
-} from '@/api/types/workOrder.ts';
+} from "@/api/types/workOrder.ts";
 import {
   detectConflicts,
   findOptimalSlot,
   getAvailableSlots,
   calculateTechnicianUtilization,
-} from '../utils/scheduleOptimizer.ts';
-import { format, eachDayOfInterval, parseISO } from 'date-fns';
+} from "../utils/scheduleOptimizer.ts";
+import { format, eachDayOfInterval, parseISO } from "date-fns";
 
 /**
  * Query keys for scheduling
  */
 export const schedulingKeys = {
-  all: ['scheduling'] as const,
+  all: ["scheduling"] as const,
   availability: (date: string, technicianId?: string) =>
-    [...schedulingKeys.all, 'availability', date, technicianId] as const,
+    [...schedulingKeys.all, "availability", date, technicianId] as const,
   conflicts: (workOrderId: string) =>
-    [...schedulingKeys.all, 'conflicts', workOrderId] as const,
+    [...schedulingKeys.all, "conflicts", workOrderId] as const,
   capacity: (startDate: string, endDate: string) =>
-    [...schedulingKeys.all, 'capacity', startDate, endDate] as const,
+    [...schedulingKeys.all, "capacity", startDate, endDate] as const,
 };
 
 /**
@@ -42,7 +42,9 @@ export function useAvailableSlots(date: string, technicianId?: string) {
   const technicianName = useMemo(() => {
     if (!technicianId || !techniciansData?.items) return undefined;
     const tech = techniciansData.items.find((t) => t.id === technicianId);
-    return tech ? tech.full_name || `${tech.first_name} ${tech.last_name}` : undefined;
+    return tech
+      ? tech.full_name || `${tech.first_name} ${tech.last_name}`
+      : undefined;
   }, [technicianId, techniciansData]);
 
   const slots = useMemo(() => {
@@ -65,13 +67,17 @@ export function useConflicts(workOrder: WorkOrder | null) {
 
   const conflicts = useMemo((): SchedulingConflict[] => {
     if (!workOrder || !workOrdersData?.items) return [];
-    return detectConflicts(workOrder, workOrdersData.items, techniciansData?.items);
+    return detectConflicts(
+      workOrder,
+      workOrdersData.items,
+      techniciansData?.items,
+    );
   }, [workOrder, workOrdersData, techniciansData]);
 
   return {
     conflicts,
-    hasErrors: conflicts.some((c) => c.severity === 'error'),
-    hasWarnings: conflicts.some((c) => c.severity === 'warning'),
+    hasErrors: conflicts.some((c) => c.severity === "error"),
+    hasWarnings: conflicts.some((c) => c.severity === "warning"),
   };
 }
 
@@ -96,7 +102,7 @@ export function useTechnicianCapacity(startDate: string, endDate: string) {
         techName,
         workOrdersData.items,
         startDate,
-        endDate
+        endDate,
       );
 
       return {
@@ -104,7 +110,8 @@ export function useTechnicianCapacity(startDate: string, endDate: string) {
         technicianName: techName,
         days: utilization,
         averageUtilization:
-          utilization.reduce((sum, d) => sum + d.utilization, 0) / utilization.length,
+          utilization.reduce((sum, d) => sum + d.utilization, 0) /
+          utilization.length,
         totalJobs: utilization.reduce((sum, d) => sum + d.jobCount, 0),
       };
     });
@@ -117,7 +124,7 @@ export function useTechnicianCapacity(startDate: string, endDate: string) {
       return eachDayOfInterval({
         start: parseISO(startDate),
         end: parseISO(endDate),
-      }).map((d) => format(d, 'yyyy-MM-dd'));
+      }).map((d) => format(d, "yyyy-MM-dd"));
     }, [startDate, endDate]),
   };
 }
@@ -127,7 +134,7 @@ export function useTechnicianCapacity(startDate: string, endDate: string) {
  */
 export function useSchedulingSuggestions(
   workOrder: WorkOrder | null,
-  targetDate: string
+  targetDate: string,
 ) {
   const { data: workOrdersData } = useWorkOrders({ page: 1, page_size: 500 });
   const { data: techniciansData } = useTechnicians();
@@ -141,7 +148,7 @@ export function useSchedulingSuggestions(
       workOrder,
       techniciansData.items,
       workOrdersData.items,
-      targetDate
+      targetDate,
     );
   }, [workOrder, workOrdersData, techniciansData, targetDate]);
 
@@ -199,7 +206,8 @@ export function useTechnicianDaySchedule(technicianName: string, date: string) {
     return data.items
       .filter(
         (wo) =>
-          wo.scheduled_date === date && wo.assigned_technician === technicianName
+          wo.scheduled_date === date &&
+          wo.assigned_technician === technicianName,
       )
       .sort((a, b) => {
         if (!a.time_window_start) return 1;
@@ -211,7 +219,7 @@ export function useTechnicianDaySchedule(technicianName: string, date: string) {
   const totalHours = useMemo(() => {
     return schedule.reduce(
       (sum, wo) => sum + (wo.estimated_duration_hours || 1),
-      0
+      0,
     );
   }, [schedule]);
 
@@ -242,16 +250,16 @@ export function useUnscheduledStats() {
     }
 
     const unscheduled = data.items.filter(
-      (wo) => !wo.scheduled_date || wo.status === 'draft'
+      (wo) => !wo.scheduled_date || wo.status === "draft",
     );
 
     return {
       total: unscheduled.length,
-      emergency: unscheduled.filter((wo) => wo.priority === 'emergency').length,
-      urgent: unscheduled.filter((wo) => wo.priority === 'urgent').length,
-      high: unscheduled.filter((wo) => wo.priority === 'high').length,
-      normal: unscheduled.filter((wo) => wo.priority === 'normal').length,
-      low: unscheduled.filter((wo) => wo.priority === 'low').length,
+      emergency: unscheduled.filter((wo) => wo.priority === "emergency").length,
+      urgent: unscheduled.filter((wo) => wo.priority === "urgent").length,
+      high: unscheduled.filter((wo) => wo.priority === "high").length,
+      normal: unscheduled.filter((wo) => wo.priority === "normal").length,
+      low: unscheduled.filter((wo) => wo.priority === "low").length,
     };
   }, [data]);
 
@@ -275,8 +283,8 @@ export function useRecurringSchedule(customerId: string) {
       .filter(
         (wo) =>
           wo.customer_id === customerId &&
-          wo.status === 'completed' &&
-          wo.scheduled_date
+          wo.status === "completed" &&
+          wo.scheduled_date,
       )
       .sort((a, b) => {
         if (!a.scheduled_date || !b.scheduled_date) return 0;
@@ -293,7 +301,7 @@ export function useRecurringSchedule(customerId: string) {
       const prev = parseISO(recurringJobs[i - 1].scheduled_date!);
       const curr = parseISO(recurringJobs[i].scheduled_date!);
       const diffDays = Math.round(
-        (curr.getTime() - prev.getTime()) / (1000 * 60 * 60 * 24)
+        (curr.getTime() - prev.getTime()) / (1000 * 60 * 60 * 24),
       );
       intervals.push(diffDays);
     }
@@ -304,19 +312,39 @@ export function useRecurringSchedule(customerId: string) {
 
     // Detect common patterns
     if (avgInterval >= 350 && avgInterval <= 380) {
-      return { frequency: 'yearly' as const, interval: 1, avgDays: avgInterval };
+      return {
+        frequency: "yearly" as const,
+        interval: 1,
+        avgDays: avgInterval,
+      };
     }
     if (avgInterval >= 85 && avgInterval <= 95) {
-      return { frequency: 'quarterly' as const, interval: 3, avgDays: avgInterval };
+      return {
+        frequency: "quarterly" as const,
+        interval: 3,
+        avgDays: avgInterval,
+      };
     }
     if (avgInterval >= 28 && avgInterval <= 32) {
-      return { frequency: 'monthly' as const, interval: 1, avgDays: avgInterval };
+      return {
+        frequency: "monthly" as const,
+        interval: 1,
+        avgDays: avgInterval,
+      };
     }
     if (avgInterval >= 12 && avgInterval <= 16) {
-      return { frequency: 'biweekly' as const, interval: 2, avgDays: avgInterval };
+      return {
+        frequency: "biweekly" as const,
+        interval: 2,
+        avgDays: avgInterval,
+      };
     }
     if (avgInterval >= 5 && avgInterval <= 9) {
-      return { frequency: 'weekly' as const, interval: 1, avgDays: avgInterval };
+      return {
+        frequency: "weekly" as const,
+        interval: 1,
+        avgDays: avgInterval,
+      };
     }
 
     return null;

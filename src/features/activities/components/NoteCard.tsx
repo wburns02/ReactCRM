@@ -1,7 +1,11 @@
-import { memo } from 'react';
-import { formatDate } from '@/lib/utils.ts';
-import { ACTIVITY_TYPE_LABELS, ACTIVITY_TYPE_ICONS, type Activity } from '@/api/types/activity.ts';
-import { cn } from '@/lib/utils.ts';
+import { memo } from "react";
+import { formatDate } from "@/lib/utils.ts";
+import {
+  ACTIVITY_TYPE_LABELS,
+  ACTIVITY_TYPE_ICONS,
+  type Activity,
+} from "@/api/types/activity.ts";
+import { cn } from "@/lib/utils.ts";
 
 export interface NoteCardProps {
   activity: Activity;
@@ -15,7 +19,11 @@ export interface NoteCardProps {
  *
  * Memoized for performance in activity lists.
  */
-export const NoteCard = memo(function NoteCard({ activity, onEdit, onDelete }: NoteCardProps) {
+export const NoteCard = memo(function NoteCard({
+  activity,
+  onEdit,
+  onDelete,
+}: NoteCardProps) {
   const icon = ACTIVITY_TYPE_ICONS[activity.activity_type];
   const label = ACTIVITY_TYPE_LABELS[activity.activity_type];
 
@@ -25,8 +33,8 @@ export const NoteCard = memo(function NoteCard({ activity, onEdit, onDelete }: N
       <div className="flex-shrink-0">
         <div
           className={cn(
-            'w-8 h-8 rounded-full flex items-center justify-center text-sm',
-            'bg-bg-hover border border-border'
+            "w-8 h-8 rounded-full flex items-center justify-center text-sm",
+            "bg-bg-hover border border-border",
           )}
           title={label}
         >
@@ -39,7 +47,9 @@ export const NoteCard = memo(function NoteCard({ activity, onEdit, onDelete }: N
         <div className="flex items-start justify-between gap-2">
           <div className="flex-1">
             <div className="flex items-center gap-2 mb-1">
-              <span className="text-sm font-medium text-text-primary">{label}</span>
+              <span className="text-sm font-medium text-text-primary">
+                {label}
+              </span>
               <span className="text-xs text-text-muted">
                 {formatDate(activity.activity_date)}
               </span>
@@ -48,7 +58,9 @@ export const NoteCard = memo(function NoteCard({ activity, onEdit, onDelete }: N
               {activity.description}
             </p>
             {activity.created_by && (
-              <p className="text-xs text-text-muted mt-1">By {activity.created_by}</p>
+              <p className="text-xs text-text-muted mt-1">
+                By {activity.created_by}
+              </p>
             )}
           </div>
 

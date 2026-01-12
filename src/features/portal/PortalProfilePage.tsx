@@ -2,21 +2,38 @@
  * Customer Portal Profile Page
  * View and update customer profile information
  */
-import { useState, useEffect } from 'react';
-import { useForm } from 'react-hook-form';
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { toastSuccess, toastError } from '@/components/ui/Toast';
-import { usePortalCustomer, useUpdateCustomerProfile } from '@/api/hooks/usePortal';
-import type { CustomerProfileUpdate, NotificationPreferences } from '@/api/types/portal';
+import { useState, useEffect } from "react";
+import { useForm } from "react-hook-form";
+import {
+  Card,
+  CardContent,
+  CardHeader,
+  CardTitle,
+  CardDescription,
+} from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
+import {
+  usePortalCustomer,
+  useUpdateCustomerProfile,
+} from "@/api/hooks/usePortal";
+import type {
+  CustomerProfileUpdate,
+  NotificationPreferences,
+} from "@/api/types/portal";
 
 export function PortalProfilePage() {
   const { data: customer, isLoading } = usePortalCustomer();
   const updateProfile = useUpdateCustomerProfile();
   const [isEditing, setIsEditing] = useState(false);
 
-  const { register, handleSubmit, reset, formState: { errors, isDirty } } = useForm<CustomerProfileUpdate>();
+  const {
+    register,
+    handleSubmit,
+    reset,
+    formState: { errors, isDirty },
+  } = useForm<CustomerProfileUpdate>();
 
   // Reset form when customer data loads
   useEffect(() => {
@@ -37,15 +54,18 @@ export function PortalProfilePage() {
   const onSubmit = async (data: CustomerProfileUpdate) => {
     try {
       await updateProfile.mutateAsync(data);
-      toastSuccess('Profile updated successfully!');
+      toastSuccess("Profile updated successfully!");
       setIsEditing(false);
     } catch (error) {
-      console.error('Failed to update profile:', error);
-      toastError('Failed to update profile. Please try again.');
+      console.error("Failed to update profile:", error);
+      toastError("Failed to update profile. Please try again.");
     }
   };
 
-  const handleNotificationChange = async (key: keyof NotificationPreferences, value: boolean) => {
+  const handleNotificationChange = async (
+    key: keyof NotificationPreferences,
+    value: boolean,
+  ) => {
     if (!customer) return;
 
     const currentPrefs = customer.notification_preferences || {
@@ -62,10 +82,10 @@ export function PortalProfilePage() {
           [key]: value,
         },
       });
-      toastSuccess('Notification preferences updated');
+      toastSuccess("Notification preferences updated");
     } catch (error) {
-      console.error('Failed to update notifications:', error);
-      toastError('Failed to update preferences');
+      console.error("Failed to update notifications:", error);
+      toastError("Failed to update preferences");
     }
   };
 
@@ -96,7 +116,9 @@ export function PortalProfilePage() {
     <div className="space-y-6 max-w-3xl mx-auto">
       <div>
         <h1 className="text-2xl font-bold text-text-primary">My Profile</h1>
-        <p className="text-text-secondary">Manage your account information and preferences</p>
+        <p className="text-text-secondary">
+          Manage your account information and preferences
+        </p>
       </div>
 
       {/* Profile Information */}
@@ -104,7 +126,9 @@ export function PortalProfilePage() {
         <CardHeader className="flex flex-row items-center justify-between">
           <div>
             <CardTitle>Personal Information</CardTitle>
-            <CardDescription>Your contact and address information</CardDescription>
+            <CardDescription>
+              Your contact and address information
+            </CardDescription>
           </div>
           {!isEditing && (
             <Button variant="secondary" onClick={() => setIsEditing(true)}>
@@ -121,11 +145,15 @@ export function PortalProfilePage() {
                     First Name
                   </label>
                   <Input
-                    {...register('first_name', { required: 'First name is required' })}
+                    {...register("first_name", {
+                      required: "First name is required",
+                    })}
                     placeholder="First Name"
                   />
                   {errors.first_name && (
-                    <p className="text-red-500 text-xs mt-1">{errors.first_name.message}</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.first_name.message}
+                    </p>
                   )}
                 </div>
                 <div>
@@ -133,11 +161,15 @@ export function PortalProfilePage() {
                     Last Name
                   </label>
                   <Input
-                    {...register('last_name', { required: 'Last name is required' })}
+                    {...register("last_name", {
+                      required: "Last name is required",
+                    })}
                     placeholder="Last Name"
                   />
                   {errors.last_name && (
-                    <p className="text-red-500 text-xs mt-1">{errors.last_name.message}</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.last_name.message}
+                    </p>
                   )}
                 </div>
               </div>
@@ -149,17 +181,19 @@ export function PortalProfilePage() {
                   </label>
                   <Input
                     type="email"
-                    {...register('email', {
-                      required: 'Email is required',
+                    {...register("email", {
+                      required: "Email is required",
                       pattern: {
                         value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
-                        message: 'Invalid email address',
+                        message: "Invalid email address",
                       },
                     })}
                     placeholder="email@example.com"
                   />
                   {errors.email && (
-                    <p className="text-red-500 text-xs mt-1">{errors.email.message}</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.email.message}
+                    </p>
                   )}
                 </div>
                 <div>
@@ -168,11 +202,13 @@ export function PortalProfilePage() {
                   </label>
                   <Input
                     type="tel"
-                    {...register('phone', { required: 'Phone is required' })}
+                    {...register("phone", { required: "Phone is required" })}
                     placeholder="(512) 555-0123"
                   />
                   {errors.phone && (
-                    <p className="text-red-500 text-xs mt-1">{errors.phone.message}</p>
+                    <p className="text-red-500 text-xs mt-1">
+                      {errors.phone.message}
+                    </p>
                   )}
                 </div>
               </div>
@@ -182,11 +218,13 @@ export function PortalProfilePage() {
                   Street Address
                 </label>
                 <Input
-                  {...register('address', { required: 'Address is required' })}
+                  {...register("address", { required: "Address is required" })}
                   placeholder="123 Main St"
                 />
                 {errors.address && (
-                  <p className="text-red-500 text-xs mt-1">{errors.address.message}</p>
+                  <p className="text-red-500 text-xs mt-1">
+                    {errors.address.message}
+                  </p>
                 )}
               </div>
 
@@ -196,7 +234,7 @@ export function PortalProfilePage() {
                     City
                   </label>
                   <Input
-                    {...register('city', { required: 'City is required' })}
+                    {...register("city", { required: "City is required" })}
                     placeholder="City"
                   />
                 </div>
@@ -205,7 +243,7 @@ export function PortalProfilePage() {
                     State
                   </label>
                   <Input
-                    {...register('state', { required: 'State is required' })}
+                    {...register("state", { required: "State is required" })}
                     placeholder="TX"
                     maxLength={2}
                   />
@@ -215,7 +253,7 @@ export function PortalProfilePage() {
                     ZIP
                   </label>
                   <Input
-                    {...register('zip', { required: 'ZIP is required' })}
+                    {...register("zip", { required: "ZIP is required" })}
                     placeholder="78701"
                     maxLength={10}
                   />
@@ -223,8 +261,11 @@ export function PortalProfilePage() {
               </div>
 
               <div className="flex gap-3 pt-4">
-                <Button type="submit" disabled={updateProfile.isPending || !isDirty}>
-                  {updateProfile.isPending ? 'Saving...' : 'Save Changes'}
+                <Button
+                  type="submit"
+                  disabled={updateProfile.isPending || !isDirty}
+                >
+                  {updateProfile.isPending ? "Saving..." : "Save Changes"}
                 </Button>
                 <Button
                   type="button"
@@ -251,10 +292,14 @@ export function PortalProfilePage() {
                   </h3>
                   {customer.created_at && (
                     <p className="text-sm text-text-muted">
-                      Customer since {new Date(customer.created_at).toLocaleDateString('en-US', {
-                        month: 'long',
-                        year: 'numeric',
-                      })}
+                      Customer since{" "}
+                      {new Date(customer.created_at).toLocaleDateString(
+                        "en-US",
+                        {
+                          month: "long",
+                          year: "numeric",
+                        },
+                      )}
                     </p>
                   )}
                 </div>
@@ -270,9 +315,12 @@ export function PortalProfilePage() {
                   <p className="text-text-primary">{customer.phone}</p>
                 </div>
                 <div className="md:col-span-2">
-                  <p className="text-sm text-text-muted mb-1">Service Address</p>
+                  <p className="text-sm text-text-muted mb-1">
+                    Service Address
+                  </p>
                   <p className="text-text-primary">
-                    {customer.address}<br />
+                    {customer.address}
+                    <br />
                     {customer.city}, {customer.state} {customer.zip}
                   </p>
                 </div>
@@ -286,7 +334,9 @@ export function PortalProfilePage() {
       <Card>
         <CardHeader>
           <CardTitle>Notification Preferences</CardTitle>
-          <CardDescription>Choose how you want to receive updates</CardDescription>
+          <CardDescription>
+            Choose how you want to receive updates
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <div className="space-y-4">
@@ -294,28 +344,32 @@ export function PortalProfilePage() {
               label="Email Reminders"
               description="Receive appointment reminders via email"
               checked={notifications.email_reminders}
-              onChange={(v) => handleNotificationChange('email_reminders', v)}
+              onChange={(v) => handleNotificationChange("email_reminders", v)}
               disabled={updateProfile.isPending}
             />
             <NotificationToggle
               label="SMS Reminders"
               description="Receive appointment reminders via text message"
               checked={notifications.sms_reminders}
-              onChange={(v) => handleNotificationChange('sms_reminders', v)}
+              onChange={(v) => handleNotificationChange("sms_reminders", v)}
               disabled={updateProfile.isPending}
             />
             <NotificationToggle
               label="Technician Arrival Alerts"
               description="Get notified when your technician is on the way"
               checked={notifications.tech_arrival_alerts}
-              onChange={(v) => handleNotificationChange('tech_arrival_alerts', v)}
+              onChange={(v) =>
+                handleNotificationChange("tech_arrival_alerts", v)
+              }
               disabled={updateProfile.isPending}
             />
             <NotificationToggle
               label="Invoice Notifications"
               description="Receive email notifications for new invoices"
               checked={notifications.invoice_notifications}
-              onChange={(v) => handleNotificationChange('invoice_notifications', v)}
+              onChange={(v) =>
+                handleNotificationChange("invoice_notifications", v)
+              }
               disabled={updateProfile.isPending}
             />
           </div>
@@ -331,7 +385,9 @@ export function PortalProfilePage() {
           <div className="space-y-4">
             <div className="flex items-center justify-between p-4 bg-surface-hover rounded-lg">
               <div>
-                <p className="font-medium text-text-primary">Download My Data</p>
+                <p className="font-medium text-text-primary">
+                  Download My Data
+                </p>
                 <p className="text-sm text-text-muted">
                   Get a copy of your service history and account data
                 </p>
@@ -348,7 +404,11 @@ export function PortalProfilePage() {
                   Permanently remove your account and data
                 </p>
               </div>
-              <Button variant="secondary" size="sm" className="text-red-600 border-red-200">
+              <Button
+                variant="secondary"
+                size="sm"
+                className="text-red-600 border-red-200"
+              >
                 Request Deletion
               </Button>
             </div>
@@ -387,12 +447,12 @@ function NotificationToggle({
         onClick={() => onChange(!checked)}
         disabled={disabled}
         className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-          checked ? 'bg-primary' : 'bg-gray-300'
-        } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+          checked ? "bg-primary" : "bg-gray-300"
+        } ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
       >
         <span
           className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-            checked ? 'translate-x-6' : 'translate-x-1'
+            checked ? "translate-x-6" : "translate-x-1"
           }`}
         />
       </button>

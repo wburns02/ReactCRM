@@ -4,20 +4,25 @@
  * Payment plan calculator with monthly payment options and financing application.
  */
 
-import { useState, useMemo } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Checkbox } from '@/components/ui/Checkbox.tsx';
+import { useState, useMemo } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import { Checkbox } from "@/components/ui/Checkbox.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
-import { cn } from '@/lib/utils.ts';
+} from "@/components/ui/Dialog.tsx";
+import { cn } from "@/lib/utils.ts";
 import {
   formatCurrency,
   calculateMonthlyPayment,
@@ -25,8 +30,8 @@ import {
   FINANCING_MIN_AMOUNT,
   FINANCING_MAX_AMOUNT,
   isEligibleForFinancing,
-} from './utils/pricingEngine.ts';
-import { useApplyForFinancing } from './hooks/usePayments.ts';
+} from "./utils/pricingEngine.ts";
+import { useApplyForFinancing } from "./hooks/usePayments.ts";
 
 // ============================================================================
 // TYPES
@@ -64,14 +69,14 @@ export function FinancingOptions({
 }: FinancingOptionsProps) {
   const [selectedPlan, setSelectedPlan] = useState<number | null>(null);
   const [showApplicationDialog, setShowApplicationDialog] = useState(false);
-  const [applicationStep, setApplicationStep] = useState<'info' | 'consent' | 'processing' | 'result'>(
-    'info'
-  );
+  const [applicationStep, setApplicationStep] = useState<
+    "info" | "consent" | "processing" | "result"
+  >("info");
 
   // Application form state
-  const [ssn4, setSsn4] = useState('');
-  const [dob, setDob] = useState('');
-  const [income, setIncome] = useState<number | ''>('');
+  const [ssn4, setSsn4] = useState("");
+  const [dob, setDob] = useState("");
+  const [income, setIncome] = useState<number | "">("");
   const [consent, setConsent] = useState(false);
 
   // Result state
@@ -88,7 +93,11 @@ export function FinancingOptions({
   // Calculate plan options
   const planOptions = useMemo(() => {
     return FINANCING_PLANS.map((plan) => {
-      const calculation = calculateMonthlyPayment(amount, plan.months, plan.rate);
+      const calculation = calculateMonthlyPayment(
+        amount,
+        plan.months,
+        plan.rate,
+      );
       return {
         ...plan,
         ...calculation,
@@ -104,10 +113,10 @@ export function FinancingOptions({
 
   // Validate application form
   const isFormValid = useMemo(() => {
-    if (applicationStep === 'info') {
+    if (applicationStep === "info") {
       return ssn4.length === 4 && dob && income;
     }
-    if (applicationStep === 'consent') {
+    if (applicationStep === "consent") {
       return consent;
     }
     return false;
@@ -117,7 +126,7 @@ export function FinancingOptions({
   const handleSubmitApplication = async () => {
     if (!selectedPlanDetails) return;
 
-    setApplicationStep('processing');
+    setApplicationStep("processing");
 
     try {
       const result = await applyMutation.mutateAsync({
@@ -135,45 +144,52 @@ export function FinancingOptions({
       if (result.approved) {
         setApplicationResult({
           approved: true,
-          message: 'Congratulations! Your financing application has been approved.',
+          message:
+            "Congratulations! Your financing application has been approved.",
         });
-        onApproved?.(selectedPlanDetails.months, selectedPlanDetails.monthlyPayment);
+        onApproved?.(
+          selectedPlanDetails.months,
+          selectedPlanDetails.monthlyPayment,
+        );
       } else {
         setApplicationResult({
           approved: false,
-          message: result.message || 'We were unable to approve your application at this time.',
+          message:
+            result.message ||
+            "We were unable to approve your application at this time.",
         });
-        onDeclined?.(result.message || 'Application declined');
+        onDeclined?.(result.message || "Application declined");
       }
     } catch (error) {
       setApplicationResult({
         approved: false,
-        message: 'An error occurred while processing your application. Please try again.',
+        message:
+          "An error occurred while processing your application. Please try again.",
       });
     }
 
-    setApplicationStep('result');
+    setApplicationStep("result");
   };
 
   // Reset application
   const resetApplication = () => {
     setShowApplicationDialog(false);
-    setApplicationStep('info');
-    setSsn4('');
-    setDob('');
-    setIncome('');
+    setApplicationStep("info");
+    setSsn4("");
+    setDob("");
+    setIncome("");
     setConsent(false);
     setApplicationResult(null);
   };
 
   // Format APR for display
   const formatAPR = (rate: number) => {
-    if (rate === 0) return '0%';
+    if (rate === 0) return "0%";
     return `${(rate * 100).toFixed(2)}%`;
   };
 
   return (
-    <Card className={cn('w-full', className)}>
+    <Card className={cn("w-full", className)}>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <svg
@@ -208,7 +224,8 @@ export function FinancingOptions({
             </svg>
             <p className="text-text-secondary mb-2">Financing not available</p>
             <p className="text-sm text-text-muted">
-              Financing is available for amounts between {formatCurrency(FINANCING_MIN_AMOUNT)} and{' '}
+              Financing is available for amounts between{" "}
+              {formatCurrency(FINANCING_MIN_AMOUNT)} and{" "}
               {formatCurrency(FINANCING_MAX_AMOUNT)}.
             </p>
           </div>
@@ -217,15 +234,21 @@ export function FinancingOptions({
             {/* Amount Display */}
             <div className="mb-6 p-4 bg-bg-hover/50 rounded-lg text-center">
               <p className="text-sm text-text-secondary">Amount to Finance</p>
-              <p className="text-3xl font-bold text-primary">{formatCurrency(amount)}</p>
+              <p className="text-3xl font-bold text-primary">
+                {formatCurrency(amount)}
+              </p>
               {customerName && (
-                <p className="text-sm text-text-muted mt-1">for {customerName}</p>
+                <p className="text-sm text-text-muted mt-1">
+                  for {customerName}
+                </p>
               )}
             </div>
 
             {/* Plan Options */}
             <div className="space-y-3 mb-6">
-              <p className="text-sm font-medium text-text-secondary">Choose a payment plan:</p>
+              <p className="text-sm font-medium text-text-secondary">
+                Choose a payment plan:
+              </p>
 
               {planOptions.map((plan) => (
                 <button
@@ -233,18 +256,20 @@ export function FinancingOptions({
                   type="button"
                   onClick={() => setSelectedPlan(plan.months)}
                   className={cn(
-                    'w-full p-4 rounded-lg border-2 text-left transition-all',
+                    "w-full p-4 rounded-lg border-2 text-left transition-all",
                     selectedPlan === plan.months
-                      ? 'border-primary bg-primary/5'
-                      : 'border-border hover:border-primary/50'
+                      ? "border-primary bg-primary/5"
+                      : "border-border hover:border-primary/50",
                   )}
                 >
                   <div className="flex items-center justify-between">
                     <div className="flex items-center gap-3">
                       <div
                         className={cn(
-                          'w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0',
-                          selectedPlan === plan.months ? 'border-primary' : 'border-border'
+                          "w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0",
+                          selectedPlan === plan.months
+                            ? "border-primary"
+                            : "border-border",
                         )}
                       >
                         {selectedPlan === plan.months && (
@@ -263,7 +288,9 @@ export function FinancingOptions({
                     <div className="text-right">
                       <p className="text-xl font-bold text-primary">
                         {formatCurrency(plan.monthlyPayment)}
-                        <span className="text-sm font-normal text-text-secondary">/mo</span>
+                        <span className="text-sm font-normal text-text-secondary">
+                          /mo
+                        </span>
                       </p>
                       {plan.totalInterest > 0 && (
                         <p className="text-xs text-text-muted">
@@ -295,17 +322,25 @@ export function FinancingOptions({
                   </div>
                   <div className="flex justify-between">
                     <span className="text-text-secondary">Monthly Payment</span>
-                    <span className="font-bold">{formatCurrency(selectedPlanDetails.monthlyPayment)}</span>
+                    <span className="font-bold">
+                      {formatCurrency(selectedPlanDetails.monthlyPayment)}
+                    </span>
                   </div>
                   {selectedPlanDetails.totalInterest > 0 && (
                     <>
                       <div className="flex justify-between">
-                        <span className="text-text-secondary">Total Interest</span>
-                        <span>{formatCurrency(selectedPlanDetails.totalInterest)}</span>
+                        <span className="text-text-secondary">
+                          Total Interest
+                        </span>
+                        <span>
+                          {formatCurrency(selectedPlanDetails.totalInterest)}
+                        </span>
                       </div>
                       <div className="flex justify-between border-t border-border pt-2">
                         <span className="font-medium">Total Amount</span>
-                        <span className="font-bold">{formatCurrency(selectedPlanDetails.totalPayment)}</span>
+                        <span className="font-bold">
+                          {formatCurrency(selectedPlanDetails.totalPayment)}
+                        </span>
                       </div>
                     </>
                   )}
@@ -340,8 +375,8 @@ export function FinancingOptions({
 
             {/* Disclaimer */}
             <p className="text-xs text-text-muted mt-4 text-center">
-              Subject to credit approval. Terms and conditions apply. Rates may vary based on
-              creditworthiness.
+              Subject to credit approval. Terms and conditions apply. Rates may
+              vary based on creditworthiness.
             </p>
           </>
         )}
@@ -350,18 +385,19 @@ export function FinancingOptions({
         <Dialog open={showApplicationDialog} onClose={resetApplication}>
           <DialogContent size="md">
             <DialogHeader onClose={resetApplication}>
-              {applicationStep === 'result' ? (
-                applicationResult?.approved ? 'Application Approved!' : 'Application Result'
-              ) : (
-                'Financing Application'
-              )}
+              {applicationStep === "result"
+                ? applicationResult?.approved
+                  ? "Application Approved!"
+                  : "Application Result"
+                : "Financing Application"}
             </DialogHeader>
             <DialogBody>
               {/* Step: Info */}
-              {applicationStep === 'info' && (
+              {applicationStep === "info" && (
                 <div className="space-y-4">
                   <p className="text-text-secondary">
-                    Please provide the following information to complete your financing application.
+                    Please provide the following information to complete your
+                    financing application.
                   </p>
 
                   <div>
@@ -372,7 +408,9 @@ export function FinancingOptions({
                       inputMode="numeric"
                       maxLength={4}
                       value={ssn4}
-                      onChange={(e) => setSsn4(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                      onChange={(e) =>
+                        setSsn4(e.target.value.replace(/\D/g, "").slice(0, 4))
+                      }
                       placeholder="****"
                       className="mt-1"
                     />
@@ -392,13 +430,19 @@ export function FinancingOptions({
                   <div>
                     <Label htmlFor="income">Annual Income</Label>
                     <div className="relative mt-1">
-                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">$</span>
+                      <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
+                        $
+                      </span>
                       <Input
                         id="income"
                         type="number"
                         min="0"
                         value={income}
-                        onChange={(e) => setIncome(e.target.value ? parseInt(e.target.value) : '')}
+                        onChange={(e) =>
+                          setIncome(
+                            e.target.value ? parseInt(e.target.value) : "",
+                          )
+                        }
                         placeholder="50000"
                         className="pl-7"
                       />
@@ -408,7 +452,7 @@ export function FinancingOptions({
               )}
 
               {/* Step: Consent */}
-              {applicationStep === 'consent' && (
+              {applicationStep === "consent" && (
                 <div className="space-y-4">
                   <div className="p-4 bg-bg-hover/50 rounded-lg max-h-48 overflow-y-auto text-sm">
                     <h4 className="font-medium mb-2">Terms and Conditions</h4>
@@ -417,18 +461,24 @@ export function FinancingOptions({
                     </p>
                     <ul className="list-disc pl-5 text-text-secondary space-y-1">
                       <li>
-                        Obtain a consumer credit report for the purpose of evaluating your
-                        creditworthiness
+                        Obtain a consumer credit report for the purpose of
+                        evaluating your creditworthiness
                       </li>
-                      <li>Share your information with our financing partners</li>
                       <li>
-                        Contact you regarding your application via phone, email, or text message
+                        Share your information with our financing partners
                       </li>
-                      <li>Verify the information provided in this application</li>
+                      <li>
+                        Contact you regarding your application via phone, email,
+                        or text message
+                      </li>
+                      <li>
+                        Verify the information provided in this application
+                      </li>
                     </ul>
                     <p className="text-text-secondary mt-2">
-                      The financing terms shown are estimates and may vary based on your credit
-                      profile. Final terms will be provided upon approval.
+                      The financing terms shown are estimates and may vary based
+                      on your credit profile. Final terms will be provided upon
+                      approval.
                     </p>
                   </div>
 
@@ -438,18 +488,25 @@ export function FinancingOptions({
                       checked={consent}
                       onChange={(e) => setConsent(e.target.checked)}
                     />
-                    <label htmlFor="consent-check" className="text-sm text-text-secondary">
-                      I have read and agree to the terms and conditions. I authorize a credit check
-                      and understand this may affect my credit score.
+                    <label
+                      htmlFor="consent-check"
+                      className="text-sm text-text-secondary"
+                    >
+                      I have read and agree to the terms and conditions. I
+                      authorize a credit check and understand this may affect my
+                      credit score.
                     </label>
                   </div>
                 </div>
               )}
 
               {/* Step: Processing */}
-              {applicationStep === 'processing' && (
+              {applicationStep === "processing" && (
                 <div className="text-center py-8">
-                  <svg className="animate-spin h-12 w-12 mx-auto text-primary mb-4" viewBox="0 0 24 24">
+                  <svg
+                    className="animate-spin h-12 w-12 mx-auto text-primary mb-4"
+                    viewBox="0 0 24 24"
+                  >
                     <circle
                       cx="12"
                       cy="12"
@@ -464,13 +521,17 @@ export function FinancingOptions({
                       d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
                     />
                   </svg>
-                  <p className="text-lg font-medium">Processing your application...</p>
-                  <p className="text-text-secondary mt-1">This usually takes just a few seconds.</p>
+                  <p className="text-lg font-medium">
+                    Processing your application...
+                  </p>
+                  <p className="text-text-secondary mt-1">
+                    This usually takes just a few seconds.
+                  </p>
                 </div>
               )}
 
               {/* Step: Result */}
-              {applicationStep === 'result' && applicationResult && (
+              {applicationStep === "result" && applicationResult && (
                 <div className="text-center py-4">
                   {applicationResult.approved ? (
                     <>
@@ -494,10 +555,12 @@ export function FinancingOptions({
                         <div className="mt-4 p-4 bg-bg-hover/50 rounded-lg">
                           <p className="text-2xl font-bold text-primary">
                             {formatCurrency(selectedPlanDetails.monthlyPayment)}
-                            <span className="text-sm font-normal text-text-secondary">/month</span>
+                            <span className="text-sm font-normal text-text-secondary">
+                              /month
+                            </span>
                           </p>
                           <p className="text-sm text-text-muted mt-1">
-                            for {selectedPlanDetails.months} months at{' '}
+                            for {selectedPlanDetails.months} months at{" "}
                             {formatAPR(selectedPlanDetails.rate)} APR
                           </p>
                         </div>
@@ -519,10 +582,12 @@ export function FinancingOptions({
                           <line x1="9" y1="9" x2="15" y2="15" />
                         </svg>
                       </div>
-                      <p className="text-lg font-medium mb-2">{applicationResult.message}</p>
+                      <p className="text-lg font-medium mb-2">
+                        {applicationResult.message}
+                      </p>
                       <p className="text-text-secondary text-sm">
-                        You may still pay for your service using other payment methods, or you can
-                        try applying again later.
+                        You may still pay for your service using other payment
+                        methods, or you can try applying again later.
                       </p>
                     </>
                   )}
@@ -530,23 +595,26 @@ export function FinancingOptions({
               )}
             </DialogBody>
             <DialogFooter>
-              {applicationStep === 'info' && (
+              {applicationStep === "info" && (
                 <>
                   <Button variant="secondary" onClick={resetApplication}>
                     Cancel
                   </Button>
                   <Button
                     variant="primary"
-                    onClick={() => setApplicationStep('consent')}
+                    onClick={() => setApplicationStep("consent")}
                     disabled={!isFormValid}
                   >
                     Continue
                   </Button>
                 </>
               )}
-              {applicationStep === 'consent' && (
+              {applicationStep === "consent" && (
                 <>
-                  <Button variant="secondary" onClick={() => setApplicationStep('info')}>
+                  <Button
+                    variant="secondary"
+                    onClick={() => setApplicationStep("info")}
+                  >
                     Back
                   </Button>
                   <Button
@@ -558,9 +626,13 @@ export function FinancingOptions({
                   </Button>
                 </>
               )}
-              {applicationStep === 'result' && (
-                <Button variant="primary" onClick={resetApplication} className="w-full">
-                  {applicationResult?.approved ? 'Done' : 'Close'}
+              {applicationStep === "result" && (
+                <Button
+                  variant="primary"
+                  onClick={resetApplication}
+                  className="w-full"
+                >
+                  {applicationResult?.approved ? "Done" : "Close"}
                 </Button>
               )}
             </DialogFooter>

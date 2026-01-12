@@ -3,7 +3,7 @@
  * Shows demand forecast, busy period alerts, equipment failure predictions, revenue projections
  */
 
-import { useState, memo } from 'react';
+import { useState, memo } from "react";
 import {
   LineChart,
   Line,
@@ -16,10 +16,15 @@ import {
   Legend,
   ResponsiveContainer,
   ReferenceLine,
-} from 'recharts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Skeleton } from '@/components/ui/Skeleton.tsx';
+} from "recharts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Skeleton } from "@/components/ui/Skeleton.tsx";
 import {
   formatCurrency,
   formatCurrencyCompact,
@@ -27,7 +32,7 @@ import {
   CHART_COLORS,
   AXIS_STYLE,
   GRID_STYLE,
-} from './utils/chartConfig.ts';
+} from "./utils/chartConfig.ts";
 
 export interface DemandForecast {
   date: string;
@@ -43,7 +48,7 @@ export interface BusyPeriodAlert {
   endDate: string;
   expectedVolume: number;
   normalVolume: number;
-  severity: 'low' | 'medium' | 'high';
+  severity: "low" | "medium" | "high";
   reason: string;
 }
 
@@ -54,7 +59,7 @@ export interface EquipmentAlert {
   failureProbability: number;
   predictedDate: string;
   suggestedAction: string;
-  priority: 'low' | 'medium' | 'high' | 'critical';
+  priority: "low" | "medium" | "high" | "critical";
 }
 
 export interface RevenueProjection {
@@ -74,7 +79,7 @@ interface PredictiveInsightsProps {
   className?: string;
 }
 
-type ViewMode = 'demand' | 'alerts' | 'equipment' | 'revenue';
+type ViewMode = "demand" | "alerts" | "equipment" | "revenue";
 
 /**
  * Confidence interval area chart for demand forecast
@@ -90,16 +95,27 @@ const DemandForecastChart = memo(function DemandForecastChart({
     confidenceRange: [point.lowerBound, point.upperBound],
   }));
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
   const todayIndex = chartData.findIndex((d) => d.date >= today);
 
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <AreaChart data={chartData} margin={{ top: 10, right: 30, bottom: 0, left: 0 }}>
+      <AreaChart
+        data={chartData}
+        margin={{ top: 10, right: 30, bottom: 0, left: 0 }}
+      >
         <defs>
           <linearGradient id="confidenceGradient" x1="0" y1="0" x2="0" y2="1">
-            <stop offset="5%" stopColor={CHART_COLORS.primary} stopOpacity={0.2} />
-            <stop offset="95%" stopColor={CHART_COLORS.primary} stopOpacity={0.05} />
+            <stop
+              offset="5%"
+              stopColor={CHART_COLORS.primary}
+              stopOpacity={0.2}
+            />
+            <stop
+              offset="95%"
+              stopColor={CHART_COLORS.primary}
+              stopOpacity={0.05}
+            />
           </linearGradient>
         </defs>
         <CartesianGrid {...GRID_STYLE} />
@@ -107,16 +123,21 @@ const DemandForecastChart = memo(function DemandForecastChart({
         <YAxis {...AXIS_STYLE} />
         <Tooltip
           contentStyle={{
-            backgroundColor: 'white',
-            border: '1px solid #e5e7eb',
-            borderRadius: '8px',
+            backgroundColor: "white",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
           }}
           formatter={(value, name) => [
             value,
-            name === 'predicted' ? 'Predicted Jobs' :
-            name === 'actual' ? 'Actual Jobs' :
-            name === 'upperBound' ? 'Upper Bound' :
-            name === 'lowerBound' ? 'Lower Bound' : name
+            name === "predicted"
+              ? "Predicted Jobs"
+              : name === "actual"
+                ? "Actual Jobs"
+                : name === "upperBound"
+                  ? "Upper Bound"
+                  : name === "lowerBound"
+                    ? "Lower Bound"
+                    : name,
           ]}
         />
         <Legend />
@@ -161,7 +182,12 @@ const DemandForecastChart = memo(function DemandForecastChart({
             x={chartData[todayIndex]?.dateLabel}
             stroke={CHART_COLORS.gray}
             strokeDasharray="3 3"
-            label={{ value: 'Today', position: 'top', fill: CHART_COLORS.gray, fontSize: 11 }}
+            label={{
+              value: "Today",
+              position: "top",
+              fill: CHART_COLORS.gray,
+              fontSize: 11,
+            }}
           />
         )}
       </AreaChart>
@@ -179,9 +205,12 @@ const BusyPeriodAlerts = memo(function BusyPeriodAlerts({
 }) {
   const getSeverityColor = (severity: string) => {
     switch (severity) {
-      case 'high': return 'danger';
-      case 'medium': return 'warning';
-      default: return 'default';
+      case "high":
+        return "danger";
+      case "medium":
+        return "warning";
+      default:
+        return "default";
     }
   };
 
@@ -189,7 +218,9 @@ const BusyPeriodAlerts = memo(function BusyPeriodAlerts({
     return (
       <div className="text-center py-8">
         <div className="text-4xl mb-4">&#128198;</div>
-        <p className="text-text-secondary">No busy periods predicted in the selected timeframe.</p>
+        <p className="text-text-secondary">
+          No busy periods predicted in the selected timeframe.
+        </p>
       </div>
     );
   }
@@ -200,15 +231,19 @@ const BusyPeriodAlerts = memo(function BusyPeriodAlerts({
         <div
           key={alert.id}
           className={`p-4 rounded-lg border-l-4 bg-bg-muted ${
-            alert.severity === 'high' ? 'border-danger' :
-            alert.severity === 'medium' ? 'border-warning' : 'border-primary'
+            alert.severity === "high"
+              ? "border-danger"
+              : alert.severity === "medium"
+                ? "border-warning"
+                : "border-primary"
           }`}
         >
           <div className="flex items-start justify-between mb-2">
             <div>
               <div className="flex items-center gap-2">
                 <span className="font-medium text-text-primary">
-                  {formatChartDate(alert.startDate)} - {formatChartDate(alert.endDate)}
+                  {formatChartDate(alert.startDate)} -{" "}
+                  {formatChartDate(alert.endDate)}
                 </span>
                 <Badge variant={getSeverityColor(alert.severity) as any}>
                   {alert.severity.toUpperCase()}
@@ -220,16 +255,25 @@ const BusyPeriodAlerts = memo(function BusyPeriodAlerts({
           <div className="flex items-center gap-6 mt-3">
             <div>
               <p className="text-xs text-text-muted">Expected Volume</p>
-              <p className="text-lg font-semibold text-text-primary">{alert.expectedVolume}</p>
+              <p className="text-lg font-semibold text-text-primary">
+                {alert.expectedVolume}
+              </p>
             </div>
             <div>
               <p className="text-xs text-text-muted">Normal Volume</p>
-              <p className="text-lg text-text-secondary">{alert.normalVolume}</p>
+              <p className="text-lg text-text-secondary">
+                {alert.normalVolume}
+              </p>
             </div>
             <div>
               <p className="text-xs text-text-muted">Increase</p>
               <p className="text-lg font-semibold text-warning">
-                +{((alert.expectedVolume / alert.normalVolume - 1) * 100).toFixed(0)}%
+                +
+                {(
+                  (alert.expectedVolume / alert.normalVolume - 1) *
+                  100
+                ).toFixed(0)}
+                %
               </p>
             </div>
           </div>
@@ -249,10 +293,14 @@ const EquipmentAlerts = memo(function EquipmentAlerts({
 }) {
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case 'critical': return 'danger';
-      case 'high': return 'danger';
-      case 'medium': return 'warning';
-      default: return 'default';
+      case "critical":
+        return "danger";
+      case "high":
+        return "danger";
+      case "medium":
+        return "warning";
+      default:
+        return "default";
     }
   };
 
@@ -274,7 +322,9 @@ const EquipmentAlerts = memo(function EquipmentAlerts({
         >
           <div className="flex items-start justify-between mb-2">
             <div>
-              <p className="font-medium text-text-primary">{alert.equipmentName}</p>
+              <p className="font-medium text-text-primary">
+                {alert.equipmentName}
+              </p>
               <p className="text-xs text-text-muted">ID: {alert.equipmentId}</p>
             </div>
             <Badge variant={getPriorityColor(alert.priority) as any}>
@@ -288,8 +338,11 @@ const EquipmentAlerts = memo(function EquipmentAlerts({
                 <div className="flex-1 h-2 bg-bg-muted rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full ${
-                      alert.failureProbability >= 70 ? 'bg-danger' :
-                      alert.failureProbability >= 40 ? 'bg-warning' : 'bg-success'
+                      alert.failureProbability >= 70
+                        ? "bg-danger"
+                        : alert.failureProbability >= 40
+                          ? "bg-warning"
+                          : "bg-success"
                     }`}
                     style={{ width: `${alert.failureProbability}%` }}
                   />
@@ -301,12 +354,16 @@ const EquipmentAlerts = memo(function EquipmentAlerts({
             </div>
             <div>
               <p className="text-xs text-text-muted">Predicted Date</p>
-              <p className="text-sm text-text-primary">{formatChartDate(alert.predictedDate)}</p>
+              <p className="text-sm text-text-primary">
+                {formatChartDate(alert.predictedDate)}
+              </p>
             </div>
           </div>
           <div className="mt-3 p-2 bg-bg-body rounded-md">
             <p className="text-xs text-text-muted">Suggested Action</p>
-            <p className="text-sm text-text-secondary">{alert.suggestedAction}</p>
+            <p className="text-sm text-text-secondary">
+              {alert.suggestedAction}
+            </p>
           </div>
         </div>
       ))}
@@ -327,22 +384,25 @@ const RevenueProjectionsChart = memo(function RevenueProjectionsChart({
     dateLabel: formatChartDate(point.date),
   }));
 
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
   const todayIndex = chartData.findIndex((d) => d.date >= today);
 
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={chartData} margin={{ top: 10, right: 30, bottom: 0, left: 0 }}>
+      <LineChart
+        data={chartData}
+        margin={{ top: 10, right: 30, bottom: 0, left: 0 }}
+      >
         <CartesianGrid {...GRID_STYLE} />
         <XAxis dataKey="dateLabel" {...AXIS_STYLE} tick={{ fontSize: 11 }} />
         <YAxis {...AXIS_STYLE} tickFormatter={formatCurrencyCompact} />
         <Tooltip
           contentStyle={{
-            backgroundColor: 'white',
-            border: '1px solid #e5e7eb',
-            borderRadius: '8px',
+            backgroundColor: "white",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
           }}
-          formatter={(value) => [formatCurrency(Number(value)), '']}
+          formatter={(value) => [formatCurrency(Number(value)), ""]}
         />
         <Legend />
         {/* Optimistic projection */}
@@ -423,17 +483,21 @@ export const PredictiveInsights = memo(function PredictiveInsights({
   equipmentAlerts,
   revenueProjections,
   isLoading = false,
-  className = '',
+  className = "",
 }: PredictiveInsightsProps) {
-  const [viewMode, setViewMode] = useState<ViewMode>('demand');
+  const [viewMode, setViewMode] = useState<ViewMode>("demand");
 
   if (isLoading) {
     return <LoadingSkeleton />;
   }
 
   const getAlertCount = () => {
-    const busyHigh = busyPeriodAlerts.filter((a) => a.severity === 'high').length;
-    const equipCritical = equipmentAlerts.filter((a) => a.priority === 'critical' || a.priority === 'high').length;
+    const busyHigh = busyPeriodAlerts.filter(
+      (a) => a.severity === "high",
+    ).length;
+    const equipCritical = equipmentAlerts.filter(
+      (a) => a.priority === "critical" || a.priority === "high",
+    ).length;
     return busyHigh + equipCritical;
   };
 
@@ -450,24 +514,26 @@ export const PredictiveInsights = memo(function PredictiveInsights({
             </Badge>
             {alertCount > 0 && (
               <Badge variant="danger" className="text-xs">
-                {alertCount} Alert{alertCount !== 1 ? 's' : ''}
+                {alertCount} Alert{alertCount !== 1 ? "s" : ""}
               </Badge>
             )}
           </div>
           <div className="flex items-center gap-1 bg-bg-muted rounded-md p-0.5">
-            {([
-              { key: 'demand', label: 'Demand' },
-              { key: 'alerts', label: 'Busy Periods' },
-              { key: 'equipment', label: 'Equipment' },
-              { key: 'revenue', label: 'Revenue' },
-            ] as const).map(({ key, label }) => (
+            {(
+              [
+                { key: "demand", label: "Demand" },
+                { key: "alerts", label: "Busy Periods" },
+                { key: "equipment", label: "Equipment" },
+                { key: "revenue", label: "Revenue" },
+              ] as const
+            ).map(({ key, label }) => (
               <button
                 key={key}
                 onClick={() => setViewMode(key)}
                 className={`px-2 py-1 text-xs rounded transition-colors ${
                   viewMode === key
-                    ? 'bg-bg-card text-text-primary shadow-sm'
-                    : 'text-text-secondary hover:text-text-primary'
+                    ? "bg-bg-card text-text-primary shadow-sm"
+                    : "text-text-secondary hover:text-text-primary"
                 }`}
               >
                 {label}
@@ -477,16 +543,17 @@ export const PredictiveInsights = memo(function PredictiveInsights({
         </div>
       </CardHeader>
       <CardContent className="p-0">
-        {viewMode === 'demand' && (
+        {viewMode === "demand" && (
           <>
             <p className="text-sm text-text-secondary mb-4">
-              Predicted job volume for the next 30 days with 80% confidence interval
+              Predicted job volume for the next 30 days with 80% confidence
+              interval
             </p>
             <DemandForecastChart data={demandForecast} />
           </>
         )}
 
-        {viewMode === 'alerts' && (
+        {viewMode === "alerts" && (
           <>
             <p className="text-sm text-text-secondary mb-4">
               Predicted high-demand periods - plan staffing accordingly
@@ -495,7 +562,7 @@ export const PredictiveInsights = memo(function PredictiveInsights({
           </>
         )}
 
-        {viewMode === 'equipment' && (
+        {viewMode === "equipment" && (
           <>
             <p className="text-sm text-text-secondary mb-4">
               Equipment maintenance predictions based on usage patterns
@@ -504,10 +571,11 @@ export const PredictiveInsights = memo(function PredictiveInsights({
           </>
         )}
 
-        {viewMode === 'revenue' && (
+        {viewMode === "revenue" && (
           <>
             <p className="text-sm text-text-secondary mb-4">
-              Revenue projections based on historical trends and booking patterns
+              Revenue projections based on historical trends and booking
+              patterns
             </p>
             <RevenueProjectionsChart data={revenueProjections} />
           </>

@@ -1,5 +1,5 @@
-import type { Metric } from 'web-vitals';
-import { captureMessage, addBreadcrumb } from '@/lib/sentry';
+import type { Metric } from "web-vitals";
+import { captureMessage, addBreadcrumb } from "@/lib/sentry";
 
 // ============================================
 // Types
@@ -8,7 +8,7 @@ import { captureMessage, addBreadcrumb } from '@/lib/sentry';
 export interface WebVitalsMetric {
   name: string;
   value: number;
-  rating: 'good' | 'needs-improvement' | 'poor';
+  rating: "good" | "needs-improvement" | "poor";
   delta: number;
   id: string;
   navigationType: string;
@@ -52,22 +52,22 @@ export interface WebVitalsOptions {
 // Default performance budgets based on Core Web Vitals thresholds
 // https://web.dev/vitals/
 const DEFAULT_BUDGETS: PerformanceBudget = {
-  LCP: { good: 2500, poor: 4000 },     // Largest Contentful Paint (ms)
-  FID: { good: 100, poor: 300 },       // First Input Delay (ms)
-  CLS: { good: 0.1, poor: 0.25 },      // Cumulative Layout Shift (unitless)
-  TTFB: { good: 800, poor: 1800 },     // Time to First Byte (ms)
-  INP: { good: 200, poor: 500 },       // Interaction to Next Paint (ms)
-  FCP: { good: 1800, poor: 3000 },     // First Contentful Paint (ms)
+  LCP: { good: 2500, poor: 4000 }, // Largest Contentful Paint (ms)
+  FID: { good: 100, poor: 300 }, // First Input Delay (ms)
+  CLS: { good: 0.1, poor: 0.25 }, // Cumulative Layout Shift (unitless)
+  TTFB: { good: 800, poor: 1800 }, // Time to First Byte (ms)
+  INP: { good: 200, poor: 500 }, // Interaction to Next Paint (ms)
+  FCP: { good: 1800, poor: 3000 }, // First Contentful Paint (ms)
 };
 
 // Metric descriptions for logging
 const METRIC_DESCRIPTIONS: Record<string, string> = {
-  LCP: 'Largest Contentful Paint - loading performance',
-  FID: 'First Input Delay - interactivity',
-  CLS: 'Cumulative Layout Shift - visual stability',
-  TTFB: 'Time to First Byte - server response time',
-  INP: 'Interaction to Next Paint - responsiveness',
-  FCP: 'First Contentful Paint - initial content load',
+  LCP: "Largest Contentful Paint - loading performance",
+  FID: "First Input Delay - interactivity",
+  CLS: "Cumulative Layout Shift - visual stability",
+  TTFB: "Time to First Byte - server response time",
+  INP: "Interaction to Next Paint - responsiveness",
+  FCP: "First Contentful Paint - initial content load",
 };
 
 const IS_DEV = import.meta.env.DEV;
@@ -88,20 +88,24 @@ let currentOptions: WebVitalsOptions = {};
 /**
  * Get rating for a metric value
  */
-function getRating(name: string, value: number, budgets: PerformanceBudget): 'good' | 'needs-improvement' | 'poor' {
+function getRating(
+  name: string,
+  value: number,
+  budgets: PerformanceBudget,
+): "good" | "needs-improvement" | "poor" {
   const budget = budgets[name as keyof PerformanceBudget];
-  if (!budget) return 'needs-improvement';
+  if (!budget) return "needs-improvement";
 
-  if (value <= budget.good) return 'good';
-  if (value <= budget.poor) return 'needs-improvement';
-  return 'poor';
+  if (value <= budget.good) return "good";
+  if (value <= budget.poor) return "needs-improvement";
+  return "poor";
 }
 
 /**
  * Format metric value for display
  */
 function formatMetricValue(name: string, value: number): string {
-  if (name === 'CLS') {
+  if (name === "CLS") {
     return value.toFixed(3);
   }
   return `${Math.round(value)}ms`;
@@ -112,25 +116,28 @@ function formatMetricValue(name: string, value: number): string {
  */
 function logMetricToConsole(metric: WebVitalsMetric): void {
   const colors = {
-    good: '#0cce6b',
-    'needs-improvement': '#ffa400',
-    poor: '#ff4e42',
+    good: "#0cce6b",
+    "needs-improvement": "#ffa400",
+    poor: "#ff4e42",
   };
 
   const color = colors[metric.rating];
-  const description = METRIC_DESCRIPTIONS[metric.name] || '';
+  const description = METRIC_DESCRIPTIONS[metric.name] || "";
 
   console.log(
     `%c[WebVitals] ${metric.name}: ${formatMetricValue(metric.name, metric.value)} (${metric.rating})`,
     `color: ${color}; font-weight: bold`,
-    description ? `\n  ${description}` : ''
+    description ? `\n  ${description}` : "",
   );
 }
 
 /**
  * Send metrics to analytics endpoint
  */
-async function sendToAnalytics(endpoint: string, report: WebVitalsReport): Promise<void> {
+async function sendToAnalytics(
+  endpoint: string,
+  report: WebVitalsReport,
+): Promise<void> {
   try {
     // Use sendBeacon for reliability (survives page unload)
     const data = JSON.stringify(report);
@@ -140,16 +147,16 @@ async function sendToAnalytics(endpoint: string, report: WebVitalsReport): Promi
     } else {
       // Fallback to fetch with keepalive
       await fetch(endpoint, {
-        method: 'POST',
+        method: "POST",
         body: data,
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         keepalive: true,
       });
     }
   } catch (error) {
-    console.error('[WebVitals] Failed to send analytics:', error);
+    console.error("[WebVitals] Failed to send analytics:", error);
   }
 }
 
@@ -160,27 +167,23 @@ function reportToSentry(metric: WebVitalsMetric): void {
   // Add as breadcrumb for context
   addBreadcrumb(
     `Web Vital: ${metric.name} = ${formatMetricValue(metric.name, metric.value)}`,
-    'web-vitals',
+    "web-vitals",
     {
       value: metric.value,
       rating: metric.rating,
       delta: metric.delta,
     },
-    metric.rating === 'poor' ? 'warning' : 'info'
+    metric.rating === "poor" ? "warning" : "info",
   );
 
   // Report poor metrics as messages
-  if (metric.rating === 'poor') {
-    captureMessage(
-      `Poor Web Vital: ${metric.name}`,
-      'warning',
-      {
-        metric: metric.name,
-        value: metric.value,
-        rating: metric.rating,
-        url: window.location.href,
-      }
-    );
+  if (metric.rating === "poor") {
+    captureMessage(`Poor Web Vital: ${metric.name}`, "warning", {
+      metric: metric.name,
+      value: metric.value,
+      rating: metric.rating,
+      url: window.location.href,
+    });
   }
 }
 
@@ -200,7 +203,7 @@ function handleMetric(metric: Metric): void {
     rating: getRating(metric.name, metric.value, budgets),
     delta: metric.delta,
     id: metric.id,
-    navigationType: metric.navigationType || 'navigate',
+    navigationType: metric.navigationType || "navigate",
   };
 
   // Store metric
@@ -218,7 +221,7 @@ function handleMetric(metric: Metric): void {
 
     if (IS_DEV || currentOptions.debug) {
       console.warn(
-        `[WebVitals] Budget exceeded for ${metric.name}: ${formatMetricValue(metric.name, metric.value)} > ${formatMetricValue(metric.name, budget.poor)}`
+        `[WebVitals] Budget exceeded for ${metric.name}: ${formatMetricValue(metric.name, metric.value)} > ${formatMetricValue(metric.name, budget.poor)}`,
       );
     }
   }
@@ -248,9 +251,11 @@ function handleMetric(metric: Metric): void {
  * - Optional analytics endpoint
  * - Optional Sentry integration
  */
-export async function initWebVitals(options: WebVitalsOptions = {}): Promise<void> {
+export async function initWebVitals(
+  options: WebVitalsOptions = {},
+): Promise<void> {
   if (isInitialized) {
-    console.warn('[WebVitals] Already initialized');
+    console.warn("[WebVitals] Already initialized");
     return;
   }
 
@@ -260,13 +265,7 @@ export async function initWebVitals(options: WebVitalsOptions = {}): Promise<voi
   try {
     // Dynamically import web-vitals to avoid blocking initial load
     // Note: FID was removed in web-vitals v4, replaced by INP
-    const {
-      onLCP,
-      onCLS,
-      onTTFB,
-      onINP,
-      onFCP,
-    } = await import('web-vitals');
+    const { onLCP, onCLS, onTTFB, onINP, onFCP } = await import("web-vitals");
 
     // Register handlers for each metric
     onLCP(handleMetric);
@@ -276,10 +275,10 @@ export async function initWebVitals(options: WebVitalsOptions = {}): Promise<voi
     onFCP(handleMetric);
 
     if (IS_DEV || options.debug) {
-      console.log('[WebVitals] Initialized');
+      console.log("[WebVitals] Initialized");
     }
   } catch (error) {
-    console.error('[WebVitals] Failed to initialize:', error);
+    console.error("[WebVitals] Failed to initialize:", error);
   }
 }
 
@@ -316,7 +315,7 @@ export async function sendMetrics(endpoint?: string): Promise<void> {
   const targetEndpoint = endpoint || currentOptions.analyticsEndpoint;
 
   if (!targetEndpoint) {
-    console.warn('[WebVitals] No analytics endpoint configured');
+    console.warn("[WebVitals] No analytics endpoint configured");
     return;
   }
 
@@ -337,11 +336,11 @@ export function getPerformanceScore(): number {
   // Weight each metric equally
   const scores = metrics.map((metric) => {
     switch (metric.rating) {
-      case 'good':
+      case "good":
         return 100;
-      case 'needs-improvement':
+      case "needs-improvement":
         return 50;
-      case 'poor':
+      case "poor":
         return 0;
     }
   });
@@ -354,10 +353,10 @@ export function getPerformanceScore(): number {
  * Check if all Core Web Vitals pass
  */
 export function passesWebVitals(): boolean {
-  const coreVitals = ['LCP', 'FID', 'CLS'];
+  const coreVitals = ["LCP", "FID", "CLS"];
   return coreVitals.every((name) => {
     const metric = collectedMetrics[name];
-    return !metric || metric.rating !== 'poor';
+    return !metric || metric.rating !== "poor";
   });
 }
 
@@ -374,7 +373,7 @@ export function resetMetrics(): void {
 // React Hook
 // ============================================
 
-import { useState as useStateHook, useEffect as useEffectHook } from 'react';
+import { useState as useStateHook, useEffect as useEffectHook } from "react";
 
 /**
  * React hook to access Web Vitals metrics
@@ -384,7 +383,9 @@ export function useWebVitals(): {
   score: number;
   isGood: boolean;
 } {
-  const [metrics, setMetrics] = useStateHook<Record<string, WebVitalsMetric>>({});
+  const [metrics, setMetrics] = useStateHook<Record<string, WebVitalsMetric>>(
+    {},
+  );
 
   useEffectHook(() => {
     // Initial load

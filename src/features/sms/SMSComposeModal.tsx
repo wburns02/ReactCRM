@@ -1,9 +1,14 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Dialog, DialogContent, DialogHeader, DialogBody } from '@/components/ui/Dialog';
-import { useSendSMS, useSMSTemplates } from '@/api/hooks/useSMS';
-import { toastError } from '@/components/ui/Toast';
+import { useState } from "react";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+} from "@/components/ui/Dialog";
+import { useSendSMS, useSMSTemplates } from "@/api/hooks/useSMS";
+import { toastError } from "@/components/ui/Toast";
 
 interface SMSComposeModalProps {
   open: boolean;
@@ -20,14 +25,14 @@ interface SMSComposeModalProps {
 export function SMSComposeModal({
   open,
   onClose,
-  defaultPhone = '',
+  defaultPhone = "",
   customerId,
   workOrderId,
   customerName,
 }: SMSComposeModalProps) {
   const [phone, setPhone] = useState(defaultPhone);
-  const [message, setMessage] = useState('');
-  const [selectedTemplateId, setSelectedTemplateId] = useState<string>('');
+  const [message, setMessage] = useState("");
+  const [selectedTemplateId, setSelectedTemplateId] = useState<string>("");
 
   const sendSMS = useSendSMS();
   const { data: templates } = useSMSTemplates();
@@ -56,15 +61,15 @@ export function SMSComposeModal({
         work_order_id: workOrderId,
       });
       onClose();
-      setMessage('');
+      setMessage("");
     } catch (error) {
-      toastError('Failed to send SMS');
+      toastError("Failed to send SMS");
     }
   };
 
   const formatPhone = (value: string) => {
     // Remove all non-digits
-    const digits = value.replace(/\D/g, '');
+    const digits = value.replace(/\D/g, "");
 
     // Format as (XXX) XXX-XXXX
     if (digits.length <= 3) return digits;
@@ -79,9 +84,7 @@ export function SMSComposeModal({
   return (
     <Dialog open={open} onClose={onClose}>
       <DialogContent size="md">
-        <DialogHeader onClose={onClose}>
-          Send SMS
-        </DialogHeader>
+        <DialogHeader onClose={onClose}>Send SMS</DialogHeader>
         <DialogBody>
           <div className="space-y-4">
             {/* Phone Number */}
@@ -108,11 +111,13 @@ export function SMSComposeModal({
                   className="w-full px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary"
                 >
                   <option value="">Select a template...</option>
-                  {templates.filter((t) => t.is_active).map((template) => (
-                    <option key={template.id} value={template.id}>
-                      {template.name}
-                    </option>
-                  ))}
+                  {templates
+                    .filter((t) => t.is_active)
+                    .map((template) => (
+                      <option key={template.id} value={template.id}>
+                        {template.name}
+                      </option>
+                    ))}
                 </select>
               </div>
             )}
@@ -134,9 +139,11 @@ export function SMSComposeModal({
                 <p className="text-xs text-text-muted">
                   {message.length > 160
                     ? `${Math.ceil(message.length / 160)} messages`
-                    : 'Standard SMS'}
+                    : "Standard SMS"}
                 </p>
-                <p className={`text-xs ${message.length > 320 ? 'text-danger' : 'text-text-muted'}`}>
+                <p
+                  className={`text-xs ${message.length > 320 ? "text-danger" : "text-text-muted"}`}
+                >
                   {message.length}/320
                 </p>
               </div>
@@ -146,7 +153,10 @@ export function SMSComposeModal({
             {customerName && (
               <div className="p-3 bg-bg-muted rounded-lg">
                 <p className="text-sm text-text-secondary">
-                  Sending to: <span className="font-medium text-text-primary">{customerName}</span>
+                  Sending to:{" "}
+                  <span className="font-medium text-text-primary">
+                    {customerName}
+                  </span>
                 </p>
               </div>
             )}
@@ -160,7 +170,7 @@ export function SMSComposeModal({
                 onClick={handleSend}
                 disabled={!phone || !message || sendSMS.isPending}
               >
-                {sendSMS.isPending ? 'Sending...' : 'Send SMS'}
+                {sendSMS.isPending ? "Sending..." : "Send SMS"}
               </Button>
             </div>
           </div>

@@ -1,5 +1,5 @@
-import axios, { type AxiosError, type AxiosInstance } from 'axios';
-import { addBreadcrumb, captureException } from '@/lib/sentry';
+import axios, { type AxiosError, type AxiosInstance } from "axios";
+import { addBreadcrumb, captureException } from "@/lib/sentry";
 import {
   getSecurityHeaders,
   clearSessionState,
@@ -8,7 +8,7 @@ import {
   hasLegacyToken,
   getLegacyToken,
   cleanupLegacyAuth,
-} from '@/lib/security';
+} from "@/lib/security";
 
 /**
  * API client configured for FastAPI backend with secure cookie auth
@@ -23,12 +23,14 @@ import {
  * Repository: wburns02/react-crm-api
  */
 
-const API_BASE_URL = import.meta.env.VITE_API_URL || 'https://react-crm-api-production.up.railway.app/api/v2';
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://react-crm-api-production.up.railway.app/api/v2";
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
   headers: {
-    'Content-Type': 'application/json',
+    "Content-Type": "application/json",
   },
   // SECURITY: Enable credentials for HTTP-only cookie auth
   // This sends the session cookie automatically with every request
@@ -43,7 +45,7 @@ export const apiClient: AxiosInstance = axios.create({
  */
 apiClient.interceptors.request.use(
   (config) => {
-    const method = config.method?.toUpperCase() || 'GET';
+    const method = config.method?.toUpperCase() || "GET";
 
     // SECURITY: Add CSRF token and other security headers
     const securityHeaders = getSecurityHeaders(method);
@@ -62,14 +64,14 @@ apiClient.interceptors.request.use(
     // Add breadcrumb for API request tracking
     addBreadcrumb(
       `API ${method} ${config.url}`,
-      'http',
+      "http",
       { method, url: config.url },
-      'info'
+      "info",
     );
 
     return config;
   },
-  (error) => Promise.reject(error)
+  (error) => Promise.reject(error),
 );
 
 /**
@@ -84,9 +86,9 @@ apiClient.interceptors.response.use(
     // Track successful responses for debugging context
     addBreadcrumb(
       `API ${response.status} ${response.config.url}`,
-      'http',
+      "http",
       { status: response.status, url: response.config.url },
-      'info'
+      "info",
     );
     return response;
   },
@@ -96,14 +98,14 @@ apiClient.interceptors.response.use(
     const url = error.config?.url;
 
     addBreadcrumb(
-      `API Error ${status || 'network'} ${url}`,
-      'http',
+      `API Error ${status || "network"} ${url}`,
+      "http",
       {
         status,
         url,
         message: error.message,
       },
-      'error'
+      "error",
     );
 
     // Capture 5xx errors to Sentry (server errors)
@@ -119,9 +121,9 @@ apiClient.interceptors.response.use(
     if (status === 401) {
       // Skip auth handling for optional endpoints that should fail silently
       // These endpoints are non-critical features that work without auth
-      const optionalEndpoints = ['/roles'];
-      const isOptionalEndpoint = optionalEndpoints.some(
-        (endpoint) => url?.includes(endpoint)
+      const optionalEndpoints = ["/roles"];
+      const isOptionalEndpoint = optionalEndpoints.some((endpoint) =>
+        url?.includes(endpoint),
       );
 
       if (!isOptionalEndpoint) {
@@ -131,13 +133,15 @@ apiClient.interceptors.response.use(
         cleanupLegacyAuth();
 
         // Dispatch security event for listeners
-        dispatchSecurityEvent('session:expired');
+        dispatchSecurityEvent("session:expired");
 
         // Don't redirect to login if already on login page (prevents infinite loop)
         const currentPath = window.location.pathname;
-        if (!currentPath.includes('/login')) {
+        if (!currentPath.includes("/login")) {
           // Redirect to login with return URL
-          const returnUrl = encodeURIComponent(currentPath + window.location.search);
+          const returnUrl = encodeURIComponent(
+            currentPath + window.location.search,
+          );
           window.location.href = `/login?return=${returnUrl}`;
         }
       }
@@ -145,17 +149,22 @@ apiClient.interceptors.response.use(
 
     // Handle CSRF errors
     if (status === 403) {
-      const responseData = error.response?.data as Record<string, unknown> | undefined;
-      const errorMessage = responseData?.error || responseData?.detail || '';
-      if (typeof errorMessage === 'string' && errorMessage.toLowerCase().includes('csrf')) {
-        dispatchSecurityEvent('csrf:missing');
+      const responseData = error.response?.data as
+        | Record<string, unknown>
+        | undefined;
+      const errorMessage = responseData?.error || responseData?.detail || "";
+      if (
+        typeof errorMessage === "string" &&
+        errorMessage.toLowerCase().includes("csrf")
+      ) {
+        dispatchSecurityEvent("csrf:missing");
         // Refresh the page to get a new CSRF token
         window.location.reload();
       }
     }
 
     return Promise.reject(error);
-  }
+  },
 );
 
 // ============================================
@@ -170,7 +179,7 @@ apiClient.interceptors.response.use(
 export function setAuthToken(token: string): void {
   // MIGRATION: Store in localStorage for backwards compatibility
   // This will be removed once backend sets HTTP-only cookies
-  localStorage.setItem('auth_token', token);
+  localStorage.setItem("auth_token", token);
 }
 
 /**
@@ -188,7 +197,7 @@ export function clearAuthToken(): void {
  */
 export function hasAuthToken(): boolean {
   // Check session state first
-  const sessionState = sessionStorage.getItem('session_state');
+  const sessionState = sessionStorage.getItem("session_state");
   if (sessionState) {
     try {
       const state = JSON.parse(sessionState);
@@ -207,7 +216,7 @@ export function hasAuthToken(): boolean {
 /**
  * Get session state for UI display
  */
-export { getSessionState } from '@/lib/security';
+export { getSessionState } from "@/lib/security";
 
 /**
  * Type-safe API error
@@ -221,7 +230,9 @@ export interface ApiErrorResponse {
 /**
  * Check if error is an API error with our expected shape
  */
-export function isApiError(error: unknown): error is AxiosError<ApiErrorResponse> {
+export function isApiError(
+  error: unknown,
+): error is AxiosError<ApiErrorResponse> {
   return axios.isAxiosError(error) && error.response?.data?.error !== undefined;
 }
 
@@ -230,12 +241,12 @@ export function isApiError(error: unknown): error is AxiosError<ApiErrorResponse
  */
 export function getErrorMessage(error: unknown): string {
   if (isApiError(error)) {
-    return error.response?.data.error || 'An error occurred';
+    return error.response?.data.error || "An error occurred";
   }
   if (error instanceof Error) {
     return error.message;
   }
-  return 'An unexpected error occurred';
+  return "An unexpected error occurred";
 }
 
 /**
@@ -259,7 +270,7 @@ export function is404Error(error: unknown): boolean {
  */
 export async function withFallback<T>(
   apiFn: () => Promise<T>,
-  defaultValue: T
+  defaultValue: T,
 ): Promise<T> {
   try {
     return await apiFn();
@@ -295,7 +306,7 @@ export function is401Error(error: unknown): boolean {
  */
 export async function withAuthFallback<T>(
   apiFn: () => Promise<T>,
-  defaultValue: T
+  defaultValue: T,
 ): Promise<T> {
   try {
     return await apiFn();

@@ -1,7 +1,7 @@
-import { useCallback } from 'react';
-import { useSessionTimeout } from '@/hooks/useSessionTimeout';
-import { useToast } from '@/components/ui/Toast';
-import { hasAuthToken } from '@/api/client';
+import { useCallback } from "react";
+import { useSessionTimeout } from "@/hooks/useSessionTimeout";
+import { useToast } from "@/components/ui/Toast";
+import { hasAuthToken } from "@/api/client";
 
 /**
  * Session timeout provider component
@@ -11,23 +11,28 @@ import { hasAuthToken } from '@/api/client';
  *
  * SECURITY: Prevents session hijacking from unattended devices.
  */
-export function SessionTimeoutProvider({ children }: { children: React.ReactNode }) {
+export function SessionTimeoutProvider({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const { addToast } = useToast();
 
   const handleWarning = useCallback(() => {
     addToast({
-      title: 'Session Expiring',
-      description: 'Your session will expire in 5 minutes due to inactivity. Move your mouse or press any key to stay logged in.',
-      variant: 'warning',
+      title: "Session Expiring",
+      description:
+        "Your session will expire in 5 minutes due to inactivity. Move your mouse or press any key to stay logged in.",
+      variant: "warning",
       duration: 30000, // Show for 30 seconds
     });
   }, [addToast]);
 
   const handleTimeout = useCallback(() => {
     addToast({
-      title: 'Session Expired',
-      description: 'You have been logged out due to inactivity.',
-      variant: 'error',
+      title: "Session Expired",
+      description: "You have been logged out due to inactivity.",
+      variant: "error",
       duration: 5000,
     });
     // Default timeout handler will redirect to login

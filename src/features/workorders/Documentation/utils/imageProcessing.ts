@@ -22,7 +22,7 @@ export interface GPSCoordinates {
 export async function createThumbnail(
   base64: string,
   maxWidth: number = 200,
-  maxHeight: number = 200
+  maxHeight: number = 200,
 ): Promise<string> {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -45,28 +45,28 @@ export async function createThumbnail(
       }
 
       // Create canvas and draw resized image
-      const canvas = document.createElement('canvas');
+      const canvas = document.createElement("canvas");
       canvas.width = width;
       canvas.height = height;
 
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext("2d");
       if (!ctx) {
-        reject(new Error('Failed to get canvas context'));
+        reject(new Error("Failed to get canvas context"));
         return;
       }
 
       // Use better quality scaling
       ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
+      ctx.imageSmoothingQuality = "high";
 
       ctx.drawImage(img, 0, 0, width, height);
 
       // Convert to JPEG with moderate quality for thumbnails
-      resolve(canvas.toDataURL('image/jpeg', 0.7));
+      resolve(canvas.toDataURL("image/jpeg", 0.7));
     };
 
     img.onerror = () => {
-      reject(new Error('Failed to load image for thumbnail'));
+      reject(new Error("Failed to load image for thumbnail"));
     };
 
     img.src = base64;
@@ -84,19 +84,19 @@ export async function createThumbnail(
 export async function addWatermark(
   base64: string,
   text: string,
-  gps?: GPSCoordinates
+  gps?: GPSCoordinates,
 ): Promise<string> {
   return new Promise((resolve, reject) => {
     const img = new Image();
 
     img.onload = () => {
-      const canvas = document.createElement('canvas');
+      const canvas = document.createElement("canvas");
       canvas.width = img.width;
       canvas.height = img.height;
 
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext("2d");
       if (!ctx) {
-        reject(new Error('Failed to get canvas context'));
+        reject(new Error("Failed to get canvas context"));
         return;
       }
 
@@ -115,35 +115,35 @@ export async function addWatermark(
         }
       }
 
-      const boxHeight = (lines.length * lineHeight) + (padding * 2);
+      const boxHeight = lines.length * lineHeight + padding * 2;
       const boxY = canvas.height - boxHeight;
 
       // Draw semi-transparent background for text
-      ctx.fillStyle = 'rgba(0, 0, 0, 0.6)';
+      ctx.fillStyle = "rgba(0, 0, 0, 0.6)";
       ctx.fillRect(0, boxY, canvas.width, boxHeight);
 
       // Draw text
-      ctx.fillStyle = '#ffffff';
-      ctx.font = 'bold 18px sans-serif';
-      ctx.textAlign = 'left';
-      ctx.textBaseline = 'top';
+      ctx.fillStyle = "#ffffff";
+      ctx.font = "bold 18px sans-serif";
+      ctx.textAlign = "left";
+      ctx.textBaseline = "top";
 
       lines.forEach((line, index) => {
-        const y = boxY + padding + (index * lineHeight);
+        const y = boxY + padding + index * lineHeight;
         ctx.fillText(line, padding, y);
       });
 
       // Add MAC Septic branding in corner
-      ctx.font = 'bold 14px sans-serif';
-      ctx.textAlign = 'right';
-      ctx.fillStyle = 'rgba(255, 255, 255, 0.8)';
-      ctx.fillText('MAC Septic', canvas.width - padding, boxY + padding);
+      ctx.font = "bold 14px sans-serif";
+      ctx.textAlign = "right";
+      ctx.fillStyle = "rgba(255, 255, 255, 0.8)";
+      ctx.fillText("MAC Septic", canvas.width - padding, boxY + padding);
 
-      resolve(canvas.toDataURL('image/jpeg', 0.92));
+      resolve(canvas.toDataURL("image/jpeg", 0.92));
     };
 
     img.onerror = () => {
-      reject(new Error('Failed to load image for watermark'));
+      reject(new Error("Failed to load image for watermark"));
     };
 
     img.src = base64;
@@ -161,7 +161,7 @@ export async function addWatermark(
 export async function compressImage(
   base64: string,
   quality: number = 0.8,
-  maxDimension?: number
+  maxDimension?: number,
 ): Promise<string> {
   return new Promise((resolve, reject) => {
     const img = new Image();
@@ -181,26 +181,26 @@ export async function compressImage(
         }
       }
 
-      const canvas = document.createElement('canvas');
+      const canvas = document.createElement("canvas");
       canvas.width = width;
       canvas.height = height;
 
-      const ctx = canvas.getContext('2d');
+      const ctx = canvas.getContext("2d");
       if (!ctx) {
-        reject(new Error('Failed to get canvas context'));
+        reject(new Error("Failed to get canvas context"));
         return;
       }
 
       ctx.imageSmoothingEnabled = true;
-      ctx.imageSmoothingQuality = 'high';
+      ctx.imageSmoothingQuality = "high";
 
       ctx.drawImage(img, 0, 0, width, height);
 
-      resolve(canvas.toDataURL('image/jpeg', quality));
+      resolve(canvas.toDataURL("image/jpeg", quality));
     };
 
     img.onerror = () => {
-      reject(new Error('Failed to load image for compression'));
+      reject(new Error("Failed to load image for compression"));
     };
 
     img.src = base64;
@@ -214,11 +214,11 @@ export async function compressImage(
  * @returns Promise resolving to GPS coordinates
  */
 export function getCurrentPosition(
-  options?: PositionOptions
+  options?: PositionOptions,
 ): Promise<GPSCoordinates> {
   return new Promise((resolve, reject) => {
     if (!navigator.geolocation) {
-      reject(new Error('Geolocation is not supported by this browser'));
+      reject(new Error("Geolocation is not supported by this browser"));
       return;
     }
 
@@ -242,21 +242,21 @@ export function getCurrentPosition(
 
         switch (error.code) {
           case error.PERMISSION_DENIED:
-            errorMessage = 'Location permission denied';
+            errorMessage = "Location permission denied";
             break;
           case error.POSITION_UNAVAILABLE:
-            errorMessage = 'Location information unavailable';
+            errorMessage = "Location information unavailable";
             break;
           case error.TIMEOUT:
-            errorMessage = 'Location request timed out';
+            errorMessage = "Location request timed out";
             break;
           default:
-            errorMessage = 'Unknown location error';
+            errorMessage = "Unknown location error";
         }
 
         reject(new Error(errorMessage));
       },
-      defaultOptions
+      defaultOptions,
     );
   });
 }
@@ -296,16 +296,16 @@ export function getDeviceInfo(): string {
   const isAndroid = /Android/.test(ua);
   const isIOS = /iPhone|iPad/.test(ua);
 
-  let device = 'Unknown Device';
+  let device = "Unknown Device";
 
   if (isIOS) {
-    device = ua.match(/iPhone|iPad/)?.[0] ?? 'iOS Device';
+    device = ua.match(/iPhone|iPad/)?.[0] ?? "iOS Device";
   } else if (isAndroid) {
-    device = 'Android Device';
+    device = "Android Device";
   } else if (isMobile) {
-    device = 'Mobile Device';
+    device = "Mobile Device";
   } else {
-    device = 'Desktop';
+    device = "Desktop";
   }
 
   return device;
@@ -315,13 +315,13 @@ export function getDeviceInfo(): string {
  * Format timestamp for watermark display
  */
 export function formatTimestampForWatermark(date: Date = new Date()): string {
-  return date.toLocaleString('en-US', {
-    year: 'numeric',
-    month: 'short',
-    day: 'numeric',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
+  return date.toLocaleString("en-US", {
+    year: "numeric",
+    month: "short",
+    day: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
   });
 }
 
@@ -330,7 +330,7 @@ export function formatTimestampForWatermark(date: Date = new Date()): string {
  */
 export function estimateBase64Size(base64: string): number {
   // Remove data URL prefix if present
-  const base64Data = base64.split(',')[1] || base64;
+  const base64Data = base64.split(",")[1] || base64;
   // Base64 encodes 3 bytes into 4 characters
   return Math.round((base64Data.length * 3) / 4);
 }
@@ -352,15 +352,15 @@ export function readFileAsBase64(file: File): Promise<string> {
     const reader = new FileReader();
 
     reader.onload = () => {
-      if (typeof reader.result === 'string') {
+      if (typeof reader.result === "string") {
         resolve(reader.result);
       } else {
-        reject(new Error('Failed to read file as base64'));
+        reject(new Error("Failed to read file as base64"));
       }
     };
 
     reader.onerror = () => {
-      reject(new Error('Failed to read file'));
+      reject(new Error("Failed to read file"));
     };
 
     reader.readAsDataURL(file);

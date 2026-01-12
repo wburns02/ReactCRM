@@ -2,37 +2,46 @@
  * IoT Dashboard Component
  * Monitor connected devices, alerts, and equipment health
  */
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
+import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import {
   useDevices,
   useDeviceAlerts,
   useMaintenanceRecommendations,
   useAcknowledgeAlert,
   useScheduleMaintenanceFromRecommendation,
-} from '@/api/hooks/useIoT';
-import { DEVICE_TYPE_LABELS } from '@/api/types/iot';
-import type { Device, DeviceAlert, MaintenanceRecommendation } from '@/api/types/iot';
-import { formatDate, cn } from '@/lib/utils';
-import { getErrorMessage } from '@/api/client';
-import { toastError } from '@/components/ui/Toast';
+} from "@/api/hooks/useIoT";
+import { DEVICE_TYPE_LABELS } from "@/api/types/iot";
+import type {
+  Device,
+  DeviceAlert,
+  MaintenanceRecommendation,
+} from "@/api/types/iot";
+import { formatDate, cn } from "@/lib/utils";
+import { getErrorMessage } from "@/api/client";
+import { toastError } from "@/components/ui/Toast";
 
 export function IoTDashboard() {
   const { data: devices, isLoading: devicesLoading } = useDevices();
-  const { data: alerts, isLoading: alertsLoading } = useDeviceAlerts({ acknowledged: false });
-  const { data: recommendations, isLoading: recsLoading } = useMaintenanceRecommendations();
+  const { data: alerts, isLoading: alertsLoading } = useDeviceAlerts({
+    acknowledged: false,
+  });
+  const { data: recommendations, isLoading: recsLoading } =
+    useMaintenanceRecommendations();
 
   // Aggregate stats
   const stats = {
     totalDevices: devices?.length || 0,
-    onlineDevices: devices?.filter((d) => d.status === 'online').length || 0,
-    warningDevices: devices?.filter((d) => d.status === 'warning').length || 0,
-    criticalDevices: devices?.filter((d) => d.status === 'critical').length || 0,
-    offlineDevices: devices?.filter((d) => d.status === 'offline').length || 0,
+    onlineDevices: devices?.filter((d) => d.status === "online").length || 0,
+    warningDevices: devices?.filter((d) => d.status === "warning").length || 0,
+    criticalDevices:
+      devices?.filter((d) => d.status === "critical").length || 0,
+    offlineDevices: devices?.filter((d) => d.status === "offline").length || 0,
     unacknowledgedAlerts: alerts?.length || 0,
-    pendingMaintenance: recommendations?.filter((r) => r.status === 'pending').length || 0,
+    pendingMaintenance:
+      recommendations?.filter((r) => r.status === "pending").length || 0,
   };
 
   return (
@@ -40,7 +49,9 @@ export function IoTDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">IoT Monitoring</h1>
+          <h1 className="text-2xl font-bold text-text-primary">
+            IoT Monitoring
+          </h1>
           <p className="text-text-secondary">
             Monitor connected equipment and predictive maintenance
           </p>
@@ -51,12 +62,36 @@ export function IoTDashboard() {
       {/* Stats Overview */}
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-7 gap-4">
         <StatCard label="Total Devices" value={stats.totalDevices} />
-        <StatCard label="Online" value={stats.onlineDevices} variant="success" />
-        <StatCard label="Warnings" value={stats.warningDevices} variant="warning" />
-        <StatCard label="Critical" value={stats.criticalDevices} variant="danger" />
-        <StatCard label="Offline" value={stats.offlineDevices} variant="muted" />
-        <StatCard label="Active Alerts" value={stats.unacknowledgedAlerts} variant="danger" />
-        <StatCard label="Maintenance Due" value={stats.pendingMaintenance} variant="warning" />
+        <StatCard
+          label="Online"
+          value={stats.onlineDevices}
+          variant="success"
+        />
+        <StatCard
+          label="Warnings"
+          value={stats.warningDevices}
+          variant="warning"
+        />
+        <StatCard
+          label="Critical"
+          value={stats.criticalDevices}
+          variant="danger"
+        />
+        <StatCard
+          label="Offline"
+          value={stats.offlineDevices}
+          variant="muted"
+        />
+        <StatCard
+          label="Active Alerts"
+          value={stats.unacknowledgedAlerts}
+          variant="danger"
+        />
+        <StatCard
+          label="Maintenance Due"
+          value={stats.pendingMaintenance}
+          variant="warning"
+        />
       </div>
 
       {/* Alerts Section */}
@@ -83,25 +118,29 @@ export function IoTDashboard() {
 function StatCard({
   label,
   value,
-  variant = 'default',
+  variant = "default",
 }: {
   label: string;
   value: number;
-  variant?: 'default' | 'success' | 'warning' | 'danger' | 'muted';
+  variant?: "default" | "success" | "warning" | "danger" | "muted";
 }) {
   const variantStyles = {
-    default: 'text-text-primary',
-    success: 'text-success',
-    warning: 'text-warning',
-    danger: 'text-error',
-    muted: 'text-text-muted',
+    default: "text-text-primary",
+    success: "text-success",
+    warning: "text-warning",
+    danger: "text-error",
+    muted: "text-text-muted",
   };
 
   return (
     <Card>
       <CardContent className="pt-4">
-        <p className="text-xs text-text-muted uppercase tracking-wide">{label}</p>
-        <p className={cn('text-2xl font-bold', variantStyles[variant])}>{value}</p>
+        <p className="text-xs text-text-muted uppercase tracking-wide">
+          {label}
+        </p>
+        <p className={cn("text-2xl font-bold", variantStyles[variant])}>
+          {value}
+        </p>
       </CardContent>
     </Card>
   );
@@ -125,9 +164,9 @@ function AlertsSection({
     }
   };
 
-  const criticalAlerts = alerts.filter((a) => a.severity === 'critical');
-  const warningAlerts = alerts.filter((a) => a.severity === 'warning');
-  const infoAlerts = alerts.filter((a) => a.severity === 'info');
+  const criticalAlerts = alerts.filter((a) => a.severity === "critical");
+  const warningAlerts = alerts.filter((a) => a.severity === "warning");
+  const infoAlerts = alerts.filter((a) => a.severity === "info");
 
   return (
     <Card className="border-error/50">
@@ -187,22 +226,22 @@ function AlertRow({
   isPending: boolean;
 }) {
   const severityStyles = {
-    critical: 'bg-error/10 border-error/30',
-    warning: 'bg-warning/10 border-warning/30',
-    info: 'bg-info/10 border-info/30',
+    critical: "bg-error/10 border-error/30",
+    warning: "bg-warning/10 border-warning/30",
+    info: "bg-info/10 border-info/30",
   };
 
   const severityIcons = {
-    critical: '🚨',
-    warning: '⚠️',
-    info: 'ℹ️',
+    critical: "🚨",
+    warning: "⚠️",
+    info: "ℹ️",
   };
 
   return (
     <div
       className={cn(
-        'flex items-start gap-3 p-3 rounded-lg border',
-        severityStyles[alert.severity]
+        "flex items-start gap-3 p-3 rounded-lg border",
+        severityStyles[alert.severity],
       )}
     >
       <span className="text-lg">{severityIcons[alert.severity]}</span>
@@ -211,10 +250,10 @@ function AlertRow({
           <span className="font-medium">{alert.title}</span>
           <Badge
             className={cn(
-              'text-xs',
-              alert.severity === 'critical' && 'bg-error text-white',
-              alert.severity === 'warning' && 'bg-warning text-white',
-              alert.severity === 'info' && 'bg-info text-white'
+              "text-xs",
+              alert.severity === "critical" && "bg-error text-white",
+              alert.severity === "warning" && "bg-warning text-white",
+              alert.severity === "info" && "bg-info text-white",
             )}
           >
             {alert.severity}
@@ -222,7 +261,8 @@ function AlertRow({
         </div>
         <p className="text-sm text-text-secondary mt-0.5">{alert.message}</p>
         <p className="text-xs text-text-muted mt-1">
-          {alert.device_name} • {alert.customer_name} • {formatDate(alert.created_at)}
+          {alert.device_name} • {alert.customer_name} •{" "}
+          {formatDate(alert.created_at)}
         </p>
       </div>
       <Button
@@ -245,19 +285,21 @@ function DeviceStatusCard({
   devices: Device[];
   loading: boolean;
 }) {
-  const [filter, setFilter] = useState<'all' | 'online' | 'warning' | 'critical' | 'offline'>('all');
+  const [filter, setFilter] = useState<
+    "all" | "online" | "warning" | "critical" | "offline"
+  >("all");
 
   const filteredDevices = devices.filter((d) => {
-    if (filter === 'all') return true;
+    if (filter === "all") return true;
     return d.status === filter;
   });
 
   const statusColors = {
-    online: 'bg-success',
-    offline: 'bg-text-muted',
-    warning: 'bg-warning',
-    critical: 'bg-error',
-    maintenance: 'bg-info',
+    online: "bg-success",
+    offline: "bg-text-muted",
+    warning: "bg-warning",
+    critical: "bg-error",
+    maintenance: "bg-info",
   };
 
   return (
@@ -266,16 +308,18 @@ function DeviceStatusCard({
         <div className="flex items-center justify-between">
           <CardTitle>Connected Devices</CardTitle>
           <div className="flex gap-1">
-            {(['all', 'online', 'warning', 'critical', 'offline'] as const).map((f) => (
-              <Button
-                key={f}
-                variant={filter === f ? 'primary' : 'ghost'}
-                size="sm"
-                onClick={() => setFilter(f)}
-              >
-                {f.charAt(0).toUpperCase() + f.slice(1)}
-              </Button>
-            ))}
+            {(["all", "online", "warning", "critical", "offline"] as const).map(
+              (f) => (
+                <Button
+                  key={f}
+                  variant={filter === f ? "primary" : "ghost"}
+                  size="sm"
+                  onClick={() => setFilter(f)}
+                >
+                  {f.charAt(0).toUpperCase() + f.slice(1)}
+                </Button>
+              ),
+            )}
           </div>
         </div>
       </CardHeader>
@@ -284,7 +328,7 @@ function DeviceStatusCard({
           <div className="h-60 bg-background-secondary animate-pulse rounded" />
         ) : !filteredDevices.length ? (
           <div className="text-center py-8 text-text-secondary">
-            {filter === 'all' ? 'No devices connected' : `No ${filter} devices`}
+            {filter === "all" ? "No devices connected" : `No ${filter} devices`}
           </div>
         ) : (
           <div className="space-y-3 max-h-96 overflow-y-auto">
@@ -294,21 +338,28 @@ function DeviceStatusCard({
                 className="flex items-center justify-between p-3 bg-background-secondary rounded-lg"
               >
                 <div className="flex items-center gap-3">
-                  <div className={cn('w-2 h-2 rounded-full', statusColors[device.status])} />
+                  <div
+                    className={cn(
+                      "w-2 h-2 rounded-full",
+                      statusColors[device.status],
+                    )}
+                  />
                   <div>
                     <p className="font-medium">{device.name}</p>
                     <p className="text-xs text-text-muted">
-                      {DEVICE_TYPE_LABELS[device.device_type]} • {device.customer_name}
+                      {DEVICE_TYPE_LABELS[device.device_type]} •{" "}
+                      {device.customer_name}
                     </p>
                   </div>
                 </div>
                 <div className="text-right">
-                  {device.battery_level !== null && device.battery_level !== undefined && (
-                    <div className="flex items-center gap-1 text-xs text-text-muted">
-                      <span>🔋</span>
-                      <span>{device.battery_level}%</span>
-                    </div>
-                  )}
+                  {device.battery_level !== null &&
+                    device.battery_level !== undefined && (
+                      <div className="flex items-center gap-1 text-xs text-text-muted">
+                        <span>🔋</span>
+                        <span>{device.battery_level}%</span>
+                      </div>
+                    )}
                   {device.last_seen && (
                     <p className="text-xs text-text-muted">
                       Last seen: {formatDate(device.last_seen)}
@@ -338,20 +389,20 @@ function MaintenanceRecommendationsCard({
     try {
       await scheduleWork.mutateAsync({
         recommendation_id: recId,
-        scheduled_date: new Date().toISOString().split('T')[0],
+        scheduled_date: new Date().toISOString().split("T")[0],
       });
     } catch (error) {
       toastError(`Error: ${getErrorMessage(error)}`);
     }
   };
 
-  const pendingRecs = recommendations.filter((r) => r.status === 'pending');
+  const pendingRecs = recommendations.filter((r) => r.status === "pending");
 
   const priorityStyles = {
-    urgent: 'border-error/50 bg-error/5',
-    high: 'border-warning/50 bg-warning/5',
-    medium: 'border-info/50 bg-info/5',
-    low: 'border-border',
+    urgent: "border-error/50 bg-error/5",
+    high: "border-warning/50 bg-warning/5",
+    medium: "border-info/50 bg-info/5",
+    low: "border-border",
   };
 
   return (
@@ -378,7 +429,10 @@ function MaintenanceRecommendationsCard({
             {pendingRecs.map((rec) => (
               <div
                 key={rec.id}
-                className={cn('p-3 rounded-lg border', priorityStyles[rec.priority])}
+                className={cn(
+                  "p-3 rounded-lg border",
+                  priorityStyles[rec.priority],
+                )}
               >
                 <div className="flex items-start justify-between">
                   <div className="flex-1">
@@ -386,20 +440,23 @@ function MaintenanceRecommendationsCard({
                       <span className="font-medium">{rec.title}</span>
                       <Badge
                         className={cn(
-                          'text-xs',
-                          rec.priority === 'urgent' && 'bg-error text-white',
-                          rec.priority === 'high' && 'bg-warning text-white',
-                          rec.priority === 'medium' && 'bg-info text-white',
-                          rec.priority === 'low' && 'bg-text-muted text-white'
+                          "text-xs",
+                          rec.priority === "urgent" && "bg-error text-white",
+                          rec.priority === "high" && "bg-warning text-white",
+                          rec.priority === "medium" && "bg-info text-white",
+                          rec.priority === "low" && "bg-text-muted text-white",
                         )}
                       >
                         {rec.priority}
                       </Badge>
                     </div>
-                    <p className="text-sm text-text-secondary mt-1">{rec.description}</p>
+                    <p className="text-sm text-text-secondary mt-1">
+                      {rec.description}
+                    </p>
                     <p className="text-xs text-text-muted mt-2">
                       {rec.customer_name} • {rec.equipment_name}
-                      {rec.confidence && ` • ${(rec.confidence * 100).toFixed(0)}% confidence`}
+                      {rec.confidence &&
+                        ` • ${(rec.confidence * 100).toFixed(0)}% confidence`}
                     </p>
                   </div>
                   <Button
@@ -413,7 +470,8 @@ function MaintenanceRecommendationsCard({
                 </div>
                 {rec.estimated_savings && (
                   <p className="text-xs text-success mt-2">
-                    Potential savings: ${rec.estimated_savings.toFixed(0)} if addressed now
+                    Potential savings: ${rec.estimated_savings.toFixed(0)} if
+                    addressed now
                   </p>
                 )}
               </div>

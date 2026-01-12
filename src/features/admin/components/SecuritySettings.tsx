@@ -1,11 +1,19 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { useSecuritySettings, useUpdateSecuritySettings } from '@/api/hooks/useAdmin.ts';
-import { getErrorMessage } from '@/api/client.ts';
-import { toastSuccess, toastError } from '@/components/ui/Toast';
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import {
+  useSecuritySettings,
+  useUpdateSecuritySettings,
+} from "@/api/hooks/useAdmin.ts";
+import { getErrorMessage } from "@/api/client.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 export function SecuritySettings() {
   const { data: settings, isLoading } = useSecuritySettings();
@@ -39,7 +47,7 @@ export function SecuritySettings() {
     e.preventDefault();
     try {
       await updateSettings.mutateAsync(formData);
-      toastSuccess('Security settings saved successfully!');
+      toastSuccess("Security settings saved successfully!");
     } catch (error) {
       toastError(`Error: ${getErrorMessage(error)}`);
     }
@@ -62,7 +70,9 @@ export function SecuritySettings() {
           </CardHeader>
           <CardContent className="space-y-4">
             <div>
-              <Label htmlFor="password_min_length">Minimum Password Length</Label>
+              <Label htmlFor="password_min_length">
+                Minimum Password Length
+              </Label>
               <Input
                 id="password_min_length"
                 type="number"
@@ -92,7 +102,10 @@ export function SecuritySettings() {
                   }
                   className="h-4 w-4 rounded border-border"
                 />
-                <Label htmlFor="password_require_uppercase" className="font-normal">
+                <Label
+                  htmlFor="password_require_uppercase"
+                  className="font-normal"
+                >
                   Require at least one uppercase letter
                 </Label>
               </div>
@@ -110,7 +123,10 @@ export function SecuritySettings() {
                   }
                   className="h-4 w-4 rounded border-border"
                 />
-                <Label htmlFor="password_require_lowercase" className="font-normal">
+                <Label
+                  htmlFor="password_require_lowercase"
+                  className="font-normal"
+                >
                   Require at least one lowercase letter
                 </Label>
               </div>
@@ -128,7 +144,10 @@ export function SecuritySettings() {
                   }
                   className="h-4 w-4 rounded border-border"
                 />
-                <Label htmlFor="password_require_numbers" className="font-normal">
+                <Label
+                  htmlFor="password_require_numbers"
+                  className="font-normal"
+                >
                   Require at least one number
                 </Label>
               </div>
@@ -146,7 +165,10 @@ export function SecuritySettings() {
                   }
                   className="h-4 w-4 rounded border-border"
                 />
-                <Label htmlFor="password_require_special" className="font-normal">
+                <Label
+                  htmlFor="password_require_special"
+                  className="font-normal"
+                >
                   Require at least one special character (!@#$%^&*)
                 </Label>
               </div>
@@ -181,7 +203,8 @@ export function SecuritySettings() {
                 }
               />
               <p className="text-xs text-text-muted mt-1">
-                Users will be logged out after this period of inactivity (5-1440 minutes)
+                Users will be logged out after this period of inactivity (5-1440
+                minutes)
               </p>
             </div>
           </CardContent>
@@ -202,7 +225,10 @@ export function SecuritySettings() {
                 id="two_factor_enabled"
                 checked={formData.two_factor_enabled}
                 onChange={(e) =>
-                  setFormData({ ...formData, two_factor_enabled: e.target.checked })
+                  setFormData({
+                    ...formData,
+                    two_factor_enabled: e.target.checked,
+                  })
                 }
                 className="h-4 w-4 rounded border-border"
               />
@@ -211,8 +237,8 @@ export function SecuritySettings() {
               </Label>
             </div>
             <p className="text-sm text-text-secondary">
-              When enabled, users will need to verify their identity using an authenticator
-              app in addition to their password.
+              When enabled, users will need to verify their identity using an
+              authenticator app in addition to their password.
             </p>
           </CardContent>
         </Card>
@@ -220,7 +246,7 @@ export function SecuritySettings() {
         {/* Submit */}
         <div className="flex justify-end">
           <Button type="submit" disabled={updateSettings.isPending}>
-            {updateSettings.isPending ? 'Saving...' : 'Save Changes'}
+            {updateSettings.isPending ? "Saving..." : "Save Changes"}
           </Button>
         </div>
       </div>

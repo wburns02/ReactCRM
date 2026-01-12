@@ -1,33 +1,41 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { useSystemSettings, useUpdateSystemSettings } from '@/api/hooks/useAdmin.ts';
-import { getErrorMessage } from '@/api/client.ts';
-import { toastSuccess, toastError } from '@/components/ui/Toast';
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import {
+  useSystemSettings,
+  useUpdateSystemSettings,
+} from "@/api/hooks/useAdmin.ts";
+import { getErrorMessage } from "@/api/client.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 export function GeneralSettings() {
   const { data: settings, isLoading } = useSystemSettings();
   const updateSettings = useUpdateSystemSettings();
 
   const [formData, setFormData] = useState({
-    company_name: '',
-    timezone: 'America/New_York',
-    date_format: 'MM/DD/YYYY',
-    time_format: '12h',
-    currency: 'USD',
+    company_name: "",
+    timezone: "America/New_York",
+    date_format: "MM/DD/YYYY",
+    time_format: "12h",
+    currency: "USD",
   });
 
   useEffect(() => {
     if (settings) {
       setFormData({
-        company_name: settings.company_name || '',
-        timezone: settings.timezone || 'America/New_York',
-        date_format: settings.date_format || 'MM/DD/YYYY',
-        time_format: settings.time_format || '12h',
-        currency: settings.currency || 'USD',
+        company_name: settings.company_name || "",
+        timezone: settings.timezone || "America/New_York",
+        date_format: settings.date_format || "MM/DD/YYYY",
+        time_format: settings.time_format || "12h",
+        currency: settings.currency || "USD",
       });
     }
   }, [settings]);
@@ -36,7 +44,7 @@ export function GeneralSettings() {
     e.preventDefault();
     try {
       await updateSettings.mutateAsync(formData);
-      toastSuccess('Settings saved successfully!');
+      toastSuccess("Settings saved successfully!");
     } catch (error) {
       toastError(`Error: ${getErrorMessage(error)}`);
     }
@@ -58,7 +66,9 @@ export function GeneralSettings() {
         <CardContent className="space-y-6">
           {/* Company Info */}
           <div className="space-y-4">
-            <h4 className="font-medium text-text-primary">Company Information</h4>
+            <h4 className="font-medium text-text-primary">
+              Company Information
+            </h4>
             <div>
               <Label htmlFor="company_name">Company Name</Label>
               <Input
@@ -84,10 +94,18 @@ export function GeneralSettings() {
                   setFormData({ ...formData, timezone: e.target.value })
                 }
               >
-                <option value="America/New_York">Eastern Time (US & Canada)</option>
-                <option value="America/Chicago">Central Time (US & Canada)</option>
-                <option value="America/Denver">Mountain Time (US & Canada)</option>
-                <option value="America/Los_Angeles">Pacific Time (US & Canada)</option>
+                <option value="America/New_York">
+                  Eastern Time (US & Canada)
+                </option>
+                <option value="America/Chicago">
+                  Central Time (US & Canada)
+                </option>
+                <option value="America/Denver">
+                  Mountain Time (US & Canada)
+                </option>
+                <option value="America/Los_Angeles">
+                  Pacific Time (US & Canada)
+                </option>
               </Select>
             </div>
 
@@ -140,7 +158,7 @@ export function GeneralSettings() {
           {/* Submit */}
           <div className="pt-6 border-t border-border flex justify-end">
             <Button type="submit" disabled={updateSettings.isPending}>
-              {updateSettings.isPending ? 'Saving...' : 'Save Changes'}
+              {updateSettings.isPending ? "Saving..." : "Save Changes"}
             </Button>
           </div>
         </CardContent>

@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { OnboardingStep, StepSection } from '../OnboardingStep';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
-import { cn } from '@/lib/utils';
-import type { IntegrationStatus } from '../useOnboarding';
+import { useState } from "react";
+import { OnboardingStep, StepSection } from "../OnboardingStep";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { cn } from "@/lib/utils";
+import type { IntegrationStatus } from "../useOnboarding";
 
 export interface ConnectIntegrationsStepProps {
   integrations: IntegrationStatus;
@@ -24,20 +24,20 @@ interface IntegrationConfig {
 
 const AVAILABLE_INTEGRATIONS: IntegrationConfig[] = [
   {
-    id: 'quickbooks',
-    name: 'QuickBooks',
-    description: 'Sync invoices and payments with your QuickBooks account.',
-    icon: 'QB',
-    color: 'bg-green-500',
-    connectLabel: 'Connect QuickBooks',
+    id: "quickbooks",
+    name: "QuickBooks",
+    description: "Sync invoices and payments with your QuickBooks account.",
+    icon: "QB",
+    color: "bg-green-500",
+    connectLabel: "Connect QuickBooks",
   },
   {
-    id: 'stripe',
-    name: 'Stripe',
-    description: 'Accept credit card payments directly from invoices.',
-    icon: 'S',
-    color: 'bg-purple-500',
-    connectLabel: 'Connect Stripe',
+    id: "stripe",
+    name: "Stripe",
+    description: "Accept credit card payments directly from invoices.",
+    icon: "S",
+    color: "bg-purple-500",
+    connectLabel: "Connect Stripe",
   },
 ];
 
@@ -85,7 +85,8 @@ export function ConnectIntegrationsStep({
       <div className="space-y-8">
         <StepSection>
           <p className="text-text-muted text-sm">
-            These integrations are optional and can be configured later in Settings.
+            These integrations are optional and can be configured later in
+            Settings.
           </p>
         </StepSection>
 
@@ -99,15 +100,15 @@ export function ConnectIntegrationsStep({
               <Card
                 key={integration.id}
                 className={cn(
-                  'p-6 transition-all',
-                  isConnected && 'ring-2 ring-primary ring-offset-2'
+                  "p-6 transition-all",
+                  isConnected && "ring-2 ring-primary ring-offset-2",
                 )}
               >
                 <div className="flex items-start gap-4">
                   <div
                     className={cn(
-                      'w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold text-lg',
-                      integration.color
+                      "w-12 h-12 rounded-lg flex items-center justify-center text-white font-bold text-lg",
+                      integration.color,
                     )}
                   >
                     {integration.icon}
@@ -130,8 +131,16 @@ export function ConnectIntegrationsStep({
                     {isConnected ? (
                       <div className="flex items-center gap-2">
                         <span className="text-sm text-success flex items-center gap-1">
-                          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                          <svg
+                            className="w-4 h-4"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                              clipRule="evenodd"
+                            />
                           </svg>
                           Connected
                         </span>
@@ -151,7 +160,9 @@ export function ConnectIntegrationsStep({
                         onClick={() => handleConnect(integration.id)}
                         disabled={isConnecting}
                       >
-                        {isConnecting ? 'Connecting...' : integration.connectLabel}
+                        {isConnecting
+                          ? "Connecting..."
+                          : integration.connectLabel}
                       </Button>
                     )}
                   </div>
@@ -182,7 +193,8 @@ export function ConnectIntegrationsStep({
         {/* Status Summary */}
         {connectedCount > 0 && (
           <div className="text-center text-sm text-text-muted">
-            {connectedCount} of {AVAILABLE_INTEGRATIONS.length} integrations connected
+            {connectedCount} of {AVAILABLE_INTEGRATIONS.length} integrations
+            connected
           </div>
         )}
       </div>

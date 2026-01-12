@@ -5,21 +5,21 @@
  * Only active for the demo user (will@macseptic.com).
  */
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient, withAuthFallback } from '../client';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient, withAuthFallback } from "../client";
 
 // ============================================
 // Types
 // ============================================
 
 export type RoleKey =
-  | 'admin'
-  | 'executive'
-  | 'manager'
-  | 'technician'
-  | 'phone_agent'
-  | 'dispatcher'
-  | 'billing';
+  | "admin"
+  | "executive"
+  | "manager"
+  | "technician"
+  | "phone_agent"
+  | "dispatcher"
+  | "billing";
 
 export interface RoleView {
   id: number;
@@ -69,10 +69,10 @@ export interface DemoModeStatusResponse {
 // ============================================
 
 export const roleKeys = {
-  all: ['roles'] as const,
-  list: () => [...roleKeys.all, 'list'] as const,
-  current: () => [...roleKeys.all, 'current'] as const,
-  status: () => [...roleKeys.all, 'status'] as const,
+  all: ["roles"] as const,
+  list: () => [...roleKeys.all, "list"] as const,
+  current: () => [...roleKeys.all, "current"] as const,
+  status: () => [...roleKeys.all, "status"] as const,
 };
 
 // ============================================
@@ -80,22 +80,22 @@ export const roleKeys = {
 // ============================================
 
 async function fetchRoles(): Promise<RoleListResponse> {
-  const response = await apiClient.get<RoleListResponse>('/roles');
+  const response = await apiClient.get<RoleListResponse>("/roles");
   return response.data;
 }
 
 async function fetchCurrentRole(): Promise<CurrentRoleResponse> {
-  const response = await apiClient.get<CurrentRoleResponse>('/roles/current');
+  const response = await apiClient.get<CurrentRoleResponse>("/roles/current");
   return response.data;
 }
 
 async function fetchDemoStatus(): Promise<DemoModeStatusResponse> {
-  const response = await apiClient.get<DemoModeStatusResponse>('/roles/status');
+  const response = await apiClient.get<DemoModeStatusResponse>("/roles/status");
   return response.data;
 }
 
 async function switchRole(roleKey: RoleKey): Promise<RoleSwitchResponse> {
-  const response = await apiClient.post<RoleSwitchResponse>('/roles/switch', {
+  const response = await apiClient.post<RoleSwitchResponse>("/roles/switch", {
     role_key: roleKey,
   });
   return response.data;

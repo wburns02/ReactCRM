@@ -1,23 +1,30 @@
-import { useState } from 'react';
-import { useContractsDashboard, type Contract } from '../api/contracts.ts';
-import { ContractList } from '../components/ContractList.tsx';
-import { ContractDetails } from '../components/ContractDetails.tsx';
-import { ContractTemplates } from '../components/ContractTemplates.tsx';
-import { ExpiringContractsAlert } from '../components/ExpiringContractsAlert.tsx';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { formatCurrency } from '@/lib/utils.ts';
+import { useState } from "react";
+import { useContractsDashboard, type Contract } from "../api/contracts.ts";
+import { ContractList } from "../components/ContractList.tsx";
+import { ContractDetails } from "../components/ContractDetails.tsx";
+import { ContractTemplates } from "../components/ContractTemplates.tsx";
+import { ExpiringContractsAlert } from "../components/ExpiringContractsAlert.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { formatCurrency } from "@/lib/utils.ts";
 
-type Tab = 'contracts' | 'templates' | 'expiring';
+type Tab = "contracts" | "templates" | "expiring";
 
 export function ContractsPage() {
-  const [activeTab, setActiveTab] = useState<Tab>('contracts');
-  const [selectedContract, setSelectedContract] = useState<Contract | null>(null);
+  const [activeTab, setActiveTab] = useState<Tab>("contracts");
+  const [selectedContract, setSelectedContract] = useState<Contract | null>(
+    null,
+  );
   const { data: dashboard, isLoading } = useContractsDashboard(30);
 
   const tabs: { id: Tab; label: string; icon: string }[] = [
-    { id: 'contracts', label: 'All Contracts', icon: '📄' },
-    { id: 'templates', label: 'Templates', icon: '📋' },
-    { id: 'expiring', label: 'Expiring Soon', icon: '⚠️' },
+    { id: "contracts", label: "All Contracts", icon: "📄" },
+    { id: "templates", label: "Templates", icon: "📋" },
+    { id: "expiring", label: "Expiring Soon", icon: "⚠️" },
   ];
 
   return (
@@ -40,7 +47,7 @@ export function ContractsPage() {
               <div>
                 <p className="text-sm text-text-muted">Total Contracts</p>
                 <p className="text-2xl font-bold text-text-primary">
-                  {isLoading ? '-' : dashboard?.summary?.total_contracts || 0}
+                  {isLoading ? "-" : dashboard?.summary?.total_contracts || 0}
                 </p>
               </div>
               <div className="p-3 bg-blue-100 rounded-full text-2xl">📄</div>
@@ -54,7 +61,7 @@ export function ContractsPage() {
               <div>
                 <p className="text-sm text-text-muted">Active Contracts</p>
                 <p className="text-2xl font-bold text-success">
-                  {isLoading ? '-' : dashboard?.summary?.active_contracts || 0}
+                  {isLoading ? "-" : dashboard?.summary?.active_contracts || 0}
                 </p>
               </div>
               <div className="p-3 bg-green-100 rounded-full text-2xl">✅</div>
@@ -68,7 +75,7 @@ export function ContractsPage() {
               <div>
                 <p className="text-sm text-text-muted">Pending Signature</p>
                 <p className="text-2xl font-bold text-warning">
-                  {isLoading ? '-' : dashboard?.summary?.pending_signature || 0}
+                  {isLoading ? "-" : dashboard?.summary?.pending_signature || 0}
                 </p>
               </div>
               <div className="p-3 bg-yellow-100 rounded-full text-2xl">✍️</div>
@@ -82,7 +89,11 @@ export function ContractsPage() {
               <div>
                 <p className="text-sm text-text-muted">Active Value</p>
                 <p className="text-2xl font-bold text-text-primary">
-                  {isLoading ? '-' : formatCurrency(dashboard?.summary?.total_active_value || 0)}
+                  {isLoading
+                    ? "-"
+                    : formatCurrency(
+                        dashboard?.summary?.total_active_value || 0,
+                      )}
                 </p>
                 <p className="text-xs text-warning mt-1">
                   {dashboard?.summary?.expiring_count || 0} expiring soon
@@ -106,15 +117,16 @@ export function ContractsPage() {
               }}
               className={`
                 flex items-center gap-2 px-4 py-2 border-b-2 -mb-px transition-colors
-                ${activeTab === tab.id
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-text-muted hover:text-text-primary'
+                ${
+                  activeTab === tab.id
+                    ? "border-primary text-primary"
+                    : "border-transparent text-text-muted hover:text-text-primary"
                 }
               `}
             >
               <span>{tab.icon}</span>
               {tab.label}
-              {tab.id === 'expiring' && dashboard?.summary?.expiring_count ? (
+              {tab.id === "expiring" && dashboard?.summary?.expiring_count ? (
                 <span className="ml-1 px-2 py-0.5 text-xs bg-warning/20 text-warning rounded-full">
                   {dashboard.summary.expiring_count}
                 </span>
@@ -126,16 +138,20 @@ export function ContractsPage() {
 
       {/* Tab Content */}
       <div className="mt-6">
-        {activeTab === 'contracts' && (
+        {activeTab === "contracts" && (
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
-            <div className={selectedContract ? 'lg:col-span-2' : 'lg:col-span-3'}>
+            <div
+              className={selectedContract ? "lg:col-span-2" : "lg:col-span-3"}
+            >
               <Card>
                 <CardHeader>
                   <CardTitle>Contracts</CardTitle>
                 </CardHeader>
                 <CardContent>
                   <ContractList
-                    onContractSelect={(contract) => setSelectedContract(contract)}
+                    onContractSelect={(contract) =>
+                      setSelectedContract(contract)
+                    }
                   />
                 </CardContent>
               </Card>
@@ -152,7 +168,7 @@ export function ContractsPage() {
           </div>
         )}
 
-        {activeTab === 'templates' && (
+        {activeTab === "templates" && (
           <Card>
             <CardHeader>
               <CardTitle>Contract Templates</CardTitle>
@@ -163,7 +179,7 @@ export function ContractsPage() {
           </Card>
         )}
 
-        {activeTab === 'expiring' && (
+        {activeTab === "expiring" && (
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
             <ExpiringContractsAlert expiringWithinDays={30} />
             <ExpiringContractsAlert expiringWithinDays={60} />

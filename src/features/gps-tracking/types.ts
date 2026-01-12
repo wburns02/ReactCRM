@@ -2,7 +2,7 @@
  * GPS Tracking Types
  * Types for real-time technician location tracking and geofencing
  */
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * GPS Coordinates
@@ -26,7 +26,7 @@ export const technicianLocationSchema = z.object({
   speed: z.number().optional(), // km/h
   accuracy: z.number().optional(), // meters
   timestamp: z.string(),
-  status: z.enum(['active', 'idle', 'offline']).default('active'),
+  status: z.enum(["active", "idle", "offline"]).default("active"),
   currentWorkOrderId: z.string().optional(),
   batteryLevel: z.number().optional(), // 0-100
 });
@@ -39,7 +39,7 @@ export type TechnicianLocationData = z.infer<typeof technicianLocationSchema>;
 export const geofenceZoneSchema = z.object({
   id: z.string(),
   name: z.string(),
-  type: z.enum(['job_site', 'warehouse', 'restricted', 'service_area']),
+  type: z.enum(["job_site", "warehouse", "restricted", "service_area"]),
   center: coordinatesSchema,
   radius: z.number().positive(), // meters
   color: z.string().optional(),
@@ -57,7 +57,7 @@ export const geofenceEventSchema = z.object({
   technicianId: z.string(),
   zoneId: z.string(),
   zoneName: z.string(),
-  eventType: z.enum(['enter', 'exit']),
+  eventType: z.enum(["enter", "exit"]),
   timestamp: z.string(),
   coordinates: coordinatesSchema,
 });
@@ -115,7 +115,7 @@ export const DEFAULT_TRACKING_SETTINGS: GPSTrackingSettings = {
  */
 export function calculateDistance(
   point1: Coordinates,
-  point2: Coordinates
+  point2: Coordinates,
 ): number {
   const R = 6371; // Earth's radius in km
   const dLat = toRad(point2.lat - point1.lat);
@@ -141,7 +141,7 @@ function toRad(deg: number): number {
  */
 export function isPointInGeofence(
   point: Coordinates,
-  geofence: GeofenceZone
+  geofence: GeofenceZone,
 ): boolean {
   const distance = calculateDistance(point, geofence.center) * 1000; // Convert to meters
   return distance <= geofence.radius;
@@ -150,10 +150,7 @@ export function isPointInGeofence(
 /**
  * Get bearing between two coordinates
  */
-export function calculateBearing(
-  from: Coordinates,
-  to: Coordinates
-): number {
+export function calculateBearing(from: Coordinates, to: Coordinates): number {
   const dLng = toRad(to.lng - from.lng);
   const lat1 = toRad(from.lat);
   const lat2 = toRad(to.lat);
@@ -171,8 +168,8 @@ export function calculateBearing(
  * Format coordinates for display
  */
 export function formatCoordinates(coords: Coordinates): string {
-  const latDir = coords.lat >= 0 ? 'N' : 'S';
-  const lngDir = coords.lng >= 0 ? 'E' : 'W';
+  const latDir = coords.lat >= 0 ? "N" : "S";
+  const lngDir = coords.lng >= 0 ? "E" : "W";
   return `${Math.abs(coords.lat).toFixed(6)}° ${latDir}, ${Math.abs(coords.lng).toFixed(6)}° ${lngDir}`;
 }
 
@@ -181,10 +178,10 @@ export function formatCoordinates(coords: Coordinates): string {
  */
 export function estimateETA(
   distanceKm: number,
-  speedKmh: number
+  speedKmh: number,
 ): { minutes: number; formatted: string } {
   if (speedKmh <= 0) {
-    return { minutes: 0, formatted: 'Unknown' };
+    return { minutes: 0, formatted: "Unknown" };
   }
 
   const minutes = Math.round((distanceKm / speedKmh) * 60);

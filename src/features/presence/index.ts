@@ -16,11 +16,15 @@
  * - useRecordPresence: Get viewers of a specific record
  */
 
-export { usePresence, useRecordPresence, type PresenceUser } from './usePresence.ts';
-export { PresenceIndicator, UserStatusBadge } from './PresenceIndicator.tsx';
+export {
+  usePresence,
+  useRecordPresence,
+  type PresenceUser,
+} from "./usePresence.ts";
+export { PresenceIndicator, UserStatusBadge } from "./PresenceIndicator.tsx";
 export {
   PresenceAvatar,
   PresenceAvatars,
   RecordPresenceBanner,
   CompactPresence,
-} from './PresenceAvatars.tsx';
+} from "./PresenceAvatars.tsx";

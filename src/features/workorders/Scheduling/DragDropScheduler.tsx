@@ -3,29 +3,31 @@
  * Drag and drop interface for scheduling work orders
  */
 
-import { useState, useCallback, useMemo, type DragEvent } from 'react';
-import { cn } from '@/lib/utils.ts';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
+import { useState, useCallback, useMemo, type DragEvent } from "react";
+import { cn } from "@/lib/utils.ts";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
 import {
   format,
   addDays,
   startOfWeek,
   eachDayOfInterval,
   parseISO,
-} from 'date-fns';
-import type { WorkOrder } from '@/api/types/workOrder.ts';
-import {
-  STATUS_COLORS,
-  JOB_TYPE_LABELS,
-} from '@/api/types/workOrder.ts';
-import { useAssignWorkOrder } from '@/api/hooks/useWorkOrders.ts';
+} from "date-fns";
+import type { WorkOrder } from "@/api/types/workOrder.ts";
+import { STATUS_COLORS, JOB_TYPE_LABELS } from "@/api/types/workOrder.ts";
+import { useAssignWorkOrder } from "@/api/hooks/useWorkOrders.ts";
 
 interface DragDropSchedulerProps {
   workOrders: WorkOrder[];
   unscheduledWorkOrders?: WorkOrder[];
   technicians?: { id: string; name: string }[];
-  onSchedule?: (workOrderId: string, date: string, technicianName?: string, time?: string) => void;
+  onSchedule?: (
+    workOrderId: string,
+    date: string,
+    technicianName?: string,
+    time?: string,
+  ) => void;
   onUnschedule?: (workOrderId: string) => void;
   daysToShow?: number;
   startDate?: Date;
@@ -49,8 +51,14 @@ export function DragDropScheduler({
   className,
 }: DragDropSchedulerProps) {
   const [draggedItem, setDraggedItem] = useState<DragData | null>(null);
-  const [dropTarget, setDropTarget] = useState<{ date: string; technician?: string; time?: string } | null>(null);
-  const [baseDate, setBaseDate] = useState(() => startDate || startOfWeek(new Date()));
+  const [dropTarget, setDropTarget] = useState<{
+    date: string;
+    technician?: string;
+    time?: string;
+  } | null>(null);
+  const [baseDate, setBaseDate] = useState(
+    () => startDate || startOfWeek(new Date()),
+  );
 
   const assignMutation = useAssignWorkOrder();
 
@@ -59,7 +67,7 @@ export function DragDropScheduler({
     return eachDayOfInterval({
       start: baseDate,
       end: addDays(baseDate, daysToShow - 1),
-    }).map((d) => format(d, 'yyyy-MM-dd'));
+    }).map((d) => format(d, "yyyy-MM-dd"));
   }, [baseDate, daysToShow]);
 
   // Group scheduled work orders by date and technician
@@ -68,7 +76,7 @@ export function DragDropScheduler({
 
     workOrders.forEach((wo) => {
       if (wo.scheduled_date) {
-        const tech = wo.assigned_technician || 'Unassigned';
+        const tech = wo.assigned_technician || "Unassigned";
         const key = `${wo.scheduled_date}_${tech}`;
         const existing = map.get(key) || [];
         existing.push(wo);
@@ -87,8 +95,8 @@ export function DragDropScheduler({
       sourceTechnician: workOrder.assigned_technician || undefined,
     };
     setDraggedItem(data);
-    e.dataTransfer.setData('application/json', JSON.stringify(data));
-    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData("application/json", JSON.stringify(data));
+    e.dataTransfer.effectAllowed = "move";
   }, []);
 
   const handleDragEnd = useCallback(() => {
@@ -96,28 +104,41 @@ export function DragDropScheduler({
     setDropTarget(null);
   }, []);
 
-  const handleDragOver = useCallback((e: DragEvent, date: string, technician?: string, time?: string) => {
-    e.preventDefault();
-    e.dataTransfer.dropEffect = 'move';
-    setDropTarget({ date, technician, time });
-  }, []);
+  const handleDragOver = useCallback(
+    (e: DragEvent, date: string, technician?: string, time?: string) => {
+      e.preventDefault();
+      e.dataTransfer.dropEffect = "move";
+      setDropTarget({ date, technician, time });
+    },
+    [],
+  );
 
   const handleDragLeave = useCallback(() => {
     setDropTarget(null);
   }, []);
 
   const handleDrop = useCallback(
-    async (e: DragEvent, targetDate: string, targetTechnician?: string, targetTime?: string) => {
+    async (
+      e: DragEvent,
+      targetDate: string,
+      targetTechnician?: string,
+      targetTime?: string,
+    ) => {
       e.preventDefault();
       setDropTarget(null);
 
       try {
-        const dataStr = e.dataTransfer.getData('application/json');
+        const dataStr = e.dataTransfer.getData("application/json");
         const data: DragData = JSON.parse(dataStr);
 
         // Call the onSchedule callback or use mutation
         if (onSchedule) {
-          onSchedule(data.workOrderId, targetDate, targetTechnician, targetTime);
+          onSchedule(
+            data.workOrderId,
+            targetDate,
+            targetTechnician,
+            targetTime,
+          );
         } else {
           await assignMutation.mutateAsync({
             id: data.workOrderId,
@@ -127,10 +148,10 @@ export function DragDropScheduler({
           });
         }
       } catch (err) {
-        console.error('Drop failed:', err);
+        console.error("Drop failed:", err);
       }
     },
-    [onSchedule, assignMutation]
+    [onSchedule, assignMutation],
   );
 
   const handleUnscheduleDrop = useCallback(
@@ -139,22 +160,22 @@ export function DragDropScheduler({
       setDropTarget(null);
 
       try {
-        const dataStr = e.dataTransfer.getData('application/json');
+        const dataStr = e.dataTransfer.getData("application/json");
         const data: DragData = JSON.parse(dataStr);
 
         if (onUnschedule) {
           onUnschedule(data.workOrderId);
         }
       } catch (err) {
-        console.error('Unschedule failed:', err);
+        console.error("Unschedule failed:", err);
       }
     },
-    [onUnschedule]
+    [onUnschedule],
   );
 
   // Navigation
-  const navigateWeek = (direction: 'prev' | 'next') => {
-    setBaseDate((prev) => addDays(prev, direction === 'next' ? 7 : -7));
+  const navigateWeek = (direction: "prev" | "next") => {
+    setBaseDate((prev) => addDays(prev, direction === "next" ? 7 : -7));
   };
 
   // Get effective technicians (use provided or extract from work orders)
@@ -174,45 +195,74 @@ export function DragDropScheduler({
   }, [technicians, workOrders]);
 
   return (
-    <div className={cn('flex flex-col h-full', className)}>
+    <div className={cn("flex flex-col h-full", className)}>
       {/* Header with navigation */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
-          <Button variant="outline" size="sm" onClick={() => navigateWeek('prev')}>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigateWeek("prev")}
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 19l-7-7 7-7"
+              />
             </svg>
           </Button>
-          <Button variant="outline" size="sm" onClick={() => setBaseDate(startOfWeek(new Date()))}>
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => setBaseDate(startOfWeek(new Date()))}
+          >
             Today
           </Button>
-          <Button variant="outline" size="sm" onClick={() => navigateWeek('next')}>
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+          <Button
+            variant="outline"
+            size="sm"
+            onClick={() => navigateWeek("next")}
+          >
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M9 5l7 7-7 7"
+              />
             </svg>
           </Button>
           <span className="ml-4 text-sm font-medium text-text-primary">
-            {format(baseDate, 'MMM d')} - {format(addDays(baseDate, daysToShow - 1), 'MMM d, yyyy')}
+            {format(baseDate, "MMM d")} -{" "}
+            {format(addDays(baseDate, daysToShow - 1), "MMM d, yyyy")}
           </span>
         </div>
-        {draggedItem && (
-          <Badge variant="info">
-            Dragging work order...
-          </Badge>
-        )}
+        {draggedItem && <Badge variant="info">Dragging work order...</Badge>}
       </div>
 
       <div className="flex flex-1 gap-4 overflow-hidden">
         {/* Unscheduled work orders panel */}
         <div
           className={cn(
-            'w-64 flex-shrink-0 bg-bg-card border border-border rounded-lg overflow-hidden flex flex-col',
-            draggedItem && 'ring-2 ring-warning ring-opacity-50'
+            "w-64 flex-shrink-0 bg-bg-card border border-border rounded-lg overflow-hidden flex flex-col",
+            draggedItem && "ring-2 ring-warning ring-opacity-50",
           )}
           onDragOver={(e) => {
             if (draggedItem?.sourceDate) {
               e.preventDefault();
-              e.dataTransfer.dropEffect = 'move';
+              e.dataTransfer.dropEffect = "move";
             }
           }}
           onDrop={handleUnscheduleDrop}
@@ -226,11 +276,9 @@ export function DragDropScheduler({
           <div className="flex-1 overflow-y-auto p-2 space-y-2">
             {unscheduledWorkOrders.length === 0 ? (
               <div className="text-center py-8 text-text-muted text-sm">
-                {draggedItem?.sourceDate ? (
-                  'Drop here to unschedule'
-                ) : (
-                  'No unscheduled work orders'
-                )}
+                {draggedItem?.sourceDate
+                  ? "Drop here to unschedule"
+                  : "No unscheduled work orders"}
               </div>
             ) : (
               unscheduledWorkOrders.map((wo) => (
@@ -253,25 +301,25 @@ export function DragDropScheduler({
             <div className="flex border-b border-border bg-bg-muted sticky top-0 z-10">
               <div className="w-32 flex-shrink-0 p-2 border-r border-border" />
               {dates.map((date) => {
-                const isToday = date === format(new Date(), 'yyyy-MM-dd');
+                const isToday = date === format(new Date(), "yyyy-MM-dd");
                 return (
                   <div
                     key={date}
                     className={cn(
-                      'w-40 flex-shrink-0 p-2 border-r border-border text-center',
-                      isToday && 'bg-primary/10'
+                      "w-40 flex-shrink-0 p-2 border-r border-border text-center",
+                      isToday && "bg-primary/10",
                     )}
                   >
                     <div className="text-xs text-text-secondary">
-                      {format(parseISO(date), 'EEE')}
+                      {format(parseISO(date), "EEE")}
                     </div>
                     <div
                       className={cn(
-                        'text-sm font-medium',
-                        isToday && 'text-primary'
+                        "text-sm font-medium",
+                        isToday && "text-primary",
                       )}
                     >
-                      {format(parseISO(date), 'MMM d')}
+                      {format(parseISO(date), "MMM d")}
                     </div>
                   </div>
                 );
@@ -286,8 +334,12 @@ export function DragDropScheduler({
                   <DropZone
                     key={date}
                     date={date}
-                    workOrders={scheduledByDateTech.get(`${date}_Unassigned`) || []}
-                    isDropTarget={dropTarget?.date === date && !dropTarget?.technician}
+                    workOrders={
+                      scheduledByDateTech.get(`${date}_Unassigned`) || []
+                    }
+                    isDropTarget={
+                      dropTarget?.date === date && !dropTarget?.technician
+                    }
                     onDragOver={(e) => handleDragOver(e, date)}
                     onDragLeave={handleDragLeave}
                     onDrop={(e) => handleDrop(e, date)}
@@ -317,9 +369,12 @@ export function DragDropScheduler({
                       key={`${tech.id}_${date}`}
                       date={date}
                       technicianName={tech.name}
-                      workOrders={scheduledByDateTech.get(`${date}_${tech.name}`) || []}
+                      workOrders={
+                        scheduledByDateTech.get(`${date}_${tech.name}`) || []
+                      }
                       isDropTarget={
-                        dropTarget?.date === date && dropTarget?.technician === tech.name
+                        dropTarget?.date === date &&
+                        dropTarget?.technician === tech.name
                       }
                       onDragOver={(e) => handleDragOver(e, date, tech.name)}
                       onDragLeave={handleDragLeave}
@@ -361,10 +416,10 @@ function DraggableWorkOrderCard({
       onDragStart={(e) => onDragStart(e, workOrder)}
       onDragEnd={onDragEnd}
       className={cn(
-        'p-2 rounded border-l-4 cursor-grab active:cursor-grabbing transition-all',
-        'bg-bg-card border border-border hover:shadow-md',
-        isDragging && 'opacity-50 ring-2 ring-primary',
-        compact ? 'text-xs' : 'text-sm'
+        "p-2 rounded border-l-4 cursor-grab active:cursor-grabbing transition-all",
+        "bg-bg-card border border-border hover:shadow-md",
+        isDragging && "opacity-50 ring-2 ring-primary",
+        compact ? "text-xs" : "text-sm",
       )}
       style={{ borderLeftColor: STATUS_COLORS[workOrder.status] }}
     >
@@ -374,22 +429,26 @@ function DraggableWorkOrderCard({
       {!compact && (
         <>
           <div className="text-text-secondary text-xs mt-1 truncate">
-            {JOB_TYPE_LABELS[workOrder.job_type as keyof typeof JOB_TYPE_LABELS] || workOrder.job_type}
+            {JOB_TYPE_LABELS[
+              workOrder.job_type as keyof typeof JOB_TYPE_LABELS
+            ] || workOrder.job_type}
           </div>
           {workOrder.time_window_start && (
             <div className="text-text-muted text-xs">
               {workOrder.time_window_start.slice(0, 5)}
-              {workOrder.estimated_duration_hours && ` (${workOrder.estimated_duration_hours}h)`}
+              {workOrder.estimated_duration_hours &&
+                ` (${workOrder.estimated_duration_hours}h)`}
             </div>
           )}
           <div className="flex items-center gap-1 mt-1">
             <Badge
               variant={
-                workOrder.priority === 'emergency' || workOrder.priority === 'urgent'
-                  ? 'danger'
-                  : workOrder.priority === 'high'
-                  ? 'warning'
-                  : 'default'
+                workOrder.priority === "emergency" ||
+                workOrder.priority === "urgent"
+                  ? "danger"
+                  : workOrder.priority === "high"
+                    ? "warning"
+                    : "default"
               }
               size="sm"
             >
@@ -428,14 +487,14 @@ function DropZone({
   onDragEnd: () => void;
   draggedItemId?: string;
 }) {
-  const isToday = date === format(new Date(), 'yyyy-MM-dd');
+  const isToday = date === format(new Date(), "yyyy-MM-dd");
 
   return (
     <div
       className={cn(
-        'w-40 flex-shrink-0 min-h-[100px] p-1 border-r border-border transition-colors',
-        isToday && 'bg-primary/5',
-        isDropTarget && 'bg-primary/20 ring-2 ring-primary ring-inset'
+        "w-40 flex-shrink-0 min-h-[100px] p-1 border-r border-border transition-colors",
+        isToday && "bg-primary/5",
+        isDropTarget && "bg-primary/20 ring-2 ring-primary ring-inset",
       )}
       onDragOver={onDragOver}
       onDragLeave={onDragLeave}

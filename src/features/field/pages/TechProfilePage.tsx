@@ -1,5 +1,5 @@
-import { useState } from 'react';
-import { useAuth } from '@/features/auth/useAuth.ts';
+import { useState } from "react";
+import { useAuth } from "@/features/auth/useAuth.ts";
 
 /**
  * Technician profile and settings page
@@ -9,8 +9,8 @@ export function TechProfilePage() {
   const [isOnline, setIsOnline] = useState(navigator.onLine);
 
   // Listen for online/offline status
-  window.addEventListener('online', () => setIsOnline(true));
-  window.addEventListener('offline', () => setIsOnline(false));
+  window.addEventListener("online", () => setIsOnline(true));
+  window.addEventListener("offline", () => setIsOnline(false));
 
   return (
     <div className="p-4 pb-20">
@@ -20,7 +20,7 @@ export function TechProfilePage() {
       <div className="bg-bg-card border border-border rounded-lg p-4 mb-4">
         <div className="flex items-center gap-4">
           <div className="h-16 w-16 rounded-full bg-mac-dark-blue text-white flex items-center justify-center text-2xl font-semibold">
-            {user?.first_name?.charAt(0) || '?'}
+            {user?.first_name?.charAt(0) || "?"}
           </div>
           <div>
             <h2 className="text-lg font-medium text-text-primary">
@@ -38,9 +38,13 @@ export function TechProfilePage() {
         <div className="space-y-3">
           <div className="flex items-center justify-between">
             <span className="text-sm text-text-secondary">Connection</span>
-            <span className={`flex items-center gap-2 text-sm ${isOnline ? 'text-success' : 'text-danger'}`}>
-              <span className={`w-2 h-2 rounded-full ${isOnline ? 'bg-success' : 'bg-danger'}`}></span>
-              {isOnline ? 'Online' : 'Offline'}
+            <span
+              className={`flex items-center gap-2 text-sm ${isOnline ? "text-success" : "text-danger"}`}
+            >
+              <span
+                className={`w-2 h-2 rounded-full ${isOnline ? "bg-success" : "bg-danger"}`}
+              ></span>
+              {isOnline ? "Online" : "Offline"}
             </span>
           </div>
           <div className="flex items-center justify-between">
@@ -64,7 +68,9 @@ export function TechProfilePage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-text-primary">Location Tracking</p>
-              <p className="text-xs text-text-muted">Share location while on route</p>
+              <p className="text-xs text-text-muted">
+                Share location while on route
+              </p>
             </div>
             <button className="w-12 h-6 bg-primary rounded-full relative">
               <span className="absolute right-1 top-1 w-4 h-4 bg-white rounded-full"></span>

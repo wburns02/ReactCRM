@@ -8,22 +8,27 @@
 // ============================================
 
 export type AppCategory =
-  | 'accounting'
-  | 'communication'
-  | 'marketing'
-  | 'payments'
-  | 'scheduling'
-  | 'analytics'
-  | 'inventory'
-  | 'field_service'
-  | 'crm'
-  | 'documents'
-  | 'hr'
-  | 'utilities';
+  | "accounting"
+  | "communication"
+  | "marketing"
+  | "payments"
+  | "scheduling"
+  | "analytics"
+  | "inventory"
+  | "field_service"
+  | "crm"
+  | "documents"
+  | "hr"
+  | "utilities";
 
-export type AppStatus = 'active' | 'beta' | 'coming_soon' | 'deprecated';
+export type AppStatus = "active" | "beta" | "coming_soon" | "deprecated";
 
-export type InstallStatus = 'not_installed' | 'installing' | 'installed' | 'needs_update' | 'error';
+export type InstallStatus =
+  | "not_installed"
+  | "installing"
+  | "installed"
+  | "needs_update"
+  | "error";
 
 export interface AppDeveloper {
   id: string;
@@ -31,14 +36,14 @@ export interface AppDeveloper {
   website?: string;
   supportEmail?: string;
   verified: boolean;
-  partnerTier?: 'standard' | 'certified' | 'premier';
+  partnerTier?: "standard" | "certified" | "premier";
 }
 
 export interface AppPricing {
-  type: 'free' | 'freemium' | 'paid' | 'contact';
+  type: "free" | "freemium" | "paid" | "contact";
   price?: number;
   currency?: string;
-  billingPeriod?: 'monthly' | 'yearly' | 'one_time';
+  billingPeriod?: "monthly" | "yearly" | "one_time";
   trialDays?: number;
   features?: string[];
 }
@@ -116,9 +121,9 @@ export interface AppReview {
 export interface MarketplaceFilters {
   category?: AppCategory;
   status?: AppStatus;
-  pricing?: AppPricing['type'];
+  pricing?: AppPricing["type"];
   search?: string;
-  sort?: 'popular' | 'rating' | 'recent' | 'name';
+  sort?: "popular" | "rating" | "recent" | "name";
   page?: number;
   pageSize?: number;
 }
@@ -148,65 +153,68 @@ export interface AppInstallResponse {
 // Category Metadata
 // ============================================
 
-export const CATEGORY_INFO: Record<AppCategory, { label: string; icon: string; description: string }> = {
+export const CATEGORY_INFO: Record<
+  AppCategory,
+  { label: string; icon: string; description: string }
+> = {
   accounting: {
-    label: 'Accounting',
-    icon: 'calculator',
-    description: 'QuickBooks, Xero, FreshBooks integrations',
+    label: "Accounting",
+    icon: "calculator",
+    description: "QuickBooks, Xero, FreshBooks integrations",
   },
   communication: {
-    label: 'Communication',
-    icon: 'message-circle',
-    description: 'SMS, Email, Chat, VoIP integrations',
+    label: "Communication",
+    icon: "message-circle",
+    description: "SMS, Email, Chat, VoIP integrations",
   },
   marketing: {
-    label: 'Marketing',
-    icon: 'megaphone',
-    description: 'Email marketing, social media, advertising',
+    label: "Marketing",
+    icon: "megaphone",
+    description: "Email marketing, social media, advertising",
   },
   payments: {
-    label: 'Payments',
-    icon: 'credit-card',
-    description: 'Payment processing and financing',
+    label: "Payments",
+    icon: "credit-card",
+    description: "Payment processing and financing",
   },
   scheduling: {
-    label: 'Scheduling',
-    icon: 'calendar',
-    description: 'Calendars and scheduling tools',
+    label: "Scheduling",
+    icon: "calendar",
+    description: "Calendars and scheduling tools",
   },
   analytics: {
-    label: 'Analytics',
-    icon: 'bar-chart',
-    description: 'Business intelligence and reporting',
+    label: "Analytics",
+    icon: "bar-chart",
+    description: "Business intelligence and reporting",
   },
   inventory: {
-    label: 'Inventory',
-    icon: 'box',
-    description: 'Parts and inventory management',
+    label: "Inventory",
+    icon: "box",
+    description: "Parts and inventory management",
   },
   field_service: {
-    label: 'Field Service',
-    icon: 'truck',
-    description: 'Field operations and fleet management',
+    label: "Field Service",
+    icon: "truck",
+    description: "Field operations and fleet management",
   },
   crm: {
-    label: 'CRM',
-    icon: 'users',
-    description: 'Customer relationship tools',
+    label: "CRM",
+    icon: "users",
+    description: "Customer relationship tools",
   },
   documents: {
-    label: 'Documents',
-    icon: 'file-text',
-    description: 'Document management and e-signatures',
+    label: "Documents",
+    icon: "file-text",
+    description: "Document management and e-signatures",
   },
   hr: {
-    label: 'HR & Payroll',
-    icon: 'briefcase',
-    description: 'Human resources and payroll',
+    label: "HR & Payroll",
+    icon: "briefcase",
+    description: "Human resources and payroll",
   },
   utilities: {
-    label: 'Utilities',
-    icon: 'settings',
-    description: 'Tools and utilities',
+    label: "Utilities",
+    icon: "settings",
+    description: "Tools and utilities",
   },
 };

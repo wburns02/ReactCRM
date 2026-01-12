@@ -1,4 +1,4 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from "react";
 import {
   addToSyncQueue,
   getSyncQueue,
@@ -16,8 +16,8 @@ import {
   markSyncFailure,
   checkDatabaseHealth,
   type SyncQueueItem,
-} from '@/lib/db';
-import { apiClient } from '@/api/client';
+} from "@/lib/db";
+import { apiClient } from "@/api/client";
 
 // ============================================
 // Types
@@ -39,7 +39,9 @@ export interface UseOfflineReturn {
   /** Any database error that occurred */
   dbError: string | null;
   /** Add an item to the sync queue */
-  addToQueue: (item: Omit<SyncQueueItem, 'id' | 'timestamp' | 'retries'>) => Promise<string>;
+  addToQueue: (
+    item: Omit<SyncQueueItem, "id" | "timestamp" | "retries">,
+  ) => Promise<string>;
   /** Manually trigger a sync */
   syncNow: () => Promise<SyncResult>;
   /** Clear all items from the sync queue */
@@ -67,7 +69,7 @@ export interface SyncResult {
 
 export interface SyncStatusInfo {
   /** Overall sync status */
-  status: 'idle' | 'syncing' | 'error' | 'offline';
+  status: "idle" | "syncing" | "error" | "offline";
   /** Human-readable status message */
   message: string;
   /** Number of pending items */
@@ -92,20 +94,20 @@ const SYNC_DEBOUNCE = 2000; // 2 seconds debounce after coming online
 // Helper Functions
 // ============================================
 
-function getEndpointForEntity(entity: SyncQueueItem['entity']): string {
+function getEndpointForEntity(entity: SyncQueueItem["entity"]): string {
   switch (entity) {
-    case 'customer':
-      return '/customers/';
-    case 'workOrder':
-      return '/work-orders';
-    case 'invoice':
-      return '/invoices';
-    case 'payment':
-      return '/payments';
-    case 'prospect':
-      return '/prospects/';
-    case 'activity':
-      return '/activities/';
+    case "customer":
+      return "/customers/";
+    case "workOrder":
+      return "/work-orders";
+    case "invoice":
+      return "/invoices";
+    case "payment":
+      return "/payments";
+    case "prospect":
+      return "/prospects/";
+    case "activity":
+      return "/activities/";
     default:
       throw new Error(`Unknown entity type: ${entity}`);
   }
@@ -116,16 +118,16 @@ async function processSyncItem(item: SyncQueueItem): Promise<boolean> {
     // If item has a raw URL, use that directly
     if (item.url && item.method) {
       switch (item.method) {
-        case 'POST':
+        case "POST":
           await apiClient.post(item.url, item.data);
           break;
-        case 'PUT':
+        case "PUT":
           await apiClient.put(item.url, item.data);
           break;
-        case 'PATCH':
+        case "PATCH":
           await apiClient.patch(item.url, item.data);
           break;
-        case 'DELETE':
+        case "DELETE":
           await apiClient.delete(item.url);
           break;
       }
@@ -136,15 +138,18 @@ async function processSyncItem(item: SyncQueueItem): Promise<boolean> {
     const endpoint = getEndpointForEntity(item.entity);
 
     switch (item.type) {
-      case 'create':
+      case "create":
         await apiClient.post(endpoint, item.data);
         break;
-      case 'update': {
-        const updateData = item.data as { id: string | number; [key: string]: unknown };
+      case "update": {
+        const updateData = item.data as {
+          id: string | number;
+          [key: string]: unknown;
+        };
         await apiClient.patch(`${endpoint}/${updateData.id}`, item.data);
         break;
       }
-      case 'delete': {
+      case "delete": {
         const deleteData = item.data as { id: string | number };
         await apiClient.delete(`${endpoint}/${deleteData.id}`);
         break;
@@ -187,8 +192,12 @@ export function useOffline(): UseOfflineReturn {
   const onlineDebounceRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
   // Keep refs in sync
-  useEffect(() => { isOnlineRef.current = isOnline; }, [isOnline]);
-  useEffect(() => { isSyncingRef.current = isSyncing; }, [isSyncing]);
+  useEffect(() => {
+    isOnlineRef.current = isOnline;
+  }, [isOnline]);
+  useEffect(() => {
+    isSyncingRef.current = isSyncing;
+  }, [isSyncing]);
 
   // ============================================
   // Sync Processing (defined as ref to avoid closure issues)
@@ -197,7 +206,13 @@ export function useOffline(): UseOfflineReturn {
   const performSync = useCallback(async (): Promise<SyncResult> => {
     // Early exit if not online or already syncing
     if (!isOnlineRef.current || isSyncingRef.current) {
-      return { success: 0, failed: 0, errors: [], syncedIds: [], failedIds: [] };
+      return {
+        success: 0,
+        failed: 0,
+        errors: [],
+        syncedIds: [],
+        failedIds: [],
+      };
     }
 
     setIsSyncing(true);
@@ -208,7 +223,7 @@ export function useOffline(): UseOfflineReturn {
       failed: 0,
       errors: [],
       syncedIds: [],
-      failedIds: []
+      failedIds: [],
     };
 
     try {
@@ -253,7 +268,7 @@ export function useOffline(): UseOfflineReturn {
           if (updatedItem.retries >= MAX_RETRIES) {
             // Keep item but mark error for user attention
             result.errors.push(
-              `${item.entity}:${item.type} failed after ${MAX_RETRIES} retries`
+              `${item.entity}:${item.type} failed after ${MAX_RETRIES} retries`,
             );
             result.failedIds.push(item.id);
           } else {
@@ -287,9 +302,8 @@ export function useOffline(): UseOfflineReturn {
       // Refresh queue state
       const newQueue = await getSyncQueueOrdered();
       setSyncQueue(newQueue);
-
     } catch (error) {
-      console.error('Sync process error:', error);
+      console.error("Sync process error:", error);
       result.errors.push(String(error));
       await markSyncFailure();
     } finally {
@@ -316,7 +330,7 @@ export function useOffline(): UseOfflineReturn {
         // Check database health first
         const health = await checkDatabaseHealth();
         if (!health.healthy) {
-          throw new Error(health.error || 'Database unavailable');
+          throw new Error(health.error || "Database unavailable");
         }
 
         // Load queue and sync state
@@ -346,9 +360,11 @@ export function useOffline(): UseOfflineReturn {
           }
         }
       } catch (error) {
-        console.error('Failed to initialize offline sync:', error);
+        console.error("Failed to initialize offline sync:", error);
         if (mounted) {
-          setDbError(error instanceof Error ? error.message : 'Failed to initialize');
+          setDbError(
+            error instanceof Error ? error.message : "Failed to initialize",
+          );
           setIsInitialized(true); // Still mark as initialized so UI doesn't hang
         }
       }
@@ -356,7 +372,9 @@ export function useOffline(): UseOfflineReturn {
 
     initialize();
 
-    return () => { mounted = false; };
+    return () => {
+      mounted = false;
+    };
   }, []);
 
   // ============================================
@@ -387,12 +405,12 @@ export function useOffline(): UseOfflineReturn {
       }
     };
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
       if (onlineDebounceRef.current) {
         clearTimeout(onlineDebounceRef.current);
       }
@@ -417,11 +435,13 @@ export function useOffline(): UseOfflineReturn {
       // Use refs to get current values
       if (isOnlineRef.current && !isSyncingRef.current) {
         // Check if we have pending items before syncing
-        getSyncQueueCount().then(count => {
-          if (count > 0) {
-            performSyncRef.current();
-          }
-        }).catch(console.error);
+        getSyncQueueCount()
+          .then((count) => {
+            if (count > 0) {
+              performSyncRef.current();
+            }
+          })
+          .catch(console.error);
       }
     }, SYNC_INTERVAL);
 
@@ -436,20 +456,23 @@ export function useOffline(): UseOfflineReturn {
   // Queue Operations
   // ============================================
 
-  const addToQueue = useCallback(async (
-    item: Omit<SyncQueueItem, 'id' | 'timestamp' | 'retries'>
-  ): Promise<string> => {
-    try {
-      const id = await addToSyncQueue(item);
-      // Refresh queue state
-      const queue = await getSyncQueueOrdered();
-      setSyncQueue(queue);
-      return id;
-    } catch (error) {
-      console.error('Failed to add to sync queue:', error);
-      throw error;
-    }
-  }, []);
+  const addToQueue = useCallback(
+    async (
+      item: Omit<SyncQueueItem, "id" | "timestamp" | "retries">,
+    ): Promise<string> => {
+      try {
+        const id = await addToSyncQueue(item);
+        // Refresh queue state
+        const queue = await getSyncQueueOrdered();
+        setSyncQueue(queue);
+        return id;
+      } catch (error) {
+        console.error("Failed to add to sync queue:", error);
+        throw error;
+      }
+    },
+    [],
+  );
 
   const removeItem = useCallback(async (id: string): Promise<void> => {
     try {
@@ -457,7 +480,7 @@ export function useOffline(): UseOfflineReturn {
       const queue = await getSyncQueueOrdered();
       setSyncQueue(queue);
     } catch (error) {
-      console.error('Failed to remove sync queue item:', error);
+      console.error("Failed to remove sync queue item:", error);
       throw error;
     }
   }, []);
@@ -467,7 +490,7 @@ export function useOffline(): UseOfflineReturn {
       const queue = await getSyncQueueOrdered();
       setSyncQueue(queue);
     } catch (error) {
-      console.error('Failed to refresh sync queue:', error);
+      console.error("Failed to refresh sync queue:", error);
     }
   }, []);
 
@@ -475,36 +498,43 @@ export function useOffline(): UseOfflineReturn {
     return performSync();
   }, [performSync]);
 
-  const retryItem = useCallback(async (id: string): Promise<boolean> => {
-    try {
-      const queue = await getSyncQueue();
-      const item = queue.find(i => i.id === id);
+  const retryItem = useCallback(
+    async (id: string): Promise<boolean> => {
+      try {
+        const queue = await getSyncQueue();
+        const item = queue.find((i) => i.id === id);
 
-      if (!item) {
-        console.warn(`Item ${id} not found in queue`);
+        if (!item) {
+          console.warn(`Item ${id} not found in queue`);
+          return false;
+        }
+
+        // Reset retries
+        const updatedItem: SyncQueueItem = {
+          ...item,
+          retries: 0,
+          lastError: undefined,
+        };
+        await updateSyncQueueItem(updatedItem);
+
+        // Trigger sync
+        const result = await performSync();
+        return result.syncedIds.includes(id);
+      } catch (error) {
+        console.error("Failed to retry item:", error);
         return false;
       }
-
-      // Reset retries
-      const updatedItem: SyncQueueItem = { ...item, retries: 0, lastError: undefined };
-      await updateSyncQueueItem(updatedItem);
-
-      // Trigger sync
-      const result = await performSync();
-      return result.syncedIds.includes(id);
-    } catch (error) {
-      console.error('Failed to retry item:', error);
-      return false;
-    }
-  }, [performSync]);
+    },
+    [performSync],
+  );
 
   const clearQueue = useCallback(async () => {
     try {
-      const { clearSyncQueue } = await import('@/lib/db');
+      const { clearSyncQueue } = await import("@/lib/db");
       await clearSyncQueue();
       setSyncQueue([]);
     } catch (error) {
-      console.error('Failed to clear sync queue:', error);
+      console.error("Failed to clear sync queue:", error);
       throw error;
     }
   }, []);
@@ -536,8 +566,8 @@ export function useOffline(): UseOfflineReturn {
  */
 export function useSyncStatus(): SyncStatusInfo {
   const [status, setStatus] = useState<SyncStatusInfo>({
-    status: 'idle',
-    message: 'Ready',
+    status: "idle",
+    message: "Ready",
     pendingCount: 0,
     lastSync: null,
     consecutiveFailures: 0,
@@ -561,20 +591,20 @@ export function useSyncStatus(): SyncStatusInfo {
         const hasFailures = syncState.consecutiveFailures > 0;
         const hasPending = count > 0;
 
-        let statusValue: SyncStatusInfo['status'] = 'idle';
-        let message = 'All changes synced';
+        let statusValue: SyncStatusInfo["status"] = "idle";
+        let message = "All changes synced";
 
         if (!isOnline) {
-          statusValue = 'offline';
+          statusValue = "offline";
           message = hasPending
-            ? `Offline - ${count} change${count === 1 ? '' : 's'} pending`
-            : 'Offline - changes will be saved locally';
+            ? `Offline - ${count} change${count === 1 ? "" : "s"} pending`
+            : "Offline - changes will be saved locally";
         } else if (hasFailures) {
-          statusValue = 'error';
-          message = `Sync issues - ${syncState.consecutiveFailures} consecutive failure${syncState.consecutiveFailures === 1 ? '' : 's'}`;
+          statusValue = "error";
+          message = `Sync issues - ${syncState.consecutiveFailures} consecutive failure${syncState.consecutiveFailures === 1 ? "" : "s"}`;
         } else if (hasPending) {
-          statusValue = 'syncing';
-          message = `${count} change${count === 1 ? '' : 's'} pending sync`;
+          statusValue = "syncing";
+          message = `${count} change${count === 1 ? "" : "s"} pending sync`;
         }
 
         setStatus({
@@ -586,7 +616,7 @@ export function useSyncStatus(): SyncStatusInfo {
           isHealthy: isOnline && !hasFailures && !hasPending,
         });
       } catch (error) {
-        console.error('Failed to load sync status:', error);
+        console.error("Failed to load sync status:", error);
       }
     }
 
@@ -597,16 +627,16 @@ export function useSyncStatus(): SyncStatusInfo {
     const handleOnline = () => loadStatus();
     const handleOffline = () => loadStatus();
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     // Poll for updates (in case sync happens in background)
     const pollInterval = setInterval(loadStatus, 5000);
 
     return () => {
       mounted = false;
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
       clearInterval(pollInterval);
     };
   }, []);
@@ -627,7 +657,7 @@ export function useOfflineCache() {
   const cacheCustomers = useCallback(async (customers: unknown[]) => {
     setIsLoading(true);
     try {
-      const { cacheCustomers: cache } = await import('@/lib/db');
+      const { cacheCustomers: cache } = await import("@/lib/db");
       await cache(customers as Parameters<typeof cache>[0]);
     } finally {
       setIsLoading(false);
@@ -637,7 +667,7 @@ export function useOfflineCache() {
   const cacheWorkOrders = useCallback(async (workOrders: unknown[]) => {
     setIsLoading(true);
     try {
-      const { cacheWorkOrders: cache } = await import('@/lib/db');
+      const { cacheWorkOrders: cache } = await import("@/lib/db");
       await cache(workOrders as Parameters<typeof cache>[0]);
     } finally {
       setIsLoading(false);
@@ -647,7 +677,7 @@ export function useOfflineCache() {
   const cacheTechnicians = useCallback(async (technicians: unknown[]) => {
     setIsLoading(true);
     try {
-      const { cacheTechnicians: cache } = await import('@/lib/db');
+      const { cacheTechnicians: cache } = await import("@/lib/db");
       await cache(technicians as Parameters<typeof cache>[0]);
     } finally {
       setIsLoading(false);
@@ -655,12 +685,12 @@ export function useOfflineCache() {
   }, []);
 
   const getCacheStats = useCallback(async () => {
-    const { getCacheStats: getStats } = await import('@/lib/db');
+    const { getCacheStats: getStats } = await import("@/lib/db");
     return getStats();
   }, []);
 
   const clearCache = useCallback(async () => {
-    const { clearAllCaches } = await import('@/lib/db');
+    const { clearAllCaches } = await import("@/lib/db");
     await clearAllCaches();
   }, []);
 
@@ -678,4 +708,4 @@ export function useOfflineCache() {
 // Exports
 // ============================================
 
-export type { SyncQueueItem } from '@/lib/db';
+export type { SyncQueueItem } from "@/lib/db";

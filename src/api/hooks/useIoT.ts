@@ -2,8 +2,8 @@
  * IoT Integration API Hooks
  * Device management, telemetry, alerts, and predictive maintenance
  */
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 import {
   deviceSchema,
   deviceReadingSchema,
@@ -11,7 +11,7 @@ import {
   alertRuleSchema,
   equipmentHealthSchema,
   maintenanceRecommendationSchema,
-} from '@/api/types/iot';
+} from "@/api/types/iot";
 import type {
   Device,
   DeviceReading,
@@ -23,35 +23,36 @@ import type {
   IoTProviderConnection,
   TelemetryQueryParams,
   IoTProvider,
-} from '@/api/types/iot';
-import { z } from 'zod';
+} from "@/api/types/iot";
+import { z } from "zod";
 
 // Query keys
 export const iotKeys = {
   devices: {
-    all: ['iot', 'devices'] as const,
-    list: (customerId?: string) => [...iotKeys.devices.all, 'list', customerId] as const,
-    detail: (id: string) => [...iotKeys.devices.all, 'detail', id] as const,
+    all: ["iot", "devices"] as const,
+    list: (customerId?: string) =>
+      [...iotKeys.devices.all, "list", customerId] as const,
+    detail: (id: string) => [...iotKeys.devices.all, "detail", id] as const,
     telemetry: (id: string, params?: TelemetryQueryParams) =>
-      [...iotKeys.devices.all, 'telemetry', id, params] as const,
+      [...iotKeys.devices.all, "telemetry", id, params] as const,
   },
   alerts: {
-    all: ['iot', 'alerts'] as const,
+    all: ["iot", "alerts"] as const,
     list: (filters?: { acknowledged?: boolean; severity?: string }) =>
-      [...iotKeys.alerts.all, 'list', filters] as const,
-    rules: () => [...iotKeys.alerts.all, 'rules'] as const,
+      [...iotKeys.alerts.all, "list", filters] as const,
+    rules: () => [...iotKeys.alerts.all, "rules"] as const,
   },
   health: {
-    all: ['iot', 'health'] as const,
+    all: ["iot", "health"] as const,
     equipment: (equipmentId: string) =>
-      [...iotKeys.health.all, 'equipment', equipmentId] as const,
+      [...iotKeys.health.all, "equipment", equipmentId] as const,
     customer: (customerId: string) =>
-      [...iotKeys.health.all, 'customer', customerId] as const,
-    recommendations: () => [...iotKeys.health.all, 'recommendations'] as const,
+      [...iotKeys.health.all, "customer", customerId] as const,
+    recommendations: () => [...iotKeys.health.all, "recommendations"] as const,
   },
   providers: {
-    all: ['iot', 'providers'] as const,
-    connections: () => [...iotKeys.providers.all, 'connections'] as const,
+    all: ["iot", "providers"] as const,
+    connections: () => [...iotKeys.providers.all, "connections"] as const,
   },
 };
 
@@ -67,7 +68,7 @@ export function useDevices(customerId?: string) {
     queryKey: iotKeys.devices.list(customerId),
     queryFn: async (): Promise<Device[]> => {
       const params = customerId ? { customer_id: customerId } : {};
-      const { data } = await apiClient.get('/iot/devices', { params });
+      const { data } = await apiClient.get("/iot/devices", { params });
       return z.array(deviceSchema).parse(data.devices || data);
     },
   });
@@ -94,14 +95,17 @@ export function useDeviceTelemetry(params: TelemetryQueryParams) {
   return useQuery({
     queryKey: iotKeys.devices.telemetry(params.device_id, params),
     queryFn: async (): Promise<DeviceReading[]> => {
-      const { data } = await apiClient.get(`/iot/devices/${params.device_id}/telemetry`, {
-        params: {
-          start_date: params.start_date,
-          end_date: params.end_date,
-          resolution: params.resolution,
-          metrics: params.metrics?.join(','),
+      const { data } = await apiClient.get(
+        `/iot/devices/${params.device_id}/telemetry`,
+        {
+          params: {
+            start_date: params.start_date,
+            end_date: params.end_date,
+            resolution: params.resolution,
+            metrics: params.metrics?.join(","),
+          },
         },
-      });
+      );
       return z.array(deviceReadingSchema).parse(data.readings || data);
     },
     enabled: !!params.device_id,
@@ -114,7 +118,7 @@ export function useDeviceTelemetry(params: TelemetryQueryParams) {
  */
 export function useLatestReading(deviceId: string) {
   return useQuery({
-    queryKey: ['iot', 'devices', deviceId, 'latest'],
+    queryKey: ["iot", "devices", deviceId, "latest"],
     queryFn: async (): Promise<DeviceReading | null> => {
       const { data } = await apiClient.get(`/iot/devices/${deviceId}/latest`);
       if (!data.reading) return null;
@@ -133,11 +137,13 @@ export function useConnectDevice() {
 
   return useMutation({
     mutationFn: async (request: ConnectDeviceRequest): Promise<Device> => {
-      const { data } = await apiClient.post('/iot/devices', request);
+      const { data } = await apiClient.post("/iot/devices", request);
       return deviceSchema.parse(data.device || data);
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: iotKeys.devices.list(data.customer_id) });
+      queryClient.invalidateQueries({
+        queryKey: iotKeys.devices.list(data.customer_id),
+      });
       queryClient.invalidateQueries({ queryKey: iotKeys.devices.list() });
     },
   });
@@ -194,11 +200,14 @@ export function useDisconnectDevice() {
 /**
  * Get device alerts
  */
-export function useDeviceAlerts(filters?: { acknowledged?: boolean; severity?: string }) {
+export function useDeviceAlerts(filters?: {
+  acknowledged?: boolean;
+  severity?: string;
+}) {
   return useQuery({
     queryKey: iotKeys.alerts.list(filters),
     queryFn: async (): Promise<DeviceAlert[]> => {
-      const { data } = await apiClient.get('/iot/alerts', { params: filters });
+      const { data } = await apiClient.get("/iot/alerts", { params: filters });
       return z.array(deviceAlertSchema).parse(data.alerts || data);
     },
     refetchInterval: 30000, // Refresh every 30 seconds
@@ -213,7 +222,9 @@ export function useAcknowledgeAlert() {
 
   return useMutation({
     mutationFn: async (alertId: string): Promise<DeviceAlert> => {
-      const { data } = await apiClient.post(`/iot/alerts/${alertId}/acknowledge`);
+      const { data } = await apiClient.post(
+        `/iot/alerts/${alertId}/acknowledge`,
+      );
       return deviceAlertSchema.parse(data.alert || data);
     },
     onSuccess: () => {
@@ -229,7 +240,7 @@ export function useAlertRules() {
   return useQuery({
     queryKey: iotKeys.alerts.rules(),
     queryFn: async (): Promise<AlertRule[]> => {
-      const { data } = await apiClient.get('/iot/alerts/rules');
+      const { data } = await apiClient.get("/iot/alerts/rules");
       return z.array(alertRuleSchema).parse(data.rules || data);
     },
   });
@@ -243,9 +254,9 @@ export function useCreateAlertRule() {
 
   return useMutation({
     mutationFn: async (
-      rule: Omit<AlertRule, 'id' | 'created_at'>
+      rule: Omit<AlertRule, "id" | "created_at">,
     ): Promise<AlertRule> => {
-      const { data } = await apiClient.post('/iot/alerts/rules', rule);
+      const { data } = await apiClient.post("/iot/alerts/rules", rule);
       return alertRuleSchema.parse(data.rule || data);
     },
     onSuccess: () => {
@@ -268,7 +279,10 @@ export function useUpdateAlertRule() {
       id: string;
       updates: Partial<AlertRule>;
     }): Promise<AlertRule> => {
-      const { data } = await apiClient.patch(`/iot/alerts/rules/${id}`, updates);
+      const { data } = await apiClient.patch(
+        `/iot/alerts/rules/${id}`,
+        updates,
+      );
       return alertRuleSchema.parse(data.rule || data);
     },
     onSuccess: () => {
@@ -304,7 +318,9 @@ export function useEquipmentHealth(equipmentId: string) {
   return useQuery({
     queryKey: iotKeys.health.equipment(equipmentId),
     queryFn: async (): Promise<EquipmentHealth> => {
-      const { data } = await apiClient.get(`/iot/health/equipment/${equipmentId}`);
+      const { data } = await apiClient.get(
+        `/iot/health/equipment/${equipmentId}`,
+      );
       return equipmentHealthSchema.parse(data);
     },
     enabled: !!equipmentId,
@@ -319,7 +335,9 @@ export function useCustomerEquipmentHealth(customerId: string) {
   return useQuery({
     queryKey: iotKeys.health.customer(customerId),
     queryFn: async (): Promise<EquipmentHealth[]> => {
-      const { data } = await apiClient.get(`/iot/health/customer/${customerId}`);
+      const { data } = await apiClient.get(
+        `/iot/health/customer/${customerId}`,
+      );
       return z.array(equipmentHealthSchema).parse(data.equipment || data);
     },
     enabled: !!customerId,
@@ -338,10 +356,12 @@ export function useMaintenanceRecommendations(filters?: {
   return useQuery({
     queryKey: iotKeys.health.recommendations(),
     queryFn: async (): Promise<MaintenanceRecommendation[]> => {
-      const { data } = await apiClient.get('/iot/maintenance/recommendations', {
+      const { data } = await apiClient.get("/iot/maintenance/recommendations", {
         params: filters,
       });
-      return z.array(maintenanceRecommendationSchema).parse(data.recommendations || data);
+      return z
+        .array(maintenanceRecommendationSchema)
+        .parse(data.recommendations || data);
     },
     staleTime: 10 * 60 * 1000, // 10 minutes
   });
@@ -361,12 +381,14 @@ export function useScheduleMaintenanceFromRecommendation() {
     }): Promise<{ work_order_id: string }> => {
       const { data } = await apiClient.post(
         `/iot/maintenance/recommendations/${params.recommendation_id}/schedule`,
-        params
+        params,
       );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: iotKeys.health.recommendations() });
+      queryClient.invalidateQueries({
+        queryKey: iotKeys.health.recommendations(),
+      });
     },
   });
 }
@@ -384,11 +406,13 @@ export function useDeclineRecommendation() {
     }): Promise<void> => {
       await apiClient.post(
         `/iot/maintenance/recommendations/${params.recommendation_id}/decline`,
-        { reason: params.reason }
+        { reason: params.reason },
       );
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: iotKeys.health.recommendations() });
+      queryClient.invalidateQueries({
+        queryKey: iotKeys.health.recommendations(),
+      });
     },
   });
 }
@@ -404,7 +428,7 @@ export function useIoTProviderConnections() {
   return useQuery({
     queryKey: iotKeys.providers.connections(),
     queryFn: async (): Promise<IoTProviderConnection[]> => {
-      const { data } = await apiClient.get('/iot/providers/connections');
+      const { data } = await apiClient.get("/iot/providers/connections");
       return data.connections || [];
     },
   });
@@ -416,9 +440,11 @@ export function useIoTProviderConnections() {
 export function useConnectIoTProvider() {
   return useMutation({
     mutationFn: async (
-      provider: IoTProvider
+      provider: IoTProvider,
     ): Promise<{ auth_url: string; state: string }> => {
-      const { data } = await apiClient.post(`/iot/providers/${provider}/connect`);
+      const { data } = await apiClient.post(
+        `/iot/providers/${provider}/connect`,
+      );
       return data;
     },
   });
@@ -436,14 +462,19 @@ export function useCompleteIoTProviderConnection() {
       code: string;
       state: string;
     }): Promise<IoTProviderConnection> => {
-      const { data } = await apiClient.post(`/iot/providers/${params.provider}/callback`, {
-        code: params.code,
-        state: params.state,
-      });
+      const { data } = await apiClient.post(
+        `/iot/providers/${params.provider}/callback`,
+        {
+          code: params.code,
+          state: params.state,
+        },
+      );
       return data.connection;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: iotKeys.providers.connections() });
+      queryClient.invalidateQueries({
+        queryKey: iotKeys.providers.connections(),
+      });
       queryClient.invalidateQueries({ queryKey: iotKeys.devices.all });
     },
   });
@@ -460,7 +491,9 @@ export function useDisconnectIoTProvider() {
       await apiClient.delete(`/iot/providers/${provider}/disconnect`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: iotKeys.providers.connections() });
+      queryClient.invalidateQueries({
+        queryKey: iotKeys.providers.connections(),
+      });
       queryClient.invalidateQueries({ queryKey: iotKeys.devices.all });
     },
   });
@@ -473,7 +506,9 @@ export function useSyncProviderDevices() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (provider: IoTProvider): Promise<{ synced_count: number }> => {
+    mutationFn: async (
+      provider: IoTProvider,
+    ): Promise<{ synced_count: number }> => {
       const { data } = await apiClient.post(`/iot/providers/${provider}/sync`);
       return data;
     },

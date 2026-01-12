@@ -4,18 +4,23 @@
  * Apply coupon codes, percentage or fixed discounts, and loyalty discounts.
  */
 
-import { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { cn } from '@/lib/utils.ts';
+import { useState, useEffect } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { cn } from "@/lib/utils.ts";
 import {
   type Discount,
   formatCurrency,
   isValidCouponFormat,
   applyDiscount,
-} from './utils/pricingEngine.ts';
-import { useApplyDiscount } from './hooks/usePayments.ts';
+} from "./utils/pricingEngine.ts";
+import { useApplyDiscount } from "./hooks/usePayments.ts";
 
 // ============================================================================
 // TYPES
@@ -27,7 +32,7 @@ export interface DiscountManagerProps {
   /** Current applied discount */
   appliedDiscount?: Discount | null;
   /** Customer loyalty tier for auto-discounts */
-  loyaltyTier?: 'bronze' | 'silver' | 'gold' | 'platinum' | null;
+  loyaltyTier?: "bronze" | "silver" | "gold" | "platinum" | null;
   /** Callback when discount is applied */
   onDiscountApplied: (discount: Discount | null) => void;
   /** Additional CSS classes */
@@ -36,10 +41,30 @@ export interface DiscountManagerProps {
 
 // Loyalty discount mapping
 const LOYALTY_DISCOUNTS: Record<string, Discount> = {
-  bronze: { code: 'LOYALTY_BRONZE', type: 'percentage', value: 5, description: 'Bronze Member - 5% off' },
-  silver: { code: 'LOYALTY_SILVER', type: 'percentage', value: 10, description: 'Silver Member - 10% off' },
-  gold: { code: 'LOYALTY_GOLD', type: 'percentage', value: 15, description: 'Gold Member - 15% off' },
-  platinum: { code: 'LOYALTY_PLATINUM', type: 'percentage', value: 20, description: 'Platinum Member - 20% off' },
+  bronze: {
+    code: "LOYALTY_BRONZE",
+    type: "percentage",
+    value: 5,
+    description: "Bronze Member - 5% off",
+  },
+  silver: {
+    code: "LOYALTY_SILVER",
+    type: "percentage",
+    value: 10,
+    description: "Silver Member - 10% off",
+  },
+  gold: {
+    code: "LOYALTY_GOLD",
+    type: "percentage",
+    value: 15,
+    description: "Gold Member - 15% off",
+  },
+  platinum: {
+    code: "LOYALTY_PLATINUM",
+    type: "percentage",
+    value: 20,
+    description: "Platinum Member - 20% off",
+  },
 };
 
 // ============================================================================
@@ -53,7 +78,7 @@ export function DiscountManager({
   onDiscountApplied,
   className,
 }: DiscountManagerProps) {
-  const [couponCode, setCouponCode] = useState('');
+  const [couponCode, setCouponCode] = useState("");
   const [error, setError] = useState<string | null>(null);
   const [showLoyaltyOption, setShowLoyaltyOption] = useState(false);
 
@@ -71,12 +96,12 @@ export function DiscountManager({
     setError(null);
 
     if (!couponCode.trim()) {
-      setError('Please enter a coupon code');
+      setError("Please enter a coupon code");
       return;
     }
 
     if (!isValidCouponFormat(couponCode)) {
-      setError('Invalid coupon code format');
+      setError("Invalid coupon code format");
       return;
     }
 
@@ -87,17 +112,17 @@ export function DiscountManager({
         // Validate against current subtotal
         const discountResult = applyDiscount(subtotal, result.discount);
         if (!discountResult.isValid) {
-          setError(discountResult.message || 'Discount cannot be applied');
+          setError(discountResult.message || "Discount cannot be applied");
           return;
         }
 
         onDiscountApplied(result.discount);
-        setCouponCode('');
+        setCouponCode("");
       } else {
-        setError(result.message || 'Invalid coupon code');
+        setError(result.message || "Invalid coupon code");
       }
     } catch {
-      setError('Failed to validate coupon code');
+      setError("Failed to validate coupon code");
     }
   };
 
@@ -112,7 +137,7 @@ export function DiscountManager({
   // Remove applied discount
   const handleRemoveDiscount = () => {
     onDiscountApplied(null);
-    setCouponCode('');
+    setCouponCode("");
     setError(null);
     if (loyaltyTier) {
       setShowLoyaltyOption(true);
@@ -125,7 +150,7 @@ export function DiscountManager({
     : 0;
 
   return (
-    <Card className={cn('w-full', className)}>
+    <Card className={cn("w-full", className)}>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <svg
@@ -162,14 +187,19 @@ export function DiscountManager({
                   </svg>
                 </div>
                 <div>
-                  <p className="font-medium text-success">{appliedDiscount.description}</p>
+                  <p className="font-medium text-success">
+                    {appliedDiscount.description}
+                  </p>
                   <p className="text-sm text-text-secondary">
-                    Code: <span className="font-mono">{appliedDiscount.code}</span>
+                    Code:{" "}
+                    <span className="font-mono">{appliedDiscount.code}</span>
                   </p>
                 </div>
               </div>
               <div className="text-right">
-                <p className="text-lg font-bold text-success">-{formatCurrency(savingsAmount)}</p>
+                <p className="text-lg font-bold text-success">
+                  -{formatCurrency(savingsAmount)}
+                </p>
                 <Button
                   variant="ghost"
                   size="sm"
@@ -204,7 +234,9 @@ export function DiscountManager({
                   <p className="font-medium text-primary">
                     {LOYALTY_DISCOUNTS[loyaltyTier].description}
                   </p>
-                  <p className="text-sm text-text-secondary">Loyalty discount available</p>
+                  <p className="text-sm text-text-secondary">
+                    Loyalty discount available
+                  </p>
                 </div>
               </div>
               <Button variant="primary" size="sm" onClick={handleApplyLoyalty}>
@@ -226,9 +258,9 @@ export function DiscountManager({
                     setError(null);
                   }}
                   placeholder="Enter coupon code"
-                  className={cn('uppercase', error && 'border-danger')}
+                  className={cn("uppercase", error && "border-danger")}
                   onKeyDown={(e) => {
-                    if (e.key === 'Enter') {
+                    if (e.key === "Enter") {
                       handleApplyCoupon();
                     }
                   }}
@@ -259,7 +291,7 @@ export function DiscountManager({
                     Checking...
                   </span>
                 ) : (
-                  'Apply'
+                  "Apply"
                 )}
               </Button>
             </div>
@@ -295,7 +327,9 @@ export function DiscountManager({
           <div className="mt-4 pt-4 border-t border-border">
             <div className="flex justify-between items-center">
               <span className="text-text-secondary">Your Savings</span>
-              <span className="text-xl font-bold text-success">{formatCurrency(savingsAmount)}</span>
+              <span className="text-xl font-bold text-success">
+                {formatCurrency(savingsAmount)}
+              </span>
             </div>
           </div>
         )}

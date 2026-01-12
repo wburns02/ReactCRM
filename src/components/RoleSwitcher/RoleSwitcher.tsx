@@ -5,64 +5,67 @@
  * Only visible to the demo user (will@macseptic.com).
  */
 
-import { useState, useRef, useEffect } from 'react';
-import { useRole, type RoleKey, type RoleView } from '@/providers';
-import { cn } from '@/lib/utils';
+import { useState, useRef, useEffect } from "react";
+import { useRole, type RoleKey, type RoleView } from "@/providers";
+import { cn } from "@/lib/utils";
 
 // ============================================
 // Role Color Map
 // ============================================
 
-const ROLE_COLORS: Record<string, { bg: string; text: string; hover: string; ring: string }> = {
+const ROLE_COLORS: Record<
+  string,
+  { bg: string; text: string; hover: string; ring: string }
+> = {
   purple: {
-    bg: 'bg-purple-100',
-    text: 'text-purple-800',
-    hover: 'hover:bg-purple-200',
-    ring: 'ring-purple-500',
+    bg: "bg-purple-100",
+    text: "text-purple-800",
+    hover: "hover:bg-purple-200",
+    ring: "ring-purple-500",
   },
   blue: {
-    bg: 'bg-blue-100',
-    text: 'text-blue-800',
-    hover: 'hover:bg-blue-200',
-    ring: 'ring-blue-500',
+    bg: "bg-blue-100",
+    text: "text-blue-800",
+    hover: "hover:bg-blue-200",
+    ring: "ring-blue-500",
   },
   green: {
-    bg: 'bg-green-100',
-    text: 'text-green-800',
-    hover: 'hover:bg-green-200',
-    ring: 'ring-green-500',
+    bg: "bg-green-100",
+    text: "text-green-800",
+    hover: "hover:bg-green-200",
+    ring: "ring-green-500",
   },
   orange: {
-    bg: 'bg-orange-100',
-    text: 'text-orange-800',
-    hover: 'hover:bg-orange-200',
-    ring: 'ring-orange-500',
+    bg: "bg-orange-100",
+    text: "text-orange-800",
+    hover: "hover:bg-orange-200",
+    ring: "ring-orange-500",
   },
   cyan: {
-    bg: 'bg-cyan-100',
-    text: 'text-cyan-800',
-    hover: 'hover:bg-cyan-200',
-    ring: 'ring-cyan-500',
+    bg: "bg-cyan-100",
+    text: "text-cyan-800",
+    hover: "hover:bg-cyan-200",
+    ring: "ring-cyan-500",
   },
   indigo: {
-    bg: 'bg-indigo-100',
-    text: 'text-indigo-800',
-    hover: 'hover:bg-indigo-200',
-    ring: 'ring-indigo-500',
+    bg: "bg-indigo-100",
+    text: "text-indigo-800",
+    hover: "hover:bg-indigo-200",
+    ring: "ring-indigo-500",
   },
   emerald: {
-    bg: 'bg-emerald-100',
-    text: 'text-emerald-800',
-    hover: 'hover:bg-emerald-200',
-    ring: 'ring-emerald-500',
+    bg: "bg-emerald-100",
+    text: "text-emerald-800",
+    hover: "hover:bg-emerald-200",
+    ring: "ring-emerald-500",
   },
 };
 
 const DEFAULT_COLOR = {
-  bg: 'bg-gray-100',
-  text: 'text-gray-800',
-  hover: 'hover:bg-gray-200',
-  ring: 'ring-gray-500',
+  bg: "bg-gray-100",
+  text: "text-gray-800",
+  hover: "hover:bg-gray-200",
+  ring: "ring-gray-500",
 };
 
 // ============================================
@@ -76,18 +79,18 @@ interface RoleOptionProps {
 }
 
 function RoleOption({ role, isSelected, onClick }: RoleOptionProps) {
-  const colors = ROLE_COLORS[role.color || ''] || DEFAULT_COLOR;
+  const colors = ROLE_COLORS[role.color || ""] || DEFAULT_COLOR;
 
   return (
     <button
       onClick={onClick}
       className={cn(
-        'w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200',
-        'text-left',
+        "w-full flex items-center gap-3 px-3 py-2 rounded-lg transition-all duration-200",
+        "text-left",
         colors.bg,
         colors.text,
         colors.hover,
-        isSelected && `ring-2 ${colors.ring}`
+        isSelected && `ring-2 ${colors.ring}`,
       )}
     >
       <span className="text-xl flex-shrink-0">{role.icon}</span>
@@ -141,20 +144,20 @@ export function RoleSwitcher() {
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, []);
 
   // Close on escape key
   useEffect(() => {
     function handleEscape(event: KeyboardEvent) {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setIsOpen(false);
       }
     }
 
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, []);
 
   // Don't render if not demo user or still loading
@@ -175,32 +178,31 @@ export function RoleSwitcher() {
     <div
       ref={containerRef}
       className="fixed top-4 right-4 z-50"
-      style={{ pointerEvents: 'auto' }}
+      style={{ pointerEvents: "auto" }}
     >
       {/* Trigger Button */}
       <button
         onClick={() => setIsOpen(!isOpen)}
         disabled={isSwitching}
         className={cn(
-          'flex items-center gap-2 px-4 py-2 rounded-full shadow-lg',
-          'border border-white/20',
-          'backdrop-blur-sm',
-          'transition-all duration-200',
+          "flex items-center gap-2 px-4 py-2 rounded-full shadow-lg",
+          "border border-white/20",
+          "backdrop-blur-sm",
+          "transition-all duration-200",
           currentColors.bg,
           currentColors.text,
           currentColors.hover,
-          isSwitching && 'opacity-50 cursor-wait'
+          isSwitching && "opacity-50 cursor-wait",
         )}
       >
-        <span className="text-lg">{currentRole?.icon || '👤'}</span>
+        <span className="text-lg">{currentRole?.icon || "👤"}</span>
         <span className="font-medium">
-          {isSwitching ? 'Switching...' : currentRole?.display_name || 'Select Role'}
+          {isSwitching
+            ? "Switching..."
+            : currentRole?.display_name || "Select Role"}
         </span>
         <svg
-          className={cn(
-            'w-4 h-4 transition-transform',
-            isOpen && 'rotate-180'
-          )}
+          className={cn("w-4 h-4 transition-transform", isOpen && "rotate-180")}
           fill="none"
           viewBox="0 0 24 24"
           stroke="currentColor"
@@ -218,11 +220,11 @@ export function RoleSwitcher() {
       {isOpen && (
         <div
           className={cn(
-            'absolute top-full right-0 mt-2 w-80',
-            'bg-white rounded-xl shadow-2xl',
-            'border border-gray-200',
-            'overflow-hidden',
-            'animate-in fade-in slide-in-from-top-2 duration-200'
+            "absolute top-full right-0 mt-2 w-80",
+            "bg-white rounded-xl shadow-2xl",
+            "border border-gray-200",
+            "overflow-hidden",
+            "animate-in fade-in slide-in-from-top-2 duration-200",
           )}
         >
           {/* Header */}

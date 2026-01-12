@@ -1,7 +1,7 @@
-import { Component, type ReactNode } from 'react';
-import { Button } from './ui/Button.tsx';
-import { Card } from './ui/Card.tsx';
-import { captureException, addBreadcrumb } from '@/lib/sentry';
+import { Component, type ReactNode } from "react";
+import { Button } from "./ui/Button.tsx";
+import { Card } from "./ui/Card.tsx";
+import { captureException, addBreadcrumb } from "@/lib/sentry";
 
 interface Props {
   children: ReactNode;
@@ -31,14 +31,14 @@ export class ErrorBoundary extends Component<Props, State> {
 
   componentDidCatch(error: Error, errorInfo: React.ErrorInfo) {
     // Log to console in development
-    console.error('React Error Boundary caught error:', error, errorInfo);
+    console.error("React Error Boundary caught error:", error, errorInfo);
 
     // Add breadcrumb for context
     addBreadcrumb(
-      'React Error Boundary triggered',
-      'error',
+      "React Error Boundary triggered",
+      "error",
       { componentStack: errorInfo.componentStack },
-      'error'
+      "error",
     );
 
     // Report to Sentry
@@ -57,7 +57,7 @@ export class ErrorBoundary extends Component<Props, State> {
   };
 
   handleGoToDashboard = () => {
-    window.location.href = '/dashboard';
+    window.location.href = "/dashboard";
   };
 
   render() {
@@ -75,11 +75,15 @@ export class ErrorBoundary extends Component<Props, State> {
               Something went wrong
             </h2>
             <p className="text-text-secondary mb-4">
-              The page encountered an error. You can try again or return to the dashboard.
+              The page encountered an error. You can try again or return to the
+              dashboard.
             </p>
             {this.state.errorId && (
               <p className="text-xs text-text-muted mb-4">
-                Error ID: <code className="bg-bg-muted px-1 rounded">{this.state.errorId}</code>
+                Error ID:{" "}
+                <code className="bg-bg-muted px-1 rounded">
+                  {this.state.errorId}
+                </code>
               </p>
             )}
             {import.meta.env.DEV && this.state.error && (
@@ -88,9 +92,7 @@ export class ErrorBoundary extends Component<Props, State> {
               </pre>
             )}
             <div className="flex gap-3 justify-center">
-              <Button onClick={this.handleRetry}>
-                Try Again
-              </Button>
+              <Button onClick={this.handleRetry}>Try Again</Button>
               <Button variant="secondary" onClick={this.handleGoToDashboard}>
                 Return to Dashboard
               </Button>

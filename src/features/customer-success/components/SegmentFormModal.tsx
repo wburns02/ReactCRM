@@ -4,10 +4,17 @@
  * Modal for creating and editing customer segments.
  */
 
-import { useState, useEffect } from 'react';
-import { cn } from '@/lib/utils.ts';
-import type { Segment, SegmentFormData, SegmentType } from '@/api/types/customerSuccess.ts';
-import { useCreateSegment, useUpdateSegment } from '@/api/hooks/useCustomerSuccess.ts';
+import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils.ts";
+import type {
+  Segment,
+  SegmentFormData,
+  SegmentType,
+} from "@/api/types/customerSuccess.ts";
+import {
+  useCreateSegment,
+  useUpdateSegment,
+} from "@/api/hooks/useCustomerSuccess.ts";
 
 interface SegmentFormModalProps {
   segment?: Segment | null;
@@ -16,21 +23,33 @@ interface SegmentFormModalProps {
   onSuccess?: () => void;
 }
 
-const SEGMENT_TYPES: { value: SegmentType; label: string; description: string }[] = [
-  { value: 'dynamic', label: 'Dynamic', description: 'Auto-updates based on rules' },
-  { value: 'static', label: 'Static', description: 'Manually managed members' },
-  { value: 'ai_generated', label: 'AI Generated', description: 'Created by AI analysis' },
+const SEGMENT_TYPES: {
+  value: SegmentType;
+  label: string;
+  description: string;
+}[] = [
+  {
+    value: "dynamic",
+    label: "Dynamic",
+    description: "Auto-updates based on rules",
+  },
+  { value: "static", label: "Static", description: "Manually managed members" },
+  {
+    value: "ai_generated",
+    label: "AI Generated",
+    description: "Created by AI analysis",
+  },
 ];
 
 const SEGMENT_COLORS = [
-  '#3B82F6', // blue
-  '#10B981', // green
-  '#F59E0B', // amber
-  '#EF4444', // red
-  '#8B5CF6', // purple
-  '#EC4899', // pink
-  '#06B6D4', // cyan
-  '#F97316', // orange
+  "#3B82F6", // blue
+  "#10B981", // green
+  "#F59E0B", // amber
+  "#EF4444", // red
+  "#8B5CF6", // purple
+  "#EC4899", // pink
+  "#06B6D4", // cyan
+  "#F97316", // orange
 ];
 
 export function SegmentFormModal({
@@ -42,9 +61,9 @@ export function SegmentFormModal({
   const isEditing = !!segment;
 
   const [formData, setFormData] = useState<SegmentFormData>({
-    name: '',
-    description: '',
-    segment_type: 'dynamic',
+    name: "",
+    description: "",
+    segment_type: "dynamic",
     priority: 0,
     is_active: true,
     color: SEGMENT_COLORS[0],
@@ -57,18 +76,18 @@ export function SegmentFormModal({
   useEffect(() => {
     if (segment) {
       setFormData({
-        name: segment.name || '',
-        description: segment.description || '',
-        segment_type: segment.segment_type || 'dynamic',
+        name: segment.name || "",
+        description: segment.description || "",
+        segment_type: segment.segment_type || "dynamic",
         priority: segment.priority || 0,
         is_active: segment.is_active ?? true,
         color: segment.color || SEGMENT_COLORS[0],
       });
     } else {
       setFormData({
-        name: '',
-        description: '',
-        segment_type: 'dynamic',
+        name: "",
+        description: "",
+        segment_type: "dynamic",
         priority: 0,
         is_active: true,
         color: SEGMENT_COLORS[0],
@@ -82,7 +101,7 @@ export function SegmentFormModal({
   const validate = (): boolean => {
     const newErrors: Record<string, string> = {};
     if (!formData.name.trim()) {
-      newErrors.name = 'Name is required';
+      newErrors.name = "Name is required";
     }
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -103,8 +122,8 @@ export function SegmentFormModal({
       onSuccess?.();
       onClose();
     } catch (error) {
-      console.error('Failed to save segment:', error);
-      setErrors({ submit: 'Failed to save segment. Please try again.' });
+      console.error("Failed to save segment:", error);
+      setErrors({ submit: "Failed to save segment. Please try again." });
     }
   };
 
@@ -113,10 +132,7 @@ export function SegmentFormModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
       {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/50"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
 
       {/* Modal */}
       <div className="relative bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl w-full max-w-lg overflow-hidden">
@@ -125,18 +141,30 @@ export function SegmentFormModal({
           <div className="flex items-start justify-between">
             <div>
               <h3 className="text-lg font-bold text-gray-900 dark:text-white">
-                {isEditing ? 'Edit Segment' : 'Create Segment'}
+                {isEditing ? "Edit Segment" : "Create Segment"}
               </h3>
               <p className="text-sm text-gray-600 dark:text-gray-300 mt-1">
-                {isEditing ? 'Update segment details' : 'Define a new customer segment'}
+                {isEditing
+                  ? "Update segment details"
+                  : "Define a new customer segment"}
               </p>
             </div>
             <button
               onClick={onClose}
               className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -152,11 +180,15 @@ export function SegmentFormModal({
             <input
               type="text"
               value={formData.name}
-              onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+              onChange={(e) =>
+                setFormData({ ...formData, name: e.target.value })
+              }
               placeholder="e.g., Enterprise Accounts"
               className={cn(
-                'w-full px-4 py-2.5 bg-white dark:bg-gray-800 border rounded-lg text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent',
-                errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-600'
+                "w-full px-4 py-2.5 bg-white dark:bg-gray-800 border rounded-lg text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent",
+                errors.name
+                  ? "border-red-500"
+                  : "border-gray-300 dark:border-gray-600",
               )}
             />
             {errors.name && (
@@ -170,8 +202,10 @@ export function SegmentFormModal({
               Description
             </label>
             <textarea
-              value={formData.description || ''}
-              onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+              value={formData.description || ""}
+              onChange={(e) =>
+                setFormData({ ...formData, description: e.target.value })
+              }
               placeholder="Describe what defines this segment..."
               rows={2}
               className="w-full px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent resize-none"
@@ -188,20 +222,24 @@ export function SegmentFormModal({
                 <button
                   key={type.value}
                   type="button"
-                  onClick={() => setFormData({ ...formData, segment_type: type.value })}
+                  onClick={() =>
+                    setFormData({ ...formData, segment_type: type.value })
+                  }
                   className={cn(
-                    'p-3 rounded-lg border text-left transition-all',
+                    "p-3 rounded-lg border text-left transition-all",
                     formData.segment_type === type.value
-                      ? 'border-primary bg-primary/10 dark:bg-primary/20'
-                      : 'border-gray-300 dark:border-gray-600 hover:border-gray-400'
+                      ? "border-primary bg-primary/10 dark:bg-primary/20"
+                      : "border-gray-300 dark:border-gray-600 hover:border-gray-400",
                   )}
                 >
-                  <p className={cn(
-                    'font-medium text-sm',
-                    formData.segment_type === type.value
-                      ? 'text-primary'
-                      : 'text-gray-900 dark:text-white'
-                  )}>
+                  <p
+                    className={cn(
+                      "font-medium text-sm",
+                      formData.segment_type === type.value
+                        ? "text-primary"
+                        : "text-gray-900 dark:text-white",
+                    )}
+                  >
                     {type.label}
                   </p>
                   <p className="text-xs text-gray-500 dark:text-gray-400 mt-0.5">
@@ -224,8 +262,10 @@ export function SegmentFormModal({
                   type="button"
                   onClick={() => setFormData({ ...formData, color })}
                   className={cn(
-                    'w-8 h-8 rounded-full transition-transform',
-                    formData.color === color ? 'ring-2 ring-offset-2 ring-primary scale-110' : 'hover:scale-105'
+                    "w-8 h-8 rounded-full transition-transform",
+                    formData.color === color
+                      ? "ring-2 ring-offset-2 ring-primary scale-110"
+                      : "hover:scale-105",
                   )}
                   style={{ backgroundColor: color }}
                 />
@@ -241,7 +281,12 @@ export function SegmentFormModal({
             <input
               type="number"
               value={formData.priority || 0}
-              onChange={(e) => setFormData({ ...formData, priority: parseInt(e.target.value) || 0 })}
+              onChange={(e) =>
+                setFormData({
+                  ...formData,
+                  priority: parseInt(e.target.value) || 0,
+                })
+              }
               min={0}
               max={100}
               className="w-24 px-4 py-2.5 bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 rounded-lg text-sm text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary focus:border-transparent"
@@ -255,16 +300,20 @@ export function SegmentFormModal({
           <div className="flex items-center gap-3">
             <button
               type="button"
-              onClick={() => setFormData({ ...formData, is_active: !formData.is_active })}
+              onClick={() =>
+                setFormData({ ...formData, is_active: !formData.is_active })
+              }
               className={cn(
-                'relative inline-flex h-6 w-11 items-center rounded-full transition-colors',
-                formData.is_active ? 'bg-primary' : 'bg-gray-300 dark:bg-gray-600'
+                "relative inline-flex h-6 w-11 items-center rounded-full transition-colors",
+                formData.is_active
+                  ? "bg-primary"
+                  : "bg-gray-300 dark:bg-gray-600",
               )}
             >
               <span
                 className={cn(
-                  'inline-block h-4 w-4 transform rounded-full bg-white transition-transform',
-                  formData.is_active ? 'translate-x-6' : 'translate-x-1'
+                  "inline-block h-4 w-4 transform rounded-full bg-white transition-transform",
+                  formData.is_active ? "translate-x-6" : "translate-x-1",
                 )}
               />
             </button>
@@ -276,7 +325,9 @@ export function SegmentFormModal({
           {/* Error display */}
           {errors.submit && (
             <div className="p-3 bg-red-50 dark:bg-red-900/30 rounded-lg border border-red-200 dark:border-red-800">
-              <p className="text-sm text-red-800 dark:text-red-200">{errors.submit}</p>
+              <p className="text-sm text-red-800 dark:text-red-200">
+                {errors.submit}
+              </p>
             </div>
           )}
         </div>
@@ -293,10 +344,10 @@ export function SegmentFormModal({
             onClick={handleSubmit}
             disabled={isPending}
             className={cn(
-              'px-4 py-2 text-sm rounded-lg transition-colors flex items-center gap-2',
+              "px-4 py-2 text-sm rounded-lg transition-colors flex items-center gap-2",
               !isPending
-                ? 'bg-primary text-white hover:bg-primary-hover'
-                : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+                ? "bg-primary text-white hover:bg-primary-hover"
+                : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed",
             )}
           >
             {isPending ? (
@@ -306,10 +357,20 @@ export function SegmentFormModal({
               </>
             ) : (
               <>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M5 13l4 4L19 7"
+                  />
                 </svg>
-                {isEditing ? 'Save Changes' : 'Create Segment'}
+                {isEditing ? "Save Changes" : "Create Segment"}
               </>
             )}
           </button>

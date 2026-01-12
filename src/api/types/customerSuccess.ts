@@ -4,20 +4,22 @@
  * Type definitions for the Enterprise Customer Success Platform.
  */
 
-import { z } from 'zod';
+import { z } from "zod";
 
 // ============================================
 // Health Score Types
 // ============================================
 
-export type HealthStatus = 'healthy' | 'at_risk' | 'critical' | 'churned';
-export type ScoreTrend = 'improving' | 'stable' | 'declining';
+export type HealthStatus = "healthy" | "at_risk" | "critical" | "churned";
+export type ScoreTrend = "improving" | "stable" | "declining";
 
 export const healthScoreSchema = z.object({
   id: z.number(),
   customer_id: z.number(),
   overall_score: z.number().min(0).max(100),
-  health_status: z.enum(['healthy', 'at_risk', 'critical', 'churned']).nullable(),
+  health_status: z
+    .enum(["healthy", "at_risk", "critical", "churned"])
+    .nullable(),
 
   // Component scores
   product_adoption_score: z.number().min(0).max(100).nullable(),
@@ -43,7 +45,7 @@ export const healthScoreSchema = z.object({
   expansion_probability: z.number().min(0).max(1).nullable(),
 
   // Trend
-  score_trend: z.enum(['improving', 'stable', 'declining']).nullable(),
+  score_trend: z.enum(["improving", "stable", "declining"]).nullable(),
   trend_percentage: z.number().nullable(),
 
   // Override
@@ -58,8 +60,11 @@ export const healthScoreSchema = z.object({
   support_details: z.record(z.string(), z.unknown()).nullable(),
 
   // UI-friendly aliases
-  status: z.enum(['healthy', 'at_risk', 'critical', 'churned']).nullable().optional(),
-  trend: z.enum(['improving', 'stable', 'declining']).nullable().optional(),
+  status: z
+    .enum(["healthy", "at_risk", "critical", "churned"])
+    .nullable()
+    .optional(),
+  trend: z.enum(["improving", "stable", "declining"]).nullable().optional(),
   risk_factors: z.array(z.string()).nullable().optional(),
   opportunities: z.array(z.string()).nullable().optional(),
 
@@ -80,14 +85,31 @@ export const healthScoreListResponseSchema = z.object({
   page_size: z.number(),
 });
 
-export type HealthScoreListResponse = z.infer<typeof healthScoreListResponseSchema>;
+export type HealthScoreListResponse = z.infer<
+  typeof healthScoreListResponseSchema
+>;
 
 // ============================================
 // Segment Types
 // ============================================
 
-export type SegmentType = 'static' | 'dynamic' | 'ai_generated';
-export type RuleOperator = 'eq' | 'neq' | 'gt' | 'lt' | 'gte' | 'lte' | 'contains' | 'not_contains' | 'in' | 'not_in' | 'is_null' | 'is_not_null' | 'between' | 'starts_with' | 'ends_with';
+export type SegmentType = "static" | "dynamic" | "ai_generated";
+export type RuleOperator =
+  | "eq"
+  | "neq"
+  | "gt"
+  | "lt"
+  | "gte"
+  | "lte"
+  | "contains"
+  | "not_contains"
+  | "in"
+  | "not_in"
+  | "is_null"
+  | "is_not_null"
+  | "between"
+  | "starts_with"
+  | "ends_with";
 
 export interface SegmentRule {
   field: string;
@@ -97,7 +119,7 @@ export interface SegmentRule {
 }
 
 export interface SegmentRuleSet {
-  logic: 'and' | 'or';
+  logic: "and" | "or";
   rules: (SegmentRule | SegmentRuleSet)[];
 }
 
@@ -105,7 +127,7 @@ export const segmentSchema = z.object({
   id: z.number(),
   name: z.string(),
   description: z.string().nullable(),
-  segment_type: z.enum(['static', 'dynamic', 'ai_generated']),
+  segment_type: z.enum(["static", "dynamic", "ai_generated"]),
   rules: z.unknown().nullable(),
   priority: z.number().default(0),
   is_active: z.boolean().default(true),
@@ -156,10 +178,35 @@ export type SegmentListResponse = z.infer<typeof segmentListResponseSchema>;
 // Journey Types
 // ============================================
 
-export type JourneyStatus = 'draft' | 'active' | 'paused' | 'archived';
-export type JourneyType = 'onboarding' | 'adoption' | 'retention' | 'expansion' | 'renewal' | 'win_back' | 'custom';
-export type JourneyStepType = 'email' | 'task' | 'wait' | 'condition' | 'webhook' | 'human_touchpoint' | 'in_app_message' | 'sms' | 'notification' | 'update_field' | 'add_tag' | 'enroll_journey' | 'trigger_playbook';
-export type EnrollmentStatus = 'active' | 'paused' | 'completed' | 'exited' | 'failed';
+export type JourneyStatus = "draft" | "active" | "paused" | "archived";
+export type JourneyType =
+  | "onboarding"
+  | "adoption"
+  | "retention"
+  | "expansion"
+  | "renewal"
+  | "win_back"
+  | "custom";
+export type JourneyStepType =
+  | "email"
+  | "task"
+  | "wait"
+  | "condition"
+  | "webhook"
+  | "human_touchpoint"
+  | "in_app_message"
+  | "sms"
+  | "notification"
+  | "update_field"
+  | "add_tag"
+  | "enroll_journey"
+  | "trigger_playbook";
+export type EnrollmentStatus =
+  | "active"
+  | "paused"
+  | "completed"
+  | "exited"
+  | "failed";
 
 export const journeyStepSchema = z.object({
   id: z.number(),
@@ -187,7 +234,7 @@ export const journeySchema = z.object({
   name: z.string(),
   description: z.string().nullable(),
   journey_type: z.string(),
-  status: z.enum(['draft', 'active', 'paused', 'archived']),
+  status: z.enum(["draft", "active", "paused", "archived"]),
   trigger_segment_id: z.number().nullable(),
   trigger_event: z.string().nullable(),
   entry_criteria: z.unknown().nullable(),
@@ -235,7 +282,7 @@ export const journeyEnrollmentSchema = z.object({
   id: z.number(),
   journey_id: z.number(),
   customer_id: z.number(),
-  status: z.enum(['active', 'paused', 'completed', 'exited', 'failed']),
+  status: z.enum(["active", "paused", "completed", "exited", "failed"]),
   current_step_id: z.number().nullable(),
   current_step_order: z.number().default(0),
   steps_completed: z.number().default(0),
@@ -259,11 +306,41 @@ export type JourneyEnrollment = z.infer<typeof journeyEnrollmentSchema>;
 // Playbook Types
 // ============================================
 
-export type PlaybookCategory = 'onboarding' | 'adoption' | 'renewal' | 'churn_risk' | 'expansion' | 'escalation' | 'qbr' | 'executive_sponsor' | 'champion_change' | 'implementation' | 'training' | 'custom' | 'risk_mitigation' | 'churn_prevention' | 'winback';
-export type PlaybookTriggerType = 'manual' | 'health_threshold' | 'segment_entry' | 'event' | 'days_to_renewal' | 'scheduled';
-export type PlaybookPriority = 'low' | 'medium' | 'high' | 'critical';
-export type PlaybookExecStatus = 'active' | 'paused' | 'completed' | 'cancelled' | 'failed';
-export type PlaybookOutcome = 'successful' | 'unsuccessful' | 'partial' | 'cancelled';
+export type PlaybookCategory =
+  | "onboarding"
+  | "adoption"
+  | "renewal"
+  | "churn_risk"
+  | "expansion"
+  | "escalation"
+  | "qbr"
+  | "executive_sponsor"
+  | "champion_change"
+  | "implementation"
+  | "training"
+  | "custom"
+  | "risk_mitigation"
+  | "churn_prevention"
+  | "winback";
+export type PlaybookTriggerType =
+  | "manual"
+  | "health_threshold"
+  | "segment_entry"
+  | "event"
+  | "days_to_renewal"
+  | "scheduled";
+export type PlaybookPriority = "low" | "medium" | "high" | "critical";
+export type PlaybookExecStatus =
+  | "active"
+  | "paused"
+  | "completed"
+  | "cancelled"
+  | "failed";
+export type PlaybookOutcome =
+  | "successful"
+  | "unsuccessful"
+  | "partial"
+  | "cancelled";
 
 export const playbookStepSchema = z.object({
   id: z.number(),
@@ -296,7 +373,7 @@ export const playbookSchema = z.object({
   trigger_days_to_renewal: z.number().nullable(),
   trigger_event: z.string().nullable(),
   trigger_segment_id: z.number().nullable(),
-  priority: z.enum(['low', 'medium', 'high', 'critical']).default('medium'),
+  priority: z.enum(["low", "medium", "high", "critical"]).default("medium"),
   is_active: z.boolean().default(true),
   auto_assign: z.boolean().default(true),
   estimated_hours: z.number().nullable(),
@@ -342,7 +419,7 @@ export const playbookExecutionSchema = z.object({
   id: z.number(),
   playbook_id: z.number(),
   customer_id: z.number(),
-  status: z.enum(['active', 'paused', 'completed', 'cancelled', 'failed']),
+  status: z.enum(["active", "paused", "completed", "cancelled", "failed"]),
   current_step_order: z.number().default(1),
   steps_completed: z.number().default(0),
   steps_total: z.number().nullable(),
@@ -351,7 +428,9 @@ export const playbookExecutionSchema = z.object({
   trigger_reason: z.string().nullable(),
   started_at: z.string().nullable(),
   completed_at: z.string().nullable(),
-  outcome: z.enum(['successful', 'unsuccessful', 'partial', 'cancelled']).nullable(),
+  outcome: z
+    .enum(["successful", "unsuccessful", "partial", "cancelled"])
+    .nullable(),
   outcome_notes: z.string().nullable(),
   health_score_at_start: z.number().nullable(),
   health_score_at_end: z.number().nullable(),
@@ -366,11 +445,51 @@ export type PlaybookExecution = z.infer<typeof playbookExecutionSchema>;
 // Task Types
 // ============================================
 
-export type TaskType = 'call' | 'email' | 'meeting' | 'internal' | 'review' | 'escalation' | 'follow_up' | 'documentation' | 'training' | 'product_demo' | 'qbr' | 'renewal' | 'custom' | 'check_in' | 'health_review' | 'renewal_prep' | 'expansion_opportunity' | 'risk_assessment' | 'qbr_prep';
-export type TaskCategory = 'onboarding' | 'adoption' | 'retention' | 'expansion' | 'support' | 'relationship' | 'administrative';
-export type TaskPriority = 'low' | 'medium' | 'high' | 'critical';
-export type TaskStatus = 'pending' | 'in_progress' | 'completed' | 'cancelled' | 'blocked' | 'snoozed';
-export type TaskOutcome = 'successful' | 'unsuccessful' | 'rescheduled' | 'no_response' | 'voicemail' | 'escalated' | 'cancelled' | 'not_applicable';
+export type TaskType =
+  | "call"
+  | "email"
+  | "meeting"
+  | "internal"
+  | "review"
+  | "escalation"
+  | "follow_up"
+  | "documentation"
+  | "training"
+  | "product_demo"
+  | "qbr"
+  | "renewal"
+  | "custom"
+  | "check_in"
+  | "health_review"
+  | "renewal_prep"
+  | "expansion_opportunity"
+  | "risk_assessment"
+  | "qbr_prep";
+export type TaskCategory =
+  | "onboarding"
+  | "adoption"
+  | "retention"
+  | "expansion"
+  | "support"
+  | "relationship"
+  | "administrative";
+export type TaskPriority = "low" | "medium" | "high" | "critical";
+export type TaskStatus =
+  | "pending"
+  | "in_progress"
+  | "completed"
+  | "cancelled"
+  | "blocked"
+  | "snoozed";
+export type TaskOutcome =
+  | "successful"
+  | "unsuccessful"
+  | "rescheduled"
+  | "no_response"
+  | "voicemail"
+  | "escalated"
+  | "cancelled"
+  | "not_applicable";
 
 export const csTaskSchema = z.object({
   id: z.number(),
@@ -387,8 +506,17 @@ export const csTaskSchema = z.object({
   assigned_at: z.string().nullable(),
 
   // Priority and status
-  priority: z.enum(['low', 'medium', 'high', 'critical']).default('medium'),
-  status: z.enum(['pending', 'in_progress', 'completed', 'cancelled', 'blocked', 'snoozed']).default('pending'),
+  priority: z.enum(["low", "medium", "high", "critical"]).default("medium"),
+  status: z
+    .enum([
+      "pending",
+      "in_progress",
+      "completed",
+      "cancelled",
+      "blocked",
+      "snoozed",
+    ])
+    .default("pending"),
 
   // Timing
   due_date: z.string().nullable(),
@@ -457,31 +585,110 @@ export type CSTaskListResponse = z.infer<typeof csTaskListResponseSchema>;
 // ============================================
 
 export type TouchpointType =
-  | 'call' | 'email_sent' | 'email_received' | 'email_opened' | 'email_clicked' | 'email_replied'
-  | 'call_outbound' | 'call_inbound' | 'call_missed' | 'voicemail'
-  | 'meeting' | 'meeting_scheduled' | 'meeting_held' | 'meeting_cancelled' | 'meeting_no_show'
-  | 'video_call' | 'chat' | 'sms_sent' | 'sms_received' | 'chat_session'
-  | 'support_ticket' | 'support_resolved' | 'product_login' | 'feature_usage' | 'feature_adoption'
-  | 'login' | 'milestone_achieved' | 'onboarding_step' | 'webinar_registered' | 'webinar_attended' | 'training_completed'
-  | 'event_attended' | 'support_ticket_opened' | 'support_ticket_resolved' | 'support_escalation'
-  | 'nps_response' | 'csat_response' | 'feature_request' | 'bug_report' | 'product_feedback'
-  | 'survey_response' | 'review_posted'
-  | 'qbr' | 'qbr_held' | 'renewal_discussion' | 'expansion_discussion'
-  | 'contract_signed' | 'renewal' | 'upsell' | 'downgrade' | 'invoice_paid' | 'payment_issue'
-  | 'invoice_sent' | 'payment_received' | 'payment_overdue'
-  | 'churn_risk_identified' | 'health_score_change' | 'executive_sponsor_change' | 'stakeholder_change'
-  | 'internal_note' | 'health_alert' | 'risk_flag'
-  | 'in_app_message_sent' | 'in_app_message_clicked'
-  | 'document_shared' | 'document_viewed'
-  | 'referral_given' | 'case_study' | 'testimonial' | 'social_mention'
-  | 'escalation' | 'executive_escalation' | 'product_launch' | 'integration_added' | 'api_usage'
-  | 'referral_made' | 'custom';
+  | "call"
+  | "email_sent"
+  | "email_received"
+  | "email_opened"
+  | "email_clicked"
+  | "email_replied"
+  | "call_outbound"
+  | "call_inbound"
+  | "call_missed"
+  | "voicemail"
+  | "meeting"
+  | "meeting_scheduled"
+  | "meeting_held"
+  | "meeting_cancelled"
+  | "meeting_no_show"
+  | "video_call"
+  | "chat"
+  | "sms_sent"
+  | "sms_received"
+  | "chat_session"
+  | "support_ticket"
+  | "support_resolved"
+  | "product_login"
+  | "feature_usage"
+  | "feature_adoption"
+  | "login"
+  | "milestone_achieved"
+  | "onboarding_step"
+  | "webinar_registered"
+  | "webinar_attended"
+  | "training_completed"
+  | "event_attended"
+  | "support_ticket_opened"
+  | "support_ticket_resolved"
+  | "support_escalation"
+  | "nps_response"
+  | "csat_response"
+  | "feature_request"
+  | "bug_report"
+  | "product_feedback"
+  | "survey_response"
+  | "review_posted"
+  | "qbr"
+  | "qbr_held"
+  | "renewal_discussion"
+  | "expansion_discussion"
+  | "contract_signed"
+  | "renewal"
+  | "upsell"
+  | "downgrade"
+  | "invoice_paid"
+  | "payment_issue"
+  | "invoice_sent"
+  | "payment_received"
+  | "payment_overdue"
+  | "churn_risk_identified"
+  | "health_score_change"
+  | "executive_sponsor_change"
+  | "stakeholder_change"
+  | "internal_note"
+  | "health_alert"
+  | "risk_flag"
+  | "in_app_message_sent"
+  | "in_app_message_clicked"
+  | "document_shared"
+  | "document_viewed"
+  | "referral_given"
+  | "case_study"
+  | "testimonial"
+  | "social_mention"
+  | "escalation"
+  | "executive_escalation"
+  | "product_launch"
+  | "integration_added"
+  | "api_usage"
+  | "referral_made"
+  | "custom";
 
-export type TouchpointSentiment = 'very_positive' | 'positive' | 'neutral' | 'negative' | 'very_negative';
+export type TouchpointSentiment =
+  | "very_positive"
+  | "positive"
+  | "neutral"
+  | "negative"
+  | "very_negative";
 
-export type TouchpointDirection = 'inbound' | 'outbound' | 'internal';
-export type TouchpointChannel = 'email' | 'phone' | 'video' | 'in_app' | 'in_person' | 'chat' | 'sms' | 'social' | 'webinar' | 'event' | 'other';
-export type SentimentLabel = 'very_negative' | 'negative' | 'neutral' | 'positive' | 'very_positive';
+export type TouchpointDirection = "inbound" | "outbound" | "internal";
+export type TouchpointChannel =
+  | "email"
+  | "phone"
+  | "video"
+  | "in_app"
+  | "in_person"
+  | "chat"
+  | "sms"
+  | "social"
+  | "webinar"
+  | "event"
+  | "other";
+export type SentimentLabel =
+  | "very_negative"
+  | "negative"
+  | "neutral"
+  | "positive"
+  | "very_positive";
 
 export const touchpointSchema = z.object({
   id: z.number(),
@@ -536,7 +743,10 @@ export const touchpointSchema = z.object({
   playbook_execution_id: z.number().nullable(),
 
   // UI-friendly aliases
-  sentiment: z.enum(['very_positive', 'positive', 'neutral', 'negative', 'very_negative']).nullable().optional(),
+  sentiment: z
+    .enum(["very_positive", "positive", "neutral", "negative", "very_negative"])
+    .nullable()
+    .optional(),
   outcome: z.string().nullable().optional(),
 
   // Timestamps
@@ -554,7 +764,9 @@ export const touchpointListResponseSchema = z.object({
   page_size: z.number(),
 });
 
-export type TouchpointListResponse = z.infer<typeof touchpointListResponseSchema>;
+export type TouchpointListResponse = z.infer<
+  typeof touchpointListResponseSchema
+>;
 
 // ============================================
 // Dashboard Types
@@ -635,7 +847,7 @@ export interface PlaybookFormData {
   category: PlaybookCategory;
   trigger_type: PlaybookTriggerType;
   trigger_health_threshold?: number;
-  trigger_health_direction?: 'below' | 'above';
+  trigger_health_direction?: "below" | "above";
   trigger_days_to_renewal?: number;
   trigger_event?: string;
   trigger_segment_id?: number;
@@ -752,13 +964,30 @@ export interface TouchpointFilters {
 // CSM Task Queue Types (Outcome-Driven CS)
 // ============================================
 
-export type CSMTaskQueuePriority = 'urgent' | 'high' | 'standard' | 'low';
-export type CSMTaskQueueStatus = 'pending' | 'in_progress' | 'completed' | 'cancelled' | 'blocked' | 'snoozed';
-export type CSMOutcomeType = 'connected' | 'voicemail' | 'no_answer' | 'rescheduled' | 'completed' | 'escalated';
-export type CSMObjectiveAchieved = 'yes' | 'no' | 'partial';
-export type CSMSentiment = 'positive' | 'neutral' | 'frustrated' | 'angry';
-export type CSMTaskTypeCategory = 'onboarding' | 'adoption' | 'retention' | 'expansion' | 'renewal';
-export type QualityGateType = 'boolean' | 'select' | 'text' | 'rating';
+export type CSMTaskQueuePriority = "urgent" | "high" | "standard" | "low";
+export type CSMTaskQueueStatus =
+  | "pending"
+  | "in_progress"
+  | "completed"
+  | "cancelled"
+  | "blocked"
+  | "snoozed";
+export type CSMOutcomeType =
+  | "connected"
+  | "voicemail"
+  | "no_answer"
+  | "rescheduled"
+  | "completed"
+  | "escalated";
+export type CSMObjectiveAchieved = "yes" | "no" | "partial";
+export type CSMSentiment = "positive" | "neutral" | "frustrated" | "angry";
+export type CSMTaskTypeCategory =
+  | "onboarding"
+  | "adoption"
+  | "retention"
+  | "expansion"
+  | "renewal";
+export type QualityGateType = "boolean" | "select" | "text" | "rating";
 
 // Quality Gate Definition (embedded in TaskType)
 export interface QualityGate {
@@ -776,19 +1005,29 @@ export const csmTaskTypeSchema = z.object({
   name: z.string(),
   slug: z.string(),
   description: z.string().nullable(),
-  category: z.enum(['onboarding', 'adoption', 'retention', 'expansion', 'renewal']),
-  default_priority: z.enum(['urgent', 'high', 'standard', 'low']),
+  category: z.enum([
+    "onboarding",
+    "adoption",
+    "retention",
+    "expansion",
+    "renewal",
+  ]),
+  default_priority: z.enum(["urgent", "high", "standard", "low"]),
   sla_hours: z.number(),
   playbook_id: z.number().nullable(),
   required_outcomes: z.array(z.string()).default([]),
-  quality_gates: z.array(z.object({
-    id: z.string(),
-    question: z.string(),
-    gate_type: z.enum(['boolean', 'select', 'text', 'rating']),
-    required: z.boolean(),
-    options: z.array(z.string()).optional(),
-    order: z.number(),
-  })).default([]),
+  quality_gates: z
+    .array(
+      z.object({
+        id: z.string(),
+        question: z.string(),
+        gate_type: z.enum(["boolean", "select", "text", "rating"]),
+        required: z.boolean(),
+        options: z.array(z.string()).optional(),
+        order: z.number(),
+      }),
+    )
+    .default([]),
   auto_trigger_conditions: z.record(z.string(), z.unknown()).nullable(),
   is_active: z.boolean().default(true),
   created_at: z.string().nullable(),
@@ -809,17 +1048,21 @@ export const csmPlaybookSchema = z.object({
   id: z.number(),
   task_type_id: z.number().nullable(),
   name: z.string(),
-  version: z.string().default('1.0'),
+  version: z.string().default("1.0"),
   objective: z.string(),
   context_fields: z.array(z.string()).default([]),
   opening_script: z.string(),
   key_questions: z.array(z.string()).default([]),
-  objection_handlers: z.array(z.object({
-    id: z.string(),
-    trigger: z.string(),
-    response: z.string(),
-    order: z.number(),
-  })).default([]),
+  objection_handlers: z
+    .array(
+      z.object({
+        id: z.string(),
+        trigger: z.string(),
+        response: z.string(),
+        order: z.number(),
+      }),
+    )
+    .default([]),
   success_criteria: z.string(),
   estimated_duration_minutes: z.number().default(15),
   is_active: z.boolean().default(true),
@@ -838,21 +1081,39 @@ export const csmQueueTaskSchema = z.object({
   task_type_name: z.string().nullable(),
 
   // Priority
-  priority: z.enum(['urgent', 'high', 'standard', 'low']),
+  priority: z.enum(["urgent", "high", "standard", "low"]),
   priority_score: z.number().default(0),
 
   // Status
-  status: z.enum(['pending', 'in_progress', 'completed', 'cancelled', 'blocked', 'snoozed']).default('pending'),
+  status: z
+    .enum([
+      "pending",
+      "in_progress",
+      "completed",
+      "cancelled",
+      "blocked",
+      "snoozed",
+    ])
+    .default("pending"),
 
   // Timing
   due_date: z.string().nullable(),
   snooze_until: z.string().nullable(),
 
   // Outcome (filled when completed)
-  outcome_type: z.enum(['connected', 'voicemail', 'no_answer', 'rescheduled', 'completed', 'escalated']).nullable(),
-  objective_achieved: z.enum(['yes', 'no', 'partial']).nullable(),
+  outcome_type: z
+    .enum([
+      "connected",
+      "voicemail",
+      "no_answer",
+      "rescheduled",
+      "completed",
+      "escalated",
+    ])
+    .nullable(),
+  objective_achieved: z.enum(["yes", "no", "partial"]).nullable(),
   outcome_notes: z.string().nullable(),
-  sentiment: z.enum(['positive', 'neutral', 'frustrated', 'angry']).nullable(),
+  sentiment: z.enum(["positive", "neutral", "frustrated", "angry"]).nullable(),
   next_action: z.string().nullable(),
   next_action_date: z.string().nullable(),
 
@@ -867,7 +1128,9 @@ export const csmQueueTaskSchema = z.object({
   customer_email: z.string().nullable(),
   customer_arr: z.number().nullable(),
   customer_health_score: z.number().nullable(),
-  customer_health_status: z.enum(['healthy', 'at_risk', 'critical', 'churned']).nullable(),
+  customer_health_status: z
+    .enum(["healthy", "at_risk", "critical", "churned"])
+    .nullable(),
   customer_tier: z.string().nullable(),
   customer_renewal_date: z.string().nullable(),
   days_overdue: z.number().nullable(),
@@ -890,7 +1153,9 @@ export const csmQueueTaskListResponseSchema = z.object({
   page_size: z.number(),
 });
 
-export type CSMQueueTaskListResponse = z.infer<typeof csmQueueTaskListResponseSchema>;
+export type CSMQueueTaskListResponse = z.infer<
+  typeof csmQueueTaskListResponseSchema
+>;
 
 // Task with full context (for detail view)
 export interface CSMTaskWithContext {
@@ -980,6 +1245,6 @@ export interface CSMQueueFilters {
   due_after?: string;
   csm_id?: number;
   customer_id?: number;
-  sort_by?: 'priority_score' | 'due_date' | 'created_at';
-  sort_order?: 'asc' | 'desc';
+  sort_by?: "priority_score" | "due_date" | "created_at";
+  sort_order?: "asc" | "desc";
 }

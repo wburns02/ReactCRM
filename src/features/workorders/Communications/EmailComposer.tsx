@@ -4,27 +4,27 @@
  * Email editor with template selection, variable preview, and send capabilities.
  */
 
-import { useState, useEffect, useMemo } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
-import { Card } from '@/components/ui/Card.tsx';
+import { useState, useEffect, useMemo } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { Card } from "@/components/ui/Card.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
-import { useSendEmail } from './hooks/useCommunications.ts';
+} from "@/components/ui/Dialog.tsx";
+import { useSendEmail } from "./hooks/useCommunications.ts";
 import {
   ALL_TEMPLATES,
   getTemplateById,
   renderTemplate,
   extractVariables,
-} from './templates/index.ts';
+} from "./templates/index.ts";
 
 interface EmailComposerProps {
   to: string;
@@ -43,10 +43,13 @@ export function EmailComposer({
   workOrderId,
   onSent,
 }: EmailComposerProps) {
-  const [selectedTemplateId, setSelectedTemplateId] = useState(initialTemplateId || '');
-  const [subject, setSubject] = useState('');
-  const [body, setBody] = useState('');
-  const [variables, setVariables] = useState<Record<string, string>>(initialVariables);
+  const [selectedTemplateId, setSelectedTemplateId] = useState(
+    initialTemplateId || "",
+  );
+  const [subject, setSubject] = useState("");
+  const [body, setBody] = useState("");
+  const [variables, setVariables] =
+    useState<Record<string, string>>(initialVariables);
   const [showPreview, setShowPreview] = useState(false);
   const [toEmail, setToEmail] = useState(to);
 
@@ -69,20 +72,26 @@ export function EmailComposer({
     const newVariables = { ...variables };
     templateVars.forEach((v) => {
       if (!(v in newVariables)) {
-        newVariables[v] = '';
+        newVariables[v] = "";
       }
     });
     setVariables(newVariables);
   }, [body]);
 
   // Rendered preview
-  const previewSubject = useMemo(() => renderTemplate(subject, variables), [subject, variables]);
-  const previewBody = useMemo(() => renderTemplate(body, variables), [body, variables]);
+  const previewSubject = useMemo(
+    () => renderTemplate(subject, variables),
+    [subject, variables],
+  );
+  const previewBody = useMemo(
+    () => renderTemplate(body, variables),
+    [body, variables],
+  );
 
   // Check for unfilled variables
   const unfilledVariables = useMemo(() => {
     const vars = extractVariables(body + subject);
-    return vars.filter((v) => !variables[v] || variables[v].trim() === '');
+    return vars.filter((v) => !variables[v] || variables[v].trim() === "");
   }, [body, subject, variables]);
 
   const handleSend = async () => {
@@ -99,12 +108,12 @@ export function EmailComposer({
       });
       onSent?.();
       // Reset form
-      setSelectedTemplateId('');
-      setSubject('');
-      setBody('');
+      setSelectedTemplateId("");
+      setSubject("");
+      setBody("");
       setVariables({});
     } catch (err) {
-      console.error('Failed to send email:', err);
+      console.error("Failed to send email:", err);
     }
   };
 
@@ -170,7 +179,7 @@ export function EmailComposer({
               onChange={(e) => {
                 if (e.target.value) {
                   insertVariable(e.target.value);
-                  e.target.value = '';
+                  e.target.value = "";
                 }
               }}
               defaultValue=""
@@ -224,19 +233,20 @@ export function EmailComposer({
           <div className="grid grid-cols-2 gap-3">
             {Object.keys(variables).map((key) => (
               <div key={key} className="space-y-1">
-                <Label className="text-xs">{key.replace(/_/g, ' ')}</Label>
+                <Label className="text-xs">{key.replace(/_/g, " ")}</Label>
                 <Input
                   value={variables[key]}
                   onChange={(e) => handleVariableChange(key, e.target.value)}
-                  placeholder={`Enter ${key.replace(/_/g, ' ')}`}
-                  className={`text-sm ${!variables[key] ? 'border-warning' : ''}`}
+                  placeholder={`Enter ${key.replace(/_/g, " ")}`}
+                  className={`text-sm ${!variables[key] ? "border-warning" : ""}`}
                 />
               </div>
             ))}
           </div>
           {unfilledVariables.length > 0 && (
             <p className="text-xs text-warning mt-2">
-              {unfilledVariables.length} variable(s) not filled: {unfilledVariables.join(', ')}
+              {unfilledVariables.length} variable(s) not filled:{" "}
+              {unfilledVariables.join(", ")}
             </p>
           )}
         </Card>
@@ -276,7 +286,11 @@ export function EmailComposer({
         >
           {sendEmail.isPending ? (
             <>
-              <svg className="w-4 h-4 mr-2 animate-spin" fill="none" viewBox="0 0 24 24">
+              <svg
+                className="w-4 h-4 mr-2 animate-spin"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
                 <circle
                   className="opacity-25"
                   cx="12"
@@ -317,7 +331,9 @@ export function EmailComposer({
       {/* Preview Dialog */}
       <Dialog open={showPreview} onClose={() => setShowPreview(false)}>
         <DialogContent size="lg">
-          <DialogHeader onClose={() => setShowPreview(false)}>Email Preview</DialogHeader>
+          <DialogHeader onClose={() => setShowPreview(false)}>
+            Email Preview
+          </DialogHeader>
           <DialogBody>
             <div className="space-y-4">
               <div>

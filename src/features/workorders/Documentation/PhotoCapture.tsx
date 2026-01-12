@@ -10,12 +10,12 @@
  * - Fallback to file input if camera denied
  * - Preview mode with retake/accept buttons
  */
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { cn } from '@/lib/utils';
-import type { PhotoType, PhotoMetadata } from '@/api/types/workOrder';
-import { useCamera } from './hooks/useCamera';
+import { useState, useEffect, useCallback, useRef } from "react";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { cn } from "@/lib/utils";
+import type { PhotoType, PhotoMetadata } from "@/api/types/workOrder";
+import { useCamera } from "./hooks/useCamera";
 import {
   addWatermark,
   createThumbnail,
@@ -27,18 +27,18 @@ import {
   readFileAsBase64,
   compressImage,
   type GPSCoordinates,
-} from './utils/imageProcessing';
+} from "./utils/imageProcessing";
 
 const PHOTO_TYPE_LABELS: Record<PhotoType, string> = {
-  before: 'Before',
-  after: 'After',
-  manifest: 'Manifest',
-  damage: 'Damage',
-  lid: 'Lid',
-  tank: 'Tank',
-  access: 'Access',
-  equipment: 'Equipment',
-  other: 'Other',
+  before: "Before",
+  after: "After",
+  manifest: "Manifest",
+  damage: "Damage",
+  lid: "Lid",
+  tank: "Tank",
+  access: "Access",
+  equipment: "Equipment",
+  other: "Other",
 };
 
 export interface CapturedPhoto {
@@ -57,7 +57,7 @@ export interface PhotoCaptureProps {
   className?: string;
 }
 
-type CaptureMode = 'camera' | 'preview' | 'file';
+type CaptureMode = "camera" | "preview" | "file";
 
 export function PhotoCapture({
   workOrderId: _workOrderId,
@@ -67,10 +67,17 @@ export function PhotoCapture({
   onCancel,
   className,
 }: PhotoCaptureProps) {
-  const { state, videoRef, startCamera, stopCamera, capturePhoto, switchFacingMode } = useCamera();
+  const {
+    state,
+    videoRef,
+    startCamera,
+    stopCamera,
+    capturePhoto,
+    switchFacingMode,
+  } = useCamera();
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const [mode, setMode] = useState<CaptureMode>('camera');
+  const [mode, setMode] = useState<CaptureMode>("camera");
   const [capturedImage, setCapturedImage] = useState<string | null>(null);
   const [gpsCoords, setGpsCoords] = useState<GPSCoordinates | null>(null);
   const [isProcessing, setIsProcessing] = useState(false);
@@ -86,13 +93,13 @@ export function PhotoCapture({
           setGpsCoords(coords);
         }
       } catch (err) {
-        setGpsError('GPS unavailable');
+        setGpsError("GPS unavailable");
       }
 
       // Start camera
       const success = await startCamera();
       if (!success) {
-        setMode('file');
+        setMode("file");
       }
     };
 
@@ -124,7 +131,7 @@ export function PhotoCapture({
       }
 
       setCapturedImage(rawImage);
-      setMode('preview');
+      setMode("preview");
       stopCamera();
     } finally {
       setIsProcessing(false);
@@ -136,7 +143,7 @@ export function PhotoCapture({
    */
   const handleRetake = useCallback(async () => {
     setCapturedImage(null);
-    setMode('camera');
+    setMode("camera");
     await startCamera();
   }, [startCamera]);
 
@@ -152,7 +159,11 @@ export function PhotoCapture({
       const timestamp = formatTimestampForWatermark();
 
       // Add watermark with timestamp and GPS
-      const watermarkedImage = await addWatermark(capturedImage, timestamp, gpsCoords ?? undefined);
+      const watermarkedImage = await addWatermark(
+        capturedImage,
+        timestamp,
+        gpsCoords ?? undefined,
+      );
 
       // Create thumbnail
       const thumbnail = await createThumbnail(watermarkedImage, 200, 200);
@@ -178,7 +189,7 @@ export function PhotoCapture({
 
       onCapture(photo);
     } catch (err) {
-      console.error('Failed to process photo:', err);
+      console.error("Failed to process photo:", err);
     } finally {
       setIsProcessing(false);
     }
@@ -187,30 +198,33 @@ export function PhotoCapture({
   /**
    * Handle file input selection (fallback mode)
    */
-  const handleFileSelect = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const file = event.target.files?.[0];
-    if (!file) return;
+  const handleFileSelect = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const file = event.target.files?.[0];
+      if (!file) return;
 
-    setIsProcessing(true);
+      setIsProcessing(true);
 
-    try {
-      // Read file as base64
-      let imageData = await readFileAsBase64(file);
+      try {
+        // Read file as base64
+        let imageData = await readFileAsBase64(file);
 
-      // Compress if too large (> 3MB)
-      const sizeBytes = (imageData.length * 3) / 4;
-      if (sizeBytes > 3 * 1024 * 1024) {
-        imageData = await compressImage(imageData, 0.8, 1920);
+        // Compress if too large (> 3MB)
+        const sizeBytes = (imageData.length * 3) / 4;
+        if (sizeBytes > 3 * 1024 * 1024) {
+          imageData = await compressImage(imageData, 0.8, 1920);
+        }
+
+        setCapturedImage(imageData);
+        setMode("preview");
+      } catch (err) {
+        console.error("Failed to read file:", err);
+      } finally {
+        setIsProcessing(false);
       }
-
-      setCapturedImage(imageData);
-      setMode('preview');
-    } catch (err) {
-      console.error('Failed to read file:', err);
-    } finally {
-      setIsProcessing(false);
-    }
-  }, []);
+    },
+    [],
+  );
 
   /**
    * Trigger file input click
@@ -224,7 +238,7 @@ export function PhotoCapture({
    */
   const handleSwitchToFile = () => {
     stopCamera();
-    setMode('file');
+    setMode("file");
   };
 
   /**
@@ -233,12 +247,17 @@ export function PhotoCapture({
   const handleSwitchToCamera = async () => {
     const success = await startCamera();
     if (success) {
-      setMode('camera');
+      setMode("camera");
     }
   };
 
   return (
-    <div className={cn('flex flex-col bg-bg-card rounded-lg overflow-hidden', className)}>
+    <div
+      className={cn(
+        "flex flex-col bg-bg-card rounded-lg overflow-hidden",
+        className,
+      )}
+    >
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border">
         <div className="flex items-center gap-3">
@@ -260,7 +279,7 @@ export function PhotoCapture({
       {/* Main content area */}
       <div className="relative aspect-[4/3] bg-black">
         {/* Camera Preview */}
-        {mode === 'camera' && (
+        {mode === "camera" && (
           <>
             {state.isLoading && (
               <div className="absolute inset-0 flex items-center justify-center text-white">
@@ -304,7 +323,7 @@ export function PhotoCapture({
         )}
 
         {/* Preview Mode */}
-        {mode === 'preview' && capturedImage && (
+        {mode === "preview" && capturedImage && (
           <img
             src={capturedImage}
             alt="Captured photo preview"
@@ -313,7 +332,7 @@ export function PhotoCapture({
         )}
 
         {/* File Mode */}
-        {mode === 'file' && !capturedImage && (
+        {mode === "file" && !capturedImage && (
           <div className="absolute inset-0 flex items-center justify-center">
             <div className="text-center text-white">
               <svg
@@ -353,10 +372,13 @@ export function PhotoCapture({
         )}
 
         {/* Camera facing mode indicator */}
-        {mode === 'camera' && state.isActive && (
+        {mode === "camera" && state.isActive && (
           <div className="absolute top-3 left-3">
-            <Badge variant="outline" className="bg-black/50 text-white border-white/30">
-              {state.facingMode === 'environment' ? 'Rear' : 'Front'} Camera
+            <Badge
+              variant="outline"
+              className="bg-black/50 text-white border-white/30"
+            >
+              {state.facingMode === "environment" ? "Rear" : "Front"} Camera
             </Badge>
           </div>
         )}
@@ -364,13 +386,9 @@ export function PhotoCapture({
 
       {/* Controls */}
       <div className="p-4 border-t border-border">
-        {mode === 'camera' && (
+        {mode === "camera" && (
           <div className="flex items-center justify-between">
-            <Button
-              variant="ghost"
-              onClick={onCancel}
-              disabled={isProcessing}
-            >
+            <Button variant="ghost" onClick={onCancel} disabled={isProcessing}>
               Cancel
             </Button>
 
@@ -433,7 +451,7 @@ export function PhotoCapture({
           </div>
         )}
 
-        {mode === 'preview' && (
+        {mode === "preview" && (
           <div className="flex items-center justify-between">
             <Button
               variant="ghost"
@@ -456,10 +474,7 @@ export function PhotoCapture({
               Retake
             </Button>
 
-            <Button
-              onClick={handleAccept}
-              disabled={isProcessing}
-            >
+            <Button onClick={handleAccept} disabled={isProcessing}>
               <svg
                 className="w-5 h-5 mr-2"
                 fill="none"
@@ -478,7 +493,7 @@ export function PhotoCapture({
           </div>
         )}
 
-        {mode === 'file' && !capturedImage && (
+        {mode === "file" && !capturedImage && (
           <div className="flex items-center justify-center">
             <Button variant="ghost" onClick={onCancel}>
               Cancel

@@ -5,6 +5,7 @@ This module provides comprehensive reporting and analytics capabilities for the 
 ## Features
 
 ### Reports Dashboard (`/reports`)
+
 - **Key Metrics**: Total revenue, work orders completed, average job value, new customers, repeat customer rate, customer satisfaction
 - **Revenue Trends**: Line/bar charts showing revenue over time
 - **Service Breakdown**: Pie chart showing distribution of service types
@@ -12,6 +13,7 @@ This module provides comprehensive reporting and analytics capabilities for the 
 - **Quick Links**: Navigate to detailed reports
 
 ### Revenue Report (`/reports/revenue`)
+
 - Detailed revenue analysis and trends
 - Work orders completed vs revenue correlation
 - Service type breakdown with detailed statistics
@@ -20,6 +22,7 @@ This module provides comprehensive reporting and analytics capabilities for the 
 - Export functionality (CSV, PDF, Excel)
 
 ### Technician Performance (`/reports/technicians`)
+
 - Individual technician performance metrics
 - Jobs completed and revenue per technician
 - Customer satisfaction ratings
@@ -33,10 +36,11 @@ This module provides comprehensive reporting and analytics capabilities for the 
 ### Report Components (`components/`)
 
 #### MetricCard
+
 Displays a key metric with optional change percentage indicator.
 
 ```tsx
-import { MetricCard } from '@/features/reports/components';
+import { MetricCard } from "@/features/reports/components";
 
 <MetricCard
   title="Total Revenue"
@@ -44,10 +48,11 @@ import { MetricCard } from '@/features/reports/components';
   changePercent={12.5}
   icon="💰"
   format="currency"
-/>
+/>;
 ```
 
 **Props:**
+
 - `title`: string - Metric title
 - `value`: string | number - Metric value
 - `changePercent?`: number | null - Percentage change (optional)
@@ -56,20 +61,22 @@ import { MetricCard } from '@/features/reports/components';
 - `className?`: string - Additional CSS classes
 
 #### DateRangePicker
+
 Allows users to select date ranges for reports with presets.
 
 ```tsx
-import { DateRangePicker } from '@/features/reports/components';
+import { DateRangePicker } from "@/features/reports/components";
 
 const [dateRange, setDateRange] = useState({
-  start_date: '2024-01-01',
-  end_date: '2024-01-31',
+  start_date: "2024-01-01",
+  end_date: "2024-01-31",
 });
 
-<DateRangePicker dateRange={dateRange} onChange={setDateRange} />
+<DateRangePicker dateRange={dateRange} onChange={setDateRange} />;
 ```
 
 **Props:**
+
 - `dateRange`: DateRange - Current date range
 - `onChange`: (dateRange: DateRange) => void - Change handler
 - `className?`: string - Additional CSS classes
@@ -77,18 +84,17 @@ const [dateRange, setDateRange] = useState({
 **Presets:** Today, Week, Month, Quarter, Year, Custom
 
 #### ExportButton
+
 Export report data to various formats.
 
 ```tsx
-import { ExportButton } from '@/features/reports/components';
+import { ExportButton } from "@/features/reports/components";
 
-<ExportButton
-  reportType="revenue"
-  dateRange={dateRange}
-/>
+<ExportButton reportType="revenue" dateRange={dateRange} />;
 ```
 
 **Props:**
+
 - `reportType`: string - Type of report to export
 - `dateRange?`: DateRange - Date range for export
 - `className?`: string - Additional CSS classes
@@ -96,168 +102,179 @@ import { ExportButton } from '@/features/reports/components';
 **Export Formats:** CSV, PDF, Excel
 
 #### RevenueChart
+
 Line or bar chart showing revenue trends over time.
 
 ```tsx
-import { RevenueChart } from '@/features/reports/components';
+import { RevenueChart } from "@/features/reports/components";
 
-<RevenueChart
-  data={revenueData}
-  chartType="line"
-  showWorkOrders={true}
-/>
+<RevenueChart data={revenueData} chartType="line" showWorkOrders={true} />;
 ```
 
 **Props:**
+
 - `data`: RevenueDataPoint[] - Revenue data points
 - `chartType?`: 'line' | 'bar' - Chart visualization type
 - `showWorkOrders?`: boolean - Show work orders overlay
 - `className?`: string - Additional CSS classes
 
 #### ServiceTypeBreakdown
+
 Pie chart showing service type distribution.
 
 ```tsx
-import { ServiceTypeBreakdown } from '@/features/reports/components';
+import { ServiceTypeBreakdown } from "@/features/reports/components";
 
-<ServiceTypeBreakdown data={serviceBreakdown} />
+<ServiceTypeBreakdown data={serviceBreakdown} />;
 ```
 
 **Props:**
+
 - `data`: ServiceBreakdown[] - Service breakdown data
 - `className?`: string - Additional CSS classes
 
 ## Analytics Components (`../analytics/components/`)
 
 #### CustomerGrowthChart
+
 Line chart showing customer growth over time.
 
 ```tsx
-import { CustomerGrowthChart } from '@/features/analytics/components';
+import { CustomerGrowthChart } from "@/features/analytics/components";
 
-<CustomerGrowthChart data={customerGrowthData} />
+<CustomerGrowthChart data={customerGrowthData} />;
 ```
 
 **Props:**
+
 - `data`: CustomerGrowthDataPoint[] - Customer growth data
 - `className?`: string - Additional CSS classes
 
 #### WorkOrderTrends
+
 Stacked area chart showing work order status trends.
 
 ```tsx
-import { WorkOrderTrends } from '@/features/analytics/components';
+import { WorkOrderTrends } from "@/features/analytics/components";
 
-<WorkOrderTrends data={workOrderTrends} />
+<WorkOrderTrends data={workOrderTrends} />;
 ```
 
 **Props:**
+
 - `data`: WorkOrderTrendsDataPoint[] - Work order trend data
 - `className?`: string - Additional CSS classes
 
 #### SatisfactionScore
+
 Star rating display for customer satisfaction.
 
 ```tsx
-import { SatisfactionScore } from '@/features/analytics/components';
+import { SatisfactionScore } from "@/features/analytics/components";
 
-<SatisfactionScore
-  score={4.5}
-  maxScore={5}
-  showNumeric={true}
-/>
+<SatisfactionScore score={4.5} maxScore={5} showNumeric={true} />;
 ```
 
 **Props:**
+
 - `score`: number | null - Satisfaction score
 - `maxScore?`: number - Maximum score (default: 5)
 - `showNumeric?`: boolean - Show numeric value
 - `className?`: string - Additional CSS classes
 
 #### PipelineValue
+
 Display total pipeline value with stage breakdown.
 
 ```tsx
-import { PipelineValue } from '@/features/analytics/components';
+import { PipelineValue } from "@/features/analytics/components";
 
-<PipelineValue
-  totalValue={500000}
-  prospectsByStage={prospectStages}
-/>
+<PipelineValue totalValue={500000} prospectsByStage={prospectStages} />;
 ```
 
 **Props:**
+
 - `totalValue`: number - Total pipeline value
 - `prospectsByStage?`: Array - Breakdown by stage
 - `className?`: string - Additional CSS classes
 
 #### ConversionFunnel
+
 Visual funnel showing lead to customer conversion.
 
 ```tsx
-import { ConversionFunnel } from '@/features/analytics/components';
+import { ConversionFunnel } from "@/features/analytics/components";
 
-<ConversionFunnel data={conversionData} />
+<ConversionFunnel data={conversionData} />;
 ```
 
 **Props:**
+
 - `data`: ConversionFunnel[] - Funnel stage data
 - `className?`: string - Additional CSS classes
 
 ## API Hooks
 
 ### useRevenueMetrics
+
 Fetch revenue metrics and report data.
 
 ```tsx
-import { useRevenueMetrics } from '@/features/reports/api';
+import { useRevenueMetrics } from "@/features/reports/api";
 
 const { data, isLoading, error } = useRevenueMetrics(dateRange);
 ```
 
 **Returns:** `RevenueReport`
+
 - metrics: Revenue metrics with change percentages
 - revenue_over_time: Revenue data points
 - service_breakdown: Service type breakdown
 - date_range: Report date range
 
 ### useTechnicianMetrics
+
 Fetch technician performance metrics.
 
 ```tsx
-import { useTechnicianMetrics } from '@/features/reports/api';
+import { useTechnicianMetrics } from "@/features/reports/api";
 
 const { data, isLoading, error } = useTechnicianMetrics(dateRange);
 ```
 
 **Returns:** `TechnicianReport`
+
 - technicians: Array of technician metrics
 - date_range: Report date range
 
 ### useCustomerMetrics
+
 Fetch customer metrics and growth data.
 
 ```tsx
-import { useCustomerMetrics } from '@/features/reports/api';
+import { useCustomerMetrics } from "@/features/reports/api";
 
 const { data, isLoading, error } = useCustomerMetrics(dateRange);
 ```
 
 **Returns:** `CustomerReport`
+
 - metrics: Customer metrics
 - growth_over_time: Customer growth data points
 - date_range: Report date range
 
 ### usePipelineMetrics
+
 Fetch pipeline metrics for prospects/leads.
 
 ```tsx
-import { usePipelineMetrics } from '@/features/reports/api';
+import { usePipelineMetrics } from "@/features/reports/api";
 
 const { data, isLoading, error } = usePipelineMetrics();
 ```
 
 **Returns:** `PipelineMetrics`
+
 - total_pipeline_value: Total value of pipeline
 - total_prospects: Number of prospects
 - prospects_by_stage: Breakdown by stage
@@ -269,6 +286,7 @@ const { data, isLoading, error } = usePipelineMetrics();
 All types are defined in `types.ts` and validated with Zod schemas.
 
 ### Core Types
+
 - `DateRange`: Date range for reports
 - `RevenueMetrics`: Revenue KPIs
 - `RevenueDataPoint`: Single revenue data point
@@ -281,6 +299,7 @@ All types are defined in `types.ts` and validated with Zod schemas.
 - `ConversionFunnel`: Funnel stage data
 
 ### Enums
+
 - `TimePeriod`: 'today' | 'week' | 'month' | 'quarter' | 'year' | 'custom'
 - `ExportFormat`: 'csv' | 'pdf' | 'excel'
 - `ReportType`: 'revenue' | 'technician' | 'customer' | 'work_orders' | 'pipeline'
@@ -290,11 +309,13 @@ All types are defined in `types.ts` and validated with Zod schemas.
 The reports module expects the following backend endpoints:
 
 ### Revenue Report
+
 ```
 GET /api/reports/revenue?start_date=2024-01-01&end_date=2024-01-31
 ```
 
 Response:
+
 ```json
 {
   "metrics": {
@@ -334,11 +355,13 @@ Response:
 ```
 
 ### Technician Report
+
 ```
 GET /api/reports/technician?start_date=2024-01-01&end_date=2024-01-31
 ```
 
 Response:
+
 ```json
 {
   "technicians": [
@@ -360,11 +383,13 @@ Response:
 ```
 
 ### Customer Report
+
 ```
 GET /api/reports/customers?start_date=2024-01-01&end_date=2024-01-31
 ```
 
 Response:
+
 ```json
 {
   "metrics": {
@@ -392,11 +417,13 @@ Response:
 ```
 
 ### Pipeline Metrics
+
 ```
 GET /api/reports/pipeline
 ```
 
 Response:
+
 ```json
 {
   "total_pipeline_value": 500000,
@@ -414,6 +441,7 @@ Response:
 ```
 
 ### Export Endpoint
+
 ```
 GET /api/reports/{reportType}/export?format=csv&start_date=2024-01-01&end_date=2024-01-31
 ```
@@ -425,12 +453,14 @@ Returns: Binary file (CSV, Excel, or PDF)
 All components use Tailwind CSS with the MAC Septic CRM design system:
 
 **Colors:**
+
 - Primary: `#0091ae` (MAC Dark Blue)
 - Success: `#22c55e` (Green)
 - Warning: `#f59e0b` (Amber)
 - Danger: `#ef4444` (Red)
 
 **Component Classes:**
+
 - Cards: `bg-bg-card border border-border rounded-lg`
 - Text: `text-text-primary`, `text-text-secondary`, `text-text-muted`
 - Buttons: `bg-primary text-white hover:bg-primary-dark`
@@ -440,6 +470,7 @@ All components use Tailwind CSS with the MAC Septic CRM design system:
 This module uses [Recharts](https://recharts.org/) for all data visualizations.
 
 **Chart Types Used:**
+
 - LineChart: Revenue trends, customer growth
 - BarChart: Technician performance, comparisons
 - PieChart: Service type breakdown
@@ -448,14 +479,18 @@ This module uses [Recharts](https://recharts.org/) for all data visualizations.
 ## Usage Example
 
 ```tsx
-import { useState } from 'react';
-import { useRevenueMetrics } from '@/features/reports/api';
-import { MetricCard, RevenueChart, DateRangePicker } from '@/features/reports/components';
+import { useState } from "react";
+import { useRevenueMetrics } from "@/features/reports/api";
+import {
+  MetricCard,
+  RevenueChart,
+  DateRangePicker,
+} from "@/features/reports/components";
 
 export function MyReportsPage() {
   const [dateRange, setDateRange] = useState({
-    start_date: '2024-01-01',
-    end_date: '2024-01-31',
+    start_date: "2024-01-01",
+    end_date: "2024-01-31",
   });
 
   const { data, isLoading } = useRevenueMetrics(dateRange);
@@ -490,6 +525,7 @@ export function MyReportsPage() {
 The Reports module is accessible from the main navigation sidebar at `/reports`.
 
 **Routes:**
+
 - `/reports` - Main reports dashboard
 - `/reports/revenue` - Detailed revenue report
 - `/reports/technicians` - Technician performance report

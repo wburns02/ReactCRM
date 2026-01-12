@@ -1,19 +1,19 @@
-import { useEffect, useRef, useCallback, type RefObject } from 'react';
+import { useEffect, useRef, useCallback, type RefObject } from "react";
 
 /**
  * List of focusable element selectors
  */
 const FOCUSABLE_SELECTORS = [
-  'a[href]',
-  'button:not([disabled])',
-  'input:not([disabled])',
-  'select:not([disabled])',
-  'textarea:not([disabled])',
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
   '[tabindex]:not([tabindex="-1"])',
-  'audio[controls]',
-  'video[controls]',
+  "audio[controls]",
+  "video[controls]",
   '[contenteditable]:not([contenteditable="false"])',
-].join(',');
+].join(",");
 
 interface UseFocusTrapOptions {
   /** Whether the focus trap is active */
@@ -32,7 +32,9 @@ interface UseFocusTrapOptions {
  * Essential for accessibility in modals, dialogs, and dropdown menus.
  * Ensures keyboard users can't tab out of the container.
  */
-export function useFocusTrap<T extends HTMLElement>(options: UseFocusTrapOptions = {}) {
+export function useFocusTrap<T extends HTMLElement>(
+  options: UseFocusTrapOptions = {},
+) {
   const { enabled = true, initialFocus, returnFocus, onEscape } = options;
   const containerRef = useRef<T>(null);
   const previousActiveElement = useRef<HTMLElement | null>(null);
@@ -43,10 +45,12 @@ export function useFocusTrap<T extends HTMLElement>(options: UseFocusTrapOptions
   const getFocusableElements = useCallback(() => {
     if (!containerRef.current) return [];
     return Array.from(
-      containerRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS)
+      containerRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS),
     ).filter((el) => {
       // Filter out hidden elements
-      return el.offsetParent !== null && getComputedStyle(el).visibility !== 'hidden';
+      return (
+        el.offsetParent !== null && getComputedStyle(el).visibility !== "hidden"
+      );
     });
   }, []);
 
@@ -57,12 +61,12 @@ export function useFocusTrap<T extends HTMLElement>(options: UseFocusTrapOptions
     (event: KeyboardEvent) => {
       if (!enabled || !containerRef.current) return;
 
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         onEscape?.();
         return;
       }
 
-      if (event.key !== 'Tab') return;
+      if (event.key !== "Tab") return;
 
       const focusableElements = getFocusableElements();
       if (focusableElements.length === 0) return;
@@ -84,7 +88,7 @@ export function useFocusTrap<T extends HTMLElement>(options: UseFocusTrapOptions
         return;
       }
     },
-    [enabled, getFocusableElements, onEscape]
+    [enabled, getFocusableElements, onEscape],
   );
 
   /**
@@ -106,14 +110,15 @@ export function useFocusTrap<T extends HTMLElement>(options: UseFocusTrapOptions
     }
 
     // Add event listener
-    document.addEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
 
     return () => {
-      document.removeEventListener('keydown', handleKeyDown);
+      document.removeEventListener("keydown", handleKeyDown);
 
       // Return focus when trap deactivates
-      const returnElement = returnFocus?.current || previousActiveElement.current;
-      if (returnElement && typeof returnElement.focus === 'function') {
+      const returnElement =
+        returnFocus?.current || previousActiveElement.current;
+      if (returnElement && typeof returnElement.focus === "function") {
         requestAnimationFrame(() => {
           returnElement.focus();
         });
@@ -143,9 +148,9 @@ export function useFocusTrap<T extends HTMLElement>(options: UseFocusTrapOptions
       }
     };
 
-    containerRef.current?.addEventListener('focusout', handleFocusOut);
+    containerRef.current?.addEventListener("focusout", handleFocusOut);
     return () => {
-      containerRef.current?.removeEventListener('focusout', handleFocusOut);
+      containerRef.current?.removeEventListener("focusout", handleFocusOut);
     };
   }, [enabled, getFocusableElements]);
 

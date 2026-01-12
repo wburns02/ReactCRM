@@ -1,5 +1,5 @@
-import { useEffect, useRef } from 'react';
-import { useVoiceToText, VoiceMicButton } from '@/hooks/useVoiceToText';
+import { useEffect, useRef } from "react";
+import { useVoiceToText, VoiceMicButton } from "@/hooks/useVoiceToText";
 
 interface VoiceNotesInputProps {
   value: string;
@@ -19,11 +19,11 @@ interface VoiceNotesInputProps {
 export function VoiceNotesInput({
   value,
   onChange,
-  placeholder = 'Type or speak your notes...',
+  placeholder = "Type or speak your notes...",
   rows = 4,
   disabled,
   maxLength,
-  className = '',
+  className = "",
   label,
   helpText,
 }: VoiceNotesInputProps) {
@@ -61,15 +61,15 @@ export function VoiceNotesInput({
       <div className="relative">
         <textarea
           ref={textareaRef}
-          value={value + (interimTranscript ? ` ${interimTranscript}` : '')}
+          value={value + (interimTranscript ? ` ${interimTranscript}` : "")}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           rows={rows}
           disabled={disabled || isListening}
           maxLength={maxLength}
           className={`w-full px-3 py-2 pr-12 border border-border rounded-lg bg-bg-card text-text-primary resize-none focus:outline-none focus:ring-2 focus:ring-primary/50 ${
-            isListening ? 'bg-danger/5 border-danger/50' : ''
-          } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+            isListening ? "bg-danger/5 border-danger/50" : ""
+          } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
         />
         <div className="absolute right-2 top-2">
           <VoiceMicButton
@@ -98,7 +98,7 @@ export function VoiceNotesInput({
         {maxLength && (
           <span
             className={`text-xs ${
-              value.length > maxLength * 0.9 ? 'text-danger' : 'text-text-muted'
+              value.length > maxLength * 0.9 ? "text-danger" : "text-text-muted"
             }`}
           >
             {value.length}/{maxLength}
@@ -122,9 +122,9 @@ export function VoiceNotesInput({
 export function VoiceInput({
   value,
   onChange,
-  placeholder = 'Type or speak...',
+  placeholder = "Type or speak...",
   disabled,
-  className = '',
+  className = "",
 }: {
   value: string;
   onChange: (value: string) => void;
@@ -157,13 +157,13 @@ export function VoiceInput({
     <div className={`relative ${className}`}>
       <input
         type="text"
-        value={value + (interimTranscript ? ` ${interimTranscript}` : '')}
+        value={value + (interimTranscript ? ` ${interimTranscript}` : "")}
         onChange={(e) => onChange(e.target.value)}
         placeholder={placeholder}
         disabled={disabled || isListening}
         className={`w-full px-3 py-2 pr-10 border border-border rounded-lg bg-bg-card text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/50 ${
-          isListening ? 'bg-danger/5 border-danger/50' : ''
-        } ${disabled ? 'opacity-50 cursor-not-allowed' : ''}`}
+          isListening ? "bg-danger/5 border-danger/50" : ""
+        } ${disabled ? "opacity-50 cursor-not-allowed" : ""}`}
       />
       <div className="absolute right-1 top-1/2 -translate-y-1/2">
         <VoiceMicButton

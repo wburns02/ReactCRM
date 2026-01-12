@@ -1,15 +1,19 @@
-import type { HTMLAttributes } from 'react';
-import { cn } from '@/lib/utils.ts';
+import type { HTMLAttributes } from "react";
+import { cn } from "@/lib/utils.ts";
 
 /**
  * Card component matching MAC Septic design system
  */
-export function Card({ className, children, ...props }: HTMLAttributes<HTMLDivElement>) {
+export function Card({
+  className,
+  children,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={cn(
-        'rounded-lg border border-border bg-bg-card p-6 shadow-sm',
-        className
+        "rounded-lg border border-border bg-bg-card p-6 shadow-sm",
+        className,
       )}
       {...props}
     >
@@ -18,10 +22,14 @@ export function Card({ className, children, ...props }: HTMLAttributes<HTMLDivEl
   );
 }
 
-export function CardHeader({ className, children, ...props }: HTMLAttributes<HTMLDivElement>) {
+export function CardHeader({
+  className,
+  children,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
-      className={cn('pb-4 mb-4 border-b border-border', className)}
+      className={cn("pb-4 mb-4 border-b border-border", className)}
       {...props}
     >
       {children}
@@ -29,10 +37,14 @@ export function CardHeader({ className, children, ...props }: HTMLAttributes<HTM
   );
 }
 
-export function CardTitle({ className, children, ...props }: HTMLAttributes<HTMLHeadingElement>) {
+export function CardTitle({
+  className,
+  children,
+  ...props
+}: HTMLAttributes<HTMLHeadingElement>) {
   return (
     <h3
-      className={cn('text-xl font-semibold text-text-primary', className)}
+      className={cn("text-xl font-semibold text-text-primary", className)}
       {...props}
     >
       {children}
@@ -40,18 +52,23 @@ export function CardTitle({ className, children, ...props }: HTMLAttributes<HTML
   );
 }
 
-export function CardDescription({ className, children, ...props }: HTMLAttributes<HTMLParagraphElement>) {
+export function CardDescription({
+  className,
+  children,
+  ...props
+}: HTMLAttributes<HTMLParagraphElement>) {
   return (
-    <p
-      className={cn('text-sm text-text-secondary', className)}
-      {...props}
-    >
+    <p className={cn("text-sm text-text-secondary", className)} {...props}>
       {children}
     </p>
   );
 }
 
-export function CardContent({ className, children, ...props }: HTMLAttributes<HTMLDivElement>) {
+export function CardContent({
+  className,
+  children,
+  ...props
+}: HTMLAttributes<HTMLDivElement>) {
   return (
     <div className={cn(className)} {...props}>
       {children}

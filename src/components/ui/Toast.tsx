@@ -1,11 +1,18 @@
-import { createContext, useContext, useState, useCallback, useEffect, type ReactNode } from 'react';
-import { createPortal } from 'react-dom';
-import { cn } from '@/lib/utils';
+import {
+  createContext,
+  useContext,
+  useState,
+  useCallback,
+  useEffect,
+  type ReactNode,
+} from "react";
+import { createPortal } from "react-dom";
+import { cn } from "@/lib/utils";
 
 /**
  * Toast Types
  */
-export type ToastVariant = 'default' | 'success' | 'error' | 'warning' | 'info';
+export type ToastVariant = "default" | "success" | "error" | "warning" | "info";
 
 export interface Toast {
   id: string;
@@ -21,7 +28,7 @@ export interface Toast {
 
 interface ToastContextValue {
   toasts: Toast[];
-  addToast: (toast: Omit<Toast, 'id'>) => string;
+  addToast: (toast: Omit<Toast, "id">) => string;
   removeToast: (id: string) => void;
   clearToasts: () => void;
 }
@@ -34,7 +41,7 @@ const ToastContext = createContext<ToastContextValue | undefined>(undefined);
 export function useToast() {
   const context = useContext(ToastContext);
   if (!context) {
-    throw new Error('useToast must be used within a ToastProvider');
+    throw new Error("useToast must be used within a ToastProvider");
   }
   return context;
 }
@@ -42,17 +49,17 @@ export function useToast() {
 /**
  * Convenience function to create toasts
  */
-export function toast(_options: Omit<Toast, 'id'>) {
+export function toast(_options: Omit<Toast, "id">) {
   // This will be replaced by the actual implementation when the provider mounts
-  console.warn('Toast called before ToastProvider mounted');
+  console.warn("Toast called before ToastProvider mounted");
 }
 
-let toastFn: (options: Omit<Toast, 'id'>) => string = () => {
-  console.warn('Toast called before ToastProvider mounted');
-  return '';
+let toastFn: (options: Omit<Toast, "id">) => string = () => {
+  console.warn("Toast called before ToastProvider mounted");
+  return "";
 };
 
-export function showToast(options: Omit<Toast, 'id'>) {
+export function showToast(options: Omit<Toast, "id">) {
   return toastFn(options);
 }
 
@@ -62,7 +69,7 @@ export function showToast(options: Omit<Toast, 'id'>) {
 export function ToastProvider({ children }: { children: ReactNode }) {
   const [toasts, setToasts] = useState<Toast[]>([]);
 
-  const addToast = useCallback((toast: Omit<Toast, 'id'>) => {
+  const addToast = useCallback((toast: Omit<Toast, "id">) => {
     const id = `toast-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
     setToasts((prev) => [...prev, { ...toast, id }]);
     return id;
@@ -81,14 +88,16 @@ export function ToastProvider({ children }: { children: ReactNode }) {
     toastFn = addToast;
     return () => {
       toastFn = () => {
-        console.warn('Toast called after ToastProvider unmounted');
-        return '';
+        console.warn("Toast called after ToastProvider unmounted");
+        return "";
       };
     };
   }, [addToast]);
 
   return (
-    <ToastContext.Provider value={{ toasts, addToast, removeToast, clearToasts }}>
+    <ToastContext.Provider
+      value={{ toasts, addToast, removeToast, clearToasts }}
+    >
       {children}
       <ToastContainer toasts={toasts} onRemove={removeToast} />
     </ToastContext.Provider>
@@ -118,15 +127,28 @@ function ToastContainer({
         <ToastItem key={toast.id} toast={toast} onRemove={onRemove} />
       ))}
     </div>,
-    document.body
+    document.body,
   );
 }
 
 /**
  * Individual Toast Item
  */
-function ToastItem({ toast, onRemove }: { toast: Toast; onRemove: (id: string) => void }) {
-  const { id, title, description, variant = 'default', duration = 5000, action } = toast;
+function ToastItem({
+  toast,
+  onRemove,
+}: {
+  toast: Toast;
+  onRemove: (id: string) => void;
+}) {
+  const {
+    id,
+    title,
+    description,
+    variant = "default",
+    duration = 5000,
+    action,
+  } = toast;
 
   // Auto-dismiss
   useEffect(() => {
@@ -140,11 +162,11 @@ function ToastItem({ toast, onRemove }: { toast: Toast; onRemove: (id: string) =
   }, [id, duration, onRemove]);
 
   const variantStyles = {
-    default: 'bg-bg-card border-border text-text-primary',
-    success: 'bg-success/10 border-success text-success',
-    error: 'bg-danger/10 border-danger text-danger',
-    warning: 'bg-warning/10 border-warning text-warning',
-    info: 'bg-info/10 border-info text-info',
+    default: "bg-bg-card border-border text-text-primary",
+    success: "bg-success/10 border-success text-success",
+    error: "bg-danger/10 border-danger text-danger",
+    warning: "bg-warning/10 border-warning text-warning",
+    info: "bg-info/10 border-info text-info",
   };
 
   const iconPaths = {
@@ -186,12 +208,12 @@ function ToastItem({ toast, onRemove }: { toast: Toast; onRemove: (id: string) =
   return (
     <div
       className={cn(
-        'pointer-events-auto w-[360px] rounded-lg border shadow-lg p-4',
-        'animate-in slide-in-from-right-full duration-300',
-        variantStyles[variant]
+        "pointer-events-auto w-[360px] rounded-lg border shadow-lg p-4",
+        "animate-in slide-in-from-right-full duration-300",
+        variantStyles[variant],
       )}
       role="alert"
-      aria-live={variant === 'error' ? 'assertive' : 'polite'}
+      aria-live={variant === "error" ? "assertive" : "polite"}
     >
       <div className="flex items-start gap-3">
         {/* Icon */}
@@ -230,7 +252,12 @@ function ToastItem({ toast, onRemove }: { toast: Toast; onRemove: (id: string) =
           className="flex-shrink-0 p-1 rounded hover:bg-black/10 dark:hover:bg-white/10 transition-colors"
           aria-label="Dismiss notification"
         >
-          <svg className="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+          <svg
+            className="h-4 w-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -248,13 +275,13 @@ function ToastItem({ toast, onRemove }: { toast: Toast; onRemove: (id: string) =
  * Convenience exports for common toast types
  */
 export const toastSuccess = (title: string, description?: string) =>
-  showToast({ title, description, variant: 'success' });
+  showToast({ title, description, variant: "success" });
 
 export const toastError = (title: string, description?: string) =>
-  showToast({ title, description, variant: 'error' });
+  showToast({ title, description, variant: "error" });
 
 export const toastWarning = (title: string, description?: string) =>
-  showToast({ title, description, variant: 'warning' });
+  showToast({ title, description, variant: "warning" });
 
 export const toastInfo = (title: string, description?: string) =>
-  showToast({ title, description, variant: 'info' });
+  showToast({ title, description, variant: "info" });

@@ -9,11 +9,11 @@
  * - Multiple metric support
  */
 
-import { useState, useMemo, useCallback } from 'react';
-import { cn } from '@/lib/utils.ts';
+import { useState, useMemo, useCallback } from "react";
+import { cn } from "@/lib/utils.ts";
 
 // Types
-export type MetricType = 'nps' | 'csat' | 'ces' | 'response_rate';
+export type MetricType = "nps" | "csat" | "ces" | "response_rate";
 
 export interface TrendDataPoint {
   date: string;
@@ -38,30 +38,39 @@ interface TrendChartProps {
 }
 
 // Metric configurations
-const METRIC_CONFIG: Record<MetricType, { label: string; min: number; max: number; benchmark: number; format: (v: number) => string }> = {
+const METRIC_CONFIG: Record<
+  MetricType,
+  {
+    label: string;
+    min: number;
+    max: number;
+    benchmark: number;
+    format: (v: number) => string;
+  }
+> = {
   nps: {
-    label: 'NPS Score',
+    label: "NPS Score",
     min: -100,
     max: 100,
     benchmark: 32, // Industry average
     format: (v) => (v >= 0 ? `+${v}` : `${v}`),
   },
   csat: {
-    label: 'CSAT Score',
+    label: "CSAT Score",
     min: 0,
     max: 5,
     benchmark: 4.0,
     format: (v) => v.toFixed(1),
   },
   ces: {
-    label: 'CES Score',
+    label: "CES Score",
     min: 1,
     max: 7,
     benchmark: 5.0,
     format: (v) => v.toFixed(1),
   },
   response_rate: {
-    label: 'Response Rate',
+    label: "Response Rate",
     min: 0,
     max: 100,
     benchmark: 30,
@@ -70,7 +79,10 @@ const METRIC_CONFIG: Record<MetricType, { label: string; min: number; max: numbe
 };
 
 // Generate sample data
-function generateSampleData(days: number, metricType: MetricType): TrendDataPoint[] {
+function generateSampleData(
+  days: number,
+  metricType: MetricType,
+): TrendDataPoint[] {
   const config = METRIC_CONFIG[metricType];
   const range = config.max - config.min;
   const midpoint = (config.max + config.min) / 2;
@@ -88,18 +100,21 @@ function generateSampleData(days: number, metricType: MetricType): TrendDataPoin
     value = Math.max(config.min, Math.min(config.max, value));
 
     // Round appropriately
-    if (metricType === 'nps') {
+    if (metricType === "nps") {
       value = Math.round(value);
-    } else if (metricType === 'response_rate') {
+    } else if (metricType === "response_rate") {
       value = Math.round(value);
     } else {
       value = Math.round(value * 10) / 10;
     }
 
     return {
-      date: date.toISOString().split('T')[0],
+      date: date.toISOString().split("T")[0],
       value,
-      label: date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' }),
+      label: date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+      }),
     };
   });
 }
@@ -128,13 +143,15 @@ function Tooltip({
       style={{
         left: x,
         top: y,
-        transform: 'translate(-50%, -100%)',
+        transform: "translate(-50%, -100%)",
         opacity: visible ? 1 : 0,
       }}
     >
       <div className="bg-bg-primary border border-border rounded-lg shadow-lg px-3 py-2 text-center mb-2">
         <p className="text-xs text-text-muted">{point.label || point.date}</p>
-        <p className="text-sm font-bold text-text-primary">{config.format(point.value)}</p>
+        <p className="text-sm font-bold text-text-primary">
+          {config.format(point.value)}
+        </p>
       </div>
     </div>
   );
@@ -142,7 +159,7 @@ function Tooltip({
 
 export function TrendChart({
   data: propData,
-  metricType = 'nps',
+  metricType = "nps",
   benchmarkValue,
   benchmarkLabel,
   title,
@@ -166,68 +183,64 @@ export function TrendChart({
 
   const config = METRIC_CONFIG[metricType];
   const actualBenchmark = benchmarkValue ?? config.benchmark;
-  const actualBenchmarkLabel = benchmarkLabel ?? 'Industry Avg';
+  const actualBenchmarkLabel = benchmarkLabel ?? "Industry Avg";
 
   // Calculate chart dimensions and paths
-  const {
-    linePath,
-    areaPath,
-    points,
-    yAxisLabels,
-    minY,
-    maxY,
-  } = useMemo(() => {
-    if (data.length === 0) {
+  const { linePath, areaPath, points, yAxisLabels, minY, maxY } =
+    useMemo(() => {
+      if (data.length === 0) {
+        return {
+          linePath: "",
+          areaPath: "",
+          points: [],
+          yAxisLabels: [],
+          minY: config.min,
+          maxY: config.max,
+        };
+      }
+
+      const values = data.map((d) => d.value);
+      let min = Math.min(...values, actualBenchmark);
+      let max = Math.max(...values, actualBenchmark);
+
+      // Add padding
+      const padding = (max - min) * 0.1 || 10;
+      min = Math.max(config.min, min - padding);
+      max = Math.min(config.max, max + padding);
+
+      const width = 100;
+      const chartHeight = 100;
+
+      const pts = data.map((d, i) => {
+        const x = data.length > 1 ? (i / (data.length - 1)) * width : width / 2;
+        const y = chartHeight - ((d.value - min) / (max - min)) * chartHeight;
+        return { x, y, data: d };
+      });
+
+      const line = pts
+        .map((p, i) => `${i === 0 ? "M" : "L"} ${p.x} ${p.y}`)
+        .join(" ");
+      const area = `${line} L ${width} ${chartHeight} L 0 ${chartHeight} Z`;
+
+      // Generate Y-axis labels
+      const numLabels = 5;
+      const labels = Array.from({ length: numLabels }, (_, i) => {
+        const value = min + ((max - min) / (numLabels - 1)) * i;
+        return {
+          value,
+          y: chartHeight - ((value - min) / (max - min)) * chartHeight,
+        };
+      }).reverse();
+
       return {
-        linePath: '',
-        areaPath: '',
-        points: [],
-        yAxisLabels: [],
-        minY: config.min,
-        maxY: config.max,
+        linePath: line,
+        areaPath: area,
+        points: pts,
+        yAxisLabels: labels,
+        minY: min,
+        maxY: max,
       };
-    }
-
-    const values = data.map(d => d.value);
-    let min = Math.min(...values, actualBenchmark);
-    let max = Math.max(...values, actualBenchmark);
-
-    // Add padding
-    const padding = (max - min) * 0.1 || 10;
-    min = Math.max(config.min, min - padding);
-    max = Math.min(config.max, max + padding);
-
-    const width = 100;
-    const chartHeight = 100;
-
-    const pts = data.map((d, i) => {
-      const x = data.length > 1 ? (i / (data.length - 1)) * width : width / 2;
-      const y = chartHeight - ((d.value - min) / (max - min)) * chartHeight;
-      return { x, y, data: d };
-    });
-
-    const line = pts.map((p, i) => `${i === 0 ? 'M' : 'L'} ${p.x} ${p.y}`).join(' ');
-    const area = `${line} L ${width} ${chartHeight} L 0 ${chartHeight} Z`;
-
-    // Generate Y-axis labels
-    const numLabels = 5;
-    const labels = Array.from({ length: numLabels }, (_, i) => {
-      const value = min + ((max - min) / (numLabels - 1)) * i;
-      return {
-        value,
-        y: chartHeight - ((value - min) / (max - min)) * chartHeight,
-      };
-    }).reverse();
-
-    return {
-      linePath: line,
-      areaPath: area,
-      points: pts,
-      yAxisLabels: labels,
-      minY: min,
-      maxY: max,
-    };
-  }, [data, config, actualBenchmark]);
+    }, [data, config, actualBenchmark]);
 
   // Calculate benchmark line position
   const benchmarkY = useMemo(() => {
@@ -238,17 +251,17 @@ export function TrendChart({
   const lineColor = useMemo(() => {
     if (color) return color;
     const latestValue = data[data.length - 1]?.value ?? 0;
-    if (metricType === 'nps') {
-      if (latestValue >= 50) return '#22c55e';
-      if (latestValue >= 0) return '#f59e0b';
-      return '#ef4444';
+    if (metricType === "nps") {
+      if (latestValue >= 50) return "#22c55e";
+      if (latestValue >= 0) return "#f59e0b";
+      return "#ef4444";
     }
-    if (metricType === 'csat' || metricType === 'ces') {
-      if (latestValue >= 4) return '#22c55e';
-      if (latestValue >= 3) return '#f59e0b';
-      return '#ef4444';
+    if (metricType === "csat" || metricType === "ces") {
+      if (latestValue >= 4) return "#22c55e";
+      if (latestValue >= 3) return "#f59e0b";
+      return "#ef4444";
     }
-    return '#3b82f6'; // Default blue
+    return "#3b82f6"; // Default blue
   }, [data, metricType, color]);
 
   // Handle mouse events
@@ -266,7 +279,7 @@ export function TrendChart({
         });
       }
     },
-    [points, height]
+    [points, height],
   );
 
   const handleMouseLeave = useCallback(() => {
@@ -279,7 +292,7 @@ export function TrendChart({
         onPointClick(data[index], index);
       }
     },
-    [onPointClick, data]
+    [onPointClick, data],
   );
 
   // Calculate stats
@@ -293,31 +306,45 @@ export function TrendChart({
 
     return {
       latest,
-      average: metricType === 'nps' ? Math.round(avg) : Math.round(avg * 10) / 10,
+      average:
+        metricType === "nps" ? Math.round(avg) : Math.round(avg * 10) / 10,
       change,
-      changePercent: first !== 0 ? Math.round((change / Math.abs(first)) * 100) : 0,
+      changePercent:
+        first !== 0 ? Math.round((change / Math.abs(first)) * 100) : 0,
     };
   }, [data, metricType]);
 
   return (
-    <div className={cn('bg-bg-card rounded-xl border border-border p-6', className)}>
+    <div
+      className={cn(
+        "bg-bg-card rounded-xl border border-border p-6",
+        className,
+      )}
+    >
       {/* Header */}
       {(title || subtitle) && (
         <div className="flex items-start justify-between mb-4">
           <div>
-            {title && <h4 className="font-semibold text-text-primary">{title}</h4>}
-            {subtitle && <p className="text-sm text-text-muted mt-0.5">{subtitle}</p>}
+            {title && (
+              <h4 className="font-semibold text-text-primary">{title}</h4>
+            )}
+            {subtitle && (
+              <p className="text-sm text-text-muted mt-0.5">{subtitle}</p>
+            )}
           </div>
           {stats && (
             <div className="text-right">
               <p className="text-2xl font-bold" style={{ color: lineColor }}>
                 {config.format(stats.latest)}
               </p>
-              <p className={cn(
-                'text-xs font-medium',
-                stats.change >= 0 ? 'text-success' : 'text-danger'
-              )}>
-                {stats.change >= 0 ? '+' : ''}{config.format(stats.change)} ({stats.changePercent}%)
+              <p
+                className={cn(
+                  "text-xs font-medium",
+                  stats.change >= 0 ? "text-success" : "text-danger",
+                )}
+              >
+                {stats.change >= 0 ? "+" : ""}
+                {config.format(stats.change)} ({stats.changePercent}%)
               </p>
             </div>
           )}
@@ -349,7 +376,7 @@ export function TrendChart({
           viewBox="0 0 100 100"
           preserveAspectRatio="none"
           className="w-full h-full ml-10"
-          style={{ width: 'calc(100% - 40px)' }}
+          style={{ width: "calc(100% - 40px)" }}
           onMouseMove={handleMouseMove}
           onMouseLeave={handleMouseLeave}
         >
@@ -362,18 +389,19 @@ export function TrendChart({
           </defs>
 
           {/* Grid lines */}
-          {showGrid && [0, 25, 50, 75, 100].map((y) => (
-            <line
-              key={y}
-              x1="0"
-              y1={y}
-              x2="100"
-              y2={y}
-              stroke="currentColor"
-              strokeOpacity={0.1}
-              className="text-border"
-            />
-          ))}
+          {showGrid &&
+            [0, 25, 50, 75, 100].map((y) => (
+              <line
+                key={y}
+                x1="0"
+                y1={y}
+                x2="100"
+                y2={y}
+                stroke="currentColor"
+                strokeOpacity={0.1}
+                className="text-border"
+              />
+            ))}
 
           {/* Benchmark line */}
           <line
@@ -390,17 +418,14 @@ export function TrendChart({
             x="2"
             y={benchmarkY - 3}
             className="fill-text-muted"
-            style={{ fontSize: '8px' }}
+            style={{ fontSize: "8px" }}
           >
             {actualBenchmarkLabel}
           </text>
 
           {/* Area fill */}
           {showArea && linePath && (
-            <path
-              d={areaPath}
-              fill="url(#trendAreaGradient)"
-            />
+            <path d={areaPath} fill="url(#trendAreaGradient)" />
           )}
 
           {/* Main line */}
@@ -417,39 +442,40 @@ export function TrendChart({
           )}
 
           {/* Data points */}
-          {showDots && points.map((point, i) => (
-            <g key={i}>
-              {/* Larger invisible hit area */}
-              <circle
-                cx={point.x}
-                cy={point.y}
-                r="4"
-                fill="transparent"
-                className="cursor-pointer"
-                onClick={() => handleClick(i)}
-              />
-              {/* Visible dot */}
-              <circle
-                cx={point.x}
-                cy={point.y}
-                r={hoveredIndex === i ? '2.5' : '1.5'}
-                fill={lineColor}
-                className="transition-all duration-150"
-              />
-              {/* Highlight ring on hover */}
-              {hoveredIndex === i && (
+          {showDots &&
+            points.map((point, i) => (
+              <g key={i}>
+                {/* Larger invisible hit area */}
                 <circle
                   cx={point.x}
                   cy={point.y}
-                  r="5"
-                  fill="none"
-                  stroke={lineColor}
-                  strokeWidth="1"
-                  strokeOpacity="0.5"
+                  r="4"
+                  fill="transparent"
+                  className="cursor-pointer"
+                  onClick={() => handleClick(i)}
                 />
-              )}
-            </g>
-          ))}
+                {/* Visible dot */}
+                <circle
+                  cx={point.x}
+                  cy={point.y}
+                  r={hoveredIndex === i ? "2.5" : "1.5"}
+                  fill={lineColor}
+                  className="transition-all duration-150"
+                />
+                {/* Highlight ring on hover */}
+                {hoveredIndex === i && (
+                  <circle
+                    cx={point.x}
+                    cy={point.y}
+                    r="5"
+                    fill="none"
+                    stroke={lineColor}
+                    strokeWidth="1"
+                    strokeOpacity="0.5"
+                  />
+                )}
+              </g>
+            ))}
         </svg>
       </div>
 
@@ -459,9 +485,14 @@ export function TrendChart({
           <>
             <span>{data[0].label || data[0].date}</span>
             {data.length > 2 && (
-              <span>{data[Math.floor(data.length / 2)].label || data[Math.floor(data.length / 2)].date}</span>
+              <span>
+                {data[Math.floor(data.length / 2)].label ||
+                  data[Math.floor(data.length / 2)].date}
+              </span>
             )}
-            <span>{data[data.length - 1].label || data[data.length - 1].date}</span>
+            <span>
+              {data[data.length - 1].label || data[data.length - 1].date}
+            </span>
           </>
         )}
       </div>
@@ -469,12 +500,17 @@ export function TrendChart({
       {/* Legend */}
       <div className="flex items-center justify-center gap-4 mt-4 text-xs">
         <span className="flex items-center gap-1.5">
-          <span className="w-3 h-0.5 rounded" style={{ backgroundColor: lineColor }} />
+          <span
+            className="w-3 h-0.5 rounded"
+            style={{ backgroundColor: lineColor }}
+          />
           <span className="text-text-muted">{config.label}</span>
         </span>
         <span className="flex items-center gap-1.5">
           <span className="w-3 h-0.5 rounded border-dashed border-t border-text-muted" />
-          <span className="text-text-muted">{actualBenchmarkLabel}: {config.format(actualBenchmark)}</span>
+          <span className="text-text-muted">
+            {actualBenchmarkLabel}: {config.format(actualBenchmark)}
+          </span>
         </span>
       </div>
     </div>
@@ -484,7 +520,7 @@ export function TrendChart({
 // Compact sparkline version
 export function TrendSparkline({
   data,
-  metricType = 'nps',
+  metricType = "nps",
   width = 80,
   height = 24,
   showChange = true,
@@ -501,24 +537,26 @@ export function TrendSparkline({
 
   const { linePath, color, change } = useMemo(() => {
     if (data.length < 2) {
-      return { linePath: '', color: '#6b7280', change: 0 };
+      return { linePath: "", color: "#6b7280", change: 0 };
     }
 
-    const values = data.map(d => d.value);
+    const values = data.map((d) => d.value);
     const min = Math.min(...values);
     const max = Math.max(...values);
     const range = max - min || 1;
 
-    const points = data.map((d, i) => {
-      const x = (i / (data.length - 1)) * width;
-      const y = height - ((d.value - min) / range) * height;
-      return `${x},${y}`;
-    }).join(' ');
+    const points = data
+      .map((d, i) => {
+        const x = (i / (data.length - 1)) * width;
+        const y = height - ((d.value - min) / range) * height;
+        return `${x},${y}`;
+      })
+      .join(" ");
 
     const firstVal = data[0].value;
     const lastVal = data[data.length - 1].value;
     const diff = lastVal - firstVal;
-    const clr = diff >= 0 ? '#22c55e' : '#ef4444';
+    const clr = diff >= 0 ? "#22c55e" : "#ef4444";
 
     return { linePath: points, color: clr, change: diff };
   }, [data, width, height]);
@@ -526,7 +564,7 @@ export function TrendSparkline({
   if (data.length < 2) return null;
 
   return (
-    <div className={cn('flex items-center gap-2', className)}>
+    <div className={cn("flex items-center gap-2", className)}>
       <svg width={width} height={height} className="overflow-visible">
         <polyline
           points={linePath}
@@ -538,8 +576,14 @@ export function TrendSparkline({
         />
       </svg>
       {showChange && (
-        <span className={cn('text-xs font-medium', change >= 0 ? 'text-success' : 'text-danger')}>
-          {change >= 0 ? '+' : ''}{config.format(change)}
+        <span
+          className={cn(
+            "text-xs font-medium",
+            change >= 0 ? "text-success" : "text-danger",
+          )}
+        >
+          {change >= 0 ? "+" : ""}
+          {config.format(change)}
         </span>
       )}
     </div>

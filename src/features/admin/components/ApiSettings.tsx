@@ -1,9 +1,20 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/Dialog.tsx';
+import { useState } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/Dialog.tsx";
 import {
   useOAuthClients,
   useCreateOAuthClient,
@@ -12,11 +23,15 @@ import {
   useApiTokens,
   useCreateApiToken,
   useDeleteApiToken,
-} from '@/api/hooks/useAdmin.ts';
-import { OAUTH_SCOPES, type OAuthClient, type ApiAccessToken } from '@/api/types/admin.ts';
-import { getErrorMessage } from '@/api/client.ts';
-import { toastError, toastWarning } from '@/components/ui/Toast';
-import { cn, formatDate } from '@/lib/utils.ts';
+} from "@/api/hooks/useAdmin.ts";
+import {
+  OAUTH_SCOPES,
+  type OAuthClient,
+  type ApiAccessToken,
+} from "@/api/types/admin.ts";
+import { getErrorMessage } from "@/api/client.ts";
+import { toastError, toastWarning } from "@/components/ui/Toast";
+import { cn, formatDate } from "@/lib/utils.ts";
 
 /**
  * API Settings - OAuth Client and API Token Management
@@ -24,7 +39,10 @@ import { cn, formatDate } from '@/lib/utils.ts';
 export function ApiSettings() {
   const [showCreateClientDialog, setShowCreateClientDialog] = useState(false);
   const [showCreateTokenDialog, setShowCreateTokenDialog] = useState(false);
-  const [newSecret, setNewSecret] = useState<{ clientId: string; secret: string } | null>(null);
+  const [newSecret, setNewSecret] = useState<{
+    clientId: string;
+    secret: string;
+  } | null>(null);
   const [newToken, setNewToken] = useState<string | null>(null);
 
   return (
@@ -32,7 +50,9 @@ export function ApiSettings() {
       {/* OAuth Clients Section */}
       <OAuthClientsSection
         onCreateClick={() => setShowCreateClientDialog(true)}
-        onSecretRegenerated={(clientId, secret) => setNewSecret({ clientId, secret })}
+        onSecretRegenerated={(clientId, secret) =>
+          setNewSecret({ clientId, secret })
+        }
       />
 
       {/* API Tokens Section */}
@@ -53,12 +73,16 @@ export function ApiSettings() {
           <div className="flex items-center justify-between">
             <div>
               <p className="text-sm text-text-secondary">
-                Base URL: <code className="bg-background-secondary px-2 py-1 rounded">
+                Base URL:{" "}
+                <code className="bg-background-secondary px-2 py-1 rounded">
                   https://react-crm-api-production.up.railway.app/api/v2
                 </code>
               </p>
             </div>
-            <Button variant="outline" onClick={() => window.open('/docs/api', '_blank')}>
+            <Button
+              variant="outline"
+              onClick={() => window.open("/docs/api", "_blank")}
+            >
               View Documentation
             </Button>
           </div>
@@ -72,7 +96,10 @@ export function ApiSettings() {
         onCreated={(client) => {
           setShowCreateClientDialog(false);
           if (client.client_secret) {
-            setNewSecret({ clientId: client.client_id, secret: client.client_secret });
+            setNewSecret({
+              clientId: client.client_id,
+              secret: client.client_secret,
+            });
           }
         }}
       />
@@ -125,7 +152,11 @@ function OAuthClientsSection({
   const regenerateSecret = useRegenerateClientSecret();
 
   const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`Are you sure you want to delete the OAuth client "${name}"? This action cannot be undone.`)) {
+    if (
+      !confirm(
+        `Are you sure you want to delete the OAuth client "${name}"? This action cannot be undone.`,
+      )
+    ) {
       return;
     }
     try {
@@ -136,7 +167,11 @@ function OAuthClientsSection({
   };
 
   const handleRegenerateSecret = async (id: string, clientId: string) => {
-    if (!confirm('Are you sure you want to regenerate the client secret? The old secret will stop working immediately.')) {
+    if (
+      !confirm(
+        "Are you sure you want to regenerate the client secret? The old secret will stop working immediately.",
+      )
+    ) {
       return;
     }
     try {
@@ -166,7 +201,9 @@ function OAuthClientsSection({
         ) : !clients?.length ? (
           <div className="text-center py-8 text-text-secondary">
             <p>No OAuth clients configured</p>
-            <p className="text-sm mt-1">Create a client to enable third-party API access</p>
+            <p className="text-sm mt-1">
+              Create a client to enable third-party API access
+            </p>
           </div>
         ) : (
           <div className="space-y-4">
@@ -175,7 +212,9 @@ function OAuthClientsSection({
                 key={client.id}
                 client={client}
                 onDelete={() => handleDelete(client.id, client.name)}
-                onRegenerateSecret={() => handleRegenerateSecret(client.id, client.client_id)}
+                onRegenerateSecret={() =>
+                  handleRegenerateSecret(client.id, client.client_id)
+                }
               />
             ))}
           </div>
@@ -204,20 +243,22 @@ function OAuthClientRow({
             <h4 className="font-medium">{client.name}</h4>
             <span
               className={cn(
-                'px-2 py-0.5 text-xs rounded-full',
+                "px-2 py-0.5 text-xs rounded-full",
                 client.is_active
-                  ? 'bg-success/10 text-success'
-                  : 'bg-text-muted/10 text-text-muted'
+                  ? "bg-success/10 text-success"
+                  : "bg-text-muted/10 text-text-muted",
               )}
             >
-              {client.is_active ? 'Active' : 'Inactive'}
+              {client.is_active ? "Active" : "Inactive"}
             </span>
           </div>
           {client.description && (
-            <p className="text-sm text-text-secondary mt-1">{client.description}</p>
+            <p className="text-sm text-text-secondary mt-1">
+              {client.description}
+            </p>
           )}
           <div className="mt-2 text-sm">
-            <span className="text-text-muted">Client ID:</span>{' '}
+            <span className="text-text-muted">Client ID:</span>{" "}
             <code className="bg-background-secondary px-2 py-0.5 rounded text-xs">
               {client.client_id}
             </code>
@@ -229,7 +270,7 @@ function OAuthClientRow({
             size="sm"
             onClick={() => setExpanded(!expanded)}
           >
-            {expanded ? 'Less' : 'More'}
+            {expanded ? "Less" : "More"}
           </Button>
         </div>
       </div>
@@ -252,16 +293,16 @@ function OAuthClientRow({
 
           <div className="grid grid-cols-2 gap-4 text-sm">
             <div>
-              <span className="text-text-muted">Rate Limit:</span>{' '}
+              <span className="text-text-muted">Rate Limit:</span>{" "}
               {client.rate_limit} req/min
             </div>
             <div>
-              <span className="text-text-muted">Created:</span>{' '}
+              <span className="text-text-muted">Created:</span>{" "}
               {formatDate(client.created_at)}
             </div>
             {client.last_used_at && (
               <div>
-                <span className="text-text-muted">Last Used:</span>{' '}
+                <span className="text-text-muted">Last Used:</span>{" "}
                 {formatDate(client.last_used_at)}
               </div>
             )}
@@ -296,7 +337,11 @@ function ApiTokensSection({
   const deleteToken = useDeleteApiToken();
 
   const handleDelete = async (id: string, name: string) => {
-    if (!confirm(`Are you sure you want to revoke the API token "${name}"? This action cannot be undone.`)) {
+    if (
+      !confirm(
+        `Are you sure you want to revoke the API token "${name}"? This action cannot be undone.`,
+      )
+    ) {
       return;
     }
     try {
@@ -325,7 +370,9 @@ function ApiTokensSection({
         ) : !tokens?.length ? (
           <div className="text-center py-8 text-text-secondary">
             <p>No access tokens created</p>
-            <p className="text-sm mt-1">Create a token for API access in scripts and automation</p>
+            <p className="text-sm mt-1">
+              Create a token for API access in scripts and automation
+            </p>
           </div>
         ) : (
           <div className="space-y-3">
@@ -365,10 +412,14 @@ function ApiTokenRow({
         </div>
         <div className="flex items-center gap-4 text-sm text-text-secondary mt-1">
           <span>
-            <code className="bg-background-secondary px-1 rounded">{token.token_prefix}...</code>
+            <code className="bg-background-secondary px-1 rounded">
+              {token.token_prefix}...
+            </code>
           </span>
           <span>Created {formatDate(token.created_at)}</span>
-          {token.expires_at && <span>Expires {formatDate(token.expires_at)}</span>}
+          {token.expires_at && (
+            <span>Expires {formatDate(token.expires_at)}</span>
+          )}
         </div>
       </div>
       <Button variant="destructive" size="sm" onClick={onDelete}>
@@ -392,8 +443,8 @@ function CreateOAuthClientDialog({
 }) {
   const createClient = useCreateOAuthClient();
   const [formData, setFormData] = useState({
-    name: '',
-    description: '',
+    name: "",
+    description: "",
     scopes: [] as string[],
     rate_limit: 1000,
   });
@@ -401,12 +452,12 @@ function CreateOAuthClientDialog({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || formData.scopes.length === 0) {
-      toastWarning('Please provide a name and select at least one scope');
+      toastWarning("Please provide a name and select at least one scope");
       return;
     }
     try {
       const client = await createClient.mutateAsync(formData);
-      setFormData({ name: '', description: '', scopes: [], rate_limit: 1000 });
+      setFormData({ name: "", description: "", scopes: [], rate_limit: 1000 });
       onCreated(client);
     } catch (error) {
       toastError(getErrorMessage(error));
@@ -435,7 +486,9 @@ function CreateOAuthClientDialog({
               <Input
                 id="client-name"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 placeholder="My Integration"
               />
             </div>
@@ -445,7 +498,9 @@ function CreateOAuthClientDialog({
               <Input
                 id="client-description"
                 value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, description: e.target.value })
+                }
                 placeholder="Optional description"
               />
             </div>
@@ -469,7 +524,9 @@ function CreateOAuthClientDialog({
                     />
                     <div>
                       <div className="text-sm font-medium">{scope.label}</div>
-                      <div className="text-xs text-text-muted">{scope.description}</div>
+                      <div className="text-xs text-text-muted">
+                        {scope.description}
+                      </div>
                     </div>
                   </label>
                 ))}
@@ -484,7 +541,12 @@ function CreateOAuthClientDialog({
                 min="100"
                 max="10000"
                 value={formData.rate_limit}
-                onChange={(e) => setFormData({ ...formData, rate_limit: parseInt(e.target.value) })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    rate_limit: parseInt(e.target.value),
+                  })
+                }
               />
             </div>
           </div>
@@ -494,7 +556,7 @@ function CreateOAuthClientDialog({
               Cancel
             </Button>
             <Button type="submit" disabled={createClient.isPending}>
-              {createClient.isPending ? 'Creating...' : 'Create Client'}
+              {createClient.isPending ? "Creating..." : "Create Client"}
             </Button>
           </DialogFooter>
         </form>
@@ -517,7 +579,7 @@ function CreateApiTokenDialog({
 }) {
   const createToken = useCreateApiToken();
   const [formData, setFormData] = useState({
-    name: '',
+    name: "",
     scopes: [] as string[],
     expires_in_days: 90,
   });
@@ -525,7 +587,7 @@ function CreateApiTokenDialog({
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!formData.name || formData.scopes.length === 0) {
-      toastWarning('Please provide a name and select at least one scope');
+      toastWarning("Please provide a name and select at least one scope");
       return;
     }
     try {
@@ -534,7 +596,7 @@ function CreateApiTokenDialog({
         scopes: formData.scopes,
         expires_in_days: formData.expires_in_days || undefined,
       });
-      setFormData({ name: '', scopes: [], expires_in_days: 90 });
+      setFormData({ name: "", scopes: [], expires_in_days: 90 });
       onCreated(result.access_token);
     } catch (error) {
       toastError(getErrorMessage(error));
@@ -563,7 +625,9 @@ function CreateApiTokenDialog({
               <Input
                 id="token-name"
                 value={formData.name}
-                onChange={(e) => setFormData({ ...formData, name: e.target.value })}
+                onChange={(e) =>
+                  setFormData({ ...formData, name: e.target.value })
+                }
                 placeholder="My Script Token"
               />
               <p className="text-xs text-text-muted mt-1">
@@ -587,7 +651,9 @@ function CreateApiTokenDialog({
                     />
                     <div>
                       <div className="text-sm font-medium">{scope.label}</div>
-                      <div className="text-xs text-text-muted">{scope.description}</div>
+                      <div className="text-xs text-text-muted">
+                        {scope.description}
+                      </div>
                     </div>
                   </label>
                 ))}
@@ -602,7 +668,12 @@ function CreateApiTokenDialog({
                 min="0"
                 max="365"
                 value={formData.expires_in_days}
-                onChange={(e) => setFormData({ ...formData, expires_in_days: parseInt(e.target.value) })}
+                onChange={(e) =>
+                  setFormData({
+                    ...formData,
+                    expires_in_days: parseInt(e.target.value),
+                  })
+                }
               />
               <p className="text-xs text-text-muted mt-1">
                 Set to 0 for no expiration (not recommended)
@@ -615,7 +686,7 @@ function CreateApiTokenDialog({
               Cancel
             </Button>
             <Button type="submit" disabled={createToken.isPending}>
-              {createToken.isPending ? 'Creating...' : 'Create Token'}
+              {createToken.isPending ? "Creating..." : "Create Token"}
             </Button>
           </DialogFooter>
         </form>
@@ -647,11 +718,11 @@ function SecretDisplayDialog({
       setTimeout(() => setCopied(false), 2000);
     } catch {
       // Fallback for older browsers
-      const textarea = document.createElement('textarea');
+      const textarea = document.createElement("textarea");
       textarea.value = secret;
       document.body.appendChild(textarea);
       textarea.select();
-      document.execCommand('copy');
+      document.execCommand("copy");
       document.body.removeChild(textarea);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -678,7 +749,7 @@ function SecretDisplayDialog({
               className="absolute top-2 right-2"
               onClick={handleCopy}
             >
-              {copied ? 'Copied!' : 'Copy'}
+              {copied ? "Copied!" : "Copy"}
             </Button>
           </div>
         </div>

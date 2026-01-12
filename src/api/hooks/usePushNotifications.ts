@@ -1,5 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 /**
  * Web Push Notification Hooks
@@ -92,13 +92,13 @@ export interface NotificationTemplate {
 // =============================================================================
 
 export const pushNotificationKeys = {
-  all: ['push-notifications'] as const,
-  vapidKey: () => [...pushNotificationKeys.all, 'vapid-key'] as const,
-  subscriptions: () => [...pushNotificationKeys.all, 'subscriptions'] as const,
-  preferences: () => [...pushNotificationKeys.all, 'preferences'] as const,
-  history: () => [...pushNotificationKeys.all, 'history'] as const,
-  stats: () => [...pushNotificationKeys.all, 'stats'] as const,
-  templates: () => [...pushNotificationKeys.all, 'templates'] as const,
+  all: ["push-notifications"] as const,
+  vapidKey: () => [...pushNotificationKeys.all, "vapid-key"] as const,
+  subscriptions: () => [...pushNotificationKeys.all, "subscriptions"] as const,
+  preferences: () => [...pushNotificationKeys.all, "preferences"] as const,
+  history: () => [...pushNotificationKeys.all, "history"] as const,
+  stats: () => [...pushNotificationKeys.all, "stats"] as const,
+  templates: () => [...pushNotificationKeys.all, "templates"] as const,
 };
 
 // =============================================================================
@@ -112,7 +112,7 @@ export function useVapidKey() {
   return useQuery({
     queryKey: pushNotificationKeys.vapidKey(),
     queryFn: async (): Promise<{ publicKey: string }> => {
-      const { data } = await apiClient.get('/notifications/push/vapid-key');
+      const { data } = await apiClient.get("/notifications/push/vapid-key");
       return data;
     },
     staleTime: Infinity, // VAPID key doesn't change
@@ -135,11 +135,16 @@ export function useSubscribePush() {
       device_name?: string;
       device_type?: string;
     }): Promise<SubscriptionResponse> => {
-      const { data } = await apiClient.post('/notifications/push/subscribe', params);
+      const { data } = await apiClient.post(
+        "/notifications/push/subscribe",
+        params,
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: pushNotificationKeys.subscriptions() });
+      queryClient.invalidateQueries({
+        queryKey: pushNotificationKeys.subscriptions(),
+      });
     },
   });
 }
@@ -152,13 +157,15 @@ export function useUnsubscribePush() {
 
   return useMutation({
     mutationFn: async (endpoint: string): Promise<{ success: boolean }> => {
-      const { data } = await apiClient.delete('/notifications/push/subscribe', {
+      const { data } = await apiClient.delete("/notifications/push/subscribe", {
         params: { endpoint },
       });
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: pushNotificationKeys.subscriptions() });
+      queryClient.invalidateQueries({
+        queryKey: pushNotificationKeys.subscriptions(),
+      });
     },
   });
 }
@@ -170,7 +177,7 @@ export function usePushSubscriptions() {
   return useQuery({
     queryKey: pushNotificationKeys.subscriptions(),
     queryFn: async (): Promise<{ subscriptions: SubscriptionResponse[] }> => {
-      const { data } = await apiClient.get('/notifications/push/subscriptions');
+      const { data } = await apiClient.get("/notifications/push/subscriptions");
       return data;
     },
   });
@@ -187,18 +194,25 @@ export function useSendPushNotification() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (request: SendNotificationRequest): Promise<{
+    mutationFn: async (
+      request: SendNotificationRequest,
+    ): Promise<{
       notification_id: string;
       title: string;
       delivered: number;
       failed: number;
       sent_at: string;
     }> => {
-      const { data } = await apiClient.post('/notifications/push/send', request);
+      const { data } = await apiClient.post(
+        "/notifications/push/send",
+        request,
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: pushNotificationKeys.history() });
+      queryClient.invalidateQueries({
+        queryKey: pushNotificationKeys.history(),
+      });
       queryClient.invalidateQueries({ queryKey: pushNotificationKeys.stats() });
     },
   });
@@ -215,7 +229,7 @@ export function useSendTestNotification() {
       title: string;
       body: string;
     }> => {
-      const { data } = await apiClient.post('/notifications/push/send/test');
+      const { data } = await apiClient.post("/notifications/push/send/test");
       return data;
     },
   });
@@ -232,7 +246,7 @@ export function useNotificationPreferences() {
   return useQuery({
     queryKey: pushNotificationKeys.preferences(),
     queryFn: async (): Promise<NotificationPreferences> => {
-      const { data } = await apiClient.get('/notifications/push/preferences');
+      const { data } = await apiClient.get("/notifications/push/preferences");
       return data;
     },
   });
@@ -245,12 +259,19 @@ export function useUpdateNotificationPreferences() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (preferences: Partial<NotificationPreferences>): Promise<NotificationPreferences> => {
-      const { data } = await apiClient.patch('/notifications/push/preferences', preferences);
+    mutationFn: async (
+      preferences: Partial<NotificationPreferences>,
+    ): Promise<NotificationPreferences> => {
+      const { data } = await apiClient.patch(
+        "/notifications/push/preferences",
+        preferences,
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: pushNotificationKeys.preferences() });
+      queryClient.invalidateQueries({
+        queryKey: pushNotificationKeys.preferences(),
+      });
     },
   });
 }
@@ -271,7 +292,7 @@ export function useNotificationHistory(page = 1, pageSize = 20) {
       page: number;
       page_size: number;
     }> => {
-      const { data } = await apiClient.get('/notifications/push/history', {
+      const { data } = await apiClient.get("/notifications/push/history", {
         params: { page, page_size: pageSize },
       });
       return data;
@@ -286,7 +307,7 @@ export function useNotificationStats() {
   return useQuery({
     queryKey: pushNotificationKeys.stats(),
     queryFn: async (): Promise<NotificationStats> => {
-      const { data } = await apiClient.get('/notifications/push/stats');
+      const { data } = await apiClient.get("/notifications/push/stats");
       return data;
     },
     staleTime: 60_000, // 1 minute
@@ -304,7 +325,7 @@ export function useNotificationTemplates() {
   return useQuery({
     queryKey: pushNotificationKeys.templates(),
     queryFn: async (): Promise<{ templates: NotificationTemplate[] }> => {
-      const { data } = await apiClient.get('/notifications/push/templates');
+      const { data } = await apiClient.get("/notifications/push/templates");
       return data;
     },
   });
@@ -331,13 +352,17 @@ export function useScheduleNotification() {
       target_users: string | number;
       status: string;
     }> => {
-      const { data } = await apiClient.post('/notifications/push/schedule', null, {
-        params: {
-          title: params.title,
-          body: params.body,
-          scheduled_for: params.scheduled_for,
+      const { data } = await apiClient.post(
+        "/notifications/push/schedule",
+        null,
+        {
+          params: {
+            title: params.title,
+            body: params.body,
+            scheduled_for: params.scheduled_for,
+          },
         },
-      });
+      );
       return data;
     },
   });
@@ -348,9 +373,9 @@ export function useScheduleNotification() {
  */
 export function useScheduledNotifications() {
   return useQuery({
-    queryKey: [...pushNotificationKeys.all, 'scheduled'],
+    queryKey: [...pushNotificationKeys.all, "scheduled"],
     queryFn: async (): Promise<{ scheduled: unknown[]; count: number }> => {
-      const { data } = await apiClient.get('/notifications/push/scheduled');
+      const { data } = await apiClient.get("/notifications/push/scheduled");
       return data;
     },
   });
@@ -364,11 +389,15 @@ export function useCancelScheduledNotification() {
 
   return useMutation({
     mutationFn: async (scheduleId: string): Promise<{ success: boolean }> => {
-      const { data } = await apiClient.delete(`/notifications/push/scheduled/${scheduleId}`);
+      const { data } = await apiClient.delete(
+        `/notifications/push/scheduled/${scheduleId}`,
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: [...pushNotificationKeys.all, 'scheduled'] });
+      queryClient.invalidateQueries({
+        queryKey: [...pushNotificationKeys.all, "scheduled"],
+      });
     },
   });
 }
@@ -381,7 +410,7 @@ export function useCancelScheduledNotification() {
  * Check if push notifications are supported
  */
 export function isPushSupported(): boolean {
-  return 'PushManager' in window && 'serviceWorker' in navigator;
+  return "PushManager" in window && "serviceWorker" in navigator;
 }
 
 /**
@@ -395,8 +424,8 @@ export async function getCurrentPushSubscription(): Promise<PushSubscription | n
 
   if (!subscription) return null;
 
-  const p256dh = subscription.getKey('p256dh');
-  const auth = subscription.getKey('auth');
+  const p256dh = subscription.getKey("p256dh");
+  const auth = subscription.getKey("auth");
 
   if (!p256dh || !auth) return null;
 
@@ -413,8 +442,8 @@ export async function getCurrentPushSubscription(): Promise<PushSubscription | n
  * Request push notification permission
  */
 export async function requestPushPermission(): Promise<NotificationPermission> {
-  if (!('Notification' in window)) {
-    return 'denied';
+  if (!("Notification" in window)) {
+    return "denied";
   }
   return await Notification.requestPermission();
 }
@@ -422,11 +451,13 @@ export async function requestPushPermission(): Promise<NotificationPermission> {
 /**
  * Subscribe to browser push notifications
  */
-export async function subscribeToBrowserPush(vapidPublicKey: string): Promise<PushSubscription | null> {
+export async function subscribeToBrowserPush(
+  vapidPublicKey: string,
+): Promise<PushSubscription | null> {
   if (!isPushSupported()) return null;
 
   const permission = await requestPushPermission();
-  if (permission !== 'granted') return null;
+  if (permission !== "granted") return null;
 
   const registration = await navigator.serviceWorker.ready;
 
@@ -438,8 +469,8 @@ export async function subscribeToBrowserPush(vapidPublicKey: string): Promise<Pu
     applicationServerKey,
   });
 
-  const p256dh = subscription.getKey('p256dh');
-  const auth = subscription.getKey('auth');
+  const p256dh = subscription.getKey("p256dh");
+  const auth = subscription.getKey("auth");
 
   if (!p256dh || !auth) return null;
 
@@ -470,8 +501,8 @@ export async function unsubscribeFromBrowserPush(): Promise<boolean> {
  * Helper to convert VAPID key
  */
 function urlBase64ToUint8Array(base64String: string): ArrayBuffer {
-  const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
 
   const rawData = window.atob(base64);
   const outputArray = new Uint8Array(rawData.length);

@@ -1,6 +1,6 @@
-import { useState, useRef, useEffect, useCallback } from 'react';
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useState, useRef, useEffect, useCallback } from "react";
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 /**
  * Agentic AI Dispatch Types
@@ -10,7 +10,12 @@ import { apiClient } from '@/api/client';
 
 export interface AIDispatchSuggestion {
   id: string;
-  type: 'assign' | 'reschedule' | 'route_optimize' | 'parts_order' | 'follow_up';
+  type:
+    | "assign"
+    | "reschedule"
+    | "route_optimize"
+    | "parts_order"
+    | "follow_up";
   confidence: number; // 0-1
   title: string;
   description: string;
@@ -30,7 +35,7 @@ export interface AIDispatchSuggestion {
 
 export interface AIDispatchAction {
   id: string;
-  type: 'primary' | 'secondary';
+  type: "primary" | "secondary";
   label: string;
   description?: string;
   payload: Record<string, unknown>;
@@ -100,10 +105,10 @@ export interface AIDispatchStats {
  * Query keys for AI Dispatch
  */
 export const aiDispatchKeys = {
-  all: ['ai-dispatch'] as const,
-  suggestions: () => [...aiDispatchKeys.all, 'suggestions'] as const,
-  history: () => [...aiDispatchKeys.all, 'history'] as const,
-  stats: () => [...aiDispatchKeys.all, 'stats'] as const,
+  all: ["ai-dispatch"] as const,
+  suggestions: () => [...aiDispatchKeys.all, "suggestions"] as const,
+  history: () => [...aiDispatchKeys.all, "history"] as const,
+  stats: () => [...aiDispatchKeys.all, "stats"] as const,
 };
 
 /**
@@ -120,11 +125,11 @@ export function useAIDispatchSuggestions() {
     queryKey: aiDispatchKeys.suggestions(),
     queryFn: async (): Promise<AIDispatchSuggestion[]> => {
       try {
-        const { data } = await apiClient.get('/ai/dispatch/suggestions');
+        const { data } = await apiClient.get("/ai/dispatch/suggestions");
         return data.suggestions || [];
       } catch (error: unknown) {
         // Return empty array if endpoint not implemented (404)
-        if (error && typeof error === 'object' && 'response' in error) {
+        if (error && typeof error === "object" && "response" in error) {
           const axiosError = error as { response?: { status?: number } };
           if (axiosError.response?.status === 404) {
             return [];
@@ -150,8 +155,10 @@ export function useAIDispatchPrompt() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (request: AIDispatchRequest): Promise<AIDispatchResponse> => {
-      const { data } = await apiClient.post('/ai/dispatch/prompt', request);
+    mutationFn: async (
+      request: AIDispatchRequest,
+    ): Promise<AIDispatchResponse> => {
+      const { data } = await apiClient.post("/ai/dispatch/prompt", request);
       return data;
     },
     onSuccess: () => {
@@ -174,15 +181,15 @@ export function useExecuteAIAction() {
     }): Promise<{ success: boolean; message: string }> => {
       const { data } = await apiClient.post(
         `/ai/dispatch/suggestions/${params.suggestion_id}/execute`,
-        { action_id: params.action_id }
+        { action_id: params.action_id },
       );
       return data;
     },
     onSuccess: () => {
       // Refresh all related data
       queryClient.invalidateQueries({ queryKey: aiDispatchKeys.suggestions() });
-      queryClient.invalidateQueries({ queryKey: ['work-orders'] });
-      queryClient.invalidateQueries({ queryKey: ['schedule'] });
+      queryClient.invalidateQueries({ queryKey: ["work-orders"] });
+      queryClient.invalidateQueries({ queryKey: ["schedule"] });
     },
   });
 }
@@ -200,7 +207,7 @@ export function useDismissAISuggestion() {
     }): Promise<void> => {
       await apiClient.post(
         `/ai/dispatch/suggestions/${params.suggestion_id}/dismiss`,
-        { reason: params.reason }
+        { reason: params.reason },
       );
     },
     onSuccess: () => {
@@ -218,12 +225,12 @@ export function useAIDispatchHistory(limit?: number) {
     queryKey: aiDispatchKeys.history(),
     queryFn: async (): Promise<AIDispatchHistory[]> => {
       try {
-        const params = limit ? `?limit=${limit}` : '';
+        const params = limit ? `?limit=${limit}` : "";
         const { data } = await apiClient.get(`/ai/dispatch/history${params}`);
         return data.history || [];
       } catch (error: unknown) {
         // Return empty array if endpoint not implemented (404)
-        if (error && typeof error === 'object' && 'response' in error) {
+        if (error && typeof error === "object" && "response" in error) {
           const axiosError = error as { response?: { status?: number } };
           if (axiosError.response?.status === 404) {
             return [];
@@ -255,11 +262,11 @@ export function useAIDispatchStats() {
     queryKey: aiDispatchKeys.stats(),
     queryFn: async (): Promise<AIDispatchStats> => {
       try {
-        const { data } = await apiClient.get('/ai/dispatch/stats');
+        const { data } = await apiClient.get("/ai/dispatch/stats");
         return data;
       } catch (error: unknown) {
         // Return default stats if endpoint not implemented (404)
-        if (error && typeof error === 'object' && 'response' in error) {
+        if (error && typeof error === "object" && "response" in error) {
           const axiosError = error as { response?: { status?: number } };
           if (axiosError.response?.status === 404) {
             return DEFAULT_AI_STATS;
@@ -280,17 +287,21 @@ export function useAIAutoAssign() {
   return useMutation({
     mutationFn: async (params: {
       work_order_ids: string[];
-      constraints?: AIDispatchContext['constraints'];
+      constraints?: AIDispatchContext["constraints"];
     }): Promise<{
-      assignments: { work_order_id: string; technician_id: number; scheduled_time: string }[];
+      assignments: {
+        work_order_id: string;
+        technician_id: number;
+        scheduled_time: string;
+      }[];
       failures: { work_order_id: string; reason: string }[];
     }> => {
-      const { data } = await apiClient.post('/ai/dispatch/auto-assign', params);
+      const { data } = await apiClient.post("/ai/dispatch/auto-assign", params);
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['work-orders'] });
-      queryClient.invalidateQueries({ queryKey: ['schedule'] });
+      queryClient.invalidateQueries({ queryKey: ["work-orders"] });
+      queryClient.invalidateQueries({ queryKey: ["schedule"] });
     },
   });
 }
@@ -317,11 +328,14 @@ export function useAIRouteOptimize() {
         time_saved_minutes: number;
       };
     }> => {
-      const { data } = await apiClient.post('/ai/dispatch/optimize-routes', params);
+      const { data } = await apiClient.post(
+        "/ai/dispatch/optimize-routes",
+        params,
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['schedule'] });
+      queryClient.invalidateQueries({ queryKey: ["schedule"] });
     },
   });
 }
@@ -342,19 +356,25 @@ const DEFAULT_PREDICTIONS = {
  */
 export function useAIWorkOrderPredictions(workOrderId: string) {
   return useQuery({
-    queryKey: [...aiDispatchKeys.all, 'predictions', workOrderId],
+    queryKey: [...aiDispatchKeys.all, "predictions", workOrderId],
     queryFn: async (): Promise<{
       estimated_duration_minutes: number;
       predicted_parts: { name: string; probability: number }[];
       similar_jobs: { id: string; solution: string; success: boolean }[];
-      recommended_technician: { id: number; name: string; reason: string } | null;
+      recommended_technician: {
+        id: number;
+        name: string;
+        reason: string;
+      } | null;
     }> => {
       try {
-        const { data } = await apiClient.get(`/ai/dispatch/work-orders/${workOrderId}/predictions`);
+        const { data } = await apiClient.get(
+          `/ai/dispatch/work-orders/${workOrderId}/predictions`,
+        );
         return data;
       } catch (error: unknown) {
         // Return default predictions if endpoint not implemented (404)
-        if (error && typeof error === 'object' && 'response' in error) {
+        if (error && typeof error === "object" && "response" in error) {
           const axiosError = error as { response?: { status?: number } };
           if (axiosError.response?.status === 404) {
             return DEFAULT_PREDICTIONS;
@@ -393,14 +413,14 @@ export interface TechnicianDispatchInfo {
  */
 export function useTechnicianDispatchInfo() {
   return useQuery({
-    queryKey: [...aiDispatchKeys.all, 'technicians'],
+    queryKey: [...aiDispatchKeys.all, "technicians"],
     queryFn: async (): Promise<TechnicianDispatchInfo[]> => {
       try {
-        const { data } = await apiClient.get('/ai/dispatch/technicians');
+        const { data } = await apiClient.get("/ai/dispatch/technicians");
         return data.technicians || [];
       } catch (error: unknown) {
         // Return empty array if endpoint not implemented (404)
-        if (error && typeof error === 'object' && 'response' in error) {
+        if (error && typeof error === "object" && "response" in error) {
           const axiosError = error as { response?: { status?: number } };
           if (axiosError.response?.status === 404) {
             return [];
@@ -422,14 +442,16 @@ export function useTechnicianDispatchInfo() {
  */
 export function useAIWorkOrderSuggestions(workOrderId: string | undefined) {
   return useQuery({
-    queryKey: [...aiDispatchKeys.all, 'work-order-suggestions', workOrderId],
+    queryKey: [...aiDispatchKeys.all, "work-order-suggestions", workOrderId],
     queryFn: async (): Promise<AIDispatchSuggestion[]> => {
       try {
-        const { data } = await apiClient.get(`/ai/dispatch/work-orders/${workOrderId}/suggestions`);
+        const { data } = await apiClient.get(
+          `/ai/dispatch/work-orders/${workOrderId}/suggestions`,
+        );
         return data.suggestions || [];
       } catch (error: unknown) {
         // Return empty array if endpoint not implemented (404)
-        if (error && typeof error === 'object' && 'response' in error) {
+        if (error && typeof error === "object" && "response" in error) {
           const axiosError = error as { response?: { status?: number } };
           if (axiosError.response?.status === 404) {
             return [];
@@ -461,7 +483,7 @@ export function useModifyAISuggestion() {
     }): Promise<AIDispatchSuggestion> => {
       const { data } = await apiClient.patch(
         `/ai/dispatch/suggestions/${params.suggestion_id}`,
-        params.modifications
+        params.modifications,
       );
       return data;
     },
@@ -479,7 +501,7 @@ export function useRefreshAISuggestions() {
 
   return useMutation({
     mutationFn: async (): Promise<{ suggestions_generated: number }> => {
-      const { data } = await apiClient.post('/ai/dispatch/analyze');
+      const { data } = await apiClient.post("/ai/dispatch/analyze");
       return data;
     },
     onSuccess: () => {
@@ -502,7 +524,7 @@ export interface ExecutiveModeSettings {
   /** Minimum confidence threshold for auto-execution (0.8-1.0 recommended) */
   confidenceThreshold: number;
   /** Suggestion types that can be auto-executed */
-  allowedTypes: AIDispatchSuggestion['type'][];
+  allowedTypes: AIDispatchSuggestion["type"][];
   /** Maximum number of auto-executions per hour (safety limit) */
   maxAutoExecutionsPerHour: number;
   /** Show toast notification for each auto-execution */
@@ -511,12 +533,12 @@ export interface ExecutiveModeSettings {
   requireConnection: boolean;
 }
 
-const EXECUTIVE_MODE_STORAGE_KEY = 'ai-dispatch-executive-mode';
+const EXECUTIVE_MODE_STORAGE_KEY = "ai-dispatch-executive-mode";
 
 const DEFAULT_EXECUTIVE_SETTINGS: ExecutiveModeSettings = {
   enabled: false,
   confidenceThreshold: 0.9, // 90% confidence required
-  allowedTypes: ['assign', 'reschedule', 'route_optimize'],
+  allowedTypes: ["assign", "reschedule", "route_optimize"],
   maxAutoExecutionsPerHour: 10,
   showNotifications: true,
   requireConnection: true,
@@ -556,7 +578,9 @@ function saveExecutiveSettings(settings: ExecutiveModeSettings): void {
  * that can execute high-confidence suggestions without human approval.
  */
 export function useExecutiveMode() {
-  const [settings, setSettingsState] = useState<ExecutiveModeSettings>(loadExecutiveSettings);
+  const [settings, setSettingsState] = useState<ExecutiveModeSettings>(
+    loadExecutiveSettings,
+  );
   const [autoExecutionCount, setAutoExecutionCount] = useState(0);
   const lastResetRef = useRef<Date>(new Date());
 
@@ -585,13 +609,16 @@ export function useExecutiveMode() {
     setSettings({ enabled: !settings.enabled });
   }, [settings.enabled, setSettings]);
 
-  const canAutoExecute = useCallback((suggestion: AIDispatchSuggestion): boolean => {
-    if (!settings.enabled) return false;
-    if (suggestion.confidence < settings.confidenceThreshold) return false;
-    if (!settings.allowedTypes.includes(suggestion.type)) return false;
-    if (autoExecutionCount >= settings.maxAutoExecutionsPerHour) return false;
-    return true;
-  }, [settings, autoExecutionCount]);
+  const canAutoExecute = useCallback(
+    (suggestion: AIDispatchSuggestion): boolean => {
+      if (!settings.enabled) return false;
+      if (suggestion.confidence < settings.confidenceThreshold) return false;
+      if (!settings.allowedTypes.includes(suggestion.type)) return false;
+      if (autoExecutionCount >= settings.maxAutoExecutionsPerHour) return false;
+      return true;
+    },
+    [settings, autoExecutionCount],
+  );
 
   const incrementAutoExecutionCount = useCallback(() => {
     setAutoExecutionCount((prev) => prev + 1);
@@ -604,6 +631,7 @@ export function useExecutiveMode() {
     canAutoExecute,
     incrementAutoExecutionCount,
     autoExecutionCount,
-    remainingAutoExecutions: settings.maxAutoExecutionsPerHour - autoExecutionCount,
+    remainingAutoExecutions:
+      settings.maxAutoExecutionsPerHour - autoExecutionCount,
   };
 }

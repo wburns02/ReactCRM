@@ -1,78 +1,78 @@
-import { z } from 'zod';
-import { paginatedResponseSchema } from './common.ts';
+import { z } from "zod";
+import { paginatedResponseSchema } from "./common.ts";
 
 /**
  * Work Order Status enum - matches backend WorkOrderStatus
  */
 export const workOrderStatusSchema = z.enum([
-  'draft',
-  'scheduled',
-  'confirmed',
-  'enroute',
-  'on_site',
-  'in_progress',
-  'completed',
-  'canceled',
-  'requires_followup',
+  "draft",
+  "scheduled",
+  "confirmed",
+  "enroute",
+  "on_site",
+  "in_progress",
+  "completed",
+  "canceled",
+  "requires_followup",
 ]);
 export type WorkOrderStatus = z.infer<typeof workOrderStatusSchema>;
 
 export const WORK_ORDER_STATUS_LABELS: Record<WorkOrderStatus, string> = {
-  draft: 'Draft',
-  scheduled: 'Scheduled',
-  confirmed: 'Confirmed',
-  enroute: 'En Route',
-  on_site: 'On Site',
-  in_progress: 'In Progress',
-  completed: 'Completed',
-  canceled: 'Canceled',
-  requires_followup: 'Requires Follow-up',
+  draft: "Draft",
+  scheduled: "Scheduled",
+  confirmed: "Confirmed",
+  enroute: "En Route",
+  on_site: "On Site",
+  in_progress: "In Progress",
+  completed: "Completed",
+  canceled: "Canceled",
+  requires_followup: "Requires Follow-up",
 };
 
 /**
  * Job/Service Type enum - matches backend ServiceType
  */
 export const jobTypeSchema = z.enum([
-  'pumping',
-  'inspection',
-  'repair',
-  'installation',
-  'emergency',
-  'maintenance',
-  'grease_trap',
-  'camera_inspection',
+  "pumping",
+  "inspection",
+  "repair",
+  "installation",
+  "emergency",
+  "maintenance",
+  "grease_trap",
+  "camera_inspection",
 ]);
 export type JobType = z.infer<typeof jobTypeSchema>;
 
 export const JOB_TYPE_LABELS: Record<JobType, string> = {
-  pumping: 'Pumping',
-  inspection: 'Inspection',
-  repair: 'Repair',
-  installation: 'Installation',
-  emergency: 'Emergency',
-  maintenance: 'Maintenance',
-  grease_trap: 'Grease Trap',
-  camera_inspection: 'Camera Inspection',
+  pumping: "Pumping",
+  inspection: "Inspection",
+  repair: "Repair",
+  installation: "Installation",
+  emergency: "Emergency",
+  maintenance: "Maintenance",
+  grease_trap: "Grease Trap",
+  camera_inspection: "Camera Inspection",
 };
 
 /**
  * Priority enum - matches backend Priority
  */
 export const prioritySchema = z.enum([
-  'low',
-  'normal',
-  'high',
-  'urgent',
-  'emergency',
+  "low",
+  "normal",
+  "high",
+  "urgent",
+  "emergency",
 ]);
 export type Priority = z.infer<typeof prioritySchema>;
 
 export const PRIORITY_LABELS: Record<Priority, string> = {
-  low: 'Low',
-  normal: 'Normal',
-  high: 'High',
-  urgent: 'Urgent',
-  emergency: 'Emergency',
+  low: "Low",
+  normal: "Normal",
+  high: "High",
+  urgent: "Urgent",
+  emergency: "Emergency",
 };
 
 /**
@@ -82,13 +82,16 @@ export const workOrderSchema = z.object({
   id: z.string(),
   customer_id: z.union([z.string(), z.number()]).transform(String),
   customer_name: z.string().nullable().optional(),
-  customer: z.object({
-    id: z.union([z.string(), z.number()]).transform(String),
-    first_name: z.string(),
-    last_name: z.string(),
-    email: z.string().nullable().optional(),
-    phone: z.string().nullable().optional(),
-  }).nullable().optional(),
+  customer: z
+    .object({
+      id: z.union([z.string(), z.number()]).transform(String),
+      first_name: z.string(),
+      last_name: z.string(),
+      email: z.string().nullable().optional(),
+      phone: z.string().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
   // Enum fields
   status: workOrderStatusSchema,
   job_type: jobTypeSchema,
@@ -122,7 +125,8 @@ export type WorkOrder = z.infer<typeof workOrderSchema>;
 /**
  * Paginated work order list response
  */
-export const workOrderListResponseSchema = paginatedResponseSchema(workOrderSchema);
+export const workOrderListResponseSchema =
+  paginatedResponseSchema(workOrderSchema);
 export type WorkOrderListResponse = z.infer<typeof workOrderListResponseSchema>;
 
 /**
@@ -140,10 +144,10 @@ export interface WorkOrderFilters {
  * Create/update work order request
  */
 export const workOrderFormSchema = z.object({
-  customer_id: z.coerce.number().min(1, 'Customer is required'),
+  customer_id: z.coerce.number().min(1, "Customer is required"),
   job_type: jobTypeSchema,
-  status: workOrderStatusSchema.default('draft'),
-  priority: prioritySchema.default('normal'),
+  status: workOrderStatusSchema.default("draft"),
+  priority: prioritySchema.default("normal"),
   // Scheduling
   scheduled_date: z.string().optional(),
   time_window_start: z.string().optional(),
@@ -156,7 +160,7 @@ export const workOrderFormSchema = z.object({
   service_address_line1: z.string().optional(),
   service_address_line2: z.string().optional(),
   service_city: z.string().optional(),
-  service_state: z.string().max(2, 'Use 2-letter state code').optional(),
+  service_state: z.string().max(2, "Use 2-letter state code").optional(),
   service_postal_code: z.string().optional(),
   // Work details
   notes: z.string().optional(),
@@ -172,41 +176,41 @@ export type WorkOrderFormData = z.infer<typeof workOrderFormSchema>;
  * Status colors for UI rendering
  */
 export const STATUS_COLORS: Record<WorkOrderStatus, string> = {
-  draft: '#6b7280',
-  scheduled: '#3b82f6',
-  confirmed: '#10b981',
-  enroute: '#f59e0b',
-  on_site: '#06b6d4',
-  in_progress: '#8b5cf6',
-  completed: '#22c55e',
-  canceled: '#ef4444',
-  requires_followup: '#f97316',
+  draft: "#6b7280",
+  scheduled: "#3b82f6",
+  confirmed: "#10b981",
+  enroute: "#f59e0b",
+  on_site: "#06b6d4",
+  in_progress: "#8b5cf6",
+  completed: "#22c55e",
+  canceled: "#ef4444",
+  requires_followup: "#f97316",
 };
 
 /**
  * Priority colors for UI rendering
  */
 export const PRIORITY_COLORS: Record<Priority, string> = {
-  low: '#6b7280',
-  normal: '#3b82f6',
-  high: '#f59e0b',
-  urgent: '#ef4444',
-  emergency: '#dc2626',
+  low: "#6b7280",
+  normal: "#3b82f6",
+  high: "#f59e0b",
+  urgent: "#ef4444",
+  emergency: "#dc2626",
 };
 
 /**
  * Photo types for work order documentation
  */
 export const photoTypeSchema = z.enum([
-  'before',
-  'after',
-  'manifest',
-  'damage',
-  'lid',
-  'tank',
-  'access',
-  'equipment',
-  'other',
+  "before",
+  "after",
+  "manifest",
+  "damage",
+  "lid",
+  "tank",
+  "access",
+  "equipment",
+  "other",
 ]);
 export type PhotoType = z.infer<typeof photoTypeSchema>;
 
@@ -233,7 +237,7 @@ export interface WorkOrderPhoto {
   data: string;
   thumbnail: string;
   metadata: PhotoMetadata;
-  uploadStatus: 'pending' | 'uploading' | 'uploaded' | 'failed';
+  uploadStatus: "pending" | "uploading" | "uploaded" | "failed";
   uploadProgress?: number;
   createdAt: string;
 }
@@ -241,7 +245,7 @@ export interface WorkOrderPhoto {
 /**
  * Signature types
  */
-export const signatureTypeSchema = z.enum(['customer', 'technician']);
+export const signatureTypeSchema = z.enum(["customer", "technician"]);
 export type SignatureType = z.infer<typeof signatureTypeSchema>;
 
 /**
@@ -254,7 +258,7 @@ export interface WorkOrderSignature {
   signerName: string;
   data: string;
   timestamp: string;
-  uploadStatus: 'pending' | 'uploading' | 'uploaded' | 'failed';
+  uploadStatus: "pending" | "uploading" | "uploaded" | "failed";
 }
 
 /**
@@ -274,12 +278,12 @@ export interface LineItem {
  * Payment status
  */
 export const paymentStatusSchema = z.enum([
-  'not_invoiced',
-  'invoiced',
-  'partial',
-  'paid',
-  'overdue',
-  'refunded',
+  "not_invoiced",
+  "invoiced",
+  "partial",
+  "paid",
+  "overdue",
+  "refunded",
 ]);
 export type PaymentStatus = z.infer<typeof paymentStatusSchema>;
 
@@ -299,19 +303,19 @@ export interface StatusChange {
  * Activity log entry types
  */
 export const activityTypeSchema = z.enum([
-  'created',
-  'status_change',
-  'assigned',
-  'rescheduled',
-  'note_added',
-  'photo_added',
-  'signature_captured',
-  'payment_received',
-  'invoice_sent',
-  'customer_notified',
-  'technician_enroute',
-  'arrived',
-  'completed',
+  "created",
+  "status_change",
+  "assigned",
+  "rescheduled",
+  "note_added",
+  "photo_added",
+  "signature_captured",
+  "payment_received",
+  "invoice_sent",
+  "customer_notified",
+  "technician_enroute",
+  "arrived",
+  "completed",
 ]);
 export type ActivityType = z.infer<typeof activityTypeSchema>;
 
@@ -344,7 +348,7 @@ export interface InspectionItem {
   id: string;
   category: string;
   label: string;
-  type: 'checkbox' | 'text' | 'number' | 'select' | 'photo';
+  type: "checkbox" | "text" | "number" | "select" | "photo";
   required: boolean;
   options?: string[];
   value?: unknown;
@@ -408,11 +412,11 @@ export interface WorkOrderStats {
  * Scheduling conflict
  */
 export interface SchedulingConflict {
-  type: 'overlap' | 'capacity' | 'equipment' | 'travel_time';
+  type: "overlap" | "capacity" | "equipment" | "travel_time";
   workOrderId: string;
   technicianId?: string;
   message: string;
-  severity: 'warning' | 'error';
+  severity: "warning" | "error";
 }
 
 /**
@@ -433,7 +437,13 @@ export interface SchedulingSuggestion {
  * Recurring schedule pattern
  */
 export interface RecurringPattern {
-  frequency: 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'quarterly' | 'yearly';
+  frequency:
+    | "daily"
+    | "weekly"
+    | "biweekly"
+    | "monthly"
+    | "quarterly"
+    | "yearly";
   interval: number;
   daysOfWeek?: number[];
   dayOfMonth?: number;
@@ -460,8 +470,8 @@ export interface Geofence {
 export interface CommunicationTemplate {
   id: string;
   name: string;
-  type: 'sms' | 'email';
-  trigger: 'manual' | 'scheduled' | 'confirmed' | 'enroute' | 'completed';
+  type: "sms" | "email";
+  trigger: "manual" | "scheduled" | "confirmed" | "enroute" | "completed";
   subject?: string;
   body: string;
   variables: string[];

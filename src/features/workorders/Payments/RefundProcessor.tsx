@@ -4,24 +4,29 @@
  * Issue full or partial refunds with reason selection and confirmation.
  */
 
-import { useState, useMemo } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
+import { useState, useMemo } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
-import { cn } from '@/lib/utils.ts';
-import { formatCurrency } from './utils/pricingEngine.ts';
-import { useProcessRefund } from './hooks/usePayments.ts';
-import type { Payment } from '@/api/types/payment.ts';
+} from "@/components/ui/Dialog.tsx";
+import { cn } from "@/lib/utils.ts";
+import { formatCurrency } from "./utils/pricingEngine.ts";
+import { useProcessRefund } from "./hooks/usePayments.ts";
+import type { Payment } from "@/api/types/payment.ts";
 
 // ============================================================================
 // TYPES
@@ -42,13 +47,13 @@ export interface RefundProcessorProps {
 
 // Refund reason options
 const REFUND_REASONS = [
-  { value: 'customer_request', label: 'Customer Request' },
-  { value: 'duplicate_charge', label: 'Duplicate Charge' },
-  { value: 'service_issue', label: 'Service Issue' },
-  { value: 'billing_error', label: 'Billing Error' },
-  { value: 'cancelled_service', label: 'Cancelled Service' },
-  { value: 'pricing_dispute', label: 'Pricing Dispute' },
-  { value: 'other', label: 'Other' },
+  { value: "customer_request", label: "Customer Request" },
+  { value: "duplicate_charge", label: "Duplicate Charge" },
+  { value: "service_issue", label: "Service Issue" },
+  { value: "billing_error", label: "Billing Error" },
+  { value: "cancelled_service", label: "Cancelled Service" },
+  { value: "pricing_dispute", label: "Pricing Dispute" },
+  { value: "other", label: "Other" },
 ] as const;
 
 // ============================================================================
@@ -62,10 +67,10 @@ export function RefundProcessor({
   onCancel,
   className,
 }: RefundProcessorProps) {
-  const [refundType, setRefundType] = useState<'full' | 'partial'>('full');
+  const [refundType, setRefundType] = useState<"full" | "partial">("full");
   const [partialAmount, setPartialAmount] = useState<number>(0);
-  const [reason, setReason] = useState<string>('');
-  const [notes, setNotes] = useState('');
+  const [reason, setReason] = useState<string>("");
+  const [notes, setNotes] = useState("");
   const [showConfirmDialog, setShowConfirmDialog] = useState(false);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
@@ -74,7 +79,7 @@ export function RefundProcessor({
 
   // Calculate refund amount
   const refundAmount = useMemo(() => {
-    if (refundType === 'full') {
+    if (refundType === "full") {
       return payment.amount;
     }
     return Math.min(partialAmount, payment.amount);
@@ -83,7 +88,10 @@ export function RefundProcessor({
   // Validate form
   const isFormValid = useMemo(() => {
     if (!reason) return false;
-    if (refundType === 'partial' && (partialAmount <= 0 || partialAmount > payment.amount)) {
+    if (
+      refundType === "partial" &&
+      (partialAmount <= 0 || partialAmount > payment.amount)
+    ) {
       return false;
     }
     return true;
@@ -95,7 +103,8 @@ export function RefundProcessor({
     setSuccessMessage(null);
     setErrorMessage(null);
 
-    const reasonLabel = REFUND_REASONS.find((r) => r.value === reason)?.label || reason;
+    const reasonLabel =
+      REFUND_REASONS.find((r) => r.value === reason)?.label || reason;
     const fullReason = notes ? `${reasonLabel}: ${notes}` : reasonLabel;
 
     try {
@@ -103,20 +112,21 @@ export function RefundProcessor({
         paymentId: payment.id,
         amount: refundAmount,
         reason: fullReason,
-        fullRefund: refundType === 'full',
+        fullRefund: refundType === "full",
       });
 
       if (result.success && result.refundId) {
         setSuccessMessage(
-          `Refund of ${formatCurrency(result.refundedAmount || refundAmount)} processed successfully`
+          `Refund of ${formatCurrency(result.refundedAmount || refundAmount)} processed successfully`,
         );
         onSuccess?.(result.refundId, result.refundedAmount || refundAmount);
       } else {
-        setErrorMessage(result.error || 'Refund processing failed');
-        onError?.(result.error || 'Refund processing failed');
+        setErrorMessage(result.error || "Refund processing failed");
+        onError?.(result.error || "Refund processing failed");
       }
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : 'Refund processing failed';
+      const errorMsg =
+        error instanceof Error ? error.message : "Refund processing failed";
       setErrorMessage(errorMsg);
       onError?.(errorMsg);
     }
@@ -125,23 +135,23 @@ export function RefundProcessor({
   // Get payment method display
   const getPaymentMethodDisplay = () => {
     switch (payment.payment_method) {
-      case 'card':
-        return 'Credit/Debit Card';
-      case 'cash':
-        return 'Cash';
-      case 'check':
-        return 'Check';
-      case 'bank_transfer':
-        return 'ACH/Bank Transfer';
-      case 'payment_link':
-        return 'Payment Link';
+      case "card":
+        return "Credit/Debit Card";
+      case "cash":
+        return "Cash";
+      case "check":
+        return "Check";
+      case "bank_transfer":
+        return "ACH/Bank Transfer";
+      case "payment_link":
+        return "Payment Link";
       default:
-        return 'Other';
+        return "Other";
     }
   };
 
   return (
-    <Card className={cn('w-full', className)}>
+    <Card className={cn("w-full", className)}>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <svg
@@ -204,15 +214,21 @@ export function RefundProcessor({
 
         {/* Original Payment Details */}
         <div className="mb-6 p-4 bg-bg-hover/50 rounded-lg">
-          <h4 className="text-sm font-medium text-text-secondary mb-3">Original Payment</h4>
+          <h4 className="text-sm font-medium text-text-secondary mb-3">
+            Original Payment
+          </h4>
           <div className="grid grid-cols-2 gap-4">
             <div>
               <p className="text-xs text-text-muted">Transaction ID</p>
-              <p className="font-mono text-sm">{payment.transaction_id || payment.id}</p>
+              <p className="font-mono text-sm">
+                {payment.transaction_id || payment.id}
+              </p>
             </div>
             <div>
               <p className="text-xs text-text-muted">Amount</p>
-              <p className="text-lg font-bold">{formatCurrency(payment.amount)}</p>
+              <p className="text-lg font-bold">
+                {formatCurrency(payment.amount)}
+              </p>
             </div>
             <div>
               <p className="text-xs text-text-muted">Payment Method</p>
@@ -220,7 +236,9 @@ export function RefundProcessor({
             </div>
             <div>
               <p className="text-xs text-text-muted">Date</p>
-              <p className="text-sm">{new Date(payment.payment_date).toLocaleDateString()}</p>
+              <p className="text-sm">
+                {new Date(payment.payment_date).toLocaleDateString()}
+              </p>
             </div>
           </div>
           {payment.customer_name && (
@@ -237,50 +255,54 @@ export function RefundProcessor({
           <div className="grid grid-cols-2 gap-4">
             <button
               type="button"
-              onClick={() => setRefundType('full')}
+              onClick={() => setRefundType("full")}
               className={cn(
-                'p-4 rounded-lg border-2 text-left transition-all',
-                refundType === 'full'
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border hover:border-primary/50'
+                "p-4 rounded-lg border-2 text-left transition-all",
+                refundType === "full"
+                  ? "border-primary bg-primary/5"
+                  : "border-border hover:border-primary/50",
               )}
             >
               <div className="flex items-center gap-3">
                 <div
                   className={cn(
-                    'w-5 h-5 rounded-full border-2 flex items-center justify-center',
-                    refundType === 'full' ? 'border-primary' : 'border-border'
+                    "w-5 h-5 rounded-full border-2 flex items-center justify-center",
+                    refundType === "full" ? "border-primary" : "border-border",
                   )}
                 >
-                  {refundType === 'full' && (
+                  {refundType === "full" && (
                     <div className="w-2.5 h-2.5 rounded-full bg-primary" />
                   )}
                 </div>
                 <div>
                   <p className="font-medium">Full Refund</p>
-                  <p className="text-sm text-text-secondary">{formatCurrency(payment.amount)}</p>
+                  <p className="text-sm text-text-secondary">
+                    {formatCurrency(payment.amount)}
+                  </p>
                 </div>
               </div>
             </button>
 
             <button
               type="button"
-              onClick={() => setRefundType('partial')}
+              onClick={() => setRefundType("partial")}
               className={cn(
-                'p-4 rounded-lg border-2 text-left transition-all',
-                refundType === 'partial'
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border hover:border-primary/50'
+                "p-4 rounded-lg border-2 text-left transition-all",
+                refundType === "partial"
+                  ? "border-primary bg-primary/5"
+                  : "border-border hover:border-primary/50",
               )}
             >
               <div className="flex items-center gap-3">
                 <div
                   className={cn(
-                    'w-5 h-5 rounded-full border-2 flex items-center justify-center',
-                    refundType === 'partial' ? 'border-primary' : 'border-border'
+                    "w-5 h-5 rounded-full border-2 flex items-center justify-center",
+                    refundType === "partial"
+                      ? "border-primary"
+                      : "border-border",
                   )}
                 >
-                  {refundType === 'partial' && (
+                  {refundType === "partial" && (
                     <div className="w-2.5 h-2.5 rounded-full bg-primary" />
                   )}
                 </div>
@@ -294,26 +316,31 @@ export function RefundProcessor({
         </div>
 
         {/* Partial Amount Input */}
-        {refundType === 'partial' && (
+        {refundType === "partial" && (
           <div className="mb-6">
             <Label htmlFor="partial-amount">Refund Amount</Label>
             <div className="relative mt-1">
-              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">$</span>
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
+                $
+              </span>
               <Input
                 id="partial-amount"
                 type="number"
                 min="0.01"
                 max={payment.amount}
                 step="0.01"
-                value={partialAmount || ''}
-                onChange={(e) => setPartialAmount(parseFloat(e.target.value) || 0)}
+                value={partialAmount || ""}
+                onChange={(e) =>
+                  setPartialAmount(parseFloat(e.target.value) || 0)
+                }
                 className="pl-7"
                 error={partialAmount > payment.amount}
               />
             </div>
             {partialAmount > payment.amount && (
               <p className="text-sm text-danger mt-1">
-                Amount cannot exceed original payment ({formatCurrency(payment.amount)})
+                Amount cannot exceed original payment (
+                {formatCurrency(payment.amount)})
               </p>
             )}
           </div>
@@ -368,10 +395,12 @@ export function RefundProcessor({
             <div>
               <p className="font-medium text-warning">Refund Summary</p>
               <p className="text-sm text-text-secondary mt-1">
-                You are about to refund{' '}
-                <span className="font-bold">{formatCurrency(refundAmount)}</span>
-                {refundType === 'full' ? ' (full refund)' : ' (partial refund)'}. This action
-                cannot be undone.
+                You are about to refund{" "}
+                <span className="font-bold">
+                  {formatCurrency(refundAmount)}
+                </span>
+                {refundType === "full" ? " (full refund)" : " (partial refund)"}
+                . This action cannot be undone.
               </p>
             </div>
           </div>
@@ -429,9 +458,14 @@ export function RefundProcessor({
         </div>
 
         {/* Confirmation Dialog */}
-        <Dialog open={showConfirmDialog} onClose={() => setShowConfirmDialog(false)}>
+        <Dialog
+          open={showConfirmDialog}
+          onClose={() => setShowConfirmDialog(false)}
+        >
           <DialogContent size="sm">
-            <DialogHeader onClose={() => setShowConfirmDialog(false)}>Confirm Refund</DialogHeader>
+            <DialogHeader onClose={() => setShowConfirmDialog(false)}>
+              Confirm Refund
+            </DialogHeader>
             <DialogBody>
               <div className="text-center">
                 <div className="mx-auto w-12 h-12 rounded-full bg-danger/10 flex items-center justify-center mb-4">
@@ -452,13 +486,16 @@ export function RefundProcessor({
                   Refund {formatCurrency(refundAmount)}?
                 </p>
                 <p className="text-text-secondary">
-                  This will issue a {refundType} refund to the customer. This action cannot be
-                  undone.
+                  This will issue a {refundType} refund to the customer. This
+                  action cannot be undone.
                 </p>
               </div>
             </DialogBody>
             <DialogFooter>
-              <Button variant="secondary" onClick={() => setShowConfirmDialog(false)}>
+              <Button
+                variant="secondary"
+                onClick={() => setShowConfirmDialog(false)}
+              >
                 Cancel
               </Button>
               <Button variant="danger" onClick={handleSubmitRefund}>

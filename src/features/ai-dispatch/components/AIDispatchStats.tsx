@@ -1,7 +1,7 @@
-import { memo } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { useAIDispatchStats } from '@/api/hooks/useAIDispatch';
-import { Skeleton } from '@/components/ui/Skeleton';
+import { memo } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { useAIDispatchStats } from "@/api/hooks/useAIDispatch";
+import { Skeleton } from "@/components/ui/Skeleton";
 
 /**
  * AI Dispatch Stats Widget

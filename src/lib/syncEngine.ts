@@ -9,7 +9,7 @@
  * - Sync status tracking
  */
 
-import { apiClient } from '@/api/client';
+import { apiClient } from "@/api/client";
 import {
   getSyncQueueOrdered,
   updateSyncQueueItem,
@@ -18,7 +18,7 @@ import {
   markSyncSuccess,
   markSyncFailure,
   type SyncQueueItem,
-} from './db';
+} from "./db";
 
 // ============================================
 // Types
@@ -60,18 +60,18 @@ export interface ConflictInfo {
   entity: string;
   localData: unknown;
   serverData: unknown;
-  resolution: 'server_wins' | 'local_wins' | 'merged';
+  resolution: "server_wins" | "local_wins" | "merged";
   resolvedAt: number;
 }
 
 export type SyncEventType =
-  | 'sync_start'
-  | 'sync_complete'
-  | 'sync_error'
-  | 'item_synced'
-  | 'item_failed'
-  | 'conflict_detected'
-  | 'conflict_resolved';
+  | "sync_start"
+  | "sync_complete"
+  | "sync_error"
+  | "item_synced"
+  | "item_failed"
+  | "conflict_detected"
+  | "conflict_resolved";
 
 export interface SyncEvent {
   type: SyncEventType;
@@ -123,7 +123,7 @@ export class SyncEngine {
       timestamp: Date.now(),
       data,
     };
-    this.eventHandlers.forEach(handler => handler(event));
+    this.eventHandlers.forEach((handler) => handler(event));
   }
 
   // ============================================
@@ -138,7 +138,7 @@ export class SyncEngine {
   }
 
   private async delay(ms: number): Promise<void> {
-    return new Promise(resolve => setTimeout(resolve, ms));
+    return new Promise((resolve) => setTimeout(resolve, ms));
   }
 
   // ============================================
@@ -147,21 +147,21 @@ export class SyncEngine {
 
   private async resolveConflict(
     item: SyncQueueItem,
-    serverData: unknown
+    serverData: unknown,
   ): Promise<ConflictInfo> {
     const conflict: ConflictInfo = {
       itemId: item.id,
       entity: item.entity,
       localData: item.data,
       serverData,
-      resolution: 'server_wins',
+      resolution: "server_wins",
       resolvedAt: Date.now(),
     };
 
     if (this.config.serverWinsConflict) {
       // Server wins - we'll discard local changes
-      conflict.resolution = 'server_wins';
-      this.emit('conflict_resolved', conflict);
+      conflict.resolution = "server_wins";
+      this.emit("conflict_resolved", conflict);
     }
 
     this.conflictHistory.push(conflict);
@@ -188,19 +188,27 @@ export class SyncEngine {
       const endpoint = this.getEndpointForEntity(item.entity);
 
       switch (item.type) {
-        case 'create':
+        case "create":
           await apiClient.post(endpoint, item.data);
           break;
-        case 'update': {
-          const updateData = item.data as { id: string | number; [key: string]: unknown };
+        case "update": {
+          const updateData = item.data as {
+            id: string | number;
+            [key: string]: unknown;
+          };
           try {
             await apiClient.patch(`${endpoint}/${updateData.id}`, item.data);
           } catch (err: unknown) {
             // Check for conflict (409)
-            const error = err as { response?: { status: number; data: unknown } };
+            const error = err as {
+              response?: { status: number; data: unknown };
+            };
             if (error.response?.status === 409) {
-              const conflict = await this.resolveConflict(item, error.response.data);
-              this.emit('conflict_detected', conflict);
+              const conflict = await this.resolveConflict(
+                item,
+                error.response.data,
+              );
+              this.emit("conflict_detected", conflict);
               // For server-wins, we consider this a "success" since we accept server version
               return { success: true, conflict };
             }
@@ -208,7 +216,7 @@ export class SyncEngine {
           }
           break;
         }
-        case 'delete': {
+        case "delete": {
           const deleteData = item.data as { id: string | number };
           try {
             await apiClient.delete(`${endpoint}/${deleteData.id}`);
@@ -230,7 +238,7 @@ export class SyncEngine {
       const syncError: SyncError = {
         itemId: item.id,
         entity: item.entity,
-        message: error.message || 'Unknown error',
+        message: error.message || "Unknown error",
         code: error.response?.status?.toString(),
         retryable: this.isRetryableError(error),
       };
@@ -239,18 +247,18 @@ export class SyncEngine {
   }
 
   private async executeRequest(
-    method: 'POST' | 'PUT' | 'PATCH' | 'DELETE',
+    method: "POST" | "PUT" | "PATCH" | "DELETE",
     url: string,
-    data: unknown
+    data: unknown,
   ): Promise<unknown> {
     switch (method) {
-      case 'POST':
+      case "POST":
         return apiClient.post(url, data);
-      case 'PUT':
+      case "PUT":
         return apiClient.put(url, data);
-      case 'PATCH':
+      case "PATCH":
         return apiClient.patch(url, data);
-      case 'DELETE':
+      case "DELETE":
         return apiClient.delete(url);
     }
   }
@@ -262,20 +270,20 @@ export class SyncEngine {
     return status >= 500 || status === 408 || status === 429;
   }
 
-  private getEndpointForEntity(entity: SyncQueueItem['entity']): string {
+  private getEndpointForEntity(entity: SyncQueueItem["entity"]): string {
     switch (entity) {
-      case 'customer':
-        return '/customers';
-      case 'workOrder':
-        return '/work-orders';
-      case 'invoice':
-        return '/invoices';
-      case 'payment':
-        return '/payments';
-      case 'prospect':
-        return '/prospects';
-      case 'activity':
-        return '/activities';
+      case "customer":
+        return "/customers";
+      case "workOrder":
+        return "/work-orders";
+      case "invoice":
+        return "/invoices";
+      case "payment":
+        return "/payments";
+      case "prospect":
+        return "/prospects";
+      case "activity":
+        return "/activities";
       default:
         throw new Error(`Unknown entity type: ${entity}`);
     }
@@ -303,7 +311,9 @@ export class SyncEngine {
         success: 0,
         failed: 0,
         conflicts: 0,
-        errors: [{ itemId: '', entity: '', message: 'Offline', retryable: true }],
+        errors: [
+          { itemId: "", entity: "", message: "Offline", retryable: true },
+        ],
         syncedItems: [],
         failedItems: [],
         conflictItems: [],
@@ -323,7 +333,7 @@ export class SyncEngine {
       conflictItems: [],
     };
 
-    this.emit('sync_start');
+    this.emit("sync_start");
 
     try {
       const queue = await getSyncQueueOrdered();
@@ -331,7 +341,7 @@ export class SyncEngine {
       if (queue.length === 0) {
         await markSyncSuccess();
         await setLastSyncTime(Date.now());
-        this.emit('sync_complete', result);
+        this.emit("sync_complete", result);
         return result;
       }
 
@@ -374,13 +384,13 @@ export class SyncEngine {
             result.conflictItems.push(itemResult.conflict);
           }
 
-          this.emit('item_synced', { itemId: item.id, entity: item.entity });
+          this.emit("item_synced", { itemId: item.id, entity: item.entity });
         } else {
           // Update retry count
           const updatedItem: SyncQueueItem = {
             ...item,
             retries: item.retries + 1,
-            lastError: itemResult.error?.message || 'Unknown error',
+            lastError: itemResult.error?.message || "Unknown error",
           };
           await updateSyncQueueItem(updatedItem);
 
@@ -393,7 +403,10 @@ export class SyncEngine {
             result.errors.push(itemResult.error);
           }
 
-          this.emit('item_failed', { itemId: item.id, error: itemResult.error });
+          this.emit("item_failed", {
+            itemId: item.id,
+            error: itemResult.error,
+          });
         }
       }
 
@@ -412,16 +425,16 @@ export class SyncEngine {
         await markSyncFailure();
       }
 
-      this.emit('sync_complete', result);
+      this.emit("sync_complete", result);
     } catch (error) {
-      console.error('Sync engine error:', error);
+      console.error("Sync engine error:", error);
       result.errors.push({
-        itemId: '',
-        entity: '',
+        itemId: "",
+        entity: "",
         message: String(error),
         retryable: true,
       });
-      this.emit('sync_error', error);
+      this.emit("sync_error", error);
       await markSyncFailure();
     } finally {
       this.isSyncing = false;

@@ -1,32 +1,44 @@
-import { useMemo, useState, useEffect, useCallback, useRef } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import { useWorkOrders, useUnscheduledWorkOrders, useAssignWorkOrder } from '@/api/hooks/useWorkOrders.ts';
-import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Skeleton } from '@/components/ui/Skeleton.tsx';
-import { cn } from '@/lib/utils.ts';
-import { formatCurrency } from '@/lib/utils.ts';
+import { useMemo, useState, useEffect, useCallback, useRef } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import {
+  useWorkOrders,
+  useUnscheduledWorkOrders,
+  useAssignWorkOrder,
+} from "@/api/hooks/useWorkOrders.ts";
+import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Skeleton } from "@/components/ui/Skeleton.tsx";
+import { cn } from "@/lib/utils.ts";
+import { formatCurrency } from "@/lib/utils.ts";
 import {
   type WorkOrder,
   type JobType,
   type Priority,
   JOB_TYPE_LABELS,
   PRIORITY_LABELS,
-} from '@/api/types/workOrder.ts';
-import type { Technician } from '@/api/types/technician.ts';
+} from "@/api/types/workOrder.ts";
+import type { Technician } from "@/api/types/technician.ts";
 
 // Fix Leaflet default marker icon issue - DISABLE default markers entirely
 // We only use custom DivIcon markers for technicians
-delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: unknown })._getIconUrl;
+delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: unknown })
+  ._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
-  iconRetinaUrl: 'data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7',
-  shadowUrl: '',
+  iconUrl:
+    "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+  iconRetinaUrl:
+    "data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7",
+  shadowUrl: "",
 });
 
 // San Marcos, TX center (company location)
@@ -35,7 +47,7 @@ const COMPANY_CENTER: [number, number] = [29.8833, -97.9414];
 // ============================================
 // Technician Status Types
 // ============================================
-type TechnicianStatus = 'available' | 'busy' | 'offline';
+type TechnicianStatus = "available" | "busy" | "offline";
 
 interface TechnicianWithStatus extends Technician {
   status: TechnicianStatus;
@@ -47,8 +59,8 @@ interface TechnicianWithStatus extends Technician {
 // ============================================
 interface Alert {
   id: string;
-  type: 'running_late' | 'customer_waiting' | 'parts_needed' | 'emergency';
-  severity: 'warning' | 'danger' | 'info';
+  type: "running_late" | "customer_waiting" | "parts_needed" | "emergency";
+  severity: "warning" | "danger" | "info";
   message: string;
   workOrderId?: string;
   technicianName?: string;
@@ -60,7 +72,7 @@ interface Alert {
 // ============================================
 interface Toast {
   id: string;
-  type: 'success' | 'error' | 'info' | 'warning';
+  type: "success" | "error" | "info" | "warning";
   message: string;
   timestamp: Date;
 }
@@ -77,13 +89,21 @@ interface AssignmentConfirmation {
 // Keyboard Shortcuts Config
 // ============================================
 const KEYBOARD_SHORTCUTS = [
-  { keys: ['g', 'd'], description: 'Go to Dashboard', action: '/dashboard' },
-  { keys: ['g', 's'], description: 'Go to Schedule', action: '/schedule' },
-  { keys: ['g', 'c'], description: 'Go to Customers', action: '/customers' },
-  { keys: ['g', 'w'], description: 'Go to Work Orders', action: '/work-orders' },
-  { keys: ['g', 't'], description: 'Go to Technicians', action: '/operations/technicians' },
-  { keys: ['?'], description: 'Show Shortcuts', action: 'shortcuts' },
-  { keys: ['Escape'], description: 'Close Modal', action: 'close' },
+  { keys: ["g", "d"], description: "Go to Dashboard", action: "/dashboard" },
+  { keys: ["g", "s"], description: "Go to Schedule", action: "/schedule" },
+  { keys: ["g", "c"], description: "Go to Customers", action: "/customers" },
+  {
+    keys: ["g", "w"],
+    description: "Go to Work Orders",
+    action: "/work-orders",
+  },
+  {
+    keys: ["g", "t"],
+    description: "Go to Technicians",
+    action: "/operations/technicians",
+  },
+  { keys: ["?"], description: "Show Shortcuts", action: "shortcuts" },
+  { keys: ["Escape"], description: "Close Modal", action: "close" },
 ];
 
 // ============================================
@@ -93,22 +113,26 @@ const KEYBOARD_SHORTCUTS = [
 /**
  * Create custom colored marker icon for technicians
  */
-function createTechnicianIcon(status: TechnicianStatus, initials: string = 'T', isDropTarget: boolean = false): L.DivIcon {
+function createTechnicianIcon(
+  status: TechnicianStatus,
+  initials: string = "T",
+  isDropTarget: boolean = false,
+): L.DivIcon {
   const colors: Record<TechnicianStatus, string> = {
-    available: '#22c55e', // green
-    busy: '#f59e0b', // yellow/amber
-    offline: '#6b7280', // gray
+    available: "#22c55e", // green
+    busy: "#f59e0b", // yellow/amber
+    offline: "#6b7280", // gray
   };
 
-  const borderColor = isDropTarget ? '#3b82f6' : 'white';
-  const borderWidth = isDropTarget ? '4px' : '3px';
-  const scale = isDropTarget ? 'scale(1.2)' : 'scale(1)';
+  const borderColor = isDropTarget ? "#3b82f6" : "white";
+  const borderWidth = isDropTarget ? "4px" : "3px";
+  const scale = isDropTarget ? "scale(1.2)" : "scale(1)";
   const boxShadow = isDropTarget
-    ? '0 0 20px rgba(59, 130, 246, 0.8), 0 2px 8px rgba(0,0,0,0.5)'
-    : '0 2px 8px rgba(0,0,0,0.5)';
+    ? "0 0 20px rgba(59, 130, 246, 0.8), 0 2px 8px rgba(0,0,0,0.5)"
+    : "0 2px 8px rgba(0,0,0,0.5)";
 
   return L.divIcon({
-    className: 'technician-marker',
+    className: "technician-marker",
     html: `
       <div style="
         background-color: ${colors[status]};
@@ -142,9 +166,12 @@ function generateTechCoordinates(tech: Technician): [number, number] {
     return [tech.home_latitude, tech.home_longitude];
   }
   // Generate based on ID
-  const seedNum = typeof tech.id === 'string' ? parseInt(tech.id, 10) || tech.id.length : Number(tech.id);
-  const latOffset = ((seedNum * 13) % 60 - 30) / 1000;
-  const lngOffset = ((seedNum * 23) % 60 - 30) / 1000;
+  const seedNum =
+    typeof tech.id === "string"
+      ? parseInt(tech.id, 10) || tech.id.length
+      : Number(tech.id);
+  const latOffset = (((seedNum * 13) % 60) - 30) / 1000;
+  const lngOffset = (((seedNum * 23) % 60) - 30) / 1000;
   return [COMPANY_CENTER[0] + latOffset, COMPANY_CENTER[1] + lngOffset];
 }
 
@@ -152,7 +179,7 @@ function generateTechCoordinates(tech: Technician): [number, number] {
  * Get time since creation in human readable format
  */
 function getTimeSince(dateStr: string | null | undefined): string {
-  if (!dateStr) return 'Unknown';
+  if (!dateStr) return "Unknown";
   const created = new Date(dateStr);
   const now = new Date();
   const diffMs = now.getTime() - created.getTime();
@@ -163,7 +190,7 @@ function getTimeSince(dateStr: string | null | undefined): string {
   if (diffDays > 0) return `${diffDays}d ago`;
   if (diffHours > 0) return `${diffHours}h ago`;
   if (diffMins > 0) return `${diffMins}m ago`;
-  return 'Just now';
+  return "Just now";
 }
 
 /**
@@ -171,18 +198,18 @@ function getTimeSince(dateStr: string | null | undefined): string {
  */
 function getPriorityColor(priority: string): string {
   switch (priority) {
-    case 'emergency':
-      return 'border-red-500 bg-red-500/20';
-    case 'urgent':
-      return 'border-orange-500 bg-orange-500/20';
-    case 'high':
-      return 'border-yellow-500 bg-yellow-500/20';
-    case 'normal':
-      return 'border-blue-500 bg-blue-500/10';
-    case 'low':
-      return 'border-green-500 bg-green-500/10';
+    case "emergency":
+      return "border-red-500 bg-red-500/20";
+    case "urgent":
+      return "border-orange-500 bg-orange-500/20";
+    case "high":
+      return "border-yellow-500 bg-yellow-500/20";
+    case "normal":
+      return "border-blue-500 bg-blue-500/10";
+    case "low":
+      return "border-green-500 bg-green-500/10";
     default:
-      return 'border-border';
+      return "border-border";
   }
 }
 
@@ -202,7 +229,13 @@ function FitBounds({ bounds }: { bounds: L.LatLngBoundsExpression | null }) {
 // ============================================
 // Toast Notifications Component
 // ============================================
-function ToastContainer({ toasts, onDismiss }: { toasts: Toast[]; onDismiss: (id: string) => void }) {
+function ToastContainer({
+  toasts,
+  onDismiss,
+}: {
+  toasts: Toast[];
+  onDismiss: (id: string) => void;
+}) {
   useEffect(() => {
     toasts.forEach((toast) => {
       const timer = setTimeout(() => onDismiss(toast.id), 5000);
@@ -218,11 +251,11 @@ function ToastContainer({ toasts, onDismiss }: { toasts: Toast[]; onDismiss: (id
         <div
           key={toast.id}
           className={cn(
-            'flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg text-white animate-slide-in-right',
-            toast.type === 'success' && 'bg-green-600',
-            toast.type === 'error' && 'bg-red-600',
-            toast.type === 'warning' && 'bg-yellow-600',
-            toast.type === 'info' && 'bg-blue-600'
+            "flex items-center gap-3 px-4 py-3 rounded-lg shadow-lg text-white animate-slide-in-right",
+            toast.type === "success" && "bg-green-600",
+            toast.type === "error" && "bg-red-600",
+            toast.type === "warning" && "bg-yellow-600",
+            toast.type === "info" && "bg-blue-600",
           )}
         >
           <span className="text-sm font-medium">{toast.message}</span>
@@ -241,17 +274,28 @@ function ToastContainer({ toasts, onDismiss }: { toasts: Toast[]; onDismiss: (id
 // ============================================
 // Keyboard Shortcuts Modal
 // ============================================
-function KeyboardShortcutsModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+function KeyboardShortcutsModal({
+  isOpen,
+  onClose,
+}: {
+  isOpen: boolean;
+  onClose: () => void;
+}) {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center" onClick={onClose}>
+    <div
+      className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center"
+      onClick={onClose}
+    >
       <div
         className="bg-bg-card border border-border rounded-lg p-6 max-w-md w-full mx-4 shadow-xl"
         onClick={(e) => e.stopPropagation()}
       >
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-lg font-semibold text-text-primary">Keyboard Shortcuts</h2>
+          <h2 className="text-lg font-semibold text-text-primary">
+            Keyboard Shortcuts
+          </h2>
           <button
             onClick={onClose}
             className="text-text-muted hover:text-text-primary"
@@ -261,16 +305,25 @@ function KeyboardShortcutsModal({ isOpen, onClose }: { isOpen: boolean; onClose:
           </button>
         </div>
         <div className="space-y-2">
-          {KEYBOARD_SHORTCUTS.filter(s => s.action !== 'shortcuts' && s.action !== 'close').map((shortcut) => (
-            <div key={shortcut.keys.join('')} className="flex items-center justify-between py-2">
-              <span className="text-sm text-text-secondary">{shortcut.description}</span>
+          {KEYBOARD_SHORTCUTS.filter(
+            (s) => s.action !== "shortcuts" && s.action !== "close",
+          ).map((shortcut) => (
+            <div
+              key={shortcut.keys.join("")}
+              className="flex items-center justify-between py-2"
+            >
+              <span className="text-sm text-text-secondary">
+                {shortcut.description}
+              </span>
               <div className="flex gap-1">
                 {shortcut.keys.map((key, i) => (
                   <span key={i}>
                     <kbd className="px-2 py-1 text-xs bg-bg-secondary border border-border rounded">
                       {key}
                     </kbd>
-                    {i < shortcut.keys.length - 1 && <span className="mx-1 text-text-muted">then</span>}
+                    {i < shortcut.keys.length - 1 && (
+                      <span className="mx-1 text-text-muted">then</span>
+                    )}
                   </span>
                 ))}
               </div>
@@ -278,7 +331,11 @@ function KeyboardShortcutsModal({ isOpen, onClose }: { isOpen: boolean; onClose:
           ))}
         </div>
         <div className="mt-4 pt-4 border-t border-border text-xs text-text-muted">
-          Press <kbd className="px-1 py-0.5 bg-bg-secondary border border-border rounded">?</kbd> anytime to show this menu
+          Press{" "}
+          <kbd className="px-1 py-0.5 bg-bg-secondary border border-border rounded">
+            ?
+          </kbd>{" "}
+          anytime to show this menu
         </div>
       </div>
     </div>
@@ -304,10 +361,13 @@ function AssignmentConfirmModal({
   const { job, technician } = confirmation;
   const techName = `${technician.first_name} ${technician.last_name}`;
   const jobType = JOB_TYPE_LABELS[job.job_type as JobType] || job.job_type;
-  const address = job.service_address_line1 || 'No address';
+  const address = job.service_address_line1 || "No address";
 
   return (
-    <div className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center" onClick={onCancel}>
+    <div
+      className="fixed inset-0 bg-black/50 z-50 flex items-center justify-center"
+      onClick={onCancel}
+    >
       <div
         className="bg-bg-card border border-border rounded-lg p-6 max-w-md w-full mx-4 shadow-xl"
         onClick={(e) => e.stopPropagation()}
@@ -317,35 +377,48 @@ function AssignmentConfirmModal({
             🚐
           </div>
           <div>
-            <h2 className="text-lg font-semibold text-text-primary">Assign Job?</h2>
-            <p className="text-sm text-text-muted">Confirm technician assignment</p>
+            <h2 className="text-lg font-semibold text-text-primary">
+              Assign Job?
+            </h2>
+            <p className="text-sm text-text-muted">
+              Confirm technician assignment
+            </p>
           </div>
         </div>
 
         <div className="bg-bg-secondary rounded-lg p-4 mb-4 space-y-3">
           <div>
-            <p className="text-xs text-text-muted uppercase tracking-wide">Job</p>
+            <p className="text-xs text-text-muted uppercase tracking-wide">
+              Job
+            </p>
             <p className="font-medium text-text-primary">{jobType}</p>
             <p className="text-sm text-text-secondary">📍 {address}</p>
           </div>
           <div className="border-t border-border pt-3">
-            <p className="text-xs text-text-muted uppercase tracking-wide">Assign To</p>
+            <p className="text-xs text-text-muted uppercase tracking-wide">
+              Assign To
+            </p>
             <div className="flex items-center gap-2 mt-1">
-              <div className={cn(
-                'w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold',
-                technician.status === 'available' && 'bg-green-500',
-                technician.status === 'busy' && 'bg-yellow-500',
-                technician.status === 'offline' && 'bg-gray-400'
-              )}>
-                {technician.first_name?.[0]}{technician.last_name?.[0]}
+              <div
+                className={cn(
+                  "w-8 h-8 rounded-full flex items-center justify-center text-white text-sm font-bold",
+                  technician.status === "available" && "bg-green-500",
+                  technician.status === "busy" && "bg-yellow-500",
+                  technician.status === "offline" && "bg-gray-400",
+                )}
+              >
+                {technician.first_name?.[0]}
+                {technician.last_name?.[0]}
               </div>
               <div>
                 <p className="font-medium text-text-primary">{techName}</p>
-                <p className="text-xs text-text-muted capitalize">{technician.status}</p>
+                <p className="text-xs text-text-muted capitalize">
+                  {technician.status}
+                </p>
               </div>
             </div>
           </div>
-          {job.priority === 'emergency' || job.priority === 'urgent' ? (
+          {job.priority === "emergency" || job.priority === "urgent" ? (
             <div className="border-t border-border pt-3">
               <Badge variant="danger" className="text-xs">
                 {PRIORITY_LABELS[job.priority as Priority]} Priority
@@ -363,12 +436,8 @@ function AssignmentConfirmModal({
           >
             Cancel
           </Button>
-          <Button
-            className="flex-1"
-            onClick={onConfirm}
-            disabled={isAssigning}
-          >
-            {isAssigning ? 'Assigning...' : 'Confirm Assignment'}
+          <Button className="flex-1" onClick={onConfirm} disabled={isAssigning}>
+            {isAssigning ? "Assigning..." : "Confirm Assignment"}
           </Button>
         </div>
       </div>
@@ -413,7 +482,7 @@ function MetricCard({
   value: string | number;
   subtext?: string;
   trend?: string;
-  trendDirection?: 'up' | 'down' | 'neutral';
+  trendDirection?: "up" | "down" | "neutral";
   className?: string;
   onClick?: () => void;
   isBehind?: boolean;
@@ -427,18 +496,26 @@ function MetricCard({
     const range = max - min || 1;
     const width = 60;
     const height = 20;
-    const points = sparklineData.map((val, i) => {
-      const x = (i / (sparklineData.length - 1)) * width;
-      const y = height - ((val - min) / range) * height;
-      return `${x},${y}`;
-    }).join(' ');
+    const points = sparklineData
+      .map((val, i) => {
+        const x = (i / (sparklineData.length - 1)) * width;
+        const y = height - ((val - min) / range) * height;
+        return `${x},${y}`;
+      })
+      .join(" ");
 
     return (
       <svg width={width} height={height} className="mt-1">
         <polyline
           points={points}
           fill="none"
-          stroke={trendDirection === 'up' ? '#22c55e' : trendDirection === 'down' ? '#ef4444' : '#6b7280'}
+          stroke={
+            trendDirection === "up"
+              ? "#22c55e"
+              : trendDirection === "down"
+                ? "#ef4444"
+                : "#6b7280"
+          }
           strokeWidth="2"
         />
       </svg>
@@ -448,23 +525,28 @@ function MetricCard({
   return (
     <Card
       className={cn(
-        'transition-all duration-200',
-        onClick && 'cursor-pointer hover:shadow-md hover:border-primary/50',
-        isBehind && 'border-2 border-red-500 bg-red-500/10 animate-pulse-subtle',
-        className
+        "transition-all duration-200",
+        onClick && "cursor-pointer hover:shadow-md hover:border-primary/50",
+        isBehind &&
+          "border-2 border-red-500 bg-red-500/10 animate-pulse-subtle",
+        className,
       )}
       onClick={onClick}
     >
       <CardContent className="pt-6">
         <p className="text-sm text-text-secondary">{label}</p>
         <div className="flex items-end gap-3">
-          <p className={cn(
-            'text-3xl font-bold mt-1',
-            isBehind ? 'text-red-600' : 'text-text-primary'
-          )}>
-            {value === '--' ? (
+          <p
+            className={cn(
+              "text-3xl font-bold mt-1",
+              isBehind ? "text-red-600" : "text-text-primary",
+            )}
+          >
+            {value === "--" ? (
               <span className="text-text-muted text-xl">No data</span>
-            ) : value}
+            ) : (
+              value
+            )}
           </p>
           {renderSparkline()}
         </div>
@@ -473,15 +555,16 @@ function MetricCard({
           {trend && (
             <span
               className={cn(
-                'text-xs font-semibold px-2 py-0.5 rounded',
-                trendDirection === 'up' && 'text-green-700 bg-green-100',
-                trendDirection === 'down' && 'text-red-700 bg-red-100',
-                trendDirection === 'neutral' && 'text-text-muted bg-bg-secondary',
-                isBehind && 'text-white bg-red-600 animate-pulse'
+                "text-xs font-semibold px-2 py-0.5 rounded",
+                trendDirection === "up" && "text-green-700 bg-green-100",
+                trendDirection === "down" && "text-red-700 bg-red-100",
+                trendDirection === "neutral" &&
+                  "text-text-muted bg-bg-secondary",
+                isBehind && "text-white bg-red-600 animate-pulse",
               )}
             >
-              {trendDirection === 'up' && '↑ '}
-              {trendDirection === 'down' && '↓ '}
+              {trendDirection === "up" && "↑ "}
+              {trendDirection === "down" && "↓ "}
               {trend}
             </span>
           )}
@@ -516,7 +599,10 @@ function QuickStatsRow({
     return (
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         {[1, 2, 3, 4].map((i) => (
-          <div key={i} className="bg-bg-card border border-border rounded-lg p-4">
+          <div
+            key={i}
+            className="bg-bg-card border border-border rounded-lg p-4"
+          >
             <Skeleton className="h-4 w-20 mb-2" />
             <Skeleton className="h-8 w-12" />
           </div>
@@ -527,13 +613,18 @@ function QuickStatsRow({
 
   // Determine if we're "behind" - low utilization with techs on duty
   const isBehind = techsOnDuty > 0 && utilization < 30;
-  const isVeryBehind = techsOnDuty > 0 && utilization === 0 && jobsRemaining > 0;
+  const isVeryBehind =
+    techsOnDuty > 0 && utilization === 0 && jobsRemaining > 0;
 
   const stats = [
-    { label: 'TECHS ON DUTY', value: techsOnDuty, highlight: false },
-    { label: 'JOBS IN PROGRESS', value: jobsInProgress, highlight: false },
-    { label: 'JOBS REMAINING', value: jobsRemaining, highlight: jobsRemaining > 5 },
-    { label: 'UTILIZATION', value: `${utilization}%`, highlight: isBehind },
+    { label: "TECHS ON DUTY", value: techsOnDuty, highlight: false },
+    { label: "JOBS IN PROGRESS", value: jobsInProgress, highlight: false },
+    {
+      label: "JOBS REMAINING",
+      value: jobsRemaining,
+      highlight: jobsRemaining > 5,
+    },
+    { label: "UTILIZATION", value: `${utilization}%`, highlight: isBehind },
   ];
 
   return (
@@ -545,12 +636,16 @@ function QuickStatsRow({
           <div>
             <p className="font-bold text-lg">OPERATIONS BEHIND SCHEDULE</p>
             <p className="text-sm opacity-90">
-              {techsOnDuty} technicians on duty with {jobsRemaining} jobs waiting.
-              Consider reassigning or dispatching immediately.
+              {techsOnDuty} technicians on duty with {jobsRemaining} jobs
+              waiting. Consider reassigning or dispatching immediately.
             </p>
           </div>
           <Link to="/schedule" className="ml-auto">
-            <Button variant="secondary" size="sm" className="bg-white text-red-600 hover:bg-gray-100">
+            <Button
+              variant="secondary"
+              size="sm"
+              className="bg-white text-red-600 hover:bg-gray-100"
+            >
               View Schedule
             </Button>
           </Link>
@@ -562,21 +657,27 @@ function QuickStatsRow({
           <div
             key={stat.label}
             className={cn(
-              'bg-bg-card border rounded-lg p-4 flex items-center justify-between transition-all',
-              stat.highlight && 'border-2 border-red-500 bg-red-500/10'
+              "bg-bg-card border rounded-lg p-4 flex items-center justify-between transition-all",
+              stat.highlight && "border-2 border-red-500 bg-red-500/10",
             )}
           >
             <div>
-              <p className={cn(
-                'text-xs uppercase tracking-wide',
-                stat.highlight ? 'text-red-600 font-semibold' : 'text-text-muted'
-              )}>
+              <p
+                className={cn(
+                  "text-xs uppercase tracking-wide",
+                  stat.highlight
+                    ? "text-red-600 font-semibold"
+                    : "text-text-muted",
+                )}
+              >
                 {stat.label}
               </p>
-              <p className={cn(
-                'text-2xl font-bold',
-                stat.highlight ? 'text-red-600' : 'text-text-primary'
-              )}>
+              <p
+                className={cn(
+                  "text-2xl font-bold",
+                  stat.highlight ? "text-red-600" : "text-text-primary",
+                )}
+              >
                 {stat.value}
               </p>
             </div>
@@ -607,7 +708,7 @@ function TechnicianMapMarker({
   onDrop: (techId: string) => void;
 }) {
   const position = generateTechCoordinates(tech);
-  const initials = `${tech.first_name?.[0] || ''}${tech.last_name?.[0] || ''}`;
+  const initials = `${tech.first_name?.[0] || ""}${tech.last_name?.[0] || ""}`;
   const icon = createTechnicianIcon(tech.status, initials, isDropTarget);
   const markerRef = useRef<L.Marker>(null);
 
@@ -623,7 +724,7 @@ function TechnicianMapMarker({
       e.preventDefault();
       e.stopPropagation();
       if (e.dataTransfer) {
-        e.dataTransfer.dropEffect = 'move';
+        e.dataTransfer.dropEffect = "move";
       }
       onDragOver(tech.id);
     };
@@ -640,32 +741,28 @@ function TechnicianMapMarker({
       onDrop(tech.id);
     };
 
-    element.addEventListener('dragover', handleDragOver);
-    element.addEventListener('dragleave', handleDragLeave);
-    element.addEventListener('drop', handleDrop);
+    element.addEventListener("dragover", handleDragOver);
+    element.addEventListener("dragleave", handleDragLeave);
+    element.addEventListener("drop", handleDrop);
 
     return () => {
-      element.removeEventListener('dragover', handleDragOver);
-      element.removeEventListener('dragleave', handleDragLeave);
-      element.removeEventListener('drop', handleDrop);
+      element.removeEventListener("dragover", handleDragOver);
+      element.removeEventListener("dragleave", handleDragLeave);
+      element.removeEventListener("drop", handleDrop);
     };
   }, [tech.id, onDragOver, onDragLeave, onDrop]);
 
   return (
-    <Marker
-      ref={markerRef}
-      position={position}
-      icon={icon}
-    >
+    <Marker ref={markerRef} position={position} icon={icon}>
       <Popup>
         <div className="min-w-[220px] p-1">
           <div className="flex items-center gap-2 mb-3">
             <div
               className={cn(
-                'w-10 h-10 rounded-full flex items-center justify-center text-white font-bold',
-                tech.status === 'available' && 'bg-green-500',
-                tech.status === 'busy' && 'bg-yellow-500',
-                tech.status === 'offline' && 'bg-gray-400'
+                "w-10 h-10 rounded-full flex items-center justify-center text-white font-bold",
+                tech.status === "available" && "bg-green-500",
+                tech.status === "busy" && "bg-yellow-500",
+                tech.status === "offline" && "bg-gray-400",
               )}
             >
               {initials}
@@ -674,21 +771,21 @@ function TechnicianMapMarker({
               <h3 className="font-semibold text-gray-900">
                 {tech.first_name} {tech.last_name}
               </h3>
-              <span className={cn(
-                'text-xs px-2 py-0.5 rounded-full capitalize',
-                tech.status === 'available' && 'bg-green-100 text-green-700',
-                tech.status === 'busy' && 'bg-yellow-100 text-yellow-700',
-                tech.status === 'offline' && 'bg-gray-100 text-gray-600'
-              )}>
+              <span
+                className={cn(
+                  "text-xs px-2 py-0.5 rounded-full capitalize",
+                  tech.status === "available" && "bg-green-100 text-green-700",
+                  tech.status === "busy" && "bg-yellow-100 text-yellow-700",
+                  tech.status === "offline" && "bg-gray-100 text-gray-600",
+                )}
+              >
                 {tech.status}
               </span>
             </div>
           </div>
 
           {tech.phone && (
-            <p className="text-sm text-gray-600 mb-2">
-              📞 {tech.phone}
-            </p>
+            <p className="text-sm text-gray-600 mb-2">📞 {tech.phone}</p>
           )}
 
           {tech.skills && tech.skills.length > 0 && (
@@ -696,8 +793,13 @@ function TechnicianMapMarker({
               <p className="text-xs text-gray-500 mb-1">Skills:</p>
               <div className="flex flex-wrap gap-1">
                 {tech.skills.slice(0, 3).map((skill, i) => (
-                  <span key={i} className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded">
-                    {typeof skill === 'string' ? skill : (skill as { name: string }).name}
+                  <span
+                    key={i}
+                    className="text-xs bg-blue-100 text-blue-700 px-2 py-0.5 rounded"
+                  >
+                    {typeof skill === "string"
+                      ? skill
+                      : (skill as { name: string }).name}
                   </span>
                 ))}
               </div>
@@ -707,16 +809,22 @@ function TechnicianMapMarker({
           {tech.currentJob && (
             <div className="mt-3 p-2 bg-yellow-50 border border-yellow-200 rounded text-xs">
               <p className="font-medium text-yellow-800">📋 Current Job:</p>
-              <p className="text-yellow-700">{tech.currentJob.customer_name || `WO #${tech.currentJob.id}`}</p>
-              <p className="text-yellow-600">{JOB_TYPE_LABELS[tech.currentJob.job_type as JobType]}</p>
+              <p className="text-yellow-700">
+                {tech.currentJob.customer_name || `WO #${tech.currentJob.id}`}
+              </p>
+              <p className="text-yellow-600">
+                {JOB_TYPE_LABELS[tech.currentJob.job_type as JobType]}
+              </p>
             </div>
           )}
 
           {tech.assigned_vehicle && (
-            <p className="text-xs text-gray-500 mt-2">🚐 {tech.assigned_vehicle}</p>
+            <p className="text-xs text-gray-500 mt-2">
+              🚐 {tech.assigned_vehicle}
+            </p>
           )}
 
-          {tech.status === 'available' && (
+          {tech.status === "available" && (
             <div className="mt-3 pt-2 border-t border-gray-200">
               <p className="text-xs text-green-600 font-medium">
                 ✓ Ready for assignment - drag a job here
@@ -753,7 +861,7 @@ function LiveTechnicianMap({
     if (points.length === 1) {
       return L.latLngBounds(
         [points[0][0] - 0.05, points[0][1] - 0.05],
-        [points[0][0] + 0.05, points[0][1] + 0.05]
+        [points[0][0] + 0.05, points[0][1] + 0.05],
       );
     }
     return L.latLngBounds(points);
@@ -773,16 +881,18 @@ function LiveTechnicianMap({
   }
 
   const statusCounts = {
-    available: technicians.filter((t) => t.status === 'available').length,
-    busy: technicians.filter((t) => t.status === 'busy').length,
-    offline: technicians.filter((t) => t.status === 'offline').length,
+    available: technicians.filter((t) => t.status === "available").length,
+    busy: technicians.filter((t) => t.status === "busy").length,
+    offline: technicians.filter((t) => t.status === "offline").length,
   };
 
   return (
-    <Card className={cn(
-      'h-[400px] transition-all',
-      dropTargetTechId && 'ring-2 ring-blue-500 ring-offset-2'
-    )}>
+    <Card
+      className={cn(
+        "h-[400px] transition-all",
+        dropTargetTechId && "ring-2 ring-blue-500 ring-offset-2",
+      )}
+    >
       <CardHeader className="pb-2">
         <div className="flex items-center justify-between">
           <CardTitle>Live Technician Map</CardTitle>
@@ -812,7 +922,7 @@ function LiveTechnicianMap({
           <MapContainer
             center={COMPANY_CENTER}
             zoom={12}
-            style={{ height: '100%', width: '100%' }}
+            style={{ height: "100%", width: "100%" }}
             scrollWheelZoom={true}
           >
             <TileLayer
@@ -868,7 +978,10 @@ function TodaysMetrics({
     );
   }
 
-  const completionRate = scheduledToday > 0 ? Math.round((completedToday / scheduledToday) * 100) : 0;
+  const completionRate =
+    scheduledToday > 0
+      ? Math.round((completedToday / scheduledToday) * 100)
+      : 0;
   const isBehind = completionRate < 50 && scheduledToday > 0;
 
   // Mock sparkline data (would come from real data)
@@ -881,24 +994,28 @@ function TodaysMetrics({
         label="Jobs Completed Today"
         value={`${completedToday}/${scheduledToday}`}
         subtext={`${completionRate}% complete`}
-        trend={isBehind ? 'BEHIND' : 'On Track'}
-        trendDirection={completionRate >= 50 ? 'up' : 'down'}
+        trend={isBehind ? "BEHIND" : "On Track"}
+        trendDirection={completionRate >= 50 ? "up" : "down"}
         isBehind={isBehind}
         sparklineData={mockCompletionTrend}
         onClick={() => {
-          onDrillDown?.('completed');
-          navigate('/work-orders?status=completed');
+          onDrillDown?.("completed");
+          navigate("/work-orders?status=completed");
         }}
       />
       <MetricCard
         label="Revenue Today"
         value={formatCurrency(revenueToday)}
         subtext="Estimated from completed jobs"
-        trend={revenueToday > 0 ? '+' + formatCurrency(revenueToday * 0.1) : undefined}
-        trendDirection={revenueToday > 0 ? 'up' : 'neutral'}
+        trend={
+          revenueToday > 0
+            ? "+" + formatCurrency(revenueToday * 0.1)
+            : undefined
+        }
+        trendDirection={revenueToday > 0 ? "up" : "neutral"}
         sparklineData={mockRevenueTrend}
         onClick={() => {
-          onDrillDown?.('revenue');
+          onDrillDown?.("revenue");
         }}
       />
       <MetricCard
@@ -906,7 +1023,7 @@ function TodaysMetrics({
         value={avgCompletionTime}
         subtext="Per job today"
         onClick={() => {
-          onDrillDown?.('time');
+          onDrillDown?.("time");
         }}
       />
       <MetricCard
@@ -917,7 +1034,7 @@ function TodaysMetrics({
         trendDirection="up"
         sparklineData={[4.5, 4.6, 4.7, 4.6, 4.8]}
         onClick={() => {
-          onDrillDown?.('satisfaction');
+          onDrillDown?.("satisfaction");
         }}
       />
     </div>
@@ -943,7 +1060,10 @@ function ActiveAlertsPanel({
         <CardContent>
           <div className="space-y-3">
             {[1, 2, 3].map((i) => (
-              <div key={i} className="flex items-center gap-3 p-3 border border-border rounded-lg">
+              <div
+                key={i}
+                className="flex items-center gap-3 p-3 border border-border rounded-lg"
+              >
                 <Skeleton className="h-6 w-16 rounded-full" />
                 <Skeleton className="h-4 flex-1" />
               </div>
@@ -976,7 +1096,9 @@ function ActiveAlertsPanel({
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle>Active Alerts</CardTitle>
-          <Badge variant="danger" className="animate-pulse">{alerts.length}</Badge>
+          <Badge variant="danger" className="animate-pulse">
+            {alerts.length}
+          </Badge>
         </div>
       </CardHeader>
       <CardContent>
@@ -985,21 +1107,31 @@ function ActiveAlertsPanel({
             <div
               key={alert.id}
               className={cn(
-                'flex items-start gap-3 p-3 rounded-lg border',
-                alert.severity === 'danger' && 'border-danger bg-danger-light/20',
-                alert.severity === 'warning' && 'border-warning bg-warning-light/20',
-                alert.severity === 'info' && 'border-info bg-info-light/20'
+                "flex items-start gap-3 p-3 rounded-lg border",
+                alert.severity === "danger" &&
+                  "border-danger bg-danger-light/20",
+                alert.severity === "warning" &&
+                  "border-warning bg-warning-light/20",
+                alert.severity === "info" && "border-info bg-info-light/20",
               )}
             >
               <Badge
-                variant={alert.severity === 'danger' ? 'danger' : alert.severity === 'warning' ? 'warning' : 'info'}
+                variant={
+                  alert.severity === "danger"
+                    ? "danger"
+                    : alert.severity === "warning"
+                      ? "warning"
+                      : "info"
+                }
               >
-                {alert.type.replace('_', ' ')}
+                {alert.type.replace("_", " ")}
               </Badge>
               <div className="flex-1">
                 <p className="text-sm text-text-primary">{alert.message}</p>
                 {alert.technicianName && (
-                  <p className="text-xs text-text-muted mt-1">Tech: {alert.technicianName}</p>
+                  <p className="text-xs text-text-muted mt-1">
+                    Tech: {alert.technicianName}
+                  </p>
                 )}
               </div>
               {alert.workOrderId && (
@@ -1042,7 +1174,7 @@ function DispatchQueue({
 
   const handleQuickAssign = (workOrderId: string, technicianName: string) => {
     setAssigningId(workOrderId);
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split("T")[0];
     assignWorkOrder.mutate(
       {
         id: workOrderId,
@@ -1054,13 +1186,13 @@ function DispatchQueue({
           setAssigningId(null);
           onAssign?.(workOrderId, technicianName);
         },
-      }
+      },
     );
   };
 
   const handleDragStart = (e: React.DragEvent, jobId: string) => {
-    e.dataTransfer.setData('application/job-id', jobId);
-    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.setData("application/job-id", jobId);
+    e.dataTransfer.effectAllowed = "move";
     onDragStart(jobId);
   };
 
@@ -1101,9 +1233,14 @@ function DispatchQueue({
       normal: 3,
       low: 4,
     };
-    const priorityDiff = priorityOrder[a.priority as Priority] - priorityOrder[b.priority as Priority];
+    const priorityDiff =
+      priorityOrder[a.priority as Priority] -
+      priorityOrder[b.priority as Priority];
     if (priorityDiff !== 0) return priorityDiff;
-    return new Date(a.created_at || 0).getTime() - new Date(b.created_at || 0).getTime();
+    return (
+      new Date(a.created_at || 0).getTime() -
+      new Date(b.created_at || 0).getTime()
+    );
   });
 
   if (sortedJobs.length === 0) {
@@ -1124,15 +1261,17 @@ function DispatchQueue({
   }
 
   const availableTechs = technicians.filter((t) => t.is_active);
-  const hasEmergency = sortedJobs.some(j => j.priority === 'emergency');
-  const hasUrgent = sortedJobs.some(j => j.priority === 'urgent');
+  const hasEmergency = sortedJobs.some((j) => j.priority === "emergency");
+  const hasUrgent = sortedJobs.some((j) => j.priority === "urgent");
 
   return (
-    <Card className={cn(
-      'h-full transition-all',
-      hasEmergency && 'ring-2 ring-red-500 ring-offset-2',
-      hasUrgent && !hasEmergency && 'ring-2 ring-orange-400 ring-offset-1'
-    )}>
+    <Card
+      className={cn(
+        "h-full transition-all",
+        hasEmergency && "ring-2 ring-red-500 ring-offset-2",
+        hasUrgent && !hasEmergency && "ring-2 ring-orange-400 ring-offset-1",
+      )}
+    >
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
@@ -1141,8 +1280,8 @@ function DispatchQueue({
             <Badge
               variant="danger"
               className={cn(
-                'text-lg px-3 py-1 font-bold cursor-pointer hover:scale-105 transition-transform',
-                sortedJobs.length > 0 && 'animate-pulse shadow-lg'
+                "text-lg px-3 py-1 font-bold cursor-pointer hover:scale-105 transition-transform",
+                sortedJobs.length > 0 && "animate-pulse shadow-lg",
               )}
               data-testid="unassigned-badge"
             >
@@ -1190,11 +1329,12 @@ function DispatchQueue({
               data-testid="dispatch-queue-item"
               data-job-id={job.id}
               className={cn(
-                'p-3 rounded-lg border-2 cursor-grab active:cursor-grabbing transition-all',
-                'hover:shadow-md hover:scale-[1.01]',
-                draggedJobId === job.id && 'opacity-50 scale-95 ring-2 ring-blue-500',
+                "p-3 rounded-lg border-2 cursor-grab active:cursor-grabbing transition-all",
+                "hover:shadow-md hover:scale-[1.01]",
+                draggedJobId === job.id &&
+                  "opacity-50 scale-95 ring-2 ring-blue-500",
                 getPriorityColor(job.priority),
-                job.priority === 'emergency' && 'animate-pulse-subtle'
+                job.priority === "emergency" && "animate-pulse-subtle",
               )}
             >
               <div className="flex items-start justify-between mb-2">
@@ -1208,11 +1348,11 @@ function DispatchQueue({
                 </div>
                 <Badge
                   variant={
-                    job.priority === 'emergency' || job.priority === 'urgent'
-                      ? 'danger'
-                      : job.priority === 'high'
-                      ? 'warning'
-                      : 'default'
+                    job.priority === "emergency" || job.priority === "urgent"
+                      ? "danger"
+                      : job.priority === "high"
+                        ? "warning"
+                        : "default"
                   }
                   className="font-bold"
                 >
@@ -1220,7 +1360,9 @@ function DispatchQueue({
                 </Badge>
               </div>
               {job.service_address_line1 && (
-                <p className="text-xs text-text-muted mb-2">📍 {job.service_address_line1}</p>
+                <p className="text-xs text-text-muted mb-2">
+                  📍 {job.service_address_line1}
+                </p>
               )}
               <div className="flex items-center justify-between">
                 <span className="text-xs text-text-muted">
@@ -1239,7 +1381,10 @@ function DispatchQueue({
                   >
                     <option value="">Assign to...</option>
                     {availableTechs.map((tech) => (
-                      <option key={tech.id} value={`${tech.first_name} ${tech.last_name}`}>
+                      <option
+                        key={tech.id}
+                        value={`${tech.first_name} ${tech.last_name}`}
+                      >
                         {tech.first_name} {tech.last_name}
                       </option>
                     ))}
@@ -1279,12 +1424,14 @@ function ConnectionStatus({ lastUpdated }: { lastUpdated: Date }) {
   return (
     <div className="flex items-center gap-3 text-xs">
       <div className="flex items-center gap-1">
-        <span className={cn(
-          'w-2 h-2 rounded-full',
-          isConnected ? 'bg-green-500 animate-pulse' : 'bg-red-500'
-        )} />
-        <span className={isConnected ? 'text-green-600' : 'text-red-600'}>
-          {isConnected ? 'Live' : 'Disconnected'}
+        <span
+          className={cn(
+            "w-2 h-2 rounded-full",
+            isConnected ? "bg-green-500 animate-pulse" : "bg-red-500",
+          )}
+        />
+        <span className={isConnected ? "text-green-600" : "text-red-600"}>
+          {isConnected ? "Live" : "Disconnected"}
         </span>
       </div>
       <span className="text-text-muted">
@@ -1303,7 +1450,7 @@ function ConnectionStatus({ lastUpdated }: { lastUpdated: Date }) {
  */
 export function CommandCenter() {
   const navigate = useNavigate();
-  const todayStr = new Date().toISOString().split('T')[0];
+  const todayStr = new Date().toISOString().split("T")[0];
   const [lastUpdated, setLastUpdated] = useState(new Date());
   const [toasts, setToasts] = useState<Toast[]>([]);
   const [showShortcuts, setShowShortcuts] = useState(false);
@@ -1312,7 +1459,8 @@ export function CommandCenter() {
   // Drag and drop state
   const [draggedJobId, setDraggedJobId] = useState<string | null>(null);
   const [dropTargetTechId, setDropTargetTechId] = useState<string | null>(null);
-  const [assignmentConfirmation, setAssignmentConfirmation] = useState<AssignmentConfirmation | null>(null);
+  const [assignmentConfirmation, setAssignmentConfirmation] =
+    useState<AssignmentConfirmation | null>(null);
   const [isAssigning, setIsAssigning] = useState(false);
 
   const assignWorkOrder = useAssignWorkOrder();
@@ -1321,14 +1469,17 @@ export function CommandCenter() {
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
       // Ignore if typing in input/textarea
-      if (e.target instanceof HTMLInputElement || e.target instanceof HTMLTextAreaElement) {
+      if (
+        e.target instanceof HTMLInputElement ||
+        e.target instanceof HTMLTextAreaElement
+      ) {
         return;
       }
 
       const key = e.key.toLowerCase();
 
       // Handle escape
-      if (key === 'escape') {
+      if (key === "escape") {
         setShowShortcuts(false);
         setAssignmentConfirmation(null);
         setKeySequence([]);
@@ -1336,7 +1487,7 @@ export function CommandCenter() {
       }
 
       // Handle ? for shortcuts
-      if (e.key === '?') {
+      if (e.key === "?") {
         setShowShortcuts(true);
         return;
       }
@@ -1346,21 +1497,23 @@ export function CommandCenter() {
       setKeySequence(newSequence);
 
       // Check for matching shortcut
-      const sequenceStr = newSequence.join('');
-      const shortcut = KEYBOARD_SHORTCUTS.find(s => s.keys.join('') === sequenceStr);
+      const sequenceStr = newSequence.join("");
+      const shortcut = KEYBOARD_SHORTCUTS.find(
+        (s) => s.keys.join("") === sequenceStr,
+      );
 
-      if (shortcut && shortcut.action.startsWith('/')) {
+      if (shortcut && shortcut.action.startsWith("/")) {
         navigate(shortcut.action);
         setKeySequence([]);
-        addToast('info', `Navigating to ${shortcut.description}`);
+        addToast("info", `Navigating to ${shortcut.description}`);
       }
 
       // Clear sequence after 1 second
       setTimeout(() => setKeySequence([]), 1000);
     };
 
-    window.addEventListener('keydown', handleKeyDown);
-    return () => window.removeEventListener('keydown', handleKeyDown);
+    window.addEventListener("keydown", handleKeyDown);
+    return () => window.removeEventListener("keydown", handleKeyDown);
   }, [keySequence, navigate]);
 
   // Auto-refresh
@@ -1371,37 +1524,36 @@ export function CommandCenter() {
     return () => clearInterval(interval);
   }, []);
 
-  const addToast = useCallback((type: Toast['type'], message: string) => {
+  const addToast = useCallback((type: Toast["type"], message: string) => {
     const toast: Toast = {
       id: Date.now().toString(),
       type,
       message,
       timestamp: new Date(),
     };
-    setToasts(prev => [...prev, toast]);
+    setToasts((prev) => [...prev, toast]);
   }, []);
 
   const dismissToast = useCallback((id: string) => {
-    setToasts(prev => prev.filter(t => t.id !== id));
+    setToasts((prev) => prev.filter((t) => t.id !== id));
   }, []);
 
   // Fetch work orders
-  const {
-    data: workOrdersData,
-    isLoading: woLoading,
-  } = useWorkOrders({ page: 1, page_size: 200 });
+  const { data: workOrdersData, isLoading: woLoading } = useWorkOrders({
+    page: 1,
+    page_size: 200,
+  });
 
   // Fetch unscheduled work orders
-  const {
-    data: unscheduledData,
-    isLoading: unscheduledLoading,
-  } = useUnscheduledWorkOrders();
+  const { data: unscheduledData, isLoading: unscheduledLoading } =
+    useUnscheduledWorkOrders();
 
   // Fetch technicians
-  const {
-    data: techniciansData,
-    isLoading: techLoading,
-  } = useTechnicians({ page: 1, page_size: 50, active_only: true });
+  const { data: techniciansData, isLoading: techLoading } = useTechnicians({
+    page: 1,
+    page_size: 50,
+    active_only: true,
+  });
 
   const isLoading = woLoading || unscheduledLoading || techLoading;
 
@@ -1412,8 +1564,12 @@ export function CommandCenter() {
 
   // Calculate today's metrics
   const todaysMetrics = useMemo(() => {
-    const todaysJobs = workOrders.filter((wo) => wo.scheduled_date === todayStr);
-    const completed = todaysJobs.filter((wo) => wo.status === 'completed').length;
+    const todaysJobs = workOrders.filter(
+      (wo) => wo.scheduled_date === todayStr,
+    );
+    const completed = todaysJobs.filter(
+      (wo) => wo.status === "completed",
+    ).length;
     const scheduled = todaysJobs.length;
 
     // Estimate revenue (mock calculation based on job type)
@@ -1429,49 +1585,59 @@ export function CommandCenter() {
     };
 
     const revenue = todaysJobs
-      .filter((wo) => wo.status === 'completed')
+      .filter((wo) => wo.status === "completed")
       .reduce((sum, wo) => sum + (revenuePerJobType[wo.job_type] || 200), 0);
 
     // Calculate average completion time from work order estimated durations
-    const completedJobs = todaysJobs.filter((wo) => wo.status === 'completed');
-    const avgTime = completedJobs.length > 0
-      ? `${(completedJobs.reduce((sum, wo) => sum + (wo.estimated_duration_hours || 1.5), 0) / completedJobs.length).toFixed(1)}h`
-      : '--';
+    const completedJobs = todaysJobs.filter((wo) => wo.status === "completed");
+    const avgTime =
+      completedJobs.length > 0
+        ? `${(completedJobs.reduce((sum, wo) => sum + (wo.estimated_duration_hours || 1.5), 0) / completedJobs.length).toFixed(1)}h`
+        : "--";
 
     return { completed, scheduled, revenue, avgTime };
   }, [workOrders, todayStr]);
 
   // Calculate quick stats
   const quickStats = useMemo(() => {
-    const todaysJobs = workOrders.filter((wo) => wo.scheduled_date === todayStr);
+    const todaysJobs = workOrders.filter(
+      (wo) => wo.scheduled_date === todayStr,
+    );
     const inProgress = todaysJobs.filter((wo) =>
-      ['enroute', 'on_site', 'in_progress'].includes(wo.status)
+      ["enroute", "on_site", "in_progress"].includes(wo.status),
     ).length;
     const remaining = todaysJobs.filter((wo) =>
-      ['scheduled', 'confirmed'].includes(wo.status)
+      ["scheduled", "confirmed"].includes(wo.status),
     ).length;
     const techsOnDuty = technicians.filter((t) => t.is_active).length;
 
     // Calculate utilization (jobs per tech)
     const totalTodaysJobs = todaysJobs.length;
-    const utilization = techsOnDuty > 0 ? Math.min(100, Math.round((totalTodaysJobs / (techsOnDuty * 6)) * 100)) : 0;
+    const utilization =
+      techsOnDuty > 0
+        ? Math.min(100, Math.round((totalTodaysJobs / (techsOnDuty * 6)) * 100))
+        : 0;
 
     return { techsOnDuty, inProgress, remaining, utilization };
   }, [workOrders, technicians, todayStr]);
 
   // Process technicians with status
   const techniciansWithStatus: TechnicianWithStatus[] = useMemo(() => {
-    const inProgressJobs = workOrders.filter((wo) =>
-      wo.scheduled_date === todayStr && ['enroute', 'on_site', 'in_progress'].includes(wo.status)
+    const inProgressJobs = workOrders.filter(
+      (wo) =>
+        wo.scheduled_date === todayStr &&
+        ["enroute", "on_site", "in_progress"].includes(wo.status),
     );
 
     return technicians.map((tech) => {
       const fullName = `${tech.first_name} ${tech.last_name}`;
-      const currentJob = inProgressJobs.find((wo) => wo.assigned_technician === fullName);
+      const currentJob = inProgressJobs.find(
+        (wo) => wo.assigned_technician === fullName,
+      );
 
-      let status: TechnicianStatus = 'offline';
+      let status: TechnicianStatus = "offline";
       if (tech.is_active) {
-        status = currentJob ? 'busy' : 'available';
+        status = currentJob ? "busy" : "available";
       }
 
       return { ...tech, status, currentJob };
@@ -1485,17 +1651,17 @@ export function CommandCenter() {
     // Check for emergency priority jobs not started
     const emergencyJobs = workOrders.filter(
       (wo) =>
-        wo.priority === 'emergency' &&
+        wo.priority === "emergency" &&
         wo.scheduled_date === todayStr &&
-        !['completed', 'in_progress', 'on_site'].includes(wo.status)
+        !["completed", "in_progress", "on_site"].includes(wo.status),
     );
 
     emergencyJobs.forEach((job) => {
       generatedAlerts.push({
         id: `emergency-${job.id}`,
-        type: 'emergency',
-        severity: 'danger',
-        message: `Emergency job not started: ${job.customer_name || 'Unknown'}`,
+        type: "emergency",
+        severity: "danger",
+        message: `Emergency job not started: ${job.customer_name || "Unknown"}`,
         workOrderId: job.id,
         technicianName: job.assigned_technician || undefined,
         createdAt: new Date(),
@@ -1508,18 +1674,21 @@ export function CommandCenter() {
     workOrders
       .filter((wo) => {
         if (wo.scheduled_date !== todayStr) return false;
-        if (['completed', 'canceled'].includes(wo.status)) return false;
+        if (["completed", "canceled"].includes(wo.status)) return false;
         if (!wo.time_window_start) return false;
-        const scheduledHour = parseInt(wo.time_window_start.split(':')[0], 10);
-        return scheduledHour < currentHour && !['in_progress', 'on_site'].includes(wo.status);
+        const scheduledHour = parseInt(wo.time_window_start.split(":")[0], 10);
+        return (
+          scheduledHour < currentHour &&
+          !["in_progress", "on_site"].includes(wo.status)
+        );
       })
       .slice(0, 3) // Limit to 3 late alerts
       .forEach((job) => {
         generatedAlerts.push({
           id: `late-${job.id}`,
-          type: 'running_late',
-          severity: 'warning',
-          message: `Running late: ${job.customer_name || 'Unknown'} - scheduled for ${job.time_window_start}`,
+          type: "running_late",
+          severity: "warning",
+          message: `Running late: ${job.customer_name || "Unknown"} - scheduled for ${job.time_window_start}`,
           workOrderId: job.id,
           technicianName: job.assigned_technician || undefined,
           createdAt: new Date(),
@@ -1547,27 +1716,30 @@ export function CommandCenter() {
     setDropTargetTechId(null);
   }, []);
 
-  const handleDropOnTech = useCallback((techId: string) => {
-    if (!draggedJobId) return;
+  const handleDropOnTech = useCallback(
+    (techId: string) => {
+      if (!draggedJobId) return;
 
-    const job = unscheduledJobs.find(j => j.id === draggedJobId);
-    const tech = techniciansWithStatus.find(t => t.id === techId);
+      const job = unscheduledJobs.find((j) => j.id === draggedJobId);
+      const tech = techniciansWithStatus.find((t) => t.id === techId);
 
-    if (job && tech) {
-      // Show confirmation modal
-      setAssignmentConfirmation({ job, technician: tech });
-    }
+      if (job && tech) {
+        // Show confirmation modal
+        setAssignmentConfirmation({ job, technician: tech });
+      }
 
-    setDraggedJobId(null);
-    setDropTargetTechId(null);
-  }, [draggedJobId, unscheduledJobs, techniciansWithStatus]);
+      setDraggedJobId(null);
+      setDropTargetTechId(null);
+    },
+    [draggedJobId, unscheduledJobs, techniciansWithStatus],
+  );
 
   const handleConfirmAssignment = useCallback(() => {
     if (!assignmentConfirmation) return;
 
     const { job, technician } = assignmentConfirmation;
     const techName = `${technician.first_name} ${technician.last_name}`;
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split("T")[0];
 
     setIsAssigning(true);
     assignWorkOrder.mutate(
@@ -1578,15 +1750,15 @@ export function CommandCenter() {
       },
       {
         onSuccess: () => {
-          addToast('success', `Job assigned to ${techName}`);
+          addToast("success", `Job assigned to ${techName}`);
           setAssignmentConfirmation(null);
           setIsAssigning(false);
         },
         onError: () => {
-          addToast('error', 'Failed to assign job. Please try again.');
+          addToast("error", "Failed to assign job. Please try again.");
           setIsAssigning(false);
         },
-      }
+      },
     );
   }, [assignmentConfirmation, assignWorkOrder, addToast]);
 
@@ -1594,13 +1766,19 @@ export function CommandCenter() {
     setAssignmentConfirmation(null);
   }, []);
 
-  const handleJobAssign = useCallback((_jobId: string, techName: string) => {
-    addToast('success', `Job assigned to ${techName}`);
-  }, [addToast]);
+  const handleJobAssign = useCallback(
+    (_jobId: string, techName: string) => {
+      addToast("success", `Job assigned to ${techName}`);
+    },
+    [addToast],
+  );
 
-  const handleMetricDrillDown = useCallback((metric: string) => {
-    addToast('info', `Drilling down into ${metric}...`);
-  }, [addToast]);
+  const handleMetricDrillDown = useCallback(
+    (metric: string) => {
+      addToast("info", `Drilling down into ${metric}...`);
+    },
+    [addToast],
+  );
 
   return (
     <div className="p-6">
@@ -1608,7 +1786,10 @@ export function CommandCenter() {
       <ToastContainer toasts={toasts} onDismiss={dismissToast} />
 
       {/* Keyboard Shortcuts Modal */}
-      <KeyboardShortcutsModal isOpen={showShortcuts} onClose={() => setShowShortcuts(false)} />
+      <KeyboardShortcutsModal
+        isOpen={showShortcuts}
+        onClose={() => setShowShortcuts(false)}
+      />
 
       {/* Assignment Confirmation Modal */}
       <AssignmentConfirmModal
@@ -1622,13 +1803,16 @@ export function CommandCenter() {
       <div className="mb-6">
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-text-primary">Operations Command Center</h1>
+            <h1 className="text-2xl font-semibold text-text-primary">
+              Operations Command Center
+            </h1>
             <p className="text-sm text-text-secondary mt-1">
-              Real-time operations dashboard - {new Date().toLocaleDateString('en-US', {
-                weekday: 'long',
-                year: 'numeric',
-                month: 'long',
-                day: 'numeric',
+              Real-time operations dashboard -{" "}
+              {new Date().toLocaleDateString("en-US", {
+                weekday: "long",
+                year: "numeric",
+                month: "long",
+                day: "numeric",
               })}
             </p>
           </div>
@@ -1639,7 +1823,9 @@ export function CommandCenter() {
               className="text-xs text-text-muted hover:text-text-primary"
               title="Keyboard Shortcuts"
             >
-              <kbd className="px-2 py-1 bg-bg-secondary border border-border rounded">?</kbd>
+              <kbd className="px-2 py-1 bg-bg-secondary border border-border rounded">
+                ?
+              </kbd>
             </button>
             <Link to="/schedule">
               <Button variant="secondary" size="sm">
@@ -1703,7 +1889,11 @@ export function CommandCenter() {
 
       {/* Footer with keyboard hint */}
       <div className="mt-6 text-center text-xs text-text-muted">
-        Press <kbd className="px-1.5 py-0.5 bg-bg-secondary border border-border rounded mx-1">?</kbd> for keyboard shortcuts
+        Press{" "}
+        <kbd className="px-1.5 py-0.5 bg-bg-secondary border border-border rounded mx-1">
+          ?
+        </kbd>{" "}
+        for keyboard shortcuts
       </div>
     </div>
   );

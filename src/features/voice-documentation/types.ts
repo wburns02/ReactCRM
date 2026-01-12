@@ -6,12 +6,23 @@
 /**
  * Voice recording status
  */
-export type RecordingStatus = 'idle' | 'recording' | 'paused' | 'processing' | 'complete' | 'error';
+export type RecordingStatus =
+  | "idle"
+  | "recording"
+  | "paused"
+  | "processing"
+  | "complete"
+  | "error";
 
 /**
  * Transcription status
  */
-export type TranscriptionStatus = 'idle' | 'listening' | 'processing' | 'complete' | 'error';
+export type TranscriptionStatus =
+  | "idle"
+  | "listening"
+  | "processing"
+  | "complete"
+  | "error";
 
 /**
  * Audio format configuration
@@ -26,7 +37,7 @@ export interface AudioConfig {
  * Default audio configuration
  */
 export const DEFAULT_AUDIO_CONFIG: AudioConfig = {
-  mimeType: 'audio/webm;codecs=opus',
+  mimeType: "audio/webm;codecs=opus",
   audioBitsPerSecond: 128000,
   sampleRate: 48000,
 };
@@ -83,7 +94,7 @@ export const DEFAULT_VOICE_SETTINGS: VoiceRecordingSettings = {
   autoTranscribe: true,
   noiseSuppression: true,
   echoCancellation: true,
-  language: 'en-US',
+  language: "en-US",
   continuous: true,
   interimResults: true,
   maxDuration: 300, // 5 minutes
@@ -120,21 +131,21 @@ export interface VoiceDocEntry {
 export function formatDuration(seconds: number): string {
   const mins = Math.floor(seconds / 60);
   const secs = Math.floor(seconds % 60);
-  return `${mins}:${secs.toString().padStart(2, '0')}`;
+  return `${mins}:${secs.toString().padStart(2, "0")}`;
 }
 
 /**
  * Check if speech recognition is supported
  */
 export function isSpeechRecognitionSupported(): boolean {
-  return 'webkitSpeechRecognition' in window || 'SpeechRecognition' in window;
+  return "webkitSpeechRecognition" in window || "SpeechRecognition" in window;
 }
 
 /**
  * Check if audio recording is supported
  */
 export function isAudioRecordingSupported(): boolean {
-  return 'MediaRecorder' in window && 'getUserMedia' in navigator.mediaDevices;
+  return "MediaRecorder" in window && "getUserMedia" in navigator.mediaDevices;
 }
 
 /**
@@ -152,10 +163,10 @@ export function getSpeechRecognition(): any {
  */
 export function getSupportedMimeType(): string {
   const types = [
-    'audio/webm;codecs=opus',
-    'audio/webm',
-    'audio/ogg;codecs=opus',
-    'audio/mp4',
+    "audio/webm;codecs=opus",
+    "audio/webm",
+    "audio/ogg;codecs=opus",
+    "audio/mp4",
   ];
 
   for (const type of types) {
@@ -164,7 +175,7 @@ export function getSupportedMimeType(): string {
     }
   }
 
-  return 'audio/webm';
+  return "audio/webm";
 }
 
 /**
@@ -175,7 +186,7 @@ export function blobToBase64(blob: Blob): Promise<string> {
     const reader = new FileReader();
     reader.onloadend = () => {
       const base64 = reader.result as string;
-      resolve(base64.split(',')[1]); // Remove data URL prefix
+      resolve(base64.split(",")[1]); // Remove data URL prefix
     };
     reader.onerror = reject;
     reader.readAsDataURL(blob);

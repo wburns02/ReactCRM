@@ -1,20 +1,25 @@
-import { Link } from 'react-router-dom';
-import { useProspects } from '@/api/hooks/useProspects.ts';
-import { useCustomers } from '@/api/hooks/useCustomers.ts';
-import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
-import { Button } from '@/components/ui/Button.tsx';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { formatCurrency, formatDate } from '@/lib/utils.ts';
-import { PROSPECT_STAGE_LABELS } from '@/api/types/common.ts';
+import { Link } from "react-router-dom";
+import { useProspects } from "@/api/hooks/useProspects.ts";
+import { useCustomers } from "@/api/hooks/useCustomers.ts";
+import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
+import { Button } from "@/components/ui/Button.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { formatCurrency, formatDate } from "@/lib/utils.ts";
+import { PROSPECT_STAGE_LABELS } from "@/api/types/common.ts";
 import {
   WORK_ORDER_STATUS_LABELS,
   JOB_TYPE_LABELS,
   type WorkOrderStatus,
   type JobType,
-} from '@/api/types/workOrder.ts';
-import { AIDispatchStats } from '@/features/ai-dispatch';
-import { RoleDashboard } from '@/components/Dashboard';
+} from "@/api/types/workOrder.ts";
+import { AIDispatchStats } from "@/features/ai-dispatch";
+import { RoleDashboard } from "@/components/Dashboard";
 
 /**
  * Dashboard page - overview of prospects and customers
@@ -39,23 +44,26 @@ export function DashboardPage() {
   const totalProspects = prospectsData?.total || 0;
   const totalCustomers = customersData?.total || 0;
 
-  const pipelineValue = prospects.reduce((sum, p) => sum + (p.estimated_value || 0), 0);
+  const pipelineValue = prospects.reduce(
+    (sum, p) => sum + (p.estimated_value || 0),
+    0,
+  );
 
   const activeProspects = prospects.filter(
-    (p) => !['won', 'lost'].includes(p.prospect_stage)
+    (p) => !["won", "lost"].includes(p.prospect_stage),
   ).length;
 
   // Work order stats
   const totalWorkOrders = workOrdersData?.total || 0;
-  const scheduledWorkOrders = workOrders.filter(
-    (wo) => ['scheduled', 'confirmed'].includes(wo.status)
+  const scheduledWorkOrders = workOrders.filter((wo) =>
+    ["scheduled", "confirmed"].includes(wo.status),
   ).length;
-  const inProgressWorkOrders = workOrders.filter(
-    (wo) => ['enroute', 'on_site', 'in_progress'].includes(wo.status)
+  const inProgressWorkOrders = workOrders.filter((wo) =>
+    ["enroute", "on_site", "in_progress"].includes(wo.status),
   ).length;
-  const todayStr = new Date().toISOString().split('T')[0];
+  const todayStr = new Date().toISOString().split("T")[0];
   const todaysWorkOrders = workOrders.filter(
-    (wo) => wo.scheduled_date === todayStr
+    (wo) => wo.scheduled_date === todayStr,
   );
 
   // Get upcoming follow-ups (next 7 days)
@@ -69,7 +77,10 @@ export function DashboardPage() {
 
   // Get recent items (last 5)
   const recentProspects = [...prospects]
-    .sort((a, b) => new Date(b.created_at).getTime() - new Date(a.created_at).getTime())
+    .sort(
+      (a, b) =>
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime(),
+    )
     .slice(0, 5);
 
   const recentCustomers = [...customers]
@@ -101,8 +112,12 @@ export function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-text-secondary">Total Prospects</p>
-                <p className="text-3xl font-bold text-text-primary mt-2">{totalProspects}</p>
-                <p className="text-xs text-text-muted mt-1">{activeProspects} active</p>
+                <p className="text-3xl font-bold text-text-primary mt-2">
+                  {totalProspects}
+                </p>
+                <p className="text-xs text-text-muted mt-1">
+                  {activeProspects} active
+                </p>
               </div>
               <div className="text-4xl">📋</div>
             </div>
@@ -115,7 +130,9 @@ export function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-text-secondary">Total Customers</p>
-                <p className="text-3xl font-bold text-text-primary mt-2">{totalCustomers}</p>
+                <p className="text-3xl font-bold text-text-primary mt-2">
+                  {totalCustomers}
+                </p>
                 <p className="text-xs text-text-muted mt-1">All time</p>
               </div>
               <div className="text-4xl">👥</div>
@@ -145,9 +162,12 @@ export function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-text-secondary">Work Orders</p>
-                <p className="text-3xl font-bold text-text-primary mt-2">{totalWorkOrders}</p>
+                <p className="text-3xl font-bold text-text-primary mt-2">
+                  {totalWorkOrders}
+                </p>
                 <p className="text-xs text-text-muted mt-1">
-                  {scheduledWorkOrders} scheduled, {inProgressWorkOrders} in progress
+                  {scheduledWorkOrders} scheduled, {inProgressWorkOrders} in
+                  progress
                 </p>
               </div>
               <div className="text-4xl">🔧</div>
@@ -164,8 +184,12 @@ export function DashboardPage() {
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm text-text-secondary">Today's Jobs</p>
-                <p className="text-3xl font-bold text-primary mt-2">{todaysWorkOrders.length}</p>
-                <p className="text-xs text-text-muted mt-1">Scheduled for today</p>
+                <p className="text-3xl font-bold text-primary mt-2">
+                  {todaysWorkOrders.length}
+                </p>
+                <p className="text-xs text-text-muted mt-1">
+                  Scheduled for today
+                </p>
               </div>
               <div className="text-4xl">📅</div>
             </div>
@@ -177,7 +201,9 @@ export function DashboardPage() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-text-secondary">Upcoming Follow-ups</p>
+                <p className="text-sm text-text-secondary">
+                  Upcoming Follow-ups
+                </p>
                 <p className="text-3xl font-bold text-text-primary mt-2">
                   {upcomingFollowUps.length}
                 </p>
@@ -244,17 +270,21 @@ export function DashboardPage() {
                       </p>
                       <p className="text-sm text-text-secondary">
                         {JOB_TYPE_LABELS[wo.job_type as JobType] || wo.job_type}
-                        {wo.time_window_start && ` - ${wo.time_window_start.slice(0, 5)}`}
+                        {wo.time_window_start &&
+                          ` - ${wo.time_window_start.slice(0, 5)}`}
                       </p>
                     </div>
                     <Badge
                       variant={
-                        wo.status === 'completed' ? 'success' :
-                        wo.status === 'in_progress' ? 'warning' :
-                        'default'
+                        wo.status === "completed"
+                          ? "success"
+                          : wo.status === "in_progress"
+                            ? "warning"
+                            : "default"
                       }
                     >
-                      {WORK_ORDER_STATUS_LABELS[wo.status as WorkOrderStatus] || wo.status}
+                      {WORK_ORDER_STATUS_LABELS[wo.status as WorkOrderStatus] ||
+                        wo.status}
                     </Badge>
                   </div>
                   {wo.assigned_technician && (
@@ -285,7 +315,9 @@ export function DashboardPage() {
           </CardHeader>
           <CardContent>
             {recentProspects.length === 0 ? (
-              <p className="text-text-muted text-center py-8">No prospects yet</p>
+              <p className="text-text-muted text-center py-8">
+                No prospects yet
+              </p>
             ) : (
               <div className="space-y-3">
                 {recentProspects.map((prospect) => (
@@ -339,7 +371,9 @@ export function DashboardPage() {
           </CardHeader>
           <CardContent>
             {recentCustomers.length === 0 ? (
-              <p className="text-text-muted text-center py-8">No customers yet</p>
+              <p className="text-text-muted text-center py-8">
+                No customers yet
+              </p>
             ) : (
               <div className="space-y-3">
                 {recentCustomers.map((customer) => (
@@ -359,8 +393,10 @@ export function DashboardPage() {
                           </p>
                         )}
                       </div>
-                      <Badge variant={customer.is_active ? 'success' : 'default'}>
-                        {customer.is_active ? 'Active' : 'Inactive'}
+                      <Badge
+                        variant={customer.is_active ? "success" : "default"}
+                      >
+                        {customer.is_active ? "Active" : "Inactive"}
                       </Badge>
                     </div>
                     {customer.created_at && (

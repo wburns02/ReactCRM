@@ -2,4 +2,4 @@
  * Dashboard component exports
  */
 
-export { RoleDashboard, default } from './RoleDashboard';
+export { RoleDashboard, default } from "./RoleDashboard";

@@ -7,6 +7,6 @@
  * - Maintenance tracking
  */
 
-export { EquipmentPage } from './EquipmentPage.tsx';
-export { EquipmentHealthPage } from './EquipmentHealthPage.tsx';
-export { EquipmentHealthCard } from './EquipmentHealthCard.tsx';
+export { EquipmentPage } from "./EquipmentPage.tsx";
+export { EquipmentHealthPage } from "./EquipmentHealthPage.tsx";
+export { EquipmentHealthCard } from "./EquipmentHealthCard.tsx";

@@ -10,7 +10,7 @@ export {
   useOptionalWebSocketContext,
   type WebSocketContextValue,
   type QueuedMessage,
-} from './WebSocketProvider';
+} from "./WebSocketProvider";
 
 // Role Provider (Demo Mode)
 export {
@@ -21,4 +21,4 @@ export {
   type RoleContextValue,
   type RoleKey,
   type RoleView,
-} from './RoleProvider';
+} from "./RoleProvider";

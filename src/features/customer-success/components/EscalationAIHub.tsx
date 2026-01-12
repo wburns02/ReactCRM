@@ -12,18 +12,20 @@
  * - Toggle between AI view and classic view
  */
 
-import { useState } from 'react';
-import { cn } from '@/lib/utils';
-import { AIGuidancePanel } from './AIGuidancePanel';
-import { ActionQueue } from './ActionQueue';
-import { ProactiveAlerts } from './ProactiveAlerts';
-import { GamificationDashboard } from './GamificationDashboard';
+import { useState } from "react";
+import { cn } from "@/lib/utils";
+import { AIGuidancePanel } from "./AIGuidancePanel";
+import { ActionQueue } from "./ActionQueue";
+import { ProactiveAlerts } from "./ProactiveAlerts";
+import { GamificationDashboard } from "./GamificationDashboard";
 
-type ViewMode = 'ai' | 'classic' | 'stats';
+type ViewMode = "ai" | "classic" | "stats";
 
 export function EscalationAIHub() {
-  const [selectedEscalationId, setSelectedEscalationId] = useState<number | null>(null);
-  const [viewMode, setViewMode] = useState<ViewMode>('ai');
+  const [selectedEscalationId, setSelectedEscalationId] = useState<
+    number | null
+  >(null);
+  const [viewMode, setViewMode] = useState<ViewMode>("ai");
 
   return (
     <div className="space-y-6">
@@ -39,18 +41,18 @@ export function EscalationAIHub() {
         {/* View Toggle */}
         <div className="flex bg-bg-hover rounded-lg p-1">
           {[
-            { id: 'ai', label: 'AI View', icon: '🤖' },
-            { id: 'classic', label: 'Classic', icon: '📋' },
-            { id: 'stats', label: 'My Stats', icon: '📊' },
+            { id: "ai", label: "AI View", icon: "🤖" },
+            { id: "classic", label: "Classic", icon: "📋" },
+            { id: "stats", label: "My Stats", icon: "📊" },
           ].map((mode) => (
             <button
               key={mode.id}
               onClick={() => setViewMode(mode.id as ViewMode)}
               className={cn(
-                'px-4 py-2 text-sm font-medium rounded-lg transition-all flex items-center gap-2',
+                "px-4 py-2 text-sm font-medium rounded-lg transition-all flex items-center gap-2",
                 viewMode === mode.id
-                  ? 'bg-primary text-white'
-                  : 'text-text-muted hover:text-text-primary'
+                  ? "bg-primary text-white"
+                  : "text-text-muted hover:text-text-primary",
               )}
             >
               <span>{mode.icon}</span>
@@ -60,9 +62,9 @@ export function EscalationAIHub() {
         </div>
       </div>
 
-      {viewMode === 'stats' ? (
+      {viewMode === "stats" ? (
         <GamificationDashboard />
-      ) : viewMode === 'ai' ? (
+      ) : viewMode === "ai" ? (
         <div className="grid lg:grid-cols-2 gap-6">
           {/* Left Column - Alerts & Queue */}
           <div className="space-y-6">
@@ -84,12 +86,19 @@ export function EscalationAIHub() {
             {selectedEscalationId ? (
               <div className="sticky top-4">
                 <div className="flex items-center justify-between mb-4">
-                  <h2 className="text-lg font-bold text-text-primary">AI Guidance</h2>
+                  <h2 className="text-lg font-bold text-text-primary">
+                    AI Guidance
+                  </h2>
                   <button
                     onClick={() => setSelectedEscalationId(null)}
                     className="text-text-muted hover:text-text-primary"
                   >
-                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -113,7 +122,8 @@ export function EscalationAIHub() {
                   Select an Escalation
                 </h3>
                 <p className="text-text-muted">
-                  Click on any escalation from the queue to see AI guidance on what to do next
+                  Click on any escalation from the queue to see AI guidance on
+                  what to do next
                 </p>
               </div>
             )}

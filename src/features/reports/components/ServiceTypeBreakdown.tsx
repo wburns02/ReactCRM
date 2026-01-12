@@ -1,11 +1,5 @@
-import {
-  PieChart,
-  Pie,
-  Cell,
-  ResponsiveContainer,
-  Tooltip,
-} from 'recharts';
-import type { ServiceBreakdown } from '../types.ts';
+import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import type { ServiceBreakdown } from "../types.ts";
 
 /**
  * ServiceTypeBreakdown - Pie chart showing service type distribution
@@ -17,22 +11,25 @@ interface ServiceTypeBreakdownProps {
 }
 
 const COLORS = [
-  '#0091ae', // MAC Dark Blue
-  '#22c55e', // Green
-  '#f59e0b', // Amber
-  '#ef4444', // Red
-  '#8b5cf6', // Purple
-  '#ec4899', // Pink
-  '#06b6d4', // Cyan
-  '#84cc16', // Lime
+  "#0091ae", // MAC Dark Blue
+  "#22c55e", // Green
+  "#f59e0b", // Amber
+  "#ef4444", // Red
+  "#8b5cf6", // Purple
+  "#ec4899", // Pink
+  "#06b6d4", // Cyan
+  "#84cc16", // Lime
 ];
 
-export function ServiceTypeBreakdown({ data, className = '' }: ServiceTypeBreakdownProps) {
+export function ServiceTypeBreakdown({
+  data,
+  className = "",
+}: ServiceTypeBreakdownProps) {
   // Format currency
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
       minimumFractionDigits: 0,
       maximumFractionDigits: 0,
     }).format(value);
@@ -48,16 +45,17 @@ export function ServiceTypeBreakdown({ data, className = '' }: ServiceTypeBreakd
             {data.service_type}
           </p>
           <p className="text-sm text-text-secondary">
-            Count: <span className="font-medium text-text-primary">{data.count}</span>
+            Count:{" "}
+            <span className="font-medium text-text-primary">{data.count}</span>
           </p>
           <p className="text-sm text-text-secondary">
-            Revenue:{' '}
+            Revenue:{" "}
             <span className="font-medium text-text-primary">
               {formatCurrency(data.revenue)}
             </span>
           </p>
           <p className="text-sm text-text-secondary">
-            Percentage:{' '}
+            Percentage:{" "}
             <span className="font-medium text-text-primary">
               {data.percentage.toFixed(1)}%
             </span>
@@ -70,12 +68,14 @@ export function ServiceTypeBreakdown({ data, className = '' }: ServiceTypeBreakd
 
   // Custom label - uses Recharts PieLabelRenderProps which includes payload
   const renderLabel = (props: { payload?: ServiceBreakdown }) => {
-    if (!props.payload) return '';
+    if (!props.payload) return "";
     return `${props.payload.service_type} (${props.payload.percentage.toFixed(0)}%)`;
   };
 
   return (
-    <div className={`bg-bg-card border border-border rounded-lg p-6 ${className}`}>
+    <div
+      className={`bg-bg-card border border-border rounded-lg p-6 ${className}`}
+    >
       <h3 className="text-lg font-semibold text-text-primary mb-4">
         Service Type Breakdown
       </h3>
@@ -95,7 +95,10 @@ export function ServiceTypeBreakdown({ data, className = '' }: ServiceTypeBreakd
                 labelLine={true}
               >
                 {data.map((_entry, index) => (
-                  <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                  <Cell
+                    key={`cell-${index}`}
+                    fill={COLORS[index % COLORS.length]}
+                  />
                 ))}
               </Pie>
               <Tooltip content={<CustomTooltip />} />
@@ -120,7 +123,9 @@ export function ServiceTypeBreakdown({ data, className = '' }: ServiceTypeBreakd
                 </div>
                 <div className="flex items-center gap-4 text-text-secondary">
                   <span>{entry.count} jobs</span>
-                  <span className="font-medium">{formatCurrency(entry.revenue)}</span>
+                  <span className="font-medium">
+                    {formatCurrency(entry.revenue)}
+                  </span>
                 </div>
               </div>
             ))}

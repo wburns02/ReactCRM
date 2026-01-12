@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client.ts";
 import type {
   PayrollPeriod,
   TimeEntry,
@@ -10,16 +10,16 @@ import type {
   UpdateTimeEntryInput,
   UpdateCommissionInput,
   UpdatePayRateInput,
-} from '@/api/types/payroll.ts';
+} from "@/api/types/payroll.ts";
 
 /**
  * Payroll Periods
  */
 export function usePayrollPeriods(params?: { status?: string; year?: number }) {
   return useQuery({
-    queryKey: ['payroll', 'periods', params],
+    queryKey: ["payroll", "periods", params],
     queryFn: async (): Promise<PayrollPeriod[]> => {
-      const { data } = await apiClient.get('/payroll/periods', { params });
+      const { data } = await apiClient.get("/payroll/periods", { params });
       return data.periods || [];
     },
   });
@@ -27,7 +27,7 @@ export function usePayrollPeriods(params?: { status?: string; year?: number }) {
 
 export function usePayrollPeriod(periodId: string) {
   return useQuery({
-    queryKey: ['payroll', 'periods', periodId],
+    queryKey: ["payroll", "periods", periodId],
     queryFn: async (): Promise<PayrollPeriod> => {
       const { data } = await apiClient.get(`/payroll/periods/${periodId}`);
       return data;
@@ -40,12 +40,14 @@ export function useCreatePayrollPeriod() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (input: CreatePayrollPeriodInput): Promise<PayrollPeriod> => {
-      const { data } = await apiClient.post('/payroll/periods', input);
+    mutationFn: async (
+      input: CreatePayrollPeriodInput,
+    ): Promise<PayrollPeriod> => {
+      const { data } = await apiClient.post("/payroll/periods", input);
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'periods'] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
     },
   });
 }
@@ -55,12 +57,16 @@ export function useApprovePayrollPeriod() {
 
   return useMutation({
     mutationFn: async (periodId: string): Promise<PayrollPeriod> => {
-      const { data } = await apiClient.post(`/payroll/periods/${periodId}/approve`);
+      const { data } = await apiClient.post(
+        `/payroll/periods/${periodId}/approve`,
+      );
       return data;
     },
     onSuccess: (_, periodId) => {
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'periods'] });
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'periods', periodId] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
+      queryClient.invalidateQueries({
+        queryKey: ["payroll", "periods", periodId],
+      });
     },
   });
 }
@@ -70,12 +76,16 @@ export function useProcessPayrollPeriod() {
 
   return useMutation({
     mutationFn: async (periodId: string): Promise<PayrollPeriod> => {
-      const { data } = await apiClient.post(`/payroll/periods/${periodId}/process`);
+      const { data } = await apiClient.post(
+        `/payroll/periods/${periodId}/process`,
+      );
       return data;
     },
     onSuccess: (_, periodId) => {
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'periods'] });
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'periods', periodId] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
+      queryClient.invalidateQueries({
+        queryKey: ["payroll", "periods", periodId],
+      });
     },
   });
 }
@@ -85,9 +95,11 @@ export function useProcessPayrollPeriod() {
  */
 export function usePayrollSummary(periodId: string) {
   return useQuery({
-    queryKey: ['payroll', 'periods', periodId, 'summary'],
+    queryKey: ["payroll", "periods", periodId, "summary"],
     queryFn: async (): Promise<PayrollSummary[]> => {
-      const { data } = await apiClient.get(`/payroll/periods/${periodId}/summary`);
+      const { data } = await apiClient.get(
+        `/payroll/periods/${periodId}/summary`,
+      );
       return data.summaries || [];
     },
     enabled: !!periodId,
@@ -105,9 +117,9 @@ export function useTimeEntries(params?: {
   status?: string;
 }) {
   return useQuery({
-    queryKey: ['payroll', 'time-entries', params],
+    queryKey: ["payroll", "time-entries", params],
     queryFn: async (): Promise<TimeEntry[]> => {
-      const { data } = await apiClient.get('/payroll/time-entries', { params });
+      const { data } = await apiClient.get("/payroll/time-entries", { params });
       return data.entries || [];
     },
   });
@@ -124,12 +136,15 @@ export function useUpdateTimeEntry() {
       entryId: string;
       input: UpdateTimeEntryInput;
     }): Promise<TimeEntry> => {
-      const { data } = await apiClient.patch(`/payroll/time-entries/${entryId}`, input);
+      const { data } = await apiClient.patch(
+        `/payroll/time-entries/${entryId}`,
+        input,
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'time-entries'] });
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'periods'] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "time-entries"] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
     },
   });
 }
@@ -139,14 +154,17 @@ export function useBulkApproveTimeEntries() {
 
   return useMutation({
     mutationFn: async (entryIds: string[]): Promise<{ approved: number }> => {
-      const { data } = await apiClient.post('/payroll/time-entries/bulk-approve', {
-        entry_ids: entryIds,
-      });
+      const { data } = await apiClient.post(
+        "/payroll/time-entries/bulk-approve",
+        {
+          entry_ids: entryIds,
+        },
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'time-entries'] });
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'periods'] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "time-entries"] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
     },
   });
 }
@@ -160,9 +178,9 @@ export function useCommissions(params?: {
   status?: string;
 }) {
   return useQuery({
-    queryKey: ['payroll', 'commissions', params],
+    queryKey: ["payroll", "commissions", params],
     queryFn: async (): Promise<Commission[]> => {
-      const { data } = await apiClient.get('/payroll/commissions', { params });
+      const { data } = await apiClient.get("/payroll/commissions", { params });
       return data.commissions || [];
     },
   });
@@ -179,12 +197,15 @@ export function useUpdateCommission() {
       commissionId: string;
       input: UpdateCommissionInput;
     }): Promise<Commission> => {
-      const { data } = await apiClient.patch(`/payroll/commissions/${commissionId}`, input);
+      const { data } = await apiClient.patch(
+        `/payroll/commissions/${commissionId}`,
+        input,
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'commissions'] });
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'periods'] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "commissions"] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
     },
   });
 }
@@ -193,15 +214,20 @@ export function useBulkApproveCommissions() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (commissionIds: string[]): Promise<{ approved: number }> => {
-      const { data } = await apiClient.post('/payroll/commissions/bulk-approve', {
-        commission_ids: commissionIds,
-      });
+    mutationFn: async (
+      commissionIds: string[],
+    ): Promise<{ approved: number }> => {
+      const { data } = await apiClient.post(
+        "/payroll/commissions/bulk-approve",
+        {
+          commission_ids: commissionIds,
+        },
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'commissions'] });
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'periods'] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "commissions"] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
     },
   });
 }
@@ -209,11 +235,14 @@ export function useBulkApproveCommissions() {
 /**
  * Technician Pay Rates
  */
-export function usePayRates(params?: { technician_id?: string; is_active?: boolean }) {
+export function usePayRates(params?: {
+  technician_id?: string;
+  is_active?: boolean;
+}) {
   return useQuery({
-    queryKey: ['payroll', 'pay-rates', params],
+    queryKey: ["payroll", "pay-rates", params],
     queryFn: async (): Promise<TechnicianPayRate[]> => {
-      const { data } = await apiClient.get('/payroll/pay-rates', { params });
+      const { data } = await apiClient.get("/payroll/pay-rates", { params });
       return data.rates || [];
     },
   });
@@ -221,7 +250,7 @@ export function usePayRates(params?: { technician_id?: string; is_active?: boole
 
 export function usePayRate(rateId: string) {
   return useQuery({
-    queryKey: ['payroll', 'pay-rates', rateId],
+    queryKey: ["payroll", "pay-rates", rateId],
     queryFn: async (): Promise<TechnicianPayRate> => {
       const { data } = await apiClient.get(`/payroll/pay-rates/${rateId}`);
       return data;
@@ -234,12 +263,14 @@ export function useCreatePayRate() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (input: Omit<TechnicianPayRate, 'id'>): Promise<TechnicianPayRate> => {
-      const { data } = await apiClient.post('/payroll/pay-rates', input);
+    mutationFn: async (
+      input: Omit<TechnicianPayRate, "id">,
+    ): Promise<TechnicianPayRate> => {
+      const { data } = await apiClient.post("/payroll/pay-rates", input);
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'pay-rates'] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "pay-rates"] });
     },
   });
 }
@@ -255,11 +286,14 @@ export function useUpdatePayRate() {
       rateId: string;
       input: UpdatePayRateInput;
     }): Promise<TechnicianPayRate> => {
-      const { data } = await apiClient.patch(`/payroll/pay-rates/${rateId}`, input);
+      const { data } = await apiClient.patch(
+        `/payroll/pay-rates/${rateId}`,
+        input,
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['payroll', 'pay-rates'] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "pay-rates"] });
     },
   });
 }
@@ -274,12 +308,15 @@ export function useExportPayroll() {
       format,
     }: {
       periodId: string;
-      format: 'csv' | 'pdf' | 'nacha';
+      format: "csv" | "pdf" | "nacha";
     }): Promise<Blob> => {
-      const { data } = await apiClient.get(`/payroll/periods/${periodId}/export`, {
-        params: { format },
-        responseType: 'blob',
-      });
+      const { data } = await apiClient.get(
+        `/payroll/periods/${periodId}/export`,
+        {
+          params: { format },
+          responseType: "blob",
+        },
+      );
       return data;
     },
   });

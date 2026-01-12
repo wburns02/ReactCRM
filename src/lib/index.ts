@@ -3,13 +3,18 @@
  */
 
 // Utility functions
-export { cn, formatDate, formatCurrency } from './utils';
+export { cn, formatDate, formatCurrency } from "./utils";
 
 // Feature flags
-export { FEATURE_FLAGS } from './feature-flags';
+export { FEATURE_FLAGS } from "./feature-flags";
 
 // Sanitization
-export { sanitizeHtml, sanitizeText, sanitizeUrl, escapeHtml } from './sanitize';
+export {
+  sanitizeHtml,
+  sanitizeText,
+  sanitizeUrl,
+  escapeHtml,
+} from "./sanitize";
 
 // Sentry error tracking
 export {
@@ -23,7 +28,7 @@ export {
   SentryErrorBoundary,
   SentryProfiler,
   Sentry,
-} from './sentry';
+} from "./sentry";
 
 // Web Vitals performance monitoring
 export {
@@ -40,7 +45,7 @@ export {
   type PerformanceBudget,
   type WebVitalsReport,
   type WebVitalsOptions,
-} from './webVitals';
+} from "./webVitals";
 
 // Push notifications
 export {
@@ -52,4 +57,4 @@ export {
   getCurrentSubscription,
   showLocalNotification,
   getDeviceName,
-} from './push-notifications';
+} from "./push-notifications";

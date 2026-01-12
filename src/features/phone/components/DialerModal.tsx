@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { useInitiateCall, useMyExtension } from '../api.ts';
+import { useState } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { useInitiateCall, useMyExtension } from "../api.ts";
 
 interface DialerModalProps {
   open: boolean;
@@ -13,12 +13,17 @@ interface DialerModalProps {
 /**
  * Full dialer pad modal for manual phone number entry
  */
-export function DialerModal({ open, onClose, customerId, prospectId }: DialerModalProps) {
-  const [phoneNumber, setPhoneNumber] = useState('');
+export function DialerModal({
+  open,
+  onClose,
+  customerId,
+  prospectId,
+}: DialerModalProps) {
+  const [phoneNumber, setPhoneNumber] = useState("");
   const initiateMutation = useInitiateCall();
   const { data: myExtension } = useMyExtension();
   // Use the current user's own extension (not first in list which might be boss's)
-  const defaultFromNumber = myExtension?.extension_number || '';
+  const defaultFromNumber = myExtension?.extension_number || "";
 
   const handleDigit = (digit: string) => {
     setPhoneNumber((prev) => prev + digit);
@@ -29,7 +34,7 @@ export function DialerModal({ open, onClose, customerId, prospectId }: DialerMod
   };
 
   const handleClear = () => {
-    setPhoneNumber('');
+    setPhoneNumber("");
   };
 
   const handleCall = async () => {
@@ -45,17 +50,17 @@ export function DialerModal({ open, onClose, customerId, prospectId }: DialerMod
       handleClear();
       onClose();
     } catch (error) {
-      console.error('Failed to initiate call:', error);
+      console.error("Failed to initiate call:", error);
     }
   };
 
   if (!open) return null;
 
   const digits = [
-    ['1', '2', '3'],
-    ['4', '5', '6'],
-    ['7', '8', '9'],
-    ['*', '0', '#'],
+    ["1", "2", "3"],
+    ["4", "5", "6"],
+    ["7", "8", "9"],
+    ["*", "0", "#"],
   ];
 
   return (
@@ -63,7 +68,9 @@ export function DialerModal({ open, onClose, customerId, prospectId }: DialerMod
       <div className="bg-bg-card rounded-lg shadow-xl p-6 w-80">
         {/* Header */}
         <div className="flex items-center justify-between mb-4">
-          <h2 className="text-xl font-semibold text-text-primary">Phone Dialer</h2>
+          <h2 className="text-xl font-semibold text-text-primary">
+            Phone Dialer
+          </h2>
           <button
             onClick={onClose}
             className="text-text-secondary hover:text-text-primary text-2xl leading-none"
@@ -85,7 +92,7 @@ export function DialerModal({ open, onClose, customerId, prospectId }: DialerMod
 
         {/* Dialer Pad */}
         <div className="grid grid-cols-3 gap-2 mb-4">
-          {digits.map((row, rowIndex) => (
+          {digits.map((row, rowIndex) =>
             row.map((digit) => (
               <button
                 key={`${rowIndex}-${digit}`}
@@ -94,8 +101,8 @@ export function DialerModal({ open, onClose, customerId, prospectId }: DialerMod
               >
                 {digit}
               </button>
-            ))
-          ))}
+            )),
+          )}
         </div>
 
         {/* Action Buttons */}
@@ -127,7 +134,7 @@ export function DialerModal({ open, onClose, customerId, prospectId }: DialerMod
             className="flex-1"
             disabled={!phoneNumber.trim() || initiateMutation.isPending}
           >
-            {initiateMutation.isPending ? 'Calling...' : 'Call'}
+            {initiateMutation.isPending ? "Calling..." : "Call"}
           </Button>
         </div>
       </div>

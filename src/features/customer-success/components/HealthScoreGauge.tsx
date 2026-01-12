@@ -4,70 +4,70 @@
  * A visual gauge showing customer health score with color-coded status.
  */
 
-import { useMemo } from 'react';
-import { cn } from '@/lib/utils.ts';
-import type { HealthStatus, ScoreTrend } from '@/api/types/customerSuccess.ts';
+import { useMemo } from "react";
+import { cn } from "@/lib/utils.ts";
+import type { HealthStatus, ScoreTrend } from "@/api/types/customerSuccess.ts";
 
 interface HealthScoreGaugeProps {
   score: number;
   status?: HealthStatus | null;
   trend?: ScoreTrend | null;
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
   showLabel?: boolean;
   className?: string;
 }
 
 const STATUS_COLORS: Record<HealthStatus, string> = {
-  healthy: 'text-success',
-  at_risk: 'text-warning',
-  critical: 'text-danger',
-  churned: 'text-text-muted',
+  healthy: "text-success",
+  at_risk: "text-warning",
+  critical: "text-danger",
+  churned: "text-text-muted",
 };
 
 const STATUS_BG_COLORS: Record<HealthStatus, string> = {
-  healthy: 'bg-success/10',
-  at_risk: 'bg-warning/10',
-  critical: 'bg-danger/10',
-  churned: 'bg-text-muted/10',
+  healthy: "bg-success/10",
+  at_risk: "bg-warning/10",
+  critical: "bg-danger/10",
+  churned: "bg-text-muted/10",
 };
 
 const STATUS_LABELS: Record<HealthStatus, string> = {
-  healthy: 'Healthy',
-  at_risk: 'At Risk',
-  critical: 'Critical',
-  churned: 'Churned',
+  healthy: "Healthy",
+  at_risk: "At Risk",
+  critical: "Critical",
+  churned: "Churned",
 };
 
 const TREND_ICONS: Record<ScoreTrend, string> = {
-  improving: '↑',
-  stable: '→',
-  declining: '↓',
+  improving: "↑",
+  stable: "→",
+  declining: "↓",
 };
 
 const TREND_COLORS: Record<ScoreTrend, string> = {
-  improving: 'text-success',
-  stable: 'text-text-muted',
-  declining: 'text-danger',
+  improving: "text-success",
+  stable: "text-text-muted",
+  declining: "text-danger",
 };
 
 const SIZE_CLASSES = {
   sm: {
-    container: 'w-16 h-16',
-    text: 'text-lg font-bold',
-    label: 'text-xs',
-    ring: 'w-14 h-14',
+    container: "w-16 h-16",
+    text: "text-lg font-bold",
+    label: "text-xs",
+    ring: "w-14 h-14",
   },
   md: {
-    container: 'w-24 h-24',
-    text: 'text-2xl font-bold',
-    label: 'text-sm',
-    ring: 'w-20 h-20',
+    container: "w-24 h-24",
+    text: "text-2xl font-bold",
+    label: "text-sm",
+    ring: "w-20 h-20",
   },
   lg: {
-    container: 'w-32 h-32',
-    text: 'text-4xl font-bold',
-    label: 'text-base',
-    ring: 'w-28 h-28',
+    container: "w-32 h-32",
+    text: "text-4xl font-bold",
+    label: "text-base",
+    ring: "w-28 h-28",
   },
 };
 
@@ -75,16 +75,16 @@ export function HealthScoreGauge({
   score,
   status,
   trend,
-  size = 'md',
+  size = "md",
   showLabel = true,
   className,
 }: HealthScoreGaugeProps) {
   const derivedStatus = useMemo<HealthStatus>(() => {
     if (status) return status;
-    if (score >= 70) return 'healthy';
-    if (score >= 40) return 'at_risk';
-    if (score >= 20) return 'critical';
-    return 'churned';
+    if (score >= 70) return "healthy";
+    if (score >= 40) return "at_risk";
+    if (score >= 20) return "critical";
+    return "churned";
   }, [score, status]);
 
   const sizeClasses = SIZE_CLASSES[size];
@@ -93,17 +93,22 @@ export function HealthScoreGauge({
 
   const strokeColor = useMemo(() => {
     switch (derivedStatus) {
-      case 'healthy': return '#22c55e';
-      case 'at_risk': return '#f59e0b';
-      case 'critical': return '#ef4444';
-      case 'churned': return '#6b7280';
-      default: return '#6b7280';
+      case "healthy":
+        return "#22c55e";
+      case "at_risk":
+        return "#f59e0b";
+      case "critical":
+        return "#ef4444";
+      case "churned":
+        return "#6b7280";
+      default:
+        return "#6b7280";
     }
   }, [derivedStatus]);
 
   return (
-    <div className={cn('flex flex-col items-center gap-2', className)}>
-      <div className={cn('relative', sizeClasses.container)}>
+    <div className={cn("flex flex-col items-center gap-2", className)}>
+      <div className={cn("relative", sizeClasses.container)}>
         {/* Background circle */}
         <svg className="absolute inset-0" viewBox="0 0 100 100">
           <circle
@@ -136,7 +141,7 @@ export function HealthScoreGauge({
             {score}
           </span>
           {trend && (
-            <span className={cn('text-xs', TREND_COLORS[trend])}>
+            <span className={cn("text-xs", TREND_COLORS[trend])}>
               {TREND_ICONS[trend]}
             </span>
           )}
@@ -145,12 +150,14 @@ export function HealthScoreGauge({
 
       {showLabel && (
         <div className="flex flex-col items-center">
-          <span className={cn(
-            'px-2 py-0.5 rounded-full',
-            sizeClasses.label,
-            STATUS_BG_COLORS[derivedStatus],
-            STATUS_COLORS[derivedStatus]
-          )}>
+          <span
+            className={cn(
+              "px-2 py-0.5 rounded-full",
+              sizeClasses.label,
+              STATUS_BG_COLORS[derivedStatus],
+              STATUS_COLORS[derivedStatus],
+            )}
+          >
             {STATUS_LABELS[derivedStatus]}
           </span>
         </div>

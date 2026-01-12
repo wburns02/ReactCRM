@@ -3,7 +3,7 @@
  * Shows overall score, rating distribution, recent reviews, and trend over time
  */
 
-import { useState, memo } from 'react';
+import { useState, memo } from "react";
 import {
   BarChart,
   Bar,
@@ -14,16 +14,21 @@ import {
   CartesianGrid,
   Tooltip,
   ResponsiveContainer,
-} from 'recharts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Skeleton } from '@/components/ui/Skeleton.tsx';
+} from "recharts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Skeleton } from "@/components/ui/Skeleton.tsx";
 import {
   formatChartDate,
   CHART_COLORS,
   AXIS_STYLE,
   GRID_STYLE,
-} from './utils/chartConfig.ts';
+} from "./utils/chartConfig.ts";
 
 export interface CustomerReview {
   id: string;
@@ -58,26 +63,37 @@ interface CustomerSatisfactionProps {
   className?: string;
 }
 
-type ViewMode = 'overview' | 'reviews' | 'trend';
+type ViewMode = "overview" | "reviews" | "trend";
 
 /**
  * Star rating display
  */
-function StarRating({ rating, size = 'md' }: { rating: number; size?: 'sm' | 'md' | 'lg' }) {
+function StarRating({
+  rating,
+  size = "md",
+}: {
+  rating: number;
+  size?: "sm" | "md" | "lg";
+}) {
   const fullStars = Math.floor(rating);
   const hasHalfStar = rating % 1 >= 0.5;
   const emptyStars = 5 - fullStars - (hasHalfStar ? 1 : 0);
 
-  const sizeClass = size === 'sm' ? 'text-sm' : size === 'lg' ? 'text-2xl' : 'text-lg';
+  const sizeClass =
+    size === "sm" ? "text-sm" : size === "lg" ? "text-2xl" : "text-lg";
 
   return (
     <div className={`flex items-center gap-0.5 ${sizeClass}`}>
       {Array.from({ length: fullStars }).map((_, i) => (
-        <span key={`full-${i}`} className="text-warning">&#9733;</span>
+        <span key={`full-${i}`} className="text-warning">
+          &#9733;
+        </span>
       ))}
       {hasHalfStar && <span className="text-warning">&#9734;</span>}
       {Array.from({ length: emptyStars }).map((_, i) => (
-        <span key={`empty-${i}`} className="text-text-muted">&#9734;</span>
+        <span key={`empty-${i}`} className="text-text-muted">
+          &#9734;
+        </span>
       ))}
     </div>
   );
@@ -86,7 +102,13 @@ function StarRating({ rating, size = 'md' }: { rating: number; size?: 'sm' | 'md
 /**
  * Overall score gauge display
  */
-function ScoreGauge({ score, maxScore = 5 }: { score: number; maxScore?: number }) {
+function ScoreGauge({
+  score,
+  maxScore = 5,
+}: {
+  score: number;
+  maxScore?: number;
+}) {
   const percentage = (score / maxScore) * 100;
   const getColor = () => {
     if (percentage >= 80) return CHART_COLORS.success;
@@ -97,7 +119,10 @@ function ScoreGauge({ score, maxScore = 5 }: { score: number; maxScore?: number 
   return (
     <div className="flex flex-col items-center">
       <div className="relative w-32 h-32">
-        <svg className="w-full h-full transform -rotate-90" viewBox="0 0 100 100">
+        <svg
+          className="w-full h-full transform -rotate-90"
+          viewBox="0 0 100 100"
+        >
           {/* Background circle */}
           <circle
             cx="50"
@@ -122,7 +147,9 @@ function ScoreGauge({ score, maxScore = 5 }: { score: number; maxScore?: number 
           />
         </svg>
         <div className="absolute inset-0 flex flex-col items-center justify-center">
-          <span className="text-3xl font-bold text-text-primary">{score.toFixed(1)}</span>
+          <span className="text-3xl font-bold text-text-primary">
+            {score.toFixed(1)}
+          </span>
           <span className="text-sm text-text-secondary">/ {maxScore}</span>
         </div>
       </div>
@@ -138,9 +165,9 @@ function ScoreGauge({ score, maxScore = 5 }: { score: number; maxScore?: number 
  */
 function NPSDisplay({ score }: { score: number }) {
   const getCategory = () => {
-    if (score >= 50) return { label: 'Excellent', color: 'success' };
-    if (score >= 0) return { label: 'Good', color: 'warning' };
-    return { label: 'Needs Improvement', color: 'danger' };
+    if (score >= 50) return { label: "Excellent", color: "success" };
+    if (score >= 0) return { label: "Good", color: "warning" };
+    return { label: "Needs Improvement", color: "danger" };
   };
 
   const category = getCategory();
@@ -148,11 +175,17 @@ function NPSDisplay({ score }: { score: number }) {
   return (
     <div className="text-center">
       <p className="text-sm text-text-secondary mb-1">Net Promoter Score</p>
-      <p className={`text-4xl font-bold ${
-        category.color === 'success' ? 'text-success' :
-        category.color === 'warning' ? 'text-warning' : 'text-danger'
-      }`}>
-        {score >= 0 ? '+' : ''}{score}
+      <p
+        className={`text-4xl font-bold ${
+          category.color === "success"
+            ? "text-success"
+            : category.color === "warning"
+              ? "text-warning"
+              : "text-danger"
+        }`}
+      >
+        {score >= 0 ? "+" : ""}
+        {score}
       </p>
       <Badge variant={category.color as any} className="mt-2">
         {category.label}
@@ -170,24 +203,33 @@ const RatingDistributionChart = memo(function RatingDistributionChart({
   data: RatingDistribution[];
 }) {
   const chartData = data.map((d) => ({
-    rating: `${d.rating} Star${d.rating !== 1 ? 's' : ''}`,
+    rating: `${d.rating} Star${d.rating !== 1 ? "s" : ""}`,
     count: d.count,
-    fill: d.rating >= 4 ? CHART_COLORS.success : d.rating >= 3 ? CHART_COLORS.warning : CHART_COLORS.danger,
+    fill:
+      d.rating >= 4
+        ? CHART_COLORS.success
+        : d.rating >= 3
+          ? CHART_COLORS.warning
+          : CHART_COLORS.danger,
   }));
 
   return (
     <ResponsiveContainer width="100%" height={200}>
-      <BarChart data={chartData} layout="vertical" margin={{ top: 10, right: 30, bottom: 0, left: 60 }}>
+      <BarChart
+        data={chartData}
+        layout="vertical"
+        margin={{ top: 10, right: 30, bottom: 0, left: 60 }}
+      >
         <CartesianGrid {...GRID_STYLE} horizontal={false} />
         <XAxis type="number" {...AXIS_STYLE} />
         <YAxis type="category" dataKey="rating" {...AXIS_STYLE} />
         <Tooltip
           contentStyle={{
-            backgroundColor: 'white',
-            border: '1px solid #e5e7eb',
-            borderRadius: '8px',
+            backgroundColor: "white",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
           }}
-          formatter={(value) => [value, 'Responses']}
+          formatter={(value) => [value, "Responses"]}
         />
         <Bar dataKey="count" radius={[0, 4, 4, 0]}>
           {chartData.map((entry, index) => (
@@ -224,7 +266,9 @@ const ReviewsList = memo(function ReviewsList({
         >
           <div className="flex items-start justify-between mb-2">
             <div>
-              <p className="font-medium text-text-primary">{review.customerName}</p>
+              <p className="font-medium text-text-primary">
+                {review.customerName}
+              </p>
               <p className="text-xs text-text-muted">
                 {formatChartDate(review.date)} - Tech: {review.technicianName}
               </p>
@@ -257,14 +301,13 @@ const TrendChart = memo(function TrendChart({
 
   return (
     <ResponsiveContainer width="100%" height={250}>
-      <LineChart data={chartData} margin={{ top: 10, right: 30, bottom: 0, left: 0 }}>
+      <LineChart
+        data={chartData}
+        margin={{ top: 10, right: 30, bottom: 0, left: 0 }}
+      >
         <CartesianGrid {...GRID_STYLE} />
         <XAxis dataKey="dateLabel" {...AXIS_STYLE} tick={{ fontSize: 11 }} />
-        <YAxis
-          yAxisId="left"
-          domain={[0, 5]}
-          {...AXIS_STYLE}
-        />
+        <YAxis yAxisId="left" domain={[0, 5]} {...AXIS_STYLE} />
         <YAxis
           yAxisId="right"
           orientation="right"
@@ -273,14 +316,21 @@ const TrendChart = memo(function TrendChart({
         />
         <Tooltip
           contentStyle={{
-            backgroundColor: 'white',
-            border: '1px solid #e5e7eb',
-            borderRadius: '8px',
+            backgroundColor: "white",
+            border: "1px solid #e5e7eb",
+            borderRadius: "8px",
           }}
           formatter={(value, name) => [
-            name === 'avgRating' ? Number(value).toFixed(2) :
-            name === 'nps' ? `${Number(value) >= 0 ? '+' : ''}${value}` : value,
-            name === 'avgRating' ? 'Avg Rating' : name === 'nps' ? 'NPS' : 'Responses'
+            name === "avgRating"
+              ? Number(value).toFixed(2)
+              : name === "nps"
+                ? `${Number(value) >= 0 ? "+" : ""}${value}`
+                : value,
+            name === "avgRating"
+              ? "Avg Rating"
+              : name === "nps"
+                ? "NPS"
+                : "Responses",
           ]}
         />
         <Line
@@ -337,9 +387,9 @@ export const CustomerSatisfaction = memo(function CustomerSatisfaction({
   recentReviews,
   trendData,
   isLoading = false,
-  className = '',
+  className = "",
 }: CustomerSatisfactionProps) {
-  const [viewMode, setViewMode] = useState<ViewMode>('overview');
+  const [viewMode, setViewMode] = useState<ViewMode>("overview");
 
   if (isLoading) {
     return <LoadingSkeleton />;
@@ -354,8 +404,12 @@ export const CustomerSatisfaction = memo(function CustomerSatisfaction({
         <CardContent className="p-0">
           <div className="text-center py-12">
             <div className="text-4xl mb-4">&#128522;</div>
-            <h3 className="text-lg font-medium text-text-primary mb-2">No feedback yet</h3>
-            <p className="text-text-secondary">Customer satisfaction data will appear once reviews are collected.</p>
+            <h3 className="text-lg font-medium text-text-primary mb-2">
+              No feedback yet
+            </h3>
+            <p className="text-text-secondary">
+              Customer satisfaction data will appear once reviews are collected.
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -373,14 +427,14 @@ export const CustomerSatisfaction = memo(function CustomerSatisfaction({
             </p>
           </div>
           <div className="flex items-center gap-1 bg-bg-muted rounded-md p-0.5">
-            {(['overview', 'reviews', 'trend'] as const).map((mode) => (
+            {(["overview", "reviews", "trend"] as const).map((mode) => (
               <button
                 key={mode}
                 onClick={() => setViewMode(mode)}
                 className={`px-2 py-1 text-xs rounded transition-colors ${
                   viewMode === mode
-                    ? 'bg-bg-card text-text-primary shadow-sm'
-                    : 'text-text-secondary hover:text-text-primary'
+                    ? "bg-bg-card text-text-primary shadow-sm"
+                    : "text-text-secondary hover:text-text-primary"
                 }`}
               >
                 {mode.charAt(0).toUpperCase() + mode.slice(1)}
@@ -390,26 +444,24 @@ export const CustomerSatisfaction = memo(function CustomerSatisfaction({
         </div>
       </CardHeader>
       <CardContent className="p-0">
-        {viewMode === 'overview' && (
+        {viewMode === "overview" && (
           <div className="flex flex-col lg:flex-row items-center gap-8">
             <div className="flex flex-col sm:flex-row items-center gap-8">
               <ScoreGauge score={overallScore} />
               <NPSDisplay score={npsScore} />
             </div>
             <div className="flex-1 w-full">
-              <h4 className="text-sm font-medium text-text-secondary mb-2">Rating Distribution</h4>
+              <h4 className="text-sm font-medium text-text-secondary mb-2">
+                Rating Distribution
+              </h4>
               <RatingDistributionChart data={ratingDistribution} />
             </div>
           </div>
         )}
 
-        {viewMode === 'reviews' && (
-          <ReviewsList reviews={recentReviews} />
-        )}
+        {viewMode === "reviews" && <ReviewsList reviews={recentReviews} />}
 
-        {viewMode === 'trend' && (
-          <TrendChart data={trendData} />
-        )}
+        {viewMode === "trend" && <TrendChart data={trendData} />}
       </CardContent>
     </Card>
   );

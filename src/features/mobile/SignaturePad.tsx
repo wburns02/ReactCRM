@@ -1,6 +1,6 @@
-import { useRef, useState, useEffect } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
+import { useRef, useState, useEffect } from "react";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
 
 interface SignaturePadProps {
   title?: string;
@@ -14,7 +14,7 @@ interface SignaturePadProps {
  * Canvas-based signature capture component
  */
 export function SignaturePad({
-  title = 'Signature',
+  title = "Signature",
   onSave,
   onCancel,
   width = 400,
@@ -41,8 +41,8 @@ export function SignaturePad({
     };
 
     updateSize();
-    window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
+    window.addEventListener("resize", updateSize);
+    return () => window.removeEventListener("resize", updateSize);
   }, [width, height]);
 
   /**
@@ -52,14 +52,14 @@ export function SignaturePad({
     const canvas = canvasRef.current;
     if (!canvas) return null;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return null;
 
     // Configure drawing style
-    ctx.strokeStyle = '#000000';
+    ctx.strokeStyle = "#000000";
     ctx.lineWidth = 2;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
 
     return ctx;
   };
@@ -68,7 +68,9 @@ export function SignaturePad({
    * Get coordinates relative to canvas
    */
   const getCoordinates = (
-    event: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+    event:
+      | React.MouseEvent<HTMLCanvasElement>
+      | React.TouchEvent<HTMLCanvasElement>,
   ): { x: number; y: number } | null => {
     const canvas = canvasRef.current;
     if (!canvas) return null;
@@ -77,7 +79,7 @@ export function SignaturePad({
     let clientX: number;
     let clientY: number;
 
-    if ('touches' in event) {
+    if ("touches" in event) {
       if (event.touches.length === 0) return null;
       clientX = event.touches[0].clientX;
       clientY = event.touches[0].clientY;
@@ -96,7 +98,9 @@ export function SignaturePad({
    * Start drawing
    */
   const startDrawing = (
-    event: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+    event:
+      | React.MouseEvent<HTMLCanvasElement>
+      | React.TouchEvent<HTMLCanvasElement>,
   ) => {
     event.preventDefault();
     const coords = getCoordinates(event);
@@ -114,7 +118,9 @@ export function SignaturePad({
    * Draw line
    */
   const draw = (
-    event: React.MouseEvent<HTMLCanvasElement> | React.TouchEvent<HTMLCanvasElement>
+    event:
+      | React.MouseEvent<HTMLCanvasElement>
+      | React.TouchEvent<HTMLCanvasElement>,
   ) => {
     event.preventDefault();
     if (!isDrawing) return;
@@ -156,7 +162,7 @@ export function SignaturePad({
     const canvas = canvasRef.current;
     if (!canvas || !hasSignature) return;
 
-    const signatureData = canvas.toDataURL('image/png');
+    const signatureData = canvas.toDataURL("image/png");
     onSave(signatureData);
   };
 

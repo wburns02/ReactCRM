@@ -7,19 +7,24 @@
  * - Show signer name and timestamp
  * - Type indicator (Customer/Technician)
  */
-import { Badge } from '@/components/ui/Badge';
-import { Card } from '@/components/ui/Card';
-import { cn } from '@/lib/utils';
-import type { WorkOrderSignature, SignatureType } from '@/api/types/workOrder';
+import { Badge } from "@/components/ui/Badge";
+import { Card } from "@/components/ui/Card";
+import { cn } from "@/lib/utils";
+import type { WorkOrderSignature, SignatureType } from "@/api/types/workOrder";
 
 const SIGNATURE_TYPE_LABELS: Record<SignatureType, string> = {
-  customer: 'Customer',
-  technician: 'Technician',
+  customer: "Customer",
+  technician: "Technician",
 };
 
 const SIGNATURE_TYPE_ICONS: Record<SignatureType, React.ReactNode> = {
   customer: (
-    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg
+      className="w-4 h-4"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -29,7 +34,12 @@ const SIGNATURE_TYPE_ICONS: Record<SignatureType, React.ReactNode> = {
     </svg>
   ),
   technician: (
-    <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+    <svg
+      className="w-4 h-4"
+      fill="none"
+      stroke="currentColor"
+      viewBox="0 0 24 24"
+    >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -57,18 +67,23 @@ export function SignatureDisplay({
   className,
   compact = false,
 }: SignatureDisplayProps) {
-  const formattedDate = new Date(signature.timestamp).toLocaleString('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
+  const formattedDate = new Date(signature.timestamp).toLocaleString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "2-digit",
     hour12: true,
   });
 
   if (compact) {
     return (
-      <div className={cn('flex items-center gap-3 p-3 rounded-lg border border-border bg-bg-card', className)}>
+      <div
+        className={cn(
+          "flex items-center gap-3 p-3 rounded-lg border border-border bg-bg-card",
+          className,
+        )}
+      >
         {/* Signature thumbnail */}
         <div className="w-20 h-12 rounded border border-border bg-white overflow-hidden flex-shrink-0">
           <img
@@ -82,38 +97,68 @@ export function SignatureDisplay({
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             <Badge
-              variant={signature.type === 'customer' ? 'primary' : 'info'}
+              variant={signature.type === "customer" ? "primary" : "info"}
               size="sm"
             >
               {SIGNATURE_TYPE_ICONS[signature.type]}
-              <span className="ml-1">{SIGNATURE_TYPE_LABELS[signature.type]}</span>
+              <span className="ml-1">
+                {SIGNATURE_TYPE_LABELS[signature.type]}
+              </span>
             </Badge>
           </div>
           <p className="text-sm font-medium text-text-primary truncate">
             {signature.signerName}
           </p>
-          <p className="text-xs text-text-muted">
-            {formattedDate}
-          </p>
+          <p className="text-xs text-text-muted">{formattedDate}</p>
         </div>
 
         {/* Status */}
-        {signature.uploadStatus === 'uploaded' ? (
+        {signature.uploadStatus === "uploaded" ? (
           <div className="flex-shrink-0">
-            <svg className="w-5 h-5 text-success" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+            <svg
+              className="w-5 h-5 text-success"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M5 13l4 4L19 7"
+              />
             </svg>
           </div>
-        ) : signature.uploadStatus === 'failed' ? (
+        ) : signature.uploadStatus === "failed" ? (
           <div className="flex-shrink-0">
-            <svg className="w-5 h-5 text-danger" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+            <svg
+              className="w-5 h-5 text-danger"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+              />
             </svg>
           </div>
         ) : (
           <div className="flex-shrink-0 animate-spin">
-            <svg className="w-5 h-5 text-text-muted" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+            <svg
+              className="w-5 h-5 text-text-muted"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+              />
             </svg>
           </div>
         )}
@@ -122,7 +167,7 @@ export function SignatureDisplay({
   }
 
   return (
-    <Card className={cn('overflow-hidden', className)}>
+    <Card className={cn("overflow-hidden", className)}>
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-border">
         <div className="flex items-center gap-2">
@@ -132,10 +177,20 @@ export function SignatureDisplay({
           </span>
         </div>
         <Badge
-          variant={signature.uploadStatus === 'uploaded' ? 'success' : signature.uploadStatus === 'failed' ? 'danger' : 'warning'}
+          variant={
+            signature.uploadStatus === "uploaded"
+              ? "success"
+              : signature.uploadStatus === "failed"
+                ? "danger"
+                : "warning"
+          }
           size="sm"
         >
-          {signature.uploadStatus === 'uploaded' ? 'Saved' : signature.uploadStatus === 'failed' ? 'Failed' : 'Pending'}
+          {signature.uploadStatus === "uploaded"
+            ? "Saved"
+            : signature.uploadStatus === "failed"
+              ? "Failed"
+              : "Pending"}
         </Badge>
       </div>
 
@@ -157,14 +212,17 @@ export function SignatureDisplay({
             <p className="text-sm font-medium text-text-primary">
               {signature.signerName}
             </p>
-            <p className="text-xs text-text-muted">
-              Signed on {formattedDate}
-            </p>
+            <p className="text-xs text-text-muted">Signed on {formattedDate}</p>
           </div>
 
           {/* Verified badge */}
           <div className="flex items-center gap-1 text-success">
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -199,7 +257,7 @@ export function SignaturePairDisplay({
 
   if (!hasCustomer && !hasTechnician) {
     return (
-      <div className={cn('text-center py-8 text-text-muted', className)}>
+      <div className={cn("text-center py-8 text-text-muted", className)}>
         <svg
           className="w-12 h-12 mx-auto mb-3 opacity-30"
           fill="none"
@@ -219,10 +277,12 @@ export function SignaturePairDisplay({
   }
 
   return (
-    <div className={cn('grid grid-cols-1 md:grid-cols-2 gap-4', className)}>
+    <div className={cn("grid grid-cols-1 md:grid-cols-2 gap-4", className)}>
       {/* Customer Signature */}
       <div className="space-y-2">
-        <h4 className="text-sm font-medium text-text-secondary">Customer Signature</h4>
+        <h4 className="text-sm font-medium text-text-secondary">
+          Customer Signature
+        </h4>
         {hasCustomer ? (
           <SignatureDisplay signature={customerSignature} />
         ) : (
@@ -247,7 +307,9 @@ export function SignaturePairDisplay({
 
       {/* Technician Signature */}
       <div className="space-y-2">
-        <h4 className="text-sm font-medium text-text-secondary">Technician Signature</h4>
+        <h4 className="text-sm font-medium text-text-secondary">
+          Technician Signature
+        </h4>
         {hasTechnician ? (
           <SignatureDisplay signature={technicianSignature} />
         ) : (

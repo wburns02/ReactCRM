@@ -23,22 +23,25 @@
  * - {{work_order_number}} - Work order reference
  */
 
-import type { NotificationTrigger, SMSNotificationTemplate } from '@/api/types/sms';
+import type {
+  NotificationTrigger,
+  SMSNotificationTemplate,
+} from "@/api/types/sms";
 
 /**
  * Default notification templates for each trigger type
  */
 export const DEFAULT_NOTIFICATION_TEMPLATES: Record<
   NotificationTrigger,
-  Omit<SMSNotificationTemplate, 'id' | 'created_at' | 'updated_at'>
+  Omit<SMSNotificationTemplate, "id" | "created_at" | "updated_at">
 > = {
   // =========================================================================
   // Booking & Confirmation Templates
   // =========================================================================
 
   booking_confirmation: {
-    name: 'Booking Confirmation',
-    trigger: 'booking_confirmation',
+    name: "Booking Confirmation",
+    trigger: "booking_confirmation",
     content: `Hi {{customer_first_name}}! Your appointment with {{company_name}} is confirmed for {{appointment_date}} at {{appointment_time}}.
 
 Service: {{service_type}}
@@ -46,13 +49,13 @@ Location: {{service_address}}
 
 Reply HELP for assistance or call {{company_phone}}.`,
     variables: [
-      'customer_first_name',
-      'company_name',
-      'appointment_date',
-      'appointment_time',
-      'service_type',
-      'service_address',
-      'company_phone',
+      "customer_first_name",
+      "company_name",
+      "appointment_date",
+      "appointment_time",
+      "service_type",
+      "service_address",
+      "company_phone",
     ],
     is_active: true,
     is_system: true,
@@ -61,19 +64,19 @@ Reply HELP for assistance or call {{company_phone}}.`,
   },
 
   reschedule_confirmation: {
-    name: 'Reschedule Confirmation',
-    trigger: 'reschedule_confirmation',
+    name: "Reschedule Confirmation",
+    trigger: "reschedule_confirmation",
     content: `Hi {{customer_first_name}}, your {{company_name}} appointment has been rescheduled to {{appointment_date}} at {{appointment_time}}.
 
 We look forward to serving you!
 
 Questions? Call {{company_phone}}.`,
     variables: [
-      'customer_first_name',
-      'company_name',
-      'appointment_date',
-      'appointment_time',
-      'company_phone',
+      "customer_first_name",
+      "company_name",
+      "appointment_date",
+      "appointment_time",
+      "company_phone",
     ],
     is_active: true,
     is_system: true,
@@ -82,18 +85,18 @@ Questions? Call {{company_phone}}.`,
   },
 
   cancellation_confirmation: {
-    name: 'Cancellation Confirmation',
-    trigger: 'cancellation_confirmation',
+    name: "Cancellation Confirmation",
+    trigger: "cancellation_confirmation",
     content: `Hi {{customer_first_name}}, your {{company_name}} appointment scheduled for {{appointment_date}} has been cancelled.
 
 To reschedule, call us at {{company_phone}} or visit our website.
 
 We hope to serve you soon!`,
     variables: [
-      'customer_first_name',
-      'company_name',
-      'appointment_date',
-      'company_phone',
+      "customer_first_name",
+      "company_name",
+      "appointment_date",
+      "company_phone",
     ],
     is_active: true,
     is_system: true,
@@ -106,8 +109,8 @@ We hope to serve you soon!`,
   // =========================================================================
 
   reminder_48h: {
-    name: '48-Hour Reminder',
-    trigger: 'reminder_48h',
+    name: "48-Hour Reminder",
+    trigger: "reminder_48h",
     content: `Reminder: {{customer_first_name}}, your {{company_name}} appointment is coming up in 2 days!
 
 Date: {{appointment_date}}
@@ -116,12 +119,12 @@ Service: {{service_type}}
 
 Need to reschedule? Call {{company_phone}}.`,
     variables: [
-      'customer_first_name',
-      'company_name',
-      'appointment_date',
-      'appointment_time',
-      'service_type',
-      'company_phone',
+      "customer_first_name",
+      "company_name",
+      "appointment_date",
+      "appointment_time",
+      "service_type",
+      "company_phone",
     ],
     is_active: true,
     is_system: true,
@@ -130,8 +133,8 @@ Need to reschedule? Call {{company_phone}}.`,
   },
 
   reminder_24h: {
-    name: '24-Hour Reminder',
-    trigger: 'reminder_24h',
+    name: "24-Hour Reminder",
+    trigger: "reminder_24h",
     content: `Hi {{customer_first_name}}, just a reminder - your {{company_name}} appointment is TOMORROW!
 
 Date: {{appointment_date}}
@@ -139,11 +142,11 @@ Time: {{appointment_time}}
 
 Please ensure access to the service area. Reply CONFIRM to confirm or call {{company_phone}} to reschedule.`,
     variables: [
-      'customer_first_name',
-      'company_name',
-      'appointment_date',
-      'appointment_time',
-      'company_phone',
+      "customer_first_name",
+      "company_name",
+      "appointment_date",
+      "appointment_time",
+      "company_phone",
     ],
     is_active: true,
     is_system: true,
@@ -152,16 +155,12 @@ Please ensure access to the service area. Reply CONFIRM to confirm or call {{com
   },
 
   reminder_2h: {
-    name: '2-Hour Reminder',
-    trigger: 'reminder_2h',
+    name: "2-Hour Reminder",
+    trigger: "reminder_2h",
     content: `{{customer_first_name}}, your {{company_name}} technician will arrive in approximately 2 hours ({{appointment_time}}).
 
 Please ensure the service area is accessible. We'll send another message when our tech is on the way.`,
-    variables: [
-      'customer_first_name',
-      'company_name',
-      'appointment_time',
-    ],
+    variables: ["customer_first_name", "company_name", "appointment_time"],
     is_active: true,
     is_system: true,
     character_count: 209,
@@ -173,8 +172,8 @@ Please ensure the service area is accessible. We'll send another message when ou
   // =========================================================================
 
   on_my_way: {
-    name: 'On My Way with ETA',
-    trigger: 'on_my_way',
+    name: "On My Way with ETA",
+    trigger: "on_my_way",
     content: `{{customer_first_name}}, your technician {{technician_name}} is on the way!
 
 Estimated arrival: {{eta_time}} (approx. {{eta_minutes}} min)
@@ -184,12 +183,12 @@ Track your technician in real-time:
 
 Questions? Call {{company_phone}}.`,
     variables: [
-      'customer_first_name',
-      'technician_name',
-      'eta_time',
-      'eta_minutes',
-      'tracking_link',
-      'company_phone',
+      "customer_first_name",
+      "technician_name",
+      "eta_time",
+      "eta_minutes",
+      "tracking_link",
+      "company_phone",
     ],
     is_active: true,
     is_system: true,
@@ -202,8 +201,8 @@ Questions? Call {{company_phone}}.`,
   // =========================================================================
 
   service_complete: {
-    name: 'Service Complete',
-    trigger: 'service_complete',
+    name: "Service Complete",
+    trigger: "service_complete",
     content: `Thank you, {{customer_first_name}}! Your {{service_type}} service has been completed by {{technician_name}}.
 
 Invoice Total: {{invoice_amount}}
@@ -213,12 +212,12 @@ View and pay your invoice:
 
 Thank you for choosing {{company_name}}!`,
     variables: [
-      'customer_first_name',
-      'service_type',
-      'technician_name',
-      'invoice_amount',
-      'invoice_link',
-      'company_name',
+      "customer_first_name",
+      "service_type",
+      "technician_name",
+      "invoice_amount",
+      "invoice_link",
+      "company_name",
     ],
     is_active: true,
     is_system: true,
@@ -231,8 +230,8 @@ Thank you for choosing {{company_name}}!`,
   // =========================================================================
 
   invoice_sent: {
-    name: 'Invoice Sent',
-    trigger: 'invoice_sent',
+    name: "Invoice Sent",
+    trigger: "invoice_sent",
     content: `Hi {{customer_first_name}}, your invoice from {{company_name}} is ready.
 
 Invoice #: {{work_order_number}}
@@ -243,12 +242,12 @@ Pay online securely:
 
 Questions? Call {{company_phone}}.`,
     variables: [
-      'customer_first_name',
-      'company_name',
-      'work_order_number',
-      'invoice_amount',
-      'invoice_link',
-      'company_phone',
+      "customer_first_name",
+      "company_name",
+      "work_order_number",
+      "invoice_amount",
+      "invoice_link",
+      "company_phone",
     ],
     is_active: true,
     is_system: true,
@@ -257,8 +256,8 @@ Questions? Call {{company_phone}}.`,
   },
 
   payment_received: {
-    name: 'Payment Received',
-    trigger: 'payment_received',
+    name: "Payment Received",
+    trigger: "payment_received",
     content: `Thank you, {{customer_first_name}}! We've received your payment of {{invoice_amount}}.
 
 Invoice #: {{work_order_number}}
@@ -267,10 +266,10 @@ Status: PAID
 Thank you for your business!
 - {{company_name}}`,
     variables: [
-      'customer_first_name',
-      'invoice_amount',
-      'work_order_number',
-      'company_name',
+      "customer_first_name",
+      "invoice_amount",
+      "work_order_number",
+      "company_name",
     ],
     is_active: true,
     is_system: true,
@@ -279,8 +278,8 @@ Thank you for your business!
   },
 
   payment_reminder: {
-    name: 'Payment Reminder',
-    trigger: 'payment_reminder',
+    name: "Payment Reminder",
+    trigger: "payment_reminder",
     content: `Hi {{customer_first_name}}, this is a friendly reminder that your invoice from {{company_name}} is past due.
 
 Invoice #: {{work_order_number}}
@@ -291,12 +290,12 @@ Pay now:
 
 Questions? Call {{company_phone}}.`,
     variables: [
-      'customer_first_name',
-      'company_name',
-      'work_order_number',
-      'invoice_amount',
-      'invoice_link',
-      'company_phone',
+      "customer_first_name",
+      "company_name",
+      "work_order_number",
+      "invoice_amount",
+      "invoice_link",
+      "company_phone",
     ],
     is_active: true,
     is_system: true,
@@ -309,8 +308,8 @@ Questions? Call {{company_phone}}.`,
   // =========================================================================
 
   review_request: {
-    name: 'Review Request',
-    trigger: 'review_request',
+    name: "Review Request",
+    trigger: "review_request",
     content: `Hi {{customer_first_name}}, thank you for choosing {{company_name}}!
 
 We'd love to hear about your experience. Would you mind leaving us a quick review?
@@ -318,10 +317,7 @@ We'd love to hear about your experience. Would you mind leaving us a quick revie
 It only takes a minute and helps us serve you better!
 
 Leave a review: https://g.page/r/macseptic/review`,
-    variables: [
-      'customer_first_name',
-      'company_name',
-    ],
+    variables: ["customer_first_name", "company_name"],
     is_active: true,
     is_system: true,
     character_count: 247,
@@ -333,18 +329,18 @@ Leave a review: https://g.page/r/macseptic/review`,
   // =========================================================================
 
   custom: {
-    name: 'Custom Message',
-    trigger: 'custom',
+    name: "Custom Message",
+    trigger: "custom",
     content: `Hi {{customer_first_name}}, this is a message from {{company_name}}.
 
 {{message}}
 
 Questions? Call {{company_phone}}.`,
     variables: [
-      'customer_first_name',
-      'company_name',
-      'message',
-      'company_phone',
+      "customer_first_name",
+      "company_name",
+      "message",
+      "company_phone",
     ],
     is_active: true,
     is_system: false,
@@ -360,9 +356,7 @@ Questions? Call {{company_phone}}.`,
 /**
  * Short-form templates for when character count is critical
  */
-export const SHORT_TEMPLATES: Partial<
-  Record<NotificationTrigger, string>
-> = {
+export const SHORT_TEMPLATES: Partial<Record<NotificationTrigger, string>> = {
   booking_confirmation: `{{company_name}}: Appt confirmed {{appointment_date}} {{appointment_time}}. {{service_type}} at {{service_address}}. Call {{company_phone}} to reschedule.`,
 
   reminder_24h: `{{company_name}} reminder: Appt tomorrow {{appointment_time}}. Please ensure access to service area. {{company_phone}}`,
@@ -375,10 +369,9 @@ export const SHORT_TEMPLATES: Partial<
 /**
  * Friendly/casual templates for customer preference
  */
-export const FRIENDLY_TEMPLATES: Partial<
-  Record<NotificationTrigger, string>
-> = {
-  booking_confirmation: `Hey {{customer_first_name}}! Great news - your appointment is all set!
+export const FRIENDLY_TEMPLATES: Partial<Record<NotificationTrigger, string>> =
+  {
+    booking_confirmation: `Hey {{customer_first_name}}! Great news - your appointment is all set!
 
 We'll see you on {{appointment_date}} at {{appointment_time}}.
 
@@ -386,13 +379,13 @@ Got questions? Just give us a ring at {{company_phone}}. Can't wait to help you 
 
 - Your friends at {{company_name}}`,
 
-  on_my_way: `Good news {{customer_first_name}}! Your tech {{technician_name}} just left and will be there in about {{eta_minutes}} minutes.
+    on_my_way: `Good news {{customer_first_name}}! Your tech {{technician_name}} just left and will be there in about {{eta_minutes}} minutes.
 
 Track their progress here: {{tracking_link}}
 
 See you soon!`,
 
-  service_complete: `All done, {{customer_first_name}}!
+    service_complete: `All done, {{customer_first_name}}!
 
 {{technician_name}} has completed your {{service_type}}. Everything looks great!
 
@@ -400,7 +393,7 @@ Your invoice ({{invoice_amount}}) is ready whenever you are:
 {{invoice_link}}
 
 Thanks for choosing us!`,
-};
+  };
 
 // =============================================================================
 // Template Utilities
@@ -410,7 +403,7 @@ Thanks for choosing us!`,
  * Get the default template for a trigger type
  */
 export function getDefaultTemplate(trigger: NotificationTrigger): string {
-  return DEFAULT_NOTIFICATION_TEMPLATES[trigger]?.content || '';
+  return DEFAULT_NOTIFICATION_TEMPLATES[trigger]?.content || "";
 }
 
 /**
@@ -467,33 +460,33 @@ export function getTemplateMetadata(template: string): {
     let typicalLength = 10; // Default
 
     switch (v) {
-      case 'customer_name':
-      case 'customer_first_name':
+      case "customer_name":
+      case "customer_first_name":
         typicalLength = 8;
         break;
-      case 'appointment_date':
+      case "appointment_date":
         typicalLength = 20;
         break;
-      case 'appointment_time':
+      case "appointment_time":
         typicalLength = 8;
         break;
-      case 'technician_name':
+      case "technician_name":
         typicalLength = 12;
         break;
-      case 'eta_minutes':
+      case "eta_minutes":
         typicalLength = 2;
         break;
-      case 'invoice_amount':
+      case "invoice_amount":
         typicalLength = 8;
         break;
-      case 'tracking_link':
-      case 'invoice_link':
+      case "tracking_link":
+      case "invoice_link":
         typicalLength = 45;
         break;
-      case 'service_address':
+      case "service_address":
         typicalLength = 30;
         break;
-      case 'company_phone':
+      case "company_phone":
         typicalLength = 14;
         break;
       default:
@@ -526,25 +519,25 @@ export function validateTemplate(template: string): {
   const warnings: string[] = [];
 
   if (!template || template.trim().length === 0) {
-    errors.push('Template cannot be empty');
+    errors.push("Template cannot be empty");
     return { valid: false, errors, warnings };
   }
 
   if (template.length > 1600) {
-    errors.push('Template exceeds maximum length of 1600 characters');
+    errors.push("Template exceeds maximum length of 1600 characters");
   }
 
   // Check for unclosed variables
   const openBraces = (template.match(/\{\{/g) || []).length;
   const closeBraces = (template.match(/\}\}/g) || []).length;
   if (openBraces !== closeBraces) {
-    errors.push('Template has unclosed variable brackets');
+    errors.push("Template has unclosed variable brackets");
   }
 
   // Check for invalid variable names
   const invalidVars = template.match(/\{\{[^a-z_}]+\}\}/gi);
   if (invalidVars) {
-    errors.push(`Invalid variable names: ${invalidVars.join(', ')}`);
+    errors.push(`Invalid variable names: ${invalidVars.join(", ")}`);
   }
 
   // Warnings
@@ -552,13 +545,13 @@ export function validateTemplate(template: string): {
 
   if (metadata.segmentCount > 1) {
     warnings.push(
-      `Message will be sent as ${metadata.segmentCount} SMS segments (may increase cost)`
+      `Message will be sent as ${metadata.segmentCount} SMS segments (may increase cost)`,
     );
   }
 
-  if (!template.toLowerCase().includes('stop')) {
+  if (!template.toLowerCase().includes("stop")) {
     warnings.push(
-      'Consider including opt-out instructions (Reply STOP to unsubscribe)'
+      "Consider including opt-out instructions (Reply STOP to unsubscribe)",
     );
   }
 
@@ -589,12 +582,12 @@ export const NotificationContent = {
     companyName?: string;
     companyPhone?: string;
   }): string => {
-    return `Hi ${data.customerFirstName}! Your appointment with ${data.companyName || 'MAC Septic'} is confirmed for ${data.appointmentDate} at ${data.appointmentTime}.
+    return `Hi ${data.customerFirstName}! Your appointment with ${data.companyName || "MAC Septic"} is confirmed for ${data.appointmentDate} at ${data.appointmentTime}.
 
 Service: ${data.serviceType}
 Location: ${data.serviceAddress}
 
-Reply HELP for assistance or call ${data.companyPhone || '(903) 665-0170'}.`;
+Reply HELP for assistance or call ${data.companyPhone || "(903) 665-0170"}.`;
   },
 
   /**
@@ -619,7 +612,7 @@ Estimated arrival: ${etaText}
 Track your technician in real-time:
 ${data.trackingLink}
 
-Questions? Call ${data.companyPhone || '(903) 665-0170'}.`;
+Questions? Call ${data.companyPhone || "(903) 665-0170"}.`;
   },
 
   /**
@@ -640,7 +633,7 @@ Invoice Total: ${data.invoiceAmount}
 View and pay your invoice:
 ${data.invoiceLink}
 
-Thank you for choosing ${data.companyName || 'MAC Septic'}!`;
+Thank you for choosing ${data.companyName || "MAC Septic"}!`;
   },
 
   /**
@@ -654,7 +647,7 @@ Thank you for choosing ${data.companyName || 'MAC Septic'}!`;
     companyName?: string;
     companyPhone?: string;
   }): string => {
-    return `Hi ${data.customerFirstName}, this is a friendly reminder that your invoice from ${data.companyName || 'MAC Septic'} is past due.
+    return `Hi ${data.customerFirstName}, this is a friendly reminder that your invoice from ${data.companyName || "MAC Septic"} is past due.
 
 Invoice #: ${data.invoiceNumber}
 Amount Due: ${data.invoiceAmount}
@@ -662,7 +655,7 @@ Amount Due: ${data.invoiceAmount}
 Pay now:
 ${data.invoiceLink}
 
-Questions? Call ${data.companyPhone || '(903) 665-0170'}.`;
+Questions? Call ${data.companyPhone || "(903) 665-0170"}.`;
   },
 };
 

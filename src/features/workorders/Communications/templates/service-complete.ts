@@ -5,9 +5,9 @@
  */
 
 export const serviceCompleteTemplate = {
-  id: 'service-complete',
-  name: 'Service Complete',
-  subject: 'Your MAC Septic Service is Complete',
+  id: "service-complete",
+  name: "Service Complete",
+  subject: "Your MAC Septic Service is Complete",
   smsTemplate: `Hi {{customer_first_name}}, your septic service is complete! View invoice: {{invoice_link}}. Total: {{invoice_amount}}. Thank you for choosing MAC Septic! {{company_phone}}`,
   emailTemplate: `Dear {{customer_name}},
 
@@ -44,17 +44,17 @@ Best regards,
 MAC Septic
 {{company_phone}}`,
   variables: [
-    'customer_name',
-    'customer_first_name',
-    'work_order_number',
-    'service_type',
-    'service_address',
-    'technician_name',
-    'completion_date',
-    'invoice_amount',
-    'invoice_link',
-    'company_phone',
-    'review_link',
+    "customer_name",
+    "customer_first_name",
+    "work_order_number",
+    "service_type",
+    "service_address",
+    "technician_name",
+    "completion_date",
+    "invoice_amount",
+    "invoice_link",
+    "company_phone",
+    "review_link",
   ],
 };
 

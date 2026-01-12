@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   useImportStatus,
   useDownloadTemplate,
@@ -7,21 +7,28 @@ import {
   IMPORT_TYPES,
   type ImportType,
   type ImportResult,
-} from '../api/import.ts';
-import { FileUploader } from '../components/FileUploader.tsx';
-import { ImportPreview } from '../components/ImportPreview.tsx';
-import { ImportResults } from '../components/ImportResults.tsx';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
+} from "../api/import.ts";
+import { FileUploader } from "../components/FileUploader.tsx";
+import { ImportPreview } from "../components/ImportPreview.tsx";
+import { ImportResults } from "../components/ImportResults.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
 
-type Step = 'select-type' | 'upload' | 'preview' | 'results';
+type Step = "select-type" | "upload" | "preview" | "results";
 
 export function DataImportPage() {
-  const [step, setStep] = useState<Step>('select-type');
+  const [step, setStep] = useState<Step>("select-type");
   const [selectedType, setSelectedType] = useState<ImportType | null>(null);
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
-  const [validationResult, setValidationResult] = useState<ImportResult | null>(null);
+  const [validationResult, setValidationResult] = useState<ImportResult | null>(
+    null,
+  );
   const [importResult, setImportResult] = useState<ImportResult | null>(null);
   const [skipErrors, setSkipErrors] = useState(false);
 
@@ -35,14 +42,14 @@ export function DataImportPage() {
     setSelectedFile(null);
     setValidationResult(null);
     setImportResult(null);
-    setStep('upload');
+    setStep("upload");
   };
 
   const handleFileSelect = (file: File) => {
     setSelectedFile(file);
     setValidationResult(null);
     setImportResult(null);
-    setStep('preview');
+    setStep("preview");
   };
 
   const handleValidate = async () => {
@@ -55,7 +62,7 @@ export function DataImportPage() {
       });
       setValidationResult(result);
     } catch (error) {
-      console.error('Validation error:', error);
+      console.error("Validation error:", error);
     }
   };
 
@@ -69,14 +76,14 @@ export function DataImportPage() {
         skipErrors,
       });
       setImportResult(result);
-      setStep('results');
+      setStep("results");
     } catch (error) {
-      console.error('Import error:', error);
+      console.error("Import error:", error);
     }
   };
 
   const handleReset = () => {
-    setStep('select-type');
+    setStep("select-type");
     setSelectedType(null);
     setSelectedFile(null);
     setValidationResult(null);
@@ -90,7 +97,7 @@ export function DataImportPage() {
     }
   };
 
-  const selectedTypeInfo = IMPORT_TYPES.find(t => t.value === selectedType);
+  const selectedTypeInfo = IMPORT_TYPES.find((t) => t.value === selectedType);
 
   return (
     <div className="p-6 space-y-6">
@@ -106,30 +113,35 @@ export function DataImportPage() {
 
       {/* Progress indicator */}
       <div className="flex items-center gap-4">
-        {['select-type', 'upload', 'preview', 'results'].map((s, i) => (
+        {["select-type", "upload", "preview", "results"].map((s, i) => (
           <div key={s} className="flex items-center">
             <div
               className={`
                 w-8 h-8 rounded-full flex items-center justify-center text-sm font-medium
-                ${step === s
-                  ? 'bg-primary text-white'
-                  : ['select-type', 'upload', 'preview', 'results'].indexOf(step) > i
-                    ? 'bg-success text-white'
-                    : 'bg-bg-body text-text-muted border border-border'
+                ${
+                  step === s
+                    ? "bg-primary text-white"
+                    : ["select-type", "upload", "preview", "results"].indexOf(
+                          step,
+                        ) > i
+                      ? "bg-success text-white"
+                      : "bg-bg-body text-text-muted border border-border"
                 }
               `}
             >
-              {['select-type', 'upload', 'preview', 'results'].indexOf(step) > i ? '✓' : i + 1}
+              {["select-type", "upload", "preview", "results"].indexOf(step) > i
+                ? "✓"
+                : i + 1}
             </div>
             {i < 3 && (
               <div
-                className={`w-12 h-0.5 ${['select-type', 'upload', 'preview', 'results'].indexOf(step) > i ? 'bg-success' : 'bg-border'}`}
+                className={`w-12 h-0.5 ${["select-type", "upload", "preview", "results"].indexOf(step) > i ? "bg-success" : "bg-border"}`}
               />
             )}
           </div>
         ))}
         <div className="flex-1" />
-        {step !== 'select-type' && (
+        {step !== "select-type" && (
           <Button variant="ghost" onClick={handleReset}>
             Start Over
           </Button>
@@ -137,15 +149,15 @@ export function DataImportPage() {
       </div>
 
       {/* Step 1: Select Import Type */}
-      {step === 'select-type' && (
+      {step === "select-type" && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
           {IMPORT_TYPES.map((type) => (
             <Card
               key={type.value}
               className={`cursor-pointer transition-all hover:border-primary ${
                 status?.available_import_types?.includes(type.value)
-                  ? ''
-                  : 'opacity-50 cursor-not-allowed'
+                  ? ""
+                  : "opacity-50 cursor-not-allowed"
               }`}
               onClick={() => {
                 if (status?.available_import_types?.includes(type.value)) {
@@ -155,8 +167,12 @@ export function DataImportPage() {
             >
               <CardContent className="p-6 text-center">
                 <div className="text-4xl mb-3">{type.icon}</div>
-                <h3 className="text-lg font-medium text-text-primary">{type.label}</h3>
-                <p className="text-sm text-text-muted mt-2">{type.description}</p>
+                <h3 className="text-lg font-medium text-text-primary">
+                  {type.label}
+                </h3>
+                <p className="text-sm text-text-muted mt-2">
+                  {type.description}
+                </p>
               </CardContent>
             </Card>
           ))}
@@ -164,7 +180,7 @@ export function DataImportPage() {
       )}
 
       {/* Step 2: Upload File */}
-      {step === 'upload' && selectedTypeInfo && (
+      {step === "upload" && selectedTypeInfo && (
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
           <div className="lg:col-span-2 space-y-4">
             <Card>
@@ -190,7 +206,8 @@ export function DataImportPage() {
               </CardHeader>
               <CardContent className="space-y-3">
                 <p className="text-sm text-text-muted">
-                  Download a template to see the required format for {selectedTypeInfo.label.toLowerCase()} import.
+                  Download a template to see the required format for{" "}
+                  {selectedTypeInfo.label.toLowerCase()} import.
                 </p>
                 <div className="space-y-2">
                   <Button
@@ -223,7 +240,9 @@ export function DataImportPage() {
                   <li>• First row must contain column headers</li>
                   <li>• Required fields cannot be empty</li>
                   <li>• Dates should be in YYYY-MM-DD format</li>
-                  <li>• Maximum file size: {status?.max_file_size_mb || 10}MB</li>
+                  <li>
+                    • Maximum file size: {status?.max_file_size_mb || 10}MB
+                  </li>
                 </ul>
               </CardContent>
             </Card>
@@ -232,7 +251,7 @@ export function DataImportPage() {
       )}
 
       {/* Step 3: Preview & Validate */}
-      {step === 'preview' && selectedTypeInfo && (
+      {step === "preview" && selectedTypeInfo && (
         <div className="space-y-6">
           <ImportPreview file={selectedFile} />
 
@@ -258,7 +277,7 @@ export function DataImportPage() {
                       Validating...
                     </>
                   ) : (
-                    '🔍 Validate File'
+                    "🔍 Validate File"
                   )}
                 </Button>
 
@@ -270,7 +289,10 @@ export function DataImportPage() {
                     onChange={(e) => setSkipErrors(e.target.checked)}
                     className="h-4 w-4 rounded border-border"
                   />
-                  <label htmlFor="skip-errors" className="text-sm text-text-secondary">
+                  <label
+                    htmlFor="skip-errors"
+                    className="text-sm text-text-secondary"
+                  >
                     Skip rows with errors during import
                   </label>
                 </div>
@@ -296,7 +318,7 @@ export function DataImportPage() {
                       Importing...
                     </>
                   ) : (
-                    '📥 Import Data'
+                    "📥 Import Data"
                   )}
                 </Button>
 
@@ -312,7 +334,7 @@ export function DataImportPage() {
       )}
 
       {/* Step 4: Results */}
-      {step === 'results' && (
+      {step === "results" && (
         <div className="space-y-6">
           <ImportResults result={importResult} />
 
@@ -320,7 +342,7 @@ export function DataImportPage() {
             <Button variant="primary" onClick={handleReset}>
               Import More Data
             </Button>
-            <Button variant="secondary" onClick={() => setStep('preview')}>
+            <Button variant="secondary" onClick={() => setStep("preview")}>
               Re-import Same File
             </Button>
           </div>

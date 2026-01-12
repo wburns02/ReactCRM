@@ -1,12 +1,12 @@
-import { useOnboarding, ONBOARDING_STEPS } from './useOnboarding';
-import { CompanySetupStep } from './steps/CompanySetupStep';
-import { ImportCustomersStep } from './steps/ImportCustomersStep';
-import { AddTechniciansStep } from './steps/AddTechniciansStep';
-import { ConfigureServicesStep } from './steps/ConfigureServicesStep';
-import { ConnectIntegrationsStep } from './steps/ConnectIntegrationsStep';
-import { FirstWorkOrderStep } from './steps/FirstWorkOrderStep';
-import { CompletionStep } from './steps/CompletionStep';
-import { cn } from '@/lib/utils';
+import { useOnboarding, ONBOARDING_STEPS } from "./useOnboarding";
+import { CompanySetupStep } from "./steps/CompanySetupStep";
+import { ImportCustomersStep } from "./steps/ImportCustomersStep";
+import { AddTechniciansStep } from "./steps/AddTechniciansStep";
+import { ConfigureServicesStep } from "./steps/ConfigureServicesStep";
+import { ConnectIntegrationsStep } from "./steps/ConnectIntegrationsStep";
+import { FirstWorkOrderStep } from "./steps/FirstWorkOrderStep";
+import { CompletionStep } from "./steps/CompletionStep";
+import { cn } from "@/lib/utils";
 
 /**
  * Main onboarding wizard component
@@ -49,7 +49,7 @@ export function OnboardingWizard() {
   // Render current step content
   const renderStep = () => {
     switch (currentStepConfig.name) {
-      case 'company':
+      case "company":
         return (
           <CompanySetupStep
             data={data.company}
@@ -58,7 +58,7 @@ export function OnboardingWizard() {
             isValid={isStepValid()}
           />
         );
-      case 'customers':
+      case "customers":
         return (
           <ImportCustomersStep
             customers={data.customers}
@@ -70,7 +70,7 @@ export function OnboardingWizard() {
             onSkip={skipStep}
           />
         );
-      case 'technicians':
+      case "technicians":
         return (
           <AddTechniciansStep
             technicians={data.technicians}
@@ -81,7 +81,7 @@ export function OnboardingWizard() {
             onSkip={skipStep}
           />
         );
-      case 'services':
+      case "services":
         return (
           <ConfigureServicesStep
             services={data.services}
@@ -93,7 +93,7 @@ export function OnboardingWizard() {
             onSkip={skipStep}
           />
         );
-      case 'integrations':
+      case "integrations":
         return (
           <ConnectIntegrationsStep
             integrations={data.integrations}
@@ -103,7 +103,7 @@ export function OnboardingWizard() {
             onSkip={skipStep}
           />
         );
-      case 'firstWorkOrder':
+      case "firstWorkOrder":
         return (
           <FirstWorkOrderStep
             customers={data.customers}
@@ -115,13 +115,8 @@ export function OnboardingWizard() {
             onSkip={skipStep}
           />
         );
-      case 'complete':
-        return (
-          <CompletionStep
-            data={data}
-            onComplete={completeOnboarding}
-          />
-        );
+      case "complete":
+        return <CompletionStep data={data} onComplete={completeOnboarding} />;
       default:
         return null;
     }
@@ -148,12 +143,12 @@ export function OnboardingWizard() {
               <div
                 key={step.name}
                 className={cn(
-                  'flex-1 text-center text-sm',
+                  "flex-1 text-center text-sm",
                   index < currentStep
-                    ? 'text-primary'
+                    ? "text-primary"
                     : index === currentStep
-                    ? 'text-text-primary font-medium'
-                    : 'text-text-muted'
+                      ? "text-text-primary font-medium"
+                      : "text-text-muted",
                 )}
               >
                 {step.title}
@@ -178,16 +173,20 @@ export function OnboardingWizard() {
                 <div
                   key={step.name}
                   className={cn(
-                    'w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium transition-colors',
+                    "w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium transition-colors",
                     index < currentStep
-                      ? 'bg-primary text-white'
+                      ? "bg-primary text-white"
                       : index === currentStep
-                      ? 'bg-primary text-white ring-4 ring-primary/20'
-                      : 'bg-bg-card border-2 border-border text-text-muted'
+                        ? "bg-primary text-white ring-4 ring-primary/20"
+                        : "bg-bg-card border-2 border-border text-text-muted",
                   )}
                 >
                   {index < currentStep ? (
-                    <svg className="w-3 h-3" fill="currentColor" viewBox="0 0 20 20">
+                    <svg
+                      className="w-3 h-3"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
                       <path
                         fillRule="evenodd"
                         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -204,7 +203,8 @@ export function OnboardingWizard() {
 
           {/* Current Step (Mobile) */}
           <div className="md:hidden text-center mt-4 text-sm text-text-secondary">
-            Step {currentStep + 1} of {totalSteps - 1}: {currentStepConfig.title}
+            Step {currentStep + 1} of {totalSteps - 1}:{" "}
+            {currentStepConfig.title}
           </div>
         </div>
 
@@ -215,8 +215,11 @@ export function OnboardingWizard() {
 
         {/* Help Text */}
         <div className="text-center mt-6 text-sm text-text-muted">
-          Need help?{' '}
-          <a href="mailto:support@example.com" className="text-primary hover:underline">
+          Need help?{" "}
+          <a
+            href="mailto:support@example.com"
+            className="text-primary hover:underline"
+          >
             Contact support
           </a>
         </div>

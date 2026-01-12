@@ -1,6 +1,6 @@
-import { Badge } from '@/components/ui/Badge.tsx';
-import { VEHICLE_STATUS_LABELS } from '../types.ts';
-import type { Vehicle } from '../types.ts';
+import { Badge } from "@/components/ui/Badge.tsx";
+import { VEHICLE_STATUS_LABELS } from "../types.ts";
+import type { Vehicle } from "../types.ts";
 
 interface VehicleInfoPopupProps {
   vehicle: Vehicle;
@@ -21,11 +21,12 @@ export function VehicleInfoPopup({ vehicle, onClose }: VehicleInfoPopupProps) {
     const diffMs = now.getTime() - date.getTime();
     const diffMins = Math.floor(diffMs / 60000);
 
-    if (diffMins < 1) return 'Just now';
+    if (diffMins < 1) return "Just now";
     if (diffMins < 60) return `${diffMins} min ago`;
 
     const diffHours = Math.floor(diffMins / 60);
-    if (diffHours < 24) return `${diffHours} hour${diffHours > 1 ? 's' : ''} ago`;
+    if (diffHours < 24)
+      return `${diffHours} hour${diffHours > 1 ? "s" : ""} ago`;
 
     return date.toLocaleDateString();
   };
@@ -35,9 +36,13 @@ export function VehicleInfoPopup({ vehicle, onClose }: VehicleInfoPopupProps) {
       {/* Header */}
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1">
-          <h3 className="font-semibold text-lg text-text-primary">{vehicle.name}</h3>
+          <h3 className="font-semibold text-lg text-text-primary">
+            {vehicle.name}
+          </h3>
           {vehicle.driver_name && (
-            <p className="text-sm text-text-secondary">Driver: {vehicle.driver_name}</p>
+            <p className="text-sm text-text-secondary">
+              Driver: {vehicle.driver_name}
+            </p>
           )}
         </div>
         <button
@@ -52,13 +57,13 @@ export function VehicleInfoPopup({ vehicle, onClose }: VehicleInfoPopupProps) {
       <div className="mb-3">
         <Badge
           variant={
-            vehicle.status === 'moving'
-              ? 'success'
-              : vehicle.status === 'stopped'
-                ? 'danger'
-                : vehicle.status === 'idling'
-                  ? 'warning'
-                  : 'default'
+            vehicle.status === "moving"
+              ? "success"
+              : vehicle.status === "stopped"
+                ? "danger"
+                : vehicle.status === "idling"
+                  ? "warning"
+                  : "default"
           }
         >
           {VEHICLE_STATUS_LABELS[vehicle.status]}
@@ -75,7 +80,9 @@ export function VehicleInfoPopup({ vehicle, onClose }: VehicleInfoPopupProps) {
         </div>
         <div className="flex justify-between">
           <dt className="text-text-secondary">Heading:</dt>
-          <dd className="font-medium text-text-primary">{Math.round(vehicle.location.heading)}°</dd>
+          <dd className="font-medium text-text-primary">
+            {Math.round(vehicle.location.heading)}°
+          </dd>
         </div>
         <div className="flex justify-between">
           <dt className="text-text-secondary">Last Update:</dt>
@@ -86,7 +93,9 @@ export function VehicleInfoPopup({ vehicle, onClose }: VehicleInfoPopupProps) {
         {vehicle.vin && (
           <div className="flex justify-between">
             <dt className="text-text-secondary">VIN:</dt>
-            <dd className="font-medium text-text-primary font-mono text-xs">{vehicle.vin}</dd>
+            <dd className="font-medium text-text-primary font-mono text-xs">
+              {vehicle.vin}
+            </dd>
           </div>
         )}
       </dl>

@@ -1,9 +1,14 @@
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { useAnalytics } from '@/api/hooks/useEmailMarketing.ts';
-import type { SubscriptionTier } from '@/api/types/emailMarketing.ts';
+import { useState } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { useAnalytics } from "@/api/hooks/useEmailMarketing.ts";
+import type { SubscriptionTier } from "@/api/types/emailMarketing.ts";
 
 interface AnalyticsTabProps {
   tier: SubscriptionTier;
@@ -26,18 +31,22 @@ export function AnalyticsTab({ tier }: AnalyticsTabProps) {
       opened: acc.opened + (day.opened || 0),
       clicked: acc.clicked + (day.clicked || 0),
     }),
-    { sent: 0, delivered: 0, opened: 0, clicked: 0 }
+    { sent: 0, delivered: 0, opened: 0, clicked: 0 },
   );
 
-  const openRate = totals.delivered > 0 ? (totals.opened / totals.delivered) * 100 : 0;
-  const clickRate = totals.delivered > 0 ? (totals.clicked / totals.delivered) * 100 : 0;
+  const openRate =
+    totals.delivered > 0 ? (totals.opened / totals.delivered) * 100 : 0;
+  const clickRate =
+    totals.delivered > 0 ? (totals.clicked / totals.delivered) * 100 : 0;
 
-  if (tier === 'none') {
+  if (tier === "none") {
     return (
       <Card>
         <CardContent className="py-12 text-center">
           <div className="text-4xl mb-4">📊</div>
-          <h3 className="text-lg font-semibold text-text-primary mb-2">Analytics Unavailable</h3>
+          <h3 className="text-lg font-semibold text-text-primary mb-2">
+            Analytics Unavailable
+          </h3>
           <p className="text-text-secondary">
             Upgrade to a paid plan to access email analytics.
           </p>
@@ -65,7 +74,9 @@ export function AnalyticsTab({ tier }: AnalyticsTabProps) {
       <Card>
         <CardContent className="py-12 text-center">
           <div className="text-4xl mb-4">⚠️</div>
-          <h3 className="text-lg font-semibold text-text-primary mb-2">Unable to load analytics</h3>
+          <h3 className="text-lg font-semibold text-text-primary mb-2">
+            Unable to load analytics
+          </h3>
           <p className="text-text-secondary">Please try again later.</p>
         </CardContent>
       </Card>
@@ -92,25 +103,33 @@ export function AnalyticsTab({ tier }: AnalyticsTabProps) {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <Card>
           <CardContent className="py-4 text-center">
-            <p className="text-3xl font-bold text-text-primary">{totals.sent.toLocaleString()}</p>
+            <p className="text-3xl font-bold text-text-primary">
+              {totals.sent.toLocaleString()}
+            </p>
             <p className="text-sm text-text-muted">Emails Sent</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="py-4 text-center">
-            <p className="text-3xl font-bold text-text-primary">{totals.delivered.toLocaleString()}</p>
+            <p className="text-3xl font-bold text-text-primary">
+              {totals.delivered.toLocaleString()}
+            </p>
             <p className="text-sm text-text-muted">Delivered</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="py-4 text-center">
-            <p className="text-3xl font-bold text-success">{openRate.toFixed(1)}%</p>
+            <p className="text-3xl font-bold text-success">
+              {openRate.toFixed(1)}%
+            </p>
             <p className="text-sm text-text-muted">Open Rate</p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="py-4 text-center">
-            <p className="text-3xl font-bold text-primary">{clickRate.toFixed(1)}%</p>
+            <p className="text-3xl font-bold text-primary">
+              {clickRate.toFixed(1)}%
+            </p>
             <p className="text-sm text-text-muted">Click Rate</p>
           </CardContent>
         </Card>
@@ -126,12 +145,16 @@ export function AnalyticsTab({ tier }: AnalyticsTabProps) {
             <div className="space-y-2">
               {dailyStats.slice(-14).map((day) => {
                 const maxSent = Math.max(...dailyStats.map((d) => d.sent || 0));
-                const widthPercent = maxSent > 0 ? ((day.sent || 0) / maxSent) * 100 : 0;
+                const widthPercent =
+                  maxSent > 0 ? ((day.sent || 0) / maxSent) * 100 : 0;
 
                 return (
                   <div key={day.date} className="flex items-center gap-4">
                     <div className="w-20 text-xs text-text-muted">
-                      {new Date(day.date).toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                      {new Date(day.date).toLocaleDateString("en-US", {
+                        month: "short",
+                        day: "numeric",
+                      })}
                     </div>
                     <div className="flex-1 h-6 bg-bg-muted rounded overflow-hidden">
                       <div
@@ -163,7 +186,9 @@ export function AnalyticsTab({ tier }: AnalyticsTabProps) {
           </CardHeader>
           <CardContent>
             {topCampaigns.length === 0 ? (
-              <p className="text-text-muted text-center py-4">No campaign data available</p>
+              <p className="text-text-muted text-center py-4">
+                No campaign data available
+              </p>
             ) : (
               <div className="space-y-3">
                 {topCampaigns.slice(0, 5).map((campaign, index) => (
@@ -172,10 +197,16 @@ export function AnalyticsTab({ tier }: AnalyticsTabProps) {
                     className="flex items-center justify-between p-3 rounded-lg bg-bg-muted"
                   >
                     <div className="flex items-center gap-3">
-                      <span className="text-lg font-bold text-text-muted">#{index + 1}</span>
+                      <span className="text-lg font-bold text-text-muted">
+                        #{index + 1}
+                      </span>
                       <div>
-                        <p className="font-medium text-text-primary">{campaign.name}</p>
-                        <p className="text-xs text-text-muted">{campaign.sent} emails sent</p>
+                        <p className="font-medium text-text-primary">
+                          {campaign.name}
+                        </p>
+                        <p className="text-xs text-text-muted">
+                          {campaign.sent} emails sent
+                        </p>
                       </div>
                     </div>
                     <div className="text-right">
@@ -200,7 +231,9 @@ export function AnalyticsTab({ tier }: AnalyticsTabProps) {
           </CardHeader>
           <CardContent>
             {segmentPerformance.length === 0 ? (
-              <p className="text-text-muted text-center py-4">No segment data available</p>
+              <p className="text-text-muted text-center py-4">
+                No segment data available
+              </p>
             ) : (
               <div className="space-y-3">
                 {segmentPerformance.map((segment) => (
@@ -210,9 +243,11 @@ export function AnalyticsTab({ tier }: AnalyticsTabProps) {
                   >
                     <div>
                       <p className="font-medium text-text-primary capitalize">
-                        {segment.segment.replace(/_/g, ' ')}
+                        {segment.segment.replace(/_/g, " ")}
                       </p>
-                      <p className="text-xs text-text-muted">{segment.sent} emails</p>
+                      <p className="text-xs text-text-muted">
+                        {segment.sent} emails
+                      </p>
                     </div>
                     <div className="text-right">
                       <p className="text-sm font-medium text-success">
@@ -232,9 +267,7 @@ export function AnalyticsTab({ tier }: AnalyticsTabProps) {
 
       {/* Export Button */}
       <div className="flex justify-end">
-        <Button variant="secondary">
-          Export Report
-        </Button>
+        <Button variant="secondary">Export Report</Button>
       </div>
     </div>
   );

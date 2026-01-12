@@ -1,8 +1,12 @@
-import { useState } from 'react';
-import { useLicenses, type License, type LicenseFilters } from '../api/compliance.ts';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { formatDate } from '@/lib/utils.ts';
+import { useState } from "react";
+import {
+  useLicenses,
+  type License,
+  type LicenseFilters,
+} from "../api/compliance.ts";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { formatDate } from "@/lib/utils.ts";
 
 interface LicenseListProps {
   holderType?: string;
@@ -30,13 +34,13 @@ export function LicenseList({ holderType, onSelect }: LicenseListProps) {
         return <Badge variant="warning">Expiring Soon</Badge>;
       }
     }
-    if (status === 'active') {
+    if (status === "active") {
       return <Badge variant="success">Active</Badge>;
     }
-    if (status === 'expired') {
+    if (status === "expired") {
       return <Badge variant="danger">Expired</Badge>;
     }
-    if (status === 'suspended') {
+    if (status === "suspended") {
       return <Badge variant="warning">Suspended</Badge>;
     }
     return <Badge>{status}</Badge>;
@@ -64,8 +68,12 @@ export function LicenseList({ holderType, onSelect }: LicenseListProps) {
     return (
       <div className="text-center py-12 border border-border rounded-lg">
         <span className="text-4xl mb-4 block">📜</span>
-        <h3 className="text-lg font-medium text-text-primary mb-2">No licenses found</h3>
-        <p className="text-text-muted">Add licenses to track expiration dates</p>
+        <h3 className="text-lg font-medium text-text-primary mb-2">
+          No licenses found
+        </h3>
+        <p className="text-text-muted">
+          Add licenses to track expiration dates
+        </p>
       </div>
     );
   }
@@ -75,8 +83,14 @@ export function LicenseList({ holderType, onSelect }: LicenseListProps) {
       {/* Filter controls */}
       <div className="flex gap-2">
         <select
-          value={filters.status || ''}
-          onChange={(e) => setFilters((prev) => ({ ...prev, page: 1, status: e.target.value || undefined }))}
+          value={filters.status || ""}
+          onChange={(e) =>
+            setFilters((prev) => ({
+              ...prev,
+              page: 1,
+              status: e.target.value || undefined,
+            }))
+          }
           className="px-3 py-2 rounded-md border border-border bg-bg-primary text-text-primary"
           aria-label="Filter by status"
         >
@@ -86,8 +100,16 @@ export function LicenseList({ holderType, onSelect }: LicenseListProps) {
           <option value="suspended">Suspended</option>
         </select>
         <select
-          value={filters.expiring_within_days || ''}
-          onChange={(e) => setFilters((prev) => ({ ...prev, page: 1, expiring_within_days: e.target.value ? Number(e.target.value) : undefined }))}
+          value={filters.expiring_within_days || ""}
+          onChange={(e) =>
+            setFilters((prev) => ({
+              ...prev,
+              page: 1,
+              expiring_within_days: e.target.value
+                ? Number(e.target.value)
+                : undefined,
+            }))
+          }
           className="px-3 py-2 rounded-md border border-border bg-bg-primary text-text-primary"
           aria-label="Filter by expiry"
         >
@@ -107,13 +129,15 @@ export function LicenseList({ holderType, onSelect }: LicenseListProps) {
             className={`
               p-4 rounded-lg border border-border bg-bg-primary
               hover:bg-bg-hover transition-colors
-              ${onSelect ? 'cursor-pointer' : ''}
+              ${onSelect ? "cursor-pointer" : ""}
             `}
           >
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-text-primary">{license.license_type}</span>
+                  <span className="font-medium text-text-primary">
+                    {license.license_type}
+                  </span>
                   {getStatusBadge(license.status, license.days_until_expiry)}
                 </div>
                 <p className="text-sm text-text-muted mt-1">
@@ -123,17 +147,19 @@ export function LicenseList({ holderType, onSelect }: LicenseListProps) {
               </div>
               <div className="text-right">
                 <p className="text-sm text-text-muted">Expires</p>
-                <p className={`font-medium ${license.days_until_expiry !== null && license.days_until_expiry !== undefined && license.days_until_expiry <= 30 ? 'text-warning' : 'text-text-primary'}`}>
-                  {license.expiry_date ? formatDate(license.expiry_date) : '-'}
+                <p
+                  className={`font-medium ${license.days_until_expiry !== null && license.days_until_expiry !== undefined && license.days_until_expiry <= 30 ? "text-warning" : "text-text-primary"}`}
+                >
+                  {license.expiry_date ? formatDate(license.expiry_date) : "-"}
                 </p>
-                {license.days_until_expiry !== null && license.days_until_expiry !== undefined && (
-                  <p className="text-xs text-text-muted">
-                    {license.days_until_expiry < 0
-                      ? `${Math.abs(license.days_until_expiry)} days ago`
-                      : `${license.days_until_expiry} days left`
-                    }
-                  </p>
-                )}
+                {license.days_until_expiry !== null &&
+                  license.days_until_expiry !== undefined && (
+                    <p className="text-xs text-text-muted">
+                      {license.days_until_expiry < 0
+                        ? `${Math.abs(license.days_until_expiry)} days ago`
+                        : `${license.days_until_expiry} days left`}
+                    </p>
+                  )}
               </div>
             </div>
           </div>
@@ -150,7 +176,9 @@ export function LicenseList({ holderType, onSelect }: LicenseListProps) {
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => setFilters((prev) => ({ ...prev, page: (prev.page || 1) - 1 }))}
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, page: (prev.page || 1) - 1 }))
+              }
               disabled={(filters.page || 1) <= 1}
             >
               Previous
@@ -158,7 +186,9 @@ export function LicenseList({ holderType, onSelect }: LicenseListProps) {
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => setFilters((prev) => ({ ...prev, page: (prev.page || 1) + 1 }))}
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, page: (prev.page || 1) + 1 }))
+              }
               disabled={(filters.page || 1) >= totalPages}
             >
               Next

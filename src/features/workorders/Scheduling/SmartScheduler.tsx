@@ -3,15 +3,20 @@
  * AI-powered scheduling suggestions with score-based ranking
  */
 
-import { useState, useMemo } from 'react';
-import { cn } from '@/lib/utils.ts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { format, addDays, parseISO } from 'date-fns';
-import type { WorkOrder, SchedulingSuggestion } from '@/api/types/workOrder.ts';
-import { useSchedulingSuggestions } from './hooks/useScheduling.ts';
+import { useState, useMemo } from "react";
+import { cn } from "@/lib/utils.ts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { format, addDays, parseISO } from "date-fns";
+import type { WorkOrder, SchedulingSuggestion } from "@/api/types/workOrder.ts";
+import { useSchedulingSuggestions } from "./hooks/useScheduling.ts";
 
 interface SmartSchedulerProps {
   workOrder: WorkOrder;
@@ -24,30 +29,32 @@ interface SmartSchedulerProps {
  * Get score color based on value
  */
 function getScoreColor(score: number): string {
-  if (score >= 80) return 'text-success';
-  if (score >= 60) return 'text-primary';
-  if (score >= 40) return 'text-warning';
-  return 'text-danger';
+  if (score >= 80) return "text-success";
+  if (score >= 60) return "text-primary";
+  if (score >= 40) return "text-warning";
+  return "text-danger";
 }
 
 /**
  * Get score background color
  */
 function getScoreBgColor(score: number): string {
-  if (score >= 80) return 'bg-success/10';
-  if (score >= 60) return 'bg-primary/10';
-  if (score >= 40) return 'bg-warning/10';
-  return 'bg-danger/10';
+  if (score >= 80) return "bg-success/10";
+  if (score >= 60) return "bg-primary/10";
+  if (score >= 40) return "bg-warning/10";
+  return "bg-danger/10";
 }
 
 /**
  * Get badge variant for score
  */
-function getScoreBadgeVariant(score: number): 'success' | 'info' | 'warning' | 'danger' {
-  if (score >= 80) return 'success';
-  if (score >= 60) return 'info';
-  if (score >= 40) return 'warning';
-  return 'danger';
+function getScoreBadgeVariant(
+  score: number,
+): "success" | "info" | "warning" | "danger" {
+  if (score >= 80) return "success";
+  if (score >= 60) return "info";
+  if (score >= 40) return "warning";
+  return "danger";
 }
 
 export function SmartScheduler({
@@ -61,12 +68,12 @@ export function SmartScheduler({
     if (workOrder.scheduled_date) {
       return workOrder.scheduled_date;
     }
-    return format(addDays(new Date(), 1), 'yyyy-MM-dd');
+    return format(addDays(new Date(), 1), "yyyy-MM-dd");
   });
 
   const { suggestions, topSuggestion, isLoading } = useSchedulingSuggestions(
     workOrder,
-    targetDate
+    targetDate,
   );
 
   // Sort suggestions by score
@@ -82,7 +89,9 @@ export function SmartScheduler({
       <Card className={className}>
         <CardContent className="py-12 text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-2 border-primary border-t-transparent mx-auto" />
-          <p className="text-text-secondary mt-4">Analyzing scheduling options...</p>
+          <p className="text-text-secondary mt-4">
+            Analyzing scheduling options...
+          </p>
         </CardContent>
       </Card>
     );
@@ -98,7 +107,12 @@ export function SmartScheduler({
           </div>
           {onDismiss && (
             <Button variant="ghost" size="sm" onClick={onDismiss}>
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
@@ -121,7 +135,7 @@ export function SmartScheduler({
             type="date"
             value={targetDate}
             onChange={(e) => setTargetDate(e.target.value)}
-            min={format(new Date(), 'yyyy-MM-dd')}
+            min={format(new Date(), "yyyy-MM-dd")}
           />
         </div>
 
@@ -146,7 +160,9 @@ export function SmartScheduler({
           <div className="border-2 border-success/50 rounded-lg overflow-hidden">
             <div className="bg-success/10 px-3 py-2 flex items-center gap-2">
               <span className="text-success">⭐</span>
-              <span className="text-sm font-medium text-success">Best Match</span>
+              <span className="text-sm font-medium text-success">
+                Best Match
+              </span>
             </div>
             <SuggestionCard
               suggestion={topSuggestion}
@@ -236,12 +252,18 @@ export function SmartScheduler({
         {sortedSuggestions.length === 0 && (
           <div className="text-center py-8 text-text-muted">
             <div className="text-4xl mb-2">🤔</div>
-            <div className="text-sm">No available technicians found for this date</div>
+            <div className="text-sm">
+              No available technicians found for this date
+            </div>
             <Button
               variant="outline"
               size="sm"
               className="mt-4"
-              onClick={() => setTargetDate(format(addDays(parseISO(targetDate), 1), 'yyyy-MM-dd'))}
+              onClick={() =>
+                setTargetDate(
+                  format(addDays(parseISO(targetDate), 1), "yyyy-MM-dd"),
+                )
+              }
             >
               Try next day
             </Button>
@@ -265,33 +287,43 @@ function SuggestionCard({
   onAssign?: () => void;
 }) {
   return (
-    <div className={cn('p-3', !isTop && 'border border-border rounded-lg')}>
+    <div className={cn("p-3", !isTop && "border border-border rounded-lg")}>
       <div className="flex items-start justify-between gap-3">
         <div className="flex items-center gap-3">
           {/* Avatar */}
           <div
             className={cn(
-              'w-10 h-10 rounded-full flex items-center justify-center',
-              getScoreBgColor(suggestion.score)
+              "w-10 h-10 rounded-full flex items-center justify-center",
+              getScoreBgColor(suggestion.score),
             )}
           >
-            <span className={cn('text-lg font-bold', getScoreColor(suggestion.score))}>
+            <span
+              className={cn(
+                "text-lg font-bold",
+                getScoreColor(suggestion.score),
+              )}
+            >
               {suggestion.technicianName.charAt(0)}
             </span>
           </div>
 
           {/* Info */}
           <div>
-            <div className="font-medium text-text-primary">{suggestion.technicianName}</div>
+            <div className="font-medium text-text-primary">
+              {suggestion.technicianName}
+            </div>
             <div className="text-sm text-text-secondary">
-              {suggestion.suggestedTime} on{' '}
-              {format(parseISO(suggestion.suggestedDate), 'MMM d')}
+              {suggestion.suggestedTime} on{" "}
+              {format(parseISO(suggestion.suggestedDate), "MMM d")}
             </div>
           </div>
         </div>
 
         {/* Score badge */}
-        <Badge variant={getScoreBadgeVariant(suggestion.score)} className="text-lg px-3 py-1">
+        <Badge
+          variant={getScoreBadgeVariant(suggestion.score)}
+          className="text-lg px-3 py-1"
+        >
           {suggestion.score}
         </Badge>
       </div>
@@ -300,7 +332,10 @@ function SuggestionCard({
       {suggestion.reasons.length > 0 && (
         <div className="mt-3 space-y-1">
           {suggestion.reasons.map((reason, idx) => (
-            <div key={idx} className="flex items-center gap-2 text-sm text-text-secondary">
+            <div
+              key={idx}
+              className="flex items-center gap-2 text-sm text-text-secondary"
+            >
               <span className="text-success">✓</span>
               <span>{reason}</span>
             </div>
@@ -324,9 +359,9 @@ function SuggestionCard({
         <Button
           onClick={onAssign}
           className="w-full mt-3"
-          variant={isTop ? 'primary' : 'outline'}
+          variant={isTop ? "primary" : "outline"}
         >
-          {isTop ? 'Assign Best Match' : 'Assign'}
+          {isTop ? "Assign Best Match" : "Assign"}
         </Button>
       )}
     </div>
@@ -345,12 +380,20 @@ export function SmartSchedulerInline({
   onAssign?: (suggestion: SchedulingSuggestion) => void;
   className?: string;
 }) {
-  const targetDate = format(addDays(new Date(), 1), 'yyyy-MM-dd');
-  const { topSuggestion, isLoading } = useSchedulingSuggestions(workOrder, targetDate);
+  const targetDate = format(addDays(new Date(), 1), "yyyy-MM-dd");
+  const { topSuggestion, isLoading } = useSchedulingSuggestions(
+    workOrder,
+    targetDate,
+  );
 
   if (isLoading) {
     return (
-      <div className={cn('flex items-center gap-2 text-sm text-text-muted', className)}>
+      <div
+        className={cn(
+          "flex items-center gap-2 text-sm text-text-muted",
+          className,
+        )}
+      >
         <div className="animate-spin rounded-full h-4 w-4 border-2 border-primary border-t-transparent" />
         <span>Finding best match...</span>
       </div>
@@ -362,23 +405,32 @@ export function SmartSchedulerInline({
   return (
     <div
       className={cn(
-        'flex items-center justify-between p-2 bg-success/10 rounded-lg',
-        className
+        "flex items-center justify-between p-2 bg-success/10 rounded-lg",
+        className,
       )}
     >
       <div className="flex items-center gap-2">
         <span className="text-sm">🤖</span>
         <span className="text-sm text-text-secondary">
-          Suggested: <strong className="text-text-primary">{topSuggestion.technicianName}</strong>
-          {' at '}
-          <strong className="text-text-primary">{topSuggestion.suggestedTime}</strong>
+          Suggested:{" "}
+          <strong className="text-text-primary">
+            {topSuggestion.technicianName}
+          </strong>
+          {" at "}
+          <strong className="text-text-primary">
+            {topSuggestion.suggestedTime}
+          </strong>
         </span>
         <Badge variant="success" size="sm">
           {topSuggestion.score}
         </Badge>
       </div>
       {onAssign && (
-        <Button size="sm" variant="primary" onClick={() => onAssign(topSuggestion)}>
+        <Button
+          size="sm"
+          variant="primary"
+          onClick={() => onAssign(topSuggestion)}
+        >
           Assign
         </Button>
       )}

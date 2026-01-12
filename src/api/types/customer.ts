@@ -1,28 +1,28 @@
-import { z } from 'zod';
+import { z } from "zod";
 import {
   prospectStageSchema,
   leadSourceSchema,
   paginatedResponseSchema,
-} from './common.ts';
+} from "./common.ts";
 
 /**
  * Customer Type enum - matches backend CustomerType
  */
 export const customerTypeSchema = z.enum([
-  'residential',
-  'commercial',
-  'hoa',
-  'municipal',
-  'property_management',
+  "residential",
+  "commercial",
+  "hoa",
+  "municipal",
+  "property_management",
 ]);
 export type CustomerType = z.infer<typeof customerTypeSchema>;
 
 export const CUSTOMER_TYPE_LABELS: Record<CustomerType, string> = {
-  residential: 'Residential',
-  commercial: 'Commercial',
-  hoa: 'HOA',
-  municipal: 'Municipal',
-  property_management: 'Property Management',
+  residential: "Residential",
+  commercial: "Commercial",
+  hoa: "HOA",
+  municipal: "Municipal",
+  property_management: "Property Management",
 };
 
 /**
@@ -66,7 +66,8 @@ export type Customer = z.infer<typeof customerSchema>;
 /**
  * Paginated customer list response
  */
-export const customerListResponseSchema = paginatedResponseSchema(customerSchema);
+export const customerListResponseSchema =
+  paginatedResponseSchema(customerSchema);
 export type CustomerListResponse = z.infer<typeof customerListResponseSchema>;
 
 /**
@@ -84,14 +85,14 @@ export interface CustomerFilters {
  * Create/update customer request
  */
 export const customerFormSchema = z.object({
-  first_name: z.string().min(1, 'First name is required'),
-  last_name: z.string().min(1, 'Last name is required'),
-  email: z.string().email('Invalid email').optional().or(z.literal('')),
+  first_name: z.string().min(1, "First name is required"),
+  last_name: z.string().min(1, "Last name is required"),
+  email: z.string().email("Invalid email").optional().or(z.literal("")),
   phone: z.string().optional(),
   address_line1: z.string().optional(),
   address_line2: z.string().optional(),
   city: z.string().optional(),
-  state: z.string().max(2, 'Use 2-letter state code').optional(),
+  state: z.string().max(2, "Use 2-letter state code").optional(),
   postal_code: z.string().optional(),
   customer_type: customerTypeSchema.optional(),
   prospect_stage: prospectStageSchema.optional(),

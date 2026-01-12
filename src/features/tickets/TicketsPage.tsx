@@ -1,22 +1,27 @@
-import { useState, useCallback } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
+import { useState, useCallback } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   useTickets,
   useCreateTicket,
   useUpdateTicket,
   useDeleteTicket,
-} from '@/api/hooks/useTickets.ts';
-import { TicketsList } from './components/TicketsList.tsx';
-import { TicketForm } from './components/TicketForm.tsx';
-import { TicketFilters } from './components/TicketFilters.tsx';
+} from "@/api/hooks/useTickets.ts";
+import { TicketsList } from "./components/TicketsList.tsx";
+import { TicketForm } from "./components/TicketForm.tsx";
+import { TicketFilters } from "./components/TicketFilters.tsx";
 import {
   type Ticket,
   type TicketFormData,
@@ -24,7 +29,7 @@ import {
   type TicketType,
   type TicketStatus,
   type TicketPriority,
-} from '@/api/types/ticket.ts';
+} from "@/api/types/ticket.ts";
 
 const PAGE_SIZE = 20;
 
@@ -36,7 +41,7 @@ export function TicketsPage() {
   const [filters, setFilters] = useState<TicketFiltersType>({
     page: 1,
     page_size: PAGE_SIZE,
-    search: '',
+    search: "",
     type: undefined,
     status: undefined,
     priority: undefined,
@@ -70,9 +75,12 @@ export function TicketsPage() {
     setFilters((prev) => ({ ...prev, status: value, page: 1 }));
   }, []);
 
-  const handlePriorityFilter = useCallback((value: TicketPriority | undefined) => {
-    setFilters((prev) => ({ ...prev, priority: value, page: 1 }));
-  }, []);
+  const handlePriorityFilter = useCallback(
+    (value: TicketPriority | undefined) => {
+      setFilters((prev) => ({ ...prev, priority: value, page: 1 }));
+    },
+    [],
+  );
 
   const handlePageChange = useCallback((page: number) => {
     setFilters((prev) => ({ ...prev, page }));
@@ -103,7 +111,7 @@ export function TicketsPage() {
       setIsFormOpen(false);
       setEditingTicket(null);
     },
-    [editingTicket, createMutation, updateMutation]
+    [editingTicket, createMutation, updateMutation],
   );
 
   const handleConfirmDelete = useCallback(async () => {
@@ -119,7 +127,9 @@ export function TicketsPage() {
         <Card>
           <CardContent className="py-12 text-center">
             <div className="text-4xl mb-4">Error</div>
-            <p className="text-danger">Failed to load tickets. Please try again.</p>
+            <p className="text-danger">
+              Failed to load tickets. Please try again.
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -143,7 +153,7 @@ export function TicketsPage() {
       <Card className="mb-6">
         <CardContent className="py-4">
           <TicketFilters
-            search={filters.search || ''}
+            search={filters.search || ""}
             type={filters.type}
             status={filters.status}
             priority={filters.priority}
@@ -159,7 +169,9 @@ export function TicketsPage() {
       <Card>
         <CardHeader>
           <CardTitle>
-            {data?.total ? `${data.total} ticket${data.total !== 1 ? 's' : ''}` : 'Tickets'}
+            {data?.total
+              ? `${data.total} ticket${data.total !== 1 ? "s" : ""}`
+              : "Tickets"}
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
@@ -189,17 +201,14 @@ export function TicketsPage() {
       />
 
       {/* Delete Confirmation Dialog */}
-      <Dialog
-        open={!!deletingTicket}
-        onClose={() => setDeletingTicket(null)}
-      >
+      <Dialog open={!!deletingTicket} onClose={() => setDeletingTicket(null)}>
         <DialogContent size="sm">
           <DialogHeader onClose={() => setDeletingTicket(null)}>
             Delete Ticket
           </DialogHeader>
           <DialogBody>
             <p className="text-text-secondary">
-              Are you sure you want to delete ticket{' '}
+              Are you sure you want to delete ticket{" "}
               <span className="font-medium text-text-primary">
                 {deletingTicket?.title}
               </span>
@@ -219,7 +228,7 @@ export function TicketsPage() {
               onClick={handleConfirmDelete}
               disabled={deleteMutation.isPending}
             >
-              {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
+              {deleteMutation.isPending ? "Deleting..." : "Delete"}
             </Button>
           </DialogFooter>
         </DialogContent>

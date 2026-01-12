@@ -1,18 +1,18 @@
-import { useState, useEffect } from 'react';
-import { loadStripe } from '@stripe/stripe-js';
+import { useState, useEffect } from "react";
+import { loadStripe } from "@stripe/stripe-js";
 import {
   Elements,
   PaymentElement,
   useStripe,
   useElements,
-} from '@stripe/react-stripe-js';
-import { Button } from '@/components/ui/Button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+} from "@stripe/react-stripe-js";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import {
   useStripeConfig,
   useCreatePaymentIntent,
   useConfirmPayment,
-} from '@/api/hooks/useStripe';
+} from "@/api/hooks/useStripe";
 
 interface StripeCheckoutProps {
   invoiceId: string;
@@ -53,35 +53,37 @@ function CheckoutForm({
     setError(null);
 
     try {
-      const { error: submitError, paymentIntent } = await stripe.confirmPayment({
-        elements,
-        confirmParams: {
-          return_url: window.location.href,
+      const { error: submitError, paymentIntent } = await stripe.confirmPayment(
+        {
+          elements,
+          confirmParams: {
+            return_url: window.location.href,
+          },
+          redirect: "if_required",
         },
-        redirect: 'if_required',
-      });
+      );
 
       if (submitError) {
-        setError(submitError.message || 'Payment failed');
+        setError(submitError.message || "Payment failed");
         setIsProcessing(false);
         return;
       }
 
-      if (paymentIntent && paymentIntent.status === 'succeeded') {
+      if (paymentIntent && paymentIntent.status === "succeeded") {
         // Confirm with backend
         await confirmPayment.mutateAsync({
           payment_intent_id: paymentIntent.id,
           invoice_id: invoiceId,
         });
         onSuccess();
-      } else if (paymentIntent && paymentIntent.status === 'processing') {
-        setError('Payment is processing. Please check back later.');
+      } else if (paymentIntent && paymentIntent.status === "processing") {
+        setError("Payment is processing. Please check back later.");
       } else {
-        setError('Payment was not successful. Please try again.');
+        setError("Payment was not successful. Please try again.");
       }
     } catch (err) {
-      console.error('Payment error:', err);
-      setError('An unexpected error occurred. Please try again.');
+      console.error("Payment error:", err);
+      setError("An unexpected error occurred. Please try again.");
     } finally {
       setIsProcessing(false);
     }
@@ -93,14 +95,14 @@ function CheckoutForm({
         <div className="flex justify-between items-center">
           <span className="text-text-secondary">Amount Due</span>
           <span className="text-2xl font-bold text-text-primary">
-            ${amount.toLocaleString('en-US', { minimumFractionDigits: 2 })}
+            ${amount.toLocaleString("en-US", { minimumFractionDigits: 2 })}
           </span>
         </div>
       </div>
 
       <PaymentElement
         options={{
-          layout: 'tabs',
+          layout: "tabs",
         }}
       />
 
@@ -125,7 +127,7 @@ function CheckoutForm({
           disabled={!stripe || isProcessing}
           className="flex-1"
         >
-          {isProcessing ? 'Processing...' : `Pay $${amount.toFixed(2)}`}
+          {isProcessing ? "Processing..." : `Pay $${amount.toFixed(2)}`}
         </Button>
       </div>
 
@@ -146,7 +148,9 @@ export function StripeCheckout({
   onSuccess,
   onCancel,
 }: StripeCheckoutProps) {
-  const [stripePromise, setStripePromise] = useState<ReturnType<typeof loadStripe> | null>(null);
+  const [stripePromise, setStripePromise] = useState<ReturnType<
+    typeof loadStripe
+  > | null>(null);
   const [clientSecret, setClientSecret] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -173,8 +177,8 @@ export function StripeCheckout({
         });
         setClientSecret(result.client_secret);
       } catch (err) {
-        console.error('Failed to create payment intent:', err);
-        setError('Failed to initialize payment. Please try again.');
+        console.error("Failed to create payment intent:", err);
+        setError("Failed to initialize payment. Please try again.");
       }
     };
 
@@ -231,9 +235,9 @@ export function StripeCheckout({
           options={{
             clientSecret,
             appearance: {
-              theme: 'stripe',
+              theme: "stripe",
               variables: {
-                colorPrimary: '#1e3a5f',
+                colorPrimary: "#1e3a5f",
               },
             },
           }}

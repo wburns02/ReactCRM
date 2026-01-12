@@ -8,18 +8,18 @@
  * - Recommended actions
  */
 
-import { cn } from '@/lib/utils.ts';
+import { cn } from "@/lib/utils.ts";
 
 interface ChurnRiskFactor {
   name: string;
-  impact: 'high' | 'medium' | 'low';
+  impact: "high" | "medium" | "low";
   description: string;
-  trend: 'improving' | 'stable' | 'worsening';
+  trend: "improving" | "stable" | "worsening";
 }
 
 interface ChurnRiskData {
   score: number;
-  trend: 'improving' | 'stable' | 'worsening';
+  trend: "improving" | "stable" | "worsening";
   predictedChurnDate?: string;
   factors: ChurnRiskFactor[];
   recommendations: string[];
@@ -33,29 +33,60 @@ interface ChurnRiskIndicatorProps {
   isLoading?: boolean;
 }
 
-function getRiskLevel(score: number): { label: string; color: string; bgColor: string } {
-  if (score >= 70) return { label: 'Critical', color: 'text-danger', bgColor: 'bg-danger' };
-  if (score >= 50) return { label: 'High', color: 'text-warning', bgColor: 'bg-warning' };
-  if (score >= 30) return { label: 'Medium', color: 'text-yellow-500', bgColor: 'bg-yellow-500' };
-  return { label: 'Low', color: 'text-success', bgColor: 'bg-success' };
+function getRiskLevel(score: number): {
+  label: string;
+  color: string;
+  bgColor: string;
+} {
+  if (score >= 70)
+    return { label: "Critical", color: "text-danger", bgColor: "bg-danger" };
+  if (score >= 50)
+    return { label: "High", color: "text-warning", bgColor: "bg-warning" };
+  if (score >= 30)
+    return {
+      label: "Medium",
+      color: "text-yellow-500",
+      bgColor: "bg-yellow-500",
+    };
+  return { label: "Low", color: "text-success", bgColor: "bg-success" };
 }
 
-function getTrendIcon(trend: 'improving' | 'stable' | 'worsening') {
+function getTrendIcon(trend: "improving" | "stable" | "worsening") {
   switch (trend) {
-    case 'improving':
+    case "improving":
       return (
         <span className="text-success flex items-center gap-1">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6"
+            />
           </svg>
           Improving
         </span>
       );
-    case 'worsening':
+    case "worsening":
       return (
         <span className="text-danger flex items-center gap-1">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6" />
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M13 17h8m0 0V9m0 8l-8-8-4 4-6-6"
+            />
           </svg>
           Worsening
         </span>
@@ -63,8 +94,18 @@ function getTrendIcon(trend: 'improving' | 'stable' | 'worsening') {
     default:
       return (
         <span className="text-text-muted flex items-center gap-1">
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M20 12H4" />
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M20 12H4"
+            />
           </svg>
           Stable
         </span>
@@ -75,33 +116,33 @@ function getTrendIcon(trend: 'improving' | 'stable' | 'worsening') {
 // Default sample data
 const defaultData: ChurnRiskData = {
   score: 45,
-  trend: 'stable',
+  trend: "stable",
   predictedChurnDate: undefined,
   factors: [
     {
-      name: 'Product Usage Decline',
-      impact: 'high',
-      description: 'Login frequency down 40% in last 30 days',
-      trend: 'worsening',
+      name: "Product Usage Decline",
+      impact: "high",
+      description: "Login frequency down 40% in last 30 days",
+      trend: "worsening",
     },
     {
-      name: 'Support Tickets',
-      impact: 'medium',
-      description: '3 unresolved tickets older than 7 days',
-      trend: 'stable',
+      name: "Support Tickets",
+      impact: "medium",
+      description: "3 unresolved tickets older than 7 days",
+      trend: "stable",
     },
     {
-      name: 'Contract Renewal',
-      impact: 'low',
-      description: 'Renewal in 45 days, no engagement yet',
-      trend: 'stable',
+      name: "Contract Renewal",
+      impact: "low",
+      description: "Renewal in 45 days, no engagement yet",
+      trend: "stable",
     },
   ],
   recommendations: [
-    'Schedule executive business review',
-    'Offer personalized training session',
-    'Review and resolve open support tickets',
-    'Send renewal discussion email',
+    "Schedule executive business review",
+    "Offer personalized training session",
+    "Review and resolve open support tickets",
+    "Send renewal discussion email",
   ],
 };
 
@@ -147,15 +188,19 @@ export function ChurnRiskIndicator({
               className={riskLevel.color}
             />
           </svg>
-          <span className={cn(
-            'absolute inset-0 flex items-center justify-center text-sm font-bold',
-            riskLevel.color
-          )}>
+          <span
+            className={cn(
+              "absolute inset-0 flex items-center justify-center text-sm font-bold",
+              riskLevel.color,
+            )}
+          >
             {data.score}
           </span>
         </div>
         <div>
-          <p className={cn('font-medium', riskLevel.color)}>{riskLevel.label} Risk</p>
+          <p className={cn("font-medium", riskLevel.color)}>
+            {riskLevel.label} Risk
+          </p>
           <div className="text-xs">{getTrendIcon(data.trend)}</div>
         </div>
       </div>
@@ -167,7 +212,9 @@ export function ChurnRiskIndicator({
       {/* Header */}
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h3 className="text-lg font-semibold text-text-primary">Churn Risk Analysis</h3>
+          <h3 className="text-lg font-semibold text-text-primary">
+            Churn Risk Analysis
+          </h3>
           {customerName && (
             <p className="text-sm text-text-muted">{customerName}</p>
           )}
@@ -204,24 +251,29 @@ export function ChurnRiskIndicator({
             />
           </svg>
           <div className="absolute inset-0 flex flex-col items-center justify-center">
-            <span className={cn('text-3xl font-bold', riskLevel.color)}>
+            <span className={cn("text-3xl font-bold", riskLevel.color)}>
               {data.score}
             </span>
             <span className="text-xs text-text-muted">Risk Score</span>
           </div>
         </div>
         <div className="flex-1">
-          <div className={cn(
-            'inline-flex items-center px-3 py-1 rounded-full text-sm font-medium mb-2',
-            riskLevel.bgColor,
-            'bg-opacity-10',
-            riskLevel.color
-          )}>
+          <div
+            className={cn(
+              "inline-flex items-center px-3 py-1 rounded-full text-sm font-medium mb-2",
+              riskLevel.bgColor,
+              "bg-opacity-10",
+              riskLevel.color,
+            )}
+          >
             {riskLevel.label} Risk
           </div>
           {data.predictedChurnDate && (
             <p className="text-sm text-text-muted">
-              Predicted churn: <span className="text-danger font-medium">{data.predictedChurnDate}</span>
+              Predicted churn:{" "}
+              <span className="text-danger font-medium">
+                {data.predictedChurnDate}
+              </span>
             </p>
           )}
           <div className="mt-2">
@@ -241,30 +293,46 @@ export function ChurnRiskIndicator({
 
       {/* Risk Factors */}
       <div className="mb-6">
-        <h4 className="text-sm font-medium text-text-secondary mb-3">Contributing Factors</h4>
+        <h4 className="text-sm font-medium text-text-secondary mb-3">
+          Contributing Factors
+        </h4>
         <div className="space-y-3">
           {data.factors.map((factor, index) => (
             <div
               key={index}
               className="flex items-start gap-3 p-3 bg-bg-hover rounded-lg"
             >
-              <div className={cn(
-                'w-2 h-2 rounded-full mt-1.5 flex-shrink-0',
-                factor.impact === 'high' ? 'bg-danger' :
-                factor.impact === 'medium' ? 'bg-warning' : 'bg-success'
-              )} />
+              <div
+                className={cn(
+                  "w-2 h-2 rounded-full mt-1.5 flex-shrink-0",
+                  factor.impact === "high"
+                    ? "bg-danger"
+                    : factor.impact === "medium"
+                      ? "bg-warning"
+                      : "bg-success",
+                )}
+              />
               <div className="flex-1 min-w-0">
                 <div className="flex items-center justify-between">
-                  <p className="text-sm font-medium text-text-primary">{factor.name}</p>
-                  <span className={cn(
-                    'text-xs px-2 py-0.5 rounded',
-                    factor.impact === 'high' ? 'bg-danger/10 text-danger' :
-                    factor.impact === 'medium' ? 'bg-warning/10 text-warning' : 'bg-success/10 text-success'
-                  )}>
+                  <p className="text-sm font-medium text-text-primary">
+                    {factor.name}
+                  </p>
+                  <span
+                    className={cn(
+                      "text-xs px-2 py-0.5 rounded",
+                      factor.impact === "high"
+                        ? "bg-danger/10 text-danger"
+                        : factor.impact === "medium"
+                          ? "bg-warning/10 text-warning"
+                          : "bg-success/10 text-success",
+                    )}
+                  >
                     {factor.impact}
                   </span>
                 </div>
-                <p className="text-xs text-text-muted mt-0.5">{factor.description}</p>
+                <p className="text-xs text-text-muted mt-0.5">
+                  {factor.description}
+                </p>
                 <div className="text-xs mt-1">{getTrendIcon(factor.trend)}</div>
               </div>
             </div>
@@ -274,12 +342,27 @@ export function ChurnRiskIndicator({
 
       {/* Recommendations */}
       <div>
-        <h4 className="text-sm font-medium text-text-secondary mb-3">Recommended Actions</h4>
+        <h4 className="text-sm font-medium text-text-secondary mb-3">
+          Recommended Actions
+        </h4>
         <ul className="space-y-2">
           {data.recommendations.map((rec, index) => (
-            <li key={index} className="flex items-start gap-2 text-sm text-text-primary">
-              <svg className="w-5 h-5 text-primary flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+            <li
+              key={index}
+              className="flex items-start gap-2 text-sm text-text-primary"
+            >
+              <svg
+                className="w-5 h-5 text-primary flex-shrink-0"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
               {rec}
             </li>

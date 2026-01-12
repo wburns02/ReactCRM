@@ -1,18 +1,22 @@
-import { useState, useCallback } from 'react';
+import { useState, useCallback } from "react";
 import {
   useCustomers,
   useCreateCustomer,
   useUpdateCustomer,
   useDeleteCustomer,
-} from '@/api/hooks/useCustomers.ts';
-import { CustomersList } from './CustomersList.tsx';
-import { CustomerFilters } from './components/CustomerFilters.tsx';
-import { CustomerForm } from './components/CustomerForm.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Card } from '@/components/ui/Card.tsx';
-import { ApiError } from '@/components/ui/ApiError.tsx';
-import { ConfirmDialog } from '@/components/ui/Dialog.tsx';
-import type { CustomerFilters as CustomerFiltersType, Customer, CustomerFormData } from '@/api/types/customer.ts';
+} from "@/api/hooks/useCustomers.ts";
+import { CustomersList } from "./CustomersList.tsx";
+import { CustomerFilters } from "./components/CustomerFilters.tsx";
+import { CustomerForm } from "./components/CustomerForm.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Card } from "@/components/ui/Card.tsx";
+import { ApiError } from "@/components/ui/ApiError.tsx";
+import { ConfirmDialog } from "@/components/ui/Dialog.tsx";
+import type {
+  CustomerFilters as CustomerFiltersType,
+  Customer,
+  CustomerFormData,
+} from "@/api/types/customer.ts";
 
 /**
  * Main Customers page - list view with filters and CRUD modals
@@ -33,7 +37,9 @@ export function CustomersPage() {
   // Modal state
   const [isFormOpen, setIsFormOpen] = useState(false);
   const [editingCustomer, setEditingCustomer] = useState<Customer | null>(null);
-  const [deletingCustomer, setDeletingCustomer] = useState<Customer | null>(null);
+  const [deletingCustomer, setDeletingCustomer] = useState<Customer | null>(
+    null,
+  );
 
   // Data fetching
   const { data, isLoading, error, refetch } = useCustomers(filters);
@@ -44,9 +50,12 @@ export function CustomersPage() {
   const deleteMutation = useDeleteCustomer();
 
   // Filter handlers
-  const handleFilterChange = useCallback((newFilters: Partial<CustomerFiltersType>) => {
-    setFilters((prev) => ({ ...prev, ...newFilters, page: 1 }));
-  }, []);
+  const handleFilterChange = useCallback(
+    (newFilters: Partial<CustomerFiltersType>) => {
+      setFilters((prev) => ({ ...prev, ...newFilters, page: 1 }));
+    },
+    [],
+  );
 
   const handlePageChange = useCallback((page: number) => {
     setFilters((prev) => ({ ...prev, page }));
@@ -94,7 +103,9 @@ export function CustomersPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-text-primary">Customers</h1>
+          <h1 className="text-2xl font-semibold text-text-primary">
+            Customers
+          </h1>
           <p className="text-sm text-text-secondary mt-1">
             Manage your customer database and service history
           </p>
@@ -104,7 +115,10 @@ export function CustomersPage() {
 
       {/* Filters */}
       <Card className="mb-6">
-        <CustomerFilters filters={filters} onFilterChange={handleFilterChange} />
+        <CustomerFilters
+          filters={filters}
+          onFilterChange={handleFilterChange}
+        />
       </Card>
 
       {/* Error state - handles 500, network errors, etc. */}

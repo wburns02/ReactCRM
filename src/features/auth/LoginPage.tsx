@@ -1,26 +1,31 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useQueryClient } from '@tanstack/react-query';
-import { apiClient, getErrorMessage, hasAuthToken } from '@/api/client.ts';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useQueryClient } from "@tanstack/react-query";
+import { apiClient, getErrorMessage, hasAuthToken } from "@/api/client.ts";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
 import {
   markSessionValidated,
   sanitizeRedirectUrl,
   cleanupLegacyAuth,
-} from '@/lib/security';
+} from "@/lib/security";
 
 /**
  * Login form validation schema
  */
 const loginSchema = z.object({
-  email: z.string().email('Please enter a valid email'),
-  password: z.string().min(1, 'Password is required'),
+  email: z.string().email("Please enter a valid email"),
+  password: z.string().min(1, "Password is required"),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
@@ -42,7 +47,7 @@ export function LoginPage() {
   const [error, setError] = useState<string | null>(null);
 
   // SECURITY: Sanitize return URL to prevent open redirect
-  const rawReturnUrl = searchParams.get('return') || '/dashboard';
+  const rawReturnUrl = searchParams.get("return") || "/dashboard";
   const returnUrl = sanitizeRedirectUrl(rawReturnUrl);
 
   const {
@@ -53,8 +58,8 @@ export function LoginPage() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(loginSchema) as any,
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
@@ -63,7 +68,7 @@ export function LoginPage() {
     if (hasAuthToken()) {
       const checkAuth = async () => {
         try {
-          const { data } = await apiClient.get('/auth/me');
+          const { data } = await apiClient.get("/auth/me");
           if (data?.user) {
             // Session is valid, update state and redirect
             markSessionValidated(data.user.id);
@@ -82,7 +87,7 @@ export function LoginPage() {
     setError(null);
 
     try {
-      const response = await apiClient.post('/auth/login', {
+      const response = await apiClient.post("/auth/login", {
         email: data.email,
         password: data.password,
       });
@@ -119,7 +124,9 @@ export function LoginPage() {
           <div className="flex items-center justify-center gap-2 mb-4">
             <span className="text-4xl">🚽</span>
           </div>
-          <h1 className="text-2xl font-bold text-mac-dark-blue">MAC Septic CRM</h1>
+          <h1 className="text-2xl font-bold text-mac-dark-blue">
+            MAC Septic CRM
+          </h1>
           <p className="text-text-secondary mt-2">Sign in to your account</p>
         </div>
 
@@ -144,7 +151,7 @@ export function LoginPage() {
                   type="email"
                   autoComplete="email"
                   placeholder="you@example.com"
-                  {...register('email')}
+                  {...register("email")}
                   error={!!errors.email}
                   disabled={isLoading}
                 />
@@ -161,28 +168,26 @@ export function LoginPage() {
                   type="password"
                   autoComplete="current-password"
                   placeholder="Enter your password"
-                  {...register('password')}
+                  {...register("password")}
                   error={!!errors.password}
                   disabled={isLoading}
                 />
                 {errors.password && (
-                  <p className="text-sm text-danger">{errors.password.message}</p>
+                  <p className="text-sm text-danger">
+                    {errors.password.message}
+                  </p>
                 )}
               </div>
 
               {/* Submit Button */}
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? (
                   <span className="flex items-center justify-center gap-2">
                     <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
                     Signing in...
                   </span>
                 ) : (
-                  'Sign In'
+                  "Sign In"
                 )}
               </Button>
             </form>

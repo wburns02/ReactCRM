@@ -5,18 +5,20 @@
  * Uses React Query for caching and optimistic updates.
  */
 
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '../client';
-import { toastSuccess, toastError } from '@/components/ui/Toast';
-import type { WorkOrderPhoto, PhotoMetadata } from '../types/workOrder';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "../client";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
+import type { WorkOrderPhoto, PhotoMetadata } from "../types/workOrder";
 
 /**
  * Query keys for work order photos
  */
 export const workOrderPhotoKeys = {
-  all: ['workOrderPhotos'] as const,
-  list: (workOrderId: string) => [...workOrderPhotoKeys.all, 'list', workOrderId] as const,
-  detail: (workOrderId: string, photoId: string) => [...workOrderPhotoKeys.all, 'detail', workOrderId, photoId] as const,
+  all: ["workOrderPhotos"] as const,
+  list: (workOrderId: string) =>
+    [...workOrderPhotoKeys.all, "list", workOrderId] as const,
+  detail: (workOrderId: string, photoId: string) =>
+    [...workOrderPhotoKeys.all, "detail", workOrderId, photoId] as const,
 };
 
 /**
@@ -49,23 +51,30 @@ export interface PhotoResponse {
 /**
  * Convert API response to WorkOrderPhoto
  */
-function mapApiPhotoToWorkOrderPhoto(apiPhoto: PhotoResponse, originalData?: string, originalThumbnail?: string): WorkOrderPhoto {
+function mapApiPhotoToWorkOrderPhoto(
+  apiPhoto: PhotoResponse,
+  originalData?: string,
+  originalThumbnail?: string,
+): WorkOrderPhoto {
   return {
     id: apiPhoto.id,
     workOrderId: apiPhoto.work_order_id,
-    data: apiPhoto.data_url || originalData || '',
-    thumbnail: apiPhoto.thumbnail_url || originalThumbnail || '',
+    data: apiPhoto.data_url || originalData || "",
+    thumbnail: apiPhoto.thumbnail_url || originalThumbnail || "",
     metadata: {
       timestamp: apiPhoto.timestamp || apiPhoto.created_at,
-      photoType: apiPhoto.photo_type as WorkOrderPhoto['metadata']['photoType'],
-      deviceInfo: apiPhoto.device_info || 'unknown',
-      gps: apiPhoto.gps_lat && apiPhoto.gps_lng ? {
-        lat: apiPhoto.gps_lat,
-        lng: apiPhoto.gps_lng,
-        accuracy: apiPhoto.gps_accuracy || 0,
-      } : undefined,
+      photoType: apiPhoto.photo_type as WorkOrderPhoto["metadata"]["photoType"],
+      deviceInfo: apiPhoto.device_info || "unknown",
+      gps:
+        apiPhoto.gps_lat && apiPhoto.gps_lng
+          ? {
+              lat: apiPhoto.gps_lat,
+              lng: apiPhoto.gps_lng,
+              accuracy: apiPhoto.gps_accuracy || 0,
+            }
+          : undefined,
     },
-    uploadStatus: 'uploaded',
+    uploadStatus: "uploaded",
     createdAt: apiPhoto.created_at,
   };
 }
@@ -77,10 +86,14 @@ export function useWorkOrderPhotos(workOrderId: string | undefined) {
   return useQuery({
     queryKey: workOrderPhotoKeys.list(workOrderId!),
     queryFn: async (): Promise<WorkOrderPhoto[]> => {
-      const { data } = await apiClient.get(`/work-orders/${workOrderId}/photos`);
+      const { data } = await apiClient.get(
+        `/work-orders/${workOrderId}/photos`,
+      );
 
       // Handle array or object response
-      const photos = Array.isArray(data) ? data : (data.items || data.photos || []);
+      const photos = Array.isArray(data)
+        ? data
+        : data.items || data.photos || [];
 
       return photos.map((p: PhotoResponse) => mapApiPhotoToWorkOrderPhoto(p));
     },
@@ -97,7 +110,10 @@ export function useUploadWorkOrderPhoto() {
 
   return useMutation({
     mutationFn: async (params: UploadPhotoParams): Promise<WorkOrderPhoto> => {
-      console.log('[Photo Upload] Starting upload for work order:', params.workOrderId);
+      console.log(
+        "[Photo Upload] Starting upload for work order:",
+        params.workOrderId,
+      );
 
       const payload = {
         photo_type: params.metadata.photoType,
@@ -112,10 +128,10 @@ export function useUploadWorkOrderPhoto() {
 
       const { data } = await apiClient.post(
         `/work-orders/${params.workOrderId}/photos`,
-        payload
+        payload,
       );
 
-      console.log('[Photo Upload] Success:', data);
+      console.log("[Photo Upload] Success:", data);
 
       return mapApiPhotoToWorkOrderPhoto(data, params.data, params.thumbnail);
     },
@@ -123,7 +139,7 @@ export function useUploadWorkOrderPhoto() {
       // Add to cache optimistically
       queryClient.setQueryData<WorkOrderPhoto[]>(
         workOrderPhotoKeys.list(variables.workOrderId),
-        (old) => old ? [...old, newPhoto] : [newPhoto]
+        (old) => (old ? [...old, newPhoto] : [newPhoto]),
       );
 
       // Invalidate to refetch from server
@@ -131,11 +147,14 @@ export function useUploadWorkOrderPhoto() {
         queryKey: workOrderPhotoKeys.list(variables.workOrderId),
       });
 
-      toastSuccess('Photo saved', `${variables.metadata.photoType} photo uploaded successfully`);
+      toastSuccess(
+        "Photo saved",
+        `${variables.metadata.photoType} photo uploaded successfully`,
+      );
     },
     onError: (error, variables) => {
-      console.error('[Photo Upload] Failed:', error);
-      toastError('Photo upload failed', 'Please try again');
+      console.error("[Photo Upload] Failed:", error);
+      toastError("Photo upload failed", "Please try again");
 
       // Still invalidate to ensure consistency
       queryClient.invalidateQueries({
@@ -152,22 +171,33 @@ export function useDeleteWorkOrderPhoto() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ workOrderId, photoId }: { workOrderId: string; photoId: string }): Promise<void> => {
-      console.log('[Photo Delete] Deleting photo:', photoId, 'from work order:', workOrderId);
+    mutationFn: async ({
+      workOrderId,
+      photoId,
+    }: {
+      workOrderId: string;
+      photoId: string;
+    }): Promise<void> => {
+      console.log(
+        "[Photo Delete] Deleting photo:",
+        photoId,
+        "from work order:",
+        workOrderId,
+      );
       await apiClient.delete(`/work-orders/${workOrderId}/photos/${photoId}`);
     },
     onSuccess: (_, variables) => {
       // Remove from cache optimistically
       queryClient.setQueryData<WorkOrderPhoto[]>(
         workOrderPhotoKeys.list(variables.workOrderId),
-        (old) => old?.filter((p) => p.id !== variables.photoId) || []
+        (old) => old?.filter((p) => p.id !== variables.photoId) || [],
       );
 
-      toastSuccess('Photo deleted');
+      toastSuccess("Photo deleted");
     },
     onError: (error) => {
-      console.error('[Photo Delete] Failed:', error);
-      toastError('Failed to delete photo');
+      console.error("[Photo Delete] Failed:", error);
+      toastError("Failed to delete photo");
     },
   });
 }
@@ -188,9 +218,9 @@ export function useWorkOrderPhotoOperations(workOrderId: string | undefined) {
     error: photosQuery.error,
 
     // Upload
-    uploadPhoto: (params: Omit<UploadPhotoParams, 'workOrderId'>) => {
+    uploadPhoto: (params: Omit<UploadPhotoParams, "workOrderId">) => {
       if (!workOrderId) {
-        console.error('[Photo] Cannot upload: no work order ID');
+        console.error("[Photo] Cannot upload: no work order ID");
         return;
       }
       return uploadMutation.mutateAsync({ ...params, workOrderId });
@@ -201,7 +231,7 @@ export function useWorkOrderPhotoOperations(workOrderId: string | undefined) {
     // Delete
     deletePhoto: (photoId: string) => {
       if (!workOrderId) {
-        console.error('[Photo] Cannot delete: no work order ID');
+        console.error("[Photo] Cannot delete: no work order ID");
         return;
       }
       return deleteMutation.mutateAsync({ workOrderId, photoId });

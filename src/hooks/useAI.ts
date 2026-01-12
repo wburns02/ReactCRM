@@ -1,19 +1,31 @@
 /**
  * AI Assistant React Hooks
  */
-import { useState, useCallback, useEffect } from 'react';
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { aiApi, type AIMessage, type AIChatSession, type AIContext, type AISuggestion, type AIChatResponse } from '@/api/ai';
+import { useState, useCallback, useEffect } from "react";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import {
+  aiApi,
+  type AIMessage,
+  type AIChatSession,
+  type AIContext,
+  type AISuggestion,
+  type AIChatResponse,
+} from "@/api/ai";
 
 /**
  * Generate demo responses when backend is not available
  */
 function generateDemoResponse(message: string): AIChatResponse {
   const lowerMessage = message.toLowerCase();
-  let responseContent = '';
+  let responseContent = "";
 
   // Customer-related queries
-  if (lowerMessage.includes('customer') || lowerMessage.includes('find') || lowerMessage.includes('lookup') || lowerMessage.includes('search')) {
+  if (
+    lowerMessage.includes("customer") ||
+    lowerMessage.includes("find") ||
+    lowerMessage.includes("lookup") ||
+    lowerMessage.includes("search")
+  ) {
     responseContent = `I'd be happy to help you find customer information! In demo mode, I can show you how this works:
 
 **To search for a customer**, you can:
@@ -24,7 +36,12 @@ function generateDemoResponse(message: string): AIChatResponse {
 Once the AI backend is connected, I'll be able to search and display customer information directly in this chat!`;
   }
   // Scheduling queries
-  else if (lowerMessage.includes('schedule') || lowerMessage.includes('time') || lowerMessage.includes('slot') || lowerMessage.includes('appointment')) {
+  else if (
+    lowerMessage.includes("schedule") ||
+    lowerMessage.includes("time") ||
+    lowerMessage.includes("slot") ||
+    lowerMessage.includes("appointment")
+  ) {
     responseContent = `Great question about scheduling! Here's what I can help with:
 
 **Current scheduling features:**
@@ -38,7 +55,11 @@ Once the AI backend is connected, I'll be able to search and display customer in
 - Conflict detection and resolution`;
   }
   // Work order queries
-  else if (lowerMessage.includes('work order') || lowerMessage.includes('job') || lowerMessage.includes('service')) {
+  else if (
+    lowerMessage.includes("work order") ||
+    lowerMessage.includes("job") ||
+    lowerMessage.includes("service")
+  ) {
     responseContent = `I can help with work orders! Here's a quick overview:
 
 **To manage work orders:**
@@ -52,7 +73,12 @@ Once the AI backend is connected, I'll be able to search and display customer in
 - Match best technician for the job`;
   }
   // Analytics queries
-  else if (lowerMessage.includes('revenue') || lowerMessage.includes('report') || lowerMessage.includes('analytics') || lowerMessage.includes('stats')) {
+  else if (
+    lowerMessage.includes("revenue") ||
+    lowerMessage.includes("report") ||
+    lowerMessage.includes("analytics") ||
+    lowerMessage.includes("stats")
+  ) {
     responseContent = `For analytics and reporting, check out:
 
 **Available dashboards:**
@@ -66,7 +92,11 @@ Once the AI backend is connected, I'll be able to search and display customer in
 - Automated weekly summaries`;
   }
   // Hello/greeting
-  else if (lowerMessage.includes('hello') || lowerMessage.includes('hi') || lowerMessage.includes('hey')) {
+  else if (
+    lowerMessage.includes("hello") ||
+    lowerMessage.includes("hi") ||
+    lowerMessage.includes("hey")
+  ) {
     responseContent = `Hello! Welcome to the AI Assistant demo mode.
 
 I'm running in demo mode because the AI backend isn't connected yet. But I can still help you navigate the CRM!
@@ -97,7 +127,7 @@ Once the AI backend is live, I'll be able to:
   return {
     message: {
       id: `demo-${Date.now()}`,
-      role: 'assistant',
+      role: "assistant",
       content: responseContent,
       timestamp: new Date().toISOString(),
     },
@@ -109,19 +139,21 @@ Once the AI backend is live, I'll be able to:
  * Query keys for AI features
  */
 export const aiKeys = {
-  all: ['ai'] as const,
-  chat: () => [...aiKeys.all, 'chat'] as const,
-  history: () => [...aiKeys.all, 'history'] as const,
-  customerInsights: (id: number) => [...aiKeys.all, 'customer-insights', id] as const,
-  workOrderRecs: (id: string) => [...aiKeys.all, 'work-order-recs', id] as const,
+  all: ["ai"] as const,
+  chat: () => [...aiKeys.all, "chat"] as const,
+  history: () => [...aiKeys.all, "history"] as const,
+  customerInsights: (id: number) =>
+    [...aiKeys.all, "customer-insights", id] as const,
+  workOrderRecs: (id: string) =>
+    [...aiKeys.all, "work-order-recs", id] as const,
 };
 
 /**
  * Default welcome message
  */
 const WELCOME_MESSAGE: AIMessage = {
-  id: 'welcome',
-  role: 'assistant',
+  id: "welcome",
+  role: "assistant",
   content: `Hello! I'm your AI assistant for the CRM. I can help you with:
 
 - **Customer Information** - Look up customer details, history, and insights
@@ -160,9 +192,12 @@ export function useAIChat(initialContext?: AIContext) {
         });
       } catch (error: unknown) {
         // Check for 404/422 errors - backend not ready, use demo mode
-        if (error && typeof error === 'object' && 'response' in error) {
+        if (error && typeof error === "object" && "response" in error) {
           const axiosError = error as { response?: { status?: number } };
-          if (axiosError.response?.status === 404 || axiosError.response?.status === 422) {
+          if (
+            axiosError.response?.status === 404 ||
+            axiosError.response?.status === 422
+          ) {
             // Return demo response
             return generateDemoResponse(message);
           }
@@ -174,7 +209,7 @@ export function useAIChat(initialContext?: AIContext) {
       // Optimistically add user message
       const userMessage: AIMessage = {
         id: `user-${Date.now()}`,
-        role: 'user',
+        role: "user",
         content: message,
         timestamp: new Date().toISOString(),
       };
@@ -193,8 +228,8 @@ export function useAIChat(initialContext?: AIContext) {
       // Add error message
       const errorMessage: AIMessage = {
         id: `error-${Date.now()}`,
-        role: 'assistant',
-        content: `I apologize, but I encountered an error processing your request. ${error instanceof Error ? error.message : 'Please try again.'}`,
+        role: "assistant",
+        content: `I apologize, but I encountered an error processing your request. ${error instanceof Error ? error.message : "Please try again."}`,
         timestamp: new Date().toISOString(),
       };
       setMessages((prev) => [...prev, errorMessage]);
@@ -208,7 +243,7 @@ export function useAIChat(initialContext?: AIContext) {
       if (!message.trim()) return;
       sendMessageMutation.mutate(message);
     },
-    [sendMessageMutation]
+    [sendMessageMutation],
   );
 
   // Clear chat
@@ -245,7 +280,7 @@ export function useAIChatHistory() {
         return await aiApi.getChatHistory();
       } catch (error: unknown) {
         // Return empty array if endpoint not available
-        if (error && typeof error === 'object' && 'response' in error) {
+        if (error && typeof error === "object" && "response" in error) {
           const axiosError = error as { response?: { status?: number } };
           if (axiosError.response?.status === 404) {
             return [];
@@ -271,7 +306,7 @@ export function useCustomerInsights(customerId: number | undefined) {
         return await aiApi.getCustomerInsights(customerId);
       } catch (error: unknown) {
         // Return null if endpoint not available
-        if (error && typeof error === 'object' && 'response' in error) {
+        if (error && typeof error === "object" && "response" in error) {
           const axiosError = error as { response?: { status?: number } };
           if (axiosError.response?.status === 404) {
             return null;
@@ -291,14 +326,14 @@ export function useCustomerInsights(customerId: number | undefined) {
  */
 export function useWorkOrderRecommendations(workOrderId: string | undefined) {
   return useQuery({
-    queryKey: aiKeys.workOrderRecs(workOrderId || ''),
+    queryKey: aiKeys.workOrderRecs(workOrderId || ""),
     queryFn: async () => {
       if (!workOrderId) return null;
       try {
         return await aiApi.getWorkOrderRecommendations(workOrderId);
       } catch (error: unknown) {
         // Return null if endpoint not available
-        if (error && typeof error === 'object' && 'response' in error) {
+        if (error && typeof error === "object" && "response" in error) {
           const axiosError = error as { response?: { status?: number } };
           if (axiosError.response?.status === 404) {
             return null;
@@ -341,33 +376,33 @@ export function useAIQuickActions() {
   const generateSuggestions = useCallback((context: AIContext) => {
     const newSuggestions: AISuggestion[] = [];
 
-    if (context.current_page?.includes('customer')) {
+    if (context.current_page?.includes("customer")) {
       newSuggestions.push({
-        id: 'customer-followup',
-        type: 'customer',
-        title: 'Schedule Follow-up',
-        description: 'Schedule a follow-up call with this customer',
+        id: "customer-followup",
+        type: "customer",
+        title: "Schedule Follow-up",
+        description: "Schedule a follow-up call with this customer",
         confidence: 0.85,
         action: {
-          id: 'schedule-followup',
-          type: 'schedule',
-          label: 'Schedule',
+          id: "schedule-followup",
+          type: "schedule",
+          label: "Schedule",
           payload: { customer_id: context.selected_customer?.id },
         },
       });
     }
 
-    if (context.current_page?.includes('work-order')) {
+    if (context.current_page?.includes("work-order")) {
       newSuggestions.push({
-        id: 'wo-optimize',
-        type: 'work_order',
-        title: 'Optimize Schedule',
-        description: 'AI can suggest the best technician and time slot',
+        id: "wo-optimize",
+        type: "work_order",
+        title: "Optimize Schedule",
+        description: "AI can suggest the best technician and time slot",
         confidence: 0.9,
         action: {
-          id: 'optimize-schedule',
-          type: 'schedule',
-          label: 'Optimize',
+          id: "optimize-schedule",
+          type: "schedule",
+          label: "Optimize",
           payload: { work_order_id: context.selected_work_order?.id },
         },
       });

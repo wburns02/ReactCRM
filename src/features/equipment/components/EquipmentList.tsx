@@ -1,6 +1,6 @@
-import { Button } from '@/components/ui/Button.tsx';
-import { EquipmentStatusBadge } from './EquipmentStatusBadge.tsx';
-import type { Equipment } from '@/api/types/equipment.ts';
+import { Button } from "@/components/ui/Button.tsx";
+import { EquipmentStatusBadge } from "./EquipmentStatusBadge.tsx";
+import type { Equipment } from "@/api/types/equipment.ts";
 
 interface EquipmentListProps {
   equipment: Equipment[];
@@ -38,8 +38,12 @@ export function EquipmentList({
     return (
       <div className="text-center py-12">
         <div className="text-4xl mb-4">🛠️</div>
-        <h3 className="text-lg font-medium text-text-primary mb-2">No equipment found</h3>
-        <p className="text-text-secondary">Try adjusting your filters or add new equipment.</p>
+        <h3 className="text-lg font-medium text-text-primary mb-2">
+          No equipment found
+        </h3>
+        <p className="text-text-secondary">
+          Try adjusting your filters or add new equipment.
+        </p>
       </div>
     );
   }
@@ -51,25 +55,46 @@ export function EquipmentList({
         <table className="w-full" role="grid" aria-label="Equipment list">
           <thead>
             <tr className="border-b border-border bg-bg-muted">
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Name
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Type
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Serial Number
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Status
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Assigned To
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Next Maintenance
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Actions
               </th>
             </tr>
@@ -90,19 +115,18 @@ export function EquipmentList({
                   {item.type}
                 </td>
                 <td className="px-4 py-3 text-sm text-text-secondary">
-                  {item.serial_number || '-'}
+                  {item.serial_number || "-"}
                 </td>
                 <td className="px-4 py-3">
                   <EquipmentStatusBadge status={item.status} />
                 </td>
                 <td className="px-4 py-3 text-sm text-text-secondary">
-                  {item.assigned_to || 'Unassigned'}
+                  {item.assigned_to || "Unassigned"}
                 </td>
                 <td className="px-4 py-3 text-sm text-text-secondary">
                   {item.next_maintenance
                     ? new Date(item.next_maintenance).toLocaleDateString()
-                    : '-'
-                  }
+                    : "-"}
                 </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-2">
@@ -111,7 +135,7 @@ export function EquipmentList({
                         variant="ghost"
                         size="sm"
                         onClick={() => onEdit(item)}
-                        aria-label={'Edit ' + item.name}
+                        aria-label={"Edit " + item.name}
                       >
                         Edit
                       </Button>
@@ -121,7 +145,7 @@ export function EquipmentList({
                         variant="ghost"
                         size="sm"
                         onClick={() => onDelete(item)}
-                        aria-label={'Delete ' + item.name}
+                        aria-label={"Delete " + item.name}
                         className="text-danger hover:text-danger"
                       >
                         Delete

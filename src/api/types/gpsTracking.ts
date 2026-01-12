@@ -79,16 +79,21 @@ export interface ETAResponse {
   calculated_at: string;
 }
 
-export type GeofenceType = 'customer_site' | 'office' | 'warehouse' | 'service_area' | 'exclusion_zone';
+export type GeofenceType =
+  | "customer_site"
+  | "office"
+  | "warehouse"
+  | "service_area"
+  | "exclusion_zone";
 
 export type GeofenceAction =
-  | 'clock_in'
-  | 'clock_out'
-  | 'notify_dispatch'
-  | 'notify_customer'
-  | 'start_job'
-  | 'complete_job'
-  | 'log_only';
+  | "clock_in"
+  | "clock_out"
+  | "notify_dispatch"
+  | "notify_customer"
+  | "start_job"
+  | "complete_job"
+  | "log_only";
 
 export interface Geofence {
   id: number;
@@ -136,7 +141,7 @@ export interface GeofenceEvent {
   geofence_name: string;
   technician_id: number;
   technician_name: string;
-  event_type: 'entry' | 'exit';
+  event_type: "entry" | "exit";
   latitude: number;
   longitude: number;
   action_triggered?: GeofenceAction;
@@ -151,7 +156,7 @@ export interface TrackingLink {
   work_order_id: number;
   customer_id: number;
   technician_id: number;
-  status: 'active' | 'expired' | 'viewed' | 'completed';
+  status: "active" | "expired" | "viewed" | "completed";
   expires_at: string;
   view_count: number;
   created_at: string;
@@ -179,7 +184,13 @@ export interface PublicTrackingInfo {
   eta_minutes?: number;
   eta_arrival_time?: string;
   distance_miles?: number;
-  status: 'scheduled' | 'en_route' | 'arriving_soon' | 'arrived' | 'in_progress' | 'completed';
+  status:
+    | "scheduled"
+    | "en_route"
+    | "arriving_soon"
+    | "arrived"
+    | "in_progress"
+    | "completed";
   status_message: string;
   last_updated: string;
 }

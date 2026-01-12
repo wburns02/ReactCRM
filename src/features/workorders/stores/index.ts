@@ -7,11 +7,11 @@ export {
   useWorkOrderFilters,
   useWorkOrderSortOrder,
   useWorkOrderFilterActions,
-} from './workOrderStore';
+} from "./workOrderStore";
 
 export type {
   ViewMode,
   WorkOrderUIState,
   WorkOrderStoreActions,
   WorkOrderStore,
-} from './workOrderStore';
+} from "./workOrderStore";

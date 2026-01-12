@@ -1,8 +1,13 @@
-import { useState } from 'react';
-import { CallList } from '../components/CallList.tsx';
-import { CallDetails } from '../components/CallDetails.tsx';
-import { useCallAnalytics, type Call } from '../api/calls.ts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
+import { useState } from "react";
+import { CallList } from "../components/CallList.tsx";
+import { CallDetails } from "../components/CallDetails.tsx";
+import { useCallAnalytics, type Call } from "../api/calls.ts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
 
 export function CallsPage() {
   const [selectedCall, setSelectedCall] = useState<Call | null>(null);
@@ -36,13 +41,11 @@ export function CallsPage() {
               <div>
                 <p className="text-sm text-text-muted">Total Calls</p>
                 <p className="text-2xl font-bold text-text-primary">
-                  {analyticsLoading ? '-' : analytics?.total_calls || 0}
+                  {analyticsLoading ? "-" : analytics?.total_calls || 0}
                 </p>
                 <p className="text-xs text-text-muted mt-1">Last 7 days</p>
               </div>
-              <div className="p-3 bg-primary/10 rounded-full text-2xl">
-                📞
-              </div>
+              <div className="p-3 bg-primary/10 rounded-full text-2xl">📞</div>
             </div>
           </CardContent>
         </Card>
@@ -53,17 +56,15 @@ export function CallsPage() {
               <div>
                 <p className="text-sm text-text-muted">Answered</p>
                 <p className="text-2xl font-bold text-green-600">
-                  {analyticsLoading ? '-' : analytics?.answered_calls || 0}
+                  {analyticsLoading ? "-" : analytics?.answered_calls || 0}
                 </p>
                 <p className="text-xs text-text-muted mt-1">
                   {analytics?.total_calls
                     ? `${Math.round((analytics.answered_calls / analytics.total_calls) * 100)}% answer rate`
-                    : '-'}
+                    : "-"}
                 </p>
               </div>
-              <div className="p-3 bg-green-100 rounded-full text-2xl">
-                📥
-              </div>
+              <div className="p-3 bg-green-100 rounded-full text-2xl">📥</div>
             </div>
           </CardContent>
         </Card>
@@ -74,17 +75,15 @@ export function CallsPage() {
               <div>
                 <p className="text-sm text-text-muted">Missed</p>
                 <p className="text-2xl font-bold text-red-600">
-                  {analyticsLoading ? '-' : analytics?.missed_calls || 0}
+                  {analyticsLoading ? "-" : analytics?.missed_calls || 0}
                 </p>
                 <p className="text-xs text-text-muted mt-1">
                   {analytics?.total_calls
                     ? `${Math.round((analytics.missed_calls / analytics.total_calls) * 100)}% miss rate`
-                    : '-'}
+                    : "-"}
                 </p>
               </div>
-              <div className="p-3 bg-red-100 rounded-full text-2xl">
-                📵
-              </div>
+              <div className="p-3 bg-red-100 rounded-full text-2xl">📵</div>
             </div>
           </CardContent>
         </Card>
@@ -95,13 +94,13 @@ export function CallsPage() {
               <div>
                 <p className="text-sm text-text-muted">Avg Duration</p>
                 <p className="text-2xl font-bold text-text-primary">
-                  {analyticsLoading ? '-' : formatDuration(analytics?.avg_duration_seconds || 0)}
+                  {analyticsLoading
+                    ? "-"
+                    : formatDuration(analytics?.avg_duration_seconds || 0)}
                 </p>
                 <p className="text-xs text-text-muted mt-1">Per call</p>
               </div>
-              <div className="p-3 bg-blue-100 rounded-full text-2xl">
-                ⏱️
-              </div>
+              <div className="p-3 bg-blue-100 rounded-full text-2xl">⏱️</div>
             </div>
           </CardContent>
         </Card>
@@ -147,14 +146,22 @@ export function CallsPage() {
                     <div className="space-y-3">
                       {Object.entries(analytics?.calls_by_direction || {}).map(
                         ([direction, count]) => (
-                          <div key={direction} className="flex items-center justify-between">
-                            <span className="text-text-primary capitalize">{direction}</span>
+                          <div
+                            key={direction}
+                            className="flex items-center justify-between"
+                          >
+                            <span className="text-text-primary capitalize">
+                              {direction}
+                            </span>
                             <span className="font-medium">{count}</span>
                           </div>
-                        )
+                        ),
                       )}
-                      {Object.keys(analytics?.calls_by_direction || {}).length === 0 && (
-                        <p className="text-text-muted text-sm">No data available</p>
+                      {Object.keys(analytics?.calls_by_direction || {})
+                        .length === 0 && (
+                        <p className="text-text-muted text-sm">
+                          No data available
+                        </p>
                       )}
                     </div>
                   )}
@@ -181,15 +188,21 @@ export function CallsPage() {
                         .sort(([, a], [, b]) => b - a)
                         .slice(0, 6)
                         .map(([disposition, count]) => (
-                          <div key={disposition} className="flex items-center justify-between">
+                          <div
+                            key={disposition}
+                            className="flex items-center justify-between"
+                          >
                             <span className="text-sm text-text-primary capitalize">
-                              {disposition.replace(/_/g, ' ')}
+                              {disposition.replace(/_/g, " ")}
                             </span>
                             <span className="text-sm font-medium">{count}</span>
                           </div>
                         ))}
-                      {Object.keys(analytics?.calls_by_disposition || {}).length === 0 && (
-                        <p className="text-text-muted text-sm">No data available</p>
+                      {Object.keys(analytics?.calls_by_disposition || {})
+                        .length === 0 && (
+                        <p className="text-text-muted text-sm">
+                          No data available
+                        </p>
                       )}
                     </div>
                   )}

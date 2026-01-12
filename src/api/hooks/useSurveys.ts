@@ -5,18 +5,18 @@
  * Provides hooks for surveys, responses, analytics, and AI insights.
  */
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient, withFallback } from '../client';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient, withFallback } from "../client";
 
 // ============================================
 // Types
 // ============================================
 
-export type SurveyType = 'nps' | 'csat' | 'ces' | 'custom';
-export type SurveyStatus = 'draft' | 'active' | 'paused' | 'completed';
-export type SurveyTrigger = 'manual' | 'scheduled' | 'event' | 'milestone';
-export type Sentiment = 'positive' | 'neutral' | 'negative';
-export type UrgencyLevel = 'critical' | 'high' | 'medium' | 'low';
+export type SurveyType = "nps" | "csat" | "ces" | "custom";
+export type SurveyStatus = "draft" | "active" | "paused" | "completed";
+export type SurveyTrigger = "manual" | "scheduled" | "event" | "milestone";
+export type Sentiment = "positive" | "neutral" | "negative";
+export type UrgencyLevel = "critical" | "high" | "medium" | "low";
 
 export interface Survey {
   id: number;
@@ -55,7 +55,12 @@ export interface SurveyQuestion {
   survey_id: number;
   text: string;
   description?: string;
-  question_type: 'rating' | 'scale' | 'text' | 'multiple_choice' | 'single_choice';
+  question_type:
+    | "rating"
+    | "scale"
+    | "text"
+    | "multiple_choice"
+    | "single_choice";
   order: number;
   is_required: boolean;
   scale_min?: number;
@@ -137,7 +142,12 @@ export interface QuestionStats {
 
 export interface AIInsight {
   id: string;
-  type: 'urgent_issue' | 'trend' | 'churn_risk' | 'competitor_mention' | 'theme';
+  type:
+    | "urgent_issue"
+    | "trend"
+    | "churn_risk"
+    | "competitor_mention"
+    | "theme";
   severity: UrgencyLevel;
   title: string;
   description: string;
@@ -172,7 +182,7 @@ export interface ChurnRiskIndicator {
   customer_id: number;
   customer_name: string;
   risk_score: number;
-  risk_level: 'high' | 'medium' | 'low';
+  risk_level: "high" | "medium" | "low";
   factors: string[];
 }
 
@@ -180,11 +190,11 @@ export interface CompetitorMention {
   response_id: number;
   customer_name: string;
   text_snippet: string;
-  competitor_type: 'named' | 'generic';
+  competitor_type: "named" | "generic";
 }
 
 export interface ActionRecommendation {
-  action_type: 'callback' | 'ticket' | 'offer' | 'appointment' | 'email';
+  action_type: "callback" | "ticket" | "offer" | "appointment" | "email";
   customer_id: number;
   customer_name: string;
   priority: UrgencyLevel;
@@ -258,7 +268,7 @@ export interface CreateSurveyData {
 export interface CreateQuestionData {
   text: string;
   description?: string;
-  question_type: SurveyQuestion['question_type'];
+  question_type: SurveyQuestion["question_type"];
   order?: number;
   is_required?: boolean;
   scale_min?: number;
@@ -270,7 +280,7 @@ export interface CreateQuestionData {
 
 export interface CreateActionData {
   response_id: number;
-  action_type: 'callback' | 'ticket' | 'offer' | 'appointment' | 'email';
+  action_type: "callback" | "ticket" | "offer" | "appointment" | "email";
   notes?: string;
   assigned_to?: number;
   priority?: UrgencyLevel;
@@ -292,31 +302,37 @@ export interface TrendData {
 // ============================================
 
 export const surveyKeys = {
-  all: ['surveys'] as const,
-  lists: () => [...surveyKeys.all, 'list'] as const,
+  all: ["surveys"] as const,
+  lists: () => [...surveyKeys.all, "list"] as const,
   list: (filters: SurveyFilters) => [...surveyKeys.lists(), filters] as const,
-  detail: (id: number) => [...surveyKeys.all, 'detail', id] as const,
-  responses: (surveyId: number, filters?: ResponseFilters) => [...surveyKeys.all, 'responses', surveyId, filters] as const,
-  analytics: (id: number) => [...surveyKeys.all, 'analytics', id] as const,
-  aiInsights: (id: number) => [...surveyKeys.all, 'ai-insights', id] as const,
-  detractors: () => [...surveyKeys.all, 'detractors'] as const,
-  trends: (days?: number) => [...surveyKeys.all, 'trends', days] as const,
-  customerEligibility: (customerId: number) => [...surveyKeys.all, 'eligibility', customerId] as const,
+  detail: (id: number) => [...surveyKeys.all, "detail", id] as const,
+  responses: (surveyId: number, filters?: ResponseFilters) =>
+    [...surveyKeys.all, "responses", surveyId, filters] as const,
+  analytics: (id: number) => [...surveyKeys.all, "analytics", id] as const,
+  aiInsights: (id: number) => [...surveyKeys.all, "ai-insights", id] as const,
+  detractors: () => [...surveyKeys.all, "detractors"] as const,
+  trends: (days?: number) => [...surveyKeys.all, "trends", days] as const,
+  customerEligibility: (customerId: number) =>
+    [...surveyKeys.all, "eligibility", customerId] as const,
 };
 
 // ============================================
 // API Functions
 // ============================================
 
-async function fetchSurveys(filters: SurveyFilters = {}): Promise<SurveyListResponse> {
+async function fetchSurveys(
+  filters: SurveyFilters = {},
+): Promise<SurveyListResponse> {
   const params = new URLSearchParams();
-  if (filters.page) params.set('page', String(filters.page));
-  if (filters.page_size) params.set('page_size', String(filters.page_size));
-  if (filters.survey_type) params.set('survey_type', filters.survey_type);
-  if (filters.status) params.set('status', filters.status);
-  if (filters.search) params.set('search', filters.search);
+  if (filters.page) params.set("page", String(filters.page));
+  if (filters.page_size) params.set("page_size", String(filters.page_size));
+  if (filters.survey_type) params.set("survey_type", filters.survey_type);
+  if (filters.status) params.set("status", filters.status);
+  if (filters.search) params.set("search", filters.search);
 
-  const { data } = await apiClient.get<SurveyListResponse>(`/cs/surveys?${params}`);
+  const { data } = await apiClient.get<SurveyListResponse>(
+    `/cs/surveys?${params}`,
+  );
   return data;
 }
 
@@ -326,12 +342,18 @@ async function fetchSurvey(id: number): Promise<Survey> {
 }
 
 async function createSurvey(surveyData: CreateSurveyData): Promise<Survey> {
-  const { data } = await apiClient.post<Survey>('/cs/surveys', surveyData);
+  const { data } = await apiClient.post<Survey>("/cs/surveys", surveyData);
   return data;
 }
 
-async function updateSurvey(id: number, surveyData: Partial<CreateSurveyData>): Promise<Survey> {
-  const { data } = await apiClient.patch<Survey>(`/cs/surveys/${id}`, surveyData);
+async function updateSurvey(
+  id: number,
+  surveyData: Partial<CreateSurveyData>,
+): Promise<Survey> {
+  const { data } = await apiClient.patch<Survey>(
+    `/cs/surveys/${id}`,
+    surveyData,
+  );
   return data;
 }
 
@@ -339,64 +361,97 @@ async function deleteSurvey(id: number): Promise<void> {
   await apiClient.delete(`/cs/surveys/${id}`);
 }
 
-async function fetchSurveyResponses(surveyId: number, filters: ResponseFilters = {}): Promise<SurveyResponseListResponse> {
+async function fetchSurveyResponses(
+  surveyId: number,
+  filters: ResponseFilters = {},
+): Promise<SurveyResponseListResponse> {
   const params = new URLSearchParams();
-  if (filters.page) params.set('page', String(filters.page));
-  if (filters.page_size) params.set('page_size', String(filters.page_size));
-  if (filters.sentiment) params.set('sentiment', filters.sentiment);
+  if (filters.page) params.set("page", String(filters.page));
+  if (filters.page_size) params.set("page_size", String(filters.page_size));
+  if (filters.sentiment) params.set("sentiment", filters.sentiment);
 
-  const { data } = await apiClient.get<SurveyResponseListResponse>(`/cs/surveys/${surveyId}/responses?${params}`);
+  const { data } = await apiClient.get<SurveyResponseListResponse>(
+    `/cs/surveys/${surveyId}/responses?${params}`,
+  );
   return data;
 }
 
 async function fetchSurveyAnalytics(id: number): Promise<SurveyAnalytics> {
-  const { data } = await apiClient.get<SurveyAnalytics>(`/cs/surveys/${id}/analytics`);
+  const { data } = await apiClient.get<SurveyAnalytics>(
+    `/cs/surveys/${id}/analytics`,
+  );
   return data;
 }
 
 async function fetchSurveyAIInsights(id: number): Promise<SurveyAIAnalysis> {
-  const { data } = await apiClient.get<SurveyAIAnalysis>(`/cs/surveys/${id}/ai-insights`);
+  const { data } = await apiClient.get<SurveyAIAnalysis>(
+    `/cs/surveys/${id}/ai-insights`,
+  );
   return data;
 }
 
 async function triggerSurveyAnalysis(id: number): Promise<SurveyAIAnalysis> {
-  const { data } = await apiClient.post<SurveyAIAnalysis>(`/cs/surveys/${id}/analyze`);
+  const { data } = await apiClient.post<SurveyAIAnalysis>(
+    `/cs/surveys/${id}/analyze`,
+  );
   return data;
 }
 
 async function fetchDetractorQueue(): Promise<DetractorQueueItem[]> {
-  const { data } = await apiClient.get<DetractorQueueItem[]>('/cs/surveys/detractors');
+  const { data } = await apiClient.get<DetractorQueueItem[]>(
+    "/cs/surveys/detractors",
+  );
   return data;
 }
 
 async function fetchSurveyTrends(days: number = 90): Promise<TrendData[]> {
-  const { data } = await apiClient.get<TrendData[]>(`/cs/surveys/trends?days=${days}`);
+  const { data } = await apiClient.get<TrendData[]>(
+    `/cs/surveys/trends?days=${days}`,
+  );
   return data;
 }
 
-async function createSurveyAction(surveyId: number, actionData: CreateActionData): Promise<{ success: boolean; message: string }> {
-  const { data } = await apiClient.post(`/cs/surveys/${surveyId}/actions`, actionData);
+async function createSurveyAction(
+  surveyId: number,
+  actionData: CreateActionData,
+): Promise<{ success: boolean; message: string }> {
+  const { data } = await apiClient.post(
+    `/cs/surveys/${surveyId}/actions`,
+    actionData,
+  );
   return data;
 }
 
-async function markActionTaken(responseId: number, actionType: string): Promise<SurveyResponse> {
-  const { data } = await apiClient.patch<SurveyResponse>(`/cs/surveys/responses/${responseId}/action`, {
-    action_type: actionType,
-  });
+async function markActionTaken(
+  responseId: number,
+  actionType: string,
+): Promise<SurveyResponse> {
+  const { data } = await apiClient.patch<SurveyResponse>(
+    `/cs/surveys/responses/${responseId}/action`,
+    {
+      action_type: actionType,
+    },
+  );
   return data;
 }
 
-async function activateSurvey(id: number): Promise<{ status: string; message: string }> {
+async function activateSurvey(
+  id: number,
+): Promise<{ status: string; message: string }> {
   const { data } = await apiClient.post(`/cs/surveys/${id}/activate`);
   return data;
 }
 
-async function pauseSurvey(id: number): Promise<{ status: string; message: string }> {
+async function pauseSurvey(
+  id: number,
+): Promise<{ status: string; message: string }> {
   const { data } = await apiClient.post(`/cs/surveys/${id}/pause`);
   return data;
 }
 
-async function completeSurvey(id: number): Promise<{ status: string; message: string }> {
+async function completeSurvey(
+  id: number,
+): Promise<{ status: string; message: string }> {
   const { data } = await apiClient.post(`/cs/surveys/${id}/complete`);
   return data;
 }
@@ -407,7 +462,9 @@ async function checkSurveyEligibility(customerId: number): Promise<{
   next_eligible_date?: string;
   last_surveyed_at?: string;
 }> {
-  const { data } = await apiClient.get(`/cs/surveys/customers/${customerId}/eligibility`);
+  const { data } = await apiClient.get(
+    `/cs/surveys/customers/${customerId}/eligibility`,
+  );
   return data;
 }
 
@@ -421,10 +478,13 @@ async function checkSurveyEligibility(customerId: number): Promise<{
 export function useSurveys(filters: SurveyFilters = {}) {
   return useQuery({
     queryKey: surveyKeys.list(filters),
-    queryFn: () => withFallback(
-      () => fetchSurveys(filters),
-      { items: [], total: 0, page: 1, page_size: 20 }
-    ),
+    queryFn: () =>
+      withFallback(() => fetchSurveys(filters), {
+        items: [],
+        total: 0,
+        page: 1,
+        page_size: 20,
+      }),
     staleTime: 2 * 60 * 1000, // 2 minutes
   });
 }
@@ -443,13 +503,19 @@ export function useSurvey(id: number) {
 /**
  * Fetch responses for a survey
  */
-export function useSurveyResponses(surveyId: number, filters: ResponseFilters = {}) {
+export function useSurveyResponses(
+  surveyId: number,
+  filters: ResponseFilters = {},
+) {
   return useQuery({
     queryKey: surveyKeys.responses(surveyId, filters),
-    queryFn: () => withFallback(
-      () => fetchSurveyResponses(surveyId, filters),
-      { items: [], total: 0, page: 1, page_size: 20 }
-    ),
+    queryFn: () =>
+      withFallback(() => fetchSurveyResponses(surveyId, filters), {
+        items: [],
+        total: 0,
+        page: 1,
+        page_size: 20,
+      }),
     enabled: surveyId > 0,
     staleTime: 1 * 60 * 1000, // 1 minute
   });
@@ -473,9 +539,8 @@ export function useSurveyAnalytics(id: number) {
 export function useSurveyAIInsights(id: number) {
   return useQuery({
     queryKey: surveyKeys.aiInsights(id),
-    queryFn: () => withFallback(
-      () => fetchSurveyAIInsights(id),
-      {
+    queryFn: () =>
+      withFallback(() => fetchSurveyAIInsights(id), {
         survey_id: id,
         sentiment_breakdown: { positive: 0, neutral: 0, negative: 0 },
         key_themes: [],
@@ -485,8 +550,7 @@ export function useSurveyAIInsights(id: number) {
         action_recommendations: [],
         overall_sentiment_score: 0,
         analyzed_at: new Date().toISOString(),
-      }
-    ),
+      }),
     enabled: id > 0,
     staleTime: 10 * 60 * 1000, // 10 minutes - AI analysis doesn't change often
   });
@@ -520,10 +584,10 @@ export function useSurveyTrends(days: number = 90) {
 export function useCustomerSurveyEligibility(customerId: number) {
   return useQuery({
     queryKey: surveyKeys.customerEligibility(customerId),
-    queryFn: () => withFallback(
-      () => checkSurveyEligibility(customerId),
-      { eligible: true }
-    ),
+    queryFn: () =>
+      withFallback(() => checkSurveyEligibility(customerId), {
+        eligible: true,
+      }),
     enabled: customerId > 0,
   });
 }
@@ -553,11 +617,18 @@ export function useUpdateSurvey() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ id, data }: { id: number; data: Partial<CreateSurveyData> }) =>
-      updateSurvey(id, data),
+    mutationFn: ({
+      id,
+      data,
+    }: {
+      id: number;
+      data: Partial<CreateSurveyData>;
+    }) => updateSurvey(id, data),
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: surveyKeys.lists() });
-      queryClient.invalidateQueries({ queryKey: surveyKeys.detail(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: surveyKeys.detail(variables.id),
+      });
     },
   });
 }
@@ -643,10 +714,17 @@ export function useCreateSurveyAction() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ surveyId, data }: { surveyId: number; data: CreateActionData }) =>
-      createSurveyAction(surveyId, data),
+    mutationFn: ({
+      surveyId,
+      data,
+    }: {
+      surveyId: number;
+      data: CreateActionData;
+    }) => createSurveyAction(surveyId, data),
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: surveyKeys.responses(variables.surveyId) });
+      queryClient.invalidateQueries({
+        queryKey: surveyKeys.responses(variables.surveyId),
+      });
       queryClient.invalidateQueries({ queryKey: surveyKeys.detractors() });
     },
   });
@@ -659,8 +737,13 @@ export function useMarkActionTaken() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: ({ responseId, actionType }: { responseId: number; actionType: string }) =>
-      markActionTaken(responseId, actionType),
+    mutationFn: ({
+      responseId,
+      actionType,
+    }: {
+      responseId: number;
+      actionType: string;
+    }) => markActionTaken(responseId, actionType),
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: surveyKeys.all });
     },

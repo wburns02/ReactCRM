@@ -4,30 +4,39 @@
  * Create and view invoices with line items editor, totals, PDF preview, and send functionality.
  */
 
-import { useState, useCallback, useMemo } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
-import { Label } from '@/components/ui/Label.tsx';
+import { useState, useCallback, useMemo } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { Label } from "@/components/ui/Label.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
-import { cn } from '@/lib/utils.ts';
+} from "@/components/ui/Dialog.tsx";
+import { cn } from "@/lib/utils.ts";
 import {
   type PricingLineItem,
   type Discount,
   formatCurrency,
   calculateInvoiceTotals,
   getTaxRate,
-} from './utils/pricingEngine.ts';
-import { PriceCalculator } from './PriceCalculator.tsx';
-import { DiscountManager } from './DiscountManager.tsx';
-import { useCreateInvoice, useSendInvoiceEmail, useGenerateInvoicePDF } from './hooks/usePayments.ts';
+} from "./utils/pricingEngine.ts";
+import { PriceCalculator } from "./PriceCalculator.tsx";
+import { DiscountManager } from "./DiscountManager.tsx";
+import {
+  useCreateInvoice,
+  useSendInvoiceEmail,
+  useGenerateInvoicePDF,
+} from "./hooks/usePayments.ts";
 
 // ============================================================================
 // TYPES
@@ -63,7 +72,7 @@ export interface InvoiceGeneratorProps {
   /** Initial line items */
   initialItems?: PricingLineItem[];
   /** Customer loyalty tier */
-  loyaltyTier?: 'bronze' | 'silver' | 'gold' | 'platinum' | null;
+  loyaltyTier?: "bronze" | "silver" | "gold" | "platinum" | null;
   /** Callback after invoice is created */
   onInvoiceCreated?: (invoiceId: string) => void;
   /** Callback after invoice is sent */
@@ -90,21 +99,25 @@ export function InvoiceGenerator({
   const [dueDate, setDueDate] = useState(() => {
     const date = new Date();
     date.setDate(date.getDate() + 30);
-    return date.toISOString().split('T')[0];
+    return date.toISOString().split("T")[0];
   });
-  const [notes, setNotes] = useState('');
-  const [terms, setTerms] = useState('Payment due within 30 days of invoice date.');
+  const [notes, setNotes] = useState("");
+  const [terms, setTerms] = useState(
+    "Payment due within 30 days of invoice date.",
+  );
   const [createdInvoiceId, setCreatedInvoiceId] = useState<string | null>(null);
   const [showPreview, setShowPreview] = useState(false);
   const [showSendDialog, setShowSendDialog] = useState(false);
-  const [sendEmail, setSendEmail] = useState(customer.email || '');
+  const [sendEmail, setSendEmail] = useState(customer.email || "");
 
   const createInvoiceMutation = useCreateInvoice();
   const sendInvoiceMutation = useSendInvoiceEmail();
   const generatePDFMutation = useGenerateInvoicePDF();
 
   // Calculate tax rate based on customer state
-  const taxRate = customer.address?.state ? getTaxRate(customer.address.state) : getTaxRate('TX');
+  const taxRate = customer.address?.state
+    ? getTaxRate(customer.address.state)
+    : getTaxRate("TX");
 
   // Calculate totals
   const totals = useMemo(() => {
@@ -141,7 +154,7 @@ export function InvoiceGenerator({
       setCreatedInvoiceId(invoice.id);
       onInvoiceCreated?.(invoice.id);
     } catch (error) {
-      console.error('Failed to create invoice:', error);
+      console.error("Failed to create invoice:", error);
     }
   };
 
@@ -155,9 +168,9 @@ export function InvoiceGenerator({
     if (createdInvoiceId) {
       try {
         const result = await generatePDFMutation.mutateAsync(createdInvoiceId);
-        window.open(result.url, '_blank');
+        window.open(result.url, "_blank");
       } catch (error) {
-        console.error('Failed to generate PDF:', error);
+        console.error("Failed to generate PDF:", error);
       }
     }
 
@@ -180,7 +193,7 @@ export function InvoiceGenerator({
       setShowSendDialog(false);
       onInvoiceSent?.();
     } catch (error) {
-      console.error('Failed to send invoice:', error);
+      console.error("Failed to send invoice:", error);
     }
   };
 
@@ -188,7 +201,7 @@ export function InvoiceGenerator({
   const customerName = `${customer.firstName} ${customer.lastName}`;
 
   return (
-    <div className={cn('space-y-6', className)}>
+    <div className={cn("space-y-6", className)}>
       {/* Customer & Work Order Info */}
       <Card>
         <CardHeader>
@@ -214,7 +227,9 @@ export function InvoiceGenerator({
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
             {/* Customer Info */}
             <div>
-              <h4 className="text-sm font-medium text-text-secondary mb-2">Bill To</h4>
+              <h4 className="text-sm font-medium text-text-secondary mb-2">
+                Bill To
+              </h4>
               <div className="p-4 bg-bg-hover/50 rounded-lg">
                 <p className="font-semibold">{customerName}</p>
                 {customer.address && (
@@ -222,34 +237,48 @@ export function InvoiceGenerator({
                     <p>{customer.address.line1}</p>
                     {customer.address.line2 && <p>{customer.address.line2}</p>}
                     <p>
-                      {customer.address.city}, {customer.address.state} {customer.address.postalCode}
+                      {customer.address.city}, {customer.address.state}{" "}
+                      {customer.address.postalCode}
                     </p>
                   </div>
                 )}
                 {customer.email && (
-                  <p className="text-sm text-text-secondary mt-2">{customer.email}</p>
+                  <p className="text-sm text-text-secondary mt-2">
+                    {customer.email}
+                  </p>
                 )}
                 {customer.phone && (
-                  <p className="text-sm text-text-secondary">{customer.phone}</p>
+                  <p className="text-sm text-text-secondary">
+                    {customer.phone}
+                  </p>
                 )}
               </div>
             </div>
 
             {/* Work Order Reference */}
             <div>
-              <h4 className="text-sm font-medium text-text-secondary mb-2">Work Order Reference</h4>
+              <h4 className="text-sm font-medium text-text-secondary mb-2">
+                Work Order Reference
+              </h4>
               <div className="p-4 bg-bg-hover/50 rounded-lg">
                 <p className="font-semibold">WO #{workOrder.id}</p>
                 <p className="text-sm text-text-secondary mt-1">
-                  Type: <span className="capitalize">{workOrder.jobType.replace(/_/g, ' ')}</span>
+                  Type:{" "}
+                  <span className="capitalize">
+                    {workOrder.jobType.replace(/_/g, " ")}
+                  </span>
                 </p>
                 {workOrder.scheduledDate && (
                   <p className="text-sm text-text-secondary">
-                    Date: {new Date(workOrder.scheduledDate).toLocaleDateString()}
+                    Date:{" "}
+                    {new Date(workOrder.scheduledDate).toLocaleDateString()}
                   </p>
                 )}
                 <p className="text-sm text-text-secondary">
-                  Status: <span className="capitalize">{workOrder.status.replace(/_/g, ' ')}</span>
+                  Status:{" "}
+                  <span className="capitalize">
+                    {workOrder.status.replace(/_/g, " ")}
+                  </span>
                 </p>
               </div>
             </div>
@@ -272,7 +301,7 @@ export function InvoiceGenerator({
       {/* Line Items */}
       <PriceCalculator
         initialItems={items}
-        stateCode={customer.address?.state || 'TX'}
+        stateCode={customer.address?.state || "TX"}
         discount={discount}
         onItemsChange={handleItemsChange}
       />
@@ -322,10 +351,13 @@ export function InvoiceGenerator({
             {/* Summary */}
             <div className="space-y-1">
               <p className="text-sm text-text-secondary">
-                {items.length} line item{items.length !== 1 ? 's' : ''}
+                {items.length} line item{items.length !== 1 ? "s" : ""}
               </p>
               <p className="text-2xl font-bold">
-                Total: <span className="text-primary">{formatCurrency(totals.total)}</span>
+                Total:{" "}
+                <span className="text-primary">
+                  {formatCurrency(totals.total)}
+                </span>
               </p>
               {totals.discountAmount > 0 && (
                 <p className="text-sm text-success">
@@ -359,7 +391,9 @@ export function InvoiceGenerator({
                 <Button
                   variant="secondary"
                   onClick={handleCreateInvoice}
-                  disabled={items.length === 0 || createInvoiceMutation.isPending}
+                  disabled={
+                    items.length === 0 || createInvoiceMutation.isPending
+                  }
                 >
                   {createInvoiceMutation.isPending ? (
                     <span className="flex items-center gap-2">
@@ -445,7 +479,9 @@ export function InvoiceGenerator({
       {/* Preview Dialog */}
       <Dialog open={showPreview} onClose={() => setShowPreview(false)}>
         <DialogContent size="xl">
-          <DialogHeader onClose={() => setShowPreview(false)}>Invoice Preview</DialogHeader>
+          <DialogHeader onClose={() => setShowPreview(false)}>
+            Invoice Preview
+          </DialogHeader>
           <DialogBody>
             <div className="bg-white p-8 min-h-[600px] border rounded-lg">
               {/* Simple invoice preview */}
@@ -464,14 +500,19 @@ export function InvoiceGenerator({
                     <div className="text-gray-600 text-sm">
                       <p>{customer.address.line1}</p>
                       <p>
-                        {customer.address.city}, {customer.address.state} {customer.address.postalCode}
+                        {customer.address.city}, {customer.address.state}{" "}
+                        {customer.address.postalCode}
                       </p>
                     </div>
                   )}
                 </div>
                 <div className="text-right">
-                  <p className="text-gray-600">Date: {new Date().toLocaleDateString()}</p>
-                  <p className="text-gray-600">Due: {new Date(dueDate).toLocaleDateString()}</p>
+                  <p className="text-gray-600">
+                    Date: {new Date().toLocaleDateString()}
+                  </p>
+                  <p className="text-gray-600">
+                    Due: {new Date(dueDate).toLocaleDateString()}
+                  </p>
                   <p className="text-gray-600">WO: #{workOrder.id}</p>
                 </div>
               </div>
@@ -480,7 +521,9 @@ export function InvoiceGenerator({
               <table className="w-full mb-8">
                 <thead>
                   <tr className="border-b-2 border-gray-300">
-                    <th className="text-left py-2 text-gray-700">Description</th>
+                    <th className="text-left py-2 text-gray-700">
+                      Description
+                    </th>
                     <th className="text-right py-2 text-gray-700">Qty</th>
                     <th className="text-right py-2 text-gray-700">Rate</th>
                     <th className="text-right py-2 text-gray-700">Amount</th>
@@ -489,9 +532,15 @@ export function InvoiceGenerator({
                 <tbody>
                   {items.map((item) => (
                     <tr key={item.id} className="border-b border-gray-200">
-                      <td className="py-2 text-gray-900">{item.description || item.service}</td>
-                      <td className="text-right py-2 text-gray-600">{item.quantity}</td>
-                      <td className="text-right py-2 text-gray-600">{formatCurrency(item.unitPrice)}</td>
+                      <td className="py-2 text-gray-900">
+                        {item.description || item.service}
+                      </td>
+                      <td className="text-right py-2 text-gray-600">
+                        {item.quantity}
+                      </td>
+                      <td className="text-right py-2 text-gray-600">
+                        {formatCurrency(item.unitPrice)}
+                      </td>
                       <td className="text-right py-2 text-gray-900">
                         {formatCurrency(item.quantity * item.unitPrice)}
                       </td>
@@ -528,13 +577,17 @@ export function InvoiceGenerator({
               {notes && (
                 <div className="mt-8 pt-4 border-t">
                   <h4 className="font-semibold text-gray-700 mb-2">Notes</h4>
-                  <p className="text-gray-600 text-sm whitespace-pre-wrap">{notes}</p>
+                  <p className="text-gray-600 text-sm whitespace-pre-wrap">
+                    {notes}
+                  </p>
                 </div>
               )}
 
               {/* Terms */}
               <div className="mt-4">
-                <h4 className="font-semibold text-gray-700 mb-2">Terms & Conditions</h4>
+                <h4 className="font-semibold text-gray-700 mb-2">
+                  Terms & Conditions
+                </h4>
                 <p className="text-gray-600 text-sm">{terms}</p>
               </div>
             </div>
@@ -550,11 +603,14 @@ export function InvoiceGenerator({
       {/* Send Invoice Dialog */}
       <Dialog open={showSendDialog} onClose={() => setShowSendDialog(false)}>
         <DialogContent size="sm">
-          <DialogHeader onClose={() => setShowSendDialog(false)}>Send Invoice</DialogHeader>
+          <DialogHeader onClose={() => setShowSendDialog(false)}>
+            Send Invoice
+          </DialogHeader>
           <DialogBody>
             <div className="space-y-4">
               <p className="text-text-secondary">
-                Send invoice to customer via email. A payment link will be included.
+                Send invoice to customer via email. A payment link will be
+                included.
               </p>
               <div>
                 <Label htmlFor="send-email">Email Address</Label>
@@ -570,7 +626,10 @@ export function InvoiceGenerator({
             </div>
           </DialogBody>
           <DialogFooter>
-            <Button variant="secondary" onClick={() => setShowSendDialog(false)}>
+            <Button
+              variant="secondary"
+              onClick={() => setShowSendDialog(false)}
+            >
               Cancel
             </Button>
             <Button
@@ -583,7 +642,7 @@ export function InvoiceGenerator({
               }}
               disabled={!sendEmail || sendInvoiceMutation.isPending}
             >
-              {sendInvoiceMutation.isPending ? 'Sending...' : 'Send Invoice'}
+              {sendInvoiceMutation.isPending ? "Sending..." : "Send Invoice"}
             </Button>
           </DialogFooter>
         </DialogContent>

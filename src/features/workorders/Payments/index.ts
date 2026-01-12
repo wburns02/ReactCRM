@@ -6,15 +6,38 @@
  */
 
 // Components
-export { InvoiceGenerator, type InvoiceGeneratorProps, type CustomerInfo, type WorkOrderReference } from './InvoiceGenerator.tsx';
-export { PaymentProcessor, type PaymentProcessorProps } from './PaymentProcessor.tsx';
-export { PaymentSection, type PaymentSectionProps } from './PaymentSection.tsx';
-export { PaymentLinkGenerator, type PaymentLinkGeneratorProps } from './PaymentLinkGenerator.tsx';
-export { PriceCalculator, type PriceCalculatorProps } from './PriceCalculator.tsx';
-export { DiscountManager, type DiscountManagerProps } from './DiscountManager.tsx';
-export { RefundProcessor, type RefundProcessorProps } from './RefundProcessor.tsx';
-export { PaymentHistory, type PaymentHistoryProps } from './PaymentHistory.tsx';
-export { FinancingOptions, type FinancingOptionsProps } from './FinancingOptions.tsx';
+export {
+  InvoiceGenerator,
+  type InvoiceGeneratorProps,
+  type CustomerInfo,
+  type WorkOrderReference,
+} from "./InvoiceGenerator.tsx";
+export {
+  PaymentProcessor,
+  type PaymentProcessorProps,
+} from "./PaymentProcessor.tsx";
+export { PaymentSection, type PaymentSectionProps } from "./PaymentSection.tsx";
+export {
+  PaymentLinkGenerator,
+  type PaymentLinkGeneratorProps,
+} from "./PaymentLinkGenerator.tsx";
+export {
+  PriceCalculator,
+  type PriceCalculatorProps,
+} from "./PriceCalculator.tsx";
+export {
+  DiscountManager,
+  type DiscountManagerProps,
+} from "./DiscountManager.tsx";
+export {
+  RefundProcessor,
+  type RefundProcessorProps,
+} from "./RefundProcessor.tsx";
+export { PaymentHistory, type PaymentHistoryProps } from "./PaymentHistory.tsx";
+export {
+  FinancingOptions,
+  type FinancingOptionsProps,
+} from "./FinancingOptions.tsx";
 
 // Hooks
 export {
@@ -38,7 +61,7 @@ export {
   type PaymentLinkResult,
   type DiscountValidationResult,
   type CreateInvoiceParams,
-} from './hooks/usePayments.ts';
+} from "./hooks/usePayments.ts";
 
 // Utilities
 export {
@@ -71,4 +94,4 @@ export {
   FINANCING_PLANS,
   FINANCING_MIN_AMOUNT,
   FINANCING_MAX_AMOUNT,
-} from './utils/pricingEngine.ts';
+} from "./utils/pricingEngine.ts";

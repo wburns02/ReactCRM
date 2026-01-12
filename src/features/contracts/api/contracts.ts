@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client.ts";
 
 // ========================
 // Types
@@ -61,7 +61,11 @@ export interface ContractCreate {
   total_value?: number;
   billing_frequency?: string;
   payment_terms?: string;
-  services_included?: { service_code: string; frequency: string; quantity: number }[];
+  services_included?: {
+    service_code: string;
+    frequency: string;
+    quantity: number;
+  }[];
   covered_properties?: string[];
   coverage_details?: string;
   requires_signature?: boolean;
@@ -79,7 +83,11 @@ export interface ContractUpdate {
   total_value?: number;
   billing_frequency?: string;
   payment_terms?: string;
-  services_included?: { service_code: string; frequency: string; quantity: number }[];
+  services_included?: {
+    service_code: string;
+    frequency: string;
+    quantity: number;
+  }[];
   covered_properties?: string[];
   coverage_details?: string;
   status?: string;
@@ -93,7 +101,11 @@ export interface GenerateContractRequest {
   customer_name?: string;
   start_date: string;
   total_value?: number;
-  services_included?: { service_code: string; frequency: string; quantity: number }[];
+  services_included?: {
+    service_code: string;
+    frequency: string;
+    quantity: number;
+  }[];
   covered_properties?: string[];
   special_terms?: string;
 }
@@ -127,17 +139,24 @@ interface ListResponse<T> {
 // API Functions
 // ========================
 
-async function fetchContracts(filters?: ContractFilters): Promise<ListResponse<Contract>> {
+async function fetchContracts(
+  filters?: ContractFilters,
+): Promise<ListResponse<Contract>> {
   const params = new URLSearchParams();
-  if (filters?.page) params.append('page', String(filters.page));
-  if (filters?.page_size) params.append('page_size', String(filters.page_size));
-  if (filters?.customer_id) params.append('customer_id', String(filters.customer_id));
-  if (filters?.status) params.append('status', filters.status);
-  if (filters?.contract_type) params.append('contract_type', filters.contract_type);
-  if (filters?.expiring_within_days) params.append('expiring_within_days', String(filters.expiring_within_days));
+  if (filters?.page) params.append("page", String(filters.page));
+  if (filters?.page_size) params.append("page_size", String(filters.page_size));
+  if (filters?.customer_id)
+    params.append("customer_id", String(filters.customer_id));
+  if (filters?.status) params.append("status", filters.status);
+  if (filters?.contract_type)
+    params.append("contract_type", filters.contract_type);
+  if (filters?.expiring_within_days)
+    params.append("expiring_within_days", String(filters.expiring_within_days));
 
   const query = params.toString();
-  const { data } = await apiClient.get<ListResponse<Contract>>(`/contracts${query ? `?${query}` : ''}`);
+  const { data } = await apiClient.get<ListResponse<Contract>>(
+    `/contracts${query ? `?${query}` : ""}`,
+  );
   return data;
 }
 
@@ -147,12 +166,18 @@ async function fetchContract(id: string): Promise<Contract> {
 }
 
 async function createContract(contractData: ContractCreate): Promise<Contract> {
-  const { data } = await apiClient.post<Contract>('/contracts', contractData);
+  const { data } = await apiClient.post<Contract>("/contracts", contractData);
   return data;
 }
 
-async function updateContract(id: string, updateData: ContractUpdate): Promise<Contract> {
-  const { data } = await apiClient.patch<Contract>(`/contracts/${id}`, updateData);
+async function updateContract(
+  id: string,
+  updateData: ContractUpdate,
+): Promise<Contract> {
+  const { data } = await apiClient.patch<Contract>(
+    `/contracts/${id}`,
+    updateData,
+  );
   return data;
 }
 
@@ -160,33 +185,55 @@ async function deleteContract(id: string): Promise<void> {
   await apiClient.delete(`/contracts/${id}`);
 }
 
-async function activateContract(id: string): Promise<{ status: string; message: string }> {
-  const { data } = await apiClient.post<{ status: string; message: string }>(`/contracts/${id}/activate`);
+async function activateContract(
+  id: string,
+): Promise<{ status: string; message: string }> {
+  const { data } = await apiClient.post<{ status: string; message: string }>(
+    `/contracts/${id}/activate`,
+  );
   return data;
 }
 
-async function fetchTemplates(filters?: { contract_type?: string; active_only?: boolean }): Promise<ListResponse<ContractTemplate>> {
+async function fetchTemplates(filters?: {
+  contract_type?: string;
+  active_only?: boolean;
+}): Promise<ListResponse<ContractTemplate>> {
   const params = new URLSearchParams();
-  if (filters?.contract_type) params.append('contract_type', filters.contract_type);
-  if (filters?.active_only !== undefined) params.append('active_only', String(filters.active_only));
+  if (filters?.contract_type)
+    params.append("contract_type", filters.contract_type);
+  if (filters?.active_only !== undefined)
+    params.append("active_only", String(filters.active_only));
 
   const query = params.toString();
-  const { data } = await apiClient.get<ListResponse<ContractTemplate>>(`/contracts/templates/list${query ? `?${query}` : ''}`);
+  const { data } = await apiClient.get<ListResponse<ContractTemplate>>(
+    `/contracts/templates/list${query ? `?${query}` : ""}`,
+  );
   return data;
 }
 
 async function fetchTemplate(id: string): Promise<ContractTemplate> {
-  const { data } = await apiClient.get<ContractTemplate>(`/contracts/templates/${id}`);
+  const { data } = await apiClient.get<ContractTemplate>(
+    `/contracts/templates/${id}`,
+  );
   return data;
 }
 
-async function generateFromTemplate(requestData: GenerateContractRequest): Promise<Contract> {
-  const { data } = await apiClient.post<Contract>('/contracts/generate-from-template', requestData);
+async function generateFromTemplate(
+  requestData: GenerateContractRequest,
+): Promise<Contract> {
+  const { data } = await apiClient.post<Contract>(
+    "/contracts/generate-from-template",
+    requestData,
+  );
   return data;
 }
 
-async function fetchContractsDashboard(expiringWithinDays: number = 30): Promise<ContractsDashboard> {
-  const { data } = await apiClient.get<ContractsDashboard>(`/contracts/dashboard/summary?expiring_within_days=${expiringWithinDays}`);
+async function fetchContractsDashboard(
+  expiringWithinDays: number = 30,
+): Promise<ContractsDashboard> {
+  const { data } = await apiClient.get<ContractsDashboard>(
+    `/contracts/dashboard/summary?expiring_within_days=${expiringWithinDays}`,
+  );
   return data;
 }
 
@@ -196,14 +243,14 @@ async function fetchContractsDashboard(expiringWithinDays: number = 30): Promise
 
 export function useContracts(filters?: ContractFilters) {
   return useQuery({
-    queryKey: ['contracts', filters],
+    queryKey: ["contracts", filters],
     queryFn: () => fetchContracts(filters),
   });
 }
 
 export function useContract(id: string) {
   return useQuery({
-    queryKey: ['contracts', id],
+    queryKey: ["contracts", id],
     queryFn: () => fetchContract(id),
     enabled: !!id,
   });
@@ -214,7 +261,7 @@ export function useCreateContract() {
   return useMutation({
     mutationFn: createContract,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['contracts'] });
+      queryClient.invalidateQueries({ queryKey: ["contracts"] });
     },
   });
 }
@@ -222,9 +269,10 @@ export function useCreateContract() {
 export function useUpdateContract() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: ({ id, data }: { id: string; data: ContractUpdate }) => updateContract(id, data),
+    mutationFn: ({ id, data }: { id: string; data: ContractUpdate }) =>
+      updateContract(id, data),
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['contracts'] });
+      queryClient.invalidateQueries({ queryKey: ["contracts"] });
     },
   });
 }
@@ -234,7 +282,7 @@ export function useDeleteContract() {
   return useMutation({
     mutationFn: deleteContract,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['contracts'] });
+      queryClient.invalidateQueries({ queryKey: ["contracts"] });
     },
   });
 }
@@ -244,21 +292,24 @@ export function useActivateContract() {
   return useMutation({
     mutationFn: activateContract,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['contracts'] });
+      queryClient.invalidateQueries({ queryKey: ["contracts"] });
     },
   });
 }
 
-export function useContractTemplates(filters?: { contract_type?: string; active_only?: boolean }) {
+export function useContractTemplates(filters?: {
+  contract_type?: string;
+  active_only?: boolean;
+}) {
   return useQuery({
-    queryKey: ['contract-templates', filters],
+    queryKey: ["contract-templates", filters],
     queryFn: () => fetchTemplates(filters),
   });
 }
 
 export function useContractTemplate(id: string) {
   return useQuery({
-    queryKey: ['contract-templates', id],
+    queryKey: ["contract-templates", id],
     queryFn: () => fetchTemplate(id),
     enabled: !!id,
   });
@@ -269,14 +320,14 @@ export function useGenerateFromTemplate() {
   return useMutation({
     mutationFn: generateFromTemplate,
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['contracts'] });
+      queryClient.invalidateQueries({ queryKey: ["contracts"] });
     },
   });
 }
 
 export function useContractsDashboard(expiringWithinDays: number = 30) {
   return useQuery({
-    queryKey: ['contracts-dashboard', expiringWithinDays],
+    queryKey: ["contracts-dashboard", expiringWithinDays],
     queryFn: () => fetchContractsDashboard(expiringWithinDays),
   });
 }

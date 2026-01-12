@@ -5,15 +5,15 @@
  */
 
 // Main components
-export { NotificationCenter } from './NotificationCenter.tsx';
-export { SMSConversation } from './SMSConversation.tsx';
-export { EmailComposer } from './EmailComposer.tsx';
-export { AutomatedReminders } from './AutomatedReminders.tsx';
-export { CustomerPortalLink } from './CustomerPortalLink.tsx';
-export { VoiceCallLog } from './VoiceCallLog.tsx';
-export { NotificationTemplates } from './NotificationTemplates.tsx';
-export { NotificationButtons } from './NotificationButtons.tsx';
-export { TwilioSMSPanel } from './TwilioSMSPanel.tsx';
+export { NotificationCenter } from "./NotificationCenter.tsx";
+export { SMSConversation } from "./SMSConversation.tsx";
+export { EmailComposer } from "./EmailComposer.tsx";
+export { AutomatedReminders } from "./AutomatedReminders.tsx";
+export { CustomerPortalLink } from "./CustomerPortalLink.tsx";
+export { VoiceCallLog } from "./VoiceCallLog.tsx";
+export { NotificationTemplates } from "./NotificationTemplates.tsx";
+export { NotificationButtons } from "./NotificationButtons.tsx";
+export { TwilioSMSPanel } from "./TwilioSMSPanel.tsx";
 
 // Hooks
 export {
@@ -34,7 +34,7 @@ export {
   useSendTestNotification,
   communicationKeys,
   type VoiceCall,
-} from './hooks/useCommunications.ts';
+} from "./hooks/useCommunications.ts";
 
 // Templates
 export {
@@ -48,4 +48,4 @@ export {
   serviceCompleteTemplate,
   paymentReminderTemplate,
   type NotificationTemplate,
-} from './templates/index.ts';
+} from "./templates/index.ts";

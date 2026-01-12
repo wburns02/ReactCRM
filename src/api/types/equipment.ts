@@ -1,22 +1,22 @@
-import { z } from 'zod';
-import { paginatedResponseSchema } from './common.ts';
+import { z } from "zod";
+import { paginatedResponseSchema } from "./common.ts";
 
 /**
  * Equipment status enum
  */
 export const equipmentStatusSchema = z.enum([
-  'available',
-  'in_use',
-  'maintenance',
-  'retired',
+  "available",
+  "in_use",
+  "maintenance",
+  "retired",
 ]);
 export type EquipmentStatus = z.infer<typeof equipmentStatusSchema>;
 
 export const EQUIPMENT_STATUS_LABELS: Record<EquipmentStatus, string> = {
-  available: 'Available',
-  in_use: 'In Use',
-  maintenance: 'Maintenance',
-  retired: 'Retired',
+  available: "Available",
+  in_use: "In Use",
+  maintenance: "Maintenance",
+  retired: "Retired",
 };
 
 /**
@@ -41,7 +41,8 @@ export type Equipment = z.infer<typeof equipmentSchema>;
 /**
  * Paginated equipment list response
  */
-export const equipmentListResponseSchema = paginatedResponseSchema(equipmentSchema);
+export const equipmentListResponseSchema =
+  paginatedResponseSchema(equipmentSchema);
 export type EquipmentListResponse = z.infer<typeof equipmentListResponseSchema>;
 
 /**
@@ -59,10 +60,10 @@ export interface EquipmentFilters {
  * Create/update equipment request
  */
 export const equipmentFormSchema = z.object({
-  name: z.string().min(1, 'Name is required'),
-  type: z.string().min(1, 'Type is required'),
+  name: z.string().min(1, "Name is required"),
+  type: z.string().min(1, "Type is required"),
   serial_number: z.string().optional(),
-  status: equipmentStatusSchema.default('available'),
+  status: equipmentStatusSchema.default("available"),
   assigned_to: z.string().optional(),
   last_maintenance: z.string().optional(),
   next_maintenance: z.string().optional(),

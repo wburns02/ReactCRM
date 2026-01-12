@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { useState, useMemo } from "react";
 import {
   Line,
   BarChart,
@@ -14,17 +14,22 @@ import {
   Tooltip as RechartsTooltip,
   Legend,
   ResponsiveContainer,
-} from 'recharts';
-import { MapContainer, TileLayer, CircleMarker, Popup } from 'react-leaflet';
-import 'leaflet/dist/leaflet.css';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Skeleton } from '@/components/ui/Skeleton.tsx';
-import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
-import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
-import { useInvoices } from '@/api/hooks/useInvoices.ts';
-import { useCustomers } from '@/api/hooks/useCustomers.ts';
-import type { WorkOrder } from '@/api/types/workOrder.ts';
+} from "recharts";
+import { MapContainer, TileLayer, CircleMarker, Popup } from "react-leaflet";
+import "leaflet/dist/leaflet.css";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Skeleton } from "@/components/ui/Skeleton.tsx";
+import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
+import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
+import { useInvoices } from "@/api/hooks/useInvoices.ts";
+import { useCustomers } from "@/api/hooks/useCustomers.ts";
+import type { WorkOrder } from "@/api/types/workOrder.ts";
 
 // San Marcos, TX center
 const MAP_CENTER: [number, number] = [29.8833, -97.9414];
@@ -37,9 +42,10 @@ function getWorkOrderLocation(wo: WorkOrder): [number, number] | null {
     return [wo.service_latitude, wo.service_longitude];
   }
   // Generate deterministic mock coordinates
-  const seed = typeof wo.id === 'string' ? parseInt(wo.id, 10) || wo.id.length : wo.id;
-  const latOffset = ((seed * 17) % 100 - 50) / 1000;
-  const lngOffset = ((seed * 31) % 100 - 50) / 1000;
+  const seed =
+    typeof wo.id === "string" ? parseInt(wo.id, 10) || wo.id.length : wo.id;
+  const latOffset = (((seed * 17) % 100) - 50) / 1000;
+  const lngOffset = (((seed * 31) % 100) - 50) / 1000;
   return [MAP_CENTER[0] + latOffset, MAP_CENTER[1] + lngOffset];
 }
 
@@ -47,9 +53,9 @@ function getWorkOrderLocation(wo: WorkOrder): [number, number] | null {
  * Format currency
  */
 function formatCurrency(value: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(value);
@@ -60,7 +66,7 @@ function formatCurrency(value: number): string {
  */
 function Sparkline({
   data,
-  color = '#0091ae',
+  color = "#0091ae",
   height = 40,
 }: {
   data: number[];
@@ -71,7 +77,10 @@ function Sparkline({
 
   return (
     <ResponsiveContainer width="100%" height={height}>
-      <AreaChart data={chartData} margin={{ top: 2, right: 2, bottom: 2, left: 2 }}>
+      <AreaChart
+        data={chartData}
+        margin={{ top: 2, right: 2, bottom: 2, left: 2 }}
+      >
         <defs>
           <linearGradient id={`sparkline-${color}`} x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor={color} stopOpacity={0.3} />
@@ -111,7 +120,7 @@ function KPICard({
   change,
   changeLabel,
   sparklineData,
-  sparklineColor = '#0091ae',
+  sparklineColor = "#0091ae",
   isLoading = false,
   icon,
 }: KPICardProps) {
@@ -141,8 +150,12 @@ function KPICard({
           <div className="text-2xl font-bold text-text-primary">{value}</div>
           {change !== undefined && (
             <div className="flex items-center gap-1 mt-1">
-              <Badge variant={change >= 0 ? 'success' : 'danger'} className="text-xs">
-                {change >= 0 ? '+' : ''}{change.toFixed(1)}%
+              <Badge
+                variant={change >= 0 ? "success" : "danger"}
+                className="text-xs"
+              >
+                {change >= 0 ? "+" : ""}
+                {change.toFixed(1)}%
               </Badge>
               {changeLabel && (
                 <span className="text-xs text-text-muted">{changeLabel}</span>
@@ -181,7 +194,10 @@ function RevenueChart({
 
   const formatDate = (dateStr: string) => {
     const date = new Date(dateStr);
-    return new Intl.DateTimeFormat('en-US', { month: 'short', day: 'numeric' }).format(date);
+    return new Intl.DateTimeFormat("en-US", {
+      month: "short",
+      day: "numeric",
+    }).format(date);
   };
 
   return (
@@ -191,7 +207,10 @@ function RevenueChart({
       </CardHeader>
       <CardContent className="p-0">
         <ResponsiveContainer width="100%" height={300}>
-          <AreaChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 0 }}>
+          <AreaChart
+            data={data}
+            margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+          >
             <defs>
               <linearGradient id="revenueGradient" x1="0" y1="0" x2="0" y2="1">
                 <stop offset="5%" stopColor="#0091ae" stopOpacity={0.3} />
@@ -203,29 +222,29 @@ function RevenueChart({
               dataKey="date"
               tickFormatter={formatDate}
               stroke="#6b7280"
-              style={{ fontSize: '12px' }}
+              style={{ fontSize: "12px" }}
             />
             <YAxis
               yAxisId="left"
               tickFormatter={(value) => `$${(value / 1000).toFixed(0)}k`}
               stroke="#6b7280"
-              style={{ fontSize: '12px' }}
+              style={{ fontSize: "12px" }}
             />
             <YAxis
               yAxisId="right"
               orientation="right"
               stroke="#6b7280"
-              style={{ fontSize: '12px' }}
+              style={{ fontSize: "12px" }}
             />
             <RechartsTooltip
               contentStyle={{
-                backgroundColor: 'white',
-                border: '1px solid #e5e7eb',
-                borderRadius: '8px',
+                backgroundColor: "white",
+                border: "1px solid #e5e7eb",
+                borderRadius: "8px",
               }}
               formatter={(value, name) => [
-                name === 'revenue' ? formatCurrency(Number(value)) : value,
-                name === 'revenue' ? 'Revenue' : 'Jobs',
+                name === "revenue" ? formatCurrency(Number(value)) : value,
+                name === "revenue" ? "Revenue" : "Jobs",
               ]}
               labelFormatter={formatDate}
             />
@@ -245,7 +264,7 @@ function RevenueChart({
               dataKey="jobs"
               stroke="#22c55e"
               strokeWidth={2}
-              dot={{ fill: '#22c55e', r: 3 }}
+              dot={{ fill: "#22c55e", r: 3 }}
               name="Jobs"
             />
           </AreaChart>
@@ -281,32 +300,45 @@ function JobVolumeChart({
       </CardHeader>
       <CardContent className="p-0">
         <ResponsiveContainer width="100%" height={300}>
-          <BarChart data={data} margin={{ top: 10, right: 30, left: 0, bottom: 60 }}>
+          <BarChart
+            data={data}
+            margin={{ top: 10, right: 30, left: 0, bottom: 60 }}
+          >
             <CartesianGrid strokeDasharray="3 3" stroke="#e5e7eb" />
             <XAxis
               dataKey="type"
               stroke="#6b7280"
-              style={{ fontSize: '11px' }}
+              style={{ fontSize: "11px" }}
               angle={-45}
               textAnchor="end"
               interval={0}
               height={60}
             />
-            <YAxis stroke="#6b7280" style={{ fontSize: '12px' }} />
+            <YAxis stroke="#6b7280" style={{ fontSize: "12px" }} />
             <RechartsTooltip
               contentStyle={{
-                backgroundColor: 'white',
-                border: '1px solid #e5e7eb',
-                borderRadius: '8px',
+                backgroundColor: "white",
+                border: "1px solid #e5e7eb",
+                borderRadius: "8px",
               }}
               formatter={(value, name) => [
-                name === 'count' ? value : formatCurrency(Number(value)),
-                name === 'count' ? 'Jobs' : 'Revenue',
+                name === "count" ? value : formatCurrency(Number(value)),
+                name === "count" ? "Jobs" : "Revenue",
               ]}
             />
             <Legend />
-            <Bar dataKey="count" fill="#0091ae" name="Jobs" radius={[4, 4, 0, 0]} />
-            <Bar dataKey="revenue" fill="#22c55e" name="Revenue" radius={[4, 4, 0, 0]} />
+            <Bar
+              dataKey="count"
+              fill="#0091ae"
+              name="Jobs"
+              radius={[4, 4, 0, 0]}
+            />
+            <Bar
+              dataKey="revenue"
+              fill="#22c55e"
+              name="Revenue"
+              radius={[4, 4, 0, 0]}
+            />
           </BarChart>
         </ResponsiveContainer>
       </CardContent>
@@ -339,7 +371,7 @@ function SortableHeaderCell({
   label: string;
   field: keyof TechPerformance;
   sortKey: keyof TechPerformance;
-  sortDir: 'asc' | 'desc';
+  sortDir: "asc" | "desc";
   onSort: (key: keyof TechPerformance) => void;
 }) {
   return (
@@ -350,7 +382,9 @@ function SortableHeaderCell({
       <div className="flex items-center gap-1">
         {label}
         {sortKey === field && (
-          <span className="text-primary">{sortDir === 'asc' ? '\u25B2' : '\u25BC'}</span>
+          <span className="text-primary">
+            {sortDir === "asc" ? "\u25B2" : "\u25BC"}
+          </span>
         )}
       </div>
     </th>
@@ -364,17 +398,17 @@ function TechnicianPerformanceTable({
   data: TechPerformance[];
   isLoading: boolean;
 }) {
-  const [sortKey, setSortKey] = useState<keyof TechPerformance>('revenue');
-  const [sortDir, setSortDir] = useState<'asc' | 'desc'>('desc');
+  const [sortKey, setSortKey] = useState<keyof TechPerformance>("revenue");
+  const [sortDir, setSortDir] = useState<"asc" | "desc">("desc");
 
   const sortedData = useMemo(() => {
     return [...data].sort((a, b) => {
       const aVal = a[sortKey];
       const bVal = b[sortKey];
-      if (typeof aVal === 'number' && typeof bVal === 'number') {
-        return sortDir === 'asc' ? aVal - bVal : bVal - aVal;
+      if (typeof aVal === "number" && typeof bVal === "number") {
+        return sortDir === "asc" ? aVal - bVal : bVal - aVal;
       }
-      return sortDir === 'asc'
+      return sortDir === "asc"
         ? String(aVal).localeCompare(String(bVal))
         : String(bVal).localeCompare(String(aVal));
     });
@@ -382,10 +416,10 @@ function TechnicianPerformanceTable({
 
   const handleSort = (key: keyof TechPerformance) => {
     if (sortKey === key) {
-      setSortDir(sortDir === 'asc' ? 'desc' : 'asc');
+      setSortDir(sortDir === "asc" ? "desc" : "asc");
     } else {
       setSortKey(key);
-      setSortDir('desc');
+      setSortDir("desc");
     }
   };
 
@@ -408,18 +442,48 @@ function TechnicianPerformanceTable({
           <table className="w-full">
             <thead>
               <tr className="border-b border-border">
-                <SortableHeaderCell label="Technician" field="name" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <SortableHeaderCell label="Jobs" field="jobsCompleted" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <SortableHeaderCell label="Revenue" field="revenue" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <SortableHeaderCell label="Rating" field="avgRating" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
-                <SortableHeaderCell label="Efficiency" field="efficiency" sortKey={sortKey} sortDir={sortDir} onSort={handleSort} />
+                <SortableHeaderCell
+                  label="Technician"
+                  field="name"
+                  sortKey={sortKey}
+                  sortDir={sortDir}
+                  onSort={handleSort}
+                />
+                <SortableHeaderCell
+                  label="Jobs"
+                  field="jobsCompleted"
+                  sortKey={sortKey}
+                  sortDir={sortDir}
+                  onSort={handleSort}
+                />
+                <SortableHeaderCell
+                  label="Revenue"
+                  field="revenue"
+                  sortKey={sortKey}
+                  sortDir={sortDir}
+                  onSort={handleSort}
+                />
+                <SortableHeaderCell
+                  label="Rating"
+                  field="avgRating"
+                  sortKey={sortKey}
+                  sortDir={sortDir}
+                  onSort={handleSort}
+                />
+                <SortableHeaderCell
+                  label="Efficiency"
+                  field="efficiency"
+                  sortKey={sortKey}
+                  sortDir={sortDir}
+                  onSort={handleSort}
+                />
               </tr>
             </thead>
             <tbody>
               {sortedData.map((tech, index) => (
                 <tr
                   key={tech.id}
-                  className={index % 2 === 0 ? 'bg-bg-body' : 'bg-bg-card'}
+                  className={index % 2 === 0 ? "bg-bg-body" : "bg-bg-card"}
                 >
                   <td className="px-4 py-3 text-sm font-medium text-text-primary">
                     {tech.name}
@@ -433,7 +497,9 @@ function TechnicianPerformanceTable({
                   <td className="px-4 py-3 text-sm">
                     <div className="flex items-center gap-1">
                       <span className="text-warning">*</span>
-                      <span className="text-text-secondary">{tech.avgRating.toFixed(1)}</span>
+                      <span className="text-text-secondary">
+                        {tech.avgRating.toFixed(1)}
+                      </span>
                     </div>
                   </td>
                   <td className="px-4 py-3 text-sm">
@@ -444,7 +510,9 @@ function TechnicianPerformanceTable({
                           style={{ width: `${tech.efficiency}%` }}
                         />
                       </div>
-                      <span className="text-text-secondary text-xs">{tech.efficiency}%</span>
+                      <span className="text-text-secondary text-xs">
+                        {tech.efficiency}%
+                      </span>
                     </div>
                   </td>
                 </tr>
@@ -469,7 +537,10 @@ function GeographicHeatMap({
 }) {
   // Group work orders by approximate location
   const locationData = useMemo(() => {
-    const locationMap = new Map<string, { lat: number; lng: number; count: number; revenue: number }>();
+    const locationMap = new Map<
+      string,
+      { lat: number; lng: number; count: number; revenue: number }
+    >();
 
     workOrders.forEach((wo) => {
       const coords = getWorkOrderLocation(wo);
@@ -487,7 +558,7 @@ function GeographicHeatMap({
 
       existing.count += 1;
       // Estimate revenue based on work order ID for deterministic results
-      const woIdNum = typeof wo.id === 'string' ? wo.id.length * 17 : wo.id;
+      const woIdNum = typeof wo.id === "string" ? wo.id.length * 17 : wo.id;
       existing.revenue += 250 + (woIdNum % 500);
 
       locationMap.set(gridKey, existing);
@@ -517,7 +588,7 @@ function GeographicHeatMap({
           <MapContainer
             center={MAP_CENTER}
             zoom={11}
-            style={{ height: '100%', width: '100%' }}
+            style={{ height: "100%", width: "100%" }}
             scrollWheelZoom={true}
           >
             <TileLayer
@@ -576,15 +647,15 @@ function StatusPieChart({
   isLoading: boolean;
 }) {
   const COLORS = {
-    completed: '#22c55e',
-    scheduled: '#0091ae',
-    in_progress: '#f59e0b',
-    draft: '#6b7280',
-    canceled: '#ef4444',
-    confirmed: '#3b82f6',
-    enroute: '#14b8a6',
-    on_site: '#8b5cf6',
-    requires_followup: '#ec4899',
+    completed: "#22c55e",
+    scheduled: "#0091ae",
+    in_progress: "#f59e0b",
+    draft: "#6b7280",
+    canceled: "#ef4444",
+    confirmed: "#3b82f6",
+    enroute: "#14b8a6",
+    on_site: "#8b5cf6",
+    requires_followup: "#ec4899",
   };
 
   if (isLoading) {
@@ -614,22 +685,22 @@ function StatusPieChart({
               outerRadius={90}
               paddingAngle={2}
               dataKey="count"
-              label={({ percent }) =>
-                `${((percent ?? 0) * 100).toFixed(0)}%`
-              }
+              label={({ percent }) => `${((percent ?? 0) * 100).toFixed(0)}%`}
               labelLine={false}
             >
               {data.map((entry, index) => (
                 <Cell
                   key={`cell-${index}`}
-                  fill={COLORS[entry.status as keyof typeof COLORS] || '#6b7280'}
+                  fill={
+                    COLORS[entry.status as keyof typeof COLORS] || "#6b7280"
+                  }
                 />
               ))}
             </Pie>
             <RechartsTooltip
               formatter={(value, name) => [
                 `${value} (${((Number(value) / total) * 100).toFixed(1)}%)`,
-                String(name).replace(/_/g, ' '),
+                String(name).replace(/_/g, " "),
               ]}
             />
           </PieChart>
@@ -643,7 +714,9 @@ function StatusPieChart({
  * Main BI Dashboard component
  */
 export function BIDashboard() {
-  const [dateRange, setDateRange] = useState<'7d' | '30d' | '90d' | '1y'>('30d');
+  const [dateRange, setDateRange] = useState<"7d" | "30d" | "90d" | "1y">(
+    "30d",
+  );
 
   // Fetch data using existing hooks
   const { data: workOrdersData, isLoading: woLoading } = useWorkOrders({
@@ -675,16 +748,21 @@ export function BIDashboard() {
     const customers = customersData?.items || [];
     const technicians = techniciansData?.items || [];
 
-    const totalRevenue = invoices.reduce((sum, inv) => sum + (inv.total || 0), 0);
-    const completedJobs = workOrders.filter((wo) => wo.status === 'completed').length;
+    const totalRevenue = invoices.reduce(
+      (sum, inv) => sum + (inv.total || 0),
+      0,
+    );
+    const completedJobs = workOrders.filter(
+      (wo) => wo.status === "completed",
+    ).length;
     const avgJobValue = completedJobs > 0 ? totalRevenue / completedJobs : 0;
 
     // Generate sparkline data (deterministic trend based on position)
     const revenueSparkline = Array.from({ length: 7 }, (_, i) =>
-      Math.floor(totalRevenue / 7 * (0.8 + ((i * 7 + 3) % 10) / 25))
+      Math.floor((totalRevenue / 7) * (0.8 + ((i * 7 + 3) % 10) / 25)),
     );
     const jobsSparkline = Array.from({ length: 7 }, (_, i) =>
-      Math.floor(completedJobs / 7 * (0.7 + ((i * 11 + 5) % 15) / 25))
+      Math.floor((completedJobs / 7) * (0.7 + ((i * 11 + 5) % 15) / 25)),
     );
 
     return {
@@ -695,7 +773,9 @@ export function BIDashboard() {
       avgJobValue,
       activeCustomers: customers.length,
       activeTechnicians: technicians.filter((t) => t.is_active).length,
-      pendingJobs: workOrders.filter((wo) => ['draft', 'scheduled', 'confirmed'].includes(wo.status)).length,
+      pendingJobs: workOrders.filter((wo) =>
+        ["draft", "scheduled", "confirmed"].includes(wo.status),
+      ).length,
     };
   }, [workOrdersData, invoicesData, customersData, techniciansData]);
 
@@ -712,7 +792,7 @@ export function BIDashboard() {
     for (let i = 29; i >= 0; i--) {
       const date = new Date(today);
       date.setDate(date.getDate() - i);
-      const dateStr = date.toISOString().split('T')[0];
+      const dateStr = date.toISOString().split("T")[0];
       byDate.set(dateStr, { revenue: 0, jobs: 0 });
     }
 
@@ -724,7 +804,7 @@ export function BIDashboard() {
     });
 
     invoices.forEach((inv) => {
-      const dateStr = inv.created_at?.split('T')[0];
+      const dateStr = inv.created_at?.split("T")[0];
       if (dateStr && byDate.has(dateStr)) {
         const existing = byDate.get(dateStr)!;
         existing.revenue += inv.total || 0;
@@ -743,18 +823,18 @@ export function BIDashboard() {
     const byType = new Map<string, { count: number; revenue: number }>();
 
     workOrders.forEach((wo) => {
-      const type = wo.job_type || 'Other';
+      const type = wo.job_type || "Other";
       const existing = byType.get(type) || { count: 0, revenue: 0 };
       existing.count += 1;
       // Deterministic revenue based on work order ID
-      const woIdNum = typeof wo.id === 'string' ? wo.id.length * 17 : wo.id;
+      const woIdNum = typeof wo.id === "string" ? wo.id.length * 17 : wo.id;
       existing.revenue += 250 + (woIdNum % 500);
       byType.set(type, existing);
     });
 
     return Array.from(byType.entries())
       .map(([type, data]) => ({
-        type: type.replace(/_/g, ' ').replace(/\b\w/g, (c) => c.toUpperCase()),
+        type: type.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase()),
         ...data,
       }))
       .sort((a, b) => b.count - a.count)
@@ -769,11 +849,12 @@ export function BIDashboard() {
     return technicians.slice(0, 10).map((tech, index) => {
       const techName = `${tech.first_name} ${tech.last_name}`;
       const techJobs = workOrders.filter(
-        (wo) => wo.assigned_technician === techName && wo.status === 'completed'
+        (wo) =>
+          wo.assigned_technician === techName && wo.status === "completed",
       );
 
       // Deterministic values based on technician position/ID
-      const techIdNum = typeof tech.id === 'string' ? tech.id.length : tech.id;
+      const techIdNum = typeof tech.id === "string" ? tech.id.length : tech.id;
       const seed = (techIdNum + index) * 17;
 
       return {
@@ -781,7 +862,7 @@ export function BIDashboard() {
         name: techName,
         jobsCompleted: techJobs.length,
         revenue: techJobs.length * (200 + (seed % 300)),
-        avgRating: 3.5 + ((seed % 15) / 10),
+        avgRating: 3.5 + (seed % 15) / 10,
         efficiency: 70 + (seed % 25),
       };
     });
@@ -807,23 +888,31 @@ export function BIDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">Business Intelligence Dashboard</h1>
+          <h1 className="text-2xl font-bold text-text-primary">
+            Business Intelligence Dashboard
+          </h1>
           <p className="text-text-secondary mt-1">
             Real-time analytics and performance metrics
           </p>
         </div>
         <div className="flex items-center gap-2">
-          {(['7d', '30d', '90d', '1y'] as const).map((range) => (
+          {(["7d", "30d", "90d", "1y"] as const).map((range) => (
             <button
               key={range}
               onClick={() => setDateRange(range)}
               className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
                 dateRange === range
-                  ? 'bg-primary text-white'
-                  : 'bg-bg-muted text-text-secondary hover:bg-bg-hover'
+                  ? "bg-primary text-white"
+                  : "bg-bg-muted text-text-secondary hover:bg-bg-hover"
               }`}
             >
-              {range === '7d' ? '7 Days' : range === '30d' ? '30 Days' : range === '90d' ? '90 Days' : '1 Year'}
+              {range === "7d"
+                ? "7 Days"
+                : range === "30d"
+                  ? "30 Days"
+                  : range === "90d"
+                    ? "90 Days"
+                    : "1 Year"}
             </button>
           ))}
         </div>
@@ -878,7 +967,10 @@ export function BIDashboard() {
       {/* Charts Row 2 */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         <div className="lg:col-span-2">
-          <TechnicianPerformanceTable data={techPerformance} isLoading={isLoading} />
+          <TechnicianPerformanceTable
+            data={techPerformance}
+            isLoading={isLoading}
+          />
         </div>
         <StatusPieChart data={statusData} isLoading={isLoading} />
       </div>

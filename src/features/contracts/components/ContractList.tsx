@@ -1,22 +1,29 @@
-import { useState } from 'react';
-import { useContracts, type Contract, type ContractFilters } from '../api/contracts.ts';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { formatDate, formatCurrency } from '@/lib/utils.ts';
+import { useState } from "react";
+import {
+  useContracts,
+  type Contract,
+  type ContractFilters,
+} from "../api/contracts.ts";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { formatDate, formatCurrency } from "@/lib/utils.ts";
 
 interface ContractListProps {
   customerId?: number;
   onContractSelect?: (contract: Contract) => void;
 }
 
-export function ContractList({ customerId, onContractSelect }: ContractListProps) {
+export function ContractList({
+  customerId,
+  onContractSelect,
+}: ContractListProps) {
   const [filters, setFilters] = useState<ContractFilters>({
     page: 1,
     page_size: 20,
     customer_id: customerId,
   });
-  const [statusFilter, setStatusFilter] = useState<string>('');
-  const [typeFilter, setTypeFilter] = useState<string>('');
+  const [statusFilter, setStatusFilter] = useState<string>("");
+  const [typeFilter, setTypeFilter] = useState<string>("");
 
   const { data, isLoading, error } = useContracts({
     ...filters,
@@ -28,15 +35,24 @@ export function ContractList({ customerId, onContractSelect }: ContractListProps
   const total = data?.total || 0;
   const totalPages = Math.ceil(total / (filters.page_size || 20));
 
-  const getStatusVariant = (status: string): 'success' | 'warning' | 'danger' | 'info' | 'default' => {
+  const getStatusVariant = (
+    status: string,
+  ): "success" | "warning" | "danger" | "info" | "default" => {
     switch (status) {
-      case 'active': return 'success';
-      case 'pending': return 'warning';
-      case 'expired': return 'danger';
-      case 'cancelled': return 'danger';
-      case 'draft': return 'default';
-      case 'renewed': return 'info';
-      default: return 'default';
+      case "active":
+        return "success";
+      case "pending":
+        return "warning";
+      case "expired":
+        return "danger";
+      case "cancelled":
+        return "danger";
+      case "draft":
+        return "default";
+      case "renewed":
+        return "info";
+      default:
+        return "default";
     }
   };
 
@@ -111,11 +127,13 @@ export function ContractList({ customerId, onContractSelect }: ContractListProps
       {!isLoading && contracts.length === 0 && (
         <div className="text-center py-12 border border-border rounded-lg">
           <span className="text-4xl mb-4 block">📄</span>
-          <h3 className="text-lg font-medium text-text-primary mb-2">No contracts found</h3>
+          <h3 className="text-lg font-medium text-text-primary mb-2">
+            No contracts found
+          </h3>
           <p className="text-text-muted">
             {statusFilter || typeFilter
-              ? 'Try adjusting your filters'
-              : 'Contracts will appear here'}
+              ? "Try adjusting your filters"
+              : "Contracts will appear here"}
           </p>
         </div>
       )}
@@ -130,14 +148,12 @@ export function ContractList({ customerId, onContractSelect }: ContractListProps
               className={`
                 p-4 rounded-lg border border-border bg-bg-primary
                 hover:bg-bg-hover transition-colors
-                ${onContractSelect ? 'cursor-pointer' : ''}
+                ${onContractSelect ? "cursor-pointer" : ""}
               `}
             >
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-4">
-                  <div className="p-2 rounded-full bg-blue-100 text-lg">
-                    📄
-                  </div>
+                  <div className="p-2 rounded-full bg-blue-100 text-lg">📄</div>
                   <div>
                     <div className="flex items-center gap-2">
                       <span className="font-medium text-text-primary">
@@ -168,7 +184,8 @@ export function ContractList({ customerId, onContractSelect }: ContractListProps
                     )}
                   </div>
                   <div className="text-xs text-text-muted mt-1">
-                    {formatDate(contract.start_date)} - {formatDate(contract.end_date)}
+                    {formatDate(contract.start_date)} -{" "}
+                    {formatDate(contract.end_date)}
                   </div>
                 </div>
               </div>
@@ -181,14 +198,18 @@ export function ContractList({ customerId, onContractSelect }: ContractListProps
       {!isLoading && totalPages > 1 && (
         <div className="flex items-center justify-between pt-4">
           <p className="text-sm text-text-muted">
-            Showing {((filters.page || 1) - 1) * (filters.page_size || 20) + 1} to{' '}
-            {Math.min((filters.page || 1) * (filters.page_size || 20), total)} of {total} contracts
+            Showing {((filters.page || 1) - 1) * (filters.page_size || 20) + 1}{" "}
+            to{" "}
+            {Math.min((filters.page || 1) * (filters.page_size || 20), total)}{" "}
+            of {total} contracts
           </p>
           <div className="flex items-center gap-2">
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => setFilters((prev) => ({ ...prev, page: (prev.page || 1) - 1 }))}
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, page: (prev.page || 1) - 1 }))
+              }
               disabled={(filters.page || 1) <= 1}
             >
               Previous
@@ -199,7 +220,9 @@ export function ContractList({ customerId, onContractSelect }: ContractListProps
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => setFilters((prev) => ({ ...prev, page: (prev.page || 1) + 1 }))}
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, page: (prev.page || 1) + 1 }))
+              }
               disabled={(filters.page || 1) >= totalPages}
             >
               Next

@@ -4,15 +4,28 @@
  * Payment collection with multiple payment method tabs (Card, ACH, Cash, Check).
  */
 
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Tabs, TabList, TabTrigger, TabContent } from '@/components/ui/Tabs.tsx';
-import { cn } from '@/lib/utils.ts';
-import { formatCurrency } from './utils/pricingEngine.ts';
-import { useProcessPayment, type ProcessPaymentParams } from './hooks/usePayments.ts';
+import { useState } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import {
+  Tabs,
+  TabList,
+  TabTrigger,
+  TabContent,
+} from "@/components/ui/Tabs.tsx";
+import { cn } from "@/lib/utils.ts";
+import { formatCurrency } from "./utils/pricingEngine.ts";
+import {
+  useProcessPayment,
+  type ProcessPaymentParams,
+} from "./hooks/usePayments.ts";
 
 // ============================================================================
 // TYPES
@@ -35,7 +48,7 @@ export interface PaymentProcessorProps {
   className?: string;
 }
 
-type PaymentMethod = 'card' | 'ach' | 'cash' | 'check';
+type PaymentMethod = "card" | "ach" | "cash" | "check";
 
 // ============================================================================
 // COMPONENT
@@ -50,30 +63,34 @@ export function PaymentProcessor({
   onError,
   className,
 }: PaymentProcessorProps) {
-  const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>('card');
+  const [selectedMethod, setSelectedMethod] = useState<PaymentMethod>("card");
   const [customAmount, setCustomAmount] = useState<number>(amount);
   const [isCustomAmount, setIsCustomAmount] = useState(false);
 
   // Card payment state
-  const [cardNumber, setCardNumber] = useState('');
-  const [cardExpiry, setCardExpiry] = useState('');
-  const [cardCvc, setCardCvc] = useState('');
-  const [cardName, setCardName] = useState('');
+  const [cardNumber, setCardNumber] = useState("");
+  const [cardExpiry, setCardExpiry] = useState("");
+  const [cardCvc, setCardCvc] = useState("");
+  const [cardName, setCardName] = useState("");
 
   // ACH payment state
-  const [routingNumber, setRoutingNumber] = useState('');
-  const [accountNumber, setAccountNumber] = useState('');
-  const [accountType, setAccountType] = useState<'checking' | 'savings'>('checking');
+  const [routingNumber, setRoutingNumber] = useState("");
+  const [accountNumber, setAccountNumber] = useState("");
+  const [accountType, setAccountType] = useState<"checking" | "savings">(
+    "checking",
+  );
 
   // Check payment state
-  const [checkNumber, setCheckNumber] = useState('');
-  const [checkDate, setCheckDate] = useState(new Date().toISOString().split('T')[0]);
+  const [checkNumber, setCheckNumber] = useState("");
+  const [checkDate, setCheckDate] = useState(
+    new Date().toISOString().split("T")[0],
+  );
 
   // Cash payment state
   const [cashReceived, setCashReceived] = useState<number>(0);
 
   // Notes
-  const [notes, setNotes] = useState('');
+  const [notes, setNotes] = useState("");
 
   // Success/Error state
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -86,21 +103,21 @@ export function PaymentProcessor({
 
   // Format card number with spaces
   const formatCardNumber = (value: string) => {
-    const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
     const matches = v.match(/\d{4,16}/g);
-    const match = (matches && matches[0]) || '';
+    const match = (matches && matches[0]) || "";
     const parts = [];
     for (let i = 0, len = match.length; i < len; i += 4) {
       parts.push(match.substring(i, i + 4));
     }
-    return parts.length ? parts.join(' ') : value;
+    return parts.length ? parts.join(" ") : value;
   };
 
   // Format expiry date
   const formatExpiry = (value: string) => {
-    const v = value.replace(/\s+/g, '').replace(/[^0-9]/gi, '');
+    const v = value.replace(/\s+/g, "").replace(/[^0-9]/gi, "");
     if (v.length >= 2) {
-      return v.slice(0, 2) + (v.length > 2 ? '/' + v.slice(2, 4) : '');
+      return v.slice(0, 2) + (v.length > 2 ? "/" + v.slice(2, 4) : "");
     }
     return v;
   };
@@ -108,7 +125,7 @@ export function PaymentProcessor({
   // Validate card form
   const isCardValid = () => {
     return (
-      cardNumber.replace(/\s/g, '').length >= 13 &&
+      cardNumber.replace(/\s/g, "").length >= 13 &&
       cardExpiry.length === 5 &&
       cardCvc.length >= 3 &&
       cardName.trim().length > 0
@@ -133,13 +150,13 @@ export function PaymentProcessor({
   // Check if current form is valid
   const isFormValid = () => {
     switch (selectedMethod) {
-      case 'card':
+      case "card":
         return isCardValid();
-      case 'ach':
+      case "ach":
         return isAchValid();
-      case 'check':
+      case "check":
         return isCheckValid();
-      case 'cash':
+      case "cash":
         return isCashValid();
       default:
         return false;
@@ -162,18 +179,18 @@ export function PaymentProcessor({
 
     // Add method-specific details
     switch (selectedMethod) {
-      case 'card':
+      case "card":
         paymentParams.details = {
-          cardLast4: cardNumber.replace(/\s/g, '').slice(-4),
+          cardLast4: cardNumber.replace(/\s/g, "").slice(-4),
           cardBrand: getCardBrand(cardNumber),
         };
         break;
-      case 'ach':
+      case "ach":
         paymentParams.details = {
           achAccountLast4: accountNumber.slice(-4),
         };
         break;
-      case 'check':
+      case "check":
         paymentParams.details = {
           checkNumber,
         };
@@ -184,17 +201,20 @@ export function PaymentProcessor({
       const result = await processPaymentMutation.mutateAsync(paymentParams);
 
       if (result.success && result.transactionId) {
-        setSuccessMessage(`Payment processed successfully! Transaction ID: ${result.transactionId}`);
+        setSuccessMessage(
+          `Payment processed successfully! Transaction ID: ${result.transactionId}`,
+        );
         onSuccess?.(result.transactionId);
 
         // Reset form
         resetForm();
       } else {
-        setErrorMessage(result.error || 'Payment failed. Please try again.');
-        onError?.(result.error || 'Payment failed');
+        setErrorMessage(result.error || "Payment failed. Please try again.");
+        onError?.(result.error || "Payment failed");
       }
     } catch (error) {
-      const errorMsg = error instanceof Error ? error.message : 'Payment processing failed';
+      const errorMsg =
+        error instanceof Error ? error.message : "Payment processing failed";
       setErrorMessage(errorMsg);
       onError?.(errorMsg);
     }
@@ -202,32 +222,33 @@ export function PaymentProcessor({
 
   // Detect card brand
   const getCardBrand = (number: string): string => {
-    const cleanNumber = number.replace(/\s/g, '');
-    if (/^4/.test(cleanNumber)) return 'Visa';
-    if (/^5[1-5]/.test(cleanNumber)) return 'Mastercard';
-    if (/^3[47]/.test(cleanNumber)) return 'American Express';
-    if (/^6(?:011|5)/.test(cleanNumber)) return 'Discover';
-    return 'Card';
+    const cleanNumber = number.replace(/\s/g, "");
+    if (/^4/.test(cleanNumber)) return "Visa";
+    if (/^5[1-5]/.test(cleanNumber)) return "Mastercard";
+    if (/^3[47]/.test(cleanNumber)) return "American Express";
+    if (/^6(?:011|5)/.test(cleanNumber)) return "Discover";
+    return "Card";
   };
 
   // Reset form
   const resetForm = () => {
-    setCardNumber('');
-    setCardExpiry('');
-    setCardCvc('');
-    setCardName('');
-    setRoutingNumber('');
-    setAccountNumber('');
-    setCheckNumber('');
+    setCardNumber("");
+    setCardExpiry("");
+    setCardCvc("");
+    setCardName("");
+    setRoutingNumber("");
+    setAccountNumber("");
+    setCheckNumber("");
     setCashReceived(0);
-    setNotes('');
+    setNotes("");
   };
 
   // Calculate change for cash
-  const changeAmount = selectedMethod === 'cash' ? Math.max(0, cashReceived - paymentAmount) : 0;
+  const changeAmount =
+    selectedMethod === "cash" ? Math.max(0, cashReceived - paymentAmount) : 0;
 
   return (
-    <Card className={cn('w-full', className)}>
+    <Card className={cn("w-full", className)}>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <svg
@@ -291,21 +312,29 @@ export function PaymentProcessor({
           <div className="flex items-center justify-between">
             <div>
               {customerName && (
-                <p className="text-sm text-text-secondary">Customer: {customerName}</p>
+                <p className="text-sm text-text-secondary">
+                  Customer: {customerName}
+                </p>
               )}
-              <p className="text-sm text-text-secondary">Work Order: #{workOrderId}</p>
+              <p className="text-sm text-text-secondary">
+                Work Order: #{workOrderId}
+              </p>
               {invoiceId && (
-                <p className="text-sm text-text-secondary">Invoice: #{invoiceId}</p>
+                <p className="text-sm text-text-secondary">
+                  Invoice: #{invoiceId}
+                </p>
               )}
             </div>
             <div className="text-right">
-              <p className="text-2xl font-bold text-primary">{formatCurrency(paymentAmount)}</p>
+              <p className="text-2xl font-bold text-primary">
+                {formatCurrency(paymentAmount)}
+              </p>
               <button
                 type="button"
                 className="text-xs text-text-muted hover:text-primary underline"
                 onClick={() => setIsCustomAmount(!isCustomAmount)}
               >
-                {isCustomAmount ? 'Use full amount' : 'Enter custom amount'}
+                {isCustomAmount ? "Use full amount" : "Enter custom amount"}
               </button>
             </div>
           </div>
@@ -315,14 +344,18 @@ export function PaymentProcessor({
             <div className="mt-4">
               <Label htmlFor="custom-amount">Payment Amount</Label>
               <div className="relative mt-1">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">$</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
+                  $
+                </span>
                 <Input
                   id="custom-amount"
                   type="number"
                   min="0.01"
                   step="0.01"
                   value={customAmount}
-                  onChange={(e) => setCustomAmount(parseFloat(e.target.value) || 0)}
+                  onChange={(e) =>
+                    setCustomAmount(parseFloat(e.target.value) || 0)
+                  }
                   className="pl-7"
                 />
               </div>
@@ -331,7 +364,10 @@ export function PaymentProcessor({
         </div>
 
         {/* Payment Method Tabs */}
-        <Tabs value={selectedMethod} onValueChange={(v) => setSelectedMethod(v as PaymentMethod)}>
+        <Tabs
+          value={selectedMethod}
+          onValueChange={(v) => setSelectedMethod(v as PaymentMethod)}
+        >
           <TabList className="mb-6">
             <TabTrigger value="card">
               <svg
@@ -411,7 +447,9 @@ export function PaymentProcessor({
                 <Input
                   id="card-number"
                   value={cardNumber}
-                  onChange={(e) => setCardNumber(formatCardNumber(e.target.value))}
+                  onChange={(e) =>
+                    setCardNumber(formatCardNumber(e.target.value))
+                  }
                   placeholder="1234 5678 9012 3456"
                   maxLength={19}
                   className="mt-1 font-mono"
@@ -428,7 +466,9 @@ export function PaymentProcessor({
                   <Input
                     id="card-expiry"
                     value={cardExpiry}
-                    onChange={(e) => setCardExpiry(formatExpiry(e.target.value))}
+                    onChange={(e) =>
+                      setCardExpiry(formatExpiry(e.target.value))
+                    }
                     placeholder="MM/YY"
                     maxLength={5}
                     className="mt-1"
@@ -439,7 +479,9 @@ export function PaymentProcessor({
                   <Input
                     id="card-cvc"
                     value={cardCvc}
-                    onChange={(e) => setCardCvc(e.target.value.replace(/\D/g, '').slice(0, 4))}
+                    onChange={(e) =>
+                      setCardCvc(e.target.value.replace(/\D/g, "").slice(0, 4))
+                    }
                     placeholder="123"
                     maxLength={4}
                     className="mt-1"
@@ -450,8 +492,9 @@ export function PaymentProcessor({
               {/* Stripe Elements placeholder notice */}
               <div className="p-3 bg-bg-hover/50 rounded-lg">
                 <p className="text-xs text-text-muted">
-                  Card payments are processed securely through Stripe. In production, this form
-                  would be replaced with Stripe Elements for PCI compliance.
+                  Card payments are processed securely through Stripe. In
+                  production, this form would be replaced with Stripe Elements
+                  for PCI compliance.
                 </p>
               </div>
             </div>
@@ -465,7 +508,11 @@ export function PaymentProcessor({
                 <Input
                   id="routing-number"
                   value={routingNumber}
-                  onChange={(e) => setRoutingNumber(e.target.value.replace(/\D/g, '').slice(0, 9))}
+                  onChange={(e) =>
+                    setRoutingNumber(
+                      e.target.value.replace(/\D/g, "").slice(0, 9),
+                    )
+                  }
                   placeholder="123456789"
                   maxLength={9}
                   className="mt-1 font-mono"
@@ -476,7 +523,11 @@ export function PaymentProcessor({
                 <Input
                   id="account-number"
                   value={accountNumber}
-                  onChange={(e) => setAccountNumber(e.target.value.replace(/\D/g, '').slice(0, 17))}
+                  onChange={(e) =>
+                    setAccountNumber(
+                      e.target.value.replace(/\D/g, "").slice(0, 17),
+                    )
+                  }
                   placeholder="Account number"
                   maxLength={17}
                   className="mt-1 font-mono"
@@ -489,8 +540,8 @@ export function PaymentProcessor({
                     <input
                       type="radio"
                       name="account-type"
-                      checked={accountType === 'checking'}
-                      onChange={() => setAccountType('checking')}
+                      checked={accountType === "checking"}
+                      onChange={() => setAccountType("checking")}
                       className="h-4 w-4 text-primary"
                     />
                     <span className="text-sm">Checking</span>
@@ -499,8 +550,8 @@ export function PaymentProcessor({
                     <input
                       type="radio"
                       name="account-type"
-                      checked={accountType === 'savings'}
-                      onChange={() => setAccountType('savings')}
+                      checked={accountType === "savings"}
+                      onChange={() => setAccountType("savings")}
                       className="h-4 w-4 text-primary"
                     />
                     <span className="text-sm">Savings</span>
@@ -516,14 +567,18 @@ export function PaymentProcessor({
               <div>
                 <Label htmlFor="cash-received">Cash Received</Label>
                 <div className="relative mt-1">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">$</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
+                    $
+                  </span>
                   <Input
                     id="cash-received"
                     type="number"
                     min="0"
                     step="0.01"
-                    value={cashReceived || ''}
-                    onChange={(e) => setCashReceived(parseFloat(e.target.value) || 0)}
+                    value={cashReceived || ""}
+                    onChange={(e) =>
+                      setCashReceived(parseFloat(e.target.value) || 0)
+                    }
                     className="pl-7"
                   />
                 </div>
@@ -534,11 +589,15 @@ export function PaymentProcessor({
                 <div className="p-4 bg-bg-hover/50 rounded-lg">
                   <div className="flex justify-between">
                     <span className="text-text-secondary">Amount Due</span>
-                    <span className="font-medium">{formatCurrency(paymentAmount)}</span>
+                    <span className="font-medium">
+                      {formatCurrency(paymentAmount)}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-text-secondary">Cash Received</span>
-                    <span className="font-medium">{formatCurrency(cashReceived)}</span>
+                    <span className="font-medium">
+                      {formatCurrency(cashReceived)}
+                    </span>
                   </div>
                   <div className="flex justify-between border-t border-border mt-2 pt-2">
                     <span className="font-semibold">Change Due</span>
@@ -596,7 +655,11 @@ export function PaymentProcessor({
             variant="primary"
             size="lg"
             onClick={handleProcessPayment}
-            disabled={!isFormValid() || processPaymentMutation.isPending || paymentAmount <= 0}
+            disabled={
+              !isFormValid() ||
+              processPaymentMutation.isPending ||
+              paymentAmount <= 0
+            }
             className="w-full"
           >
             {processPaymentMutation.isPending ? (

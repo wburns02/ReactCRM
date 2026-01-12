@@ -4,14 +4,23 @@
  * Display all payments for a work order with receipts and refund indicators.
  */
 
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { cn } from '@/lib/utils.ts';
-import { formatCurrency } from './utils/pricingEngine.ts';
-import { usePaymentHistory, useDownloadReceipt } from './hooks/usePayments.ts';
-import type { Payment, PaymentStatus, PaymentMethod } from '@/api/types/payment.ts';
+import { useState } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { cn } from "@/lib/utils.ts";
+import { formatCurrency } from "./utils/pricingEngine.ts";
+import { usePaymentHistory, useDownloadReceipt } from "./hooks/usePayments.ts";
+import type {
+  Payment,
+  PaymentStatus,
+  PaymentMethod,
+} from "@/api/types/payment.ts";
 
 // ============================================================================
 // TYPES
@@ -33,25 +42,27 @@ export interface PaymentHistoryProps {
 // ============================================================================
 
 // Status badge variants
-const getStatusVariant = (status: PaymentStatus): 'default' | 'success' | 'warning' | 'destructive' => {
+const getStatusVariant = (
+  status: PaymentStatus,
+): "default" | "success" | "warning" | "destructive" => {
   switch (status) {
-    case 'completed':
-      return 'success';
-    case 'pending':
-      return 'warning';
-    case 'failed':
-      return 'destructive';
-    case 'refunded':
-      return 'default';
+    case "completed":
+      return "success";
+    case "pending":
+      return "warning";
+    case "failed":
+      return "destructive";
+    case "refunded":
+      return "default";
     default:
-      return 'default';
+      return "default";
   }
 };
 
 // Payment method icons
 const PaymentMethodIcon = ({ method }: { method: PaymentMethod }) => {
   switch (method) {
-    case 'card':
+    case "card":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -65,7 +76,7 @@ const PaymentMethodIcon = ({ method }: { method: PaymentMethod }) => {
           <line x1="1" y1="10" x2="23" y2="10" />
         </svg>
       );
-    case 'cash':
+    case "cash":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -79,7 +90,7 @@ const PaymentMethodIcon = ({ method }: { method: PaymentMethod }) => {
           <path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6" />
         </svg>
       );
-    case 'check':
+    case "check":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -95,7 +106,7 @@ const PaymentMethodIcon = ({ method }: { method: PaymentMethod }) => {
           <line x1="16" y1="17" x2="8" y2="17" />
         </svg>
       );
-    case 'bank_transfer':
+    case "bank_transfer":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -109,7 +120,7 @@ const PaymentMethodIcon = ({ method }: { method: PaymentMethod }) => {
           <polyline points="9,22 9,12 15,12 15,22" />
         </svg>
       );
-    case 'payment_link':
+    case "payment_link":
       return (
         <svg
           xmlns="http://www.w3.org/2000/svg"
@@ -144,18 +155,18 @@ const PaymentMethodIcon = ({ method }: { method: PaymentMethod }) => {
 // Format payment method label
 const getPaymentMethodLabel = (method: PaymentMethod): string => {
   switch (method) {
-    case 'card':
-      return 'Card';
-    case 'cash':
-      return 'Cash';
-    case 'check':
-      return 'Check';
-    case 'bank_transfer':
-      return 'ACH';
-    case 'payment_link':
-      return 'Payment Link';
+    case "card":
+      return "Card";
+    case "cash":
+      return "Cash";
+    case "check":
+      return "Check";
+    case "bank_transfer":
+      return "ACH";
+    case "payment_link":
+      return "Payment Link";
     default:
-      return 'Other';
+      return "Other";
   }
 };
 
@@ -179,23 +190,25 @@ export function PaymentHistory({
     try {
       await downloadReceiptMutation.mutateAsync(paymentId);
     } catch (error) {
-      console.error('Failed to download receipt:', error);
+      console.error("Failed to download receipt:", error);
     }
   };
 
   // Calculate totals
-  const totalPaid = payments?.reduce((sum, p) => {
-    if (p.status === 'completed') return sum + p.amount;
-    return sum;
-  }, 0) ?? 0;
+  const totalPaid =
+    payments?.reduce((sum, p) => {
+      if (p.status === "completed") return sum + p.amount;
+      return sum;
+    }, 0) ?? 0;
 
-  const totalRefunded = payments?.reduce((sum, p) => {
-    if (p.status === 'refunded') return sum + p.amount;
-    return sum;
-  }, 0) ?? 0;
+  const totalRefunded =
+    payments?.reduce((sum, p) => {
+      if (p.status === "refunded") return sum + p.amount;
+      return sum;
+    }, 0) ?? 0;
 
   return (
-    <Card className={cn('w-full', className)}>
+    <Card className={cn("w-full", className)}>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <svg
@@ -219,7 +232,10 @@ export function PaymentHistory({
         {/* Loading State */}
         {isLoading && (
           <div className="flex items-center justify-center py-12">
-            <svg className="animate-spin h-8 w-8 text-primary" viewBox="0 0 24 24">
+            <svg
+              className="animate-spin h-8 w-8 text-primary"
+              viewBox="0 0 24 24"
+            >
               <circle
                 cx="12"
                 cy="12"
@@ -252,7 +268,9 @@ export function PaymentHistory({
               <line x1="12" y1="8" x2="12" y2="12" />
               <line x1="12" y1="16" x2="12.01" y2="16" />
             </svg>
-            <p className="text-text-secondary">Failed to load payment history</p>
+            <p className="text-text-secondary">
+              Failed to load payment history
+            </p>
           </div>
         )}
 
@@ -284,16 +302,28 @@ export function PaymentHistory({
             <div className="mb-6 p-4 bg-bg-hover/50 rounded-lg">
               <div className="grid grid-cols-3 gap-4 text-center">
                 <div>
-                  <p className="text-xs text-text-muted uppercase tracking-wider">Total Paid</p>
-                  <p className="text-xl font-bold text-success">{formatCurrency(totalPaid)}</p>
+                  <p className="text-xs text-text-muted uppercase tracking-wider">
+                    Total Paid
+                  </p>
+                  <p className="text-xl font-bold text-success">
+                    {formatCurrency(totalPaid)}
+                  </p>
                 </div>
                 <div>
-                  <p className="text-xs text-text-muted uppercase tracking-wider">Refunded</p>
-                  <p className="text-xl font-bold text-warning">{formatCurrency(totalRefunded)}</p>
+                  <p className="text-xs text-text-muted uppercase tracking-wider">
+                    Refunded
+                  </p>
+                  <p className="text-xl font-bold text-warning">
+                    {formatCurrency(totalRefunded)}
+                  </p>
                 </div>
                 <div>
-                  <p className="text-xs text-text-muted uppercase tracking-wider">Net</p>
-                  <p className="text-xl font-bold">{formatCurrency(totalPaid - totalRefunded)}</p>
+                  <p className="text-xs text-text-muted uppercase tracking-wider">
+                    Net
+                  </p>
+                  <p className="text-xl font-bold">
+                    {formatCurrency(totalPaid - totalRefunded)}
+                  </p>
                 </div>
               </div>
             </div>
@@ -309,9 +339,11 @@ export function PaymentHistory({
                   <button
                     type="button"
                     className="w-full p-4 flex items-center justify-between text-left hover:bg-bg-hover/50 transition-colors"
-                    onClick={() => setExpandedPayment(
-                      expandedPayment === payment.id ? null : payment.id
-                    )}
+                    onClick={() =>
+                      setExpandedPayment(
+                        expandedPayment === payment.id ? null : payment.id,
+                      )
+                    }
                   >
                     <div className="flex items-center gap-4">
                       {/* Payment Method Icon */}
@@ -328,7 +360,7 @@ export function PaymentHistory({
                           <Badge variant={getStatusVariant(payment.status)}>
                             {payment.status}
                           </Badge>
-                          {payment.status === 'refunded' && (
+                          {payment.status === "refunded" && (
                             <svg
                               xmlns="http://www.w3.org/2000/svg"
                               className="h-4 w-4 text-warning"
@@ -345,13 +377,16 @@ export function PaymentHistory({
                           )}
                         </div>
                         <p className="text-sm text-text-secondary">
-                          {new Date(payment.payment_date).toLocaleDateString('en-US', {
-                            month: 'short',
-                            day: 'numeric',
-                            year: 'numeric',
-                            hour: 'numeric',
-                            minute: '2-digit',
-                          })}
+                          {new Date(payment.payment_date).toLocaleDateString(
+                            "en-US",
+                            {
+                              month: "short",
+                              day: "numeric",
+                              year: "numeric",
+                              hour: "numeric",
+                              minute: "2-digit",
+                            },
+                          )}
                         </p>
                       </div>
                     </div>
@@ -360,18 +395,20 @@ export function PaymentHistory({
                     <div className="flex items-center gap-4">
                       <span
                         className={cn(
-                          'text-lg font-bold',
-                          payment.status === 'refunded' ? 'text-warning' : 'text-success'
+                          "text-lg font-bold",
+                          payment.status === "refunded"
+                            ? "text-warning"
+                            : "text-success",
                         )}
                       >
-                        {payment.status === 'refunded' && '-'}
+                        {payment.status === "refunded" && "-"}
                         {formatCurrency(payment.amount)}
                       </span>
                       <svg
                         xmlns="http://www.w3.org/2000/svg"
                         className={cn(
-                          'h-5 w-5 text-text-muted transition-transform',
-                          expandedPayment === payment.id && 'rotate-180'
+                          "h-5 w-5 text-text-muted transition-transform",
+                          expandedPayment === payment.id && "rotate-180",
                         )}
                         viewBox="0 0 24 24"
                         fill="none"
@@ -389,7 +426,9 @@ export function PaymentHistory({
                       <div className="grid grid-cols-2 gap-4 text-sm">
                         <div>
                           <p className="text-text-muted">Transaction ID</p>
-                          <p className="font-mono">{payment.transaction_id || payment.id}</p>
+                          <p className="font-mono">
+                            {payment.transaction_id || payment.id}
+                          </p>
                         </div>
                         {payment.reference_number && (
                           <div>
@@ -449,7 +488,7 @@ export function PaymentHistory({
                           </Button>
                         )}
 
-                        {onRefundClick && payment.status === 'completed' && (
+                        {onRefundClick && payment.status === "completed" && (
                           <Button
                             variant="outline"
                             size="sm"

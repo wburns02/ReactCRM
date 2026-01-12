@@ -22,39 +22,39 @@
  * Then compare generated types with our Zod schemas in CI.
  */
 
-import type { Prospect, ProspectListResponse } from '../types/prospect.ts';
+import type { Prospect, ProspectListResponse } from "../types/prospect.ts";
 
 /**
  * Valid complete prospect - all fields populated
  */
 export const validProspectComplete: Prospect = {
-  id: '123e4567-e89b-12d3-a456-426614174000',
-  first_name: 'John',
-  last_name: 'Doe',
-  email: 'john@example.com',
-  phone: '512-555-0100',
-  company_name: 'Doe Enterprises',
-  address_line1: '123 Main St',
-  city: 'Austin',
-  state: 'TX',
-  postal_code: '78701',
-  prospect_stage: 'qualified',
-  lead_source: 'referral',
+  id: "123e4567-e89b-12d3-a456-426614174000",
+  first_name: "John",
+  last_name: "Doe",
+  email: "john@example.com",
+  phone: "512-555-0100",
+  company_name: "Doe Enterprises",
+  address_line1: "123 Main St",
+  city: "Austin",
+  state: "TX",
+  postal_code: "78701",
+  prospect_stage: "qualified",
+  lead_source: "referral",
   estimated_value: 1500,
-  assigned_sales_rep: 'Mike',
-  next_follow_up_date: '2025-01-15',
-  lead_notes: 'Interested in pumping service',
-  created_at: '2025-01-01T10:00:00Z',
-  updated_at: '2025-01-02T15:30:00Z',
+  assigned_sales_rep: "Mike",
+  next_follow_up_date: "2025-01-15",
+  lead_notes: "Interested in pumping service",
+  created_at: "2025-01-01T10:00:00Z",
+  updated_at: "2025-01-02T15:30:00Z",
 };
 
 /**
  * Valid minimal prospect - only required fields
  */
 export const validProspectMinimal: Prospect = {
-  id: '123e4567-e89b-12d3-a456-426614174001',
-  first_name: 'Jane',
-  last_name: 'Smith',
+  id: "123e4567-e89b-12d3-a456-426614174001",
+  first_name: "Jane",
+  last_name: "Smith",
   email: null,
   phone: null,
   company_name: null,
@@ -62,28 +62,52 @@ export const validProspectMinimal: Prospect = {
   city: null,
   state: null,
   postal_code: null,
-  prospect_stage: 'new_lead',
+  prospect_stage: "new_lead",
   lead_source: null,
   estimated_value: null,
   assigned_sales_rep: null,
   next_follow_up_date: null,
   lead_notes: null,
-  created_at: '2025-01-01T10:00:00Z',
-  updated_at: '2025-01-01T10:00:00Z',
+  created_at: "2025-01-01T10:00:00Z",
+  updated_at: "2025-01-01T10:00:00Z",
 };
 
 /**
  * Prospect at each stage for pipeline tests
  * NOTE: Stages match backend enum: new_lead, contacted, qualified, quoted, negotiation, won, lost
  */
-export const prospectsByStage: Record<Prospect['prospect_stage'], Prospect> = {
-  new_lead: { ...validProspectMinimal, prospect_stage: 'new_lead' },
-  contacted: { ...validProspectMinimal, id: '123e4567-e89b-12d3-a456-426614174002', prospect_stage: 'contacted' },
-  qualified: { ...validProspectMinimal, id: '123e4567-e89b-12d3-a456-426614174003', prospect_stage: 'qualified' },
-  quoted: { ...validProspectMinimal, id: '123e4567-e89b-12d3-a456-426614174004', prospect_stage: 'quoted' },
-  negotiation: { ...validProspectMinimal, id: '123e4567-e89b-12d3-a456-426614174005', prospect_stage: 'negotiation' },
-  won: { ...validProspectMinimal, id: '123e4567-e89b-12d3-a456-426614174006', prospect_stage: 'won' },
-  lost: { ...validProspectMinimal, id: '123e4567-e89b-12d3-a456-426614174007', prospect_stage: 'lost' },
+export const prospectsByStage: Record<Prospect["prospect_stage"], Prospect> = {
+  new_lead: { ...validProspectMinimal, prospect_stage: "new_lead" },
+  contacted: {
+    ...validProspectMinimal,
+    id: "123e4567-e89b-12d3-a456-426614174002",
+    prospect_stage: "contacted",
+  },
+  qualified: {
+    ...validProspectMinimal,
+    id: "123e4567-e89b-12d3-a456-426614174003",
+    prospect_stage: "qualified",
+  },
+  quoted: {
+    ...validProspectMinimal,
+    id: "123e4567-e89b-12d3-a456-426614174004",
+    prospect_stage: "quoted",
+  },
+  negotiation: {
+    ...validProspectMinimal,
+    id: "123e4567-e89b-12d3-a456-426614174005",
+    prospect_stage: "negotiation",
+  },
+  won: {
+    ...validProspectMinimal,
+    id: "123e4567-e89b-12d3-a456-426614174006",
+    prospect_stage: "won",
+  },
+  lost: {
+    ...validProspectMinimal,
+    id: "123e4567-e89b-12d3-a456-426614174007",
+    prospect_stage: "lost",
+  },
 };
 
 /**
@@ -112,14 +136,14 @@ export const emptyListResponse: ProspectListResponse = {
 export const invalidFixtures = {
   invalidStage: {
     ...validProspectMinimal,
-    prospect_stage: 'invalid_stage', // Not a valid enum value
+    prospect_stage: "invalid_stage", // Not a valid enum value
   },
   invalidUuid: {
     ...validProspectMinimal,
-    id: 'not-a-uuid', // Invalid UUID format
+    id: "not-a-uuid", // Invalid UUID format
   },
   missingRequired: {
-    id: '123e4567-e89b-12d3-a456-426614174000',
+    id: "123e4567-e89b-12d3-a456-426614174000",
     // Missing first_name, last_name, etc.
   },
 };

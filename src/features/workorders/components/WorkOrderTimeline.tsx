@@ -1,8 +1,8 @@
-import React, { useState, useMemo } from 'react';
-import { cn } from '@/lib/utils';
-import { Button } from '@/components/ui/Button';
-import type { ActivityLogEntry, ActivityType } from '@/api/types/workOrder';
-import { formatRelativeTime } from '../utils/workOrderHelpers';
+import React, { useState, useMemo } from "react";
+import { cn } from "@/lib/utils";
+import { Button } from "@/components/ui/Button";
+import type { ActivityLogEntry, ActivityType } from "@/api/types/workOrder";
+import { formatRelativeTime } from "../utils/workOrderHelpers";
 
 // Activity type icons
 const ActivityIcons: Record<ActivityType, () => React.JSX.Element> = {
@@ -231,19 +231,27 @@ const ActivityIcons: Record<ActivityType, () => React.JSX.Element> = {
 
 // Activity type colors
 const ActivityColors: Record<ActivityType, string> = {
-  created: 'bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300',
-  status_change: 'bg-violet-100 text-violet-600 dark:bg-violet-900 dark:text-violet-300',
-  assigned: 'bg-cyan-100 text-cyan-600 dark:bg-cyan-900 dark:text-cyan-300',
-  rescheduled: 'bg-amber-100 text-amber-600 dark:bg-amber-900 dark:text-amber-300',
-  note_added: 'bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300',
-  photo_added: 'bg-pink-100 text-pink-600 dark:bg-pink-900 dark:text-pink-300',
-  signature_captured: 'bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-300',
-  payment_received: 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300',
-  invoice_sent: 'bg-emerald-100 text-emerald-600 dark:bg-emerald-900 dark:text-emerald-300',
-  customer_notified: 'bg-orange-100 text-orange-600 dark:bg-orange-900 dark:text-orange-300',
-  technician_enroute: 'bg-yellow-100 text-yellow-600 dark:bg-yellow-900 dark:text-yellow-300',
-  arrived: 'bg-teal-100 text-teal-600 dark:bg-teal-900 dark:text-teal-300',
-  completed: 'bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300',
+  created: "bg-blue-100 text-blue-600 dark:bg-blue-900 dark:text-blue-300",
+  status_change:
+    "bg-violet-100 text-violet-600 dark:bg-violet-900 dark:text-violet-300",
+  assigned: "bg-cyan-100 text-cyan-600 dark:bg-cyan-900 dark:text-cyan-300",
+  rescheduled:
+    "bg-amber-100 text-amber-600 dark:bg-amber-900 dark:text-amber-300",
+  note_added: "bg-gray-100 text-gray-600 dark:bg-gray-800 dark:text-gray-300",
+  photo_added: "bg-pink-100 text-pink-600 dark:bg-pink-900 dark:text-pink-300",
+  signature_captured:
+    "bg-indigo-100 text-indigo-600 dark:bg-indigo-900 dark:text-indigo-300",
+  payment_received:
+    "bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300",
+  invoice_sent:
+    "bg-emerald-100 text-emerald-600 dark:bg-emerald-900 dark:text-emerald-300",
+  customer_notified:
+    "bg-orange-100 text-orange-600 dark:bg-orange-900 dark:text-orange-300",
+  technician_enroute:
+    "bg-yellow-100 text-yellow-600 dark:bg-yellow-900 dark:text-yellow-300",
+  arrived: "bg-teal-100 text-teal-600 dark:bg-teal-900 dark:text-teal-300",
+  completed:
+    "bg-green-100 text-green-600 dark:bg-green-900 dark:text-green-300",
 };
 
 export interface WorkOrderTimelineProps {
@@ -280,15 +288,18 @@ export function WorkOrderTimeline({
   onActivityClick,
 }: WorkOrderTimelineProps) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [expandedActivityId, setExpandedActivityId] = useState<string | null>(null);
+  const [expandedActivityId, setExpandedActivityId] = useState<string | null>(
+    null,
+  );
 
   // Sort activities by timestamp (newest first)
   const sortedActivities = useMemo(
     () =>
       [...activities].sort(
-        (a, b) => new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime()
+        (a, b) =>
+          new Date(b.timestamp).getTime() - new Date(a.timestamp).getTime(),
       ),
-    [activities]
+    [activities],
   );
 
   // Determine which activities to show
@@ -307,14 +318,14 @@ export function WorkOrderTimeline({
 
   if (activities.length === 0) {
     return (
-      <div className={cn('text-center py-8 text-text-muted', className)}>
+      <div className={cn("text-center py-8 text-text-muted", className)}>
         <p>No activity recorded yet</p>
       </div>
     );
   }
 
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn("relative", className)}>
       {/* Timeline line */}
       <div className="absolute left-4 top-0 bottom-0 w-0.5 bg-border" />
 
@@ -324,24 +335,25 @@ export function WorkOrderTimeline({
           const IconComponent = ActivityIcons[activity.type];
           const colorClass = ActivityColors[activity.type];
           const isActivityExpanded = expandedActivityId === activity.id;
-          const hasMetadata = activity.metadata && Object.keys(activity.metadata).length > 0;
+          const hasMetadata =
+            activity.metadata && Object.keys(activity.metadata).length > 0;
 
           return (
             <div
               key={activity.id}
               className={cn(
-                'relative pl-10',
-                onActivityClick && 'cursor-pointer',
-                index === 0 && 'pt-0'
+                "relative pl-10",
+                onActivityClick && "cursor-pointer",
+                index === 0 && "pt-0",
               )}
               onClick={() => onActivityClick?.(activity)}
             >
               {/* Icon */}
               <div
                 className={cn(
-                  'absolute left-0 w-8 h-8 rounded-full flex items-center justify-center',
+                  "absolute left-0 w-8 h-8 rounded-full flex items-center justify-center",
                   colorClass,
-                  'ring-4 ring-bg-card'
+                  "ring-4 ring-bg-card",
                 )}
               >
                 <IconComponent />
@@ -350,19 +362,23 @@ export function WorkOrderTimeline({
               {/* Content */}
               <div
                 className={cn(
-                  'bg-bg-card rounded-lg border border-border p-3',
-                  'hover:border-primary/30 transition-colors'
+                  "bg-bg-card rounded-lg border border-border p-3",
+                  "hover:border-primary/30 transition-colors",
                 )}
               >
                 <div className="flex items-start justify-between gap-2 mb-1">
-                  <p className="text-sm text-text-primary">{activity.description}</p>
+                  <p className="text-sm text-text-primary">
+                    {activity.description}
+                  </p>
                   <span className="text-xs text-text-muted whitespace-nowrap">
                     {formatRelativeTime(activity.timestamp)}
                   </span>
                 </div>
 
                 {showUserNames && activity.userName && (
-                  <p className="text-xs text-text-muted">by {activity.userName}</p>
+                  <p className="text-xs text-text-muted">
+                    by {activity.userName}
+                  </p>
                 )}
 
                 {/* Expandable metadata */}
@@ -376,7 +392,7 @@ export function WorkOrderTimeline({
                         toggleActivityDetails(activity.id);
                       }}
                     >
-                      {isActivityExpanded ? 'Hide details' : 'Show details'}
+                      {isActivityExpanded ? "Hide details" : "Show details"}
                     </button>
 
                     {isActivityExpanded && (
@@ -404,8 +420,8 @@ export function WorkOrderTimeline({
             className="text-text-muted hover:text-text-primary"
           >
             {isExpanded
-              ? 'Show less'
-              : `Show ${hiddenCount} more activit${hiddenCount === 1 ? 'y' : 'ies'}`}
+              ? "Show less"
+              : `Show ${hiddenCount} more activit${hiddenCount === 1 ? "y" : "ies"}`}
           </Button>
         </div>
       )}
@@ -436,14 +452,14 @@ export function TimelineItem({
   className,
 }: TimelineItemProps) {
   return (
-    <div className={cn('relative pl-10', className)}>
+    <div className={cn("relative pl-10", className)}>
       {/* Icon */}
       <div
         className={cn(
-          'absolute left-0 w-8 h-8 rounded-full flex items-center justify-center',
-          'bg-bg-muted text-text-secondary',
-          'ring-4 ring-bg-card',
-          iconClassName
+          "absolute left-0 w-8 h-8 rounded-full flex items-center justify-center",
+          "bg-bg-muted text-text-secondary",
+          "ring-4 ring-bg-card",
+          iconClassName,
         )}
       >
         {icon || (
@@ -471,7 +487,9 @@ export function TimelineItem({
             </span>
           )}
         </div>
-        {description && <p className="text-xs text-text-muted">{description}</p>}
+        {description && (
+          <p className="text-xs text-text-muted">{description}</p>
+        )}
         {children}
       </div>
     </div>

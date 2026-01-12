@@ -12,11 +12,14 @@
  * - AI Insights Panel
  */
 
-export { FTFRDashboard } from './FTFRDashboard.tsx';
-export { FTFRCard } from './FTFRCard.tsx';
-export { PreDispatchIntelligence, PreDispatchIntelligenceCompact } from './PreDispatchIntelligence';
-export { BIDashboard } from './BIDashboard.tsx';
-export { OperationsCommandCenter } from './OperationsCommandCenter';
-export { FinancialDashboard } from './FinancialDashboard';
-export { PerformanceScorecard } from './PerformanceScorecard';
-export { AIInsightsPanel } from './AIInsightsPanel';
+export { FTFRDashboard } from "./FTFRDashboard.tsx";
+export { FTFRCard } from "./FTFRCard.tsx";
+export {
+  PreDispatchIntelligence,
+  PreDispatchIntelligenceCompact,
+} from "./PreDispatchIntelligence";
+export { BIDashboard } from "./BIDashboard.tsx";
+export { OperationsCommandCenter } from "./OperationsCommandCenter";
+export { FinancialDashboard } from "./FinancialDashboard";
+export { PerformanceScorecard } from "./PerformanceScorecard";
+export { AIInsightsPanel } from "./AIInsightsPanel";

@@ -2,17 +2,25 @@
  * TrackingMap Component
  * Customer-facing map showing technician location and route to destination
  */
-import { useState, useEffect, useMemo } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polyline, Circle, useMap } from 'react-leaflet';
-import L from 'leaflet';
-import type { TechnicianLocationUpdate } from '@/api/types/tracking';
-import type { Coordinates } from '@/features/gps-tracking/types';
-import 'leaflet/dist/leaflet.css';
+import { useState, useEffect, useMemo } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Polyline,
+  Circle,
+  useMap,
+} from "react-leaflet";
+import L from "leaflet";
+import type { TechnicianLocationUpdate } from "@/api/types/tracking";
+import type { Coordinates } from "@/features/gps-tracking/types";
+import "leaflet/dist/leaflet.css";
 
 // Fix Leaflet default marker icons
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
 // @ts-expect-error - Leaflet type issue
 delete L.Icon.Default.prototype._getIconUrl;
@@ -46,7 +54,7 @@ function createTechnicianMarker(heading?: number, photoUrl?: string) {
   const rotation = heading || 0;
 
   return L.divIcon({
-    className: 'custom-technician-marker',
+    className: "custom-technician-marker",
     html: `
       <div style="
         width: 48px;
@@ -90,7 +98,7 @@ function createTechnicianMarker(heading?: number, photoUrl?: string) {
 
 // Destination marker (home/pin icon)
 const destinationMarkerIcon = L.divIcon({
-  className: 'custom-destination-marker',
+  className: "custom-destination-marker",
   html: `
     <div style="
       position: relative;
@@ -154,18 +162,23 @@ export function TrackingMap({
   technicianName,
   technicianPhotoUrl,
   locationHistory = [],
-  height = '400px',
+  height = "400px",
   showPath = true,
-  className = '',
+  className = "",
 }: TrackingMapProps) {
   // Default center on destination
-  const [mapCenter] = useState<[number, number]>([destination.lat, destination.lng]);
+  const [mapCenter] = useState<[number, number]>([
+    destination.lat,
+    destination.lng,
+  ]);
   const [zoom] = useState(14);
 
   // Path polyline positions from history
   const pathPositions = useMemo(() => {
     if (!showPath || locationHistory.length === 0) return [];
-    return locationHistory.map((point) => [point.lat, point.lng] as [number, number]);
+    return locationHistory.map(
+      (point) => [point.lat, point.lng] as [number, number],
+    );
   }, [showPath, locationHistory]);
 
   // Route line from technician to destination
@@ -179,7 +192,10 @@ export function TrackingMap({
 
   // Technician marker
   const technicianMarker = useMemo(() => {
-    return createTechnicianMarker(technicianLocation?.heading, technicianPhotoUrl);
+    return createTechnicianMarker(
+      technicianLocation?.heading,
+      technicianPhotoUrl,
+    );
   }, [technicianLocation?.heading, technicianPhotoUrl]);
 
   return (
@@ -190,14 +206,12 @@ export function TrackingMap({
       <MapContainer
         center={mapCenter}
         zoom={zoom}
-        style={{ height: '100%', width: '100%' }}
+        style={{ height: "100%", width: "100%" }}
         zoomControl={true}
         attributionControl={false}
       >
         {/* Map tiles - using Carto Light for clean look */}
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-        />
+        <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
 
         <MapBoundsUpdater
           technicianLocation={technicianLocation}
@@ -209,11 +223,11 @@ export function TrackingMap({
           center={[destination.lat, destination.lng]}
           radius={50}
           pathOptions={{
-            color: '#ef4444',
-            fillColor: '#ef4444',
+            color: "#ef4444",
+            fillColor: "#ef4444",
             fillOpacity: 0.1,
             weight: 2,
-            dashArray: '4, 4',
+            dashArray: "4, 4",
           }}
         />
 
@@ -222,10 +236,10 @@ export function TrackingMap({
           <Polyline
             positions={routeLine}
             pathOptions={{
-              color: '#3b82f6',
+              color: "#3b82f6",
               weight: 4,
               opacity: 0.7,
-              dashArray: '8, 12',
+              dashArray: "8, 12",
             }}
           />
         )}
@@ -235,7 +249,7 @@ export function TrackingMap({
           <Polyline
             positions={pathPositions}
             pathOptions={{
-              color: '#22c55e',
+              color: "#22c55e",
               weight: 3,
               opacity: 0.5,
             }}
@@ -243,12 +257,17 @@ export function TrackingMap({
         )}
 
         {/* Destination marker */}
-        <Marker position={[destination.lat, destination.lng]} icon={destinationMarkerIcon}>
+        <Marker
+          position={[destination.lat, destination.lng]}
+          icon={destinationMarkerIcon}
+        >
           <Popup>
             <div className="text-center">
               <strong className="block text-sm">Your Location</strong>
               {destination.address && (
-                <span className="text-xs text-gray-600">{destination.address}</span>
+                <span className="text-xs text-gray-600">
+                  {destination.address}
+                </span>
               )}
             </div>
           </Popup>
@@ -262,14 +281,18 @@ export function TrackingMap({
           >
             <Popup>
               <div className="text-center p-1">
-                <strong className="block text-sm">{technicianName || 'Your Technician'}</strong>
-                {technicianLocation.speed !== undefined && technicianLocation.speed > 0 && (
-                  <span className="text-xs text-gray-600 block">
-                    {Math.round(technicianLocation.speed)} mph
-                  </span>
-                )}
+                <strong className="block text-sm">
+                  {technicianName || "Your Technician"}
+                </strong>
+                {technicianLocation.speed !== undefined &&
+                  technicianLocation.speed > 0 && (
+                    <span className="text-xs text-gray-600 block">
+                      {Math.round(technicianLocation.speed)} mph
+                    </span>
+                  )}
                 <span className="text-xs text-gray-500">
-                  Updated {new Date(technicianLocation.timestamp).toLocaleTimeString()}
+                  Updated{" "}
+                  {new Date(technicianLocation.timestamp).toLocaleTimeString()}
                 </span>
               </div>
             </Popup>
@@ -301,9 +324,11 @@ export function TrackingMap({
               </div>
             )}
             <div>
-              <p className="text-sm font-medium text-gray-900">{technicianName || 'Your Technician'}</p>
+              <p className="text-sm font-medium text-gray-900">
+                {technicianName || "Your Technician"}
+              </p>
               <p className="text-xs text-blue-600 font-medium capitalize">
-                {technicianLocation.status.replace('_', ' ')}
+                {technicianLocation.status.replace("_", " ")}
               </p>
             </div>
           </div>

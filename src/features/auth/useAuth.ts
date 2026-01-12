@@ -1,14 +1,14 @@
-import { useEffect, useCallback } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient, clearAuthToken, hasAuthToken } from '@/api/client.ts';
-import { setUser as setSentryUser } from '@/lib/sentry';
+import { useEffect, useCallback } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiClient, clearAuthToken, hasAuthToken } from "@/api/client.ts";
+import { setUser as setSentryUser } from "@/lib/sentry";
 import {
   markSessionValidated,
   markSessionInvalid,
   clearSessionState,
   onSecurityEvent,
   dispatchSecurityEvent,
-} from '@/lib/security';
+} from "@/lib/security";
 
 /**
  * User type from /api/auth/me
@@ -19,7 +19,7 @@ export interface User {
   email: string;
   first_name: string;
   last_name: string;
-  role: 'admin' | 'manager' | 'technician' | 'sales' | 'user';
+  role: "admin" | "manager" | "technician" | "sales" | "user";
   permissions?: Record<string, Record<string, boolean>>;
   technician_id?: string;
 }
@@ -43,15 +43,10 @@ interface AuthResponse {
 export function useAuth() {
   const queryClient = useQueryClient();
 
-  const {
-    data,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery({
-    queryKey: ['auth', 'me'],
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ["auth", "me"],
     queryFn: async (): Promise<AuthResponse> => {
-      const { data } = await apiClient.get('/auth/me');
+      const { data } = await apiClient.get("/auth/me");
 
       // SECURITY: Mark session as validated on successful auth check
       if (data?.user) {
@@ -85,12 +80,12 @@ export function useAuth() {
 
   // Listen for security events
   useEffect(() => {
-    const unsubscribeExpired = onSecurityEvent('session:expired', () => {
-      queryClient.setQueryData(['auth', 'me'], null);
+    const unsubscribeExpired = onSecurityEvent("session:expired", () => {
+      queryClient.setQueryData(["auth", "me"], null);
     });
 
-    const unsubscribeInvalid = onSecurityEvent('session:invalid', () => {
-      queryClient.setQueryData(['auth', 'me'], null);
+    const unsubscribeInvalid = onSecurityEvent("session:invalid", () => {
+      queryClient.setQueryData(["auth", "me"], null);
     });
 
     return () => {
@@ -105,7 +100,7 @@ export function useAuth() {
   const logout = useCallback(async () => {
     try {
       // Call backend logout to clear HTTP-only cookie
-      await apiClient.post('/auth/logout');
+      await apiClient.post("/auth/logout");
     } catch {
       // Ignore logout errors - proceed with client cleanup
     }
@@ -120,20 +115,20 @@ export function useAuth() {
     queryClient.clear();
 
     // Dispatch logout event for listeners
-    dispatchSecurityEvent('auth:logout');
+    dispatchSecurityEvent("auth:logout");
 
     // Navigate to login page
-    window.location.href = '/login';
+    window.location.href = "/login";
   }, [queryClient]);
 
   return {
     user,
     isLoading,
     isAuthenticated: !!user && !error,
-    isAdmin: user?.role === 'admin',
-    isManager: user?.role === 'manager',
-    isTechnician: user?.role === 'technician',
-    isSales: user?.role === 'sales',
+    isAdmin: user?.role === "admin",
+    isManager: user?.role === "manager",
+    isTechnician: user?.role === "technician",
+    isSales: user?.role === "sales",
     // Helper to get full name
     fullName: user ? `${user.first_name} ${user.last_name}` : undefined,
     logout,

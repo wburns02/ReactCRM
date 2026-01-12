@@ -1,4 +1,9 @@
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
 
 interface Permission {
   name: string;
@@ -10,84 +15,84 @@ interface Permission {
 
 const permissions: Permission[] = [
   {
-    name: 'View Dashboard',
+    name: "View Dashboard",
     admin: true,
     manager: true,
     technician: true,
     office: true,
   },
   {
-    name: 'Manage Prospects',
+    name: "Manage Prospects",
     admin: true,
     manager: true,
     technician: false,
     office: true,
   },
   {
-    name: 'Manage Customers',
+    name: "Manage Customers",
     admin: true,
     manager: true,
     technician: false,
     office: true,
   },
   {
-    name: 'Create Work Orders',
+    name: "Create Work Orders",
     admin: true,
     manager: true,
     technician: false,
     office: true,
   },
   {
-    name: 'View All Work Orders',
+    name: "View All Work Orders",
     admin: true,
     manager: true,
     technician: false,
     office: true,
   },
   {
-    name: 'View Own Work Orders',
+    name: "View Own Work Orders",
     admin: true,
     manager: true,
     technician: true,
     office: false,
   },
   {
-    name: 'Manage Schedules',
+    name: "Manage Schedules",
     admin: true,
     manager: true,
     technician: false,
     office: true,
   },
   {
-    name: 'Manage Technicians',
+    name: "Manage Technicians",
     admin: true,
     manager: true,
     technician: false,
     office: false,
   },
   {
-    name: 'Email Marketing',
+    name: "Email Marketing",
     admin: true,
     manager: true,
     technician: false,
     office: true,
   },
   {
-    name: 'View Reports',
+    name: "View Reports",
     admin: true,
     manager: true,
     technician: false,
     office: false,
   },
   {
-    name: 'Manage Users',
+    name: "Manage Users",
     admin: true,
     manager: false,
     technician: false,
     office: false,
   },
   {
-    name: 'System Settings',
+    name: "System Settings",
     admin: true,
     manager: false,
     technician: false,

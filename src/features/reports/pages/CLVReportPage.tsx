@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useCustomerLTV } from '../api.ts';
-import { CLVReport } from '../components/CLVReport.tsx';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useCustomerLTV } from "../api.ts";
+import { CLVReport } from "../components/CLVReport.tsx";
 
 export function CLVReportPage() {
   const [topN, setTopN] = useState(50);
@@ -12,13 +12,17 @@ export function CLVReportPage() {
       {/* Header */}
       <div className="mb-8">
         <div className="flex items-center gap-2 text-sm text-text-muted mb-2">
-          <Link to="/reports" className="hover:text-primary">Reports</Link>
+          <Link to="/reports" className="hover:text-primary">
+            Reports
+          </Link>
           <span>/</span>
           <span>Customer Lifetime Value</span>
         </div>
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-3xl font-bold text-text-primary">Customer Lifetime Value</h1>
+            <h1 className="text-3xl font-bold text-text-primary">
+              Customer Lifetime Value
+            </h1>
             <p className="text-text-secondary mt-1">
               Analyze customer value, retention, and profitability
             </p>
@@ -41,14 +45,18 @@ export function CLVReportPage() {
       {/* Loading state */}
       {isLoading && (
         <div className="flex items-center justify-center h-64">
-          <div className="text-text-secondary">Loading customer lifetime value data...</div>
+          <div className="text-text-secondary">
+            Loading customer lifetime value data...
+          </div>
         </div>
       )}
 
       {/* Error state */}
       {error && (
         <div className="p-4 bg-danger/10 border border-danger/20 rounded-lg">
-          <p className="text-danger">Failed to load customer data. Please try again.</p>
+          <p className="text-danger">
+            Failed to load customer data. Please try again.
+          </p>
         </div>
       )}
 

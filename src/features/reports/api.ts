@@ -1,5 +1,5 @@
-import { useQuery } from '@tanstack/react-query';
-import { apiClient } from '@/api/client.ts';
+import { useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/api/client.ts";
 import {
   revenueReportSchema,
   technicianReportSchema,
@@ -10,17 +10,20 @@ import {
   type CustomerReport,
   type PipelineMetrics,
   type DateRange,
-} from './types.ts';
+} from "./types.ts";
 
 /**
  * Query keys for reports
  */
 export const reportKeys = {
-  all: ['reports'] as const,
-  revenue: (dateRange?: DateRange) => [...reportKeys.all, 'revenue', dateRange] as const,
-  technician: (dateRange?: DateRange) => [...reportKeys.all, 'technician', dateRange] as const,
-  customer: (dateRange?: DateRange) => [...reportKeys.all, 'customer', dateRange] as const,
-  pipeline: () => [...reportKeys.all, 'pipeline'] as const,
+  all: ["reports"] as const,
+  revenue: (dateRange?: DateRange) =>
+    [...reportKeys.all, "revenue", dateRange] as const,
+  technician: (dateRange?: DateRange) =>
+    [...reportKeys.all, "technician", dateRange] as const,
+  customer: (dateRange?: DateRange) =>
+    [...reportKeys.all, "customer", dateRange] as const,
+  pipeline: () => [...reportKeys.all, "pipeline"] as const,
 };
 
 /**
@@ -31,17 +34,20 @@ export function useRevenueMetrics(dateRange?: DateRange) {
     queryKey: reportKeys.revenue(dateRange),
     queryFn: async (): Promise<RevenueReport> => {
       const params = new URLSearchParams();
-      if (dateRange?.start_date) params.set('start_date', dateRange.start_date);
-      if (dateRange?.end_date) params.set('end_date', dateRange.end_date);
+      if (dateRange?.start_date) params.set("start_date", dateRange.start_date);
+      if (dateRange?.end_date) params.set("end_date", dateRange.end_date);
 
-      const url = '/reports/revenue?' + params.toString();
+      const url = "/reports/revenue?" + params.toString();
       const { data } = await apiClient.get(url);
 
       // Validate response in development
       if (import.meta.env.DEV) {
         const result = revenueReportSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Revenue report response validation failed:', result.error);
+          console.warn(
+            "Revenue report response validation failed:",
+            result.error,
+          );
         }
       }
 
@@ -59,17 +65,20 @@ export function useTechnicianMetrics(dateRange?: DateRange) {
     queryKey: reportKeys.technician(dateRange),
     queryFn: async (): Promise<TechnicianReport> => {
       const params = new URLSearchParams();
-      if (dateRange?.start_date) params.set('start_date', dateRange.start_date);
-      if (dateRange?.end_date) params.set('end_date', dateRange.end_date);
+      if (dateRange?.start_date) params.set("start_date", dateRange.start_date);
+      if (dateRange?.end_date) params.set("end_date", dateRange.end_date);
 
-      const url = '/reports/technician?' + params.toString();
+      const url = "/reports/technician?" + params.toString();
       const { data } = await apiClient.get(url);
 
       // Validate response in development
       if (import.meta.env.DEV) {
         const result = technicianReportSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Technician report response validation failed:', result.error);
+          console.warn(
+            "Technician report response validation failed:",
+            result.error,
+          );
         }
       }
 
@@ -87,17 +96,20 @@ export function useCustomerMetrics(dateRange?: DateRange) {
     queryKey: reportKeys.customer(dateRange),
     queryFn: async (): Promise<CustomerReport> => {
       const params = new URLSearchParams();
-      if (dateRange?.start_date) params.set('start_date', dateRange.start_date);
-      if (dateRange?.end_date) params.set('end_date', dateRange.end_date);
+      if (dateRange?.start_date) params.set("start_date", dateRange.start_date);
+      if (dateRange?.end_date) params.set("end_date", dateRange.end_date);
 
-      const url = '/reports/customers?' + params.toString();
+      const url = "/reports/customers?" + params.toString();
       const { data } = await apiClient.get(url);
 
       // Validate response in development
       if (import.meta.env.DEV) {
         const result = customerReportSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Customer report response validation failed:', result.error);
+          console.warn(
+            "Customer report response validation failed:",
+            result.error,
+          );
         }
       }
 
@@ -114,13 +126,16 @@ export function usePipelineMetrics() {
   return useQuery({
     queryKey: reportKeys.pipeline(),
     queryFn: async (): Promise<PipelineMetrics> => {
-      const { data } = await apiClient.get('/reports/pipeline');
+      const { data } = await apiClient.get("/reports/pipeline");
 
       // Validate response in development
       if (import.meta.env.DEV) {
         const result = pipelineMetricsSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Pipeline metrics response validation failed:', result.error);
+          console.warn(
+            "Pipeline metrics response validation failed:",
+            result.error,
+          );
         }
       }
 
@@ -135,22 +150,21 @@ export function usePipelineMetrics() {
  */
 export async function exportReport(
   reportType: string,
-  format: 'csv' | 'pdf' | 'excel',
-  dateRange?: DateRange
+  format: "csv" | "pdf" | "excel",
+  dateRange?: DateRange,
 ): Promise<Blob> {
   const params = new URLSearchParams();
-  params.set('format', format);
-  if (dateRange?.start_date) params.set('start_date', dateRange.start_date);
-  if (dateRange?.end_date) params.set('end_date', dateRange.end_date);
+  params.set("format", format);
+  if (dateRange?.start_date) params.set("start_date", dateRange.start_date);
+  if (dateRange?.end_date) params.set("end_date", dateRange.end_date);
 
   const url = `/reports/${reportType}/export?` + params.toString();
   const { data } = await apiClient.get(url, {
-    responseType: 'blob',
+    responseType: "blob",
   });
 
   return data;
 }
-
 
 // ========================
 // Enhanced Reports (Phase 7)
@@ -232,13 +246,13 @@ export interface TechPerformanceResponse {
  */
 export function useRevenueByService(dateRange?: DateRange) {
   return useQuery({
-    queryKey: [...reportKeys.all, 'revenue-by-service', dateRange],
+    queryKey: [...reportKeys.all, "revenue-by-service", dateRange],
     queryFn: async (): Promise<RevenueByServiceResponse> => {
       const params = new URLSearchParams();
-      if (dateRange?.start_date) params.set('start_date', dateRange.start_date);
-      if (dateRange?.end_date) params.set('end_date', dateRange.end_date);
+      if (dateRange?.start_date) params.set("start_date", dateRange.start_date);
+      if (dateRange?.end_date) params.set("end_date", dateRange.end_date);
 
-      const url = '/reports/revenue-by-service?' + params.toString();
+      const url = "/reports/revenue-by-service?" + params.toString();
       const { data } = await apiClient.get(url);
       return data;
     },
@@ -251,13 +265,13 @@ export function useRevenueByService(dateRange?: DateRange) {
  */
 export function useRevenueByTechnician(dateRange?: DateRange) {
   return useQuery({
-    queryKey: [...reportKeys.all, 'revenue-by-technician', dateRange],
+    queryKey: [...reportKeys.all, "revenue-by-technician", dateRange],
     queryFn: async (): Promise<RevenueByTechnicianResponse> => {
       const params = new URLSearchParams();
-      if (dateRange?.start_date) params.set('start_date', dateRange.start_date);
-      if (dateRange?.end_date) params.set('end_date', dateRange.end_date);
+      if (dateRange?.start_date) params.set("start_date", dateRange.start_date);
+      if (dateRange?.end_date) params.set("end_date", dateRange.end_date);
 
-      const url = '/reports/revenue-by-technician?' + params.toString();
+      const url = "/reports/revenue-by-technician?" + params.toString();
       const { data } = await apiClient.get(url);
       return data;
     },
@@ -268,16 +282,19 @@ export function useRevenueByTechnician(dateRange?: DateRange) {
 /**
  * Fetch revenue by location
  */
-export function useRevenueByLocation(dateRange?: DateRange, groupBy: 'city' | 'state' | 'zip' = 'city') {
+export function useRevenueByLocation(
+  dateRange?: DateRange,
+  groupBy: "city" | "state" | "zip" = "city",
+) {
   return useQuery({
-    queryKey: [...reportKeys.all, 'revenue-by-location', dateRange, groupBy],
+    queryKey: [...reportKeys.all, "revenue-by-location", dateRange, groupBy],
     queryFn: async (): Promise<RevenueByLocationResponse> => {
       const params = new URLSearchParams();
-      if (dateRange?.start_date) params.set('start_date', dateRange.start_date);
-      if (dateRange?.end_date) params.set('end_date', dateRange.end_date);
-      params.set('group_by', groupBy);
+      if (dateRange?.start_date) params.set("start_date", dateRange.start_date);
+      if (dateRange?.end_date) params.set("end_date", dateRange.end_date);
+      params.set("group_by", groupBy);
 
-      const url = '/reports/revenue-by-location?' + params.toString();
+      const url = "/reports/revenue-by-location?" + params.toString();
       const { data } = await apiClient.get(url);
       return data;
     },
@@ -290,7 +307,7 @@ export function useRevenueByLocation(dateRange?: DateRange, groupBy: 'city' | 's
  */
 export function useCustomerLTV(topN: number = 50) {
   return useQuery({
-    queryKey: [...reportKeys.all, 'customer-ltv', topN],
+    queryKey: [...reportKeys.all, "customer-ltv", topN],
     queryFn: async (): Promise<CustomerLTVResponse> => {
       const url = `/reports/customer-lifetime-value?top_n=${topN}`;
       const { data } = await apiClient.get(url);
@@ -305,13 +322,13 @@ export function useCustomerLTV(topN: number = 50) {
  */
 export function useTechnicianPerformance(dateRange?: DateRange) {
   return useQuery({
-    queryKey: [...reportKeys.all, 'technician-performance', dateRange],
+    queryKey: [...reportKeys.all, "technician-performance", dateRange],
     queryFn: async (): Promise<TechPerformanceResponse> => {
       const params = new URLSearchParams();
-      if (dateRange?.start_date) params.set('start_date', dateRange.start_date);
-      if (dateRange?.end_date) params.set('end_date', dateRange.end_date);
+      if (dateRange?.start_date) params.set("start_date", dateRange.start_date);
+      if (dateRange?.end_date) params.set("end_date", dateRange.end_date);
 
-      const url = '/reports/technician-performance?' + params.toString();
+      const url = "/reports/technician-performance?" + params.toString();
       const { data } = await apiClient.get(url);
       return data;
     },

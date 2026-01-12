@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useState } from "react";
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 interface CompletionData {
   notes: string;
@@ -19,7 +19,7 @@ export function JobCompletionFlow() {
 
   const [step, setStep] = useState(1);
   const [data, setData] = useState<CompletionData>({
-    notes: '',
+    notes: "",
     photos: [],
     signature: null,
   });
@@ -27,22 +27,22 @@ export function JobCompletionFlow() {
   const completeMutation = useMutation({
     mutationFn: async () => {
       await apiClient.patch(`/work-orders/${id}`, {
-        status: 'completed',
+        status: "completed",
         completion_notes: data.notes,
         completed_at: new Date().toISOString(),
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['work-order', id] });
-      queryClient.invalidateQueries({ queryKey: ['technician-jobs'] });
-      navigate('/field');
+      queryClient.invalidateQueries({ queryKey: ["work-order", id] });
+      queryClient.invalidateQueries({ queryKey: ["technician-jobs"] });
+      navigate("/field");
     },
   });
 
   const handlePhotoCapture = (e: React.ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (files) {
-      setData(prev => ({
+      setData((prev) => ({
         ...prev,
         photos: [...prev.photos, ...Array.from(files)],
       }));
@@ -50,7 +50,7 @@ export function JobCompletionFlow() {
   };
 
   const removePhoto = (index: number) => {
-    setData(prev => ({
+    setData((prev) => ({
       ...prev,
       photos: prev.photos.filter((_, i) => i !== index),
     }));
@@ -78,7 +78,7 @@ export function JobCompletionFlow() {
             <div
               key={s}
               className={`h-2 w-16 rounded-full transition-colors ${
-                s <= step ? 'bg-primary' : 'bg-border'
+                s <= step ? "bg-primary" : "bg-border"
               }`}
             />
           ))}
@@ -99,7 +99,9 @@ export function JobCompletionFlow() {
             <label className="block">
               <div className="border-2 border-dashed border-border rounded-lg p-8 text-center cursor-pointer hover:border-primary transition-colors">
                 <span className="text-4xl block mb-2">📷</span>
-                <span className="text-text-secondary">Tap to capture or upload photos</span>
+                <span className="text-text-secondary">
+                  Tap to capture or upload photos
+                </span>
               </div>
               <input
                 type="file"
@@ -152,7 +154,9 @@ export function JobCompletionFlow() {
 
             <textarea
               value={data.notes}
-              onChange={(e) => setData(prev => ({ ...prev, notes: e.target.value }))}
+              onChange={(e) =>
+                setData((prev) => ({ ...prev, notes: e.target.value }))
+              }
               placeholder="Enter completion notes..."
               rows={6}
               className="w-full px-4 py-3 border border-border rounded-lg bg-bg-card text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary"
@@ -186,11 +190,14 @@ export function JobCompletionFlow() {
 
             <div className="border-2 border-dashed border-border rounded-lg p-8 text-center bg-bg-card">
               <span className="text-4xl block mb-2">✍️</span>
-              <span className="text-text-muted">Signature capture coming soon</span>
+              <span className="text-text-muted">
+                Signature capture coming soon
+              </span>
             </div>
 
             <p className="text-xs text-text-muted mt-4 text-center">
-              By signing, the customer confirms the work has been completed satisfactorily.
+              By signing, the customer confirms the work has been completed
+              satisfactorily.
             </p>
 
             <div className="flex gap-3 mt-6">
@@ -205,7 +212,7 @@ export function JobCompletionFlow() {
                 disabled={completeMutation.isPending}
                 className="flex-1 py-3 bg-success text-white rounded-lg font-medium disabled:opacity-50"
               >
-                {completeMutation.isPending ? 'Completing...' : 'Complete Job'}
+                {completeMutation.isPending ? "Completing..." : "Complete Job"}
               </button>
             </div>
 

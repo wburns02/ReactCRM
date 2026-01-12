@@ -4,11 +4,14 @@
  * Dynamic value input that adapts based on field type and operator.
  */
 
-import { useState } from 'react';
-import { cn } from '@/lib/utils.ts';
-import type { RuleOperator } from '@/api/types/customerSuccess.ts';
-import type { FieldDefinition } from './FieldPicker.tsx';
-import { operatorNeedsSecondValue, operatorNeedsNoValue } from './OperatorSelect.tsx';
+import { useState } from "react";
+import { cn } from "@/lib/utils.ts";
+import type { RuleOperator } from "@/api/types/customerSuccess.ts";
+import type { FieldDefinition } from "./FieldPicker.tsx";
+import {
+  operatorNeedsSecondValue,
+  operatorNeedsNoValue,
+} from "./OperatorSelect.tsx";
 
 interface ValueInputProps {
   field: FieldDefinition;
@@ -32,16 +35,20 @@ export function ValueInput({
   // No input needed for null operators
   if (operatorNeedsNoValue(operator)) {
     return (
-      <div className={cn('px-3 py-2 text-sm text-gray-500 italic', className)}>
+      <div className={cn("px-3 py-2 text-sm text-gray-500 italic", className)}>
         No value needed
       </div>
     );
   }
 
   // Render based on field type
-  const renderInput = (inputValue: unknown, inputOnChange: (v: unknown) => void, placeholder?: string) => {
+  const renderInput = (
+    inputValue: unknown,
+    inputOnChange: (v: unknown) => void,
+    placeholder?: string,
+  ) => {
     switch (field.type) {
-      case 'number':
+      case "number":
         return (
           <NumberInput
             value={inputValue as number | undefined}
@@ -51,7 +58,7 @@ export function ValueInput({
           />
         );
 
-      case 'boolean':
+      case "boolean":
         return (
           <BooleanInput
             value={inputValue as boolean | undefined}
@@ -60,7 +67,7 @@ export function ValueInput({
           />
         );
 
-      case 'date':
+      case "date":
         return (
           <DateInput
             value={inputValue as string | undefined}
@@ -69,20 +76,20 @@ export function ValueInput({
           />
         );
 
-      case 'select':
+      case "select":
         return (
           <SelectInput
             value={inputValue as string | undefined}
             options={field.options || []}
             onChange={inputOnChange}
-            multiple={operator === 'in' || operator === 'not_in'}
+            multiple={operator === "in" || operator === "not_in"}
             className={className}
           />
         );
 
-      case 'string':
+      case "string":
       default:
-        return operator === 'in' || operator === 'not_in' ? (
+        return operator === "in" || operator === "not_in" ? (
           <MultiValueInput
             value={inputValue as string[] | undefined}
             onChange={inputOnChange}
@@ -104,9 +111,9 @@ export function ValueInput({
   if (operatorNeedsSecondValue(operator)) {
     return (
       <div className="flex items-center gap-2">
-        {renderInput(value, onChange, 'From')}
+        {renderInput(value, onChange, "From")}
         <span className="text-gray-500 text-sm">and</span>
-        {onValue2Change && renderInput(value2, onValue2Change, 'To')}
+        {onValue2Change && renderInput(value2, onValue2Change, "To")}
       </div>
     );
   }
@@ -125,19 +132,24 @@ interface TextInputProps {
   className?: string;
 }
 
-function TextInput({ value, onChange, placeholder, className }: TextInputProps) {
+function TextInput({
+  value,
+  onChange,
+  placeholder,
+  className,
+}: TextInputProps) {
   return (
     <input
       type="text"
-      value={value || ''}
+      value={value || ""}
       onChange={(e) => onChange(e.target.value)}
-      placeholder={placeholder || 'Enter value...'}
+      placeholder={placeholder || "Enter value..."}
       className={cn(
-        'w-full px-3 py-2 text-sm rounded-lg border transition-colors',
-        'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600',
-        'text-gray-900 dark:text-white placeholder-gray-400',
-        'focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary',
-        className
+        "w-full px-3 py-2 text-sm rounded-lg border transition-colors",
+        "bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600",
+        "text-gray-900 dark:text-white placeholder-gray-400",
+        "focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary",
+        className,
       )}
     />
   );
@@ -150,19 +162,26 @@ interface NumberInputProps {
   className?: string;
 }
 
-function NumberInput({ value, onChange, placeholder, className }: NumberInputProps) {
+function NumberInput({
+  value,
+  onChange,
+  placeholder,
+  className,
+}: NumberInputProps) {
   return (
     <input
       type="number"
-      value={value ?? ''}
-      onChange={(e) => onChange(e.target.value ? Number(e.target.value) : undefined)}
-      placeholder={placeholder || 'Enter number...'}
+      value={value ?? ""}
+      onChange={(e) =>
+        onChange(e.target.value ? Number(e.target.value) : undefined)
+      }
+      placeholder={placeholder || "Enter number..."}
       className={cn(
-        'w-full px-3 py-2 text-sm rounded-lg border transition-colors',
-        'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600',
-        'text-gray-900 dark:text-white placeholder-gray-400',
-        'focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary',
-        className
+        "w-full px-3 py-2 text-sm rounded-lg border transition-colors",
+        "bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600",
+        "text-gray-900 dark:text-white placeholder-gray-400",
+        "focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary",
+        className,
       )}
     />
   );
@@ -176,15 +195,15 @@ interface BooleanInputProps {
 
 function BooleanInput({ value, onChange, className }: BooleanInputProps) {
   return (
-    <div className={cn('flex gap-2', className)}>
+    <div className={cn("flex gap-2", className)}>
       <button
         type="button"
         onClick={() => onChange(true)}
         className={cn(
-          'px-4 py-2 text-sm rounded-lg border transition-colors',
+          "px-4 py-2 text-sm rounded-lg border transition-colors",
           value === true
-            ? 'bg-primary text-white border-primary'
-            : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary'
+            ? "bg-primary text-white border-primary"
+            : "bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary",
         )}
       >
         Yes
@@ -193,10 +212,10 @@ function BooleanInput({ value, onChange, className }: BooleanInputProps) {
         type="button"
         onClick={() => onChange(false)}
         className={cn(
-          'px-4 py-2 text-sm rounded-lg border transition-colors',
+          "px-4 py-2 text-sm rounded-lg border transition-colors",
           value === false
-            ? 'bg-primary text-white border-primary'
-            : 'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary'
+            ? "bg-primary text-white border-primary"
+            : "bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-700 dark:text-gray-300 hover:border-primary",
         )}
       >
         No
@@ -212,14 +231,18 @@ interface DateInputProps {
 }
 
 function DateInput({ value, onChange, className }: DateInputProps) {
-  const [mode, setMode] = useState<'absolute' | 'relative'>('absolute');
+  const [mode, setMode] = useState<"absolute" | "relative">("absolute");
 
-  if (mode === 'relative') {
+  if (mode === "relative") {
     return (
-      <div className={cn('flex items-center gap-2', className)}>
+      <div className={cn("flex items-center gap-2", className)}>
         <input
           type="number"
-          value={typeof value === 'string' && value.startsWith('-') ? parseInt(value.slice(1)) : ''}
+          value={
+            typeof value === "string" && value.startsWith("-")
+              ? parseInt(value.slice(1))
+              : ""
+          }
           onChange={(e) => onChange(`-${e.target.value}d`)}
           placeholder="Days"
           className="w-20 px-3 py-2 text-sm rounded-lg border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
@@ -227,7 +250,7 @@ function DateInput({ value, onChange, className }: DateInputProps) {
         <span className="text-sm text-gray-500">days ago</span>
         <button
           type="button"
-          onClick={() => setMode('absolute')}
+          onClick={() => setMode("absolute")}
           className="text-xs text-primary hover:underline"
         >
           Use date
@@ -237,16 +260,16 @@ function DateInput({ value, onChange, className }: DateInputProps) {
   }
 
   return (
-    <div className={cn('flex items-center gap-2', className)}>
+    <div className={cn("flex items-center gap-2", className)}>
       <input
         type="date"
-        value={value || ''}
+        value={value || ""}
         onChange={(e) => onChange(e.target.value)}
         className="flex-1 px-3 py-2 text-sm rounded-lg border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
       />
       <button
         type="button"
-        onClick={() => setMode('relative')}
+        onClick={() => setMode("relative")}
         className="text-xs text-primary hover:underline whitespace-nowrap"
       >
         Use relative
@@ -263,18 +286,28 @@ interface SelectInputProps {
   className?: string;
 }
 
-function SelectInput({ value, options, onChange, multiple, className }: SelectInputProps) {
+function SelectInput({
+  value,
+  options,
+  onChange,
+  multiple,
+  className,
+}: SelectInputProps) {
   const [isOpen, setIsOpen] = useState(false);
 
   const selectedValues = multiple
-    ? (Array.isArray(value) ? value : value ? [value] : [])
+    ? Array.isArray(value)
+      ? value
+      : value
+        ? [value]
+        : []
     : [];
   const singleValue = !multiple ? (value as string) : undefined;
 
   const handleSelect = (optionValue: string) => {
     if (multiple) {
       if (selectedValues.includes(optionValue)) {
-        onChange(selectedValues.filter(v => v !== optionValue));
+        onChange(selectedValues.filter((v) => v !== optionValue));
       } else {
         onChange([...selectedValues, optionValue]);
       }
@@ -284,23 +317,24 @@ function SelectInput({ value, options, onChange, multiple, className }: SelectIn
     }
   };
 
-  const getLabel = (val: string) => options.find(o => o.value === val)?.label || val;
+  const getLabel = (val: string) =>
+    options.find((o) => o.value === val)?.label || val;
 
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn("relative", className)}>
       <button
         type="button"
         onClick={() => setIsOpen(!isOpen)}
         className={cn(
-          'w-full px-3 py-2 text-left text-sm rounded-lg border transition-colors',
-          'bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600',
-          'hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary'
+          "w-full px-3 py-2 text-left text-sm rounded-lg border transition-colors",
+          "bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600",
+          "hover:border-primary focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary",
         )}
       >
         {multiple ? (
           selectedValues.length > 0 ? (
             <div className="flex flex-wrap gap-1">
-              {selectedValues.map(v => (
+              {selectedValues.map((v) => (
                 <span
                   key={v}
                   className="inline-flex items-center gap-1 px-2 py-0.5 bg-primary/10 text-primary text-xs rounded"
@@ -314,8 +348,18 @@ function SelectInput({ value, options, onChange, multiple, className }: SelectIn
                     }}
                     className="hover:text-primary-hover"
                   >
-                    <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                    <svg
+                      className="w-3 h-3"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M6 18L18 6M6 6l12 12"
+                      />
                     </svg>
                   </button>
                 </span>
@@ -325,8 +369,12 @@ function SelectInput({ value, options, onChange, multiple, className }: SelectIn
             <span className="text-gray-400">Select values...</span>
           )
         ) : (
-          <span className={singleValue ? 'text-gray-900 dark:text-white' : 'text-gray-400'}>
-            {singleValue ? getLabel(singleValue) : 'Select...'}
+          <span
+            className={
+              singleValue ? "text-gray-900 dark:text-white" : "text-gray-400"
+            }
+          >
+            {singleValue ? getLabel(singleValue) : "Select..."}
           </span>
         )}
         <svg
@@ -335,7 +383,12 @@ function SelectInput({ value, options, onChange, multiple, className }: SelectIn
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
       </button>
 
@@ -347,15 +400,30 @@ function SelectInput({ value, options, onChange, multiple, className }: SelectIn
                 key={option.value}
                 onClick={() => handleSelect(option.value)}
                 className={cn(
-                  'w-full px-3 py-2 text-left text-sm rounded-lg transition-colors flex items-center justify-between',
-                  'hover:bg-gray-100 dark:hover:bg-gray-700',
-                  (multiple ? selectedValues.includes(option.value) : singleValue === option.value) && 'bg-primary/10 text-primary'
+                  "w-full px-3 py-2 text-left text-sm rounded-lg transition-colors flex items-center justify-between",
+                  "hover:bg-gray-100 dark:hover:bg-gray-700",
+                  (multiple
+                    ? selectedValues.includes(option.value)
+                    : singleValue === option.value) &&
+                    "bg-primary/10 text-primary",
                 )}
               >
                 <span>{option.label}</span>
-                {(multiple ? selectedValues.includes(option.value) : singleValue === option.value) && (
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                {(multiple
+                  ? selectedValues.includes(option.value)
+                  : singleValue === option.value) && (
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M5 13l4 4L19 7"
+                    />
                   </svg>
                 )}
               </button>
@@ -374,35 +442,40 @@ interface MultiValueInputProps {
   className?: string;
 }
 
-function MultiValueInput({ value, onChange, placeholder, className }: MultiValueInputProps) {
-  const [inputValue, setInputValue] = useState('');
+function MultiValueInput({
+  value,
+  onChange,
+  placeholder,
+  className,
+}: MultiValueInputProps) {
+  const [inputValue, setInputValue] = useState("");
   const values = value || [];
 
   const addValue = () => {
     if (inputValue.trim() && !values.includes(inputValue.trim())) {
       onChange([...values, inputValue.trim()]);
-      setInputValue('');
+      setInputValue("");
     }
   };
 
   const removeValue = (v: string) => {
-    onChange(values.filter(val => val !== v));
+    onChange(values.filter((val) => val !== v));
   };
 
   return (
-    <div className={cn('space-y-2', className)}>
+    <div className={cn("space-y-2", className)}>
       <div className="flex gap-2">
         <input
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
           onKeyDown={(e) => {
-            if (e.key === 'Enter') {
+            if (e.key === "Enter") {
               e.preventDefault();
               addValue();
             }
           }}
-          placeholder={placeholder || 'Type and press Enter...'}
+          placeholder={placeholder || "Type and press Enter..."}
           className="flex-1 px-3 py-2 text-sm rounded-lg border bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-600 text-gray-900 dark:text-white placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-primary/20 focus:border-primary"
         />
         <button
@@ -426,8 +499,18 @@ function MultiValueInput({ value, onChange, placeholder, className }: MultiValue
                 onClick={() => removeValue(v)}
                 className="text-gray-400 hover:text-gray-600 dark:hover:text-gray-200"
               >
-                <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="w-3 h-3"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
             </span>

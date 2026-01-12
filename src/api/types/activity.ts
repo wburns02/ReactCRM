@@ -1,26 +1,26 @@
-import { z } from 'zod';
-import { paginatedResponseSchema } from './common.ts';
+import { z } from "zod";
+import { paginatedResponseSchema } from "./common.ts";
 
 /**
  * Activity Type enum
  */
 export const ActivityType = {
-  CALL: 'call',
-  EMAIL: 'email',
-  SMS: 'sms',
-  NOTE: 'note',
-  MEETING: 'meeting',
-  TASK: 'task',
+  CALL: "call",
+  EMAIL: "email",
+  SMS: "sms",
+  NOTE: "note",
+  MEETING: "meeting",
+  TASK: "task",
 } as const;
 export type ActivityType = (typeof ActivityType)[keyof typeof ActivityType];
 
 export const activityTypeSchema = z.enum([
-  'call',
-  'email',
-  'sms',
-  'note',
-  'meeting',
-  'task',
+  "call",
+  "email",
+  "sms",
+  "note",
+  "meeting",
+  "task",
 ]);
 
 /**
@@ -42,7 +42,8 @@ export type Activity = z.infer<typeof activitySchema>;
 /**
  * Paginated activity list response
  */
-export const activityListResponseSchema = paginatedResponseSchema(activitySchema);
+export const activityListResponseSchema =
+  paginatedResponseSchema(activitySchema);
 export type ActivityListResponse = z.infer<typeof activityListResponseSchema>;
 
 /**
@@ -61,7 +62,7 @@ export interface ActivityFilters {
 export const activityFormSchema = z.object({
   customer_id: z.string().uuid(),
   activity_type: activityTypeSchema,
-  description: z.string().min(1, 'Description is required'),
+  description: z.string().min(1, "Description is required"),
   activity_date: z.string().optional(),
 });
 
@@ -71,22 +72,22 @@ export type ActivityFormData = z.infer<typeof activityFormSchema>;
  * Display labels for activity types
  */
 export const ACTIVITY_TYPE_LABELS: Record<ActivityType, string> = {
-  call: 'Phone Call',
-  email: 'Email',
-  sms: 'SMS',
-  note: 'Note',
-  meeting: 'Meeting',
-  task: 'Task',
+  call: "Phone Call",
+  email: "Email",
+  sms: "SMS",
+  note: "Note",
+  meeting: "Meeting",
+  task: "Task",
 };
 
 /**
  * Icons for activity types
  */
 export const ACTIVITY_TYPE_ICONS: Record<ActivityType, string> = {
-  call: '📞',
-  email: '📧',
-  sms: '💬',
-  note: '📝',
-  meeting: '👥',
-  task: '✓',
+  call: "📞",
+  email: "📧",
+  sms: "💬",
+  note: "📝",
+  meeting: "👥",
+  task: "✓",
 };

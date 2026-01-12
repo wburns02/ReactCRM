@@ -1,16 +1,16 @@
-import { useState, useCallback, useEffect } from 'react';
+import { useState, useCallback, useEffect } from "react";
 
 /**
  * Onboarding step names
  */
 export type OnboardingStepName =
-  | 'company'
-  | 'customers'
-  | 'technicians'
-  | 'services'
-  | 'integrations'
-  | 'firstWorkOrder'
-  | 'complete';
+  | "company"
+  | "customers"
+  | "technicians"
+  | "services"
+  | "integrations"
+  | "firstWorkOrder"
+  | "complete";
 
 /**
  * Company data collected in step 1
@@ -52,7 +52,7 @@ export interface OnboardingTechnician {
  * Enhanced technician with roles and certifications
  */
 export interface EnhancedTechnician extends OnboardingTechnician {
-  role: 'technician' | 'lead_technician' | 'supervisor';
+  role: "technician" | "lead_technician" | "supervisor";
   certifications: string[];
   sendInvite: boolean;
 }
@@ -109,51 +109,51 @@ export const ONBOARDING_STEPS: {
   isOptional: boolean;
 }[] = [
   {
-    name: 'company',
-    title: 'Company Setup',
-    description: 'Tell us about your business',
+    name: "company",
+    title: "Company Setup",
+    description: "Tell us about your business",
     isOptional: false,
   },
   {
-    name: 'customers',
-    title: 'Import Customers',
-    description: 'Add your existing customers',
+    name: "customers",
+    title: "Import Customers",
+    description: "Add your existing customers",
     isOptional: true,
   },
   {
-    name: 'technicians',
-    title: 'Add Technicians',
-    description: 'Set up your team',
+    name: "technicians",
+    title: "Add Technicians",
+    description: "Set up your team",
     isOptional: true,
   },
   {
-    name: 'services',
-    title: 'Configure Services',
-    description: 'Define your service offerings',
+    name: "services",
+    title: "Configure Services",
+    description: "Define your service offerings",
     isOptional: true,
   },
   {
-    name: 'integrations',
-    title: 'Connect Integrations',
-    description: 'Link your existing tools',
+    name: "integrations",
+    title: "Connect Integrations",
+    description: "Link your existing tools",
     isOptional: true,
   },
   {
-    name: 'firstWorkOrder',
-    title: 'First Work Order',
-    description: 'Create your first job',
+    name: "firstWorkOrder",
+    title: "First Work Order",
+    description: "Create your first job",
     isOptional: true,
   },
   {
-    name: 'complete',
-    title: 'All Done!',
-    description: 'You are ready to go',
+    name: "complete",
+    title: "All Done!",
+    description: "You are ready to go",
     isOptional: false,
   },
 ];
 
-const STORAGE_KEY = 'crm_onboarding_progress';
-const COMPLETED_KEY = 'crm_onboarding_completed';
+const STORAGE_KEY = "crm_onboarding_progress";
+const COMPLETED_KEY = "crm_onboarding_completed";
 
 /**
  * Default empty onboarding data
@@ -161,12 +161,12 @@ const COMPLETED_KEY = 'crm_onboarding_completed';
 function getDefaultData(): OnboardingData {
   return {
     company: {
-      name: '',
-      address: '',
-      city: '',
-      state: '',
-      zipCode: '',
-      phone: '',
+      name: "",
+      address: "",
+      city: "",
+      state: "",
+      zipCode: "",
+      phone: "",
       logo: undefined,
     },
     customers: [],
@@ -222,7 +222,7 @@ function clearProgress(): void {
  */
 export function isOnboardingCompleted(): boolean {
   try {
-    return localStorage.getItem(COMPLETED_KEY) === 'true';
+    return localStorage.getItem(COMPLETED_KEY) === "true";
   } catch {
     return false;
   }
@@ -233,7 +233,7 @@ export function isOnboardingCompleted(): boolean {
  */
 function markOnboardingCompleted(): void {
   try {
-    localStorage.setItem(COMPLETED_KEY, 'true');
+    localStorage.setItem(COMPLETED_KEY, "true");
     clearProgress();
   } catch {
     // Ignore storage errors
@@ -269,7 +269,9 @@ function getInitialState(): { step: number; data: OnboardingData } {
 export function useOnboarding() {
   // Use lazy initialization to load from localStorage
   const [currentStep, setCurrentStep] = useState(() => getInitialState().step);
-  const [data, setData] = useState<OnboardingData>(() => getInitialState().data);
+  const [data, setData] = useState<OnboardingData>(
+    () => getInitialState().data,
+  );
   const [isLoaded] = useState(true); // Always loaded after lazy init
 
   // Save progress whenever step or data changes
@@ -283,7 +285,7 @@ export function useOnboarding() {
   const currentStepConfig = ONBOARDING_STEPS[currentStep];
   const isFirstStep = currentStep === 0;
   const isLastStep = currentStep === totalSteps - 1;
-  const isCompleteStep = currentStepConfig.name === 'complete';
+  const isCompleteStep = currentStepConfig.name === "complete";
 
   /**
    * Go to next step
@@ -312,7 +314,7 @@ export function useOnboarding() {
         setCurrentStep(step);
       }
     },
-    [totalSteps]
+    [totalSteps],
   );
 
   /**
@@ -417,12 +419,15 @@ export function useOnboarding() {
   /**
    * Update integration status
    */
-  const updateIntegrations = useCallback((integrations: Partial<IntegrationStatus>) => {
-    setData((prev) => ({
-      ...prev,
-      integrations: { ...prev.integrations, ...integrations },
-    }));
-  }, []);
+  const updateIntegrations = useCallback(
+    (integrations: Partial<IntegrationStatus>) => {
+      setData((prev) => ({
+        ...prev,
+        integrations: { ...prev.integrations, ...integrations },
+      }));
+    },
+    [],
+  );
 
   /**
    * Save first work order
@@ -437,14 +442,17 @@ export function useOnboarding() {
   /**
    * Update technician (for enhanced technician data)
    */
-  const updateTechnician = useCallback((technicianId: string, updates: Partial<OnboardingTechnician>) => {
-    setData((prev) => ({
-      ...prev,
-      technicians: prev.technicians.map((t) =>
-        t.id === technicianId ? { ...t, ...updates } : t
-      ),
-    }));
-  }, []);
+  const updateTechnician = useCallback(
+    (technicianId: string, updates: Partial<OnboardingTechnician>) => {
+      setData((prev) => ({
+        ...prev,
+        technicians: prev.technicians.map((t) =>
+          t.id === technicianId ? { ...t, ...updates } : t,
+        ),
+      }));
+    },
+    [],
+  );
 
   /**
    * Complete onboarding
@@ -458,7 +466,7 @@ export function useOnboarding() {
    */
   const isStepValid = useCallback((): boolean => {
     switch (currentStepConfig.name) {
-      case 'company':
+      case "company":
         return !!(
           data.company.name &&
           data.company.address &&
@@ -467,13 +475,13 @@ export function useOnboarding() {
           data.company.zipCode &&
           data.company.phone
         );
-      case 'customers':
-      case 'technicians':
-      case 'services':
-      case 'integrations':
-      case 'firstWorkOrder':
+      case "customers":
+      case "technicians":
+      case "services":
+      case "integrations":
+      case "firstWorkOrder":
         return true; // Optional steps are always valid
-      case 'complete':
+      case "complete":
         return true;
       default:
         return false;

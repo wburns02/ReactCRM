@@ -2,12 +2,12 @@
  * Payment Plan Calculator Component
  * Interactive calculator showing monthly payment options
  */
-import { useState, useMemo } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/Label';
-import { formatCurrency } from '@/lib/utils';
-import { cn } from '@/lib/utils';
+import { useState, useMemo } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
+import { formatCurrency } from "@/lib/utils";
+import { cn } from "@/lib/utils";
 
 interface PaymentPlanCalculatorProps {
   defaultAmount?: number;
@@ -28,20 +28,27 @@ interface SelectedPlan {
 
 // Standard financing terms (these would come from provider in production)
 const FINANCING_TERMS = [
-  { termMonths: 6, apr: 0, label: '6 months', promo: true },
-  { termMonths: 12, apr: 9.99, label: '12 months' },
-  { termMonths: 24, apr: 12.99, label: '24 months' },
-  { termMonths: 36, apr: 14.99, label: '36 months' },
-  { termMonths: 48, apr: 17.99, label: '48 months' },
-  { termMonths: 60, apr: 19.99, label: '60 months' },
+  { termMonths: 6, apr: 0, label: "6 months", promo: true },
+  { termMonths: 12, apr: 9.99, label: "12 months" },
+  { termMonths: 24, apr: 12.99, label: "24 months" },
+  { termMonths: 36, apr: 14.99, label: "36 months" },
+  { termMonths: 48, apr: 17.99, label: "48 months" },
+  { termMonths: 60, apr: 19.99, label: "60 months" },
 ];
 
-function calculateMonthlyPayment(principal: number, annualRate: number, months: number): number {
+function calculateMonthlyPayment(
+  principal: number,
+  annualRate: number,
+  months: number,
+): number {
   if (annualRate === 0) {
     return principal / months;
   }
   const monthlyRate = annualRate / 100 / 12;
-  return (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) / (Math.pow(1 + monthlyRate, months) - 1);
+  return (
+    (principal * monthlyRate * Math.pow(1 + monthlyRate, months)) /
+    (Math.pow(1 + monthlyRate, months) - 1)
+  );
 }
 
 export function PaymentPlanCalculator({
@@ -57,8 +64,12 @@ export function PaymentPlanCalculator({
   const selectedTerm = FINANCING_TERMS[selectedTermIndex];
 
   const calculations = useMemo(() => {
-    return FINANCING_TERMS.map(term => {
-      const monthlyPayment = calculateMonthlyPayment(amount, term.apr, term.termMonths);
+    return FINANCING_TERMS.map((term) => {
+      const monthlyPayment = calculateMonthlyPayment(
+        amount,
+        term.apr,
+        term.termMonths,
+      );
       const totalPayment = monthlyPayment * term.termMonths;
       const totalInterest = totalPayment - amount;
       return {
@@ -73,7 +84,7 @@ export function PaymentPlanCalculator({
   const selectedCalculation = calculations[selectedTermIndex];
 
   const handleAmountChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    const value = parseFloat(e.target.value.replace(/[^0-9.]/g, '')) || 0;
+    const value = parseFloat(e.target.value.replace(/[^0-9.]/g, "")) || 0;
     setAmount(Math.min(Math.max(value, minAmount), maxAmount));
   };
 
@@ -106,7 +117,9 @@ export function PaymentPlanCalculator({
         <div>
           <Label htmlFor="finance-amount">Finance Amount</Label>
           <div className="mt-1 relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">$</span>
+            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
+              $
+            </span>
             <Input
               id="finance-amount"
               type="text"
@@ -143,10 +156,10 @@ export function PaymentPlanCalculator({
                 key={calc.termMonths}
                 onClick={() => setSelectedTermIndex(index)}
                 className={cn(
-                  'relative p-3 rounded-lg border-2 text-left transition-all',
+                  "relative p-3 rounded-lg border-2 text-left transition-all",
                   selectedTermIndex === index
-                    ? 'border-primary bg-primary/5'
-                    : 'border-border hover:border-primary/50'
+                    ? "border-primary bg-primary/5"
+                    : "border-border hover:border-primary/50",
                 )}
               >
                 {calc.promo && (
@@ -157,7 +170,9 @@ export function PaymentPlanCalculator({
                 <div className="font-medium text-sm">{calc.label}</div>
                 <div className="text-lg font-bold text-primary">
                   {formatCurrency(calc.monthlyPayment)}
-                  <span className="text-xs font-normal text-text-muted">/mo</span>
+                  <span className="text-xs font-normal text-text-muted">
+                    /mo
+                  </span>
                 </div>
                 <div className="text-xs text-text-muted">{calc.apr}% APR</div>
               </button>
@@ -175,7 +190,9 @@ export function PaymentPlanCalculator({
           </div>
           <div className="flex justify-between items-center text-sm">
             <span className="text-text-muted">Term Length</span>
-            <span className="font-medium">{selectedTerm.termMonths} months</span>
+            <span className="font-medium">
+              {selectedTerm.termMonths} months
+            </span>
           </div>
           <div className="flex justify-between items-center text-sm">
             <span className="text-text-muted">Interest Rate (APR)</span>
@@ -199,7 +216,9 @@ export function PaymentPlanCalculator({
           </div>
           <div className="flex justify-between items-center text-sm">
             <span className="text-text-muted">Total Payment</span>
-            <span className="font-semibold">{formatCurrency(selectedCalculation.totalPayment)}</span>
+            <span className="font-semibold">
+              {formatCurrency(selectedCalculation.totalPayment)}
+            </span>
           </div>
         </div>
 

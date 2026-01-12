@@ -3,12 +3,12 @@
  * Real-time work order status tracking for customers
  * Can be embedded in external websites or sent via email link
  */
-import { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { cn } from '@/lib/utils';
+import { useState, useEffect } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { cn } from "@/lib/utils";
 
 // ============================================
 // Widget Configuration Types
@@ -42,14 +42,14 @@ export interface StatusWidgetConfig {
 // ============================================
 
 type WorkOrderStatus =
-  | 'pending'
-  | 'scheduled'
-  | 'assigned'
-  | 'en_route'
-  | 'arrived'
-  | 'in_progress'
-  | 'completed'
-  | 'cancelled';
+  | "pending"
+  | "scheduled"
+  | "assigned"
+  | "en_route"
+  | "arrived"
+  | "in_progress"
+  | "completed"
+  | "cancelled";
 
 interface TechnicianInfo {
   name: string;
@@ -88,20 +88,23 @@ interface WorkOrderDetails {
 // Status Configuration
 // ============================================
 
-const statusConfig: Record<WorkOrderStatus, {
-  label: string;
-  color: 'warning' | 'info' | 'primary' | 'success' | 'danger' | 'secondary';
-  icon: string;
-  step: number;
-}> = {
-  pending: { label: 'Pending', color: 'secondary', icon: '1', step: 1 },
-  scheduled: { label: 'Scheduled', color: 'info', icon: '2', step: 2 },
-  assigned: { label: 'Technician Assigned', color: 'info', icon: '3', step: 3 },
-  en_route: { label: 'On The Way', color: 'warning', icon: '4', step: 4 },
-  arrived: { label: 'Arrived', color: 'primary', icon: '5', step: 5 },
-  in_progress: { label: 'In Progress', color: 'primary', icon: '6', step: 6 },
-  completed: { label: 'Completed', color: 'success', icon: '7', step: 7 },
-  cancelled: { label: 'Cancelled', color: 'danger', icon: 'X', step: -1 },
+const statusConfig: Record<
+  WorkOrderStatus,
+  {
+    label: string;
+    color: "warning" | "info" | "primary" | "success" | "danger" | "secondary";
+    icon: string;
+    step: number;
+  }
+> = {
+  pending: { label: "Pending", color: "secondary", icon: "1", step: 1 },
+  scheduled: { label: "Scheduled", color: "info", icon: "2", step: 2 },
+  assigned: { label: "Technician Assigned", color: "info", icon: "3", step: 3 },
+  en_route: { label: "On The Way", color: "warning", icon: "4", step: 4 },
+  arrived: { label: "Arrived", color: "primary", icon: "5", step: 5 },
+  in_progress: { label: "In Progress", color: "primary", icon: "6", step: 6 },
+  completed: { label: "Completed", color: "success", icon: "7", step: 7 },
+  cancelled: { label: "Cancelled", color: "danger", icon: "X", step: -1 },
 };
 
 // ============================================
@@ -111,17 +114,17 @@ const statusConfig: Record<WorkOrderStatus, {
 export function StatusWidget({
   trackingId: initialTrackingId,
   companyId,
-  primaryColor = '#2563eb',
+  primaryColor = "#2563eb",
   logoUrl,
-  companyName = 'Service Provider',
+  companyName = "Service Provider",
   showTechnicianInfo = true,
   showETA = true,
   enableLiveTracking = false,
   refreshInterval = 30000, // 30 seconds
   className,
 }: StatusWidgetConfig) {
-  const [trackingId, setTrackingId] = useState(initialTrackingId || '');
-  const [searchInput, setSearchInput] = useState('');
+  const [trackingId, setTrackingId] = useState(initialTrackingId || "");
+  const [searchInput, setSearchInput] = useState("");
   const [workOrder, setWorkOrder] = useState<WorkOrderDetails | null>(null);
   const [loading, setLoading] = useState(!!initialTrackingId);
   const [error, setError] = useState<string | null>(null);
@@ -136,22 +139,24 @@ export function StatusWidget({
     try {
       const response = await fetch(`/api/v2/widgets/status/${id}`, {
         headers: {
-          'X-Widget-Company': companyId,
+          "X-Widget-Company": companyId,
         },
       });
 
       if (!response.ok) {
         if (response.status === 404) {
-          throw new Error('Work order not found. Please check your tracking code.');
+          throw new Error(
+            "Work order not found. Please check your tracking code.",
+          );
         }
-        throw new Error('Failed to load status');
+        throw new Error("Failed to load status");
       }
 
       const data = await response.json();
       setWorkOrder(data);
       setTrackingId(id);
     } catch (err) {
-      setError(err instanceof Error ? err.message : 'An error occurred');
+      setError(err instanceof Error ? err.message : "An error occurred");
       setWorkOrder(null);
     } finally {
       setLoading(false);
@@ -167,7 +172,8 @@ export function StatusWidget({
 
   useEffect(() => {
     if (!trackingId || !workOrder) return;
-    if (workOrder.status === 'completed' || workOrder.status === 'cancelled') return;
+    if (workOrder.status === "completed" || workOrder.status === "cancelled")
+      return;
 
     const interval = setInterval(() => {
       loadWorkOrder(trackingId);
@@ -187,11 +193,11 @@ export function StatusWidget({
   const formatDateTime = (dateStr: string, timeStr?: string) => {
     const date = new Date(dateStr);
     const options: Intl.DateTimeFormatOptions = {
-      weekday: 'long',
-      month: 'short',
-      day: 'numeric',
+      weekday: "long",
+      month: "short",
+      day: "numeric",
     };
-    let formatted = date.toLocaleDateString('en-US', options);
+    let formatted = date.toLocaleDateString("en-US", options);
     if (timeStr) {
       formatted += ` at ${timeStr}`;
     }
@@ -199,26 +205,30 @@ export function StatusWidget({
   };
 
   const formatTimestamp = (timestamp: string) => {
-    return new Date(timestamp).toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
+    return new Date(timestamp).toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
     });
   };
 
   // Custom CSS variables for branding
   const brandStyles = {
-    '--widget-primary': primaryColor,
+    "--widget-primary": primaryColor,
   } as React.CSSProperties;
 
   // Search form view
   if (!workOrder && !loading) {
     return (
-      <Card className={cn('max-w-md mx-auto', className)} style={brandStyles}>
+      <Card className={cn("max-w-md mx-auto", className)} style={brandStyles}>
         <CardHeader className="text-center">
           {logoUrl && (
-            <img src={logoUrl} alt={companyName} className="h-10 mx-auto mb-2" />
+            <img
+              src={logoUrl}
+              alt={companyName}
+              className="h-10 mx-auto mb-2"
+            />
           )}
           <CardTitle>Track Your Service</CardTitle>
           <p className="text-sm text-text-muted">
@@ -250,7 +260,8 @@ export function StatusWidget({
             </Button>
           </form>
           <p className="text-xs text-text-muted text-center mt-4">
-            Your tracking code was sent to your email when the service was scheduled.
+            Your tracking code was sent to your email when the service was
+            scheduled.
           </p>
         </CardContent>
       </Card>
@@ -260,7 +271,7 @@ export function StatusWidget({
   // Loading state
   if (loading) {
     return (
-      <Card className={cn('max-w-md mx-auto', className)} style={brandStyles}>
+      <Card className={cn("max-w-md mx-auto", className)} style={brandStyles}>
         <CardContent className="py-12">
           <div className="flex items-center justify-center">
             <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent" />
@@ -274,10 +285,11 @@ export function StatusWidget({
   if (!workOrder) return null;
 
   const currentStatus = statusConfig[workOrder.status];
-  const isActive = workOrder.status !== 'completed' && workOrder.status !== 'cancelled';
+  const isActive =
+    workOrder.status !== "completed" && workOrder.status !== "cancelled";
 
   return (
-    <Card className={cn('max-w-md mx-auto', className)} style={brandStyles}>
+    <Card className={cn("max-w-md mx-auto", className)} style={brandStyles}>
       <CardHeader className="border-b">
         <div className="flex items-center justify-between">
           <div>
@@ -288,19 +300,20 @@ export function StatusWidget({
               #{workOrder.trackingCode}
             </p>
           </div>
-          <Badge variant={currentStatus.color}>
-            {currentStatus.label}
-          </Badge>
+          <Badge variant={currentStatus.color}>{currentStatus.label}</Badge>
         </div>
       </CardHeader>
 
       <CardContent className="pt-4 space-y-6">
         {/* Service Info */}
         <div className="space-y-2">
-          <h3 className="font-medium text-text-primary">{workOrder.serviceType}</h3>
+          <h3 className="font-medium text-text-primary">
+            {workOrder.serviceType}
+          </h3>
           <p className="text-sm text-text-secondary">{workOrder.address}</p>
           <p className="text-sm text-text-muted">
-            Scheduled: {formatDateTime(workOrder.scheduledDate, workOrder.scheduledTime)}
+            Scheduled:{" "}
+            {formatDateTime(workOrder.scheduledDate, workOrder.scheduledTime)}
           </p>
         </div>
 
@@ -328,28 +341,48 @@ export function StatusWidget({
               />
             ) : (
               <div className="w-12 h-12 rounded-full bg-primary/10 flex items-center justify-center">
-                <span className="text-lg font-medium" style={{ color: primaryColor }}>
+                <span
+                  className="text-lg font-medium"
+                  style={{ color: primaryColor }}
+                >
                   {workOrder.technician.name.charAt(0)}
                 </span>
               </div>
             )}
             <div className="flex-1">
-              <p className="font-medium text-text-primary">{workOrder.technician.name}</p>
+              <p className="font-medium text-text-primary">
+                {workOrder.technician.name}
+              </p>
               <p className="text-sm text-text-muted">Your Technician</p>
               {workOrder.technician.rating && (
                 <div className="flex items-center gap-1 text-sm">
-                  <span className="text-warning">{'*'.repeat(Math.round(workOrder.technician.rating))}</span>
-                  <span className="text-text-muted">{workOrder.technician.rating.toFixed(1)}</span>
+                  <span className="text-warning">
+                    {"*".repeat(Math.round(workOrder.technician.rating))}
+                  </span>
+                  <span className="text-text-muted">
+                    {workOrder.technician.rating.toFixed(1)}
+                  </span>
                 </div>
               )}
             </div>
-            {workOrder.technician.phone && workOrder.status === 'en_route' && (
+            {workOrder.technician.phone && workOrder.status === "en_route" && (
               <a
                 href={`tel:${workOrder.technician.phone}`}
                 className="p-2 rounded-full hover:bg-bg-muted transition-colors"
               >
-                <svg className="w-5 h-5" style={{ color: primaryColor }} fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                <svg
+                  className="w-5 h-5"
+                  style={{ color: primaryColor }}
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                  />
                 </svg>
               </a>
             )}
@@ -357,24 +390,44 @@ export function StatusWidget({
         )}
 
         {/* Live Tracking Map Placeholder */}
-        {enableLiveTracking && workOrder.technicianLocation && workOrder.status === 'en_route' && (
-          <div className="h-48 bg-bg-muted rounded-lg flex items-center justify-center">
-            <div className="text-center">
-              <svg className="w-8 h-8 mx-auto text-text-muted mb-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-              <p className="text-sm text-text-muted">Live tracking map</p>
-              <p className="text-xs text-text-muted">
-                Last update: {formatTimestamp(workOrder.technicianLocation.lastUpdate)}
-              </p>
+        {enableLiveTracking &&
+          workOrder.technicianLocation &&
+          workOrder.status === "en_route" && (
+            <div className="h-48 bg-bg-muted rounded-lg flex items-center justify-center">
+              <div className="text-center">
+                <svg
+                  className="w-8 h-8 mx-auto text-text-muted mb-2"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+                  />
+                </svg>
+                <p className="text-sm text-text-muted">Live tracking map</p>
+                <p className="text-xs text-text-muted">
+                  Last update:{" "}
+                  {formatTimestamp(workOrder.technicianLocation.lastUpdate)}
+                </p>
+              </div>
             </div>
-          </div>
-        )}
+          )}
 
         {/* Progress Timeline */}
         <div className="space-y-3">
-          <h4 className="text-sm font-medium text-text-primary">Status History</h4>
+          <h4 className="text-sm font-medium text-text-primary">
+            Status History
+          </h4>
           <div className="space-y-0">
             {workOrder.statusHistory.map((update, index) => {
               const config = statusConfig[update.status];
@@ -385,12 +438,12 @@ export function StatusWidget({
                   <div className="flex flex-col items-center">
                     <div
                       className={cn(
-                        'w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium',
-                        isLast
-                          ? 'text-white'
-                          : 'bg-bg-muted text-text-muted'
+                        "w-6 h-6 rounded-full flex items-center justify-center text-xs font-medium",
+                        isLast ? "text-white" : "bg-bg-muted text-text-muted",
                       )}
-                      style={isLast ? { backgroundColor: primaryColor } : undefined}
+                      style={
+                        isLast ? { backgroundColor: primaryColor } : undefined
+                      }
                     >
                       {config.icon}
                     </div>
@@ -399,17 +452,21 @@ export function StatusWidget({
                     )}
                   </div>
                   <div className="flex-1 pb-4">
-                    <p className={cn(
-                      'text-sm font-medium',
-                      isLast ? 'text-text-primary' : 'text-text-secondary'
-                    )}>
+                    <p
+                      className={cn(
+                        "text-sm font-medium",
+                        isLast ? "text-text-primary" : "text-text-secondary",
+                      )}
+                    >
                       {config.label}
                     </p>
                     <p className="text-xs text-text-muted">
                       {formatTimestamp(update.timestamp)}
                     </p>
                     {update.message && (
-                      <p className="text-sm text-text-secondary mt-1">{update.message}</p>
+                      <p className="text-sm text-text-secondary mt-1">
+                        {update.message}
+                      </p>
                     )}
                   </div>
                 </div>
@@ -419,10 +476,14 @@ export function StatusWidget({
         </div>
 
         {/* Completed Summary */}
-        {workOrder.status === 'completed' && workOrder.technicianNotes && (
+        {workOrder.status === "completed" && workOrder.technicianNotes && (
           <div className="p-4 bg-success/10 rounded-lg">
-            <h4 className="text-sm font-medium text-success mb-2">Service Complete</h4>
-            <p className="text-sm text-text-secondary">{workOrder.technicianNotes}</p>
+            <h4 className="text-sm font-medium text-success mb-2">
+              Service Complete
+            </h4>
+            <p className="text-sm text-text-secondary">
+              {workOrder.technicianNotes}
+            </p>
           </div>
         )}
 
@@ -432,8 +493,8 @@ export function StatusWidget({
           className="w-full"
           onClick={() => {
             setWorkOrder(null);
-            setTrackingId('');
-            setSearchInput('');
+            setTrackingId("");
+            setSearchInput("");
           }}
         >
           Track Another Service

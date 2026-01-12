@@ -1,16 +1,16 @@
-import { useRef, useState } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
+import { useRef, useState } from "react";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
 
 export interface PhotoData {
-  type: 'before' | 'after' | 'manifest' | 'other';
+  type: "before" | "after" | "manifest" | "other";
   image_data: string; // base64
   captured_at: string;
   location?: { lat: number; lng: number };
 }
 
 interface PhotoCaptureProps {
-  type: 'before' | 'after' | 'manifest' | 'other';
+  type: "before" | "after" | "manifest" | "other";
   onCapture: (photo: PhotoData) => void;
   onCancel?: () => void;
   captureLocation?: boolean;
@@ -43,7 +43,7 @@ export function PhotoCapture({
     try {
       const mediaStream = await navigator.mediaDevices.getUserMedia({
         video: {
-          facingMode: 'environment', // Use back camera on mobile
+          facingMode: "environment", // Use back camera on mobile
           width: { ideal: 1920 },
           height: { ideal: 1080 },
         },
@@ -55,8 +55,8 @@ export function PhotoCapture({
         setIsCameraMode(true);
       }
     } catch (err) {
-      console.error('Error accessing camera:', err);
-      setError('Unable to access camera. Please check permissions.');
+      console.error("Error accessing camera:", err);
+      setError("Unable to access camera. Please check permissions.");
     }
   };
 
@@ -80,10 +80,10 @@ export function PhotoCapture({
     setIsProcessing(true);
     const video = videoRef.current;
     const canvas = canvasRef.current;
-    const context = canvas.getContext('2d');
+    const context = canvas.getContext("2d");
 
     if (!context) {
-      setError('Unable to process image');
+      setError("Unable to process image");
       setIsProcessing(false);
       return;
     }
@@ -96,7 +96,7 @@ export function PhotoCapture({
     context.drawImage(video, 0, 0, canvas.width, canvas.height);
 
     // Convert to base64
-    const imageData = canvas.toDataURL('image/jpeg', 0.85);
+    const imageData = canvas.toDataURL("image/jpeg", 0.85);
 
     setPreview(imageData);
     stopCamera();
@@ -106,7 +106,9 @@ export function PhotoCapture({
   /**
    * Handle file selection
    */
-  const handleFileSelect = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const handleFileSelect = async (
+    event: React.ChangeEvent<HTMLInputElement>,
+  ) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -114,15 +116,15 @@ export function PhotoCapture({
     setError(null);
 
     // Check file type
-    if (!file.type.startsWith('image/')) {
-      setError('Please select an image file');
+    if (!file.type.startsWith("image/")) {
+      setError("Please select an image file");
       setIsProcessing(false);
       return;
     }
 
     // Check file size (max 10MB)
     if (file.size > 10 * 1024 * 1024) {
-      setError('Image is too large. Maximum size is 10MB');
+      setError("Image is too large. Maximum size is 10MB");
       setIsProcessing(false);
       return;
     }
@@ -135,7 +137,7 @@ export function PhotoCapture({
       setIsProcessing(false);
     };
     reader.onerror = () => {
-      setError('Error reading file');
+      setError("Error reading file");
       setIsProcessing(false);
     };
     reader.readAsDataURL(file);
@@ -149,19 +151,21 @@ export function PhotoCapture({
 
     // Get location if requested and not already captured
     let location: { lat: number; lng: number } | undefined;
-    if (captureLocation && 'geolocation' in navigator) {
+    if (captureLocation && "geolocation" in navigator) {
       try {
-        const position = await new Promise<GeolocationPosition>((resolve, reject) => {
-          navigator.geolocation.getCurrentPosition(resolve, reject, {
-            timeout: 5000,
-          });
-        });
+        const position = await new Promise<GeolocationPosition>(
+          (resolve, reject) => {
+            navigator.geolocation.getCurrentPosition(resolve, reject, {
+              timeout: 5000,
+            });
+          },
+        );
         location = {
           lat: position.coords.latitude,
           lng: position.coords.longitude,
         };
       } catch (err) {
-        console.warn('Could not get location:', err);
+        console.warn("Could not get location:", err);
       }
     }
 
@@ -181,15 +185,15 @@ export function PhotoCapture({
   const handleRetake = () => {
     setPreview(null);
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
   const typeLabels = {
-    before: 'Before Photo',
-    after: 'After Photo',
-    manifest: 'Manifest Photo',
-    other: 'Photo',
+    before: "Before Photo",
+    after: "After Photo",
+    manifest: "Manifest Photo",
+    other: "Photo",
   };
 
   return (
@@ -197,7 +201,9 @@ export function PhotoCapture({
       <div className="space-y-4">
         {/* Header */}
         <div className="flex items-center justify-between">
-          <h3 className="text-lg font-medium text-text-primary">{typeLabels[type]}</h3>
+          <h3 className="text-lg font-medium text-text-primary">
+            {typeLabels[type]}
+          </h3>
           {onCancel && (
             <Button variant="ghost" size="sm" onClick={onCancel}>
               Cancel
@@ -224,10 +230,18 @@ export function PhotoCapture({
             </div>
 
             <div className="flex gap-2">
-              <Button variant="secondary" onClick={handleRetake} className="flex-1">
+              <Button
+                variant="secondary"
+                onClick={handleRetake}
+                className="flex-1"
+              >
                 Retake
               </Button>
-              <Button variant="primary" onClick={handleConfirm} className="flex-1">
+              <Button
+                variant="primary"
+                onClick={handleConfirm}
+                className="flex-1"
+              >
                 Use Photo
               </Button>
             </div>
@@ -246,7 +260,11 @@ export function PhotoCapture({
             </div>
 
             <div className="flex gap-2">
-              <Button variant="secondary" onClick={stopCamera} className="flex-1">
+              <Button
+                variant="secondary"
+                onClick={stopCamera}
+                className="flex-1"
+              >
                 Cancel
               </Button>
               <Button
@@ -255,7 +273,7 @@ export function PhotoCapture({
                 disabled={isProcessing}
                 className="flex-1"
               >
-                {isProcessing ? 'Processing...' : 'Capture'}
+                {isProcessing ? "Processing..." : "Capture"}
               </Button>
             </div>
           </div>

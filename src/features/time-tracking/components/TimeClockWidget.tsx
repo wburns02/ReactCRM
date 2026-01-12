@@ -1,7 +1,7 @@
-import { useState, useEffect } from 'react';
-import { useClockIn, useClockOut } from '../api/timeTracking.ts';
-import { Button } from '@/components/ui/Button.tsx';
-import { Card, CardContent } from '@/components/ui/Card.tsx';
+import { useState, useEffect } from "react";
+import { useClockIn, useClockOut } from "../api/timeTracking.ts";
+import { Button } from "@/components/ui/Button.tsx";
+import { Card, CardContent } from "@/components/ui/Card.tsx";
 
 interface TimeClockWidgetProps {
   workOrderId?: string;
@@ -10,7 +10,7 @@ interface TimeClockWidgetProps {
 export function TimeClockWidget({ workOrderId }: TimeClockWidgetProps) {
   const [isClockedIn, setIsClockedIn] = useState(false);
   const [clockInTime, setClockInTime] = useState<Date | null>(null);
-  const [elapsedTime, setElapsedTime] = useState('00:00:00');
+  const [elapsedTime, setElapsedTime] = useState("00:00:00");
   const [gettingLocation, setGettingLocation] = useState(false);
 
   const clockIn = useClockIn();
@@ -27,7 +27,7 @@ export function TimeClockWidget({ workOrderId }: TimeClockWidgetProps) {
         const minutes = Math.floor((elapsed % 3600000) / 60000);
         const seconds = Math.floor((elapsed % 60000) / 1000);
         setElapsedTime(
-          `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`
+          `${hours.toString().padStart(2, "0")}:${minutes.toString().padStart(2, "0")}:${seconds.toString().padStart(2, "0")}`,
         );
       }, 1000);
     }
@@ -40,7 +40,7 @@ export function TimeClockWidget({ workOrderId }: TimeClockWidgetProps) {
   const getLocation = (): Promise<{ latitude: number; longitude: number }> => {
     return new Promise((resolve, reject) => {
       if (!navigator.geolocation) {
-        reject(new Error('Geolocation not supported'));
+        reject(new Error("Geolocation not supported"));
         return;
       }
 
@@ -53,10 +53,10 @@ export function TimeClockWidget({ workOrderId }: TimeClockWidgetProps) {
         },
         (error) => {
           // Default to 0,0 if location unavailable
-          console.warn('Could not get location:', error);
+          console.warn("Could not get location:", error);
           resolve({ latitude: 0, longitude: 0 });
         },
-        { timeout: 10000, enableHighAccuracy: true }
+        { timeout: 10000, enableHighAccuracy: true },
       );
     });
   };
@@ -74,7 +74,7 @@ export function TimeClockWidget({ workOrderId }: TimeClockWidgetProps) {
       setIsClockedIn(true);
       setClockInTime(new Date());
     } catch (err) {
-      console.error('Clock in failed:', err);
+      console.error("Clock in failed:", err);
     } finally {
       setGettingLocation(false);
     }
@@ -92,9 +92,9 @@ export function TimeClockWidget({ workOrderId }: TimeClockWidgetProps) {
 
       setIsClockedIn(false);
       setClockInTime(null);
-      setElapsedTime('00:00:00');
+      setElapsedTime("00:00:00");
     } catch (err) {
-      console.error('Clock out failed:', err);
+      console.error("Clock out failed:", err);
     } finally {
       setGettingLocation(false);
     }
@@ -103,16 +103,18 @@ export function TimeClockWidget({ workOrderId }: TimeClockWidgetProps) {
   const isPending = clockIn.isPending || clockOut.isPending || gettingLocation;
 
   return (
-    <Card className={isClockedIn ? 'border-success' : ''}>
+    <Card className={isClockedIn ? "border-success" : ""}>
       <CardContent className="p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <div className={`p-2 rounded-full text-2xl ${isClockedIn ? 'bg-green-100' : 'bg-gray-100'}`}>
-              {isClockedIn ? '🟢' : '⏰'}
+            <div
+              className={`p-2 rounded-full text-2xl ${isClockedIn ? "bg-green-100" : "bg-gray-100"}`}
+            >
+              {isClockedIn ? "🟢" : "⏰"}
             </div>
             <div>
               <p className="font-medium text-text-primary">
-                {isClockedIn ? 'Clocked In' : 'Time Clock'}
+                {isClockedIn ? "Clocked In" : "Time Clock"}
               </p>
               {isClockedIn && (
                 <p className="text-2xl font-mono font-bold text-success">
@@ -130,16 +132,16 @@ export function TimeClockWidget({ workOrderId }: TimeClockWidgetProps) {
           <Button
             onClick={isClockedIn ? handleClockOut : handleClockIn}
             disabled={isPending}
-            variant={isClockedIn ? 'danger' : 'primary'}
+            variant={isClockedIn ? "danger" : "primary"}
             className="min-w-[120px]"
           >
-            {isPending ? (
-              gettingLocation ? 'Getting Location...' : 'Processing...'
-            ) : isClockedIn ? (
-              'Clock Out'
-            ) : (
-              'Clock In'
-            )}
+            {isPending
+              ? gettingLocation
+                ? "Getting Location..."
+                : "Processing..."
+              : isClockedIn
+                ? "Clock Out"
+                : "Clock In"}
           </Button>
         </div>
 

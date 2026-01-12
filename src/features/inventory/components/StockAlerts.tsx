@@ -1,7 +1,7 @@
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Card, CardContent } from '@/components/ui/Card.tsx';
-import type { InventoryItem } from '@/api/types/inventory.ts';
-import { getStockLevel } from '@/api/types/inventory.ts';
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Card, CardContent } from "@/components/ui/Card.tsx";
+import type { InventoryItem } from "@/api/types/inventory.ts";
+import { getStockLevel } from "@/api/types/inventory.ts";
 
 interface StockAlertsProps {
   items: InventoryItem[];
@@ -11,8 +11,8 @@ interface StockAlertsProps {
  * Stock alerts component - shows low and out of stock warnings
  */
 export function StockAlerts({ items }: StockAlertsProps) {
-  const outOfStock = items.filter((item) => getStockLevel(item) === 'out');
-  const lowStock = items.filter((item) => getStockLevel(item) === 'low');
+  const outOfStock = items.filter((item) => getStockLevel(item) === "out");
+  const lowStock = items.filter((item) => getStockLevel(item) === "low");
 
   if (outOfStock.length === 0 && lowStock.length === 0) {
     return null;
@@ -30,7 +30,8 @@ export function StockAlerts({ items }: StockAlertsProps) {
               </div>
               <div className="flex-1">
                 <h4 className="font-medium text-text-primary mb-2">
-                  {outOfStock.length} item{outOfStock.length !== 1 ? 's' : ''} out of stock
+                  {outOfStock.length} item{outOfStock.length !== 1 ? "s" : ""}{" "}
+                  out of stock
                 </h4>
                 <ul className="space-y-1">
                   {outOfStock.slice(0, 5).map((item) => (
@@ -60,12 +61,14 @@ export function StockAlerts({ items }: StockAlertsProps) {
               </div>
               <div className="flex-1">
                 <h4 className="font-medium text-text-primary mb-2">
-                  {lowStock.length} item{lowStock.length !== 1 ? 's' : ''} below reorder level
+                  {lowStock.length} item{lowStock.length !== 1 ? "s" : ""} below
+                  reorder level
                 </h4>
                 <ul className="space-y-1">
                   {lowStock.slice(0, 5).map((item) => (
                     <li key={item.id} className="text-sm text-text-secondary">
-                      {item.name}: {item.quantity} left (reorder at {item.reorder_level})
+                      {item.name}: {item.quantity} left (reorder at{" "}
+                      {item.reorder_level})
                     </li>
                   ))}
                   {lowStock.length > 5 && (

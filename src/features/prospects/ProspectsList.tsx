@@ -1,10 +1,13 @@
-import { memo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { formatCurrency, formatDate, formatPhone } from '@/lib/utils.ts';
-import { PROSPECT_STAGE_LABELS, LEAD_SOURCE_LABELS } from '@/api/types/common.ts';
-import type { Prospect } from '@/api/types/prospect.ts';
+import { memo, useCallback } from "react";
+import { Link } from "react-router-dom";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { formatCurrency, formatDate, formatPhone } from "@/lib/utils.ts";
+import {
+  PROSPECT_STAGE_LABELS,
+  LEAD_SOURCE_LABELS,
+} from "@/api/types/common.ts";
+import type { Prospect } from "@/api/types/prospect.ts";
 
 /**
  * Props for memoized row component
@@ -24,17 +27,16 @@ const TableProspectRow = memo(function TableProspectRow({
   onDelete,
 }: ProspectRowProps) {
   return (
-    <tr
-      className="hover:bg-bg-hover transition-colors"
-      tabIndex={0}
-    >
+    <tr className="hover:bg-bg-hover transition-colors" tabIndex={0}>
       <td className="px-4 py-3">
         <div>
           <p className="font-medium text-text-primary">
             {prospect.first_name} {prospect.last_name}
           </p>
           {prospect.company_name && (
-            <p className="text-sm text-text-secondary">{prospect.company_name}</p>
+            <p className="text-sm text-text-secondary">
+              {prospect.company_name}
+            </p>
           )}
         </div>
       </td>
@@ -49,7 +51,9 @@ const TableProspectRow = memo(function TableProspectRow({
             </a>
           )}
           {prospect.phone && (
-            <span className="text-text-secondary">{formatPhone(prospect.phone)}</span>
+            <span className="text-text-secondary">
+              {formatPhone(prospect.phone)}
+            </span>
           )}
         </div>
       </td>
@@ -59,7 +63,7 @@ const TableProspectRow = memo(function TableProspectRow({
         </Badge>
       </td>
       <td className="px-4 py-3 text-sm text-text-secondary">
-        {prospect.lead_source ? LEAD_SOURCE_LABELS[prospect.lead_source] : '-'}
+        {prospect.lead_source ? LEAD_SOURCE_LABELS[prospect.lead_source] : "-"}
       </td>
       <td className="px-4 py-3 text-sm text-text-primary font-medium">
         {formatCurrency(prospect.estimated_value)}
@@ -134,8 +138,14 @@ export function ProspectsList({
   const endItem = Math.min(page * pageSize, total);
 
   // Memoized callbacks for child components - must be before any early returns
-  const handleEdit = useCallback((prospect: Prospect) => onEdit?.(prospect), [onEdit]);
-  const handleDelete = useCallback((prospect: Prospect) => onDelete?.(prospect), [onDelete]);
+  const handleEdit = useCallback(
+    (prospect: Prospect) => onEdit?.(prospect),
+    [onEdit],
+  );
+  const handleDelete = useCallback(
+    (prospect: Prospect) => onDelete?.(prospect),
+    [onDelete],
+  );
 
   if (isLoading) {
     return <LoadingSkeleton />;
@@ -145,8 +155,12 @@ export function ProspectsList({
     return (
       <div className="text-center py-12">
         <div className="text-4xl mb-4">📋</div>
-        <h3 className="text-lg font-medium text-text-primary mb-2">No prospects found</h3>
-        <p className="text-text-secondary">Try adjusting your filters or add a new prospect.</p>
+        <h3 className="text-lg font-medium text-text-primary mb-2">
+          No prospects found
+        </h3>
+        <p className="text-text-secondary">
+          Try adjusting your filters or add a new prospect.
+        </p>
       </div>
     );
   }
@@ -158,25 +172,46 @@ export function ProspectsList({
         <table className="w-full" role="grid" aria-label="Prospects list">
           <thead>
             <tr className="border-b border-border bg-bg-muted">
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Name
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Contact
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Stage
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Source
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Value
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Follow-up
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Actions
               </th>
             </tr>

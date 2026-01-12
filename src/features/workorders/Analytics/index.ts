@@ -17,16 +17,40 @@
  */
 
 // Main Dashboard
-export { WorkOrderDashboard } from './WorkOrderDashboard.tsx';
+export { WorkOrderDashboard } from "./WorkOrderDashboard.tsx";
 
 // Individual Components
-export { KPICards } from './KPICards.tsx';
-export { TechnicianPerformance, type TechnicianMetrics } from './TechnicianPerformance.tsx';
-export { RevenueChart, type RevenueDataPoint } from './RevenueChart.tsx';
-export { CompletionRates, type StatusDistribution, type CompletionTrendPoint } from './CompletionRates.tsx';
-export { CustomerSatisfaction, type CustomerReview, type RatingDistribution, type SatisfactionTrend } from './CustomerSatisfaction.tsx';
-export { PredictiveInsights, type DemandForecast, type BusyPeriodAlert, type EquipmentAlert, type RevenueProjection } from './PredictiveInsights.tsx';
-export { ExportReports, type ReportType, type ExportFormat, type GeneratedReport, type ReportConfig } from './ExportReports.tsx';
+export { KPICards } from "./KPICards.tsx";
+export {
+  TechnicianPerformance,
+  type TechnicianMetrics,
+} from "./TechnicianPerformance.tsx";
+export { RevenueChart, type RevenueDataPoint } from "./RevenueChart.tsx";
+export {
+  CompletionRates,
+  type StatusDistribution,
+  type CompletionTrendPoint,
+} from "./CompletionRates.tsx";
+export {
+  CustomerSatisfaction,
+  type CustomerReview,
+  type RatingDistribution,
+  type SatisfactionTrend,
+} from "./CustomerSatisfaction.tsx";
+export {
+  PredictiveInsights,
+  type DemandForecast,
+  type BusyPeriodAlert,
+  type EquipmentAlert,
+  type RevenueProjection,
+} from "./PredictiveInsights.tsx";
+export {
+  ExportReports,
+  type ReportType,
+  type ExportFormat,
+  type GeneratedReport,
+  type ReportConfig,
+} from "./ExportReports.tsx";
 
 // Hooks
 export {
@@ -40,7 +64,7 @@ export {
   useAnalyticsDashboard,
   type DateRange,
   type AnalyticsFilters,
-} from './hooks/useAnalytics.ts';
+} from "./hooks/useAnalytics.ts";
 
 // Utilities
-export * from './utils/chartConfig.ts';
+export * from "./utils/chartConfig.ts";

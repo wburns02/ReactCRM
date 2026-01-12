@@ -1,2 +1,2 @@
-export { TechnicianTrackingMap } from './TechnicianTrackingMap';
-export { GPSTrackingPanel } from './GPSTrackingPanel';
+export { TechnicianTrackingMap } from "./TechnicianTrackingMap";
+export { GPSTrackingPanel } from "./GPSTrackingPanel";

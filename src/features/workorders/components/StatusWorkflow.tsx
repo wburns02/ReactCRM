@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Select } from '@/components/ui/Select.tsx';
+import { useState } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Select } from "@/components/ui/Select.tsx";
 import {
   type WorkOrderStatus,
   WORK_ORDER_STATUS_LABELS,
-} from '@/api/types/workOrder.ts';
-import { useUpdateWorkOrderStatus } from '@/api/hooks/useWorkOrders.ts';
+} from "@/api/types/workOrder.ts";
+import { useUpdateWorkOrderStatus } from "@/api/hooks/useWorkOrders.ts";
 
 /**
  * Define valid status transitions for the work order workflow
@@ -17,51 +17,49 @@ import { useUpdateWorkOrderStatus } from '@/api/hooks/useWorkOrders.ts';
  * Any status -> CANCELED (except COMPLETED)
  */
 const STATUS_TRANSITIONS: Record<WorkOrderStatus, WorkOrderStatus[]> = {
-  draft: ['scheduled', 'canceled'],
-  scheduled: ['draft', 'confirmed', 'canceled'],
-  confirmed: ['scheduled', 'enroute', 'canceled'],
-  enroute: ['confirmed', 'on_site', 'canceled'],
-  on_site: ['enroute', 'in_progress', 'canceled'],
-  in_progress: ['on_site', 'completed', 'requires_followup', 'canceled'],
+  draft: ["scheduled", "canceled"],
+  scheduled: ["draft", "confirmed", "canceled"],
+  confirmed: ["scheduled", "enroute", "canceled"],
+  enroute: ["confirmed", "on_site", "canceled"],
+  on_site: ["enroute", "in_progress", "canceled"],
+  in_progress: ["on_site", "completed", "requires_followup", "canceled"],
   completed: [], // Terminal state - no transitions allowed
-  canceled: ['draft'], // Can only go back to draft to restart
-  requires_followup: ['in_progress', 'completed', 'canceled'],
+  canceled: ["draft"], // Can only go back to draft to restart
+  requires_followup: ["in_progress", "completed", "canceled"],
 };
 
 /**
  * Get quick action buttons for common workflow transitions
  */
-function getQuickActions(currentStatus: WorkOrderStatus): { status: WorkOrderStatus; label: string; variant: 'primary' | 'secondary' | 'danger' }[] {
+function getQuickActions(currentStatus: WorkOrderStatus): {
+  status: WorkOrderStatus;
+  label: string;
+  variant: "primary" | "secondary" | "danger";
+}[] {
   switch (currentStatus) {
-    case 'draft':
+    case "draft":
+      return [{ status: "scheduled", label: "Schedule", variant: "primary" }];
+    case "scheduled":
+      return [{ status: "confirmed", label: "Confirm", variant: "primary" }];
+    case "confirmed":
+      return [{ status: "enroute", label: "Start Route", variant: "primary" }];
+    case "enroute":
+      return [{ status: "on_site", label: "Arrived", variant: "primary" }];
+    case "on_site":
       return [
-        { status: 'scheduled', label: 'Schedule', variant: 'primary' },
+        { status: "in_progress", label: "Start Work", variant: "primary" },
       ];
-    case 'scheduled':
+    case "in_progress":
       return [
-        { status: 'confirmed', label: 'Confirm', variant: 'primary' },
+        { status: "completed", label: "Complete", variant: "primary" },
+        {
+          status: "requires_followup",
+          label: "Needs Follow-up",
+          variant: "secondary",
+        },
       ];
-    case 'confirmed':
-      return [
-        { status: 'enroute', label: 'Start Route', variant: 'primary' },
-      ];
-    case 'enroute':
-      return [
-        { status: 'on_site', label: 'Arrived', variant: 'primary' },
-      ];
-    case 'on_site':
-      return [
-        { status: 'in_progress', label: 'Start Work', variant: 'primary' },
-      ];
-    case 'in_progress':
-      return [
-        { status: 'completed', label: 'Complete', variant: 'primary' },
-        { status: 'requires_followup', label: 'Needs Follow-up', variant: 'secondary' },
-      ];
-    case 'requires_followup':
-      return [
-        { status: 'completed', label: 'Complete', variant: 'primary' },
-      ];
+    case "requires_followup":
+      return [{ status: "completed", label: "Complete", variant: "primary" }];
     default:
       return [];
   }
@@ -70,19 +68,21 @@ function getQuickActions(currentStatus: WorkOrderStatus): { status: WorkOrderSta
 /**
  * Get badge variant based on status
  */
-function getStatusVariant(status: WorkOrderStatus): 'default' | 'success' | 'warning' | 'danger' {
+function getStatusVariant(
+  status: WorkOrderStatus,
+): "default" | "success" | "warning" | "danger" {
   switch (status) {
-    case 'completed':
-      return 'success';
-    case 'canceled':
-      return 'danger';
-    case 'enroute':
-    case 'on_site':
-    case 'in_progress':
-    case 'requires_followup':
-      return 'warning';
+    case "completed":
+      return "success";
+    case "canceled":
+      return "danger";
+    case "enroute":
+    case "on_site":
+    case "in_progress":
+    case "requires_followup":
+      return "warning";
     default:
-      return 'default';
+      return "default";
   }
 }
 
@@ -117,7 +117,9 @@ export function StatusWorkflow({
     onStatusChange?.(newStatus);
   };
 
-  const handleSelectChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleSelectChange = async (
+    e: React.ChangeEvent<HTMLSelectElement>,
+  ) => {
     const newStatus = e.target.value as WorkOrderStatus;
     if (newStatus && newStatus !== currentStatus) {
       await handleStatusChange(newStatus);
@@ -133,11 +135,14 @@ export function StatusWorkflow({
             <h4 className="text-sm font-medium text-text-secondary uppercase tracking-wide mb-2">
               Status
             </h4>
-            <Badge variant={getStatusVariant(currentStatus)} className="text-sm">
+            <Badge
+              variant={getStatusVariant(currentStatus)}
+              className="text-sm"
+            >
               {WORK_ORDER_STATUS_LABELS[currentStatus]}
             </Badge>
           </div>
-          {currentStatus === 'completed' && (
+          {currentStatus === "completed" && (
             <span className="text-2xl">Completed!</span>
           )}
         </div>
@@ -167,7 +172,7 @@ export function StatusWorkflow({
               onClick={() => handleStatusChange(action.status)}
               disabled={updateStatus.isPending}
             >
-              {updateStatus.isPending ? 'Updating...' : action.label}
+              {updateStatus.isPending ? "Updating..." : action.label}
             </Button>
           ))}
         </div>
@@ -201,17 +206,18 @@ export function StatusWorkflow({
             </div>
 
             {/* Cancel option if not already canceled */}
-            {currentStatus !== 'canceled' && validTransitions.includes('canceled') && (
-              <Button
-                variant="danger"
-                size="sm"
-                onClick={() => handleStatusChange('canceled')}
-                disabled={updateStatus.isPending}
-                className="w-full"
-              >
-                Cancel Work Order
-              </Button>
-            )}
+            {currentStatus !== "canceled" &&
+              validTransitions.includes("canceled") && (
+                <Button
+                  variant="danger"
+                  size="sm"
+                  onClick={() => handleStatusChange("canceled")}
+                  disabled={updateStatus.isPending}
+                  className="w-full"
+                >
+                  Cancel Work Order
+                </Button>
+              )}
           </div>
         ) : (
           <button
@@ -226,28 +232,39 @@ export function StatusWorkflow({
       {/* Workflow Progress Indicator */}
       <div className="mt-4 pt-3 border-t border-border">
         <div className="flex items-center justify-between text-xs">
-          {(['draft', 'scheduled', 'confirmed', 'enroute', 'on_site', 'in_progress', 'completed'] as WorkOrderStatus[]).map((status, _index) => {
+          {(
+            [
+              "draft",
+              "scheduled",
+              "confirmed",
+              "enroute",
+              "on_site",
+              "in_progress",
+              "completed",
+            ] as WorkOrderStatus[]
+          ).map((status, _index) => {
             const isActive = status === currentStatus;
-            const isPast = getStatusOrder(status) < getStatusOrder(currentStatus);
-            const isCanceled = currentStatus === 'canceled';
+            const isPast =
+              getStatusOrder(status) < getStatusOrder(currentStatus);
+            const isCanceled = currentStatus === "canceled";
 
             return (
               <div
                 key={status}
                 className={`
                   flex flex-col items-center
-                  ${isActive ? 'text-primary font-medium' : ''}
-                  ${isPast ? 'text-success' : ''}
-                  ${!isActive && !isPast ? 'text-text-muted' : ''}
-                  ${isCanceled ? 'opacity-50' : ''}
+                  ${isActive ? "text-primary font-medium" : ""}
+                  ${isPast ? "text-success" : ""}
+                  ${!isActive && !isPast ? "text-text-muted" : ""}
+                  ${isCanceled ? "opacity-50" : ""}
                 `}
               >
                 <div
                   className={`
                     w-3 h-3 rounded-full mb-1
-                    ${isActive ? 'bg-primary ring-2 ring-primary/30' : ''}
-                    ${isPast ? 'bg-success' : ''}
-                    ${!isActive && !isPast ? 'bg-border' : ''}
+                    ${isActive ? "bg-primary ring-2 ring-primary/30" : ""}
+                    ${isPast ? "bg-success" : ""}
+                    ${!isActive && !isPast ? "bg-border" : ""}
                   `}
                 />
                 <span className="text-[10px] hidden sm:block">
@@ -285,15 +302,15 @@ function getStatusOrder(status: WorkOrderStatus): number {
  */
 function getShortLabel(status: WorkOrderStatus): string {
   const labels: Record<WorkOrderStatus, string> = {
-    draft: 'Draft',
-    scheduled: 'Sched',
-    confirmed: 'Conf',
-    enroute: 'Route',
-    on_site: 'Site',
-    in_progress: 'Work',
-    completed: 'Done',
-    canceled: 'Cancel',
-    requires_followup: 'Follow',
+    draft: "Draft",
+    scheduled: "Sched",
+    confirmed: "Conf",
+    enroute: "Route",
+    on_site: "Site",
+    in_progress: "Work",
+    completed: "Done",
+    canceled: "Cancel",
+    requires_followup: "Follow",
   };
   return labels[status] ?? status;
 }

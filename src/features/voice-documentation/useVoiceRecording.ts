@@ -2,20 +2,20 @@
  * Voice Recording Hook
  * Handles audio recording with optional real-time transcription
  */
-import { useState, useCallback, useRef, useEffect } from 'react';
+import { useState, useCallback, useRef, useEffect } from "react";
 import type {
   RecordingStatus,
   TranscriptionStatus,
   VoiceNote,
   VoiceRecordingSettings,
-} from './types';
+} from "./types";
 import {
   DEFAULT_VOICE_SETTINGS,
   getSpeechRecognition,
   getSupportedMimeType,
   isAudioRecordingSupported,
   isSpeechRecognitionSupported,
-} from './types';
+} from "./types";
 
 export interface UseVoiceRecordingOptions {
   /** Custom settings */
@@ -71,16 +71,23 @@ export interface UseVoiceRecordingReturn {
  * Hook for voice recording and transcription
  */
 export function useVoiceRecording(
-  options: UseVoiceRecordingOptions = {}
+  options: UseVoiceRecordingOptions = {},
 ): UseVoiceRecordingReturn {
-  const { settings: customSettings, onComplete, onTranscriptionUpdate, onError } = options;
+  const {
+    settings: customSettings,
+    onComplete,
+    onTranscriptionUpdate,
+    onError,
+  } = options;
   const settings = { ...DEFAULT_VOICE_SETTINGS, ...customSettings };
 
   // State
-  const [recordingStatus, setRecordingStatus] = useState<RecordingStatus>('idle');
-  const [transcriptionStatus, setTranscriptionStatus] = useState<TranscriptionStatus>('idle');
-  const [transcription, setTranscription] = useState('');
-  const [interimTranscription, setInterimTranscription] = useState('');
+  const [recordingStatus, setRecordingStatus] =
+    useState<RecordingStatus>("idle");
+  const [transcriptionStatus, setTranscriptionStatus] =
+    useState<TranscriptionStatus>("idle");
+  const [transcription, setTranscription] = useState("");
+  const [interimTranscription, setInterimTranscription] = useState("");
   const [duration, setDuration] = useState(0);
   const [audioLevel, setAudioLevel] = useState(0);
   const [voiceNote, setVoiceNote] = useState<VoiceNote | null>(null);
@@ -93,7 +100,9 @@ export function useVoiceRecording(
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const recognitionRef = useRef<any>(null);
   const analyserRef = useRef<AnalyserNode | null>(null);
-  const durationIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const durationIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
+    null,
+  );
   const levelIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
   const startTimeRef = useRef<number>(0);
 
@@ -106,7 +115,10 @@ export function useVoiceRecording(
    */
   const cleanup = useCallback(() => {
     // Stop media recorder
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state !== "inactive"
+    ) {
       mediaRecorderRef.current.stop();
     }
     mediaRecorderRef.current = null;
@@ -172,13 +184,13 @@ export function useVoiceRecording(
     recognition.interimResults = settings.interimResults;
 
     recognition.onstart = () => {
-      setTranscriptionStatus('listening');
+      setTranscriptionStatus("listening");
     };
 
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     recognition.onresult = (event: any) => {
-      let finalTranscript = '';
-      let interimTranscript = '';
+      let finalTranscript = "";
+      let interimTranscript = "";
 
       for (let i = event.resultIndex; i < event.results.length; i++) {
         const result = event.results[i];
@@ -192,7 +204,7 @@ export function useVoiceRecording(
       }
 
       if (finalTranscript) {
-        setTranscription((prev) => prev + ' ' + finalTranscript.trim());
+        setTranscription((prev) => prev + " " + finalTranscript.trim());
         onTranscriptionUpdate?.(finalTranscript, true);
       }
 
@@ -205,23 +217,23 @@ export function useVoiceRecording(
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     recognition.onerror = (event: any) => {
       // Ignore no-speech errors when continuous
-      if (event.error === 'no-speech' && settings.continuous) {
+      if (event.error === "no-speech" && settings.continuous) {
         return;
       }
 
-      console.error('Speech recognition error:', event.error);
-      setTranscriptionStatus('error');
+      console.error("Speech recognition error:", event.error);
+      setTranscriptionStatus("error");
 
-      if (event.error === 'not-allowed') {
-        setError('Microphone permission denied');
-        onError?.('Microphone permission denied');
+      if (event.error === "not-allowed") {
+        setError("Microphone permission denied");
+        onError?.("Microphone permission denied");
       }
     };
 
     recognition.onend = () => {
       // Restart if still recording and continuous mode
       if (
-        recordingStatus === 'recording' &&
+        recordingStatus === "recording" &&
         settings.continuous &&
         recognitionRef.current
       ) {
@@ -231,7 +243,7 @@ export function useVoiceRecording(
           // Ignore if already started
         }
       } else {
-        setTranscriptionStatus('idle');
+        setTranscriptionStatus("idle");
       }
     };
 
@@ -243,18 +255,18 @@ export function useVoiceRecording(
    */
   const startRecording = useCallback(async () => {
     if (!isRecordingSupported) {
-      setError('Audio recording is not supported');
-      onError?.('Audio recording is not supported');
+      setError("Audio recording is not supported");
+      onError?.("Audio recording is not supported");
       return;
     }
 
     try {
       cleanup();
       setError(null);
-      setTranscription('');
-      setInterimTranscription('');
+      setTranscription("");
+      setInterimTranscription("");
       setDuration(0);
-      setRecordingStatus('recording');
+      setRecordingStatus("recording");
 
       // Request microphone access
       const stream = await navigator.mediaDevices.getUserMedia({
@@ -281,7 +293,7 @@ export function useVoiceRecording(
       };
 
       recorder.onstop = () => {
-        setRecordingStatus('processing');
+        setRecordingStatus("processing");
 
         const audioBlob = new Blob(audioChunksRef.current, { type: mimeType });
         const audioUrl = URL.createObjectURL(audioBlob);
@@ -297,14 +309,14 @@ export function useVoiceRecording(
         };
 
         setVoiceNote(note);
-        setRecordingStatus('complete');
+        setRecordingStatus("complete");
         onComplete?.(note);
       };
 
       recorder.onerror = () => {
-        setRecordingStatus('error');
-        setError('Recording failed');
-        onError?.('Recording failed');
+        setRecordingStatus("error");
+        setError("Recording failed");
+        onError?.("Recording failed");
       };
 
       // Start recording
@@ -331,16 +343,16 @@ export function useVoiceRecording(
         }
       }
     } catch (err) {
-      console.error('Failed to start recording:', err);
+      console.error("Failed to start recording:", err);
       cleanup();
-      setRecordingStatus('error');
+      setRecordingStatus("error");
 
-      if (err instanceof Error && err.name === 'NotAllowedError') {
-        setError('Microphone permission denied');
-        onError?.('Microphone permission denied');
+      if (err instanceof Error && err.name === "NotAllowedError") {
+        setError("Microphone permission denied");
+        onError?.("Microphone permission denied");
       } else {
-        setError('Failed to start recording');
-        onError?.('Failed to start recording');
+        setError("Failed to start recording");
+        onError?.("Failed to start recording");
       }
     }
   }, [
@@ -360,7 +372,10 @@ export function useVoiceRecording(
    * Stop recording
    */
   const stopRecording = useCallback(() => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== 'inactive') {
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state !== "inactive"
+    ) {
       mediaRecorderRef.current.stop();
     }
 
@@ -386,9 +401,12 @@ export function useVoiceRecording(
    * Pause recording
    */
   const pauseRecording = useCallback(() => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'recording') {
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state === "recording"
+    ) {
       mediaRecorderRef.current.pause();
-      setRecordingStatus('paused');
+      setRecordingStatus("paused");
     }
 
     if (recognitionRef.current) {
@@ -404,9 +422,12 @@ export function useVoiceRecording(
    * Resume recording
    */
   const resumeRecording = useCallback(() => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state === 'paused') {
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state === "paused"
+    ) {
       mediaRecorderRef.current.resume();
-      setRecordingStatus('recording');
+      setRecordingStatus("recording");
 
       // Resume duration counter
       const pausedDuration = duration;
@@ -432,10 +453,10 @@ export function useVoiceRecording(
    */
   const cancelRecording = useCallback(() => {
     cleanup();
-    setRecordingStatus('idle');
-    setTranscriptionStatus('idle');
-    setTranscription('');
-    setInterimTranscription('');
+    setRecordingStatus("idle");
+    setTranscriptionStatus("idle");
+    setTranscription("");
+    setInterimTranscription("");
     setDuration(0);
     setAudioLevel(0);
   }, [cleanup]);
@@ -445,14 +466,14 @@ export function useVoiceRecording(
    */
   const startTranscription = useCallback(() => {
     if (!isTranscriptionSupported) {
-      setError('Speech recognition is not supported');
-      onError?.('Speech recognition is not supported');
+      setError("Speech recognition is not supported");
+      onError?.("Speech recognition is not supported");
       return;
     }
 
     setError(null);
-    setTranscription('');
-    setInterimTranscription('');
+    setTranscription("");
+    setInterimTranscription("");
 
     const recognition = setupSpeechRecognition();
     if (recognition) {
@@ -469,7 +490,7 @@ export function useVoiceRecording(
       recognitionRef.current.stop();
       recognitionRef.current = null;
     }
-    setTranscriptionStatus('idle');
+    setTranscriptionStatus("idle");
   }, []);
 
   /**
@@ -477,10 +498,10 @@ export function useVoiceRecording(
    */
   const reset = useCallback(() => {
     cleanup();
-    setRecordingStatus('idle');
-    setTranscriptionStatus('idle');
-    setTranscription('');
-    setInterimTranscription('');
+    setRecordingStatus("idle");
+    setTranscriptionStatus("idle");
+    setTranscription("");
+    setInterimTranscription("");
     setDuration(0);
     setAudioLevel(0);
     setVoiceNote(null);

@@ -1,5 +1,5 @@
-import { useState, useRef, type DragEvent } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
+import { useState, useRef, type DragEvent } from "react";
+import { Button } from "@/components/ui/Button.tsx";
 
 interface FileUploaderProps {
   onFileSelect: (file: File) => void;
@@ -10,7 +10,7 @@ interface FileUploaderProps {
 
 export function FileUploader({
   onFileSelect,
-  accept = '.csv',
+  accept = ".csv",
   maxSizeMB = 10,
   disabled = false,
 }: FileUploaderProps) {
@@ -22,7 +22,7 @@ export function FileUploader({
     setError(null);
 
     // Check file type
-    if (accept && !file.name.toLowerCase().endsWith(accept.replace('*', ''))) {
+    if (accept && !file.name.toLowerCase().endsWith(accept.replace("*", ""))) {
       setError(`Invalid file type. Please select a ${accept} file.`);
       return false;
     }
@@ -77,7 +77,7 @@ export function FileUploader({
     }
     // Reset input so same file can be selected again
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
@@ -93,11 +93,12 @@ export function FileUploader({
         className={`
           border-2 border-dashed rounded-lg p-8 text-center cursor-pointer
           transition-colors
-          ${isDragging
-            ? 'border-primary bg-primary/5'
-            : 'border-border hover:border-primary/50'
+          ${
+            isDragging
+              ? "border-primary bg-primary/5"
+              : "border-border hover:border-primary/50"
           }
-          ${disabled ? 'opacity-50 cursor-not-allowed' : ''}
+          ${disabled ? "opacity-50 cursor-not-allowed" : ""}
         `}
         onDragOver={handleDragOver}
         onDragLeave={handleDragLeave}
@@ -117,11 +118,9 @@ export function FileUploader({
           <div className="text-4xl">📄</div>
           <div>
             <p className="text-lg font-medium text-text-primary">
-              {isDragging ? 'Drop file here' : 'Drag & drop your CSV file here'}
+              {isDragging ? "Drop file here" : "Drag & drop your CSV file here"}
             </p>
-            <p className="text-sm text-text-muted mt-1">
-              or click to browse
-            </p>
+            <p className="text-sm text-text-muted mt-1">or click to browse</p>
           </div>
           <Button
             type="button"

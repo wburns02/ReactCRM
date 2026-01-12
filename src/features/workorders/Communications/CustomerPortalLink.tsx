@@ -4,13 +4,13 @@
  * Generate and display self-service tracking links with QR codes.
  */
 
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Card } from '@/components/ui/Card.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { useGeneratePortalLink } from './hooks/useCommunications.ts';
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Card } from "@/components/ui/Card.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { useGeneratePortalLink } from "./hooks/useCommunications.ts";
 
 interface CustomerPortalLinkProps {
   workOrderId: string;
@@ -24,9 +24,9 @@ export function CustomerPortalLink({
   existingExpiration,
 }: CustomerPortalLinkProps) {
   const [expirationHours, setExpirationHours] = useState<number>(72);
-  const [portalLink, setPortalLink] = useState(existingLink || '');
-  const [expiresAt, setExpiresAt] = useState(existingExpiration || '');
-  const [qrCodeData, setQrCodeData] = useState('');
+  const [portalLink, setPortalLink] = useState(existingLink || "");
+  const [expiresAt, setExpiresAt] = useState(existingExpiration || "");
+  const [qrCodeData, setQrCodeData] = useState("");
   const [copied, setCopied] = useState(false);
 
   const generateLink = useGeneratePortalLink();
@@ -57,13 +57,13 @@ export function CustomerPortalLink({
       });
       setPortalLink(result.link);
       setExpiresAt(result.expiresAt);
-      setQrCodeData(result.qrCode || '');
+      setQrCodeData(result.qrCode || "");
       // If API doesn't return QR code, generate one
       if (!result.qrCode) {
         generateQRCode(result.link);
       }
     } catch (err) {
-      console.error('Failed to generate portal link:', err);
+      console.error("Failed to generate portal link:", err);
     }
   };
 
@@ -73,19 +73,19 @@ export function CustomerPortalLink({
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (err) {
-      console.error('Failed to copy to clipboard:', err);
+      console.error("Failed to copy to clipboard:", err);
     }
   };
 
   const formatExpiration = (isoDate: string) => {
-    if (!isoDate) return '';
+    if (!isoDate) return "";
     const date = new Date(isoDate);
-    return date.toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      year: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
+    return date.toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
       hour12: true,
     });
   };
@@ -97,7 +97,8 @@ export function CustomerPortalLink({
       <div>
         <h3 className="text-lg font-semibold">Customer Portal Link</h3>
         <p className="text-sm text-text-secondary">
-          Generate a secure self-service link for the customer to track their appointment
+          Generate a secure self-service link for the customer to track their
+          appointment
         </p>
       </div>
 
@@ -130,7 +131,11 @@ export function CustomerPortalLink({
             >
               {generateLink.isPending ? (
                 <>
-                  <svg className="w-4 h-4 mr-2 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <svg
+                    className="w-4 h-4 mr-2 animate-spin"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
                     <circle
                       className="opacity-25"
                       cx="12"
@@ -172,12 +177,19 @@ export function CustomerPortalLink({
 
       {/* Generated link display */}
       {portalLink && (
-        <Card className={`p-4 ${isExpired ? 'border-danger/50 bg-danger/5' : ''}`}>
+        <Card
+          className={`p-4 ${isExpired ? "border-danger/50 bg-danger/5" : ""}`}
+        >
           <div className="space-y-4">
             {/* Status badge */}
             {isExpired && (
               <div className="flex items-center gap-2 p-2 bg-danger/10 rounded-lg text-danger text-sm">
-                <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  viewBox="0 0 24 24"
+                  stroke="currentColor"
+                >
                   <path
                     strokeLinecap="round"
                     strokeLinejoin="round"
@@ -193,8 +205,16 @@ export function CustomerPortalLink({
             <div className="space-y-2">
               <Label>Tracking Link</Label>
               <div className="flex gap-2">
-                <Input value={portalLink} readOnly className="font-mono text-sm" />
-                <Button variant="secondary" onClick={handleCopy} disabled={isExpired}>
+                <Input
+                  value={portalLink}
+                  readOnly
+                  className="font-mono text-sm"
+                />
+                <Button
+                  variant="secondary"
+                  onClick={handleCopy}
+                  disabled={isExpired}
+                >
                   {copied ? (
                     <svg
                       className="w-5 h-5 text-success"
@@ -210,7 +230,12 @@ export function CustomerPortalLink({
                       />
                     </svg>
                   ) : (
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -221,13 +246,15 @@ export function CustomerPortalLink({
                   )}
                 </Button>
               </div>
-              {copied && <p className="text-xs text-success">Copied to clipboard!</p>}
+              {copied && (
+                <p className="text-xs text-success">Copied to clipboard!</p>
+              )}
             </div>
 
             {/* Expiration info */}
             <div className="flex items-center justify-between text-sm">
               <span className="text-text-secondary">Expires:</span>
-              <span className={isExpired ? 'text-danger' : 'text-text-primary'}>
+              <span className={isExpired ? "text-danger" : "text-text-primary"}>
                 {formatExpiration(expiresAt)}
               </span>
             </div>
@@ -276,7 +303,7 @@ export function CustomerPortalLink({
               <Button
                 variant="secondary"
                 className="flex-1"
-                onClick={() => window.open(portalLink, '_blank')}
+                onClick={() => window.open(portalLink, "_blank")}
                 disabled={isExpired}
               >
                 <svg
@@ -304,7 +331,11 @@ export function CustomerPortalLink({
         <h4 className="text-sm font-medium mb-2">What the Customer Sees</h4>
         <ul className="text-sm text-text-secondary space-y-1">
           <li className="flex items-center gap-2">
-            <svg className="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+            <svg
+              className="w-4 h-4 text-success"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path
                 fillRule="evenodd"
                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -314,7 +345,11 @@ export function CustomerPortalLink({
             Real-time technician location on a map
           </li>
           <li className="flex items-center gap-2">
-            <svg className="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+            <svg
+              className="w-4 h-4 text-success"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path
                 fillRule="evenodd"
                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -324,7 +359,11 @@ export function CustomerPortalLink({
             Live ETA updates
           </li>
           <li className="flex items-center gap-2">
-            <svg className="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+            <svg
+              className="w-4 h-4 text-success"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path
                 fillRule="evenodd"
                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -334,7 +373,11 @@ export function CustomerPortalLink({
             Appointment details and status
           </li>
           <li className="flex items-center gap-2">
-            <svg className="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+            <svg
+              className="w-4 h-4 text-success"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path
                 fillRule="evenodd"
                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -344,7 +387,11 @@ export function CustomerPortalLink({
             Technician profile and contact info
           </li>
           <li className="flex items-center gap-2">
-            <svg className="w-4 h-4 text-success" fill="currentColor" viewBox="0 0 20 20">
+            <svg
+              className="w-4 h-4 text-success"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+            >
               <path
                 fillRule="evenodd"
                 d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"

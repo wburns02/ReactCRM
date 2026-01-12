@@ -4,28 +4,33 @@
  * React Query hooks for survey actions, detractor queue, and response management.
  */
 
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '../client.ts';
-import { surveyKeys } from './useCustomerSuccess.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "../client.ts";
+import { surveyKeys } from "./useCustomerSuccess.ts";
 
 // ============================================
 // Types
 // ============================================
 
 export type SurveyActionType =
-  | 'schedule_callback'
-  | 'create_ticket'
-  | 'generate_offer'
-  | 'book_appointment'
-  | 'send_email'
-  | 'create_task'
-  | 'trigger_playbook'
-  | 'assign_csm'
-  | 'escalate';
+  | "schedule_callback"
+  | "create_ticket"
+  | "generate_offer"
+  | "book_appointment"
+  | "send_email"
+  | "create_task"
+  | "trigger_playbook"
+  | "assign_csm"
+  | "escalate";
 
-export type ActionStatus = 'pending' | 'in_progress' | 'completed' | 'cancelled' | 'failed';
+export type ActionStatus =
+  | "pending"
+  | "in_progress"
+  | "completed"
+  | "cancelled"
+  | "failed";
 
-export type ActionPriority = 'low' | 'medium' | 'high' | 'critical';
+export type ActionPriority = "low" | "medium" | "high" | "critical";
 
 export interface SurveyAction {
   id: number;
@@ -72,9 +77,14 @@ export interface DetractorAlert {
   customer_email?: string;
   score: number;
   feedback?: string;
-  sentiment?: 'very_negative' | 'negative' | 'neutral' | 'positive' | 'very_positive';
+  sentiment?:
+    | "very_negative"
+    | "negative"
+    | "neutral"
+    | "positive"
+    | "very_positive";
   key_issues?: string[];
-  risk_level: 'low' | 'medium' | 'high' | 'critical';
+  risk_level: "low" | "medium" | "high" | "critical";
   ai_summary?: string;
   suggested_actions?: SurveyActionType[];
   actions_taken?: SurveyAction[];
@@ -118,14 +128,20 @@ export interface ActionHistoryEntry {
 // ============================================
 
 export const surveyActionKeys = {
-  actions: ['cs', 'surveys', 'actions'] as const,
-  actionsList: (surveyId: number) => [...surveyActionKeys.actions, 'list', surveyId] as const,
-  actionDetail: (actionId: number) => [...surveyActionKeys.actions, 'detail', actionId] as const,
-  responseActions: (responseId: number) => [...surveyActionKeys.actions, 'response', responseId] as const,
-  detractors: ['cs', 'surveys', 'detractors'] as const,
-  detractorQueue: (filters: DetractorQueueFilters) => [...surveyActionKeys.detractors, 'queue', filters] as const,
-  detractorDetail: (alertId: number) => [...surveyActionKeys.detractors, 'detail', alertId] as const,
-  actionHistory: (responseId: number) => [...surveyActionKeys.actions, 'history', responseId] as const,
+  actions: ["cs", "surveys", "actions"] as const,
+  actionsList: (surveyId: number) =>
+    [...surveyActionKeys.actions, "list", surveyId] as const,
+  actionDetail: (actionId: number) =>
+    [...surveyActionKeys.actions, "detail", actionId] as const,
+  responseActions: (responseId: number) =>
+    [...surveyActionKeys.actions, "response", responseId] as const,
+  detractors: ["cs", "surveys", "detractors"] as const,
+  detractorQueue: (filters: DetractorQueueFilters) =>
+    [...surveyActionKeys.detractors, "queue", filters] as const,
+  detractorDetail: (alertId: number) =>
+    [...surveyActionKeys.detractors, "detail", alertId] as const,
+  actionHistory: (responseId: number) =>
+    [...surveyActionKeys.actions, "history", responseId] as const,
 };
 
 // ============================================
@@ -156,10 +172,16 @@ export function useCreateSurveyAction() {
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: surveyActionKeys.actionsList(variables.surveyId) });
-      queryClient.invalidateQueries({ queryKey: surveyActionKeys.responseActions(variables.responseId) });
+      queryClient.invalidateQueries({
+        queryKey: surveyActionKeys.actionsList(variables.surveyId),
+      });
+      queryClient.invalidateQueries({
+        queryKey: surveyActionKeys.responseActions(variables.responseId),
+      });
       queryClient.invalidateQueries({ queryKey: surveyActionKeys.detractors });
-      queryClient.invalidateQueries({ queryKey: surveyKeys.surveyResponses(variables.surveyId) });
+      queryClient.invalidateQueries({
+        queryKey: surveyKeys.surveyResponses(variables.surveyId),
+      });
     },
   });
 }
@@ -172,7 +194,9 @@ export function useResponseActions(responseId: number | undefined) {
   return useQuery({
     queryKey: surveyActionKeys.responseActions(responseId!),
     queryFn: async (): Promise<SurveyAction[]> => {
-      const { data } = await apiClient.get(`/cs/surveys/responses/${responseId}/actions`);
+      const { data } = await apiClient.get(
+        `/cs/surveys/responses/${responseId}/actions`,
+      );
       return data;
     },
     enabled: !!responseId,
@@ -192,14 +216,23 @@ export function useUpdateSurveyAction() {
       data,
     }: {
       actionId: number;
-      data: Partial<SurveyActionFormData> & { status?: ActionStatus; outcome?: string; outcome_notes?: string };
+      data: Partial<SurveyActionFormData> & {
+        status?: ActionStatus;
+        outcome?: string;
+        outcome_notes?: string;
+      };
     }): Promise<SurveyAction> => {
-      const response = await apiClient.patch(`/cs/surveys/actions/${actionId}`, data);
+      const response = await apiClient.patch(
+        `/cs/surveys/actions/${actionId}`,
+        data,
+      );
       return response.data;
     },
     onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: surveyActionKeys.actions });
-      queryClient.invalidateQueries({ queryKey: surveyActionKeys.responseActions(result.survey_response_id) });
+      queryClient.invalidateQueries({
+        queryKey: surveyActionKeys.responseActions(result.survey_response_id),
+      });
       queryClient.invalidateQueries({ queryKey: surveyActionKeys.detractors });
     },
   });
@@ -222,15 +255,20 @@ export function useCompleteSurveyAction() {
       outcome: string;
       outcome_notes?: string;
     }): Promise<SurveyAction> => {
-      const response = await apiClient.post(`/cs/surveys/actions/${actionId}/complete`, {
-        outcome,
-        outcome_notes,
-      });
+      const response = await apiClient.post(
+        `/cs/surveys/actions/${actionId}/complete`,
+        {
+          outcome,
+          outcome_notes,
+        },
+      );
       return response.data;
     },
     onSuccess: (result) => {
       queryClient.invalidateQueries({ queryKey: surveyActionKeys.actions });
-      queryClient.invalidateQueries({ queryKey: surveyActionKeys.responseActions(result.survey_response_id) });
+      queryClient.invalidateQueries({
+        queryKey: surveyActionKeys.responseActions(result.survey_response_id),
+      });
       queryClient.invalidateQueries({ queryKey: surveyActionKeys.detractors });
     },
   });
@@ -249,13 +287,16 @@ export function useDetractorQueue(filters: DetractorQueueFilters = {}) {
     queryKey: surveyActionKeys.detractorQueue(filters),
     queryFn: async (): Promise<DetractorQueueResponse> => {
       const params = new URLSearchParams();
-      if (filters.page) params.set('page', String(filters.page));
-      if (filters.page_size) params.set('page_size', String(filters.page_size));
-      if (filters.risk_level) params.set('risk_level', filters.risk_level);
-      if (filters.score_max !== undefined) params.set('score_max', String(filters.score_max));
-      if (filters.survey_id) params.set('survey_id', String(filters.survey_id));
-      if (filters.is_dismissed !== undefined) params.set('is_dismissed', String(filters.is_dismissed));
-      if (filters.has_actions !== undefined) params.set('has_actions', String(filters.has_actions));
+      if (filters.page) params.set("page", String(filters.page));
+      if (filters.page_size) params.set("page_size", String(filters.page_size));
+      if (filters.risk_level) params.set("risk_level", filters.risk_level);
+      if (filters.score_max !== undefined)
+        params.set("score_max", String(filters.score_max));
+      if (filters.survey_id) params.set("survey_id", String(filters.survey_id));
+      if (filters.is_dismissed !== undefined)
+        params.set("is_dismissed", String(filters.is_dismissed));
+      if (filters.has_actions !== undefined)
+        params.set("has_actions", String(filters.has_actions));
 
       const { data } = await apiClient.get(`/cs/surveys/detractors?${params}`);
       return data;
@@ -281,14 +322,19 @@ export function useMarkActionTaken() {
       actionType: SurveyActionType;
       notes?: string;
     }): Promise<{ status: string; message: string; action_id: number }> => {
-      const response = await apiClient.patch(`/cs/surveys/responses/${responseId}/action`, {
-        action_type: actionType,
-        notes,
-      });
+      const response = await apiClient.patch(
+        `/cs/surveys/responses/${responseId}/action`,
+        {
+          action_type: actionType,
+          notes,
+        },
+      );
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: surveyActionKeys.responseActions(variables.responseId) });
+      queryClient.invalidateQueries({
+        queryKey: surveyActionKeys.responseActions(variables.responseId),
+      });
       queryClient.invalidateQueries({ queryKey: surveyActionKeys.detractors });
     },
   });
@@ -309,7 +355,10 @@ export function useDismissDetractorAlert() {
       alertId: number;
       reason?: string;
     }): Promise<{ status: string; message: string }> => {
-      const response = await apiClient.post(`/cs/surveys/detractors/${alertId}/dismiss`, { reason });
+      const response = await apiClient.post(
+        `/cs/surveys/detractors/${alertId}/dismiss`,
+        { reason },
+      );
       return response.data;
     },
     onSuccess: () => {
@@ -326,7 +375,9 @@ export function useActionHistory(responseId: number | undefined) {
   return useQuery({
     queryKey: surveyActionKeys.actionHistory(responseId!),
     queryFn: async (): Promise<ActionHistoryEntry[]> => {
-      const { data } = await apiClient.get(`/cs/surveys/responses/${responseId}/history`);
+      const { data } = await apiClient.get(
+        `/cs/surveys/responses/${responseId}/history`,
+      );
       return data;
     },
     enabled: !!responseId,
@@ -355,16 +406,21 @@ export function useScheduleCallback() {
       scheduledTime?: string;
       notes?: string;
     }) => {
-      const response = await apiClient.post(`/cs/surveys/responses/${responseId}/action`, {
-        action_type: 'schedule_callback',
-        customer_id: customerId,
-        scheduled_time: scheduledTime,
-        notes,
-      });
+      const response = await apiClient.post(
+        `/cs/surveys/responses/${responseId}/action`,
+        {
+          action_type: "schedule_callback",
+          customer_id: customerId,
+          scheduled_time: scheduledTime,
+          notes,
+        },
+      );
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: surveyActionKeys.responseActions(variables.responseId) });
+      queryClient.invalidateQueries({
+        queryKey: surveyActionKeys.responseActions(variables.responseId),
+      });
       queryClient.invalidateQueries({ queryKey: surveyActionKeys.detractors });
     },
   });
@@ -388,19 +444,24 @@ export function useCreateTicketFromResponse() {
       responseId: number;
       title: string;
       description?: string;
-      priority?: 'low' | 'medium' | 'high' | 'critical';
+      priority?: "low" | "medium" | "high" | "critical";
     }) => {
-      const response = await apiClient.post(`/cs/surveys/responses/${responseId}/action`, {
-        action_type: 'create_ticket',
-        customer_id: customerId,
-        title,
-        description,
-        priority,
-      });
+      const response = await apiClient.post(
+        `/cs/surveys/responses/${responseId}/action`,
+        {
+          action_type: "create_ticket",
+          customer_id: customerId,
+          title,
+          description,
+          priority,
+        },
+      );
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: surveyActionKeys.responseActions(variables.responseId) });
+      queryClient.invalidateQueries({
+        queryKey: surveyActionKeys.responseActions(variables.responseId),
+      });
       queryClient.invalidateQueries({ queryKey: surveyActionKeys.detractors });
     },
   });
@@ -421,19 +482,24 @@ export function useGenerateOffer() {
     }: {
       customerId: number;
       responseId: number;
-      offerType?: 'discount' | 'credit' | 'upgrade' | 'custom';
+      offerType?: "discount" | "credit" | "upgrade" | "custom";
       notes?: string;
     }) => {
-      const response = await apiClient.post(`/cs/surveys/responses/${responseId}/action`, {
-        action_type: 'generate_offer',
-        customer_id: customerId,
-        offer_type: offerType,
-        notes,
-      });
+      const response = await apiClient.post(
+        `/cs/surveys/responses/${responseId}/action`,
+        {
+          action_type: "generate_offer",
+          customer_id: customerId,
+          offer_type: offerType,
+          notes,
+        },
+      );
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: surveyActionKeys.responseActions(variables.responseId) });
+      queryClient.invalidateQueries({
+        queryKey: surveyActionKeys.responseActions(variables.responseId),
+      });
       queryClient.invalidateQueries({ queryKey: surveyActionKeys.detractors });
     },
   });
@@ -454,19 +520,24 @@ export function useSendFollowUpEmail() {
     }: {
       customerId: number;
       responseId: number;
-      emailType?: 'apology' | 'follow_up' | 'resolution' | 'thank_you';
+      emailType?: "apology" | "follow_up" | "resolution" | "thank_you";
       customMessage?: string;
     }) => {
-      const response = await apiClient.post(`/cs/surveys/responses/${responseId}/action`, {
-        action_type: 'send_email',
-        customer_id: customerId,
-        email_type: emailType,
-        custom_message: customMessage,
-      });
+      const response = await apiClient.post(
+        `/cs/surveys/responses/${responseId}/action`,
+        {
+          action_type: "send_email",
+          customer_id: customerId,
+          email_type: emailType,
+          custom_message: customMessage,
+        },
+      );
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: surveyActionKeys.responseActions(variables.responseId) });
+      queryClient.invalidateQueries({
+        queryKey: surveyActionKeys.responseActions(variables.responseId),
+      });
       queryClient.invalidateQueries({ queryKey: surveyActionKeys.detractors });
     },
   });
@@ -488,21 +559,26 @@ export function useBookAppointment() {
     }: {
       customerId: number;
       responseId: number;
-      appointmentType?: 'call' | 'video' | 'in_person';
+      appointmentType?: "call" | "video" | "in_person";
       preferredTime?: string;
       notes?: string;
     }) => {
-      const response = await apiClient.post(`/cs/surveys/responses/${responseId}/action`, {
-        action_type: 'book_appointment',
-        customer_id: customerId,
-        appointment_type: appointmentType,
-        preferred_time: preferredTime,
-        notes,
-      });
+      const response = await apiClient.post(
+        `/cs/surveys/responses/${responseId}/action`,
+        {
+          action_type: "book_appointment",
+          customer_id: customerId,
+          appointment_type: appointmentType,
+          preferred_time: preferredTime,
+          notes,
+        },
+      );
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: surveyActionKeys.responseActions(variables.responseId) });
+      queryClient.invalidateQueries({
+        queryKey: surveyActionKeys.responseActions(variables.responseId),
+      });
       queryClient.invalidateQueries({ queryKey: surveyActionKeys.detractors });
     },
   });
@@ -517,7 +593,7 @@ export interface EscalationRule {
   name: string;
   description?: string;
   is_active: boolean;
-  trigger_type: 'nps_score' | 'sentiment' | 'keywords' | 'combined';
+  trigger_type: "nps_score" | "sentiment" | "keywords" | "combined";
   conditions: EscalationCondition[];
   actions: EscalationRuleAction[];
   priority: number;
@@ -528,13 +604,23 @@ export interface EscalationRule {
 }
 
 export interface EscalationCondition {
-  type: 'score_lte' | 'score_gte' | 'sentiment_eq' | 'keyword_contains' | 'survey_type';
+  type:
+    | "score_lte"
+    | "score_gte"
+    | "sentiment_eq"
+    | "keyword_contains"
+    | "survey_type";
   value: string | number;
-  operator?: 'and' | 'or';
+  operator?: "and" | "or";
 }
 
 export interface EscalationRuleAction {
-  type: 'create_task' | 'send_alert' | 'trigger_playbook' | 'assign_csm' | 'create_escalation';
+  type:
+    | "create_task"
+    | "send_alert"
+    | "trigger_playbook"
+    | "assign_csm"
+    | "create_escalation";
   config: Record<string, unknown>;
 }
 
@@ -542,7 +628,7 @@ export interface EscalationRuleFormData {
   name: string;
   description?: string;
   is_active?: boolean;
-  trigger_type: 'nps_score' | 'sentiment' | 'keywords' | 'combined';
+  trigger_type: "nps_score" | "sentiment" | "keywords" | "combined";
   conditions: EscalationCondition[];
   actions: EscalationRuleAction[];
   priority?: number;
@@ -551,9 +637,10 @@ export interface EscalationRuleFormData {
 }
 
 export const escalationRuleKeys = {
-  rules: ['cs', 'surveys', 'escalation-rules'] as const,
-  rulesList: () => [...escalationRuleKeys.rules, 'list'] as const,
-  ruleDetail: (id: number) => [...escalationRuleKeys.rules, 'detail', id] as const,
+  rules: ["cs", "surveys", "escalation-rules"] as const,
+  rulesList: () => [...escalationRuleKeys.rules, "list"] as const,
+  ruleDetail: (id: number) =>
+    [...escalationRuleKeys.rules, "detail", id] as const,
 };
 
 /**
@@ -563,7 +650,7 @@ export function useEscalationRules() {
   return useQuery({
     queryKey: escalationRuleKeys.rulesList(),
     queryFn: async (): Promise<EscalationRule[]> => {
-      const { data } = await apiClient.get('/cs/surveys/escalation-rules');
+      const { data } = await apiClient.get("/cs/surveys/escalation-rules");
       return data;
     },
     staleTime: 60_000,
@@ -577,7 +664,9 @@ export function useEscalationRule(id: number | undefined) {
   return useQuery({
     queryKey: escalationRuleKeys.ruleDetail(id!),
     queryFn: async (): Promise<EscalationRule> => {
-      const { data } = await apiClient.get(`/cs/surveys/escalation-rules/${id}`);
+      const { data } = await apiClient.get(
+        `/cs/surveys/escalation-rules/${id}`,
+      );
       return data;
     },
     enabled: !!id,
@@ -591,8 +680,13 @@ export function useCreateEscalationRule() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (data: EscalationRuleFormData): Promise<EscalationRule> => {
-      const response = await apiClient.post('/cs/surveys/escalation-rules', data);
+    mutationFn: async (
+      data: EscalationRuleFormData,
+    ): Promise<EscalationRule> => {
+      const response = await apiClient.post(
+        "/cs/surveys/escalation-rules",
+        data,
+      );
       return response.data;
     },
     onSuccess: () => {
@@ -615,11 +709,16 @@ export function useUpdateEscalationRule() {
       id: number;
       data: Partial<EscalationRuleFormData>;
     }): Promise<EscalationRule> => {
-      const response = await apiClient.patch(`/cs/surveys/escalation-rules/${id}`, data);
+      const response = await apiClient.patch(
+        `/cs/surveys/escalation-rules/${id}`,
+        data,
+      );
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: escalationRuleKeys.ruleDetail(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: escalationRuleKeys.ruleDetail(variables.id),
+      });
       queryClient.invalidateQueries({ queryKey: escalationRuleKeys.rules });
     },
   });
@@ -655,13 +754,18 @@ export function useToggleEscalationRule() {
       id: number;
       isActive: boolean;
     }): Promise<EscalationRule> => {
-      const response = await apiClient.patch(`/cs/surveys/escalation-rules/${id}`, {
-        is_active: isActive,
-      });
+      const response = await apiClient.patch(
+        `/cs/surveys/escalation-rules/${id}`,
+        {
+          is_active: isActive,
+        },
+      );
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: escalationRuleKeys.ruleDetail(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: escalationRuleKeys.ruleDetail(variables.id),
+      });
       queryClient.invalidateQueries({ queryKey: escalationRuleKeys.rules });
     },
   });

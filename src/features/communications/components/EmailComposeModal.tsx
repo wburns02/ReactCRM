@@ -1,9 +1,14 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Dialog, DialogContent, DialogHeader, DialogBody } from '@/components/ui/Dialog';
-import { useSendEmail } from '@/api/hooks/useCommunications';
-import { toastSuccess, toastError } from '@/components/ui/Toast';
+import { useState } from "react";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+} from "@/components/ui/Dialog";
+import { useSendEmail } from "@/api/hooks/useCommunications";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 interface EmailComposeModalProps {
   open: boolean;
@@ -19,13 +24,13 @@ interface EmailComposeModalProps {
 export function EmailComposeModal({
   open,
   onClose,
-  defaultEmail = '',
+  defaultEmail = "",
   customerId,
   customerName,
 }: EmailComposeModalProps) {
   const [email, setEmail] = useState(defaultEmail);
-  const [subject, setSubject] = useState('');
-  const [body, setBody] = useState('');
+  const [subject, setSubject] = useState("");
+  const [body, setBody] = useState("");
 
   const sendEmail = useSendEmail();
 
@@ -34,18 +39,18 @@ export function EmailComposeModal({
 
     try {
       await sendEmail.mutateAsync({
-        customer_id: customerId || '',
+        customer_id: customerId || "",
         email,
         subject,
         message: body,
       });
-      toastSuccess('Email sent successfully');
+      toastSuccess("Email sent successfully");
       onClose();
       // Reset form
-      setSubject('');
-      setBody('');
+      setSubject("");
+      setBody("");
     } catch (error) {
-      toastError('Failed to send email');
+      toastError("Failed to send email");
     }
   };
 
@@ -56,9 +61,7 @@ export function EmailComposeModal({
   return (
     <Dialog open={open} onClose={handleClose}>
       <DialogContent size="lg">
-        <DialogHeader onClose={handleClose}>
-          Compose Email
-        </DialogHeader>
+        <DialogHeader onClose={handleClose}>Compose Email</DialogHeader>
         <DialogBody>
           <div className="space-y-4">
             {/* To */}
@@ -114,7 +117,7 @@ export function EmailComposeModal({
                 onClick={handleSend}
                 disabled={!email || !subject || !body || sendEmail.isPending}
               >
-                {sendEmail.isPending ? 'Sending...' : 'Send Email'}
+                {sendEmail.isPending ? "Sending..." : "Send Email"}
               </Button>
             </div>
           </div>

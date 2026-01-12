@@ -1,13 +1,21 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { useIntegrationSettings, useUpdateIntegrationSettings } from '@/api/hooks/useAdmin.ts';
-import { getErrorMessage } from '@/api/client.ts';
-import { formatDate } from '@/lib/utils.ts';
-import { toastSuccess, toastError } from '@/components/ui/Toast';
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import {
+  useIntegrationSettings,
+  useUpdateIntegrationSettings,
+} from "@/api/hooks/useAdmin.ts";
+import { getErrorMessage } from "@/api/client.ts";
+import { formatDate } from "@/lib/utils.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 export function IntegrationSettings() {
   const { data: settings, isLoading } = useIntegrationSettings();
@@ -15,22 +23,22 @@ export function IntegrationSettings() {
 
   const [formData, setFormData] = useState({
     quickbooks_enabled: false,
-    quickbooks_client_id: '',
+    quickbooks_client_id: "",
     stripe_enabled: false,
-    stripe_publishable_key: '',
+    stripe_publishable_key: "",
     mailchimp_enabled: false,
-    mailchimp_api_key: '',
+    mailchimp_api_key: "",
   });
 
   useEffect(() => {
     if (settings) {
       setFormData({
         quickbooks_enabled: settings.quickbooks_enabled,
-        quickbooks_client_id: settings.quickbooks_client_id || '',
+        quickbooks_client_id: settings.quickbooks_client_id || "",
         stripe_enabled: settings.stripe_enabled,
-        stripe_publishable_key: settings.stripe_publishable_key || '',
+        stripe_publishable_key: settings.stripe_publishable_key || "",
         mailchimp_enabled: settings.mailchimp_enabled,
-        mailchimp_api_key: settings.mailchimp_api_key || '',
+        mailchimp_api_key: settings.mailchimp_api_key || "",
       });
     }
   }, [settings]);
@@ -39,7 +47,7 @@ export function IntegrationSettings() {
     e.preventDefault();
     try {
       await updateSettings.mutateAsync(formData);
-      toastSuccess('Integration settings saved successfully!');
+      toastSuccess("Integration settings saved successfully!");
     } catch (error) {
       toastError(`Error: ${getErrorMessage(error)}`);
     }
@@ -76,7 +84,10 @@ export function IntegrationSettings() {
                 id="quickbooks_enabled"
                 checked={formData.quickbooks_enabled}
                 onChange={(e) =>
-                  setFormData({ ...formData, quickbooks_enabled: e.target.checked })
+                  setFormData({
+                    ...formData,
+                    quickbooks_enabled: e.target.checked,
+                  })
                 }
                 className="h-4 w-4 rounded border-border"
               />
@@ -93,17 +104,21 @@ export function IntegrationSettings() {
                     id="quickbooks_client_id"
                     value={formData.quickbooks_client_id}
                     onChange={(e) =>
-                      setFormData({ ...formData, quickbooks_client_id: e.target.value })
+                      setFormData({
+                        ...formData,
+                        quickbooks_client_id: e.target.value,
+                      })
                     }
                     placeholder="Enter QuickBooks Client ID"
                   />
                 </div>
 
-                {settings?.quickbooks_connected && settings.quickbooks_last_sync && (
-                  <div className="text-sm text-text-secondary">
-                    Last synced: {formatDate(settings.quickbooks_last_sync)}
-                  </div>
-                )}
+                {settings?.quickbooks_connected &&
+                  settings.quickbooks_last_sync && (
+                    <div className="text-sm text-text-secondary">
+                      Last synced: {formatDate(settings.quickbooks_last_sync)}
+                    </div>
+                  )}
 
                 {settings?.quickbooks_connected && (
                   <Button type="button" variant="secondary" size="sm">
@@ -151,7 +166,9 @@ export function IntegrationSettings() {
             {formData.stripe_enabled && (
               <>
                 <div>
-                  <Label htmlFor="stripe_publishable_key">Publishable Key</Label>
+                  <Label htmlFor="stripe_publishable_key">
+                    Publishable Key
+                  </Label>
                   <Input
                     id="stripe_publishable_key"
                     value={formData.stripe_publishable_key}
@@ -202,7 +219,10 @@ export function IntegrationSettings() {
                 id="mailchimp_enabled"
                 checked={formData.mailchimp_enabled}
                 onChange={(e) =>
-                  setFormData({ ...formData, mailchimp_enabled: e.target.checked })
+                  setFormData({
+                    ...formData,
+                    mailchimp_enabled: e.target.checked,
+                  })
                 }
                 className="h-4 w-4 rounded border-border"
               />
@@ -219,7 +239,10 @@ export function IntegrationSettings() {
                     id="mailchimp_api_key"
                     value={formData.mailchimp_api_key}
                     onChange={(e) =>
-                      setFormData({ ...formData, mailchimp_api_key: e.target.value })
+                      setFormData({
+                        ...formData,
+                        mailchimp_api_key: e.target.value,
+                      })
                     }
                     placeholder="Enter Mailchimp API key"
                   />
@@ -238,7 +261,7 @@ export function IntegrationSettings() {
         {/* Submit */}
         <div className="flex justify-end">
           <Button type="submit" disabled={updateSettings.isPending}>
-            {updateSettings.isPending ? 'Saving...' : 'Save Changes'}
+            {updateSettings.isPending ? "Saving..." : "Save Changes"}
           </Button>
         </div>
       </div>

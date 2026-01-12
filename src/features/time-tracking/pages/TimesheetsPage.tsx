@@ -1,23 +1,28 @@
-import { useState } from 'react';
-import { usePayrollStats, useCurrentPeriod } from '../api/timeTracking.ts';
-import { TimeEntryList } from '../components/TimeEntryList.tsx';
-import { TimeClockWidget } from '../components/TimeClockWidget.tsx';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { formatCurrency, formatDate } from '@/lib/utils.ts';
+import { useState } from "react";
+import { usePayrollStats, useCurrentPeriod } from "../api/timeTracking.ts";
+import { TimeEntryList } from "../components/TimeEntryList.tsx";
+import { TimeClockWidget } from "../components/TimeClockWidget.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { formatCurrency, formatDate } from "@/lib/utils.ts";
 
-type Tab = 'entries' | 'pending';
+type Tab = "entries" | "pending";
 
 export function TimesheetsPage() {
-  const [activeTab, setActiveTab] = useState<Tab>('entries');
+  const [activeTab, setActiveTab] = useState<Tab>("entries");
   const { data: stats, isLoading: loadingStats } = usePayrollStats();
   const { data: currentPeriod } = useCurrentPeriod();
 
   const tabs: { id: Tab; label: string; icon: string; badge?: number }[] = [
-    { id: 'entries', label: 'Time Entries', icon: '⏱️' },
+    { id: "entries", label: "Time Entries", icon: "⏱️" },
     {
-      id: 'pending',
-      label: 'Pending Approval',
-      icon: '⏳',
+      id: "pending",
+      label: "Pending Approval",
+      icon: "⏳",
       badge: stats?.pending_approvals || 0,
     },
   ];
@@ -45,7 +50,10 @@ export function TimesheetsPage() {
               <div>
                 <p className="text-sm text-text-muted">Current Period Hours</p>
                 <p className="text-2xl font-bold text-text-primary">
-                  {loadingStats ? '-' : (stats?.current_period?.hours?.toFixed(1) || 0)}h
+                  {loadingStats
+                    ? "-"
+                    : stats?.current_period?.hours?.toFixed(1) || 0}
+                  h
                 </p>
               </div>
               <div className="p-3 bg-blue-100 rounded-full text-2xl">📊</div>
@@ -59,7 +67,7 @@ export function TimesheetsPage() {
               <div>
                 <p className="text-sm text-text-muted">Pending Approval</p>
                 <p className="text-2xl font-bold text-warning">
-                  {loadingStats ? '-' : stats?.pending_approvals || 0}
+                  {loadingStats ? "-" : stats?.pending_approvals || 0}
                 </p>
               </div>
               <div className="p-3 bg-yellow-100 rounded-full text-2xl">⏳</div>
@@ -73,7 +81,9 @@ export function TimesheetsPage() {
               <div>
                 <p className="text-sm text-text-muted">YTD Gross Pay</p>
                 <p className="text-2xl font-bold text-success">
-                  {loadingStats ? '-' : formatCurrency(stats?.ytd_gross_pay || 0)}
+                  {loadingStats
+                    ? "-"
+                    : formatCurrency(stats?.ytd_gross_pay || 0)}
                 </p>
               </div>
               <div className="p-3 bg-green-100 rounded-full text-2xl">💰</div>
@@ -87,7 +97,9 @@ export function TimesheetsPage() {
               <div>
                 <p className="text-sm text-text-muted">YTD Commissions</p>
                 <p className="text-2xl font-bold text-text-primary">
-                  {loadingStats ? '-' : formatCurrency(stats?.ytd_commissions || 0)}
+                  {loadingStats
+                    ? "-"
+                    : formatCurrency(stats?.ytd_commissions || 0)}
                 </p>
               </div>
               <div className="p-3 bg-purple-100 rounded-full text-2xl">🎯</div>
@@ -106,7 +118,8 @@ export function TimesheetsPage() {
                 <div>
                   <p className="text-sm text-text-muted">Current Pay Period</p>
                   <p className="font-medium text-text-primary">
-                    {formatDate(currentPeriod.start_date)} - {formatDate(currentPeriod.end_date)}
+                    {formatDate(currentPeriod.start_date)} -{" "}
+                    {formatDate(currentPeriod.end_date)}
                   </p>
                 </div>
               </div>
@@ -130,9 +143,10 @@ export function TimesheetsPage() {
               onClick={() => setActiveTab(tab.id)}
               className={`
                 flex items-center gap-2 px-4 py-2 border-b-2 -mb-px transition-colors
-                ${activeTab === tab.id
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-text-muted hover:text-text-primary'
+                ${
+                  activeTab === tab.id
+                    ? "border-primary text-primary"
+                    : "border-transparent text-text-muted hover:text-text-primary"
                 }
               `}
             >
@@ -150,7 +164,7 @@ export function TimesheetsPage() {
 
       {/* Tab Content */}
       <div className="mt-6">
-        {activeTab === 'entries' && (
+        {activeTab === "entries" && (
           <Card>
             <CardHeader>
               <CardTitle>All Time Entries</CardTitle>
@@ -161,7 +175,7 @@ export function TimesheetsPage() {
           </Card>
         )}
 
-        {activeTab === 'pending' && (
+        {activeTab === "pending" && (
           <Card>
             <CardHeader>
               <CardTitle>Pending Approval</CardTitle>

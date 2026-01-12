@@ -1,7 +1,7 @@
-import { useMemo, type ReactNode } from 'react';
-import { Navigate, useLocation } from 'react-router-dom';
-import { isOnboardingCompleted } from './useOnboarding';
-import { useAuth } from '@/features/auth/useAuth';
+import { useMemo, type ReactNode } from "react";
+import { Navigate, useLocation } from "react-router-dom";
+import { isOnboardingCompleted } from "./useOnboarding";
+import { useAuth } from "@/features/auth/useAuth";
 
 export interface OnboardingCheckProps {
   children: ReactNode;
@@ -26,7 +26,7 @@ export function OnboardingCheck({ children }: OnboardingCheckProps) {
     if (!isAuthenticated) return false;
 
     // Skip check for certain paths
-    const skipPaths = ['/onboarding', '/login', '/portal'];
+    const skipPaths = ["/onboarding", "/login", "/portal"];
     if (skipPaths.some((path) => location.pathname.startsWith(path))) {
       return false;
     }

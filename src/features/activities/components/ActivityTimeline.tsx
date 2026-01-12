@@ -1,17 +1,26 @@
-import { useState } from 'react';
-import { useActivities, useCreateActivity, useDeleteActivity } from '@/api/hooks/useActivities.ts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { ConfirmDialog } from '@/components/ui/Dialog.tsx';
-import { NoteCard } from './NoteCard.tsx';
-import { ActivityForm } from './ActivityForm.tsx';
+import { useState } from "react";
+import {
+  useActivities,
+  useCreateActivity,
+  useDeleteActivity,
+} from "@/api/hooks/useActivities.ts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { ConfirmDialog } from "@/components/ui/Dialog.tsx";
+import { NoteCard } from "./NoteCard.tsx";
+import { ActivityForm } from "./ActivityForm.tsx";
 import {
   ACTIVITY_TYPE_LABELS,
   type Activity,
   type ActivityFormData,
   type ActivityType,
-} from '@/api/types/activity.ts';
+} from "@/api/types/activity.ts";
 
 export interface ActivityTimelineProps {
   customerId: string;
@@ -23,9 +32,11 @@ export interface ActivityTimelineProps {
  */
 export function ActivityTimeline({ customerId }: ActivityTimelineProps) {
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [selectedActivity, setSelectedActivity] = useState<Activity | null>(null);
+  const [selectedActivity, setSelectedActivity] = useState<Activity | null>(
+    null,
+  );
   const [deleteActivity, setDeleteActivity] = useState<Activity | null>(null);
-  const [typeFilter, setTypeFilter] = useState<ActivityType | ''>('');
+  const [typeFilter, setTypeFilter] = useState<ActivityType | "">("");
 
   const { data, isLoading, error } = useActivities({
     customer_id: customerId,
@@ -72,7 +83,9 @@ export function ActivityTimeline({ customerId }: ActivityTimelineProps) {
             <div className="flex items-center gap-3">
               <Select
                 value={typeFilter}
-                onChange={(e) => setTypeFilter(e.target.value as ActivityType | '')}
+                onChange={(e) =>
+                  setTypeFilter(e.target.value as ActivityType | "")
+                }
                 className="w-40"
               >
                 <option value="">All Types</option>
@@ -108,7 +121,9 @@ export function ActivityTimeline({ customerId }: ActivityTimelineProps) {
             <div className="text-center py-12">
               <div className="text-4xl mb-3">📋</div>
               <p className="text-text-muted mb-4">No activities recorded yet</p>
-              <Button onClick={() => setIsFormOpen(true)}>Log First Activity</Button>
+              <Button onClick={() => setIsFormOpen(true)}>
+                Log First Activity
+              </Button>
             </div>
           ) : (
             <div className="space-y-6">

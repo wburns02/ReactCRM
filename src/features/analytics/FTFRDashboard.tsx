@@ -1,11 +1,16 @@
-import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { cn, formatDate } from '@/lib/utils.ts';
+import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
+import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { cn, formatDate } from "@/lib/utils.ts";
 import {
   BarChart,
   Bar,
@@ -18,14 +23,14 @@ import {
   Pie,
   Cell,
   Legend,
-} from 'recharts';
-import type { WorkOrder } from '@/api/types/workOrder.ts';
-import { JOB_TYPE_LABELS, type JobType } from '@/api/types/workOrder.ts';
+} from "recharts";
+import type { WorkOrder } from "@/api/types/workOrder.ts";
+import { JOB_TYPE_LABELS, type JobType } from "@/api/types/workOrder.ts";
 
 /**
  * Time period options for FTFR analysis
  */
-type TimePeriod = 'week' | 'month' | 'quarter' | 'year';
+type TimePeriod = "week" | "month" | "quarter" | "year";
 
 interface FTFRMetrics {
   totalJobs: number;
@@ -61,18 +66,24 @@ interface JobTypeFTFR {
 function calculateFTFRMetrics(
   workOrders: WorkOrder[],
   startDate: Date,
-  endDate: Date
+  endDate: Date,
 ): FTFRMetrics {
   // Filter work orders in the date range
   const ordersInRange = workOrders.filter((wo) => {
-    if (!wo.scheduled_date || wo.status !== 'completed') return false;
+    if (!wo.scheduled_date || wo.status !== "completed") return false;
     const woDate = new Date(wo.scheduled_date);
     return woDate >= startDate && woDate <= endDate;
   });
 
   const totalJobs = ordersInRange.length;
   if (totalJobs === 0) {
-    return { totalJobs: 0, firstTimeFixCount: 0, ftfrRate: 0, returnVisits: 0, trend: 0 };
+    return {
+      totalJobs: 0,
+      firstTimeFixCount: 0,
+      ftfrRate: 0,
+      returnVisits: 0,
+      trend: 0,
+    };
   }
 
   // Identify return visits (same customer, similar job type within 14 days)
@@ -81,12 +92,15 @@ function calculateFTFRMetrics(
   ordersInRange.forEach((wo) => {
     if (!wo.scheduled_date || !wo.customer_id) return;
     const woDate = new Date(wo.scheduled_date);
-    const fourteenDaysLater = new Date(woDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+    const fourteenDaysLater = new Date(
+      woDate.getTime() + 14 * 24 * 60 * 60 * 1000,
+    );
 
     // Find any subsequent work order for same customer
     const hasReturnVisit = workOrders.some((other) => {
-      if (other.id === wo.id || other.customer_id !== wo.customer_id) return false;
-      if (!other.scheduled_date || other.status !== 'completed') return false;
+      if (other.id === wo.id || other.customer_id !== wo.customer_id)
+        return false;
+      if (!other.scheduled_date || other.status !== "completed") return false;
       const otherDate = new Date(other.scheduled_date);
       // Check if it's within 14 days after the original job
       return otherDate > woDate && otherDate <= fourteenDaysLater;
@@ -107,7 +121,7 @@ function calculateFTFRMetrics(
   const prevEndDate = startDate;
 
   const prevOrdersInRange = workOrders.filter((wo) => {
-    if (!wo.scheduled_date || wo.status !== 'completed') return false;
+    if (!wo.scheduled_date || wo.status !== "completed") return false;
     const woDate = new Date(wo.scheduled_date);
     return woDate >= prevStartDate && woDate < prevEndDate;
   });
@@ -117,17 +131,23 @@ function calculateFTFRMetrics(
     const prevReturnVisits = prevOrdersInRange.filter((wo) => {
       if (!wo.scheduled_date || !wo.customer_id) return false;
       const woDate = new Date(wo.scheduled_date);
-      const fourteenDaysLater = new Date(woDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+      const fourteenDaysLater = new Date(
+        woDate.getTime() + 14 * 24 * 60 * 60 * 1000,
+      );
 
       return workOrders.some((other) => {
-        if (other.id === wo.id || other.customer_id !== wo.customer_id) return false;
-        if (!other.scheduled_date || other.status !== 'completed') return false;
+        if (other.id === wo.id || other.customer_id !== wo.customer_id)
+          return false;
+        if (!other.scheduled_date || other.status !== "completed") return false;
         const otherDate = new Date(other.scheduled_date);
         return otherDate > woDate && otherDate <= fourteenDaysLater;
       });
     }).length;
 
-    const prevFTFR = ((prevOrdersInRange.length - prevReturnVisits) / prevOrdersInRange.length) * 100;
+    const prevFTFR =
+      ((prevOrdersInRange.length - prevReturnVisits) /
+        prevOrdersInRange.length) *
+      100;
     trend = ftfrRate - prevFTFR;
   }
 
@@ -140,12 +160,20 @@ function calculateFTFRMetrics(
 function calculateTechnicianFTFR(
   workOrders: WorkOrder[],
   startDate: Date,
-  endDate: Date
+  endDate: Date,
 ): TechnicianFTFR[] {
-  const technicianMap = new Map<string, { totalJobs: number; returnVisits: number }>();
+  const technicianMap = new Map<
+    string,
+    { totalJobs: number; returnVisits: number }
+  >();
 
   const ordersInRange = workOrders.filter((wo) => {
-    if (!wo.scheduled_date || wo.status !== 'completed' || !wo.assigned_technician) return false;
+    if (
+      !wo.scheduled_date ||
+      wo.status !== "completed" ||
+      !wo.assigned_technician
+    )
+      return false;
     const woDate = new Date(wo.scheduled_date);
     return woDate >= startDate && woDate <= endDate;
   });
@@ -161,11 +189,14 @@ function calculateTechnicianFTFR(
     // Check for return visit
     if (wo.scheduled_date && wo.customer_id) {
       const woDate = new Date(wo.scheduled_date);
-      const fourteenDaysLater = new Date(woDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+      const fourteenDaysLater = new Date(
+        woDate.getTime() + 14 * 24 * 60 * 60 * 1000,
+      );
 
       const hasReturnVisit = workOrders.some((other) => {
-        if (other.id === wo.id || other.customer_id !== wo.customer_id) return false;
-        if (!other.scheduled_date || other.status !== 'completed') return false;
+        if (other.id === wo.id || other.customer_id !== wo.customer_id)
+          return false;
+        if (!other.scheduled_date || other.status !== "completed") return false;
         const otherDate = new Date(other.scheduled_date);
         return otherDate > woDate && otherDate <= fourteenDaysLater;
       });
@@ -191,12 +222,15 @@ function calculateTechnicianFTFR(
 function calculateJobTypeFTFR(
   workOrders: WorkOrder[],
   startDate: Date,
-  endDate: Date
+  endDate: Date,
 ): JobTypeFTFR[] {
-  const jobTypeMap = new Map<string, { totalJobs: number; returnVisits: number }>();
+  const jobTypeMap = new Map<
+    string,
+    { totalJobs: number; returnVisits: number }
+  >();
 
   const ordersInRange = workOrders.filter((wo) => {
-    if (!wo.scheduled_date || wo.status !== 'completed') return false;
+    if (!wo.scheduled_date || wo.status !== "completed") return false;
     const woDate = new Date(wo.scheduled_date);
     return woDate >= startDate && woDate <= endDate;
   });
@@ -212,11 +246,14 @@ function calculateJobTypeFTFR(
     // Check for return visit
     if (wo.scheduled_date && wo.customer_id) {
       const woDate = new Date(wo.scheduled_date);
-      const fourteenDaysLater = new Date(woDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+      const fourteenDaysLater = new Date(
+        woDate.getTime() + 14 * 24 * 60 * 60 * 1000,
+      );
 
       const hasReturnVisit = workOrders.some((other) => {
-        if (other.id === wo.id || other.customer_id !== wo.customer_id) return false;
-        if (!other.scheduled_date || other.status !== 'completed') return false;
+        if (other.id === wo.id || other.customer_id !== wo.customer_id)
+          return false;
+        if (!other.scheduled_date || other.status !== "completed") return false;
         const otherDate = new Date(other.scheduled_date);
         return otherDate > woDate && otherDate <= fourteenDaysLater;
       });
@@ -244,16 +281,16 @@ function getDateRange(period: TimePeriod): { startDate: Date; endDate: Date } {
   const startDate = new Date();
 
   switch (period) {
-    case 'week':
+    case "week":
       startDate.setDate(endDate.getDate() - 7);
       break;
-    case 'month':
+    case "month":
       startDate.setMonth(endDate.getMonth() - 1);
       break;
-    case 'quarter':
+    case "quarter":
       startDate.setMonth(endDate.getMonth() - 3);
       break;
-    case 'year':
+    case "year":
       startDate.setFullYear(endDate.getFullYear() - 1);
       break;
   }
@@ -261,7 +298,16 @@ function getDateRange(period: TimePeriod): { startDate: Date; endDate: Date } {
   return { startDate, endDate };
 }
 
-const COLORS = ['#22c55e', '#0091ae', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899', '#14b8a6', '#6366f1'];
+const COLORS = [
+  "#22c55e",
+  "#0091ae",
+  "#f59e0b",
+  "#ef4444",
+  "#8b5cf6",
+  "#ec4899",
+  "#14b8a6",
+  "#6366f1",
+];
 
 /**
  * FTFRDashboard - First-Time Fix Rate analytics dashboard
@@ -270,8 +316,10 @@ const COLORS = ['#22c55e', '#0091ae', '#f59e0b', '#ef4444', '#8b5cf6', '#ec4899'
  * with trend indicators and drill-down capabilities.
  */
 export function FTFRDashboard() {
-  const [timePeriod, setTimePeriod] = useState<TimePeriod>('month');
-  const [selectedTechnician, setSelectedTechnician] = useState<string | null>(null);
+  const [timePeriod, setTimePeriod] = useState<TimePeriod>("month");
+  const [selectedTechnician, setSelectedTechnician] = useState<string | null>(
+    null,
+  );
 
   // Fetch work orders data
   const { data: workOrdersData, isLoading: workOrdersLoading } = useWorkOrders({
@@ -279,7 +327,10 @@ export function FTFRDashboard() {
     page_size: 1000,
   });
   // Calculate metrics based on selected time period
-  const { startDate, endDate } = useMemo(() => getDateRange(timePeriod), [timePeriod]);
+  const { startDate, endDate } = useMemo(
+    () => getDateRange(timePeriod),
+    [timePeriod],
+  );
 
   const metrics = useMemo(() => {
     const workOrders = workOrdersData?.items || [];
@@ -288,30 +339,36 @@ export function FTFRDashboard() {
 
   const technicianFTFR = useMemo(() => {
     const workOrders = workOrdersData?.items || [];
-    return calculateTechnicianFTFR(workOrders, startDate, endDate)
-      .sort((a, b) => b.ftfrRate - a.ftfrRate);
+    return calculateTechnicianFTFR(workOrders, startDate, endDate).sort(
+      (a, b) => b.ftfrRate - a.ftfrRate,
+    );
   }, [workOrdersData, startDate, endDate]);
 
   const jobTypeFTFR = useMemo(() => {
     const workOrders = workOrdersData?.items || [];
-    return calculateJobTypeFTFR(workOrders, startDate, endDate)
-      .sort((a, b) => b.totalJobs - a.totalJobs);
+    return calculateJobTypeFTFR(workOrders, startDate, endDate).sort(
+      (a, b) => b.totalJobs - a.totalJobs,
+    );
   }, [workOrdersData, startDate, endDate]);
 
   // Low performers (FTFR < 80%)
-  const lowPerformers = technicianFTFR.filter((t) => t.ftfrRate < 80 && t.totalJobs >= 3);
+  const lowPerformers = technicianFTFR.filter(
+    (t) => t.ftfrRate < 80 && t.totalJobs >= 3,
+  );
 
   // Get FTFR color based on rate
   const getFTFRColor = (rate: number) => {
-    if (rate >= 90) return 'text-success';
-    if (rate >= 80) return 'text-warning';
-    return 'text-danger';
+    if (rate >= 90) return "text-success";
+    if (rate >= 80) return "text-warning";
+    return "text-danger";
   };
 
-  const getFTFRBadgeVariant = (rate: number): 'success' | 'warning' | 'danger' => {
-    if (rate >= 90) return 'success';
-    if (rate >= 80) return 'warning';
-    return 'danger';
+  const getFTFRBadgeVariant = (
+    rate: number,
+  ): "success" | "warning" | "danger" => {
+    if (rate >= 90) return "success";
+    if (rate >= 80) return "warning";
+    return "danger";
   };
 
   if (workOrdersLoading) {
@@ -369,24 +426,40 @@ export function FTFRDashboard() {
           <CardContent className="pt-6">
             <div className="flex items-center justify-between">
               <div>
-                <p className="text-sm text-text-secondary">First-Time Fix Rate</p>
-                <p className={cn('text-4xl font-bold mt-2', getFTFRColor(metrics.ftfrRate))}>
+                <p className="text-sm text-text-secondary">
+                  First-Time Fix Rate
+                </p>
+                <p
+                  className={cn(
+                    "text-4xl font-bold mt-2",
+                    getFTFRColor(metrics.ftfrRate),
+                  )}
+                >
                   {metrics.ftfrRate.toFixed(1)}%
                 </p>
                 <div className="flex items-center gap-2 mt-2">
                   {metrics.trend !== 0 && (
-                    <span className={cn(
-                      'text-xs font-medium',
-                      metrics.trend > 0 ? 'text-success' : 'text-danger'
-                    )}>
-                      {metrics.trend > 0 ? '+' : ''}{metrics.trend.toFixed(1)}%
+                    <span
+                      className={cn(
+                        "text-xs font-medium",
+                        metrics.trend > 0 ? "text-success" : "text-danger",
+                      )}
+                    >
+                      {metrics.trend > 0 ? "+" : ""}
+                      {metrics.trend.toFixed(1)}%
                     </span>
                   )}
-                  <span className="text-xs text-text-muted">vs previous period</span>
+                  <span className="text-xs text-text-muted">
+                    vs previous period
+                  </span>
                 </div>
               </div>
               <div className="text-4xl opacity-20">
-                {metrics.ftfrRate >= 90 ? '+++' : metrics.ftfrRate >= 80 ? '++' : '+'}
+                {metrics.ftfrRate >= 90
+                  ? "+++"
+                  : metrics.ftfrRate >= 80
+                    ? "++"
+                    : "+"}
               </div>
             </div>
           </CardContent>
@@ -396,7 +469,9 @@ export function FTFRDashboard() {
         <Card>
           <CardContent className="pt-6">
             <div>
-              <p className="text-sm text-text-secondary">Total Completed Jobs</p>
+              <p className="text-sm text-text-secondary">
+                Total Completed Jobs
+              </p>
               <p className="text-3xl font-bold text-text-primary mt-2">
                 {metrics.totalJobs}
               </p>
@@ -426,7 +501,9 @@ export function FTFRDashboard() {
         <Card>
           <CardContent className="pt-6">
             <div>
-              <p className="text-sm text-text-secondary">Return Visits Required</p>
+              <p className="text-sm text-text-secondary">
+                Return Visits Required
+              </p>
               <p className="text-3xl font-bold text-danger mt-2">
                 {metrics.returnVisits}
               </p>
@@ -446,25 +523,31 @@ export function FTFRDashboard() {
           </CardHeader>
           <CardContent>
             {technicianFTFR.length === 0 ? (
-              <p className="text-text-muted text-center py-8">No technician data available</p>
+              <p className="text-text-muted text-center py-8">
+                No technician data available
+              </p>
             ) : (
               <div className="space-y-3">
                 {technicianFTFR.slice(0, 10).map((tech) => (
                   <div
                     key={tech.id}
                     className={cn(
-                      'p-3 rounded-lg border transition-colors cursor-pointer',
+                      "p-3 rounded-lg border transition-colors cursor-pointer",
                       selectedTechnician === tech.id
-                        ? 'border-primary bg-primary/5'
-                        : 'border-border hover:bg-bg-hover'
+                        ? "border-primary bg-primary/5"
+                        : "border-border hover:bg-bg-hover",
                     )}
-                    onClick={() => setSelectedTechnician(
-                      selectedTechnician === tech.id ? null : tech.id
-                    )}
+                    onClick={() =>
+                      setSelectedTechnician(
+                        selectedTechnician === tech.id ? null : tech.id,
+                      )
+                    }
                   >
                     <div className="flex items-center justify-between mb-2">
                       <div className="flex items-center gap-3">
-                        <span className="font-medium text-text-primary">{tech.name}</span>
+                        <span className="font-medium text-text-primary">
+                          {tech.name}
+                        </span>
                         <Badge variant={getFTFRBadgeVariant(tech.ftfrRate)}>
                           {tech.ftfrRate.toFixed(0)}%
                         </Badge>
@@ -476,9 +559,12 @@ export function FTFRDashboard() {
                     <div className="w-full bg-bg-muted rounded-full h-2">
                       <div
                         className={cn(
-                          'h-2 rounded-full transition-all',
-                          tech.ftfrRate >= 90 ? 'bg-success' :
-                          tech.ftfrRate >= 80 ? 'bg-warning' : 'bg-danger'
+                          "h-2 rounded-full transition-all",
+                          tech.ftfrRate >= 90
+                            ? "bg-success"
+                            : tech.ftfrRate >= 80
+                              ? "bg-warning"
+                              : "bg-danger",
                         )}
                         style={{ width: `${tech.ftfrRate}%` }}
                       />
@@ -488,7 +574,9 @@ export function FTFRDashboard() {
                         <div className="grid grid-cols-2 gap-4 text-sm">
                           <div>
                             <p className="text-text-muted">First-Time Fixes</p>
-                            <p className="font-medium text-success">{tech.firstTimeFixCount}</p>
+                            <p className="font-medium text-success">
+                              {tech.firstTimeFixCount}
+                            </p>
                           </div>
                           <div>
                             <p className="text-text-muted">Return Visits</p>
@@ -513,7 +601,9 @@ export function FTFRDashboard() {
           </CardHeader>
           <CardContent>
             {jobTypeFTFR.length === 0 ? (
-              <p className="text-text-muted text-center py-8">No job type data available</p>
+              <p className="text-text-muted text-center py-8">
+                No job type data available
+              </p>
             ) : (
               <ResponsiveContainer width="100%" height={300}>
                 <PieChart>
@@ -526,23 +616,35 @@ export function FTFRDashboard() {
                     fill="#8884d8"
                     dataKey="totalJobs"
                     nameKey="label"
-                    label={(props: { name?: string; payload?: { label?: string; ftfrRate?: number } }) =>
-                      `${props.payload?.label || props.name || ''}: ${(props.payload?.ftfrRate || 0).toFixed(0)}%`
+                    label={(props: {
+                      name?: string;
+                      payload?: { label?: string; ftfrRate?: number };
+                    }) =>
+                      `${props.payload?.label || props.name || ""}: ${(props.payload?.ftfrRate || 0).toFixed(0)}%`
                     }
                   >
                     {jobTypeFTFR.map((_, index) => (
-                      <Cell key={`cell-${index}`} fill={COLORS[index % COLORS.length]} />
+                      <Cell
+                        key={`cell-${index}`}
+                        fill={COLORS[index % COLORS.length]}
+                      />
                     ))}
                   </Pie>
                   <Tooltip
-                    formatter={(value, _name, props: { payload?: { ftfrRate?: number; label?: string } }) => [
+                    formatter={(
+                      value,
+                      _name,
+                      props: {
+                        payload?: { ftfrRate?: number; label?: string };
+                      },
+                    ) => [
                       `${value} jobs (${(props.payload?.ftfrRate || 0).toFixed(1)}% FTFR)`,
-                      props.payload?.label || ''
+                      props.payload?.label || "",
                     ]}
                     contentStyle={{
-                      backgroundColor: '#ffffff',
-                      border: '1px solid #e5e7eb',
-                      borderRadius: '8px',
+                      backgroundColor: "#ffffff",
+                      border: "1px solid #e5e7eb",
+                      borderRadius: "8px",
                     }}
                   />
                   <Legend />
@@ -560,7 +662,9 @@ export function FTFRDashboard() {
         </CardHeader>
         <CardContent>
           {jobTypeFTFR.length === 0 ? (
-            <p className="text-text-muted text-center py-8">No data available</p>
+            <p className="text-text-muted text-center py-8">
+              No data available
+            </p>
           ) : (
             <ResponsiveContainer width="100%" height={300}>
               <BarChart data={jobTypeFTFR}>
@@ -568,20 +672,20 @@ export function FTFRDashboard() {
                 <XAxis
                   dataKey="label"
                   stroke="#6b7280"
-                  style={{ fontSize: '12px' }}
+                  style={{ fontSize: "12px" }}
                 />
                 <YAxis
                   domain={[0, 100]}
                   tickFormatter={(value) => `${value}%`}
                   stroke="#6b7280"
-                  style={{ fontSize: '12px' }}
+                  style={{ fontSize: "12px" }}
                 />
                 <Tooltip
                   formatter={(value) => `${Number(value).toFixed(1)}%`}
                   contentStyle={{
-                    backgroundColor: '#ffffff',
-                    border: '1px solid #e5e7eb',
-                    borderRadius: '8px',
+                    backgroundColor: "#ffffff",
+                    border: "1px solid #e5e7eb",
+                    borderRadius: "8px",
                   }}
                 />
                 <Bar
@@ -602,7 +706,9 @@ export function FTFRDashboard() {
           <CardHeader>
             <div className="flex items-center gap-3">
               <CardTitle>Low Performance Analysis</CardTitle>
-              <Badge variant="danger">{lowPerformers.length} technicians below 80%</Badge>
+              <Badge variant="danger">
+                {lowPerformers.length} technicians below 80%
+              </Badge>
             </div>
           </CardHeader>
           <CardContent>
@@ -614,9 +720,12 @@ export function FTFRDashboard() {
                 >
                   <div className="flex items-start justify-between mb-3">
                     <div>
-                      <h4 className="font-medium text-text-primary">{tech.name}</h4>
+                      <h4 className="font-medium text-text-primary">
+                        {tech.name}
+                      </h4>
                       <p className="text-sm text-danger">
-                        {tech.ftfrRate.toFixed(1)}% FTFR ({tech.totalJobs - tech.firstTimeFixCount} return visits)
+                        {tech.ftfrRate.toFixed(1)}% FTFR (
+                        {tech.totalJobs - tech.firstTimeFixCount} return visits)
                       </p>
                     </div>
                     <Badge variant="danger">{tech.ftfrRate.toFixed(0)}%</Badge>
@@ -628,7 +737,9 @@ export function FTFRDashboard() {
                     <ul className="text-sm text-text-secondary space-y-1">
                       <li>- Review recent return visit cases for patterns</li>
                       <li>- Schedule additional training on common issues</li>
-                      <li>- Consider pairing with higher-performing technician</li>
+                      <li>
+                        - Consider pairing with higher-performing technician
+                      </li>
                       <li>- Verify proper diagnostic tools are being used</li>
                     </ul>
                   </div>
@@ -638,7 +749,9 @@ export function FTFRDashboard() {
                         View Profile
                       </Button>
                     </Link>
-                    <Link to={`/work-orders?technician=${tech.id}&status=requires_followup`}>
+                    <Link
+                      to={`/work-orders?technician=${tech.id}&status=requires_followup`}
+                    >
                       <Button size="sm" variant="secondary">
                         View Return Visits
                       </Button>

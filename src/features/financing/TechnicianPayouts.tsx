@@ -2,34 +2,45 @@
  * Technician Payouts Component
  * View earnings and request instant payouts
  */
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/Dialog';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/Label';
+import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogFooter,
+} from "@/components/ui/Dialog";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
 import {
   useTechnicianEarnings,
   useTechnicianPayouts,
   useRequestInstantPayout,
   useInstantPayoutFee,
-} from '@/api/hooks/useFintech';
-import { formatCurrency, formatDate, cn } from '@/lib/utils';
-import { getErrorMessage } from '@/api/client';
-import { toastError } from '@/components/ui/Toast';
+} from "@/api/hooks/useFintech";
+import { formatCurrency, formatDate, cn } from "@/lib/utils";
+import { getErrorMessage } from "@/api/client";
+import { toastError } from "@/components/ui/Toast";
 
 interface TechnicianPayoutsProps {
   technicianId: string;
   technicianName?: string;
 }
 
-export function TechnicianPayouts({ technicianId, technicianName }: TechnicianPayoutsProps) {
+export function TechnicianPayouts({
+  technicianId,
+  technicianName,
+}: TechnicianPayoutsProps) {
   const [showPayoutDialog, setShowPayoutDialog] = useState(false);
-  const [payoutAmount, setPayoutAmount] = useState('');
+  const [payoutAmount, setPayoutAmount] = useState("");
 
-  const { data: earnings, isLoading: earningsLoading } = useTechnicianEarnings(technicianId);
-  const { data: payouts, isLoading: payoutsLoading } = useTechnicianPayouts(technicianId);
+  const { data: earnings, isLoading: earningsLoading } =
+    useTechnicianEarnings(technicianId);
+  const { data: payouts, isLoading: payoutsLoading } =
+    useTechnicianPayouts(technicianId);
   const requestPayout = useRequestInstantPayout();
 
   const amount = parseFloat(payoutAmount) || 0;
@@ -44,7 +55,7 @@ export function TechnicianPayouts({ technicianId, technicianName }: TechnicianPa
         amount,
       });
       setShowPayoutDialog(false);
-      setPayoutAmount('');
+      setPayoutAmount("");
     } catch (error) {
       toastError(`Error: ${getErrorMessage(error)}`);
     }
@@ -61,7 +72,7 @@ export function TechnicianPayouts({ technicianId, technicianName }: TechnicianPa
             <div>
               <CardTitle>Earnings Overview</CardTitle>
               <p className="text-sm text-text-secondary mt-1">
-                {technicianName || 'Technician'}'s current pay period
+                {technicianName || "Technician"}'s current pay period
               </p>
             </div>
             <Button
@@ -82,7 +93,9 @@ export function TechnicianPayouts({ technicianId, technicianName }: TechnicianPa
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
                 <div className="bg-background-secondary rounded-lg p-4">
                   <p className="text-sm text-text-muted">Gross Earnings</p>
-                  <p className="text-2xl font-bold">{formatCurrency(earnings.gross_earnings)}</p>
+                  <p className="text-2xl font-bold">
+                    {formatCurrency(earnings.gross_earnings)}
+                  </p>
                 </div>
                 <div className="bg-background-secondary rounded-lg p-4">
                   <p className="text-sm text-text-muted">Jobs Completed</p>
@@ -90,7 +103,9 @@ export function TechnicianPayouts({ technicianId, technicianName }: TechnicianPa
                 </div>
                 <div className="bg-background-secondary rounded-lg p-4">
                   <p className="text-sm text-text-muted">Hours Worked</p>
-                  <p className="text-2xl font-bold">{earnings.total_hours.toFixed(1)}</p>
+                  <p className="text-2xl font-bold">
+                    {earnings.total_hours.toFixed(1)}
+                  </p>
                 </div>
                 <div className="bg-success/10 rounded-lg p-4">
                   <p className="text-sm text-success">Available for Payout</p>
@@ -114,11 +129,15 @@ export function TechnicianPayouts({ technicianId, technicianName }: TechnicianPa
                   </div>
                   <div className="flex justify-between">
                     <span className="text-text-secondary">Bonuses</span>
-                    <span className="text-success">+{formatCurrency(earnings.bonuses)}</span>
+                    <span className="text-success">
+                      +{formatCurrency(earnings.bonuses)}
+                    </span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-text-secondary">Deductions</span>
-                    <span className="text-error">-{formatCurrency(earnings.deductions)}</span>
+                    <span className="text-error">
+                      -{formatCurrency(earnings.deductions)}
+                    </span>
                   </div>
                   <div className="flex justify-between pt-2 border-t border-border font-medium">
                     <span>Gross Total</span>
@@ -140,7 +159,8 @@ export function TechnicianPayouts({ technicianId, technicianName }: TechnicianPa
                         <div>
                           <p className="font-medium">{job.customer_name}</p>
                           <p className="text-sm text-text-muted">
-                            {job.job_type} • {job.duration_hours}h • {formatDate(job.completed_at)}
+                            {job.job_type} • {job.duration_hours}h •{" "}
+                            {formatDate(job.completed_at)}
                           </p>
                         </div>
                         <span className="font-medium text-success">
@@ -167,7 +187,9 @@ export function TechnicianPayouts({ technicianId, technicianName }: TechnicianPa
           {payoutsLoading ? (
             <div className="h-40 bg-background-secondary animate-pulse rounded" />
           ) : !payouts?.length ? (
-            <p className="text-text-secondary text-center py-8">No payouts yet</p>
+            <p className="text-text-secondary text-center py-8">
+              No payouts yet
+            </p>
           ) : (
             <div className="space-y-3">
               {payouts.map((payout) => (
@@ -177,30 +199,38 @@ export function TechnicianPayouts({ technicianId, technicianName }: TechnicianPa
                 >
                   <div>
                     <div className="flex items-center gap-2">
-                      <span className="font-medium">{formatCurrency(payout.net_amount)}</span>
+                      <span className="font-medium">
+                        {formatCurrency(payout.net_amount)}
+                      </span>
                       <Badge
                         className={cn(
-                          payout.status === 'completed' && 'bg-success/10 text-success',
-                          payout.status === 'processing' && 'bg-warning/10 text-warning',
-                          payout.status === 'pending' && 'bg-info/10 text-info',
-                          payout.status === 'failed' && 'bg-error/10 text-error'
+                          payout.status === "completed" &&
+                            "bg-success/10 text-success",
+                          payout.status === "processing" &&
+                            "bg-warning/10 text-warning",
+                          payout.status === "pending" && "bg-info/10 text-info",
+                          payout.status === "failed" &&
+                            "bg-error/10 text-error",
                         )}
                       >
                         {payout.status}
                       </Badge>
-                      {payout.type === 'instant' && (
+                      {payout.type === "instant" && (
                         <Badge variant="outline">Instant</Badge>
                       )}
                     </div>
                     <p className="text-sm text-text-muted mt-1">
                       {formatDate(payout.created_at)}
-                      {payout.fee > 0 && ` • Fee: ${formatCurrency(payout.fee)}`}
+                      {payout.fee > 0 &&
+                        ` • Fee: ${formatCurrency(payout.fee)}`}
                     </p>
                   </div>
                   <span
                     className={cn(
-                      'text-lg font-semibold',
-                      payout.status === 'completed' ? 'text-success' : 'text-text-muted'
+                      "text-lg font-semibold",
+                      payout.status === "completed"
+                        ? "text-success"
+                        : "text-text-muted",
                     )}
                   >
                     {formatCurrency(payout.amount)}
@@ -221,7 +251,8 @@ export function TechnicianPayouts({ technicianId, technicianName }: TechnicianPa
           <div className="py-4 space-y-4">
             <div className="bg-success/10 border border-success/30 rounded-lg p-4">
               <p className="text-sm text-success">
-                Available for instant payout: <strong>{formatCurrency(maxPayout)}</strong>
+                Available for instant payout:{" "}
+                <strong>{formatCurrency(maxPayout)}</strong>
               </p>
             </div>
 
@@ -255,31 +286,45 @@ export function TechnicianPayouts({ technicianId, technicianName }: TechnicianPa
                   <span>{formatCurrency(amount)}</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-text-secondary">Instant Payout Fee (1.5%)</span>
-                  <span className="text-error">-{formatCurrency(feeData.fee)}</span>
+                  <span className="text-text-secondary">
+                    Instant Payout Fee (1.5%)
+                  </span>
+                  <span className="text-error">
+                    -{formatCurrency(feeData.fee)}
+                  </span>
                 </div>
                 <div className="flex justify-between pt-2 border-t border-border font-medium">
                   <span>You'll Receive</span>
-                  <span className="text-success">{formatCurrency(feeData.net_amount)}</span>
+                  <span className="text-success">
+                    {formatCurrency(feeData.net_amount)}
+                  </span>
                 </div>
               </div>
             )}
 
             <p className="text-xs text-text-muted">
-              Instant payouts are typically deposited within minutes. A 1.5% fee applies for instant
-              payouts. Standard payouts (next business day) are free.
+              Instant payouts are typically deposited within minutes. A 1.5% fee
+              applies for instant payouts. Standard payouts (next business day)
+              are free.
             </p>
           </div>
           <DialogFooter>
-            <Button variant="outline" onClick={() => setShowPayoutDialog(false)}>
+            <Button
+              variant="outline"
+              onClick={() => setShowPayoutDialog(false)}
+            >
               Cancel
             </Button>
             <Button
               variant="primary"
               onClick={handleRequestPayout}
-              disabled={amount <= 0 || amount > maxPayout || requestPayout.isPending}
+              disabled={
+                amount <= 0 || amount > maxPayout || requestPayout.isPending
+              }
             >
-              {requestPayout.isPending ? 'Processing...' : 'Request Instant Payout'}
+              {requestPayout.isPending
+                ? "Processing..."
+                : "Request Instant Payout"}
             </Button>
           </DialogFooter>
         </DialogContent>

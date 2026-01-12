@@ -3,25 +3,22 @@
  * Provides real-time technician location updates and ETA calculations
  * for both dispatch views and customer-facing tracking pages
  */
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient, withFallback } from '@/api/client';
-import { useWebSocket } from '@/hooks/useWebSocket';
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient, withFallback } from "@/api/client";
+import { useWebSocket } from "@/hooks/useWebSocket";
 import type {
   CustomerTrackingData,
   TechnicianLocationUpdate,
   ETAInfo,
   TrackingSession,
-} from '@/api/types/tracking';
-import {
-  formatETA,
-  isArrivingSoon,
-} from '@/api/types/tracking';
+} from "@/api/types/tracking";
+import { formatETA, isArrivingSoon } from "@/api/types/tracking";
 import {
   calculateDistance,
   estimateETA,
   type Coordinates,
-} from '@/features/gps-tracking/types';
+} from "@/features/gps-tracking/types";
 
 // ============================================
 // Configuration
@@ -51,7 +48,7 @@ export interface UseRealTimeTrackingOptions {
   /** Callback when ETA updates */
   onETAUpdate?: (eta: ETAInfo) => void;
   /** Callback when status changes (arriving, on_site, etc.) */
-  onStatusChange?: (status: TechnicianLocationUpdate['status']) => void;
+  onStatusChange?: (status: TechnicianLocationUpdate["status"]) => void;
 }
 
 export interface UseRealTimeTrackingReturn {
@@ -84,7 +81,9 @@ export interface UseRealTimeTrackingReturn {
 /**
  * Fetch tracking data by token (public endpoint)
  */
-async function fetchTrackingByToken(token: string): Promise<CustomerTrackingData | null> {
+async function fetchTrackingByToken(
+  token: string,
+): Promise<CustomerTrackingData | null> {
   return withFallback(async () => {
     const { data } = await apiClient.get(`/tracking/public/${token}`);
     return data;
@@ -94,7 +93,9 @@ async function fetchTrackingByToken(token: string): Promise<CustomerTrackingData
 /**
  * Fetch tracking data by work order ID (authenticated)
  */
-async function fetchTrackingByWorkOrder(workOrderId: string): Promise<CustomerTrackingData | null> {
+async function fetchTrackingByWorkOrder(
+  workOrderId: string,
+): Promise<CustomerTrackingData | null> {
   return withFallback(async () => {
     const { data } = await apiClient.get(`/tracking/work-order/${workOrderId}`);
     return data;
@@ -104,9 +105,13 @@ async function fetchTrackingByWorkOrder(workOrderId: string): Promise<CustomerTr
 /**
  * Create tracking session for work order
  */
-async function createTrackingSession(workOrderId: string): Promise<TrackingSession | null> {
+async function createTrackingSession(
+  workOrderId: string,
+): Promise<TrackingSession | null> {
   return withFallback(async () => {
-    const { data } = await apiClient.post(`/tracking/sessions`, { work_order_id: workOrderId });
+    const { data } = await apiClient.post(`/tracking/sessions`, {
+      work_order_id: workOrderId,
+    });
     return data;
   }, null);
 }
@@ -116,7 +121,7 @@ async function createTrackingSession(workOrderId: string): Promise<TrackingSessi
  */
 async function sendTrackingLink(
   workOrderId: string,
-  phoneNumber: string
+  phoneNumber: string,
 ): Promise<{ success: boolean; message: string }> {
   const { data } = await apiClient.post(`/tracking/send-link`, {
     work_order_id: workOrderId,
@@ -136,7 +141,9 @@ async function sendTrackingLink(
  * 1. Customer mode: Pass trackingToken for public tracking page
  * 2. Dispatch mode: Pass workOrderId for internal dispatch view
  */
-export function useRealTimeTracking(options: UseRealTimeTrackingOptions = {}): UseRealTimeTrackingReturn {
+export function useRealTimeTracking(
+  options: UseRealTimeTrackingOptions = {},
+): UseRealTimeTrackingReturn {
   const {
     trackingToken,
     workOrderId,
@@ -148,14 +155,16 @@ export function useRealTimeTracking(options: UseRealTimeTrackingOptions = {}): U
   } = options;
 
   // State
-  const [locationHistory, setLocationHistory] = useState<TechnicianLocationUpdate[]>([]);
+  const [locationHistory, setLocationHistory] = useState<
+    TechnicianLocationUpdate[]
+  >([]);
   const [lastUpdated, setLastUpdated] = useState<Date | null>(null);
 
   // Refs for callbacks to avoid stale closures
   const onLocationUpdateRef = useRef(onLocationUpdate);
   const onETAUpdateRef = useRef(onETAUpdate);
   const onStatusChangeRef = useRef(onStatusChange);
-  const lastStatusRef = useRef<TechnicianLocationUpdate['status'] | null>(null);
+  const lastStatusRef = useRef<TechnicianLocationUpdate["status"] | null>(null);
 
   // Keep refs in sync
   useEffect(() => {
@@ -166,16 +175,16 @@ export function useRealTimeTracking(options: UseRealTimeTrackingOptions = {}): U
 
   // Determine which fetch function to use
   const queryKey = trackingToken
-    ? ['tracking', 'token', trackingToken]
+    ? ["tracking", "token", trackingToken]
     : workOrderId
-    ? ['tracking', 'workOrder', workOrderId]
-    : null;
+      ? ["tracking", "workOrder", workOrderId]
+      : null;
 
   const queryFn = trackingToken
     ? () => fetchTrackingByToken(trackingToken)
     : workOrderId
-    ? () => fetchTrackingByWorkOrder(workOrderId)
-    : null;
+      ? () => fetchTrackingByWorkOrder(workOrderId)
+      : null;
 
   // Query for tracking data
   const {
@@ -184,7 +193,7 @@ export function useRealTimeTracking(options: UseRealTimeTrackingOptions = {}): U
     error: queryError,
     refetch,
   } = useQuery({
-    queryKey: queryKey || ['tracking', 'none'],
+    queryKey: queryKey || ["tracking", "none"],
     queryFn: queryFn || (() => Promise.resolve(null)),
     enabled: !!queryKey,
     refetchInterval: refreshInterval,
@@ -196,7 +205,7 @@ export function useRealTimeTracking(options: UseRealTimeTrackingOptions = {}): U
   useWebSocket({
     autoConnect: enableWebSocket && !!trackingData?.session?.id,
     onMessage: (message) => {
-      if (message.type === 'technician_location') {
+      if (message.type === "technician_location") {
         const location = message.payload as TechnicianLocationUpdate;
 
         // Only process if it matches our technician
@@ -208,29 +217,34 @@ export function useRealTimeTracking(options: UseRealTimeTrackingOptions = {}): U
   });
 
   // Process location update
-  const handleLocationUpdate = useCallback((location: TechnicianLocationUpdate) => {
-    // Add to history
-    setLocationHistory((prev) => {
-      // Prevent duplicates and limit history size
-      const exists = prev.some(
-        (l) => l.timestamp === location.timestamp && l.technicianId === location.technicianId
-      );
-      if (exists) return prev;
-      const updated = [...prev, location];
-      return updated.slice(-100); // Keep last 100 points
-    });
+  const handleLocationUpdate = useCallback(
+    (location: TechnicianLocationUpdate) => {
+      // Add to history
+      setLocationHistory((prev) => {
+        // Prevent duplicates and limit history size
+        const exists = prev.some(
+          (l) =>
+            l.timestamp === location.timestamp &&
+            l.technicianId === location.technicianId,
+        );
+        if (exists) return prev;
+        const updated = [...prev, location];
+        return updated.slice(-100); // Keep last 100 points
+      });
 
-    setLastUpdated(new Date());
+      setLastUpdated(new Date());
 
-    // Trigger callbacks
-    onLocationUpdateRef.current?.(location);
+      // Trigger callbacks
+      onLocationUpdateRef.current?.(location);
 
-    // Check for status change
-    if (lastStatusRef.current !== location.status) {
-      lastStatusRef.current = location.status;
-      onStatusChangeRef.current?.(location.status);
-    }
-  }, []);
+      // Check for status change
+      if (lastStatusRef.current !== location.status) {
+        lastStatusRef.current = location.status;
+        onStatusChangeRef.current?.(location.status);
+      }
+    },
+    [],
+  );
 
   // Update history when initial data loads
   useEffect(() => {
@@ -249,7 +263,7 @@ export function useRealTimeTracking(options: UseRealTimeTrackingOptions = {}): U
   // Format ETA for display
   const formattedETAValue = useMemo(() => {
     const eta = trackingData?.eta;
-    if (!eta) return 'Calculating...';
+    if (!eta) return "Calculating...";
     return formatETA(eta.durationRemaining);
   }, [trackingData?.eta]);
 
@@ -292,7 +306,9 @@ export function useCreateTrackingSession() {
   return useMutation({
     mutationFn: createTrackingSession,
     onSuccess: (_data, workOrderId) => {
-      queryClient.invalidateQueries({ queryKey: ['tracking', 'workOrder', workOrderId] });
+      queryClient.invalidateQueries({
+        queryKey: ["tracking", "workOrder", workOrderId],
+      });
     },
   });
 }
@@ -302,8 +318,13 @@ export function useCreateTrackingSession() {
  */
 export function useSendTrackingLink() {
   return useMutation({
-    mutationFn: ({ workOrderId, phoneNumber }: { workOrderId: string; phoneNumber: string }) =>
-      sendTrackingLink(workOrderId, phoneNumber),
+    mutationFn: ({
+      workOrderId,
+      phoneNumber,
+    }: {
+      workOrderId: string;
+      phoneNumber: string;
+    }) => sendTrackingLink(workOrderId, phoneNumber),
   });
 }
 
@@ -318,7 +339,7 @@ export interface DispatchTechnicianLocation {
   lng: number;
   heading?: number;
   speed?: number;
-  status: 'active' | 'idle' | 'offline';
+  status: "active" | "idle" | "offline";
   currentWorkOrderId?: string;
   eta?: ETAInfo;
   timestamp: string;
@@ -328,14 +349,21 @@ export interface DispatchTechnicianLocation {
  * Hook for dispatch view - tracks all active technicians
  */
 export function useDispatchTracking() {
-  const [technicians, setTechnicians] = useState<Map<string, DispatchTechnicianLocation>>(new Map());
+  const [technicians, setTechnicians] = useState<
+    Map<string, DispatchTechnicianLocation>
+  >(new Map());
 
   // Query for all active technician locations
-  const { data: locationData, isLoading, error, refetch } = useQuery({
-    queryKey: ['dispatch', 'technicians', 'locations'],
+  const {
+    data: locationData,
+    isLoading,
+    error,
+    refetch,
+  } = useQuery({
+    queryKey: ["dispatch", "technicians", "locations"],
     queryFn: async () => {
       return withFallback(async () => {
-        const { data } = await apiClient.get('/tracking/dispatch/active');
+        const { data } = await apiClient.get("/tracking/dispatch/active");
         return data as DispatchTechnicianLocation[];
       }, []);
     },
@@ -358,7 +386,7 @@ export function useDispatchTracking() {
   const wsConnection = useWebSocket({
     autoConnect: true,
     onMessage: (message) => {
-      if (message.type === 'technician_location') {
+      if (message.type === "technician_location") {
         const location = message.payload as DispatchTechnicianLocation;
         setTechnicians((prev) => {
           const updated = new Map(prev);
@@ -377,11 +405,11 @@ export function useDispatchTracking() {
     (id: string) => {
       return technicians.get(id);
     },
-    [technicians]
+    [technicians],
   );
 
   const getActiveTechnicians = useCallback(() => {
-    return getAllTechnicians().filter((t) => t.status === 'active');
+    return getAllTechnicians().filter((t) => t.status === "active");
   }, [getAllTechnicians]);
 
   return {
@@ -407,7 +435,7 @@ export function useDispatchTracking() {
 export function calculateETAFromDistance(
   origin: Coordinates,
   destination: Coordinates,
-  currentSpeed?: number
+  currentSpeed?: number,
 ): ETAInfo {
   const distance = calculateDistance(origin, destination);
   const speed = currentSpeed && currentSpeed > 0 ? currentSpeed : 40; // Default 40 km/h
@@ -420,7 +448,7 @@ export function calculateETAFromDistance(
     estimatedArrivalTime: arrivalTime.toISOString(),
     distanceRemaining: distance,
     durationRemaining: eta.minutes,
-    trafficCondition: 'moderate',
+    trafficCondition: "moderate",
     lastUpdated: now.toISOString(),
   };
 }
@@ -430,13 +458,13 @@ export function calculateETAFromDistance(
  */
 export function getLocationStatus(
   currentLocation: Coordinates,
-  destination: Coordinates
-): TechnicianLocationUpdate['status'] {
+  destination: Coordinates,
+): TechnicianLocationUpdate["status"] {
   const distance = calculateDistance(currentLocation, destination);
 
-  if (distance < 0.05) return 'on_site'; // Within 50 meters
-  if (distance < ARRIVING_DISTANCE_THRESHOLD) return 'arriving';
-  return 'en_route';
+  if (distance < 0.05) return "on_site"; // Within 50 meters
+  if (distance < ARRIVING_DISTANCE_THRESHOLD) return "arriving";
+  return "en_route";
 }
 
 export default useRealTimeTracking;

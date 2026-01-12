@@ -1,7 +1,7 @@
-import { useNavigate } from 'react-router-dom';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
-import type { OnboardingData } from '../useOnboarding';
+import { useNavigate } from "react-router-dom";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import type { OnboardingData } from "../useOnboarding";
 
 export interface CompletionStepProps {
   data: OnboardingData;
@@ -17,56 +17,56 @@ export function CompletionStep({ data, onComplete }: CompletionStepProps) {
 
   const handleGetStarted = () => {
     onComplete();
-    navigate('/dashboard');
+    navigate("/dashboard");
   };
 
   // Calculate summary stats
   const stats = [
     {
-      label: 'Company',
-      value: data.company.name || 'Not set',
-      icon: 'Building',
+      label: "Company",
+      value: data.company.name || "Not set",
+      icon: "Building",
     },
     {
-      label: 'Customers',
+      label: "Customers",
       value: data.customers.length,
-      icon: 'Users',
+      icon: "Users",
     },
     {
-      label: 'Technicians',
+      label: "Technicians",
       value: data.technicians.length,
-      icon: 'Wrench',
+      icon: "Wrench",
     },
     {
-      label: 'Services',
+      label: "Services",
       value: data.services.length,
-      icon: 'Clipboard',
+      icon: "Clipboard",
     },
     {
-      label: 'Integrations',
+      label: "Integrations",
       value: Object.values(data.integrations).filter(Boolean).length,
-      icon: 'Link',
+      icon: "Link",
     },
   ];
 
   const nextSteps = [
     {
-      title: 'Create your first work order',
-      description: 'Schedule a service call for a customer',
-      link: '/work-orders',
-      linkText: 'Go to Work Orders',
+      title: "Create your first work order",
+      description: "Schedule a service call for a customer",
+      link: "/work-orders",
+      linkText: "Go to Work Orders",
     },
     {
-      title: 'Set up your schedule',
-      description: 'View and manage your team calendar',
-      link: '/schedule',
-      linkText: 'Open Schedule',
+      title: "Set up your schedule",
+      description: "View and manage your team calendar",
+      link: "/schedule",
+      linkText: "Open Schedule",
     },
     {
-      title: 'Review your settings',
-      description: 'Customize notifications and preferences',
-      link: '/admin',
-      linkText: 'Admin Settings',
+      title: "Review your settings",
+      description: "Customize notifications and preferences",
+      link: "/admin",
+      linkText: "Admin Settings",
     },
   ];
 
@@ -102,7 +102,7 @@ export function CompletionStep({ data, onComplete }: CompletionStepProps) {
         {stats.map((stat) => (
           <Card key={stat.label} className="p-4 text-center">
             <div className="text-2xl font-bold text-primary mb-1">
-              {typeof stat.value === 'number' ? stat.value : '-'}
+              {typeof stat.value === "number" ? stat.value : "-"}
             </div>
             <div className="text-sm text-text-secondary">{stat.label}</div>
           </Card>
@@ -138,7 +138,7 @@ export function CompletionStep({ data, onComplete }: CompletionStepProps) {
                   data.company.zipCode,
                 ]
                   .filter(Boolean)
-                  .join(', ')}
+                  .join(", ")}
               </p>
               {data.company.phone && (
                 <p className="text-text-secondary">{data.company.phone}</p>
@@ -156,7 +156,9 @@ export function CompletionStep({ data, onComplete }: CompletionStepProps) {
         <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
           {nextSteps.map((step) => (
             <Card key={step.title} className="p-4">
-              <h4 className="font-medium text-text-primary mb-1">{step.title}</h4>
+              <h4 className="font-medium text-text-primary mb-1">
+                {step.title}
+              </h4>
               <p className="text-sm text-text-muted mb-3">{step.description}</p>
               <button
                 type="button"

@@ -4,11 +4,11 @@
  * Allows selecting a customer and triggering a playbook execution.
  */
 
-import { useState } from 'react';
-import { cn } from '@/lib/utils.ts';
-import type { Playbook } from '@/api/types/customerSuccess.ts';
-import { useCustomers } from '@/api/hooks/useCustomers.ts';
-import { useTriggerPlaybook } from '@/api/hooks/useCustomerSuccess.ts';
+import { useState } from "react";
+import { cn } from "@/lib/utils.ts";
+import type { Playbook } from "@/api/types/customerSuccess.ts";
+import { useCustomers } from "@/api/hooks/useCustomers.ts";
+import { useTriggerPlaybook } from "@/api/hooks/useCustomerSuccess.ts";
 
 interface TriggerPlaybookModalProps {
   playbook: Playbook;
@@ -18,7 +18,10 @@ interface TriggerPlaybookModalProps {
 }
 
 // Helper to get full name from customer
-function getCustomerName(customer: { first_name: string; last_name: string }): string {
+function getCustomerName(customer: {
+  first_name: string;
+  last_name: string;
+}): string {
   return `${customer.first_name} ${customer.last_name}`.trim();
 }
 
@@ -28,9 +31,11 @@ export function TriggerPlaybookModal({
   onClose,
   onSuccess,
 }: TriggerPlaybookModalProps) {
-  const [selectedCustomerId, setSelectedCustomerId] = useState<string | null>(null);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [triggerReason, setTriggerReason] = useState('');
+  const [selectedCustomerId, setSelectedCustomerId] = useState<string | null>(
+    null,
+  );
+  const [searchQuery, setSearchQuery] = useState("");
+  const [triggerReason, setTriggerReason] = useState("");
 
   const { data: customersData, isLoading: customersLoading } = useCustomers({
     page_size: 100,
@@ -42,7 +47,7 @@ export function TriggerPlaybookModal({
   if (!isOpen) return null;
 
   const customers = customersData?.items || [];
-  const selectedCustomer = customers.find(c => c.id === selectedCustomerId);
+  const selectedCustomer = customers.find((c) => c.id === selectedCustomerId);
 
   const handleTrigger = async () => {
     if (!selectedCustomerId) return;
@@ -56,17 +61,14 @@ export function TriggerPlaybookModal({
       onSuccess?.();
       onClose();
     } catch (error) {
-      console.error('Failed to trigger playbook:', error);
+      console.error("Failed to trigger playbook:", error);
     }
   };
 
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center px-4">
       {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/50"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-black/50" onClick={onClose} />
 
       {/* Modal */}
       <div className="relative bg-white dark:bg-gray-900 border border-gray-200 dark:border-gray-700 rounded-xl shadow-2xl w-full max-w-lg overflow-hidden">
@@ -85,8 +87,18 @@ export function TriggerPlaybookModal({
               onClick={onClose}
               className="p-2 text-gray-400 hover:text-gray-600 dark:hover:text-gray-200 transition-colors"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -108,7 +120,12 @@ export function TriggerPlaybookModal({
                 stroke="currentColor"
                 viewBox="0 0 24 24"
               >
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"
+                />
               </svg>
               <input
                 type="text"
@@ -137,34 +154,48 @@ export function TriggerPlaybookModal({
                       key={customer.id}
                       onClick={() => setSelectedCustomerId(customer.id)}
                       className={cn(
-                        'w-full px-4 py-3 flex items-center gap-3 text-left transition-colors',
+                        "w-full px-4 py-3 flex items-center gap-3 text-left transition-colors",
                         selectedCustomerId === customer.id
-                          ? 'bg-primary/10 dark:bg-primary/20'
-                          : 'hover:bg-gray-50 dark:hover:bg-gray-700/50'
+                          ? "bg-primary/10 dark:bg-primary/20"
+                          : "hover:bg-gray-50 dark:hover:bg-gray-700/50",
                       )}
                     >
                       {/* Selection indicator */}
-                      <div className={cn(
-                        'w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0',
-                        selectedCustomerId === customer.id
-                          ? 'border-primary bg-primary'
-                          : 'border-gray-300 dark:border-gray-600'
-                      )}>
+                      <div
+                        className={cn(
+                          "w-5 h-5 rounded-full border-2 flex items-center justify-center flex-shrink-0",
+                          selectedCustomerId === customer.id
+                            ? "border-primary bg-primary"
+                            : "border-gray-300 dark:border-gray-600",
+                        )}
+                      >
                         {selectedCustomerId === customer.id && (
-                          <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+                          <svg
+                            className="w-3 h-3 text-white"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={3}
+                              d="M5 13l4 4L19 7"
+                            />
                           </svg>
                         )}
                       </div>
 
                       {/* Customer info */}
                       <div className="flex-1 min-w-0">
-                        <p className={cn(
-                          'font-medium truncate',
-                          selectedCustomerId === customer.id
-                            ? 'text-primary'
-                            : 'text-gray-900 dark:text-white'
-                        )}>
+                        <p
+                          className={cn(
+                            "font-medium truncate",
+                            selectedCustomerId === customer.id
+                              ? "text-primary"
+                              : "text-gray-900 dark:text-white",
+                          )}
+                        >
                           {getCustomerName(customer)}
                         </p>
                         {customer.email && (
@@ -183,7 +214,8 @@ export function TriggerPlaybookModal({
             {selectedCustomer && (
               <div className="mt-2 p-3 bg-green-50 dark:bg-green-900/30 rounded-lg border border-green-200 dark:border-green-800">
                 <p className="text-sm text-green-800 dark:text-green-200">
-                  <span className="font-medium">Selected:</span> {getCustomerName(selectedCustomer)}
+                  <span className="font-medium">Selected:</span>{" "}
+                  {getCustomerName(selectedCustomer)}
                 </p>
               </div>
             )}
@@ -206,7 +238,8 @@ export function TriggerPlaybookModal({
           {/* Playbook Info */}
           <div className="p-3 bg-blue-50 dark:bg-blue-900/30 rounded-lg border border-blue-200 dark:border-blue-800">
             <p className="text-sm text-blue-800 dark:text-blue-200">
-              This will create {playbook.steps?.length || 0} tasks for the selected customer based on the playbook steps.
+              This will create {playbook.steps?.length || 0} tasks for the
+              selected customer based on the playbook steps.
             </p>
           </div>
 
@@ -232,10 +265,10 @@ export function TriggerPlaybookModal({
             onClick={handleTrigger}
             disabled={!selectedCustomerId || triggerMutation.isPending}
             className={cn(
-              'px-4 py-2 text-sm rounded-lg transition-colors flex items-center gap-2',
+              "px-4 py-2 text-sm rounded-lg transition-colors flex items-center gap-2",
               selectedCustomerId && !triggerMutation.isPending
-                ? 'bg-primary text-white hover:bg-primary-hover'
-                : 'bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed'
+                ? "bg-primary text-white hover:bg-primary-hover"
+                : "bg-gray-300 dark:bg-gray-600 text-gray-500 dark:text-gray-400 cursor-not-allowed",
             )}
           >
             {triggerMutation.isPending ? (
@@ -245,9 +278,24 @@ export function TriggerPlaybookModal({
               </>
             ) : (
               <>
-                <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                <svg
+                  className="w-4 h-4"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M14.752 11.168l-3.197-2.132A1 1 0 0010 9.87v4.263a1 1 0 001.555.832l3.197-2.132a1 1 0 000-1.664z"
+                  />
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                  />
                 </svg>
                 Trigger Playbook
               </>

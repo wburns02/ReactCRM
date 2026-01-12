@@ -2,25 +2,25 @@
  * Franchise Management Component
  * Royalty tracking, territory management, and franchise performance
  */
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
+import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import {
   useFranchiseRoyalties,
   useMarkRoyaltyPaid,
   useTerritories,
   useRegions,
-} from '@/api/hooks/useEnterprise';
-import type { FranchiseRoyalty, Territory } from '@/api/types/enterprise';
-import { formatCurrency, formatDate, cn } from '@/lib/utils';
-import { getErrorMessage } from '@/api/client';
-import { toastError } from '@/components/ui/Toast';
+} from "@/api/hooks/useEnterprise";
+import type { FranchiseRoyalty, Territory } from "@/api/types/enterprise";
+import { formatCurrency, formatDate, cn } from "@/lib/utils";
+import { getErrorMessage } from "@/api/client";
+import { toastError } from "@/components/ui/Toast";
 
-type FranchiseTab = 'royalties' | 'territories';
+type FranchiseTab = "royalties" | "territories";
 
 export function FranchiseManagement() {
-  const [activeTab, setActiveTab] = useState<FranchiseTab>('royalties');
+  const [activeTab, setActiveTab] = useState<FranchiseTab>("royalties");
   const [selectedRegion, setSelectedRegion] = useState<string | undefined>();
 
   const { data: regions } = useRegions();
@@ -31,7 +31,9 @@ export function FranchiseManagement() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">Franchise Management</h1>
+          <h1 className="text-2xl font-bold text-text-primary">
+            Franchise Management
+          </h1>
           <p className="text-text-secondary">
             Manage {franchiseRegions.length} franchise locations
           </p>
@@ -45,14 +47,14 @@ export function FranchiseManagement() {
       {/* Tabs */}
       <div className="flex gap-2 border-b border-border pb-2">
         <Button
-          variant={activeTab === 'royalties' ? 'primary' : 'ghost'}
-          onClick={() => setActiveTab('royalties')}
+          variant={activeTab === "royalties" ? "primary" : "ghost"}
+          onClick={() => setActiveTab("royalties")}
         >
           💰 Royalties
         </Button>
         <Button
-          variant={activeTab === 'territories' ? 'primary' : 'ghost'}
-          onClick={() => setActiveTab('territories')}
+          variant={activeTab === "territories" ? "primary" : "ghost"}
+          onClick={() => setActiveTab("territories")}
         >
           🗺️ Territories
         </Button>
@@ -62,7 +64,7 @@ export function FranchiseManagement() {
       <div className="flex items-center gap-2">
         <span className="text-sm text-text-muted">Filter by region:</span>
         <select
-          value={selectedRegion || ''}
+          value={selectedRegion || ""}
           onChange={(e) => setSelectedRegion(e.target.value || undefined)}
           className="px-3 py-1.5 rounded-md border border-border bg-background text-sm"
         >
@@ -76,8 +78,12 @@ export function FranchiseManagement() {
       </div>
 
       {/* Content */}
-      {activeTab === 'royalties' && <RoyaltiesTab franchiseId={selectedRegion} />}
-      {activeTab === 'territories' && <TerritoriesTab regionId={selectedRegion} />}
+      {activeTab === "royalties" && (
+        <RoyaltiesTab franchiseId={selectedRegion} />
+      )}
+      {activeTab === "territories" && (
+        <TerritoriesTab regionId={selectedRegion} />
+      )}
     </div>
   );
 }
@@ -90,7 +96,7 @@ function RoyaltiesTab({ franchiseId }: { franchiseId?: string }) {
     try {
       await markPaid.mutateAsync({
         royalty_id: royaltyId,
-        paid_date: new Date().toISOString().split('T')[0],
+        paid_date: new Date().toISOString().split("T")[0],
       });
     } catch (error) {
       toastError(getErrorMessage(error));
@@ -104,7 +110,10 @@ function RoyaltiesTab({ franchiseId }: { franchiseId?: string }) {
       acc.total += r.total_fees;
       return acc;
     },
-    { pending: 0, invoiced: 0, paid: 0, overdue: 0, total: 0 } as Record<string, number>
+    { pending: 0, invoiced: 0, paid: 0, overdue: 0, total: 0 } as Record<
+      string,
+      number
+    >,
   ) || { pending: 0, invoiced: 0, paid: 0, overdue: 0, total: 0 };
 
   return (
@@ -174,26 +183,21 @@ function RoyaltyRow({
   isPending: boolean;
 }) {
   const statusStyles = {
-    pending: 'bg-warning/10 border-warning/30',
-    invoiced: 'bg-info/10 border-info/30',
-    paid: 'bg-success/10 border-success/30',
-    overdue: 'bg-error/10 border-error/30',
+    pending: "bg-warning/10 border-warning/30",
+    invoiced: "bg-info/10 border-info/30",
+    paid: "bg-success/10 border-success/30",
+    overdue: "bg-error/10 border-error/30",
   };
 
   const statusBadge = {
-    pending: { label: 'Pending', class: 'bg-warning text-white' },
-    invoiced: { label: 'Invoiced', class: 'bg-info text-white' },
-    paid: { label: 'Paid', class: 'bg-success text-white' },
-    overdue: { label: 'Overdue', class: 'bg-error text-white' },
+    pending: { label: "Pending", class: "bg-warning text-white" },
+    invoiced: { label: "Invoiced", class: "bg-info text-white" },
+    paid: { label: "Paid", class: "bg-success text-white" },
+    overdue: { label: "Overdue", class: "bg-error text-white" },
   };
 
   return (
-    <div
-      className={cn(
-        'p-4 rounded-lg border',
-        statusStyles[royalty.status]
-      )}
-    >
+    <div className={cn("p-4 rounded-lg border", statusStyles[royalty.status])}>
       <div className="flex items-start justify-between">
         <div className="space-y-1">
           <div className="flex items-center gap-2">
@@ -203,7 +207,8 @@ function RoyaltyRow({
             </Badge>
           </div>
           <p className="text-sm text-text-secondary">
-            Period: {formatDate(royalty.period_start)} - {formatDate(royalty.period_end)}
+            Period: {formatDate(royalty.period_start)} -{" "}
+            {formatDate(royalty.period_end)}
           </p>
           {royalty.invoice_number && (
             <p className="text-sm text-text-muted">
@@ -213,12 +218,16 @@ function RoyaltyRow({
         </div>
 
         <div className="text-right">
-          <p className="text-lg font-bold">{formatCurrency(royalty.total_fees)}</p>
-          {royalty.due_date && royalty.status !== 'paid' && (
-            <p className={cn(
-              'text-sm',
-              royalty.status === 'overdue' ? 'text-error' : 'text-text-muted'
-            )}>
+          <p className="text-lg font-bold">
+            {formatCurrency(royalty.total_fees)}
+          </p>
+          {royalty.due_date && royalty.status !== "paid" && (
+            <p
+              className={cn(
+                "text-sm",
+                royalty.status === "overdue" ? "text-error" : "text-text-muted",
+              )}
+            >
               Due: {formatDate(royalty.due_date)}
             </p>
           )}
@@ -238,30 +247,42 @@ function RoyaltyRow({
         </div>
         <div>
           <span className="text-text-muted">Qualifying Revenue</span>
-          <p className="font-medium">{formatCurrency(royalty.qualifying_revenue)}</p>
+          <p className="font-medium">
+            {formatCurrency(royalty.qualifying_revenue)}
+          </p>
         </div>
         <div>
-          <span className="text-text-muted">Royalty ({(royalty.royalty_rate * 100).toFixed(1)}%)</span>
-          <p className="font-medium">{formatCurrency(royalty.royalty_amount)}</p>
+          <span className="text-text-muted">
+            Royalty ({(royalty.royalty_rate * 100).toFixed(1)}%)
+          </span>
+          <p className="font-medium">
+            {formatCurrency(royalty.royalty_amount)}
+          </p>
         </div>
-        {royalty.marketing_fee !== null && royalty.marketing_fee !== undefined && (
-          <div>
-            <span className="text-text-muted">Marketing Fee</span>
-            <p className="font-medium">{formatCurrency(royalty.marketing_fee)}</p>
-          </div>
-        )}
-        {royalty.technology_fee !== null && royalty.technology_fee !== undefined && (
-          <div>
-            <span className="text-text-muted">Tech Fee</span>
-            <p className="font-medium">{formatCurrency(royalty.technology_fee)}</p>
-          </div>
-        )}
+        {royalty.marketing_fee !== null &&
+          royalty.marketing_fee !== undefined && (
+            <div>
+              <span className="text-text-muted">Marketing Fee</span>
+              <p className="font-medium">
+                {formatCurrency(royalty.marketing_fee)}
+              </p>
+            </div>
+          )}
+        {royalty.technology_fee !== null &&
+          royalty.technology_fee !== undefined && (
+            <div>
+              <span className="text-text-muted">Tech Fee</span>
+              <p className="font-medium">
+                {formatCurrency(royalty.technology_fee)}
+              </p>
+            </div>
+          )}
       </div>
 
       {/* Actions */}
-      {royalty.status !== 'paid' && (
+      {royalty.status !== "paid" && (
         <div className="mt-4 flex justify-end gap-2">
-          {royalty.status === 'pending' && (
+          {royalty.status === "pending" && (
             <Button variant="outline" size="sm">
               Generate Invoice
             </Button>
@@ -289,20 +310,30 @@ function TerritoriesTab({ regionId }: { regionId?: string }) {
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
         <SummaryCard
           label="Total Territories"
-          value={territories?.length?.toString() || '0'}
+          value={territories?.length?.toString() || "0"}
         />
         <SummaryCard
           label="Exclusive"
-          value={territories?.filter((t) => t.is_exclusive).length?.toString() || '0'}
+          value={
+            territories?.filter((t) => t.is_exclusive).length?.toString() || "0"
+          }
           variant="info"
         />
         <SummaryCard
           label="Total ZIP Codes"
-          value={territories?.reduce((sum, t) => sum + t.zip_codes.length, 0)?.toString() || '0'}
+          value={
+            territories
+              ?.reduce((sum, t) => sum + t.zip_codes.length, 0)
+              ?.toString() || "0"
+          }
         />
         <SummaryCard
           label="Assigned Techs"
-          value={territories?.reduce((sum, t) => sum + t.assigned_technician_ids.length, 0)?.toString() || '0'}
+          value={
+            territories
+              ?.reduce((sum, t) => sum + t.assigned_technician_ids.length, 0)
+              ?.toString() || "0"
+          }
         />
       </div>
 
@@ -368,18 +399,24 @@ function TerritoryCard({ territory }: { territory: Territory }) {
         <div className="mt-4 grid grid-cols-2 gap-4 text-sm">
           <div>
             <span className="text-text-muted">Assigned Technicians</span>
-            <p className="font-medium">{territory.assigned_technician_ids.length}</p>
+            <p className="font-medium">
+              {territory.assigned_technician_ids.length}
+            </p>
           </div>
           {territory.population && (
             <div>
               <span className="text-text-muted">Population</span>
-              <p className="font-medium">{territory.population.toLocaleString()}</p>
+              <p className="font-medium">
+                {territory.population.toLocaleString()}
+              </p>
             </div>
           )}
           {territory.estimated_potential && (
             <div>
               <span className="text-text-muted">Est. Potential</span>
-              <p className="font-medium">{formatCurrency(territory.estimated_potential)}</p>
+              <p className="font-medium">
+                {formatCurrency(territory.estimated_potential)}
+              </p>
             </div>
           )}
         </div>
@@ -400,25 +437,29 @@ function TerritoryCard({ territory }: { territory: Territory }) {
 function SummaryCard({
   label,
   value,
-  variant = 'default',
+  variant = "default",
 }: {
   label: string;
   value: string;
-  variant?: 'default' | 'success' | 'warning' | 'danger' | 'info';
+  variant?: "default" | "success" | "warning" | "danger" | "info";
 }) {
   const variantStyles = {
-    default: 'text-text-primary',
-    success: 'text-success',
-    warning: 'text-warning',
-    danger: 'text-error',
-    info: 'text-info',
+    default: "text-text-primary",
+    success: "text-success",
+    warning: "text-warning",
+    danger: "text-error",
+    info: "text-info",
   };
 
   return (
     <Card>
       <CardContent className="pt-4">
-        <p className="text-xs text-text-muted uppercase tracking-wide">{label}</p>
-        <p className={cn('text-xl font-bold', variantStyles[variant])}>{value}</p>
+        <p className="text-xs text-text-muted uppercase tracking-wide">
+          {label}
+        </p>
+        <p className={cn("text-xl font-bold", variantStyles[variant])}>
+          {value}
+        </p>
       </CardContent>
     </Card>
   );

@@ -14,17 +14,17 @@
  * - i18n-ready
  */
 
-export { BookingWidget, type BookingWidgetConfig } from './BookingWidget';
-export { PaymentWidget, type PaymentWidgetConfig } from './PaymentWidget';
-export { StatusWidget, type StatusWidgetConfig } from './StatusWidget';
+export { BookingWidget, type BookingWidgetConfig } from "./BookingWidget";
+export { PaymentWidget, type PaymentWidgetConfig } from "./PaymentWidget";
+export { StatusWidget, type StatusWidgetConfig } from "./StatusWidget";
 
 /**
  * Widget embed script generator
  * Use this to generate embed codes for customers
  */
 export function generateEmbedCode(
-  widgetType: 'booking' | 'payment' | 'status',
-  config: Record<string, string | number | boolean>
+  widgetType: "booking" | "payment" | "status",
+  config: Record<string, string | number | boolean>,
 ): string {
   const baseUrl = window.location.origin;
   const configStr = encodeURIComponent(JSON.stringify(config));
@@ -39,8 +39,8 @@ export function generateEmbedCode(
  * Alternative to script embed for better isolation
  */
 export function generateIframeCode(
-  widgetType: 'booking' | 'payment' | 'status',
-  config: Record<string, string | number | boolean>
+  widgetType: "booking" | "payment" | "status",
+  config: Record<string, string | number | boolean>,
 ): string {
   const baseUrl = window.location.origin;
   const params = new URLSearchParams();

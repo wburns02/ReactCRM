@@ -1,18 +1,23 @@
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { useRCStatus } from '@/features/phone/api.ts';
-import { toastSuccess } from '@/components/ui/Toast';
+import { useState } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import { useRCStatus } from "@/features/phone/api.ts";
+import { toastSuccess } from "@/components/ui/Toast";
 
 /**
  * RingCentral configuration settings
  */
 export function RingCentralSettings() {
   const { data: status, isLoading } = useRCStatus();
-  const [apiKey, setApiKey] = useState('');
-  const [apiSecret, setApiSecret] = useState('');
+  const [apiKey, setApiKey] = useState("");
+  const [apiSecret, setApiSecret] = useState("");
   const [isSaving, setIsSaving] = useState(false);
 
   const handleSave = async () => {
@@ -20,7 +25,7 @@ export function RingCentralSettings() {
     // In a real implementation, this would call an API to save the credentials
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsSaving(false);
-    toastSuccess('RingCentral settings saved (demo only)');
+    toastSuccess("RingCentral settings saved (demo only)");
   };
 
   return (
@@ -40,16 +45,18 @@ export function RingCentralSettings() {
             <div className="p-3 bg-bg-hover rounded-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-text-primary">Connection Status</p>
+                  <p className="font-medium text-text-primary">
+                    Connection Status
+                  </p>
                   {status?.connected && status.account_name && (
                     <p className="text-sm text-text-secondary">
-                      Connected to: {status.account_name} 
+                      Connected to: {status.account_name}
                     </p>
                   )}
                 </div>
                 <div
                   className={`w-3 h-3 rounded-full ${
-                    status?.connected ? 'bg-success' : 'bg-text-muted'
+                    status?.connected ? "bg-success" : "bg-text-muted"
                   }`}
                 />
               </div>
@@ -80,7 +87,9 @@ export function RingCentralSettings() {
 
             {/* Features */}
             <div>
-              <p className="font-medium text-text-primary mb-2">Enabled Features</p>
+              <p className="font-medium text-text-primary mb-2">
+                Enabled Features
+              </p>
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm">
                   <input type="checkbox" defaultChecked className="rounded" />
@@ -104,9 +113,12 @@ export function RingCentralSettings() {
             {/* Actions */}
             <div className="flex gap-2 pt-2">
               <Button onClick={handleSave} disabled={isSaving}>
-                {isSaving ? 'Saving...' : 'Save Settings'}
+                {isSaving ? "Saving..." : "Save Settings"}
               </Button>
-              <Button variant="secondary" onClick={() => window.open('https://ringcentral.com')}>
+              <Button
+                variant="secondary"
+                onClick={() => window.open("https://ringcentral.com")}
+              >
                 RingCentral Dashboard
               </Button>
             </div>

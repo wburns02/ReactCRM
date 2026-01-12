@@ -1,4 +1,4 @@
-import * as Sentry from '@sentry/react';
+import * as Sentry from "@sentry/react";
 
 /**
  * Sentry Configuration
@@ -22,14 +22,14 @@ export function initSentry() {
     if (IS_PRODUCTION && !sentryWarningLogged) {
       sentryWarningLogged = true;
       // Use console.info instead of warn to reduce noise in browser console
-      console.info('[Sentry] DSN not configured. Error tracking disabled.');
+      console.info("[Sentry] DSN not configured. Error tracking disabled.");
     }
     return;
   }
 
   Sentry.init({
     dsn: SENTRY_DSN,
-    environment: IS_PRODUCTION ? 'production' : 'development',
+    environment: IS_PRODUCTION ? "production" : "development",
 
     // Performance Monitoring
     tracesSampleRate: IS_PRODUCTION ? 0.1 : 1.0, // 10% in prod, 100% in dev
@@ -39,13 +39,13 @@ export function initSentry() {
     replaysOnErrorSampleRate: 1.0, // 100% of sessions with errors
 
     // Release tracking
-    release: import.meta.env.VITE_APP_VERSION || 'unknown',
+    release: import.meta.env.VITE_APP_VERSION || "unknown",
 
     // Trace propagation targets for CORS
     tracePropagationTargets: [
-      'localhost',
-      'react.ecbtx.com',
-      'react-crm-api-production.up.railway.app',
+      "localhost",
+      "react.ecbtx.com",
+      "react-crm-api-production.up.railway.app",
     ],
 
     // Integration options
@@ -64,17 +64,17 @@ export function initSentry() {
       const error = hint.originalException;
 
       // Ignore network errors that are expected (e.g., offline)
-      if (error instanceof TypeError && error.message === 'Failed to fetch') {
+      if (error instanceof TypeError && error.message === "Failed to fetch") {
         return null;
       }
 
       // Ignore cancelled requests
-      if (error instanceof Error && error.name === 'AbortError') {
+      if (error instanceof Error && error.name === "AbortError") {
         return null;
       }
 
       // Ignore ResizeObserver loop errors (browser quirk)
-      if (error instanceof Error && error.message?.includes('ResizeObserver')) {
+      if (error instanceof Error && error.message?.includes("ResizeObserver")) {
         return null;
       }
 
@@ -98,7 +98,7 @@ export function initSentry() {
  */
 export function captureException(
   error: Error,
-  context?: Record<string, unknown>
+  context?: Record<string, unknown>,
 ) {
   Sentry.captureException(error, {
     extra: context,
@@ -110,8 +110,8 @@ export function captureException(
  */
 export function captureMessage(
   message: string,
-  level: Sentry.SeverityLevel = 'info',
-  context?: Record<string, unknown>
+  level: Sentry.SeverityLevel = "info",
+  context?: Record<string, unknown>,
 ) {
   Sentry.captureMessage(message, {
     level,
@@ -122,12 +122,14 @@ export function captureMessage(
 /**
  * Set user context for error tracking
  */
-export function setUser(user: {
-  id: string | number;
-  email?: string;
-  username?: string;
-  role?: string;
-} | null) {
+export function setUser(
+  user: {
+    id: string | number;
+    email?: string;
+    username?: string;
+    role?: string;
+  } | null,
+) {
   if (user) {
     Sentry.setUser({
       id: String(user.id),
@@ -148,7 +150,7 @@ export function addBreadcrumb(
   message: string,
   category: string,
   data?: Record<string, unknown>,
-  level: Sentry.SeverityLevel = 'info'
+  level: Sentry.SeverityLevel = "info",
 ) {
   Sentry.addBreadcrumb({
     message,
@@ -161,10 +163,7 @@ export function addBreadcrumb(
 /**
  * Start a performance transaction
  */
-export function startTransaction(
-  name: string,
-  op: string
-) {
+export function startTransaction(name: string, op: string) {
   return Sentry.startInactiveSpan({
     name,
     op,
@@ -176,7 +175,7 @@ export function startTransaction(
  */
 export function withErrorBoundary<P extends object>(
   Component: React.ComponentType<P>,
-  fallback: React.ReactElement
+  fallback: React.ReactElement,
 ) {
   return Sentry.withErrorBoundary(Component, {
     fallback,

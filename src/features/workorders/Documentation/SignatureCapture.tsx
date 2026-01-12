@@ -8,12 +8,12 @@
  * - Save as base64 PNG
  * - Props: type (customer|technician), onSave, existingSignature
  */
-import { useState, useRef, useCallback, useEffect } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/Label';
-import { cn } from '@/lib/utils';
-import type { SignatureType } from '@/api/types/workOrder';
+import { useState, useRef, useCallback, useEffect } from "react";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
+import { cn } from "@/lib/utils";
+import type { SignatureType } from "@/api/types/workOrder";
 
 export interface SignatureData {
   data: string;
@@ -39,7 +39,7 @@ export function SignatureCapture({
   type,
   onSave,
   existingSignature,
-  signerName: initialSignerName = '',
+  signerName: initialSignerName = "",
   className,
   disabled = false,
 }: SignatureCaptureProps) {
@@ -51,7 +51,7 @@ export function SignatureCapture({
   const [signerName, setSignerName] = useState(initialSignerName);
   const lastPointRef = useRef<Point | null>(null);
 
-  const typeLabel = type === 'customer' ? 'Customer' : 'Technician';
+  const typeLabel = type === "customer" ? "Customer" : "Technician";
 
   /**
    * Initialize canvas with proper dimensions and draw existing signature if any
@@ -61,7 +61,7 @@ export function SignatureCapture({
     const container = containerRef.current;
     if (!canvas || !container) return;
 
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
     if (!ctx) return;
 
     // Get container dimensions
@@ -78,13 +78,13 @@ export function SignatureCapture({
     ctx.scale(dpr, dpr);
 
     // Set drawing styles
-    ctx.strokeStyle = '#1a1a2e';
+    ctx.strokeStyle = "#1a1a2e";
     ctx.lineWidth = 2;
-    ctx.lineCap = 'round';
-    ctx.lineJoin = 'round';
+    ctx.lineCap = "round";
+    ctx.lineJoin = "round";
 
     // Draw white background
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, rect.width, rect.height);
 
     // Draw existing signature if provided
@@ -108,32 +108,35 @@ export function SignatureCapture({
       }
     };
 
-    window.addEventListener('resize', handleResize);
-    return () => window.removeEventListener('resize', handleResize);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
   }, [initCanvas, hasSignature]);
 
   /**
    * Get point coordinates from event
    */
-  const getPoint = useCallback((e: React.MouseEvent | React.TouchEvent): Point => {
-    const canvas = canvasRef.current;
-    if (!canvas) return { x: 0, y: 0 };
+  const getPoint = useCallback(
+    (e: React.MouseEvent | React.TouchEvent): Point => {
+      const canvas = canvasRef.current;
+      if (!canvas) return { x: 0, y: 0 };
 
-    const rect = canvas.getBoundingClientRect();
+      const rect = canvas.getBoundingClientRect();
 
-    if ('touches' in e) {
-      const touch = e.touches[0];
+      if ("touches" in e) {
+        const touch = e.touches[0];
+        return {
+          x: touch.clientX - rect.left,
+          y: touch.clientY - rect.top,
+        };
+      }
+
       return {
-        x: touch.clientX - rect.left,
-        y: touch.clientY - rect.top,
+        x: e.clientX - rect.left,
+        y: e.clientY - rect.top,
       };
-    }
-
-    return {
-      x: e.clientX - rect.left,
-      y: e.clientY - rect.top,
-    };
-  }, []);
+    },
+    [],
+  );
 
   /**
    * Draw line segment on canvas
@@ -142,7 +145,7 @@ export function SignatureCapture({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
     if (!ctx) return;
 
     ctx.beginPath();
@@ -154,45 +157,51 @@ export function SignatureCapture({
   /**
    * Handle pointer down (start drawing)
    */
-  const handlePointerDown = useCallback((e: React.MouseEvent | React.TouchEvent) => {
-    if (disabled) return;
+  const handlePointerDown = useCallback(
+    (e: React.MouseEvent | React.TouchEvent) => {
+      if (disabled) return;
 
-    e.preventDefault();
-    setIsDrawing(true);
-    const point = getPoint(e);
-    lastPointRef.current = point;
+      e.preventDefault();
+      setIsDrawing(true);
+      const point = getPoint(e);
+      lastPointRef.current = point;
 
-    // Draw a dot for single taps
-    const canvas = canvasRef.current;
-    if (canvas) {
-      const ctx = canvas.getContext('2d', { willReadFrequently: true });
-      if (ctx) {
-        ctx.beginPath();
-        ctx.arc(point.x, point.y, 1, 0, Math.PI * 2);
-        ctx.fill();
+      // Draw a dot for single taps
+      const canvas = canvasRef.current;
+      if (canvas) {
+        const ctx = canvas.getContext("2d", { willReadFrequently: true });
+        if (ctx) {
+          ctx.beginPath();
+          ctx.arc(point.x, point.y, 1, 0, Math.PI * 2);
+          ctx.fill();
+        }
       }
-    }
 
-    if (!hasSignature) {
-      setHasSignature(true);
-    }
-  }, [disabled, getPoint, hasSignature]);
+      if (!hasSignature) {
+        setHasSignature(true);
+      }
+    },
+    [disabled, getPoint, hasSignature],
+  );
 
   /**
    * Handle pointer move (continue drawing)
    */
-  const handlePointerMove = useCallback((e: React.MouseEvent | React.TouchEvent) => {
-    if (!isDrawing || disabled) return;
+  const handlePointerMove = useCallback(
+    (e: React.MouseEvent | React.TouchEvent) => {
+      if (!isDrawing || disabled) return;
 
-    e.preventDefault();
-    const point = getPoint(e);
+      e.preventDefault();
+      const point = getPoint(e);
 
-    if (lastPointRef.current) {
-      drawLine(lastPointRef.current, point);
-    }
+      if (lastPointRef.current) {
+        drawLine(lastPointRef.current, point);
+      }
 
-    lastPointRef.current = point;
-  }, [isDrawing, disabled, getPoint, drawLine]);
+      lastPointRef.current = point;
+    },
+    [isDrawing, disabled, getPoint, drawLine],
+  );
 
   /**
    * Handle pointer up (stop drawing)
@@ -209,13 +218,13 @@ export function SignatureCapture({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
     if (!ctx) return;
 
     const rect = canvas.getBoundingClientRect();
 
     // Clear and redraw white background
-    ctx.fillStyle = '#ffffff';
+    ctx.fillStyle = "#ffffff";
     ctx.fillRect(0, 0, rect.width, rect.height);
 
     setHasSignature(false);
@@ -234,7 +243,7 @@ export function SignatureCapture({
     }
 
     // Convert canvas to base64 PNG
-    const dataUrl = canvas.toDataURL('image/png');
+    const dataUrl = canvas.toDataURL("image/png");
 
     onSave({
       data: dataUrl,
@@ -250,7 +259,7 @@ export function SignatureCapture({
     const canvas = canvasRef.current;
     if (!canvas) return true;
 
-    const ctx = canvas.getContext('2d', { willReadFrequently: true });
+    const ctx = canvas.getContext("2d", { willReadFrequently: true });
     if (!ctx) return true;
 
     const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
@@ -266,10 +275,11 @@ export function SignatureCapture({
     return true;
   }, []);
 
-  const canSave = hasSignature && !isCanvasBlank() && signerName.trim().length > 0;
+  const canSave =
+    hasSignature && !isCanvasBlank() && signerName.trim().length > 0;
 
   return (
-    <div className={cn('space-y-4', className)}>
+    <div className={cn("space-y-4", className)}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <h3 className="text-lg font-semibold text-text-primary">
@@ -307,10 +317,13 @@ export function SignatureCapture({
           onChange={(e) => setSignerName(e.target.value)}
           placeholder={`Enter ${typeLabel.toLowerCase()} name`}
           disabled={disabled}
-          className={!signerName.trim() && hasSignature ? 'border-danger' : ''}
+          className={!signerName.trim() && hasSignature ? "border-danger" : ""}
         />
         {!signerName.trim() && hasSignature && (
-          <p className="text-xs text-danger">Please enter the {typeLabel.toLowerCase()} name to save the signature</p>
+          <p className="text-xs text-danger">
+            Please enter the {typeLabel.toLowerCase()} name to save the
+            signature
+          </p>
         )}
       </div>
 
@@ -318,9 +331,11 @@ export function SignatureCapture({
       <div
         ref={containerRef}
         className={cn(
-          'relative h-48 rounded-lg border-2 overflow-hidden',
-          disabled ? 'border-border bg-bg-muted cursor-not-allowed' : 'border-border bg-white cursor-crosshair',
-          !hasSignature && !disabled && 'border-dashed'
+          "relative h-48 rounded-lg border-2 overflow-hidden",
+          disabled
+            ? "border-border bg-bg-muted cursor-not-allowed"
+            : "border-border bg-white cursor-crosshair",
+          !hasSignature && !disabled && "border-dashed",
         )}
       >
         <canvas
@@ -338,9 +353,7 @@ export function SignatureCapture({
         {/* Placeholder text */}
         {!hasSignature && !disabled && (
           <div className="absolute inset-0 flex items-center justify-center pointer-events-none">
-            <span className="text-text-muted">
-              Sign here
-            </span>
+            <span className="text-text-muted">Sign here</span>
           </div>
         )}
 
@@ -354,17 +367,13 @@ export function SignatureCapture({
       {/* Instructions */}
       <p className="text-xs text-text-muted text-center">
         {disabled
-          ? 'Signature capture is disabled'
-          : 'Use your finger or mouse to sign above'}
+          ? "Signature capture is disabled"
+          : "Use your finger or mouse to sign above"}
       </p>
 
       {/* Save Button */}
       {!disabled && (
-        <Button
-          onClick={handleSave}
-          disabled={!canSave}
-          className="w-full"
-        >
+        <Button onClick={handleSave} disabled={!canSave} className="w-full">
           <svg
             className="w-5 h-5 mr-2"
             fill="none"

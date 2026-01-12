@@ -2,7 +2,7 @@
  * Enterprise Types
  * Multi-region, franchise management, advanced permissions
  */
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Region/Location schema
@@ -21,10 +21,13 @@ export const regionSchema = z.object({
   franchise_owner_id: z.string().optional().nullable(),
   franchise_owner_name: z.string().optional().nullable(),
   royalty_percentage: z.number().optional().nullable(), // e.g., 0.06 for 6%
-  territory_bounds: z.object({
-    type: z.literal('Polygon'),
-    coordinates: z.array(z.array(z.tuple([z.number(), z.number()]))),
-  }).optional().nullable(),
+  territory_bounds: z
+    .object({
+      type: z.literal("Polygon"),
+      coordinates: z.array(z.array(z.tuple([z.number(), z.number()]))),
+    })
+    .optional()
+    .nullable(),
   contact_email: z.string().optional().nullable(),
   contact_phone: z.string().optional().nullable(),
   created_at: z.string(),
@@ -83,7 +86,7 @@ export const franchiseRoyaltySchema = z.object({
   marketing_fee: z.number().optional().nullable(),
   technology_fee: z.number().optional().nullable(),
   total_fees: z.number(),
-  status: z.enum(['pending', 'invoiced', 'paid', 'overdue']),
+  status: z.enum(["pending", "invoiced", "paid", "overdue"]),
   due_date: z.string().optional().nullable(),
   paid_date: z.string().optional().nullable(),
   invoice_number: z.string().optional().nullable(),
@@ -101,10 +104,13 @@ export const territorySchema = z.object({
   region_id: z.string(),
   name: z.string(),
   zip_codes: z.array(z.string()),
-  boundaries: z.object({
-    type: z.literal('Polygon'),
-    coordinates: z.array(z.array(z.tuple([z.number(), z.number()]))),
-  }).optional().nullable(),
+  boundaries: z
+    .object({
+      type: z.literal("Polygon"),
+      coordinates: z.array(z.array(z.tuple([z.number(), z.number()]))),
+    })
+    .optional()
+    .nullable(),
   assigned_technician_ids: z.array(z.string()),
   is_exclusive: z.boolean(), // Exclusive territory rights
   population: z.number().optional().nullable(),
@@ -119,8 +125,10 @@ export type Territory = z.infer<typeof territorySchema>;
  */
 export const permissionSchema = z.object({
   resource: z.string(), // e.g., "customers", "work_orders", "invoices"
-  actions: z.array(z.enum(['create', 'read', 'update', 'delete', 'export', 'approve'])),
-  scope: z.enum(['own', 'team', 'region', 'all']), // Data visibility scope
+  actions: z.array(
+    z.enum(["create", "read", "update", "delete", "export", "approve"]),
+  ),
+  scope: z.enum(["own", "team", "region", "all"]), // Data visibility scope
   conditions: z.record(z.string(), z.unknown()).optional().nullable(), // Additional conditions
 });
 
@@ -130,7 +138,7 @@ export const roleSchema = z.object({
   id: z.string(),
   name: z.string(),
   description: z.string().optional().nullable(),
-  level: z.enum(['system', 'organization', 'region']),
+  level: z.enum(["system", "organization", "region"]),
   permissions: z.array(permissionSchema),
   is_system_role: z.boolean(), // Built-in role that can't be deleted
   user_count: z.number().optional(),
@@ -174,10 +182,16 @@ export const auditLogSchema = z.object({
   region_id: z.string().optional().nullable(),
   ip_address: z.string().optional().nullable(),
   user_agent: z.string().optional().nullable(),
-  changes: z.record(z.string(), z.object({
-    old_value: z.unknown(),
-    new_value: z.unknown(),
-  })).optional().nullable(),
+  changes: z
+    .record(
+      z.string(),
+      z.object({
+        old_value: z.unknown(),
+        new_value: z.unknown(),
+      }),
+    )
+    .optional()
+    .nullable(),
   metadata: z.record(z.string(), z.unknown()).optional().nullable(),
 });
 
@@ -193,15 +207,19 @@ export const complianceReportSchema = z.object({
   period_start: z.string(),
   period_end: z.string(),
   compliance_score: z.number(), // 0-100
-  areas: z.array(z.object({
-    name: z.string(),
-    score: z.number(),
-    issues: z.array(z.object({
-      severity: z.enum(['low', 'medium', 'high', 'critical']),
-      description: z.string(),
-      recommendation: z.string().optional(),
-    })),
-  })),
+  areas: z.array(
+    z.object({
+      name: z.string(),
+      score: z.number(),
+      issues: z.array(
+        z.object({
+          severity: z.enum(["low", "medium", "high", "critical"]),
+          description: z.string(),
+          recommendation: z.string().optional(),
+        }),
+      ),
+    }),
+  ),
   generated_at: z.string(),
 });
 
@@ -215,7 +233,7 @@ export interface MultiRegionFilters {
   include_all_regions?: boolean;
   period_start?: string;
   period_end?: string;
-  comparison_period?: 'previous' | 'year_ago';
+  comparison_period?: "previous" | "year_ago";
 }
 
 /**
@@ -228,7 +246,7 @@ export interface RegionComparison {
     region_name: string;
     value: number;
     rank: number;
-    trend: 'up' | 'down' | 'stable';
+    trend: "up" | "down" | "stable";
     vs_average: number; // Percentage above/below average
   }[];
   average: number;

@@ -1,6 +1,6 @@
-import type { ReactNode } from 'react';
-import { Button } from '@/components/ui/Button';
-import { cn } from '@/lib/utils';
+import type { ReactNode } from "react";
+import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
 
 export interface OnboardingStepProps {
   /** Step title */
@@ -57,11 +57,11 @@ export function OnboardingStep({
   className,
 }: OnboardingStepProps) {
   // Determine button text based on step position
-  const nextText = nextButtonText || (isLastStep ? 'Finish' : 'Continue');
-  const backText = backButtonText || 'Back';
+  const nextText = nextButtonText || (isLastStep ? "Finish" : "Continue");
+  const backText = backButtonText || "Back";
 
   return (
-    <div className={cn('flex flex-col h-full', className)}>
+    <div className={cn("flex flex-col h-full", className)}>
       {/* Step Header */}
       <div className="mb-6">
         <div className="flex items-center gap-2 mb-2">
@@ -111,7 +111,7 @@ export function OnboardingStep({
               onClick={onNext}
               disabled={!isValid || isLoading}
             >
-              {isLoading ? 'Saving...' : nextText}
+              {isLoading ? "Saving..." : nextText}
             </Button>
           </div>
         </div>
@@ -133,7 +133,7 @@ export function StepSection({
   className?: string;
 }) {
   return (
-    <div className={cn('space-y-4', className)}>
+    <div className={cn("space-y-4", className)}>
       {title && (
         <h3 className="text-sm font-medium text-text-secondary uppercase tracking-wide">
           {title}

@@ -1,15 +1,22 @@
-import { useState } from 'react';
-import { useCertifications, type Certification, type CertificationFilters } from '../api/compliance.ts';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { formatDate } from '@/lib/utils.ts';
+import { useState } from "react";
+import {
+  useCertifications,
+  type Certification,
+  type CertificationFilters,
+} from "../api/compliance.ts";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { formatDate } from "@/lib/utils.ts";
 
 interface CertificationListProps {
   technicianId?: string;
   onSelect?: (certification: Certification) => void;
 }
 
-export function CertificationList({ technicianId, onSelect }: CertificationListProps) {
+export function CertificationList({
+  technicianId,
+  onSelect,
+}: CertificationListProps) {
   const [filters, setFilters] = useState<CertificationFilters>({
     page: 1,
     page_size: 20,
@@ -30,10 +37,10 @@ export function CertificationList({ technicianId, onSelect }: CertificationListP
         return <Badge variant="warning">Expiring Soon</Badge>;
       }
     }
-    if (status === 'active') {
+    if (status === "active") {
       return <Badge variant="success">Active</Badge>;
     }
-    if (status === 'expired') {
+    if (status === "expired") {
       return <Badge variant="danger">Expired</Badge>;
     }
     return <Badge>{status}</Badge>;
@@ -61,8 +68,12 @@ export function CertificationList({ technicianId, onSelect }: CertificationListP
     return (
       <div className="text-center py-12 border border-border rounded-lg">
         <span className="text-4xl mb-4 block">🎓</span>
-        <h3 className="text-lg font-medium text-text-primary mb-2">No certifications found</h3>
-        <p className="text-text-muted">Add technician certifications to track training</p>
+        <h3 className="text-lg font-medium text-text-primary mb-2">
+          No certifications found
+        </h3>
+        <p className="text-text-muted">
+          Add technician certifications to track training
+        </p>
       </div>
     );
   }
@@ -72,8 +83,14 @@ export function CertificationList({ technicianId, onSelect }: CertificationListP
       {/* Filter controls */}
       <div className="flex gap-2">
         <select
-          value={filters.status || ''}
-          onChange={(e) => setFilters((prev) => ({ ...prev, page: 1, status: e.target.value || undefined }))}
+          value={filters.status || ""}
+          onChange={(e) =>
+            setFilters((prev) => ({
+              ...prev,
+              page: 1,
+              status: e.target.value || undefined,
+            }))
+          }
           className="px-3 py-2 rounded-md border border-border bg-bg-primary text-text-primary"
           aria-label="Filter by status"
         >
@@ -82,8 +99,16 @@ export function CertificationList({ technicianId, onSelect }: CertificationListP
           <option value="expired">Expired</option>
         </select>
         <select
-          value={filters.expiring_within_days || ''}
-          onChange={(e) => setFilters((prev) => ({ ...prev, page: 1, expiring_within_days: e.target.value ? Number(e.target.value) : undefined }))}
+          value={filters.expiring_within_days || ""}
+          onChange={(e) =>
+            setFilters((prev) => ({
+              ...prev,
+              page: 1,
+              expiring_within_days: e.target.value
+                ? Number(e.target.value)
+                : undefined,
+            }))
+          }
           className="px-3 py-2 rounded-md border border-border bg-bg-primary text-text-primary"
           aria-label="Filter by expiry"
         >
@@ -103,13 +128,15 @@ export function CertificationList({ technicianId, onSelect }: CertificationListP
             className={`
               p-4 rounded-lg border border-border bg-bg-primary
               hover:bg-bg-hover transition-colors
-              ${onSelect ? 'cursor-pointer' : ''}
+              ${onSelect ? "cursor-pointer" : ""}
             `}
           >
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-text-primary">{cert.name}</span>
+                  <span className="font-medium text-text-primary">
+                    {cert.name}
+                  </span>
                   {getStatusBadge(cert.status, cert.days_until_expiry)}
                 </div>
                 <p className="text-sm text-text-muted mt-1">
@@ -121,17 +148,19 @@ export function CertificationList({ technicianId, onSelect }: CertificationListP
                 {cert.expiry_date && (
                   <>
                     <p className="text-sm text-text-muted">Expires</p>
-                    <p className={`font-medium ${cert.days_until_expiry !== null && cert.days_until_expiry !== undefined && cert.days_until_expiry <= 30 ? 'text-warning' : 'text-text-primary'}`}>
+                    <p
+                      className={`font-medium ${cert.days_until_expiry !== null && cert.days_until_expiry !== undefined && cert.days_until_expiry <= 30 ? "text-warning" : "text-text-primary"}`}
+                    >
                       {formatDate(cert.expiry_date)}
                     </p>
-                    {cert.days_until_expiry !== null && cert.days_until_expiry !== undefined && (
-                      <p className="text-xs text-text-muted">
-                        {cert.days_until_expiry < 0
-                          ? `${Math.abs(cert.days_until_expiry)} days ago`
-                          : `${cert.days_until_expiry} days left`
-                        }
-                      </p>
-                    )}
+                    {cert.days_until_expiry !== null &&
+                      cert.days_until_expiry !== undefined && (
+                        <p className="text-xs text-text-muted">
+                          {cert.days_until_expiry < 0
+                            ? `${Math.abs(cert.days_until_expiry)} days ago`
+                            : `${cert.days_until_expiry} days left`}
+                        </p>
+                      )}
                   </>
                 )}
               </div>
@@ -150,7 +179,9 @@ export function CertificationList({ technicianId, onSelect }: CertificationListP
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => setFilters((prev) => ({ ...prev, page: (prev.page || 1) - 1 }))}
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, page: (prev.page || 1) - 1 }))
+              }
               disabled={(filters.page || 1) <= 1}
             >
               Previous
@@ -158,7 +189,9 @@ export function CertificationList({ technicianId, onSelect }: CertificationListP
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => setFilters((prev) => ({ ...prev, page: (prev.page || 1) + 1 }))}
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, page: (prev.page || 1) + 1 }))
+              }
               disabled={(filters.page || 1) >= totalPages}
             >
               Next

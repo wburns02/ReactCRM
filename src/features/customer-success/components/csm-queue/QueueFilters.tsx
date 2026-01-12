@@ -4,8 +4,12 @@
  * Filter controls for the CSM task queue - filter by priority, type, due date, etc.
  */
 
-import { useState } from 'react';
-import type { CSMQueueFilters, CSMTaskQueuePriority, CSMTaskTypeCategory } from '../../../../api/types/customerSuccess';
+import { useState } from "react";
+import type {
+  CSMQueueFilters,
+  CSMTaskQueuePriority,
+  CSMTaskTypeCategory,
+} from "../../../../api/types/customerSuccess";
 
 interface QueueFiltersProps {
   filters: CSMQueueFilters;
@@ -13,29 +17,37 @@ interface QueueFiltersProps {
   taskTypeCounts?: Record<string, number>;
 }
 
-const priorityOptions: { value: CSMTaskQueuePriority; label: string; color: string }[] = [
-  { value: 'urgent', label: 'Urgent', color: 'bg-red-500' },
-  { value: 'high', label: 'High', color: 'bg-orange-500' },
-  { value: 'standard', label: 'Standard', color: 'bg-blue-500' },
-  { value: 'low', label: 'Low', color: 'bg-gray-500' },
+const priorityOptions: {
+  value: CSMTaskQueuePriority;
+  label: string;
+  color: string;
+}[] = [
+  { value: "urgent", label: "Urgent", color: "bg-red-500" },
+  { value: "high", label: "High", color: "bg-orange-500" },
+  { value: "standard", label: "Standard", color: "bg-blue-500" },
+  { value: "low", label: "Low", color: "bg-gray-500" },
 ];
 
 const categoryOptions: { value: CSMTaskTypeCategory; label: string }[] = [
-  { value: 'onboarding', label: 'Onboarding' },
-  { value: 'adoption', label: 'Adoption' },
-  { value: 'retention', label: 'Retention' },
-  { value: 'expansion', label: 'Expansion' },
-  { value: 'renewal', label: 'Renewal' },
+  { value: "onboarding", label: "Onboarding" },
+  { value: "adoption", label: "Adoption" },
+  { value: "retention", label: "Retention" },
+  { value: "expansion", label: "Expansion" },
+  { value: "renewal", label: "Renewal" },
 ];
 
 const dueDateOptions = [
-  { value: 'overdue', label: 'Overdue' },
-  { value: 'today', label: 'Due Today' },
-  { value: 'week', label: 'This Week' },
-  { value: 'all', label: 'All' },
+  { value: "overdue", label: "Overdue" },
+  { value: "today", label: "Due Today" },
+  { value: "week", label: "This Week" },
+  { value: "all", label: "All" },
 ];
 
-export function QueueFilters({ filters, onFiltersChange, taskTypeCounts }: QueueFiltersProps) {
+export function QueueFilters({
+  filters,
+  onFiltersChange,
+  taskTypeCounts,
+}: QueueFiltersProps) {
   const [isExpanded, setIsExpanded] = useState(false);
 
   const handlePriorityToggle = (priority: CSMTaskQueuePriority) => {
@@ -46,7 +58,7 @@ export function QueueFilters({ filters, onFiltersChange, taskTypeCounts }: Queue
         : [];
 
     const newPriorities = currentPriorities.includes(priority)
-      ? currentPriorities.filter(p => p !== priority)
+      ? currentPriorities.filter((p) => p !== priority)
       : [...currentPriorities, priority];
 
     onFiltersChange({
@@ -70,19 +82,19 @@ export function QueueFilters({ filters, onFiltersChange, taskTypeCounts }: Queue
     let due_after: string | undefined;
 
     switch (option) {
-      case 'overdue':
-        due_before = today.toISOString().split('T')[0];
+      case "overdue":
+        due_before = today.toISOString().split("T")[0];
         break;
-      case 'today':
-        due_before = today.toISOString().split('T')[0];
-        due_after = today.toISOString().split('T')[0];
+      case "today":
+        due_before = today.toISOString().split("T")[0];
+        due_after = today.toISOString().split("T")[0];
         break;
-      case 'week':
+      case "week":
         const weekEnd = new Date(today);
         weekEnd.setDate(weekEnd.getDate() + 7);
-        due_before = weekEnd.toISOString().split('T')[0];
+        due_before = weekEnd.toISOString().split("T")[0];
         break;
-      case 'all':
+      case "all":
       default:
         break;
     }
@@ -98,8 +110,8 @@ export function QueueFilters({ filters, onFiltersChange, taskTypeCounts }: Queue
     onFiltersChange({
       page: 1,
       page_size: 20,
-      sort_by: 'priority_score',
-      sort_order: 'desc',
+      sort_by: "priority_score",
+      sort_order: "desc",
     });
   };
 
@@ -128,13 +140,16 @@ export function QueueFilters({ filters, onFiltersChange, taskTypeCounts }: Queue
             onClick={() => handlePriorityToggle(value)}
             className={`
               inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full text-sm font-medium transition-all
-              ${selectedPriorities.includes(value)
-                ? `${color} text-white`
-                : 'bg-bg-primary text-text-secondary hover:bg-bg-card'
+              ${
+                selectedPriorities.includes(value)
+                  ? `${color} text-white`
+                  : "bg-bg-primary text-text-secondary hover:bg-bg-card"
               }
             `}
           >
-            <span className={`w-2 h-2 rounded-full ${selectedPriorities.includes(value) ? 'bg-white' : color}`} />
+            <span
+              className={`w-2 h-2 rounded-full ${selectedPriorities.includes(value) ? "bg-white" : color}`}
+            />
             {label}
           </button>
         ))}
@@ -147,9 +162,10 @@ export function QueueFilters({ filters, onFiltersChange, taskTypeCounts }: Queue
           onClick={() => handleCategoryChange(undefined)}
           className={`
             px-3 py-1.5 rounded-full text-sm font-medium transition-all
-            ${!filters.category
-              ? 'bg-primary text-white'
-              : 'bg-bg-primary text-text-secondary hover:bg-bg-card'
+            ${
+              !filters.category
+                ? "bg-primary text-white"
+                : "bg-bg-primary text-text-secondary hover:bg-bg-card"
             }
           `}
         >
@@ -161,15 +177,18 @@ export function QueueFilters({ filters, onFiltersChange, taskTypeCounts }: Queue
             onClick={() => handleCategoryChange(value)}
             className={`
               px-3 py-1.5 rounded-full text-sm font-medium transition-all
-              ${filters.category === value
-                ? 'bg-primary text-white'
-                : 'bg-bg-primary text-text-secondary hover:bg-bg-card'
+              ${
+                filters.category === value
+                  ? "bg-primary text-white"
+                  : "bg-bg-primary text-text-secondary hover:bg-bg-card"
               }
             `}
           >
             {label}
             {taskTypeCounts?.[value] !== undefined && (
-              <span className="ml-1.5 text-xs opacity-70">({taskTypeCounts[value]})</span>
+              <span className="ml-1.5 text-xs opacity-70">
+                ({taskTypeCounts[value]})
+              </span>
             )}
           </button>
         ))}
@@ -181,14 +200,19 @@ export function QueueFilters({ filters, onFiltersChange, taskTypeCounts }: Queue
         className="flex items-center gap-1 text-sm text-text-muted hover:text-text-primary transition-colors"
       >
         <svg
-          className={`w-4 h-4 transition-transform ${isExpanded ? 'rotate-180' : ''}`}
+          className={`w-4 h-4 transition-transform ${isExpanded ? "rotate-180" : ""}`}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
-        {isExpanded ? 'Hide' : 'Show'} Advanced Filters
+        {isExpanded ? "Hide" : "Show"} Advanced Filters
       </button>
 
       {isExpanded && (
@@ -196,25 +220,36 @@ export function QueueFilters({ filters, onFiltersChange, taskTypeCounts }: Queue
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             {/* Due Date Filter */}
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Due Date</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">
+                Due Date
+              </label>
               <select
                 className="w-full px-3 py-2 rounded-lg bg-bg-primary border border-border text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
                 onChange={(e) => handleDueDateChange(e.target.value)}
                 defaultValue="all"
               >
                 {dueDateOptions.map(({ value, label }) => (
-                  <option key={value} value={value}>{label}</option>
+                  <option key={value} value={value}>
+                    {label}
+                  </option>
                 ))}
               </select>
             </div>
 
             {/* Sort By */}
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Sort By</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">
+                Sort By
+              </label>
               <select
                 className="w-full px-3 py-2 rounded-lg bg-bg-primary border border-border text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
-                value={filters.sort_by || 'priority_score'}
-                onChange={(e) => onFiltersChange({ ...filters, sort_by: e.target.value as CSMQueueFilters['sort_by'] })}
+                value={filters.sort_by || "priority_score"}
+                onChange={(e) =>
+                  onFiltersChange({
+                    ...filters,
+                    sort_by: e.target.value as CSMQueueFilters["sort_by"],
+                  })
+                }
               >
                 <option value="priority_score">Priority Score</option>
                 <option value="due_date">Due Date</option>
@@ -224,11 +259,18 @@ export function QueueFilters({ filters, onFiltersChange, taskTypeCounts }: Queue
 
             {/* Sort Order */}
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Sort Order</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">
+                Sort Order
+              </label>
               <select
                 className="w-full px-3 py-2 rounded-lg bg-bg-primary border border-border text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
-                value={filters.sort_order || 'desc'}
-                onChange={(e) => onFiltersChange({ ...filters, sort_order: e.target.value as 'asc' | 'desc' })}
+                value={filters.sort_order || "desc"}
+                onChange={(e) =>
+                  onFiltersChange({
+                    ...filters,
+                    sort_order: e.target.value as "asc" | "desc",
+                  })
+                }
               >
                 <option value="desc">Highest First</option>
                 <option value="asc">Lowest First</option>

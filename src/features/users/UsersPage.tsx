@@ -1,19 +1,23 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Card } from '@/components/ui/Card.tsx';
-import { ConfirmDialog } from '@/components/ui/Dialog.tsx';
-import { toastError } from '@/components/ui/Toast';
-import { UsersList } from './components/UsersList.tsx';
-import { UserForm } from './components/UserForm.tsx';
-import { PermissionsMatrix } from './components/PermissionsMatrix.tsx';
+import { useState } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Card } from "@/components/ui/Card.tsx";
+import { ConfirmDialog } from "@/components/ui/Dialog.tsx";
+import { toastError } from "@/components/ui/Toast";
+import { UsersList } from "./components/UsersList.tsx";
+import { UserForm } from "./components/UserForm.tsx";
+import { PermissionsMatrix } from "./components/PermissionsMatrix.tsx";
 import {
   useUsers,
   useCreateUser,
   useUpdateUser,
   useDeactivateUser,
-} from '@/api/hooks/useAdmin.ts';
-import type { User, CreateUserInput, UpdateUserInput } from '@/api/types/admin.ts';
-import { getErrorMessage } from '@/api/client.ts';
+} from "@/api/hooks/useAdmin.ts";
+import type {
+  User,
+  CreateUserInput,
+  UpdateUserInput,
+} from "@/api/types/admin.ts";
+import { getErrorMessage } from "@/api/client.ts";
 
 /**
  * Users Management Page
@@ -69,7 +73,9 @@ export function UsersPage() {
         {/* Header */}
         <div className="flex items-center justify-between mb-6">
           <div>
-            <h1 className="text-3xl font-bold text-text-primary">User Management</h1>
+            <h1 className="text-3xl font-bold text-text-primary">
+              User Management
+            </h1>
             <p className="text-text-secondary mt-1">
               Manage system users and their access levels
             </p>

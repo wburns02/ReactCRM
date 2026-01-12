@@ -6,14 +6,14 @@
  * notes, assignee, and priority.
  */
 
-import { useState, useEffect } from 'react';
-import { cn } from '@/lib/utils.ts';
+import { useState, useEffect } from "react";
+import { cn } from "@/lib/utils.ts";
 import {
   useCreateSurveyAction,
   type SurveyActionType,
   type ActionPriority,
   type SurveyActionFormData,
-} from '@/api/hooks/useSurveyActions.ts';
+} from "@/api/hooks/useSurveyActions.ts";
 
 // ============================================
 // Types
@@ -49,75 +49,78 @@ const ACTION_TYPE_CONFIG: Record<
   { label: string; icon: string; description: string; color: string }
 > = {
   schedule_callback: {
-    label: 'Schedule Callback',
-    icon: '📞',
-    description: 'Schedule a phone call with the customer',
-    color: 'bg-blue-500/10 text-blue-500 border-blue-500/30',
+    label: "Schedule Callback",
+    icon: "📞",
+    description: "Schedule a phone call with the customer",
+    color: "bg-blue-500/10 text-blue-500 border-blue-500/30",
   },
   create_ticket: {
-    label: 'Create Ticket',
-    icon: '🎫',
-    description: 'Create a support ticket for follow-up',
-    color: 'bg-orange-500/10 text-orange-500 border-orange-500/30',
+    label: "Create Ticket",
+    icon: "🎫",
+    description: "Create a support ticket for follow-up",
+    color: "bg-orange-500/10 text-orange-500 border-orange-500/30",
   },
   generate_offer: {
-    label: 'Generate Offer',
-    icon: '💰',
-    description: 'Generate a retention offer or discount',
-    color: 'bg-green-500/10 text-green-500 border-green-500/30',
+    label: "Generate Offer",
+    icon: "💰",
+    description: "Generate a retention offer or discount",
+    color: "bg-green-500/10 text-green-500 border-green-500/30",
   },
   book_appointment: {
-    label: 'Book Appointment',
-    icon: '📅',
-    description: 'Schedule a meeting or appointment',
-    color: 'bg-purple-500/10 text-purple-500 border-purple-500/30',
+    label: "Book Appointment",
+    icon: "📅",
+    description: "Schedule a meeting or appointment",
+    color: "bg-purple-500/10 text-purple-500 border-purple-500/30",
   },
   send_email: {
-    label: 'Send Email',
-    icon: '📧',
-    description: 'Send a follow-up or apology email',
-    color: 'bg-cyan-500/10 text-cyan-500 border-cyan-500/30',
+    label: "Send Email",
+    icon: "📧",
+    description: "Send a follow-up or apology email",
+    color: "bg-cyan-500/10 text-cyan-500 border-cyan-500/30",
   },
   create_task: {
-    label: 'Create Task',
-    icon: '📋',
-    description: 'Create a CS task for follow-up',
-    color: 'bg-indigo-500/10 text-indigo-500 border-indigo-500/30',
+    label: "Create Task",
+    icon: "📋",
+    description: "Create a CS task for follow-up",
+    color: "bg-indigo-500/10 text-indigo-500 border-indigo-500/30",
   },
   trigger_playbook: {
-    label: 'Trigger Playbook',
-    icon: '📖',
-    description: 'Start a retention or recovery playbook',
-    color: 'bg-pink-500/10 text-pink-500 border-pink-500/30',
+    label: "Trigger Playbook",
+    icon: "📖",
+    description: "Start a retention or recovery playbook",
+    color: "bg-pink-500/10 text-pink-500 border-pink-500/30",
   },
   assign_csm: {
-    label: 'Assign CSM',
-    icon: '👤',
-    description: 'Assign or reassign a Customer Success Manager',
-    color: 'bg-teal-500/10 text-teal-500 border-teal-500/30',
+    label: "Assign CSM",
+    icon: "👤",
+    description: "Assign or reassign a Customer Success Manager",
+    color: "bg-teal-500/10 text-teal-500 border-teal-500/30",
   },
   escalate: {
-    label: 'Escalate',
-    icon: '🚨',
-    description: 'Escalate to management or leadership',
-    color: 'bg-danger/10 text-danger border-danger/30',
+    label: "Escalate",
+    icon: "🚨",
+    description: "Escalate to management or leadership",
+    color: "bg-danger/10 text-danger border-danger/30",
   },
 };
 
-const PRIORITY_CONFIG: Record<ActionPriority, { label: string; color: string }> = {
-  critical: { label: 'Critical', color: 'bg-danger text-white' },
-  high: { label: 'High', color: 'bg-warning text-white' },
-  medium: { label: 'Medium', color: 'bg-info text-white' },
-  low: { label: 'Low', color: 'bg-gray-500 text-white' },
+const PRIORITY_CONFIG: Record<
+  ActionPriority,
+  { label: string; color: string }
+> = {
+  critical: { label: "Critical", color: "bg-danger text-white" },
+  high: { label: "High", color: "bg-warning text-white" },
+  medium: { label: "Medium", color: "bg-info text-white" },
+  low: { label: "Low", color: "bg-gray-500 text-white" },
 };
 
 // Mock team members - in production, fetch from API
 const MOCK_TEAM_MEMBERS: TeamMember[] = [
-  { id: 1, name: 'Sarah Johnson', role: 'CS Manager' },
-  { id: 2, name: 'Mike Chen', role: 'Senior CSM' },
-  { id: 3, name: 'Emily Davis', role: 'CSM' },
-  { id: 4, name: 'Tom Wilson', role: 'CSM' },
-  { id: 5, name: 'Lisa Brown', role: 'Support Lead' },
+  { id: 1, name: "Sarah Johnson", role: "CS Manager" },
+  { id: 2, name: "Mike Chen", role: "Senior CSM" },
+  { id: 3, name: "Emily Davis", role: "CSM" },
+  { id: 4, name: "Tom Wilson", role: "CSM" },
+  { id: 5, name: "Lisa Brown", role: "Support Lead" },
 ];
 
 // ============================================
@@ -142,12 +145,19 @@ function ActionTypeSelector({
             key={type}
             onClick={() => onSelect(type)}
             className={cn(
-              'p-3 rounded-lg border-2 text-left transition-all',
-              isSelected ? config.color + ' border-current' : 'border-border hover:border-border-hover bg-bg-hover'
+              "p-3 rounded-lg border-2 text-left transition-all",
+              isSelected
+                ? config.color + " border-current"
+                : "border-border hover:border-border-hover bg-bg-hover",
             )}
           >
             <span className="text-xl">{config.icon}</span>
-            <p className={cn('text-xs font-medium mt-1', isSelected ? '' : 'text-text-primary')}>
+            <p
+              className={cn(
+                "text-xs font-medium mt-1",
+                isSelected ? "" : "text-text-primary",
+              )}
+            >
               {config.label}
             </p>
           </button>
@@ -157,21 +167,25 @@ function ActionTypeSelector({
   );
 }
 
-function ContextBanner({ context }: { context: CreateActionModalProps['context'] }) {
+function ContextBanner({
+  context,
+}: {
+  context: CreateActionModalProps["context"];
+}) {
   if (!context) return null;
 
   const getSentimentColor = (sentiment?: string) => {
     switch (sentiment) {
-      case 'very_negative':
-      case 'negative':
-        return 'text-danger';
-      case 'neutral':
-        return 'text-text-muted';
-      case 'positive':
-      case 'very_positive':
-        return 'text-success';
+      case "very_negative":
+      case "negative":
+        return "text-danger";
+      case "neutral":
+        return "text-text-muted";
+      case "positive":
+      case "very_positive":
+        return "text-success";
       default:
-        return 'text-text-secondary';
+        return "text-text-secondary";
     }
   };
 
@@ -183,8 +197,10 @@ function ContextBanner({ context }: { context: CreateActionModalProps['context']
             <span className="text-sm text-text-muted">Score:</span>
             <span
               className={cn(
-                'px-2 py-0.5 text-sm font-bold rounded',
-                context.score <= 6 ? 'bg-danger/10 text-danger' : 'bg-success/10 text-success'
+                "px-2 py-0.5 text-sm font-bold rounded",
+                context.score <= 6
+                  ? "bg-danger/10 text-danger"
+                  : "bg-success/10 text-success",
               )}
             >
               {context.score}/10
@@ -194,14 +210,21 @@ function ContextBanner({ context }: { context: CreateActionModalProps['context']
         {context.sentiment && (
           <div className="flex items-center gap-2">
             <span className="text-sm text-text-muted">Sentiment:</span>
-            <span className={cn('text-sm font-medium', getSentimentColor(context.sentiment))}>
-              {context.sentiment.replace('_', ' ')}
+            <span
+              className={cn(
+                "text-sm font-medium",
+                getSentimentColor(context.sentiment),
+              )}
+            >
+              {context.sentiment.replace("_", " ")}
             </span>
           </div>
         )}
       </div>
       {context.feedback && (
-        <p className="text-sm text-text-secondary italic">"{context.feedback}"</p>
+        <p className="text-sm text-text-secondary italic">
+          "{context.feedback}"
+        </p>
       )}
     </div>
   );
@@ -223,13 +246,15 @@ export function CreateActionModal({
 }: CreateActionModalProps) {
   // Note: customerId is available for future use in action creation
   void _customerId;
-  const [actionType, setActionType] = useState<SurveyActionType | null>(initialActionType || null);
-  const [title, setTitle] = useState('');
-  const [description, setDescription] = useState('');
-  const [notes, setNotes] = useState('');
-  const [priority, setPriority] = useState<ActionPriority>('medium');
+  const [actionType, setActionType] = useState<SurveyActionType | null>(
+    initialActionType || null,
+  );
+  const [title, setTitle] = useState("");
+  const [description, setDescription] = useState("");
+  const [notes, setNotes] = useState("");
+  const [priority, setPriority] = useState<ActionPriority>("medium");
   const [assignedTo, setAssignedTo] = useState<number | null>(null);
-  const [reason, setReason] = useState('');
+  const [reason, setReason] = useState("");
 
   const createAction = useCreateSurveyAction();
 
@@ -252,13 +277,13 @@ export function CreateActionModal({
   useEffect(() => {
     if (context?.score !== undefined) {
       if (context.score <= 3) {
-        setPriority('critical');
+        setPriority("critical");
       } else if (context.score <= 5) {
-        setPriority('high');
+        setPriority("high");
       } else if (context.score <= 7) {
-        setPriority('medium');
+        setPriority("medium");
       } else {
-        setPriority('low');
+        setPriority("low");
       }
     }
   }, [context?.score]);
@@ -270,7 +295,8 @@ export function CreateActionModal({
 
     const formData: SurveyActionFormData = {
       action_type: actionType,
-      title: title || `${ACTION_TYPE_CONFIG[actionType].label} for ${customerName}`,
+      title:
+        title || `${ACTION_TYPE_CONFIG[actionType].label} for ${customerName}`,
       description: description || undefined,
       notes: notes || undefined,
       priority,
@@ -288,14 +314,14 @@ export function CreateActionModal({
       onClose();
       // Reset form
       setActionType(null);
-      setTitle('');
-      setDescription('');
-      setNotes('');
-      setPriority('medium');
+      setTitle("");
+      setDescription("");
+      setNotes("");
+      setPriority("medium");
       setAssignedTo(null);
-      setReason('');
+      setReason("");
     } catch (error) {
-      console.error('Failed to create action:', error);
+      console.error("Failed to create action:", error);
     }
   };
 
@@ -309,7 +335,9 @@ export function CreateActionModal({
         <div className="sticky top-0 bg-bg-card border-b border-border px-6 py-4 rounded-t-xl">
           <div className="flex items-center justify-between">
             <div>
-              <h2 className="text-xl font-semibold text-text-primary">Create Action</h2>
+              <h2 className="text-xl font-semibold text-text-primary">
+                Create Action
+              </h2>
               <p className="text-sm text-text-muted">
                 For {customerName} (Response #{responseId})
               </p>
@@ -318,8 +346,18 @@ export function CreateActionModal({
               onClick={onClose}
               className="p-2 text-text-muted hover:text-text-primary rounded-lg hover:bg-bg-hover"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -335,7 +373,10 @@ export function CreateActionModal({
             <label className="block text-sm font-medium text-text-secondary mb-3">
               Action Type <span className="text-danger">*</span>
             </label>
-            <ActionTypeSelector selectedType={actionType} onSelect={setActionType} />
+            <ActionTypeSelector
+              selectedType={actionType}
+              onSelect={setActionType}
+            />
             {actionType && (
               <p className="mt-2 text-sm text-text-muted">
                 {ACTION_TYPE_CONFIG[actionType].description}
@@ -400,10 +441,10 @@ export function CreateActionModal({
                     type="button"
                     onClick={() => setPriority(p)}
                     className={cn(
-                      'flex-1 py-2 text-xs font-medium rounded-lg border-2 transition-all',
+                      "flex-1 py-2 text-xs font-medium rounded-lg border-2 transition-all",
                       priority === p
-                        ? PRIORITY_CONFIG[p].color + ' border-transparent'
-                        : 'border-border text-text-secondary hover:border-border-hover'
+                        ? PRIORITY_CONFIG[p].color + " border-transparent"
+                        : "border-border text-text-secondary hover:border-border-hover",
                     )}
                   >
                     {PRIORITY_CONFIG[p].label}
@@ -418,8 +459,10 @@ export function CreateActionModal({
                 Assign To
               </label>
               <select
-                value={assignedTo || ''}
-                onChange={(e) => setAssignedTo(e.target.value ? Number(e.target.value) : null)}
+                value={assignedTo || ""}
+                onChange={(e) =>
+                  setAssignedTo(e.target.value ? Number(e.target.value) : null)
+                }
                 className="w-full px-3 py-2 border border-border rounded-lg bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
               >
                 <option value="">Unassigned</option>
@@ -462,7 +505,11 @@ export function CreateActionModal({
             >
               {createAction.isPending ? (
                 <>
-                  <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
+                  <svg
+                    className="w-4 h-4 animate-spin"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
                     <circle
                       className="opacity-25"
                       cx="12"
@@ -481,8 +528,18 @@ export function CreateActionModal({
                 </>
               ) : (
                 <>
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 4v16m8-8H4"
+                    />
                   </svg>
                   Create Action
                 </>

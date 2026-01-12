@@ -4,19 +4,29 @@
  * Generate shareable payment links, QR codes, and send via email/SMS.
  */
 
-import { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Tabs, TabList, TabTrigger, TabContent } from '@/components/ui/Tabs.tsx';
-import { cn } from '@/lib/utils.ts';
-import { formatCurrency } from './utils/pricingEngine.ts';
+import { useState, useEffect } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import {
+  Tabs,
+  TabList,
+  TabTrigger,
+  TabContent,
+} from "@/components/ui/Tabs.tsx";
+import { cn } from "@/lib/utils.ts";
+import { formatCurrency } from "./utils/pricingEngine.ts";
 import {
   useGeneratePaymentLink,
   useSendInvoiceEmail,
   useSendPaymentLinkSMS,
-} from './hooks/usePayments.ts';
+} from "./hooks/usePayments.ts";
 
 // ============================================================================
 // TYPES
@@ -34,7 +44,7 @@ export interface PaymentLinkGeneratorProps {
   /** Customer name for display */
   customerName?: string;
   /** Callback when link is sent */
-  onLinkSent?: (method: 'email' | 'sms' | 'copy') => void;
+  onLinkSent?: (method: "email" | "sms" | "copy") => void;
   /** Additional CSS classes */
   className?: string;
 }
@@ -46,8 +56,8 @@ export interface PaymentLinkGeneratorProps {
 export function PaymentLinkGenerator({
   invoiceId,
   amount,
-  customerEmail = '',
-  customerPhone = '',
+  customerEmail = "",
+  customerPhone = "",
   customerName,
   onLinkSent,
   className,
@@ -56,7 +66,7 @@ export function PaymentLinkGenerator({
   const [expiresAt, setExpiresAt] = useState<string | null>(null);
   const [qrCodeUrl, setQrCodeUrl] = useState<string | null>(null);
   const [copied, setCopied] = useState(false);
-  const [sendMethod, setSendMethod] = useState<'email' | 'sms'>('email');
+  const [sendMethod, setSendMethod] = useState<"email" | "sms">("email");
   const [email, setEmail] = useState(customerEmail);
   const [phone, setPhone] = useState(customerPhone);
   const [successMessage, setSuccessMessage] = useState<string | null>(null);
@@ -89,7 +99,7 @@ export function PaymentLinkGenerator({
         setQrCodeUrl(qrApiUrl);
       }
     } catch (error) {
-      setErrorMessage('Failed to generate payment link');
+      setErrorMessage("Failed to generate payment link");
     }
   };
 
@@ -101,14 +111,14 @@ export function PaymentLinkGenerator({
       await navigator.clipboard.writeText(paymentLink);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
-      onLinkSent?.('copy');
+      onLinkSent?.("copy");
     } catch {
       // Fallback for older browsers
-      const textArea = document.createElement('textarea');
+      const textArea = document.createElement("textarea");
       textArea.value = paymentLink;
       document.body.appendChild(textArea);
       textArea.select();
-      document.execCommand('copy');
+      document.execCommand("copy");
       document.body.removeChild(textArea);
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
@@ -118,7 +128,7 @@ export function PaymentLinkGenerator({
   // Send link via email
   const handleSendEmail = async () => {
     if (!email) {
-      setErrorMessage('Please enter an email address');
+      setErrorMessage("Please enter an email address");
       return;
     }
 
@@ -132,16 +142,16 @@ export function PaymentLinkGenerator({
         includePaymentLink: true,
       });
       setSuccessMessage(`Payment link sent to ${email}`);
-      onLinkSent?.('email');
+      onLinkSent?.("email");
     } catch {
-      setErrorMessage('Failed to send email');
+      setErrorMessage("Failed to send email");
     }
   };
 
   // Send link via SMS
   const handleSendSMS = async () => {
     if (!phone) {
-      setErrorMessage('Please enter a phone number');
+      setErrorMessage("Please enter a phone number");
       return;
     }
 
@@ -154,9 +164,9 @@ export function PaymentLinkGenerator({
         phoneNumber: phone,
       });
       setSuccessMessage(`Payment link sent to ${phone}`);
-      onLinkSent?.('sms');
+      onLinkSent?.("sms");
     } catch {
-      setErrorMessage('Failed to send SMS');
+      setErrorMessage("Failed to send SMS");
     }
   };
 
@@ -170,26 +180,26 @@ export function PaymentLinkGenerator({
     if (days > 1) {
       return `Expires in ${days} days`;
     } else if (days === 1) {
-      return 'Expires tomorrow';
+      return "Expires tomorrow";
     } else {
       const hours = Math.floor(diff / (1000 * 60 * 60));
       if (hours > 0) {
         return `Expires in ${hours} hours`;
       }
-      return 'Expires soon';
+      return "Expires soon";
     }
   };
 
   // Format phone number for display
   const formatPhoneNumber = (value: string) => {
-    const digits = value.replace(/\D/g, '');
+    const digits = value.replace(/\D/g, "");
     if (digits.length <= 3) return digits;
     if (digits.length <= 6) return `(${digits.slice(0, 3)}) ${digits.slice(3)}`;
     return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6, 10)}`;
   };
 
   return (
-    <Card className={cn('w-full', className)}>
+    <Card className={cn("w-full", className)}>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <svg
@@ -251,19 +261,24 @@ export function PaymentLinkGenerator({
         <div className="mb-6 p-4 bg-bg-hover/50 rounded-lg">
           <div className="flex items-center justify-between">
             <div>
-              <p className="text-sm text-text-secondary">Invoice #{invoiceId}</p>
-              {customerName && (
-                <p className="font-medium">{customerName}</p>
-              )}
+              <p className="text-sm text-text-secondary">
+                Invoice #{invoiceId}
+              </p>
+              {customerName && <p className="font-medium">{customerName}</p>}
             </div>
-            <p className="text-2xl font-bold text-primary">{formatCurrency(amount)}</p>
+            <p className="text-2xl font-bold text-primary">
+              {formatCurrency(amount)}
+            </p>
           </div>
         </div>
 
         {/* Generated Link */}
         {generateLinkMutation.isPending ? (
           <div className="flex items-center justify-center py-8">
-            <svg className="animate-spin h-8 w-8 text-primary" viewBox="0 0 24 24">
+            <svg
+              className="animate-spin h-8 w-8 text-primary"
+              viewBox="0 0 24 24"
+            >
               <circle
                 cx="12"
                 cy="12"
@@ -293,7 +308,7 @@ export function PaymentLinkGenerator({
                   />
                 </div>
                 <Button
-                  variant={copied ? 'primary' : 'secondary'}
+                  variant={copied ? "primary" : "secondary"}
                   onClick={handleCopyLink}
                 >
                   {copied ? (
@@ -320,7 +335,14 @@ export function PaymentLinkGenerator({
                         stroke="currentColor"
                         strokeWidth="2"
                       >
-                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2" />
+                        <rect
+                          x="9"
+                          y="9"
+                          width="13"
+                          height="13"
+                          rx="2"
+                          ry="2"
+                        />
                         <path d="M5 15H4a2 2 0 01-2-2V4a2 2 0 012-2h9a2 2 0 012 2v1" />
                       </svg>
                       Copy
@@ -353,7 +375,10 @@ export function PaymentLinkGenerator({
             <div className="border-t border-border pt-6">
               <h4 className="font-medium mb-4">Send Payment Link</h4>
 
-              <Tabs value={sendMethod} onValueChange={(v) => setSendMethod(v as 'email' | 'sms')}>
+              <Tabs
+                value={sendMethod}
+                onValueChange={(v) => setSendMethod(v as "email" | "sms")}
+              >
                 <TabList className="mb-4">
                   <TabTrigger value="email">
                     <svg
@@ -406,7 +431,10 @@ export function PaymentLinkGenerator({
                     >
                       {sendEmailMutation.isPending ? (
                         <span className="flex items-center gap-2">
-                          <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                          <svg
+                            className="animate-spin h-4 w-4"
+                            viewBox="0 0 24 24"
+                          >
                             <circle
                               cx="12"
                               cy="12"
@@ -452,7 +480,9 @@ export function PaymentLinkGenerator({
                         id="recipient-phone"
                         type="tel"
                         value={formatPhoneNumber(phone)}
-                        onChange={(e) => setPhone(e.target.value.replace(/\D/g, ''))}
+                        onChange={(e) =>
+                          setPhone(e.target.value.replace(/\D/g, ""))
+                        }
                         placeholder="(555) 555-5555"
                         className="mt-1"
                       />
@@ -465,7 +495,10 @@ export function PaymentLinkGenerator({
                     >
                       {sendSMSMutation.isPending ? (
                         <span className="flex items-center gap-2">
-                          <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                          <svg
+                            className="animate-spin h-4 w-4"
+                            viewBox="0 0 24 24"
+                          >
                             <circle
                               cx="12"
                               cy="12"
@@ -505,7 +538,9 @@ export function PaymentLinkGenerator({
           </div>
         ) : (
           <div className="text-center py-8">
-            <p className="text-text-secondary mb-4">No payment link generated</p>
+            <p className="text-text-secondary mb-4">
+              No payment link generated
+            </p>
             <Button onClick={handleGenerateLink}>Generate Link</Button>
           </div>
         )}

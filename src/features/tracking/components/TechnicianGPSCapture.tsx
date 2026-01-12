@@ -4,14 +4,28 @@
  * Runs in the technician's mobile app/view
  */
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { cn } from '@/lib/utils.ts';
-import { useUpdateLocation, useUpdateLocationBatch, useTechnicianGPSConfig } from '@/hooks/useGPSTracking.ts';
-import type { LocationUpdate } from '@/api/types/gpsTracking.ts';
+import { useState, useEffect, useCallback, useRef } from "react";
+import { cn } from "@/lib/utils.ts";
 import {
-  Navigation, Signal, SignalZero, Battery, Clock,
-  Play, Pause, Upload, AlertTriangle, CheckCircle, Wifi, WifiOff
-} from 'lucide-react';
+  useUpdateLocation,
+  useUpdateLocationBatch,
+  useTechnicianGPSConfig,
+} from "@/hooks/useGPSTracking.ts";
+import type { LocationUpdate } from "@/api/types/gpsTracking.ts";
+import {
+  Navigation,
+  Signal,
+  SignalZero,
+  Battery,
+  Clock,
+  Play,
+  Pause,
+  Upload,
+  AlertTriangle,
+  CheckCircle,
+  Wifi,
+  WifiOff,
+} from "lucide-react";
 
 interface GPSPosition {
   latitude: number;
@@ -34,13 +48,17 @@ interface TechnicianGPSCaptureProps {
 export function TechnicianGPSCapture({
   technicianId,
   workOrderId,
-  currentStatus = 'available',
+  currentStatus = "available",
   onLocationUpdate,
-  className
+  className,
 }: TechnicianGPSCaptureProps) {
   const [isTracking, setIsTracking] = useState(false);
-  const [currentPosition, setCurrentPosition] = useState<GPSPosition | null>(null);
-  const [gpsStatus, setGpsStatus] = useState<'acquiring' | 'active' | 'error' | 'idle'>('idle');
+  const [currentPosition, setCurrentPosition] = useState<GPSPosition | null>(
+    null,
+  );
+  const [gpsStatus, setGpsStatus] = useState<
+    "acquiring" | "active" | "error" | "idle"
+  >("idle");
   const [batteryLevel, setBatteryLevel] = useState<number | null>(null);
   const [isOnline, setIsOnline] = useState(navigator.onLine);
   const [queuedLocations, setQueuedLocations] = useState<LocationUpdate[]>([]);
@@ -56,8 +74,12 @@ export function TechnicianGPSCapture({
 
   // Get battery level if available
   useEffect(() => {
-    if ('getBattery' in navigator) {
-      (navigator as Navigator & { getBattery: () => Promise<{ level: number; charging: boolean }> })
+    if ("getBattery" in navigator) {
+      (
+        navigator as Navigator & {
+          getBattery: () => Promise<{ level: number; charging: boolean }>;
+        }
+      )
         .getBattery()
         .then((battery) => {
           setBatteryLevel(Math.round(battery.level * 100));
@@ -73,12 +95,12 @@ export function TechnicianGPSCapture({
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, []);
 
@@ -97,83 +119,98 @@ export function TechnicianGPSCapture({
       setQueuedLocations([]);
       setLastSyncTime(new Date());
     } catch (error) {
-      console.error('Failed to sync locations:', error);
+      console.error("Failed to sync locations:", error);
     }
   }, [queuedLocations, updateLocationBatch]);
 
-  const sendLocation = useCallback(async (position: GPSPosition) => {
-    const locationUpdate: LocationUpdate = {
-      latitude: position.latitude,
-      longitude: position.longitude,
-      accuracy: position.accuracy,
-      altitude: position.altitude,
-      speed: position.speed ? position.speed * 2.237 : undefined, // Convert m/s to mph
-      heading: position.heading ?? undefined,
-      battery_level: batteryLevel ?? undefined,
-      captured_at: new Date(position.timestamp).toISOString(),
-      current_status: currentStatus,
-      work_order_id: workOrderId,
-    };
+  const sendLocation = useCallback(
+    async (position: GPSPosition) => {
+      const locationUpdate: LocationUpdate = {
+        latitude: position.latitude,
+        longitude: position.longitude,
+        accuracy: position.accuracy,
+        altitude: position.altitude,
+        speed: position.speed ? position.speed * 2.237 : undefined, // Convert m/s to mph
+        heading: position.heading ?? undefined,
+        battery_level: batteryLevel ?? undefined,
+        captured_at: new Date(position.timestamp).toISOString(),
+        current_status: currentStatus,
+        work_order_id: workOrderId,
+      };
 
-    if (isOnline) {
-      try {
-        await updateLocation.mutateAsync(locationUpdate);
-        setLastSyncTime(new Date());
-        setErrorMessage(null);
-      } catch {
-        // Queue for later if online sync fails
-        setQueuedLocations(prev => [...prev, locationUpdate]);
+      if (isOnline) {
+        try {
+          await updateLocation.mutateAsync(locationUpdate);
+          setLastSyncTime(new Date());
+          setErrorMessage(null);
+        } catch {
+          // Queue for later if online sync fails
+          setQueuedLocations((prev) => [...prev, locationUpdate]);
+        }
+      } else {
+        // Queue for later sync
+        setQueuedLocations((prev) => [...prev, locationUpdate]);
       }
-    } else {
-      // Queue for later sync
-      setQueuedLocations(prev => [...prev, locationUpdate]);
-    }
 
-    onLocationUpdate?.(position);
-  }, [isOnline, batteryLevel, currentStatus, workOrderId, updateLocation, onLocationUpdate]);
+      onLocationUpdate?.(position);
+    },
+    [
+      isOnline,
+      batteryLevel,
+      currentStatus,
+      workOrderId,
+      updateLocation,
+      onLocationUpdate,
+    ],
+  );
 
-  const handlePositionSuccess = useCallback((position: GeolocationPosition) => {
-    const gpsPosition: GPSPosition = {
-      latitude: position.coords.latitude,
-      longitude: position.coords.longitude,
-      accuracy: position.coords.accuracy,
-      altitude: position.coords.altitude ?? undefined,
-      speed: position.coords.speed ?? undefined,
-      heading: position.coords.heading ?? undefined,
-      timestamp: position.timestamp,
-    };
+  const handlePositionSuccess = useCallback(
+    (position: GeolocationPosition) => {
+      const gpsPosition: GPSPosition = {
+        latitude: position.coords.latitude,
+        longitude: position.coords.longitude,
+        accuracy: position.coords.accuracy,
+        altitude: position.coords.altitude ?? undefined,
+        speed: position.coords.speed ?? undefined,
+        heading: position.coords.heading ?? undefined,
+        timestamp: position.timestamp,
+      };
 
-    setCurrentPosition(gpsPosition);
-    setGpsStatus('active');
-    setErrorMessage(null);
-    sendLocation(gpsPosition);
-  }, [sendLocation]);
+      setCurrentPosition(gpsPosition);
+      setGpsStatus("active");
+      setErrorMessage(null);
+      sendLocation(gpsPosition);
+    },
+    [sendLocation],
+  );
 
   const handlePositionError = useCallback((error: GeolocationPositionError) => {
-    setGpsStatus('error');
+    setGpsStatus("error");
     switch (error.code) {
       case error.PERMISSION_DENIED:
-        setErrorMessage('Location permission denied. Please enable location services.');
+        setErrorMessage(
+          "Location permission denied. Please enable location services.",
+        );
         break;
       case error.POSITION_UNAVAILABLE:
-        setErrorMessage('Location unavailable. Please check GPS settings.');
+        setErrorMessage("Location unavailable. Please check GPS settings.");
         break;
       case error.TIMEOUT:
-        setErrorMessage('Location request timed out. Retrying...');
+        setErrorMessage("Location request timed out. Retrying...");
         break;
       default:
-        setErrorMessage('Unable to get location.');
+        setErrorMessage("Unable to get location.");
     }
   }, []);
 
   const startTracking = useCallback(() => {
     if (!navigator.geolocation) {
-      setErrorMessage('Geolocation is not supported by this browser.');
+      setErrorMessage("Geolocation is not supported by this browser.");
       return;
     }
 
     setIsTracking(true);
-    setGpsStatus('acquiring');
+    setGpsStatus("acquiring");
 
     const options: PositionOptions = {
       enableHighAccuracy: config?.high_accuracy_mode ?? true,
@@ -185,31 +222,39 @@ export function TechnicianGPSCapture({
     navigator.geolocation.getCurrentPosition(
       handlePositionSuccess,
       handlePositionError,
-      options
+      options,
     );
 
     // Start watching position
     watchIdRef.current = navigator.geolocation.watchPosition(
       handlePositionSuccess,
       handlePositionError,
-      options
+      options,
     );
 
     // Set up periodic sync
-    const interval = currentStatus === 'en_route' || currentStatus === 'on_site'
-      ? (config?.active_interval ?? 30) * 1000
-      : (config?.idle_interval ?? 300) * 1000;
+    const interval =
+      currentStatus === "en_route" || currentStatus === "on_site"
+        ? (config?.active_interval ?? 30) * 1000
+        : (config?.idle_interval ?? 300) * 1000;
 
     syncIntervalRef.current = setInterval(() => {
       if (currentPosition) {
         sendLocation(currentPosition);
       }
     }, interval);
-  }, [config, currentStatus, currentPosition, handlePositionSuccess, handlePositionError, sendLocation]);
+  }, [
+    config,
+    currentStatus,
+    currentPosition,
+    handlePositionSuccess,
+    handlePositionError,
+    sendLocation,
+  ]);
 
   const stopTracking = useCallback(() => {
     setIsTracking(false);
-    setGpsStatus('idle');
+    setGpsStatus("idle");
 
     if (watchIdRef.current !== null) {
       navigator.geolocation.clearWatch(watchIdRef.current);
@@ -241,11 +286,11 @@ export function TechnicianGPSCapture({
 
   const getStatusIcon = () => {
     switch (gpsStatus) {
-      case 'acquiring':
+      case "acquiring":
         return <Signal className="w-5 h-5 text-yellow-500 animate-pulse" />;
-      case 'active':
+      case "active":
         return <Signal className="w-5 h-5 text-green-500" />;
-      case 'error':
+      case "error":
         return <SignalZero className="w-5 h-5 text-red-500" />;
       default:
         return <Signal className="w-5 h-5 text-gray-400" />;
@@ -253,7 +298,7 @@ export function TechnicianGPSCapture({
   };
 
   return (
-    <div className={cn('bg-white rounded-xl shadow-sm p-4', className)}>
+    <div className={cn("bg-white rounded-xl shadow-sm p-4", className)}>
       {/* Header */}
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
@@ -276,16 +321,22 @@ export function TechnicianGPSCapture({
           <div className="flex items-center justify-between text-sm">
             <span className="text-gray-500">Position</span>
             <span className="font-mono text-gray-900">
-              {currentPosition.latitude.toFixed(6)}, {currentPosition.longitude.toFixed(6)}
+              {currentPosition.latitude.toFixed(6)},{" "}
+              {currentPosition.longitude.toFixed(6)}
             </span>
           </div>
           <div className="flex items-center justify-between text-sm">
             <span className="text-gray-500">Accuracy</span>
-            <span className={cn(
-              'font-medium',
-              currentPosition.accuracy <= 10 ? 'text-green-600' :
-              currentPosition.accuracy <= 50 ? 'text-yellow-600' : 'text-red-600'
-            )}>
+            <span
+              className={cn(
+                "font-medium",
+                currentPosition.accuracy <= 10
+                  ? "text-green-600"
+                  : currentPosition.accuracy <= 50
+                    ? "text-yellow-600"
+                    : "text-red-600",
+              )}
+            >
               ±{Math.round(currentPosition.accuracy)}m
             </span>
           </div>
@@ -303,13 +354,17 @@ export function TechnicianGPSCapture({
       {/* Status Indicators */}
       <div className="grid grid-cols-3 gap-2 mb-4">
         <div className="text-center p-2 bg-gray-50 rounded-lg">
-          <Battery className={cn(
-            'w-5 h-5 mx-auto mb-1',
-            batteryLevel !== null && batteryLevel < 20 ? 'text-red-500' : 'text-gray-400'
-          )} />
+          <Battery
+            className={cn(
+              "w-5 h-5 mx-auto mb-1",
+              batteryLevel !== null && batteryLevel < 20
+                ? "text-red-500"
+                : "text-gray-400",
+            )}
+          />
           <div className="text-xs text-gray-500">Battery</div>
           <div className="text-sm font-medium">
-            {batteryLevel !== null ? `${batteryLevel}%` : '--'}
+            {batteryLevel !== null ? `${batteryLevel}%` : "--"}
           </div>
         </div>
         <div className="text-center p-2 bg-gray-50 rounded-lg">
@@ -321,7 +376,12 @@ export function TechnicianGPSCapture({
           <Clock className="w-5 h-5 mx-auto mb-1 text-gray-400" />
           <div className="text-xs text-gray-500">Last Sync</div>
           <div className="text-sm font-medium">
-            {lastSyncTime ? lastSyncTime.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' }) : '--'}
+            {lastSyncTime
+              ? lastSyncTime.toLocaleTimeString([], {
+                  hour: "2-digit",
+                  minute: "2-digit",
+                })
+              : "--"}
           </div>
         </div>
       </div>
@@ -338,7 +398,9 @@ export function TechnicianGPSCapture({
       {!isOnline && queuedLocations.length > 0 && (
         <div className="flex items-center gap-2 p-3 bg-yellow-50 rounded-lg text-yellow-700 text-sm mb-4">
           <WifiOff className="w-4 h-4 flex-shrink-0" />
-          <span>{queuedLocations.length} locations queued for sync when online</span>
+          <span>
+            {queuedLocations.length} locations queued for sync when online
+          </span>
         </div>
       )}
 
@@ -353,16 +415,16 @@ export function TechnicianGPSCapture({
       {/* Control Button */}
       <button
         onClick={isTracking ? stopTracking : startTracking}
-        disabled={gpsStatus === 'acquiring'}
+        disabled={gpsStatus === "acquiring"}
         className={cn(
-          'w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors',
+          "w-full py-3 rounded-lg font-semibold flex items-center justify-center gap-2 transition-colors",
           isTracking
-            ? 'bg-red-500 hover:bg-red-600 text-white'
-            : 'bg-blue-500 hover:bg-blue-600 text-white',
-          gpsStatus === 'acquiring' && 'opacity-50 cursor-not-allowed'
+            ? "bg-red-500 hover:bg-red-600 text-white"
+            : "bg-blue-500 hover:bg-blue-600 text-white",
+          gpsStatus === "acquiring" && "opacity-50 cursor-not-allowed",
         )}
       >
-        {gpsStatus === 'acquiring' ? (
+        {gpsStatus === "acquiring" ? (
           <>
             <Signal className="w-5 h-5 animate-pulse" />
             Acquiring GPS...
@@ -387,7 +449,12 @@ export function TechnicianGPSCapture({
           disabled={updateLocationBatch.isPending}
           className="w-full mt-2 py-2 rounded-lg border border-gray-200 text-gray-600 hover:bg-gray-50 flex items-center justify-center gap-2"
         >
-          <Upload className={cn('w-4 h-4', updateLocationBatch.isPending && 'animate-pulse')} />
+          <Upload
+            className={cn(
+              "w-4 h-4",
+              updateLocationBatch.isPending && "animate-pulse",
+            )}
+          />
           Sync {queuedLocations.length} Queued Locations
         </button>
       )}
@@ -396,9 +463,11 @@ export function TechnicianGPSCapture({
       <div className="mt-4 pt-4 border-t text-xs text-gray-400 text-center">
         {isTracking ? (
           <span>
-            Updating every {currentStatus === 'en_route' || currentStatus === 'on_site'
+            Updating every{" "}
+            {currentStatus === "en_route" || currentStatus === "on_site"
               ? (config?.active_interval ?? 30)
-              : (config?.idle_interval ?? 300)} seconds
+              : (config?.idle_interval ?? 300)}{" "}
+            seconds
           </span>
         ) : (
           <span>Tracking is paused</span>

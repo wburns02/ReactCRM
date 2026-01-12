@@ -1,8 +1,13 @@
-import { useContract, useActivateContract } from '../api/contracts.ts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { formatDate, formatCurrency } from '@/lib/utils.ts';
+import { useContract, useActivateContract } from "../api/contracts.ts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { formatDate, formatCurrency } from "@/lib/utils.ts";
 
 interface ContractDetailsProps {
   contractId: string;
@@ -13,15 +18,24 @@ export function ContractDetails({ contractId, onClose }: ContractDetailsProps) {
   const { data: contract, isLoading, error } = useContract(contractId);
   const activateContract = useActivateContract();
 
-  const getStatusVariant = (status: string): 'success' | 'warning' | 'danger' | 'info' | 'default' => {
+  const getStatusVariant = (
+    status: string,
+  ): "success" | "warning" | "danger" | "info" | "default" => {
     switch (status) {
-      case 'active': return 'success';
-      case 'pending': return 'warning';
-      case 'expired': return 'danger';
-      case 'cancelled': return 'danger';
-      case 'draft': return 'default';
-      case 'renewed': return 'info';
-      default: return 'default';
+      case "active":
+        return "success";
+      case "pending":
+        return "warning";
+      case "expired":
+        return "danger";
+      case "cancelled":
+        return "danger";
+      case "draft":
+        return "default";
+      case "renewed":
+        return "info";
+      default:
+        return "default";
     }
   };
 
@@ -30,7 +44,7 @@ export function ContractDetails({ contractId, onClose }: ContractDetailsProps) {
     try {
       await activateContract.mutateAsync(contract.id);
     } catch (err) {
-      console.error('Failed to activate contract:', err);
+      console.error("Failed to activate contract:", err);
     }
   };
 
@@ -86,7 +100,10 @@ export function ContractDetails({ contractId, onClose }: ContractDetailsProps) {
             </h3>
             <p className="text-text-muted">{contract.name}</p>
           </div>
-          <Badge variant={getStatusVariant(contract.status)} className="text-base py-1 px-3">
+          <Badge
+            variant={getStatusVariant(contract.status)}
+            className="text-base py-1 px-3"
+          >
             {contract.status}
           </Badge>
         </div>
@@ -97,7 +114,9 @@ export function ContractDetails({ contractId, onClose }: ContractDetailsProps) {
             <span>👤</span>
             <div>
               <p className="text-sm text-text-muted">Customer</p>
-              <p className="font-medium text-text-primary">{contract.customer_name}</p>
+              <p className="font-medium text-text-primary">
+                {contract.customer_name}
+              </p>
             </div>
           </div>
         )}
@@ -118,7 +137,9 @@ export function ContractDetails({ contractId, onClose }: ContractDetailsProps) {
             <div>
               <p className="text-sm text-text-muted">Value</p>
               <p className="font-medium text-text-primary">
-                {contract.total_value ? formatCurrency(contract.total_value) : '-'}
+                {contract.total_value
+                  ? formatCurrency(contract.total_value)
+                  : "-"}
               </p>
             </div>
           </div>
@@ -136,7 +157,7 @@ export function ContractDetails({ contractId, onClose }: ContractDetailsProps) {
             <div>
               <p className="text-sm text-text-muted">Auto-Renew</p>
               <p className="font-medium text-text-primary">
-                {contract.auto_renew ? 'Yes' : 'No'}
+                {contract.auto_renew ? "Yes" : "No"}
               </p>
             </div>
           </div>
@@ -148,21 +169,25 @@ export function ContractDetails({ contractId, onClose }: ContractDetailsProps) {
             <div>
               <p className="text-sm text-text-muted">Contract Period</p>
               <p className="font-medium text-text-primary">
-                {formatDate(contract.start_date)} - {formatDate(contract.end_date)}
+                {formatDate(contract.start_date)} -{" "}
+                {formatDate(contract.end_date)}
               </p>
             </div>
             {contract.days_until_expiry !== null && (
               <div className="text-right">
                 <p className="text-sm text-text-muted">Days Until Expiry</p>
-                <p className={`font-bold text-lg ${
-                  contract.days_until_expiry < 0 ? 'text-danger' :
-                  contract.days_until_expiry <= 30 ? 'text-warning' :
-                  'text-success'
-                }`}>
+                <p
+                  className={`font-bold text-lg ${
+                    contract.days_until_expiry < 0
+                      ? "text-danger"
+                      : contract.days_until_expiry <= 30
+                        ? "text-warning"
+                        : "text-success"
+                  }`}
+                >
                   {contract.days_until_expiry < 0
                     ? `${Math.abs(contract.days_until_expiry)} days overdue`
-                    : `${contract.days_until_expiry} days`
-                  }
+                    : `${contract.days_until_expiry} days`}
                 </p>
               </div>
             )}
@@ -210,13 +235,15 @@ export function ContractDetails({ contractId, onClose }: ContractDetailsProps) {
         )}
 
         {/* Actions */}
-        {contract.status === 'pending' && (
+        {contract.status === "pending" && (
           <div className="flex gap-2 pt-4 border-t border-border">
             <Button
               onClick={handleActivate}
               disabled={activateContract.isPending}
             >
-              {activateContract.isPending ? 'Activating...' : 'Activate Contract'}
+              {activateContract.isPending
+                ? "Activating..."
+                : "Activate Contract"}
             </Button>
           </div>
         )}

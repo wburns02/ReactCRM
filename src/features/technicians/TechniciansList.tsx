@@ -1,10 +1,10 @@
-import { memo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { formatPhone } from '@/lib/utils.ts';
-import { TECHNICIAN_SKILL_LABELS } from '@/api/types/technician.ts';
-import type { Technician, TechnicianSkill } from '@/api/types/technician.ts';
+import { memo, useCallback } from "react";
+import { Link } from "react-router-dom";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { formatPhone } from "@/lib/utils.ts";
+import { TECHNICIAN_SKILL_LABELS } from "@/api/types/technician.ts";
+import type { Technician, TechnicianSkill } from "@/api/types/technician.ts";
 
 /**
  * Props for memoized row component
@@ -24,10 +24,7 @@ const TableTechnicianRow = memo(function TableTechnicianRow({
   onDelete,
 }: TechnicianRowProps) {
   return (
-    <tr
-      className="hover:bg-bg-hover transition-colors"
-      tabIndex={0}
-    >
+    <tr className="hover:bg-bg-hover transition-colors" tabIndex={0}>
       <td className="px-4 py-3">
         <div>
           <p className="font-medium text-text-primary">
@@ -44,14 +41,16 @@ const TableTechnicianRow = memo(function TableTechnicianRow({
         <div className="text-sm">
           {technician.email && (
             <a
-              href={'mailto:' + technician.email}
+              href={"mailto:" + technician.email}
               className="text-text-link hover:underline block"
             >
               {technician.email}
             </a>
           )}
           {technician.phone && (
-            <span className="text-text-secondary">{formatPhone(technician.phone)}</span>
+            <span className="text-text-secondary">
+              {formatPhone(technician.phone)}
+            </span>
           )}
         </div>
       </td>
@@ -74,11 +73,11 @@ const TableTechnicianRow = memo(function TableTechnicianRow({
         </div>
       </td>
       <td className="px-4 py-3 text-sm text-text-secondary">
-        {technician.assigned_vehicle || '-'}
+        {technician.assigned_vehicle || "-"}
       </td>
       <td className="px-4 py-3">
-        <Badge variant={technician.is_active ? 'success' : 'default'}>
-          {technician.is_active ? 'Active' : 'Inactive'}
+        <Badge variant={technician.is_active ? "success" : "default"}>
+          {technician.is_active ? "Active" : "Inactive"}
         </Badge>
       </td>
       <td className="px-4 py-3 text-right">
@@ -87,7 +86,9 @@ const TableTechnicianRow = memo(function TableTechnicianRow({
             <Button
               variant="ghost"
               size="sm"
-              aria-label={'View ' + technician.first_name + ' ' + technician.last_name}
+              aria-label={
+                "View " + technician.first_name + " " + technician.last_name
+              }
             >
               View
             </Button>
@@ -97,7 +98,9 @@ const TableTechnicianRow = memo(function TableTechnicianRow({
               variant="ghost"
               size="sm"
               onClick={() => onEdit(technician)}
-              aria-label={'Edit ' + technician.first_name + ' ' + technician.last_name}
+              aria-label={
+                "Edit " + technician.first_name + " " + technician.last_name
+              }
             >
               Edit
             </Button>
@@ -107,7 +110,9 @@ const TableTechnicianRow = memo(function TableTechnicianRow({
               variant="ghost"
               size="sm"
               onClick={() => onDelete(technician)}
-              aria-label={'Delete ' + technician.first_name + ' ' + technician.last_name}
+              aria-label={
+                "Delete " + technician.first_name + " " + technician.last_name
+              }
               className="text-danger hover:text-danger"
             >
               Delete
@@ -148,8 +153,14 @@ export function TechniciansList({
   const endItem = Math.min(page * pageSize, total);
 
   // Memoized callbacks for child components - must be before any early returns
-  const handleEdit = useCallback((technician: Technician) => onEdit?.(technician), [onEdit]);
-  const handleDelete = useCallback((technician: Technician) => onDelete?.(technician), [onDelete]);
+  const handleEdit = useCallback(
+    (technician: Technician) => onEdit?.(technician),
+    [onEdit],
+  );
+  const handleDelete = useCallback(
+    (technician: Technician) => onDelete?.(technician),
+    [onDelete],
+  );
 
   if (isLoading) {
     return <LoadingSkeleton />;
@@ -159,8 +170,12 @@ export function TechniciansList({
     return (
       <div className="text-center py-12">
         <div className="text-4xl mb-4">👷</div>
-        <h3 className="text-lg font-medium text-text-primary mb-2">No technicians found</h3>
-        <p className="text-text-secondary">Try adjusting your filters or add a new technician.</p>
+        <h3 className="text-lg font-medium text-text-primary mb-2">
+          No technicians found
+        </h3>
+        <p className="text-text-secondary">
+          Try adjusting your filters or add a new technician.
+        </p>
       </div>
     );
   }
@@ -172,22 +187,40 @@ export function TechniciansList({
         <table className="w-full" role="grid" aria-label="Technicians list">
           <thead>
             <tr className="border-b border-border bg-bg-muted">
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Name
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Contact
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Skills
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Vehicle
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Status
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Actions
               </th>
             </tr>

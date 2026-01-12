@@ -1,16 +1,21 @@
-import { useState } from 'react';
-import { useContractTemplates, type ContractTemplate } from '../api/contracts.ts';
-import { Card, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { formatCurrency } from '@/lib/utils.ts';
+import { useState } from "react";
+import {
+  useContractTemplates,
+  type ContractTemplate,
+} from "../api/contracts.ts";
+import { Card, CardContent } from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { formatCurrency } from "@/lib/utils.ts";
 
 interface ContractTemplatesProps {
   onSelectTemplate?: (template: ContractTemplate) => void;
 }
 
-export function ContractTemplates({ onSelectTemplate }: ContractTemplatesProps) {
-  const [typeFilter, setTypeFilter] = useState<string>('');
+export function ContractTemplates({
+  onSelectTemplate,
+}: ContractTemplatesProps) {
+  const [typeFilter, setTypeFilter] = useState<string>("");
 
   const { data, isLoading, error } = useContractTemplates({
     contract_type: typeFilter || undefined,
@@ -49,7 +54,10 @@ export function ContractTemplates({ onSelectTemplate }: ContractTemplatesProps) 
       {isLoading && (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
           {[1, 2, 3].map((i) => (
-            <div key={i} className="h-40 bg-bg-muted rounded-lg animate-pulse" />
+            <div
+              key={i}
+              className="h-40 bg-bg-muted rounded-lg animate-pulse"
+            />
           ))}
         </div>
       )}
@@ -58,11 +66,13 @@ export function ContractTemplates({ onSelectTemplate }: ContractTemplatesProps) 
       {!isLoading && templates.length === 0 && (
         <div className="text-center py-12 border border-border rounded-lg">
           <span className="text-4xl mb-4 block">📋</span>
-          <h3 className="text-lg font-medium text-text-primary mb-2">No templates found</h3>
+          <h3 className="text-lg font-medium text-text-primary mb-2">
+            No templates found
+          </h3>
           <p className="text-text-muted">
             {typeFilter
-              ? 'Try adjusting your filters'
-              : 'Contract templates will appear here'}
+              ? "Try adjusting your filters"
+              : "Contract templates will appear here"}
           </p>
         </div>
       )}
@@ -73,7 +83,7 @@ export function ContractTemplates({ onSelectTemplate }: ContractTemplatesProps) 
           {templates.map((template) => (
             <Card
               key={template.id}
-              className={`transition-all ${onSelectTemplate ? 'cursor-pointer hover:border-primary' : ''}`}
+              className={`transition-all ${onSelectTemplate ? "cursor-pointer hover:border-primary" : ""}`}
               onClick={() => onSelectTemplate?.(template)}
             >
               <CardContent className="p-4">
@@ -89,9 +99,7 @@ export function ContractTemplates({ onSelectTemplate }: ContractTemplatesProps) 
                 <h3 className="font-semibold text-text-primary mb-1">
                   {template.name}
                 </h3>
-                <p className="text-sm text-text-muted mb-3">
-                  {template.code}
-                </p>
+                <p className="text-sm text-text-muted mb-3">{template.code}</p>
 
                 {template.description && (
                   <p className="text-sm text-text-muted mb-3 line-clamp-2">

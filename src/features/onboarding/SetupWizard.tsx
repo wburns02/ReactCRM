@@ -2,20 +2,20 @@
  * Setup Wizard Component
  * Guided onboarding for new users
  */
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
+import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import {
   useOnboardingProgress,
   useUpdateSetupStep,
   useSkipSetupStep,
   useCompleteOnboarding,
-} from '@/api/hooks/useOnboarding';
-import type { SetupStep } from '@/api/types/onboarding';
-import { cn } from '@/lib/utils';
-import { getErrorMessage } from '@/api/client';
-import { toastError } from '@/components/ui/Toast';
+} from "@/api/hooks/useOnboarding";
+import type { SetupStep } from "@/api/types/onboarding";
+import { cn } from "@/lib/utils";
+import { getErrorMessage } from "@/api/client";
+import { toastError } from "@/components/ui/Toast";
 
 export function SetupWizard() {
   const { data: progress, isLoading } = useOnboardingProgress();
@@ -36,7 +36,9 @@ export function SetupWizard() {
   if (!progress) {
     return (
       <div className="max-w-4xl mx-auto p-6 text-center">
-        <p className="text-text-secondary">Unable to load onboarding progress</p>
+        <p className="text-text-secondary">
+          Unable to load onboarding progress
+        </p>
       </div>
     );
   }
@@ -75,16 +77,22 @@ export function SetupWizard() {
 
   const currentStep = activeStep
     ? progress.steps.find((s) => s.id === activeStep)
-    : progress.steps.find((s) => s.status === 'in_progress' || s.status === 'pending');
+    : progress.steps.find(
+        (s) => s.status === "in_progress" || s.status === "pending",
+      );
 
-  const completedSteps = progress.steps.filter((s) => s.status === 'completed').length;
+  const completedSteps = progress.steps.filter(
+    (s) => s.status === "completed",
+  ).length;
   const totalSteps = progress.steps.length;
 
   return (
     <div className="max-w-4xl mx-auto p-6 space-y-6">
       {/* Header */}
       <div className="text-center">
-        <h1 className="text-3xl font-bold text-text-primary">Welcome to Your CRM</h1>
+        <h1 className="text-3xl font-bold text-text-primary">
+          Welcome to Your CRM
+        </h1>
         <p className="text-text-secondary mt-2">
           Let's get you set up in just a few steps
         </p>
@@ -95,7 +103,9 @@ export function SetupWizard() {
 
       {/* Step Summary */}
       <div className="flex items-center justify-center gap-4 text-sm text-text-secondary">
-        <span>{completedSteps} of {totalSteps} steps completed</span>
+        <span>
+          {completedSteps} of {totalSteps} steps completed
+        </span>
         <span>•</span>
         <span>~{getEstimatedTime(progress.steps)} min remaining</span>
       </div>
@@ -121,7 +131,7 @@ export function SetupWizard() {
           onComplete={() => {
             updateStep.mutate({
               step_id: currentStep.id,
-              status: 'completed',
+              status: "completed",
             });
           }}
           isUpdating={updateStep.isPending}
@@ -155,7 +165,9 @@ function ProgressBar({ progress }: { progress: number }) {
         />
       </div>
       <div className="absolute -right-2 -top-2">
-        <span className="text-2xl font-bold text-primary">{Math.round(progress)}%</span>
+        <span className="text-2xl font-bold text-primary">
+          {Math.round(progress)}%
+        </span>
       </div>
     </div>
   );
@@ -175,32 +187,32 @@ function StepCard({
   isSkipping: boolean;
 }) {
   const statusStyles = {
-    pending: 'border-border',
-    in_progress: 'border-primary bg-primary/5',
-    completed: 'border-success bg-success/5',
-    skipped: 'border-text-muted bg-text-muted/5',
+    pending: "border-border",
+    in_progress: "border-primary bg-primary/5",
+    completed: "border-success bg-success/5",
+    skipped: "border-text-muted bg-text-muted/5",
   };
 
   const statusIcons = {
-    pending: '○',
-    in_progress: '◐',
-    completed: '✓',
-    skipped: '—',
+    pending: "○",
+    in_progress: "◐",
+    completed: "✓",
+    skipped: "—",
   };
 
   const categoryIcons: Record<string, string> = {
-    import: '📥',
-    configuration: '⚙️',
-    integrations: '🔗',
-    team: '👥',
+    import: "📥",
+    configuration: "⚙️",
+    integrations: "🔗",
+    team: "👥",
   };
 
   return (
     <Card
       className={cn(
-        'cursor-pointer transition-all hover:shadow-md',
+        "cursor-pointer transition-all hover:shadow-md",
         statusStyles[step.status],
-        isActive && 'ring-2 ring-primary'
+        isActive && "ring-2 ring-primary",
       )}
       onClick={onClick}
     >
@@ -208,11 +220,14 @@ function StepCard({
         <div className="flex items-start gap-3">
           <div
             className={cn(
-              'w-8 h-8 rounded-full flex items-center justify-center text-lg font-bold',
-              step.status === 'completed' ? 'bg-success text-white' :
-              step.status === 'skipped' ? 'bg-text-muted text-white' :
-              step.status === 'in_progress' ? 'bg-primary text-white' :
-              'bg-background-secondary text-text-muted'
+              "w-8 h-8 rounded-full flex items-center justify-center text-lg font-bold",
+              step.status === "completed"
+                ? "bg-success text-white"
+                : step.status === "skipped"
+                  ? "bg-text-muted text-white"
+                  : step.status === "in_progress"
+                    ? "bg-primary text-white"
+                    : "bg-background-secondary text-text-muted",
             )}
           >
             {statusIcons[step.status]}
@@ -230,13 +245,15 @@ function StepCard({
                 ~{step.estimated_minutes} min
               </Badge>
               {step.is_required && (
-                <Badge className="bg-warning text-white text-xs">Required</Badge>
+                <Badge className="bg-warning text-white text-xs">
+                  Required
+                </Badge>
               )}
             </div>
           </div>
         </div>
 
-        {step.status === 'pending' && !step.is_required && (
+        {step.status === "pending" && !step.is_required && (
           <Button
             variant="ghost"
             size="sm"
@@ -267,13 +284,13 @@ function StepContent({
   // Render different content based on step category
   const renderContent = () => {
     switch (step.category) {
-      case 'import':
+      case "import":
         return <ImportStepContent step={step} onComplete={onComplete} />;
-      case 'configuration':
+      case "configuration":
         return <ConfigurationStepContent step={step} onComplete={onComplete} />;
-      case 'integrations':
+      case "integrations":
         return <IntegrationsStepContent step={step} onComplete={onComplete} />;
-      case 'team':
+      case "team":
         return <TeamStepContent step={step} onComplete={onComplete} />;
       default:
         return <GenericStepContent step={step} onComplete={onComplete} />;
@@ -287,7 +304,7 @@ function StepContent({
         <p className="text-text-secondary">{step.description}</p>
       </CardHeader>
       <CardContent>
-        {step.status === 'completed' ? (
+        {step.status === "completed" ? (
           <div className="text-center py-8">
             <span className="text-4xl">✅</span>
             <p className="text-success font-medium mt-2">Step completed!</p>
@@ -311,12 +328,38 @@ function StepContent({
   );
 }
 
-function ImportStepContent({ step: _step, onComplete: _onComplete }: { step: SetupStep; onComplete: () => void }) {
+function ImportStepContent({
+  step: _step,
+  onComplete: _onComplete,
+}: {
+  step: SetupStep;
+  onComplete: () => void;
+}) {
   const importSources = [
-    { id: 'csv', label: 'CSV File', icon: '📄', description: 'Upload a spreadsheet' },
-    { id: 'quickbooks', label: 'QuickBooks', icon: '📊', description: 'Import from QuickBooks' },
-    { id: 'servicetitan', label: 'ServiceTitan', icon: '🔧', description: 'Migrate from ServiceTitan' },
-    { id: 'housecall_pro', label: 'Housecall Pro', icon: '🏠', description: 'Import from Housecall Pro' },
+    {
+      id: "csv",
+      label: "CSV File",
+      icon: "📄",
+      description: "Upload a spreadsheet",
+    },
+    {
+      id: "quickbooks",
+      label: "QuickBooks",
+      icon: "📊",
+      description: "Import from QuickBooks",
+    },
+    {
+      id: "servicetitan",
+      label: "ServiceTitan",
+      icon: "🔧",
+      description: "Migrate from ServiceTitan",
+    },
+    {
+      id: "housecall_pro",
+      label: "Housecall Pro",
+      icon: "🏠",
+      description: "Import from Housecall Pro",
+    },
   ];
 
   return (
@@ -340,7 +383,13 @@ function ImportStepContent({ step: _step, onComplete: _onComplete }: { step: Set
   );
 }
 
-function ConfigurationStepContent({ step: _step, onComplete: _onComplete }: { step: SetupStep; onComplete: () => void }) {
+function ConfigurationStepContent({
+  step: _step,
+  onComplete: _onComplete,
+}: {
+  step: SetupStep;
+  onComplete: () => void;
+}) {
   return (
     <div className="space-y-4">
       <p className="text-sm text-text-secondary">
@@ -349,7 +398,9 @@ function ConfigurationStepContent({ step: _step, onComplete: _onComplete }: { st
       <div className="space-y-3">
         <div className="p-4 rounded-lg bg-background-secondary">
           <h4 className="font-medium">Service Types</h4>
-          <p className="text-sm text-text-muted">Define the services you offer</p>
+          <p className="text-sm text-text-muted">
+            Define the services you offer
+          </p>
           <Button variant="secondary" size="sm" className="mt-2">
             Add Service Types
           </Button>
@@ -373,12 +424,23 @@ function ConfigurationStepContent({ step: _step, onComplete: _onComplete }: { st
   );
 }
 
-function IntegrationsStepContent({ step: _step, onComplete: _onComplete }: { step: SetupStep; onComplete: () => void }) {
+function IntegrationsStepContent({
+  step: _step,
+  onComplete: _onComplete,
+}: {
+  step: SetupStep;
+  onComplete: () => void;
+}) {
   const integrations = [
-    { id: 'stripe', label: 'Stripe', icon: '💳', connected: false },
-    { id: 'quickbooks', label: 'QuickBooks', icon: '📊', connected: false },
-    { id: 'google_calendar', label: 'Google Calendar', icon: '📅', connected: false },
-    { id: 'twilio', label: 'Twilio SMS', icon: '📱', connected: false },
+    { id: "stripe", label: "Stripe", icon: "💳", connected: false },
+    { id: "quickbooks", label: "QuickBooks", icon: "📊", connected: false },
+    {
+      id: "google_calendar",
+      label: "Google Calendar",
+      icon: "📅",
+      connected: false,
+    },
+    { id: "twilio", label: "Twilio SMS", icon: "📱", connected: false },
   ];
 
   return (
@@ -396,8 +458,11 @@ function IntegrationsStepContent({ step: _step, onComplete: _onComplete }: { ste
               <span className="text-2xl">{integration.icon}</span>
               <span className="font-medium">{integration.label}</span>
             </div>
-            <Button variant={integration.connected ? 'secondary' : 'primary'} size="sm">
-              {integration.connected ? 'Connected' : 'Connect'}
+            <Button
+              variant={integration.connected ? "secondary" : "primary"}
+              size="sm"
+            >
+              {integration.connected ? "Connected" : "Connect"}
             </Button>
           </div>
         ))}
@@ -406,7 +471,13 @@ function IntegrationsStepContent({ step: _step, onComplete: _onComplete }: { ste
   );
 }
 
-function TeamStepContent({ step: _step, onComplete: _onComplete }: { step: SetupStep; onComplete: () => void }) {
+function TeamStepContent({
+  step: _step,
+  onComplete: _onComplete,
+}: {
+  step: SetupStep;
+  onComplete: () => void;
+}) {
   return (
     <div className="space-y-4">
       <p className="text-sm text-text-secondary">
@@ -414,7 +485,9 @@ function TeamStepContent({ step: _step, onComplete: _onComplete }: { step: Setup
       </p>
       <div className="p-4 rounded-lg bg-background-secondary">
         <h4 className="font-medium">Invite Team Members</h4>
-        <p className="text-sm text-text-muted">Send invitations to your staff</p>
+        <p className="text-sm text-text-muted">
+          Send invitations to your staff
+        </p>
         <div className="mt-3 flex gap-2">
           <input
             type="email"
@@ -435,7 +508,13 @@ function TeamStepContent({ step: _step, onComplete: _onComplete }: { step: Setup
   );
 }
 
-function GenericStepContent({ step, onComplete: _onComplete }: { step: SetupStep; onComplete: () => void }) {
+function GenericStepContent({
+  step,
+  onComplete: _onComplete,
+}: {
+  step: SetupStep;
+  onComplete: () => void;
+}) {
   return (
     <div className="text-center py-8">
       <p className="text-text-secondary">{step.description}</p>
@@ -445,6 +524,6 @@ function GenericStepContent({ step, onComplete: _onComplete }: { step: SetupStep
 
 function getEstimatedTime(steps: SetupStep[]): number {
   return steps
-    .filter((s) => s.status !== 'completed' && s.status !== 'skipped')
+    .filter((s) => s.status !== "completed" && s.status !== "skipped")
     .reduce((sum, s) => sum + s.estimated_minutes, 0);
 }

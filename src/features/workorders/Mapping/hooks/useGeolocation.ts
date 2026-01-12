@@ -2,7 +2,7 @@
  * useGeolocation Hook
  * GPS tracking with high accuracy, permission handling, and error management
  */
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from "react";
 
 // ============================================
 // Types
@@ -22,10 +22,10 @@ export interface GeolocationPosition {
 export interface GeolocationError {
   code: number;
   message: string;
-  type: 'PERMISSION_DENIED' | 'POSITION_UNAVAILABLE' | 'TIMEOUT' | 'UNKNOWN';
+  type: "PERMISSION_DENIED" | "POSITION_UNAVAILABLE" | "TIMEOUT" | "UNKNOWN";
 }
 
-export type PermissionState = 'prompt' | 'granted' | 'denied' | 'unavailable';
+export type PermissionState = "prompt" | "granted" | "denied" | "unavailable";
 
 export interface UseGeolocationOptions {
   /** Enable high accuracy mode (GPS vs network) */
@@ -69,36 +69,43 @@ export interface UseGeolocationReturn {
 // Error Mapping
 // ============================================
 
-function mapGeolocationError(error: GeolocationPositionError): GeolocationError {
+function mapGeolocationError(
+  error: GeolocationPositionError,
+): GeolocationError {
   switch (error.code) {
     case error.PERMISSION_DENIED:
       return {
         code: error.code,
-        message: 'Location permission was denied. Please enable location access in your browser settings.',
-        type: 'PERMISSION_DENIED',
+        message:
+          "Location permission was denied. Please enable location access in your browser settings.",
+        type: "PERMISSION_DENIED",
       };
     case error.POSITION_UNAVAILABLE:
       return {
         code: error.code,
-        message: 'Location information is unavailable. Please check your GPS or network connection.',
-        type: 'POSITION_UNAVAILABLE',
+        message:
+          "Location information is unavailable. Please check your GPS or network connection.",
+        type: "POSITION_UNAVAILABLE",
       };
     case error.TIMEOUT:
       return {
         code: error.code,
-        message: 'Location request timed out. Please try again.',
-        type: 'TIMEOUT',
+        message: "Location request timed out. Please try again.",
+        type: "TIMEOUT",
       };
     default:
       return {
         code: error.code,
-        message: error.message || 'An unknown error occurred while getting location.',
-        type: 'UNKNOWN',
+        message:
+          error.message || "An unknown error occurred while getting location.",
+        type: "UNKNOWN",
       };
   }
 }
 
-function mapGeolocationPosition(geoPosition: globalThis.GeolocationPosition): GeolocationPosition {
+function mapGeolocationPosition(
+  geoPosition: globalThis.GeolocationPosition,
+): GeolocationPosition {
   const { coords, timestamp } = geoPosition;
   return {
     lat: coords.latitude,
@@ -116,7 +123,9 @@ function mapGeolocationPosition(geoPosition: globalThis.GeolocationPosition): Ge
 // Default Options
 // ============================================
 
-const DEFAULT_OPTIONS: Required<Omit<UseGeolocationOptions, 'onPositionUpdate' | 'onError'>> = {
+const DEFAULT_OPTIONS: Required<
+  Omit<UseGeolocationOptions, "onPositionUpdate" | "onError">
+> = {
   enableHighAccuracy: true,
   maximumAge: 0,
   timeout: 10000,
@@ -127,7 +136,9 @@ const DEFAULT_OPTIONS: Required<Omit<UseGeolocationOptions, 'onPositionUpdate' |
 // Hook Implementation
 // ============================================
 
-export function useGeolocation(options: UseGeolocationOptions = {}): UseGeolocationReturn {
+export function useGeolocation(
+  options: UseGeolocationOptions = {},
+): UseGeolocationReturn {
   const {
     enableHighAccuracy = DEFAULT_OPTIONS.enableHighAccuracy,
     maximumAge = DEFAULT_OPTIONS.maximumAge,
@@ -142,7 +153,8 @@ export function useGeolocation(options: UseGeolocationOptions = {}): UseGeolocat
   const [error, setError] = useState<GeolocationError | null>(null);
   const [isTracking, setIsTracking] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [permissionState, setPermissionState] = useState<PermissionState>('prompt');
+  const [permissionState, setPermissionState] =
+    useState<PermissionState>("prompt");
 
   // Refs
   const watchIdRef = useRef<number | null>(null);
@@ -156,7 +168,8 @@ export function useGeolocation(options: UseGeolocationOptions = {}): UseGeolocat
   }, [onPositionUpdate, onError]);
 
   // Check if geolocation is available
-  const isGeolocationAvailable = typeof navigator !== 'undefined' && 'geolocation' in navigator;
+  const isGeolocationAvailable =
+    typeof navigator !== "undefined" && "geolocation" in navigator;
 
   // Position options for geolocation API
   const positionOptions: PositionOptions = {
@@ -168,40 +181,45 @@ export function useGeolocation(options: UseGeolocationOptions = {}): UseGeolocat
   // Check permission status
   const checkPermission = useCallback(async (): Promise<PermissionState> => {
     if (!isGeolocationAvailable) {
-      setPermissionState('unavailable');
-      return 'unavailable';
+      setPermissionState("unavailable");
+      return "unavailable";
     }
 
     try {
       // Use Permissions API if available
-      if ('permissions' in navigator) {
-        const result = await navigator.permissions.query({ name: 'geolocation' });
+      if ("permissions" in navigator) {
+        const result = await navigator.permissions.query({
+          name: "geolocation",
+        });
         const state = result.state as PermissionState;
         setPermissionState(state);
 
         // Listen for permission changes
-        result.addEventListener('change', () => {
+        result.addEventListener("change", () => {
           setPermissionState(result.state as PermissionState);
         });
 
         return state;
       }
       // Fallback: assume prompt if Permissions API not available
-      return 'prompt';
+      return "prompt";
     } catch {
       // Permissions API not supported, assume prompt
-      return 'prompt';
+      return "prompt";
     }
   }, [isGeolocationAvailable]);
 
   // Success handler
-  const handleSuccess = useCallback((geoPosition: globalThis.GeolocationPosition) => {
-    const mappedPosition = mapGeolocationPosition(geoPosition);
-    setPosition(mappedPosition);
-    setError(null);
-    setIsLoading(false);
-    onPositionUpdateRef.current?.(mappedPosition);
-  }, []);
+  const handleSuccess = useCallback(
+    (geoPosition: globalThis.GeolocationPosition) => {
+      const mappedPosition = mapGeolocationPosition(geoPosition);
+      setPosition(mappedPosition);
+      setError(null);
+      setIsLoading(false);
+      onPositionUpdateRef.current?.(mappedPosition);
+    },
+    [],
+  );
 
   // Error handler
   const handleError = useCallback((geoError: GeolocationPositionError) => {
@@ -209,8 +227,8 @@ export function useGeolocation(options: UseGeolocationOptions = {}): UseGeolocat
     setError(mappedError);
     setIsLoading(false);
 
-    if (mappedError.type === 'PERMISSION_DENIED') {
-      setPermissionState('denied');
+    if (mappedError.type === "PERMISSION_DENIED") {
+      setPermissionState("denied");
     }
 
     onErrorRef.current?.(mappedError);
@@ -222,8 +240,8 @@ export function useGeolocation(options: UseGeolocationOptions = {}): UseGeolocat
       if (!isGeolocationAvailable) {
         const unavailableError: GeolocationError = {
           code: 0,
-          message: 'Geolocation is not supported by this browser.',
-          type: 'POSITION_UNAVAILABLE',
+          message: "Geolocation is not supported by this browser.",
+          type: "POSITION_UNAVAILABLE",
         };
         setError(unavailableError);
         reject(unavailableError);
@@ -239,7 +257,7 @@ export function useGeolocation(options: UseGeolocationOptions = {}): UseGeolocat
           setPosition(mappedPosition);
           setError(null);
           setIsLoading(false);
-          setPermissionState('granted');
+          setPermissionState("granted");
           onPositionUpdateRef.current?.(mappedPosition);
           resolve(mappedPosition);
         },
@@ -247,13 +265,13 @@ export function useGeolocation(options: UseGeolocationOptions = {}): UseGeolocat
           const mappedError = mapGeolocationError(geoError);
           setError(mappedError);
           setIsLoading(false);
-          if (mappedError.type === 'PERMISSION_DENIED') {
-            setPermissionState('denied');
+          if (mappedError.type === "PERMISSION_DENIED") {
+            setPermissionState("denied");
           }
           onErrorRef.current?.(mappedError);
           reject(mappedError);
         },
-        positionOptions
+        positionOptions,
       );
     });
   }, [isGeolocationAvailable, positionOptions]);
@@ -263,8 +281,8 @@ export function useGeolocation(options: UseGeolocationOptions = {}): UseGeolocat
     if (!isGeolocationAvailable) {
       setError({
         code: 0,
-        message: 'Geolocation is not supported by this browser.',
-        type: 'POSITION_UNAVAILABLE',
+        message: "Geolocation is not supported by this browser.",
+        type: "POSITION_UNAVAILABLE",
       });
       return;
     }
@@ -281,10 +299,10 @@ export function useGeolocation(options: UseGeolocationOptions = {}): UseGeolocat
     watchIdRef.current = navigator.geolocation.watchPosition(
       (geoPosition) => {
         handleSuccess(geoPosition);
-        setPermissionState('granted');
+        setPermissionState("granted");
       },
       handleError,
-      positionOptions
+      positionOptions,
     );
   }, [isGeolocationAvailable, positionOptions, handleSuccess, handleError]);
 
@@ -301,20 +319,20 @@ export function useGeolocation(options: UseGeolocationOptions = {}): UseGeolocat
   // Request permission explicitly
   const requestPermission = useCallback(async (): Promise<PermissionState> => {
     if (!isGeolocationAvailable) {
-      setPermissionState('unavailable');
-      return 'unavailable';
+      setPermissionState("unavailable");
+      return "unavailable";
     }
 
     try {
       // Trigger permission prompt by getting current position
       await getCurrentPosition();
-      setPermissionState('granted');
-      return 'granted';
+      setPermissionState("granted");
+      return "granted";
     } catch (err) {
       const geoError = err as GeolocationError;
-      if (geoError.type === 'PERMISSION_DENIED') {
-        setPermissionState('denied');
-        return 'denied';
+      if (geoError.type === "PERMISSION_DENIED") {
+        setPermissionState("denied");
+        return "denied";
       }
       // Other errors don't necessarily mean permission denied
       return permissionState;

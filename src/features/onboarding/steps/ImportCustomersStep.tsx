@@ -1,11 +1,11 @@
-import { useState, useRef, type DragEvent, type ChangeEvent } from 'react';
-import { OnboardingStep, StepSection } from '../OnboardingStep';
-import { Button } from '@/components/ui/Button';
-import { FormField } from '@/components/ui/FormField';
-import { Card } from '@/components/ui/Card';
-import { cn } from '@/lib/utils';
-import { CSVColumnMapper, type ColumnMapping } from './CSVColumnMapper';
-import type { ImportedCustomer } from '../useOnboarding';
+import { useState, useRef, type DragEvent, type ChangeEvent } from "react";
+import { OnboardingStep, StepSection } from "../OnboardingStep";
+import { Button } from "@/components/ui/Button";
+import { FormField } from "@/components/ui/FormField";
+import { Card } from "@/components/ui/Card";
+import { cn } from "@/lib/utils";
+import { CSVColumnMapper, type ColumnMapping } from "./CSVColumnMapper";
+import type { ImportedCustomer } from "../useOnboarding";
 
 export interface ImportCustomersStepProps {
   customers: ImportedCustomer[];
@@ -30,38 +30,43 @@ interface CSVParseData {
 }
 
 const EMPTY_FORM: ManualCustomerForm = {
-  name: '',
-  email: '',
-  phone: '',
-  address: '',
+  name: "",
+  email: "",
+  phone: "",
+  address: "",
 };
 
 /**
  * Parse CSV content to customer objects
  */
 function parseCSV(content: string): ImportedCustomer[] {
-  const lines = content.trim().split('\n');
+  const lines = content.trim().split("\n");
   if (lines.length < 2) return [];
 
-  const headers = lines[0].toLowerCase().split(',').map((h) => h.trim());
+  const headers = lines[0]
+    .toLowerCase()
+    .split(",")
+    .map((h) => h.trim());
   const customers: ImportedCustomer[] = [];
 
   // Find column indices
-  const nameIdx = headers.findIndex((h) => h.includes('name'));
-  const emailIdx = headers.findIndex((h) => h.includes('email'));
-  const phoneIdx = headers.findIndex((h) => h.includes('phone'));
-  const addressIdx = headers.findIndex((h) => h.includes('address'));
+  const nameIdx = headers.findIndex((h) => h.includes("name"));
+  const emailIdx = headers.findIndex((h) => h.includes("email"));
+  const phoneIdx = headers.findIndex((h) => h.includes("phone"));
+  const addressIdx = headers.findIndex((h) => h.includes("address"));
 
   for (let i = 1; i < lines.length; i++) {
-    const values = lines[i].split(',').map((v) => v.trim().replace(/^"|"$/g, ''));
+    const values = lines[i]
+      .split(",")
+      .map((v) => v.trim().replace(/^"|"$/g, ""));
 
     if (values.length >= 1 && values[nameIdx !== -1 ? nameIdx : 0]) {
       customers.push({
         id: `import-${Date.now()}-${i}`,
         name: nameIdx !== -1 ? values[nameIdx] : values[0],
-        email: emailIdx !== -1 ? values[emailIdx] : '',
-        phone: phoneIdx !== -1 ? values[phoneIdx] : '',
-        address: addressIdx !== -1 ? values[addressIdx] : '',
+        email: emailIdx !== -1 ? values[emailIdx] : "",
+        phone: phoneIdx !== -1 ? values[phoneIdx] : "",
+        address: addressIdx !== -1 ? values[addressIdx] : "",
       });
     }
   }
@@ -72,20 +77,25 @@ function parseCSV(content: string): ImportedCustomer[] {
 /**
  * Apply column mapping to raw CSV data
  */
-function applyMapping(rows: string[][], mapping: ColumnMapping): ImportedCustomer[] {
+function applyMapping(
+  rows: string[][],
+  mapping: ColumnMapping,
+): ImportedCustomer[] {
   return rows
-    .filter(row => mapping.name !== null && row[mapping.name]?.trim())
+    .filter((row) => mapping.name !== null && row[mapping.name]?.trim())
     .map((row, idx) => ({
       id: `import-${Date.now()}-${idx}`,
-      name: mapping.name !== null ? row[mapping.name] || '' : '',
-      email: mapping.email !== null ? row[mapping.email] || '' : '',
-      phone: mapping.phone !== null ? row[mapping.phone] || '' : '',
+      name: mapping.name !== null ? row[mapping.name] || "" : "",
+      email: mapping.email !== null ? row[mapping.email] || "" : "",
+      phone: mapping.phone !== null ? row[mapping.phone] || "" : "",
       address: [
-        mapping.address !== null ? row[mapping.address] : '',
-        mapping.city !== null ? row[mapping.city] : '',
-        mapping.state !== null ? row[mapping.state] : '',
-        mapping.zipCode !== null ? row[mapping.zipCode] : '',
-      ].filter(Boolean).join(', '),
+        mapping.address !== null ? row[mapping.address] : "",
+        mapping.city !== null ? row[mapping.city] : "",
+        mapping.state !== null ? row[mapping.state] : "",
+        mapping.zipCode !== null ? row[mapping.zipCode] : "",
+      ]
+        .filter(Boolean)
+        .join(", "),
     }));
 }
 
@@ -145,7 +155,7 @@ export function ImportCustomersStep({
     }
     // Reset input
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
@@ -153,8 +163,8 @@ export function ImportCustomersStep({
     setError(null);
 
     // Validate file type
-    if (!file.name.endsWith('.csv') && !file.type.includes('csv')) {
-      setError('Please upload a CSV file');
+    if (!file.name.endsWith(".csv") && !file.type.includes("csv")) {
+      setError("Please upload a CSV file");
       return;
     }
 
@@ -163,17 +173,23 @@ export function ImportCustomersStep({
     reader.onload = (e) => {
       try {
         const content = e.target?.result as string;
-        const lines = content.trim().split('\n');
+        const lines = content.trim().split("\n");
 
         if (lines.length < 2) {
-          setError('CSV file must have a header row and at least one data row.');
+          setError(
+            "CSV file must have a header row and at least one data row.",
+          );
           return;
         }
 
-        const headers = lines[0].split(',').map(h => h.trim().replace(/^"|"$/g, ''));
-        const rows = lines.slice(1).map(line =>
-          line.split(',').map(v => v.trim().replace(/^"|"$/g, ''))
-        );
+        const headers = lines[0]
+          .split(",")
+          .map((h) => h.trim().replace(/^"|"$/g, ""));
+        const rows = lines
+          .slice(1)
+          .map((line) =>
+            line.split(",").map((v) => v.trim().replace(/^"|"$/g, "")),
+          );
 
         if (useMapper) {
           // Show the column mapper for manual mapping
@@ -193,11 +209,11 @@ export function ImportCustomersStep({
           onAddCustomers(parsed);
         }
       } catch {
-        setError('Failed to parse CSV file. Please check the format.');
+        setError("Failed to parse CSV file. Please check the format.");
       }
     };
     reader.onerror = () => {
-      setError('Failed to read file');
+      setError("Failed to read file");
     };
     reader.readAsText(file);
   };
@@ -206,7 +222,9 @@ export function ImportCustomersStep({
     if (csvData) {
       const customers = applyMapping(csvData.rows, mapping);
       if (customers.length === 0) {
-        setError('No valid customers found with the selected mapping. Make sure the Name column has values.');
+        setError(
+          "No valid customers found with the selected mapping. Make sure the Name column has values.",
+        );
         return;
       }
       onAddCustomers(customers);
@@ -224,11 +242,10 @@ export function ImportCustomersStep({
     fileInputRef.current?.click();
   };
 
-  const handleManualFormChange = (field: keyof ManualCustomerForm) => (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
-    setManualForm((prev) => ({ ...prev, [field]: e.target.value }));
-  };
+  const handleManualFormChange =
+    (field: keyof ManualCustomerForm) => (e: ChangeEvent<HTMLInputElement>) => {
+      setManualForm((prev) => ({ ...prev, [field]: e.target.value }));
+    };
 
   const handleAddManualCustomer = () => {
     if (!manualForm.name.trim()) {
@@ -277,10 +294,10 @@ export function ImportCustomersStep({
               onDragOver={handleDragOver}
               onDrop={handleDrop}
               className={cn(
-                'border-2 border-dashed rounded-lg p-8 text-center transition-colors',
+                "border-2 border-dashed rounded-lg p-8 text-center transition-colors",
                 isDragging
-                  ? 'border-primary bg-primary/5'
-                  : 'border-border hover:border-primary/50'
+                  ? "border-primary bg-primary/5"
+                  : "border-border hover:border-primary/50",
               )}
             >
               <input
@@ -295,7 +312,9 @@ export function ImportCustomersStep({
                 <div className="text-4xl">CSV</div>
                 <div>
                   <p className="text-text-primary font-medium mb-1">
-                    {isDragging ? 'Drop CSV file here' : 'Drag and drop CSV file here'}
+                    {isDragging
+                      ? "Drop CSV file here"
+                      : "Drag and drop CSV file here"}
                   </p>
                   <p className="text-sm text-text-muted mb-3">or</p>
                   <Button
@@ -339,7 +358,7 @@ export function ImportCustomersStep({
                   label="Name"
                   placeholder="John Smith"
                   value={manualForm.name}
-                  onChange={handleManualFormChange('name')}
+                  onChange={handleManualFormChange("name")}
                   required
                 />
                 <FormField
@@ -347,20 +366,20 @@ export function ImportCustomersStep({
                   type="email"
                   placeholder="john@example.com"
                   value={manualForm.email}
-                  onChange={handleManualFormChange('email')}
+                  onChange={handleManualFormChange("email")}
                 />
                 <FormField
                   label="Phone"
                   type="tel"
                   placeholder="(555) 123-4567"
                   value={manualForm.phone}
-                  onChange={handleManualFormChange('phone')}
+                  onChange={handleManualFormChange("phone")}
                 />
                 <FormField
                   label="Address"
                   placeholder="123 Main St, Tampa, FL 33601"
                   value={manualForm.address}
-                  onChange={handleManualFormChange('address')}
+                  onChange={handleManualFormChange("address")}
                 />
               </div>
               <div className="flex gap-2 mt-4">
@@ -403,9 +422,13 @@ export function ImportCustomersStep({
                   className="flex items-center justify-between p-3 hover:bg-bg-hover"
                 >
                   <div>
-                    <p className="font-medium text-text-primary">{customer.name}</p>
+                    <p className="font-medium text-text-primary">
+                      {customer.name}
+                    </p>
                     <p className="text-sm text-text-muted">
-                      {[customer.email, customer.phone].filter(Boolean).join(' | ') || 'No contact info'}
+                      {[customer.email, customer.phone]
+                        .filter(Boolean)
+                        .join(" | ") || "No contact info"}
                     </p>
                   </div>
                   <button

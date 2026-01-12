@@ -2,15 +2,15 @@
  * GPS Tracking Control Panel
  * UI for technicians to enable/disable location sharing
  */
-import { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { Switch } from '@/components/ui/Switch';
-import { cn } from '@/lib/utils';
-import { useGPSBroadcast } from '../useGPSBroadcast';
-import type { GeofenceZone } from '../types';
-import { formatCoordinates } from '../types';
+import { useState, useEffect } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { Switch } from "@/components/ui/Switch";
+import { cn } from "@/lib/utils";
+import { useGPSBroadcast } from "../useGPSBroadcast";
+import type { GeofenceZone } from "../types";
+import { formatCoordinates } from "../types";
 
 interface GPSTrackingPanelProps {
   /** Technician ID */
@@ -59,7 +59,7 @@ export function GPSTrackingPanel({
 
   // Request permission on mount if needed
   useEffect(() => {
-    if (permissionStatus === 'prompt') {
+    if (permissionStatus === "prompt") {
       // Don't auto-request, wait for user action
     }
   }, [permissionStatus]);
@@ -68,11 +68,11 @@ export function GPSTrackingPanel({
     if (isTracking) {
       stopTracking();
     } else {
-      if (permissionStatus === 'denied') {
+      if (permissionStatus === "denied") {
         // Show instructions to enable location
         return;
       }
-      if (permissionStatus === 'prompt') {
+      if (permissionStatus === "prompt") {
         const granted = await requestPermission();
         if (!granted) return;
       }
@@ -82,7 +82,7 @@ export function GPSTrackingPanel({
 
   if (!isSupported) {
     return (
-      <Card className={cn('bg-warning/10 border-warning/20', className)}>
+      <Card className={cn("bg-warning/10 border-warning/20", className)}>
         <CardContent className="p-4">
           <div className="flex items-center gap-3">
             <div className="text-2xl">⚠️</div>
@@ -100,34 +100,45 @@ export function GPSTrackingPanel({
 
   if (compact) {
     return (
-      <div className={cn('flex items-center gap-3 p-3 rounded-lg border border-border bg-bg-card', className)}>
+      <div
+        className={cn(
+          "flex items-center gap-3 p-3 rounded-lg border border-border bg-bg-card",
+          className,
+        )}
+      >
         <div
           className={cn(
-            'w-10 h-10 rounded-full flex items-center justify-center',
-            isTracking ? 'bg-success/20' : 'bg-bg-muted'
+            "w-10 h-10 rounded-full flex items-center justify-center",
+            isTracking ? "bg-success/20" : "bg-bg-muted",
           )}
         >
-          <span className={cn('text-lg', isTracking ? 'animate-pulse' : '')}>
+          <span className={cn("text-lg", isTracking ? "animate-pulse" : "")}>
             📍
           </span>
         </div>
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2">
             <span className="font-medium text-sm">Location Sharing</span>
-            <Badge variant={isTracking ? 'success' : 'default'} className="text-xs">
-              {isTracking ? 'Active' : 'Off'}
+            <Badge
+              variant={isTracking ? "success" : "default"}
+              className="text-xs"
+            >
+              {isTracking ? "Active" : "Off"}
             </Badge>
           </div>
           {isTracking && currentLocation && (
             <p className="text-xs text-text-muted truncate">
-              {formatCoordinates({ lat: currentLocation.lat, lng: currentLocation.lng })}
+              {formatCoordinates({
+                lat: currentLocation.lat,
+                lng: currentLocation.lng,
+              })}
             </p>
           )}
         </div>
         <Switch
           checked={isTracking}
           onCheckedChange={handleToggleTracking}
-          disabled={permissionStatus === 'denied'}
+          disabled={permissionStatus === "denied"}
         />
       </div>
     );
@@ -138,18 +149,21 @@ export function GPSTrackingPanel({
       <CardHeader className="pb-3">
         <div className="flex items-center justify-between">
           <CardTitle className="text-base">GPS Location Sharing</CardTitle>
-          <Badge variant={isTracking ? 'success' : 'default'}>
-            {isTracking ? 'Tracking' : 'Stopped'}
+          <Badge variant={isTracking ? "success" : "default"}>
+            {isTracking ? "Tracking" : "Stopped"}
           </Badge>
         </div>
       </CardHeader>
       <CardContent className="space-y-4">
         {/* Permission denied warning */}
-        {permissionStatus === 'denied' && (
+        {permissionStatus === "denied" && (
           <div className="bg-danger/10 border border-danger/20 rounded-lg p-3">
-            <p className="text-sm text-danger font-medium">Location Permission Denied</p>
+            <p className="text-sm text-danger font-medium">
+              Location Permission Denied
+            </p>
             <p className="text-xs text-text-secondary mt-1">
-              Please enable location access in your browser settings to use GPS tracking.
+              Please enable location access in your browser settings to use GPS
+              tracking.
             </p>
           </div>
         )}
@@ -166,33 +180,37 @@ export function GPSTrackingPanel({
           <div className="flex items-center gap-3">
             <div
               className={cn(
-                'w-12 h-12 rounded-full flex items-center justify-center',
+                "w-12 h-12 rounded-full flex items-center justify-center",
                 isTracking
-                  ? 'bg-success text-white'
-                  : 'bg-bg-card border border-border'
+                  ? "bg-success text-white"
+                  : "bg-bg-card border border-border",
               )}
             >
-              <span className={cn('text-xl', isTracking ? 'animate-pulse' : '')}>
+              <span
+                className={cn("text-xl", isTracking ? "animate-pulse" : "")}
+              >
                 📍
               </span>
             </div>
             <div>
               <p className="font-medium">
-                {isTracking ? 'Location sharing active' : 'Location sharing off'}
+                {isTracking
+                  ? "Location sharing active"
+                  : "Location sharing off"}
               </p>
               <p className="text-sm text-text-muted">
                 {isTracking
-                  ? 'Your location is visible to dispatch'
-                  : 'Turn on to share your location'}
+                  ? "Your location is visible to dispatch"
+                  : "Turn on to share your location"}
               </p>
             </div>
           </div>
           <Button
-            variant={isTracking ? 'secondary' : 'primary'}
+            variant={isTracking ? "secondary" : "primary"}
             onClick={handleToggleTracking}
-            disabled={permissionStatus === 'denied'}
+            disabled={permissionStatus === "denied"}
           >
-            {isTracking ? 'Stop' : 'Start'}
+            {isTracking ? "Stop" : "Start"}
           </Button>
         </div>
 
@@ -202,7 +220,8 @@ export function GPSTrackingPanel({
             <div className="flex items-center justify-between">
               <span className="text-sm font-medium">Current Location</span>
               <span className="text-xs text-text-muted">
-                Updated {new Date(currentLocation.timestamp).toLocaleTimeString()}
+                Updated{" "}
+                {new Date(currentLocation.timestamp).toLocaleTimeString()}
               </span>
             </div>
 
@@ -210,7 +229,8 @@ export function GPSTrackingPanel({
               <div>
                 <span className="text-text-muted">Coordinates:</span>
                 <p className="font-mono text-xs">
-                  {currentLocation.lat.toFixed(6)}, {currentLocation.lng.toFixed(6)}
+                  {currentLocation.lat.toFixed(6)},{" "}
+                  {currentLocation.lng.toFixed(6)}
                 </p>
               </div>
               <div>
@@ -227,11 +247,11 @@ export function GPSTrackingPanel({
                 <span className="text-text-muted">Status:</span>
                 <Badge
                   variant={
-                    currentLocation.status === 'active'
-                      ? 'success'
-                      : currentLocation.status === 'idle'
-                      ? 'warning'
-                      : 'default'
+                    currentLocation.status === "active"
+                      ? "success"
+                      : currentLocation.status === "idle"
+                        ? "warning"
+                        : "default"
                   }
                   className="ml-1"
                 >
@@ -275,7 +295,7 @@ export function GPSTrackingPanel({
           onClick={() => setShowSettings(!showSettings)}
           className="text-sm text-primary hover:underline"
         >
-          {showSettings ? 'Hide settings' : 'Show settings'}
+          {showSettings ? "Hide settings" : "Show settings"}
         </button>
 
         {/* Settings */}
@@ -286,7 +306,9 @@ export function GPSTrackingPanel({
             <div className="flex items-center justify-between">
               <div>
                 <p className="text-sm">High Accuracy Mode</p>
-                <p className="text-xs text-text-muted">Uses GPS for better accuracy</p>
+                <p className="text-xs text-text-muted">
+                  Uses GPS for better accuracy
+                </p>
               </div>
               <Switch
                 checked={highAccuracy}
@@ -297,13 +319,18 @@ export function GPSTrackingPanel({
 
             {geofences.length > 0 && (
               <div>
-                <p className="text-sm mb-2">Monitored Zones ({geofences.length})</p>
+                <p className="text-sm mb-2">
+                  Monitored Zones ({geofences.length})
+                </p>
                 <div className="space-y-1">
                   {geofences.slice(0, 3).map((zone) => (
-                    <div key={zone.id} className="flex items-center gap-2 text-xs">
+                    <div
+                      key={zone.id}
+                      className="flex items-center gap-2 text-xs"
+                    >
                       <div
                         className="w-3 h-3 rounded-full"
-                        style={{ background: zone.color || '#3b82f6' }}
+                        style={{ background: zone.color || "#3b82f6" }}
                       />
                       <span>{zone.name}</span>
                       <span className="text-text-muted">({zone.radius}m)</span>

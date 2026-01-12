@@ -1,14 +1,25 @@
-import { useContractsDashboard } from '../api/contracts.ts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { formatDate } from '@/lib/utils.ts';
+import { useContractsDashboard } from "../api/contracts.ts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { formatDate } from "@/lib/utils.ts";
 
 interface ExpiringContractsAlertProps {
   expiringWithinDays?: number;
 }
 
-export function ExpiringContractsAlert({ expiringWithinDays = 30 }: ExpiringContractsAlertProps) {
-  const { data: dashboard, isLoading, error } = useContractsDashboard(expiringWithinDays);
+export function ExpiringContractsAlert({
+  expiringWithinDays = 30,
+}: ExpiringContractsAlertProps) {
+  const {
+    data: dashboard,
+    isLoading,
+    error,
+  } = useContractsDashboard(expiringWithinDays);
 
   if (isLoading) {
     return (
@@ -60,9 +71,7 @@ export function ExpiringContractsAlert({ expiringWithinDays = 30 }: ExpiringCont
     <Card>
       <CardHeader>
         <CardTitle className="flex items-center justify-between text-lg">
-          <span className="flex items-center gap-2">
-            ⚠️ Expiring Contracts
-          </span>
+          <span className="flex items-center gap-2">⚠️ Expiring Contracts</span>
           <Badge variant="warning">{expiringContracts.length}</Badge>
         </CardTitle>
       </CardHeader>
@@ -92,11 +101,15 @@ export function ExpiringContractsAlert({ expiringWithinDays = 30 }: ExpiringCont
                 <p className="text-sm text-text-muted">
                   Expires: {formatDate(contract.end_date)}
                 </p>
-                <p className={`font-medium ${
-                  (contract.days_until_expiry ?? 0) <= 7 ? 'text-danger' :
-                  (contract.days_until_expiry ?? 0) <= 14 ? 'text-warning' :
-                  'text-text-primary'
-                }`}>
+                <p
+                  className={`font-medium ${
+                    (contract.days_until_expiry ?? 0) <= 7
+                      ? "text-danger"
+                      : (contract.days_until_expiry ?? 0) <= 14
+                        ? "text-warning"
+                        : "text-text-primary"
+                  }`}
+                >
                   {contract.days_until_expiry} days
                 </p>
               </div>

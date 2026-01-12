@@ -1,5 +1,5 @@
-import { type KeyboardEvent, useCallback } from 'react';
-import { cn } from '@/lib/utils';
+import { type KeyboardEvent, useCallback } from "react";
+import { cn } from "@/lib/utils";
 
 /**
  * Props for the Pagination component
@@ -35,10 +35,10 @@ export interface PaginationProps {
 function generatePageNumbers(
   currentPage: number,
   totalPages: number,
-  siblingCount: number
-): (number | 'ellipsis-start' | 'ellipsis-end')[] {
+  siblingCount: number,
+): (number | "ellipsis-start" | "ellipsis-end")[] {
   // Always show first page, last page, current page, and siblings
-  const pages: (number | 'ellipsis-start' | 'ellipsis-end')[] = [];
+  const pages: (number | "ellipsis-start" | "ellipsis-end")[] = [];
 
   if (totalPages <= 1) {
     return [1];
@@ -56,7 +56,7 @@ function generatePageNumbers(
 
   // Left ellipsis
   if (showLeftEllipsis) {
-    pages.push('ellipsis-start');
+    pages.push("ellipsis-start");
   } else if (leftSibling > 1) {
     // Fill in pages between 1 and leftSibling
     for (let i = 2; i < leftSibling; i++) {
@@ -73,7 +73,7 @@ function generatePageNumbers(
 
   // Right ellipsis
   if (showRightEllipsis) {
-    pages.push('ellipsis-end');
+    pages.push("ellipsis-end");
   } else if (rightSibling < totalPages) {
     // Fill in pages between rightSibling and totalPages
     for (let i = rightSibling + 1; i < totalPages; i++) {
@@ -167,25 +167,25 @@ export function Pagination({
   const handleKeyDown = useCallback(
     (e: KeyboardEvent<HTMLElement>) => {
       switch (e.key) {
-        case 'ArrowLeft':
+        case "ArrowLeft":
           e.preventDefault();
           if (canGoPrevious) {
             onPageChange(currentPage - 1);
           }
           break;
-        case 'ArrowRight':
+        case "ArrowRight":
           e.preventDefault();
           if (canGoNext) {
             onPageChange(currentPage + 1);
           }
           break;
-        case 'Home':
+        case "Home":
           e.preventDefault();
           if (currentPage !== 1) {
             onPageChange(1);
           }
           break;
-        case 'End':
+        case "End":
           e.preventDefault();
           if (currentPage !== totalPages) {
             onPageChange(totalPages);
@@ -193,7 +193,7 @@ export function Pagination({
           break;
       }
     },
-    [currentPage, totalPages, canGoPrevious, canGoNext, onPageChange]
+    [currentPage, totalPages, canGoPrevious, canGoNext, onPageChange],
   );
 
   // Calculate item range for summary
@@ -214,18 +214,23 @@ export function Pagination({
     <nav
       role="navigation"
       aria-label="Pagination"
-      className={cn('flex flex-wrap items-center justify-between gap-4', className)}
+      className={cn(
+        "flex flex-wrap items-center justify-between gap-4",
+        className,
+      )}
     >
       {/* Items summary */}
       {showItemsSummary && itemRange && totalItems && (
         <div className="text-sm text-text-secondary">
-          Showing{' '}
-          <span className="font-medium text-text-primary">{itemRange.start}</span>
-          {' - '}
+          Showing{" "}
+          <span className="font-medium text-text-primary">
+            {itemRange.start}
+          </span>
+          {" - "}
           <span className="font-medium text-text-primary">{itemRange.end}</span>
-          {' of '}
+          {" of "}
           <span className="font-medium text-text-primary">{totalItems}</span>
-          {' items'}
+          {" items"}
         </div>
       )}
 
@@ -243,10 +248,10 @@ export function Pagination({
           disabled={!canGoPrevious}
           aria-label="Go to previous page"
           className={cn(
-            'inline-flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium transition-colors',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
-            'disabled:pointer-events-none disabled:opacity-50',
-            'bg-bg-card text-text-primary border border-border hover:bg-bg-hover'
+            "inline-flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium transition-colors",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+            "disabled:pointer-events-none disabled:opacity-50",
+            "bg-bg-card text-text-primary border border-border hover:bg-bg-hover",
           )}
         >
           <ChevronLeftIcon />
@@ -254,9 +259,13 @@ export function Pagination({
         </button>
 
         {/* Page numbers */}
-        <div className="flex items-center gap-1" role="group" aria-label="Page numbers">
+        <div
+          className="flex items-center gap-1"
+          role="group"
+          aria-label="Page numbers"
+        >
           {pages.map((page) => {
-            if (page === 'ellipsis-start' || page === 'ellipsis-end') {
+            if (page === "ellipsis-start" || page === "ellipsis-end") {
               return (
                 <span
                   key={page}
@@ -276,13 +285,13 @@ export function Pagination({
                 type="button"
                 onClick={() => onPageChange(page)}
                 aria-label={`Page ${page}`}
-                aria-current={isCurrentPage ? 'page' : undefined}
+                aria-current={isCurrentPage ? "page" : undefined}
                 className={cn(
-                  'inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors min-w-[40px]',
-                  'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
+                  "inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium transition-colors min-w-[40px]",
+                  "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
                   isCurrentPage
-                    ? 'bg-cta text-white'
-                    : 'bg-bg-card text-text-primary border border-border hover:bg-bg-hover'
+                    ? "bg-cta text-white"
+                    : "bg-bg-card text-text-primary border border-border hover:bg-bg-hover",
                 )}
               >
                 {page}
@@ -298,10 +307,10 @@ export function Pagination({
           disabled={!canGoNext}
           aria-label="Go to next page"
           className={cn(
-            'inline-flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium transition-colors',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
-            'disabled:pointer-events-none disabled:opacity-50',
-            'bg-bg-card text-text-primary border border-border hover:bg-bg-hover'
+            "inline-flex items-center justify-center rounded-md px-2 py-2 text-sm font-medium transition-colors",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+            "disabled:pointer-events-none disabled:opacity-50",
+            "bg-bg-card text-text-primary border border-border hover:bg-bg-hover",
           )}
         >
           <span className="sr-only sm:not-sr-only sm:mr-1">Next</span>
@@ -323,9 +332,9 @@ export function Pagination({
             value={pageSize}
             onChange={(e) => onPageSizeChange(Number(e.target.value))}
             className={cn(
-              'rounded-md border border-border bg-bg-card px-3 py-2 text-sm text-text-primary',
-              'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
-              'hover:bg-bg-hover transition-colors cursor-pointer'
+              "rounded-md border border-border bg-bg-card px-3 py-2 text-sm text-text-primary",
+              "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+              "hover:bg-bg-hover transition-colors cursor-pointer",
             )}
             aria-label="Items per page"
           >

@@ -9,35 +9,41 @@
  * - Upload progress indicator for pending photos
  * - Delete option with confirmation
  */
-import { useState, useCallback } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { Dialog, DialogContent, DialogHeader, DialogBody, DialogFooter } from '@/components/ui/Dialog';
-import { cn } from '@/lib/utils';
-import type { WorkOrderPhoto, PhotoType } from '@/api/types/workOrder';
+import { useState, useCallback } from "react";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@/components/ui/Dialog";
+import { cn } from "@/lib/utils";
+import type { WorkOrderPhoto, PhotoType } from "@/api/types/workOrder";
 
 const PHOTO_TYPE_LABELS: Record<PhotoType, string> = {
-  before: 'Before',
-  after: 'After',
-  manifest: 'Manifest',
-  damage: 'Damage',
-  lid: 'Lid',
-  tank: 'Tank',
-  access: 'Access',
-  equipment: 'Equipment',
-  other: 'Other',
+  before: "Before",
+  after: "After",
+  manifest: "Manifest",
+  damage: "Damage",
+  lid: "Lid",
+  tank: "Tank",
+  access: "Access",
+  equipment: "Equipment",
+  other: "Other",
 };
 
 const PHOTO_TYPE_COLORS: Record<PhotoType, string> = {
-  before: 'bg-blue-500',
-  after: 'bg-green-500',
-  manifest: 'bg-purple-500',
-  damage: 'bg-red-500',
-  lid: 'bg-yellow-500',
-  tank: 'bg-cyan-500',
-  access: 'bg-orange-500',
-  equipment: 'bg-indigo-500',
-  other: 'bg-gray-500',
+  before: "bg-blue-500",
+  after: "bg-green-500",
+  manifest: "bg-purple-500",
+  damage: "bg-red-500",
+  lid: "bg-yellow-500",
+  tank: "bg-cyan-500",
+  access: "bg-orange-500",
+  equipment: "bg-indigo-500",
+  other: "bg-gray-500",
 };
 
 export interface PhotoGalleryProps {
@@ -55,27 +61,36 @@ export function PhotoGallery({
   className,
   editable = true,
 }: PhotoGalleryProps) {
-  const [selectedPhoto, setSelectedPhoto] = useState<WorkOrderPhoto | null>(null);
-  const [deleteConfirmPhoto, setDeleteConfirmPhoto] = useState<WorkOrderPhoto | null>(null);
+  const [selectedPhoto, setSelectedPhoto] = useState<WorkOrderPhoto | null>(
+    null,
+  );
+  const [deleteConfirmPhoto, setDeleteConfirmPhoto] =
+    useState<WorkOrderPhoto | null>(null);
 
   /**
    * Handle photo click - open lightbox
    */
-  const handlePhotoClick = useCallback((photo: WorkOrderPhoto) => {
-    if (onPhotoClick) {
-      onPhotoClick(photo);
-    } else {
-      setSelectedPhoto(photo);
-    }
-  }, [onPhotoClick]);
+  const handlePhotoClick = useCallback(
+    (photo: WorkOrderPhoto) => {
+      if (onPhotoClick) {
+        onPhotoClick(photo);
+      } else {
+        setSelectedPhoto(photo);
+      }
+    },
+    [onPhotoClick],
+  );
 
   /**
    * Handle delete button click
    */
-  const handleDeleteClick = useCallback((e: React.MouseEvent, photo: WorkOrderPhoto) => {
-    e.stopPropagation();
-    setDeleteConfirmPhoto(photo);
-  }, []);
+  const handleDeleteClick = useCallback(
+    (e: React.MouseEvent, photo: WorkOrderPhoto) => {
+      e.stopPropagation();
+      setDeleteConfirmPhoto(photo);
+    },
+    [],
+  );
 
   /**
    * Confirm delete
@@ -99,7 +114,7 @@ export function PhotoGallery({
    */
   const handlePrevPhoto = useCallback(() => {
     if (!selectedPhoto) return;
-    const currentIndex = photos.findIndex(p => p.id === selectedPhoto.id);
+    const currentIndex = photos.findIndex((p) => p.id === selectedPhoto.id);
     const prevIndex = (currentIndex - 1 + photos.length) % photos.length;
     setSelectedPhoto(photos[prevIndex]);
   }, [selectedPhoto, photos]);
@@ -109,14 +124,14 @@ export function PhotoGallery({
    */
   const handleNextPhoto = useCallback(() => {
     if (!selectedPhoto) return;
-    const currentIndex = photos.findIndex(p => p.id === selectedPhoto.id);
+    const currentIndex = photos.findIndex((p) => p.id === selectedPhoto.id);
     const nextIndex = (currentIndex + 1) % photos.length;
     setSelectedPhoto(photos[nextIndex]);
   }, [selectedPhoto, photos]);
 
   if (photos.length === 0) {
     return (
-      <div className={cn('text-center py-8 text-text-muted', className)}>
+      <div className={cn("text-center py-8 text-text-muted", className)}>
         <svg
           className="w-16 h-16 mx-auto mb-4 opacity-30"
           fill="none"
@@ -138,18 +153,17 @@ export function PhotoGallery({
   return (
     <>
       {/* Photo Grid */}
-      <div
-        className={cn(
-          'grid grid-cols-2 md:grid-cols-4 gap-3',
-          className
-        )}
-      >
+      <div className={cn("grid grid-cols-2 md:grid-cols-4 gap-3", className)}>
         {photos.map((photo) => (
           <PhotoThumbnail
             key={photo.id}
             photo={photo}
             onClick={() => handlePhotoClick(photo)}
-            onDelete={editable && onDelete ? (e) => handleDeleteClick(e, photo) : undefined}
+            onDelete={
+              editable && onDelete
+                ? (e) => handleDeleteClick(e, photo)
+                : undefined
+            }
           />
         ))}
       </div>
@@ -161,11 +175,18 @@ export function PhotoGallery({
             <>
               <DialogHeader onClose={handleCloseLightbox}>
                 <div className="flex items-center gap-2">
-                  <Badge className={cn('text-white', PHOTO_TYPE_COLORS[selectedPhoto.metadata.photoType])}>
+                  <Badge
+                    className={cn(
+                      "text-white",
+                      PHOTO_TYPE_COLORS[selectedPhoto.metadata.photoType],
+                    )}
+                  >
                     {PHOTO_TYPE_LABELS[selectedPhoto.metadata.photoType]}
                   </Badge>
                   <span className="text-text-secondary text-sm">
-                    {new Date(selectedPhoto.metadata.timestamp).toLocaleString()}
+                    {new Date(
+                      selectedPhoto.metadata.timestamp,
+                    ).toLocaleString()}
                   </span>
                 </div>
               </DialogHeader>
@@ -186,8 +207,18 @@ export function PhotoGallery({
                         className="absolute left-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
                         aria-label="Previous photo"
                       >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                        <svg
+                          className="w-6 h-6"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M15 19l-7-7 7-7"
+                          />
                         </svg>
                       </button>
                       <button
@@ -195,8 +226,18 @@ export function PhotoGallery({
                         className="absolute right-2 top-1/2 -translate-y-1/2 p-2 rounded-full bg-black/50 text-white hover:bg-black/70 transition-colors"
                         aria-label="Next photo"
                       >
-                        <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                        <svg
+                          className="w-6 h-6"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
                         </svg>
                       </button>
                     </>
@@ -208,13 +249,16 @@ export function PhotoGallery({
                   <div className="grid grid-cols-2 gap-4 text-sm">
                     <div>
                       <span className="text-text-muted">Device:</span>
-                      <span className="ml-2 text-text-primary">{selectedPhoto.metadata.deviceInfo}</span>
+                      <span className="ml-2 text-text-primary">
+                        {selectedPhoto.metadata.deviceInfo}
+                      </span>
                     </div>
                     {selectedPhoto.metadata.gps && (
                       <div>
                         <span className="text-text-muted">GPS:</span>
                         <span className="ml-2 text-text-primary">
-                          {selectedPhoto.metadata.gps.lat.toFixed(6)}, {selectedPhoto.metadata.gps.lng.toFixed(6)}
+                          {selectedPhoto.metadata.gps.lat.toFixed(6)},{" "}
+                          {selectedPhoto.metadata.gps.lng.toFixed(6)}
                         </span>
                       </div>
                     )}
@@ -251,12 +295,19 @@ export function PhotoGallery({
           </DialogHeader>
           <DialogBody>
             <p className="text-text-secondary">
-              Are you sure you want to delete this {deleteConfirmPhoto && PHOTO_TYPE_LABELS[deleteConfirmPhoto.metadata.photoType].toLowerCase()} photo?
-              This action cannot be undone.
+              Are you sure you want to delete this{" "}
+              {deleteConfirmPhoto &&
+                PHOTO_TYPE_LABELS[
+                  deleteConfirmPhoto.metadata.photoType
+                ].toLowerCase()}{" "}
+              photo? This action cannot be undone.
             </p>
           </DialogBody>
           <DialogFooter>
-            <Button variant="secondary" onClick={() => setDeleteConfirmPhoto(null)}>
+            <Button
+              variant="secondary"
+              onClick={() => setDeleteConfirmPhoto(null)}
+            >
               Cancel
             </Button>
             <Button variant="danger" onClick={handleConfirmDelete}>
@@ -279,9 +330,9 @@ interface PhotoThumbnailProps {
 }
 
 function PhotoThumbnail({ photo, onClick, onDelete }: PhotoThumbnailProps) {
-  const isUploading = photo.uploadStatus === 'uploading';
-  const isFailed = photo.uploadStatus === 'failed';
-  const isPending = photo.uploadStatus === 'pending';
+  const isUploading = photo.uploadStatus === "uploading";
+  const isFailed = photo.uploadStatus === "failed";
+  const isPending = photo.uploadStatus === "pending";
 
   return (
     <div
@@ -299,8 +350,8 @@ function PhotoThumbnail({ photo, onClick, onDelete }: PhotoThumbnailProps) {
       <div className="absolute top-2 left-2">
         <span
           className={cn(
-            'px-2 py-0.5 rounded text-xs font-medium text-white',
-            PHOTO_TYPE_COLORS[photo.metadata.photoType]
+            "px-2 py-0.5 rounded text-xs font-medium text-white",
+            PHOTO_TYPE_COLORS[photo.metadata.photoType],
           )}
         >
           {PHOTO_TYPE_LABELS[photo.metadata.photoType]}
@@ -311,10 +362,10 @@ function PhotoThumbnail({ photo, onClick, onDelete }: PhotoThumbnailProps) {
       {(isUploading || isFailed || isPending) && (
         <div
           className={cn(
-            'absolute inset-0 flex items-center justify-center',
-            isUploading && 'bg-black/50',
-            isFailed && 'bg-red-500/50',
-            isPending && 'bg-yellow-500/30'
+            "absolute inset-0 flex items-center justify-center",
+            isUploading && "bg-black/50",
+            isFailed && "bg-red-500/50",
+            isPending && "bg-yellow-500/30",
           )}
         >
           {isUploading && (
@@ -325,16 +376,36 @@ function PhotoThumbnail({ photo, onClick, onDelete }: PhotoThumbnailProps) {
           )}
           {isFailed && (
             <div className="text-center text-white">
-              <svg className="w-6 h-6 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z" />
+              <svg
+                className="w-6 h-6 mx-auto mb-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"
+                />
               </svg>
               <span className="text-xs">Upload Failed</span>
             </div>
           )}
           {isPending && (
             <div className="text-center text-white">
-              <svg className="w-6 h-6 mx-auto mb-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg
+                className="w-6 h-6 mx-auto mb-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
               <span className="text-xs">Pending</span>
             </div>
@@ -349,8 +420,18 @@ function PhotoThumbnail({ photo, onClick, onDelete }: PhotoThumbnailProps) {
           className="absolute top-2 right-2 p-1.5 rounded-full bg-black/50 text-white opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-500"
           aria-label="Delete photo"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M6 18L18 6M6 6l12 12"
+            />
           </svg>
         </button>
       )}

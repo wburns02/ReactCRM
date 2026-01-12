@@ -1,8 +1,12 @@
-import { useState } from 'react';
-import { useInspections, type Inspection, type InspectionFilters } from '../api/compliance.ts';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { formatDate } from '@/lib/utils.ts';
+import { useState } from "react";
+import {
+  useInspections,
+  type Inspection,
+  type InspectionFilters,
+} from "../api/compliance.ts";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { formatDate } from "@/lib/utils.ts";
 
 interface InspectionListProps {
   customerId?: number;
@@ -23,15 +27,15 @@ export function InspectionList({ customerId, onSelect }: InspectionListProps) {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'completed':
+      case "completed":
         return <Badge variant="success">Completed</Badge>;
-      case 'pending':
+      case "pending":
         return <Badge variant="warning">Pending</Badge>;
-      case 'scheduled':
+      case "scheduled":
         return <Badge variant="info">Scheduled</Badge>;
-      case 'in_progress':
+      case "in_progress":
         return <Badge variant="info">In Progress</Badge>;
-      case 'failed':
+      case "failed":
         return <Badge variant="danger">Failed</Badge>;
       default:
         return <Badge>{status}</Badge>;
@@ -41,11 +45,11 @@ export function InspectionList({ customerId, onSelect }: InspectionListProps) {
   const getResultBadge = (result?: string | null) => {
     if (!result) return null;
     switch (result) {
-      case 'pass':
+      case "pass":
         return <Badge variant="success">Pass</Badge>;
-      case 'fail':
+      case "fail":
         return <Badge variant="danger">Fail</Badge>;
-      case 'conditional':
+      case "conditional":
         return <Badge variant="warning">Conditional</Badge>;
       default:
         return <Badge>{result}</Badge>;
@@ -74,8 +78,12 @@ export function InspectionList({ customerId, onSelect }: InspectionListProps) {
     return (
       <div className="text-center py-12 border border-border rounded-lg">
         <span className="text-4xl mb-4 block">🔍</span>
-        <h3 className="text-lg font-medium text-text-primary mb-2">No inspections found</h3>
-        <p className="text-text-muted">Schedule inspections to track compliance</p>
+        <h3 className="text-lg font-medium text-text-primary mb-2">
+          No inspections found
+        </h3>
+        <p className="text-text-muted">
+          Schedule inspections to track compliance
+        </p>
       </div>
     );
   }
@@ -85,8 +93,14 @@ export function InspectionList({ customerId, onSelect }: InspectionListProps) {
       {/* Filter controls */}
       <div className="flex gap-2">
         <select
-          value={filters.status || ''}
-          onChange={(e) => setFilters((prev) => ({ ...prev, page: 1, status: e.target.value || undefined }))}
+          value={filters.status || ""}
+          onChange={(e) =>
+            setFilters((prev) => ({
+              ...prev,
+              page: 1,
+              status: e.target.value || undefined,
+            }))
+          }
           className="px-3 py-2 rounded-md border border-border bg-bg-primary text-text-primary"
           aria-label="Filter by status"
         >
@@ -98,8 +112,14 @@ export function InspectionList({ customerId, onSelect }: InspectionListProps) {
           <option value="failed">Failed</option>
         </select>
         <select
-          value={filters.inspection_type || ''}
-          onChange={(e) => setFilters((prev) => ({ ...prev, page: 1, inspection_type: e.target.value || undefined }))}
+          value={filters.inspection_type || ""}
+          onChange={(e) =>
+            setFilters((prev) => ({
+              ...prev,
+              page: 1,
+              inspection_type: e.target.value || undefined,
+            }))
+          }
           className="px-3 py-2 rounded-md border border-border bg-bg-primary text-text-primary"
           aria-label="Filter by type"
         >
@@ -121,19 +141,22 @@ export function InspectionList({ customerId, onSelect }: InspectionListProps) {
             className={`
               p-4 rounded-lg border border-border bg-bg-primary
               hover:bg-bg-hover transition-colors
-              ${onSelect ? 'cursor-pointer' : ''}
+              ${onSelect ? "cursor-pointer" : ""}
             `}
           >
             <div className="flex items-center justify-between">
               <div>
                 <div className="flex items-center gap-2">
-                  <span className="font-medium text-text-primary">#{inspection.inspection_number}</span>
+                  <span className="font-medium text-text-primary">
+                    #{inspection.inspection_number}
+                  </span>
                   {getStatusBadge(inspection.status)}
                   {getResultBadge(inspection.result)}
                 </div>
                 <p className="text-sm text-text-muted mt-1">
                   {inspection.inspection_type}
-                  {inspection.property_address && ` • ${inspection.property_address}`}
+                  {inspection.property_address &&
+                    ` • ${inspection.property_address}`}
                 </p>
                 {inspection.technician_name && (
                   <p className="text-xs text-text-muted mt-1">
@@ -159,7 +182,9 @@ export function InspectionList({ customerId, onSelect }: InspectionListProps) {
                   </>
                 )}
                 {inspection.requires_followup && (
-                  <Badge variant="warning" className="mt-2">Followup Required</Badge>
+                  <Badge variant="warning" className="mt-2">
+                    Followup Required
+                  </Badge>
                 )}
               </div>
             </div>
@@ -177,7 +202,9 @@ export function InspectionList({ customerId, onSelect }: InspectionListProps) {
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => setFilters((prev) => ({ ...prev, page: (prev.page || 1) - 1 }))}
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, page: (prev.page || 1) - 1 }))
+              }
               disabled={(filters.page || 1) <= 1}
             >
               Previous
@@ -185,7 +212,9 @@ export function InspectionList({ customerId, onSelect }: InspectionListProps) {
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => setFilters((prev) => ({ ...prev, page: (prev.page || 1) + 1 }))}
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, page: (prev.page || 1) + 1 }))
+              }
               disabled={(filters.page || 1) >= totalPages}
             >
               Next

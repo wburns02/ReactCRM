@@ -3,7 +3,7 @@
  * Shows pie chart by status, completion rate trend, cancellation rate, follow-up rate
  */
 
-import { useState, useMemo, memo } from 'react';
+import { useState, useMemo, memo } from "react";
 import {
   PieChart,
   Pie,
@@ -16,11 +16,16 @@ import {
   Tooltip,
   Legend,
   ResponsiveContainer,
-} from 'recharts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Skeleton } from '@/components/ui/Skeleton.tsx';
-import type { WorkOrderStatus } from '@/api/types/workOrder.ts';
+} from "recharts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Skeleton } from "@/components/ui/Skeleton.tsx";
+import type { WorkOrderStatus } from "@/api/types/workOrder.ts";
 import {
   formatPercentage,
   formatChartDate,
@@ -28,7 +33,7 @@ import {
   CHART_COLORS,
   AXIS_STYLE,
   GRID_STYLE,
-} from './utils/chartConfig.ts';
+} from "./utils/chartConfig.ts";
 
 export interface StatusDistribution {
   status: WorkOrderStatus;
@@ -51,21 +56,21 @@ interface CompletionRatesProps {
   className?: string;
 }
 
-type ViewMode = 'distribution' | 'trend';
+type ViewMode = "distribution" | "trend";
 
 /**
  * Status label mapping
  */
 const STATUS_LABELS: Record<string, string> = {
-  draft: 'Draft',
-  scheduled: 'Scheduled',
-  confirmed: 'Confirmed',
-  enroute: 'En Route',
-  on_site: 'On Site',
-  in_progress: 'In Progress',
-  completed: 'Completed',
-  canceled: 'Canceled',
-  requires_followup: 'Follow-up Required',
+  draft: "Draft",
+  scheduled: "Scheduled",
+  confirmed: "Confirmed",
+  enroute: "En Route",
+  on_site: "On Site",
+  in_progress: "In Progress",
+  completed: "Completed",
+  canceled: "Canceled",
+  requires_followup: "Follow-up Required",
 };
 
 /**
@@ -93,7 +98,7 @@ function CustomPieLabel({
       fill="white"
       textAnchor="middle"
       dominantBaseline="central"
-      style={{ fontSize: '12px', fontWeight: 600 }}
+      style={{ fontSize: "12px", fontWeight: 600 }}
     >
       {`${(percent * 100).toFixed(0)}%`}
     </text>
@@ -113,10 +118,14 @@ function PieTooltip({ active, payload }: any) {
         {STATUS_LABELS[data.name] || data.name}
       </p>
       <p className="text-sm text-text-secondary">
-        Count: <span className="font-semibold text-text-primary">{data.value}</span>
+        Count:{" "}
+        <span className="font-semibold text-text-primary">{data.value}</span>
       </p>
       <p className="text-sm text-text-secondary">
-        Percentage: <span className="font-semibold text-text-primary">{formatPercentage(data.percent * 100)}</span>
+        Percentage:{" "}
+        <span className="font-semibold text-text-primary">
+          {formatPercentage(data.percent * 100)}
+        </span>
       </p>
     </div>
   );
@@ -133,8 +142,14 @@ function TrendTooltip({ active, payload, label }: any) {
       <p className="text-sm font-medium text-text-primary mb-2">{label}</p>
       {payload.map((entry: any, index: number) => (
         <p key={index} className="text-sm text-text-secondary">
-          <span className="inline-block w-3 h-3 rounded-full mr-2" style={{ backgroundColor: entry.color }} />
-          {entry.name}: <span className="font-semibold text-text-primary">{formatPercentage(entry.value)}</span>
+          <span
+            className="inline-block w-3 h-3 rounded-full mr-2"
+            style={{ backgroundColor: entry.color }}
+          />
+          {entry.name}:{" "}
+          <span className="font-semibold text-text-primary">
+            {formatPercentage(entry.value)}
+          </span>
         </p>
       ))}
     </div>
@@ -189,10 +204,16 @@ const StatusPieChart = memo(function StatusPieChart({
       {/* Legend */}
       <div className="w-full lg:w-1/2 grid grid-cols-2 gap-2">
         {pieData.map((item) => (
-          <div key={item.name} className="flex items-center gap-2 p-2 rounded-md hover:bg-bg-muted transition-colors">
+          <div
+            key={item.name}
+            className="flex items-center gap-2 p-2 rounded-md hover:bg-bg-muted transition-colors"
+          >
             <div
               className="w-3 h-3 rounded-full flex-shrink-0"
-              style={{ backgroundColor: STATUS_CHART_COLORS[item.name] || CHART_COLORS.gray }}
+              style={{
+                backgroundColor:
+                  STATUS_CHART_COLORS[item.name] || CHART_COLORS.gray,
+              }}
             />
             <div className="min-w-0 flex-1">
               <p className="text-sm text-text-primary truncate">
@@ -224,13 +245,12 @@ const TrendChart = memo(function TrendChart({
 
   return (
     <ResponsiveContainer width="100%" height={250}>
-      <LineChart data={chartData} margin={{ top: 10, right: 30, bottom: 0, left: 0 }}>
+      <LineChart
+        data={chartData}
+        margin={{ top: 10, right: 30, bottom: 0, left: 0 }}
+      >
         <CartesianGrid {...GRID_STYLE} />
-        <XAxis
-          dataKey="dateLabel"
-          {...AXIS_STYLE}
-          tick={{ fontSize: 11 }}
-        />
+        <XAxis dataKey="dateLabel" {...AXIS_STYLE} tick={{ fontSize: 11 }} />
         <YAxis
           {...AXIS_STYLE}
           domain={[0, 100]}
@@ -280,9 +300,13 @@ const SummaryStats = memo(function SummaryStats({
 }) {
   const stats = useMemo(() => {
     const total = statusDistribution.reduce((sum, d) => sum + d.count, 0);
-    const completed = statusDistribution.find((d) => d.status === 'completed')?.count || 0;
-    const canceled = statusDistribution.find((d) => d.status === 'canceled')?.count || 0;
-    const followUp = statusDistribution.find((d) => d.status === 'requires_followup')?.count || 0;
+    const completed =
+      statusDistribution.find((d) => d.status === "completed")?.count || 0;
+    const canceled =
+      statusDistribution.find((d) => d.status === "canceled")?.count || 0;
+    const followUp =
+      statusDistribution.find((d) => d.status === "requires_followup")?.count ||
+      0;
 
     const completionRate = total > 0 ? (completed / total) * 100 : 0;
     const cancellationRate = total > 0 ? (canceled / total) * 100 : 0;
@@ -296,31 +320,49 @@ const SummaryStats = memo(function SummaryStats({
       completionTrend = last - first;
     }
 
-    return { completionRate, cancellationRate, followUpRate, completionTrend, total };
+    return {
+      completionRate,
+      cancellationRate,
+      followUpRate,
+      completionTrend,
+      total,
+    };
   }, [statusDistribution, trendData]);
 
   return (
     <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
       <div className="bg-bg-muted rounded-lg p-4">
         <p className="text-sm text-text-secondary mb-1">Completion Rate</p>
-        <p className="text-2xl font-bold text-success">{formatPercentage(stats.completionRate)}</p>
+        <p className="text-2xl font-bold text-success">
+          {formatPercentage(stats.completionRate)}
+        </p>
         {stats.completionTrend !== 0 && (
-          <Badge variant={stats.completionTrend > 0 ? 'success' : 'danger'} className="mt-1 text-xs">
-            {stats.completionTrend > 0 ? '\u25B2' : '\u25BC'} {Math.abs(stats.completionTrend).toFixed(1)}%
+          <Badge
+            variant={stats.completionTrend > 0 ? "success" : "danger"}
+            className="mt-1 text-xs"
+          >
+            {stats.completionTrend > 0 ? "\u25B2" : "\u25BC"}{" "}
+            {Math.abs(stats.completionTrend).toFixed(1)}%
           </Badge>
         )}
       </div>
       <div className="bg-bg-muted rounded-lg p-4">
         <p className="text-sm text-text-secondary mb-1">Cancellation Rate</p>
-        <p className="text-2xl font-bold text-danger">{formatPercentage(stats.cancellationRate)}</p>
+        <p className="text-2xl font-bold text-danger">
+          {formatPercentage(stats.cancellationRate)}
+        </p>
       </div>
       <div className="bg-bg-muted rounded-lg p-4">
         <p className="text-sm text-text-secondary mb-1">Follow-up Rate</p>
-        <p className="text-2xl font-bold text-warning">{formatPercentage(stats.followUpRate)}</p>
+        <p className="text-2xl font-bold text-warning">
+          {formatPercentage(stats.followUpRate)}
+        </p>
       </div>
       <div className="bg-bg-muted rounded-lg p-4">
         <p className="text-sm text-text-secondary mb-1">Total Work Orders</p>
-        <p className="text-2xl font-bold text-text-primary">{stats.total.toLocaleString()}</p>
+        <p className="text-2xl font-bold text-text-primary">
+          {stats.total.toLocaleString()}
+        </p>
       </div>
     </div>
   );
@@ -352,9 +394,9 @@ export const CompletionRates = memo(function CompletionRates({
   statusDistribution,
   trendData,
   isLoading = false,
-  className = '',
+  className = "",
 }: CompletionRatesProps) {
-  const [viewMode, setViewMode] = useState<ViewMode>('distribution');
+  const [viewMode, setViewMode] = useState<ViewMode>("distribution");
 
   if (isLoading) {
     return <LoadingSkeleton />;
@@ -369,8 +411,12 @@ export const CompletionRates = memo(function CompletionRates({
         <CardContent className="p-0">
           <div className="text-center py-12">
             <div className="text-4xl mb-4">&#128202;</div>
-            <h3 className="text-lg font-medium text-text-primary mb-2">No completion data available</h3>
-            <p className="text-text-secondary">Completion metrics will appear once work orders are processed.</p>
+            <h3 className="text-lg font-medium text-text-primary mb-2">
+              No completion data available
+            </h3>
+            <p className="text-text-secondary">
+              Completion metrics will appear once work orders are processed.
+            </p>
           </div>
         </CardContent>
       </Card>
@@ -384,21 +430,21 @@ export const CompletionRates = memo(function CompletionRates({
           <CardTitle className="text-lg">Completion Rates</CardTitle>
           <div className="flex items-center gap-2">
             <button
-              onClick={() => setViewMode('distribution')}
+              onClick={() => setViewMode("distribution")}
               className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
-                viewMode === 'distribution'
-                  ? 'bg-primary text-white'
-                  : 'bg-bg-muted text-text-secondary hover:bg-bg-hover'
+                viewMode === "distribution"
+                  ? "bg-primary text-white"
+                  : "bg-bg-muted text-text-secondary hover:bg-bg-hover"
               }`}
             >
               Distribution
             </button>
             <button
-              onClick={() => setViewMode('trend')}
+              onClick={() => setViewMode("trend")}
               className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
-                viewMode === 'trend'
-                  ? 'bg-primary text-white'
-                  : 'bg-bg-muted text-text-secondary hover:bg-bg-hover'
+                viewMode === "trend"
+                  ? "bg-primary text-white"
+                  : "bg-bg-muted text-text-secondary hover:bg-bg-hover"
               }`}
             >
               Trend
@@ -407,8 +453,11 @@ export const CompletionRates = memo(function CompletionRates({
         </div>
       </CardHeader>
       <CardContent className="p-0">
-        <SummaryStats statusDistribution={statusDistribution} trendData={trendData} />
-        {viewMode === 'distribution' ? (
+        <SummaryStats
+          statusDistribution={statusDistribution}
+          trendData={trendData}
+        />
+        {viewMode === "distribution" ? (
           <StatusPieChart data={statusDistribution} />
         ) : (
           <TrendChart data={trendData} />

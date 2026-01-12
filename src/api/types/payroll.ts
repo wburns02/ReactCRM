@@ -6,7 +6,7 @@ export interface PayrollPeriod {
   id: string;
   start_date: string;
   end_date: string;
-  status: 'draft' | 'processing' | 'approved' | 'paid' | 'void';
+  status: "draft" | "processing" | "approved" | "paid" | "void";
   total_hours: number;
   total_overtime_hours: number;
   total_gross_pay: number;
@@ -33,7 +33,7 @@ export interface TimeEntry {
   regular_hours: number;
   overtime_hours: number;
   break_minutes: number;
-  status: 'pending' | 'approved' | 'rejected';
+  status: "pending" | "approved" | "rejected";
   notes?: string;
   clock_in_latitude?: number;
   clock_in_longitude?: number;
@@ -52,7 +52,7 @@ export interface Commission {
   job_total: number;
   commission_rate: number;
   commission_amount: number;
-  status: 'pending' | 'approved' | 'paid';
+  status: "pending" | "approved" | "paid";
   notes?: string;
   created_at: string;
 }
@@ -89,14 +89,14 @@ export interface CreatePayrollPeriodInput {
 }
 
 export interface UpdateTimeEntryInput {
-  status?: 'pending' | 'approved' | 'rejected';
+  status?: "pending" | "approved" | "rejected";
   regular_hours?: number;
   overtime_hours?: number;
   notes?: string;
 }
 
 export interface UpdateCommissionInput {
-  status?: 'pending' | 'approved' | 'paid';
+  status?: "pending" | "approved" | "paid";
   commission_rate?: number;
   commission_amount?: number;
   notes?: string;

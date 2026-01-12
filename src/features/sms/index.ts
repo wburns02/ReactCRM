@@ -1,12 +1,12 @@
 // Pages
-export { SMSSettingsPage } from './SMSSettingsPage';
+export { SMSSettingsPage } from "./SMSSettingsPage";
 
 // Components
-export { SMSComposeModal } from './SMSComposeModal';
-export { SMSPreferences } from './components/SMSPreferences';
+export { SMSComposeModal } from "./SMSComposeModal";
+export { SMSPreferences } from "./components/SMSPreferences";
 
 // Services
-export { SMSService } from './services/SMSService';
+export { SMSService } from "./services/SMSService";
 
 // Templates
 export {
@@ -20,4 +20,4 @@ export {
   getTemplateMetadata,
   validateTemplate,
   NotificationContent,
-} from './templates/notificationTemplates';
+} from "./templates/notificationTemplates";

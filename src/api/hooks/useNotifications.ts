@@ -1,5 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient, withFallback } from '@/api/client';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiClient, withFallback } from "@/api/client";
 
 /**
  * Push Notification Types
@@ -34,13 +34,13 @@ export interface NotificationPreferences {
   // Quiet hours
   quiet_hours_enabled: boolean;
   quiet_start: string; // "22:00"
-  quiet_end: string;   // "07:00"
+  quiet_end: string; // "07:00"
 }
 
 export interface Notification {
   id: string;
   user_id: number;
-  type: 'work_order' | 'schedule' | 'payment' | 'message' | 'alert' | 'system';
+  type: "work_order" | "schedule" | "payment" | "message" | "alert" | "system";
   title: string;
   body: string;
   data?: Record<string, unknown>;
@@ -73,8 +73,8 @@ const DEFAULT_PREFERENCES: NotificationPreferences = {
   system_alerts: true,
   marketing_updates: false,
   quiet_hours_enabled: false,
-  quiet_start: '22:00',
-  quiet_end: '07:00',
+  quiet_start: "22:00",
+  quiet_end: "07:00",
 };
 
 const DEFAULT_STATS: NotificationStats = {
@@ -87,13 +87,13 @@ const DEFAULT_STATS: NotificationStats = {
  * Query keys for notifications
  */
 export const notificationKeys = {
-  all: ['notifications'] as const,
-  lists: () => [...notificationKeys.all, 'list'] as const,
+  all: ["notifications"] as const,
+  lists: () => [...notificationKeys.all, "list"] as const,
   list: (filters?: { unread_only?: boolean; type?: string }) =>
     [...notificationKeys.lists(), filters] as const,
-  stats: () => [...notificationKeys.all, 'stats'] as const,
-  preferences: () => [...notificationKeys.all, 'preferences'] as const,
-  subscriptions: () => [...notificationKeys.all, 'subscriptions'] as const,
+  stats: () => [...notificationKeys.all, "stats"] as const,
+  preferences: () => [...notificationKeys.all, "preferences"] as const,
+  subscriptions: () => [...notificationKeys.all, "subscriptions"] as const,
 };
 
 /**
@@ -104,13 +104,10 @@ export function useNotificationPreferences() {
   return useQuery({
     queryKey: notificationKeys.preferences(),
     queryFn: async (): Promise<NotificationPreferences> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/notifications/preferences');
-          return data;
-        },
-        DEFAULT_PREFERENCES
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/notifications/preferences");
+        return data;
+      }, DEFAULT_PREFERENCES);
     },
   });
 }
@@ -122,12 +119,19 @@ export function useUpdateNotificationPreferences() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (preferences: Partial<NotificationPreferences>): Promise<NotificationPreferences> => {
-      const { data } = await apiClient.put('/notifications/preferences', preferences);
+    mutationFn: async (
+      preferences: Partial<NotificationPreferences>,
+    ): Promise<NotificationPreferences> => {
+      const { data } = await apiClient.put(
+        "/notifications/preferences",
+        preferences,
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: notificationKeys.preferences() });
+      queryClient.invalidateQueries({
+        queryKey: notificationKeys.preferences(),
+      });
     },
   });
 }
@@ -140,13 +144,12 @@ export function usePushSubscriptions() {
   return useQuery({
     queryKey: notificationKeys.subscriptions(),
     queryFn: async (): Promise<PushSubscription[]> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/notifications/push/subscriptions');
-          return data.subscriptions || [];
-        },
-        []
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get(
+          "/notifications/push/subscriptions",
+        );
+        return data.subscriptions || [];
+      }, []);
     },
   });
 }
@@ -164,11 +167,16 @@ export function useRegisterPushSubscription() {
       auth: string;
       device_name?: string;
     }): Promise<PushSubscription> => {
-      const { data } = await apiClient.post('/notifications/push/subscribe', params);
+      const { data } = await apiClient.post(
+        "/notifications/push/subscribe",
+        params,
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: notificationKeys.subscriptions() });
+      queryClient.invalidateQueries({
+        queryKey: notificationKeys.subscriptions(),
+      });
     },
   });
 }
@@ -181,10 +189,14 @@ export function useUnregisterPushSubscription() {
 
   return useMutation({
     mutationFn: async (subscriptionId: string): Promise<void> => {
-      await apiClient.delete(`/notifications/push/subscriptions/${subscriptionId}`);
+      await apiClient.delete(
+        `/notifications/push/subscriptions/${subscriptionId}`,
+      );
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: notificationKeys.subscriptions() });
+      queryClient.invalidateQueries({
+        queryKey: notificationKeys.subscriptions(),
+      });
     },
   });
 }
@@ -193,21 +205,30 @@ export function useUnregisterPushSubscription() {
  * Get notifications list
  * Returns empty list if endpoint not implemented (404)
  */
-export function useNotifications(filters?: { unread_only?: boolean; type?: string; limit?: number }) {
+export function useNotifications(filters?: {
+  unread_only?: boolean;
+  type?: string;
+  limit?: number;
+}) {
   return useQuery({
     queryKey: notificationKeys.list(filters),
-    queryFn: async (): Promise<{ notifications: Notification[]; total: number }> => {
+    queryFn: async (): Promise<{
+      notifications: Notification[];
+      total: number;
+    }> => {
       return withFallback(
         async () => {
           const params = new URLSearchParams();
-          if (filters?.unread_only) params.append('unread_only', 'true');
-          if (filters?.type) params.append('type', filters.type);
-          if (filters?.limit) params.append('limit', filters.limit.toString());
+          if (filters?.unread_only) params.append("unread_only", "true");
+          if (filters?.type) params.append("type", filters.type);
+          if (filters?.limit) params.append("limit", filters.limit.toString());
 
-          const { data } = await apiClient.get(`/notifications?${params.toString()}`);
+          const { data } = await apiClient.get(
+            `/notifications?${params.toString()}`,
+          );
           return data;
         },
-        { notifications: [], total: 0 }
+        { notifications: [], total: 0 },
       );
     },
     refetchInterval: 30000, // Poll every 30 seconds
@@ -222,13 +243,10 @@ export function useNotificationStats() {
   return useQuery({
     queryKey: notificationKeys.stats(),
     queryFn: async (): Promise<NotificationStats> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/notifications/stats');
-          return data;
-        },
-        DEFAULT_STATS
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/notifications/stats");
+        return data;
+      }, DEFAULT_STATS);
     },
     refetchInterval: 30000,
   });
@@ -258,7 +276,7 @@ export function useMarkAllNotificationsRead() {
 
   return useMutation({
     mutationFn: async (): Promise<void> => {
-      await apiClient.post('/notifications/read-all');
+      await apiClient.post("/notifications/read-all");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: notificationKeys.all });
@@ -288,7 +306,7 @@ export function useDeleteNotification() {
 export function useSendTestNotification() {
   return useMutation({
     mutationFn: async (): Promise<{ success: boolean }> => {
-      const { data } = await apiClient.post('/notifications/push/test');
+      const { data } = await apiClient.post("/notifications/push/test");
       return data;
     },
   });
@@ -300,14 +318,14 @@ export function useSendTestNotification() {
  */
 export function useVapidPublicKey() {
   return useQuery({
-    queryKey: ['notifications', 'vapid-key'],
+    queryKey: ["notifications", "vapid-key"],
     queryFn: async (): Promise<{ public_key: string }> => {
       return withFallback(
         async () => {
-          const { data } = await apiClient.get('/notifications/push/vapid-key');
+          const { data } = await apiClient.get("/notifications/push/vapid-key");
           return data;
         },
-        { public_key: '' }
+        { public_key: "" },
       );
     },
     staleTime: Infinity,

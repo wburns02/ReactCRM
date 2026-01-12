@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Date range for reports
@@ -119,7 +119,9 @@ export const customerGrowthDataPointSchema = z.object({
   active_customers: z.number(),
 });
 
-export type CustomerGrowthDataPoint = z.infer<typeof customerGrowthDataPointSchema>;
+export type CustomerGrowthDataPoint = z.infer<
+  typeof customerGrowthDataPointSchema
+>;
 
 /**
  * Customer report response
@@ -146,7 +148,9 @@ export const workOrderTrendsDataPointSchema = z.object({
   scheduled: z.number(),
 });
 
-export type WorkOrderTrendsDataPoint = z.infer<typeof workOrderTrendsDataPointSchema>;
+export type WorkOrderTrendsDataPoint = z.infer<
+  typeof workOrderTrendsDataPointSchema
+>;
 
 /**
  * Pipeline metrics (for prospects/leads)
@@ -159,7 +163,7 @@ export const pipelineMetricsSchema = z.object({
       stage: z.string(),
       count: z.number(),
       total_value: z.number(),
-    })
+    }),
   ),
   conversion_rate: z.number().nullable(),
   average_deal_size: z.number().nullable(),
@@ -181,14 +185,25 @@ export type ConversionFunnel = z.infer<typeof conversionFunnelSchema>;
 /**
  * Export format options
  */
-export type ExportFormat = 'csv' | 'pdf' | 'excel';
+export type ExportFormat = "csv" | "pdf" | "excel";
 
 /**
  * Report type enum
  */
-export type ReportType = 'revenue' | 'technician' | 'customer' | 'work_orders' | 'pipeline';
+export type ReportType =
+  | "revenue"
+  | "technician"
+  | "customer"
+  | "work_orders"
+  | "pipeline";
 
 /**
  * Time period preset
  */
-export type TimePeriod = 'today' | 'week' | 'month' | 'quarter' | 'year' | 'custom';
+export type TimePeriod =
+  | "today"
+  | "week"
+  | "month"
+  | "quarter"
+  | "year"
+  | "custom";

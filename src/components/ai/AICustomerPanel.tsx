@@ -2,9 +2,15 @@
  * AI Customer Insights Panel
  * Shows AI-generated insights for a customer
  */
-import { TrendingUp, AlertTriangle, ThumbsUp, ThumbsDown, Minus } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { useCustomerInsights } from '@/hooks/useAI';
+import {
+  TrendingUp,
+  AlertTriangle,
+  ThumbsUp,
+  ThumbsDown,
+  Minus,
+} from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { useCustomerInsights } from "@/hooks/useAI";
 
 interface AICustomerPanelProps {
   customerId: number;
@@ -14,7 +20,10 @@ interface AICustomerPanelProps {
 /**
  * AI insights panel for customer detail view
  */
-export function AICustomerPanel({ customerId, customerName }: AICustomerPanelProps) {
+export function AICustomerPanel({
+  customerId,
+  customerName,
+}: AICustomerPanelProps) {
   const { data: insights, isLoading, error } = useCustomerInsights(customerId);
 
   if (isLoading) {
@@ -54,25 +63,25 @@ export function AICustomerPanel({ customerId, customerName }: AICustomerPanelPro
   }
 
   const SentimentIcon =
-    insights.sentiment === 'positive'
+    insights.sentiment === "positive"
       ? ThumbsUp
-      : insights.sentiment === 'negative'
-      ? ThumbsDown
-      : Minus;
+      : insights.sentiment === "negative"
+        ? ThumbsDown
+        : Minus;
 
   const sentimentColor =
-    insights.sentiment === 'positive'
-      ? 'text-success'
-      : insights.sentiment === 'negative'
-      ? 'text-danger'
-      : 'text-text-muted';
+    insights.sentiment === "positive"
+      ? "text-success"
+      : insights.sentiment === "negative"
+        ? "text-danger"
+        : "text-text-muted";
 
   const sentimentBg =
-    insights.sentiment === 'positive'
-      ? 'bg-success/10'
-      : insights.sentiment === 'negative'
-      ? 'bg-danger/10'
-      : 'bg-bg-muted';
+    insights.sentiment === "positive"
+      ? "bg-success/10"
+      : insights.sentiment === "negative"
+        ? "bg-danger/10"
+        : "bg-bg-muted";
 
   return (
     <Card>
@@ -80,7 +89,9 @@ export function AICustomerPanel({ customerId, customerName }: AICustomerPanelPro
         <CardTitle className="flex items-center gap-2 text-sm">
           <span>🤖</span> AI Insights
           {customerName && (
-            <span className="text-text-muted font-normal">for {customerName}</span>
+            <span className="text-text-muted font-normal">
+              for {customerName}
+            </span>
           )}
         </CardTitle>
       </CardHeader>
@@ -107,20 +118,20 @@ export function AICustomerPanel({ customerId, customerName }: AICustomerPanelPro
           <div
             className={`p-3 rounded-lg ${
               insights.risk_score > 70
-                ? 'bg-danger/10'
+                ? "bg-danger/10"
                 : insights.risk_score > 40
-                ? 'bg-warning/10'
-                : 'bg-success/10'
+                  ? "bg-warning/10"
+                  : "bg-success/10"
             }`}
           >
             <div className="flex items-center gap-2 mb-1">
               <AlertTriangle
                 className={`w-4 h-4 ${
                   insights.risk_score > 70
-                    ? 'text-danger'
+                    ? "text-danger"
                     : insights.risk_score > 40
-                    ? 'text-warning'
-                    : 'text-success'
+                      ? "text-warning"
+                      : "text-success"
                 }`}
               />
               <span className="text-xs text-text-muted">Risk</span>

@@ -1,5 +1,5 @@
-import { Navigate } from 'react-router-dom';
-import type { ReactNode } from 'react';
+import { Navigate } from "react-router-dom";
+import type { ReactNode } from "react";
 
 interface RequirePortalAuthProps {
   children: ReactNode;
@@ -10,7 +10,7 @@ interface RequirePortalAuthProps {
  * Checks for portal_token in localStorage.
  */
 export function RequirePortalAuth({ children }: RequirePortalAuthProps) {
-  const token = localStorage.getItem('portal_token');
+  const token = localStorage.getItem("portal_token");
 
   if (!token) {
     return <Navigate to="/portal/login" replace />;

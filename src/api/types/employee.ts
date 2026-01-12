@@ -8,7 +8,7 @@ export interface EmployeeJob {
   customer_name: string;
   customer_phone?: string;
   service_type: string;
-  status: 'scheduled' | 'en_route' | 'in_progress' | 'completed' | 'cancelled';
+  status: "scheduled" | "en_route" | "in_progress" | "completed" | "cancelled";
   scheduled_date: string;
   time_window_start?: string;
   time_window_end?: string;
@@ -19,7 +19,7 @@ export interface EmployeeJob {
   latitude?: number;
   longitude?: number;
   notes?: string;
-  priority?: 'low' | 'medium' | 'high' | 'urgent';
+  priority?: "low" | "medium" | "high" | "urgent";
   estimated_duration_minutes?: number;
 }
 
@@ -34,7 +34,7 @@ export interface TimeClockEntry {
   clock_out_longitude?: number;
   total_hours?: number;
   notes?: string;
-  status: 'clocked_in' | 'clocked_out';
+  status: "clocked_in" | "clocked_out";
 }
 
 export interface ClockInInput {

@@ -52,10 +52,10 @@ const AVERAGE_DRIVING_SPEED_MPS = 11;
 
 /** Speed multiplier for different road types */
 const SPEED_MULTIPLIERS = {
-  urban: 0.7,    // Slower due to traffic lights, stops
+  urban: 0.7, // Slower due to traffic lights, stops
   suburban: 0.9, // Moderate traffic
-  rural: 1.1,    // Faster, less traffic
-  highway: 1.5,  // Highway speeds
+  rural: 1.1, // Faster, less traffic
+  highway: 1.5, // Highway speeds
 } as const;
 
 // ============================================
@@ -74,7 +74,7 @@ export function calculateDistance(
   lat1: number,
   lng1: number,
   lat2: number,
-  lng2: number
+  lng2: number,
 ): number {
   const dLat = toRadians(lat2 - lat1);
   const dLng = toRadians(lng2 - lng1);
@@ -96,7 +96,7 @@ export function calculateDistance(
  */
 export function calculateDistanceBetweenPoints(
   point1: Coordinates,
-  point2: Coordinates
+  point2: Coordinates,
 ): number {
   return calculateDistance(point1.lat, point1.lng, point2.lat, point2.lng);
 }
@@ -127,7 +127,7 @@ export function calculateRouteDistance(points: Coordinates[]): number {
  */
 export function estimateTravelTime(
   distanceMeters: number,
-  speedMultiplier = 1
+  speedMultiplier = 1,
 ): TravelTimeEstimate {
   const speedMps = AVERAGE_DRIVING_SPEED_MPS * speedMultiplier;
   const durationSeconds = Math.round(distanceMeters / speedMps);
@@ -146,7 +146,7 @@ export function estimateTravelTime(
 export function estimateTravelTimeBetweenPoints(
   from: Coordinates,
   to: Coordinates,
-  roadType: keyof typeof SPEED_MULTIPLIERS = 'urban'
+  roadType: keyof typeof SPEED_MULTIPLIERS = "urban",
 ): TravelTimeEstimate {
   const distance = calculateDistanceBetweenPoints(from, to);
   return estimateTravelTime(distance, SPEED_MULTIPLIERS[roadType]);
@@ -158,10 +158,11 @@ export function estimateTravelTimeBetweenPoints(
 export function calculateETA(
   currentLocation: Coordinates,
   destination: Coordinates,
-  currentSpeed?: number // meters per second
+  currentSpeed?: number, // meters per second
 ): Date {
   const distance = calculateDistanceBetweenPoints(currentLocation, destination);
-  const speed = currentSpeed && currentSpeed > 0 ? currentSpeed : AVERAGE_DRIVING_SPEED_MPS;
+  const speed =
+    currentSpeed && currentSpeed > 0 ? currentSpeed : AVERAGE_DRIVING_SPEED_MPS;
   const durationSeconds = distance / speed;
 
   return new Date(Date.now() + durationSeconds * 1000);
@@ -177,7 +178,7 @@ export function calculateETA(
  * @returns Formatted distance string
  */
 export function formatDistance(meters: number): string {
-  if (meters < 0) return '0 m';
+  if (meters < 0) return "0 m";
 
   // Less than 1000 meters, show in meters
   if (meters < 1000) {
@@ -198,7 +199,7 @@ export function formatDistance(meters: number): string {
  * Format distance in kilometers
  */
 export function formatDistanceKm(meters: number): string {
-  if (meters < 0) return '0 m';
+  if (meters < 0) return "0 m";
 
   if (meters < 1000) {
     return `${Math.round(meters)} m`;
@@ -218,19 +219,19 @@ export function formatDistanceKm(meters: number): string {
  * @returns Formatted duration string
  */
 export function formatDuration(seconds: number): string {
-  if (seconds < 0) return '0 min';
+  if (seconds < 0) return "0 min";
 
   const minutes = Math.floor(seconds / 60);
   const hours = Math.floor(minutes / 60);
   const remainingMinutes = minutes % 60;
 
   if (hours === 0) {
-    if (minutes < 1) return '< 1 min';
+    if (minutes < 1) return "< 1 min";
     return `${minutes} min`;
   }
 
   if (remainingMinutes === 0) {
-    return hours === 1 ? '1 hr' : `${hours} hrs`;
+    return hours === 1 ? "1 hr" : `${hours} hrs`;
   }
 
   return `${hours} hr ${remainingMinutes} min`;
@@ -240,9 +241,9 @@ export function formatDuration(seconds: number): string {
  * Format ETA time for display
  */
 export function formatETATime(eta: Date): string {
-  return eta.toLocaleTimeString('en-US', {
-    hour: 'numeric',
-    minute: '2-digit',
+  return eta.toLocaleTimeString("en-US", {
+    hour: "numeric",
+    minute: "2-digit",
     hour12: true,
   });
 }
@@ -259,7 +260,7 @@ export function formatETATime(eta: Date): string {
  */
 export function isWithinGeofence(
   location: Coordinates,
-  geofence: Geofence
+  geofence: Geofence,
 ): boolean {
   const distance = calculateDistanceBetweenPoints(location, geofence.center);
   return distance <= geofence.radiusMeters;
@@ -271,7 +272,7 @@ export function isWithinGeofence(
  */
 export function getDistanceToGeofenceBoundary(
   location: Coordinates,
-  geofence: Geofence
+  geofence: Geofence,
 ): number {
   const distance = calculateDistanceBetweenPoints(location, geofence.center);
   return distance - geofence.radiusMeters;
@@ -283,15 +284,15 @@ export function getDistanceToGeofenceBoundary(
 export function detectGeofenceCrossing(
   previousLocation: Coordinates | null,
   currentLocation: Coordinates,
-  geofence: Geofence
-): 'enter' | 'exit' | null {
+  geofence: Geofence,
+): "enter" | "exit" | null {
   if (!previousLocation) return null;
 
   const wasInside = isWithinGeofence(previousLocation, geofence);
   const isInside = isWithinGeofence(currentLocation, geofence);
 
-  if (!wasInside && isInside) return 'enter';
-  if (wasInside && !isInside) return 'exit';
+  if (!wasInside && isInside) return "enter";
+  if (wasInside && !isInside) return "exit";
   return null;
 }
 
@@ -307,7 +308,7 @@ export function detectGeofenceCrossing(
  */
 export function optimizeRouteOrder(
   start: Coordinates,
-  points: Coordinates[]
+  points: Coordinates[],
 ): Coordinates[] {
   if (points.length <= 1) return [...points];
 
@@ -318,10 +319,16 @@ export function optimizeRouteOrder(
   while (remaining.length > 0) {
     // Find nearest point
     let nearestIndex = 0;
-    let nearestDistance = calculateDistanceBetweenPoints(currentPoint, remaining[0]);
+    let nearestDistance = calculateDistanceBetweenPoints(
+      currentPoint,
+      remaining[0],
+    );
 
     for (let i = 1; i < remaining.length; i++) {
-      const distance = calculateDistanceBetweenPoints(currentPoint, remaining[i]);
+      const distance = calculateDistanceBetweenPoints(
+        currentPoint,
+        remaining[i],
+      );
       if (distance < nearestDistance) {
         nearestDistance = distance;
         nearestIndex = i;
@@ -349,7 +356,9 @@ export function calculateRouteInfo(points: Coordinates[]): RouteInfo {
     const from = points[i];
     const to = points[i + 1];
     const distanceMeters = calculateDistanceBetweenPoints(from, to);
-    const durationSeconds = Math.round(distanceMeters / AVERAGE_DRIVING_SPEED_MPS);
+    const durationSeconds = Math.round(
+      distanceMeters / AVERAGE_DRIVING_SPEED_MPS,
+    );
 
     segments.push({
       from,
@@ -383,7 +392,9 @@ export function calculateBearing(from: Coordinates, to: Coordinates): number {
   const lat2 = toRadians(to.lat);
 
   const x = Math.sin(dLng) * Math.cos(lat2);
-  const y = Math.cos(lat1) * Math.sin(lat2) - Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
+  const y =
+    Math.cos(lat1) * Math.sin(lat2) -
+    Math.sin(lat1) * Math.cos(lat2) * Math.cos(dLng);
 
   const bearing = Math.atan2(x, y);
   return (toDegrees(bearing) + 360) % 360;
@@ -393,7 +404,7 @@ export function calculateBearing(from: Coordinates, to: Coordinates): number {
  * Get compass direction from bearing
  */
 export function getCompassDirection(bearing: number): string {
-  const directions = ['N', 'NE', 'E', 'SE', 'S', 'SW', 'W', 'NW'];
+  const directions = ["N", "NE", "E", "SE", "S", "SW", "W", "NW"];
   const index = Math.round(bearing / 45) % 8;
   return directions[index];
 }
@@ -403,8 +414,14 @@ export function getCompassDirection(bearing: number): string {
  */
 export function getCompassDirectionFull(bearing: number): string {
   const directions = [
-    'North', 'Northeast', 'East', 'Southeast',
-    'South', 'Southwest', 'West', 'Northwest'
+    "North",
+    "Northeast",
+    "East",
+    "Southeast",
+    "South",
+    "Southwest",
+    "West",
+    "Northwest",
   ];
   const index = Math.round(bearing / 45) % 8;
   return directions[index];
@@ -485,8 +502,8 @@ export function getBoundingBox(points: Coordinates[]): {
  */
 export function isValidCoordinate(coord: Coordinates): boolean {
   return (
-    typeof coord.lat === 'number' &&
-    typeof coord.lng === 'number' &&
+    typeof coord.lat === "number" &&
+    typeof coord.lng === "number" &&
     !isNaN(coord.lat) &&
     !isNaN(coord.lng) &&
     coord.lat >= -90 &&

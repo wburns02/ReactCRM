@@ -3,22 +3,53 @@
  * Real-time map showing technician locations, work orders, and geofences
  */
 
-import { useState, useEffect, useCallback } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Circle, useMap, Polyline } from 'react-leaflet';
-import L from 'leaflet';
-import { cn } from '@/lib/utils.ts';
-import { useDispatchMapData, useLocationHistory } from '@/hooks/useGPSTracking.ts';
-import type { DispatchMapTechnician, DispatchMapWorkOrder, Geofence } from '@/api/types/gpsTracking.ts';
+import { useState, useEffect, useCallback } from "react";
 import {
-  MapPin, Truck, User, Clock, Battery, Navigation, AlertTriangle,
-  Phone, ChevronRight, RefreshCw, Layers, EyeOff
-} from 'lucide-react';
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Circle,
+  useMap,
+  Polyline,
+} from "react-leaflet";
+import L from "leaflet";
+import { cn } from "@/lib/utils.ts";
+import {
+  useDispatchMapData,
+  useLocationHistory,
+} from "@/hooks/useGPSTracking.ts";
+import type {
+  DispatchMapTechnician,
+  DispatchMapWorkOrder,
+  Geofence,
+} from "@/api/types/gpsTracking.ts";
+import {
+  MapPin,
+  Truck,
+  User,
+  Clock,
+  Battery,
+  Navigation,
+  AlertTriangle,
+  Phone,
+  ChevronRight,
+  RefreshCw,
+  Layers,
+  EyeOff,
+} from "lucide-react";
 
 // Custom marker icons
 const createTechnicianIcon = (status: string, isStale: boolean) => {
-  const color = isStale ? '#9CA3AF' : status === 'en_route' ? '#3B82F6' : status === 'on_site' ? '#10B981' : '#6B7280';
+  const color = isStale
+    ? "#9CA3AF"
+    : status === "en_route"
+      ? "#3B82F6"
+      : status === "on_site"
+        ? "#10B981"
+        : "#6B7280";
   return L.divIcon({
-    className: 'custom-marker',
+    className: "custom-marker",
     html: `
       <div style="
         background-color: ${color};
@@ -45,10 +76,20 @@ const createTechnicianIcon = (status: string, isStale: boolean) => {
 };
 
 const createWorkOrderIcon = (status: string, priority: string) => {
-  const color = priority === 'urgent' ? '#EF4444' : priority === 'high' ? '#F59E0B' : '#6B7280';
-  const fill = status === 'completed' ? '#10B981' : status === 'in_progress' ? '#3B82F6' : color;
+  const color =
+    priority === "urgent"
+      ? "#EF4444"
+      : priority === "high"
+        ? "#F59E0B"
+        : "#6B7280";
+  const fill =
+    status === "completed"
+      ? "#10B981"
+      : status === "in_progress"
+        ? "#3B82F6"
+        : color;
   return L.divIcon({
-    className: 'custom-marker',
+    className: "custom-marker",
     html: `
       <div style="
         background-color: white;
@@ -95,23 +136,30 @@ interface TechnicianPopupProps {
 
 function TechnicianPopup({ technician, onViewHistory }: TechnicianPopupProps) {
   const statusColors: Record<string, string> = {
-    available: 'bg-gray-500',
-    en_route: 'bg-blue-500',
-    on_site: 'bg-green-500',
-    break: 'bg-yellow-500',
+    available: "bg-gray-500",
+    en_route: "bg-blue-500",
+    on_site: "bg-green-500",
+    break: "bg-yellow-500",
   };
 
   return (
     <div className="min-w-[240px]">
       <div className="flex items-center gap-2 mb-2">
-        <div className={cn('w-3 h-3 rounded-full', statusColors[technician.status] || 'bg-gray-400')} />
+        <div
+          className={cn(
+            "w-3 h-3 rounded-full",
+            statusColors[technician.status] || "bg-gray-400",
+          )}
+        />
         <span className="font-semibold text-gray-900">{technician.name}</span>
       </div>
 
       <div className="space-y-1 text-sm text-gray-600">
         <div className="flex items-center gap-2">
           <Navigation className="w-4 h-4" />
-          <span className="capitalize">{technician.status.replace('_', ' ')}</span>
+          <span className="capitalize">
+            {technician.status.replace("_", " ")}
+          </span>
         </div>
 
         {technician.speed !== undefined && technician.speed > 0 && (
@@ -123,7 +171,12 @@ function TechnicianPopup({ technician, onViewHistory }: TechnicianPopupProps) {
 
         {technician.battery_level !== undefined && (
           <div className="flex items-center gap-2">
-            <Battery className={cn('w-4 h-4', technician.battery_level < 20 ? 'text-red-500' : '')} />
+            <Battery
+              className={cn(
+                "w-4 h-4",
+                technician.battery_level < 20 ? "text-red-500" : "",
+              )}
+            />
             <span>{technician.battery_level}%</span>
           </div>
         )}
@@ -137,7 +190,9 @@ function TechnicianPopup({ technician, onViewHistory }: TechnicianPopupProps) {
 
         <div className="flex items-center gap-2 text-xs text-gray-400 mt-2">
           <Clock className="w-3 h-3" />
-          <span>Updated {new Date(technician.last_updated).toLocaleTimeString()}</span>
+          <span>
+            Updated {new Date(technician.last_updated).toLocaleTimeString()}
+          </span>
           {technician.is_stale && (
             <AlertTriangle className="w-3 h-3 text-yellow-500" />
           )}
@@ -169,20 +224,22 @@ interface WorkOrderPopupProps {
 
 function WorkOrderPopup({ workOrder, onViewDetails }: WorkOrderPopupProps) {
   const priorityColors: Record<string, string> = {
-    urgent: 'bg-red-500',
-    high: 'bg-orange-500',
-    normal: 'bg-gray-500',
-    low: 'bg-blue-500',
+    urgent: "bg-red-500",
+    high: "bg-orange-500",
+    normal: "bg-gray-500",
+    low: "bg-blue-500",
   };
 
   return (
     <div className="min-w-[220px]">
       <div className="flex items-center justify-between mb-2">
         <span className="font-semibold text-gray-900">WO #{workOrder.id}</span>
-        <span className={cn(
-          'px-2 py-0.5 rounded text-xs text-white',
-          priorityColors[workOrder.priority] || 'bg-gray-500'
-        )}>
+        <span
+          className={cn(
+            "px-2 py-0.5 rounded text-xs text-white",
+            priorityColors[workOrder.priority] || "bg-gray-500",
+          )}
+        >
           {workOrder.priority}
         </span>
       </div>
@@ -195,7 +252,10 @@ function WorkOrderPopup({ workOrder, onViewDetails }: WorkOrderPopupProps) {
         {workOrder.scheduled_time && (
           <div className="flex items-center gap-1 text-xs">
             <Clock className="w-3 h-3" />
-            {new Date(workOrder.scheduled_time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
+            {new Date(workOrder.scheduled_time).toLocaleTimeString([], {
+              hour: "2-digit",
+              minute: "2-digit",
+            })}
           </div>
         )}
 
@@ -226,16 +286,27 @@ interface LiveDispatchMapProps {
 export function LiveDispatchMap({
   className,
   onTechnicianSelect: _onTechnicianSelect,
-  onWorkOrderSelect
+  onWorkOrderSelect,
 }: LiveDispatchMapProps) {
   const [showTechnicians, setShowTechnicians] = useState(true);
   const [showWorkOrders, setShowWorkOrders] = useState(true);
   const [showGeofences, setShowGeofences] = useState(false);
-  const [selectedTechnicianId, setSelectedTechnicianId] = useState<number | null>(null);
+  const [selectedTechnicianId, setSelectedTechnicianId] = useState<
+    number | null
+  >(null);
   const [showHistory, setShowHistory] = useState(false);
 
-  const { data: mapData, isLoading, refetch, dataUpdatedAt } = useDispatchMapData();
-  const { data: historyData } = useLocationHistory(selectedTechnicianId || 0, undefined, undefined);
+  const {
+    data: mapData,
+    isLoading,
+    refetch,
+    dataUpdatedAt,
+  } = useDispatchMapData();
+  const { data: historyData } = useLocationHistory(
+    selectedTechnicianId || 0,
+    undefined,
+    undefined,
+  );
 
   const handleViewHistory = useCallback((techId: number) => {
     setSelectedTechnicianId(techId);
@@ -244,7 +315,12 @@ export function LiveDispatchMap({
 
   if (isLoading) {
     return (
-      <div className={cn('flex items-center justify-center h-[500px] bg-gray-100 rounded-lg', className)}>
+      <div
+        className={cn(
+          "flex items-center justify-center h-[500px] bg-gray-100 rounded-lg",
+          className,
+        )}
+      >
         <div className="flex items-center gap-2 text-gray-500">
           <RefreshCw className="w-5 h-5 animate-spin" />
           <span>Loading map data...</span>
@@ -255,11 +331,11 @@ export function LiveDispatchMap({
 
   const center: [number, number] = [
     mapData?.center_latitude || 32.0,
-    mapData?.center_longitude || -96.0
+    mapData?.center_longitude || -96.0,
   ];
 
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn("relative", className)}>
       {/* Map Controls */}
       <div className="absolute top-4 right-4 z-[1000] flex flex-col gap-2">
         <div className="bg-white rounded-lg shadow-lg p-2 space-y-2">
@@ -275,8 +351,10 @@ export function LiveDispatchMap({
             <button
               onClick={() => setShowTechnicians(!showTechnicians)}
               className={cn(
-                'p-2 rounded flex items-center gap-2 text-sm w-full',
-                showTechnicians ? 'bg-blue-50 text-blue-600' : 'hover:bg-gray-100'
+                "p-2 rounded flex items-center gap-2 text-sm w-full",
+                showTechnicians
+                  ? "bg-blue-50 text-blue-600"
+                  : "hover:bg-gray-100",
               )}
               title="Toggle Technicians"
             >
@@ -286,8 +364,10 @@ export function LiveDispatchMap({
             <button
               onClick={() => setShowWorkOrders(!showWorkOrders)}
               className={cn(
-                'p-2 rounded flex items-center gap-2 text-sm w-full',
-                showWorkOrders ? 'bg-green-50 text-green-600' : 'hover:bg-gray-100'
+                "p-2 rounded flex items-center gap-2 text-sm w-full",
+                showWorkOrders
+                  ? "bg-green-50 text-green-600"
+                  : "hover:bg-gray-100",
               )}
               title="Toggle Work Orders"
             >
@@ -297,8 +377,10 @@ export function LiveDispatchMap({
             <button
               onClick={() => setShowGeofences(!showGeofences)}
               className={cn(
-                'p-2 rounded flex items-center gap-2 text-sm w-full',
-                showGeofences ? 'bg-purple-50 text-purple-600' : 'hover:bg-gray-100'
+                "p-2 rounded flex items-center gap-2 text-sm w-full",
+                showGeofences
+                  ? "bg-purple-50 text-purple-600"
+                  : "hover:bg-gray-100",
               )}
               title="Toggle Geofences"
             >
@@ -313,11 +395,17 @@ export function LiveDispatchMap({
         <div className="flex items-center gap-4 text-sm">
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-green-500" />
-            <span>{mapData?.technicians.filter(t => !t.is_stale).length || 0} Online</span>
+            <span>
+              {mapData?.technicians.filter((t) => !t.is_stale).length || 0}{" "}
+              Online
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <div className="w-3 h-3 rounded-full bg-gray-300" />
-            <span>{mapData?.technicians.filter(t => t.is_stale).length || 0} Offline</span>
+            <span>
+              {mapData?.technicians.filter((t) => t.is_stale).length || 0}{" "}
+              Offline
+            </span>
           </div>
           <div className="flex items-center gap-2">
             <MapPin className="w-4 h-4 text-blue-500" />
@@ -344,74 +432,90 @@ export function LiveDispatchMap({
         <MapController center={center} zoom={mapData?.zoom_level || 10} />
 
         {/* Geofences */}
-        {showGeofences && mapData?.geofences.map((geofence: Geofence) => (
-          geofence.center_latitude && geofence.center_longitude && geofence.radius_meters && (
-            <Circle
-              key={geofence.id}
-              center={[geofence.center_latitude, geofence.center_longitude]}
-              radius={geofence.radius_meters}
-              pathOptions={{
-                color: geofence.geofence_type === 'office' ? '#3B82F6' :
-                       geofence.geofence_type === 'customer_site' ? '#10B981' :
-                       '#9333EA',
-                fillOpacity: 0.1,
-                weight: 2,
-              }}
-            >
-              <Popup>
-                <div className="text-sm">
-                  <div className="font-semibold">{geofence.name}</div>
-                  <div className="text-gray-500 capitalize">{geofence.geofence_type.replace('_', ' ')}</div>
-                </div>
-              </Popup>
-            </Circle>
-          )
-        ))}
+        {showGeofences &&
+          mapData?.geofences.map(
+            (geofence: Geofence) =>
+              geofence.center_latitude &&
+              geofence.center_longitude &&
+              geofence.radius_meters && (
+                <Circle
+                  key={geofence.id}
+                  center={[geofence.center_latitude, geofence.center_longitude]}
+                  radius={geofence.radius_meters}
+                  pathOptions={{
+                    color:
+                      geofence.geofence_type === "office"
+                        ? "#3B82F6"
+                        : geofence.geofence_type === "customer_site"
+                          ? "#10B981"
+                          : "#9333EA",
+                    fillOpacity: 0.1,
+                    weight: 2,
+                  }}
+                >
+                  <Popup>
+                    <div className="text-sm">
+                      <div className="font-semibold">{geofence.name}</div>
+                      <div className="text-gray-500 capitalize">
+                        {geofence.geofence_type.replace("_", " ")}
+                      </div>
+                    </div>
+                  </Popup>
+                </Circle>
+              ),
+          )}
 
         {/* Work Orders */}
-        {showWorkOrders && mapData?.work_orders.map((wo: DispatchMapWorkOrder) => (
-          <Marker
-            key={`wo-${wo.id}`}
-            position={[wo.latitude, wo.longitude]}
-            icon={createWorkOrderIcon(wo.status, wo.priority)}
-          >
-            <Popup>
-              <WorkOrderPopup
-                workOrder={wo}
-                onViewDetails={onWorkOrderSelect}
-              />
-            </Popup>
-          </Marker>
-        ))}
+        {showWorkOrders &&
+          mapData?.work_orders.map((wo: DispatchMapWorkOrder) => (
+            <Marker
+              key={`wo-${wo.id}`}
+              position={[wo.latitude, wo.longitude]}
+              icon={createWorkOrderIcon(wo.status, wo.priority)}
+            >
+              <Popup>
+                <WorkOrderPopup
+                  workOrder={wo}
+                  onViewDetails={onWorkOrderSelect}
+                />
+              </Popup>
+            </Marker>
+          ))}
 
         {/* Technicians */}
-        {showTechnicians && mapData?.technicians.map((tech: DispatchMapTechnician) => (
-          <Marker
-            key={`tech-${tech.id}`}
-            position={[tech.latitude, tech.longitude]}
-            icon={createTechnicianIcon(tech.status, tech.is_stale)}
-          >
-            <Popup>
-              <TechnicianPopup
-                technician={tech}
-                onViewHistory={handleViewHistory}
-              />
-            </Popup>
-          </Marker>
-        ))}
+        {showTechnicians &&
+          mapData?.technicians.map((tech: DispatchMapTechnician) => (
+            <Marker
+              key={`tech-${tech.id}`}
+              position={[tech.latitude, tech.longitude]}
+              icon={createTechnicianIcon(tech.status, tech.is_stale)}
+            >
+              <Popup>
+                <TechnicianPopup
+                  technician={tech}
+                  onViewHistory={handleViewHistory}
+                />
+              </Popup>
+            </Marker>
+          ))}
 
         {/* Location History Trail */}
-        {showHistory && historyData?.points && historyData.points.length > 1 && (
-          <Polyline
-            positions={historyData.points.map(p => [p.latitude, p.longitude])}
-            pathOptions={{
-              color: '#3B82F6',
-              weight: 3,
-              opacity: 0.7,
-              dashArray: '5, 10',
-            }}
-          />
-        )}
+        {showHistory &&
+          historyData?.points &&
+          historyData.points.length > 1 && (
+            <Polyline
+              positions={historyData.points.map((p) => [
+                p.latitude,
+                p.longitude,
+              ])}
+              pathOptions={{
+                color: "#3B82F6",
+                weight: 3,
+                opacity: 0.7,
+                dashArray: "5, 10",
+              }}
+            />
+          )}
       </MapContainer>
 
       {/* History Panel */}
@@ -428,12 +532,18 @@ export function LiveDispatchMap({
           </div>
           {historyData ? (
             <div className="text-sm space-y-1">
-              <div>Distance: {historyData.total_distance_miles.toFixed(1)} miles</div>
+              <div>
+                Distance: {historyData.total_distance_miles.toFixed(1)} miles
+              </div>
               <div>Duration: {historyData.total_duration_minutes} minutes</div>
               {historyData.average_speed_mph && (
-                <div>Avg Speed: {historyData.average_speed_mph.toFixed(1)} mph</div>
+                <div>
+                  Avg Speed: {historyData.average_speed_mph.toFixed(1)} mph
+                </div>
               )}
-              <div className="text-xs text-gray-400">{historyData.points.length} points</div>
+              <div className="text-xs text-gray-400">
+                {historyData.points.length} points
+              </div>
             </div>
           ) : (
             <div className="text-sm text-gray-500">Loading history...</div>

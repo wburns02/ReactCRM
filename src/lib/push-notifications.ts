@@ -7,15 +7,15 @@
  * Check if push notifications are supported
  */
 export function isPushSupported(): boolean {
-  return 'serviceWorker' in navigator && 'PushManager' in window;
+  return "serviceWorker" in navigator && "PushManager" in window;
 }
 
 /**
  * Check if notifications are permitted
  */
 export function getNotificationPermission(): NotificationPermission {
-  if (!('Notification' in window)) {
-    return 'denied';
+  if (!("Notification" in window)) {
+    return "denied";
   }
   return Notification.permission;
 }
@@ -24,17 +24,17 @@ export function getNotificationPermission(): NotificationPermission {
  * Request notification permission from user
  */
 export async function requestNotificationPermission(): Promise<NotificationPermission> {
-  if (!('Notification' in window)) {
-    console.warn('Notifications not supported');
-    return 'denied';
+  if (!("Notification" in window)) {
+    console.warn("Notifications not supported");
+    return "denied";
   }
 
-  if (Notification.permission === 'granted') {
-    return 'granted';
+  if (Notification.permission === "granted") {
+    return "granted";
   }
 
-  if (Notification.permission === 'denied') {
-    return 'denied';
+  if (Notification.permission === "denied") {
+    return "denied";
   }
 
   return await Notification.requestPermission();
@@ -44,10 +44,8 @@ export async function requestNotificationPermission(): Promise<NotificationPermi
  * Convert VAPID key from base64 to Uint8Array
  */
 function urlBase64ToUint8Array(base64String: string): Uint8Array {
-  const padding = '='.repeat((4 - (base64String.length % 4)) % 4);
-  const base64 = (base64String + padding)
-    .replace(/-/g, '+')
-    .replace(/_/g, '/');
+  const padding = "=".repeat((4 - (base64String.length % 4)) % 4);
+  const base64 = (base64String + padding).replace(/-/g, "+").replace(/_/g, "/");
 
   const rawData = window.atob(base64);
   const outputArray = new Uint8Array(rawData.length);
@@ -68,14 +66,14 @@ export async function subscribeToPush(vapidPublicKey: string): Promise<{
   auth: string;
 } | null> {
   if (!isPushSupported()) {
-    console.warn('Push notifications not supported');
+    console.warn("Push notifications not supported");
     return null;
   }
 
   // Request permission first
   const permission = await requestNotificationPermission();
-  if (permission !== 'granted') {
-    console.warn('Notification permission denied');
+  if (permission !== "granted") {
+    console.warn("Notification permission denied");
     return null;
   }
 
@@ -100,7 +98,7 @@ export async function subscribeToPush(vapidPublicKey: string): Promise<{
     const keys = subscriptionJson.keys;
 
     if (!keys?.p256dh || !keys?.auth) {
-      console.error('Missing subscription keys');
+      console.error("Missing subscription keys");
       return null;
     }
 
@@ -110,7 +108,7 @@ export async function subscribeToPush(vapidPublicKey: string): Promise<{
       auth: keys.auth,
     };
   } catch (error) {
-    console.error('Failed to subscribe to push:', error);
+    console.error("Failed to subscribe to push:", error);
     return null;
   }
 }
@@ -133,7 +131,7 @@ export async function unsubscribeFromPush(): Promise<boolean> {
 
     return true;
   } catch (error) {
-    console.error('Failed to unsubscribe from push:', error);
+    console.error("Failed to unsubscribe from push:", error);
     return false;
   }
 }
@@ -150,7 +148,7 @@ export async function getCurrentSubscription(): Promise<PushSubscription | null>
     const registration = await navigator.serviceWorker.ready;
     return await registration.pushManager.getSubscription();
   } catch (error) {
-    console.error('Failed to get subscription:', error);
+    console.error("Failed to get subscription:", error);
     return null;
   }
 }
@@ -160,16 +158,16 @@ export async function getCurrentSubscription(): Promise<PushSubscription | null>
  */
 export function showLocalNotification(
   title: string,
-  options?: NotificationOptions
+  options?: NotificationOptions,
 ): void {
-  if (Notification.permission !== 'granted') {
-    console.warn('Notification permission not granted');
+  if (Notification.permission !== "granted") {
+    console.warn("Notification permission not granted");
     return;
   }
 
   new Notification(title, {
-    icon: '/pwa-192x192.svg',
-    badge: '/pwa-192x192.svg',
+    icon: "/pwa-192x192.svg",
+    badge: "/pwa-192x192.svg",
     ...options,
   });
 }
@@ -180,12 +178,12 @@ export function showLocalNotification(
 export function getDeviceName(): string {
   const ua = navigator.userAgent;
 
-  if (/iPhone/i.test(ua)) return 'iPhone';
-  if (/iPad/i.test(ua)) return 'iPad';
-  if (/Android/i.test(ua)) return 'Android Device';
-  if (/Windows/i.test(ua)) return 'Windows PC';
-  if (/Mac/i.test(ua)) return 'Mac';
-  if (/Linux/i.test(ua)) return 'Linux PC';
+  if (/iPhone/i.test(ua)) return "iPhone";
+  if (/iPad/i.test(ua)) return "iPad";
+  if (/Android/i.test(ua)) return "Android Device";
+  if (/Windows/i.test(ua)) return "Windows PC";
+  if (/Mac/i.test(ua)) return "Mac";
+  if (/Linux/i.test(ua)) return "Linux PC";
 
-  return 'Unknown Device';
+  return "Unknown Device";
 }

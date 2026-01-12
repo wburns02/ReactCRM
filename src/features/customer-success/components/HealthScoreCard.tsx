@@ -4,10 +4,10 @@
  * A card displaying customer health score with breakdown by component.
  */
 
-import { useMemo } from 'react';
-import { cn } from '@/lib/utils.ts';
-import { HealthScoreGauge } from './HealthScoreGauge.tsx';
-import type { HealthScore } from '@/api/types/customerSuccess.ts';
+import { useMemo } from "react";
+import { cn } from "@/lib/utils.ts";
+import { HealthScoreGauge } from "./HealthScoreGauge.tsx";
+import type { HealthScore } from "@/api/types/customerSuccess.ts";
 
 interface HealthScoreCardProps {
   healthScore: HealthScore;
@@ -17,11 +17,11 @@ interface HealthScoreCardProps {
 }
 
 const COMPONENT_LABELS: Record<string, string> = {
-  product_adoption: 'Product Adoption',
-  engagement: 'Engagement',
-  relationship: 'Relationship',
-  financial: 'Financial',
-  support: 'Support',
+  product_adoption: "Product Adoption",
+  engagement: "Engagement",
+  relationship: "Relationship",
+  financial: "Financial",
+  support: "Support",
 };
 
 const COMPONENT_WEIGHTS: Record<string, number> = {
@@ -32,11 +32,19 @@ const COMPONENT_WEIGHTS: Record<string, number> = {
   support: 10,
 };
 
-function ScoreBar({ label, score, weight }: { label: string; score: number; weight: number }) {
+function ScoreBar({
+  label,
+  score,
+  weight,
+}: {
+  label: string;
+  score: number;
+  weight: number;
+}) {
   const barColor = useMemo(() => {
-    if (score >= 70) return 'bg-success';
-    if (score >= 40) return 'bg-warning';
-    return 'bg-danger';
+    if (score >= 70) return "bg-success";
+    if (score >= 40) return "bg-warning";
+    return "bg-danger";
   }, [score]);
 
   return (
@@ -49,7 +57,10 @@ function ScoreBar({ label, score, weight }: { label: string; score: number; weig
       </div>
       <div className="h-2 bg-bg-tertiary rounded-full overflow-hidden">
         <div
-          className={cn('h-full rounded-full transition-all duration-500', barColor)}
+          className={cn(
+            "h-full rounded-full transition-all duration-500",
+            barColor,
+          )}
           style={{ width: `${score}%` }}
         />
       </div>
@@ -65,29 +76,38 @@ export function HealthScoreCard({
   const lastUpdated = useMemo(() => {
     if (!healthScore.calculated_at) return null;
     const date = new Date(healthScore.calculated_at);
-    return date.toLocaleDateString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      hour: '2-digit',
-      minute: '2-digit',
+    return date.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "2-digit",
+      minute: "2-digit",
     });
   }, [healthScore.calculated_at]);
 
   const components = [
-    { key: 'product_adoption', score: healthScore.product_adoption_score },
-    { key: 'engagement', score: healthScore.engagement_score },
-    { key: 'relationship', score: healthScore.relationship_score },
-    { key: 'financial', score: healthScore.financial_score },
-    { key: 'support', score: healthScore.support_score },
+    { key: "product_adoption", score: healthScore.product_adoption_score },
+    { key: "engagement", score: healthScore.engagement_score },
+    { key: "relationship", score: healthScore.relationship_score },
+    { key: "financial", score: healthScore.financial_score },
+    { key: "support", score: healthScore.support_score },
   ];
 
   return (
-    <div className={cn('bg-bg-secondary rounded-lg border border-border p-4', className)}>
+    <div
+      className={cn(
+        "bg-bg-secondary rounded-lg border border-border p-4",
+        className,
+      )}
+    >
       <div className="flex items-start justify-between mb-4">
         <div>
-          <h3 className="text-lg font-semibold text-text-primary">Health Score</h3>
+          <h3 className="text-lg font-semibold text-text-primary">
+            Health Score
+          </h3>
           {lastUpdated && (
-            <p className="text-xs text-text-muted mt-1">Updated {lastUpdated}</p>
+            <p className="text-xs text-text-muted mt-1">
+              Updated {lastUpdated}
+            </p>
           )}
         </div>
         <HealthScoreGauge
@@ -101,7 +121,9 @@ export function HealthScoreCard({
 
       {showBreakdown && (
         <div className="space-y-3 pt-4 border-t border-border">
-          <h4 className="text-sm font-medium text-text-secondary">Score Breakdown</h4>
+          <h4 className="text-sm font-medium text-text-secondary">
+            Score Breakdown
+          </h4>
           {components.map(({ key, score }) => (
             <ScoreBar
               key={key}
@@ -118,7 +140,10 @@ export function HealthScoreCard({
           <h4 className="text-sm font-medium text-danger mb-2">Risk Factors</h4>
           <ul className="space-y-1">
             {healthScore.risk_factors.map((factor, index) => (
-              <li key={index} className="text-sm text-text-secondary flex items-start gap-2">
+              <li
+                key={index}
+                className="text-sm text-text-secondary flex items-start gap-2"
+              >
                 <span className="text-danger mt-0.5">•</span>
                 {factor}
               </li>
@@ -129,10 +154,15 @@ export function HealthScoreCard({
 
       {healthScore.opportunities && healthScore.opportunities.length > 0 && (
         <div className="mt-4 pt-4 border-t border-border">
-          <h4 className="text-sm font-medium text-success mb-2">Opportunities</h4>
+          <h4 className="text-sm font-medium text-success mb-2">
+            Opportunities
+          </h4>
           <ul className="space-y-1">
             {healthScore.opportunities.map((opportunity, index) => (
-              <li key={index} className="text-sm text-text-secondary flex items-start gap-2">
+              <li
+                key={index}
+                className="text-sm text-text-secondary flex items-start gap-2"
+              >
                 <span className="text-success mt-0.5">•</span>
                 {opportunity}
               </li>

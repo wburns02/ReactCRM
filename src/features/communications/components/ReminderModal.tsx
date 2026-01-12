@@ -1,10 +1,15 @@
-import { useState, useEffect } from 'react';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Dialog, DialogContent, DialogHeader, DialogBody } from '@/components/ui/Dialog';
-import { apiClient } from '@/api/client';
-import { toastSuccess, toastError } from '@/components/ui/Toast';
+import { useState, useEffect } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+} from "@/components/ui/Dialog";
+import { apiClient } from "@/api/client";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 interface Reminder {
   id?: number | string;
@@ -22,38 +27,34 @@ interface ReminderModalProps {
 }
 
 const TRIGGERS = [
-  { value: 'before_appointment', label: 'Before Scheduled Appointment' },
-  { value: 'after_service', label: 'After Service Complete' },
-  { value: 'invoice_created', label: 'When Invoice Created' },
-  { value: 'invoice_due', label: 'Before Invoice Due Date' },
-  { value: 'invoice_overdue', label: 'When Invoice Overdue' },
-  { value: 'service_interval', label: 'Service Interval Due' },
+  { value: "before_appointment", label: "Before Scheduled Appointment" },
+  { value: "after_service", label: "After Service Complete" },
+  { value: "invoice_created", label: "When Invoice Created" },
+  { value: "invoice_due", label: "Before Invoice Due Date" },
+  { value: "invoice_overdue", label: "When Invoice Overdue" },
+  { value: "service_interval", label: "Service Interval Due" },
 ];
 
 const TIMING_OPTIONS = [
-  { value: '1 hour before', label: '1 Hour Before' },
-  { value: '2 hours before', label: '2 Hours Before' },
-  { value: '24 hours before', label: '24 Hours Before' },
-  { value: '48 hours before', label: '48 Hours Before' },
-  { value: '3 days before', label: '3 Days Before' },
-  { value: '7 days before', label: '7 Days Before' },
-  { value: 'immediately', label: 'Immediately' },
-  { value: '1 day after', label: '1 Day After' },
-  { value: '3 days after', label: '3 Days After' },
+  { value: "1 hour before", label: "1 Hour Before" },
+  { value: "2 hours before", label: "2 Hours Before" },
+  { value: "24 hours before", label: "24 Hours Before" },
+  { value: "48 hours before", label: "48 Hours Before" },
+  { value: "3 days before", label: "3 Days Before" },
+  { value: "7 days before", label: "7 Days Before" },
+  { value: "immediately", label: "Immediately" },
+  { value: "1 day after", label: "1 Day After" },
+  { value: "3 days after", label: "3 Days After" },
 ];
 
 /**
  * Reminder Create/Edit Modal
  */
-export function ReminderModal({
-  open,
-  onClose,
-  reminder,
-}: ReminderModalProps) {
-  const [name, setName] = useState('');
-  const [trigger, setTrigger] = useState('before_appointment');
-  const [timing, setTiming] = useState('24 hours before');
-  const [channels, setChannels] = useState<string[]>(['sms']);
+export function ReminderModal({ open, onClose, reminder }: ReminderModalProps) {
+  const [name, setName] = useState("");
+  const [trigger, setTrigger] = useState("before_appointment");
+  const [timing, setTiming] = useState("24 hours before");
+  const [channels, setChannels] = useState<string[]>(["sms"]);
   const [enabled, setEnabled] = useState(true);
 
   const queryClient = useQueryClient();
@@ -68,26 +69,26 @@ export function ReminderModal({
       setChannels(reminder.channels);
       setEnabled(reminder.enabled);
     } else {
-      setName('');
-      setTrigger('before_appointment');
-      setTiming('24 hours before');
-      setChannels(['sms']);
+      setName("");
+      setTrigger("before_appointment");
+      setTiming("24 hours before");
+      setChannels(["sms"]);
       setEnabled(true);
     }
   }, [reminder, open]);
 
   const createReminder = useMutation({
-    mutationFn: async (data: Omit<Reminder, 'id'>) => {
-      const response = await apiClient.post('/reminders', data);
+    mutationFn: async (data: Omit<Reminder, "id">) => {
+      const response = await apiClient.post("/reminders", data);
       return response.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['auto-reminders'] });
-      toastSuccess('Reminder created successfully');
+      queryClient.invalidateQueries({ queryKey: ["auto-reminders"] });
+      toastSuccess("Reminder created successfully");
       onClose();
     },
     onError: () => {
-      toastError('Failed to create reminder');
+      toastError("Failed to create reminder");
     },
   });
 
@@ -97,12 +98,12 @@ export function ReminderModal({
       return response.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['auto-reminders'] });
-      toastSuccess('Reminder updated successfully');
+      queryClient.invalidateQueries({ queryKey: ["auto-reminders"] });
+      toastSuccess("Reminder updated successfully");
       onClose();
     },
     onError: () => {
-      toastError('Failed to update reminder');
+      toastError("Failed to update reminder");
     },
   });
 
@@ -122,7 +123,7 @@ export function ReminderModal({
     setChannels((prev) =>
       prev.includes(channel)
         ? prev.filter((c) => c !== channel)
-        : [...prev, channel]
+        : [...prev, channel],
     );
   };
 
@@ -132,7 +133,7 @@ export function ReminderModal({
     <Dialog open={open} onClose={onClose}>
       <DialogContent size="md">
         <DialogHeader onClose={onClose}>
-          {isEditing ? 'Edit Reminder' : 'Create Reminder'}
+          {isEditing ? "Edit Reminder" : "Create Reminder"}
         </DialogHeader>
         <DialogBody>
           <div className="space-y-4">
@@ -193,8 +194,8 @@ export function ReminderModal({
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
-                    checked={channels.includes('sms')}
-                    onChange={() => toggleChannel('sms')}
+                    checked={channels.includes("sms")}
+                    onChange={() => toggleChannel("sms")}
                     className="w-4 h-4 rounded border-border"
                   />
                   <span className="text-sm text-text-primary">SMS</span>
@@ -202,8 +203,8 @@ export function ReminderModal({
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
-                    checked={channels.includes('email')}
-                    onChange={() => toggleChannel('email')}
+                    checked={channels.includes("email")}
+                    onChange={() => toggleChannel("email")}
                     className="w-4 h-4 rounded border-border"
                   />
                   <span className="text-sm text-text-primary">Email</span>
@@ -220,7 +221,10 @@ export function ReminderModal({
                 onChange={(e) => setEnabled(e.target.checked)}
                 className="w-4 h-4 rounded border-border"
               />
-              <label htmlFor="enabled" className="text-sm text-text-primary cursor-pointer">
+              <label
+                htmlFor="enabled"
+                className="text-sm text-text-primary cursor-pointer"
+              >
                 Enable this reminder
               </label>
             </div>
@@ -234,7 +238,11 @@ export function ReminderModal({
                 onClick={handleSave}
                 disabled={!name || channels.length === 0 || isPending}
               >
-                {isPending ? 'Saving...' : isEditing ? 'Update Reminder' : 'Create Reminder'}
+                {isPending
+                  ? "Saving..."
+                  : isEditing
+                    ? "Update Reminder"
+                    : "Create Reminder"}
               </Button>
             </div>
           </div>

@@ -1,5 +1,5 @@
-import { useEffect, useRef, useCallback } from 'react';
-import { clearAuthToken } from '@/api/client';
+import { useEffect, useRef, useCallback } from "react";
+import { clearAuthToken } from "@/api/client";
 
 /**
  * Session timeout hook for security
@@ -35,7 +35,7 @@ export function useSessionTimeout({
   const handleTimeout = useCallback(() => {
     // Clear auth and redirect to login
     clearAuthToken();
-    window.dispatchEvent(new CustomEvent('auth:timeout'));
+    window.dispatchEvent(new CustomEvent("auth:timeout"));
 
     if (onTimeout) {
       onTimeout();
@@ -81,18 +81,18 @@ export function useSessionTimeout({
 
     // Activity events that reset the timeout
     const events = [
-      'mousedown',
-      'mousemove',
-      'keydown',
-      'scroll',
-      'touchstart',
-      'click',
-      'visibilitychange',
+      "mousedown",
+      "mousemove",
+      "keydown",
+      "scroll",
+      "touchstart",
+      "click",
+      "visibilitychange",
     ];
 
     const handleActivity = () => {
       // Only reset on actual user activity, not programmatic events
-      if (document.visibilityState === 'visible') {
+      if (document.visibilityState === "visible") {
         resetTimeout();
       }
     };

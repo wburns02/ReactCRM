@@ -5,12 +5,12 @@
  * scheduling, tagging, and assignment.
  */
 
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { useNavigate } from 'react-router-dom';
-import { apiClient } from '@/api/client.ts';
-import { csKeys } from '@/api/hooks/useCustomerSuccess.ts';
-import type { ExportOptions } from '@/features/customer-success/segments/ExportModal.tsx';
-import type { BulkScheduleOptions } from '@/features/customer-success/segments/BulkScheduleModal.tsx';
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
+import { apiClient } from "@/api/client.ts";
+import { csKeys } from "@/api/hooks/useCustomerSuccess.ts";
+import type { ExportOptions } from "@/features/customer-success/segments/ExportModal.tsx";
+import type { BulkScheduleOptions } from "@/features/customer-success/segments/BulkScheduleModal.tsx";
 
 // ============================================
 // Types
@@ -66,23 +66,26 @@ export function useExportSegment() {
       segmentId: number;
       options: ExportOptions;
     }): Promise<ExportResponse> => {
-      const response = await apiClient.post(`/cs/segments/${segmentId}/export`, {
-        format: options.format,
-        fields: options.fields,
-        include_health_score: options.includeHealthScore,
-        include_contact_info: options.includeContactInfo,
-        include_financials: options.includeFinancials,
-        include_tags: options.includeTags,
-        include_custom_fields: options.includeCustomFields,
-      });
+      const response = await apiClient.post(
+        `/cs/segments/${segmentId}/export`,
+        {
+          format: options.format,
+          fields: options.fields,
+          include_health_score: options.includeHealthScore,
+          include_contact_info: options.includeContactInfo,
+          include_financials: options.includeFinancials,
+          include_tags: options.includeTags,
+          include_custom_fields: options.includeCustomFields,
+        },
+      );
       return response.data;
     },
     onSuccess: async (data) => {
       // Trigger download if URL is provided
       if (data.download_url) {
-        const link = document.createElement('a');
+        const link = document.createElement("a");
         link.href = data.download_url;
-        link.download = data.filename || 'segment-export';
+        link.download = data.filename || "segment-export";
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
@@ -104,9 +107,11 @@ export function useBulkEmail() {
       const params = new URLSearchParams({
         segment_id: String(segmentId),
         segment_name: segmentName,
-        type: 'email',
+        type: "email",
       });
-      navigate(`/customer-success?tab=campaigns&action=new&${params.toString()}`);
+      navigate(
+        `/customer-success?tab=campaigns&action=new&${params.toString()}`,
+      );
     },
 
     mutation: useMutation({
@@ -119,10 +124,13 @@ export function useBulkEmail() {
         subject?: string;
         templateId?: number;
       }): Promise<BulkEmailResponse> => {
-        const response = await apiClient.post(`/cs/segments/${segmentId}/bulk-email`, {
-          subject,
-          template_id: templateId,
-        });
+        const response = await apiClient.post(
+          `/cs/segments/${segmentId}/bulk-email`,
+          {
+            subject,
+            template_id: templateId,
+          },
+        );
         return response.data;
       },
     }),
@@ -144,17 +152,20 @@ export function useBulkSchedule() {
       segmentId: number;
       options: BulkScheduleOptions;
     }): Promise<BulkScheduleResponse> => {
-      const response = await apiClient.post(`/cs/segments/${segmentId}/bulk-schedule`, {
-        scheduled_date: options.scheduledDate,
-        scheduled_time: options.scheduledTime,
-        service_type: options.serviceType,
-        priority: options.priority,
-        assignment_method: options.assignmentMethod,
-        assigned_user_id: options.assignedUserId,
-        notes: options.notes,
-        create_work_orders: options.createWorkOrders,
-        send_notifications: options.sendNotifications,
-      });
+      const response = await apiClient.post(
+        `/cs/segments/${segmentId}/bulk-schedule`,
+        {
+          scheduled_date: options.scheduledDate,
+          scheduled_time: options.scheduledTime,
+          service_type: options.serviceType,
+          priority: options.priority,
+          assignment_method: options.assignmentMethod,
+          assigned_user_id: options.assignedUserId,
+          notes: options.notes,
+          create_work_orders: options.createWorkOrders,
+          send_notifications: options.sendNotifications,
+        },
+      );
       return response.data;
     },
     onSuccess: () => {
@@ -176,20 +187,25 @@ export function useBulkTag() {
     mutationFn: async ({
       segmentId,
       tag,
-      action = 'add',
+      action = "add",
     }: {
       segmentId: number;
       tag: string;
-      action?: 'add' | 'remove';
+      action?: "add" | "remove";
     }): Promise<BulkTagResponse> => {
-      const response = await apiClient.post(`/cs/segments/${segmentId}/bulk-tag`, {
-        tag,
-        action,
-      });
+      const response = await apiClient.post(
+        `/cs/segments/${segmentId}/bulk-tag`,
+        {
+          tag,
+          action,
+        },
+      );
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: csKeys.segmentCustomers(variables.segmentId) });
+      queryClient.invalidateQueries({
+        queryKey: csKeys.segmentCustomers(variables.segmentId),
+      });
       queryClient.invalidateQueries({ queryKey: csKeys.segments });
     },
   });
@@ -206,20 +222,25 @@ export function useBulkAssign() {
     mutationFn: async ({
       segmentId,
       assignedUserId,
-      assignmentMethod = 'specific',
+      assignmentMethod = "specific",
     }: {
       segmentId: number;
       assignedUserId?: number;
-      assignmentMethod?: 'auto' | 'specific' | 'round_robin';
+      assignmentMethod?: "auto" | "specific" | "round_robin";
     }): Promise<BulkAssignResponse> => {
-      const response = await apiClient.post(`/cs/segments/${segmentId}/bulk-assign`, {
-        assigned_user_id: assignedUserId,
-        assignment_method: assignmentMethod,
-      });
+      const response = await apiClient.post(
+        `/cs/segments/${segmentId}/bulk-assign`,
+        {
+          assigned_user_id: assignedUserId,
+          assignment_method: assignmentMethod,
+        },
+      );
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: csKeys.segmentCustomers(variables.segmentId) });
+      queryClient.invalidateQueries({
+        queryKey: csKeys.segmentCustomers(variables.segmentId),
+      });
       queryClient.invalidateQueries({ queryKey: csKeys.segments });
     },
   });
@@ -236,16 +257,19 @@ export function useCreateCallList() {
     mutationFn: async ({
       segmentId,
       name,
-      priority = 'medium',
+      priority = "medium",
     }: {
       segmentId: number;
       name?: string;
-      priority?: 'low' | 'medium' | 'high' | 'critical';
+      priority?: "low" | "medium" | "high" | "critical";
     }) => {
-      const response = await apiClient.post(`/cs/segments/${segmentId}/create-call-list`, {
-        name,
-        priority,
-      });
+      const response = await apiClient.post(
+        `/cs/segments/${segmentId}/create-call-list`,
+        {
+          name,
+          priority,
+        },
+      );
       return response.data;
     },
     onSuccess: () => {
@@ -268,7 +292,7 @@ export function useBulkTasks() {
       title,
       description,
       dueDate,
-      priority = 'medium',
+      priority = "medium",
       assignedUserId,
     }: {
       segmentId: number;
@@ -276,17 +300,20 @@ export function useBulkTasks() {
       title: string;
       description?: string;
       dueDate?: string;
-      priority?: 'low' | 'medium' | 'high' | 'critical';
+      priority?: "low" | "medium" | "high" | "critical";
       assignedUserId?: number;
     }) => {
-      const response = await apiClient.post(`/cs/segments/${segmentId}/bulk-tasks`, {
-        task_type: taskType,
-        title,
-        description,
-        due_date: dueDate,
-        priority,
-        assigned_user_id: assignedUserId,
-      });
+      const response = await apiClient.post(
+        `/cs/segments/${segmentId}/bulk-tasks`,
+        {
+          task_type: taskType,
+          title,
+          description,
+          due_date: dueDate,
+          priority,
+          assigned_user_id: assignedUserId,
+        },
+      );
       return response.data;
     },
     onSuccess: () => {
@@ -309,7 +336,7 @@ export function useBulkWorkOrders() {
       title,
       description,
       scheduledDate,
-      priority = 'medium',
+      priority = "medium",
       assignedUserId,
     }: {
       segmentId: number;
@@ -317,17 +344,20 @@ export function useBulkWorkOrders() {
       title: string;
       description?: string;
       scheduledDate?: string;
-      priority?: 'low' | 'medium' | 'high' | 'critical';
+      priority?: "low" | "medium" | "high" | "critical";
       assignedUserId?: number;
     }) => {
-      const response = await apiClient.post(`/cs/segments/${segmentId}/bulk-work-orders`, {
-        work_order_type: workOrderType,
-        title,
-        description,
-        scheduled_date: scheduledDate,
-        priority,
-        assigned_user_id: assignedUserId,
-      });
+      const response = await apiClient.post(
+        `/cs/segments/${segmentId}/bulk-work-orders`,
+        {
+          work_order_type: workOrderType,
+          title,
+          description,
+          scheduled_date: scheduledDate,
+          priority,
+          assigned_user_id: assignedUserId,
+        },
+      );
       return response.data;
     },
     onSuccess: () => {
@@ -348,7 +378,7 @@ export function useLaunchCampaignForSegment() {
       const params = new URLSearchParams({
         segment_id: String(segmentId),
         segment_name: segmentName,
-        action: 'launch',
+        action: "launch",
       });
       navigate(`/customer-success?tab=campaigns&${params.toString()}`);
     },
@@ -377,7 +407,8 @@ export function useSegmentActions(segmentId: number, segmentName: string) {
     isExporting: exportMutation.isPending,
 
     // Email
-    openEmailComposer: () => bulkEmail.openCampaignComposer(segmentId, segmentName),
+    openEmailComposer: () =>
+      bulkEmail.openCampaignComposer(segmentId, segmentName),
 
     // Schedule
     scheduleService: (options: BulkScheduleOptions) =>
@@ -385,31 +416,48 @@ export function useSegmentActions(segmentId: number, segmentName: string) {
     isScheduling: bulkSchedule.isPending,
 
     // Tag
-    addTag: (tag: string) => bulkTag.mutateAsync({ segmentId, tag, action: 'add' }),
-    removeTag: (tag: string) => bulkTag.mutateAsync({ segmentId, tag, action: 'remove' }),
+    addTag: (tag: string) =>
+      bulkTag.mutateAsync({ segmentId, tag, action: "add" }),
+    removeTag: (tag: string) =>
+      bulkTag.mutateAsync({ segmentId, tag, action: "remove" }),
     isTagging: bulkTag.isPending,
 
     // Assign
-    assignToRep: (userId?: number, method?: 'auto' | 'specific' | 'round_robin') =>
-      bulkAssign.mutateAsync({ segmentId, assignedUserId: userId, assignmentMethod: method }),
+    assignToRep: (
+      userId?: number,
+      method?: "auto" | "specific" | "round_robin",
+    ) =>
+      bulkAssign.mutateAsync({
+        segmentId,
+        assignedUserId: userId,
+        assignmentMethod: method,
+      }),
     isAssigning: bulkAssign.isPending,
 
     // Call List
-    createCallList: (name?: string, priority?: 'low' | 'medium' | 'high' | 'critical') =>
-      createCallList.mutateAsync({ segmentId, name, priority }),
+    createCallList: (
+      name?: string,
+      priority?: "low" | "medium" | "high" | "critical",
+    ) => createCallList.mutateAsync({ segmentId, name, priority }),
     isCreatingCallList: createCallList.isPending,
 
     // Tasks
-    createTasks: (params: Omit<Parameters<typeof bulkTasks.mutateAsync>[0], 'segmentId'>) =>
-      bulkTasks.mutateAsync({ segmentId, ...params }),
+    createTasks: (
+      params: Omit<Parameters<typeof bulkTasks.mutateAsync>[0], "segmentId">,
+    ) => bulkTasks.mutateAsync({ segmentId, ...params }),
     isCreatingTasks: bulkTasks.isPending,
 
     // Work Orders
-    createWorkOrders: (params: Omit<Parameters<typeof bulkWorkOrders.mutateAsync>[0], 'segmentId'>) =>
-      bulkWorkOrders.mutateAsync({ segmentId, ...params }),
+    createWorkOrders: (
+      params: Omit<
+        Parameters<typeof bulkWorkOrders.mutateAsync>[0],
+        "segmentId"
+      >,
+    ) => bulkWorkOrders.mutateAsync({ segmentId, ...params }),
     isCreatingWorkOrders: bulkWorkOrders.isPending,
 
     // Campaign
-    openCampaignLauncher: () => launchCampaign.openCampaignLauncher(segmentId, segmentName),
+    openCampaignLauncher: () =>
+      launchCampaign.openCampaignLauncher(segmentId, segmentName),
   };
 }

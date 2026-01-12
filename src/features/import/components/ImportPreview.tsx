@@ -1,6 +1,11 @@
-import { useState, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
+import { useState, useEffect } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
 
 interface ImportPreviewProps {
   file: File | null;
@@ -29,10 +34,10 @@ export function ImportPreview({ file, onPreviewReady }: ImportPreviewProps) {
 
       try {
         const text = await file.text();
-        const lines = text.split('\n').filter(line => line.trim());
+        const lines = text.split("\n").filter((line) => line.trim());
 
         if (lines.length === 0) {
-          setError('File is empty');
+          setError("File is empty");
           setLoading(false);
           return;
         }
@@ -44,7 +49,7 @@ export function ImportPreview({ file, onPreviewReady }: ImportPreviewProps) {
 
         // Parse preview rows (first 5 data rows)
         const dataLines = lines.slice(1, 6);
-        const parsedRows = dataLines.map(line => parseCSVLine(line));
+        const parsedRows = dataLines.map((line) => parseCSVLine(line));
         setPreviewRows(parsedRows);
 
         // Count total rows (excluding header)
@@ -55,8 +60,8 @@ export function ImportPreview({ file, onPreviewReady }: ImportPreviewProps) {
           onPreviewReady(rowCount, parsedHeaders);
         }
       } catch (err) {
-        setError('Failed to parse CSV file');
-        console.error('CSV parse error:', err);
+        setError("Failed to parse CSV file");
+        console.error("CSV parse error:", err);
       } finally {
         setLoading(false);
       }
@@ -68,7 +73,7 @@ export function ImportPreview({ file, onPreviewReady }: ImportPreviewProps) {
   // Simple CSV line parser (handles quoted fields)
   const parseCSVLine = (line: string): string[] => {
     const result: string[] = [];
-    let current = '';
+    let current = "";
     let inQuotes = false;
 
     for (let i = 0; i < line.length; i++) {
@@ -81,9 +86,9 @@ export function ImportPreview({ file, onPreviewReady }: ImportPreviewProps) {
         } else {
           inQuotes = !inQuotes;
         }
-      } else if (char === ',' && !inQuotes) {
+      } else if (char === "," && !inQuotes) {
         result.push(current.trim());
-        current = '';
+        current = "";
       } else {
         current += char;
       }
@@ -151,9 +156,14 @@ export function ImportPreview({ file, onPreviewReady }: ImportPreviewProps) {
             <table className="w-full text-sm">
               <thead>
                 <tr className="border-b border-border">
-                  <th className="p-2 text-left text-text-muted font-medium">#</th>
+                  <th className="p-2 text-left text-text-muted font-medium">
+                    #
+                  </th>
                   {headers.map((header, i) => (
-                    <th key={i} className="p-2 text-left text-text-primary font-medium">
+                    <th
+                      key={i}
+                      className="p-2 text-left text-text-primary font-medium"
+                    >
                       {header}
                     </th>
                   ))}
@@ -164,8 +174,13 @@ export function ImportPreview({ file, onPreviewReady }: ImportPreviewProps) {
                   <tr key={rowIndex} className="border-b border-border/50">
                     <td className="p-2 text-text-muted">{rowIndex + 1}</td>
                     {row.map((cell, cellIndex) => (
-                      <td key={cellIndex} className="p-2 text-text-secondary max-w-[200px] truncate">
-                        {cell || <span className="text-text-muted italic">empty</span>}
+                      <td
+                        key={cellIndex}
+                        className="p-2 text-text-secondary max-w-[200px] truncate"
+                      >
+                        {cell || (
+                          <span className="text-text-muted italic">empty</span>
+                        )}
                       </td>
                     ))}
                   </tr>

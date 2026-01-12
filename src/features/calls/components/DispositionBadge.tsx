@@ -1,15 +1,18 @@
-import { useCallDispositions } from '../api/calls.ts';
+import { useCallDispositions } from "../api/calls.ts";
 
 interface DispositionBadgeProps {
   disposition: string;
   className?: string;
 }
 
-export function DispositionBadge({ disposition, className = '' }: DispositionBadgeProps) {
+export function DispositionBadge({
+  disposition,
+  className = "",
+}: DispositionBadgeProps) {
   const { data: dispositions } = useCallDispositions();
 
   const dispInfo = dispositions?.find((d) => d.name === disposition);
-  const color = dispInfo?.color || '#6B7280';
+  const color = dispInfo?.color || "#6B7280";
 
   // Determine text color based on background brightness
   const getBrightness = (hex: string): number => {
@@ -20,14 +23,14 @@ export function DispositionBadge({ disposition, className = '' }: DispositionBad
     return (r * 299 + g * 587 + b * 114) / 1000;
   };
 
-  const textColor = getBrightness(color) > 128 ? '#000000' : '#FFFFFF';
+  const textColor = getBrightness(color) > 128 ? "#000000" : "#FFFFFF";
 
   // Format disposition name for display
   const formatName = (name: string): string => {
     return name
-      .split('_')
+      .split("_")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
-      .join(' ');
+      .join(" ");
   };
 
   return (

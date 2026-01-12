@@ -5,9 +5,9 @@
  */
 
 export const technicianEnrouteTemplate = {
-  id: 'technician-enroute',
-  name: 'Technician En Route',
-  subject: 'Your Technician is On the Way!',
+  id: "technician-enroute",
+  name: "Technician En Route",
+  subject: "Your Technician is On the Way!",
   smsTemplate: `Hi {{customer_first_name}}, {{technician_name}} is on the way! ETA: {{eta_time}} ({{eta_minutes}} min). Track live: {{tracking_link}} - MAC Septic`,
   emailTemplate: `Dear {{customer_name}},
 
@@ -35,16 +35,16 @@ Thank you for choosing MAC Septic!
 Best regards,
 MAC Septic Team`,
   variables: [
-    'customer_name',
-    'customer_first_name',
-    'technician_name',
-    'eta_time',
-    'eta_minutes',
-    'tracking_link',
-    'work_order_number',
-    'service_type',
-    'service_address',
-    'company_phone',
+    "customer_name",
+    "customer_first_name",
+    "technician_name",
+    "eta_time",
+    "eta_minutes",
+    "tracking_link",
+    "work_order_number",
+    "service_type",
+    "service_address",
+    "company_phone",
   ],
 };
 

@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
-import { SMSComposeModal } from '@/features/sms/SMSComposeModal';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
+import { SMSComposeModal } from "@/features/sms/SMSComposeModal";
 
 interface Conversation {
   id: number;
@@ -17,15 +17,15 @@ interface Conversation {
  * SMS Inbox - List of SMS conversations
  */
 export function SMSInbox() {
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
   const [isComposeOpen, setIsComposeOpen] = useState(false);
 
   const { data: conversations, isLoading } = useQuery({
-    queryKey: ['sms-conversations', searchQuery],
+    queryKey: ["sms-conversations", searchQuery],
     queryFn: async () => {
       try {
-        const response = await apiClient.get('/sms/conversations', {
-          params: { search: searchQuery || undefined }
+        const response = await apiClient.get("/sms/conversations", {
+          params: { search: searchQuery || undefined },
         });
         return response.data.items || response.data || [];
       } catch {
@@ -40,7 +40,9 @@ export function SMSInbox() {
       <div className="p-4 border-b border-border bg-bg-card">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-xl font-semibold text-text-primary">SMS Inbox</h1>
+            <h1 className="text-xl font-semibold text-text-primary">
+              SMS Inbox
+            </h1>
             <p className="text-sm text-text-muted">Manage SMS conversations</p>
           </div>
           <button
@@ -71,7 +73,9 @@ export function SMSInbox() {
           <div className="p-8 text-center text-text-muted">
             <span className="text-4xl block mb-2">📱</span>
             <p>No SMS conversations</p>
-            <p className="text-sm mt-2">Start a conversation by sending an SMS</p>
+            <p className="text-sm mt-2">
+              Start a conversation by sending an SMS
+            </p>
           </div>
         ) : (
           <div className="divide-y divide-border">
@@ -83,12 +87,13 @@ export function SMSInbox() {
               >
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-full bg-primary/20 text-primary flex items-center justify-center font-medium">
-                    {conversation.customer_name?.charAt(0) || '?'}
+                    {conversation.customer_name?.charAt(0) || "?"}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
                       <h3 className="font-medium text-text-primary truncate">
-                        {conversation.customer_name || conversation.phone_number}
+                        {conversation.customer_name ||
+                          conversation.phone_number}
                       </h3>
                       <span className="text-xs text-text-muted">
                         {conversation.last_message_time}

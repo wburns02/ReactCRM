@@ -1,10 +1,16 @@
-import { useState } from 'react';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { Input } from '@/components/ui/Input';
-import { Label } from '@/components/ui/Label';
-import { Dialog, DialogContent, DialogHeader, DialogBody, DialogFooter } from '@/components/ui/Dialog';
+import { useState } from "react";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { Input } from "@/components/ui/Input";
+import { Label } from "@/components/ui/Label";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@/components/ui/Dialog";
 import {
   usePayrollPeriods,
   useTimeEntries,
@@ -16,10 +22,10 @@ import {
   useBulkApproveTimeEntries,
   useUpdateCommission,
   useBulkApproveCommissions,
-} from '@/api/hooks/usePayroll';
-import { formatDate, formatCurrency } from '@/lib/utils';
+} from "@/api/hooks/usePayroll";
+import { formatDate, formatCurrency } from "@/lib/utils";
 
-type TabType = 'periods' | 'time-entries' | 'commissions' | 'pay-rates';
+type TabType = "periods" | "time-entries" | "commissions" | "pay-rates";
 
 /**
  * Tab Button
@@ -37,8 +43,8 @@ function TabButton({
     <button
       className={`px-4 py-2 text-sm font-medium rounded-lg transition-colors ${
         active
-          ? 'bg-primary text-white'
-          : 'bg-bg-muted text-text-secondary hover:bg-bg-muted/80'
+          ? "bg-primary text-white"
+          : "bg-bg-muted text-text-secondary hover:bg-bg-muted/80"
       }`}
       onClick={onClick}
     >
@@ -55,23 +61,29 @@ function PayPeriodsTab() {
   const createPeriod = useCreatePayrollPeriod();
   const approvePeriod = useApprovePayrollPeriod();
   const [showCreate, setShowCreate] = useState(false);
-  const [startDate, setStartDate] = useState('');
-  const [endDate, setEndDate] = useState('');
+  const [startDate, setStartDate] = useState("");
+  const [endDate, setEndDate] = useState("");
 
   const handleCreate = async () => {
     if (!startDate || !endDate) return;
-    await createPeriod.mutateAsync({ start_date: startDate, end_date: endDate });
+    await createPeriod.mutateAsync({
+      start_date: startDate,
+      end_date: endDate,
+    });
     setShowCreate(false);
-    setStartDate('');
-    setEndDate('');
+    setStartDate("");
+    setEndDate("");
   };
 
-  const statusColors: Record<string, 'default' | 'warning' | 'success' | 'danger' | 'secondary'> = {
-    draft: 'secondary',
-    processing: 'warning',
-    approved: 'default',
-    paid: 'success',
-    void: 'danger',
+  const statusColors: Record<
+    string,
+    "default" | "warning" | "success" | "danger" | "secondary"
+  > = {
+    draft: "secondary",
+    processing: "warning",
+    approved: "default",
+    paid: "success",
+    void: "danger",
   };
 
   if (isLoading) {
@@ -81,7 +93,9 @@ function PayPeriodsTab() {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-text-primary">Payroll Periods</h3>
+        <h3 className="text-lg font-semibold text-text-primary">
+          Payroll Periods
+        </h3>
         <Button variant="primary" onClick={() => setShowCreate(true)}>
           + New Period
         </Button>
@@ -93,27 +107,36 @@ function PayPeriodsTab() {
             <div className="flex items-start justify-between mb-3">
               <div>
                 <div className="font-medium text-text-primary">
-                  {formatDate(period.start_date)} - {formatDate(period.end_date)}
+                  {formatDate(period.start_date)} -{" "}
+                  {formatDate(period.end_date)}
                 </div>
                 <div className="text-sm text-text-secondary">
                   {period.technician_count} technicians
                 </div>
               </div>
-              <Badge variant={statusColors[period.status]}>{period.status}</Badge>
+              <Badge variant={statusColors[period.status]}>
+                {period.status}
+              </Badge>
             </div>
 
             <div className="grid grid-cols-3 gap-4 text-sm mb-3">
               <div>
                 <div className="text-text-secondary">Hours</div>
-                <div className="font-medium">{period.total_hours.toFixed(1)}</div>
+                <div className="font-medium">
+                  {period.total_hours.toFixed(1)}
+                </div>
               </div>
               <div>
                 <div className="text-text-secondary">Overtime</div>
-                <div className="font-medium">{period.total_overtime_hours.toFixed(1)}</div>
+                <div className="font-medium">
+                  {period.total_overtime_hours.toFixed(1)}
+                </div>
               </div>
               <div>
                 <div className="text-text-secondary">Commissions</div>
-                <div className="font-medium">{formatCurrency(period.total_commissions)}</div>
+                <div className="font-medium">
+                  {formatCurrency(period.total_commissions)}
+                </div>
               </div>
             </div>
 
@@ -124,7 +147,7 @@ function PayPeriodsTab() {
                   {formatCurrency(period.total_net_pay)}
                 </div>
               </div>
-              {period.status === 'draft' && (
+              {period.status === "draft" && (
                 <Button
                   variant="primary"
                   size="sm"
@@ -142,7 +165,9 @@ function PayPeriodsTab() {
       {(!periods || periods.length === 0) && (
         <Card className="p-8 text-center">
           <div className="text-4xl mb-4">💰</div>
-          <h3 className="font-medium text-text-primary mb-2">No Payroll Periods</h3>
+          <h3 className="font-medium text-text-primary mb-2">
+            No Payroll Periods
+          </h3>
           <p className="text-sm text-text-secondary mb-4">
             Create your first payroll period to get started.
           </p>
@@ -189,7 +214,7 @@ function PayPeriodsTab() {
               onClick={handleCreate}
               disabled={!startDate || !endDate || createPeriod.isPending}
             >
-              {createPeriod.isPending ? 'Creating...' : 'Create'}
+              {createPeriod.isPending ? "Creating..." : "Create"}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -202,7 +227,7 @@ function PayPeriodsTab() {
  * Time Entries Tab
  */
 function TimeEntriesTab() {
-  const { data: entries, isLoading } = useTimeEntries({ status: 'pending' });
+  const { data: entries, isLoading } = useTimeEntries({ status: "pending" });
   const updateEntry = useUpdateTimeEntry();
   const bulkApprove = useBulkApproveTimeEntries();
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -231,11 +256,11 @@ function TimeEntriesTab() {
   };
 
   const handleApprove = async (entryId: string) => {
-    await updateEntry.mutateAsync({ entryId, input: { status: 'approved' } });
+    await updateEntry.mutateAsync({ entryId, input: { status: "approved" } });
   };
 
   const handleReject = async (entryId: string) => {
-    await updateEntry.mutateAsync({ entryId, input: { status: 'rejected' } });
+    await updateEntry.mutateAsync({ entryId, input: { status: "rejected" } });
   };
 
   if (isLoading) {
@@ -245,7 +270,9 @@ function TimeEntriesTab() {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-text-primary">Pending Time Entries</h3>
+        <h3 className="text-lg font-semibold text-text-primary">
+          Pending Time Entries
+        </h3>
         {selected.size > 0 && (
           <Button
             variant="primary"
@@ -295,18 +322,22 @@ function TimeEntriesTab() {
                 <div className="grid grid-cols-3 gap-4 text-sm mt-3">
                   <div>
                     <div className="text-text-secondary">Regular</div>
-                    <div className="font-medium">{entry.regular_hours.toFixed(1)} hrs</div>
+                    <div className="font-medium">
+                      {entry.regular_hours.toFixed(1)} hrs
+                    </div>
                   </div>
                   <div>
                     <div className="text-text-secondary">Overtime</div>
-                    <div className="font-medium">{entry.overtime_hours.toFixed(1)} hrs</div>
+                    <div className="font-medium">
+                      {entry.overtime_hours.toFixed(1)} hrs
+                    </div>
                   </div>
                   <div>
                     <div className="text-text-secondary">Clock In</div>
                     <div className="font-medium font-mono">
                       {new Date(entry.clock_in).toLocaleTimeString([], {
-                        hour: '2-digit',
-                        minute: '2-digit',
+                        hour: "2-digit",
+                        minute: "2-digit",
                       })}
                     </div>
                   </div>
@@ -359,7 +390,9 @@ function TimeEntriesTab() {
  * Commissions Tab
  */
 function CommissionsTab() {
-  const { data: commissions, isLoading } = useCommissions({ status: 'pending' });
+  const { data: commissions, isLoading } = useCommissions({
+    status: "pending",
+  });
   const updateCommission = useUpdateCommission();
   const bulkApprove = useBulkApproveCommissions();
   const [selected, setSelected] = useState<Set<string>>(new Set());
@@ -382,7 +415,7 @@ function CommissionsTab() {
   const handleApprove = async (commissionId: string) => {
     await updateCommission.mutateAsync({
       commissionId,
-      input: { status: 'approved' },
+      input: { status: "approved" },
     });
   };
 
@@ -393,7 +426,9 @@ function CommissionsTab() {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-text-primary">Pending Commissions</h3>
+        <h3 className="text-lg font-semibold text-text-primary">
+          Pending Commissions
+        </h3>
         {selected.size > 0 && (
           <Button
             variant="primary"
@@ -419,10 +454,12 @@ function CommissionsTab() {
                 <div className="flex items-start justify-between">
                   <div>
                     <div className="font-medium text-text-primary">
-                      {commission.technician_name || `Tech #${commission.technician_id}`}
+                      {commission.technician_name ||
+                        `Tech #${commission.technician_id}`}
                     </div>
                     <div className="text-sm text-text-secondary">
-                      WO #{commission.work_order_number || commission.work_order_id}
+                      WO #
+                      {commission.work_order_number || commission.work_order_id}
                     </div>
                   </div>
                   <div className="text-right">
@@ -430,7 +467,7 @@ function CommissionsTab() {
                       {formatCurrency(commission.commission_amount)}
                     </div>
                     <div className="text-xs text-text-secondary">
-                      {(commission.commission_rate * 100).toFixed(0)}% of{' '}
+                      {(commission.commission_rate * 100).toFixed(0)}% of{" "}
                       {formatCurrency(commission.job_total)}
                     </div>
                   </div>
@@ -455,7 +492,9 @@ function CommissionsTab() {
       {(!commissions || commissions.length === 0) && (
         <Card className="p-8 text-center">
           <div className="text-4xl mb-4">💵</div>
-          <h3 className="font-medium text-text-primary mb-2">No Pending Commissions</h3>
+          <h3 className="font-medium text-text-primary mb-2">
+            No Pending Commissions
+          </h3>
           <p className="text-sm text-text-secondary">
             All commissions have been processed.
           </p>
@@ -478,7 +517,9 @@ function PayRatesTab() {
   return (
     <div className="space-y-4">
       <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-text-primary">Technician Pay Rates</h3>
+        <h3 className="text-lg font-semibold text-text-primary">
+          Technician Pay Rates
+        </h3>
         <Button variant="primary">+ Add Rate</Button>
       </div>
 
@@ -494,23 +535,29 @@ function PayRatesTab() {
                   Effective: {formatDate(rate.effective_date)}
                 </div>
               </div>
-              <Badge variant={rate.is_active ? 'success' : 'secondary'}>
-                {rate.is_active ? 'Active' : 'Inactive'}
+              <Badge variant={rate.is_active ? "success" : "secondary"}>
+                {rate.is_active ? "Active" : "Inactive"}
               </Badge>
             </div>
 
             <div className="grid grid-cols-3 gap-4 text-sm">
               <div>
                 <div className="text-text-secondary">Hourly Rate</div>
-                <div className="font-medium">{formatCurrency(rate.hourly_rate)}/hr</div>
+                <div className="font-medium">
+                  {formatCurrency(rate.hourly_rate)}/hr
+                </div>
               </div>
               <div>
                 <div className="text-text-secondary">Overtime Rate</div>
-                <div className="font-medium">{formatCurrency(rate.overtime_rate)}/hr</div>
+                <div className="font-medium">
+                  {formatCurrency(rate.overtime_rate)}/hr
+                </div>
               </div>
               <div>
                 <div className="text-text-secondary">Commission</div>
-                <div className="font-medium">{(rate.commission_rate * 100).toFixed(0)}%</div>
+                <div className="font-medium">
+                  {(rate.commission_rate * 100).toFixed(0)}%
+                </div>
               </div>
             </div>
           </Card>
@@ -520,7 +567,9 @@ function PayRatesTab() {
       {(!rates || rates.length === 0) && (
         <Card className="p-8 text-center">
           <div className="text-4xl mb-4">📊</div>
-          <h3 className="font-medium text-text-primary mb-2">No Pay Rates Configured</h3>
+          <h3 className="font-medium text-text-primary mb-2">
+            No Pay Rates Configured
+          </h3>
           <p className="text-sm text-text-secondary mb-4">
             Set up pay rates for your technicians.
           </p>
@@ -535,7 +584,7 @@ function PayRatesTab() {
  * Main Payroll Page
  */
 export function PayrollPage() {
-  const [activeTab, setActiveTab] = useState<TabType>('periods');
+  const [activeTab, setActiveTab] = useState<TabType>("periods");
 
   return (
     <div className="space-y-6">
@@ -549,25 +598,37 @@ export function PayrollPage() {
 
       {/* Tabs */}
       <div className="flex flex-wrap gap-2">
-        <TabButton active={activeTab === 'periods'} onClick={() => setActiveTab('periods')}>
+        <TabButton
+          active={activeTab === "periods"}
+          onClick={() => setActiveTab("periods")}
+        >
           Pay Periods
         </TabButton>
-        <TabButton active={activeTab === 'time-entries'} onClick={() => setActiveTab('time-entries')}>
+        <TabButton
+          active={activeTab === "time-entries"}
+          onClick={() => setActiveTab("time-entries")}
+        >
           Time Entries
         </TabButton>
-        <TabButton active={activeTab === 'commissions'} onClick={() => setActiveTab('commissions')}>
+        <TabButton
+          active={activeTab === "commissions"}
+          onClick={() => setActiveTab("commissions")}
+        >
           Commissions
         </TabButton>
-        <TabButton active={activeTab === 'pay-rates'} onClick={() => setActiveTab('pay-rates')}>
+        <TabButton
+          active={activeTab === "pay-rates"}
+          onClick={() => setActiveTab("pay-rates")}
+        >
           Pay Rates
         </TabButton>
       </div>
 
       {/* Content */}
-      {activeTab === 'periods' && <PayPeriodsTab />}
-      {activeTab === 'time-entries' && <TimeEntriesTab />}
-      {activeTab === 'commissions' && <CommissionsTab />}
-      {activeTab === 'pay-rates' && <PayRatesTab />}
+      {activeTab === "periods" && <PayPeriodsTab />}
+      {activeTab === "time-entries" && <TimeEntriesTab />}
+      {activeTab === "commissions" && <CommissionsTab />}
+      {activeTab === "pay-rates" && <PayRatesTab />}
     </div>
   );
 }

@@ -14,10 +14,10 @@
  * additional sync capabilities for mobile field service.
  */
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
-import { useOnlineStatus } from '@/hooks/usePWA';
+import { useState, useEffect, useCallback, useRef } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
+import { useOnlineStatus } from "@/hooks/usePWA";
 import {
   getDB,
   addToSyncQueue,
@@ -35,15 +35,20 @@ import {
   type SyncQueueItem,
   type CachedWorkOrder,
   // setOfflineSyncState, getWorkOrdersWithPendingSync - available for extended sync
-} from '@/lib/db';
-import type { WorkOrder, WorkOrderStatus } from '@/api/types/workOrder';
+} from "@/lib/db";
+import type { WorkOrder, WorkOrderStatus } from "@/api/types/workOrder";
 
 // ============================================
 // Types
 // ============================================
 
 export interface OfflineChange {
-  type: 'status_update' | 'note_add' | 'checklist_update' | 'photo_add' | 'signature_add';
+  type:
+    | "status_update"
+    | "note_add"
+    | "checklist_update"
+    | "photo_add"
+    | "signature_add";
   workOrderId: string;
   data: Record<string, unknown>;
   timestamp: number;
@@ -80,7 +85,11 @@ export interface UseOfflineSyncReturn {
   /** Clear all pending items (use with caution) */
   clearAllPending: () => Promise<void>;
   /** Update work order status (offline-capable) */
-  updateStatus: (workOrderId: string, status: WorkOrderStatus, notes?: string) => Promise<void>;
+  updateStatus: (
+    workOrderId: string,
+    status: WorkOrderStatus,
+    notes?: string,
+  ) => Promise<void>;
   /** Add note to work order (offline-capable) */
   addNote: (workOrderId: string, note: string) => Promise<void>;
 }
@@ -100,7 +109,10 @@ const SYNC_BATCH_SIZE = 10;
 
 function calculateRetryDelay(retries: number): number {
   // Exponential backoff: 1s, 2s, 4s, 8s, 16s, capped at 60s
-  const delay = Math.min(BASE_RETRY_DELAY * Math.pow(2, retries), MAX_RETRY_DELAY);
+  const delay = Math.min(
+    BASE_RETRY_DELAY * Math.pow(2, retries),
+    MAX_RETRY_DELAY,
+  );
   // Add jitter to prevent thundering herd
   return delay + Math.random() * 1000;
 }
@@ -192,11 +204,11 @@ export function useOfflineSync(): UseOfflineSyncReturn {
   const queueChange = useCallback(
     async (change: OfflineChange): Promise<string> => {
       // Map change type to sync queue format
-      const priority = change.type === 'status_update' ? 1 : 5;
+      const priority = change.type === "status_update" ? 1 : 5;
 
       const id = await addToSyncQueue({
-        entity: 'workOrder',
-        type: 'update',
+        entity: "workOrder",
+        type: "update",
         data: {
           workOrderId: change.workOrderId,
           changeType: change.type,
@@ -215,7 +227,7 @@ export function useOfflineSync(): UseOfflineSyncReturn {
 
       return id;
     },
-    [isOnline, updatePendingCount]
+    [isOnline, updatePendingCount],
   );
 
   // ============================================
@@ -225,7 +237,7 @@ export function useOfflineSync(): UseOfflineSyncReturn {
   const syncItem = useCallback(
     async (itemId: string): Promise<boolean> => {
       const db = await getDB();
-      const item = await db.get('syncQueue', itemId);
+      const item = await db.get("syncQueue", itemId);
 
       if (!item) {
         console.warn(`Sync item ${itemId} not found`);
@@ -240,20 +252,20 @@ export function useOfflineSync(): UseOfflineSyncReturn {
         const changeType = data.changeType as string;
 
         switch (changeType) {
-          case 'status_update':
+          case "status_update":
             await apiClient.patch(`/work-orders/${workOrderId}`, {
               status: data.status,
               notes: data.notes,
             });
             break;
 
-          case 'note_add':
+          case "note_add":
             await apiClient.patch(`/work-orders/${workOrderId}`, {
               notes: data.notes,
             });
             break;
 
-          case 'checklist_update':
+          case "checklist_update":
             await apiClient.patch(`/work-orders/${workOrderId}`, {
               checklist: data.checklist,
             });
@@ -274,7 +286,7 @@ export function useOfflineSync(): UseOfflineSyncReturn {
         }
 
         // Invalidate queries
-        queryClient.invalidateQueries({ queryKey: ['workOrders'] });
+        queryClient.invalidateQueries({ queryKey: ["workOrders"] });
 
         return true;
       } catch (error) {
@@ -284,7 +296,7 @@ export function useOfflineSync(): UseOfflineSyncReturn {
         const updatedItem: SyncQueueItem = {
           ...item,
           retries: item.retries + 1,
-          lastError: error instanceof Error ? error.message : 'Unknown error',
+          lastError: error instanceof Error ? error.message : "Unknown error",
         };
 
         if (updatedItem.retries < MAX_RETRIES) {
@@ -297,7 +309,7 @@ export function useOfflineSync(): UseOfflineSyncReturn {
         return false;
       }
     },
-    [queryClient]
+    [queryClient],
   );
 
   // ============================================
@@ -306,7 +318,12 @@ export function useOfflineSync(): UseOfflineSyncReturn {
 
   const syncPending = useCallback(async (): Promise<SyncResult> => {
     if (syncInProgressRef.current || !isOnline) {
-      return { success: false, synced: 0, failed: 0, errors: ['Sync already in progress or offline'] };
+      return {
+        success: false,
+        synced: 0,
+        failed: 0,
+        errors: ["Sync already in progress or offline"],
+      };
     }
 
     syncInProgressRef.current = true;
@@ -333,16 +350,16 @@ export function useOfflineSync(): UseOfflineSyncReturn {
 
         // Process batch concurrently
         const results = await Promise.allSettled(
-          batch.map((item) => syncItem(item.id))
+          batch.map((item) => syncItem(item.id)),
         );
 
         for (let j = 0; j < results.length; j++) {
           const res = results[j];
-          if (res.status === 'fulfilled' && res.value) {
+          if (res.status === "fulfilled" && res.value) {
             result.synced++;
           } else {
             result.failed++;
-            if (res.status === 'rejected') {
+            if (res.status === "rejected") {
               result.errors.push(String(res.reason));
             }
           }
@@ -367,9 +384,11 @@ export function useOfflineSync(): UseOfflineSyncReturn {
 
       result.success = result.failed === 0;
     } catch (error) {
-      console.error('Sync failed:', error);
+      console.error("Sync failed:", error);
       result.success = false;
-      result.errors.push(error instanceof Error ? error.message : 'Unknown error');
+      result.errors.push(
+        error instanceof Error ? error.message : "Unknown error",
+      );
       await markSyncFailure();
     } finally {
       syncInProgressRef.current = false;
@@ -389,7 +408,7 @@ export function useOfflineSync(): UseOfflineSyncReturn {
       await removeSyncQueueItem(itemId);
       await updatePendingCount();
     },
-    [updatePendingCount]
+    [updatePendingCount],
   );
 
   // ============================================
@@ -429,13 +448,13 @@ export function useOfflineSync(): UseOfflineSyncReturn {
 
       // Queue for sync
       await queueChange({
-        type: 'status_update',
+        type: "status_update",
         workOrderId,
         data: { status, notes },
         timestamp: Date.now(),
       });
     },
-    [queueChange]
+    [queueChange],
   );
 
   // ============================================
@@ -462,7 +481,7 @@ export function useOfflineSync(): UseOfflineSyncReturn {
 
       // Queue for sync
       await queueChange({
-        type: 'note_add',
+        type: "note_add",
         workOrderId,
         data: {
           notes: cached?.notes || `[${new Date().toLocaleString()}]\n${note}`,
@@ -470,7 +489,7 @@ export function useOfflineSync(): UseOfflineSyncReturn {
         timestamp: Date.now(),
       });
     },
-    [queueChange]
+    [queueChange],
   );
 
   // ============================================

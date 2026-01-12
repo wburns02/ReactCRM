@@ -1,24 +1,25 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client.ts";
 import {
   type RCStatus,
   type CallListResponse,
   type Disposition,
   type InitiateCallRequest,
   type LogDispositionRequest,
-} from './types.ts';
+} from "./types.ts";
 
 /**
  * Query keys for phone/RingCentral
  */
 export const phoneKeys = {
-  all: ['phone'] as const,
-  status: () => [...phoneKeys.all, 'status'] as const,
-  calls: () => [...phoneKeys.all, 'calls'] as const,
-  callsList: (filters?: Record<string, unknown>) => [...phoneKeys.calls(), filters] as const,
-  dispositions: () => [...phoneKeys.all, 'dispositions'] as const,
-  extensions: () => [...phoneKeys.all, 'extensions'] as const,
-  myExtension: () => [...phoneKeys.all, 'my-extension'] as const,
+  all: ["phone"] as const,
+  status: () => [...phoneKeys.all, "status"] as const,
+  calls: () => [...phoneKeys.all, "calls"] as const,
+  callsList: (filters?: Record<string, unknown>) =>
+    [...phoneKeys.calls(), filters] as const,
+  dispositions: () => [...phoneKeys.all, "dispositions"] as const,
+  extensions: () => [...phoneKeys.all, "extensions"] as const,
+  myExtension: () => [...phoneKeys.all, "my-extension"] as const,
 };
 
 /**
@@ -28,7 +29,7 @@ export function useRCStatus() {
   return useQuery({
     queryKey: phoneKeys.status(),
     queryFn: async (): Promise<RCStatus> => {
-      const { data } = await apiClient.get('/ringcentral/status');
+      const { data } = await apiClient.get("/ringcentral/status");
       return data;
     },
     staleTime: 60_000,
@@ -44,7 +45,7 @@ export function useMyExtension() {
   return useQuery({
     queryKey: phoneKeys.myExtension(),
     queryFn: async () => {
-      const { data } = await apiClient.get('/ringcentral/my-extension');
+      const { data } = await apiClient.get("/ringcentral/my-extension");
       return data;
     },
     staleTime: 300_000, // 5 minutes
@@ -58,7 +59,7 @@ export function useExtensions() {
   return useQuery({
     queryKey: phoneKeys.extensions(),
     queryFn: async () => {
-      const { data } = await apiClient.get('/ringcentral/extensions');
+      const { data } = await apiClient.get("/ringcentral/extensions");
       return data.items || [];
     },
     staleTime: 300_000, // 5 minutes
@@ -73,7 +74,7 @@ export function useInitiateCall() {
 
   return useMutation({
     mutationFn: async (request: InitiateCallRequest) => {
-      const { data } = await apiClient.post('/ringcentral/call', request);
+      const { data } = await apiClient.post("/ringcentral/call", request);
       return data;
     },
     onSuccess: () => {
@@ -85,7 +86,7 @@ export function useInitiateCall() {
 /**
  * Get call log with pagination
  */
-export function useCallLog(filters?: { 
+export function useCallLog(filters?: {
   page?: number;
   page_size?: number;
   direction?: string;
@@ -95,12 +96,15 @@ export function useCallLog(filters?: {
     queryKey: phoneKeys.callsList(filters),
     queryFn: async (): Promise<CallListResponse> => {
       const params = new URLSearchParams();
-      if (filters?.page) params.set('page', String(filters.page));
-      if (filters?.page_size) params.set('page_size', String(filters.page_size));
-      if (filters?.direction) params.set('direction', filters.direction);
-      if (filters?.customer_id) params.set('customer_id', filters.customer_id);
+      if (filters?.page) params.set("page", String(filters.page));
+      if (filters?.page_size)
+        params.set("page_size", String(filters.page_size));
+      if (filters?.direction) params.set("direction", filters.direction);
+      if (filters?.customer_id) params.set("customer_id", filters.customer_id);
 
-      const url = '/ringcentral/calls' + (params.toString() ? '?' + params.toString() : '');
+      const url =
+        "/ringcentral/calls" +
+        (params.toString() ? "?" + params.toString() : "");
       const { data } = await apiClient.get(url);
 
       // Return the paginated response
@@ -123,7 +127,9 @@ export function useSyncCalls() {
 
   return useMutation({
     mutationFn: async (hoursBack: number = 24) => {
-      const { data } = await apiClient.post('/ringcentral/sync', { hours_back: hoursBack });
+      const { data } = await apiClient.post("/ringcentral/sync", {
+        hours_back: hoursBack,
+      });
       return data;
     },
     onSuccess: () => {
@@ -140,7 +146,7 @@ export function useDispositions() {
     queryKey: phoneKeys.dispositions(),
     queryFn: async (): Promise<Disposition[]> => {
       try {
-        const { data } = await apiClient.get('/call-dispositions');
+        const { data } = await apiClient.get("/call-dispositions");
         return Array.isArray(data) ? data : [];
       } catch {
         // Endpoint might not exist, return empty array
@@ -170,13 +176,12 @@ export function useLogDisposition() {
   });
 }
 
-
 // ============ Twilio Integration ============
 
 export const twilioKeys = {
-  all: ['twilio'] as const,
-  status: () => [...twilioKeys.all, 'status'] as const,
-  calls: () => [...twilioKeys.all, 'calls'] as const,
+  all: ["twilio"] as const,
+  status: () => [...twilioKeys.all, "status"] as const,
+  calls: () => [...twilioKeys.all, "calls"] as const,
 };
 
 /**
@@ -186,7 +191,7 @@ export function useTwilioStatus() {
   return useQuery({
     queryKey: twilioKeys.status(),
     queryFn: async () => {
-      const { data } = await apiClient.get('/twilio/status');
+      const { data } = await apiClient.get("/twilio/status");
       return data;
     },
     staleTime: 60_000,
@@ -201,8 +206,12 @@ export function useTwilioCall() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (request: { to_number: string; from_number?: string; record?: boolean }) => {
-      const { data } = await apiClient.post('/twilio/call', request);
+    mutationFn: async (request: {
+      to_number: string;
+      from_number?: string;
+      record?: boolean;
+    }) => {
+      const { data } = await apiClient.post("/twilio/call", request);
       return data;
     },
     onSuccess: () => {

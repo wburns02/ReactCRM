@@ -1,11 +1,15 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useRevenueMetrics, useCustomerMetrics, usePipelineMetrics } from '../api.ts';
-import { MetricCard } from '../components/MetricCard.tsx';
-import { DateRangePicker } from '../components/DateRangePicker.tsx';
-import { RevenueChart } from '../components/RevenueChart.tsx';
-import { ServiceTypeBreakdown } from '../components/ServiceTypeBreakdown.tsx';
-import type { DateRange } from '../types.ts';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  useRevenueMetrics,
+  useCustomerMetrics,
+  usePipelineMetrics,
+} from "../api.ts";
+import { MetricCard } from "../components/MetricCard.tsx";
+import { DateRangePicker } from "../components/DateRangePicker.tsx";
+import { RevenueChart } from "../components/RevenueChart.tsx";
+import { ServiceTypeBreakdown } from "../components/ServiceTypeBreakdown.tsx";
+import type { DateRange } from "../types.ts";
 
 /**
  * ReportsPage - Main reports dashboard with overview metrics
@@ -19,17 +23,19 @@ export function ReportsPage() {
     start.setDate(start.getDate() - 30);
 
     return {
-      start_date: start.toISOString().split('T')[0],
-      end_date: end.toISOString().split('T')[0],
+      start_date: start.toISOString().split("T")[0],
+      end_date: end.toISOString().split("T")[0],
     };
   };
 
   const [dateRange, setDateRange] = useState<DateRange>(getDefaultDateRange());
 
   // Fetch report data
-  const { data: revenueData, isLoading: revenueLoading } = useRevenueMetrics(dateRange);
+  const { data: revenueData, isLoading: revenueLoading } =
+    useRevenueMetrics(dateRange);
   const { isLoading: customerLoading } = useCustomerMetrics(dateRange);
-  const { data: pipelineData, isLoading: pipelineLoading } = usePipelineMetrics();
+  const { data: pipelineData, isLoading: pipelineLoading } =
+    usePipelineMetrics();
 
   const isLoading = revenueLoading || customerLoading || pipelineLoading;
 
@@ -39,7 +45,9 @@ export function ReportsPage() {
       <div className="mb-8">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-3xl font-bold text-text-primary">Reports Dashboard</h1>
+            <h1 className="text-3xl font-bold text-text-primary">
+              Reports Dashboard
+            </h1>
             <p className="text-text-secondary mt-1">
               Overview of business performance and key metrics
             </p>
@@ -72,14 +80,18 @@ export function ReportsPage() {
             <MetricCard
               title="Work Orders Completed"
               value={revenueData?.metrics.work_orders_completed || 0}
-              changePercent={revenueData?.metrics.work_orders_completed_change_percent}
+              changePercent={
+                revenueData?.metrics.work_orders_completed_change_percent
+              }
               icon="✅"
               format="number"
             />
             <MetricCard
               title="Average Job Value"
               value={revenueData?.metrics.average_job_value || 0}
-              changePercent={revenueData?.metrics.average_job_value_change_percent}
+              changePercent={
+                revenueData?.metrics.average_job_value_change_percent
+              }
               icon="📊"
               format="currency"
             />
@@ -93,14 +105,18 @@ export function ReportsPage() {
             <MetricCard
               title="Repeat Customer Rate"
               value={revenueData?.metrics.repeat_customer_rate || 0}
-              changePercent={revenueData?.metrics.repeat_customer_rate_change_percent}
+              changePercent={
+                revenueData?.metrics.repeat_customer_rate_change_percent
+              }
               icon="🔁"
               format="percent"
             />
             <MetricCard
               title="Customer Satisfaction"
               value={revenueData?.metrics.customer_satisfaction_score || 0}
-              changePercent={revenueData?.metrics.customer_satisfaction_score_change_percent}
+              changePercent={
+                revenueData?.metrics.customer_satisfaction_score_change_percent
+              }
               icon="⭐"
               format="number"
             />
@@ -113,9 +129,7 @@ export function ReportsPage() {
               chartType="line"
               showWorkOrders={true}
             />
-            <ServiceTypeBreakdown
-              data={revenueData?.service_breakdown || []}
-            />
+            <ServiceTypeBreakdown data={revenueData?.service_breakdown || []} />
           </div>
 
           {/* Pipeline Metrics */}
@@ -165,7 +179,9 @@ export function ReportsPage() {
               >
                 <span className="text-2xl">💰</span>
                 <div>
-                  <h4 className="font-semibold text-text-primary">Revenue Report</h4>
+                  <h4 className="font-semibold text-text-primary">
+                    Revenue Report
+                  </h4>
                   <p className="text-sm text-text-secondary">
                     Detailed revenue analysis and trends
                   </p>
@@ -191,7 +207,9 @@ export function ReportsPage() {
               >
                 <span className="text-2xl">💎</span>
                 <div>
-                  <h4 className="font-semibold text-text-primary">Customer Lifetime Value</h4>
+                  <h4 className="font-semibold text-text-primary">
+                    Customer Lifetime Value
+                  </h4>
                   <p className="text-sm text-text-secondary">
                     Customer value and retention analysis
                   </p>
@@ -203,7 +221,9 @@ export function ReportsPage() {
               >
                 <span className="text-2xl">🔧</span>
                 <div>
-                  <h4 className="font-semibold text-text-primary">Revenue by Service</h4>
+                  <h4 className="font-semibold text-text-primary">
+                    Revenue by Service
+                  </h4>
                   <p className="text-sm text-text-secondary">
                     Revenue breakdown by service type
                   </p>
@@ -215,7 +235,9 @@ export function ReportsPage() {
               >
                 <span className="text-2xl">📍</span>
                 <div>
-                  <h4 className="font-semibold text-text-primary">Revenue by Location</h4>
+                  <h4 className="font-semibold text-text-primary">
+                    Revenue by Location
+                  </h4>
                   <p className="text-sm text-text-secondary">
                     Geographic revenue analysis
                   </p>
@@ -227,7 +249,9 @@ export function ReportsPage() {
               >
                 <span className="text-2xl">👥</span>
                 <div>
-                  <h4 className="font-semibold text-text-primary">Customer Analytics</h4>
+                  <h4 className="font-semibold text-text-primary">
+                    Customer Analytics
+                  </h4>
                   <p className="text-sm text-text-secondary">
                     Customer growth and retention
                   </p>

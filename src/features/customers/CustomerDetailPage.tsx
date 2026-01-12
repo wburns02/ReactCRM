@@ -1,34 +1,39 @@
-import { useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useState } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   useCustomer,
   useUpdateCustomer,
   useDeleteCustomer,
-} from '@/api/hooks/useCustomers.ts';
-import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
-import { CustomerForm } from './components/CustomerForm.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { ApiError } from '@/components/ui/ApiError.tsx';
-import { ConfirmDialog } from '@/components/ui/Dialog.tsx';
-import { formatCurrency, formatDate, formatPhone } from '@/lib/utils.ts';
+} from "@/api/hooks/useCustomers.ts";
+import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
+import { CustomerForm } from "./components/CustomerForm.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { ApiError } from "@/components/ui/ApiError.tsx";
+import { ConfirmDialog } from "@/components/ui/Dialog.tsx";
+import { formatCurrency, formatDate, formatPhone } from "@/lib/utils.ts";
 import {
   PROSPECT_STAGE_LABELS,
   LEAD_SOURCE_LABELS,
-} from '@/api/types/common.ts';
-import { CUSTOMER_TYPE_LABELS } from '@/api/types/customer.ts';
+} from "@/api/types/common.ts";
+import { CUSTOMER_TYPE_LABELS } from "@/api/types/customer.ts";
 import {
   WORK_ORDER_STATUS_LABELS,
   JOB_TYPE_LABELS,
   type WorkOrderStatus,
   type JobType,
-} from '@/api/types/workOrder.ts';
-import type { CustomerFormData } from '@/api/types/customer.ts';
-import { ActivityTimeline } from '@/features/activities';
-import { AttachmentList } from '@/features/documents';
-import { DialButton, CallLog } from '@/features/phone/index.ts';
-import { CustomerHealthScore } from './components/CustomerHealthScore.tsx';
+} from "@/api/types/workOrder.ts";
+import type { CustomerFormData } from "@/api/types/customer.ts";
+import { ActivityTimeline } from "@/features/activities";
+import { AttachmentList } from "@/features/documents";
+import { DialButton, CallLog } from "@/features/phone/index.ts";
+import { CustomerHealthScore } from "./components/CustomerHealthScore.tsx";
 
 /**
  * Customer detail page - view/edit individual customer
@@ -64,7 +69,7 @@ export function CustomerDetailPage() {
   const handleDelete = async () => {
     if (id) {
       await deleteMutation.mutateAsync(id);
-      navigate('/customers');
+      navigate("/customers");
     }
   };
 
@@ -94,7 +99,9 @@ export function CustomerDetailPage() {
   if (!customer) {
     return (
       <div className="p-6 text-center">
-        <h2 className="text-xl font-semibold text-text-primary mb-2">Customer not found</h2>
+        <h2 className="text-xl font-semibold text-text-primary mb-2">
+          Customer not found
+        </h2>
         <p className="text-text-secondary mb-4">
           The customer you're looking for doesn't exist or has been deleted.
         </p>
@@ -123,7 +130,9 @@ export function CustomerDetailPage() {
           </h1>
           {customer.customer_type && (
             <p className="text-text-secondary">
-              {CUSTOMER_TYPE_LABELS[customer.customer_type as keyof typeof CUSTOMER_TYPE_LABELS] || customer.customer_type}
+              {CUSTOMER_TYPE_LABELS[
+                customer.customer_type as keyof typeof CUSTOMER_TYPE_LABELS
+              ] || customer.customer_type}
             </p>
           )}
         </div>
@@ -141,13 +150,13 @@ export function CustomerDetailPage() {
       {customer.prospect_stage && (
         <Card className="mb-6">
           <div className="flex items-center gap-4">
-            <span className="text-sm font-medium text-text-secondary">Prospect Stage:</span>
+            <span className="text-sm font-medium text-text-secondary">
+              Prospect Stage:
+            </span>
             <Badge variant="stage" stage={customer.prospect_stage}>
               {PROSPECT_STAGE_LABELS[customer.prospect_stage]}
             </Badge>
-            {!customer.is_active && (
-              <Badge variant="danger">Inactive</Badge>
-            )}
+            {!customer.is_active && <Badge variant="danger">Inactive</Badge>}
           </div>
         </Card>
       )}
@@ -183,10 +192,16 @@ export function CustomerDetailPage() {
                 <dd className="font-medium flex items-center gap-2">
                   {customer.phone ? (
                     <>
-                      <a href={`tel:${customer.phone}`} className="text-text-link hover:underline">
+                      <a
+                        href={`tel:${customer.phone}`}
+                        className="text-text-link hover:underline"
+                      >
                         {formatPhone(customer.phone)}
                       </a>
-                      <DialButton phoneNumber={customer.phone} customerId={id} />
+                      <DialButton
+                        phoneNumber={customer.phone}
+                        customerId={id}
+                      />
                     </>
                   ) : (
                     <span className="text-text-muted">Not provided</span>
@@ -227,7 +242,10 @@ export function CustomerDetailPage() {
         </Card>
 
         {/* Sales/Prospect Information */}
-        {(customer.prospect_stage || customer.lead_source || customer.estimated_value || customer.assigned_sales_rep) && (
+        {(customer.prospect_stage ||
+          customer.lead_source ||
+          customer.estimated_value ||
+          customer.assigned_sales_rep) && (
           <Card>
             <CardHeader>
               <CardTitle>Sales Information</CardTitle>
@@ -244,7 +262,9 @@ export function CustomerDetailPage() {
                 )}
                 {customer.estimated_value != null && (
                   <div>
-                    <dt className="text-sm text-text-secondary">Estimated Value</dt>
+                    <dt className="text-sm text-text-secondary">
+                      Estimated Value
+                    </dt>
                     <dd className="font-medium text-success">
                       {formatCurrency(customer.estimated_value)}
                     </dd>
@@ -252,13 +272,19 @@ export function CustomerDetailPage() {
                 )}
                 {customer.assigned_sales_rep && (
                   <div>
-                    <dt className="text-sm text-text-secondary">Assigned Sales Rep</dt>
-                    <dd className="font-medium">{customer.assigned_sales_rep}</dd>
+                    <dt className="text-sm text-text-secondary">
+                      Assigned Sales Rep
+                    </dt>
+                    <dd className="font-medium">
+                      {customer.assigned_sales_rep}
+                    </dd>
                   </div>
                 )}
                 {customer.next_follow_up_date && (
                   <div>
-                    <dt className="text-sm text-text-secondary">Next Follow-up</dt>
+                    <dt className="text-sm text-text-secondary">
+                      Next Follow-up
+                    </dt>
                     <dd className="font-medium">
                       {formatDate(customer.next_follow_up_date)}
                     </dd>
@@ -278,8 +304,12 @@ export function CustomerDetailPage() {
             <CardContent>
               <dl className="space-y-4">
                 <div>
-                  <dt className="text-sm text-text-secondary">Default Payment Terms</dt>
-                  <dd className="font-medium">{customer.default_payment_terms}</dd>
+                  <dt className="text-sm text-text-secondary">
+                    Default Payment Terms
+                  </dt>
+                  <dd className="font-medium">
+                    {customer.default_payment_terms}
+                  </dd>
                 </div>
               </dl>
             </CardContent>
@@ -287,7 +317,9 @@ export function CustomerDetailPage() {
         )}
 
         {/* External IDs */}
-        {(customer.quickbooks_customer_id || customer.hubspot_contact_id || customer.servicenow_ticket_ref) && (
+        {(customer.quickbooks_customer_id ||
+          customer.hubspot_contact_id ||
+          customer.servicenow_ticket_ref) && (
           <Card>
             <CardHeader>
               <CardTitle>External Integrations</CardTitle>
@@ -296,20 +328,32 @@ export function CustomerDetailPage() {
               <dl className="space-y-4">
                 {customer.quickbooks_customer_id && (
                   <div>
-                    <dt className="text-sm text-text-secondary">QuickBooks Customer ID</dt>
-                    <dd className="font-medium font-mono text-sm">{customer.quickbooks_customer_id}</dd>
+                    <dt className="text-sm text-text-secondary">
+                      QuickBooks Customer ID
+                    </dt>
+                    <dd className="font-medium font-mono text-sm">
+                      {customer.quickbooks_customer_id}
+                    </dd>
                   </div>
                 )}
                 {customer.hubspot_contact_id && (
                   <div>
-                    <dt className="text-sm text-text-secondary">HubSpot Contact ID</dt>
-                    <dd className="font-medium font-mono text-sm">{customer.hubspot_contact_id}</dd>
+                    <dt className="text-sm text-text-secondary">
+                      HubSpot Contact ID
+                    </dt>
+                    <dd className="font-medium font-mono text-sm">
+                      {customer.hubspot_contact_id}
+                    </dd>
                   </div>
                 )}
                 {customer.servicenow_ticket_ref && (
                   <div>
-                    <dt className="text-sm text-text-secondary">ServiceNow Ticket Reference</dt>
-                    <dd className="font-medium font-mono text-sm">{customer.servicenow_ticket_ref}</dd>
+                    <dt className="text-sm text-text-secondary">
+                      ServiceNow Ticket Reference
+                    </dt>
+                    <dd className="font-medium font-mono text-sm">
+                      {customer.servicenow_ticket_ref}
+                    </dd>
                   </div>
                 )}
               </dl>
@@ -324,7 +368,9 @@ export function CustomerDetailPage() {
               <CardTitle>Notes</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="whitespace-pre-wrap text-text-primary">{customer.lead_notes}</p>
+              <p className="whitespace-pre-wrap text-text-primary">
+                {customer.lead_notes}
+              </p>
             </CardContent>
           </Card>
         )}
@@ -385,24 +431,33 @@ export function CustomerDetailPage() {
                     <div className="flex items-start justify-between mb-2">
                       <div>
                         <p className="font-medium text-text-primary">
-                          {JOB_TYPE_LABELS[wo.job_type as JobType] || wo.job_type}
+                          {JOB_TYPE_LABELS[wo.job_type as JobType] ||
+                            wo.job_type}
                         </p>
                         <p className="text-sm text-text-secondary">
                           {wo.scheduled_date
                             ? formatDate(wo.scheduled_date)
-                            : 'Not scheduled'}
-                          {wo.time_window_start && ` at ${wo.time_window_start.slice(0, 5)}`}
+                            : "Not scheduled"}
+                          {wo.time_window_start &&
+                            ` at ${wo.time_window_start.slice(0, 5)}`}
                         </p>
                       </div>
                       <Badge
                         variant={
-                          wo.status === 'completed' ? 'success' :
-                          wo.status === 'canceled' ? 'danger' :
-                          ['enroute', 'on_site', 'in_progress'].includes(wo.status) ? 'warning' :
-                          'default'
+                          wo.status === "completed"
+                            ? "success"
+                            : wo.status === "canceled"
+                              ? "danger"
+                              : ["enroute", "on_site", "in_progress"].includes(
+                                    wo.status,
+                                  )
+                                ? "warning"
+                                : "default"
                         }
                       >
-                        {WORK_ORDER_STATUS_LABELS[wo.status as WorkOrderStatus] || wo.status}
+                        {WORK_ORDER_STATUS_LABELS[
+                          wo.status as WorkOrderStatus
+                        ] || wo.status}
                       </Badge>
                     </div>
                     {wo.assigned_technician && (
@@ -443,7 +498,9 @@ export function CustomerDetailPage() {
             <div className="flex items-center justify-between text-sm text-text-secondary">
               <span>Created: {formatDate(customer.created_at)}</span>
               <span>Last Updated: {formatDate(customer.updated_at)}</span>
-              <span className="text-xs font-mono text-text-muted">ID: {customer.id}</span>
+              <span className="text-xs font-mono text-text-muted">
+                ID: {customer.id}
+              </span>
             </div>
           </CardContent>
         </Card>

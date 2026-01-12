@@ -1,5 +1,8 @@
-import { Badge } from '@/components/ui/Badge.tsx';
-import { PAYMENT_METHOD_LABELS, type PaymentMethod } from '@/api/types/payment.ts';
+import { Badge } from "@/components/ui/Badge.tsx";
+import {
+  PAYMENT_METHOD_LABELS,
+  type PaymentMethod,
+} from "@/api/types/payment.ts";
 
 interface PaymentMethodBadgeProps {
   method: PaymentMethod;
@@ -10,8 +13,6 @@ interface PaymentMethodBadgeProps {
  */
 export function PaymentMethodBadge({ method }: PaymentMethodBadgeProps) {
   return (
-    <Badge variant="default">
-      {PAYMENT_METHOD_LABELS[method] || method}
-    </Badge>
+    <Badge variant="default">{PAYMENT_METHOD_LABELS[method] || method}</Badge>
   );
 }

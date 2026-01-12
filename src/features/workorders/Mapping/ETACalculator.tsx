@@ -2,7 +2,7 @@
  * ETACalculator Component
  * Real-time ETA display with countdown timer that updates as technician moves
  */
-import { useState, useEffect, useMemo, useCallback } from 'react';
+import { useState, useEffect, useMemo, useCallback } from "react";
 import {
   calculateDistanceBetweenPoints,
   formatDistance,
@@ -10,7 +10,7 @@ import {
   formatETATime,
   calculateETA,
   type Coordinates,
-} from './utils/routingUtils';
+} from "./utils/routingUtils";
 
 // ============================================
 // Types
@@ -28,7 +28,7 @@ export interface ETACalculatorProps {
   /** Update interval in ms */
   updateInterval?: number;
   /** Display variant */
-  variant?: 'compact' | 'detailed' | 'minimal';
+  variant?: "compact" | "detailed" | "minimal";
   /** Show distance */
   showDistance?: boolean;
   /** Show countdown timer */
@@ -57,7 +57,7 @@ export interface ETAData {
   /** Formatted duration string */
   formattedDuration: string;
   /** Status: 'en_route' | 'arriving' | 'arrived' */
-  status: 'en_route' | 'arriving' | 'arrived';
+  status: "en_route" | "arriving" | "arrived";
   /** Last updated timestamp */
   lastUpdated: Date;
 }
@@ -68,22 +68,22 @@ export interface ETAData {
 
 const STATUS_COLORS = {
   en_route: {
-    bg: 'bg-blue-50',
-    text: 'text-blue-700',
-    accent: 'text-blue-500',
-    border: 'border-blue-200',
+    bg: "bg-blue-50",
+    text: "text-blue-700",
+    accent: "text-blue-500",
+    border: "border-blue-200",
   },
   arriving: {
-    bg: 'bg-amber-50',
-    text: 'text-amber-700',
-    accent: 'text-amber-500',
-    border: 'border-amber-200',
+    bg: "bg-amber-50",
+    text: "text-amber-700",
+    accent: "text-amber-500",
+    border: "border-amber-200",
   },
   arrived: {
-    bg: 'bg-green-50',
-    text: 'text-green-700',
-    accent: 'text-green-500',
-    border: 'border-green-200',
+    bg: "bg-green-50",
+    text: "text-green-700",
+    accent: "text-green-500",
+    border: "border-green-200",
   },
 };
 
@@ -93,7 +93,7 @@ const STATUS_COLORS = {
 
 function CountdownTimer({
   durationSeconds,
-  className = '',
+  className = "",
 }: {
   durationSeconds: number;
   className?: string;
@@ -118,7 +118,7 @@ function CountdownTimer({
   const minutes = Math.floor((remaining % 3600) / 60);
   const seconds = remaining % 60;
 
-  const formatNum = (n: number) => n.toString().padStart(2, '0');
+  const formatNum = (n: number) => n.toString().padStart(2, "0");
 
   if (remaining <= 0) {
     return <span className={`font-mono ${className}`}>--:--</span>;
@@ -148,12 +148,12 @@ function ETAProgressBar({
   status,
 }: {
   progress: number;
-  status: ETAData['status'];
+  status: ETAData["status"];
 }) {
   const progressColor = {
-    en_route: 'bg-blue-500',
-    arriving: 'bg-amber-500',
-    arrived: 'bg-green-500',
+    en_route: "bg-blue-500",
+    arriving: "bg-amber-500",
+    arrived: "bg-green-500",
   };
 
   return (
@@ -176,10 +176,10 @@ export function ETACalculator({
   currentSpeed,
   onETAUpdate,
   updateInterval = 5000,
-  variant = 'detailed',
+  variant = "detailed",
   showDistance = true,
   showCountdown = true,
-  className = '',
+  className = "",
   arrivingSoonThreshold = 500, // 500 meters
   onArrivingSoon,
   onArrived,
@@ -195,7 +195,7 @@ export function ETACalculator({
 
     const distance = calculateDistanceBetweenPoints(
       technicianLocation,
-      destinationLocation
+      destinationLocation,
     );
 
     // Set initial distance on first calculation
@@ -204,18 +204,22 @@ export function ETACalculator({
     }
 
     // Determine status
-    let status: ETAData['status'] = 'en_route';
+    let status: ETAData["status"] = "en_route";
     if (distance < 50) {
-      status = 'arrived';
+      status = "arrived";
     } else if (distance < arrivingSoonThreshold) {
-      status = 'arriving';
+      status = "arriving";
     }
 
     // Calculate ETA
-    const eta = calculateETA(technicianLocation, destinationLocation, currentSpeed);
+    const eta = calculateETA(
+      technicianLocation,
+      destinationLocation,
+      currentSpeed,
+    );
     const durationRemaining = Math.max(
       0,
-      Math.round((eta.getTime() - Date.now()) / 1000)
+      Math.round((eta.getTime() - Date.now()) / 1000),
     );
 
     return {
@@ -245,11 +249,11 @@ export function ETACalculator({
         onETAUpdate?.(newETA);
 
         // Check for status callbacks
-        if (newETA.status === 'arriving' && !hasNotifiedArrivingSoon) {
+        if (newETA.status === "arriving" && !hasNotifiedArrivingSoon) {
           setHasNotifiedArrivingSoon(true);
           onArrivingSoon?.();
         }
-        if (newETA.status === 'arrived' && !hasNotifiedArrived) {
+        if (newETA.status === "arrived" && !hasNotifiedArrived) {
           setHasNotifiedArrived(true);
           onArrived?.();
         }
@@ -298,13 +302,13 @@ export function ETACalculator({
   const colors = STATUS_COLORS[etaData.status];
 
   // Minimal variant
-  if (variant === 'minimal') {
+  if (variant === "minimal") {
     return (
       <div className={`flex items-center gap-2 ${className}`}>
         <span className={`text-sm font-medium ${colors.text}`}>
           ETA: {etaData.formattedArrivalTime}
         </span>
-        {showCountdown && etaData.status !== 'arrived' && (
+        {showCountdown && etaData.status !== "arrived" && (
           <span className="text-xs text-gray-500">
             (<CountdownTimer durationSeconds={etaData.durationRemaining} />)
           </span>
@@ -314,14 +318,14 @@ export function ETACalculator({
   }
 
   // Compact variant
-  if (variant === 'compact') {
+  if (variant === "compact") {
     return (
       <div
         className={`p-3 rounded-lg border ${colors.bg} ${colors.border} ${className}`}
       >
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
-            {etaData.status === 'arrived' ? (
+            {etaData.status === "arrived" ? (
               <svg
                 width="20"
                 height="20"
@@ -350,20 +354,20 @@ export function ETACalculator({
             )}
             <div>
               <p className={`text-sm font-semibold ${colors.text}`}>
-                {etaData.status === 'arrived'
-                  ? 'Arrived!'
+                {etaData.status === "arrived"
+                  ? "Arrived!"
                   : `ETA: ${etaData.formattedArrivalTime}`}
               </p>
             </div>
           </div>
-          {showCountdown && etaData.status !== 'arrived' && (
+          {showCountdown && etaData.status !== "arrived" && (
             <CountdownTimer
               durationSeconds={etaData.durationRemaining}
               className={`text-lg font-bold ${colors.accent}`}
             />
           )}
         </div>
-        {showDistance && etaData.status !== 'arrived' && (
+        {showDistance && etaData.status !== "arrived" && (
           <p className={`text-xs mt-1 ${colors.text} opacity-75`}>
             {etaData.formattedDistance} away
           </p>
@@ -382,14 +386,14 @@ export function ETACalculator({
         <div className="flex items-center gap-3">
           <div
             className={`w-10 h-10 rounded-full flex items-center justify-center ${
-              etaData.status === 'arrived'
-                ? 'bg-green-500'
-                : etaData.status === 'arriving'
-                ? 'bg-amber-500'
-                : 'bg-blue-500'
+              etaData.status === "arrived"
+                ? "bg-green-500"
+                : etaData.status === "arriving"
+                  ? "bg-amber-500"
+                  : "bg-blue-500"
             }`}
           >
-            {etaData.status === 'arrived' ? (
+            {etaData.status === "arrived" ? (
               <svg width="24" height="24" viewBox="0 0 24 24" fill="white">
                 <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z" />
               </svg>
@@ -401,11 +405,11 @@ export function ETACalculator({
           </div>
           <div>
             <p className={`font-semibold ${colors.text}`}>
-              {etaData.status === 'arrived'
-                ? 'Technician Has Arrived'
-                : etaData.status === 'arriving'
-                ? 'Almost There!'
-                : 'On The Way'}
+              {etaData.status === "arrived"
+                ? "Technician Has Arrived"
+                : etaData.status === "arriving"
+                  ? "Almost There!"
+                  : "On The Way"}
             </p>
             <p className="text-xs text-gray-500">
               Updated {etaData.lastUpdated.toLocaleTimeString()}
@@ -414,7 +418,7 @@ export function ETACalculator({
         </div>
 
         {/* Countdown */}
-        {showCountdown && etaData.status !== 'arrived' && (
+        {showCountdown && etaData.status !== "arrived" && (
           <div className="text-right">
             <CountdownTimer
               durationSeconds={etaData.durationRemaining}
@@ -426,14 +430,14 @@ export function ETACalculator({
       </div>
 
       {/* Progress Bar */}
-      {etaData.status !== 'arrived' && (
+      {etaData.status !== "arrived" && (
         <div className="mb-4">
           <ETAProgressBar progress={progress} status={etaData.status} />
         </div>
       )}
 
       {/* Stats Row */}
-      {etaData.status !== 'arrived' && (
+      {etaData.status !== "arrived" && (
         <div className="grid grid-cols-3 gap-4 text-center">
           {showDistance && (
             <div>
@@ -459,7 +463,7 @@ export function ETACalculator({
       )}
 
       {/* Arrived Message */}
-      {etaData.status === 'arrived' && (
+      {etaData.status === "arrived" && (
         <div className="text-center py-2">
           <p className="text-sm text-gray-600">
             Your technician is at the location and ready to assist you.
@@ -475,13 +479,13 @@ export function ETACalculator({
 // ============================================
 
 export function ETACalculatorSkeleton({
-  variant = 'detailed',
-  className = '',
+  variant = "detailed",
+  className = "",
 }: {
-  variant?: 'compact' | 'detailed' | 'minimal';
+  variant?: "compact" | "detailed" | "minimal";
   className?: string;
 }) {
-  if (variant === 'minimal') {
+  if (variant === "minimal") {
     return (
       <div className={`flex items-center gap-2 ${className}`}>
         <div className="h-4 w-24 bg-gray-200 rounded animate-pulse" />
@@ -489,7 +493,7 @@ export function ETACalculatorSkeleton({
     );
   }
 
-  if (variant === 'compact') {
+  if (variant === "compact") {
     return (
       <div className={`p-3 rounded-lg bg-gray-50 ${className}`}>
         <div className="flex items-center justify-between">

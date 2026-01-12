@@ -1,5 +1,5 @@
-import { useQuery, useMutation } from '@tanstack/react-query';
-import { apiClient, withFallback } from '@/api/client';
+import { useQuery, useMutation } from "@tanstack/react-query";
+import { apiClient, withFallback } from "@/api/client";
 
 /**
  * Predictive Maintenance Types
@@ -9,12 +9,16 @@ export interface MaintenancePrediction {
   customer_id: number;
   customer_name: string;
   address: string;
-  equipment_type: 'septic_tank' | 'grease_trap' | 'pump_station' | 'aerobic_system';
+  equipment_type:
+    | "septic_tank"
+    | "grease_trap"
+    | "pump_station"
+    | "aerobic_system";
   last_service_date: string;
   predicted_service_date: string;
   days_until_service: number;
   risk_score: number; // 0-100
-  risk_level: 'low' | 'medium' | 'high' | 'critical';
+  risk_level: "low" | "medium" | "high" | "critical";
   factors: RiskFactor[];
   recommended_services: string[];
   estimated_cost: number;
@@ -23,7 +27,7 @@ export interface MaintenancePrediction {
 export interface RiskFactor {
   name: string;
   description: string;
-  impact: 'low' | 'medium' | 'high';
+  impact: "low" | "medium" | "high";
   value: string | number;
 }
 
@@ -41,8 +45,8 @@ export interface MaintenanceAlert {
   id: string;
   customer_id: number;
   customer_name: string;
-  alert_type: 'overdue' | 'upcoming' | 'risk_increase' | 'weather_impact';
-  severity: 'info' | 'warning' | 'urgent';
+  alert_type: "overdue" | "upcoming" | "risk_increase" | "weather_impact";
+  severity: "info" | "warning" | "urgent";
   message: string;
   created_at: string;
   is_read: boolean;
@@ -50,7 +54,7 @@ export interface MaintenanceAlert {
 }
 
 export interface PredictionFilters {
-  risk_level?: 'low' | 'medium' | 'high' | 'critical';
+  risk_level?: "low" | "medium" | "high" | "critical";
   days_until_service?: number;
   equipment_type?: string;
   region?: string;
@@ -77,15 +81,12 @@ const DEFAULT_SUMMARY: PredictionSummary = {
  */
 export function usePredictionSummary() {
   return useQuery({
-    queryKey: ['predictive-maintenance', 'summary'],
+    queryKey: ["predictive-maintenance", "summary"],
     queryFn: async (): Promise<PredictionSummary> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/predictions/summary');
-          return data;
-        },
-        DEFAULT_SUMMARY
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/predictions/summary");
+        return data;
+      }, DEFAULT_SUMMARY);
     },
   });
 }
@@ -96,16 +97,19 @@ export function usePredictionSummary() {
  */
 export function useMaintenancePredictions(filters?: PredictionFilters) {
   return useQuery({
-    queryKey: ['predictive-maintenance', 'predictions', filters],
-    queryFn: async (): Promise<{ items: MaintenancePrediction[]; total: number }> => {
+    queryKey: ["predictive-maintenance", "predictions", filters],
+    queryFn: async (): Promise<{
+      items: MaintenancePrediction[];
+      total: number;
+    }> => {
       return withFallback(
         async () => {
-          const { data } = await apiClient.get('/predictions/predictions', {
+          const { data } = await apiClient.get("/predictions/predictions", {
             params: filters,
           });
           return data;
         },
-        { items: [], total: 0 }
+        { items: [], total: 0 },
       );
     },
   });
@@ -117,20 +121,17 @@ export function useMaintenancePredictions(filters?: PredictionFilters) {
  */
 export function useHighRiskPredictions(limit = 10) {
   return useQuery({
-    queryKey: ['predictive-maintenance', 'high-risk', limit],
+    queryKey: ["predictive-maintenance", "high-risk", limit],
     queryFn: async (): Promise<MaintenancePrediction[]> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/predictions/predictions', {
-            params: {
-              risk_level: 'high',
-              page_size: limit,
-            },
-          });
-          return data.items || [];
-        },
-        []
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/predictions/predictions", {
+          params: {
+            risk_level: "high",
+            page_size: limit,
+          },
+        });
+        return data.items || [];
+      }, []);
     },
   });
 }
@@ -140,9 +141,11 @@ export function useHighRiskPredictions(limit = 10) {
  */
 export function useCustomerPrediction(customerId: number) {
   return useQuery({
-    queryKey: ['predictive-maintenance', 'customer', customerId],
+    queryKey: ["predictive-maintenance", "customer", customerId],
     queryFn: async (): Promise<MaintenancePrediction> => {
-      const { data } = await apiClient.get(`/predictions/customer/${customerId}`);
+      const { data } = await apiClient.get(
+        `/predictions/customer/${customerId}`,
+      );
       return data;
     },
     enabled: !!customerId,
@@ -155,17 +158,14 @@ export function useCustomerPrediction(customerId: number) {
  */
 export function useMaintenanceAlerts(unreadOnly = false) {
   return useQuery({
-    queryKey: ['predictive-maintenance', 'alerts', unreadOnly],
+    queryKey: ["predictive-maintenance", "alerts", unreadOnly],
     queryFn: async (): Promise<MaintenanceAlert[]> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/predictions/alerts', {
-            params: { unread_only: unreadOnly },
-          });
-          return data.alerts || [];
-        },
-        []
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/predictions/alerts", {
+          params: { unread_only: unreadOnly },
+        });
+        return data.alerts || [];
+      }, []);
     },
   });
 }
@@ -186,8 +186,12 @@ export function useMarkAlertRead() {
  */
 export function useCreateFromPrediction() {
   return useMutation({
-    mutationFn: async (predictionId: string): Promise<{ work_order_id: string }> => {
-      const { data } = await apiClient.post(`/predictions/predictions/${predictionId}/create-work-order`);
+    mutationFn: async (
+      predictionId: string,
+    ): Promise<{ work_order_id: string }> => {
+      const { data } = await apiClient.post(
+        `/predictions/predictions/${predictionId}/create-work-order`,
+      );
       return data;
     },
   });
@@ -199,17 +203,16 @@ export function useCreateFromPrediction() {
  */
 export function usePredictionCalendar(startDate: string, endDate: string) {
   return useQuery({
-    queryKey: ['predictive-maintenance', 'calendar', startDate, endDate],
-    queryFn: async (): Promise<{ date: string; predictions: MaintenancePrediction[] }[]> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/predictions/calendar', {
-            params: { start_date: startDate, end_date: endDate },
-          });
-          return data.days || [];
-        },
-        []
-      );
+    queryKey: ["predictive-maintenance", "calendar", startDate, endDate],
+    queryFn: async (): Promise<
+      { date: string; predictions: MaintenancePrediction[] }[]
+    > => {
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/predictions/calendar", {
+          params: { start_date: startDate, end_date: endDate },
+        });
+        return data.days || [];
+      }, []);
     },
     enabled: !!startDate && !!endDate,
   });
@@ -221,7 +224,7 @@ export function usePredictionCalendar(startDate: string, endDate: string) {
 export function useRefreshPredictions() {
   return useMutation({
     mutationFn: async (): Promise<{ updated_count: number }> => {
-      const { data } = await apiClient.post('/predictions/refresh');
+      const { data } = await apiClient.post("/predictions/refresh");
       return data;
     },
   });

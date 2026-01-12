@@ -1,24 +1,24 @@
-import { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { useEquipment } from '@/api/hooks/useEquipment.ts';
-import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
-import { Card, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { cn, formatDate } from '@/lib/utils.ts';
-import type { Equipment } from '@/api/types/equipment.ts';
-import type { WorkOrder } from '@/api/types/workOrder.ts';
+import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
+import { useEquipment } from "@/api/hooks/useEquipment.ts";
+import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
+import { Card, CardContent } from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { cn, formatDate } from "@/lib/utils.ts";
+import type { Equipment } from "@/api/types/equipment.ts";
+import type { WorkOrder } from "@/api/types/workOrder.ts";
 
 /**
  * Equipment health score factors and weights
  */
 interface HealthFactors {
-  ageScore: number;          // Based on equipment age (newer = higher)
-  maintenanceScore: number;  // Based on maintenance history
-  reliabilityScore: number;  // Based on work order history
-  statusScore: number;       // Based on current status
+  ageScore: number; // Based on equipment age (newer = higher)
+  maintenanceScore: number; // Based on maintenance history
+  reliabilityScore: number; // Based on work order history
+  statusScore: number; // Based on current status
 }
 
 interface EquipmentHealth {
@@ -36,15 +36,15 @@ interface EquipmentHealth {
  * Model reliability ratings (mock data - in production, this would come from historical analysis)
  */
 const MODEL_RELIABILITY: Record<string, number> = {
-  'pump': 85,
-  'vacuum': 80,
-  'camera': 90,
-  'truck': 75,
-  'trailer': 85,
-  'hydro_jetter': 78,
-  'locator': 92,
-  'generator': 82,
-  'compressor': 80,
+  pump: 85,
+  vacuum: 80,
+  camera: 90,
+  truck: 75,
+  trailer: 85,
+  hydro_jetter: 78,
+  locator: 92,
+  generator: 82,
+  compressor: 80,
   default: 80,
 };
 
@@ -53,7 +53,7 @@ const MODEL_RELIABILITY: Record<string, number> = {
  */
 function calculateEquipmentHealth(
   equipment: Equipment,
-  workOrders: WorkOrder[]
+  workOrders: WorkOrder[],
 ): EquipmentHealth {
   const now = new Date();
   const riskFactors: string[] = [];
@@ -63,13 +63,17 @@ function calculateEquipmentHealth(
   // Assume average equipment lifespan is 10 years
   let ageScore = 100;
   if (equipment.created_at) {
-    const ageInYears = (now.getTime() - new Date(equipment.created_at).getTime()) / (365 * 24 * 60 * 60 * 1000);
-    ageScore = Math.max(0, 100 - (ageInYears * 10));
+    const ageInYears =
+      (now.getTime() - new Date(equipment.created_at).getTime()) /
+      (365 * 24 * 60 * 60 * 1000);
+    ageScore = Math.max(0, 100 - ageInYears * 10);
     if (ageInYears > 7) {
       riskFactors.push(`Equipment is ${ageInYears.toFixed(1)} years old`);
-      recommendations.push('Consider planning for replacement within next 2-3 years');
+      recommendations.push(
+        "Consider planning for replacement within next 2-3 years",
+      );
     } else if (ageInYears > 5) {
-      recommendations.push('Schedule comprehensive inspection');
+      recommendations.push("Schedule comprehensive inspection");
     }
   }
 
@@ -78,17 +82,21 @@ function calculateEquipmentHealth(
   if (equipment.last_maintenance && equipment.next_maintenance) {
     const lastMaintenance = new Date(equipment.last_maintenance);
     const nextMaintenance = new Date(equipment.next_maintenance);
-    const daysSinceLastMaintenance = (now.getTime() - lastMaintenance.getTime()) / (24 * 60 * 60 * 1000);
-    const daysUntilNextMaintenance = (nextMaintenance.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
+    const daysSinceLastMaintenance =
+      (now.getTime() - lastMaintenance.getTime()) / (24 * 60 * 60 * 1000);
+    const daysUntilNextMaintenance =
+      (nextMaintenance.getTime() - now.getTime()) / (24 * 60 * 60 * 1000);
 
     if (daysUntilNextMaintenance < 0) {
       // Overdue maintenance
       maintenanceScore = Math.max(0, 50 - Math.abs(daysUntilNextMaintenance));
-      riskFactors.push(`Maintenance overdue by ${Math.abs(daysUntilNextMaintenance).toFixed(0)} days`);
-      recommendations.push('Schedule maintenance immediately');
+      riskFactors.push(
+        `Maintenance overdue by ${Math.abs(daysUntilNextMaintenance).toFixed(0)} days`,
+      );
+      recommendations.push("Schedule maintenance immediately");
     } else if (daysUntilNextMaintenance < 14) {
       maintenanceScore = 60;
-      recommendations.push('Maintenance due soon - schedule within 2 weeks');
+      recommendations.push("Maintenance due soon - schedule within 2 weeks");
     } else if (daysSinceLastMaintenance < 30) {
       maintenanceScore = 100;
     } else if (daysSinceLastMaintenance < 90) {
@@ -97,30 +105,35 @@ function calculateEquipmentHealth(
       maintenanceScore = 70;
     }
   } else if (!equipment.last_maintenance) {
-    riskFactors.push('No maintenance history recorded');
-    recommendations.push('Schedule initial maintenance check');
+    riskFactors.push("No maintenance history recorded");
+    recommendations.push("Schedule initial maintenance check");
     maintenanceScore = 40;
   }
 
   // Reliability score based on work order history
   // Look for repair/maintenance work orders related to this equipment
-  const relatedWorkOrders = workOrders.filter(wo =>
-    wo.notes?.toLowerCase().includes(equipment.name.toLowerCase()) ||
-    wo.notes?.toLowerCase().includes(equipment.serial_number?.toLowerCase() || '')
+  const relatedWorkOrders = workOrders.filter(
+    (wo) =>
+      wo.notes?.toLowerCase().includes(equipment.name.toLowerCase()) ||
+      wo.notes
+        ?.toLowerCase()
+        .includes(equipment.serial_number?.toLowerCase() || ""),
   );
 
-  const recentRepairs = relatedWorkOrders.filter(wo => {
+  const recentRepairs = relatedWorkOrders.filter((wo) => {
     if (!wo.scheduled_date) return false;
     const woDate = new Date(wo.scheduled_date);
     const sixMonthsAgo = new Date(now.getTime() - 180 * 24 * 60 * 60 * 1000);
-    return woDate >= sixMonthsAgo && wo.job_type === 'repair';
+    return woDate >= sixMonthsAgo && wo.job_type === "repair";
   });
 
-  let reliabilityScore = MODEL_RELIABILITY[equipment.type.toLowerCase()] || MODEL_RELIABILITY.default;
+  let reliabilityScore =
+    MODEL_RELIABILITY[equipment.type.toLowerCase()] ||
+    MODEL_RELIABILITY.default;
   if (recentRepairs.length > 2) {
     reliabilityScore -= 20;
     riskFactors.push(`${recentRepairs.length} repairs in last 6 months`);
-    recommendations.push('Investigate recurring issues');
+    recommendations.push("Investigate recurring issues");
   } else if (recentRepairs.length > 0) {
     reliabilityScore -= 10;
   }
@@ -128,19 +141,19 @@ function calculateEquipmentHealth(
   // Status score
   let statusScore = 100;
   switch (equipment.status) {
-    case 'available':
+    case "available":
       statusScore = 100;
       break;
-    case 'in_use':
+    case "in_use":
       statusScore = 90;
       break;
-    case 'maintenance':
+    case "maintenance":
       statusScore = 50;
-      riskFactors.push('Currently under maintenance');
+      riskFactors.push("Currently under maintenance");
       break;
-    case 'retired':
+    case "retired":
       statusScore = 0;
-      riskFactors.push('Equipment is retired');
+      riskFactors.push("Equipment is retired");
       break;
   }
 
@@ -154,9 +167,9 @@ function calculateEquipmentHealth(
 
   const healthScore = Math.round(
     ageScore * weights.age +
-    maintenanceScore * weights.maintenance +
-    reliabilityScore * weights.reliability +
-    statusScore * weights.status
+      maintenanceScore * weights.maintenance +
+      reliabilityScore * weights.reliability +
+      statusScore * weights.status,
   );
 
   // Calculate predicted replacement date
@@ -164,14 +177,16 @@ function calculateEquipmentHealth(
   if (equipment.created_at && healthScore < 50) {
     // Already in poor health, predict replacement soon
     const replacementDate = new Date(now.getTime() + 365 * 24 * 60 * 60 * 1000);
-    predictedReplacementDate = replacementDate.toISOString().split('T')[0];
+    predictedReplacementDate = replacementDate.toISOString().split("T")[0];
   } else if (equipment.created_at) {
     // Estimate based on typical lifespan
     const purchaseDate = new Date(equipment.created_at);
     const estimatedLifespan = 10; // years
-    const replacementDate = new Date(purchaseDate.getTime() + estimatedLifespan * 365 * 24 * 60 * 60 * 1000);
+    const replacementDate = new Date(
+      purchaseDate.getTime() + estimatedLifespan * 365 * 24 * 60 * 60 * 1000,
+    );
     if (replacementDate > now) {
-      predictedReplacementDate = replacementDate.toISOString().split('T')[0];
+      predictedReplacementDate = replacementDate.toISOString().split("T")[0];
     }
   }
 
@@ -182,7 +197,7 @@ function calculateEquipmentHealth(
   } else {
     // Default to 90 days from now
     const serviceDate = new Date(now.getTime() + 90 * 24 * 60 * 60 * 1000);
-    nextRecommendedService = serviceDate.toISOString().split('T')[0];
+    nextRecommendedService = serviceDate.toISOString().split("T")[0];
   }
 
   return {
@@ -202,8 +217,8 @@ function calculateEquipmentHealth(
   };
 }
 
-type SortField = 'health' | 'name' | 'lastService' | 'nextService';
-type HealthFilter = 'all' | 'critical' | 'warning' | 'good';
+type SortField = "health" | "name" | "lastService" | "nextService";
+type HealthFilter = "all" | "critical" | "warning" | "good";
 
 /**
  * EquipmentHealthPage - Equipment health monitoring dashboard
@@ -216,10 +231,12 @@ type HealthFilter = 'all' | 'critical' | 'warning' | 'good';
  * - Predicted replacement dates
  */
 export function EquipmentHealthPage() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sortBy, setSortBy] = useState<SortField>('health');
-  const [healthFilter, setHealthFilter] = useState<HealthFilter>('all');
-  const [selectedEquipment, setSelectedEquipment] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sortBy, setSortBy] = useState<SortField>("health");
+  const [healthFilter, setHealthFilter] = useState<HealthFilter>("all");
+  const [selectedEquipment, setSelectedEquipment] = useState<string | null>(
+    null,
+  );
 
   // Fetch equipment and work orders
   const { data: equipmentData, isLoading: equipmentLoading } = useEquipment({
@@ -245,45 +262,56 @@ export function EquipmentHealthPage() {
     // Search filter
     if (searchQuery) {
       const query = searchQuery.toLowerCase();
-      filtered = filtered.filter((eh) =>
-        eh.equipment.name.toLowerCase().includes(query) ||
-        eh.equipment.type.toLowerCase().includes(query) ||
-        eh.equipment.serial_number?.toLowerCase().includes(query)
+      filtered = filtered.filter(
+        (eh) =>
+          eh.equipment.name.toLowerCase().includes(query) ||
+          eh.equipment.type.toLowerCase().includes(query) ||
+          eh.equipment.serial_number?.toLowerCase().includes(query),
       );
     }
 
     // Health filter
     switch (healthFilter) {
-      case 'critical':
+      case "critical":
         filtered = filtered.filter((eh) => eh.healthScore < 50);
         break;
-      case 'warning':
-        filtered = filtered.filter((eh) => eh.healthScore >= 50 && eh.healthScore < 80);
+      case "warning":
+        filtered = filtered.filter(
+          (eh) => eh.healthScore >= 50 && eh.healthScore < 80,
+        );
         break;
-      case 'good':
+      case "good":
         filtered = filtered.filter((eh) => eh.healthScore >= 80);
         break;
     }
 
     // Sort
     switch (sortBy) {
-      case 'health':
+      case "health":
         filtered.sort((a, b) => a.healthScore - b.healthScore);
         break;
-      case 'name':
-        filtered.sort((a, b) => a.equipment.name.localeCompare(b.equipment.name));
+      case "name":
+        filtered.sort((a, b) =>
+          a.equipment.name.localeCompare(b.equipment.name),
+        );
         break;
-      case 'lastService':
+      case "lastService":
         filtered.sort((a, b) => {
           if (!a.lastServiceDate && !b.lastServiceDate) return 0;
           if (!a.lastServiceDate) return 1;
           if (!b.lastServiceDate) return -1;
-          return new Date(a.lastServiceDate).getTime() - new Date(b.lastServiceDate).getTime();
+          return (
+            new Date(a.lastServiceDate).getTime() -
+            new Date(b.lastServiceDate).getTime()
+          );
         });
         break;
-      case 'nextService':
+      case "nextService":
         filtered.sort((a, b) => {
-          return new Date(a.nextRecommendedService).getTime() - new Date(b.nextRecommendedService).getTime();
+          return (
+            new Date(a.nextRecommendedService).getTime() -
+            new Date(b.nextRecommendedService).getTime()
+          );
         });
         break;
     }
@@ -294,24 +322,36 @@ export function EquipmentHealthPage() {
   // Summary stats
   const stats = useMemo(() => {
     const critical = equipmentHealth.filter((eh) => eh.healthScore < 50).length;
-    const warning = equipmentHealth.filter((eh) => eh.healthScore >= 50 && eh.healthScore < 80).length;
+    const warning = equipmentHealth.filter(
+      (eh) => eh.healthScore >= 50 && eh.healthScore < 80,
+    ).length;
     const good = equipmentHealth.filter((eh) => eh.healthScore >= 80).length;
-    const avgHealth = equipmentHealth.reduce((sum, eh) => sum + eh.healthScore, 0) / (equipmentHealth.length || 1);
+    const avgHealth =
+      equipmentHealth.reduce((sum, eh) => sum + eh.healthScore, 0) /
+      (equipmentHealth.length || 1);
 
-    return { critical, warning, good, avgHealth, total: equipmentHealth.length };
+    return {
+      critical,
+      warning,
+      good,
+      avgHealth,
+      total: equipmentHealth.length,
+    };
   }, [equipmentHealth]);
 
   // Get health color
   const getHealthColor = (score: number) => {
-    if (score >= 80) return 'text-success';
-    if (score >= 50) return 'text-warning';
-    return 'text-danger';
+    if (score >= 80) return "text-success";
+    if (score >= 50) return "text-warning";
+    return "text-danger";
   };
 
-  const getHealthBadgeVariant = (score: number): 'success' | 'warning' | 'danger' => {
-    if (score >= 80) return 'success';
-    if (score >= 50) return 'warning';
-    return 'danger';
+  const getHealthBadgeVariant = (
+    score: number,
+  ): "success" | "warning" | "danger" => {
+    if (score >= 80) return "success";
+    if (score >= 50) return "warning";
+    return "danger";
   };
 
   if (equipmentLoading) {
@@ -355,22 +395,34 @@ export function EquipmentHealthPage() {
         <Card>
           <CardContent className="pt-6">
             <p className="text-sm text-text-secondary">Total Equipment</p>
-            <p className="text-3xl font-bold text-text-primary mt-2">{stats.total}</p>
+            <p className="text-3xl font-bold text-text-primary mt-2">
+              {stats.total}
+            </p>
           </CardContent>
         </Card>
 
         <Card>
           <CardContent className="pt-6">
             <p className="text-sm text-text-secondary">Average Health</p>
-            <p className={cn('text-3xl font-bold mt-2', getHealthColor(stats.avgHealth))}>
+            <p
+              className={cn(
+                "text-3xl font-bold mt-2",
+                getHealthColor(stats.avgHealth),
+              )}
+            >
               {stats.avgHealth.toFixed(0)}%
             </p>
           </CardContent>
         </Card>
 
         <Card
-          className={cn('cursor-pointer transition-colors', healthFilter === 'good' && 'ring-2 ring-success')}
-          onClick={() => setHealthFilter(healthFilter === 'good' ? 'all' : 'good')}
+          className={cn(
+            "cursor-pointer transition-colors",
+            healthFilter === "good" && "ring-2 ring-success",
+          )}
+          onClick={() =>
+            setHealthFilter(healthFilter === "good" ? "all" : "good")
+          }
         >
           <CardContent className="pt-6">
             <p className="text-sm text-text-secondary">Good Health (&gt;80%)</p>
@@ -379,22 +431,38 @@ export function EquipmentHealthPage() {
         </Card>
 
         <Card
-          className={cn('cursor-pointer transition-colors', healthFilter === 'warning' && 'ring-2 ring-warning')}
-          onClick={() => setHealthFilter(healthFilter === 'warning' ? 'all' : 'warning')}
+          className={cn(
+            "cursor-pointer transition-colors",
+            healthFilter === "warning" && "ring-2 ring-warning",
+          )}
+          onClick={() =>
+            setHealthFilter(healthFilter === "warning" ? "all" : "warning")
+          }
         >
           <CardContent className="pt-6">
-            <p className="text-sm text-text-secondary">Needs Attention (50-80%)</p>
-            <p className="text-3xl font-bold text-warning mt-2">{stats.warning}</p>
+            <p className="text-sm text-text-secondary">
+              Needs Attention (50-80%)
+            </p>
+            <p className="text-3xl font-bold text-warning mt-2">
+              {stats.warning}
+            </p>
           </CardContent>
         </Card>
 
         <Card
-          className={cn('cursor-pointer transition-colors', healthFilter === 'critical' && 'ring-2 ring-danger')}
-          onClick={() => setHealthFilter(healthFilter === 'critical' ? 'all' : 'critical')}
+          className={cn(
+            "cursor-pointer transition-colors",
+            healthFilter === "critical" && "ring-2 ring-danger",
+          )}
+          onClick={() =>
+            setHealthFilter(healthFilter === "critical" ? "all" : "critical")
+          }
         >
           <CardContent className="pt-6">
             <p className="text-sm text-text-secondary">Critical (&lt;50%)</p>
-            <p className="text-3xl font-bold text-danger mt-2">{stats.critical}</p>
+            <p className="text-3xl font-bold text-danger mt-2">
+              {stats.critical}
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -421,11 +489,11 @@ export function EquipmentHealthPage() {
               <option value="lastService">Sort by Last Service</option>
               <option value="nextService">Sort by Next Service</option>
             </Select>
-            {healthFilter !== 'all' && (
+            {healthFilter !== "all" && (
               <Button
                 variant="secondary"
                 size="sm"
-                onClick={() => setHealthFilter('all')}
+                onClick={() => setHealthFilter("all")}
               >
                 Clear Filter
               </Button>
@@ -439,7 +507,9 @@ export function EquipmentHealthPage() {
         {filteredEquipment.length === 0 ? (
           <Card>
             <CardContent className="py-12 text-center">
-              <p className="text-text-muted">No equipment found matching your criteria</p>
+              <p className="text-text-muted">
+                No equipment found matching your criteria
+              </p>
             </CardContent>
           </Card>
         ) : (
@@ -447,14 +517,18 @@ export function EquipmentHealthPage() {
             <Card
               key={eh.equipment.id}
               className={cn(
-                'cursor-pointer transition-all',
+                "cursor-pointer transition-all",
                 selectedEquipment === eh.equipment.id
-                  ? 'ring-2 ring-primary'
-                  : 'hover:border-primary/50'
+                  ? "ring-2 ring-primary"
+                  : "hover:border-primary/50",
               )}
-              onClick={() => setSelectedEquipment(
-                selectedEquipment === eh.equipment.id ? null : eh.equipment.id
-              )}
+              onClick={() =>
+                setSelectedEquipment(
+                  selectedEquipment === eh.equipment.id
+                    ? null
+                    : eh.equipment.id,
+                )
+              }
             >
               <CardContent className="py-4">
                 <div className="flex items-start justify-between">
@@ -484,7 +558,12 @@ export function EquipmentHealthPage() {
                         />
                       </svg>
                       <div className="absolute inset-0 flex items-center justify-center">
-                        <span className={cn('text-lg font-bold', getHealthColor(eh.healthScore))}>
+                        <span
+                          className={cn(
+                            "text-lg font-bold",
+                            getHealthColor(eh.healthScore),
+                          )}
+                        >
                           {eh.healthScore}
                         </span>
                       </div>
@@ -492,19 +571,33 @@ export function EquipmentHealthPage() {
 
                     <div>
                       <div className="flex items-center gap-2 mb-1">
-                        <h3 className="font-semibold text-text-primary">{eh.equipment.name}</h3>
+                        <h3 className="font-semibold text-text-primary">
+                          {eh.equipment.name}
+                        </h3>
                         <Badge variant={getHealthBadgeVariant(eh.healthScore)}>
-                          {eh.healthScore >= 80 ? 'Good' : eh.healthScore >= 50 ? 'Fair' : 'Poor'}
+                          {eh.healthScore >= 80
+                            ? "Good"
+                            : eh.healthScore >= 50
+                              ? "Fair"
+                              : "Poor"}
                         </Badge>
                         <Badge variant="default">{eh.equipment.status}</Badge>
                       </div>
                       <p className="text-sm text-text-secondary">
                         {eh.equipment.type}
-                        {eh.equipment.serial_number && ` - S/N: ${eh.equipment.serial_number}`}
+                        {eh.equipment.serial_number &&
+                          ` - S/N: ${eh.equipment.serial_number}`}
                       </p>
                       <div className="flex items-center gap-4 mt-2 text-xs text-text-muted">
-                        <span>Last Service: {eh.lastServiceDate ? formatDate(eh.lastServiceDate) : 'Never'}</span>
-                        <span>Next Service: {formatDate(eh.nextRecommendedService)}</span>
+                        <span>
+                          Last Service:{" "}
+                          {eh.lastServiceDate
+                            ? formatDate(eh.lastServiceDate)
+                            : "Never"}
+                        </span>
+                        <span>
+                          Next Service: {formatDate(eh.nextRecommendedService)}
+                        </span>
                       </div>
                     </div>
                   </div>
@@ -513,7 +606,8 @@ export function EquipmentHealthPage() {
                   {eh.riskFactors.length > 0 && (
                     <div className="flex items-center gap-2">
                       <Badge variant="danger">
-                        {eh.riskFactors.length} Risk Factor{eh.riskFactors.length > 1 ? 's' : ''}
+                        {eh.riskFactors.length} Risk Factor
+                        {eh.riskFactors.length > 1 ? "s" : ""}
                       </Badge>
                     </div>
                   )}
@@ -525,29 +619,47 @@ export function EquipmentHealthPage() {
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-4">
                       {/* Factor Breakdown */}
                       <div>
-                        <h4 className="text-sm font-medium text-text-primary mb-2">Health Factors</h4>
+                        <h4 className="text-sm font-medium text-text-primary mb-2">
+                          Health Factors
+                        </h4>
                         <div className="space-y-2">
                           <div className="flex items-center justify-between text-sm">
                             <span className="text-text-secondary">Age</span>
-                            <span className={getHealthColor(eh.factors.ageScore)}>
+                            <span
+                              className={getHealthColor(eh.factors.ageScore)}
+                            >
                               {eh.factors.ageScore.toFixed(0)}%
                             </span>
                           </div>
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-text-secondary">Maintenance</span>
-                            <span className={getHealthColor(eh.factors.maintenanceScore)}>
+                            <span className="text-text-secondary">
+                              Maintenance
+                            </span>
+                            <span
+                              className={getHealthColor(
+                                eh.factors.maintenanceScore,
+                              )}
+                            >
                               {eh.factors.maintenanceScore.toFixed(0)}%
                             </span>
                           </div>
                           <div className="flex items-center justify-between text-sm">
-                            <span className="text-text-secondary">Reliability</span>
-                            <span className={getHealthColor(eh.factors.reliabilityScore)}>
+                            <span className="text-text-secondary">
+                              Reliability
+                            </span>
+                            <span
+                              className={getHealthColor(
+                                eh.factors.reliabilityScore,
+                              )}
+                            >
                               {eh.factors.reliabilityScore.toFixed(0)}%
                             </span>
                           </div>
                           <div className="flex items-center justify-between text-sm">
                             <span className="text-text-secondary">Status</span>
-                            <span className={getHealthColor(eh.factors.statusScore)}>
+                            <span
+                              className={getHealthColor(eh.factors.statusScore)}
+                            >
                               {eh.factors.statusScore.toFixed(0)}%
                             </span>
                           </div>
@@ -556,16 +668,20 @@ export function EquipmentHealthPage() {
 
                       {/* Predicted Replacement */}
                       <div>
-                        <h4 className="text-sm font-medium text-text-primary mb-2">Lifecycle</h4>
+                        <h4 className="text-sm font-medium text-text-primary mb-2">
+                          Lifecycle
+                        </h4>
                         <div className="space-y-2 text-sm">
                           {eh.equipment.created_at && (
                             <p className="text-text-secondary">
-                              In service since: {formatDate(eh.equipment.created_at)}
+                              In service since:{" "}
+                              {formatDate(eh.equipment.created_at)}
                             </p>
                           )}
                           {eh.predictedReplacementDate && (
                             <p className="text-text-secondary">
-                              Est. replacement: {formatDate(eh.predictedReplacementDate)}
+                              Est. replacement:{" "}
+                              {formatDate(eh.predictedReplacementDate)}
                             </p>
                           )}
                         </div>
@@ -574,10 +690,15 @@ export function EquipmentHealthPage() {
                       {/* Risk Factors */}
                       {eh.riskFactors.length > 0 && (
                         <div>
-                          <h4 className="text-sm font-medium text-text-primary mb-2">Risk Factors</h4>
+                          <h4 className="text-sm font-medium text-text-primary mb-2">
+                            Risk Factors
+                          </h4>
                           <ul className="space-y-1">
                             {eh.riskFactors.map((risk, i) => (
-                              <li key={i} className="text-sm text-danger flex items-start gap-2">
+                              <li
+                                key={i}
+                                className="text-sm text-danger flex items-start gap-2"
+                              >
                                 <span className="text-danger">!</span>
                                 {risk}
                               </li>
@@ -589,10 +710,15 @@ export function EquipmentHealthPage() {
                       {/* Recommendations */}
                       {eh.recommendations.length > 0 && (
                         <div>
-                          <h4 className="text-sm font-medium text-text-primary mb-2">Recommendations</h4>
+                          <h4 className="text-sm font-medium text-text-primary mb-2">
+                            Recommendations
+                          </h4>
                           <ul className="space-y-1">
                             {eh.recommendations.map((rec, i) => (
-                              <li key={i} className="text-sm text-text-secondary flex items-start gap-2">
+                              <li
+                                key={i}
+                                className="text-sm text-text-secondary flex items-start gap-2"
+                              >
                                 <span className="text-primary">-</span>
                                 {rec}
                               </li>
@@ -604,9 +730,13 @@ export function EquipmentHealthPage() {
 
                     <div className="flex gap-2">
                       <Link to={`/equipment/${eh.equipment.id}`}>
-                        <Button size="sm" variant="secondary">View Details</Button>
+                        <Button size="sm" variant="secondary">
+                          View Details
+                        </Button>
                       </Link>
-                      <Button size="sm" variant="secondary">Schedule Maintenance</Button>
+                      <Button size="sm" variant="secondary">
+                        Schedule Maintenance
+                      </Button>
                     </div>
                   </div>
                 )}

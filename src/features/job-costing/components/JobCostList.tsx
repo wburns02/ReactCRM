@@ -1,8 +1,13 @@
-import { useState } from 'react';
-import { useJobCosts, useDeleteJobCost, COST_TYPES, type JobCostFilters } from '../api/jobCosting.ts';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { formatCurrency } from '@/lib/utils.ts';
+import { useState } from "react";
+import {
+  useJobCosts,
+  useDeleteJobCost,
+  COST_TYPES,
+  type JobCostFilters,
+} from "../api/jobCosting.ts";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { formatCurrency } from "@/lib/utils.ts";
 
 interface JobCostListProps {
   workOrderId?: string;
@@ -10,13 +15,17 @@ interface JobCostListProps {
   onEditCost?: (costId: string) => void;
 }
 
-export function JobCostList({ workOrderId, onAddCost, onEditCost }: JobCostListProps) {
+export function JobCostList({
+  workOrderId,
+  onAddCost,
+  onEditCost,
+}: JobCostListProps) {
   const [filters, setFilters] = useState<JobCostFilters>({
     page: 1,
     page_size: 20,
     work_order_id: workOrderId,
   });
-  const [typeFilter, setTypeFilter] = useState<string>('');
+  const [typeFilter, setTypeFilter] = useState<string>("");
 
   const { data, isLoading, error } = useJobCosts({
     ...filters,
@@ -29,15 +38,15 @@ export function JobCostList({ workOrderId, onAddCost, onEditCost }: JobCostListP
   const totalPages = Math.ceil(total / (filters.page_size || 20));
 
   const getCostTypeIcon = (type: string): string => {
-    return COST_TYPES.find((t) => t.value === type)?.icon || '📋';
+    return COST_TYPES.find((t) => t.value === type)?.icon || "📋";
   };
 
   const handleDelete = async (costId: string) => {
-    if (window.confirm('Are you sure you want to delete this cost entry?')) {
+    if (window.confirm("Are you sure you want to delete this cost entry?")) {
       try {
         await deleteCost.mutateAsync(costId);
       } catch (err) {
-        console.error('Failed to delete cost:', err);
+        console.error("Failed to delete cost:", err);
       }
     }
   };
@@ -71,11 +80,7 @@ export function JobCostList({ workOrderId, onAddCost, onEditCost }: JobCostListP
           ))}
         </select>
 
-        {onAddCost && (
-          <Button onClick={onAddCost}>
-            + Add Cost
-          </Button>
-        )}
+        {onAddCost && <Button onClick={onAddCost}>+ Add Cost</Button>}
       </div>
 
       {/* Loading state */}
@@ -91,9 +96,13 @@ export function JobCostList({ workOrderId, onAddCost, onEditCost }: JobCostListP
       {!isLoading && costs.length === 0 && (
         <div className="text-center py-12 border border-border rounded-lg">
           <span className="text-4xl mb-4 block">💰</span>
-          <h3 className="text-lg font-medium text-text-primary mb-2">No costs found</h3>
+          <h3 className="text-lg font-medium text-text-primary mb-2">
+            No costs found
+          </h3>
           <p className="text-text-muted">
-            {typeFilter ? 'Try adjusting your filters' : 'Job costs will appear here'}
+            {typeFilter
+              ? "Try adjusting your filters"
+              : "Job costs will appear here"}
           </p>
           {onAddCost && !typeFilter && (
             <Button onClick={onAddCost} className="mt-4">
@@ -109,29 +118,52 @@ export function JobCostList({ workOrderId, onAddCost, onEditCost }: JobCostListP
           <table className="w-full">
             <thead>
               <tr className="border-b border-border">
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Type</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Description</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Qty</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Unit Cost</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Total</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Actions</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">
+                  Type
+                </th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">
+                  Description
+                </th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">
+                  Qty
+                </th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">
+                  Unit Cost
+                </th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">
+                  Total
+                </th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">
+                  Status
+                </th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">
+                  Actions
+                </th>
               </tr>
             </thead>
             <tbody>
               {costs.map((cost) => (
-                <tr key={cost.id} className="border-b border-border hover:bg-bg-hover">
+                <tr
+                  key={cost.id}
+                  className="border-b border-border hover:bg-bg-hover"
+                >
                   <td className="py-3 px-4">
                     <span className="flex items-center gap-2">
                       <span>{getCostTypeIcon(cost.cost_type)}</span>
-                      <span className="capitalize text-text-primary">{cost.cost_type}</span>
+                      <span className="capitalize text-text-primary">
+                        {cost.cost_type}
+                      </span>
                     </span>
                   </td>
                   <td className="py-3 px-4">
                     <div>
-                      <p className="font-medium text-text-primary">{cost.description}</p>
+                      <p className="font-medium text-text-primary">
+                        {cost.description}
+                      </p>
                       {cost.vendor_name && (
-                        <p className="text-xs text-text-muted">Vendor: {cost.vendor_name}</p>
+                        <p className="text-xs text-text-muted">
+                          Vendor: {cost.vendor_name}
+                        </p>
                       )}
                     </div>
                   </td>
@@ -187,14 +219,18 @@ export function JobCostList({ workOrderId, onAddCost, onEditCost }: JobCostListP
       {!isLoading && totalPages > 1 && (
         <div className="flex items-center justify-between pt-4">
           <p className="text-sm text-text-muted">
-            Showing {((filters.page || 1) - 1) * (filters.page_size || 20) + 1} to{' '}
-            {Math.min((filters.page || 1) * (filters.page_size || 20), total)} of {total} costs
+            Showing {((filters.page || 1) - 1) * (filters.page_size || 20) + 1}{" "}
+            to{" "}
+            {Math.min((filters.page || 1) * (filters.page_size || 20), total)}{" "}
+            of {total} costs
           </p>
           <div className="flex items-center gap-2">
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => setFilters((prev) => ({ ...prev, page: (prev.page || 1) - 1 }))}
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, page: (prev.page || 1) - 1 }))
+              }
               disabled={(filters.page || 1) <= 1}
             >
               Previous
@@ -205,7 +241,9 @@ export function JobCostList({ workOrderId, onAddCost, onEditCost }: JobCostListP
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => setFilters((prev) => ({ ...prev, page: (prev.page || 1) + 1 }))}
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, page: (prev.page || 1) + 1 }))
+              }
               disabled={(filters.page || 1) >= totalPages}
             >
               Next

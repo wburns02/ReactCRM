@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 /**
  * Stripe Payment Types
@@ -21,7 +21,7 @@ export interface CreatePaymentIntentResponse {
 
 export interface PaymentMethod {
   id: string;
-  type: 'card' | 'us_bank_account' | 'ach_debit';
+  type: "card" | "us_bank_account" | "ach_debit";
   card?: {
     brand: string;
     last4: string;
@@ -51,7 +51,7 @@ export interface PaymentResult {
   payment_id: string;
   invoice_id: string;
   amount: number;
-  status: 'succeeded' | 'processing' | 'failed';
+  status: "succeeded" | "processing" | "failed";
   error_message?: string;
 }
 
@@ -65,9 +65,9 @@ export interface StripeConfig {
  */
 export function useStripeConfig() {
   return useQuery({
-    queryKey: ['stripe', 'config'],
+    queryKey: ["stripe", "config"],
     queryFn: async (): Promise<StripeConfig> => {
-      const { data } = await apiClient.get('/payments/stripe/config');
+      const { data } = await apiClient.get("/payments/stripe/config");
       return data;
     },
     staleTime: Infinity, // Key doesn't change
@@ -79,8 +79,13 @@ export function useStripeConfig() {
  */
 export function useCreatePaymentIntent() {
   return useMutation({
-    mutationFn: async (request: CreatePaymentIntentRequest): Promise<CreatePaymentIntentResponse> => {
-      const { data } = await apiClient.post('/payments/stripe/create-intent', request);
+    mutationFn: async (
+      request: CreatePaymentIntentRequest,
+    ): Promise<CreatePaymentIntentResponse> => {
+      const { data } = await apiClient.post(
+        "/payments/stripe/create-intent",
+        request,
+      );
       return data;
     },
   });
@@ -95,7 +100,7 @@ export function useConfirmPayment() {
       payment_intent_id: string;
       invoice_id: string;
     }): Promise<PaymentResult> => {
-      const { data } = await apiClient.post('/payments/stripe/confirm', params);
+      const { data } = await apiClient.post("/payments/stripe/confirm", params);
       return data;
     },
   });
@@ -106,9 +111,11 @@ export function useConfirmPayment() {
  */
 export function useCustomerPaymentMethods(customerId: number) {
   return useQuery({
-    queryKey: ['stripe', 'payment-methods', customerId],
+    queryKey: ["stripe", "payment-methods", customerId],
     queryFn: async (): Promise<SavedPaymentMethod[]> => {
-      const { data } = await apiClient.get(`/payments/stripe/customer/${customerId}/payment-methods`);
+      const { data } = await apiClient.get(
+        `/payments/stripe/customer/${customerId}/payment-methods`,
+      );
       return data.payment_methods || [];
     },
     enabled: !!customerId,
@@ -125,7 +132,10 @@ export function useSavePaymentMethod() {
       payment_method_id: string;
       set_as_default?: boolean;
     }): Promise<SavedPaymentMethod> => {
-      const { data } = await apiClient.post('/payments/stripe/save-payment-method', params);
+      const { data } = await apiClient.post(
+        "/payments/stripe/save-payment-method",
+        params,
+      );
       return data;
     },
   });
@@ -137,7 +147,9 @@ export function useSavePaymentMethod() {
 export function useDeletePaymentMethod() {
   return useMutation({
     mutationFn: async (paymentMethodId: string): Promise<void> => {
-      await apiClient.delete(`/payments/stripe/payment-methods/${paymentMethodId}`);
+      await apiClient.delete(
+        `/payments/stripe/payment-methods/${paymentMethodId}`,
+      );
     },
   });
 }
@@ -151,7 +163,10 @@ export function useSetDefaultPaymentMethod() {
       customer_id: number;
       payment_method_id: string;
     }): Promise<void> => {
-      await apiClient.post('/payments/stripe/set-default-payment-method', params);
+      await apiClient.post(
+        "/payments/stripe/set-default-payment-method",
+        params,
+      );
     },
   });
 }
@@ -166,7 +181,7 @@ export function useChargePaymentMethod() {
       payment_method_id: string;
       amount: number;
     }): Promise<PaymentResult> => {
-      const { data } = await apiClient.post('/payments/stripe/charge', params);
+      const { data } = await apiClient.post("/payments/stripe/charge", params);
       return data;
     },
   });
@@ -177,7 +192,7 @@ export function useChargePaymentMethod() {
  */
 export function useInvoicePaymentHistory(invoiceId: string) {
   return useQuery({
-    queryKey: ['payments', 'invoice', invoiceId],
+    queryKey: ["payments", "invoice", invoiceId],
     queryFn: async (): Promise<{
       payments: {
         id: string;
@@ -187,7 +202,9 @@ export function useInvoicePaymentHistory(invoiceId: string) {
         method: string;
       }[];
     }> => {
-      const { data } = await apiClient.get(`/payments/invoice/${invoiceId}/history`);
+      const { data } = await apiClient.get(
+        `/payments/invoice/${invoiceId}/history`,
+      );
       return data;
     },
     enabled: !!invoiceId,
@@ -205,7 +222,10 @@ export function useSetupACHPayment() {
     }): Promise<{
       setup_intent_client_secret: string;
     }> => {
-      const { data } = await apiClient.post('/payments/stripe/setup-ach', params);
+      const { data } = await apiClient.post(
+        "/payments/stripe/setup-ach",
+        params,
+      );
       return data;
     },
   });

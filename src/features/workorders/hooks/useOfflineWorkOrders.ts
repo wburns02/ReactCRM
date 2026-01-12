@@ -9,10 +9,10 @@
  * - Conflict resolution with server-wins strategy
  */
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
-import { useOnlineStatus } from '@/hooks/usePWA';
+import { useState, useEffect, useCallback, useRef } from "react";
+import { useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
+import { useOnlineStatus } from "@/hooks/usePWA";
 import {
   getCachedWorkOrders,
   getCachedWorkOrder,
@@ -24,9 +24,9 @@ import {
   getWorkOrdersWithPendingSync,
   addToSyncQueue,
   type CachedWorkOrder,
-} from '@/lib/db';
-import { workOrderKeys } from '@/api/hooks/useWorkOrders';
-import type { WorkOrder, WorkOrderStatus } from '@/api/types/workOrder';
+} from "@/lib/db";
+import { workOrderKeys } from "@/api/hooks/useWorkOrders";
+import type { WorkOrder, WorkOrderStatus } from "@/api/types/workOrder";
 
 // ============================================
 // Types
@@ -98,7 +98,7 @@ function workOrderToCache(wo: WorkOrder): CachedWorkOrder {
 // ============================================
 
 export function useOfflineWorkOrders(
-  technicianName?: string
+  technicianName?: string,
 ): UseOfflineWorkOrdersReturn {
   const isOnline = useOnlineStatus();
   const queryClient = useQueryClient();
@@ -124,15 +124,17 @@ export function useOfflineWorkOrders(
       if (isOnline) {
         // Fetch from server
         const params = new URLSearchParams({
-          page: '1',
-          page_size: '200',
+          page: "1",
+          page_size: "200",
         });
         if (technicianName) {
-          params.set('assigned_technician', technicianName);
+          params.set("assigned_technician", technicianName);
         }
 
-        const { data } = await apiClient.get(`/work-orders?${params.toString()}`);
-        const items = Array.isArray(data) ? data : (data.items || []);
+        const { data } = await apiClient.get(
+          `/work-orders?${params.toString()}`,
+        );
+        const items = Array.isArray(data) ? data : data.items || [];
 
         // Convert and cache
         const cachedItems = items.map(workOrderToCache);
@@ -154,7 +156,7 @@ export function useOfflineWorkOrders(
       const pending = await getWorkOrdersWithPendingSync();
       setPendingSyncCount(pending.length);
     } catch (err) {
-      console.error('Failed to load work orders:', err);
+      console.error("Failed to load work orders:", err);
       setError(err instanceof Error ? err : new Error(String(err)));
 
       // Fall back to cache if server fails
@@ -201,9 +203,7 @@ export function useOfflineWorkOrders(
       await updateCachedWorkOrder(updated);
 
       // Update local state
-      setWorkOrders(prev =>
-        prev.map(wo => (wo.id === id ? updated : wo))
-      );
+      setWorkOrders((prev) => prev.map((wo) => (wo.id === id ? updated : wo)));
 
       if (isOnline) {
         // Sync immediately
@@ -215,11 +215,11 @@ export function useOfflineWorkOrders(
           queryClient.invalidateQueries({ queryKey: workOrderKeys.detail(id) });
           queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
         } catch (err) {
-          console.error('Failed to sync work order update:', err);
+          console.error("Failed to sync work order update:", err);
           // Keep in pending sync state - will retry later
           await addToSyncQueue({
-            entity: 'workOrder',
-            type: 'update',
+            entity: "workOrder",
+            type: "update",
             data: { id, ...changes },
             priority: 5,
           });
@@ -227,8 +227,8 @@ export function useOfflineWorkOrders(
       } else {
         // Queue for later sync
         await addToSyncQueue({
-          entity: 'workOrder',
-          type: 'update',
+          entity: "workOrder",
+          type: "update",
           data: { id, ...changes },
           priority: 5,
         });
@@ -239,7 +239,7 @@ export function useOfflineWorkOrders(
       const pending = await getWorkOrdersWithPendingSync();
       setPendingSyncCount(pending.length);
     },
-    [isOnline, queryClient]
+    [isOnline, queryClient],
   );
 
   // ============================================
@@ -250,7 +250,7 @@ export function useOfflineWorkOrders(
     async (id: string, status: WorkOrderStatus) => {
       await updateWorkOrder({ id, status });
     },
-    [updateWorkOrder]
+    [updateWorkOrder],
   );
 
   // ============================================
@@ -260,7 +260,7 @@ export function useOfflineWorkOrders(
   const addNote = useCallback(
     async (id: string, note: string) => {
       const current = await getCachedWorkOrder(id);
-      const existingNotes = current?.notes || '';
+      const existingNotes = current?.notes || "";
       const timestamp = new Date().toLocaleString();
       const newNotes = existingNotes
         ? `${existingNotes}\n\n[${timestamp}]\n${note}`
@@ -268,7 +268,7 @@ export function useOfflineWorkOrders(
 
       await updateWorkOrder({ id, notes: newNotes });
     },
-    [updateWorkOrder]
+    [updateWorkOrder],
   );
 
   // ============================================
@@ -285,7 +285,7 @@ export function useOfflineWorkOrders(
 
   const syncPending = useCallback(async () => {
     if (!isOnline) {
-      console.log('Cannot sync while offline');
+      console.log("Cannot sync while offline");
       return;
     }
 
@@ -339,7 +339,7 @@ export function useOfflineWorkOrders(
 
       return undefined;
     },
-    [isOnline]
+    [isOnline],
   );
 
   // ============================================
@@ -399,7 +399,7 @@ export function useOfflineWorkOrder(id: string | undefined) {
           setWorkOrder(cachedItem);
           setIsFromCache(false);
         } catch (err) {
-          console.error('Failed to fetch work order:', err);
+          console.error("Failed to fetch work order:", err);
           if (cached) {
             setWorkOrder(cached);
             setIsFromCache(true);

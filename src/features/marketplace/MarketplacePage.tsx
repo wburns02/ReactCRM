@@ -2,43 +2,48 @@
  * Marketplace Page
  * Third-party integration directory
  */
-import { useState } from 'react';
-import { useSearchParams } from 'react-router-dom';
-import { Card, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Input } from '@/components/ui/Input';
-import { Badge } from '@/components/ui/Badge';
-import { Skeleton } from '@/components/ui/Skeleton';
-import { Tabs, TabList, TabTrigger, TabContent } from '@/components/ui/Tabs';
+import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { Card, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Badge } from "@/components/ui/Badge";
+import { Skeleton } from "@/components/ui/Skeleton";
+import { Tabs, TabList, TabTrigger, TabContent } from "@/components/ui/Tabs";
 // cn utility available for conditional class names if needed
 import {
   useMarketplaceApps,
   useFeaturedApps,
   useInstalledApps,
   useCategoryStats,
-} from './useMarketplace';
-import { AppCard } from './components/AppCard';
-import { CategoryFilter } from './components/CategoryFilter';
-import type { AppCategory, MarketplaceFilters } from './types';
+} from "./useMarketplace";
+import { AppCard } from "./components/AppCard";
+import { CategoryFilter } from "./components/CategoryFilter";
+import type { AppCategory, MarketplaceFilters } from "./types";
 
 export function MarketplacePage() {
   const [searchParams, setSearchParams] = useSearchParams();
-  const [searchQuery, setSearchQuery] = useState(searchParams.get('search') || '');
-  const [activeTab, setActiveTab] = useState<'browse' | 'installed'>('browse');
+  const [searchQuery, setSearchQuery] = useState(
+    searchParams.get("search") || "",
+  );
+  const [activeTab, setActiveTab] = useState<"browse" | "installed">("browse");
 
   // Get filters from URL
   const filters: MarketplaceFilters = {
-    category: (searchParams.get('category') as AppCategory) || undefined,
-    search: searchParams.get('search') || undefined,
-    sort: (searchParams.get('sort') as MarketplaceFilters['sort']) || 'popular',
-    page: Number(searchParams.get('page')) || 1,
+    category: (searchParams.get("category") as AppCategory) || undefined,
+    search: searchParams.get("search") || undefined,
+    sort: (searchParams.get("sort") as MarketplaceFilters["sort"]) || "popular",
+    page: Number(searchParams.get("page")) || 1,
     pageSize: 12,
   };
 
   // Queries
-  const { data: appsData, isLoading: isLoadingApps } = useMarketplaceApps(filters);
-  const { data: featuredApps, isLoading: isLoadingFeatured } = useFeaturedApps();
-  const { data: installedApps, isLoading: isLoadingInstalled } = useInstalledApps();
+  const { data: appsData, isLoading: isLoadingApps } =
+    useMarketplaceApps(filters);
+  const { data: featuredApps, isLoading: isLoadingFeatured } =
+    useFeaturedApps();
+  const { data: installedApps, isLoading: isLoadingInstalled } =
+    useInstalledApps();
   const { data: categoryStats } = useCategoryStats();
 
   // Update filters
@@ -50,15 +55,15 @@ export function MarketplacePage() {
       newParams.delete(key);
     }
     // Reset to page 1 on filter change
-    if (key !== 'page') {
-      newParams.delete('page');
+    if (key !== "page") {
+      newParams.delete("page");
     }
     setSearchParams(newParams);
   };
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
-    updateFilter('search', searchQuery || undefined);
+    updateFilter("search", searchQuery || undefined);
   };
 
   const selectedCategory = filters.category;
@@ -68,7 +73,9 @@ export function MarketplacePage() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">Integration Marketplace</h1>
+          <h1 className="text-2xl font-bold text-text-primary">
+            Integration Marketplace
+          </h1>
           <p className="text-text-secondary mt-1">
             Connect your favorite tools and extend your CRM
           </p>
@@ -76,7 +83,10 @@ export function MarketplacePage() {
       </div>
 
       {/* Tabs */}
-      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as 'browse' | 'installed')}>
+      <Tabs
+        value={activeTab}
+        onValueChange={(v) => setActiveTab(v as "browse" | "installed")}
+      >
         <TabList>
           <TabTrigger value="browse">Browse Apps</TabTrigger>
           <TabTrigger value="installed">
@@ -107,8 +117,8 @@ export function MarketplacePage() {
                   type="button"
                   variant="ghost"
                   onClick={() => {
-                    setSearchQuery('');
-                    updateFilter('search', undefined);
+                    setSearchQuery("");
+                    updateFilter("search", undefined);
                   }}
                 >
                   Clear
@@ -120,7 +130,9 @@ export function MarketplacePage() {
           {/* Featured Apps (only show when not filtering) */}
           {!selectedCategory && !filters.search && (
             <section className="mb-8">
-              <h2 className="text-lg font-semibold text-text-primary mb-4">Featured Integrations</h2>
+              <h2 className="text-lg font-semibold text-text-primary mb-4">
+                Featured Integrations
+              </h2>
               {isLoadingFeatured ? (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
                   {[1, 2, 3].map((i) => (
@@ -143,7 +155,7 @@ export function MarketplacePage() {
               <CategoryFilter
                 categories={categoryStats || []}
                 selected={selectedCategory}
-                onSelect={(cat) => updateFilter('category', cat)}
+                onSelect={(cat) => updateFilter("category", cat)}
               />
             </aside>
 
@@ -153,13 +165,14 @@ export function MarketplacePage() {
               <div className="flex items-center justify-between mb-4">
                 <p className="text-sm text-text-muted">
                   {appsData?.total || 0} integrations
-                  {selectedCategory && ` in ${selectedCategory.replace('_', ' ')}`}
+                  {selectedCategory &&
+                    ` in ${selectedCategory.replace("_", " ")}`}
                 </p>
                 <div className="flex items-center gap-2">
                   <span className="text-sm text-text-muted">Sort:</span>
                   <select
-                    value={filters.sort || 'popular'}
-                    onChange={(e) => updateFilter('sort', e.target.value)}
+                    value={filters.sort || "popular"}
+                    onChange={(e) => updateFilter("sort", e.target.value)}
                     className="text-sm border border-border rounded-md px-2 py-1"
                   >
                     <option value="popular">Most Popular</option>
@@ -185,8 +198,8 @@ export function MarketplacePage() {
                       <Button
                         variant="ghost"
                         onClick={() => {
-                          setSearchQuery('');
-                          updateFilter('search', undefined);
+                          setSearchQuery("");
+                          updateFilter("search", undefined);
                         }}
                         className="mt-2"
                       >
@@ -210,18 +223,26 @@ export function MarketplacePage() {
                     variant="secondary"
                     size="sm"
                     disabled={appsData.page <= 1}
-                    onClick={() => updateFilter('page', String(appsData.page - 1))}
+                    onClick={() =>
+                      updateFilter("page", String(appsData.page - 1))
+                    }
                   >
                     Previous
                   </Button>
                   <span className="text-sm text-text-muted">
-                    Page {appsData.page} of {Math.ceil(appsData.total / appsData.pageSize)}
+                    Page {appsData.page} of{" "}
+                    {Math.ceil(appsData.total / appsData.pageSize)}
                   </span>
                   <Button
                     variant="secondary"
                     size="sm"
-                    disabled={appsData.page >= Math.ceil(appsData.total / appsData.pageSize)}
-                    onClick={() => updateFilter('page', String(appsData.page + 1))}
+                    disabled={
+                      appsData.page >=
+                      Math.ceil(appsData.total / appsData.pageSize)
+                    }
+                    onClick={() =>
+                      updateFilter("page", String(appsData.page + 1))
+                    }
                   >
                     Next
                   </Button>
@@ -242,15 +263,29 @@ export function MarketplacePage() {
             <Card>
               <CardContent className="py-12 text-center">
                 <div className="w-16 h-16 rounded-full bg-bg-muted flex items-center justify-center mx-auto mb-4">
-                  <svg className="w-8 h-8 text-text-muted" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  <svg
+                    className="w-8 h-8 text-text-muted"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M12 6v6m0 0v6m0-6h6m-6 0H6"
+                    />
                   </svg>
                 </div>
-                <h3 className="text-lg font-medium text-text-primary mb-2">No apps installed</h3>
+                <h3 className="text-lg font-medium text-text-primary mb-2">
+                  No apps installed
+                </h3>
                 <p className="text-text-secondary mb-4">
                   Browse our marketplace to find integrations for your business
                 </p>
-                <Button onClick={() => setActiveTab('browse')}>Browse Apps</Button>
+                <Button onClick={() => setActiveTab("browse")}>
+                  Browse Apps
+                </Button>
               </CardContent>
             </Card>
           ) : (
@@ -270,9 +305,9 @@ export function MarketplacePage() {
 // Installed App Card Component
 // ============================================
 
-import type { InstalledApp } from './types';
-import { useUninstallApp, useSyncApp } from './useMarketplace';
-import { toastSuccess, toastError } from '@/components/ui/Toast';
+import type { InstalledApp } from "./types";
+import { useUninstallApp, useSyncApp } from "./useMarketplace";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 function InstalledAppCard({ installed }: { installed: InstalledApp }) {
   const uninstall = useUninstallApp();
@@ -285,27 +320,27 @@ function InstalledAppCard({ installed }: { installed: InstalledApp }) {
 
     try {
       await uninstall.mutateAsync(installed.appId);
-      toastSuccess('App uninstalled successfully');
+      toastSuccess("App uninstalled successfully");
     } catch (error) {
-      toastError('Failed to uninstall app');
+      toastError("Failed to uninstall app");
     }
   };
 
   const handleSync = async () => {
     try {
       await sync.mutateAsync(installed.appId);
-      toastSuccess('Sync completed');
+      toastSuccess("Sync completed");
     } catch (error) {
-      toastError('Sync failed');
+      toastError("Sync failed");
     }
   };
 
   const statusBadge = {
-    installed: { variant: 'success' as const, label: 'Active' },
-    needs_update: { variant: 'warning' as const, label: 'Update Available' },
-    error: { variant: 'danger' as const, label: 'Error' },
-    installing: { variant: 'info' as const, label: 'Installing' },
-    not_installed: { variant: 'secondary' as const, label: 'Not Installed' },
+    installed: { variant: "success" as const, label: "Active" },
+    needs_update: { variant: "warning" as const, label: "Update Available" },
+    error: { variant: "danger" as const, label: "Error" },
+    installing: { variant: "info" as const, label: "Installing" },
+    not_installed: { variant: "secondary" as const, label: "Not Installed" },
   }[installed.installStatus];
 
   return (
@@ -319,16 +354,22 @@ function InstalledAppCard({ installed }: { installed: InstalledApp }) {
           />
           <div className="flex-1">
             <div className="flex items-center gap-2">
-              <h3 className="font-medium text-text-primary">{installed.app.name}</h3>
-              <Badge variant={statusBadge.variant}>
-                {statusBadge.label}
-              </Badge>
+              <h3 className="font-medium text-text-primary">
+                {installed.app.name}
+              </h3>
+              <Badge variant={statusBadge.variant}>{statusBadge.label}</Badge>
             </div>
-            <p className="text-sm text-text-secondary">{installed.app.shortDescription}</p>
+            <p className="text-sm text-text-secondary">
+              {installed.app.shortDescription}
+            </p>
             <p className="text-xs text-text-muted mt-1">
-              v{installed.version} • Installed {new Date(installed.installedAt).toLocaleDateString()}
+              v{installed.version} • Installed{" "}
+              {new Date(installed.installedAt).toLocaleDateString()}
               {installed.lastSync && (
-                <> • Last synced {new Date(installed.lastSync).toLocaleString()}</>
+                <>
+                  {" "}
+                  • Last synced {new Date(installed.lastSync).toLocaleString()}
+                </>
               )}
             </p>
           </div>
@@ -339,7 +380,7 @@ function InstalledAppCard({ installed }: { installed: InstalledApp }) {
               onClick={handleSync}
               disabled={sync.isPending}
             >
-              {sync.isPending ? 'Syncing...' : 'Sync'}
+              {sync.isPending ? "Syncing..." : "Sync"}
             </Button>
             <Button variant="secondary" size="sm">
               Settings

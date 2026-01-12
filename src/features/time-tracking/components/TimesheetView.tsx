@@ -1,22 +1,30 @@
-import { useState, useMemo } from 'react';
-import { useTimeEntries, type TimeEntry } from '../api/timeTracking.ts';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
+import { useState, useMemo } from "react";
+import { useTimeEntries, type TimeEntry } from "../api/timeTracking.ts";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
 
 interface TimesheetViewProps {
   technicianId: string;
   technicianName?: string;
 }
 
-export function TimesheetView({ technicianId, technicianName }: TimesheetViewProps) {
+export function TimesheetView({
+  technicianId,
+  technicianName,
+}: TimesheetViewProps) {
   // Calculate the current week's date range
   const [weekOffset, setWeekOffset] = useState(0);
 
   const weekDates = useMemo(() => {
     const today = new Date();
     const startOfWeek = new Date(today);
-    startOfWeek.setDate(today.getDate() - today.getDay() + (weekOffset * 7));
+    startOfWeek.setDate(today.getDate() - today.getDay() + weekOffset * 7);
     startOfWeek.setHours(0, 0, 0, 0);
 
     const endOfWeek = new Date(startOfWeek);
@@ -26,8 +34,8 @@ export function TimesheetView({ technicianId, technicianName }: TimesheetViewPro
     return {
       start: startOfWeek,
       end: endOfWeek,
-      startStr: startOfWeek.toISOString().split('T')[0],
-      endStr: endOfWeek.toISOString().split('T')[0],
+      startStr: startOfWeek.toISOString().split("T")[0],
+      endStr: endOfWeek.toISOString().split("T")[0],
     };
   }, [weekOffset]);
 
@@ -46,7 +54,7 @@ export function TimesheetView({ technicianId, technicianName }: TimesheetViewPro
     for (let i = 0; i < 7; i++) {
       const d = new Date(weekDates.start);
       d.setDate(d.getDate() + i);
-      days.push(d.toISOString().split('T')[0]);
+      days.push(d.toISOString().split("T")[0]);
     }
 
     const byDay: Record<string, TimeEntry[]> = {};
@@ -73,12 +81,14 @@ export function TimesheetView({ technicianId, technicianName }: TimesheetViewPro
     return { entriesByDay: byDay, weekTotals: totals };
   }, [entries, weekDates.start]);
 
-  const formatDate = (dateStr: string): { dayName: string; dayNum: string; month: string } => {
-    const date = new Date(dateStr + 'T12:00:00');
+  const formatDate = (
+    dateStr: string,
+  ): { dayName: string; dayNum: string; month: string } => {
+    const date = new Date(dateStr + "T12:00:00");
     return {
-      dayName: date.toLocaleDateString('en-US', { weekday: 'short' }),
+      dayName: date.toLocaleDateString("en-US", { weekday: "short" }),
       dayNum: date.getDate().toString(),
-      month: date.toLocaleDateString('en-US', { month: 'short' }),
+      month: date.toLocaleDateString("en-US", { month: "short" }),
     };
   };
 
@@ -87,21 +97,28 @@ export function TimesheetView({ technicianId, technicianName }: TimesheetViewPro
   };
 
   const getDayTotal = (entries: TimeEntry[]): number => {
-    return entries.reduce((sum, e) => sum + (e.regular_hours || 0) + (e.overtime_hours || 0), 0);
+    return entries.reduce(
+      (sum, e) => sum + (e.regular_hours || 0) + (e.overtime_hours || 0),
+      0,
+    );
   };
 
   const isToday = (dateStr: string): boolean => {
-    return dateStr === new Date().toISOString().split('T')[0];
+    return dateStr === new Date().toISOString().split("T")[0];
   };
 
   return (
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="flex items-center gap-2">
-          📅 {technicianName ? `${technicianName}'s ` : ''}Timesheet
+          📅 {technicianName ? `${technicianName}'s ` : ""}Timesheet
         </CardTitle>
         <div className="flex items-center gap-2">
-          <Button variant="secondary" size="sm" onClick={() => setWeekOffset((o) => o - 1)}>
+          <Button
+            variant="secondary"
+            size="sm"
+            onClick={() => setWeekOffset((o) => o - 1)}
+          >
             ← Prev
           </Button>
           <Button
@@ -126,8 +143,16 @@ export function TimesheetView({ technicianId, technicianName }: TimesheetViewPro
         {/* Week header */}
         <div className="text-center mb-4">
           <p className="text-text-muted text-sm">
-            {weekDates.start.toLocaleDateString('en-US', { month: 'long', day: 'numeric' })} -{' '}
-            {weekDates.end.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}
+            {weekDates.start.toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+            })}{" "}
+            -{" "}
+            {weekDates.end.toLocaleDateString("en-US", {
+              month: "long",
+              day: "numeric",
+              year: "numeric",
+            })}
           </p>
         </div>
 
@@ -152,11 +177,13 @@ export function TimesheetView({ technicianId, technicianName }: TimesheetViewPro
                     key={dateStr}
                     className={`
                       p-3 rounded-lg border text-center
-                      ${today ? 'border-primary bg-primary/5' : 'border-border'}
-                      ${dayEntries.length > 0 ? 'bg-bg-primary' : 'bg-bg-hover'}
+                      ${today ? "border-primary bg-primary/5" : "border-border"}
+                      ${dayEntries.length > 0 ? "bg-bg-primary" : "bg-bg-hover"}
                     `}
                   >
-                    <p className={`text-xs font-medium ${today ? 'text-primary' : 'text-text-muted'}`}>
+                    <p
+                      className={`text-xs font-medium ${today ? "text-primary" : "text-text-muted"}`}
+                    >
                       {dayName}
                     </p>
                     <p className="text-lg font-bold text-text-primary">
@@ -170,7 +197,8 @@ export function TimesheetView({ technicianId, technicianName }: TimesheetViewPro
                           {formatHours(dayTotal)}h
                         </p>
                         <p className="text-xs text-text-muted">
-                          {dayEntries.length} {dayEntries.length === 1 ? 'entry' : 'entries'}
+                          {dayEntries.length}{" "}
+                          {dayEntries.length === 1 ? "entry" : "entries"}
                         </p>
                       </div>
                     ) : (
@@ -189,7 +217,8 @@ export function TimesheetView({ technicianId, technicianName }: TimesheetViewPro
                 <div>
                   <p className="text-sm text-text-muted">Week Total</p>
                   <p className="text-2xl font-bold text-text-primary">
-                    {formatHours(weekTotals.regular + weekTotals.overtime)} hours
+                    {formatHours(weekTotals.regular + weekTotals.overtime)}{" "}
+                    hours
                   </p>
                 </div>
                 <div className="flex items-center gap-6">

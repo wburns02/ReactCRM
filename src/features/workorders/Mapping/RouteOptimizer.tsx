@@ -2,11 +2,18 @@
  * RouteOptimizer Component
  * Displays optimal route between work orders with numbered stops, reordering, and time/distance estimates
  */
-import { useState, useEffect, useMemo, useCallback } from 'react';
-import { MapContainer, TileLayer, Marker, Polyline, Popup, useMap } from 'react-leaflet';
-import * as L from 'leaflet';
-import type { WorkOrder } from '@/api/types/workOrder';
-import { STATUS_COLORS, WORK_ORDER_STATUS_LABELS } from '@/api/types/workOrder';
+import { useState, useEffect, useMemo, useCallback } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Polyline,
+  Popup,
+  useMap,
+} from "react-leaflet";
+import * as L from "leaflet";
+import type { WorkOrder } from "@/api/types/workOrder";
+import { STATUS_COLORS, WORK_ORDER_STATUS_LABELS } from "@/api/types/workOrder";
 import {
   calculateDistanceBetweenPoints,
   optimizeRouteOrder,
@@ -14,13 +21,13 @@ import {
   formatDuration,
   type Coordinates,
   // calculateRouteInfo available for extended route analysis
-} from './utils/routingUtils';
-import 'leaflet/dist/leaflet.css';
+} from "./utils/routingUtils";
+import "leaflet/dist/leaflet.css";
 
 // Fix Leaflet default marker icons
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
 // @ts-expect-error - Leaflet type issue with default icon
 delete L.Icon.Default.prototype._getIconUrl;
@@ -75,12 +82,12 @@ export interface RouteOptimizerProps {
 function createNumberedMarker(
   number: number,
   color: string,
-  isSelected = false
+  isSelected = false,
 ): L.DivIcon {
   const size = isSelected ? 40 : 36;
 
   return L.divIcon({
-    className: 'numbered-marker',
+    className: "numbered-marker",
     html: `
       <div style="
         width: ${size}px;
@@ -96,7 +103,7 @@ function createNumberedMarker(
         font-weight: bold;
         font-size: ${size * 0.4}px;
         font-family: system-ui, -apple-system, sans-serif;
-        ${isSelected ? 'transform: scale(1.1);' : ''}
+        ${isSelected ? "transform: scale(1.1);" : ""}
       ">
         ${number}
       </div>
@@ -109,7 +116,7 @@ function createNumberedMarker(
 
 function createStartMarker(): L.DivIcon {
   return L.divIcon({
-    className: 'start-marker',
+    className: "start-marker",
     html: `
       <div style="
         width: 40px;
@@ -155,7 +162,10 @@ function MapBoundsUpdater({
 
     stops.forEach((stop) => {
       if (stop.workOrder.service_latitude && stop.workOrder.service_longitude) {
-        points.push([stop.workOrder.service_latitude, stop.workOrder.service_longitude]);
+        points.push([
+          stop.workOrder.service_latitude,
+          stop.workOrder.service_longitude,
+        ]);
       }
     });
 
@@ -199,7 +209,7 @@ function RouteListItem({
 
   return (
     <div
-      className={`relative pl-8 pb-4 ${!isLast ? 'border-l-2 border-gray-200 ml-4' : 'ml-4'}`}
+      className={`relative pl-8 pb-4 ${!isLast ? "border-l-2 border-gray-200 ml-4" : "ml-4"}`}
       draggable={enableReordering}
       onDragStart={(e) => onDragStart?.(e, stop.order - 1)}
       onDragOver={onDragOver}
@@ -217,13 +227,15 @@ function RouteListItem({
       <button
         onClick={onClick}
         className={`w-full text-left p-3 rounded-lg transition-all ${
-          isSelected ? 'bg-blue-50 ring-2 ring-blue-500' : 'bg-gray-50 hover:bg-gray-100'
-        } ${isDragging ? 'opacity-50' : ''}`}
+          isSelected
+            ? "bg-blue-50 ring-2 ring-blue-500"
+            : "bg-gray-50 hover:bg-gray-100"
+        } ${isDragging ? "opacity-50" : ""}`}
       >
         <div className="flex items-start justify-between">
           <div className="flex-1 min-w-0">
             <h4 className="font-medium text-gray-900 truncate">
-              {stop.workOrder.customer_name || 'Unknown Customer'}
+              {stop.workOrder.customer_name || "Unknown Customer"}
             </h4>
             {stop.workOrder.service_address_line1 && (
               <p className="text-sm text-gray-600 truncate">
@@ -241,7 +253,9 @@ function RouteListItem({
                 {WORK_ORDER_STATUS_LABELS[stop.workOrder.status]}
               </span>
               {stop.arrivalTime && (
-                <span className="text-xs text-gray-500">ETA: {stop.arrivalTime}</span>
+                <span className="text-xs text-gray-500">
+                  ETA: {stop.arrivalTime}
+                </span>
               )}
             </div>
           </div>
@@ -280,23 +294,25 @@ export function RouteOptimizer({
   onRouteChange,
   enableReordering = true,
   autoOptimize = true,
-  height = '500px',
+  height = "500px",
   showRouteList = true,
   showStats = true,
-  className = '',
+  className = "",
   startTime = new Date(),
 }: RouteOptimizerProps) {
   const [orderedWorkOrders, setOrderedWorkOrders] = useState<WorkOrder[]>([]);
-  const [selectedStopIndex, setSelectedStopIndex] = useState<number | null>(null);
+  const [selectedStopIndex, setSelectedStopIndex] = useState<number | null>(
+    null,
+  );
   const [dragIndex, setDragIndex] = useState<number | null>(null);
 
   // Filter work orders with valid coordinates
   const validWorkOrders = useMemo(
     () =>
       workOrders.filter(
-        (wo) => wo.service_latitude != null && wo.service_longitude != null
+        (wo) => wo.service_latitude != null && wo.service_longitude != null,
       ),
-    [workOrders]
+    [workOrders],
   );
 
   // Optimize route on load or when work orders change
@@ -314,11 +330,13 @@ export function RouteOptimizer({
       const optimizedCoords = optimizeRouteOrder(startLocation, coords);
 
       // Map back to work orders
-      const optimized = optimizedCoords.map((coord) =>
-        validWorkOrders.find(
-          (wo) =>
-            wo.service_latitude === coord.lat && wo.service_longitude === coord.lng
-        )!
+      const optimized = optimizedCoords.map(
+        (coord) =>
+          validWorkOrders.find(
+            (wo) =>
+              wo.service_latitude === coord.lat &&
+              wo.service_longitude === coord.lng,
+          )!,
       );
       setOrderedWorkOrders(optimized);
     } else {
@@ -347,7 +365,7 @@ export function RouteOptimizer({
         const prevWo = orderedWorkOrders[index - 1];
         distanceFromPrevious = calculateDistanceBetweenPoints(
           { lat: prevWo.service_latitude!, lng: prevWo.service_longitude! },
-          { lat: wo.service_latitude!, lng: wo.service_longitude! }
+          { lat: wo.service_latitude!, lng: wo.service_longitude! },
         );
       }
 
@@ -357,10 +375,12 @@ export function RouteOptimizer({
       cumulativeDuration += durationFromPrevious;
 
       // Calculate arrival time
-      const arrivalDate = new Date(startTime.getTime() + cumulativeDuration * 1000);
-      const arrivalTime = arrivalDate.toLocaleTimeString('en-US', {
-        hour: 'numeric',
-        minute: '2-digit',
+      const arrivalDate = new Date(
+        startTime.getTime() + cumulativeDuration * 1000,
+      );
+      const arrivalTime = arrivalDate.toLocaleTimeString("en-US", {
+        hour: "numeric",
+        minute: "2-digit",
         hour12: true,
       });
 
@@ -419,11 +439,13 @@ export function RouteOptimizer({
     }));
     const optimizedCoords = optimizeRouteOrder(startLocation, coords);
 
-    const optimized = optimizedCoords.map((coord) =>
-      validWorkOrders.find(
-        (wo) =>
-          wo.service_latitude === coord.lat && wo.service_longitude === coord.lng
-      )!
+    const optimized = optimizedCoords.map(
+      (coord) =>
+        validWorkOrders.find(
+          (wo) =>
+            wo.service_latitude === coord.lat &&
+            wo.service_longitude === coord.lng,
+        )!,
     );
 
     setOrderedWorkOrders(optimized);
@@ -433,7 +455,7 @@ export function RouteOptimizer({
   // Drag and drop handlers
   const handleDragStart = (e: React.DragEvent, index: number) => {
     setDragIndex(index);
-    e.dataTransfer.effectAllowed = 'move';
+    e.dataTransfer.effectAllowed = "move";
   };
 
   const handleDragOver = (e: React.DragEvent) => {
@@ -463,13 +485,11 @@ export function RouteOptimizer({
         <MapContainer
           center={[29.4252, -98.4946]}
           zoom={10}
-          style={{ height: '100%', width: '100%' }}
+          style={{ height: "100%", width: "100%" }}
           zoomControl={true}
           attributionControl={false}
         >
-          <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-          />
+          <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
 
           <MapBoundsUpdater stops={routeStops} startLocation={startLocation} />
 
@@ -478,7 +498,7 @@ export function RouteOptimizer({
             <Polyline
               positions={routePositions}
               pathOptions={{
-                color: '#3b82f6',
+                color: "#3b82f6",
                 weight: 4,
                 opacity: 0.8,
               }}
@@ -496,9 +516,9 @@ export function RouteOptimizer({
                 <div className="text-center">
                   <strong className="block">Start Location</strong>
                   <span className="text-xs text-gray-500">
-                    {startTime.toLocaleTimeString('en-US', {
-                      hour: 'numeric',
-                      minute: '2-digit',
+                    {startTime.toLocaleTimeString("en-US", {
+                      hour: "numeric",
+                      minute: "2-digit",
                       hour12: true,
                     })}
                   </span>
@@ -513,7 +533,7 @@ export function RouteOptimizer({
             const markerIcon = createNumberedMarker(
               stop.order,
               STATUS_COLORS[stop.workOrder.status],
-              isSelected
+              isSelected,
             );
 
             return (
@@ -543,7 +563,7 @@ export function RouteOptimizer({
                       </span>
                     </div>
                     <h4 className="font-medium text-gray-900">
-                      {stop.workOrder.customer_name || 'Unknown'}
+                      {stop.workOrder.customer_name || "Unknown"}
                     </h4>
                     {stop.workOrder.service_address_line1 && (
                       <p className="text-sm text-gray-600">
@@ -551,7 +571,9 @@ export function RouteOptimizer({
                       </p>
                     )}
                     {stop.arrivalTime && (
-                      <p className="text-xs text-blue-600 mt-2">ETA: {stop.arrivalTime}</p>
+                      <p className="text-xs text-blue-600 mt-2">
+                        ETA: {stop.arrivalTime}
+                      </p>
                     )}
                   </div>
                 </Popup>
@@ -565,16 +587,20 @@ export function RouteOptimizer({
           <div className="absolute top-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg px-4 py-3 z-[1000]">
             <div className="flex items-center gap-6 text-sm">
               <div>
-                <span className="text-gray-500">Stops:</span>{' '}
+                <span className="text-gray-500">Stops:</span>{" "}
                 <span className="font-semibold">{routeStats.stopCount}</span>
               </div>
               <div>
-                <span className="text-gray-500">Distance:</span>{' '}
-                <span className="font-semibold">{formatDistance(routeStats.totalDistance)}</span>
+                <span className="text-gray-500">Distance:</span>{" "}
+                <span className="font-semibold">
+                  {formatDistance(routeStats.totalDistance)}
+                </span>
               </div>
               <div>
-                <span className="text-gray-500">Time:</span>{' '}
-                <span className="font-semibold">{formatDuration(routeStats.totalDuration)}</span>
+                <span className="text-gray-500">Time:</span>{" "}
+                <span className="font-semibold">
+                  {formatDuration(routeStats.totalDuration)}
+                </span>
               </div>
             </div>
           </div>

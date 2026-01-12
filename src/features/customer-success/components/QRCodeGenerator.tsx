@@ -8,8 +8,8 @@
  * - Tracking UTM parameters
  */
 
-import { useState, useCallback, useEffect, useRef } from 'react';
-import { cn } from '@/lib/utils.ts';
+import { useState, useCallback, useEffect, useRef } from "react";
+import { cn } from "@/lib/utils.ts";
 
 // Types
 export interface UTMParameters {
@@ -24,7 +24,7 @@ export interface QRCodeConfig {
   size: number;
   foregroundColor: string;
   backgroundColor: string;
-  errorCorrectionLevel: 'L' | 'M' | 'Q' | 'H';
+  errorCorrectionLevel: "L" | "M" | "Q" | "H";
   margin: number;
   logoUrl?: string;
   logoSize?: number;
@@ -39,9 +39,9 @@ export interface QRCodeGeneratorProps {
 // Default configuration
 const DEFAULT_CONFIG: QRCodeConfig = {
   size: 256,
-  foregroundColor: '#000000',
-  backgroundColor: '#FFFFFF',
-  errorCorrectionLevel: 'M',
+  foregroundColor: "#000000",
+  backgroundColor: "#FFFFFF",
+  errorCorrectionLevel: "M",
   margin: 4,
   logoSize: 50,
 };
@@ -53,7 +53,9 @@ function generateQRMatrix(data: string, _errorLevel?: string): boolean[][] {
   // This is a placeholder that creates a visual pattern
   // In production, use a proper QR code library
   const size = 33; // Standard QR size for version 4
-  const matrix: boolean[][] = Array(size).fill(null).map(() => Array(size).fill(false));
+  const matrix: boolean[][] = Array(size)
+    .fill(null)
+    .map(() => Array(size).fill(false));
 
   // Add finder patterns (the three corner squares)
   const addFinderPattern = (startX: number, startY: number) => {
@@ -77,11 +79,13 @@ function generateQRMatrix(data: string, _errorLevel?: string): boolean[][] {
   }
 
   // Add data pattern based on input string
-  const hash = data.split('').reduce((acc, char) => acc + char.charCodeAt(0), 0);
+  const hash = data
+    .split("")
+    .reduce((acc, char) => acc + char.charCodeAt(0), 0);
   for (let i = 8; i < size - 8; i++) {
     for (let j = 8; j < size - 8; j++) {
       if (i !== 6 && j !== 6) {
-        matrix[i][j] = ((i * j + hash) % 3) === 0;
+        matrix[i][j] = (i * j + hash) % 3 === 0;
       }
     }
   }
@@ -103,7 +107,7 @@ function QRCodeCanvas({
     const canvas = canvasRef.current;
     if (!canvas) return;
 
-    const ctx = canvas.getContext('2d');
+    const ctx = canvas.getContext("2d");
     if (!ctx) return;
 
     const matrix = generateQRMatrix(data, config.errorCorrectionLevel);
@@ -122,7 +126,7 @@ function QRCodeCanvas({
             config.margin + j * moduleSize,
             config.margin + i * moduleSize,
             moduleSize,
-            moduleSize
+            moduleSize,
           );
         }
       }
@@ -131,17 +135,28 @@ function QRCodeCanvas({
     // Add logo if provided
     if (config.logoUrl && config.logoSize) {
       const logoImg = new Image();
-      logoImg.crossOrigin = 'anonymous';
+      logoImg.crossOrigin = "anonymous";
       logoImg.onload = () => {
         const logoX = (config.size - config.logoSize!) / 2;
         const logoY = (config.size - config.logoSize!) / 2;
 
         // Draw white background for logo
         ctx.fillStyle = config.backgroundColor;
-        ctx.fillRect(logoX - 4, logoY - 4, config.logoSize! + 8, config.logoSize! + 8);
+        ctx.fillRect(
+          logoX - 4,
+          logoY - 4,
+          config.logoSize! + 8,
+          config.logoSize! + 8,
+        );
 
         // Draw logo
-        ctx.drawImage(logoImg, logoX, logoY, config.logoSize!, config.logoSize!);
+        ctx.drawImage(
+          logoImg,
+          logoX,
+          logoY,
+          config.logoSize!,
+          config.logoSize!,
+        );
       };
       logoImg.src = config.logoUrl;
     }
@@ -165,12 +180,32 @@ function UTMBuilder({
   params: UTMParameters;
   onChange: (params: UTMParameters) => void;
 }) {
-  const fields: { key: keyof UTMParameters; label: string; placeholder: string }[] = [
-    { key: 'utm_source', label: 'Source', placeholder: 'e.g., qr_code, print, event' },
-    { key: 'utm_medium', label: 'Medium', placeholder: 'e.g., offline, flyer, poster' },
-    { key: 'utm_campaign', label: 'Campaign', placeholder: 'e.g., q1_feedback, store_survey' },
-    { key: 'utm_term', label: 'Term', placeholder: 'Optional keyword' },
-    { key: 'utm_content', label: 'Content', placeholder: 'e.g., version_a, blue_design' },
+  const fields: {
+    key: keyof UTMParameters;
+    label: string;
+    placeholder: string;
+  }[] = [
+    {
+      key: "utm_source",
+      label: "Source",
+      placeholder: "e.g., qr_code, print, event",
+    },
+    {
+      key: "utm_medium",
+      label: "Medium",
+      placeholder: "e.g., offline, flyer, poster",
+    },
+    {
+      key: "utm_campaign",
+      label: "Campaign",
+      placeholder: "e.g., q1_feedback, store_survey",
+    },
+    { key: "utm_term", label: "Term", placeholder: "Optional keyword" },
+    {
+      key: "utm_content",
+      label: "Content",
+      placeholder: "e.g., version_a, blue_design",
+    },
   ];
 
   return (
@@ -180,10 +215,12 @@ function UTMBuilder({
       <div className="grid grid-cols-2 gap-3">
         {fields.map(({ key, label, placeholder }) => (
           <div key={key}>
-            <label className="block text-xs font-medium text-text-secondary mb-1">{label}</label>
+            <label className="block text-xs font-medium text-text-secondary mb-1">
+              {label}
+            </label>
             <input
               type="text"
-              value={params[key] || ''}
+              value={params[key] || ""}
               onChange={(e) => onChange({ ...params, [key]: e.target.value })}
               placeholder={placeholder}
               className="w-full px-3 py-2 text-sm border border-border rounded-lg bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
@@ -204,17 +241,33 @@ function StyleCustomizer({
   onChange: (config: QRCodeConfig) => void;
 }) {
   const sizes = [
-    { value: 128, label: 'Small (128px)' },
-    { value: 256, label: 'Medium (256px)' },
-    { value: 512, label: 'Large (512px)' },
-    { value: 1024, label: 'Print (1024px)' },
+    { value: 128, label: "Small (128px)" },
+    { value: 256, label: "Medium (256px)" },
+    { value: 512, label: "Large (512px)" },
+    { value: 1024, label: "Print (1024px)" },
   ];
 
-  const errorLevels: { value: QRCodeConfig['errorCorrectionLevel']; label: string; description: string }[] = [
-    { value: 'L', label: 'Low (7%)', description: 'Smaller QR, less error recovery' },
-    { value: 'M', label: 'Medium (15%)', description: 'Balanced' },
-    { value: 'Q', label: 'Quartile (25%)', description: 'Good for printed materials' },
-    { value: 'H', label: 'High (30%)', description: 'Best for logos, high damage tolerance' },
+  const errorLevels: {
+    value: QRCodeConfig["errorCorrectionLevel"];
+    label: string;
+    description: string;
+  }[] = [
+    {
+      value: "L",
+      label: "Low (7%)",
+      description: "Smaller QR, less error recovery",
+    },
+    { value: "M", label: "Medium (15%)", description: "Balanced" },
+    {
+      value: "Q",
+      label: "Quartile (25%)",
+      description: "Good for printed materials",
+    },
+    {
+      value: "H",
+      label: "High (30%)",
+      description: "Best for logos, high damage tolerance",
+    },
   ];
 
   return (
@@ -223,17 +276,19 @@ function StyleCustomizer({
 
       {/* Size */}
       <div>
-        <label className="block text-sm font-medium text-text-secondary mb-2">Size</label>
+        <label className="block text-sm font-medium text-text-secondary mb-2">
+          Size
+        </label>
         <div className="grid grid-cols-4 gap-2">
           {sizes.map(({ value, label }) => (
             <button
               key={value}
               onClick={() => onChange({ ...config, size: value })}
               className={cn(
-                'px-3 py-2 text-xs font-medium rounded-lg border transition-colors',
+                "px-3 py-2 text-xs font-medium rounded-lg border transition-colors",
                 config.size === value
-                  ? 'border-primary bg-primary/10 text-primary'
-                  : 'border-border text-text-secondary hover:bg-bg-hover'
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-border text-text-secondary hover:bg-bg-hover",
               )}
             >
               {label}
@@ -245,35 +300,47 @@ function StyleCustomizer({
       {/* Colors */}
       <div className="grid grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-text-secondary mb-2">Foreground Color</label>
+          <label className="block text-sm font-medium text-text-secondary mb-2">
+            Foreground Color
+          </label>
           <div className="flex items-center gap-2">
             <input
               type="color"
               value={config.foregroundColor}
-              onChange={(e) => onChange({ ...config, foregroundColor: e.target.value })}
+              onChange={(e) =>
+                onChange({ ...config, foregroundColor: e.target.value })
+              }
               className="w-10 h-10 rounded border border-border cursor-pointer"
             />
             <input
               type="text"
               value={config.foregroundColor}
-              onChange={(e) => onChange({ ...config, foregroundColor: e.target.value })}
+              onChange={(e) =>
+                onChange({ ...config, foregroundColor: e.target.value })
+              }
               className="flex-1 px-3 py-2 text-sm border border-border rounded-lg bg-bg-primary text-text-primary"
             />
           </div>
         </div>
         <div>
-          <label className="block text-sm font-medium text-text-secondary mb-2">Background Color</label>
+          <label className="block text-sm font-medium text-text-secondary mb-2">
+            Background Color
+          </label>
           <div className="flex items-center gap-2">
             <input
               type="color"
               value={config.backgroundColor}
-              onChange={(e) => onChange({ ...config, backgroundColor: e.target.value })}
+              onChange={(e) =>
+                onChange({ ...config, backgroundColor: e.target.value })
+              }
               className="w-10 h-10 rounded border border-border cursor-pointer"
             />
             <input
               type="text"
               value={config.backgroundColor}
-              onChange={(e) => onChange({ ...config, backgroundColor: e.target.value })}
+              onChange={(e) =>
+                onChange({ ...config, backgroundColor: e.target.value })
+              }
               className="flex-1 px-3 py-2 text-sm border border-border rounded-lg bg-bg-primary text-text-primary"
             />
           </div>
@@ -282,23 +349,31 @@ function StyleCustomizer({
 
       {/* Error Correction Level */}
       <div>
-        <label className="block text-sm font-medium text-text-secondary mb-2">Error Correction</label>
+        <label className="block text-sm font-medium text-text-secondary mb-2">
+          Error Correction
+        </label>
         <div className="grid grid-cols-2 gap-2">
           {errorLevels.map(({ value, label, description }) => (
             <button
               key={value}
-              onClick={() => onChange({ ...config, errorCorrectionLevel: value })}
+              onClick={() =>
+                onChange({ ...config, errorCorrectionLevel: value })
+              }
               className={cn(
-                'px-3 py-2 text-left rounded-lg border transition-colors',
+                "px-3 py-2 text-left rounded-lg border transition-colors",
                 config.errorCorrectionLevel === value
-                  ? 'border-primary bg-primary/10'
-                  : 'border-border hover:bg-bg-hover'
+                  ? "border-primary bg-primary/10"
+                  : "border-border hover:bg-bg-hover",
               )}
             >
-              <span className={cn(
-                'text-sm font-medium',
-                config.errorCorrectionLevel === value ? 'text-primary' : 'text-text-primary'
-              )}>
+              <span
+                className={cn(
+                  "text-sm font-medium",
+                  config.errorCorrectionLevel === value
+                    ? "text-primary"
+                    : "text-text-primary",
+                )}
+              >
                 {label}
               </span>
               <p className="text-xs text-text-muted mt-0.5">{description}</p>
@@ -309,10 +384,12 @@ function StyleCustomizer({
 
       {/* Logo URL */}
       <div>
-        <label className="block text-sm font-medium text-text-secondary mb-2">Logo URL (Optional)</label>
+        <label className="block text-sm font-medium text-text-secondary mb-2">
+          Logo URL (Optional)
+        </label>
         <input
           type="url"
-          value={config.logoUrl || ''}
+          value={config.logoUrl || ""}
           onChange={(e) => onChange({ ...config, logoUrl: e.target.value })}
           placeholder="https://example.com/logo.png"
           className="w-full px-3 py-2 text-sm border border-border rounded-lg bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
@@ -333,10 +410,12 @@ export function QRCodeGenerator({
 }: QRCodeGeneratorProps) {
   const [config, setConfig] = useState<QRCodeConfig>(DEFAULT_CONFIG);
   const [utmParams, setUtmParams] = useState<UTMParameters>({
-    utm_source: 'qr_code',
-    utm_medium: 'offline',
+    utm_source: "qr_code",
+    utm_medium: "offline",
   });
-  const [activeTab, setActiveTab] = useState<'preview' | 'customize' | 'tracking'>('preview');
+  const [activeTab, setActiveTab] = useState<
+    "preview" | "customize" | "tracking"
+  >("preview");
 
   // Build full URL with UTM parameters
   const fullUrl = useCallback(() => {
@@ -351,12 +430,12 @@ export function QRCodeGenerator({
 
   // Download QR Code as PNG
   const handleDownload = useCallback(() => {
-    const canvas = document.querySelector('canvas');
+    const canvas = document.querySelector("canvas");
     if (!canvas) return;
 
-    const link = document.createElement('a');
-    link.download = `${surveyName.replace(/\s+/g, '_')}_qr_code.png`;
-    link.href = canvas.toDataURL('image/png');
+    const link = document.createElement("a");
+    link.download = `${surveyName.replace(/\s+/g, "_")}_qr_code.png`;
+    link.href = canvas.toDataURL("image/png");
     link.click();
   }, [surveyName]);
 
@@ -373,7 +452,9 @@ export function QRCodeGenerator({
         {/* Header */}
         <div className="flex items-center justify-between px-6 py-4 border-b border-border">
           <div>
-            <h2 className="text-xl font-semibold text-text-primary">QR Code Generator</h2>
+            <h2 className="text-xl font-semibold text-text-primary">
+              QR Code Generator
+            </h2>
             <p className="text-sm text-text-muted">{surveyName}</p>
           </div>
           {onClose && (
@@ -381,8 +462,18 @@ export function QRCodeGenerator({
               onClick={onClose}
               className="p-2 text-text-muted hover:text-text-primary rounded-lg hover:bg-bg-hover"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           )}
@@ -403,8 +494,18 @@ export function QRCodeGenerator({
                   onClick={handleDownload}
                   className="flex-1 flex items-center justify-center gap-2 px-4 py-2 bg-primary text-white rounded-lg hover:bg-primary-dark transition-colors"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"
+                    />
                   </svg>
                   Download PNG
                 </button>
@@ -412,8 +513,18 @@ export function QRCodeGenerator({
                   onClick={handleCopyUrl}
                   className="flex items-center justify-center gap-2 px-4 py-2 border border-border text-text-secondary rounded-lg hover:bg-bg-hover transition-colors"
                 >
-                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3" />
+                  <svg
+                    className="w-4 h-4"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M8 5H6a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2v-1M8 5a2 2 0 002 2h2a2 2 0 002-2M8 5a2 2 0 012-2h2a2 2 0 012 2m0 0h2a2 2 0 012 2v3m2 4H10m0 0l3-3m-3 3l3 3"
+                    />
                   </svg>
                   Copy URL
                 </button>
@@ -421,7 +532,9 @@ export function QRCodeGenerator({
 
               {/* URL Preview */}
               <div className="mt-4 w-full">
-                <label className="block text-xs font-medium text-text-muted mb-1">Survey URL</label>
+                <label className="block text-xs font-medium text-text-muted mb-1">
+                  Survey URL
+                </label>
                 <div className="p-3 bg-bg-hover rounded-lg text-xs text-text-secondary break-all font-mono">
                   {fullUrl()}
                 </div>
@@ -432,15 +545,15 @@ export function QRCodeGenerator({
             <div>
               {/* Tabs */}
               <div className="flex gap-1 border-b border-border mb-4">
-                {(['preview', 'customize', 'tracking'] as const).map((tab) => (
+                {(["preview", "customize", "tracking"] as const).map((tab) => (
                   <button
                     key={tab}
                     onClick={() => setActiveTab(tab)}
                     className={cn(
-                      'px-4 py-2 text-sm font-medium border-b-2 transition-colors capitalize',
+                      "px-4 py-2 text-sm font-medium border-b-2 transition-colors capitalize",
                       activeTab === tab
-                        ? 'border-primary text-primary'
-                        : 'border-transparent text-text-secondary hover:text-text-primary'
+                        ? "border-primary text-primary"
+                        : "border-transparent text-text-secondary hover:text-text-primary",
                     )}
                   >
                     {tab}
@@ -449,41 +562,68 @@ export function QRCodeGenerator({
               </div>
 
               {/* Tab Content */}
-              {activeTab === 'preview' && (
+              {activeTab === "preview" && (
                 <div className="space-y-4">
                   <div className="p-4 bg-bg-hover rounded-lg">
-                    <h4 className="font-medium text-text-primary mb-2">Quick Stats</h4>
+                    <h4 className="font-medium text-text-primary mb-2">
+                      Quick Stats
+                    </h4>
                     <div className="grid grid-cols-2 gap-4 text-sm">
                       <div>
                         <span className="text-text-muted">Size:</span>
-                        <span className="ml-2 text-text-primary">{config.size}px</span>
+                        <span className="ml-2 text-text-primary">
+                          {config.size}px
+                        </span>
                       </div>
                       <div>
                         <span className="text-text-muted">Error Level:</span>
-                        <span className="ml-2 text-text-primary">{config.errorCorrectionLevel}</span>
+                        <span className="ml-2 text-text-primary">
+                          {config.errorCorrectionLevel}
+                        </span>
                       </div>
                       <div>
                         <span className="text-text-muted">Has Logo:</span>
-                        <span className="ml-2 text-text-primary">{config.logoUrl ? 'Yes' : 'No'}</span>
+                        <span className="ml-2 text-text-primary">
+                          {config.logoUrl ? "Yes" : "No"}
+                        </span>
                       </div>
                       <div>
                         <span className="text-text-muted">Tracking:</span>
-                        <span className="ml-2 text-text-primary">{Object.values(utmParams).filter(Boolean).length} params</span>
+                        <span className="ml-2 text-text-primary">
+                          {Object.values(utmParams).filter(Boolean).length}{" "}
+                          params
+                        </span>
                       </div>
                     </div>
                   </div>
 
                   <div className="p-4 bg-info/10 border border-info/20 rounded-lg">
                     <div className="flex items-start gap-3">
-                      <svg className="w-5 h-5 text-info flex-shrink-0 mt-0.5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                      <svg
+                        className="w-5 h-5 text-info flex-shrink-0 mt-0.5"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+                        />
                       </svg>
                       <div>
-                        <p className="text-sm font-medium text-info">Usage Tips</p>
+                        <p className="text-sm font-medium text-info">
+                          Usage Tips
+                        </p>
                         <ul className="text-xs text-text-secondary mt-1 space-y-1 list-disc list-inside">
-                          <li>Use "Print (1024px)" size for printed materials</li>
+                          <li>
+                            Use "Print (1024px)" size for printed materials
+                          </li>
                           <li>High error correction allows for logo overlay</li>
-                          <li>Test scanning before printing large quantities</li>
+                          <li>
+                            Test scanning before printing large quantities
+                          </li>
                           <li>UTM parameters help track offline conversions</li>
                         </ul>
                       </div>
@@ -492,7 +632,9 @@ export function QRCodeGenerator({
 
                   {/* Print Sizes Reference */}
                   <div className="p-4 bg-bg-hover rounded-lg">
-                    <h4 className="font-medium text-text-primary mb-2">Recommended Print Sizes</h4>
+                    <h4 className="font-medium text-text-primary mb-2">
+                      Recommended Print Sizes
+                    </h4>
                     <table className="w-full text-sm">
                       <thead>
                         <tr className="text-text-muted text-left">
@@ -523,11 +665,11 @@ export function QRCodeGenerator({
                 </div>
               )}
 
-              {activeTab === 'customize' && (
+              {activeTab === "customize" && (
                 <StyleCustomizer config={config} onChange={setConfig} />
               )}
 
-              {activeTab === 'tracking' && (
+              {activeTab === "tracking" && (
                 <UTMBuilder params={utmParams} onChange={setUtmParams} />
               )}
             </div>

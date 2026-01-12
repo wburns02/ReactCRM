@@ -2,13 +2,13 @@
  * Voice Notes Recorder Component
  * UI for recording voice notes with transcription
  */
-import { useState, useEffect, useRef } from 'react';
-import { Card, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { cn } from '@/lib/utils';
-import { useVoiceRecording } from '../useVoiceRecording';
-import { formatDuration, type VoiceNote } from '../types';
+import { useState, useEffect, useRef } from "react";
+import { Card, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { cn } from "@/lib/utils";
+import { useVoiceRecording } from "../useVoiceRecording";
+import { formatDuration, type VoiceNote } from "../types";
 
 interface VoiceNotesRecorderProps {
   /** Called when a voice note is saved */
@@ -35,13 +35,13 @@ export function VoiceNotesRecorder({
   technicianId,
   compact = false,
   className,
-  placeholder = 'Press the microphone to start recording...',
+  placeholder = "Press the microphone to start recording...",
   autoStart = false,
   showSavedNotes = true,
 }: VoiceNotesRecorderProps) {
   const [savedNotes, setSavedNotes] = useState<VoiceNote[]>([]);
   const [editingTranscription, setEditingTranscription] = useState(false);
-  const [editedText, setEditedText] = useState('');
+  const [editedText, setEditedText] = useState("");
   const audioRef = useRef<HTMLAudioElement | null>(null);
   const [playingNoteId, setPlayingNoteId] = useState<string | null>(null);
 
@@ -81,10 +81,10 @@ export function VoiceNotesRecorder({
     }
   }, [autoStart, isRecordingSupported, startRecording]);
 
-  const isRecording = recordingStatus === 'recording';
-  const isPaused = recordingStatus === 'paused';
-  const isProcessing = recordingStatus === 'processing';
-  const isComplete = recordingStatus === 'complete';
+  const isRecording = recordingStatus === "recording";
+  const isPaused = recordingStatus === "paused";
+  const isProcessing = recordingStatus === "processing";
+  const isComplete = recordingStatus === "complete";
 
   const handleMicClick = () => {
     if (isRecording || isPaused) {
@@ -131,21 +131,25 @@ export function VoiceNotesRecorder({
 
   const handleSaveEdit = (noteId: string) => {
     setSavedNotes((prev) =>
-      prev.map((n) => (n.id === noteId ? { ...n, transcription: editedText } : n))
+      prev.map((n) =>
+        n.id === noteId ? { ...n, transcription: editedText } : n,
+      ),
     );
     setEditingTranscription(false);
-    setEditedText('');
+    setEditedText("");
   };
 
   // Not supported
   if (!isRecordingSupported) {
     return (
-      <Card className={cn('bg-warning/10 border-warning/20', className)}>
+      <Card className={cn("bg-warning/10 border-warning/20", className)}>
         <CardContent className="p-4">
           <div className="flex items-center gap-3">
             <div className="text-2xl">⚠️</div>
             <div>
-              <p className="font-medium text-text-primary">Voice Recording Not Available</p>
+              <p className="font-medium text-text-primary">
+                Voice Recording Not Available
+              </p>
               <p className="text-sm text-text-secondary">
                 Your browser doesn't support audio recording.
               </p>
@@ -158,18 +162,18 @@ export function VoiceNotesRecorder({
 
   if (compact) {
     return (
-      <div className={cn('flex items-center gap-3', className)}>
+      <div className={cn("flex items-center gap-3", className)}>
         {/* Mic button */}
         <button
           onClick={handleMicClick}
           disabled={isProcessing}
           className={cn(
-            'w-12 h-12 rounded-full flex items-center justify-center transition-all',
+            "w-12 h-12 rounded-full flex items-center justify-center transition-all",
             isRecording
-              ? 'bg-danger text-white animate-pulse'
+              ? "bg-danger text-white animate-pulse"
               : isPaused
-              ? 'bg-warning text-white'
-              : 'bg-primary text-white hover:bg-primary-hover'
+                ? "bg-warning text-white"
+                : "bg-primary text-white hover:bg-primary-hover",
           )}
         >
           {isRecording || isPaused ? (
@@ -238,12 +242,12 @@ export function VoiceNotesRecorder({
             onClick={handleMicClick}
             disabled={isProcessing}
             className={cn(
-              'w-20 h-20 rounded-full flex items-center justify-center transition-all transform hover:scale-105',
+              "w-20 h-20 rounded-full flex items-center justify-center transition-all transform hover:scale-105",
               isRecording
-                ? 'bg-danger text-white shadow-lg shadow-danger/30'
+                ? "bg-danger text-white shadow-lg shadow-danger/30"
                 : isPaused
-                ? 'bg-warning text-white'
-                : 'bg-primary text-white shadow-lg shadow-primary/30 hover:bg-primary-hover'
+                  ? "bg-warning text-white"
+                  : "bg-primary text-white shadow-lg shadow-primary/30 hover:bg-primary-hover",
             )}
             style={{
               boxShadow: isRecording
@@ -254,11 +258,21 @@ export function VoiceNotesRecorder({
             {isProcessing ? (
               <div className="w-8 h-8 border-4 border-white border-t-transparent rounded-full animate-spin" />
             ) : isRecording || isPaused ? (
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
                 <rect x="6" y="6" width="12" height="12" rx="2" />
               </svg>
             ) : (
-              <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor">
+              <svg
+                width="32"
+                height="32"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
                 <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm5.91-3c-.49 0-.9.36-.98.85C16.52 14.2 14.47 16 12 16s-4.52-1.8-4.93-4.15c-.08-.49-.49-.85-.98-.85-.61 0-1.09.54-1 1.14.49 3 2.89 5.35 5.91 5.78V20c0 .55.45 1 1 1s1-.45 1-1v-2.08c3.02-.43 5.42-2.78 5.91-5.78.1-.6-.39-1.14-1-1.14z" />
               </svg>
             )}
@@ -277,15 +291,13 @@ export function VoiceNotesRecorder({
               </div>
             )}
             {isPaused && (
-              <Badge variant="warning">Paused - {formatDuration(duration)}</Badge>
+              <Badge variant="warning">
+                Paused - {formatDuration(duration)}
+              </Badge>
             )}
-            {isProcessing && (
-              <Badge variant="primary">Processing...</Badge>
-            )}
-            {isComplete && (
-              <Badge variant="success">Saved!</Badge>
-            )}
-            {recordingStatus === 'idle' && (
+            {isProcessing && <Badge variant="primary">Processing...</Badge>}
+            {isComplete && <Badge variant="success">Saved!</Badge>}
+            {recordingStatus === "idle" && (
               <p className="text-sm text-text-muted">Tap to start recording</p>
             )}
           </div>
@@ -333,7 +345,10 @@ export function VoiceNotesRecorder({
             <p className="text-text-primary">
               {transcription}
               {interimTranscription && (
-                <span className="text-text-muted italic"> {interimTranscription}</span>
+                <span className="text-text-muted italic">
+                  {" "}
+                  {interimTranscription}
+                </span>
               )}
             </p>
           </div>
@@ -342,7 +357,9 @@ export function VoiceNotesRecorder({
         {/* Saved notes */}
         {showSavedNotes && savedNotes.length > 0 && (
           <div className="border-t border-border pt-4 space-y-3">
-            <h4 className="text-sm font-medium text-text-primary">Recent Notes</h4>
+            <h4 className="text-sm font-medium text-text-primary">
+              Recent Notes
+            </h4>
             {savedNotes.slice(0, 5).map((note) => (
               <div
                 key={note.id}
@@ -356,7 +373,7 @@ export function VoiceNotesRecorder({
                       onClick={() => handlePlayNote(note)}
                       disabled={!note.audioUrl}
                     >
-                      {playingNoteId === note.id ? '⏹️' : '▶️'}
+                      {playingNoteId === note.id ? "⏹️" : "▶️"}
                     </Button>
                     <span className="text-sm text-text-muted">
                       {formatDuration(note.duration)}
@@ -374,7 +391,7 @@ export function VoiceNotesRecorder({
                     🗑️
                   </Button>
                 </div>
-                {editingTranscription && editedText !== '' ? (
+                {editingTranscription && editedText !== "" ? (
                   <div className="flex gap-2">
                     <textarea
                       value={editedText}

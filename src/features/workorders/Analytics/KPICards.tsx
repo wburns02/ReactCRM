@@ -3,19 +3,19 @@
  * Displays total jobs, completion rate, avg revenue, first time fix rate, and customer satisfaction
  */
 
-import { memo } from 'react';
-import { AreaChart, Area, ResponsiveContainer } from 'recharts';
-import { Card } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Skeleton } from '@/components/ui/Skeleton.tsx';
-import type { WorkOrderKPIs } from '@/api/types/workOrder.ts';
+import { memo } from "react";
+import { AreaChart, Area, ResponsiveContainer } from "recharts";
+import { Card } from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Skeleton } from "@/components/ui/Skeleton.tsx";
+import type { WorkOrderKPIs } from "@/api/types/workOrder.ts";
 import {
   formatCurrency,
   formatPercentage,
   CHART_COLORS,
   getTrendDirection,
   calculatePercentageChange,
-} from './utils/chartConfig.ts';
+} from "./utils/chartConfig.ts";
 
 interface KPICardsProps {
   kpis: WorkOrderKPIs | null;
@@ -48,11 +48,14 @@ function Sparkline({
   height?: number;
 }) {
   const chartData = data.map((value, index) => ({ value, index }));
-  const gradientId = `sparkline-${color.replace('#', '')}`;
+  const gradientId = `sparkline-${color.replace("#", "")}`;
 
   return (
     <ResponsiveContainer width="100%" height={height}>
-      <AreaChart data={chartData} margin={{ top: 2, right: 2, bottom: 2, left: 2 }}>
+      <AreaChart
+        data={chartData}
+        margin={{ top: 2, right: 2, bottom: 2, left: 2 }}
+      >
         <defs>
           <linearGradient id={gradientId} x1="0" y1="0" x2="0" y2="1">
             <stop offset="5%" stopColor={color} stopOpacity={0.3} />
@@ -101,7 +104,8 @@ const KPICard = memo(function KPICard({
     );
   }
 
-  const trendDirection = change !== undefined ? getTrendDirection(change, 0) : 'neutral';
+  const trendDirection =
+    change !== undefined ? getTrendDirection(change, 0) : "neutral";
   // trendColor available for future styling needs
   // const __trendColor = getTrendColor(trendDirection, positiveIsGood);
 
@@ -113,20 +117,38 @@ const KPICard = memo(function KPICard({
             {icon && <span className="text-lg flex-shrink-0">{icon}</span>}
             <span className="truncate">{title}</span>
           </div>
-          <div className="text-2xl font-bold text-text-primary truncate">{value}</div>
+          <div className="text-2xl font-bold text-text-primary truncate">
+            {value}
+          </div>
           {change !== undefined && (
             <div className="flex items-center gap-1 mt-1">
               <Badge
-                variant={trendDirection === 'up' ? (positiveIsGood ? 'success' : 'danger') : trendDirection === 'down' ? (positiveIsGood ? 'danger' : 'success') : 'default'}
+                variant={
+                  trendDirection === "up"
+                    ? positiveIsGood
+                      ? "success"
+                      : "danger"
+                    : trendDirection === "down"
+                      ? positiveIsGood
+                        ? "danger"
+                        : "success"
+                      : "default"
+                }
                 className="text-xs"
               >
                 <span className="mr-0.5">
-                  {trendDirection === 'up' ? '\u25B2' : trendDirection === 'down' ? '\u25BC' : '\u2022'}
+                  {trendDirection === "up"
+                    ? "\u25B2"
+                    : trendDirection === "down"
+                      ? "\u25BC"
+                      : "\u2022"}
                 </span>
                 {Math.abs(change).toFixed(1)}%
               </Badge>
               {changeLabel && (
-                <span className="text-xs text-text-muted truncate">{changeLabel}</span>
+                <span className="text-xs text-text-muted truncate">
+                  {changeLabel}
+                </span>
               )}
             </div>
           )}
@@ -149,7 +171,7 @@ function generateSparklineData(baseValue: number, days = 7): number[] {
   let current = baseValue * 0.85;
   for (let i = 0; i < days; i++) {
     const variation = (Math.random() - 0.4) * 0.1 * baseValue;
-    current = Math.max(0, current + variation + (baseValue * 0.03));
+    current = Math.max(0, current + variation + baseValue * 0.03);
     data.push(Math.round(current));
   }
   return data;
@@ -164,7 +186,10 @@ export const KPICards = memo(function KPICards({
   isLoading = false,
 }: KPICardsProps) {
   // Calculate changes from previous period
-  const calculateChange = (current: number, previous?: number): number | undefined => {
+  const calculateChange = (
+    current: number,
+    previous?: number,
+  ): number | undefined => {
     if (previous === undefined || previous === null) return undefined;
     return calculatePercentageChange(current, previous);
   };
@@ -172,16 +197,23 @@ export const KPICards = memo(function KPICards({
   // Generate mock sparkline data based on current values
   const jobsSparkline = kpis ? generateSparklineData(kpis.totalCompleted) : [];
   const revenueSparkline = kpis ? generateSparklineData(kpis.totalRevenue) : [];
-  const completionSparkline = kpis ? generateSparklineData(kpis.totalCompleted + kpis.totalScheduled) : [];
-  const satisfactionSparkline = kpis ? generateSparklineData(kpis.customerSatisfaction * 10) : [];
+  const completionSparkline = kpis
+    ? generateSparklineData(kpis.totalCompleted + kpis.totalScheduled)
+    : [];
+  const satisfactionSparkline = kpis
+    ? generateSparklineData(kpis.customerSatisfaction * 10)
+    : [];
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5 gap-4">
       {/* Total Jobs */}
       <KPICard
         title="Total Jobs"
-        value={kpis?.totalCompleted.toLocaleString() ?? '-'}
-        change={calculateChange(kpis?.totalCompleted ?? 0, previousKpis?.totalCompleted)}
+        value={kpis?.totalCompleted.toLocaleString() ?? "-"}
+        change={calculateChange(
+          kpis?.totalCompleted ?? 0,
+          previousKpis?.totalCompleted,
+        )}
         changeLabel="vs last period"
         sparklineData={jobsSparkline}
         sparklineColor={CHART_COLORS.primary}
@@ -193,10 +225,22 @@ export const KPICards = memo(function KPICards({
       {/* Completion Rate */}
       <KPICard
         title="Completion Rate"
-        value={kpis ? formatPercentage((kpis.totalCompleted / Math.max(kpis.totalScheduled, 1)) * 100) : '-'}
+        value={
+          kpis
+            ? formatPercentage(
+                (kpis.totalCompleted / Math.max(kpis.totalScheduled, 1)) * 100,
+              )
+            : "-"
+        }
         change={calculateChange(
-          kpis ? (kpis.totalCompleted / Math.max(kpis.totalScheduled, 1)) * 100 : 0,
-          previousKpis ? (previousKpis.totalCompleted / Math.max(previousKpis.totalScheduled, 1)) * 100 : undefined
+          kpis
+            ? (kpis.totalCompleted / Math.max(kpis.totalScheduled, 1)) * 100
+            : 0,
+          previousKpis
+            ? (previousKpis.totalCompleted /
+                Math.max(previousKpis.totalScheduled, 1)) *
+                100
+            : undefined,
         )}
         changeLabel="vs last period"
         sparklineData={completionSparkline}
@@ -209,8 +253,11 @@ export const KPICards = memo(function KPICards({
       {/* Avg Revenue per Job */}
       <KPICard
         title="Avg Revenue/Job"
-        value={kpis ? formatCurrency(kpis.avgRevenuePerJob) : '-'}
-        change={calculateChange(kpis?.avgRevenuePerJob ?? 0, previousKpis?.avgRevenuePerJob)}
+        value={kpis ? formatCurrency(kpis.avgRevenuePerJob) : "-"}
+        change={calculateChange(
+          kpis?.avgRevenuePerJob ?? 0,
+          previousKpis?.avgRevenuePerJob,
+        )}
         changeLabel="vs last period"
         sparklineData={revenueSparkline}
         sparklineColor={CHART_COLORS.info}
@@ -222,8 +269,11 @@ export const KPICards = memo(function KPICards({
       {/* First Time Fix Rate */}
       <KPICard
         title="First Time Fix Rate"
-        value={kpis ? formatPercentage(kpis.firstTimeFixRate) : '-'}
-        change={calculateChange(kpis?.firstTimeFixRate ?? 0, previousKpis?.firstTimeFixRate)}
+        value={kpis ? formatPercentage(kpis.firstTimeFixRate) : "-"}
+        change={calculateChange(
+          kpis?.firstTimeFixRate ?? 0,
+          previousKpis?.firstTimeFixRate,
+        )}
         changeLabel="vs last period"
         sparklineColor={CHART_COLORS.purple}
         isLoading={isLoading}
@@ -234,8 +284,11 @@ export const KPICards = memo(function KPICards({
       {/* Customer Satisfaction */}
       <KPICard
         title="Customer Satisfaction"
-        value={kpis ? `${kpis.customerSatisfaction.toFixed(1)}/5.0` : '-'}
-        change={calculateChange(kpis?.customerSatisfaction ?? 0, previousKpis?.customerSatisfaction)}
+        value={kpis ? `${kpis.customerSatisfaction.toFixed(1)}/5.0` : "-"}
+        change={calculateChange(
+          kpis?.customerSatisfaction ?? 0,
+          previousKpis?.customerSatisfaction,
+        )}
         changeLabel="vs last period"
         sparklineData={satisfactionSparkline}
         sparklineColor={CHART_COLORS.warning}

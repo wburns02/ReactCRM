@@ -4,45 +4,52 @@
  * Display call history for a work order with recording playback and notes.
  */
 
-import { useState } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Card } from '@/components/ui/Card.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Skeleton } from '@/components/ui/Skeleton.tsx';
+import { useState } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Card } from "@/components/ui/Card.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Skeleton } from "@/components/ui/Skeleton.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
-import { useVoiceCallLog, useAddCallNote, type VoiceCall } from './hooks/useCommunications.ts';
+} from "@/components/ui/Dialog.tsx";
+import {
+  useVoiceCallLog,
+  useAddCallNote,
+  type VoiceCall,
+} from "./hooks/useCommunications.ts";
 
 interface VoiceCallLogProps {
   workOrderId: string;
 }
 
-const STATUS_COLORS: Record<VoiceCall['status'], 'success' | 'warning' | 'danger' | 'default'> = {
-  completed: 'success',
-  missed: 'danger',
-  voicemail: 'warning',
-  busy: 'warning',
-  failed: 'danger',
+const STATUS_COLORS: Record<
+  VoiceCall["status"],
+  "success" | "warning" | "danger" | "default"
+> = {
+  completed: "success",
+  missed: "danger",
+  voicemail: "warning",
+  busy: "warning",
+  failed: "danger",
 };
 
-const STATUS_LABELS: Record<VoiceCall['status'], string> = {
-  completed: 'Completed',
-  missed: 'Missed',
-  voicemail: 'Voicemail',
-  busy: 'Busy',
-  failed: 'Failed',
+const STATUS_LABELS: Record<VoiceCall["status"], string> = {
+  completed: "Completed",
+  missed: "Missed",
+  voicemail: "Voicemail",
+  busy: "Busy",
+  failed: "Failed",
 };
 
 export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
   const [selectedCall, setSelectedCall] = useState<VoiceCall | null>(null);
   const [editingNotes, setEditingNotes] = useState(false);
-  const [notes, setNotes] = useState('');
+  const [notes, setNotes] = useState("");
   const [playingRecording, setPlayingRecording] = useState<string | null>(null);
 
   const { data, isLoading, error } = useVoiceCallLog(workOrderId);
@@ -51,16 +58,16 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
   const formatDuration = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp);
-    return date.toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
+    return date.toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
       hour12: true,
     });
   };
@@ -76,7 +83,7 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
       });
       setEditingNotes(false);
     } catch (err) {
-      console.error('Failed to save notes:', err);
+      console.error("Failed to save notes:", err);
     }
   };
 
@@ -154,7 +161,7 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
               className="p-4 hover:bg-surface-secondary/50 transition-colors cursor-pointer"
               onClick={() => {
                 setSelectedCall(call);
-                setNotes(call.notes || '');
+                setNotes(call.notes || "");
               }}
             >
               <div className="flex items-center gap-4">
@@ -163,14 +170,19 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
                   className={`
                     w-10 h-10 rounded-full flex items-center justify-center
                     ${
-                      call.direction === 'inbound'
-                        ? 'bg-green-500/10 text-green-500'
-                        : 'bg-blue-500/10 text-blue-500'
+                      call.direction === "inbound"
+                        ? "bg-green-500/10 text-green-500"
+                        : "bg-blue-500/10 text-blue-500"
                     }
                   `}
                 >
-                  {call.direction === 'inbound' ? (
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  {call.direction === "inbound" ? (
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -179,7 +191,12 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
                       />
                     </svg>
                   ) : (
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -194,7 +211,8 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2">
                     <span className="font-medium">
-                      {call.direction === 'inbound' ? 'Incoming' : 'Outgoing'} Call
+                      {call.direction === "inbound" ? "Incoming" : "Outgoing"}{" "}
+                      Call
                     </span>
                     <Badge variant={STATUS_COLORS[call.status]}>
                       {STATUS_LABELS[call.status]}
@@ -216,17 +234,25 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
                     )}
                   </div>
                   <div className="flex items-center gap-4 mt-1 text-sm text-text-secondary">
-                    <span>{call.direction === 'inbound' ? call.fromPhone : call.toPhone}</span>
+                    <span>
+                      {call.direction === "inbound"
+                        ? call.fromPhone
+                        : call.toPhone}
+                    </span>
                     <span>{formatTimestamp(call.timestamp)}</span>
-                    {call.duration > 0 && <span>{formatDuration(call.duration)}</span>}
+                    {call.duration > 0 && (
+                      <span>{formatDuration(call.duration)}</span>
+                    )}
                   </div>
                   {call.notes && (
-                    <p className="text-sm text-text-secondary mt-1 truncate">{call.notes}</p>
+                    <p className="text-sm text-text-secondary mt-1 truncate">
+                      {call.notes}
+                    </p>
                   )}
                 </div>
 
                 {/* Recording playback */}
-                {call.recordingUrl && call.status === 'completed' && (
+                {call.recordingUrl && call.status === "completed" && (
                   <Button
                     size="sm"
                     variant="secondary"
@@ -236,7 +262,12 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
                     }}
                   >
                     {playingRecording === call.id ? (
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -245,7 +276,12 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
                         />
                       </svg>
                     ) : (
-                      <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <svg
+                        className="w-4 h-4"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
                         <path
                           strokeLinecap="round"
                           strokeLinejoin="round"
@@ -301,7 +337,9 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
       {/* Call detail dialog */}
       <Dialog open={!!selectedCall} onClose={() => setSelectedCall(null)}>
         <DialogContent size="md">
-          <DialogHeader onClose={() => setSelectedCall(null)}>Call Details</DialogHeader>
+          <DialogHeader onClose={() => setSelectedCall(null)}>
+            Call Details
+          </DialogHeader>
           <DialogBody>
             {selectedCall && (
               <div className="space-y-4">
@@ -310,7 +348,9 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
                   <div>
                     <p className="text-sm text-text-secondary">Direction</p>
                     <p className="font-medium">
-                      {selectedCall.direction === 'inbound' ? 'Incoming' : 'Outgoing'}
+                      {selectedCall.direction === "inbound"
+                        ? "Incoming"
+                        : "Outgoing"}
                     </p>
                   </div>
                   <div>
@@ -329,11 +369,15 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
                   </div>
                   <div>
                     <p className="text-sm text-text-secondary">Duration</p>
-                    <p className="font-medium">{formatDuration(selectedCall.duration)}</p>
+                    <p className="font-medium">
+                      {formatDuration(selectedCall.duration)}
+                    </p>
                   </div>
                   <div>
                     <p className="text-sm text-text-secondary">Time</p>
-                    <p className="font-medium">{formatTimestamp(selectedCall.timestamp)}</p>
+                    <p className="font-medium">
+                      {formatTimestamp(selectedCall.timestamp)}
+                    </p>
                   </div>
                   {selectedCall.agentName && (
                     <div className="col-span-2">
@@ -348,7 +392,10 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
                   <div className="pt-4 border-t border-border">
                     <p className="text-sm font-medium mb-2">Recording</p>
                     <audio controls className="w-full">
-                      <source src={selectedCall.recordingUrl} type="audio/mpeg" />
+                      <source
+                        src={selectedCall.recordingUrl}
+                        type="audio/mpeg"
+                      />
                       Your browser does not support the audio element.
                     </audio>
                   </div>
@@ -392,7 +439,7 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
                           variant="secondary"
                           onClick={() => {
                             setEditingNotes(false);
-                            setNotes(selectedCall.notes || '');
+                            setNotes(selectedCall.notes || "");
                           }}
                         >
                           Cancel
@@ -402,14 +449,16 @@ export function VoiceCallLog({ workOrderId }: VoiceCallLogProps) {
                           onClick={handleSaveNotes}
                           disabled={addNote.isPending}
                         >
-                          {addNote.isPending ? 'Saving...' : 'Save Notes'}
+                          {addNote.isPending ? "Saving..." : "Save Notes"}
                         </Button>
                       </div>
                     </div>
                   ) : (
                     <div className="bg-surface-secondary p-3 rounded-lg text-sm min-h-[80px]">
                       {selectedCall.notes || (
-                        <span className="text-text-secondary italic">No notes added</span>
+                        <span className="text-text-secondary italic">
+                          No notes added
+                        </span>
                       )}
                     </div>
                   )}

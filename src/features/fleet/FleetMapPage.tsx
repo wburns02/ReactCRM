@@ -1,9 +1,14 @@
-import { useState } from 'react';
-import { FleetMap } from './components/FleetMap.tsx';
-import { useFleetLocations } from './api.ts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { VEHICLE_STATUS_LABELS } from './types.ts';
+import { useState } from "react";
+import { FleetMap } from "./components/FleetMap.tsx";
+import { useFleetLocations } from "./api.ts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { VEHICLE_STATUS_LABELS } from "./types.ts";
 
 /**
  * Full-page fleet tracking map
@@ -17,7 +22,7 @@ export function FleetMapPage() {
       acc[vehicle.status] = (acc[vehicle.status] || 0) + 1;
       return acc;
     },
-    {} as Record<string, number>
+    {} as Record<string, number>,
   );
 
   return (
@@ -25,8 +30,12 @@ export function FleetMapPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-text-primary">Fleet Tracking</h1>
-          <p className="text-text-secondary">Real-time vehicle locations and status</p>
+          <h1 className="text-2xl font-semibold text-text-primary">
+            Fleet Tracking
+          </h1>
+          <p className="text-text-secondary">
+            Real-time vehicle locations and status
+          </p>
         </div>
         <div className="flex items-center gap-3">
           <label className="flex items-center gap-2 text-sm text-text-secondary">
@@ -46,7 +55,9 @@ export function FleetMapPage() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-6">
           <Card>
             <CardContent className="py-4">
-              <div className="text-2xl font-bold text-text-primary">{vehicles.length}</div>
+              <div className="text-2xl font-bold text-text-primary">
+                {vehicles.length}
+              </div>
               <div className="text-sm text-text-secondary">Total Vehicles</div>
             </CardContent>
           </Card>
@@ -97,7 +108,9 @@ export function FleetMapPage() {
                 >
                   <div className="flex items-start justify-between mb-2">
                     <div className="flex-1">
-                      <p className="font-medium text-text-primary">{vehicle.name}</p>
+                      <p className="font-medium text-text-primary">
+                        {vehicle.name}
+                      </p>
                       {vehicle.driver_name && (
                         <p className="text-xs text-text-secondary">
                           Driver: {vehicle.driver_name}
@@ -106,13 +119,13 @@ export function FleetMapPage() {
                     </div>
                     <Badge
                       variant={
-                        vehicle.status === 'moving'
-                          ? 'success'
-                          : vehicle.status === 'stopped'
-                            ? 'danger'
-                            : vehicle.status === 'idling'
-                              ? 'warning'
-                              : 'default'
+                        vehicle.status === "moving"
+                          ? "success"
+                          : vehicle.status === "stopped"
+                            ? "danger"
+                            : vehicle.status === "idling"
+                              ? "warning"
+                              : "default"
                       }
                     >
                       {VEHICLE_STATUS_LABELS[vehicle.status]}
@@ -121,8 +134,10 @@ export function FleetMapPage() {
                   <div className="text-xs text-text-muted">
                     <p>Speed: {Math.round(vehicle.location.speed)} mph</p>
                     <p>
-                      Last update:{' '}
-                      {new Date(vehicle.location.updated_at).toLocaleTimeString()}
+                      Last update:{" "}
+                      {new Date(
+                        vehicle.location.updated_at,
+                      ).toLocaleTimeString()}
                     </p>
                   </div>
                 </div>

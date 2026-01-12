@@ -1,10 +1,10 @@
-import { memo, useCallback } from 'react';
-import { Link } from 'react-router-dom';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Card } from '@/components/ui/Card.tsx';
-import { formatDate } from '@/lib/utils.ts';
-import { useIsMobileOrTablet } from '@/hooks/useMediaQuery';
+import { memo, useCallback } from "react";
+import { Link } from "react-router-dom";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Card } from "@/components/ui/Card.tsx";
+import { formatDate } from "@/lib/utils.ts";
+import { useIsMobileOrTablet } from "@/hooks/useMediaQuery";
 import {
   WORK_ORDER_STATUS_LABELS,
   JOB_TYPE_LABELS,
@@ -13,7 +13,7 @@ import {
   type WorkOrderStatus,
   type JobType,
   type Priority,
-} from '@/api/types/workOrder.ts';
+} from "@/api/types/workOrder.ts";
 
 interface WorkOrdersListProps {
   workOrders: WorkOrder[];
@@ -29,42 +29,46 @@ interface WorkOrdersListProps {
 /**
  * Get badge variant based on status
  */
-function getStatusVariant(status: WorkOrderStatus): 'default' | 'success' | 'warning' | 'danger' {
+function getStatusVariant(
+  status: WorkOrderStatus,
+): "default" | "success" | "warning" | "danger" {
   switch (status) {
-    case 'completed':
-      return 'success';
-    case 'canceled':
-      return 'danger';
-    case 'scheduled':
-    case 'confirmed':
-      return 'default';
-    case 'enroute':
-    case 'on_site':
-    case 'in_progress':
-      return 'warning';
-    case 'requires_followup':
-      return 'warning';
+    case "completed":
+      return "success";
+    case "canceled":
+      return "danger";
+    case "scheduled":
+    case "confirmed":
+      return "default";
+    case "enroute":
+    case "on_site":
+    case "in_progress":
+      return "warning";
+    case "requires_followup":
+      return "warning";
     default:
-      return 'default';
+      return "default";
   }
 }
 
 /**
  * Get badge variant based on priority
  */
-function getPriorityVariant(priority: Priority): 'default' | 'success' | 'warning' | 'danger' {
+function getPriorityVariant(
+  priority: Priority,
+): "default" | "success" | "warning" | "danger" {
   switch (priority) {
-    case 'low':
-      return 'default';
-    case 'normal':
-      return 'success';
-    case 'high':
-      return 'warning';
-    case 'urgent':
-    case 'emergency':
-      return 'danger';
+    case "low":
+      return "default";
+    case "normal":
+      return "success";
+    case "high":
+      return "warning";
+    case "urgent":
+    case "emergency":
+      return "danger";
     default:
-      return 'default';
+      return "default";
   }
 }
 
@@ -104,7 +108,10 @@ const MobileWorkOrderCard = memo(function MobileWorkOrderCard({
           <Badge variant="default" className="text-xs">
             {JOB_TYPE_LABELS[wo.job_type as JobType] || wo.job_type}
           </Badge>
-          <Badge variant={getPriorityVariant(wo.priority as Priority)} className="text-xs">
+          <Badge
+            variant={getPriorityVariant(wo.priority as Priority)}
+            className="text-xs"
+          >
             {PRIORITY_LABELS[wo.priority as Priority] || wo.priority}
           </Badge>
         </div>
@@ -134,7 +141,9 @@ const MobileWorkOrderCard = memo(function MobileWorkOrderCard({
         {wo.assigned_technician && (
           <div className="flex items-center gap-2">
             <span className="text-text-muted">👷</span>
-            <span className="text-text-secondary">{wo.assigned_technician}</span>
+            <span className="text-text-secondary">
+              {wo.assigned_technician}
+            </span>
           </div>
         )}
 
@@ -189,14 +198,14 @@ const TableWorkOrderRow = memo(function TableWorkOrderRow({
   onDelete,
 }: WorkOrderRowProps) {
   return (
-    <tr
-      className="hover:bg-bg-hover transition-colors"
-      tabIndex={0}
-    >
+    <tr className="hover:bg-bg-hover transition-colors" tabIndex={0}>
       <td className="px-4 py-3">
         <div>
           <p className="font-medium text-text-primary">
-            {wo.customer_name || (wo.customer ? `${wo.customer.first_name} ${wo.customer.last_name}` : `Customer #${wo.customer_id}`)}
+            {wo.customer_name ||
+              (wo.customer
+                ? `${wo.customer.first_name} ${wo.customer.last_name}`
+                : `Customer #${wo.customer_id}`)}
           </p>
           {wo.service_city && wo.service_state && (
             <p className="text-sm text-text-secondary">
@@ -226,7 +235,7 @@ const TableWorkOrderRow = memo(function TableWorkOrderRow({
         )}
       </td>
       <td className="px-4 py-3 text-sm text-text-secondary">
-        {wo.assigned_technician || '-'}
+        {wo.assigned_technician || "-"}
       </td>
       <td className="px-4 py-3">
         <Badge variant={getPriorityVariant(wo.priority as Priority)}>
@@ -241,11 +250,7 @@ const TableWorkOrderRow = memo(function TableWorkOrderRow({
       <td className="px-4 py-3 text-right">
         <div className="flex justify-end gap-2">
           <Link to={`/work-orders/${wo.id}`}>
-            <Button
-              variant="ghost"
-              size="sm"
-              aria-label="View work order"
-            >
+            <Button variant="ghost" size="sm" aria-label="View work order">
               View
             </Button>
           </Link>
@@ -296,7 +301,10 @@ export function WorkOrdersList({
 
   // Memoized callbacks for child components - must be called before any conditional returns
   const handleEdit = useCallback((wo: WorkOrder) => onEdit?.(wo), [onEdit]);
-  const handleDelete = useCallback((wo: WorkOrder) => onDelete?.(wo), [onDelete]);
+  const handleDelete = useCallback(
+    (wo: WorkOrder) => onDelete?.(wo),
+    [onDelete],
+  );
 
   if (isLoading) {
     return <LoadingSkeleton isMobile={isMobileOrTablet} />;
@@ -306,8 +314,12 @@ export function WorkOrdersList({
     return (
       <div className="text-center py-12">
         <div className="text-4xl mb-4">🔧</div>
-        <h3 className="text-lg font-medium text-text-primary mb-2">No work orders found</h3>
-        <p className="text-text-secondary">Try adjusting your filters or create a new work order.</p>
+        <h3 className="text-lg font-medium text-text-primary mb-2">
+          No work orders found
+        </h3>
+        <p className="text-text-secondary">
+          Try adjusting your filters or create a new work order.
+        </p>
       </div>
     );
   }
@@ -370,25 +382,46 @@ export function WorkOrdersList({
         <table className="w-full" role="grid" aria-label="Work orders list">
           <thead>
             <tr className="border-b border-border bg-bg-muted">
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Customer
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Job Type
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Scheduled
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Technician
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Priority
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Status
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Actions
               </th>
             </tr>

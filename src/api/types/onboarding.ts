@@ -2,7 +2,7 @@
  * Onboarding & Training Types
  * Setup wizard, tutorials, and help system
  */
-import { z } from 'zod';
+import { z } from "zod";
 
 // ============================================
 // Setup Wizard Types
@@ -12,10 +12,10 @@ export const setupStepSchema = z.object({
   id: z.string(),
   title: z.string(),
   description: z.string(),
-  status: z.enum(['pending', 'in_progress', 'completed', 'skipped']),
+  status: z.enum(["pending", "in_progress", "completed", "skipped"]),
   is_required: z.boolean(),
   order: z.number(),
-  category: z.enum(['import', 'configuration', 'integrations', 'team']),
+  category: z.enum(["import", "configuration", "integrations", "team"]),
   estimated_minutes: z.number(),
   completion_percentage: z.number().optional(),
 });
@@ -36,12 +36,12 @@ export const onboardingProgressSchema = z.object({
 export type OnboardingProgress = z.infer<typeof onboardingProgressSchema>;
 
 export const importSourceSchema = z.enum([
-  'csv',
-  'quickbooks',
-  'servicetitan',
-  'housecall_pro',
-  'jobber',
-  'other_crm',
+  "csv",
+  "quickbooks",
+  "servicetitan",
+  "housecall_pro",
+  "jobber",
+  "other_crm",
 ]);
 
 export type ImportSource = z.infer<typeof importSourceSchema>;
@@ -49,7 +49,9 @@ export type ImportSource = z.infer<typeof importSourceSchema>;
 export const importMappingSchema = z.object({
   source_field: z.string(),
   target_field: z.string(),
-  transform: z.enum(['none', 'lowercase', 'uppercase', 'trim', 'date', 'number', 'phone']).optional(),
+  transform: z
+    .enum(["none", "lowercase", "uppercase", "trim", "date", "number", "phone"])
+    .optional(),
 });
 
 export type ImportMapping = z.infer<typeof importMappingSchema>;
@@ -57,18 +59,32 @@ export type ImportMapping = z.infer<typeof importMappingSchema>;
 export const importJobSchema = z.object({
   id: z.string(),
   source: importSourceSchema,
-  entity_type: z.enum(['customers', 'technicians', 'work_orders', 'invoices', 'products']),
-  status: z.enum(['pending', 'processing', 'validating', 'completed', 'failed']),
+  entity_type: z.enum([
+    "customers",
+    "technicians",
+    "work_orders",
+    "invoices",
+    "products",
+  ]),
+  status: z.enum([
+    "pending",
+    "processing",
+    "validating",
+    "completed",
+    "failed",
+  ]),
   file_name: z.string().optional().nullable(),
   total_records: z.number(),
   processed_records: z.number(),
   success_count: z.number(),
   error_count: z.number(),
-  errors: z.array(z.object({
-    row: z.number(),
-    field: z.string(),
-    message: z.string(),
-  })),
+  errors: z.array(
+    z.object({
+      row: z.number(),
+      field: z.string(),
+      message: z.string(),
+    }),
+  ),
   mappings: z.array(importMappingSchema),
   created_at: z.string(),
   completed_at: z.string().optional().nullable(),
@@ -85,20 +101,25 @@ export const tutorialSchema = z.object({
   title: z.string(),
   description: z.string(),
   feature: z.string(), // Feature area (e.g., "work_orders", "scheduling")
-  type: z.enum(['video', 'interactive', 'walkthrough', 'article']),
+  type: z.enum(["video", "interactive", "walkthrough", "article"]),
   duration_minutes: z.number(),
   thumbnail_url: z.string().optional().nullable(),
   video_url: z.string().optional().nullable(),
   content_url: z.string().optional().nullable(),
-  steps: z.array(z.object({
-    order: z.number(),
-    title: z.string(),
-    content: z.string(),
-    target_selector: z.string().optional(), // For interactive tutorials
-    action: z.enum(['click', 'type', 'observe', 'complete']).optional(),
-  })).optional().nullable(),
+  steps: z
+    .array(
+      z.object({
+        order: z.number(),
+        title: z.string(),
+        content: z.string(),
+        target_selector: z.string().optional(), // For interactive tutorials
+        action: z.enum(["click", "type", "observe", "complete"]).optional(),
+      }),
+    )
+    .optional()
+    .nullable(),
   tags: z.array(z.string()),
-  difficulty: z.enum(['beginner', 'intermediate', 'advanced']),
+  difficulty: z.enum(["beginner", "intermediate", "advanced"]),
   is_recommended: z.boolean(),
 });
 
@@ -107,7 +128,7 @@ export type Tutorial = z.infer<typeof tutorialSchema>;
 export const userTutorialProgressSchema = z.object({
   tutorial_id: z.string(),
   user_id: z.string(),
-  status: z.enum(['not_started', 'in_progress', 'completed']),
+  status: z.enum(["not_started", "in_progress", "completed"]),
   progress_percentage: z.number(),
   current_step: z.number().optional().nullable(),
   started_at: z.string().optional().nullable(),
@@ -122,8 +143,8 @@ export const tooltipSchema = z.object({
   target_selector: z.string(),
   title: z.string(),
   content: z.string(),
-  position: z.enum(['top', 'bottom', 'left', 'right']),
-  trigger: z.enum(['hover', 'click', 'focus', 'auto']),
+  position: z.enum(["top", "bottom", "left", "right"]),
+  trigger: z.enum(["hover", "click", "focus", "auto"]),
   feature: z.string(),
   show_once: z.boolean(),
   is_active: z.boolean(),
@@ -141,12 +162,14 @@ export const releaseNoteSchema = z.object({
   title: z.string(),
   summary: z.string(),
   content_html: z.string(),
-  features: z.array(z.object({
-    title: z.string(),
-    description: z.string(),
-    icon: z.string().optional(),
-    link: z.string().optional(),
-  })),
+  features: z.array(
+    z.object({
+      title: z.string(),
+      description: z.string(),
+      icon: z.string().optional(),
+      link: z.string().optional(),
+    }),
+  ),
   improvements: z.array(z.string()),
   bug_fixes: z.array(z.string()),
   published_at: z.string(),
@@ -192,14 +215,18 @@ export type HelpCategory = z.infer<typeof helpCategorySchema>;
 
 export const chatMessageSchema = z.object({
   id: z.string(),
-  role: z.enum(['user', 'assistant', 'system']),
+  role: z.enum(["user", "assistant", "system"]),
   content: z.string(),
   timestamp: z.string(),
-  sources: z.array(z.object({
-    type: z.enum(['article', 'video', 'documentation']),
-    title: z.string(),
-    url: z.string(),
-  })).optional(),
+  sources: z
+    .array(
+      z.object({
+        type: z.enum(["article", "video", "documentation"]),
+        title: z.string(),
+        url: z.string(),
+      }),
+    )
+    .optional(),
 });
 
 export type ChatMessage = z.infer<typeof chatMessageSchema>;
@@ -209,8 +236,14 @@ export const supportTicketSchema = z.object({
   user_id: z.string(),
   subject: z.string(),
   description: z.string(),
-  status: z.enum(['open', 'in_progress', 'waiting_customer', 'resolved', 'closed']),
-  priority: z.enum(['low', 'medium', 'high', 'urgent']),
+  status: z.enum([
+    "open",
+    "in_progress",
+    "waiting_customer",
+    "resolved",
+    "closed",
+  ]),
+  priority: z.enum(["low", "medium", "high", "urgent"]),
   category: z.string(),
   assigned_to: z.string().optional().nullable(),
   created_at: z.string(),

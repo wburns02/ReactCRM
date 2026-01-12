@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 /**
  * Hook to detect if viewport matches a media query
@@ -11,8 +11,8 @@ export function useMediaQuery(query: string): boolean {
     setMatches(mediaQuery.matches);
 
     const handler = (event: MediaQueryListEvent) => setMatches(event.matches);
-    mediaQuery.addEventListener('change', handler);
-    return () => mediaQuery.removeEventListener('change', handler);
+    mediaQuery.addEventListener("change", handler);
+    return () => mediaQuery.removeEventListener("change", handler);
   }, [query]);
 
   return matches;
@@ -22,5 +22,5 @@ export function useMediaQuery(query: string): boolean {
  * Hook to detect mobile or tablet viewport (< 1024px)
  */
 export function useIsMobileOrTablet(): boolean {
-  return useMediaQuery('(max-width: 1023px)');
+  return useMediaQuery("(max-width: 1023px)");
 }

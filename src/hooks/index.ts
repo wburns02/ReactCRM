@@ -11,10 +11,10 @@ export {
   type SyncResult,
   type SyncStatusInfo,
   type SyncQueueItem,
-} from './useOffline';
+} from "./useOffline";
 
 // Debounce hooks
-export { useDebounce, useDebouncedCallback } from './useDebounce';
+export { useDebounce, useDebouncedCallback } from "./useDebounce";
 
 // WebSocket hooks
 export {
@@ -36,7 +36,7 @@ export {
   isDispatchUpdate,
   isJobStatus,
   isNotification,
-} from './useWebSocket';
+} from "./useWebSocket";
 
 // Real-time notification hooks
 export {
@@ -44,14 +44,10 @@ export {
   useRealtimeUpdates,
   type RealtimeNotificationOptions,
   type UseRealtimeNotificationsReturn,
-} from './useRealtimeNotifications';
+} from "./useRealtimeNotifications";
 
 // PWA hooks
-export {
-  usePWA,
-  useOnlineStatus,
-  type PWAState,
-} from './usePWA';
+export { usePWA, useOnlineStatus, type PWAState } from "./usePWA";
 
 // Segment Builder hooks
 export {
@@ -76,4 +72,4 @@ export {
   type SegmentSuggestion,
   type SmartSegment,
   type SegmentAnalytics,
-} from './useSegments';
+} from "./useSegments";

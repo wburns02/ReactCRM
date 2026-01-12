@@ -2,28 +2,28 @@
  * Help Center Component
  * Knowledge base, AI chat, and support
  */
-import { useState, useRef, useEffect } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { Input } from '@/components/ui/Input';
+import { useState, useRef, useEffect } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { Input } from "@/components/ui/Input";
 import {
   useHelpCategories,
   useHelpArticles,
   useSearchHelp,
   useAIHelpChat,
   useRateArticle,
-} from '@/api/hooks/useOnboarding';
-import type { HelpArticle, ChatMessage } from '@/api/types/onboarding';
-import { cn } from '@/lib/utils';
-import { getErrorMessage } from '@/api/client';
-import { toastError } from '@/components/ui/Toast';
+} from "@/api/hooks/useOnboarding";
+import type { HelpArticle, ChatMessage } from "@/api/types/onboarding";
+import { cn } from "@/lib/utils";
+import { getErrorMessage } from "@/api/client";
+import { toastError } from "@/components/ui/Toast";
 
-type HelpTab = 'browse' | 'search' | 'chat';
+type HelpTab = "browse" | "search" | "chat";
 
 export function HelpCenter() {
-  const [activeTab, setActiveTab] = useState<HelpTab>('browse');
-  const [searchQuery, setSearchQuery] = useState('');
+  const [activeTab, setActiveTab] = useState<HelpTab>("browse");
+  const [searchQuery, setSearchQuery] = useState("");
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null);
   const [selectedArticle, setSelectedArticle] = useState<string | null>(null);
 
@@ -47,7 +47,7 @@ export function HelpCenter() {
             onChange={(e) => {
               setSearchQuery(e.target.value);
               if (e.target.value.length >= 2) {
-                setActiveTab('search');
+                setActiveTab("search");
               }
             }}
             className="pl-10 pr-4 py-3 text-lg"
@@ -61,27 +61,27 @@ export function HelpCenter() {
       {/* Tabs */}
       <div className="flex justify-center gap-2">
         <Button
-          variant={activeTab === 'browse' ? 'primary' : 'ghost'}
-          onClick={() => setActiveTab('browse')}
+          variant={activeTab === "browse" ? "primary" : "ghost"}
+          onClick={() => setActiveTab("browse")}
         >
           📚 Browse
         </Button>
         <Button
-          variant={activeTab === 'search' ? 'primary' : 'ghost'}
-          onClick={() => setActiveTab('search')}
+          variant={activeTab === "search" ? "primary" : "ghost"}
+          onClick={() => setActiveTab("search")}
         >
           🔍 Search
         </Button>
         <Button
-          variant={activeTab === 'chat' ? 'primary' : 'ghost'}
-          onClick={() => setActiveTab('chat')}
+          variant={activeTab === "chat" ? "primary" : "ghost"}
+          onClick={() => setActiveTab("chat")}
         >
           💬 AI Assistant
         </Button>
       </div>
 
       {/* Content */}
-      {activeTab === 'browse' && (
+      {activeTab === "browse" && (
         <BrowseTab
           selectedCategory={selectedCategory}
           onSelectCategory={setSelectedCategory}
@@ -89,10 +89,10 @@ export function HelpCenter() {
           onSelectArticle={setSelectedArticle}
         />
       )}
-      {activeTab === 'search' && (
+      {activeTab === "search" && (
         <SearchTab query={searchQuery} onSelectArticle={setSelectedArticle} />
       )}
-      {activeTab === 'chat' && <ChatTab />}
+      {activeTab === "chat" && <ChatTab />}
     </div>
   );
 }
@@ -108,9 +108,10 @@ function BrowseTab({
   selectedArticle: string | null;
   onSelectArticle: (id: string | null) => void;
 }) {
-  const { data: categories, isLoading: categoriesLoading } = useHelpCategories();
+  const { data: categories, isLoading: categoriesLoading } =
+    useHelpCategories();
   const { data: articles, isLoading: articlesLoading } = useHelpArticles(
-    selectedCategory || undefined
+    selectedCategory || undefined,
   );
 
   if (selectedArticle) {
@@ -134,15 +135,18 @@ function BrowseTab({
             {categoriesLoading ? (
               <div className="p-4 space-y-2">
                 {Array.from({ length: 5 }).map((_, i) => (
-                  <div key={i} className="h-8 bg-background-secondary animate-pulse rounded" />
+                  <div
+                    key={i}
+                    className="h-8 bg-background-secondary animate-pulse rounded"
+                  />
                 ))}
               </div>
             ) : (
               <div className="divide-y divide-border">
                 <button
                   className={cn(
-                    'w-full px-4 py-3 text-left hover:bg-background-secondary transition-colors',
-                    !selectedCategory && 'bg-primary/10 text-primary'
+                    "w-full px-4 py-3 text-left hover:bg-background-secondary transition-colors",
+                    !selectedCategory && "bg-primary/10 text-primary",
                   )}
                   onClick={() => onSelectCategory(null)}
                 >
@@ -152,8 +156,9 @@ function BrowseTab({
                   <button
                     key={cat.id}
                     className={cn(
-                      'w-full px-4 py-3 text-left hover:bg-background-secondary transition-colors flex items-center gap-2',
-                      selectedCategory === cat.id && 'bg-primary/10 text-primary'
+                      "w-full px-4 py-3 text-left hover:bg-background-secondary transition-colors flex items-center gap-2",
+                      selectedCategory === cat.id &&
+                        "bg-primary/10 text-primary",
                     )}
                     onClick={() => onSelectCategory(cat.id)}
                   >
@@ -175,7 +180,10 @@ function BrowseTab({
         {articlesLoading ? (
           <div className="space-y-4">
             {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className="h-24 bg-background-secondary animate-pulse rounded-lg" />
+              <div
+                key={i}
+                className="h-24 bg-background-secondary animate-pulse rounded-lg"
+              />
             ))}
           </div>
         ) : !articles?.length ? (
@@ -215,7 +223,9 @@ function ArticleCard({
     >
       <CardContent className="pt-4">
         <h3 className="font-semibold text-lg">{article.title}</h3>
-        <p className="text-text-secondary mt-1 line-clamp-2">{article.excerpt}</p>
+        <p className="text-text-secondary mt-1 line-clamp-2">
+          {article.excerpt}
+        </p>
         <div className="flex items-center gap-4 mt-3 text-sm text-text-muted">
           <span>{article.category}</span>
           <span>•</span>
@@ -257,7 +267,7 @@ function ArticleView({
 
   // Mock article content for demo
   const article = {
-    title: 'Getting Started with Work Orders',
+    title: "Getting Started with Work Orders",
     content_html: `
       <h2>Creating Your First Work Order</h2>
       <p>Work orders are the core of your service business. Here's how to create one:</p>
@@ -278,7 +288,7 @@ function ArticleView({
     `,
     helpful_count: 45,
     not_helpful_count: 3,
-    related_articles: ['scheduling-tips', 'mobile-app-guide'],
+    related_articles: ["scheduling-tips", "mobile-app-guide"],
   };
 
   return (
@@ -297,7 +307,9 @@ function ArticleView({
 
         {/* Helpfulness Rating */}
         <div className="mt-8 pt-6 border-t border-border">
-          <p className="text-text-secondary text-center">Was this article helpful?</p>
+          <p className="text-text-secondary text-center">
+            Was this article helpful?
+          </p>
           <div className="flex justify-center gap-4 mt-4">
             <Button
               variant="secondary"
@@ -346,7 +358,10 @@ function SearchTab({
     return (
       <div className="space-y-4">
         {Array.from({ length: 3 }).map((_, i) => (
-          <div key={i} className="h-24 bg-background-secondary animate-pulse rounded-lg" />
+          <div
+            key={i}
+            className="h-24 bg-background-secondary animate-pulse rounded-lg"
+          />
         ))}
       </div>
     );
@@ -369,7 +384,8 @@ function SearchTab({
   return (
     <div className="space-y-4">
       <p className="text-text-secondary">
-        Found {results.length} result{results.length !== 1 ? 's' : ''} for "{query}"
+        Found {results.length} result{results.length !== 1 ? "s" : ""} for "
+        {query}"
       </p>
       {results.map((article) => (
         <ArticleCard
@@ -385,19 +401,19 @@ function SearchTab({
 function ChatTab() {
   const [messages, setMessages] = useState<ChatMessage[]>([
     {
-      id: 'welcome',
-      role: 'assistant',
+      id: "welcome",
+      role: "assistant",
       content: "Hi! I'm your AI assistant. How can I help you today?",
       timestamp: new Date().toISOString(),
     },
   ]);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [conversationId, setConversationId] = useState<string | undefined>();
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const chat = useAIHelpChat();
 
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const handleSend = async () => {
@@ -405,13 +421,13 @@ function ChatTab() {
 
     const userMessage: ChatMessage = {
       id: Date.now().toString(),
-      role: 'user',
+      role: "user",
       content: input.trim(),
       timestamp: new Date().toISOString(),
     };
 
     setMessages((prev) => [...prev, userMessage]);
-    setInput('');
+    setInput("");
 
     try {
       const result = await chat.mutateAsync({
@@ -424,8 +440,8 @@ function ChatTab() {
       setMessages((prev) => [
         ...prev,
         {
-          id: 'error',
-          role: 'assistant',
+          id: "error",
+          role: "assistant",
           content: "Sorry, I couldn't process your request. Please try again.",
           timestamp: new Date().toISOString(),
         },
@@ -447,16 +463,16 @@ function ChatTab() {
             <div
               key={msg.id}
               className={cn(
-                'flex',
-                msg.role === 'user' ? 'justify-end' : 'justify-start'
+                "flex",
+                msg.role === "user" ? "justify-end" : "justify-start",
               )}
             >
               <div
                 className={cn(
-                  'max-w-[80%] p-3 rounded-lg',
-                  msg.role === 'user'
-                    ? 'bg-primary text-white'
-                    : 'bg-background-secondary'
+                  "max-w-[80%] p-3 rounded-lg",
+                  msg.role === "user"
+                    ? "bg-primary text-white"
+                    : "bg-background-secondary",
                 )}
               >
                 <p className="whitespace-pre-wrap">{msg.content}</p>
@@ -470,9 +486,8 @@ function ChatTab() {
                           href={source.url}
                           className="text-xs text-primary hover:underline block"
                         >
-                          {source.type === 'article' && '📄'}{' '}
-                          {source.type === 'video' && '🎥'}{' '}
-                          {source.title}
+                          {source.type === "article" && "📄"}{" "}
+                          {source.type === "video" && "🎥"} {source.title}
                         </a>
                       ))}
                     </div>
@@ -501,7 +516,7 @@ function ChatTab() {
             value={input}
             onChange={(e) => setInput(e.target.value)}
             placeholder="Ask a question..."
-            onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+            onKeyDown={(e) => e.key === "Enter" && handleSend()}
             disabled={chat.isPending}
           />
           <Button

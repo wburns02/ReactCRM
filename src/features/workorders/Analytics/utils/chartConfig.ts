@@ -5,52 +5,52 @@
 
 // Color schemes for charts
 export const CHART_COLORS = {
-  primary: '#0091ae',
-  success: '#22c55e',
-  warning: '#f59e0b',
-  danger: '#ef4444',
-  info: '#3b82f6',
-  purple: '#8b5cf6',
-  pink: '#ec4899',
-  teal: '#14b8a6',
-  gray: '#6b7280',
+  primary: "#0091ae",
+  success: "#22c55e",
+  warning: "#f59e0b",
+  danger: "#ef4444",
+  info: "#3b82f6",
+  purple: "#8b5cf6",
+  pink: "#ec4899",
+  teal: "#14b8a6",
+  gray: "#6b7280",
 };
 
 // Status colors matching workOrder types
 export const STATUS_CHART_COLORS: Record<string, string> = {
-  completed: '#22c55e',
-  scheduled: '#0091ae',
-  in_progress: '#f59e0b',
-  draft: '#6b7280',
-  canceled: '#ef4444',
-  confirmed: '#3b82f6',
-  enroute: '#14b8a6',
-  on_site: '#8b5cf6',
-  requires_followup: '#ec4899',
+  completed: "#22c55e",
+  scheduled: "#0091ae",
+  in_progress: "#f59e0b",
+  draft: "#6b7280",
+  canceled: "#ef4444",
+  confirmed: "#3b82f6",
+  enroute: "#14b8a6",
+  on_site: "#8b5cf6",
+  requires_followup: "#ec4899",
 };
 
 // Color palette for multi-series charts
 export const CHART_PALETTE = [
-  '#0091ae',
-  '#22c55e',
-  '#f59e0b',
-  '#ef4444',
-  '#3b82f6',
-  '#8b5cf6',
-  '#ec4899',
-  '#14b8a6',
+  "#0091ae",
+  "#22c55e",
+  "#f59e0b",
+  "#ef4444",
+  "#3b82f6",
+  "#8b5cf6",
+  "#ec4899",
+  "#14b8a6",
 ];
 
 // Job type colors
 export const JOB_TYPE_COLORS: Record<string, string> = {
-  pumping: '#0091ae',
-  inspection: '#3b82f6',
-  repair: '#f59e0b',
-  installation: '#8b5cf6',
-  emergency: '#ef4444',
-  maintenance: '#22c55e',
-  grease_trap: '#14b8a6',
-  camera_inspection: '#ec4899',
+  pumping: "#0091ae",
+  inspection: "#3b82f6",
+  repair: "#f59e0b",
+  installation: "#8b5cf6",
+  emergency: "#ef4444",
+  maintenance: "#22c55e",
+  grease_trap: "#14b8a6",
+  camera_inspection: "#ec4899",
 };
 
 // Default chart margins
@@ -77,26 +77,26 @@ export const MARGINS_ROTATED_AXIS = {
 
 // Common axis styles
 export const AXIS_STYLE = {
-  stroke: '#6b7280',
-  style: { fontSize: '12px' },
+  stroke: "#6b7280",
+  style: { fontSize: "12px" },
 };
 
 // Common grid styles
 export const GRID_STYLE = {
-  strokeDasharray: '3 3',
-  stroke: '#e5e7eb',
+  strokeDasharray: "3 3",
+  stroke: "#e5e7eb",
 };
 
 // Tooltip styles
 export const TOOLTIP_STYLE = {
   contentStyle: {
-    backgroundColor: 'white',
-    border: '1px solid #e5e7eb',
-    borderRadius: '8px',
-    boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1)',
+    backgroundColor: "white",
+    border: "1px solid #e5e7eb",
+    borderRadius: "8px",
+    boxShadow: "0 4px 6px -1px rgba(0, 0, 0, 0.1)",
   },
   labelStyle: {
-    color: '#111827',
+    color: "#111827",
     fontWeight: 600,
   },
 };
@@ -106,8 +106,8 @@ export const createGradient = (id: string, color: string) => ({
   id,
   color,
   stops: [
-    { offset: '5%', opacity: 0.3 },
-    { offset: '95%', opacity: 0 },
+    { offset: "5%", opacity: 0.3 },
+    { offset: "95%", opacity: 0 },
   ],
 });
 
@@ -115,9 +115,9 @@ export const createGradient = (id: string, color: string) => ({
  * Format currency for chart axes and tooltips
  */
 export function formatCurrency(value: number): string {
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
     minimumFractionDigits: 0,
     maximumFractionDigits: 0,
   }).format(value);
@@ -161,9 +161,9 @@ export function formatPercentage(value: number, decimals = 1): string {
  */
 export function formatChartDate(dateStr: string): string {
   const date = new Date(dateStr);
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: 'numeric',
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
   }).format(date);
 }
 
@@ -172,10 +172,10 @@ export function formatChartDate(dateStr: string): string {
  */
 export function formatChartDateLong(dateStr: string): string {
   const date = new Date(dateStr);
-  return new Intl.DateTimeFormat('en-US', {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
+  return new Intl.DateTimeFormat("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
   }).format(date);
 }
 
@@ -230,24 +230,33 @@ export function gradientUrl(id: string): string {
 }
 
 // KPI trend indicators
-export type TrendDirection = 'up' | 'down' | 'neutral';
+export type TrendDirection = "up" | "down" | "neutral";
 
-export function getTrendDirection(current: number, previous: number): TrendDirection {
+export function getTrendDirection(
+  current: number,
+  previous: number,
+): TrendDirection {
   const change = current - previous;
-  if (change > 0) return 'up';
-  if (change < 0) return 'down';
-  return 'neutral';
+  if (change > 0) return "up";
+  if (change < 0) return "down";
+  return "neutral";
 }
 
-export function getTrendColor(direction: TrendDirection, positiveIsGood = true): string {
-  if (direction === 'neutral') return CHART_COLORS.gray;
-  if (direction === 'up') {
+export function getTrendColor(
+  direction: TrendDirection,
+  positiveIsGood = true,
+): string {
+  if (direction === "neutral") return CHART_COLORS.gray;
+  if (direction === "up") {
     return positiveIsGood ? CHART_COLORS.success : CHART_COLORS.danger;
   }
   return positiveIsGood ? CHART_COLORS.danger : CHART_COLORS.success;
 }
 
-export function calculatePercentageChange(current: number, previous: number): number {
+export function calculatePercentageChange(
+  current: number,
+  previous: number,
+): number {
   if (previous === 0) return current > 0 ? 100 : 0;
   return ((current - previous) / previous) * 100;
 }

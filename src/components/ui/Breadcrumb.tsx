@@ -1,6 +1,6 @@
-import { Fragment, type ReactNode } from 'react';
-import { Link } from 'react-router-dom';
-import { cn } from '@/lib/utils';
+import { Fragment, type ReactNode } from "react";
+import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
 
 /**
  * Breadcrumb item definition
@@ -91,10 +91,8 @@ function BreadcrumbLink({
 }) {
   const content = (
     <>
-      {showHomeIcon && isFirst && (
-        <HomeIcon className="mr-1.5 flex-shrink-0" />
-      )}
-      <span className={cn(showHomeIcon && isFirst && 'sr-only sm:not-sr-only')}>
+      {showHomeIcon && isFirst && <HomeIcon className="mr-1.5 flex-shrink-0" />}
+      <span className={cn(showHomeIcon && isFirst && "sr-only sm:not-sr-only")}>
         {item.label}
       </span>
     </>
@@ -105,12 +103,10 @@ function BreadcrumbLink({
     return (
       <span
         className={cn(
-          'inline-flex items-center text-sm font-medium',
-          isLast
-            ? 'text-text-primary'
-            : 'text-text-muted'
+          "inline-flex items-center text-sm font-medium",
+          isLast ? "text-text-primary" : "text-text-muted",
         )}
-        aria-current={isLast ? 'page' : undefined}
+        aria-current={isLast ? "page" : undefined}
       >
         {content}
       </span>
@@ -121,9 +117,9 @@ function BreadcrumbLink({
     <Link
       to={item.href}
       className={cn(
-        'inline-flex items-center text-sm font-medium transition-colors',
-        'text-text-muted hover:text-text-primary',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded'
+        "inline-flex items-center text-sm font-medium transition-colors",
+        "text-text-muted hover:text-text-primary",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2 rounded",
       )}
     >
       {content}
@@ -161,10 +157,7 @@ export function Breadcrumb({
   const shouldCollapse = items.length > maxMobileItems;
 
   return (
-    <nav
-      aria-label="Breadcrumb"
-      className={cn('flex items-center', className)}
-    >
+    <nav aria-label="Breadcrumb" className={cn("flex items-center", className)}>
       <ol className="flex items-center flex-wrap">
         {items.map((item, index) => {
           const isFirst = index === 0;
@@ -172,13 +165,12 @@ export function Breadcrumb({
           const isMiddle = !isFirst && !isLast;
 
           // Mobile visibility classes
-          const mobileClasses = shouldCollapse && isMiddle
-            ? 'hidden sm:flex'
-            : 'flex';
+          const mobileClasses =
+            shouldCollapse && isMiddle ? "hidden sm:flex" : "flex";
 
           return (
             <Fragment key={`${item.label}-${index}`}>
-              <li className={cn('items-center', mobileClasses)}>
+              <li className={cn("items-center", mobileClasses)}>
                 <BreadcrumbLink
                   item={item}
                   isLast={isLast}
@@ -192,11 +184,13 @@ export function Breadcrumb({
                 <li
                   role="presentation"
                   className={cn(
-                    'items-center',
+                    "items-center",
                     // Hide separator before middle items on mobile
-                    shouldCollapse && isMiddle ? 'hidden sm:flex' : 'flex',
+                    shouldCollapse && isMiddle ? "hidden sm:flex" : "flex",
                     // Also hide separator after first item if next is middle (hidden)
-                    shouldCollapse && isFirst && items.length > 2 ? 'hidden sm:flex' : ''
+                    shouldCollapse && isFirst && items.length > 2
+                      ? "hidden sm:flex"
+                      : "",
                   )}
                   aria-hidden="true"
                 >
@@ -233,7 +227,7 @@ export function BreadcrumbSeparator({
     <span
       role="presentation"
       aria-hidden="true"
-      className={cn('mx-2 text-text-muted', className)}
+      className={cn("mx-2 text-text-muted", className)}
     >
       {children || <ChevronSeparator />}
     </span>

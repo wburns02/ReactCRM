@@ -4,69 +4,72 @@
  * Manage notification templates with editing, variable insertion, and preview.
  */
 
-import { useState, useMemo } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Card } from '@/components/ui/Card.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Select } from '@/components/ui/Select.tsx';
+import { useState, useMemo } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Card } from "@/components/ui/Card.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Select } from "@/components/ui/Select.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   ALL_TEMPLATES,
   renderTemplate,
   extractVariables,
   type NotificationTemplate,
-} from './templates/index.ts';
-import { SMS_MERGE_FIELDS } from '@/api/types/sms.ts';
+} from "./templates/index.ts";
+import { SMS_MERGE_FIELDS } from "@/api/types/sms.ts";
 
 interface NotificationTemplatesProps {
   onSaveTemplate?: (template: NotificationTemplate) => void;
 }
 
 const SAMPLE_VARIABLES: Record<string, string> = {
-  customer_name: 'John Smith',
-  customer_first_name: 'John',
-  appointment_date: 'January 15, 2026',
-  appointment_window: '2:00 PM - 4:00 PM',
-  appointment_time: '2:00 PM',
-  service_type: 'Septic Pumping',
-  service_address: '123 Main St, Tampa, FL 33601',
-  technician_name: 'Mike Johnson',
-  eta_time: '2:15 PM',
-  eta_minutes: '15',
-  tracking_link: 'https://track.macseptic.com/abc123',
-  invoice_amount: '$350.00',
-  invoice_link: 'https://pay.macseptic.com/inv-123',
-  invoice_number: 'INV-2026-001',
-  company_name: 'MAC Septic',
-  company_phone: '(555) 123-4567',
-  work_order_number: 'WO-2026-001234',
-  review_link: 'https://review.macseptic.com/r/abc123',
-  completion_date: 'January 15, 2026',
-  due_date: 'January 30, 2026',
-  days_overdue: '0',
-  service_date: 'January 15, 2026',
+  customer_name: "John Smith",
+  customer_first_name: "John",
+  appointment_date: "January 15, 2026",
+  appointment_window: "2:00 PM - 4:00 PM",
+  appointment_time: "2:00 PM",
+  service_type: "Septic Pumping",
+  service_address: "123 Main St, Tampa, FL 33601",
+  technician_name: "Mike Johnson",
+  eta_time: "2:15 PM",
+  eta_minutes: "15",
+  tracking_link: "https://track.macseptic.com/abc123",
+  invoice_amount: "$350.00",
+  invoice_link: "https://pay.macseptic.com/inv-123",
+  invoice_number: "INV-2026-001",
+  company_name: "MAC Septic",
+  company_phone: "(555) 123-4567",
+  work_order_number: "WO-2026-001234",
+  review_link: "https://review.macseptic.com/r/abc123",
+  completion_date: "January 15, 2026",
+  due_date: "January 30, 2026",
+  days_overdue: "0",
+  service_date: "January 15, 2026",
 };
 
-export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesProps) {
-  const [selectedTemplate, setSelectedTemplate] = useState<NotificationTemplate | null>(null);
+export function NotificationTemplates({
+  onSaveTemplate,
+}: NotificationTemplatesProps) {
+  const [selectedTemplate, setSelectedTemplate] =
+    useState<NotificationTemplate | null>(null);
   const [editMode, setEditMode] = useState(false);
   const [showPreview, setShowPreview] = useState(false);
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Editable form state
-  const [editName, setEditName] = useState('');
-  const [editSubject, setEditSubject] = useState('');
-  const [editSmsTemplate, setEditSmsTemplate] = useState('');
-  const [editEmailTemplate, setEditEmailTemplate] = useState('');
+  const [editName, setEditName] = useState("");
+  const [editSubject, setEditSubject] = useState("");
+  const [editSmsTemplate, setEditSmsTemplate] = useState("");
+  const [editEmailTemplate, setEditEmailTemplate] = useState("");
 
   const filteredTemplates = useMemo(() => {
     if (!searchQuery) return ALL_TEMPLATES;
@@ -75,7 +78,7 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
       (t) =>
         t.name.toLowerCase().includes(query) ||
         t.smsTemplate.toLowerCase().includes(query) ||
-        t.emailTemplate.toLowerCase().includes(query)
+        t.emailTemplate.toLowerCase().includes(query),
     );
   }, [searchQuery]);
 
@@ -98,7 +101,10 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
       smsTemplate: editSmsTemplate,
       emailTemplate: editEmailTemplate,
       variables: [
-        ...new Set([...extractVariables(editSmsTemplate), ...extractVariables(editEmailTemplate)]),
+        ...new Set([
+          ...extractVariables(editSmsTemplate),
+          ...extractVariables(editEmailTemplate),
+        ]),
       ],
     };
 
@@ -107,9 +113,9 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
     setEditMode(false);
   };
 
-  const handleInsertVariable = (variable: string, target: 'sms' | 'email') => {
+  const handleInsertVariable = (variable: string, target: "sms" | "email") => {
     const insertion = `{{${variable}}}`;
-    if (target === 'sms') {
+    if (target === "sms") {
       setEditSmsTemplate((prev) => prev + insertion);
     } else {
       setEditEmailTemplate((prev) => prev + insertion);
@@ -146,7 +152,7 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
             key={template.id}
             className={`
               p-4 cursor-pointer transition-all hover:border-primary/50
-              ${selectedTemplate?.id === template.id ? 'border-primary ring-2 ring-primary/20' : ''}
+              ${selectedTemplate?.id === template.id ? "border-primary ring-2 ring-primary/20" : ""}
             `}
             onClick={() => handleSelectTemplate(template)}
           >
@@ -157,10 +163,15 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
                 <Badge variant="default">Email</Badge>
               </div>
             </div>
-            <p className="text-sm text-text-secondary line-clamp-2 mb-2">{template.smsTemplate}</p>
+            <p className="text-sm text-text-secondary line-clamp-2 mb-2">
+              {template.smsTemplate}
+            </p>
             <div className="flex flex-wrap gap-1">
               {template.variables.slice(0, 4).map((v) => (
-                <span key={v} className="text-xs bg-surface-secondary px-1.5 py-0.5 rounded">
+                <span
+                  key={v}
+                  className="text-xs bg-surface-secondary px-1.5 py-0.5 rounded"
+                >
                   {v}
                 </span>
               ))}
@@ -175,10 +186,14 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
       </div>
 
       {/* Template editor dialog */}
-      <Dialog open={!!selectedTemplate} onClose={() => setSelectedTemplate(null)}>
+      <Dialog
+        open={!!selectedTemplate}
+        onClose={() => setSelectedTemplate(null)}
+      >
         <DialogContent size="xl">
           <DialogHeader onClose={() => setSelectedTemplate(null)}>
-            {editMode ? 'Edit Template' : 'Template Details'} - {selectedTemplate?.name}
+            {editMode ? "Edit Template" : "Template Details"} -{" "}
+            {selectedTemplate?.name}
           </DialogHeader>
           <DialogBody className="max-h-[70vh] overflow-y-auto">
             {selectedTemplate && (
@@ -207,7 +222,9 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
                       onChange={(e) => setEditSubject(e.target.value)}
                     />
                   ) : (
-                    <p className="text-text-secondary">{selectedTemplate.subject}</p>
+                    <p className="text-text-secondary">
+                      {selectedTemplate.subject}
+                    </p>
                   )}
                 </div>
 
@@ -220,15 +237,18 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
                         className="w-48 text-sm"
                         onChange={(e) => {
                           if (e.target.value) {
-                            handleInsertVariable(e.target.value, 'sms');
-                            e.target.value = '';
+                            handleInsertVariable(e.target.value, "sms");
+                            e.target.value = "";
                           }
                         }}
                         defaultValue=""
                       >
                         <option value="">Insert variable...</option>
                         {SMS_MERGE_FIELDS.map((field) => (
-                          <option key={field.key} value={field.key.replace(/\{\{|\}\}/g, '')}>
+                          <option
+                            key={field.key}
+                            value={field.key.replace(/\{\{|\}\}/g, "")}
+                          >
                             {field.description}
                           </option>
                         ))}
@@ -247,10 +267,12 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
                       <div className="flex justify-between text-xs text-text-secondary">
                         <span>
                           {smsCharCount} characters ({smsSegments} segment
-                          {smsSegments !== 1 ? 's' : ''})
+                          {smsSegments !== 1 ? "s" : ""})
                         </span>
                         {smsCharCount > 160 && (
-                          <span className="text-warning">Long messages may be split</span>
+                          <span className="text-warning">
+                            Long messages may be split
+                          </span>
                         )}
                       </div>
                     </>
@@ -270,15 +292,18 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
                         className="w-48 text-sm"
                         onChange={(e) => {
                           if (e.target.value) {
-                            handleInsertVariable(e.target.value, 'email');
-                            e.target.value = '';
+                            handleInsertVariable(e.target.value, "email");
+                            e.target.value = "";
                           }
                         }}
                         defaultValue=""
                       >
                         <option value="">Insert variable...</option>
                         {SMS_MERGE_FIELDS.map((field) => (
-                          <option key={field.key} value={field.key.replace(/\{\{|\}\}/g, '')}>
+                          <option
+                            key={field.key}
+                            value={field.key.replace(/\{\{|\}\}/g, "")}
+                          >
                             {field.description}
                           </option>
                         ))}
@@ -317,7 +342,7 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
                         key={v}
                         className="flex items-center gap-1 bg-surface-secondary px-2 py-1 rounded text-sm"
                       >
-                        <code className="text-primary">{'{{' + v + '}}'}</code>
+                        <code className="text-primary">{"{{" + v + "}}"}</code>
                         {SAMPLE_VARIABLES[v] && (
                           <span className="text-text-secondary text-xs">
                             ({SAMPLE_VARIABLES[v]})
@@ -375,10 +400,15 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
                   </>
                 ) : (
                   <>
-                    <Button variant="secondary" onClick={() => setSelectedTemplate(null)}>
+                    <Button
+                      variant="secondary"
+                      onClick={() => setSelectedTemplate(null)}
+                    >
                       Close
                     </Button>
-                    <Button onClick={() => setEditMode(true)}>Edit Template</Button>
+                    <Button onClick={() => setEditMode(true)}>
+                      Edit Template
+                    </Button>
                   </>
                 )}
               </div>
@@ -417,8 +447,10 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
                   <div className="bg-blue-500 text-white p-4 rounded-2xl rounded-bl-md max-w-[80%]">
                     <p className="text-sm whitespace-pre-wrap">
                       {renderTemplate(
-                        editMode ? editSmsTemplate : selectedTemplate.smsTemplate,
-                        SAMPLE_VARIABLES
+                        editMode
+                          ? editSmsTemplate
+                          : selectedTemplate.smsTemplate,
+                        SAMPLE_VARIABLES,
                       )}
                     </p>
                   </div>
@@ -449,15 +481,17 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
                         <span className="font-medium">
                           {renderTemplate(
                             editMode ? editSubject : selectedTemplate.subject,
-                            SAMPLE_VARIABLES
+                            SAMPLE_VARIABLES,
                           )}
                         </span>
                       </p>
                     </div>
                     <div className="p-4 whitespace-pre-wrap text-sm">
                       {renderTemplate(
-                        editMode ? editEmailTemplate : selectedTemplate.emailTemplate,
-                        SAMPLE_VARIABLES
+                        editMode
+                          ? editEmailTemplate
+                          : selectedTemplate.emailTemplate,
+                        SAMPLE_VARIABLES,
                       )}
                     </div>
                   </div>
@@ -479,8 +513,8 @@ export function NotificationTemplates({ onSaveTemplate }: NotificationTemplatesP
                         d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
                       />
                     </svg>
-                    This preview uses sample data. Actual messages will use real customer
-                    information.
+                    This preview uses sample data. Actual messages will use real
+                    customer information.
                   </p>
                 </Card>
               </div>

@@ -1,28 +1,28 @@
-import { z } from 'zod';
-import { paginatedResponseSchema } from './common.ts';
+import { z } from "zod";
+import { paginatedResponseSchema } from "./common.ts";
 
 /**
  * Technician skills - matches backend skills array
  */
 export const technicianSkillSchema = z.enum([
-  'pumping',
-  'maintenance',
-  'inspection',
-  'repair',
-  'installation',
-  'camera_inspection',
-  'emergency_response',
+  "pumping",
+  "maintenance",
+  "inspection",
+  "repair",
+  "installation",
+  "camera_inspection",
+  "emergency_response",
 ]);
 export type TechnicianSkill = z.infer<typeof technicianSkillSchema>;
 
 export const TECHNICIAN_SKILL_LABELS: Record<TechnicianSkill, string> = {
-  pumping: 'Pumping',
-  maintenance: 'Maintenance',
-  inspection: 'Inspection',
-  repair: 'Repair',
-  installation: 'Installation',
-  camera_inspection: 'Camera Inspection',
-  emergency_response: 'Emergency Response',
+  pumping: "Pumping",
+  maintenance: "Maintenance",
+  inspection: "Inspection",
+  repair: "Repair",
+  installation: "Installation",
+  camera_inspection: "Camera Inspection",
+  emergency_response: "Emergency Response",
 };
 
 /**
@@ -67,8 +67,11 @@ export type Technician = z.infer<typeof technicianSchema>;
 /**
  * Paginated technician list response
  */
-export const technicianListResponseSchema = paginatedResponseSchema(technicianSchema);
-export type TechnicianListResponse = z.infer<typeof technicianListResponseSchema>;
+export const technicianListResponseSchema =
+  paginatedResponseSchema(technicianSchema);
+export type TechnicianListResponse = z.infer<
+  typeof technicianListResponseSchema
+>;
 
 /**
  * Technician filters for list queries
@@ -84,9 +87,9 @@ export interface TechnicianFilters {
  * Create/update technician request
  */
 export const technicianFormSchema = z.object({
-  first_name: z.string().min(1, 'First name is required'),
-  last_name: z.string().min(1, 'Last name is required'),
-  email: z.string().email('Invalid email').optional().or(z.literal('')),
+  first_name: z.string().min(1, "First name is required"),
+  last_name: z.string().min(1, "Last name is required"),
+  email: z.string().email("Invalid email").optional().or(z.literal("")),
   phone: z.string().optional(),
   employee_id: z.string().optional(),
   is_active: z.boolean().default(true),
@@ -94,7 +97,7 @@ export const technicianFormSchema = z.object({
   home_region: z.string().optional(),
   home_address: z.string().optional(),
   home_city: z.string().optional(),
-  home_state: z.string().max(2, 'Use 2-letter state code').optional(),
+  home_state: z.string().max(2, "Use 2-letter state code").optional(),
   home_postal_code: z.string().optional(),
   home_latitude: z.coerce.number().optional(),
   home_longitude: z.coerce.number().optional(),

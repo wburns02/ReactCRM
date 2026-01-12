@@ -11,7 +11,7 @@
  * but provides additional mobile-specific functionality.
  */
 
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from "react";
 
 // ============================================
 // Types
@@ -62,7 +62,7 @@ export interface PushNotificationState {
   /** Whether Push is supported */
   isSupported: boolean;
   /** Current permission status */
-  permission: NotificationPermission | 'unsupported';
+  permission: NotificationPermission | "unsupported";
   /** Request permission */
   requestPermission: () => Promise<boolean>;
   /** Subscribe to push */
@@ -80,7 +80,7 @@ export interface PushNotificationState {
 interface BeforeInstallPromptEvent extends Event {
   readonly platforms: string[];
   readonly userChoice: Promise<{
-    outcome: 'accepted' | 'dismissed';
+    outcome: "accepted" | "dismissed";
     platform: string;
   }>;
   prompt(): Promise<void>;
@@ -106,7 +106,7 @@ declare global {
 // Constants
 // ============================================
 
-const DISMISS_KEY = 'pwa-mobile-install-dismissed';
+const DISMISS_KEY = "pwa-mobile-install-dismissed";
 const DISMISS_DURATION = 7 * 24 * 60 * 60 * 1000; // 7 days
 
 // ============================================
@@ -122,13 +122,15 @@ export function useInstallPrompt(): InstallPromptState {
 
   // Check standalone mode
   const isStandalone =
-    typeof window !== 'undefined' &&
-    (window.matchMedia('(display-mode: standalone)').matches ||
-      (window.navigator as Navigator & { standalone?: boolean }).standalone === true);
+    typeof window !== "undefined" &&
+    (window.matchMedia("(display-mode: standalone)").matches ||
+      (window.navigator as Navigator & { standalone?: boolean }).standalone ===
+        true);
 
   // Check iOS
   const isIOS =
-    typeof navigator !== 'undefined' && /iPad|iPhone|iPod/.test(navigator.userAgent);
+    typeof navigator !== "undefined" &&
+    /iPad|iPhone|iPod/.test(navigator.userAgent);
 
   // Check dismissed state
   useEffect(() => {
@@ -157,15 +159,18 @@ export function useInstallPrompt(): InstallPromptState {
       deferredPromptRef.current = null;
     };
 
-    window.addEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-    window.addEventListener('appinstalled', handleAppInstalled);
+    window.addEventListener("beforeinstallprompt", handleBeforeInstallPrompt);
+    window.addEventListener("appinstalled", handleAppInstalled);
 
     // Check if already installed
     setIsInstalled(isStandalone);
 
     return () => {
-      window.removeEventListener('beforeinstallprompt', handleBeforeInstallPrompt);
-      window.removeEventListener('appinstalled', handleAppInstalled);
+      window.removeEventListener(
+        "beforeinstallprompt",
+        handleBeforeInstallPrompt,
+      );
+      window.removeEventListener("appinstalled", handleAppInstalled);
     };
   }, [isStandalone]);
 
@@ -178,7 +183,7 @@ export function useInstallPrompt(): InstallPromptState {
       await deferredPromptRef.current.prompt();
       const choice = await deferredPromptRef.current.userChoice;
 
-      if (choice.outcome === 'accepted') {
+      if (choice.outcome === "accepted") {
         setIsInstalled(true);
         setCanInstall(false);
         deferredPromptRef.current = null;
@@ -187,7 +192,7 @@ export function useInstallPrompt(): InstallPromptState {
 
       return false;
     } catch (error) {
-      console.error('Install prompt error:', error);
+      console.error("Install prompt error:", error);
       return false;
     }
   }, []);
@@ -219,7 +224,8 @@ export function useServiceWorker(): ServiceWorkerState {
 
   const registrationRef = useRef<ServiceWorkerRegistration | null>(null);
 
-  const isSupported = typeof navigator !== 'undefined' && 'serviceWorker' in navigator;
+  const isSupported =
+    typeof navigator !== "undefined" && "serviceWorker" in navigator;
 
   useEffect(() => {
     if (!isSupported) return;
@@ -230,12 +236,12 @@ export function useServiceWorker(): ServiceWorkerState {
       setIsActive(!!navigator.serviceWorker.controller);
 
       // Listen for updates
-      registration.addEventListener('updatefound', () => {
+      registration.addEventListener("updatefound", () => {
         const newWorker = registration.installing;
         if (newWorker) {
-          newWorker.addEventListener('statechange', () => {
+          newWorker.addEventListener("statechange", () => {
             if (
-              newWorker.state === 'installed' &&
+              newWorker.state === "installed" &&
               navigator.serviceWorker.controller
             ) {
               setHasUpdate(true);
@@ -246,14 +252,14 @@ export function useServiceWorker(): ServiceWorkerState {
     });
 
     // Listen for controller change
-    navigator.serviceWorker.addEventListener('controllerchange', () => {
+    navigator.serviceWorker.addEventListener("controllerchange", () => {
       setIsActive(true);
     });
   }, [isSupported]);
 
   const applyUpdate = useCallback(() => {
     if (registrationRef.current?.waiting) {
-      registrationRef.current.waiting.postMessage({ type: 'SKIP_WAITING' });
+      registrationRef.current.waiting.postMessage({ type: "SKIP_WAITING" });
       window.location.reload();
     }
   }, []);
@@ -282,9 +288,9 @@ export function useBackgroundSync(): BackgroundSyncState {
   const registrationRef = useRef<ServiceWorkerRegistration | null>(null);
 
   const isSupported =
-    typeof navigator !== 'undefined' &&
-    'serviceWorker' in navigator &&
-    'SyncManager' in window;
+    typeof navigator !== "undefined" &&
+    "serviceWorker" in navigator &&
+    "SyncManager" in window;
 
   useEffect(() => {
     if (!isSupported) return;
@@ -294,23 +300,20 @@ export function useBackgroundSync(): BackgroundSyncState {
     });
   }, [isSupported]);
 
-  const registerSync = useCallback(
-    async (tag: string): Promise<boolean> => {
-      if (!registrationRef.current?.sync) {
-        console.warn('Background Sync not supported');
-        return false;
-      }
+  const registerSync = useCallback(async (tag: string): Promise<boolean> => {
+    if (!registrationRef.current?.sync) {
+      console.warn("Background Sync not supported");
+      return false;
+    }
 
-      try {
-        await registrationRef.current.sync.register(tag);
-        return true;
-      } catch (error) {
-        console.error('Failed to register sync:', error);
-        return false;
-      }
-    },
-    []
-  );
+    try {
+      await registrationRef.current.sync.register(tag);
+      return true;
+    } catch (error) {
+      console.error("Failed to register sync:", error);
+      return false;
+    }
+  }, []);
 
   const getSyncTags = useCallback(async (): Promise<string[]> => {
     if (!registrationRef.current?.sync) {
@@ -320,7 +323,7 @@ export function useBackgroundSync(): BackgroundSyncState {
     try {
       return await registrationRef.current.sync.getTags();
     } catch (error) {
-      console.error('Failed to get sync tags:', error);
+      console.error("Failed to get sync tags:", error);
       return [];
     }
   }, []);
@@ -337,22 +340,24 @@ export function useBackgroundSync(): BackgroundSyncState {
 // ============================================
 
 export function usePushNotifications(): PushNotificationState {
-  const [permission, setPermission] = useState<NotificationPermission | 'unsupported'>(
-    'unsupported'
+  const [permission, setPermission] = useState<
+    NotificationPermission | "unsupported"
+  >("unsupported");
+  const [subscription, setSubscription] = useState<PushSubscription | null>(
+    null,
   );
-  const [subscription, setSubscription] = useState<PushSubscription | null>(null);
 
   const registrationRef = useRef<ServiceWorkerRegistration | null>(null);
 
   const isSupported =
-    typeof navigator !== 'undefined' &&
-    'serviceWorker' in navigator &&
-    'PushManager' in window &&
-    'Notification' in window;
+    typeof navigator !== "undefined" &&
+    "serviceWorker" in navigator &&
+    "PushManager" in window &&
+    "Notification" in window;
 
   useEffect(() => {
     if (!isSupported) {
-      setPermission('unsupported');
+      setPermission("unsupported");
       return;
     }
 
@@ -375,15 +380,15 @@ export function usePushNotifications(): PushNotificationState {
     try {
       const result = await Notification.requestPermission();
       setPermission(result);
-      return result === 'granted';
+      return result === "granted";
     } catch (error) {
-      console.error('Permission request failed:', error);
+      console.error("Permission request failed:", error);
       return false;
     }
   }, [isSupported]);
 
   const subscribe = useCallback(async (): Promise<PushSubscription | null> => {
-    if (!registrationRef.current || permission !== 'granted') {
+    if (!registrationRef.current || permission !== "granted") {
       return null;
     }
 
@@ -392,7 +397,7 @@ export function usePushNotifications(): PushNotificationState {
       const vapidPublicKey = import.meta.env.VITE_VAPID_PUBLIC_KEY;
 
       if (!vapidPublicKey) {
-        console.warn('VAPID public key not configured');
+        console.warn("VAPID public key not configured");
         return null;
       }
 
@@ -404,7 +409,7 @@ export function usePushNotifications(): PushNotificationState {
       setSubscription(sub);
       return sub;
     } catch (error) {
-      console.error('Push subscription failed:', error);
+      console.error("Push subscription failed:", error);
       return null;
     }
   }, [permission]);
@@ -419,7 +424,7 @@ export function usePushNotifications(): PushNotificationState {
       setSubscription(null);
       return true;
     } catch (error) {
-      console.error('Unsubscribe failed:', error);
+      console.error("Unsubscribe failed:", error);
       return false;
     }
   }, [subscription]);
@@ -456,19 +461,19 @@ export function useMobilePWA(): MobilePWAState {
   const pushNotifications = usePushNotifications();
 
   const [isOnline, setIsOnline] = useState(
-    typeof navigator !== 'undefined' ? navigator.onLine : true
+    typeof navigator !== "undefined" ? navigator.onLine : true,
   );
 
   useEffect(() => {
     const handleOnline = () => setIsOnline(true);
     const handleOffline = () => setIsOnline(false);
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, []);
 

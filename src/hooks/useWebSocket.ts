@@ -1,22 +1,27 @@
-import { useState, useEffect, useCallback, useRef } from 'react';
+import { useState, useEffect, useCallback, useRef } from "react";
 
 // ============================================
 // Types
 // ============================================
 
-export type WebSocketStatus = 'connecting' | 'connected' | 'disconnected' | 'reconnecting' | 'error';
+export type WebSocketStatus =
+  | "connecting"
+  | "connected"
+  | "disconnected"
+  | "reconnecting"
+  | "error";
 
 export type WebSocketMessageType =
-  | 'dispatch_update'
-  | 'job_status'
-  | 'notification'
-  | 'work_order_update'
-  | 'schedule_change'
-  | 'payment_received'
-  | 'technician_location'
-  | 'system_message'
-  | 'ping'
-  | 'pong';
+  | "dispatch_update"
+  | "job_status"
+  | "notification"
+  | "work_order_update"
+  | "schedule_change"
+  | "payment_received"
+  | "technician_location"
+  | "system_message"
+  | "ping"
+  | "pong";
 
 export interface WebSocketMessage<T = unknown> {
   type: WebSocketMessageType;
@@ -35,18 +40,18 @@ export interface DispatchUpdatePayload {
 
 export interface JobStatusPayload {
   work_order_id: string | number;
-  status: 'pending' | 'in_progress' | 'completed' | 'cancelled';
+  status: "pending" | "in_progress" | "completed" | "cancelled";
   updated_at: string;
   updated_by?: string;
 }
 
 export interface NotificationPayload {
   id: string;
-  type: 'work_order' | 'schedule' | 'payment' | 'message' | 'alert' | 'system';
+  type: "work_order" | "schedule" | "payment" | "message" | "alert" | "system";
   title: string;
   body: string;
   action_url?: string;
-  priority?: 'low' | 'normal' | 'high' | 'urgent';
+  priority?: "low" | "normal" | "high" | "urgent";
   sound?: boolean;
 }
 
@@ -100,12 +105,15 @@ export interface UseWebSocketReturn {
 // Constants
 // ============================================
 
-const DEFAULT_WS_URL = import.meta.env.VITE_WS_URL ||
+const DEFAULT_WS_URL =
+  import.meta.env.VITE_WS_URL ||
   (import.meta.env.PROD
-    ? 'wss://react-crm-api-production.up.railway.app/ws'
-    : 'ws://localhost:5001/ws');
+    ? "wss://react-crm-api-production.up.railway.app/ws"
+    : "ws://localhost:5001/ws");
 
-const DEFAULT_OPTIONS: Required<Omit<UseWebSocketOptions, 'onMessage' | 'onStatusChange' | 'onError'>> = {
+const DEFAULT_OPTIONS: Required<
+  Omit<UseWebSocketOptions, "onMessage" | "onStatusChange" | "onError">
+> = {
   url: DEFAULT_WS_URL,
   autoConnect: true,
   autoReconnect: true,
@@ -122,7 +130,11 @@ const DEFAULT_OPTIONS: Required<Omit<UseWebSocketOptions, 'onMessage' | 'onStatu
 /**
  * Calculate exponential backoff delay with jitter
  */
-function getReconnectDelay(attempt: number, baseDelay: number, maxDelay: number): number {
+function getReconnectDelay(
+  attempt: number,
+  baseDelay: number,
+  maxDelay: number,
+): number {
   // Exponential backoff: baseDelay * 2^attempt
   const exponentialDelay = baseDelay * Math.pow(2, attempt);
   // Add jitter (0-25% of delay)
@@ -152,26 +164,36 @@ function generateMessageId(): string {
  * - Message type handling
  * - Graceful degradation
  */
-export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketReturn {
+export function useWebSocket(
+  options: UseWebSocketOptions = {},
+): UseWebSocketReturn {
   const opts = { ...DEFAULT_OPTIONS, ...options };
 
   // State
-  const [status, setStatus] = useState<WebSocketStatus>('disconnected');
+  const [status, setStatus] = useState<WebSocketStatus>("disconnected");
   const [reconnectAttempt, setReconnectAttempt] = useState(0);
   const [lastError, setLastError] = useState<string | null>(null);
   const [lastMessage, setLastMessage] = useState<WebSocketMessage | null>(null);
 
   // Refs to avoid stale closures
   const wsRef = useRef<WebSocket | null>(null);
-  const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const heartbeatIntervalRef = useRef<ReturnType<typeof setInterval> | null>(null);
+  const reconnectTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(
+    null,
+  );
+  const heartbeatIntervalRef = useRef<ReturnType<typeof setInterval> | null>(
+    null,
+  );
   const isManualDisconnectRef = useRef(false);
   const statusRef = useRef(status);
   const reconnectAttemptRef = useRef(reconnectAttempt);
 
   // Keep refs in sync
-  useEffect(() => { statusRef.current = status; }, [status]);
-  useEffect(() => { reconnectAttemptRef.current = reconnectAttempt; }, [reconnectAttempt]);
+  useEffect(() => {
+    statusRef.current = status;
+  }, [status]);
+  useEffect(() => {
+    reconnectAttemptRef.current = reconnectAttempt;
+  }, [reconnectAttempt]);
 
   // ============================================
   // Cleanup Functions
@@ -201,69 +223,82 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
   // ============================================
 
   const handleOpen = useCallback(() => {
-    setStatus('connected');
+    setStatus("connected");
     setReconnectAttempt(0);
     setLastError(null);
-    opts.onStatusChange?.('connected');
+    opts.onStatusChange?.("connected");
 
     // Start heartbeat
     if (opts.heartbeatInterval > 0 && wsRef.current) {
       heartbeatIntervalRef.current = setInterval(() => {
         if (wsRef.current?.readyState === WebSocket.OPEN) {
-          wsRef.current.send(JSON.stringify({
-            type: 'ping',
-            timestamp: new Date().toISOString(),
-          }));
+          wsRef.current.send(
+            JSON.stringify({
+              type: "ping",
+              timestamp: new Date().toISOString(),
+            }),
+          );
         }
       }, opts.heartbeatInterval);
     }
   }, [opts]);
 
-  const handleMessage = useCallback((event: MessageEvent) => {
-    try {
-      const message: WebSocketMessage = JSON.parse(event.data);
+  const handleMessage = useCallback(
+    (event: MessageEvent) => {
+      try {
+        const message: WebSocketMessage = JSON.parse(event.data);
 
-      // Handle pong (heartbeat response) silently
-      if (message.type === 'pong') {
-        return;
+        // Handle pong (heartbeat response) silently
+        if (message.type === "pong") {
+          return;
+        }
+
+        setLastMessage(message);
+        opts.onMessage?.(message);
+      } catch (error) {
+        console.error("[WebSocket] Failed to parse message:", error);
       }
+    },
+    [opts],
+  );
 
-      setLastMessage(message);
-      opts.onMessage?.(message);
-    } catch (error) {
-      console.error('[WebSocket] Failed to parse message:', error);
-    }
-  }, [opts]);
-
-  const handleError = useCallback((event: Event) => {
-    console.error('[WebSocket] Error:', event);
-    setLastError('WebSocket connection error');
-    setStatus('error');
-    opts.onError?.(event);
-    opts.onStatusChange?.('error');
-  }, [opts]);
+  const handleError = useCallback(
+    (event: Event) => {
+      console.error("[WebSocket] Error:", event);
+      setLastError("WebSocket connection error");
+      setStatus("error");
+      opts.onError?.(event);
+      opts.onStatusChange?.("error");
+    },
+    [opts],
+  );
 
   const scheduleReconnect = useCallback(() => {
     if (isManualDisconnectRef.current || !opts.autoReconnect) {
       return;
     }
 
-    if (opts.maxReconnectAttempts > 0 && reconnectAttemptRef.current >= opts.maxReconnectAttempts) {
-      console.warn('[WebSocket] Max reconnect attempts reached');
-      setStatus('disconnected');
-      opts.onStatusChange?.('disconnected');
+    if (
+      opts.maxReconnectAttempts > 0 &&
+      reconnectAttemptRef.current >= opts.maxReconnectAttempts
+    ) {
+      console.warn("[WebSocket] Max reconnect attempts reached");
+      setStatus("disconnected");
+      opts.onStatusChange?.("disconnected");
       return;
     }
 
     const delay = getReconnectDelay(
       reconnectAttemptRef.current,
       opts.reconnectBaseDelay,
-      opts.reconnectMaxDelay
+      opts.reconnectMaxDelay,
     );
 
-    console.log(`[WebSocket] Scheduling reconnect attempt ${reconnectAttemptRef.current + 1} in ${Math.round(delay)}ms`);
-    setStatus('reconnecting');
-    opts.onStatusChange?.('reconnecting');
+    console.log(
+      `[WebSocket] Scheduling reconnect attempt ${reconnectAttemptRef.current + 1} in ${Math.round(delay)}ms`,
+    );
+    setStatus("reconnecting");
+    opts.onStatusChange?.("reconnecting");
 
     reconnectTimeoutRef.current = setTimeout(() => {
       setReconnectAttempt((prev) => prev + 1);
@@ -271,26 +306,29 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
     }, delay);
   }, [opts]);
 
-  const handleClose = useCallback((event: CloseEvent) => {
-    console.log('[WebSocket] Connection closed:', event.code, event.reason);
-    clearHeartbeat();
+  const handleClose = useCallback(
+    (event: CloseEvent) => {
+      console.log("[WebSocket] Connection closed:", event.code, event.reason);
+      clearHeartbeat();
 
-    if (isManualDisconnectRef.current) {
-      setStatus('disconnected');
-      opts.onStatusChange?.('disconnected');
-      return;
-    }
+      if (isManualDisconnectRef.current) {
+        setStatus("disconnected");
+        opts.onStatusChange?.("disconnected");
+        return;
+      }
 
-    // Clean close codes that shouldn't trigger reconnect
-    const cleanCloseCodes = [1000, 1001];
-    if (cleanCloseCodes.includes(event.code) && !opts.autoReconnect) {
-      setStatus('disconnected');
-      opts.onStatusChange?.('disconnected');
-      return;
-    }
+      // Clean close codes that shouldn't trigger reconnect
+      const cleanCloseCodes = [1000, 1001];
+      if (cleanCloseCodes.includes(event.code) && !opts.autoReconnect) {
+        setStatus("disconnected");
+        opts.onStatusChange?.("disconnected");
+        return;
+      }
 
-    scheduleReconnect();
-  }, [opts, clearHeartbeat, scheduleReconnect]);
+      scheduleReconnect();
+    },
+    [opts, clearHeartbeat, scheduleReconnect],
+  );
 
   // ============================================
   // Connection Functions
@@ -303,8 +341,10 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
       wsRef.current.onmessage = null;
       wsRef.current.onerror = null;
       wsRef.current.onclose = null;
-      if (wsRef.current.readyState === WebSocket.OPEN ||
-          wsRef.current.readyState === WebSocket.CONNECTING) {
+      if (
+        wsRef.current.readyState === WebSocket.OPEN ||
+        wsRef.current.readyState === WebSocket.CONNECTING
+      ) {
         wsRef.current.close();
       }
     }
@@ -314,27 +354,32 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
 
     try {
       // Validate WebSocket URL before attempting connection
-      if (!opts.url || !opts.url.startsWith('ws://') && !opts.url.startsWith('wss://')) {
-        console.info('[WebSocket] No valid WebSocket URL configured, skipping connection');
-        setStatus('disconnected');
+      if (
+        !opts.url ||
+        (!opts.url.startsWith("ws://") && !opts.url.startsWith("wss://"))
+      ) {
+        console.info(
+          "[WebSocket] No valid WebSocket URL configured, skipping connection",
+        );
+        setStatus("disconnected");
         return;
       }
 
-      setStatus('connecting');
-      opts.onStatusChange?.('connecting');
+      setStatus("connecting");
+      opts.onStatusChange?.("connecting");
 
       // Add auth token to WebSocket URL if available
-      const token = localStorage.getItem('auth_token');
+      const token = localStorage.getItem("auth_token");
       let wsUrl: URL;
       try {
         wsUrl = new URL(opts.url);
       } catch {
-        console.info('[WebSocket] Invalid WebSocket URL, skipping connection');
-        setStatus('disconnected');
+        console.info("[WebSocket] Invalid WebSocket URL, skipping connection");
+        setStatus("disconnected");
         return;
       }
       if (token) {
-        wsUrl.searchParams.set('token', token);
+        wsUrl.searchParams.set("token", token);
       }
 
       wsRef.current = new WebSocket(wsUrl.toString());
@@ -343,13 +388,23 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
       wsRef.current.onerror = handleError;
       wsRef.current.onclose = handleClose;
     } catch (error) {
-      console.error('[WebSocket] Failed to create connection:', error);
-      setLastError(error instanceof Error ? error.message : 'Failed to connect');
-      setStatus('error');
-      opts.onStatusChange?.('error');
+      console.error("[WebSocket] Failed to create connection:", error);
+      setLastError(
+        error instanceof Error ? error.message : "Failed to connect",
+      );
+      setStatus("error");
+      opts.onStatusChange?.("error");
       scheduleReconnect();
     }
-  }, [opts, cleanup, handleOpen, handleMessage, handleError, handleClose, scheduleReconnect]);
+  }, [
+    opts,
+    cleanup,
+    handleOpen,
+    handleMessage,
+    handleError,
+    handleClose,
+    scheduleReconnect,
+  ]);
 
   const disconnect = useCallback(() => {
     isManualDisconnectRef.current = true;
@@ -361,46 +416,51 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
       wsRef.current.onerror = null;
       wsRef.current.onclose = null;
 
-      if (wsRef.current.readyState === WebSocket.OPEN ||
-          wsRef.current.readyState === WebSocket.CONNECTING) {
-        wsRef.current.close(1000, 'Client disconnect');
+      if (
+        wsRef.current.readyState === WebSocket.OPEN ||
+        wsRef.current.readyState === WebSocket.CONNECTING
+      ) {
+        wsRef.current.close(1000, "Client disconnect");
       }
       wsRef.current = null;
     }
 
-    setStatus('disconnected');
+    setStatus("disconnected");
     setReconnectAttempt(0);
-    opts.onStatusChange?.('disconnected');
+    opts.onStatusChange?.("disconnected");
   }, [cleanup, opts]);
 
   // ============================================
   // Send Functions
   // ============================================
 
-  const send = useCallback(<T,>(type: WebSocketMessageType, payload: T): boolean => {
-    if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
-      console.warn('[WebSocket] Cannot send message: not connected');
-      return false;
-    }
+  const send = useCallback(
+    <T>(type: WebSocketMessageType, payload: T): boolean => {
+      if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
+        console.warn("[WebSocket] Cannot send message: not connected");
+        return false;
+      }
 
-    try {
-      const message: WebSocketMessage<T> = {
-        type,
-        payload,
-        timestamp: new Date().toISOString(),
-        id: generateMessageId(),
-      };
-      wsRef.current.send(JSON.stringify(message));
-      return true;
-    } catch (error) {
-      console.error('[WebSocket] Failed to send message:', error);
-      return false;
-    }
-  }, []);
+      try {
+        const message: WebSocketMessage<T> = {
+          type,
+          payload,
+          timestamp: new Date().toISOString(),
+          id: generateMessageId(),
+        };
+        wsRef.current.send(JSON.stringify(message));
+        return true;
+      } catch (error) {
+        console.error("[WebSocket] Failed to send message:", error);
+        return false;
+      }
+    },
+    [],
+  );
 
   const sendRaw = useCallback((message: string): boolean => {
     if (!wsRef.current || wsRef.current.readyState !== WebSocket.OPEN) {
-      console.warn('[WebSocket] Cannot send message: not connected');
+      console.warn("[WebSocket] Cannot send message: not connected");
       return false;
     }
 
@@ -408,7 +468,7 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
       wsRef.current.send(message);
       return true;
     } catch (error) {
-      console.error('[WebSocket] Failed to send raw message:', error);
+      console.error("[WebSocket] Failed to send raw message:", error);
       return false;
     }
   }, []);
@@ -436,24 +496,27 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
   useEffect(() => {
     const handleAuthChange = () => {
       // Reconnect with new auth token
-      if (statusRef.current === 'connected' || statusRef.current === 'connecting') {
-        console.log('[WebSocket] Auth changed, reconnecting...');
+      if (
+        statusRef.current === "connected" ||
+        statusRef.current === "connecting"
+      ) {
+        console.log("[WebSocket] Auth changed, reconnecting...");
         disconnect();
         setTimeout(connect, 100);
       }
     };
 
     const handleAuthExpired = () => {
-      console.log('[WebSocket] Auth expired, disconnecting...');
+      console.log("[WebSocket] Auth expired, disconnecting...");
       disconnect();
     };
 
-    window.addEventListener('auth:change', handleAuthChange);
-    window.addEventListener('auth:expired', handleAuthExpired);
+    window.addEventListener("auth:change", handleAuthChange);
+    window.addEventListener("auth:expired", handleAuthExpired);
 
     return () => {
-      window.removeEventListener('auth:change', handleAuthChange);
-      window.removeEventListener('auth:expired', handleAuthExpired);
+      window.removeEventListener("auth:change", handleAuthChange);
+      window.removeEventListener("auth:expired", handleAuthExpired);
     };
   }, [connect, disconnect]);
 
@@ -463,25 +526,28 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
 
   useEffect(() => {
     const handleOnline = () => {
-      if (statusRef.current === 'disconnected' || statusRef.current === 'error') {
-        console.log('[WebSocket] Network online, attempting reconnect...');
+      if (
+        statusRef.current === "disconnected" ||
+        statusRef.current === "error"
+      ) {
+        console.log("[WebSocket] Network online, attempting reconnect...");
         setReconnectAttempt(0);
         connect();
       }
     };
 
     const handleOffline = () => {
-      console.log('[WebSocket] Network offline');
+      console.log("[WebSocket] Network offline");
       // Don't disconnect, let the connection fail naturally
       // This allows the connection to resume if we come back online quickly
     };
 
-    window.addEventListener('online', handleOnline);
-    window.addEventListener('offline', handleOffline);
+    window.addEventListener("online", handleOnline);
+    window.addEventListener("offline", handleOffline);
 
     return () => {
-      window.removeEventListener('online', handleOnline);
-      window.removeEventListener('offline', handleOffline);
+      window.removeEventListener("online", handleOnline);
+      window.removeEventListener("offline", handleOffline);
     };
   }, [connect]);
 
@@ -490,7 +556,7 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
   // ============================================
 
   useEffect(() => {
-    if (reconnectAttempt > 0 && status === 'reconnecting') {
+    if (reconnectAttempt > 0 && status === "reconnecting") {
       connect();
     }
     // Only trigger on reconnectAttempt change when status is reconnecting
@@ -499,8 +565,8 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
 
   return {
     status,
-    isConnected: status === 'connected',
-    isReconnecting: status === 'reconnecting',
+    isConnected: status === "connected",
+    isReconnecting: status === "reconnecting",
     reconnectAttempt,
     lastError,
     lastMessage,
@@ -515,16 +581,22 @@ export function useWebSocket(options: UseWebSocketOptions = {}): UseWebSocketRet
 // Message Type Guards
 // ============================================
 
-export function isDispatchUpdate(message: WebSocketMessage): message is WebSocketMessage<DispatchUpdatePayload> {
-  return message.type === 'dispatch_update';
+export function isDispatchUpdate(
+  message: WebSocketMessage,
+): message is WebSocketMessage<DispatchUpdatePayload> {
+  return message.type === "dispatch_update";
 }
 
-export function isJobStatus(message: WebSocketMessage): message is WebSocketMessage<JobStatusPayload> {
-  return message.type === 'job_status';
+export function isJobStatus(
+  message: WebSocketMessage,
+): message is WebSocketMessage<JobStatusPayload> {
+  return message.type === "job_status";
 }
 
-export function isNotification(message: WebSocketMessage): message is WebSocketMessage<NotificationPayload> {
-  return message.type === 'notification';
+export function isNotification(
+  message: WebSocketMessage,
+): message is WebSocketMessage<NotificationPayload> {
+  return message.type === "notification";
 }
 
 // ============================================
@@ -536,7 +608,7 @@ export interface PresenceUser {
   name: string;
   email: string;
   avatar?: string;
-  status: 'online' | 'away' | 'busy';
+  status: "online" | "away" | "busy";
   currentPage?: string;
   lastSeen: string;
 }
@@ -564,27 +636,38 @@ export function usePresence(ws: UseWebSocketReturn, currentPage?: string) {
   // Update presence when page changes
   useEffect(() => {
     if (ws.isConnected) {
-      ws.send('system_message', { action: 'presence_update', status: 'online', currentPage });
+      ws.send("system_message", {
+        action: "presence_update",
+        status: "online",
+        currentPage,
+      });
     }
   }, [ws, currentPage]);
 
   // Listen for presence updates
   useEffect(() => {
-    if (ws.lastMessage?.type === 'system_message') {
-      const payload = ws.lastMessage.payload as { action?: string; users?: PresenceUser[]; user?: PresenceUser };
-      if (payload.action === 'presence_list' && payload.users) {
+    if (ws.lastMessage?.type === "system_message") {
+      const payload = ws.lastMessage.payload as {
+        action?: string;
+        users?: PresenceUser[];
+        user?: PresenceUser;
+      };
+      if (payload.action === "presence_list" && payload.users) {
         setUsers(payload.users);
-      } else if (payload.action === 'user_joined' && payload.user) {
-        setUsers(prev => [...prev.filter(u => u.id !== payload.user!.id), payload.user!]);
-      } else if (payload.action === 'user_left' && payload.user) {
-        setUsers(prev => prev.filter(u => u.id !== payload.user!.id));
+      } else if (payload.action === "user_joined" && payload.user) {
+        setUsers((prev) => [
+          ...prev.filter((u) => u.id !== payload.user!.id),
+          payload.user!,
+        ]);
+      } else if (payload.action === "user_left" && payload.user) {
+        setUsers((prev) => prev.filter((u) => u.id !== payload.user!.id));
       }
     }
   }, [ws.lastMessage]);
 
   return {
     users,
-    onlineCount: users.filter(u => u.status === 'online').length,
+    onlineCount: users.filter((u) => u.status === "online").length,
   };
 }
 
@@ -596,12 +679,14 @@ export function usePresence(ws: UseWebSocketReturn, currentPage?: string) {
  * Real-time technician location tracking
  */
 export function useTechnicianLocations(ws: UseWebSocketReturn) {
-  const [locations, setLocations] = useState<Map<string, TechnicianLocation>>(new Map());
+  const [locations, setLocations] = useState<Map<string, TechnicianLocation>>(
+    new Map(),
+  );
 
   useEffect(() => {
-    if (ws.lastMessage?.type === 'technician_location') {
+    if (ws.lastMessage?.type === "technician_location") {
       const location = ws.lastMessage.payload as TechnicianLocation;
-      setLocations(prev => {
+      setLocations((prev) => {
         const updated = new Map(prev);
         updated.set(location.technicianId, location);
         return updated;
@@ -609,9 +694,12 @@ export function useTechnicianLocations(ws: UseWebSocketReturn) {
     }
   }, [ws.lastMessage]);
 
-  const getLocation = useCallback((technicianId: string) => {
-    return locations.get(technicianId);
-  }, [locations]);
+  const getLocation = useCallback(
+    (technicianId: string) => {
+      return locations.get(technicianId);
+    },
+    [locations],
+  );
 
   const getAllLocations = useCallback(() => {
     return Array.from(locations.values());
@@ -630,26 +718,26 @@ export function useTechnicianLocations(ws: UseWebSocketReturn) {
 
 export const WS_EVENTS = {
   // Dispatch & Work Orders
-  DISPATCH_UPDATE: 'dispatch_update' as const,
-  WORK_ORDER_UPDATE: 'work_order_update' as const,
-  JOB_STATUS: 'job_status' as const,
+  DISPATCH_UPDATE: "dispatch_update" as const,
+  WORK_ORDER_UPDATE: "work_order_update" as const,
+  JOB_STATUS: "job_status" as const,
 
   // Schedule
-  SCHEDULE_CHANGE: 'schedule_change' as const,
+  SCHEDULE_CHANGE: "schedule_change" as const,
 
   // Payments
-  PAYMENT_RECEIVED: 'payment_received' as const,
+  PAYMENT_RECEIVED: "payment_received" as const,
 
   // Technician
-  TECHNICIAN_LOCATION: 'technician_location' as const,
+  TECHNICIAN_LOCATION: "technician_location" as const,
 
   // Notifications
-  NOTIFICATION: 'notification' as const,
+  NOTIFICATION: "notification" as const,
 
   // System
-  SYSTEM_MESSAGE: 'system_message' as const,
-  PING: 'ping' as const,
-  PONG: 'pong' as const,
+  SYSTEM_MESSAGE: "system_message" as const,
+  PING: "ping" as const,
+  PONG: "pong" as const,
 } as const;
 
-export type WSEventType = typeof WS_EVENTS[keyof typeof WS_EVENTS];
+export type WSEventType = (typeof WS_EVENTS)[keyof typeof WS_EVENTS];

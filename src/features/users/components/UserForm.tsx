@@ -1,16 +1,20 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
-import { RoleSelector } from './RoleSelector.tsx';
-import type { User, CreateUserInput, UpdateUserInput } from '@/api/types/admin.ts';
+} from "@/components/ui/Dialog.tsx";
+import { RoleSelector } from "./RoleSelector.tsx";
+import type {
+  User,
+  CreateUserInput,
+  UpdateUserInput,
+} from "@/api/types/admin.ts";
 
 interface UserFormProps {
   user?: User | null;
@@ -20,13 +24,19 @@ interface UserFormProps {
   isLoading?: boolean;
 }
 
-export function UserForm({ user, open, onClose, onSubmit, isLoading }: UserFormProps) {
+export function UserForm({
+  user,
+  open,
+  onClose,
+  onSubmit,
+  isLoading,
+}: UserFormProps) {
   const [formData, setFormData] = useState({
-    email: '',
-    first_name: '',
-    last_name: '',
-    role: 'office' as 'admin' | 'manager' | 'technician' | 'office',
-    password: '',
+    email: "",
+    first_name: "",
+    last_name: "",
+    role: "office" as "admin" | "manager" | "technician" | "office",
+    password: "",
   });
 
   const [errors, setErrors] = useState<Record<string, string>>({});
@@ -38,15 +48,15 @@ export function UserForm({ user, open, onClose, onSubmit, isLoading }: UserFormP
         first_name: user.first_name,
         last_name: user.last_name,
         role: user.role,
-        password: '',
+        password: "",
       });
     } else {
       setFormData({
-        email: '',
-        first_name: '',
-        last_name: '',
-        role: 'office',
-        password: '',
+        email: "",
+        first_name: "",
+        last_name: "",
+        role: "office",
+        password: "",
       });
     }
     setErrors({});
@@ -56,23 +66,23 @@ export function UserForm({ user, open, onClose, onSubmit, isLoading }: UserFormP
     const newErrors: Record<string, string> = {};
 
     if (!formData.email) {
-      newErrors.email = 'Email is required';
+      newErrors.email = "Email is required";
     } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
-      newErrors.email = 'Invalid email address';
+      newErrors.email = "Invalid email address";
     }
 
     if (!formData.first_name) {
-      newErrors.first_name = 'First name is required';
+      newErrors.first_name = "First name is required";
     }
 
     if (!formData.last_name) {
-      newErrors.last_name = 'Last name is required';
+      newErrors.last_name = "Last name is required";
     }
 
     if (!user && !formData.password) {
-      newErrors.password = 'Password is required';
+      newErrors.password = "Password is required";
     } else if (formData.password && formData.password.length < 8) {
-      newErrors.password = 'Password must be at least 8 characters';
+      newErrors.password = "Password must be at least 8 characters";
     }
 
     setErrors(newErrors);
@@ -106,7 +116,7 @@ export function UserForm({ user, open, onClose, onSubmit, isLoading }: UserFormP
     <Dialog open={open} onClose={onClose}>
       <DialogContent size="md">
         <DialogHeader onClose={onClose}>
-          {user ? 'Edit User' : 'Create New User'}
+          {user ? "Edit User" : "Create New User"}
         </DialogHeader>
         <form onSubmit={handleSubmit}>
           <DialogBody>
@@ -123,7 +133,9 @@ export function UserForm({ user, open, onClose, onSubmit, isLoading }: UserFormP
                     error={!!errors.first_name}
                   />
                   {errors.first_name && (
-                    <p className="text-xs text-danger mt-1">{errors.first_name}</p>
+                    <p className="text-xs text-danger mt-1">
+                      {errors.first_name}
+                    </p>
                   )}
                 </div>
                 <div>
@@ -137,7 +149,9 @@ export function UserForm({ user, open, onClose, onSubmit, isLoading }: UserFormP
                     error={!!errors.last_name}
                   />
                   {errors.last_name && (
-                    <p className="text-xs text-danger mt-1">{errors.last_name}</p>
+                    <p className="text-xs text-danger mt-1">
+                      {errors.last_name}
+                    </p>
                   )}
                 </div>
               </div>
@@ -165,7 +179,9 @@ export function UserForm({ user, open, onClose, onSubmit, isLoading }: UserFormP
 
               <div>
                 <Label htmlFor="password">
-                  {user ? 'New Password (leave blank to keep current)' : 'Password'}
+                  {user
+                    ? "New Password (leave blank to keep current)"
+                    : "Password"}
                 </Label>
                 <Input
                   id="password"
@@ -175,7 +191,7 @@ export function UserForm({ user, open, onClose, onSubmit, isLoading }: UserFormP
                     setFormData({ ...formData, password: e.target.value })
                   }
                   error={!!errors.password}
-                  placeholder={user ? 'Leave blank to keep current' : ''}
+                  placeholder={user ? "Leave blank to keep current" : ""}
                 />
                 {errors.password && (
                   <p className="text-xs text-danger mt-1">{errors.password}</p>
@@ -193,7 +209,7 @@ export function UserForm({ user, open, onClose, onSubmit, isLoading }: UserFormP
               Cancel
             </Button>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Saving...' : user ? 'Save Changes' : 'Create User'}
+              {isLoading ? "Saving..." : user ? "Save Changes" : "Create User"}
             </Button>
           </DialogFooter>
         </form>

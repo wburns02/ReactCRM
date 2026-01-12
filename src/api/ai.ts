@@ -1,14 +1,14 @@
 /**
  * AI Assistant API Types and Utilities
  */
-import { apiClient } from './client';
+import { apiClient } from "./client";
 
 /**
  * Chat message type
  */
 export interface AIMessage {
   id: string;
-  role: 'user' | 'assistant' | 'system';
+  role: "user" | "assistant" | "system";
   content: string;
   timestamp: string;
   metadata?: {
@@ -23,7 +23,7 @@ export interface AIMessage {
  */
 export interface AISuggestion {
   id: string;
-  type: 'customer' | 'work_order' | 'schedule' | 'invoice' | 'general';
+  type: "customer" | "work_order" | "schedule" | "invoice" | "general";
   title: string;
   description: string;
   confidence: number;
@@ -35,7 +35,7 @@ export interface AISuggestion {
  */
 export interface AIAction {
   id: string;
-  type: 'navigate' | 'create' | 'update' | 'call' | 'email' | 'schedule';
+  type: "navigate" | "create" | "update" | "call" | "email" | "schedule";
   label: string;
   payload: Record<string, unknown>;
 }
@@ -98,7 +98,7 @@ export interface AIChatResponse {
  * Backend chat message format
  */
 interface BackendChatMessage {
-  role: 'user' | 'assistant' | 'system';
+  role: "user" | "assistant" | "system";
   content: string;
 }
 
@@ -137,7 +137,7 @@ export const aiApi = {
     const backendRequest: BackendChatRequest = {
       messages: [
         {
-          role: 'user',
+          role: "user",
           content: request.message,
         },
       ],
@@ -149,7 +149,10 @@ export const aiApi = {
       backendRequest.system_prompt = `You are a helpful CRM assistant. Current context: ${JSON.stringify(request.context)}`;
     }
 
-    const { data } = await apiClient.post<BackendChatResponse>('/ai/chat', backendRequest);
+    const { data } = await apiClient.post<BackendChatResponse>(
+      "/ai/chat",
+      backendRequest,
+    );
 
     // Transform backend response to frontend format
     // Note: If the backend returned an error, the content will contain the error message
@@ -157,11 +160,12 @@ export const aiApi = {
     const response: AIChatResponse = {
       message: {
         id: `ai-${Date.now()}`,
-        role: 'assistant',
+        role: "assistant",
         content: data.content,
         timestamp: new Date().toISOString(),
       },
-      session_id: data.conversation_id || request.session_id || `session-${Date.now()}`,
+      session_id:
+        data.conversation_id || request.session_id || `session-${Date.now()}`,
     };
 
     return response;
@@ -172,16 +176,23 @@ export const aiApi = {
    */
   async getChatHistory(): Promise<AIChatSession[]> {
     // Use conversations endpoint
-    const { data } = await apiClient.get('/ai/conversations');
+    const { data } = await apiClient.get("/ai/conversations");
     // Transform to frontend format
     if (Array.isArray(data)) {
-      return data.map((conv: { id: string; title?: string; created_at?: string; updated_at?: string }) => ({
-        id: conv.id,
-        title: conv.title || 'Conversation',
-        messages: [],
-        created_at: conv.created_at || new Date().toISOString(),
-        updated_at: conv.updated_at || new Date().toISOString(),
-      }));
+      return data.map(
+        (conv: {
+          id: string;
+          title?: string;
+          created_at?: string;
+          updated_at?: string;
+        }) => ({
+          id: conv.id,
+          title: conv.title || "Conversation",
+          messages: [],
+          created_at: conv.created_at || new Date().toISOString(),
+          updated_at: conv.updated_at || new Date().toISOString(),
+        }),
+      );
     }
     return [];
   },
@@ -191,12 +202,14 @@ export const aiApi = {
    */
   async getCustomerInsights(customerId: number): Promise<{
     summary: string;
-    sentiment: 'positive' | 'neutral' | 'negative';
+    sentiment: "positive" | "neutral" | "negative";
     recommendations: string[];
     risk_score: number;
     lifetime_value_prediction: number;
   }> {
-    const { data } = await apiClient.get(`/ai/customers/${customerId}/insights`);
+    const { data } = await apiClient.get(
+      `/ai/customers/${customerId}/insights`,
+    );
     return data;
   },
 
@@ -209,7 +222,9 @@ export const aiApi = {
     similar_jobs: { id: string; solution: string }[];
     technician_match: { id: number; name: string; score: number } | null;
   }> {
-    const { data } = await apiClient.get(`/ai/work-orders/${workOrderId}/recommendations`);
+    const { data } = await apiClient.get(
+      `/ai/work-orders/${workOrderId}/recommendations`,
+    );
     return data;
   },
 
@@ -217,11 +232,11 @@ export const aiApi = {
    * Generate content with AI
    */
   async generateContent(params: {
-    type: 'email' | 'sms' | 'note' | 'description';
+    type: "email" | "sms" | "note" | "description";
     context: Record<string, unknown>;
-    tone?: 'professional' | 'friendly' | 'formal';
+    tone?: "professional" | "friendly" | "formal";
   }): Promise<{ content: string; alternatives: string[] }> {
-    const { data } = await apiClient.post('/ai/generate', params);
+    const { data } = await apiClient.post("/ai/generate", params);
     return data;
   },
 
@@ -229,7 +244,7 @@ export const aiApi = {
    * Analyze data with AI
    */
   async analyze(params: {
-    type: 'revenue' | 'performance' | 'trends' | 'anomalies';
+    type: "revenue" | "performance" | "trends" | "anomalies";
     date_range?: { start: string; end: string };
     filters?: Record<string, unknown>;
   }): Promise<{
@@ -237,7 +252,7 @@ export const aiApi = {
     insights: string[];
     charts_data: Record<string, unknown>;
   }> {
-    const { data } = await apiClient.post('/ai/analyze', params);
+    const { data } = await apiClient.post("/ai/analyze", params);
     return data;
   },
 };

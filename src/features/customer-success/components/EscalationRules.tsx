@@ -6,8 +6,8 @@
  * and automated action configuration.
  */
 
-import { useState } from 'react';
-import { cn } from '@/lib/utils.ts';
+import { useState } from "react";
+import { cn } from "@/lib/utils.ts";
 import {
   useEscalationRules,
   useCreateEscalationRule,
@@ -18,7 +18,7 @@ import {
   type EscalationRuleFormData,
   type EscalationCondition,
   type EscalationRuleAction,
-} from '@/api/hooks/useSurveyActions.ts';
+} from "@/api/hooks/useSurveyActions.ts";
 
 // ============================================
 // Types
@@ -28,54 +28,57 @@ interface EscalationRulesProps {
   className?: string;
 }
 
-type TriggerType = 'nps_score' | 'sentiment' | 'keywords' | 'combined';
+type TriggerType = "nps_score" | "sentiment" | "keywords" | "combined";
 
 // ============================================
 // Configuration
 // ============================================
 
-const TRIGGER_TYPE_CONFIG: Record<TriggerType, { label: string; icon: string; description: string }> = {
+const TRIGGER_TYPE_CONFIG: Record<
+  TriggerType,
+  { label: string; icon: string; description: string }
+> = {
   nps_score: {
-    label: 'NPS Score',
-    icon: '📊',
-    description: 'Trigger based on NPS score threshold',
+    label: "NPS Score",
+    icon: "📊",
+    description: "Trigger based on NPS score threshold",
   },
   sentiment: {
-    label: 'Sentiment',
-    icon: '😔',
-    description: 'Trigger based on detected sentiment',
+    label: "Sentiment",
+    icon: "😔",
+    description: "Trigger based on detected sentiment",
   },
   keywords: {
-    label: 'Keywords',
-    icon: '🔍',
-    description: 'Trigger when specific keywords are detected',
+    label: "Keywords",
+    icon: "🔍",
+    description: "Trigger when specific keywords are detected",
   },
   combined: {
-    label: 'Combined',
-    icon: '🔗',
-    description: 'Multiple conditions combined',
+    label: "Combined",
+    icon: "🔗",
+    description: "Multiple conditions combined",
   },
 };
 
 const ACTION_TYPE_CONFIG: Record<string, { label: string; icon: string }> = {
-  create_task: { label: 'Create Task', icon: '📋' },
-  send_alert: { label: 'Send Alert', icon: '🔔' },
-  trigger_playbook: { label: 'Trigger Playbook', icon: '📖' },
-  assign_csm: { label: 'Assign CSM', icon: '👤' },
-  create_escalation: { label: 'Create Escalation', icon: '🚨' },
+  create_task: { label: "Create Task", icon: "📋" },
+  send_alert: { label: "Send Alert", icon: "🔔" },
+  trigger_playbook: { label: "Trigger Playbook", icon: "📖" },
+  assign_csm: { label: "Assign CSM", icon: "👤" },
+  create_escalation: { label: "Create Escalation", icon: "🚨" },
 };
 
 const SAMPLE_KEYWORDS = [
-  'cancel',
-  'competitor',
-  'unhappy',
-  'frustrated',
-  'terrible',
-  'worst',
-  'switching',
-  'leave',
-  'disappointed',
-  'refund',
+  "cancel",
+  "competitor",
+  "unhappy",
+  "frustrated",
+  "terrible",
+  "worst",
+  "switching",
+  "leave",
+  "disappointed",
+  "refund",
 ];
 
 // ============================================
@@ -86,11 +89,13 @@ function RuleStatusBadge({ isActive }: { isActive: boolean }) {
   return (
     <span
       className={cn(
-        'px-2 py-0.5 text-xs font-medium rounded-full',
-        isActive ? 'bg-success/10 text-success' : 'bg-gray-500/10 text-gray-500'
+        "px-2 py-0.5 text-xs font-medium rounded-full",
+        isActive
+          ? "bg-success/10 text-success"
+          : "bg-gray-500/10 text-gray-500",
       )}
     >
-      {isActive ? 'Active' : 'Inactive'}
+      {isActive ? "Active" : "Inactive"}
     </span>
   );
 }
@@ -117,39 +122,47 @@ interface RuleCardProps {
   isToggling: boolean;
 }
 
-function RuleCard({ rule, onEdit, onDelete, onToggle, isToggling }: RuleCardProps) {
+function RuleCard({
+  rule,
+  onEdit,
+  onDelete,
+  onToggle,
+  isToggling,
+}: RuleCardProps) {
   const [showDetails, setShowDetails] = useState(false);
 
   const getConditionSummary = (conditions: EscalationCondition[]): string => {
     return conditions
       .map((c) => {
         switch (c.type) {
-          case 'score_lte':
+          case "score_lte":
             return `Score <= ${c.value}`;
-          case 'score_gte':
+          case "score_gte":
             return `Score >= ${c.value}`;
-          case 'sentiment_eq':
+          case "sentiment_eq":
             return `Sentiment = ${c.value}`;
-          case 'keyword_contains':
+          case "keyword_contains":
             return `Contains "${c.value}"`;
-          case 'survey_type':
+          case "survey_type":
             return `Survey type = ${c.value}`;
           default:
             return String(c.type);
         }
       })
-      .join(' AND ');
+      .join(" AND ");
   };
 
   const getActionSummary = (actions: EscalationRuleAction[]): string => {
-    return actions.map((a) => ACTION_TYPE_CONFIG[a.type]?.label || a.type).join(', ');
+    return actions
+      .map((a) => ACTION_TYPE_CONFIG[a.type]?.label || a.type)
+      .join(", ");
   };
 
   return (
     <div
       className={cn(
-        'bg-bg-card rounded-xl border p-5 transition-all',
-        rule.is_active ? 'border-border' : 'border-border opacity-60'
+        "bg-bg-card rounded-xl border p-5 transition-all",
+        rule.is_active ? "border-border" : "border-border opacity-60",
       )}
     >
       {/* Header */}
@@ -171,25 +184,45 @@ function RuleCard({ rule, onEdit, onDelete, onToggle, isToggling }: RuleCardProp
             onClick={onToggle}
             disabled={isToggling}
             className={cn(
-              'p-1.5 rounded-lg transition-colors',
+              "p-1.5 rounded-lg transition-colors",
               rule.is_active
-                ? 'text-success hover:bg-success/10'
-                : 'text-text-muted hover:bg-bg-hover'
+                ? "text-success hover:bg-success/10"
+                : "text-text-muted hover:bg-bg-hover",
             )}
-            title={rule.is_active ? 'Deactivate' : 'Activate'}
+            title={rule.is_active ? "Deactivate" : "Activate"}
           >
             {isToggling ? (
-              <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+              <svg
+                className="w-4 h-4 animate-spin"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
+                <circle
+                  className="opacity-25"
+                  cx="12"
+                  cy="12"
+                  r="10"
+                  stroke="currentColor"
+                  strokeWidth="4"
+                />
+                <path
+                  className="opacity-75"
+                  fill="currentColor"
+                  d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                />
               </svg>
             ) : (
-              <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <svg
+                className="w-4 h-4"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"
                   strokeWidth={2}
-                  d={rule.is_active ? 'M5 13l4 4L19 7' : 'M12 8v4l3 3'}
+                  d={rule.is_active ? "M5 13l4 4L19 7" : "M12 8v4l3 3"}
                 />
               </svg>
             )}
@@ -199,7 +232,12 @@ function RuleCard({ rule, onEdit, onDelete, onToggle, isToggling }: RuleCardProp
             className="p-1.5 text-text-muted hover:text-primary hover:bg-bg-hover rounded-lg transition-colors"
             title="Edit"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -213,7 +251,12 @@ function RuleCard({ rule, onEdit, onDelete, onToggle, isToggling }: RuleCardProp
             className="p-1.5 text-text-muted hover:text-danger hover:bg-danger/10 rounded-lg transition-colors"
             title="Delete"
           >
-            <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -233,12 +276,20 @@ function RuleCard({ rule, onEdit, onDelete, onToggle, isToggling }: RuleCardProp
       {/* Summary */}
       <div className="space-y-2 mb-3">
         <div className="flex items-start gap-2">
-          <span className="text-xs font-medium text-text-muted w-16">When:</span>
-          <span className="text-sm text-text-secondary">{getConditionSummary(rule.conditions)}</span>
+          <span className="text-xs font-medium text-text-muted w-16">
+            When:
+          </span>
+          <span className="text-sm text-text-secondary">
+            {getConditionSummary(rule.conditions)}
+          </span>
         </div>
         <div className="flex items-start gap-2">
-          <span className="text-xs font-medium text-text-muted w-16">Then:</span>
-          <span className="text-sm text-text-secondary">{getActionSummary(rule.actions)}</span>
+          <span className="text-xs font-medium text-text-muted w-16">
+            Then:
+          </span>
+          <span className="text-sm text-text-secondary">
+            {getActionSummary(rule.actions)}
+          </span>
         </div>
       </div>
 
@@ -248,26 +299,41 @@ function RuleCard({ rule, onEdit, onDelete, onToggle, isToggling }: RuleCardProp
         className="flex items-center gap-1 text-xs text-primary hover:text-primary-dark"
       >
         <svg
-          className={cn('w-4 h-4 transition-transform', showDetails && 'rotate-180')}
+          className={cn(
+            "w-4 h-4 transition-transform",
+            showDetails && "rotate-180",
+          )}
           fill="none"
           stroke="currentColor"
           viewBox="0 0 24 24"
         >
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M19 9l-7 7-7-7"
+          />
         </svg>
-        {showDetails ? 'Hide details' : 'Show details'}
+        {showDetails ? "Hide details" : "Show details"}
       </button>
 
       {/* Details */}
       {showDetails && (
         <div className="mt-3 pt-3 border-t border-border space-y-3">
           <div>
-            <p className="text-xs font-medium text-text-muted mb-1">Conditions:</p>
+            <p className="text-xs font-medium text-text-muted mb-1">
+              Conditions:
+            </p>
             <div className="space-y-1">
               {rule.conditions.map((condition, idx) => (
-                <div key={idx} className="text-sm text-text-secondary bg-bg-hover rounded px-2 py-1">
+                <div
+                  key={idx}
+                  className="text-sm text-text-secondary bg-bg-hover rounded px-2 py-1"
+                >
                   {condition.operator && idx > 0 && (
-                    <span className="text-primary font-medium mr-1">{condition.operator.toUpperCase()}</span>
+                    <span className="text-primary font-medium mr-1">
+                      {condition.operator.toUpperCase()}
+                    </span>
                   )}
                   {condition.type}: {String(condition.value)}
                 </div>
@@ -278,9 +344,14 @@ function RuleCard({ rule, onEdit, onDelete, onToggle, isToggling }: RuleCardProp
             <p className="text-xs font-medium text-text-muted mb-1">Actions:</p>
             <div className="space-y-1">
               {rule.actions.map((action, idx) => (
-                <div key={idx} className="text-sm text-text-secondary bg-bg-hover rounded px-2 py-1 flex items-center gap-1">
+                <div
+                  key={idx}
+                  className="text-sm text-text-secondary bg-bg-hover rounded px-2 py-1 flex items-center gap-1"
+                >
                   <span>{ACTION_TYPE_CONFIG[action.type]?.icon}</span>
-                  <span>{ACTION_TYPE_CONFIG[action.type]?.label || action.type}</span>
+                  <span>
+                    {ACTION_TYPE_CONFIG[action.type]?.label || action.type}
+                  </span>
                 </div>
               ))}
             </div>
@@ -309,37 +380,49 @@ interface RuleFormModalProps {
   isSubmitting: boolean;
 }
 
-function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFormModalProps) {
-  const [name, setName] = useState(rule?.name || '');
-  const [description, setDescription] = useState(rule?.description || '');
-  const [triggerType, setTriggerType] = useState<TriggerType>(rule?.trigger_type || 'nps_score');
+function RuleFormModal({
+  isOpen,
+  onClose,
+  rule,
+  onSubmit,
+  isSubmitting,
+}: RuleFormModalProps) {
+  const [name, setName] = useState(rule?.name || "");
+  const [description, setDescription] = useState(rule?.description || "");
+  const [triggerType, setTriggerType] = useState<TriggerType>(
+    rule?.trigger_type || "nps_score",
+  );
   const [isActive, setIsActive] = useState(rule?.is_active ?? true);
   const [priority, setPriority] = useState(rule?.priority ?? 0);
-  const [cooldownHours, setCooldownHours] = useState(rule?.cooldown_hours ?? 24);
+  const [cooldownHours, setCooldownHours] = useState(
+    rule?.cooldown_hours ?? 24,
+  );
 
   // Condition state
   const [scoreThreshold, setScoreThreshold] = useState(
-    rule?.conditions.find((c) => c.type === 'score_lte')?.value as number || 6
+    (rule?.conditions.find((c) => c.type === "score_lte")?.value as number) ||
+      6,
   );
   const [sentiment, setSentiment] = useState(
-    (rule?.conditions.find((c) => c.type === 'sentiment_eq')?.value as string) || 'negative'
+    (rule?.conditions.find((c) => c.type === "sentiment_eq")
+      ?.value as string) || "negative",
   );
   const [keywords, setKeywords] = useState<string[]>(
     rule?.conditions
-      .filter((c) => c.type === 'keyword_contains')
-      .map((c) => String(c.value)) || []
+      .filter((c) => c.type === "keyword_contains")
+      .map((c) => String(c.value)) || [],
   );
-  const [keywordInput, setKeywordInput] = useState('');
+  const [keywordInput, setKeywordInput] = useState("");
 
   // Action state
   const [selectedActions, setSelectedActions] = useState<string[]>(
-    rule?.actions.map((a) => a.type) || ['create_task']
+    rule?.actions.map((a) => a.type) || ["create_task"],
   );
 
   const handleAddKeyword = () => {
     if (keywordInput && !keywords.includes(keywordInput.toLowerCase())) {
       setKeywords([...keywords, keywordInput.toLowerCase()]);
-      setKeywordInput('');
+      setKeywordInput("");
     }
   };
 
@@ -362,18 +445,22 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
     const actions: EscalationRuleAction[] = [];
 
     // Build conditions based on trigger type
-    if (triggerType === 'nps_score' || triggerType === 'combined') {
-      conditions.push({ type: 'score_lte', value: scoreThreshold });
+    if (triggerType === "nps_score" || triggerType === "combined") {
+      conditions.push({ type: "score_lte", value: scoreThreshold });
     }
-    if (triggerType === 'sentiment' || triggerType === 'combined') {
-      conditions.push({ type: 'sentiment_eq', value: sentiment, operator: conditions.length > 0 ? 'and' : undefined });
+    if (triggerType === "sentiment" || triggerType === "combined") {
+      conditions.push({
+        type: "sentiment_eq",
+        value: sentiment,
+        operator: conditions.length > 0 ? "and" : undefined,
+      });
     }
-    if (triggerType === 'keywords' || triggerType === 'combined') {
+    if (triggerType === "keywords" || triggerType === "combined") {
       keywords.forEach((kw, _idx) => {
         conditions.push({
-          type: 'keyword_contains',
+          type: "keyword_contains",
           value: kw,
-          operator: conditions.length > 0 ? 'or' : undefined,
+          operator: conditions.length > 0 ? "or" : undefined,
         });
       });
     }
@@ -381,7 +468,7 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
     // Build actions
     selectedActions.forEach((actionType) => {
       actions.push({
-        type: actionType as EscalationRuleAction['type'],
+        type: actionType as EscalationRuleAction["type"],
         config: {},
       });
     });
@@ -410,14 +497,24 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
         <div className="sticky top-0 bg-bg-card border-b border-border px-6 py-4 rounded-t-xl">
           <div className="flex items-center justify-between">
             <h2 className="text-xl font-semibold text-text-primary">
-              {rule ? 'Edit Rule' : 'Create Escalation Rule'}
+              {rule ? "Edit Rule" : "Create Escalation Rule"}
             </h2>
             <button
               onClick={onClose}
               className="p-2 text-text-muted hover:text-text-primary rounded-lg hover:bg-bg-hover"
             >
-              <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
               </svg>
             </button>
           </div>
@@ -460,35 +557,43 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
               Trigger Type <span className="text-danger">*</span>
             </label>
             <div className="grid grid-cols-2 gap-3">
-              {(Object.keys(TRIGGER_TYPE_CONFIG) as TriggerType[]).map((type) => {
-                const config = TRIGGER_TYPE_CONFIG[type];
-                return (
-                  <button
-                    key={type}
-                    type="button"
-                    onClick={() => setTriggerType(type)}
-                    className={cn(
-                      'p-3 rounded-lg border-2 text-left transition-all',
-                      triggerType === type
-                        ? 'border-primary bg-primary/5'
-                        : 'border-border hover:border-border-hover'
-                    )}
-                  >
-                    <span className="text-xl">{config.icon}</span>
-                    <p className="text-sm font-medium text-text-primary mt-1">{config.label}</p>
-                    <p className="text-xs text-text-muted">{config.description}</p>
-                  </button>
-                );
-              })}
+              {(Object.keys(TRIGGER_TYPE_CONFIG) as TriggerType[]).map(
+                (type) => {
+                  const config = TRIGGER_TYPE_CONFIG[type];
+                  return (
+                    <button
+                      key={type}
+                      type="button"
+                      onClick={() => setTriggerType(type)}
+                      className={cn(
+                        "p-3 rounded-lg border-2 text-left transition-all",
+                        triggerType === type
+                          ? "border-primary bg-primary/5"
+                          : "border-border hover:border-border-hover",
+                      )}
+                    >
+                      <span className="text-xl">{config.icon}</span>
+                      <p className="text-sm font-medium text-text-primary mt-1">
+                        {config.label}
+                      </p>
+                      <p className="text-xs text-text-muted">
+                        {config.description}
+                      </p>
+                    </button>
+                  );
+                },
+              )}
             </div>
           </div>
 
           {/* Conditions */}
           <div className="space-y-4">
-            <h3 className="text-sm font-medium text-text-secondary">Conditions</h3>
+            <h3 className="text-sm font-medium text-text-secondary">
+              Conditions
+            </h3>
 
             {/* Score Threshold */}
-            {(triggerType === 'nps_score' || triggerType === 'combined') && (
+            {(triggerType === "nps_score" || triggerType === "combined") && (
               <div className="p-4 bg-bg-hover rounded-lg">
                 <label className="block text-sm font-medium text-text-primary mb-2">
                   NPS Score Threshold
@@ -502,7 +607,9 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
                     onChange={(e) => setScoreThreshold(Number(e.target.value))}
                     className="flex-1"
                   />
-                  <span className="text-lg font-bold text-text-primary w-8">{scoreThreshold}</span>
+                  <span className="text-lg font-bold text-text-primary w-8">
+                    {scoreThreshold}
+                  </span>
                 </div>
                 <p className="text-xs text-text-muted mt-2">
                   Trigger when score is {scoreThreshold} or below
@@ -511,7 +618,7 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
             )}
 
             {/* Sentiment */}
-            {(triggerType === 'sentiment' || triggerType === 'combined') && (
+            {(triggerType === "sentiment" || triggerType === "combined") && (
               <div className="p-4 bg-bg-hover rounded-lg">
                 <label className="block text-sm font-medium text-text-primary mb-2">
                   Sentiment Threshold
@@ -529,7 +636,7 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
             )}
 
             {/* Keywords */}
-            {(triggerType === 'keywords' || triggerType === 'combined') && (
+            {(triggerType === "keywords" || triggerType === "combined") && (
               <div className="p-4 bg-bg-hover rounded-lg">
                 <label className="block text-sm font-medium text-text-primary mb-2">
                   Trigger Keywords
@@ -539,7 +646,10 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
                     type="text"
                     value={keywordInput}
                     onChange={(e) => setKeywordInput(e.target.value)}
-                    onKeyPress={(e) => e.key === 'Enter' && (e.preventDefault(), handleAddKeyword())}
+                    onKeyPress={(e) =>
+                      e.key === "Enter" &&
+                      (e.preventDefault(), handleAddKeyword())
+                    }
                     placeholder="Add keyword..."
                     className="flex-1 px-3 py-1.5 text-sm border border-border rounded bg-bg-primary text-text-primary"
                   />
@@ -558,16 +668,29 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
                       className="px-2 py-1 text-xs bg-primary/10 text-primary rounded-full flex items-center gap-1"
                     >
                       {kw}
-                      <button type="button" onClick={() => handleRemoveKeyword(kw)}>
-                        <svg className="w-3 h-3" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                      <button
+                        type="button"
+                        onClick={() => handleRemoveKeyword(kw)}
+                      >
+                        <svg
+                          className="w-3 h-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M6 18L18 6M6 6l12 12"
+                          />
                         </svg>
                       </button>
                     </span>
                   ))}
                 </div>
                 <p className="text-xs text-text-muted">
-                  Suggestions:{' '}
+                  Suggestions:{" "}
                   {SAMPLE_KEYWORDS.filter((k) => !keywords.includes(k))
                     .slice(0, 5)
                     .map((kw, idx) => (
@@ -578,7 +701,7 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
                         className="text-primary hover:underline"
                       >
                         {kw}
-                        {idx < 4 && ', '}
+                        {idx < 4 && ", "}
                       </button>
                     ))}
                 </p>
@@ -598,14 +721,16 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
                   type="button"
                   onClick={() => handleToggleAction(type)}
                   className={cn(
-                    'p-3 rounded-lg border-2 text-left transition-all flex items-center gap-2',
+                    "p-3 rounded-lg border-2 text-left transition-all flex items-center gap-2",
                     selectedActions.includes(type)
-                      ? 'border-primary bg-primary/5'
-                      : 'border-border hover:border-border-hover'
+                      ? "border-primary bg-primary/5"
+                      : "border-border hover:border-border-hover",
                   )}
                 >
                   <span className="text-lg">{config.icon}</span>
-                  <span className="text-sm font-medium text-text-primary">{config.label}</span>
+                  <span className="text-sm font-medium text-text-primary">
+                    {config.label}
+                  </span>
                 </button>
               ))}
             </div>
@@ -614,7 +739,9 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
           {/* Settings Row */}
           <div className="grid grid-cols-3 gap-4">
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Priority</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">
+                Priority
+              </label>
               <input
                 type="number"
                 value={priority}
@@ -625,7 +752,9 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Cooldown (hours)</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">
+                Cooldown (hours)
+              </label>
               <input
                 type="number"
                 value={cooldownHours}
@@ -635,7 +764,9 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-2">Status</label>
+              <label className="block text-sm font-medium text-text-secondary mb-2">
+                Status
+              </label>
               <label className="flex items-center gap-2 cursor-pointer">
                 <input
                   type="checkbox"
@@ -664,14 +795,29 @@ function RuleFormModal({ isOpen, onClose, rule, onSubmit, isSubmitting }: RuleFo
             >
               {isSubmitting ? (
                 <>
-                  <svg className="w-4 h-4 animate-spin" fill="none" viewBox="0 0 24 24">
-                    <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
-                    <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                  <svg
+                    className="w-4 h-4 animate-spin"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                  >
+                    <circle
+                      className="opacity-25"
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                    />
+                    <path
+                      className="opacity-75"
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                    />
                   </svg>
                   Saving...
                 </>
               ) : (
-                <>{rule ? 'Save Changes' : 'Create Rule'}</>
+                <>{rule ? "Save Changes" : "Create Rule"}</>
               )}
             </button>
           </div>
@@ -708,18 +854,21 @@ export function EscalationRules({ className }: EscalationRulesProps) {
   };
 
   const handleDelete = async (id: number) => {
-    if (confirm('Are you sure you want to delete this rule?')) {
+    if (confirm("Are you sure you want to delete this rule?")) {
       await deleteMutation.mutateAsync(id);
     }
   };
 
   const handleToggle = async (rule: EscalationRule) => {
-    await toggleMutation.mutateAsync({ id: rule.id, isActive: !rule.is_active });
+    await toggleMutation.mutateAsync({
+      id: rule.id,
+      isActive: !rule.is_active,
+    });
   };
 
   if (isLoading) {
     return (
-      <div className={cn('space-y-4', className)}>
+      <div className={cn("space-y-4", className)}>
         <div className="animate-pulse">
           <div className="h-8 bg-bg-hover rounded w-48 mb-6" />
           <div className="space-y-4">
@@ -734,8 +883,10 @@ export function EscalationRules({ className }: EscalationRulesProps) {
 
   if (error) {
     return (
-      <div className={cn('p-6 bg-danger/10 rounded-xl text-center', className)}>
-        <p className="text-danger">Failed to load escalation rules. Please try again.</p>
+      <div className={cn("p-6 bg-danger/10 rounded-xl text-center", className)}>
+        <p className="text-danger">
+          Failed to load escalation rules. Please try again.
+        </p>
       </div>
     );
   }
@@ -743,19 +894,29 @@ export function EscalationRules({ className }: EscalationRulesProps) {
   const ruleList = rules || [];
 
   return (
-    <div className={cn('space-y-6', className)}>
+    <div className={cn("space-y-6", className)}>
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
           <h2 className="text-xl font-semibold text-text-primary flex items-center gap-2">
-            <svg className="w-6 h-6 text-warning" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg
+              className="w-6 h-6 text-warning"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
                 strokeWidth={2}
                 d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
               />
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+              />
             </svg>
             Escalation Rules
           </h2>
@@ -767,8 +928,18 @@ export function EscalationRules({ className }: EscalationRulesProps) {
           onClick={() => setShowCreateModal(true)}
           className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-dark flex items-center gap-2"
         >
-          <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+          <svg
+            className="w-4 h-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M12 4v16m8-8H4"
+            />
           </svg>
           New Rule
         </button>
@@ -789,9 +960,16 @@ export function EscalationRules({ className }: EscalationRulesProps) {
               strokeWidth={1.5}
               d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"
             />
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"
+            />
           </svg>
-          <p className="text-lg font-medium text-text-primary mb-1">No Escalation Rules</p>
+          <p className="text-lg font-medium text-text-primary mb-1">
+            No Escalation Rules
+          </p>
           <p className="text-sm text-text-muted mb-4">
             Create rules to automatically escalate based on survey responses
           </p>

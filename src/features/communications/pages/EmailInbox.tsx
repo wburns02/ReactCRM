@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
-import { EmailComposeModal } from '../components/EmailComposeModal';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
+import { EmailComposeModal } from "../components/EmailComposeModal";
 
 interface EmailConversation {
   id: number;
@@ -18,19 +18,19 @@ interface EmailConversation {
  * Email Inbox - List of email conversations
  */
 export function EmailInbox() {
-  const [searchQuery, setSearchQuery] = useState('');
-  const [filter, setFilter] = useState<'all' | 'unread'>('all');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [filter, setFilter] = useState<"all" | "unread">("all");
   const [isComposeOpen, setIsComposeOpen] = useState(false);
 
   const { data: emails, isLoading } = useQuery({
-    queryKey: ['email-conversations', searchQuery, filter],
+    queryKey: ["email-conversations", searchQuery, filter],
     queryFn: async () => {
       try {
-        const response = await apiClient.get('/email/conversations', {
+        const response = await apiClient.get("/email/conversations", {
           params: {
             search: searchQuery || undefined,
-            unread_only: filter === 'unread' || undefined,
-          }
+            unread_only: filter === "unread" || undefined,
+          },
         });
         return response.data.items || response.data || [];
       } catch {
@@ -45,8 +45,12 @@ export function EmailInbox() {
       <div className="p-4 border-b border-border bg-bg-card">
         <div className="flex items-center justify-between mb-4">
           <div>
-            <h1 className="text-xl font-semibold text-text-primary">Email Inbox</h1>
-            <p className="text-sm text-text-muted">Customer email conversations</p>
+            <h1 className="text-xl font-semibold text-text-primary">
+              Email Inbox
+            </h1>
+            <p className="text-sm text-text-muted">
+              Customer email conversations
+            </p>
           </div>
           <button
             onClick={() => setIsComposeOpen(true)}
@@ -67,7 +71,7 @@ export function EmailInbox() {
           />
           <select
             value={filter}
-            onChange={(e) => setFilter(e.target.value as 'all' | 'unread')}
+            onChange={(e) => setFilter(e.target.value as "all" | "unread")}
             className="px-4 py-2 border border-border rounded-lg bg-bg-body text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
           >
             <option value="all">All</option>
@@ -95,23 +99,27 @@ export function EmailInbox() {
                 key={email.id}
                 to={`/communications/email-inbox/${email.id}`}
                 className={`block p-4 hover:bg-bg-hover transition-colors ${
-                  email.unread ? 'bg-primary/5' : ''
+                  email.unread ? "bg-primary/5" : ""
                 }`}
               >
                 <div className="flex items-start gap-3">
                   <div className="w-10 h-10 rounded-full bg-purple-500/20 text-purple-500 flex items-center justify-center font-medium">
-                    {email.customer_name?.charAt(0) || '@'}
+                    {email.customer_name?.charAt(0) || "@"}
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center justify-between">
-                      <h3 className={`truncate ${email.unread ? 'font-semibold text-text-primary' : 'font-medium text-text-primary'}`}>
+                      <h3
+                        className={`truncate ${email.unread ? "font-semibold text-text-primary" : "font-medium text-text-primary"}`}
+                      >
                         {email.customer_name || email.customer_email}
                       </h3>
                       <span className="text-xs text-text-muted ml-2">
                         {email.received_at}
                       </span>
                     </div>
-                    <p className={`text-sm truncate ${email.unread ? 'text-text-primary' : 'text-text-secondary'}`}>
+                    <p
+                      className={`text-sm truncate ${email.unread ? "text-text-primary" : "text-text-secondary"}`}
+                    >
                       {email.subject}
                     </p>
                     <p className="text-sm text-text-muted truncate">

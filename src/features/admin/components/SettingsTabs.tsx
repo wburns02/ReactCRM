@@ -1,5 +1,5 @@
-import { Link, useLocation } from 'react-router-dom';
-import { cn } from '@/lib/utils.ts';
+import { Link, useLocation } from "react-router-dom";
+import { cn } from "@/lib/utils.ts";
 
 interface Tab {
   id: string;
@@ -9,17 +9,32 @@ interface Tab {
 }
 
 const tabs: Tab[] = [
-  { id: 'general', label: 'General', icon: '⚙️', path: '/admin?tab=general' },
-  { id: 'notifications', label: 'Notifications', icon: '📧', path: '/admin?tab=notifications' },
-  { id: 'integrations', label: 'Integrations', icon: '🔌', path: '/admin?tab=integrations' },
-  { id: 'security', label: 'Security', icon: '🔒', path: '/admin?tab=security' },
-  { id: 'api', label: 'API', icon: '🔑', path: '/admin?tab=api' },
+  { id: "general", label: "General", icon: "⚙️", path: "/admin?tab=general" },
+  {
+    id: "notifications",
+    label: "Notifications",
+    icon: "📧",
+    path: "/admin?tab=notifications",
+  },
+  {
+    id: "integrations",
+    label: "Integrations",
+    icon: "🔌",
+    path: "/admin?tab=integrations",
+  },
+  {
+    id: "security",
+    label: "Security",
+    icon: "🔒",
+    path: "/admin?tab=security",
+  },
+  { id: "api", label: "API", icon: "🔑", path: "/admin?tab=api" },
 ];
 
 export function SettingsTabs() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const activeTab = params.get('tab') || 'general';
+  const activeTab = params.get("tab") || "general";
 
   return (
     <div className="border-b border-border">
@@ -31,10 +46,10 @@ export function SettingsTabs() {
               key={tab.id}
               to={tab.path}
               className={cn(
-                'flex items-center gap-2 px-1 py-4 border-b-2 font-medium text-sm transition-colors',
+                "flex items-center gap-2 px-1 py-4 border-b-2 font-medium text-sm transition-colors",
                 isActive
-                  ? 'border-primary text-primary'
-                  : 'border-transparent text-text-secondary hover:text-text-primary hover:border-border'
+                  ? "border-primary text-primary"
+                  : "border-transparent text-text-secondary hover:text-text-primary hover:border-border",
               )}
             >
               <span>{tab.icon}</span>

@@ -1,11 +1,11 @@
-import { useState, type ChangeEvent } from 'react';
-import { OnboardingStep, StepSection } from '../OnboardingStep';
-import { Button } from '@/components/ui/Button';
-import { FormField } from '@/components/ui/FormField';
-import { Card } from '@/components/ui/Card';
-import { cn } from '@/lib/utils';
-import { formatCurrency } from '@/lib/utils';
-import type { ServiceType } from '../useOnboarding';
+import { useState, type ChangeEvent } from "react";
+import { OnboardingStep, StepSection } from "../OnboardingStep";
+import { Button } from "@/components/ui/Button";
+import { FormField } from "@/components/ui/FormField";
+import { Card } from "@/components/ui/Card";
+import { cn } from "@/lib/utils";
+import { formatCurrency } from "@/lib/utils";
+import type { ServiceType } from "../useOnboarding";
 
 export interface ConfigureServicesStepProps {
   services: ServiceType[];
@@ -22,15 +22,15 @@ interface CustomServiceForm {
   price: string;
 }
 
-const PRESET_SERVICES: Omit<ServiceType, 'id'>[] = [
-  { name: 'Septic Tank Pumping', price: 350, isCustom: false },
-  { name: 'Septic Inspection', price: 250, isCustom: false },
-  { name: 'Grease Trap Cleaning', price: 200, isCustom: false },
-  { name: 'Emergency Service', price: 500, isCustom: false },
-  { name: 'Septic Repair', price: 400, isCustom: false },
-  { name: 'System Installation', price: 5000, isCustom: false },
-  { name: 'Drain Cleaning', price: 150, isCustom: false },
-  { name: 'Maintenance Contract', price: 300, isCustom: false },
+const PRESET_SERVICES: Omit<ServiceType, "id">[] = [
+  { name: "Septic Tank Pumping", price: 350, isCustom: false },
+  { name: "Septic Inspection", price: 250, isCustom: false },
+  { name: "Grease Trap Cleaning", price: 200, isCustom: false },
+  { name: "Emergency Service", price: 500, isCustom: false },
+  { name: "Septic Repair", price: 400, isCustom: false },
+  { name: "System Installation", price: 5000, isCustom: false },
+  { name: "Drain Cleaning", price: 150, isCustom: false },
+  { name: "Maintenance Contract", price: 300, isCustom: false },
 ];
 
 /**
@@ -47,7 +47,10 @@ export function ConfigureServicesStep({
   onSkip,
 }: ConfigureServicesStepProps) {
   const [showCustomForm, setShowCustomForm] = useState(false);
-  const [customForm, setCustomForm] = useState<CustomServiceForm>({ name: '', price: '' });
+  const [customForm, setCustomForm] = useState<CustomServiceForm>({
+    name: "",
+    price: "",
+  });
 
   // Counter for generating unique IDs
   const [idCounter, setIdCounter] = useState(0);
@@ -57,7 +60,7 @@ export function ConfigureServicesStep({
     return services.some((s) => s.name === presetName);
   };
 
-  const handlePresetToggle = (preset: Omit<ServiceType, 'id'>) => {
+  const handlePresetToggle = (preset: Omit<ServiceType, "id">) => {
     if (isPresetSelected(preset.name)) {
       // Remove it
       const existing = services.find((s) => s.name === preset.name);
@@ -69,17 +72,16 @@ export function ConfigureServicesStep({
       const newId = idCounter;
       setIdCounter((prev) => prev + 1);
       onAddService({
-        id: `preset-${newId}-${preset.name.replace(/\s+/g, '-')}`,
+        id: `preset-${newId}-${preset.name.replace(/\s+/g, "-")}`,
         ...preset,
       });
     }
   };
 
-  const handleCustomFormChange = (field: keyof CustomServiceForm) => (
-    e: ChangeEvent<HTMLInputElement>
-  ) => {
-    setCustomForm((prev) => ({ ...prev, [field]: e.target.value }));
-  };
+  const handleCustomFormChange =
+    (field: keyof CustomServiceForm) => (e: ChangeEvent<HTMLInputElement>) => {
+      setCustomForm((prev) => ({ ...prev, [field]: e.target.value }));
+    };
 
   const handleAddCustomService = () => {
     const name = customForm.name.trim();
@@ -96,7 +98,7 @@ export function ConfigureServicesStep({
       isCustom: true,
     });
 
-    setCustomForm({ name: '', price: '' });
+    setCustomForm({ name: "", price: "" });
     setShowCustomForm(false);
   };
 
@@ -105,7 +107,7 @@ export function ConfigureServicesStep({
     if (isNaN(price) || price < 0) return;
 
     const updated = services.map((s) =>
-      s.id === serviceId ? { ...s, price } : s
+      s.id === serviceId ? { ...s, price } : s,
     );
     onUpdateServices(updated);
   };
@@ -129,7 +131,8 @@ export function ConfigureServicesStep({
         {/* Preset Services */}
         <StepSection title="Common Services">
           <p className="text-sm text-text-muted mb-4">
-            Click to select the services you offer. You can adjust pricing later.
+            Click to select the services you offer. You can adjust pricing
+            later.
           </p>
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
             {PRESET_SERVICES.map((preset) => {
@@ -140,28 +143,42 @@ export function ConfigureServicesStep({
                   type="button"
                   onClick={() => handlePresetToggle(preset)}
                   className={cn(
-                    'flex items-center justify-between p-4 rounded-lg border text-left transition-all',
+                    "flex items-center justify-between p-4 rounded-lg border text-left transition-all",
                     isSelected
-                      ? 'border-primary bg-primary/5'
-                      : 'border-border hover:border-primary/50'
+                      ? "border-primary bg-primary/5"
+                      : "border-border hover:border-primary/50",
                   )}
                 >
                   <div className="flex items-center gap-3">
                     <div
                       className={cn(
-                        'w-5 h-5 rounded-full border-2 flex items-center justify-center',
-                        isSelected ? 'border-primary bg-primary' : 'border-border'
+                        "w-5 h-5 rounded-full border-2 flex items-center justify-center",
+                        isSelected
+                          ? "border-primary bg-primary"
+                          : "border-border",
                       )}
                     >
                       {isSelected && (
-                        <svg className="w-3 h-3 text-white" fill="currentColor" viewBox="0 0 20 20">
-                          <path fillRule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clipRule="evenodd" />
+                        <svg
+                          className="w-3 h-3 text-white"
+                          fill="currentColor"
+                          viewBox="0 0 20 20"
+                        >
+                          <path
+                            fillRule="evenodd"
+                            d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
+                            clipRule="evenodd"
+                          />
                         </svg>
                       )}
                     </div>
-                    <span className="font-medium text-text-primary">{preset.name}</span>
+                    <span className="font-medium text-text-primary">
+                      {preset.name}
+                    </span>
                   </div>
-                  <span className="text-text-secondary">{formatCurrency(preset.price)}</span>
+                  <span className="text-text-secondary">
+                    {formatCurrency(preset.price)}
+                  </span>
                 </button>
               );
             })}
@@ -194,7 +211,9 @@ export function ConfigureServicesStep({
                       min="0"
                       step="0.01"
                       value={service.price}
-                      onChange={(e) => handlePriceChange(service.id, e.target.value)}
+                      onChange={(e) =>
+                        handlePriceChange(service.id, e.target.value)
+                      }
                       className="w-24 h-8 px-2 text-sm border border-border rounded bg-bg-card focus:outline-none focus:ring-2 focus:ring-primary"
                     />
                     <button
@@ -221,7 +240,7 @@ export function ConfigureServicesStep({
                   label="Service Name"
                   placeholder="e.g., Premium Inspection"
                   value={customForm.name}
-                  onChange={handleCustomFormChange('name')}
+                  onChange={handleCustomFormChange("name")}
                   required
                 />
                 <FormField
@@ -231,7 +250,7 @@ export function ConfigureServicesStep({
                   step="0.01"
                   placeholder="0.00"
                   value={customForm.price}
-                  onChange={handleCustomFormChange('price')}
+                  onChange={handleCustomFormChange("price")}
                   required
                 />
               </div>

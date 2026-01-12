@@ -1,35 +1,40 @@
-import { useState, useCallback, useMemo } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
+import { useState, useCallback, useMemo } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   useTechnician,
   useUpdateTechnician,
   useDeleteTechnician,
-} from '@/api/hooks/useTechnicians.ts';
-import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
-import { TechnicianForm } from './components/TechnicianForm.tsx';
-import { DialButton } from '@/features/phone/components/DialButton.tsx';
-import { formatPhone, formatDate } from '@/lib/utils.ts';
+} from "@/api/hooks/useTechnicians.ts";
+import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
+import { TechnicianForm } from "./components/TechnicianForm.tsx";
+import { DialButton } from "@/features/phone/components/DialButton.tsx";
+import { formatPhone, formatDate } from "@/lib/utils.ts";
 import {
   TECHNICIAN_SKILL_LABELS,
   type TechnicianFormData,
   type TechnicianSkill,
-} from '@/api/types/technician.ts';
+} from "@/api/types/technician.ts";
 import {
   WORK_ORDER_STATUS_LABELS,
   JOB_TYPE_LABELS,
   type WorkOrderStatus,
   type JobType,
-} from '@/api/types/workOrder.ts';
+} from "@/api/types/workOrder.ts";
 
 /**
  * Technician detail page - shows full technician info with edit/delete
@@ -45,7 +50,7 @@ export function TechnicianDetailPage() {
   // Fetch work orders assigned to this technician
   const technicianName = technician
     ? `${technician.first_name} ${technician.last_name}`
-    : '';
+    : "";
   const { data: workOrdersData, isLoading: workOrdersLoading } = useWorkOrders({
     page: 1,
     page_size: 100,
@@ -55,27 +60,27 @@ export function TechnicianDetailPage() {
   const assignedWorkOrders = useMemo(() => {
     if (!workOrdersData?.items || !technicianName) return [];
     return workOrdersData.items.filter(
-      (wo) => wo.assigned_technician === technicianName
+      (wo) => wo.assigned_technician === technicianName,
     );
   }, [workOrdersData, technicianName]);
 
   // Calculate workload stats
   const workloadStats = useMemo(() => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split("T")[0];
     const upcoming = assignedWorkOrders.filter(
       (wo) =>
         wo.scheduled_date &&
         wo.scheduled_date >= today &&
-        !['completed', 'canceled'].includes(wo.status)
+        !["completed", "canceled"].includes(wo.status),
     );
     const todayJobs = assignedWorkOrders.filter(
-      (wo) => wo.scheduled_date === today
+      (wo) => wo.scheduled_date === today,
     );
     const inProgress = assignedWorkOrders.filter((wo) =>
-      ['enroute', 'on_site', 'in_progress'].includes(wo.status)
+      ["enroute", "on_site", "in_progress"].includes(wo.status),
     );
     const completed = assignedWorkOrders.filter(
-      (wo) => wo.status === 'completed'
+      (wo) => wo.status === "completed",
     );
     return { upcoming, todayJobs, inProgress, completed };
   }, [assignedWorkOrders]);
@@ -91,13 +96,13 @@ export function TechnicianDetailPage() {
         setIsEditOpen(false);
       }
     },
-    [id, updateMutation]
+    [id, updateMutation],
   );
 
   const handleDelete = useCallback(async () => {
     if (id) {
       await deleteMutation.mutateAsync(id);
-      navigate('/technicians');
+      navigate("/technicians");
     }
   }, [id, deleteMutation, navigate]);
 
@@ -119,9 +124,12 @@ export function TechnicianDetailPage() {
         <Card>
           <CardContent className="py-12 text-center">
             <div className="text-4xl mb-4">404</div>
-            <h2 className="text-xl font-semibold text-text-primary mb-2">Technician Not Found</h2>
+            <h2 className="text-xl font-semibold text-text-primary mb-2">
+              Technician Not Found
+            </h2>
             <p className="text-text-secondary mb-4">
-              The technician you're looking for doesn't exist or has been removed.
+              The technician you're looking for doesn't exist or has been
+              removed.
             </p>
             <Link to="/technicians">
               <Button variant="secondary">Back to Technicians</Button>
@@ -148,8 +156,8 @@ export function TechnicianDetailPage() {
               <h1 className="text-2xl font-semibold text-text-primary">
                 {technician.first_name} {technician.last_name}
               </h1>
-              <Badge variant={technician.is_active ? 'success' : 'default'}>
-                {technician.is_active ? 'Active' : 'Inactive'}
+              <Badge variant={technician.is_active ? "success" : "default"}>
+                {technician.is_active ? "Active" : "Inactive"}
               </Badge>
             </div>
             {technician.employee_id && (
@@ -184,13 +192,13 @@ export function TechnicianDetailPage() {
                   <dd className="text-text-primary">
                     {technician.email ? (
                       <a
-                        href={'mailto:' + technician.email}
+                        href={"mailto:" + technician.email}
                         className="text-text-link hover:underline"
                       >
                         {technician.email}
                       </a>
                     ) : (
-                      '-'
+                      "-"
                     )}
                   </dd>
                 </div>
@@ -200,7 +208,7 @@ export function TechnicianDetailPage() {
                     {technician.phone ? (
                       <div className="flex items-center gap-2">
                         <a
-                          href={'tel:' + technician.phone}
+                          href={"tel:" + technician.phone}
                           className="text-text-link hover:underline"
                         >
                           {formatPhone(technician.phone)}
@@ -208,7 +216,7 @@ export function TechnicianDetailPage() {
                         <DialButton phoneNumber={technician.phone} />
                       </div>
                     ) : (
-                      '-'
+                      "-"
                     )}
                   </dd>
                 </div>
@@ -226,7 +234,8 @@ export function TechnicianDetailPage() {
                 <div className="flex flex-wrap gap-2">
                   {technician.skills.map((skill) => (
                     <Badge key={skill} variant="default">
-                      {TECHNICIAN_SKILL_LABELS[skill as TechnicianSkill] || skill}
+                      {TECHNICIAN_SKILL_LABELS[skill as TechnicianSkill] ||
+                        skill}
                     </Badge>
                   ))}
                 </div>
@@ -245,7 +254,9 @@ export function TechnicianDetailPage() {
               <dl className="grid grid-cols-2 gap-4">
                 <div>
                   <dt className="text-sm text-text-muted">Region</dt>
-                  <dd className="text-text-primary">{technician.home_region || '-'}</dd>
+                  <dd className="text-text-primary">
+                    {technician.home_region || "-"}
+                  </dd>
                 </div>
                 <div>
                   <dt className="text-sm text-text-muted">Address</dt>
@@ -257,13 +268,15 @@ export function TechnicianDetailPage() {
                           <>
                             <br />
                             {technician.home_city}
-                            {technician.home_state && `, ${technician.home_state}`}
-                            {technician.home_postal_code && ` ${technician.home_postal_code}`}
+                            {technician.home_state &&
+                              `, ${technician.home_state}`}
+                            {technician.home_postal_code &&
+                              ` ${technician.home_postal_code}`}
                           </>
                         )}
                       </>
                     ) : (
-                      '-'
+                      "-"
                     )}
                   </dd>
                 </div>
@@ -286,7 +299,9 @@ export function TechnicianDetailPage() {
                 <CardTitle>Notes</CardTitle>
               </CardHeader>
               <CardContent>
-                <p className="text-text-secondary whitespace-pre-wrap">{technician.notes}</p>
+                <p className="text-text-secondary whitespace-pre-wrap">
+                  {technician.notes}
+                </p>
               </CardContent>
             </Card>
           )}
@@ -308,19 +323,27 @@ export function TechnicianDetailPage() {
               {/* Stats Row */}
               <div className="grid grid-cols-4 gap-4 mb-6">
                 <div className="text-center p-3 bg-bg-muted rounded-lg">
-                  <p className="text-2xl font-bold text-primary">{workloadStats.todayJobs.length}</p>
+                  <p className="text-2xl font-bold text-primary">
+                    {workloadStats.todayJobs.length}
+                  </p>
                   <p className="text-xs text-text-muted">Today</p>
                 </div>
                 <div className="text-center p-3 bg-bg-muted rounded-lg">
-                  <p className="text-2xl font-bold text-warning">{workloadStats.inProgress.length}</p>
+                  <p className="text-2xl font-bold text-warning">
+                    {workloadStats.inProgress.length}
+                  </p>
                   <p className="text-xs text-text-muted">In Progress</p>
                 </div>
                 <div className="text-center p-3 bg-bg-muted rounded-lg">
-                  <p className="text-2xl font-bold text-text-primary">{workloadStats.upcoming.length}</p>
+                  <p className="text-2xl font-bold text-text-primary">
+                    {workloadStats.upcoming.length}
+                  </p>
                   <p className="text-xs text-text-muted">Upcoming</p>
                 </div>
                 <div className="text-center p-3 bg-bg-muted rounded-lg">
-                  <p className="text-2xl font-bold text-success">{workloadStats.completed.length}</p>
+                  <p className="text-2xl font-bold text-success">
+                    {workloadStats.completed.length}
+                  </p>
                   <p className="text-xs text-text-muted">Completed</p>
                 </div>
               </div>
@@ -349,22 +372,32 @@ export function TechnicianDetailPage() {
                             {wo.customer_name || `Customer #${wo.customer_id}`}
                           </p>
                           <p className="text-sm text-text-secondary">
-                            {JOB_TYPE_LABELS[wo.job_type as JobType] || wo.job_type}
-                            {' - '}
+                            {JOB_TYPE_LABELS[wo.job_type as JobType] ||
+                              wo.job_type}
+                            {" - "}
                             {wo.scheduled_date
                               ? formatDate(wo.scheduled_date)
-                              : 'Not scheduled'}
+                              : "Not scheduled"}
                           </p>
                         </div>
                         <Badge
                           variant={
-                            wo.status === 'completed' ? 'success' :
-                            wo.status === 'canceled' ? 'danger' :
-                            ['enroute', 'on_site', 'in_progress'].includes(wo.status) ? 'warning' :
-                            'default'
+                            wo.status === "completed"
+                              ? "success"
+                              : wo.status === "canceled"
+                                ? "danger"
+                                : [
+                                      "enroute",
+                                      "on_site",
+                                      "in_progress",
+                                    ].includes(wo.status)
+                                  ? "warning"
+                                  : "default"
                           }
                         >
-                          {WORK_ORDER_STATUS_LABELS[wo.status as WorkOrderStatus] || wo.status}
+                          {WORK_ORDER_STATUS_LABELS[
+                            wo.status as WorkOrderStatus
+                          ] || wo.status}
                         </Badge>
                       </div>
                     </Link>
@@ -392,7 +425,7 @@ export function TechnicianDetailPage() {
                 <div>
                   <dt className="text-sm text-text-muted">Assigned Vehicle</dt>
                   <dd className="text-text-primary font-medium">
-                    {technician.assigned_vehicle || '-'}
+                    {technician.assigned_vehicle || "-"}
                   </dd>
                 </div>
                 <div>
@@ -400,7 +433,7 @@ export function TechnicianDetailPage() {
                   <dd className="text-text-primary">
                     {technician.vehicle_capacity_gallons
                       ? `${technician.vehicle_capacity_gallons.toLocaleString()} gallons`
-                      : '-'}
+                      : "-"}
                   </dd>
                 </div>
               </dl>
@@ -416,18 +449,24 @@ export function TechnicianDetailPage() {
               <dl className="space-y-3">
                 <div>
                   <dt className="text-sm text-text-muted">License Number</dt>
-                  <dd className="text-text-primary">{technician.license_number || '-'}</dd>
+                  <dd className="text-text-primary">
+                    {technician.license_number || "-"}
+                  </dd>
                 </div>
                 <div>
                   <dt className="text-sm text-text-muted">License Expiry</dt>
                   <dd className="text-text-primary">
-                    {technician.license_expiry ? formatDate(technician.license_expiry) : '-'}
+                    {technician.license_expiry
+                      ? formatDate(technician.license_expiry)
+                      : "-"}
                   </dd>
                 </div>
                 <div>
                   <dt className="text-sm text-text-muted">Hourly Rate</dt>
                   <dd className="text-text-primary font-medium">
-                    {technician.hourly_rate ? `$${technician.hourly_rate.toFixed(2)}/hr` : '-'}
+                    {technician.hourly_rate
+                      ? `$${technician.hourly_rate.toFixed(2)}/hr`
+                      : "-"}
                   </dd>
                 </div>
               </dl>
@@ -443,18 +482,24 @@ export function TechnicianDetailPage() {
               <dl className="space-y-3">
                 <div>
                   <dt className="text-sm text-text-muted">Technician ID</dt>
-                  <dd className="text-text-primary font-mono text-sm">{technician.id}</dd>
+                  <dd className="text-text-primary font-mono text-sm">
+                    {technician.id}
+                  </dd>
                 </div>
                 <div>
                   <dt className="text-sm text-text-muted">Created</dt>
                   <dd className="text-text-primary">
-                    {technician.created_at ? formatDate(technician.created_at) : '-'}
+                    {technician.created_at
+                      ? formatDate(technician.created_at)
+                      : "-"}
                   </dd>
                 </div>
                 <div>
                   <dt className="text-sm text-text-muted">Last Updated</dt>
                   <dd className="text-text-primary">
-                    {technician.updated_at ? formatDate(technician.updated_at) : '-'}
+                    {technician.updated_at
+                      ? formatDate(technician.updated_at)
+                      : "-"}
                   </dd>
                 </div>
               </dl>
@@ -480,7 +525,7 @@ export function TechnicianDetailPage() {
           </DialogHeader>
           <DialogBody>
             <p className="text-text-secondary">
-              Are you sure you want to delete{' '}
+              Are you sure you want to delete{" "}
               <span className="font-medium text-text-primary">
                 {technician.first_name} {technician.last_name}
               </span>
@@ -500,7 +545,7 @@ export function TechnicianDetailPage() {
               onClick={handleDelete}
               disabled={deleteMutation.isPending}
             >
-              {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
+              {deleteMutation.isPending ? "Deleting..." : "Delete"}
             </Button>
           </DialogFooter>
         </DialogContent>

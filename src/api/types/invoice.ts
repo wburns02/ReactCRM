@@ -1,24 +1,24 @@
-import { z } from 'zod';
-import { paginatedResponseSchema } from './common.ts';
+import { z } from "zod";
+import { paginatedResponseSchema } from "./common.ts";
 
 /**
  * Invoice Status enum
  */
 export const invoiceStatusSchema = z.enum([
-  'draft',
-  'sent',
-  'paid',
-  'overdue',
-  'void',
+  "draft",
+  "sent",
+  "paid",
+  "overdue",
+  "void",
 ]);
 export type InvoiceStatus = z.infer<typeof invoiceStatusSchema>;
 
 export const INVOICE_STATUS_LABELS: Record<InvoiceStatus, string> = {
-  draft: 'Draft',
-  sent: 'Sent',
-  paid: 'Paid',
-  overdue: 'Overdue',
-  void: 'Void',
+  draft: "Draft",
+  sent: "Sent",
+  paid: "Paid",
+  overdue: "Overdue",
+  void: "Void",
 };
 
 /**
@@ -43,13 +43,16 @@ export const invoiceSchema = z.object({
   invoice_number: z.string(),
   customer_id: z.union([z.string(), z.number()]).transform(String),
   customer_name: z.string().nullable().optional(),
-  customer: z.object({
-    id: z.union([z.string(), z.number()]).transform(String),
-    first_name: z.string(),
-    last_name: z.string(),
-    email: z.string().nullable().optional(),
-    phone: z.string().nullable().optional(),
-  }).nullable().optional(),
+  customer: z
+    .object({
+      id: z.union([z.string(), z.number()]).transform(String),
+      first_name: z.string(),
+      last_name: z.string(),
+      email: z.string().nullable().optional(),
+      phone: z.string().nullable().optional(),
+    })
+    .nullable()
+    .optional(),
   work_order_id: z.string().nullable().optional(),
   status: invoiceStatusSchema,
   line_items: z.array(lineItemSchema),
@@ -89,10 +92,10 @@ export interface InvoiceFilters {
  * Create/update invoice line item form data
  */
 export const lineItemFormSchema = z.object({
-  service: z.string().min(1, 'Service is required'),
+  service: z.string().min(1, "Service is required"),
   description: z.string().optional(),
-  quantity: z.coerce.number().min(0.01, 'Quantity must be greater than 0'),
-  rate: z.coerce.number().min(0, 'Rate must be greater than or equal to 0'),
+  quantity: z.coerce.number().min(0.01, "Quantity must be greater than 0"),
+  rate: z.coerce.number().min(0, "Rate must be greater than or equal to 0"),
 });
 
 export type LineItemFormData = z.infer<typeof lineItemFormSchema>;
@@ -101,10 +104,12 @@ export type LineItemFormData = z.infer<typeof lineItemFormSchema>;
  * Create/update invoice request
  */
 export const invoiceFormSchema = z.object({
-  customer_id: z.coerce.number().min(1, 'Customer is required'),
+  customer_id: z.coerce.number().min(1, "Customer is required"),
   work_order_id: z.string().optional(),
-  status: invoiceStatusSchema.default('draft'),
-  line_items: z.array(lineItemFormSchema).min(1, 'At least one line item is required'),
+  status: invoiceStatusSchema.default("draft"),
+  line_items: z
+    .array(lineItemFormSchema)
+    .min(1, "At least one line item is required"),
   tax_rate: z.coerce.number().min(0).max(100).default(0),
   due_date: z.string().optional(),
   notes: z.string().optional(),

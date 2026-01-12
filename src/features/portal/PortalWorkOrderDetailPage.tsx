@@ -2,17 +2,17 @@
  * Portal Work Order Detail Page
  * Shows detailed view of a work order with technician tracking
  */
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
-import { usePortalWorkOrder, usePortalCustomer } from '@/api/hooks/usePortal';
-import { TechnicianArrivalTracker } from './components/TechnicianArrivalTracker';
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
+import { usePortalWorkOrder, usePortalCustomer } from "@/api/hooks/usePortal";
+import { TechnicianArrivalTracker } from "./components/TechnicianArrivalTracker";
 
 export function PortalWorkOrderDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
-  const { data: workOrder, isLoading } = usePortalWorkOrder(id || '');
+  const { data: workOrder, isLoading } = usePortalWorkOrder(id || "");
   const { data: customer } = usePortalCustomer();
 
   if (isLoading) {
@@ -28,7 +28,7 @@ export function PortalWorkOrderDetailPage() {
       <div className="text-center py-12">
         <p className="text-4xl mb-4">📋</p>
         <p className="text-text-muted mb-4">Work order not found</p>
-        <Button onClick={() => navigate('/portal/work-orders')}>
+        <Button onClick={() => navigate("/portal/work-orders")}>
           View All Work Orders
         </Button>
       </div>
@@ -37,20 +37,21 @@ export function PortalWorkOrderDetailPage() {
 
   const getStatusBadge = (status: string) => {
     switch (status) {
-      case 'scheduled':
+      case "scheduled":
         return <Badge variant="primary">Scheduled</Badge>;
-      case 'in_progress':
+      case "in_progress":
         return <Badge variant="warning">In Progress</Badge>;
-      case 'completed':
+      case "completed":
         return <Badge variant="success">Completed</Badge>;
-      case 'cancelled':
+      case "cancelled":
         return <Badge variant="danger">Cancelled</Badge>;
       default:
         return <Badge>{status}</Badge>;
     }
   };
 
-  const isActiveOrder = workOrder.status === 'scheduled' || workOrder.status === 'in_progress';
+  const isActiveOrder =
+    workOrder.status === "scheduled" || workOrder.status === "in_progress";
 
   // Parse customer coordinates from address if available (would need geocoding in real app)
   // For now, use default coordinates
@@ -80,7 +81,7 @@ export function PortalWorkOrderDetailPage() {
           </div>
           <p className="text-text-secondary">{workOrder.service_type}</p>
         </div>
-        {workOrder.status === 'scheduled' && (
+        {workOrder.status === "scheduled" && (
           <Button variant="secondary">Reschedule</Button>
         )}
       </div>
@@ -110,13 +111,16 @@ export function PortalWorkOrderDetailPage() {
                 <p className="text-sm text-text-muted">Scheduled Date</p>
                 <p className="font-medium text-text-primary">
                   {workOrder.scheduled_date
-                    ? new Date(workOrder.scheduled_date).toLocaleDateString('en-US', {
-                        weekday: 'long',
-                        month: 'long',
-                        day: 'numeric',
-                        year: 'numeric',
-                      })
-                    : 'To be scheduled'}
+                    ? new Date(workOrder.scheduled_date).toLocaleDateString(
+                        "en-US",
+                        {
+                          weekday: "long",
+                          month: "long",
+                          day: "numeric",
+                          year: "numeric",
+                        },
+                      )
+                    : "To be scheduled"}
                 </p>
               </div>
             </div>
@@ -126,7 +130,9 @@ export function PortalWorkOrderDetailPage() {
                 <span className="text-2xl">🕐</span>
                 <div>
                   <p className="text-sm text-text-muted">Time Window</p>
-                  <p className="font-medium text-text-primary">{workOrder.scheduled_time}</p>
+                  <p className="font-medium text-text-primary">
+                    {workOrder.scheduled_time}
+                  </p>
                 </div>
               </div>
             )}
@@ -136,7 +142,9 @@ export function PortalWorkOrderDetailPage() {
                 <span className="text-2xl">👷</span>
                 <div>
                   <p className="text-sm text-text-muted">Technician</p>
-                  <p className="font-medium text-text-primary">{workOrder.technician_name}</p>
+                  <p className="font-medium text-text-primary">
+                    {workOrder.technician_name}
+                  </p>
                   {workOrder.technician_phone && (
                     <a
                       href={`tel:${workOrder.technician_phone}`}
@@ -155,12 +163,15 @@ export function PortalWorkOrderDetailPage() {
                 <div>
                   <p className="text-sm text-text-muted">Completed</p>
                   <p className="font-medium text-text-primary">
-                    {new Date(workOrder.completed_date).toLocaleDateString('en-US', {
-                      weekday: 'long',
-                      month: 'long',
-                      day: 'numeric',
-                      year: 'numeric',
-                    })}
+                    {new Date(workOrder.completed_date).toLocaleDateString(
+                      "en-US",
+                      {
+                        weekday: "long",
+                        month: "long",
+                        day: "numeric",
+                        year: "numeric",
+                      },
+                    )}
                   </p>
                 </div>
               </div>
@@ -178,15 +189,16 @@ export function PortalWorkOrderDetailPage() {
               <span className="text-2xl">📍</span>
               <div className="flex-1">
                 <p className="font-medium text-text-primary">
-                  {workOrder.service_address || (
-                    customer && `${customer.address}, ${customer.city}, ${customer.state} ${customer.zip}`
-                  )}
+                  {workOrder.service_address ||
+                    (customer &&
+                      `${customer.address}, ${customer.city}, ${customer.state} ${customer.zip}`)}
                 </p>
                 <a
                   href={`https://www.google.com/maps/search/?api=1&query=${encodeURIComponent(
                     workOrder.service_address ||
-                      (customer && `${customer.address}, ${customer.city}, ${customer.state} ${customer.zip}`) ||
-                      ''
+                      (customer &&
+                        `${customer.address}, ${customer.city}, ${customer.state} ${customer.zip}`) ||
+                      "",
                   )}`}
                   target="_blank"
                   rel="noopener noreferrer"
@@ -207,7 +219,9 @@ export function PortalWorkOrderDetailPage() {
             <CardTitle className="text-sm">Notes</CardTitle>
           </CardHeader>
           <CardContent>
-            <p className="text-text-secondary whitespace-pre-wrap">{workOrder.notes}</p>
+            <p className="text-text-secondary whitespace-pre-wrap">
+              {workOrder.notes}
+            </p>
           </CardContent>
         </Card>
       )}
@@ -226,7 +240,9 @@ export function PortalWorkOrderDetailPage() {
                   className="flex items-center justify-between py-2 border-b border-border last:border-0"
                 >
                   <div>
-                    <p className="font-medium text-text-primary">{item.description}</p>
+                    <p className="font-medium text-text-primary">
+                      {item.description}
+                    </p>
                     <p className="text-sm text-text-muted">
                       {item.quantity} x ${item.unit_price.toFixed(2)}
                     </p>
@@ -250,24 +266,25 @@ export function PortalWorkOrderDetailPage() {
       )}
 
       {/* Total Amount (if no line items) */}
-      {workOrder.total_amount && (!workOrder.items || workOrder.items.length === 0) && (
-        <Card>
-          <CardContent className="py-4">
-            <div className="flex items-center justify-between">
-              <span className="text-text-muted">Total Amount</span>
-              <span className="text-2xl font-bold text-text-primary">
-                ${workOrder.total_amount.toFixed(2)}
-              </span>
-            </div>
-          </CardContent>
-        </Card>
-      )}
+      {workOrder.total_amount &&
+        (!workOrder.items || workOrder.items.length === 0) && (
+          <Card>
+            <CardContent className="py-4">
+              <div className="flex items-center justify-between">
+                <span className="text-text-muted">Total Amount</span>
+                <span className="text-2xl font-bold text-text-primary">
+                  ${workOrder.total_amount.toFixed(2)}
+                </span>
+              </div>
+            </CardContent>
+          </Card>
+        )}
 
       {/* Actions */}
       <Card>
         <CardContent className="py-4">
           <div className="flex flex-wrap gap-4">
-            {workOrder.status === 'completed' && (
+            {workOrder.status === "completed" && (
               <Link to="/portal/invoices">
                 <Button variant="primary">View Invoice</Button>
               </Link>
@@ -292,7 +309,7 @@ export function PortalWorkOrderDetailPage() {
             <TimelineItem
               icon="📝"
               title="Work Order Created"
-              date={workOrder.scheduled_date || 'N/A'}
+              date={workOrder.scheduled_date || "N/A"}
               isComplete
             />
             <TimelineItem
@@ -301,7 +318,7 @@ export function PortalWorkOrderDetailPage() {
               date={workOrder.scheduled_date}
               isComplete={!!workOrder.scheduled_date}
             />
-            {workOrder.status === 'in_progress' && (
+            {workOrder.status === "in_progress" && (
               <TimelineItem
                 icon="🚗"
                 title="Technician En Route"
@@ -313,7 +330,7 @@ export function PortalWorkOrderDetailPage() {
               icon="✅"
               title="Completed"
               date={workOrder.completed_date}
-              isComplete={workOrder.status === 'completed'}
+              isComplete={workOrder.status === "completed"}
             />
           </div>
         </CardContent>
@@ -330,16 +347,22 @@ interface TimelineItemProps {
   isActive?: boolean;
 }
 
-function TimelineItem({ icon, title, date, isComplete, isActive }: TimelineItemProps) {
+function TimelineItem({
+  icon,
+  title,
+  date,
+  isComplete,
+  isActive,
+}: TimelineItemProps) {
   return (
     <div className="flex items-center gap-4">
       <div
         className={`w-10 h-10 rounded-full flex items-center justify-center text-lg ${
           isActive
-            ? 'bg-yellow-100 animate-pulse'
+            ? "bg-yellow-100 animate-pulse"
             : isComplete
-            ? 'bg-green-100'
-            : 'bg-gray-100'
+              ? "bg-green-100"
+              : "bg-gray-100"
         }`}
       >
         {icon}
@@ -347,14 +370,14 @@ function TimelineItem({ icon, title, date, isComplete, isActive }: TimelineItemP
       <div className="flex-1">
         <p
           className={`font-medium ${
-            isComplete || isActive ? 'text-text-primary' : 'text-text-muted'
+            isComplete || isActive ? "text-text-primary" : "text-text-muted"
           }`}
         >
           {title}
         </p>
         {date && (
           <p className="text-sm text-text-muted">
-            {typeof date === 'string' && date.includes('-')
+            {typeof date === "string" && date.includes("-")
               ? new Date(date).toLocaleDateString()
               : date}
           </p>

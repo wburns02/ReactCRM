@@ -12,7 +12,7 @@ export type {
   VoiceRecordingSettings,
   SpeechResult,
   VoiceDocEntry,
-} from './types';
+} from "./types";
 
 // Utilities
 export {
@@ -25,15 +25,15 @@ export {
   getSupportedMimeType,
   blobToBase64,
   base64ToBlob,
-} from './types';
+} from "./types";
 
 // Hooks
 export {
   useVoiceRecording,
   type UseVoiceRecordingOptions,
   type UseVoiceRecordingReturn,
-} from './useVoiceRecording';
+} from "./useVoiceRecording";
 
 // Components
-export { VoiceNotesRecorder } from './components/VoiceNotesRecorder';
-export { DictationField } from './components/DictationField';
+export { VoiceNotesRecorder } from "./components/VoiceNotesRecorder";
+export { DictationField } from "./components/DictationField";

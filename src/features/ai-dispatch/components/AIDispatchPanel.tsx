@@ -1,8 +1,8 @@
-import { useState, useCallback, memo, useMemo, useEffect, useRef } from 'react';
-import { Card } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { Skeleton } from '@/components/ui/Skeleton';
-import { Tabs, TabList, TabTrigger, TabContent } from '@/components/ui/Tabs';
+import { useState, useCallback, memo, useMemo, useEffect, useRef } from "react";
+import { Card } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { Skeleton } from "@/components/ui/Skeleton";
+import { Tabs, TabList, TabTrigger, TabContent } from "@/components/ui/Tabs";
 import {
   useAIDispatchSuggestions,
   useAIDispatchPrompt,
@@ -12,18 +12,21 @@ import {
   useAIDispatchStats,
   useExecutiveMode,
   type AIDispatchSuggestion,
-} from '@/api/hooks/useAIDispatch';
-import { useTechnicians } from '@/api/hooks/useTechnicians';
-import { toastSuccess, toastError, toastInfo } from '@/components/ui/Toast';
-import { AICommandInput } from './AICommandInput';
-import { DispatchSuggestionCard, DispatchSuggestionCardSkeletonList } from './DispatchSuggestionCard';
-import { ExecutiveModeToggle } from './ExecutiveModeToggle';
-import { cn } from '@/lib/utils';
+} from "@/api/hooks/useAIDispatch";
+import { useTechnicians } from "@/api/hooks/useTechnicians";
+import { toastSuccess, toastError, toastInfo } from "@/components/ui/Toast";
+import { AICommandInput } from "./AICommandInput";
+import {
+  DispatchSuggestionCard,
+  DispatchSuggestionCardSkeletonList,
+} from "./DispatchSuggestionCard";
+import { ExecutiveModeToggle } from "./ExecutiveModeToggle";
+import { cn } from "@/lib/utils";
 
 /**
  * Filter options for suggestions
  */
-type SuggestionFilter = 'all' | 'high_confidence' | 'scheduling' | 'routing';
+type SuggestionFilter = "all" | "high_confidence" | "scheduling" | "routing";
 
 /**
  * Props for AIDispatchPanel
@@ -31,7 +34,7 @@ type SuggestionFilter = 'all' | 'high_confidence' | 'scheduling' | 'routing';
 interface AIDispatchPanelProps {
   className?: string;
   /** Whether to show as a floating panel or embedded */
-  variant?: 'floating' | 'embedded';
+  variant?: "floating" | "embedded";
   /** Default expanded state for floating variant */
   defaultExpanded?: boolean;
   /** Callback when a suggestion is executed */
@@ -52,19 +55,29 @@ interface AIDispatchPanelProps {
  */
 export const AIDispatchPanel = memo(function AIDispatchPanel({
   className,
-  variant = 'floating',
+  variant = "floating",
   defaultExpanded = false,
   onSuggestionExecuted,
 }: AIDispatchPanelProps) {
   const [isExpanded, setIsExpanded] = useState(defaultExpanded);
-  const [filter, setFilter] = useState<SuggestionFilter>('all');
-  const [activeTab, setActiveTab] = useState<'suggestions' | 'history' | 'stats'>('suggestions');
+  const [filter, setFilter] = useState<SuggestionFilter>("all");
+  const [activeTab, setActiveTab] = useState<
+    "suggestions" | "history" | "stats"
+  >("suggestions");
 
   // Queries and mutations
-  const { data: suggestions = [], isLoading: loadingSuggestions, refetch: refetchSuggestions } = useAIDispatchSuggestions();
-  const { data: history = [], isLoading: loadingHistory } = useAIDispatchHistory(20);
+  const {
+    data: suggestions = [],
+    isLoading: loadingSuggestions,
+    refetch: refetchSuggestions,
+  } = useAIDispatchSuggestions();
+  const { data: history = [], isLoading: loadingHistory } =
+    useAIDispatchHistory(20);
   const { data: stats, isLoading: loadingStats } = useAIDispatchStats();
-  const { data: techniciansData } = useTechnicians({ active_only: true, page_size: 100 });
+  const { data: techniciansData } = useTechnicians({
+    active_only: true,
+    page_size: 100,
+  });
 
   const promptMutation = useAIDispatchPrompt();
   const executeMutation = useExecuteAIAction();
@@ -82,13 +95,15 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
       (s) =>
         executiveMode.canAutoExecute(s) &&
         !autoExecutedRef.current.has(s.id) &&
-        s.actions.length > 0
+        s.actions.length > 0,
     );
 
     // Auto-execute eligible suggestions (one at a time to avoid conflicts)
     if (eligibleSuggestions.length > 0 && !executeMutation.isPending) {
       const suggestion = eligibleSuggestions[0];
-      const primaryAction = suggestion.actions.find((a) => a.type === 'primary') || suggestion.actions[0];
+      const primaryAction =
+        suggestion.actions.find((a) => a.type === "primary") ||
+        suggestion.actions[0];
 
       // Mark as auto-executed to prevent duplicate execution
       autoExecutedRef.current.add(suggestion.id);
@@ -104,8 +119,8 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
             executiveMode.incrementAutoExecutionCount();
             if (executiveMode.settings.showNotifications) {
               toastInfo(
-                'Auto-Executed',
-                `${suggestion.title} - ${result.message}`
+                "Auto-Executed",
+                `${suggestion.title} - ${result.message}`,
               );
             }
             onSuggestionExecuted?.(suggestion);
@@ -130,52 +145,65 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
     let filtered = suggestions.filter((s) => new Date(s.expires_at) > now);
 
     switch (filter) {
-      case 'high_confidence':
+      case "high_confidence":
         filtered = filtered.filter((s) => s.confidence >= 0.8);
         break;
-      case 'scheduling':
-        filtered = filtered.filter((s) => s.type === 'assign' || s.type === 'reschedule');
+      case "scheduling":
+        filtered = filtered.filter(
+          (s) => s.type === "assign" || s.type === "reschedule",
+        );
         break;
-      case 'routing':
-        filtered = filtered.filter((s) => s.type === 'route_optimize');
+      case "routing":
+        filtered = filtered.filter((s) => s.type === "route_optimize");
         break;
     }
 
     // Sort by confidence (highest first), then by creation time
     return filtered.sort((a, b) => {
       if (b.confidence !== a.confidence) return b.confidence - a.confidence;
-      return new Date(b.created_at).getTime() - new Date(a.created_at).getTime();
+      return (
+        new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+      );
     });
   }, [suggestions, filter]);
 
   // Count of high priority suggestions
   const highPriorityCount = useMemo(
     () => filteredSuggestions.filter((s) => s.confidence >= 0.8).length,
-    [filteredSuggestions]
+    [filteredSuggestions],
   );
 
   // Handle prompt submission
   const handlePromptSubmit = useCallback(
     async (prompt: string) => {
       try {
-        const response = await promptMutation.mutateAsync({ prompt, auto_execute: false });
+        const response = await promptMutation.mutateAsync({
+          prompt,
+          auto_execute: false,
+        });
 
         if (response.execution_result?.success) {
-          toastSuccess('Action Executed', response.execution_result.message);
+          toastSuccess("Action Executed", response.execution_result.message);
         } else if (response.suggestions.length > 0) {
-          toastSuccess('Suggestions Ready', `${response.suggestions.length} suggestions generated`);
+          toastSuccess(
+            "Suggestions Ready",
+            `${response.suggestions.length} suggestions generated`,
+          );
         } else if (response.natural_response) {
-          toastSuccess('AI Response', response.natural_response);
+          toastSuccess("AI Response", response.natural_response);
         }
 
         // Refetch suggestions after prompt
         refetchSuggestions();
       } catch (error) {
-        toastError('Error', 'Failed to process your request. Please try again.');
-        console.error('AI Dispatch prompt error:', error);
+        toastError(
+          "Error",
+          "Failed to process your request. Please try again.",
+        );
+        console.error("AI Dispatch prompt error:", error);
       }
     },
-    [promptMutation, refetchSuggestions]
+    [promptMutation, refetchSuggestions],
   );
 
   // Handle suggestion execution
@@ -188,54 +216,62 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
         });
 
         if (result.success) {
-          toastSuccess('Success', result.message);
+          toastSuccess("Success", result.message);
           onSuggestionExecuted?.(suggestion);
         } else {
-          toastError('Failed', result.message);
+          toastError("Failed", result.message);
         }
       } catch (error) {
-        toastError('Error', 'Failed to execute action. Please try again.');
-        console.error('AI Dispatch execute error:', error);
+        toastError("Error", "Failed to execute action. Please try again.");
+        console.error("AI Dispatch execute error:", error);
       }
     },
-    [executeMutation, onSuggestionExecuted]
+    [executeMutation, onSuggestionExecuted],
   );
 
   // Handle suggestion dismissal
   const handleDismiss = useCallback(
     async (suggestionId: string, reason?: string) => {
       try {
-        await dismissMutation.mutateAsync({ suggestion_id: suggestionId, reason });
-        toastSuccess('Dismissed', 'Suggestion has been dismissed');
+        await dismissMutation.mutateAsync({
+          suggestion_id: suggestionId,
+          reason,
+        });
+        toastSuccess("Dismissed", "Suggestion has been dismissed");
       } catch (error) {
-        toastError('Error', 'Failed to dismiss suggestion');
-        console.error('AI Dispatch dismiss error:', error);
+        toastError("Error", "Failed to dismiss suggestion");
+        console.error("AI Dispatch dismiss error:", error);
       }
     },
-    [dismissMutation]
+    [dismissMutation],
   );
 
   // Render floating button for collapsed state
-  if (variant === 'floating' && !isExpanded) {
+  if (variant === "floating" && !isExpanded) {
     return (
       <button
         onClick={() => setIsExpanded(true)}
         className={cn(
-          'fixed bottom-6 right-6 z-50 flex items-center gap-2',
+          "fixed bottom-6 right-6 z-50 flex items-center gap-2",
           executiveMode.settings.enabled
-            ? 'bg-gradient-to-r from-purple-500 to-primary'
-            : 'bg-gradient-to-r from-primary to-purple-600',
-          'text-white px-4 py-3 rounded-full shadow-lg',
-          'hover:shadow-xl transition-all duration-200',
-          'animate-in slide-in-from-bottom-4',
-          className
+            ? "bg-gradient-to-r from-purple-500 to-primary"
+            : "bg-gradient-to-r from-primary to-purple-600",
+          "text-white px-4 py-3 rounded-full shadow-lg",
+          "hover:shadow-xl transition-all duration-200",
+          "animate-in slide-in-from-bottom-4",
+          className,
         )}
       >
-        <span className={cn('text-xl', executiveMode.settings.enabled && 'animate-pulse')}>
+        <span
+          className={cn(
+            "text-xl",
+            executiveMode.settings.enabled && "animate-pulse",
+          )}
+        >
           AI
         </span>
         <span className="font-medium">
-          {executiveMode.settings.enabled ? 'Executive Mode' : 'AI Dispatch'}
+          {executiveMode.settings.enabled ? "Executive Mode" : "AI Dispatch"}
         </span>
         {highPriorityCount > 0 && (
           <span className="bg-white text-primary px-2 py-0.5 rounded-full text-xs font-bold">
@@ -261,19 +297,29 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
               <h3 className="font-semibold">AI Dispatch Assistant</h3>
               <p className="text-xs text-white/80">
                 {loadingSuggestions
-                  ? 'Analyzing...'
-                  : `${filteredSuggestions.length} suggestion${filteredSuggestions.length !== 1 ? 's' : ''} available`}
+                  ? "Analyzing..."
+                  : `${filteredSuggestions.length} suggestion${filteredSuggestions.length !== 1 ? "s" : ""} available`}
               </p>
             </div>
           </div>
-          {variant === 'floating' && (
+          {variant === "floating" && (
             <button
               onClick={() => setIsExpanded(false)}
               className="p-1 hover:bg-white/20 rounded transition-colors"
               aria-label="Minimize"
             >
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 9l-7 7-7-7"
+                />
               </svg>
             </button>
           )}
@@ -295,7 +341,10 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
       </div>
 
       {/* Tabs */}
-      <Tabs value={activeTab} onValueChange={(v) => setActiveTab(v as typeof activeTab)}>
+      <Tabs
+        value={activeTab}
+        onValueChange={(v) => setActiveTab(v as typeof activeTab)}
+      >
         <TabList className="px-4 pt-2">
           <TabTrigger value="suggestions" className="flex items-center gap-1">
             Suggestions
@@ -313,29 +362,33 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
         <TabContent value="suggestions" className="p-4 space-y-4">
           {/* Filters */}
           <div className="flex gap-2 flex-wrap">
-            {(['all', 'high_confidence', 'scheduling', 'routing'] as const).map((f) => (
-              <button
-                key={f}
-                onClick={() => setFilter(f)}
-                className={cn(
-                  'px-3 py-1 text-xs rounded-full transition-colors',
-                  filter === f
-                    ? 'bg-primary text-white'
-                    : 'bg-bg-muted text-text-secondary hover:bg-bg-hover'
-                )}
-              >
-                {f === 'all' && 'All'}
-                {f === 'high_confidence' && 'High Confidence'}
-                {f === 'scheduling' && 'Scheduling'}
-                {f === 'routing' && 'Routing'}
-              </button>
-            ))}
+            {(["all", "high_confidence", "scheduling", "routing"] as const).map(
+              (f) => (
+                <button
+                  key={f}
+                  onClick={() => setFilter(f)}
+                  className={cn(
+                    "px-3 py-1 text-xs rounded-full transition-colors",
+                    filter === f
+                      ? "bg-primary text-white"
+                      : "bg-bg-muted text-text-secondary hover:bg-bg-hover",
+                  )}
+                >
+                  {f === "all" && "All"}
+                  {f === "high_confidence" && "High Confidence"}
+                  {f === "scheduling" && "Scheduling"}
+                  {f === "routing" && "Routing"}
+                </button>
+              ),
+            )}
           </div>
 
           {/* Technician Availability Quick View */}
-          {techniciansData && techniciansData.items && techniciansData.items.length > 0 && (
-            <TechnicianQuickView technicians={techniciansData.items} />
-          )}
+          {techniciansData &&
+            techniciansData.items &&
+            techniciansData.items.length > 0 && (
+              <TechnicianQuickView technicians={techniciansData.items} />
+            )}
 
           {/* Suggestions List */}
           <div className="space-y-3 max-h-[400px] overflow-y-auto">
@@ -367,11 +420,23 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
             </div>
           ) : history.length === 0 ? (
             <div className="text-center py-8 text-text-muted">
-              <svg className="w-12 h-12 mx-auto mb-3 text-text-muted/50" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z" />
+              <svg
+                className="w-12 h-12 mx-auto mb-3 text-text-muted/50"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={1.5}
+                  d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
+                />
               </svg>
               <p className="text-sm">No command history yet</p>
-              <p className="text-xs mt-1">Your AI dispatch commands will appear here</p>
+              <p className="text-xs mt-1">
+                Your AI dispatch commands will appear here
+              </p>
             </div>
           ) : (
             <div className="space-y-2 max-h-[400px] overflow-y-auto">
@@ -384,14 +449,21 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
                   <div className="flex items-center gap-2 mt-1 text-xs text-text-muted">
                     <span>{new Date(entry.created_at).toLocaleString()}</span>
                     {entry.executed && (
-                      <Badge variant="success" className="text-xs">Executed</Badge>
+                      <Badge variant="success" className="text-xs">
+                        Executed
+                      </Badge>
                     )}
                     {entry.suggestions_count > 0 && (
-                      <span>{entry.suggestions_count} suggestion{entry.suggestions_count !== 1 ? 's' : ''}</span>
+                      <span>
+                        {entry.suggestions_count} suggestion
+                        {entry.suggestions_count !== 1 ? "s" : ""}
+                      </span>
                     )}
                   </div>
                   {entry.response && (
-                    <p className="text-xs text-text-secondary mt-2 line-clamp-2">{entry.response}</p>
+                    <p className="text-xs text-text-secondary mt-2 line-clamp-2">
+                      {entry.response}
+                    </p>
                   )}
                 </div>
               ))}
@@ -419,25 +491,35 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
                   {stats.time_saved_minutes}
                   <span className="text-lg text-text-muted ml-1">min</span>
                 </div>
-                <p className="text-sm text-text-secondary mt-1">Time saved today through AI dispatch</p>
+                <p className="text-sm text-text-secondary mt-1">
+                  Time saved today through AI dispatch
+                </p>
               </div>
 
               {/* Stats Grid */}
               <div className="grid grid-cols-2 gap-3">
                 <div className="p-3 bg-bg-muted rounded-lg text-center">
-                  <div className="text-2xl font-semibold text-text-primary">{stats.suggestions_today}</div>
+                  <div className="text-2xl font-semibold text-text-primary">
+                    {stats.suggestions_today}
+                  </div>
                   <div className="text-xs text-text-muted">Suggestions</div>
                 </div>
                 <div className="p-3 bg-bg-muted rounded-lg text-center">
-                  <div className="text-2xl font-semibold text-success">{Math.round(stats.acceptance_rate * 100)}%</div>
+                  <div className="text-2xl font-semibold text-success">
+                    {Math.round(stats.acceptance_rate * 100)}%
+                  </div>
                   <div className="text-xs text-text-muted">Acceptance</div>
                 </div>
                 <div className="p-3 bg-bg-muted rounded-lg text-center">
-                  <div className="text-2xl font-semibold text-text-primary">{stats.suggestions_accepted}</div>
+                  <div className="text-2xl font-semibold text-text-primary">
+                    {stats.suggestions_accepted}
+                  </div>
                   <div className="text-xs text-text-muted">Accepted</div>
                 </div>
                 <div className="p-3 bg-bg-muted rounded-lg text-center">
-                  <div className="text-2xl font-semibold text-primary">{stats.auto_executions}</div>
+                  <div className="text-2xl font-semibold text-primary">
+                    {stats.auto_executions}
+                  </div>
                   <div className="text-xs text-text-muted">Auto-Executed</div>
                 </div>
               </div>
@@ -465,13 +547,15 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
   );
 
   // Floating variant
-  if (variant === 'floating') {
+  if (variant === "floating") {
     return (
-      <div className={cn(
-        'fixed bottom-6 right-6 z-50 w-[480px] max-h-[700px]',
-        'flex flex-col animate-in slide-in-from-bottom-4',
-        className
-      )}>
+      <div
+        className={cn(
+          "fixed bottom-6 right-6 z-50 w-[480px] max-h-[700px]",
+          "flex flex-col animate-in slide-in-from-bottom-4",
+          className,
+        )}
+      >
         <Card className="flex flex-col overflow-hidden shadow-2xl border-2 border-primary/20 p-0">
           {panelContent}
         </Card>
@@ -481,23 +565,33 @@ export const AIDispatchPanel = memo(function AIDispatchPanel({
 
   // Embedded variant
   return (
-    <Card className={cn('overflow-hidden p-0', className)}>
-      {panelContent}
-    </Card>
+    <Card className={cn("overflow-hidden p-0", className)}>{panelContent}</Card>
   );
 });
 
 /**
  * Quick view of technician availability
  */
-function TechnicianQuickView({ technicians }: { technicians: Array<{ id: string; first_name: string; last_name: string; is_active: boolean; skills: string[] | null }> }) {
-  const activeTechs = technicians.filter(t => t.is_active).slice(0, 5);
+function TechnicianQuickView({
+  technicians,
+}: {
+  technicians: Array<{
+    id: string;
+    first_name: string;
+    last_name: string;
+    is_active: boolean;
+    skills: string[] | null;
+  }>;
+}) {
+  const activeTechs = technicians.filter((t) => t.is_active).slice(0, 5);
 
   if (activeTechs.length === 0) return null;
 
   return (
     <div className="p-3 bg-bg-muted/50 rounded-lg">
-      <h4 className="text-xs font-medium text-text-muted mb-2">Available Technicians</h4>
+      <h4 className="text-xs font-medium text-text-muted mb-2">
+        Available Technicians
+      </h4>
       <div className="flex gap-2 flex-wrap">
         {activeTechs.map((tech) => (
           <div
@@ -505,15 +599,19 @@ function TechnicianQuickView({ technicians }: { technicians: Array<{ id: string;
             className="flex items-center gap-2 px-2 py-1 bg-bg-card rounded-full text-sm"
           >
             <div className="w-6 h-6 rounded-full bg-primary/20 flex items-center justify-center text-primary text-xs font-medium">
-              {tech.first_name[0]}{tech.last_name[0]}
+              {tech.first_name[0]}
+              {tech.last_name[0]}
             </div>
             <span className="text-text-primary">{tech.first_name}</span>
-            <span className="w-2 h-2 rounded-full bg-success" title="Available" />
+            <span
+              className="w-2 h-2 rounded-full bg-success"
+              title="Available"
+            />
           </div>
         ))}
-        {technicians.filter(t => t.is_active).length > 5 && (
+        {technicians.filter((t) => t.is_active).length > 5 && (
           <span className="px-2 py-1 text-xs text-text-muted">
-            +{technicians.filter(t => t.is_active).length - 5} more
+            +{technicians.filter((t) => t.is_active).length - 5} more
           </span>
         )}
       </div>
@@ -525,22 +623,29 @@ function TechnicianQuickView({ technicians }: { technicians: Array<{ id: string;
  * Empty state when no suggestions
  */
 function EmptyState({ filter }: { filter: SuggestionFilter }) {
-  const messages: Record<SuggestionFilter, { title: string; description: string }> = {
+  const messages: Record<
+    SuggestionFilter,
+    { title: string; description: string }
+  > = {
     all: {
-      title: 'No pending suggestions',
-      description: 'Ask AI to analyze your schedule or wait for automatic insights',
+      title: "No pending suggestions",
+      description:
+        "Ask AI to analyze your schedule or wait for automatic insights",
     },
     high_confidence: {
-      title: 'No high-confidence suggestions',
-      description: 'Try lowering the filter or ask AI for specific recommendations',
+      title: "No high-confidence suggestions",
+      description:
+        "Try lowering the filter or ask AI for specific recommendations",
     },
     scheduling: {
-      title: 'No scheduling suggestions',
-      description: 'Ask AI about scheduling: "Who should handle the next emergency call?"',
+      title: "No scheduling suggestions",
+      description:
+        'Ask AI about scheduling: "Who should handle the next emergency call?"',
     },
     routing: {
-      title: 'No routing suggestions',
-      description: 'Ask AI to optimize routes: "Optimize tomorrow\'s routes for efficiency"',
+      title: "No routing suggestions",
+      description:
+        'Ask AI to optimize routes: "Optimize tomorrow\'s routes for efficiency"',
     },
   };
 

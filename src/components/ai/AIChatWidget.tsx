@@ -2,16 +2,23 @@
  * AI Chat Widget Component
  * Floating chat interface for AI assistant
  */
-import { useState, useRef, useEffect } from 'react';
-import { MessageCircle, X, Send, Trash2, Minimize2, Maximize2 } from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { useAIChat } from '@/hooks/useAI';
-import type { AIMessage, AIContext } from '@/api/ai';
+import { useState, useRef, useEffect } from "react";
+import {
+  MessageCircle,
+  X,
+  Send,
+  Trash2,
+  Minimize2,
+  Maximize2,
+} from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { useAIChat } from "@/hooks/useAI";
+import type { AIMessage, AIContext } from "@/api/ai";
 
 interface AIChatWidgetProps {
   context?: AIContext;
   defaultOpen?: boolean;
-  position?: 'bottom-right' | 'bottom-left';
+  position?: "bottom-right" | "bottom-left";
 }
 
 /**
@@ -20,19 +27,20 @@ interface AIChatWidgetProps {
 export function AIChatWidget({
   context,
   defaultOpen = false,
-  position = 'bottom-right',
+  position = "bottom-right",
 }: AIChatWidgetProps) {
   const [isOpen, setIsOpen] = useState(defaultOpen);
   const [isMinimized, setIsMinimized] = useState(false);
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { messages, sendMessage, clearChat, isTyping, isLoading } = useAIChat(context);
+  const { messages, sendMessage, clearChat, isTyping, isLoading } =
+    useAIChat(context);
 
   // Scroll to bottom on new messages
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 
   // Focus input when opened
@@ -46,17 +54,17 @@ export function AIChatWidget({
     e.preventDefault();
     if (!input.trim() || isLoading) return;
     sendMessage(input);
-    setInput('');
+    setInput("");
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
     }
   };
 
-  const positionClasses = position === 'bottom-right' ? 'right-4' : 'left-4';
+  const positionClasses = position === "bottom-right" ? "right-4" : "left-4";
 
   if (!isOpen) {
     return (
@@ -73,7 +81,7 @@ export function AIChatWidget({
   return (
     <div
       className={`fixed bottom-4 ${positionClasses} z-50 ${
-        isMinimized ? 'w-72' : 'w-96'
+        isMinimized ? "w-72" : "w-96"
       } bg-bg-card rounded-lg shadow-2xl border border-border overflow-hidden transition-all`}
     >
       {/* Header */}
@@ -82,14 +90,16 @@ export function AIChatWidget({
           <span className="text-lg">🤖</span>
           <span className="font-medium">AI Assistant</span>
           {isTyping && (
-            <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full">Thinking...</span>
+            <span className="text-xs bg-white/20 px-2 py-0.5 rounded-full">
+              Thinking...
+            </span>
           )}
         </div>
         <div className="flex items-center gap-1">
           <button
             onClick={() => setIsMinimized(!isMinimized)}
             className="p-1 hover:bg-white/20 rounded"
-            aria-label={isMinimized ? 'Expand' : 'Minimize'}
+            aria-label={isMinimized ? "Expand" : "Minimize"}
           >
             {isMinimized ? (
               <Maximize2 className="w-4 h-4" />
@@ -127,11 +137,11 @@ export function AIChatWidget({
                   <span className="w-2 h-2 bg-primary rounded-full animate-bounce" />
                   <span
                     className="w-2 h-2 bg-primary rounded-full animate-bounce"
-                    style={{ animationDelay: '0.1s' }}
+                    style={{ animationDelay: "0.1s" }}
                   />
                   <span
                     className="w-2 h-2 bg-primary rounded-full animate-bounce"
-                    style={{ animationDelay: '0.2s' }}
+                    style={{ animationDelay: "0.2s" }}
                   />
                 </div>
               </div>
@@ -140,7 +150,10 @@ export function AIChatWidget({
           </div>
 
           {/* Input */}
-          <form onSubmit={handleSubmit} className="p-3 border-t border-border bg-bg-card">
+          <form
+            onSubmit={handleSubmit}
+            className="p-3 border-t border-border bg-bg-card"
+          >
             <div className="flex gap-2">
               <input
                 ref={inputRef}
@@ -175,24 +188,24 @@ export function AIChatWidget({
  * Individual chat message component
  */
 function ChatMessage({ message }: { message: AIMessage }) {
-  const isUser = message.role === 'user';
+  const isUser = message.role === "user";
 
   return (
-    <div className={`flex ${isUser ? 'justify-end' : 'justify-start'}`}>
+    <div className={`flex ${isUser ? "justify-end" : "justify-start"}`}>
       <div
         className={`max-w-[85%] rounded-lg px-4 py-2 ${
           isUser
-            ? 'bg-primary text-white'
-            : 'bg-bg-card border border-border text-text-primary'
+            ? "bg-primary text-white"
+            : "bg-bg-card border border-border text-text-primary"
         }`}
       >
         <div className="text-sm whitespace-pre-wrap">{message.content}</div>
         <div
-          className={`text-xs mt-1 ${isUser ? 'text-white/70' : 'text-text-muted'}`}
+          className={`text-xs mt-1 ${isUser ? "text-white/70" : "text-text-muted"}`}
         >
           {new Date(message.timestamp).toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
+            hour: "2-digit",
+            minute: "2-digit",
           })}
         </div>
       </div>

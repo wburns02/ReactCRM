@@ -1,10 +1,10 @@
-import { useState, useRef, type ChangeEvent } from 'react';
-import { OnboardingStep, StepSection } from '../OnboardingStep';
-import { FormField } from '@/components/ui/FormField';
-import { Button } from '@/components/ui/Button';
-import { cn } from '@/lib/utils';
-import { toastWarning } from '@/components/ui/Toast';
-import type { CompanyData } from '../useOnboarding';
+import { useState, useRef, type ChangeEvent } from "react";
+import { OnboardingStep, StepSection } from "../OnboardingStep";
+import { FormField } from "@/components/ui/FormField";
+import { Button } from "@/components/ui/Button";
+import { cn } from "@/lib/utils";
+import { toastWarning } from "@/components/ui/Toast";
+import type { CompanyData } from "../useOnboarding";
 
 export interface CompanySetupStepProps {
   data: CompanyData;
@@ -14,11 +14,56 @@ export interface CompanySetupStepProps {
 }
 
 const US_STATES = [
-  'AL', 'AK', 'AZ', 'AR', 'CA', 'CO', 'CT', 'DE', 'FL', 'GA',
-  'HI', 'ID', 'IL', 'IN', 'IA', 'KS', 'KY', 'LA', 'ME', 'MD',
-  'MA', 'MI', 'MN', 'MS', 'MO', 'MT', 'NE', 'NV', 'NH', 'NJ',
-  'NM', 'NY', 'NC', 'ND', 'OH', 'OK', 'OR', 'PA', 'RI', 'SC',
-  'SD', 'TN', 'TX', 'UT', 'VT', 'VA', 'WA', 'WV', 'WI', 'WY',
+  "AL",
+  "AK",
+  "AZ",
+  "AR",
+  "CA",
+  "CO",
+  "CT",
+  "DE",
+  "FL",
+  "GA",
+  "HI",
+  "ID",
+  "IL",
+  "IN",
+  "IA",
+  "KS",
+  "KY",
+  "LA",
+  "ME",
+  "MD",
+  "MA",
+  "MI",
+  "MN",
+  "MS",
+  "MO",
+  "MT",
+  "NE",
+  "NV",
+  "NH",
+  "NJ",
+  "NM",
+  "NY",
+  "NC",
+  "ND",
+  "OH",
+  "OK",
+  "OR",
+  "PA",
+  "RI",
+  "SC",
+  "SD",
+  "TN",
+  "TX",
+  "UT",
+  "VT",
+  "VA",
+  "WA",
+  "WV",
+  "WI",
+  "WY",
 ];
 
 /**
@@ -31,28 +76,30 @@ export function CompanySetupStep({
   onNext,
   isValid,
 }: CompanySetupStepProps) {
-  const [logoPreview, setLogoPreview] = useState<string | null>(data.logo || null);
+  const [logoPreview, setLogoPreview] = useState<string | null>(
+    data.logo || null,
+  );
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  const handleChange = (field: keyof CompanyData) => (
-    e: ChangeEvent<HTMLInputElement | HTMLSelectElement>
-  ) => {
-    onUpdate({ [field]: e.target.value });
-  };
+  const handleChange =
+    (field: keyof CompanyData) =>
+    (e: ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+      onUpdate({ [field]: e.target.value });
+    };
 
   const handleLogoUpload = (e: ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
 
     // Validate file type
-    if (!file.type.startsWith('image/')) {
-      toastWarning('Please select an image file');
+    if (!file.type.startsWith("image/")) {
+      toastWarning("Please select an image file");
       return;
     }
 
     // Validate file size (max 2MB)
     if (file.size > 2 * 1024 * 1024) {
-      toastWarning('Image must be smaller than 2MB');
+      toastWarning("Image must be smaller than 2MB");
       return;
     }
 
@@ -70,7 +117,7 @@ export function CompanySetupStep({
     setLogoPreview(null);
     onUpdate({ logo: undefined });
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
@@ -93,8 +140,8 @@ export function CompanySetupStep({
           <div className="flex items-start gap-6">
             <div
               className={cn(
-                'w-24 h-24 rounded-lg border-2 border-dashed flex items-center justify-center overflow-hidden',
-                logoPreview ? 'border-primary' : 'border-border'
+                "w-24 h-24 rounded-lg border-2 border-dashed flex items-center justify-center overflow-hidden",
+                logoPreview ? "border-primary" : "border-border",
               )}
             >
               {logoPreview ? (
@@ -121,7 +168,7 @@ export function CompanySetupStep({
                 size="sm"
                 onClick={handleClickUpload}
               >
-                {logoPreview ? 'Change Logo' : 'Upload Logo'}
+                {logoPreview ? "Change Logo" : "Upload Logo"}
               </Button>
               {logoPreview && (
                 <Button
@@ -148,9 +195,9 @@ export function CompanySetupStep({
                 label="Company Name"
                 placeholder="Acme Septic Services"
                 value={data.name}
-                onChange={handleChange('name')}
+                onChange={handleChange("name")}
                 required
-                error={!data.name ? '' : undefined}
+                error={!data.name ? "" : undefined}
               />
             </div>
             <div className="md:col-span-2">
@@ -158,7 +205,7 @@ export function CompanySetupStep({
                 label="Street Address"
                 placeholder="123 Main Street"
                 value={data.address}
-                onChange={handleChange('address')}
+                onChange={handleChange("address")}
                 required
               />
             </div>
@@ -166,7 +213,7 @@ export function CompanySetupStep({
               label="City"
               placeholder="Tampa"
               value={data.city}
-              onChange={handleChange('city')}
+              onChange={handleChange("city")}
               required
             />
             <div className="grid grid-cols-2 gap-4">
@@ -176,11 +223,11 @@ export function CompanySetupStep({
                 </label>
                 <select
                   value={data.state}
-                  onChange={handleChange('state')}
+                  onChange={handleChange("state")}
                   className={cn(
-                    'flex h-10 w-full rounded-md border bg-bg-card px-3 py-2 text-sm',
-                    'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
-                    'border-border'
+                    "flex h-10 w-full rounded-md border bg-bg-card px-3 py-2 text-sm",
+                    "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+                    "border-border",
                   )}
                 >
                   <option value="">Select...</option>
@@ -195,7 +242,7 @@ export function CompanySetupStep({
                 label="ZIP Code"
                 placeholder="33601"
                 value={data.zipCode}
-                onChange={handleChange('zipCode')}
+                onChange={handleChange("zipCode")}
                 required
               />
             </div>
@@ -209,7 +256,7 @@ export function CompanySetupStep({
               label="Phone Number"
               placeholder="(555) 123-4567"
               value={data.phone}
-              onChange={handleChange('phone')}
+              onChange={handleChange("phone")}
               type="tel"
               required
             />

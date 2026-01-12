@@ -1,9 +1,9 @@
-import { useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
-import { Card, CardContent } from '@/components/ui/Card.tsx';
-import { cn } from '@/lib/utils.ts';
-import type { WorkOrder } from '@/api/types/workOrder.ts';
+import { useMemo } from "react";
+import { Link } from "react-router-dom";
+import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
+import { Card, CardContent } from "@/components/ui/Card.tsx";
+import { cn } from "@/lib/utils.ts";
+import type { WorkOrder } from "@/api/types/workOrder.ts";
 
 interface FTFRCardProps {
   className?: string;
@@ -23,9 +23,13 @@ interface SparklineData {
 /**
  * Calculate FTFR for a given period
  */
-function calculateFTFR(workOrders: WorkOrder[], startDate: Date, endDate: Date): number {
+function calculateFTFR(
+  workOrders: WorkOrder[],
+  startDate: Date,
+  endDate: Date,
+): number {
   const ordersInRange = workOrders.filter((wo) => {
-    if (!wo.scheduled_date || wo.status !== 'completed') return false;
+    if (!wo.scheduled_date || wo.status !== "completed") return false;
     const woDate = new Date(wo.scheduled_date);
     return woDate >= startDate && woDate <= endDate;
   });
@@ -37,11 +41,14 @@ function calculateFTFR(workOrders: WorkOrder[], startDate: Date, endDate: Date):
   ordersInRange.forEach((wo) => {
     if (!wo.scheduled_date || !wo.customer_id) return;
     const woDate = new Date(wo.scheduled_date);
-    const fourteenDaysLater = new Date(woDate.getTime() + 14 * 24 * 60 * 60 * 1000);
+    const fourteenDaysLater = new Date(
+      woDate.getTime() + 14 * 24 * 60 * 60 * 1000,
+    );
 
     const hasReturnVisit = workOrders.some((other) => {
-      if (other.id === wo.id || other.customer_id !== wo.customer_id) return false;
-      if (!other.scheduled_date || other.status !== 'completed') return false;
+      if (other.id === wo.id || other.customer_id !== wo.customer_id)
+        return false;
+      if (!other.scheduled_date || other.status !== "completed") return false;
       const otherDate = new Date(other.scheduled_date);
       return otherDate > woDate && otherDate <= fourteenDaysLater;
     });
@@ -55,7 +62,10 @@ function calculateFTFR(workOrders: WorkOrder[], startDate: Date, endDate: Date):
 /**
  * Generate sparkline data (weekly FTFR over the period)
  */
-function generateSparklineData(workOrders: WorkOrder[], days: number): SparklineData[] {
+function generateSparklineData(
+  workOrders: WorkOrder[],
+  days: number,
+): SparklineData[] {
   const data: SparklineData[] = [];
   const weeks = Math.ceil(days / 7);
   const now = new Date();
@@ -73,23 +83,33 @@ function generateSparklineData(workOrders: WorkOrder[], days: number): Sparkline
 /**
  * Simple SVG sparkline component
  */
-function Sparkline({ data, width = 80, height = 24 }: { data: SparklineData[]; width?: number; height?: number }) {
+function Sparkline({
+  data,
+  width = 80,
+  height = 24,
+}: {
+  data: SparklineData[];
+  width?: number;
+  height?: number;
+}) {
   if (data.length === 0) return null;
 
-  const maxRate = Math.max(...data.map(d => d.rate), 100);
-  const minRate = Math.min(...data.map(d => d.rate), 0);
+  const maxRate = Math.max(...data.map((d) => d.rate), 100);
+  const minRate = Math.min(...data.map((d) => d.rate), 0);
   const range = maxRate - minRate || 1;
 
-  const points = data.map((d, i) => {
-    const x = (i / (data.length - 1 || 1)) * width;
-    const y = height - ((d.rate - minRate) / range) * height;
-    return `${x},${y}`;
-  }).join(' ');
+  const points = data
+    .map((d, i) => {
+      const x = (i / (data.length - 1 || 1)) * width;
+      const y = height - ((d.rate - minRate) / range) * height;
+      return `${x},${y}`;
+    })
+    .join(" ");
 
   const lastValue = data[data.length - 1];
   const firstValue = data[0];
   const trend = lastValue.rate - firstValue.rate;
-  const color = trend >= 0 ? '#22c55e' : '#ef4444';
+  const color = trend >= 0 ? "#22c55e" : "#ef4444";
 
   return (
     <svg width={width} height={height} className="inline-block">
@@ -103,7 +123,7 @@ function Sparkline({ data, width = 80, height = 24 }: { data: SparklineData[]; w
       />
       {/* Endpoint dot */}
       <circle
-        cx={(data.length - 1) / (data.length - 1 || 1) * width}
+        cx={((data.length - 1) / (data.length - 1 || 1)) * width}
         cy={height - ((lastValue.rate - minRate) / range) * height}
         r="3"
         fill={color}
@@ -140,16 +160,20 @@ export function FTFRCard({
     const currentRate = calculateFTFR(workOrders, startDate, now);
 
     // Calculate previous period for trend
-    const prevStartDate = new Date(startDate.getTime() - days * 24 * 60 * 60 * 1000);
+    const prevStartDate = new Date(
+      startDate.getTime() - days * 24 * 60 * 60 * 1000,
+    );
     const prevRate = calculateFTFR(workOrders, prevStartDate, startDate);
     const trendValue = currentRate - prevRate;
 
     // Generate sparkline data
-    const sparkline = showSparkline ? generateSparklineData(workOrders, days) : [];
+    const sparkline = showSparkline
+      ? generateSparklineData(workOrders, days)
+      : [];
 
     // Count total jobs in period
     const jobsInPeriod = workOrders.filter((wo) => {
-      if (!wo.scheduled_date || wo.status !== 'completed') return false;
+      if (!wo.scheduled_date || wo.status !== "completed") return false;
       const woDate = new Date(wo.scheduled_date);
       return woDate >= startDate && woDate <= now;
     }).length;
@@ -164,16 +188,16 @@ export function FTFRCard({
 
   // Get FTFR color based on rate
   const getFTFRColor = (rate: number) => {
-    if (rate >= 90) return 'text-success';
-    if (rate >= 80) return 'text-warning';
-    return 'text-danger';
+    if (rate >= 90) return "text-success";
+    if (rate >= 80) return "text-warning";
+    return "text-danger";
   };
 
   const getFTFRLabel = (rate: number) => {
-    if (rate >= 90) return 'Excellent';
-    if (rate >= 80) return 'Good';
-    if (rate >= 70) return 'Fair';
-    return 'Needs Improvement';
+    if (rate >= 90) return "Excellent";
+    if (rate >= 80) return "Good";
+    if (rate >= 70) return "Fair";
+    return "Needs Improvement";
   };
 
   if (isLoading) {
@@ -190,24 +214,33 @@ export function FTFRCard({
   }
 
   const content = (
-    <Card className={cn(
-      expandable && 'cursor-pointer hover:border-primary transition-colors',
-      className
-    )}>
+    <Card
+      className={cn(
+        expandable && "cursor-pointer hover:border-primary transition-colors",
+        className,
+      )}
+    >
       <CardContent className="pt-6">
         <div className="flex items-start justify-between">
           <div>
-            <p className="text-sm text-text-secondary mb-1">First-Time Fix Rate</p>
+            <p className="text-sm text-text-secondary mb-1">
+              First-Time Fix Rate
+            </p>
             <div className="flex items-baseline gap-2">
-              <span className={cn('text-3xl font-bold', getFTFRColor(ftfrRate))}>
+              <span
+                className={cn("text-3xl font-bold", getFTFRColor(ftfrRate))}
+              >
                 {ftfrRate.toFixed(1)}%
               </span>
               {trend !== 0 && (
-                <span className={cn(
-                  'text-xs font-medium',
-                  trend > 0 ? 'text-success' : 'text-danger'
-                )}>
-                  {trend > 0 ? '+' : ''}{trend.toFixed(1)}%
+                <span
+                  className={cn(
+                    "text-xs font-medium",
+                    trend > 0 ? "text-success" : "text-danger",
+                  )}
+                >
+                  {trend > 0 ? "+" : ""}
+                  {trend.toFixed(1)}%
                 </span>
               )}
             </div>

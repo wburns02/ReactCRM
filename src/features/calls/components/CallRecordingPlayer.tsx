@@ -1,5 +1,5 @@
-import { useState, useRef } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
+import { useState, useRef } from "react";
+import { Button } from "@/components/ui/Button.tsx";
 
 interface CallRecordingPlayerProps {
   recordingUrl: string;
@@ -10,7 +10,7 @@ interface CallRecordingPlayerProps {
 export function CallRecordingPlayer({
   recordingUrl,
   duration,
-  className = '',
+  className = "",
 }: CallRecordingPlayerProps) {
   const audioRef = useRef<HTMLAudioElement>(null);
   const [isPlaying, setIsPlaying] = useState(false);
@@ -21,7 +21,7 @@ export function CallRecordingPlayer({
   const formatTime = (seconds: number): string => {
     const mins = Math.floor(seconds / 60);
     const secs = Math.floor(seconds % 60);
-    return `${mins}:${secs.toString().padStart(2, '0')}`;
+    return `${mins}:${secs.toString().padStart(2, "0")}`;
   };
 
   const togglePlay = () => {
@@ -69,7 +69,9 @@ export function CallRecordingPlayer({
   const progress = audioDuration > 0 ? (currentTime / audioDuration) * 100 : 0;
 
   return (
-    <div className={`flex items-center gap-3 p-3 bg-bg-muted rounded-lg ${className}`}>
+    <div
+      className={`flex items-center gap-3 p-3 bg-bg-muted rounded-lg ${className}`}
+    >
       <audio
         ref={audioRef}
         src={recordingUrl}
@@ -85,14 +87,16 @@ export function CallRecordingPlayer({
         size="sm"
         onClick={togglePlay}
         className="h-10 w-10 p-0 rounded-full"
-        aria-label={isPlaying ? 'Pause' : 'Play'}
+        aria-label={isPlaying ? "Pause" : "Play"}
       >
-        {isPlaying ? '⏸️' : '▶️'}
+        {isPlaying ? "⏸️" : "▶️"}
       </Button>
 
       {/* Progress bar */}
       <div className="flex-1 flex items-center gap-2">
-        <span className="text-xs text-text-muted w-10">{formatTime(currentTime)}</span>
+        <span className="text-xs text-text-muted w-10">
+          {formatTime(currentTime)}
+        </span>
         <div className="flex-1 relative">
           <input
             type="range"
@@ -107,7 +111,9 @@ export function CallRecordingPlayer({
             aria-label="Seek"
           />
         </div>
-        <span className="text-xs text-text-muted w-10">{formatTime(audioDuration)}</span>
+        <span className="text-xs text-text-muted w-10">
+          {formatTime(audioDuration)}
+        </span>
       </div>
 
       {/* Volume button */}
@@ -116,9 +122,9 @@ export function CallRecordingPlayer({
         size="sm"
         onClick={toggleMute}
         className="h-8 w-8 p-0"
-        aria-label={isMuted ? 'Unmute' : 'Mute'}
+        aria-label={isMuted ? "Unmute" : "Mute"}
       >
-        {isMuted ? '🔇' : '🔊'}
+        {isMuted ? "🔇" : "🔊"}
       </Button>
 
       {/* External link */}

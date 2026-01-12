@@ -1,4 +1,4 @@
 /**
  * IoT feature exports
  */
-export { IoTDashboard } from './IoTDashboard';
+export { IoTDashboard } from "./IoTDashboard";

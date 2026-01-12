@@ -4,13 +4,13 @@
  * Two-way SMS thread display with chat-style message interface.
  */
 
-import { useState, useRef, useEffect } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
-import { Card } from '@/components/ui/Card.tsx';
-import { Skeleton } from '@/components/ui/Skeleton.tsx';
-import { useConversation, useSendSMS } from './hooks/useCommunications.ts';
-import type { SMSDeliveryStatus } from '@/api/types/sms.ts';
+import { useState, useRef, useEffect } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { Card } from "@/components/ui/Card.tsx";
+import { Skeleton } from "@/components/ui/Skeleton.tsx";
+import { useConversation, useSendSMS } from "./hooks/useCommunications.ts";
+import type { SMSDeliveryStatus } from "@/api/types/sms.ts";
 
 interface SMSConversationProps {
   customerId: string;
@@ -21,28 +21,66 @@ interface SMSConversationProps {
 
 const STATUS_ICONS: Record<SMSDeliveryStatus, React.ReactNode> = {
   queued: (
-    <svg className="w-3 h-3 text-gray-400" fill="currentColor" viewBox="0 0 20 20">
+    <svg
+      className="w-3 h-3 text-gray-400"
+      fill="currentColor"
+      viewBox="0 0 20 20"
+    >
       <circle cx="10" cy="10" r="8" />
     </svg>
   ),
   sending: (
-    <svg className="w-3 h-3 text-gray-400 animate-pulse" fill="currentColor" viewBox="0 0 20 20">
+    <svg
+      className="w-3 h-3 text-gray-400 animate-pulse"
+      fill="currentColor"
+      viewBox="0 0 20 20"
+    >
       <circle cx="10" cy="10" r="8" />
     </svg>
   ),
   sent: (
-    <svg className="w-3 h-3 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+    <svg
+      className="w-3 h-3 text-gray-400"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M5 13l4 4L19 7"
+      />
     </svg>
   ),
   delivered: (
-    <svg className="w-3 h-3 text-blue-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 13l4 4L23 7" />
+    <svg
+      className="w-3 h-3 text-blue-500"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M5 13l4 4L19 7"
+      />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 13l4 4L23 7"
+      />
     </svg>
   ),
   undelivered: (
-    <svg className="w-3 h-3 text-yellow-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+    <svg
+      className="w-3 h-3 text-yellow-500"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
       <path
         strokeLinecap="round"
         strokeLinejoin="round"
@@ -52,12 +90,26 @@ const STATUS_ICONS: Record<SMSDeliveryStatus, React.ReactNode> = {
     </svg>
   ),
   failed: (
-    <svg className="w-3 h-3 text-red-500" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+    <svg
+      className="w-3 h-3 text-red-500"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M6 18L18 6M6 6l12 12"
+      />
     </svg>
   ),
   read: (
-    <svg className="w-3 h-3 text-green-500" fill="currentColor" viewBox="0 0 20 20">
+    <svg
+      className="w-3 h-3 text-green-500"
+      fill="currentColor"
+      viewBox="0 0 20 20"
+    >
       <path
         fillRule="evenodd"
         d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -73,7 +125,7 @@ export function SMSConversation({
   customerName,
   customerPhone,
 }: SMSConversationProps) {
-  const [newMessage, setNewMessage] = useState('');
+  const [newMessage, setNewMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
 
@@ -82,7 +134,7 @@ export function SMSConversation({
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [conversation?.messages]);
 
   // Character count
@@ -100,15 +152,15 @@ export function SMSConversation({
         customerId,
         workOrderId,
       });
-      setNewMessage('');
+      setNewMessage("");
       textareaRef.current?.focus();
     } catch (err) {
-      console.error('Failed to send SMS:', err);
+      console.error("Failed to send SMS:", err);
     }
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSend();
     }
@@ -116,9 +168,9 @@ export function SMSConversation({
 
   const formatTime = (timestamp: string) => {
     const date = new Date(timestamp);
-    return date.toLocaleTimeString('en-US', {
-      hour: 'numeric',
-      minute: '2-digit',
+    return date.toLocaleTimeString("en-US", {
+      hour: "numeric",
+      minute: "2-digit",
       hour12: true,
     });
   };
@@ -130,14 +182,15 @@ export function SMSConversation({
     yesterday.setDate(yesterday.getDate() - 1);
 
     if (date.toDateString() === today.toDateString()) {
-      return 'Today';
+      return "Today";
     } else if (date.toDateString() === yesterday.toDateString()) {
-      return 'Yesterday';
+      return "Yesterday";
     } else {
-      return date.toLocaleDateString('en-US', {
-        month: 'short',
-        day: 'numeric',
-        year: date.getFullYear() !== today.getFullYear() ? 'numeric' : undefined,
+      return date.toLocaleDateString("en-US", {
+        month: "short",
+        day: "numeric",
+        year:
+          date.getFullYear() !== today.getFullYear() ? "numeric" : undefined,
       });
     }
   };
@@ -152,7 +205,7 @@ export function SMSConversation({
       groups[date].push(message);
       return groups;
     },
-    {} as Record<string, typeof conversation.messages>
+    {} as Record<string, typeof conversation.messages>,
   );
 
   if (error) {
@@ -171,7 +224,12 @@ export function SMSConversation({
       {/* Header */}
       <div className="flex items-center gap-3 px-4 py-3 border-b border-border">
         <div className="w-10 h-10 rounded-full bg-primary/10 flex items-center justify-center">
-          <svg className="w-5 h-5 text-primary" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg
+            className="w-5 h-5 text-primary"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
             <path
               strokeLinecap="round"
               strokeLinejoin="round"
@@ -181,8 +239,10 @@ export function SMSConversation({
           </svg>
         </div>
         <div className="flex-1">
-          <p className="font-medium">{customerName || 'Customer'}</p>
-          <p className="text-sm text-text-secondary">{customerPhone || 'No phone number'}</p>
+          <p className="font-medium">{customerName || "Customer"}</p>
+          <p className="text-sm text-text-secondary">
+            {customerPhone || "No phone number"}
+          </p>
         </div>
         {conversation?.unread_count ? (
           <span className="px-2 py-0.5 text-xs font-medium bg-primary text-white rounded-full">
@@ -197,8 +257,13 @@ export function SMSConversation({
           // Loading state
           <div className="space-y-4">
             {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className={`flex ${i % 2 === 0 ? 'justify-start' : 'justify-end'}`}>
-                <Skeleton className={`h-16 ${i % 2 === 0 ? 'w-2/3' : 'w-1/2'} rounded-lg`} />
+              <div
+                key={i}
+                className={`flex ${i % 2 === 0 ? "justify-start" : "justify-end"}`}
+              >
+                <Skeleton
+                  className={`h-16 ${i % 2 === 0 ? "w-2/3" : "w-1/2"} rounded-lg`}
+                />
               </div>
             ))}
           </div>
@@ -220,7 +285,9 @@ export function SMSConversation({
                 />
               </svg>
               <p className="font-medium">No messages yet</p>
-              <p className="text-sm mt-1">Send a message to start the conversation</p>
+              <p className="text-sm mt-1">
+                Send a message to start the conversation
+              </p>
             </div>
           </div>
         ) : (
@@ -230,38 +297,42 @@ export function SMSConversation({
               {/* Date separator */}
               <div className="flex items-center gap-4 my-4">
                 <div className="flex-1 h-px bg-border" />
-                <span className="text-xs text-text-secondary font-medium">{date}</span>
+                <span className="text-xs text-text-secondary font-medium">
+                  {date}
+                </span>
                 <div className="flex-1 h-px bg-border" />
               </div>
 
               {/* Messages for this date */}
               <div className="space-y-2">
                 {messages.map((message) => {
-                  const isOutbound = message.direction === 'outbound';
+                  const isOutbound = message.direction === "outbound";
                   return (
                     <div
                       key={message.id}
-                      className={`flex ${isOutbound ? 'justify-end' : 'justify-start'}`}
+                      className={`flex ${isOutbound ? "justify-end" : "justify-start"}`}
                     >
                       <div
                         className={`
                           max-w-[75%] px-4 py-2 rounded-2xl
                           ${
                             isOutbound
-                              ? 'bg-primary text-white rounded-br-md'
-                              : 'bg-surface-secondary text-text-primary rounded-bl-md'
+                              ? "bg-primary text-white rounded-br-md"
+                              : "bg-surface-secondary text-text-primary rounded-bl-md"
                           }
                         `}
                       >
-                        <p className="text-sm whitespace-pre-wrap break-words">{message.content}</p>
+                        <p className="text-sm whitespace-pre-wrap break-words">
+                          {message.content}
+                        </p>
                         <div
                           className={`
                             flex items-center gap-1.5 mt-1
-                            ${isOutbound ? 'justify-end' : 'justify-start'}
+                            ${isOutbound ? "justify-end" : "justify-start"}
                           `}
                         >
                           <span
-                            className={`text-xs ${isOutbound ? 'text-white/70' : 'text-text-secondary'}`}
+                            className={`text-xs ${isOutbound ? "text-white/70" : "text-text-secondary"}`}
                           >
                             {formatTime(message.queued_at)}
                           </span>
@@ -295,7 +366,7 @@ export function SMSConversation({
             <div
               className={`
                 absolute bottom-2 right-2 text-xs
-                ${isOverLimit ? 'text-danger' : charCount > 140 ? 'text-warning' : 'text-text-secondary'}
+                ${isOverLimit ? "text-danger" : charCount > 140 ? "text-warning" : "text-text-secondary"}
               `}
             >
               {charCount}/160
@@ -304,11 +375,20 @@ export function SMSConversation({
           </div>
           <Button
             onClick={handleSend}
-            disabled={!newMessage.trim() || isOverLimit || !customerPhone || sendSMS.isPending}
+            disabled={
+              !newMessage.trim() ||
+              isOverLimit ||
+              !customerPhone ||
+              sendSMS.isPending
+            }
             className="self-end"
           >
             {sendSMS.isPending ? (
-              <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+              <svg
+                className="w-5 h-5 animate-spin"
+                fill="none"
+                viewBox="0 0 24 24"
+              >
                 <circle
                   className="opacity-25"
                   cx="12"
@@ -324,7 +404,12 @@ export function SMSConversation({
                 />
               </svg>
             ) : (
-              <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <svg
+                className="w-5 h-5"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
                 <path
                   strokeLinecap="round"
                   strokeLinejoin="round"

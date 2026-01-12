@@ -2,34 +2,52 @@
  * Multi-Region Dashboard
  * Cross-region performance comparison and management
  */
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
+import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import {
   useRegions,
   useRegionPerformance,
   useRegionComparison,
-} from '@/api/hooks/useEnterprise';
-import type { Region, MultiRegionFilters } from '@/api/types/enterprise';
-import { formatCurrency, cn } from '@/lib/utils';
+} from "@/api/hooks/useEnterprise";
+import type { Region, MultiRegionFilters } from "@/api/types/enterprise";
+import { formatCurrency, cn } from "@/lib/utils";
 
 export function MultiRegionDashboard() {
-  const [selectedMetric, setSelectedMetric] = useState<string>('total_revenue');
+  const [selectedMetric, setSelectedMetric] = useState<string>("total_revenue");
   const [dateRange] = useState<MultiRegionFilters>({
     include_all_regions: true,
   });
 
   const { data: regions, isLoading: regionsLoading } = useRegions();
-  const { data: performance, isLoading: perfLoading } = useRegionPerformance(dateRange);
-  const { data: comparison, isLoading: compLoading } = useRegionComparison(selectedMetric);
+  const { data: performance, isLoading: perfLoading } =
+    useRegionPerformance(dateRange);
+  const { data: comparison, isLoading: compLoading } =
+    useRegionComparison(selectedMetric);
 
   const metrics = [
-    { id: 'total_revenue', label: 'Revenue', format: formatCurrency },
-    { id: 'completion_rate', label: 'Completion Rate', format: (v: number) => `${(v * 100).toFixed(1)}%` },
-    { id: 'first_time_fix_rate', label: 'First Time Fix', format: (v: number) => `${(v * 100).toFixed(1)}%` },
-    { id: 'customer_satisfaction', label: 'CSAT', format: (v: number) => `${v.toFixed(1)}/5` },
-    { id: 'technician_utilization', label: 'Tech Utilization', format: (v: number) => `${(v * 100).toFixed(0)}%` },
+    { id: "total_revenue", label: "Revenue", format: formatCurrency },
+    {
+      id: "completion_rate",
+      label: "Completion Rate",
+      format: (v: number) => `${(v * 100).toFixed(1)}%`,
+    },
+    {
+      id: "first_time_fix_rate",
+      label: "First Time Fix",
+      format: (v: number) => `${(v * 100).toFixed(1)}%`,
+    },
+    {
+      id: "customer_satisfaction",
+      label: "CSAT",
+      format: (v: number) => `${v.toFixed(1)}/5`,
+    },
+    {
+      id: "technician_utilization",
+      label: "Tech Utilization",
+      format: (v: number) => `${(v * 100).toFixed(0)}%`,
+    },
   ];
 
   // Calculate totals
@@ -40,7 +58,7 @@ export function MultiRegionDashboard() {
       customers: acc.customers + p.total_customers,
       technicians: acc.technicians + p.technician_count,
     }),
-    { revenue: 0, workOrders: 0, customers: 0, technicians: 0 }
+    { revenue: 0, workOrders: 0, customers: 0, technicians: 0 },
   ) || { revenue: 0, workOrders: 0, customers: 0, technicians: 0 };
 
   return (
@@ -48,7 +66,9 @@ export function MultiRegionDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">Multi-Region Dashboard</h1>
+          <h1 className="text-2xl font-bold text-text-primary">
+            Multi-Region Dashboard
+          </h1>
           <p className="text-text-secondary">
             Compare performance across {regions?.length || 0} regions
           </p>
@@ -92,7 +112,7 @@ export function MultiRegionDashboard() {
               {metrics.map((m) => (
                 <Button
                   key={m.id}
-                  variant={selectedMetric === m.id ? 'primary' : 'ghost'}
+                  variant={selectedMetric === m.id ? "primary" : "ghost"}
                   size="sm"
                   onClick={() => setSelectedMetric(m.id)}
                 >
@@ -111,12 +131,16 @@ export function MultiRegionDashboard() {
               <div className="flex gap-4 text-sm">
                 <div className="flex items-center gap-2">
                   <span className="text-success">🏆 Best:</span>
-                  <span className="font-medium">{comparison.best_performer}</span>
+                  <span className="font-medium">
+                    {comparison.best_performer}
+                  </span>
                 </div>
                 <div className="flex items-center gap-2">
                   <span className="text-text-muted">Average:</span>
                   <span className="font-medium">
-                    {metrics.find((m) => m.id === selectedMetric)?.format(comparison.average)}
+                    {metrics
+                      .find((m) => m.id === selectedMetric)
+                      ?.format(comparison.average)}
                   </span>
                 </div>
               </div>
@@ -126,7 +150,9 @@ export function MultiRegionDashboard() {
                 {comparison.regions
                   .sort((a, b) => b.value - a.value)
                   .map((region) => {
-                    const maxValue = Math.max(...comparison.regions.map((r) => r.value));
+                    const maxValue = Math.max(
+                      ...comparison.regions.map((r) => r.value),
+                    );
                     const percentage = (region.value / maxValue) * 100;
                     const metric = metrics.find((m) => m.id === selectedMetric);
 
@@ -134,29 +160,37 @@ export function MultiRegionDashboard() {
                       <div key={region.region_id} className="space-y-1">
                         <div className="flex items-center justify-between text-sm">
                           <div className="flex items-center gap-2">
-                            <span className="font-medium">{region.region_name}</span>
+                            <span className="font-medium">
+                              {region.region_name}
+                            </span>
                             <Badge
                               className={cn(
-                                'text-xs',
-                                region.rank === 1 && 'bg-success text-white',
-                                region.rank === 2 && 'bg-info text-white',
-                                region.rank === 3 && 'bg-warning text-white'
+                                "text-xs",
+                                region.rank === 1 && "bg-success text-white",
+                                region.rank === 2 && "bg-info text-white",
+                                region.rank === 3 && "bg-warning text-white",
                               )}
                             >
                               #{region.rank}
                             </Badge>
-                            {region.trend === 'up' && <span className="text-success">↑</span>}
-                            {region.trend === 'down' && <span className="text-error">↓</span>}
+                            {region.trend === "up" && (
+                              <span className="text-success">↑</span>
+                            )}
+                            {region.trend === "down" && (
+                              <span className="text-error">↓</span>
+                            )}
                           </div>
                           <div className="flex items-center gap-2">
                             <span>{metric?.format(region.value)}</span>
                             <span
                               className={cn(
-                                'text-xs',
-                                region.vs_average > 0 ? 'text-success' : 'text-error'
+                                "text-xs",
+                                region.vs_average > 0
+                                  ? "text-success"
+                                  : "text-error",
                               )}
                             >
-                              {region.vs_average > 0 ? '+' : ''}
+                              {region.vs_average > 0 ? "+" : ""}
                               {region.vs_average.toFixed(1)}%
                             </span>
                           </div>
@@ -164,12 +198,12 @@ export function MultiRegionDashboard() {
                         <div className="h-2 bg-background-secondary rounded-full overflow-hidden">
                           <div
                             className={cn(
-                              'h-full rounded-full transition-all',
+                              "h-full rounded-full transition-all",
                               region.rank === 1
-                                ? 'bg-success'
+                                ? "bg-success"
                                 : region.vs_average >= 0
-                                ? 'bg-primary'
-                                : 'bg-warning'
+                                  ? "bg-primary"
+                                  : "bg-warning",
                             )}
                             style={{ width: `${percentage}%` }}
                           />
@@ -201,10 +235,16 @@ export function MultiRegionDashboard() {
                 <thead>
                   <tr className="border-b border-border">
                     <th className="text-left py-3 px-2 font-medium">Region</th>
-                    <th className="text-right py-3 px-2 font-medium">Revenue</th>
+                    <th className="text-right py-3 px-2 font-medium">
+                      Revenue
+                    </th>
                     <th className="text-right py-3 px-2 font-medium">Change</th>
-                    <th className="text-right py-3 px-2 font-medium">Work Orders</th>
-                    <th className="text-right py-3 px-2 font-medium">Completion</th>
+                    <th className="text-right py-3 px-2 font-medium">
+                      Work Orders
+                    </th>
+                    <th className="text-right py-3 px-2 font-medium">
+                      Completion
+                    </th>
                     <th className="text-right py-3 px-2 font-medium">FTFR</th>
                     <th className="text-right py-3 px-2 font-medium">CSAT</th>
                     <th className="text-right py-3 px-2 font-medium">Techs</th>
@@ -220,7 +260,9 @@ export function MultiRegionDashboard() {
                         <div className="flex items-center gap-2">
                           <span className="font-medium">{p.region_name}</span>
                           {p.revenue_rank === 1 && (
-                            <Badge className="bg-success text-white text-xs">Top</Badge>
+                            <Badge className="bg-success text-white text-xs">
+                              Top
+                            </Badge>
                           )}
                         </div>
                       </td>
@@ -229,11 +271,13 @@ export function MultiRegionDashboard() {
                       </td>
                       <td
                         className={cn(
-                          'text-right py-3 px-2',
-                          p.revenue_change_pct >= 0 ? 'text-success' : 'text-error'
+                          "text-right py-3 px-2",
+                          p.revenue_change_pct >= 0
+                            ? "text-success"
+                            : "text-error",
                         )}
                       >
-                        {p.revenue_change_pct >= 0 ? '+' : ''}
+                        {p.revenue_change_pct >= 0 ? "+" : ""}
                         {p.revenue_change_pct.toFixed(1)}%
                       </td>
                       <td className="text-right py-3 px-2">
@@ -248,7 +292,9 @@ export function MultiRegionDashboard() {
                       <td className="text-right py-3 px-2">
                         {p.customer_satisfaction.toFixed(1)}/5
                       </td>
-                      <td className="text-right py-3 px-2">{p.technician_count}</td>
+                      <td className="text-right py-3 px-2">
+                        {p.technician_count}
+                      </td>
                     </tr>
                   ))}
                 </tbody>
@@ -260,15 +306,16 @@ export function MultiRegionDashboard() {
 
       {/* Region Cards */}
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-        {regionsLoading ? (
-          Array.from({ length: 3 }).map((_, i) => (
-            <div key={i} className="h-40 bg-background-secondary animate-pulse rounded-lg" />
-          ))
-        ) : (
-          regions?.map((region) => (
-            <RegionCard key={region.id} region={region} />
-          ))
-        )}
+        {regionsLoading
+          ? Array.from({ length: 3 }).map((_, i) => (
+              <div
+                key={i}
+                className="h-40 bg-background-secondary animate-pulse rounded-lg"
+              />
+            ))
+          : regions?.map((region) => (
+              <RegionCard key={region.id} region={region} />
+            ))}
       </div>
     </div>
   );
@@ -289,7 +336,9 @@ function SummaryCard({
         <div className="flex items-center gap-3">
           <span className="text-2xl">{icon}</span>
           <div>
-            <p className="text-xs text-text-muted uppercase tracking-wide">{label}</p>
+            <p className="text-xs text-text-muted uppercase tracking-wide">
+              {label}
+            </p>
             <p className="text-xl font-bold text-text-primary">{value}</p>
           </div>
         </div>
@@ -316,10 +365,12 @@ function RegionCard({ region }: { region: Region }) {
           </div>
           <Badge
             className={cn(
-              region.is_active ? 'bg-success text-white' : 'bg-text-muted text-white'
+              region.is_active
+                ? "bg-success text-white"
+                : "bg-text-muted text-white",
             )}
           >
-            {region.is_active ? 'Active' : 'Inactive'}
+            {region.is_active ? "Active" : "Inactive"}
           </Badge>
         </div>
 
@@ -331,7 +382,9 @@ function RegionCard({ region }: { region: Region }) {
           {region.is_franchise && (
             <div>
               <span className="text-text-muted">Franchise Owner</span>
-              <p className="font-medium">{region.franchise_owner_name || 'N/A'}</p>
+              <p className="font-medium">
+                {region.franchise_owner_name || "N/A"}
+              </p>
             </div>
           )}
         </div>

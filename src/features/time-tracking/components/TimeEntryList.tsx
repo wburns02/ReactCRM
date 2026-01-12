@@ -1,21 +1,28 @@
-import { useState } from 'react';
-import { useTimeEntries, useApproveTimeEntry, type TimeEntryFilters } from '../api/timeTracking.ts';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { formatDate } from '@/lib/utils.ts';
+import { useState } from "react";
+import {
+  useTimeEntries,
+  useApproveTimeEntry,
+  type TimeEntryFilters,
+} from "../api/timeTracking.ts";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { formatDate } from "@/lib/utils.ts";
 
 interface TimeEntryListProps {
   technicianId?: string;
   showApprove?: boolean;
 }
 
-export function TimeEntryList({ technicianId, showApprove = false }: TimeEntryListProps) {
+export function TimeEntryList({
+  technicianId,
+  showApprove = false,
+}: TimeEntryListProps) {
   const [filters, setFilters] = useState<TimeEntryFilters>({
     page: 1,
     page_size: 20,
     technician_id: technicianId,
   });
-  const [statusFilter, setStatusFilter] = useState<string>('');
+  const [statusFilter, setStatusFilter] = useState<string>("");
 
   const { data, isLoading, error } = useTimeEntries({
     ...filters,
@@ -28,10 +35,10 @@ export function TimeEntryList({ technicianId, showApprove = false }: TimeEntryLi
   const totalPages = Math.ceil(total / (filters.page_size || 20));
 
   const formatTime = (isoString: string | null): string => {
-    if (!isoString) return '-';
-    return new Date(isoString).toLocaleTimeString('en-US', {
-      hour: '2-digit',
-      minute: '2-digit',
+    if (!isoString) return "-";
+    return new Date(isoString).toLocaleTimeString("en-US", {
+      hour: "2-digit",
+      minute: "2-digit",
     });
   };
 
@@ -39,22 +46,33 @@ export function TimeEntryList({ technicianId, showApprove = false }: TimeEntryLi
     return hours.toFixed(2);
   };
 
-  const getStatusVariant = (status: string): 'success' | 'warning' | 'danger' | 'default' => {
+  const getStatusVariant = (
+    status: string,
+  ): "success" | "warning" | "danger" | "default" => {
     switch (status) {
-      case 'approved': return 'success';
-      case 'pending': return 'warning';
-      case 'rejected': return 'danger';
-      default: return 'default';
+      case "approved":
+        return "success";
+      case "pending":
+        return "warning";
+      case "rejected":
+        return "danger";
+      default:
+        return "default";
     }
   };
 
   const getEntryTypeIcon = (type: string): string => {
     switch (type) {
-      case 'work': return '🔧';
-      case 'travel': return '🚗';
-      case 'break': return '☕';
-      case 'pto': return '🏖️';
-      default: return '⏱️';
+      case "work":
+        return "🔧";
+      case "travel":
+        return "🚗";
+      case "break":
+        return "☕";
+      case "pto":
+        return "🏖️";
+      default:
+        return "⏱️";
     }
   };
 
@@ -62,7 +80,7 @@ export function TimeEntryList({ technicianId, showApprove = false }: TimeEntryLi
     try {
       await approveEntry.mutateAsync(entryId);
     } catch (err) {
-      console.error('Failed to approve entry:', err);
+      console.error("Failed to approve entry:", err);
     }
   };
 
@@ -107,9 +125,13 @@ export function TimeEntryList({ technicianId, showApprove = false }: TimeEntryLi
       {!isLoading && entries.length === 0 && (
         <div className="text-center py-12 border border-border rounded-lg">
           <span className="text-4xl mb-4 block">⏱️</span>
-          <h3 className="text-lg font-medium text-text-primary mb-2">No time entries found</h3>
+          <h3 className="text-lg font-medium text-text-primary mb-2">
+            No time entries found
+          </h3>
           <p className="text-text-muted">
-            {statusFilter ? 'Try adjusting your filters' : 'Time entries will appear here'}
+            {statusFilter
+              ? "Try adjusting your filters"
+              : "Time entries will appear here"}
           </p>
         </div>
       )}
@@ -120,21 +142,40 @@ export function TimeEntryList({ technicianId, showApprove = false }: TimeEntryLi
           <table className="w-full">
             <thead>
               <tr className="border-b border-border">
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Date</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Type</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Clock In</th>
-                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">Clock Out</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">Regular</th>
-                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">OT</th>
-                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Status</th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">
+                  Date
+                </th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">
+                  Type
+                </th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">
+                  Clock In
+                </th>
+                <th className="text-left py-3 px-4 text-sm font-medium text-text-muted">
+                  Clock Out
+                </th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">
+                  Regular
+                </th>
+                <th className="text-right py-3 px-4 text-sm font-medium text-text-muted">
+                  OT
+                </th>
+                <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">
+                  Status
+                </th>
                 {showApprove && (
-                  <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">Action</th>
+                  <th className="text-center py-3 px-4 text-sm font-medium text-text-muted">
+                    Action
+                  </th>
                 )}
               </tr>
             </thead>
             <tbody>
               {entries.map((entry) => (
-                <tr key={entry.id} className="border-b border-border hover:bg-bg-hover">
+                <tr
+                  key={entry.id}
+                  className="border-b border-border hover:bg-bg-hover"
+                >
                   <td className="py-3 px-4">
                     <span className="font-medium text-text-primary">
                       {formatDate(entry.entry_date)}
@@ -143,7 +184,9 @@ export function TimeEntryList({ technicianId, showApprove = false }: TimeEntryLi
                   <td className="py-3 px-4">
                     <span className="flex items-center gap-2">
                       <span>{getEntryTypeIcon(entry.entry_type)}</span>
-                      <span className="capitalize text-text-primary">{entry.entry_type}</span>
+                      <span className="capitalize text-text-primary">
+                        {entry.entry_type}
+                      </span>
                     </span>
                   </td>
                   <td className="py-3 px-4 font-mono text-text-primary">
@@ -171,7 +214,7 @@ export function TimeEntryList({ technicianId, showApprove = false }: TimeEntryLi
                   </td>
                   {showApprove && (
                     <td className="py-3 px-4 text-center">
-                      {entry.status === 'pending' && (
+                      {entry.status === "pending" && (
                         <Button
                           variant="secondary"
                           size="sm"
@@ -194,14 +237,18 @@ export function TimeEntryList({ technicianId, showApprove = false }: TimeEntryLi
       {!isLoading && totalPages > 1 && (
         <div className="flex items-center justify-between pt-4">
           <p className="text-sm text-text-muted">
-            Showing {((filters.page || 1) - 1) * (filters.page_size || 20) + 1} to{' '}
-            {Math.min((filters.page || 1) * (filters.page_size || 20), total)} of {total} entries
+            Showing {((filters.page || 1) - 1) * (filters.page_size || 20) + 1}{" "}
+            to{" "}
+            {Math.min((filters.page || 1) * (filters.page_size || 20), total)}{" "}
+            of {total} entries
           </p>
           <div className="flex items-center gap-2">
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => setFilters((prev) => ({ ...prev, page: (prev.page || 1) - 1 }))}
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, page: (prev.page || 1) - 1 }))
+              }
               disabled={(filters.page || 1) <= 1}
             >
               Previous
@@ -212,7 +259,9 @@ export function TimeEntryList({ technicianId, showApprove = false }: TimeEntryLi
             <Button
               variant="secondary"
               size="sm"
-              onClick={() => setFilters((prev) => ({ ...prev, page: (prev.page || 1) + 1 }))}
+              onClick={() =>
+                setFilters((prev) => ({ ...prev, page: (prev.page || 1) + 1 }))
+              }
               disabled={(filters.page || 1) >= totalPages}
             >
               Next

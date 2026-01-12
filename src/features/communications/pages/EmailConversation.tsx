@@ -1,13 +1,13 @@
-import { useState } from 'react';
-import { Link, useParams } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useState } from "react";
+import { Link, useParams } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 interface EmailMessage {
   id: number;
   subject: string;
   body: string;
-  direction: 'inbound' | 'outbound';
+  direction: "inbound" | "outbound";
   sent_at: string;
   from_email: string;
   to_email: string;
@@ -20,10 +20,10 @@ export function EmailConversation() {
   const { id } = useParams<{ id: string }>();
   const queryClient = useQueryClient();
   const [isReplying, setIsReplying] = useState(false);
-  const [reply, setReply] = useState('');
+  const [reply, setReply] = useState("");
 
   const { data: conversation, isLoading } = useQuery({
-    queryKey: ['email-conversation', id],
+    queryKey: ["email-conversation", id],
     queryFn: async () => {
       const response = await apiClient.get(`/email/conversations/${id}`);
       return response.data;
@@ -33,15 +33,15 @@ export function EmailConversation() {
 
   const replyMutation = useMutation({
     mutationFn: async (body: string) => {
-      await apiClient.post('/email/reply', {
+      await apiClient.post("/email/reply", {
         conversation_id: id,
         body,
       });
     },
     onSuccess: () => {
-      setReply('');
+      setReply("");
       setIsReplying(false);
-      queryClient.invalidateQueries({ queryKey: ['email-conversation', id] });
+      queryClient.invalidateQueries({ queryKey: ["email-conversation", id] });
     },
   });
 
@@ -58,15 +58,19 @@ export function EmailConversation() {
       {/* Header */}
       <div className="p-4 border-b border-border bg-bg-card">
         <div className="flex items-center gap-3">
-          <Link to="/communications/email-inbox" className="text-text-muted hover:text-text-primary">
+          <Link
+            to="/communications/email-inbox"
+            className="text-text-muted hover:text-text-primary"
+          >
             &larr;
           </Link>
           <div className="flex-1">
             <h1 className="font-medium text-text-primary">
-              {conversation?.subject || 'No Subject'}
+              {conversation?.subject || "No Subject"}
             </h1>
             <p className="text-sm text-text-muted">
-              {conversation?.customer_name} &lt;{conversation?.customer_email}&gt;
+              {conversation?.customer_name} &lt;{conversation?.customer_email}
+              &gt;
             </p>
           </div>
           <button
@@ -87,16 +91,20 @@ export function EmailConversation() {
           >
             <div className="flex items-center justify-between mb-3">
               <div className="flex items-center gap-2">
-                <div className={`w-8 h-8 rounded-full flex items-center justify-center font-medium ${
-                  email.direction === 'outbound'
-                    ? 'bg-primary/20 text-primary'
-                    : 'bg-purple-500/20 text-purple-500'
-                }`}>
-                  {email.direction === 'outbound' ? 'Me' : email.from_email?.charAt(0)}
+                <div
+                  className={`w-8 h-8 rounded-full flex items-center justify-center font-medium ${
+                    email.direction === "outbound"
+                      ? "bg-primary/20 text-primary"
+                      : "bg-purple-500/20 text-purple-500"
+                  }`}
+                >
+                  {email.direction === "outbound"
+                    ? "Me"
+                    : email.from_email?.charAt(0)}
                 </div>
                 <div>
                   <p className="font-medium text-text-primary text-sm">
-                    {email.direction === 'outbound' ? 'You' : email.from_email}
+                    {email.direction === "outbound" ? "You" : email.from_email}
                   </p>
                   <p className="text-xs text-text-muted">to {email.to_email}</p>
                 </div>
@@ -124,7 +132,7 @@ export function EmailConversation() {
             <button
               onClick={() => {
                 setIsReplying(false);
-                setReply('');
+                setReply("");
               }}
               className="px-4 py-2 border border-border rounded-lg text-text-secondary hover:bg-bg-hover"
             >
@@ -135,7 +143,7 @@ export function EmailConversation() {
               disabled={!reply.trim() || replyMutation.isPending}
               className="px-4 py-2 bg-primary text-white rounded-lg font-medium disabled:opacity-50"
             >
-              {replyMutation.isPending ? 'Sending...' : 'Send Reply'}
+              {replyMutation.isPending ? "Sending..." : "Send Reply"}
             </button>
           </div>
         </div>

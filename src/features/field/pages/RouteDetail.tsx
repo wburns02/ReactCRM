@@ -1,6 +1,6 @@
-import { Link, useParams } from 'react-router-dom';
-import { useQuery } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { Link, useParams } from "react-router-dom";
+import { useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 /**
  * Route detail with directions to a specific job
@@ -9,7 +9,7 @@ export function RouteDetail() {
   const { jobId } = useParams<{ jobId: string }>();
 
   const { data: job, isLoading } = useQuery({
-    queryKey: ['work-order', jobId],
+    queryKey: ["work-order", jobId],
     queryFn: async () => {
       const response = await apiClient.get(`/work-orders/${jobId}`);
       return response.data;
@@ -29,14 +29,17 @@ export function RouteDetail() {
     if (job?.address) {
       const encoded = encodeURIComponent(job.address);
       // Try to open in native maps app
-      window.open(`https://maps.google.com/maps?daddr=${encoded}`, '_blank');
+      window.open(`https://maps.google.com/maps?daddr=${encoded}`, "_blank");
     }
   };
 
   return (
     <div className="p-4 pb-24">
       {/* Back Button */}
-      <Link to="/field/route" className="flex items-center gap-2 text-text-secondary mb-4">
+      <Link
+        to="/field/route"
+        className="flex items-center gap-2 text-text-secondary mb-4"
+      >
         <span>&larr;</span> Back to Route
       </Link>
 
@@ -47,7 +50,7 @@ export function RouteDetail() {
         </h1>
         <p className="text-text-secondary">{job?.service_type}</p>
         <p className="text-sm text-text-muted mt-2 flex items-center gap-1">
-          <span>📍</span> {job?.address || 'No address'}
+          <span>📍</span> {job?.address || "No address"}
         </p>
       </div>
 

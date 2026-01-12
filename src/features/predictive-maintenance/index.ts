@@ -1,1 +1,1 @@
-export { PredictiveMaintenancePage } from './PredictiveMaintenancePage';
+export { PredictiveMaintenancePage } from "./PredictiveMaintenancePage";

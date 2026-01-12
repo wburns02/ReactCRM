@@ -6,14 +6,14 @@ import {
   useRef,
   useState,
   type ReactNode,
-} from 'react';
+} from "react";
 import {
   useWebSocket,
   type WebSocketStatus,
   type WebSocketMessage,
   type WebSocketMessageType,
   type UseWebSocketReturn,
-} from '@/hooks/useWebSocket';
+} from "@/hooks/useWebSocket";
 
 // ============================================
 // Types
@@ -37,7 +37,7 @@ export interface WebSocketContextValue extends UseWebSocketReturn {
   /** Subscribe to a specific message type */
   subscribe: (
     type: WebSocketMessageType | WebSocketMessageType[],
-    handler: (message: WebSocketMessage) => void
+    handler: (message: WebSocketMessage) => void,
   ) => () => void;
   /** Last received message for each type */
   lastMessageByType: Record<string, WebSocketMessage | undefined>;
@@ -47,7 +47,9 @@ export interface WebSocketContextValue extends UseWebSocketReturn {
 // Context
 // ============================================
 
-const WebSocketContext = createContext<WebSocketContextValue | undefined>(undefined);
+const WebSocketContext = createContext<WebSocketContextValue | undefined>(
+  undefined,
+);
 
 // ============================================
 // Hook
@@ -59,7 +61,9 @@ const WebSocketContext = createContext<WebSocketContextValue | undefined>(undefi
 export function useWebSocketContext(): WebSocketContextValue {
   const context = useContext(WebSocketContext);
   if (!context) {
-    throw new Error('useWebSocketContext must be used within a WebSocketProvider');
+    throw new Error(
+      "useWebSocketContext must be used within a WebSocketProvider",
+    );
   }
   return context;
 }
@@ -109,10 +113,14 @@ export function WebSocketProvider({
 }: WebSocketProviderProps) {
   // Message queue for offline/disconnected state
   const [messageQueue, setMessageQueue] = useState<QueuedMessage[]>([]);
-  const [lastMessageByType, setLastMessageByType] = useState<Record<string, WebSocketMessage>>({});
+  const [lastMessageByType, setLastMessageByType] = useState<
+    Record<string, WebSocketMessage>
+  >({});
 
   // Subscribers map: type -> Set of handlers
-  const subscribersRef = useRef<Map<string, Set<(message: WebSocketMessage) => void>>>(new Map());
+  const subscribersRef = useRef<
+    Map<string, Set<(message: WebSocketMessage) => void>>
+  >(new Map());
 
   // Handle incoming messages
   const handleMessage = useCallback((message: WebSocketMessage) => {
@@ -129,19 +137,19 @@ export function WebSocketProvider({
         try {
           handler(message);
         } catch (error) {
-          console.error('[WebSocket] Error in message handler:', error);
+          console.error("[WebSocket] Error in message handler:", error);
         }
       });
     }
 
     // Notify wildcard subscribers
-    const wildcardSubscribers = subscribersRef.current.get('*');
+    const wildcardSubscribers = subscribersRef.current.get("*");
     if (wildcardSubscribers) {
       wildcardSubscribers.forEach((handler) => {
         try {
           handler(message);
         } catch (error) {
-          console.error('[WebSocket] Error in wildcard handler:', error);
+          console.error("[WebSocket] Error in wildcard handler:", error);
         }
       });
     }
@@ -150,7 +158,9 @@ export function WebSocketProvider({
   // Handle status changes
   const handleStatusChange = useCallback((status: WebSocketStatus) => {
     // Dispatch custom event for components that need to react to status changes
-    window.dispatchEvent(new CustomEvent('websocket:status', { detail: { status } }));
+    window.dispatchEvent(
+      new CustomEvent("websocket:status", { detail: { status } }),
+    );
   }, []);
 
   // Initialize WebSocket hook
@@ -165,27 +175,31 @@ export function WebSocketProvider({
   // Queue Management
   // ============================================
 
-  const queueMessage = useCallback(<T,>(type: WebSocketMessageType, payload: T): string => {
-    const id = `queue-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
+  const queueMessage = useCallback(
+    <T,>(type: WebSocketMessageType, payload: T): string => {
+      const id = `queue-${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
 
-    setMessageQueue((prev) => {
-      // Trim queue if it exceeds max size
-      const trimmed = prev.length >= maxQueueSize ? prev.slice(-maxQueueSize + 1) : prev;
+      setMessageQueue((prev) => {
+        // Trim queue if it exceeds max size
+        const trimmed =
+          prev.length >= maxQueueSize ? prev.slice(-maxQueueSize + 1) : prev;
 
-      return [
-        ...trimmed,
-        {
-          id,
-          type,
-          payload,
-          timestamp: Date.now(),
-          retries: 0,
-        },
-      ];
-    });
+        return [
+          ...trimmed,
+          {
+            id,
+            type,
+            payload,
+            timestamp: Date.now(),
+            retries: 0,
+          },
+        ];
+      });
 
-    return id;
-  }, [maxQueueSize]);
+      return id;
+    },
+    [maxQueueSize],
+  );
 
   const clearQueue = useCallback(() => {
     setMessageQueue([]);
@@ -210,13 +224,16 @@ export function WebSocketProvider({
           // Increment retry count (will be handled on next flush)
           setMessageQueue((prev) =>
             prev.map((m) =>
-              m.id === item.id ? { ...m, retries: m.retries + 1 } : m
-            )
+              m.id === item.id ? { ...m, retries: m.retries + 1 } : m,
+            ),
           );
           break; // Stop processing if a message fails
         } else {
           // Max retries reached, remove the message
-          console.warn('[WebSocket] Max retries reached for queued message:', item);
+          console.warn(
+            "[WebSocket] Max retries reached for queued message:",
+            item,
+          );
           toRemove.push(item.id);
         }
       }
@@ -239,7 +256,7 @@ export function WebSocketProvider({
   const subscribe = useCallback(
     (
       type: WebSocketMessageType | WebSocketMessageType[],
-      handler: (message: WebSocketMessage) => void
+      handler: (message: WebSocketMessage) => void,
     ): (() => void) => {
       const types = Array.isArray(type) ? type : [type];
 
@@ -257,7 +274,7 @@ export function WebSocketProvider({
         });
       };
     },
-    []
+    [],
   );
 
   // ============================================
@@ -274,7 +291,7 @@ export function WebSocketProvider({
       queueMessage(type, payload);
       return false;
     },
-    [ws.isConnected, ws.send, queueMessage]
+    [ws.isConnected, ws.send, queueMessage],
   );
 
   // ============================================

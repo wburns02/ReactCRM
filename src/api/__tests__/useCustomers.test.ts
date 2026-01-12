@@ -1,6 +1,6 @@
-import { describe, it, expect, vi, beforeEach, afterEach } from 'vitest';
-import { waitFor } from '@testing-library/react';
-import { renderHookWithClient } from './test-utils';
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { waitFor } from "@testing-library/react";
+import { renderHookWithClient } from "./test-utils";
 import {
   useCustomers,
   useCustomer,
@@ -8,11 +8,11 @@ import {
   useUpdateCustomer,
   useDeleteCustomer,
   customerKeys,
-} from '../hooks/useCustomers';
-import { apiClient } from '../client';
+} from "../hooks/useCustomers";
+import { apiClient } from "../client";
 
 // Mock the API client
-vi.mock('../client', () => ({
+vi.mock("../client", () => ({
   apiClient: {
     get: vi.fn(),
     post: vi.fn(),
@@ -22,18 +22,18 @@ vi.mock('../client', () => ({
 }));
 
 const mockCustomer = {
-  id: '123',
-  first_name: 'John',
-  last_name: 'Doe',
-  email: 'john@example.com',
-  phone: '512-555-0100',
-  address_line1: '123 Main St',
-  city: 'Austin',
-  state: 'TX',
-  postal_code: '78701',
+  id: "123",
+  first_name: "John",
+  last_name: "Doe",
+  email: "john@example.com",
+  phone: "512-555-0100",
+  address_line1: "123 Main St",
+  city: "Austin",
+  state: "TX",
+  postal_code: "78701",
   is_active: true,
-  customer_type: 'residential',
-  created_at: '2025-01-01T10:00:00Z',
+  customer_type: "residential",
+  created_at: "2025-01-01T10:00:00Z",
 };
 
 const mockListResponse = {
@@ -43,7 +43,7 @@ const mockListResponse = {
   items: [mockCustomer],
 };
 
-describe('useCustomers hooks', () => {
+describe("useCustomers hooks", () => {
   beforeEach(() => {
     vi.clearAllMocks();
   });
@@ -52,18 +52,26 @@ describe('useCustomers hooks', () => {
     vi.resetAllMocks();
   });
 
-  describe('customerKeys', () => {
-    it('generates correct query keys', () => {
-      expect(customerKeys.all).toEqual(['customers']);
-      expect(customerKeys.lists()).toEqual(['customers', 'list']);
-      expect(customerKeys.list({ page: 1 })).toEqual(['customers', 'list', { page: 1 }]);
-      expect(customerKeys.details()).toEqual(['customers', 'detail']);
-      expect(customerKeys.detail('123')).toEqual(['customers', 'detail', '123']);
+  describe("customerKeys", () => {
+    it("generates correct query keys", () => {
+      expect(customerKeys.all).toEqual(["customers"]);
+      expect(customerKeys.lists()).toEqual(["customers", "list"]);
+      expect(customerKeys.list({ page: 1 })).toEqual([
+        "customers",
+        "list",
+        { page: 1 },
+      ]);
+      expect(customerKeys.details()).toEqual(["customers", "detail"]);
+      expect(customerKeys.detail("123")).toEqual([
+        "customers",
+        "detail",
+        "123",
+      ]);
     });
   });
 
-  describe('useCustomers', () => {
-    it('fetches customers list successfully', async () => {
+  describe("useCustomers", () => {
+    it("fetches customers list successfully", async () => {
       vi.mocked(apiClient.get).mockResolvedValue({ data: mockListResponse });
 
       const { result } = renderHookWithClient(() => useCustomers());
@@ -71,30 +79,30 @@ describe('useCustomers hooks', () => {
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
       expect(result.current.data).toEqual(mockListResponse);
-      expect(apiClient.get).toHaveBeenCalledWith('/customers/?');
+      expect(apiClient.get).toHaveBeenCalledWith("/customers/?");
     });
 
-    it('passes filters to query params', async () => {
+    it("passes filters to query params", async () => {
       vi.mocked(apiClient.get).mockResolvedValue({ data: mockListResponse });
 
-      const filters = { page: 2, page_size: 10, search: 'john' };
+      const filters = { page: 2, page_size: 10, search: "john" };
       const { result } = renderHookWithClient(() => useCustomers(filters));
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
       expect(apiClient.get).toHaveBeenCalledWith(
-        expect.stringContaining('page=2')
+        expect.stringContaining("page=2"),
       );
       expect(apiClient.get).toHaveBeenCalledWith(
-        expect.stringContaining('page_size=10')
+        expect.stringContaining("page_size=10"),
       );
       expect(apiClient.get).toHaveBeenCalledWith(
-        expect.stringContaining('search=john')
+        expect.stringContaining("search=john"),
       );
     });
 
-    it('handles API errors', async () => {
-      const error = new Error('Network error');
+    it("handles API errors", async () => {
+      const error = new Error("Network error");
       vi.mocked(apiClient.get).mockRejectedValue(error);
 
       const { result } = renderHookWithClient(() => useCustomers());
@@ -105,47 +113,49 @@ describe('useCustomers hooks', () => {
     });
   });
 
-  describe('useCustomer', () => {
-    it('fetches single customer by ID', async () => {
+  describe("useCustomer", () => {
+    it("fetches single customer by ID", async () => {
       vi.mocked(apiClient.get).mockResolvedValue({ data: mockCustomer });
 
-      const { result } = renderHookWithClient(() => useCustomer('123'));
+      const { result } = renderHookWithClient(() => useCustomer("123"));
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
       expect(result.current.data).toEqual(mockCustomer);
-      expect(apiClient.get).toHaveBeenCalledWith('/customers/123');
+      expect(apiClient.get).toHaveBeenCalledWith("/customers/123");
     });
 
-    it('does not fetch when id is undefined', () => {
+    it("does not fetch when id is undefined", () => {
       const { result } = renderHookWithClient(() => useCustomer(undefined));
 
       expect(result.current.isPending).toBe(true);
-      expect(result.current.fetchStatus).toBe('idle');
+      expect(result.current.fetchStatus).toBe("idle");
       expect(apiClient.get).not.toHaveBeenCalled();
     });
   });
 
-  describe('useCreateCustomer', () => {
-    it('creates customer and invalidates list queries', async () => {
+  describe("useCreateCustomer", () => {
+    it("creates customer and invalidates list queries", async () => {
       vi.mocked(apiClient.post).mockResolvedValue({ data: mockCustomer });
 
-      const { result, queryClient } = renderHookWithClient(() => useCreateCustomer());
+      const { result, queryClient } = renderHookWithClient(() =>
+        useCreateCustomer(),
+      );
 
-      const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
+      const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
 
       result.current.mutate({
-        first_name: 'John',
-        last_name: 'Doe',
-        email: 'john@example.com',
+        first_name: "John",
+        last_name: "Doe",
+        email: "john@example.com",
       });
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-      expect(apiClient.post).toHaveBeenCalledWith('/customers/', {
-        first_name: 'John',
-        last_name: 'Doe',
-        email: 'john@example.com',
+      expect(apiClient.post).toHaveBeenCalledWith("/customers/", {
+        first_name: "John",
+        last_name: "Doe",
+        email: "john@example.com",
       });
       expect(invalidateSpy).toHaveBeenCalledWith({
         queryKey: customerKeys.lists(),
@@ -153,24 +163,30 @@ describe('useCustomers hooks', () => {
     });
   });
 
-  describe('useUpdateCustomer', () => {
-    it('updates customer and invalidates queries', async () => {
-      vi.mocked(apiClient.patch).mockResolvedValue({ data: { ...mockCustomer, first_name: 'Jane' } });
+  describe("useUpdateCustomer", () => {
+    it("updates customer and invalidates queries", async () => {
+      vi.mocked(apiClient.patch).mockResolvedValue({
+        data: { ...mockCustomer, first_name: "Jane" },
+      });
 
-      const { result, queryClient } = renderHookWithClient(() => useUpdateCustomer());
+      const { result, queryClient } = renderHookWithClient(() =>
+        useUpdateCustomer(),
+      );
 
-      const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
+      const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
 
       result.current.mutate({
-        id: '123',
-        data: { first_name: 'Jane' },
+        id: "123",
+        data: { first_name: "Jane" },
       });
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-      expect(apiClient.patch).toHaveBeenCalledWith('/customers/123', { first_name: 'Jane' });
+      expect(apiClient.patch).toHaveBeenCalledWith("/customers/123", {
+        first_name: "Jane",
+      });
       expect(invalidateSpy).toHaveBeenCalledWith({
-        queryKey: customerKeys.detail('123'),
+        queryKey: customerKeys.detail("123"),
       });
       expect(invalidateSpy).toHaveBeenCalledWith({
         queryKey: customerKeys.lists(),
@@ -178,19 +194,21 @@ describe('useCustomers hooks', () => {
     });
   });
 
-  describe('useDeleteCustomer', () => {
-    it('deletes customer and invalidates list queries', async () => {
+  describe("useDeleteCustomer", () => {
+    it("deletes customer and invalidates list queries", async () => {
       vi.mocked(apiClient.delete).mockResolvedValue({});
 
-      const { result, queryClient } = renderHookWithClient(() => useDeleteCustomer());
+      const { result, queryClient } = renderHookWithClient(() =>
+        useDeleteCustomer(),
+      );
 
-      const invalidateSpy = vi.spyOn(queryClient, 'invalidateQueries');
+      const invalidateSpy = vi.spyOn(queryClient, "invalidateQueries");
 
-      result.current.mutate('123');
+      result.current.mutate("123");
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-      expect(apiClient.delete).toHaveBeenCalledWith('/customers/123');
+      expect(apiClient.delete).toHaveBeenCalledWith("/customers/123");
       expect(invalidateSpy).toHaveBeenCalledWith({
         queryKey: customerKeys.lists(),
       });

@@ -2,8 +2,8 @@
  * Onboarding & Training API Hooks
  * Setup wizard, tutorials, and help system
  */
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 import {
   onboardingProgressSchema,
   importJobSchema,
@@ -14,7 +14,7 @@ import {
   helpCategorySchema,
   chatMessageSchema,
   supportTicketSchema,
-} from '@/api/types/onboarding';
+} from "@/api/types/onboarding";
 import type {
   OnboardingProgress,
   SetupStep,
@@ -28,41 +28,47 @@ import type {
   HelpCategory,
   ChatMessage,
   SupportTicket,
-} from '@/api/types/onboarding';
-import { z } from 'zod';
+} from "@/api/types/onboarding";
+import { z } from "zod";
 
 // Query keys
 export const onboardingKeys = {
   progress: {
-    all: ['onboarding', 'progress'] as const,
-    current: () => [...onboardingKeys.progress.all, 'current'] as const,
+    all: ["onboarding", "progress"] as const,
+    current: () => [...onboardingKeys.progress.all, "current"] as const,
   },
   import: {
-    all: ['onboarding', 'import'] as const,
-    jobs: () => [...onboardingKeys.import.all, 'jobs'] as const,
-    job: (id: string) => [...onboardingKeys.import.all, 'job', id] as const,
-    preview: () => [...onboardingKeys.import.all, 'preview'] as const,
+    all: ["onboarding", "import"] as const,
+    jobs: () => [...onboardingKeys.import.all, "jobs"] as const,
+    job: (id: string) => [...onboardingKeys.import.all, "job", id] as const,
+    preview: () => [...onboardingKeys.import.all, "preview"] as const,
   },
   tutorials: {
-    all: ['onboarding', 'tutorials'] as const,
-    list: (feature?: string) => [...onboardingKeys.tutorials.all, 'list', feature] as const,
-    detail: (id: string) => [...onboardingKeys.tutorials.all, 'detail', id] as const,
-    progress: () => [...onboardingKeys.tutorials.all, 'progress'] as const,
-    recommended: () => [...onboardingKeys.tutorials.all, 'recommended'] as const,
+    all: ["onboarding", "tutorials"] as const,
+    list: (feature?: string) =>
+      [...onboardingKeys.tutorials.all, "list", feature] as const,
+    detail: (id: string) =>
+      [...onboardingKeys.tutorials.all, "detail", id] as const,
+    progress: () => [...onboardingKeys.tutorials.all, "progress"] as const,
+    recommended: () =>
+      [...onboardingKeys.tutorials.all, "recommended"] as const,
   },
   help: {
-    all: ['onboarding', 'help'] as const,
-    categories: () => [...onboardingKeys.help.all, 'categories'] as const,
-    articles: (category?: string) => [...onboardingKeys.help.all, 'articles', category] as const,
-    article: (id: string) => [...onboardingKeys.help.all, 'article', id] as const,
-    search: (query: string) => [...onboardingKeys.help.all, 'search', query] as const,
-    chat: () => [...onboardingKeys.help.all, 'chat'] as const,
+    all: ["onboarding", "help"] as const,
+    categories: () => [...onboardingKeys.help.all, "categories"] as const,
+    articles: (category?: string) =>
+      [...onboardingKeys.help.all, "articles", category] as const,
+    article: (id: string) =>
+      [...onboardingKeys.help.all, "article", id] as const,
+    search: (query: string) =>
+      [...onboardingKeys.help.all, "search", query] as const,
+    chat: () => [...onboardingKeys.help.all, "chat"] as const,
   },
   releases: {
-    all: ['onboarding', 'releases'] as const,
-    list: () => [...onboardingKeys.releases.all, 'list'] as const,
-    latest: () => [...onboardingKeys.releases.all, 'latest'] as const,
-    unread: () => [...onboardingKeys.releases.all, 'unread'] as const,
+    all: ["onboarding", "releases"] as const,
+    list: () => [...onboardingKeys.releases.all, "list"] as const,
+    latest: () => [...onboardingKeys.releases.all, "latest"] as const,
+    unread: () => [...onboardingKeys.releases.all, "unread"] as const,
   },
 };
 
@@ -77,7 +83,7 @@ export function useOnboardingProgress() {
   return useQuery({
     queryKey: onboardingKeys.progress.current(),
     queryFn: async (): Promise<OnboardingProgress> => {
-      const { data } = await apiClient.get('/onboarding/progress');
+      const { data } = await apiClient.get("/onboarding/progress");
       return onboardingProgressSchema.parse(data);
     },
     staleTime: 5 * 60 * 1000,
@@ -93,13 +99,16 @@ export function useUpdateSetupStep() {
   return useMutation({
     mutationFn: async (params: {
       step_id: string;
-      status: SetupStep['status'];
+      status: SetupStep["status"];
       data?: Record<string, unknown>;
     }): Promise<OnboardingProgress> => {
-      const { data } = await apiClient.patch(`/onboarding/steps/${params.step_id}`, {
-        status: params.status,
-        data: params.data,
-      });
+      const { data } = await apiClient.patch(
+        `/onboarding/steps/${params.step_id}`,
+        {
+          status: params.status,
+          data: params.data,
+        },
+      );
       return onboardingProgressSchema.parse(data);
     },
     onSuccess: (data) => {
@@ -133,7 +142,7 @@ export function useCompleteOnboarding() {
 
   return useMutation({
     mutationFn: async (): Promise<void> => {
-      await apiClient.post('/onboarding/complete');
+      await apiClient.post("/onboarding/complete");
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: onboardingKeys.progress.all });
@@ -152,7 +161,7 @@ export function useImportJobs() {
   return useQuery({
     queryKey: onboardingKeys.import.jobs(),
     queryFn: async (): Promise<ImportJob[]> => {
-      const { data } = await apiClient.get('/onboarding/import/jobs');
+      const { data } = await apiClient.get("/onboarding/import/jobs");
       return z.array(importJobSchema).parse(data.jobs || data);
     },
   });
@@ -172,7 +181,9 @@ export function useImportJob(id: string) {
     refetchInterval: (query) => {
       const job = query.state.data as ImportJob | undefined;
       // Poll while processing
-      return job?.status === 'processing' || job?.status === 'validating' ? 2000 : false;
+      return job?.status === "processing" || job?.status === "validating"
+        ? 2000
+        : false;
     },
   });
 }
@@ -192,13 +203,17 @@ export function useUploadImportFile() {
       suggested_mappings: ImportMapping[];
     }> => {
       const formData = new FormData();
-      formData.append('file', params.file);
-      formData.append('source', params.source);
-      formData.append('entity_type', params.entity_type);
+      formData.append("file", params.file);
+      formData.append("source", params.source);
+      formData.append("entity_type", params.entity_type);
 
-      const { data } = await apiClient.post('/onboarding/import/preview', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
-      });
+      const { data } = await apiClient.post(
+        "/onboarding/import/preview",
+        formData,
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+        },
+      );
       return data;
     },
   });
@@ -217,7 +232,7 @@ export function useStartImport() {
       file_id: string;
       mappings: ImportMapping[];
     }): Promise<ImportJob> => {
-      const { data } = await apiClient.post('/onboarding/import/start', params);
+      const { data } = await apiClient.post("/onboarding/import/start", params);
       return importJobSchema.parse(data.job || data);
     },
     onSuccess: () => {
@@ -235,7 +250,10 @@ export function useConnectExternalCRM() {
       source: ImportSource;
       credentials: Record<string, string>;
     }): Promise<{ auth_url?: string; connected: boolean }> => {
-      const { data } = await apiClient.post('/onboarding/import/connect', params);
+      const { data } = await apiClient.post(
+        "/onboarding/import/connect",
+        params,
+      );
       return data;
     },
   });
@@ -253,7 +271,7 @@ export function useTutorials(feature?: string) {
     queryKey: onboardingKeys.tutorials.list(feature),
     queryFn: async (): Promise<Tutorial[]> => {
       const params = feature ? { feature } : {};
-      const { data } = await apiClient.get('/onboarding/tutorials', { params });
+      const { data } = await apiClient.get("/onboarding/tutorials", { params });
       return z.array(tutorialSchema).parse(data.tutorials || data);
     },
   });
@@ -266,7 +284,7 @@ export function useRecommendedTutorials() {
   return useQuery({
     queryKey: onboardingKeys.tutorials.recommended(),
     queryFn: async (): Promise<Tutorial[]> => {
-      const { data } = await apiClient.get('/onboarding/tutorials/recommended');
+      const { data } = await apiClient.get("/onboarding/tutorials/recommended");
       return z.array(tutorialSchema).parse(data.tutorials || data);
     },
   });
@@ -279,7 +297,7 @@ export function useTutorialProgress() {
   return useQuery({
     queryKey: onboardingKeys.tutorials.progress(),
     queryFn: async (): Promise<UserTutorialProgress[]> => {
-      const { data } = await apiClient.get('/onboarding/tutorials/progress');
+      const { data } = await apiClient.get("/onboarding/tutorials/progress");
       return z.array(userTutorialProgressSchema).parse(data.progress || data);
     },
   });
@@ -295,17 +313,19 @@ export function useUpdateTutorialProgress() {
     mutationFn: async (params: {
       tutorial_id: string;
       current_step?: number;
-      status?: UserTutorialProgress['status'];
+      status?: UserTutorialProgress["status"];
       time_spent_seconds?: number;
     }): Promise<UserTutorialProgress> => {
       const { data } = await apiClient.patch(
         `/onboarding/tutorials/${params.tutorial_id}/progress`,
-        params
+        params,
       );
       return userTutorialProgressSchema.parse(data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: onboardingKeys.tutorials.progress() });
+      queryClient.invalidateQueries({
+        queryKey: onboardingKeys.tutorials.progress(),
+      });
     },
   });
 }
@@ -318,11 +338,15 @@ export function useCompleteTutorial() {
 
   return useMutation({
     mutationFn: async (tutorialId: string): Promise<UserTutorialProgress> => {
-      const { data } = await apiClient.post(`/onboarding/tutorials/${tutorialId}/complete`);
+      const { data } = await apiClient.post(
+        `/onboarding/tutorials/${tutorialId}/complete`,
+      );
       return userTutorialProgressSchema.parse(data);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: onboardingKeys.tutorials.progress() });
+      queryClient.invalidateQueries({
+        queryKey: onboardingKeys.tutorials.progress(),
+      });
     },
   });
 }
@@ -338,7 +362,7 @@ export function useHelpCategories() {
   return useQuery({
     queryKey: onboardingKeys.help.categories(),
     queryFn: async (): Promise<HelpCategory[]> => {
-      const { data } = await apiClient.get('/help/categories');
+      const { data } = await apiClient.get("/help/categories");
       return z.array(helpCategorySchema).parse(data.categories || data);
     },
     staleTime: 30 * 60 * 1000, // 30 minutes
@@ -353,7 +377,7 @@ export function useHelpArticles(category?: string) {
     queryKey: onboardingKeys.help.articles(category),
     queryFn: async (): Promise<HelpArticle[]> => {
       const params = category ? { category } : {};
-      const { data } = await apiClient.get('/help/articles', { params });
+      const { data } = await apiClient.get("/help/articles", { params });
       return z.array(helpArticleSchema).parse(data.articles || data);
     },
   });
@@ -380,7 +404,9 @@ export function useSearchHelp(query: string) {
   return useQuery({
     queryKey: onboardingKeys.help.search(query),
     queryFn: async (): Promise<HelpArticle[]> => {
-      const { data } = await apiClient.get('/help/search', { params: { q: query } });
+      const { data } = await apiClient.get("/help/search", {
+        params: { q: query },
+      });
       return z.array(helpArticleSchema).parse(data.results || data);
     },
     enabled: query.length >= 2,
@@ -403,7 +429,9 @@ export function useRateArticle() {
       });
     },
     onSuccess: (_, params) => {
-      queryClient.invalidateQueries({ queryKey: onboardingKeys.help.article(params.article_id) });
+      queryClient.invalidateQueries({
+        queryKey: onboardingKeys.help.article(params.article_id),
+      });
     },
   });
 }
@@ -420,7 +448,7 @@ export function useAIHelpChat() {
       conversation_id: string;
       message: ChatMessage;
     }> => {
-      const { data } = await apiClient.post('/help/chat', params);
+      const { data } = await apiClient.post("/help/chat", params);
       return {
         conversation_id: data.conversation_id,
         message: chatMessageSchema.parse(data.message),
@@ -438,21 +466,21 @@ export function useCreateSupportTicket() {
       subject: string;
       description: string;
       category: string;
-      priority: SupportTicket['priority'];
+      priority: SupportTicket["priority"];
       attachments?: File[];
     }): Promise<SupportTicket> => {
       const formData = new FormData();
-      formData.append('subject', params.subject);
-      formData.append('description', params.description);
-      formData.append('category', params.category);
-      formData.append('priority', params.priority);
+      formData.append("subject", params.subject);
+      formData.append("description", params.description);
+      formData.append("category", params.category);
+      formData.append("priority", params.priority);
 
       params.attachments?.forEach((file, i) => {
         formData.append(`attachment_${i}`, file);
       });
 
-      const { data } = await apiClient.post('/help/tickets', formData, {
-        headers: { 'Content-Type': 'multipart/form-data' },
+      const { data } = await apiClient.post("/help/tickets", formData, {
+        headers: { "Content-Type": "multipart/form-data" },
       });
       return supportTicketSchema.parse(data.ticket || data);
     },
@@ -470,7 +498,7 @@ export function useReleaseNotes() {
   return useQuery({
     queryKey: onboardingKeys.releases.list(),
     queryFn: async (): Promise<ReleaseNote[]> => {
-      const { data } = await apiClient.get('/releases');
+      const { data } = await apiClient.get("/releases");
       return z.array(releaseNoteSchema).parse(data.releases || data);
     },
     staleTime: 60 * 60 * 1000, // 1 hour
@@ -484,7 +512,7 @@ export function useLatestRelease() {
   return useQuery({
     queryKey: onboardingKeys.releases.latest(),
     queryFn: async (): Promise<ReleaseNote | null> => {
-      const { data } = await apiClient.get('/releases/latest');
+      const { data } = await apiClient.get("/releases/latest");
       if (!data.release) return null;
       return releaseNoteSchema.parse(data.release);
     },
@@ -499,7 +527,7 @@ export function useUnreadReleaseCount() {
   return useQuery({
     queryKey: onboardingKeys.releases.unread(),
     queryFn: async (): Promise<{ count: number; latest_version: string }> => {
-      const { data } = await apiClient.get('/releases/unread');
+      const { data } = await apiClient.get("/releases/unread");
       return data;
     },
   });
@@ -513,10 +541,12 @@ export function useMarkReleasesRead() {
 
   return useMutation({
     mutationFn: async (version?: string): Promise<void> => {
-      await apiClient.post('/releases/mark-read', { version });
+      await apiClient.post("/releases/mark-read", { version });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: onboardingKeys.releases.unread() });
+      queryClient.invalidateQueries({
+        queryKey: onboardingKeys.releases.unread(),
+      });
     },
   });
 }

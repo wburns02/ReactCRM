@@ -1,4 +1,4 @@
-import DOMPurify from 'dompurify';
+import DOMPurify from "dompurify";
 
 /**
  * HTML Sanitization utilities for XSS protection
@@ -20,15 +20,39 @@ import DOMPurify from 'dompurify';
 export function sanitizeHtml(dirty: string): string {
   return DOMPurify.sanitize(dirty, {
     ALLOWED_TAGS: [
-      'b', 'i', 'em', 'strong', 'a', 'p', 'br', 'ul', 'ol', 'li',
-      'h1', 'h2', 'h3', 'h4', 'h5', 'h6', 'blockquote', 'code', 'pre',
-      'span', 'div', 'table', 'thead', 'tbody', 'tr', 'th', 'td',
+      "b",
+      "i",
+      "em",
+      "strong",
+      "a",
+      "p",
+      "br",
+      "ul",
+      "ol",
+      "li",
+      "h1",
+      "h2",
+      "h3",
+      "h4",
+      "h5",
+      "h6",
+      "blockquote",
+      "code",
+      "pre",
+      "span",
+      "div",
+      "table",
+      "thead",
+      "tbody",
+      "tr",
+      "th",
+      "td",
     ],
-    ALLOWED_ATTR: ['href', 'target', 'rel', 'class', 'id'],
+    ALLOWED_ATTR: ["href", "target", "rel", "class", "id"],
     // Force all links to open in new tab with security attributes
-    ADD_ATTR: ['target', 'rel'],
-    FORBID_TAGS: ['script', 'style', 'iframe', 'object', 'embed', 'form'],
-    FORBID_ATTR: ['onerror', 'onload', 'onclick', 'onmouseover'],
+    ADD_ATTR: ["target", "rel"],
+    FORBID_TAGS: ["script", "style", "iframe", "object", "embed", "form"],
+    FORBID_ATTR: ["onerror", "onload", "onclick", "onmouseover"],
   });
 }
 
@@ -57,27 +81,22 @@ export function sanitizeUrl(dirty: string): string {
   const trimmed = dirty.trim().toLowerCase();
 
   // Block dangerous protocols
-  const dangerousProtocols = [
-    'javascript:',
-    'data:',
-    'vbscript:',
-    'file:',
-  ];
+  const dangerousProtocols = ["javascript:", "data:", "vbscript:", "file:"];
 
   for (const protocol of dangerousProtocols) {
     if (trimmed.startsWith(protocol)) {
-      return '';
+      return "";
     }
   }
 
   // Allow safe protocols
-  const safeProtocols = ['http:', 'https:', 'mailto:', 'tel:'];
+  const safeProtocols = ["http:", "https:", "mailto:", "tel:"];
   const hasProtocol = safeProtocols.some((p) => trimmed.startsWith(p));
 
   // If no protocol, assume relative URL (safe)
   // If has protocol, must be in safe list
-  if (trimmed.includes(':') && !hasProtocol) {
-    return '';
+  if (trimmed.includes(":") && !hasProtocol) {
+    return "";
   }
 
   return dirty;
@@ -92,20 +111,20 @@ export function sanitizeUrl(dirty: string): string {
  */
 export function escapeHtml(str: string): string {
   const escapeMap: Record<string, string> = {
-    '&': '&amp;',
-    '<': '&lt;',
-    '>': '&gt;',
-    '"': '&quot;',
-    "'": '&#039;',
+    "&": "&amp;",
+    "<": "&lt;",
+    ">": "&gt;",
+    '"': "&quot;",
+    "'": "&#039;",
   };
   return str.replace(/[&<>"']/g, (char) => escapeMap[char] || char);
 }
 
 // Configure DOMPurify hooks for additional security
-DOMPurify.addHook('afterSanitizeAttributes', (node) => {
+DOMPurify.addHook("afterSanitizeAttributes", (node) => {
   // Force all links to open in new tab with noopener
-  if (node.tagName === 'A') {
-    node.setAttribute('target', '_blank');
-    node.setAttribute('rel', 'noopener noreferrer');
+  if (node.tagName === "A") {
+    node.setAttribute("target", "_blank");
+    node.setAttribute("rel", "noopener noreferrer");
   }
 });

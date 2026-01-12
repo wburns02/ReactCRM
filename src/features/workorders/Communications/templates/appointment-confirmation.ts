@@ -5,9 +5,9 @@
  */
 
 export const appointmentConfirmationTemplate = {
-  id: 'appointment-confirmation',
-  name: 'Appointment Confirmation',
-  subject: 'Your MAC Septic Appointment is Confirmed',
+  id: "appointment-confirmation",
+  name: "Appointment Confirmation",
+  subject: "Your MAC Septic Appointment is Confirmed",
   smsTemplate: `Hi {{customer_first_name}}, your septic service appointment is confirmed for {{appointment_date}} between {{appointment_window}}. Reply CONFIRM to confirm or call us at {{company_phone}} to reschedule. - MAC Septic`,
   emailTemplate: `Dear {{customer_name}},
 
@@ -36,15 +36,15 @@ Best regards,
 MAC Septic
 {{company_phone}}`,
   variables: [
-    'customer_name',
-    'customer_first_name',
-    'appointment_date',
-    'appointment_window',
-    'service_type',
-    'service_address',
-    'company_phone',
-    'tracking_link',
-    'work_order_number',
+    "customer_name",
+    "customer_first_name",
+    "appointment_date",
+    "appointment_window",
+    "service_type",
+    "service_address",
+    "company_phone",
+    "tracking_link",
+    "work_order_number",
   ],
 };
 

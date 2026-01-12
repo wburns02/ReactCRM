@@ -1,6 +1,6 @@
-import { Link, useParams, useNavigate } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { Link, useParams, useNavigate } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 /**
  * Job detail view for technicians
@@ -10,8 +10,12 @@ export function JobDetailPage() {
   const navigate = useNavigate();
   const queryClient = useQueryClient();
 
-  const { data: job, isLoading, error } = useQuery({
-    queryKey: ['work-order', id],
+  const {
+    data: job,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["work-order", id],
     queryFn: async () => {
       const response = await apiClient.get(`/work-orders/${id}`);
       return response.data;
@@ -24,13 +28,13 @@ export function JobDetailPage() {
       await apiClient.patch(`/work-orders/${id}`, { status });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['work-order', id] });
-      queryClient.invalidateQueries({ queryKey: ['technician-jobs'] });
+      queryClient.invalidateQueries({ queryKey: ["work-order", id] });
+      queryClient.invalidateQueries({ queryKey: ["technician-jobs"] });
     },
   });
 
   const handleStartJob = () => {
-    updateStatusMutation.mutate('in_progress');
+    updateStatusMutation.mutate("in_progress");
   };
 
   const handleCompleteJob = () => {
@@ -58,17 +62,24 @@ export function JobDetailPage() {
 
   const getStatusColor = (status: string) => {
     switch (status?.toLowerCase()) {
-      case 'scheduled': return 'bg-info/20 text-info';
-      case 'in_progress': return 'bg-warning/20 text-warning';
-      case 'completed': return 'bg-success/20 text-success';
-      default: return 'bg-text-muted/20 text-text-muted';
+      case "scheduled":
+        return "bg-info/20 text-info";
+      case "in_progress":
+        return "bg-warning/20 text-warning";
+      case "completed":
+        return "bg-success/20 text-success";
+      default:
+        return "bg-text-muted/20 text-text-muted";
     }
   };
 
   return (
     <div className="p-4 pb-24">
       {/* Back Button */}
-      <Link to="/field" className="flex items-center gap-2 text-text-secondary mb-4">
+      <Link
+        to="/field"
+        className="flex items-center gap-2 text-text-secondary mb-4"
+      >
         <span>&larr;</span> Back to Jobs
       </Link>
 
@@ -78,8 +89,10 @@ export function JobDetailPage() {
           <h1 className="text-xl font-semibold text-text-primary">
             {job.customer_name || `Job #${job.id}`}
           </h1>
-          <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(job.status)}`}>
-            {job.status?.replace('_', ' ')}
+          <span
+            className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(job.status)}`}
+          >
+            {job.status?.replace("_", " ")}
           </span>
         </div>
         <p className="text-text-secondary">{job.service_type}</p>
@@ -90,7 +103,7 @@ export function JobDetailPage() {
         <h2 className="font-medium text-text-primary mb-3">Customer</h2>
         <div className="space-y-2">
           <p className="text-sm text-text-secondary flex items-center gap-2">
-            <span>📍</span> {job.address || 'No address'}
+            <span>📍</span> {job.address || "No address"}
           </p>
           {job.customer_phone && (
             <a
@@ -109,11 +122,15 @@ export function JobDetailPage() {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <p className="text-xs text-text-muted">Date</p>
-            <p className="text-sm text-text-primary">{job.scheduled_date || 'TBD'}</p>
+            <p className="text-sm text-text-primary">
+              {job.scheduled_date || "TBD"}
+            </p>
           </div>
           <div>
             <p className="text-xs text-text-muted">Time</p>
-            <p className="text-sm text-text-primary">{job.scheduled_time || 'TBD'}</p>
+            <p className="text-sm text-text-primary">
+              {job.scheduled_time || "TBD"}
+            </p>
           </div>
         </div>
       </div>
@@ -144,17 +161,17 @@ export function JobDetailPage() {
             Navigate
           </Link>
 
-          {job.status === 'scheduled' && (
+          {job.status === "scheduled" && (
             <button
               onClick={handleStartJob}
               disabled={updateStatusMutation.isPending}
               className="flex-1 py-3 bg-primary text-white rounded-lg font-medium disabled:opacity-50"
             >
-              {updateStatusMutation.isPending ? 'Starting...' : 'Start Job'}
+              {updateStatusMutation.isPending ? "Starting..." : "Start Job"}
             </button>
           )}
 
-          {job.status === 'in_progress' && (
+          {job.status === "in_progress" && (
             <button
               onClick={handleCompleteJob}
               className="flex-1 py-3 bg-success text-white rounded-lg font-medium"

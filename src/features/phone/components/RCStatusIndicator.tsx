@@ -1,5 +1,5 @@
-import { useRCStatus } from '../api.ts';
-import { Badge } from '@/components/ui/Badge.tsx';
+import { useRCStatus } from "../api.ts";
+import { Badge } from "@/components/ui/Badge.tsx";
 
 /**
  * RingCentral connection status indicator
@@ -25,12 +25,12 @@ export function RCStatusIndicator() {
     <div className="flex items-center gap-2 px-3 py-1 rounded-md bg-bg-hover">
       <div
         className={`w-2 h-2 rounded-full ${
-          status.connected ? 'bg-success' : 'bg-text-muted'
+          status.connected ? "bg-success" : "bg-text-muted"
         }`}
       />
       <div className="flex items-center gap-2">
         <span className="text-xs text-text-secondary">
-          RingCentral: {status.connected ? 'Connected' : 'Disconnected'}
+          RingCentral: {status.connected ? "Connected" : "Disconnected"}
         </span>
         {status.connected && status.extension && (
           <Badge variant="default" className="text-xs">

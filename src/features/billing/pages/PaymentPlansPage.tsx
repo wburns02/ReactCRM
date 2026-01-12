@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 interface PaymentPlan {
   id: number;
@@ -19,14 +19,16 @@ interface PaymentPlan {
  * Payment Plans Management Page
  */
 export function PaymentPlansPage() {
-  const [filter, setFilter] = useState<'all' | 'active' | 'completed' | 'overdue'>('all');
+  const [filter, setFilter] = useState<
+    "all" | "active" | "completed" | "overdue"
+  >("all");
 
   const { data: plans, isLoading } = useQuery({
-    queryKey: ['payment-plans', filter],
+    queryKey: ["payment-plans", filter],
     queryFn: async () => {
       try {
-        const response = await apiClient.get('/payment-plans', {
-          params: { status: filter !== 'all' ? filter : undefined }
+        const response = await apiClient.get("/payment-plans", {
+          params: { status: filter !== "all" ? filter : undefined },
         });
         return response.data.items || response.data || [];
       } catch {
@@ -37,11 +39,16 @@ export function PaymentPlansPage() {
 
   const getStatusColor = (status: string) => {
     switch (status?.toLowerCase()) {
-      case 'active': return 'bg-success/20 text-success';
-      case 'completed': return 'bg-info/20 text-info';
-      case 'overdue': return 'bg-danger/20 text-danger';
-      case 'paused': return 'bg-warning/20 text-warning';
-      default: return 'bg-text-muted/20 text-text-muted';
+      case "active":
+        return "bg-success/20 text-success";
+      case "completed":
+        return "bg-info/20 text-info";
+      case "overdue":
+        return "bg-danger/20 text-danger";
+      case "paused":
+        return "bg-warning/20 text-warning";
+      default:
+        return "bg-text-muted/20 text-text-muted";
     }
   };
 
@@ -49,8 +56,12 @@ export function PaymentPlansPage() {
     <div className="p-6">
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-text-primary">Payment Plans</h1>
-          <p className="text-text-muted">Manage customer financing and payment plans</p>
+          <h1 className="text-2xl font-semibold text-text-primary">
+            Payment Plans
+          </h1>
+          <p className="text-text-muted">
+            Manage customer financing and payment plans
+          </p>
         </div>
         <button className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium">
           Create Payment Plan
@@ -79,14 +90,14 @@ export function PaymentPlansPage() {
 
       {/* Filters */}
       <div className="flex gap-2 mb-6">
-        {(['all', 'active', 'completed', 'overdue'] as const).map((f) => (
+        {(["all", "active", "completed", "overdue"] as const).map((f) => (
           <button
             key={f}
             onClick={() => setFilter(f)}
             className={`px-4 py-2 rounded-lg text-sm font-medium transition-colors ${
               filter === f
-                ? 'bg-primary text-white'
-                : 'bg-bg-card border border-border text-text-secondary hover:bg-bg-hover'
+                ? "bg-primary text-white"
+                : "bg-bg-card border border-border text-text-secondary hover:bg-bg-hover"
             }`}
           >
             {f.charAt(0).toUpperCase() + f.slice(1)}
@@ -111,31 +122,51 @@ export function PaymentPlansPage() {
             <table className="w-full">
               <thead className="bg-bg-hover">
                 <tr>
-                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">Customer</th>
-                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">Total</th>
-                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">Paid</th>
-                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">Remaining</th>
-                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">Schedule</th>
-                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">Next Due</th>
-                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">Status</th>
-                  <th className="text-right px-4 py-3 text-sm font-medium text-text-secondary">Actions</th>
+                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">
+                    Customer
+                  </th>
+                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">
+                    Total
+                  </th>
+                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">
+                    Paid
+                  </th>
+                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">
+                    Remaining
+                  </th>
+                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">
+                    Schedule
+                  </th>
+                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">
+                    Next Due
+                  </th>
+                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">
+                    Status
+                  </th>
+                  <th className="text-right px-4 py-3 text-sm font-medium text-text-secondary">
+                    Actions
+                  </th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
                 {plans?.map((plan: PaymentPlan) => (
                   <tr key={plan.id} className="hover:bg-bg-hover">
                     <td className="px-4 py-3">
-                      <p className="font-medium text-text-primary">{plan.customer_name}</p>
-                      <p className="text-sm text-text-muted">Invoice #{plan.invoice_id}</p>
+                      <p className="font-medium text-text-primary">
+                        {plan.customer_name}
+                      </p>
+                      <p className="text-sm text-text-muted">
+                        Invoice #{plan.invoice_id}
+                      </p>
                     </td>
                     <td className="px-4 py-3 text-text-primary">
-                      ${plan.total_amount?.toLocaleString() || '0'}
+                      ${plan.total_amount?.toLocaleString() || "0"}
                     </td>
                     <td className="px-4 py-3 text-success">
-                      ${plan.amount_paid?.toLocaleString() || '0'}
+                      ${plan.amount_paid?.toLocaleString() || "0"}
                     </td>
                     <td className="px-4 py-3 text-warning">
-                      ${plan.remaining?.toLocaleString() || '0'}
+                      ${plan.remaining?.toLocaleString() || "0"}
                     </td>
                     <td className="px-4 py-3 text-sm text-text-secondary">
                       {plan.installments} payments / {plan.frequency}
@@ -144,7 +175,9 @@ export function PaymentPlansPage() {
                       {plan.next_payment_date}
                     </td>
                     <td className="px-4 py-3">
-                      <span className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(plan.status)}`}>
+                      <span
+                        className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(plan.status)}`}
+                      >
                         {plan.status}
                       </span>
                     </td>

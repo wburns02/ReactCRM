@@ -2,7 +2,7 @@
  * AI Assistant Page
  * Full-page AI chat interface with enhanced features
  */
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from "react";
 import {
   Send,
   Trash2,
@@ -14,10 +14,10 @@ import {
   Calendar,
   FileText,
   Sparkles,
-} from 'lucide-react';
-import { Button } from '@/components/ui/Button';
-import { useAIChat, useAIChatHistory } from '@/hooks/useAI';
-import type { AIMessage } from '@/api/ai';
+} from "lucide-react";
+import { Button } from "@/components/ui/Button";
+import { useAIChat, useAIChatHistory } from "@/hooks/useAI";
+import type { AIMessage } from "@/api/ai";
 
 /**
  * Quick action suggestions for the AI
@@ -25,27 +25,27 @@ import type { AIMessage } from '@/api/ai';
 const QUICK_ACTIONS = [
   {
     icon: Users,
-    label: 'Customer lookup',
-    prompt: 'Help me find a customer',
-    color: 'bg-blue-100 text-blue-600',
+    label: "Customer lookup",
+    prompt: "Help me find a customer",
+    color: "bg-blue-100 text-blue-600",
   },
   {
     icon: Calendar,
-    label: 'Schedule optimization',
+    label: "Schedule optimization",
     prompt: "What's the best time slot for the next available job?",
-    color: 'bg-green-100 text-green-600',
+    color: "bg-green-100 text-green-600",
   },
   {
     icon: BarChart3,
-    label: 'Revenue report',
-    prompt: 'Show me revenue trends for this month',
-    color: 'bg-purple-100 text-purple-600',
+    label: "Revenue report",
+    prompt: "Show me revenue trends for this month",
+    color: "bg-purple-100 text-purple-600",
   },
   {
     icon: FileText,
-    label: 'Create work order',
-    prompt: 'Help me create a new work order',
-    color: 'bg-orange-100 text-orange-600',
+    label: "Create work order",
+    prompt: "Help me create a new work order",
+    color: "bg-orange-100 text-orange-600",
   },
 ];
 
@@ -53,13 +53,13 @@ const QUICK_ACTIONS = [
  * AI Assistant full page component
  */
 export function AIAssistantPage() {
-  const [input, setInput] = useState('');
+  const [input, setInput] = useState("");
   const [showHistory, setShowHistory] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const { messages, sendMessage, clearChat, isTyping, isLoading } = useAIChat({
-    current_page: '/ai-assistant',
+    current_page: "/ai-assistant",
   });
 
   const { data: chatHistory } = useAIChatHistory();
@@ -67,25 +67,25 @@ export function AIAssistantPage() {
   // Auto-resize textarea
   useEffect(() => {
     if (inputRef.current) {
-      inputRef.current.style.height = 'auto';
+      inputRef.current.style.height = "auto";
       inputRef.current.style.height = `${Math.min(inputRef.current.scrollHeight, 150)}px`;
     }
   }, [input]);
 
   // Scroll to bottom on new messages
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages, isTyping]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     if (!input.trim() || isLoading) return;
     sendMessage(input);
-    setInput('');
+    setInput("");
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' && !e.shiftKey) {
+    if (e.key === "Enter" && !e.shiftKey) {
       e.preventDefault();
       handleSubmit(e);
     }
@@ -107,7 +107,9 @@ export function AIAssistantPage() {
                 <Sparkles className="w-5 h-5 text-white" />
               </div>
               <div>
-                <h1 className="text-lg font-semibold text-text-primary">AI Assistant</h1>
+                <h1 className="text-lg font-semibold text-text-primary">
+                  AI Assistant
+                </h1>
                 <p className="text-sm text-text-muted">
                   Your intelligent CRM companion
                 </p>
@@ -183,11 +185,11 @@ export function AIAssistantPage() {
                     <span className="w-2 h-2 bg-primary rounded-full animate-bounce" />
                     <span
                       className="w-2 h-2 bg-primary rounded-full animate-bounce"
-                      style={{ animationDelay: '0.1s' }}
+                      style={{ animationDelay: "0.1s" }}
                     />
                     <span
                       className="w-2 h-2 bg-primary rounded-full animate-bounce"
-                      style={{ animationDelay: '0.2s' }}
+                      style={{ animationDelay: "0.2s" }}
                     />
                   </div>
                   <span className="text-sm">Thinking...</span>
@@ -236,7 +238,7 @@ export function AIAssistantPage() {
       {/* Sidebar - History & Suggestions */}
       <aside
         className={`w-80 border-l border-border bg-bg-card flex-col ${
-          showHistory ? 'flex' : 'hidden md:flex'
+          showHistory ? "flex" : "hidden md:flex"
         }`}
       >
         {/* Chat History */}
@@ -300,15 +302,15 @@ export function AIAssistantPage() {
  * Individual chat message component
  */
 function ChatMessage({ message }: { message: AIMessage }) {
-  const isUser = message.role === 'user';
+  const isUser = message.role === "user";
 
   return (
-    <div className={`flex items-start gap-3 ${isUser ? 'flex-row-reverse' : ''}`}>
+    <div
+      className={`flex items-start gap-3 ${isUser ? "flex-row-reverse" : ""}`}
+    >
       <div
         className={`w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0 ${
-          isUser
-            ? 'bg-primary text-white'
-            : 'bg-primary/10'
+          isUser ? "bg-primary text-white" : "bg-primary/10"
         }`}
       >
         {isUser ? (
@@ -320,17 +322,17 @@ function ChatMessage({ message }: { message: AIMessage }) {
       <div
         className={`max-w-[80%] rounded-lg px-4 py-3 ${
           isUser
-            ? 'bg-primary text-white'
-            : 'bg-bg-card border border-border text-text-primary'
+            ? "bg-primary text-white"
+            : "bg-bg-card border border-border text-text-primary"
         }`}
       >
         <div className="text-sm whitespace-pre-wrap">{message.content}</div>
         <div
-          className={`text-xs mt-2 ${isUser ? 'text-white/70' : 'text-text-muted'}`}
+          className={`text-xs mt-2 ${isUser ? "text-white/70" : "text-text-muted"}`}
         >
           {new Date(message.timestamp).toLocaleTimeString([], {
-            hour: '2-digit',
-            minute: '2-digit',
+            hour: "2-digit",
+            minute: "2-digit",
           })}
         </div>
       </div>

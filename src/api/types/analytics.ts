@@ -2,7 +2,7 @@
  * Analytics Types
  * Real-time embedded analytics and BI dashboards
  */
-import { z } from 'zod';
+import { z } from "zod";
 
 // ============================================
 // Operations Command Center Types
@@ -13,7 +13,7 @@ export const technicianLocationSchema = z.object({
   technician_name: z.string(),
   latitude: z.number(),
   longitude: z.number(),
-  status: z.enum(['available', 'en_route', 'on_job', 'break', 'offline']),
+  status: z.enum(["available", "en_route", "on_job", "break", "offline"]),
   current_job_id: z.string().optional().nullable(),
   current_customer: z.string().optional().nullable(),
   eta_minutes: z.number().optional().nullable(),
@@ -24,8 +24,14 @@ export type TechnicianLocation = z.infer<typeof technicianLocationSchema>;
 
 export const operationsAlertSchema = z.object({
   id: z.string(),
-  type: z.enum(['running_late', 'customer_waiting', 'sla_breach', 'no_show', 'escalation']),
-  severity: z.enum(['low', 'medium', 'high', 'critical']),
+  type: z.enum([
+    "running_late",
+    "customer_waiting",
+    "sla_breach",
+    "no_show",
+    "escalation",
+  ]),
+  severity: z.enum(["low", "medium", "high", "critical"]),
   title: z.string(),
   message: z.string(),
   technician_id: z.string().optional().nullable(),
@@ -59,7 +65,7 @@ export const dispatchQueueItemSchema = z.object({
   customer_name: z.string(),
   customer_address: z.string(),
   service_type: z.string(),
-  priority: z.enum(['low', 'normal', 'high', 'emergency']),
+  priority: z.enum(["low", "normal", "high", "emergency"]),
   scheduled_time: z.string().optional().nullable(),
   waiting_since: z.string(),
   wait_minutes: z.number(),
@@ -87,7 +93,7 @@ export const revenuePeriodSchema = z.object({
 export type RevenuePeriod = z.infer<typeof revenuePeriodSchema>;
 
 export const arAgingSchema = z.object({
-  bucket: z.enum(['current', '1_30', '31_60', '61_90', '90_plus']),
+  bucket: z.enum(["current", "1_30", "31_60", "61_90", "90_plus"]),
   label: z.string(),
   amount: z.number(),
   count: z.number(),
@@ -147,12 +153,14 @@ export const kpiTrendSchema = z.object({
   current_value: z.number(),
   previous_value: z.number(),
   change_pct: z.number(),
-  trend: z.enum(['up', 'down', 'stable']),
+  trend: z.enum(["up", "down", "stable"]),
   target: z.number().optional().nullable(),
-  data_points: z.array(z.object({
-    date: z.string(),
-    value: z.number(),
-  })),
+  data_points: z.array(
+    z.object({
+      date: z.string(),
+      value: z.number(),
+    }),
+  ),
 });
 
 export type KPITrend = z.infer<typeof kpiTrendSchema>;
@@ -176,8 +184,14 @@ export type PerformanceSummary = z.infer<typeof performanceSummarySchema>;
 
 export const anomalyAlertSchema = z.object({
   id: z.string(),
-  type: z.enum(['revenue_drop', 'cost_spike', 'productivity_decline', 'churn_risk', 'demand_surge']),
-  severity: z.enum(['info', 'warning', 'critical']),
+  type: z.enum([
+    "revenue_drop",
+    "cost_spike",
+    "productivity_decline",
+    "churn_risk",
+    "demand_surge",
+  ]),
+  severity: z.enum(["info", "warning", "critical"]),
   title: z.string(),
   description: z.string(),
   metric: z.string(),
@@ -192,17 +206,19 @@ export type AnomalyAlert = z.infer<typeof anomalyAlertSchema>;
 
 export const prescriptiveInsightSchema = z.object({
   id: z.string(),
-  category: z.enum(['revenue', 'efficiency', 'customer', 'cost', 'staffing']),
+  category: z.enum(["revenue", "efficiency", "customer", "cost", "staffing"]),
   title: z.string(),
   insight: z.string(),
   impact: z.string(),
   confidence: z.number(),
   estimated_value: z.number().optional().nullable(),
-  actions: z.array(z.object({
-    label: z.string(),
-    action_type: z.string(),
-    params: z.record(z.string(), z.unknown()).optional(),
-  })),
+  actions: z.array(
+    z.object({
+      label: z.string(),
+      action_type: z.string(),
+      params: z.record(z.string(), z.unknown()).optional(),
+    }),
+  ),
   expires_at: z.string().optional().nullable(),
 });
 
@@ -253,7 +269,7 @@ export interface WidgetConfig {
   id: string;
   type: string;
   title: string;
-  size: 'small' | 'medium' | 'large';
+  size: "small" | "medium" | "large";
   position: { x: number; y: number };
   refresh_interval?: number; // seconds
   filters?: DashboardFilters;

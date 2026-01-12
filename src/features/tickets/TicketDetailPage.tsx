@@ -1,13 +1,18 @@
-import { useParams, useNavigate } from 'react-router-dom';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { useTicket } from '@/api/hooks/useTickets.ts';
+import { useParams, useNavigate } from "react-router-dom";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { useTicket } from "@/api/hooks/useTickets.ts";
 import {
   TICKET_TYPE_LABELS,
   TICKET_STATUS_LABELS,
   TICKET_PRIORITY_LABELS,
-} from '@/api/types/ticket.ts';
+} from "@/api/types/ticket.ts";
 
 /**
  * Ticket detail page - view single ticket
@@ -20,22 +25,22 @@ export function TicketDetailPage() {
 
   const getPriorityBadgeVariant = (priority: string) => {
     const variantMap = {
-      urgent: 'danger',
-      high: 'warning',
-      medium: 'info',
-      low: 'default',
+      urgent: "danger",
+      high: "warning",
+      medium: "info",
+      low: "default",
     } as const;
-    return variantMap[priority as keyof typeof variantMap] || 'default';
+    return variantMap[priority as keyof typeof variantMap] || "default";
   };
 
   const getStatusBadgeVariant = (status: string) => {
     const variantMap = {
-      open: 'info',
-      in_progress: 'warning',
-      resolved: 'success',
-      closed: 'default',
+      open: "info",
+      in_progress: "warning",
+      resolved: "success",
+      closed: "default",
     } as const;
-    return variantMap[status as keyof typeof variantMap] || 'default';
+    return variantMap[status as keyof typeof variantMap] || "default";
   };
 
   if (isLoading) {
@@ -59,8 +64,10 @@ export function TicketDetailPage() {
         <Card>
           <CardContent className="py-12 text-center">
             <div className="text-4xl mb-4">Error</div>
-            <p className="text-danger mb-4">Failed to load ticket. It may not exist.</p>
-            <Button onClick={() => navigate('/tickets')}>
+            <p className="text-danger mb-4">
+              Failed to load ticket. It may not exist.
+            </p>
+            <Button onClick={() => navigate("/tickets")}>
               Back to Tickets
             </Button>
           </CardContent>
@@ -75,7 +82,9 @@ export function TicketDetailPage() {
       <div className="flex items-center justify-between mb-6">
         <div>
           <div className="flex items-center gap-3 mb-2">
-            <h1 className="text-2xl font-semibold text-text-primary">{ticket.title}</h1>
+            <h1 className="text-2xl font-semibold text-text-primary">
+              {ticket.title}
+            </h1>
             <Badge variant={getStatusBadgeVariant(ticket.status)}>
               {TICKET_STATUS_LABELS[ticket.status]}
             </Badge>
@@ -84,7 +93,7 @@ export function TicketDetailPage() {
             Created {new Date(ticket.created_at).toLocaleString()}
           </p>
         </div>
-        <Button variant="secondary" onClick={() => navigate('/tickets')}>
+        <Button variant="secondary" onClick={() => navigate("/tickets")}>
           Back to List
         </Button>
       </div>
@@ -98,7 +107,9 @@ export function TicketDetailPage() {
               <CardTitle>Description</CardTitle>
             </CardHeader>
             <CardContent>
-              <p className="text-text-secondary whitespace-pre-wrap">{ticket.description}</p>
+              <p className="text-text-secondary whitespace-pre-wrap">
+                {ticket.description}
+              </p>
             </CardContent>
           </Card>
 
@@ -126,7 +137,7 @@ export function TicketDetailPage() {
                   <div className="bg-bg-muted rounded-lg p-3">
                     <p className="text-xs text-text-secondary mb-1">Reach</p>
                     <p className="text-lg font-semibold text-text-primary">
-                      {ticket.reach !== null ? ticket.reach.toFixed(1) : '-'}
+                      {ticket.reach !== null ? ticket.reach.toFixed(1) : "-"}
                     </p>
                     <p className="text-xs text-text-muted">users affected</p>
                   </div>
@@ -134,15 +145,20 @@ export function TicketDetailPage() {
                   <div className="bg-bg-muted rounded-lg p-3">
                     <p className="text-xs text-text-secondary mb-1">Impact</p>
                     <p className="text-lg font-semibold text-text-primary">
-                      {ticket.impact !== null ? ticket.impact.toFixed(1) : '-'}
+                      {ticket.impact !== null ? ticket.impact.toFixed(1) : "-"}
                     </p>
                     <p className="text-xs text-text-muted">per user</p>
                   </div>
 
                   <div className="bg-bg-muted rounded-lg p-3">
-                    <p className="text-xs text-text-secondary mb-1">Confidence</p>
+                    <p className="text-xs text-text-secondary mb-1">
+                      Confidence
+                    </p>
                     <p className="text-lg font-semibold text-text-primary">
-                      {ticket.confidence !== null ? ticket.confidence.toFixed(0) : '-'}%
+                      {ticket.confidence !== null
+                        ? ticket.confidence.toFixed(0)
+                        : "-"}
+                      %
                     </p>
                     <p className="text-xs text-text-muted">certainty</p>
                   </div>
@@ -150,7 +166,7 @@ export function TicketDetailPage() {
                   <div className="bg-bg-muted rounded-lg p-3">
                     <p className="text-xs text-text-secondary mb-1">Effort</p>
                     <p className="text-lg font-semibold text-text-primary">
-                      {ticket.effort !== null ? ticket.effort.toFixed(1) : '-'}
+                      {ticket.effort !== null ? ticket.effort.toFixed(1) : "-"}
                     </p>
                     <p className="text-xs text-text-muted">person-weeks</p>
                   </div>
@@ -158,7 +174,8 @@ export function TicketDetailPage() {
 
                 <div className="mt-4 p-3 bg-bg-hover rounded-lg">
                   <p className="text-xs text-text-secondary">
-                    <strong>Formula:</strong> RICE = (Reach × Impact × Confidence%) / Effort
+                    <strong>Formula:</strong> RICE = (Reach × Impact ×
+                    Confidence%) / Effort
                   </p>
                 </div>
               </CardContent>
@@ -206,7 +223,7 @@ export function TicketDetailPage() {
                   Assigned To
                 </p>
                 <p className="text-sm text-text-primary">
-                  {ticket.assigned_to || 'Unassigned'}
+                  {ticket.assigned_to || "Unassigned"}
                 </p>
               </div>
 
@@ -228,7 +245,7 @@ export function TicketDetailPage() {
                 <p className="text-sm text-text-primary">
                   {ticket.updated_at
                     ? new Date(ticket.updated_at).toLocaleString()
-                    : 'Never'}
+                    : "Never"}
                 </p>
               </div>
             </CardContent>

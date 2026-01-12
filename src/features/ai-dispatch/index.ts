@@ -13,19 +13,19 @@
  */
 
 // Main components
-export { AIDispatchPanel } from './components/AIDispatchPanel';
-export { AIDispatchAssistant } from './components/AIDispatchAssistant';
-export { AIDispatchStats } from './components/AIDispatchStats';
+export { AIDispatchPanel } from "./components/AIDispatchPanel";
+export { AIDispatchAssistant } from "./components/AIDispatchAssistant";
+export { AIDispatchStats } from "./components/AIDispatchStats";
 
 // Suggestion components
 export {
   DispatchSuggestionCard,
   DispatchSuggestionCardSkeleton,
   DispatchSuggestionCardSkeletonList,
-} from './components/DispatchSuggestionCard';
+} from "./components/DispatchSuggestionCard";
 
 // Input components
-export { AICommandInput } from './components/AICommandInput';
+export { AICommandInput } from "./components/AICommandInput";
 
 // Re-export hooks and types for convenience
 export {
@@ -54,4 +54,4 @@ export {
   type AIDispatchHistory,
   type AIDispatchStats as AIDispatchStatsType,
   type TechnicianDispatchInfo,
-} from '@/api/hooks/useAIDispatch';
+} from "@/api/hooks/useAIDispatch";

@@ -2,10 +2,10 @@
  * Operations Command Center
  * Real-time view of field operations, technician locations, and alerts
  */
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
+import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import {
   useTechnicianLocations,
   useOperationsAlerts,
@@ -13,14 +13,19 @@ import {
   useDispatchQueue,
   useAcknowledgeOperationsAlert,
   useAcceptDispatchSuggestion,
-} from '@/api/hooks/useAnalytics';
-import type { TechnicianLocation, OperationsAlert, DispatchQueueItem } from '@/api/types/analytics';
-import { formatCurrency, cn } from '@/lib/utils';
-import { getErrorMessage } from '@/api/client';
-import { toastError } from '@/components/ui/Toast';
+} from "@/api/hooks/useAnalytics";
+import type {
+  TechnicianLocation,
+  OperationsAlert,
+  DispatchQueueItem,
+} from "@/api/types/analytics";
+import { formatCurrency, cn } from "@/lib/utils";
+import { getErrorMessage } from "@/api/client";
+import { toastError } from "@/components/ui/Toast";
 
 export function OperationsCommandCenter() {
-  const { data: locations, isLoading: locationsLoading } = useTechnicianLocations();
+  const { data: locations, isLoading: locationsLoading } =
+    useTechnicianLocations();
   const { data: alerts, isLoading: alertsLoading } = useOperationsAlerts(false);
   const { data: stats, isLoading: statsLoading } = useTodayStats();
   const { data: queue, isLoading: queueLoading } = useDispatchQueue();
@@ -30,7 +35,9 @@ export function OperationsCommandCenter() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">Operations Command Center</h1>
+          <h1 className="text-2xl font-bold text-text-primary">
+            Operations Command Center
+          </h1>
           <p className="text-text-secondary">
             Real-time field operations monitoring
           </p>
@@ -45,15 +52,18 @@ export function OperationsCommandCenter() {
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
         {statsLoading ? (
           Array.from({ length: 6 }).map((_, i) => (
-            <div key={i} className="h-20 bg-background-secondary animate-pulse rounded-lg" />
+            <div
+              key={i}
+              className="h-20 bg-background-secondary animate-pulse rounded-lg"
+            />
           ))
         ) : stats ? (
           <>
             <StatCard
               label="Jobs Today"
               value={`${stats.jobs_completed}/${stats.total_jobs_scheduled}`}
-              subtext={`${((stats.completion_rate) * 100).toFixed(0)}% complete`}
-              variant={stats.completion_rate >= 0.8 ? 'success' : 'warning'}
+              subtext={`${(stats.completion_rate * 100).toFixed(0)}% complete`}
+              variant={stats.completion_rate >= 0.8 ? "success" : "warning"}
             />
             <StatCard
               label="In Progress"
@@ -70,7 +80,9 @@ export function OperationsCommandCenter() {
               label="Avg Response"
               value={`${stats.average_response_time}m`}
               subtext="Response time"
-              variant={stats.average_response_time <= 30 ? 'success' : 'warning'}
+              variant={
+                stats.average_response_time <= 30 ? "success" : "warning"
+              }
             />
             <StatCard
               label="Revenue Today"
@@ -82,7 +94,7 @@ export function OperationsCommandCenter() {
               label="Avg Wait"
               value={`${stats.customer_wait_time}m`}
               subtext="Customer wait"
-              variant={stats.customer_wait_time <= 15 ? 'success' : 'danger'}
+              variant={stats.customer_wait_time <= 15 ? "success" : "danger"}
             />
           </>
         ) : null}
@@ -97,7 +109,10 @@ export function OperationsCommandCenter() {
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
         {/* Technician Locations */}
         <div className="lg:col-span-2">
-          <TechnicianMap locations={locations || []} loading={locationsLoading} />
+          <TechnicianMap
+            locations={locations || []}
+            loading={locationsLoading}
+          />
         </div>
 
         {/* Dispatch Queue */}
@@ -105,7 +120,10 @@ export function OperationsCommandCenter() {
       </div>
 
       {/* Technician Status List */}
-      <TechnicianStatusList locations={locations || []} loading={locationsLoading} />
+      <TechnicianStatusList
+        locations={locations || []}
+        loading={locationsLoading}
+      />
     </div>
   );
 }
@@ -114,26 +132,30 @@ function StatCard({
   label,
   value,
   subtext,
-  variant = 'default',
+  variant = "default",
 }: {
   label: string;
   value: string;
   subtext?: string;
-  variant?: 'default' | 'success' | 'warning' | 'danger' | 'info';
+  variant?: "default" | "success" | "warning" | "danger" | "info";
 }) {
   const variantStyles = {
-    default: 'text-text-primary',
-    success: 'text-success',
-    warning: 'text-warning',
-    danger: 'text-error',
-    info: 'text-info',
+    default: "text-text-primary",
+    success: "text-success",
+    warning: "text-warning",
+    danger: "text-error",
+    info: "text-info",
   };
 
   return (
     <Card>
       <CardContent className="pt-4">
-        <p className="text-xs text-text-muted uppercase tracking-wide">{label}</p>
-        <p className={cn('text-2xl font-bold', variantStyles[variant])}>{value}</p>
+        <p className="text-xs text-text-muted uppercase tracking-wide">
+          {label}
+        </p>
+        <p className={cn("text-2xl font-bold", variantStyles[variant])}>
+          {value}
+        </p>
         {subtext && <p className="text-xs text-text-muted mt-1">{subtext}</p>}
       </CardContent>
     </Card>
@@ -157,27 +179,31 @@ function AlertsBar({
     }
   };
 
-  const criticalAlerts = alerts.filter((a) => a.severity === 'critical');
-  const highAlerts = alerts.filter((a) => a.severity === 'high');
+  const criticalAlerts = alerts.filter((a) => a.severity === "critical");
+  const highAlerts = alerts.filter((a) => a.severity === "high");
 
   if (loading) {
-    return <div className="h-16 bg-background-secondary animate-pulse rounded-lg" />;
+    return (
+      <div className="h-16 bg-background-secondary animate-pulse rounded-lg" />
+    );
   }
 
   return (
-    <Card className={cn(
-      'border-l-4',
-      criticalAlerts.length > 0 ? 'border-l-error' : 'border-l-warning'
-    )}>
+    <Card
+      className={cn(
+        "border-l-4",
+        criticalAlerts.length > 0 ? "border-l-error" : "border-l-warning",
+      )}
+    >
       <CardContent className="py-3">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-4">
             <span className="text-xl">
-              {criticalAlerts.length > 0 ? '🚨' : '⚠️'}
+              {criticalAlerts.length > 0 ? "🚨" : "⚠️"}
             </span>
             <div>
               <span className="font-medium">
-                {alerts.length} Active Alert{alerts.length !== 1 ? 's' : ''}
+                {alerts.length} Active Alert{alerts.length !== 1 ? "s" : ""}
               </span>
               {criticalAlerts.length > 0 && (
                 <Badge className="ml-2 bg-error text-white">
@@ -220,10 +246,13 @@ function TechnicianMap({
 }) {
   // In a real implementation, this would use Leaflet or Google Maps
   // For now, we'll show a placeholder with technician counts by status
-  const statusCounts = locations.reduce((acc, loc) => {
-    acc[loc.status] = (acc[loc.status] || 0) + 1;
-    return acc;
-  }, {} as Record<string, number>);
+  const statusCounts = locations.reduce(
+    (acc, loc) => {
+      acc[loc.status] = (acc[loc.status] || 0) + 1;
+      return acc;
+    },
+    {} as Record<string, number>,
+  );
 
   return (
     <Card className="h-96">
@@ -235,15 +264,15 @@ function TechnicianMap({
               <Badge
                 key={status}
                 className={cn(
-                  'text-xs',
-                  status === 'available' && 'bg-success text-white',
-                  status === 'en_route' && 'bg-info text-white',
-                  status === 'on_job' && 'bg-primary text-white',
-                  status === 'break' && 'bg-warning text-white',
-                  status === 'offline' && 'bg-text-muted text-white'
+                  "text-xs",
+                  status === "available" && "bg-success text-white",
+                  status === "en_route" && "bg-info text-white",
+                  status === "on_job" && "bg-primary text-white",
+                  status === "break" && "bg-warning text-white",
+                  status === "offline" && "bg-text-muted text-white",
                 )}
               >
-                {count} {status.replace('_', ' ')}
+                {count} {status.replace("_", " ")}
               </Badge>
             ))}
           </div>
@@ -291,10 +320,10 @@ function DispatchQueueCard({
   };
 
   const priorityStyles = {
-    emergency: 'border-l-error bg-error/5',
-    high: 'border-l-warning bg-warning/5',
-    normal: 'border-l-info',
-    low: 'border-l-border',
+    emergency: "border-l-error bg-error/5",
+    high: "border-l-warning bg-warning/5",
+    normal: "border-l-info",
+    low: "border-l-border",
   };
 
   return (
@@ -321,8 +350,8 @@ function DispatchQueueCard({
               <div
                 key={item.work_order_id}
                 className={cn(
-                  'p-3 rounded-lg border-l-4',
-                  priorityStyles[item.priority]
+                  "p-3 rounded-lg border-l-4",
+                  priorityStyles[item.priority],
                 )}
               >
                 <div className="flex items-start justify-between">
@@ -334,10 +363,12 @@ function DispatchQueueCard({
                   </div>
                   <Badge
                     className={cn(
-                      'text-xs shrink-0',
-                      item.wait_minutes > 30 ? 'bg-error text-white' :
-                      item.wait_minutes > 15 ? 'bg-warning text-white' :
-                      'bg-text-muted text-white'
+                      "text-xs shrink-0",
+                      item.wait_minutes > 30
+                        ? "bg-error text-white"
+                        : item.wait_minutes > 15
+                          ? "bg-warning text-white"
+                          : "bg-text-muted text-white",
                     )}
                   >
                     {item.wait_minutes}m wait
@@ -348,7 +379,9 @@ function DispatchQueueCard({
                   <div className="mt-2 p-2 bg-background rounded text-sm">
                     <div className="flex items-center gap-2">
                       <span className="text-text-muted">AI suggests:</span>
-                      <span className="font-medium">{item.suggested_technician_name}</span>
+                      <span className="font-medium">
+                        {item.suggested_technician_name}
+                      </span>
                       {item.confidence_score && (
                         <Badge className="text-xs bg-success text-white">
                           {(item.confidence_score * 100).toFixed(0)}%
@@ -365,7 +398,10 @@ function DispatchQueueCard({
                       size="sm"
                       className="mt-2 w-full"
                       onClick={() =>
-                        handleAccept(item.work_order_id, item.suggested_technician_id!)
+                        handleAccept(
+                          item.work_order_id,
+                          item.suggested_technician_id!,
+                        )
                       }
                       disabled={acceptSuggestion.isPending}
                     >
@@ -389,18 +425,18 @@ function TechnicianStatusList({
   locations: TechnicianLocation[];
   loading: boolean;
 }) {
-  const [filter, setFilter] = useState<string>('all');
+  const [filter, setFilter] = useState<string>("all");
 
   const statusLabels = {
-    available: { label: 'Available', icon: '✓', color: 'bg-success' },
-    en_route: { label: 'En Route', icon: '🚗', color: 'bg-info' },
-    on_job: { label: 'On Job', icon: '🔧', color: 'bg-primary' },
-    break: { label: 'Break', icon: '☕', color: 'bg-warning' },
-    offline: { label: 'Offline', icon: '⭕', color: 'bg-text-muted' },
+    available: { label: "Available", icon: "✓", color: "bg-success" },
+    en_route: { label: "En Route", icon: "🚗", color: "bg-info" },
+    on_job: { label: "On Job", icon: "🔧", color: "bg-primary" },
+    break: { label: "Break", icon: "☕", color: "bg-warning" },
+    offline: { label: "Offline", icon: "⭕", color: "bg-text-muted" },
   };
 
   const filteredLocations = locations.filter((loc) =>
-    filter === 'all' ? true : loc.status === filter
+    filter === "all" ? true : loc.status === filter,
   );
 
   return (
@@ -409,16 +445,20 @@ function TechnicianStatusList({
         <div className="flex items-center justify-between">
           <CardTitle>Technician Status</CardTitle>
           <div className="flex gap-1">
-            {['all', 'available', 'en_route', 'on_job', 'break', 'offline'].map((s) => (
-              <Button
-                key={s}
-                variant={filter === s ? 'primary' : 'ghost'}
-                size="sm"
-                onClick={() => setFilter(s)}
-              >
-                {s === 'all' ? 'All' : statusLabels[s as keyof typeof statusLabels]?.label}
-              </Button>
-            ))}
+            {["all", "available", "en_route", "on_job", "break", "offline"].map(
+              (s) => (
+                <Button
+                  key={s}
+                  variant={filter === s ? "primary" : "ghost"}
+                  size="sm"
+                  onClick={() => setFilter(s)}
+                >
+                  {s === "all"
+                    ? "All"
+                    : statusLabels[s as keyof typeof statusLabels]?.label}
+                </Button>
+              ),
+            )}
           </div>
         </div>
       </CardHeader>
@@ -435,9 +475,13 @@ function TechnicianStatusList({
                   className="p-3 bg-background-secondary rounded-lg"
                 >
                   <div className="flex items-center gap-3">
-                    <div className={cn('w-3 h-3 rounded-full', statusInfo.color)} />
+                    <div
+                      className={cn("w-3 h-3 rounded-full", statusInfo.color)}
+                    />
                     <div className="flex-1 min-w-0">
-                      <p className="font-medium truncate">{loc.technician_name}</p>
+                      <p className="font-medium truncate">
+                        {loc.technician_name}
+                      </p>
                       <p className="text-xs text-text-muted">
                         {statusInfo.icon} {statusInfo.label}
                       </p>

@@ -2,9 +2,9 @@
  * useMapbox Hook (Leaflet Implementation)
  * Map initialization, marker management, and interactions using Leaflet with OpenStreetMap
  */
-import { useState, useEffect, useCallback, useRef } from 'react';
-import * as L from 'leaflet';
-import type { Map as LeafletMap, Marker, LatLngExpression } from 'leaflet';
+import { useState, useEffect, useCallback, useRef } from "react";
+import * as L from "leaflet";
+import type { Map as LeafletMap, Marker, LatLngExpression } from "leaflet";
 
 // ============================================
 // Types
@@ -83,7 +83,10 @@ export interface UseMapboxReturn {
   /** Fit bounds to show all markers */
   fitBounds: (padding?: number) => void;
   /** Fit bounds to specific coordinates */
-  fitBoundsToCoords: (coords: { lat: number; lng: number }[], padding?: number) => void;
+  fitBoundsToCoords: (
+    coords: { lat: number; lng: number }[],
+    padding?: number,
+  ) => void;
   /** Pan to coordinates */
   panTo: (lat: number, lng: number) => void;
   /** Get current bounds */
@@ -100,22 +103,29 @@ export interface UseMapboxReturn {
 
 export const TILE_LAYERS = {
   /** CartoDB Voyager - Clean, modern look */
-  voyager: 'https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png',
+  voyager:
+    "https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png",
   /** CartoDB Light - Minimal, light theme */
-  light: 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png',
+  light: "https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}{r}.png",
   /** CartoDB Dark - Dark theme */
-  dark: 'https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png',
+  dark: "https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png",
   /** OpenStreetMap Standard */
-  osm: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+  osm: "https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png",
   /** Stadia Maps - Alidade Smooth */
-  stadia: 'https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png',
+  stadia:
+    "https://tiles.stadiamaps.com/tiles/alidade_smooth/{z}/{x}/{y}{r}.png",
 } as const;
 
 // ============================================
 // Default Options
 // ============================================
 
-const DEFAULT_OPTIONS: Required<Omit<UseMapboxOptions, 'containerId' | 'onMapReady' | 'onMarkerClick' | 'onMapClick' | 'onMapMove'>> = {
+const DEFAULT_OPTIONS: Required<
+  Omit<
+    UseMapboxOptions,
+    "containerId" | "onMapReady" | "onMarkerClick" | "onMapClick" | "onMapMove"
+  >
+> = {
   center: { lat: 29.4252, lng: -98.4946 }, // San Antonio, TX (near ECBTX)
   zoom: 12,
   minZoom: 3,
@@ -147,7 +157,9 @@ export function useMapbox(options: UseMapboxOptions = {}): UseMapboxReturn {
   // State
   const [map, setMap] = useState<LeafletMap | null>(null);
   const [isReady, setIsReady] = useState(false);
-  const [center, setCenter] = useState<{ lat: number; lng: number } | null>(initialCenter);
+  const [center, setCenter] = useState<{ lat: number; lng: number } | null>(
+    initialCenter,
+  );
   const [zoom, setZoom] = useState(initialZoom);
   const [bounds, setBounds] = useState<MapBounds | null>(null);
 
@@ -178,85 +190,107 @@ export function useMapbox(options: UseMapboxOptions = {}): UseMapboxReturn {
   }, []);
 
   // Initialize map
-  const initializeMap = useCallback((container: HTMLElement) => {
-    if (map) {
-      // Map already initialized
-      return;
-    }
+  const initializeMap = useCallback(
+    (container: HTMLElement) => {
+      if (map) {
+        // Map already initialized
+        return;
+      }
 
-    const leafletMap = L.map(container, {
-      center: [initialCenter.lat, initialCenter.lng],
-      zoom: initialZoom,
+      const leafletMap = L.map(container, {
+        center: [initialCenter.lat, initialCenter.lng],
+        zoom: initialZoom,
+        minZoom,
+        maxZoom,
+        zoomControl,
+        attributionControl,
+      });
+
+      // Add tile layer
+      L.tileLayer(tileUrl).addTo(leafletMap);
+
+      // Event handlers
+      leafletMap.on("click", (e) => {
+        onMapClickRef.current?.(e.latlng.lat, e.latlng.lng);
+      });
+
+      leafletMap.on("moveend", () => {
+        const mapCenter = leafletMap.getCenter();
+        const mapZoom = leafletMap.getZoom();
+        setCenter({ lat: mapCenter.lat, lng: mapCenter.lng });
+        setZoom(mapZoom);
+        updateBounds(leafletMap);
+        onMapMoveRef.current?.(
+          { lat: mapCenter.lat, lng: mapCenter.lng },
+          mapZoom,
+        );
+      });
+
+      leafletMap.on("zoomend", () => {
+        setZoom(leafletMap.getZoom());
+        updateBounds(leafletMap);
+      });
+
+      setMap(leafletMap);
+      setIsReady(true);
+      updateBounds(leafletMap);
+      onMapReadyRef.current?.(leafletMap);
+    },
+    [
+      map,
+      initialCenter,
+      initialZoom,
       minZoom,
       maxZoom,
       zoomControl,
       attributionControl,
-    });
-
-    // Add tile layer
-    L.tileLayer(tileUrl).addTo(leafletMap);
-
-    // Event handlers
-    leafletMap.on('click', (e) => {
-      onMapClickRef.current?.(e.latlng.lat, e.latlng.lng);
-    });
-
-    leafletMap.on('moveend', () => {
-      const mapCenter = leafletMap.getCenter();
-      const mapZoom = leafletMap.getZoom();
-      setCenter({ lat: mapCenter.lat, lng: mapCenter.lng });
-      setZoom(mapZoom);
-      updateBounds(leafletMap);
-      onMapMoveRef.current?.({ lat: mapCenter.lat, lng: mapCenter.lng }, mapZoom);
-    });
-
-    leafletMap.on('zoomend', () => {
-      setZoom(leafletMap.getZoom());
-      updateBounds(leafletMap);
-    });
-
-    setMap(leafletMap);
-    setIsReady(true);
-    updateBounds(leafletMap);
-    onMapReadyRef.current?.(leafletMap);
-  }, [map, initialCenter, initialZoom, minZoom, maxZoom, zoomControl, attributionControl, tileUrl, updateBounds]);
+      tileUrl,
+      updateBounds,
+    ],
+  );
 
   // Add marker
-  const addMarker = useCallback((markerData: MapMarker): Marker | null => {
-    if (!map) return null;
+  const addMarker = useCallback(
+    (markerData: MapMarker): Marker | null => {
+      if (!map) return null;
 
-    // Remove existing marker with same ID if any
-    const existingMarker = markersRef.current.get(markerData.id);
-    if (existingMarker) {
-      existingMarker.remove();
-    }
+      // Remove existing marker with same ID if any
+      const existingMarker = markersRef.current.get(markerData.id);
+      if (existingMarker) {
+        existingMarker.remove();
+      }
 
-    const markerOptions: L.MarkerOptions = {
-      draggable: markerData.draggable || false,
-    };
+      const markerOptions: L.MarkerOptions = {
+        draggable: markerData.draggable || false,
+      };
 
-    if (markerData.icon) {
-      markerOptions.icon = markerData.icon;
-    }
+      if (markerData.icon) {
+        markerOptions.icon = markerData.icon;
+      }
 
-    const marker = L.marker([markerData.lat, markerData.lng], markerOptions).addTo(map);
+      const marker = L.marker(
+        [markerData.lat, markerData.lng],
+        markerOptions,
+      ).addTo(map);
 
-    if (markerData.popup) {
-      marker.bindPopup(markerData.popup);
-    }
+      if (markerData.popup) {
+        marker.bindPopup(markerData.popup);
+      }
 
-    if (markerData.title) {
-      marker.bindTooltip(markerData.title);
-    }
+      if (markerData.title) {
+        marker.bindTooltip(markerData.title);
+      }
 
-    // Click handler
-    marker.on('click', () => {
-      onMarkerClickRef.current?.(markerData);
-    });
+      // Click handler
+      marker.on("click", () => {
+        onMarkerClickRef.current?.(markerData);
+      });
 
-    markersRef.current.set(markerData.id, marker);
-    return marker;
-  }, [map]);
+      markersRef.current.set(markerData.id, marker);
+      return marker;
+    },
+    [map],
+  );
 
   // Remove marker
   const removeMarker = useCallback((id: string) => {
@@ -274,59 +308,77 @@ export function useMapbox(options: UseMapboxOptions = {}): UseMapboxReturn {
   }, []);
 
   // Update marker position
-  const updateMarkerPosition = useCallback((id: string, lat: number, lng: number) => {
-    const marker = markersRef.current.get(id);
-    if (marker) {
-      marker.setLatLng([lat, lng]);
-    }
-  }, []);
+  const updateMarkerPosition = useCallback(
+    (id: string, lat: number, lng: number) => {
+      const marker = markersRef.current.get(id);
+      if (marker) {
+        marker.setLatLng([lat, lng]);
+      }
+    },
+    [],
+  );
 
   // Set center
-  const setCenterFn = useCallback((lat: number, lng: number, newZoom?: number) => {
-    if (!map) return;
-    if (newZoom !== undefined) {
-      map.setView([lat, lng], newZoom);
-    } else {
-      map.setView([lat, lng]);
-    }
-  }, [map]);
+  const setCenterFn = useCallback(
+    (lat: number, lng: number, newZoom?: number) => {
+      if (!map) return;
+      if (newZoom !== undefined) {
+        map.setView([lat, lng], newZoom);
+      } else {
+        map.setView([lat, lng]);
+      }
+    },
+    [map],
+  );
 
   // Set zoom
-  const setZoomFn = useCallback((newZoom: number) => {
-    if (!map) return;
-    map.setZoom(newZoom);
-  }, [map]);
+  const setZoomFn = useCallback(
+    (newZoom: number) => {
+      if (!map) return;
+      map.setZoom(newZoom);
+    },
+    [map],
+  );
 
   // Fit bounds to all markers
-  const fitBounds = useCallback((padding = 50) => {
-    if (!map || markersRef.current.size === 0) return;
+  const fitBounds = useCallback(
+    (padding = 50) => {
+      if (!map || markersRef.current.size === 0) return;
 
-    const markerPositions: LatLngExpression[] = [];
-    markersRef.current.forEach((marker) => {
-      const latlng = marker.getLatLng();
-      markerPositions.push([latlng.lat, latlng.lng]);
-    });
+      const markerPositions: LatLngExpression[] = [];
+      markersRef.current.forEach((marker) => {
+        const latlng = marker.getLatLng();
+        markerPositions.push([latlng.lat, latlng.lng]);
+      });
 
-    if (markerPositions.length > 0) {
-      const leafletBounds = L.latLngBounds(markerPositions);
-      map.fitBounds(leafletBounds, { padding: [padding, padding] });
-    }
-  }, [map]);
+      if (markerPositions.length > 0) {
+        const leafletBounds = L.latLngBounds(markerPositions);
+        map.fitBounds(leafletBounds, { padding: [padding, padding] });
+      }
+    },
+    [map],
+  );
 
   // Fit bounds to specific coordinates
-  const fitBoundsToCoords = useCallback((coords: { lat: number; lng: number }[], padding = 50) => {
-    if (!map || coords.length === 0) return;
+  const fitBoundsToCoords = useCallback(
+    (coords: { lat: number; lng: number }[], padding = 50) => {
+      if (!map || coords.length === 0) return;
 
-    const positions: LatLngExpression[] = coords.map((c) => [c.lat, c.lng]);
-    const leafletBounds = L.latLngBounds(positions);
-    map.fitBounds(leafletBounds, { padding: [padding, padding] });
-  }, [map]);
+      const positions: LatLngExpression[] = coords.map((c) => [c.lat, c.lng]);
+      const leafletBounds = L.latLngBounds(positions);
+      map.fitBounds(leafletBounds, { padding: [padding, padding] });
+    },
+    [map],
+  );
 
   // Pan to coordinates
-  const panTo = useCallback((lat: number, lng: number) => {
-    if (!map) return;
-    map.panTo([lat, lng]);
-  }, [map]);
+  const panTo = useCallback(
+    (lat: number, lng: number) => {
+      if (!map) return;
+      map.panTo([lat, lng]);
+    },
+    [map],
+  );
 
   // Get current bounds
   const getBounds = useCallback((): MapBounds | null => {
@@ -398,9 +450,11 @@ export function createMarkerIcon(options: {
   iconHtml?: string;
   className?: string;
 }): L.DivIcon {
-  const { color = '#3b82f6', size = 32, iconHtml, className = '' } = options;
+  const { color = "#3b82f6", size = 32, iconHtml, className = "" } = options;
 
-  const html = iconHtml || `
+  const html =
+    iconHtml ||
+    `
     <div style="
       width: ${size}px;
       height: ${size}px;
@@ -432,7 +486,7 @@ export function createNumberedMarkerIcon(options: {
   color?: string;
   size?: number;
 }): L.DivIcon {
-  const { number, color = '#3b82f6', size = 32 } = options;
+  const { number, color = "#3b82f6", size = 32 } = options;
 
   const html = `
     <div style="
@@ -455,7 +509,7 @@ export function createNumberedMarkerIcon(options: {
   `;
 
   return L.divIcon({
-    className: 'numbered-marker',
+    className: "numbered-marker",
     html,
     iconSize: [size, size],
     iconAnchor: [size / 2, size / 2],

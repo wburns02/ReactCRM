@@ -1,6 +1,6 @@
-import { useState } from 'react';
-import { useOffline, useSyncStatus } from '@/hooks/useOffline';
-import { Button } from '@/components/ui/Button';
+import { useState } from "react";
+import { useOffline, useSyncStatus } from "@/hooks/useOffline";
+import { Button } from "@/components/ui/Button";
 
 /**
  * Offline indicator component
@@ -26,7 +26,7 @@ export function OfflineIndicator() {
     setSyncError(null);
     const result = await syncNow();
     if (result.errors.length > 0) {
-      setSyncError(result.errors.join(', '));
+      setSyncError(result.errors.join(", "));
     }
   };
 
@@ -34,7 +34,7 @@ export function OfflineIndicator() {
     setSyncError(null);
     const success = await retryItem(id);
     if (!success) {
-      setSyncError('Retry failed - please try again');
+      setSyncError("Retry failed - please try again");
     }
   };
 
@@ -66,7 +66,7 @@ export function OfflineIndicator() {
   }
 
   // Get failed items (retries >= 3)
-  const failedItems = syncQueue.filter(item => item.retries >= 3);
+  const failedItems = syncQueue.filter((item) => item.retries >= 3);
 
   return (
     <div className="fixed top-0 left-0 right-0 z-50">
@@ -74,7 +74,10 @@ export function OfflineIndicator() {
       {!isOnline && (
         <div className="bg-warning text-white px-4 py-2 text-center text-sm font-medium">
           <div className="flex items-center justify-center gap-2">
-            <span className="animate-pulse">You are offline. Changes will be synced when connection is restored.</span>
+            <span className="animate-pulse">
+              You are offline. Changes will be synced when connection is
+              restored.
+            </span>
           </div>
         </div>
       )}
@@ -95,7 +98,8 @@ export function OfflineIndicator() {
           <div className="flex items-center justify-between max-w-screen-xl mx-auto">
             <div className="flex items-center gap-2 text-sm">
               <span>
-                {pendingCount} pending {pendingCount === 1 ? 'change' : 'changes'} to sync
+                {pendingCount} pending{" "}
+                {pendingCount === 1 ? "change" : "changes"} to sync
               </span>
               {lastSyncTime && (
                 <span className="text-white/70 text-xs">
@@ -110,7 +114,7 @@ export function OfflineIndicator() {
                 onClick={() => setShowDetails(!showDetails)}
                 className="text-white hover:bg-white/20"
               >
-                {showDetails ? 'Hide' : 'Details'}
+                {showDetails ? "Hide" : "Details"}
               </Button>
               <Button
                 variant="ghost"
@@ -127,8 +131,11 @@ export function OfflineIndicator() {
           {showDetails && (
             <div className="mt-2 pt-2 border-t border-white/20 max-w-screen-xl mx-auto">
               <div className="space-y-1 text-xs">
-                {syncQueue.map(item => (
-                  <div key={item.id} className="flex items-center justify-between py-1">
+                {syncQueue.map((item) => (
+                  <div
+                    key={item.id}
+                    className="flex items-center justify-between py-1"
+                  >
                     <span>
                       {item.type.toUpperCase()} {item.entity}
                       {item.retries > 0 && (
@@ -171,7 +178,8 @@ export function OfflineIndicator() {
           <div className="flex items-center justify-between max-w-screen-xl mx-auto">
             <div className="flex items-center gap-2 text-sm">
               <span>
-                {failedItems.length} {failedItems.length === 1 ? 'change' : 'changes'} failed to sync
+                {failedItems.length}{" "}
+                {failedItems.length === 1 ? "change" : "changes"} failed to sync
               </span>
             </div>
             <Button
@@ -263,15 +271,15 @@ export function SyncStatusBadge() {
   const status = useSyncStatus();
 
   // Don't show when healthy and idle
-  if (status.isHealthy && status.status === 'idle') {
+  if (status.isHealthy && status.status === "idle") {
     return null;
   }
 
   const statusColors = {
-    idle: 'bg-gray-500',
-    syncing: 'bg-primary animate-pulse',
-    error: 'bg-danger',
-    offline: 'bg-warning',
+    idle: "bg-gray-500",
+    syncing: "bg-primary animate-pulse",
+    error: "bg-danger",
+    offline: "bg-warning",
   };
 
   return (
@@ -282,7 +290,7 @@ export function SyncStatusBadge() {
       />
       {status.pendingCount > 0 && (
         <span className="absolute -top-1 -right-1 bg-danger text-white text-[10px] rounded-full w-3 h-3 flex items-center justify-center">
-          {status.pendingCount > 9 ? '9+' : status.pendingCount}
+          {status.pendingCount > 9 ? "9+" : status.pendingCount}
         </span>
       )}
     </div>
@@ -308,7 +316,11 @@ export function SyncStatusPanel() {
   const [isClearing, setIsClearing] = useState(false);
 
   const handleClear = async () => {
-    if (confirm('Are you sure you want to clear all pending changes? This cannot be undone.')) {
+    if (
+      confirm(
+        "Are you sure you want to clear all pending changes? This cannot be undone.",
+      )
+    ) {
       setIsClearing(true);
       try {
         await clearQueue();
@@ -325,14 +337,20 @@ export function SyncStatusPanel() {
       <div className="grid grid-cols-2 gap-4 text-sm">
         <div>
           <span className="text-gray-500">Connection:</span>
-          <span className={`ml-2 font-medium ${isOnline ? 'text-success' : 'text-warning'}`}>
-            {isOnline ? 'Online' : 'Offline'}
+          <span
+            className={`ml-2 font-medium ${isOnline ? "text-success" : "text-warning"}`}
+          >
+            {isOnline ? "Online" : "Offline"}
           </span>
         </div>
         <div>
           <span className="text-gray-500">Status:</span>
           <span className="ml-2 font-medium">
-            {isSyncing ? 'Syncing...' : isInitialized ? 'Ready' : 'Initializing...'}
+            {isSyncing
+              ? "Syncing..."
+              : isInitialized
+                ? "Ready"
+                : "Initializing..."}
           </span>
         </div>
         <div>
@@ -342,7 +360,7 @@ export function SyncStatusPanel() {
         <div>
           <span className="text-gray-500">Last Sync:</span>
           <span className="ml-2 font-medium">
-            {lastSyncTime ? formatRelativeTime(lastSyncTime) : 'Never'}
+            {lastSyncTime ? formatRelativeTime(lastSyncTime) : "Never"}
           </span>
         </div>
       </div>
@@ -355,10 +373,15 @@ export function SyncStatusPanel() {
 
       {syncQueue.length > 0 && (
         <div className="border-t pt-4">
-          <h4 className="text-sm font-medium text-gray-700 mb-2">Pending Changes</h4>
+          <h4 className="text-sm font-medium text-gray-700 mb-2">
+            Pending Changes
+          </h4>
           <div className="max-h-40 overflow-y-auto space-y-1">
-            {syncQueue.map(item => (
-              <div key={item.id} className="text-xs bg-gray-50 rounded p-2 flex justify-between">
+            {syncQueue.map((item) => (
+              <div
+                key={item.id}
+                className="text-xs bg-gray-50 rounded p-2 flex justify-between"
+              >
                 <span>
                   {item.type} {item.entity}
                   {item.retries > 0 && ` (${item.retries} retries)`}
@@ -379,7 +402,7 @@ export function SyncStatusPanel() {
           onClick={() => syncNow()}
           disabled={!isOnline || isSyncing || pendingCount === 0}
         >
-          {isSyncing ? 'Syncing...' : 'Sync Now'}
+          {isSyncing ? "Syncing..." : "Sync Now"}
         </Button>
         <Button
           variant="ghost"
@@ -388,7 +411,7 @@ export function SyncStatusPanel() {
           disabled={isClearing || pendingCount === 0}
           className="text-danger hover:bg-danger/10"
         >
-          {isClearing ? 'Clearing...' : 'Clear Queue'}
+          {isClearing ? "Clearing..." : "Clear Queue"}
         </Button>
       </div>
     </div>
@@ -402,7 +425,7 @@ export function SyncStatusPanel() {
 function formatRelativeTime(timestamp: number): string {
   const seconds = Math.floor((Date.now() - timestamp) / 1000);
 
-  if (seconds < 60) return 'just now';
+  if (seconds < 60) return "just now";
   if (seconds < 3600) return `${Math.floor(seconds / 60)}m ago`;
   if (seconds < 86400) return `${Math.floor(seconds / 3600)}h ago`;
   return `${Math.floor(seconds / 86400)}d ago`;

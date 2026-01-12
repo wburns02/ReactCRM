@@ -1,7 +1,12 @@
-import { forwardRef, type InputHTMLAttributes, useId, type ReactNode } from 'react';
-import { cn } from '@/lib/utils';
-import { Input } from './Input';
-import { Label } from './Label';
+import {
+  forwardRef,
+  type InputHTMLAttributes,
+  useId,
+  type ReactNode,
+} from "react";
+import { cn } from "@/lib/utils";
+import { Input } from "./Input";
+import { Label } from "./Label";
 
 /**
  * FormField - Accessible form field wrapper
@@ -9,7 +14,10 @@ import { Label } from './Label';
  * Automatically connects label, input, and error message with proper ARIA attributes.
  * Uses useId() for unique IDs, ensuring proper accessibility.
  */
-interface FormFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id'> {
+interface FormFieldProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "id"
+> {
   /** Field label */
   label: string;
   /** Error message */
@@ -25,22 +33,31 @@ interface FormFieldProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'id
 }
 
 export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
-  ({ label, error, hint, required, wrapperClassName, id: customId, className, ...props }, ref) => {
+  (
+    {
+      label,
+      error,
+      hint,
+      required,
+      wrapperClassName,
+      id: customId,
+      className,
+      ...props
+    },
+    ref,
+  ) => {
     const generatedId = useId();
     const id = customId || generatedId;
     const errorId = `${id}-error`;
     const hintId = `${id}-hint`;
 
     // Build aria-describedby from error and hint
-    const describedBy = [
-      error ? errorId : null,
-      hint && !error ? hintId : null,
-    ]
+    const describedBy = [error ? errorId : null, hint && !error ? hintId : null]
       .filter(Boolean)
-      .join(' ');
+      .join(" ");
 
     return (
-      <div className={cn('space-y-2', wrapperClassName)}>
+      <div className={cn("space-y-2", wrapperClassName)}>
         <Label htmlFor={id} required={required}>
           {label}
         </Label>
@@ -69,10 +86,10 @@ export const FormField = forwardRef<HTMLInputElement, FormFieldProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
-FormField.displayName = 'FormField';
+FormField.displayName = "FormField";
 
 /**
  * FormTextarea - Accessible textarea with label and error
@@ -91,21 +108,30 @@ interface FormTextareaProps extends React.TextareaHTMLAttributes<HTMLTextAreaEle
 }
 
 export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
-  ({ label, error, hint, required, wrapperClassName, id: customId, className, ...props }, ref) => {
+  (
+    {
+      label,
+      error,
+      hint,
+      required,
+      wrapperClassName,
+      id: customId,
+      className,
+      ...props
+    },
+    ref,
+  ) => {
     const generatedId = useId();
     const id = customId || generatedId;
     const errorId = `${id}-error`;
     const hintId = `${id}-hint`;
 
-    const describedBy = [
-      error ? errorId : null,
-      hint && !error ? hintId : null,
-    ]
+    const describedBy = [error ? errorId : null, hint && !error ? hintId : null]
       .filter(Boolean)
-      .join(' ');
+      .join(" ");
 
     return (
-      <div className={cn('space-y-2', wrapperClassName)}>
+      <div className={cn("space-y-2", wrapperClassName)}>
         <Label htmlFor={id} required={required}>
           {label}
         </Label>
@@ -117,12 +143,12 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
           aria-describedby={describedBy || undefined}
           aria-required={required}
           className={cn(
-            'flex min-h-[80px] w-full rounded-md border bg-bg-card px-3 py-2 text-sm',
-            'placeholder:text-text-muted',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
-            'disabled:cursor-not-allowed disabled:opacity-50',
-            error ? 'border-danger' : 'border-border',
-            className
+            "flex min-h-[80px] w-full rounded-md border bg-bg-card px-3 py-2 text-sm",
+            "placeholder:text-text-muted",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+            "disabled:cursor-not-allowed disabled:opacity-50",
+            error ? "border-danger" : "border-border",
+            className,
           )}
           {...props}
         />
@@ -140,10 +166,10 @@ export const FormTextarea = forwardRef<HTMLTextAreaElement, FormTextareaProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
-FormTextarea.displayName = 'FormTextarea';
+FormTextarea.displayName = "FormTextarea";
 
 /**
  * FormSelect - Accessible select with label and error
@@ -164,21 +190,31 @@ interface FormSelectProps extends React.SelectHTMLAttributes<HTMLSelectElement> 
 }
 
 export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
-  ({ label, error, hint, required, wrapperClassName, id: customId, className, children, ...props }, ref) => {
+  (
+    {
+      label,
+      error,
+      hint,
+      required,
+      wrapperClassName,
+      id: customId,
+      className,
+      children,
+      ...props
+    },
+    ref,
+  ) => {
     const generatedId = useId();
     const id = customId || generatedId;
     const errorId = `${id}-error`;
     const hintId = `${id}-hint`;
 
-    const describedBy = [
-      error ? errorId : null,
-      hint && !error ? hintId : null,
-    ]
+    const describedBy = [error ? errorId : null, hint && !error ? hintId : null]
       .filter(Boolean)
-      .join(' ');
+      .join(" ");
 
     return (
-      <div className={cn('space-y-2', wrapperClassName)}>
+      <div className={cn("space-y-2", wrapperClassName)}>
         <Label htmlFor={id} required={required}>
           {label}
         </Label>
@@ -190,11 +226,11 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
           aria-describedby={describedBy || undefined}
           aria-required={required}
           className={cn(
-            'flex h-10 w-full rounded-md border bg-bg-card px-3 py-2 text-sm',
-            'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
-            'disabled:cursor-not-allowed disabled:opacity-50',
-            error ? 'border-danger' : 'border-border',
-            className
+            "flex h-10 w-full rounded-md border bg-bg-card px-3 py-2 text-sm",
+            "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+            "disabled:cursor-not-allowed disabled:opacity-50",
+            error ? "border-danger" : "border-border",
+            className,
           )}
           {...props}
         >
@@ -214,15 +250,18 @@ export const FormSelect = forwardRef<HTMLSelectElement, FormSelectProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
-FormSelect.displayName = 'FormSelect';
+FormSelect.displayName = "FormSelect";
 
 /**
  * FormCheckbox - Accessible checkbox with label and error
  */
-interface FormCheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type'> {
+interface FormCheckboxProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "type"
+> {
   /** Field label */
   label: string;
   /** Description shown below checkbox */
@@ -234,21 +273,29 @@ interface FormCheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 
 }
 
 export const FormCheckbox = forwardRef<HTMLInputElement, FormCheckboxProps>(
-  ({ label, description, error, wrapperClassName, id: customId, className, ...props }, ref) => {
+  (
+    {
+      label,
+      description,
+      error,
+      wrapperClassName,
+      id: customId,
+      className,
+      ...props
+    },
+    ref,
+  ) => {
     const generatedId = useId();
     const id = customId || generatedId;
     const errorId = `${id}-error`;
     const descId = `${id}-desc`;
 
-    const describedBy = [
-      description ? descId : null,
-      error ? errorId : null,
-    ]
+    const describedBy = [description ? descId : null, error ? errorId : null]
       .filter(Boolean)
-      .join(' ');
+      .join(" ");
 
     return (
-      <div className={cn('space-y-1', wrapperClassName)}>
+      <div className={cn("space-y-1", wrapperClassName)}>
         <div className="flex items-start gap-3">
           <input
             ref={ref}
@@ -257,16 +304,19 @@ export const FormCheckbox = forwardRef<HTMLInputElement, FormCheckboxProps>(
             aria-invalid={!!error}
             aria-describedby={describedBy || undefined}
             className={cn(
-              'h-4 w-4 rounded border-border text-primary',
-              'focus:ring-2 focus:ring-primary focus:ring-offset-2',
-              'disabled:cursor-not-allowed disabled:opacity-50',
-              error && 'border-danger',
-              className
+              "h-4 w-4 rounded border-border text-primary",
+              "focus:ring-2 focus:ring-primary focus:ring-offset-2",
+              "disabled:cursor-not-allowed disabled:opacity-50",
+              error && "border-danger",
+              className,
             )}
             {...props}
           />
           <div className="flex flex-col">
-            <label htmlFor={id} className="text-sm font-medium text-text-primary cursor-pointer">
+            <label
+              htmlFor={id}
+              className="text-sm font-medium text-text-primary cursor-pointer"
+            >
               {label}
             </label>
             {description && (
@@ -284,10 +334,10 @@ export const FormCheckbox = forwardRef<HTMLInputElement, FormCheckboxProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
-FormCheckbox.displayName = 'FormCheckbox';
+FormCheckbox.displayName = "FormCheckbox";
 
 /**
  * FormRadioGroup - Accessible radio group
@@ -319,7 +369,7 @@ interface FormRadioGroupProps {
   /** Additional class for the wrapper */
   wrapperClassName?: string;
   /** Orientation */
-  orientation?: 'horizontal' | 'vertical';
+  orientation?: "horizontal" | "vertical";
 }
 
 export function FormRadioGroup({
@@ -332,30 +382,34 @@ export function FormRadioGroup({
   hint,
   required,
   wrapperClassName,
-  orientation = 'vertical',
+  orientation = "vertical",
 }: FormRadioGroupProps) {
   const groupId = useId();
   const errorId = `${groupId}-error`;
   const hintId = `${groupId}-hint`;
 
-  const describedBy = [
-    error ? errorId : null,
-    hint && !error ? hintId : null,
-  ]
+  const describedBy = [error ? errorId : null, hint && !error ? hintId : null]
     .filter(Boolean)
-    .join(' ');
+    .join(" ");
 
   return (
-    <div className={cn('space-y-2', wrapperClassName)} role="radiogroup" aria-labelledby={`${groupId}-label`}>
-      <div id={`${groupId}-label`} className="text-sm font-medium text-text-primary">
+    <div
+      className={cn("space-y-2", wrapperClassName)}
+      role="radiogroup"
+      aria-labelledby={`${groupId}-label`}
+    >
+      <div
+        id={`${groupId}-label`}
+        className="text-sm font-medium text-text-primary"
+      >
         {label}
         {required && <span className="text-danger ml-1">*</span>}
       </div>
 
       <div
         className={cn(
-          'flex gap-4',
-          orientation === 'vertical' ? 'flex-col' : 'flex-row flex-wrap'
+          "flex gap-4",
+          orientation === "vertical" ? "flex-col" : "flex-row flex-wrap",
         )}
         aria-describedby={describedBy || undefined}
       >
@@ -372,19 +426,24 @@ export function FormRadioGroup({
                 onChange={() => onChange?.(option.value)}
                 disabled={option.disabled}
                 className={cn(
-                  'h-4 w-4 border-border text-primary',
-                  'focus:ring-2 focus:ring-primary focus:ring-offset-2',
-                  'disabled:cursor-not-allowed disabled:opacity-50',
-                  error && 'border-danger'
+                  "h-4 w-4 border-border text-primary",
+                  "focus:ring-2 focus:ring-primary focus:ring-offset-2",
+                  "disabled:cursor-not-allowed disabled:opacity-50",
+                  error && "border-danger",
                 )}
                 aria-invalid={!!error}
               />
               <div className="flex flex-col">
-                <label htmlFor={optionId} className="text-sm text-text-primary cursor-pointer">
+                <label
+                  htmlFor={optionId}
+                  className="text-sm text-text-primary cursor-pointer"
+                >
                   {option.label}
                 </label>
                 {option.description && (
-                  <span className="text-sm text-text-muted">{option.description}</span>
+                  <span className="text-sm text-text-muted">
+                    {option.description}
+                  </span>
                 )}
               </div>
             </div>

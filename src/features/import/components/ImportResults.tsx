@@ -1,28 +1,37 @@
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import type { ImportResult } from '../api/import.ts';
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import type { ImportResult } from "../api/import.ts";
 
 interface ImportResultsProps {
   result: ImportResult | null;
   isValidation?: boolean;
 }
 
-export function ImportResults({ result, isValidation = false }: ImportResultsProps) {
+export function ImportResults({
+  result,
+  isValidation = false,
+}: ImportResultsProps) {
   if (!result) {
     return null;
   }
 
-  const { success, total_rows, imported_rows, skipped_rows, errors, warnings } = result;
+  const { success, total_rows, imported_rows, skipped_rows, errors, warnings } =
+    result;
 
   return (
     <Card>
       <CardHeader>
         <div className="flex items-center justify-between">
           <CardTitle className="text-lg flex items-center gap-2">
-            {isValidation ? '🔍 Validation Results' : '📊 Import Results'}
+            {isValidation ? "🔍 Validation Results" : "📊 Import Results"}
           </CardTitle>
-          <Badge variant={success ? 'success' : 'danger'}>
-            {success ? (isValidation ? 'Valid' : 'Success') : 'Failed'}
+          <Badge variant={success ? "success" : "danger"}>
+            {success ? (isValidation ? "Valid" : "Success") : "Failed"}
           </Badge>
         </div>
       </CardHeader>
@@ -31,20 +40,26 @@ export function ImportResults({ result, isValidation = false }: ImportResultsPro
           {/* Summary stats */}
           <div className="grid grid-cols-3 gap-4">
             <div className="p-4 bg-bg-body rounded-lg text-center">
-              <p className="text-2xl font-bold text-text-primary">{total_rows}</p>
+              <p className="text-2xl font-bold text-text-primary">
+                {total_rows}
+              </p>
               <p className="text-sm text-text-muted">Total Rows</p>
             </div>
             <div className="p-4 bg-success/10 rounded-lg text-center">
               <p className="text-2xl font-bold text-success">
                 {isValidation ? total_rows - errors.length : imported_rows}
               </p>
-              <p className="text-sm text-text-muted">{isValidation ? 'Valid' : 'Imported'}</p>
+              <p className="text-sm text-text-muted">
+                {isValidation ? "Valid" : "Imported"}
+              </p>
             </div>
             <div className="p-4 bg-danger/10 rounded-lg text-center">
               <p className="text-2xl font-bold text-danger">
                 {isValidation ? errors.length : skipped_rows}
               </p>
-              <p className="text-sm text-text-muted">{isValidation ? 'Errors' : 'Skipped'}</p>
+              <p className="text-sm text-text-muted">
+                {isValidation ? "Errors" : "Skipped"}
+              </p>
             </div>
           </div>
 
@@ -74,10 +89,18 @@ export function ImportResults({ result, isValidation = false }: ImportResultsPro
                 <table className="w-full text-sm">
                   <thead className="bg-bg-body sticky top-0">
                     <tr className="border-b border-border">
-                      <th className="p-2 text-left text-text-muted font-medium">Row</th>
-                      <th className="p-2 text-left text-text-muted font-medium">Field</th>
-                      <th className="p-2 text-left text-text-muted font-medium">Error</th>
-                      <th className="p-2 text-left text-text-muted font-medium">Value</th>
+                      <th className="p-2 text-left text-text-muted font-medium">
+                        Row
+                      </th>
+                      <th className="p-2 text-left text-text-muted font-medium">
+                        Field
+                      </th>
+                      <th className="p-2 text-left text-text-muted font-medium">
+                        Error
+                      </th>
+                      <th className="p-2 text-left text-text-muted font-medium">
+                        Value
+                      </th>
                     </tr>
                   </thead>
                   <tbody>
@@ -89,7 +112,7 @@ export function ImportResults({ result, isValidation = false }: ImportResultsPro
                         </td>
                         <td className="p-2 text-danger">{error.message}</td>
                         <td className="p-2 text-text-muted max-w-[150px] truncate">
-                          {error.value || '-'}
+                          {error.value || "-"}
                         </td>
                       </tr>
                     ))}
@@ -107,7 +130,9 @@ export function ImportResults({ result, isValidation = false }: ImportResultsPro
           {/* Success message */}
           {success && !isValidation && (
             <div className="p-4 bg-success/10 border border-success/20 rounded-md text-center">
-              <p className="text-lg font-medium text-success">✅ Import completed successfully!</p>
+              <p className="text-lg font-medium text-success">
+                ✅ Import completed successfully!
+              </p>
               <p className="text-sm text-text-muted mt-1">
                 {imported_rows} records have been imported.
               </p>
@@ -116,7 +141,9 @@ export function ImportResults({ result, isValidation = false }: ImportResultsPro
 
           {success && isValidation && (
             <div className="p-4 bg-success/10 border border-success/20 rounded-md text-center">
-              <p className="text-lg font-medium text-success">✅ File is valid!</p>
+              <p className="text-lg font-medium text-success">
+                ✅ File is valid!
+              </p>
               <p className="text-sm text-text-muted mt-1">
                 Ready to import {total_rows} records.
               </p>

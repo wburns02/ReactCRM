@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client.ts";
 
 /**
  * Types for Calls API
@@ -66,12 +66,12 @@ export interface CallFilters {
  * Query keys for calls
  */
 export const callsKeys = {
-  all: ['calls'] as const,
-  list: (filters?: CallFilters) => [...callsKeys.all, 'list', filters] as const,
-  detail: (id: number) => [...callsKeys.all, 'detail', id] as const,
-  dispositions: () => [...callsKeys.all, 'dispositions'] as const,
+  all: ["calls"] as const,
+  list: (filters?: CallFilters) => [...callsKeys.all, "list", filters] as const,
+  detail: (id: number) => [...callsKeys.all, "detail", id] as const,
+  dispositions: () => [...callsKeys.all, "dispositions"] as const,
   analytics: (dateFrom?: string, dateTo?: string) =>
-    [...callsKeys.all, 'analytics', dateFrom, dateTo] as const,
+    [...callsKeys.all, "analytics", dateFrom, dateTo] as const,
 };
 
 /**
@@ -82,16 +82,18 @@ export function useCalls(filters?: CallFilters) {
     queryKey: callsKeys.list(filters),
     queryFn: async (): Promise<CallListResponse> => {
       const params = new URLSearchParams();
-      if (filters?.page) params.set('page', String(filters.page));
-      if (filters?.page_size) params.set('page_size', String(filters.page_size));
-      if (filters?.direction) params.set('direction', filters.direction);
-      if (filters?.disposition) params.set('disposition', filters.disposition);
-      if (filters?.customer_id) params.set('customer_id', String(filters.customer_id));
-      if (filters?.date_from) params.set('date_from', filters.date_from);
-      if (filters?.date_to) params.set('date_to', filters.date_to);
-      if (filters?.search) params.set('search', filters.search);
+      if (filters?.page) params.set("page", String(filters.page));
+      if (filters?.page_size)
+        params.set("page_size", String(filters.page_size));
+      if (filters?.direction) params.set("direction", filters.direction);
+      if (filters?.disposition) params.set("disposition", filters.disposition);
+      if (filters?.customer_id)
+        params.set("customer_id", String(filters.customer_id));
+      if (filters?.date_from) params.set("date_from", filters.date_from);
+      if (filters?.date_to) params.set("date_to", filters.date_to);
+      if (filters?.search) params.set("search", filters.search);
 
-      const url = '/calls' + (params.toString() ? '?' + params.toString() : '');
+      const url = "/calls" + (params.toString() ? "?" + params.toString() : "");
       const { data } = await apiClient.get(url);
       return data;
     },
@@ -120,7 +122,7 @@ export function useCallDispositions() {
   return useQuery({
     queryKey: callsKeys.dispositions(),
     queryFn: async (): Promise<CallDisposition[]> => {
-      const { data } = await apiClient.get('/calls/dispositions');
+      const { data } = await apiClient.get("/calls/dispositions");
       return data;
     },
     staleTime: 300_000, // 5 minutes
@@ -135,10 +137,11 @@ export function useCallAnalytics(dateFrom?: string, dateTo?: string) {
     queryKey: callsKeys.analytics(dateFrom, dateTo),
     queryFn: async (): Promise<CallAnalytics> => {
       const params = new URLSearchParams();
-      if (dateFrom) params.set('date_from', dateFrom);
-      if (dateTo) params.set('date_to', dateTo);
+      if (dateFrom) params.set("date_from", dateFrom);
+      if (dateTo) params.set("date_to", dateTo);
 
-      const url = '/calls/analytics' + (params.toString() ? '?' + params.toString() : '');
+      const url =
+        "/calls/analytics" + (params.toString() ? "?" + params.toString() : "");
       const { data } = await apiClient.get(url);
       return data;
     },

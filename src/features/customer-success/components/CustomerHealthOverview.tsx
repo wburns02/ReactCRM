@@ -4,10 +4,10 @@
  * Dashboard overview showing health score distribution and key metrics.
  */
 
-import { useMemo } from 'react';
-import { cn } from '@/lib/utils.ts';
-import { HealthScoreGauge } from './HealthScoreGauge.tsx';
-import type { HealthStatus } from '@/api/types/customerSuccess.ts';
+import { useMemo } from "react";
+import { cn } from "@/lib/utils.ts";
+import { HealthScoreGauge } from "./HealthScoreGauge.tsx";
+import type { HealthStatus } from "@/api/types/customerSuccess.ts";
 
 interface HealthDistribution {
   healthy: number;
@@ -24,22 +24,35 @@ interface CustomerHealthOverviewProps {
   className?: string;
 }
 
-const STATUS_CONFIG: Record<HealthStatus, { label: string; color: string; bgColor: string }> = {
-  healthy: { label: 'Healthy', color: 'text-success', bgColor: 'bg-success' },
-  at_risk: { label: 'At Risk', color: 'text-warning', bgColor: 'bg-warning' },
-  critical: { label: 'Critical', color: 'text-danger', bgColor: 'bg-danger' },
-  churned: { label: 'Churned', color: 'text-text-muted', bgColor: 'bg-text-muted' },
+const STATUS_CONFIG: Record<
+  HealthStatus,
+  { label: string; color: string; bgColor: string }
+> = {
+  healthy: { label: "Healthy", color: "text-success", bgColor: "bg-success" },
+  at_risk: { label: "At Risk", color: "text-warning", bgColor: "bg-warning" },
+  critical: { label: "Critical", color: "text-danger", bgColor: "bg-danger" },
+  churned: {
+    label: "Churned",
+    color: "text-text-muted",
+    bgColor: "bg-text-muted",
+  },
 };
 
-function DistributionBar({ distribution, total }: { distribution: HealthDistribution; total: number }) {
+function DistributionBar({
+  distribution,
+  total,
+}: {
+  distribution: HealthDistribution;
+  total: number;
+}) {
   const segments = useMemo(() => {
     if (total === 0) return [];
     return [
-      { status: 'healthy' as const, count: distribution.healthy },
-      { status: 'at_risk' as const, count: distribution.at_risk },
-      { status: 'critical' as const, count: distribution.critical },
-      { status: 'churned' as const, count: distribution.churned },
-    ].filter(s => s.count > 0);
+      { status: "healthy" as const, count: distribution.healthy },
+      { status: "at_risk" as const, count: distribution.at_risk },
+      { status: "critical" as const, count: distribution.critical },
+      { status: "churned" as const, count: distribution.churned },
+    ].filter((s) => s.count > 0);
   }, [distribution, total]);
 
   if (total === 0) {
@@ -55,7 +68,10 @@ function DistributionBar({ distribution, total }: { distribution: HealthDistribu
       {segments.map(({ status, count }) => (
         <div
           key={status}
-          className={cn('h-full transition-all duration-500', STATUS_CONFIG[status].bgColor)}
+          className={cn(
+            "h-full transition-all duration-500",
+            STATUS_CONFIG[status].bgColor,
+          )}
           style={{ width: `${(count / total) * 100}%` }}
         />
       ))}
@@ -63,7 +79,12 @@ function DistributionBar({ distribution, total }: { distribution: HealthDistribu
   );
 }
 
-function StatCard({ label, value, change, color }: {
+function StatCard({
+  label,
+  value,
+  change,
+  color,
+}: {
   label: string;
   value: number;
   change?: number;
@@ -73,15 +94,24 @@ function StatCard({ label, value, change, color }: {
     <div className="bg-bg-tertiary rounded-lg p-3">
       <p className="text-xs text-text-muted mb-1">{label}</p>
       <div className="flex items-end gap-2">
-        <span className={cn('text-2xl font-bold', color || 'text-text-primary')}>
+        <span
+          className={cn("text-2xl font-bold", color || "text-text-primary")}
+        >
           {value}
         </span>
         {change !== undefined && (
-          <span className={cn(
-            'text-sm font-medium mb-0.5',
-            change > 0 ? 'text-success' : change < 0 ? 'text-danger' : 'text-text-muted'
-          )}>
-            {change > 0 ? '+' : ''}{change}%
+          <span
+            className={cn(
+              "text-sm font-medium mb-0.5",
+              change > 0
+                ? "text-success"
+                : change < 0
+                  ? "text-danger"
+                  : "text-text-muted",
+            )}
+          >
+            {change > 0 ? "+" : ""}
+            {change}%
           </span>
         )}
       </div>
@@ -109,19 +139,22 @@ export function CustomerHealthOverview({
   }, [distribution, totalCustomers]);
 
   return (
-    <div className={cn('bg-bg-secondary rounded-lg border border-border p-6', className)}>
+    <div
+      className={cn(
+        "bg-bg-secondary rounded-lg border border-border p-6",
+        className,
+      )}
+    >
       <div className="flex items-start justify-between mb-6">
         <div>
-          <h2 className="text-xl font-semibold text-text-primary">Customer Health Overview</h2>
+          <h2 className="text-xl font-semibold text-text-primary">
+            Customer Health Overview
+          </h2>
           <p className="text-sm text-text-muted mt-1">
             {totalCustomers} total customers
           </p>
         </div>
-        <HealthScoreGauge
-          score={averageScore}
-          size="lg"
-          showLabel={true}
-        />
+        <HealthScoreGauge score={averageScore} size="lg" showLabel={true} />
       </div>
 
       {/* Distribution Bar */}
@@ -133,9 +166,19 @@ export function CustomerHealthOverview({
       <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
         {(Object.keys(STATUS_CONFIG) as HealthStatus[]).map((status) => (
           <div key={status} className="flex items-center gap-2">
-            <div className={cn('w-3 h-3 rounded-full', STATUS_CONFIG[status].bgColor)} />
+            <div
+              className={cn(
+                "w-3 h-3 rounded-full",
+                STATUS_CONFIG[status].bgColor,
+              )}
+            />
             <div>
-              <p className={cn('text-sm font-medium', STATUS_CONFIG[status].color)}>
+              <p
+                className={cn(
+                  "text-sm font-medium",
+                  STATUS_CONFIG[status].color,
+                )}
+              >
                 {distribution[status]}
               </p>
               <p className="text-xs text-text-muted">

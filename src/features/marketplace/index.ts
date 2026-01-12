@@ -4,11 +4,11 @@
  */
 
 // Main page
-export { MarketplacePage } from './MarketplacePage';
+export { MarketplacePage } from "./MarketplacePage";
 
 // Components
-export { AppCard } from './components/AppCard';
-export { CategoryFilter } from './components/CategoryFilter';
+export { AppCard } from "./components/AppCard";
+export { CategoryFilter } from "./components/CategoryFilter";
 
 // Hooks
 export {
@@ -24,7 +24,7 @@ export {
   useSubmitReview,
   useSyncApp,
   marketplaceKeys,
-} from './useMarketplace';
+} from "./useMarketplace";
 
 // Types
 export type {
@@ -41,6 +41,6 @@ export type {
   MarketplaceResponse,
   AppInstallRequest,
   AppInstallResponse,
-} from './types';
+} from "./types";
 
-export { CATEGORY_INFO } from './types';
+export { CATEGORY_INFO } from "./types";

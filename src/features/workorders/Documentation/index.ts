@@ -6,20 +6,41 @@
  */
 
 // Photo components
-export { PhotoCapture, type CapturedPhoto, type PhotoCaptureProps } from './PhotoCapture';
-export { PhotoGallery, type PhotoGalleryProps } from './PhotoGallery';
-export { PhotoRequirements, type PhotoRequirementsProps } from './PhotoRequirements';
-export { PhotoSection, type PhotoSectionProps } from './PhotoSection';
+export {
+  PhotoCapture,
+  type CapturedPhoto,
+  type PhotoCaptureProps,
+} from "./PhotoCapture";
+export { PhotoGallery, type PhotoGalleryProps } from "./PhotoGallery";
+export {
+  PhotoRequirements,
+  type PhotoRequirementsProps,
+} from "./PhotoRequirements";
+export { PhotoSection, type PhotoSectionProps } from "./PhotoSection";
 
 // Signature components
-export { SignatureCapture, type SignatureData, type SignatureCaptureProps } from './SignatureCapture';
-export { SignatureDisplay, SignaturePairDisplay, type SignatureDisplayProps, type SignaturePairDisplayProps } from './SignatureDisplay';
+export {
+  SignatureCapture,
+  type SignatureData,
+  type SignatureCaptureProps,
+} from "./SignatureCapture";
+export {
+  SignatureDisplay,
+  SignaturePairDisplay,
+  type SignatureDisplayProps,
+  type SignaturePairDisplayProps,
+} from "./SignatureDisplay";
 
 // Inspection form
-export { InspectionForm, type InspectionFormProps } from './InspectionForm';
+export { InspectionForm, type InspectionFormProps } from "./InspectionForm";
 
 // Hooks
-export { useCamera, type CameraState, type UseCameraResult, type FacingMode } from './hooks/useCamera';
+export {
+  useCamera,
+  type CameraState,
+  type UseCameraResult,
+  type FacingMode,
+} from "./hooks/useCamera";
 
 // Utilities
 export {
@@ -35,4 +56,4 @@ export {
   formatFileSize,
   readFileAsBase64,
   type GPSCoordinates,
-} from './utils/imageProcessing';
+} from "./utils/imageProcessing";

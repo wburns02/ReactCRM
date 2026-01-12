@@ -1,18 +1,25 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
 import {
   usePendingReviews,
   useReplyToReview,
   useGenerateAIContent,
   type PendingReview,
-} from '@/api/hooks/useMarketingHub.ts';
+} from "@/api/hooks/useMarketingHub.ts";
 
 export function ReviewsPage() {
-  const [selectedReview, setSelectedReview] = useState<PendingReview | null>(null);
-  const [replyText, setReplyText] = useState('');
+  const [selectedReview, setSelectedReview] = useState<PendingReview | null>(
+    null,
+  );
+  const [replyText, setReplyText] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
 
   const { data: reviewsData, isLoading } = usePendingReviews();
@@ -23,26 +30,27 @@ export function ReviewsPage() {
     setIsGenerating(true);
     try {
       const result = await generateContent.mutateAsync({
-        type: 'ad_copy', // We'll use this as a general text generation
+        type: "ad_copy", // We'll use this as a general text generation
         context: {
-          task: 'review_response',
+          task: "review_response",
           rating: String(review.rating),
           reviewText: review.text,
           authorName: review.author,
-          businessName: 'MAC Septic',
+          businessName: "MAC Septic",
         },
       });
 
       // Extract the response from the AI result
       if (result.success && result.generated) {
         // Handle different response formats
-        const content = typeof result.generated === 'string'
-          ? result.generated
-          : JSON.stringify(result.generated);
+        const content =
+          typeof result.generated === "string"
+            ? result.generated
+            : JSON.stringify(result.generated);
         setReplyText(content);
       }
     } catch (error) {
-      console.error('Failed to generate response:', error);
+      console.error("Failed to generate response:", error);
     } finally {
       setIsGenerating(false);
     }
@@ -57,16 +65,16 @@ export function ReviewsPage() {
         reply: replyText,
       });
       setSelectedReview(null);
-      setReplyText('');
+      setReplyText("");
     } catch (error) {
-      console.error('Failed to submit reply:', error);
+      console.error("Failed to submit reply:", error);
     }
   };
 
   const getReviewSentiment = (rating: number) => {
-    if (rating >= 4) return { label: 'Positive', variant: 'success' as const };
-    if (rating === 3) return { label: 'Neutral', variant: 'warning' as const };
-    return { label: 'Negative', variant: 'danger' as const };
+    if (rating >= 4) return { label: "Positive", variant: "success" as const };
+    if (rating === 3) return { label: "Neutral", variant: "warning" as const };
+    return { label: "Negative", variant: "danger" as const };
   };
 
   return (
@@ -75,10 +83,14 @@ export function ReviewsPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link to="/marketing">
-            <Button variant="ghost" size="sm">&larr; Back</Button>
+            <Button variant="ghost" size="sm">
+              &larr; Back
+            </Button>
           </Link>
           <div>
-            <h1 className="text-2xl font-semibold text-text-primary">Review Management</h1>
+            <h1 className="text-2xl font-semibold text-text-primary">
+              Review Management
+            </h1>
             <p className="text-sm text-text-secondary mt-1">
               Respond to customer reviews with AI assistance
             </p>
@@ -103,7 +115,7 @@ export function ReviewsPage() {
           <CardContent className="pt-6">
             <div className="text-sm text-text-secondary">5-Star</div>
             <div className="text-2xl font-bold text-success">
-              {reviewsData?.reviews?.filter(r => r.rating === 5).length || 0}
+              {reviewsData?.reviews?.filter((r) => r.rating === 5).length || 0}
             </div>
           </CardContent>
         </Card>
@@ -111,7 +123,7 @@ export function ReviewsPage() {
           <CardContent className="pt-6">
             <div className="text-sm text-text-secondary">4-Star</div>
             <div className="text-2xl font-bold text-primary">
-              {reviewsData?.reviews?.filter(r => r.rating === 4).length || 0}
+              {reviewsData?.reviews?.filter((r) => r.rating === 4).length || 0}
             </div>
           </CardContent>
         </Card>
@@ -119,7 +131,7 @@ export function ReviewsPage() {
           <CardContent className="pt-6">
             <div className="text-sm text-text-secondary">Needs Attention</div>
             <div className="text-2xl font-bold text-warning">
-              {reviewsData?.reviews?.filter(r => r.rating <= 3).length || 0}
+              {reviewsData?.reviews?.filter((r) => r.rating <= 3).length || 0}
             </div>
           </CardContent>
         </Card>
@@ -146,19 +158,20 @@ export function ReviewsPage() {
                       key={review.id}
                       className={`p-4 border rounded-lg cursor-pointer transition-colors ${
                         selectedReview?.id === review.id
-                          ? 'border-primary bg-primary/5'
-                          : 'border-border hover:border-primary/50'
+                          ? "border-primary bg-primary/5"
+                          : "border-border hover:border-primary/50"
                       }`}
                       onClick={() => {
                         setSelectedReview(review);
-                        setReplyText('');
+                        setReplyText("");
                       }}
                     >
                       <div className="flex items-start justify-between mb-2">
                         <div>
                           <div className="flex items-center gap-2">
                             <span className="text-yellow-500">
-                              {'★'.repeat(review.rating)}{'☆'.repeat(5 - review.rating)}
+                              {"★".repeat(review.rating)}
+                              {"☆".repeat(5 - review.rating)}
                             </span>
                             <Badge variant={sentiment.variant}>
                               {sentiment.label}
@@ -168,7 +181,9 @@ export function ReviewsPage() {
                             {review.author}
                           </p>
                         </div>
-                        <span className="text-xs text-text-secondary">{review.date}</span>
+                        <span className="text-xs text-text-secondary">
+                          {review.date}
+                        </span>
                       </div>
                       <p className="text-sm text-text-secondary line-clamp-3">
                         {review.text}
@@ -195,7 +210,7 @@ export function ReviewsPage() {
         <Card>
           <CardHeader>
             <CardTitle>
-              {selectedReview ? 'Respond to Review' : 'Select a Review'}
+              {selectedReview ? "Respond to Review" : "Select a Review"}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -205,11 +220,16 @@ export function ReviewsPage() {
                 <div className="p-4 bg-surface-hover rounded-lg">
                   <div className="flex items-center gap-2 mb-2">
                     <span className="text-yellow-500">
-                      {'★'.repeat(selectedReview.rating)}{'☆'.repeat(5 - selectedReview.rating)}
+                      {"★".repeat(selectedReview.rating)}
+                      {"☆".repeat(5 - selectedReview.rating)}
                     </span>
-                    <span className="text-sm font-medium">{selectedReview.author}</span>
+                    <span className="text-sm font-medium">
+                      {selectedReview.author}
+                    </span>
                   </div>
-                  <p className="text-sm text-text-primary">{selectedReview.text}</p>
+                  <p className="text-sm text-text-primary">
+                    {selectedReview.text}
+                  </p>
                 </div>
 
                 {/* AI Generate Button */}
@@ -238,17 +258,21 @@ export function ReviewsPage() {
                 <div className="flex flex-wrap gap-2">
                   <button
                     className="text-xs px-2 py-1 bg-surface-hover rounded hover:bg-surface-active"
-                    onClick={() => setReplyText(
-                      `Thank you for your wonderful review, ${selectedReview.author}! We're thrilled to hear about your positive experience with our team. Your satisfaction is our top priority, and we look forward to serving you again!`
-                    )}
+                    onClick={() =>
+                      setReplyText(
+                        `Thank you for your wonderful review, ${selectedReview.author}! We're thrilled to hear about your positive experience with our team. Your satisfaction is our top priority, and we look forward to serving you again!`,
+                      )
+                    }
                   >
                     Positive Template
                   </button>
                   <button
                     className="text-xs px-2 py-1 bg-surface-hover rounded hover:bg-surface-active"
-                    onClick={() => setReplyText(
-                      `Thank you for your feedback, ${selectedReview.author}. We apologize for any inconvenience you experienced. We take all feedback seriously and would like to make things right. Please contact us directly so we can address your concerns.`
-                    )}
+                    onClick={() =>
+                      setReplyText(
+                        `Thank you for your feedback, ${selectedReview.author}. We apologize for any inconvenience you experienced. We take all feedback seriously and would like to make things right. Please contact us directly so we can address your concerns.`,
+                      )
+                    }
                   >
                     Concern Template
                   </button>
@@ -268,7 +292,7 @@ export function ReviewsPage() {
                     variant="ghost"
                     onClick={() => {
                       setSelectedReview(null);
-                      setReplyText('');
+                      setReplyText("");
                     }}
                   >
                     Cancel
@@ -279,12 +303,13 @@ export function ReviewsPage() {
                     disabled={!replyText.trim() || replyMutation.isPending}
                     className="flex-1"
                   >
-                    {replyMutation.isPending ? 'Sending...' : 'Send Response'}
+                    {replyMutation.isPending ? "Sending..." : "Send Response"}
                   </Button>
                 </div>
 
                 <p className="text-xs text-text-secondary">
-                  Note: Response will be queued. Connect Google Business Profile to post directly.
+                  Note: Response will be queued. Connect Google Business Profile
+                  to post directly.
                 </p>
               </div>
             ) : (
@@ -307,21 +332,30 @@ export function ReviewsPage() {
         <CardContent>
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div className="p-4 bg-surface-hover rounded-lg">
-              <h4 className="font-medium text-text-primary mb-2">Respond Quickly</h4>
+              <h4 className="font-medium text-text-primary mb-2">
+                Respond Quickly
+              </h4>
               <p className="text-sm text-text-secondary">
-                Aim to respond within 24-48 hours to show customers you value their feedback.
+                Aim to respond within 24-48 hours to show customers you value
+                their feedback.
               </p>
             </div>
             <div className="p-4 bg-surface-hover rounded-lg">
-              <h4 className="font-medium text-text-primary mb-2">Be Professional</h4>
+              <h4 className="font-medium text-text-primary mb-2">
+                Be Professional
+              </h4>
               <p className="text-sm text-text-secondary">
-                Always maintain a professional tone, even when addressing negative reviews.
+                Always maintain a professional tone, even when addressing
+                negative reviews.
               </p>
             </div>
             <div className="p-4 bg-surface-hover rounded-lg">
-              <h4 className="font-medium text-text-primary mb-2">Personalize</h4>
+              <h4 className="font-medium text-text-primary mb-2">
+                Personalize
+              </h4>
               <p className="text-sm text-text-secondary">
-                Address the reviewer by name and reference specific details from their review.
+                Address the reviewer by name and reference specific details from
+                their review.
               </p>
             </div>
           </div>

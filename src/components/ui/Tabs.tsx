@@ -5,8 +5,8 @@ import {
   useRef,
   type ReactNode,
   type KeyboardEvent,
-} from 'react';
-import { cn } from '@/lib/utils';
+} from "react";
+import { cn } from "@/lib/utils";
 
 /**
  * Tabs Context
@@ -14,7 +14,7 @@ import { cn } from '@/lib/utils';
 interface TabsContextValue {
   value: string;
   onValueChange: (value: string) => void;
-  orientation: 'horizontal' | 'vertical';
+  orientation: "horizontal" | "vertical";
 }
 
 const TabsContext = createContext<TabsContextValue | undefined>(undefined);
@@ -22,7 +22,7 @@ const TabsContext = createContext<TabsContextValue | undefined>(undefined);
 function useTabs() {
   const context = useContext(TabsContext);
   if (!context) {
-    throw new Error('Tabs components must be used within a Tabs');
+    throw new Error("Tabs components must be used within a Tabs");
   }
   return context;
 }
@@ -39,7 +39,7 @@ interface TabsProps {
   /** Callback when value changes */
   onValueChange?: (value: string) => void;
   /** Orientation for keyboard navigation */
-  orientation?: 'horizontal' | 'vertical';
+  orientation?: "horizontal" | "vertical";
   className?: string;
 }
 
@@ -48,10 +48,10 @@ export function Tabs({
   value: controlledValue,
   defaultValue,
   onValueChange,
-  orientation = 'horizontal',
+  orientation = "horizontal",
   className,
 }: TabsProps) {
-  const [internalValue, setInternalValue] = useState(defaultValue ?? '');
+  const [internalValue, setInternalValue] = useState(defaultValue ?? "");
   const value = controlledValue ?? internalValue;
 
   const handleValueChange = (newValue: string) => {
@@ -63,12 +63,11 @@ export function Tabs({
   };
 
   return (
-    <TabsContext.Provider value={{ value, onValueChange: handleValueChange, orientation }}>
+    <TabsContext.Provider
+      value={{ value, onValueChange: handleValueChange, orientation }}
+    >
       <div
-        className={cn(
-          orientation === 'vertical' && 'flex gap-4',
-          className
-        )}
+        className={cn(orientation === "vertical" && "flex gap-4", className)}
         data-orientation={orientation}
       >
         {children}
@@ -90,15 +89,19 @@ export function TabList({ children, className }: TabListProps) {
   const listRef = useRef<HTMLDivElement>(null);
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    const tabs = listRef.current?.querySelectorAll<HTMLButtonElement>('[role="tab"]:not([disabled])');
+    const tabs = listRef.current?.querySelectorAll<HTMLButtonElement>(
+      '[role="tab"]:not([disabled])',
+    );
     if (!tabs || tabs.length === 0) return;
 
-    const currentIndex = Array.from(tabs).findIndex((tab) => tab === document.activeElement);
+    const currentIndex = Array.from(tabs).findIndex(
+      (tab) => tab === document.activeElement,
+    );
     let nextIndex = currentIndex;
 
-    const isHorizontal = orientation === 'horizontal';
-    const prevKey = isHorizontal ? 'ArrowLeft' : 'ArrowUp';
-    const nextKey = isHorizontal ? 'ArrowRight' : 'ArrowDown';
+    const isHorizontal = orientation === "horizontal";
+    const prevKey = isHorizontal ? "ArrowLeft" : "ArrowUp";
+    const nextKey = isHorizontal ? "ArrowRight" : "ArrowDown";
 
     switch (e.key) {
       case prevKey:
@@ -109,11 +112,11 @@ export function TabList({ children, className }: TabListProps) {
         e.preventDefault();
         nextIndex = currentIndex < tabs.length - 1 ? currentIndex + 1 : 0;
         break;
-      case 'Home':
+      case "Home":
         e.preventDefault();
         nextIndex = 0;
         break;
-      case 'End':
+      case "End":
         e.preventDefault();
         nextIndex = tabs.length - 1;
         break;
@@ -131,11 +134,11 @@ export function TabList({ children, className }: TabListProps) {
       role="tablist"
       aria-orientation={orientation}
       className={cn(
-        'flex gap-1',
-        orientation === 'horizontal'
-          ? 'flex-row border-b border-border'
-          : 'flex-col border-r border-border pr-4',
-        className
+        "flex gap-1",
+        orientation === "horizontal"
+          ? "flex-row border-b border-border"
+          : "flex-col border-r border-border pr-4",
+        className,
       )}
       onKeyDown={handleKeyDown}
     >
@@ -154,7 +157,12 @@ interface TabTriggerProps {
   disabled?: boolean;
 }
 
-export function TabTrigger({ children, value, className, disabled }: TabTriggerProps) {
+export function TabTrigger({
+  children,
+  value,
+  className,
+  disabled,
+}: TabTriggerProps) {
   const { value: activeValue, onValueChange, orientation } = useTabs();
   const isActive = activeValue === value;
 
@@ -168,16 +176,16 @@ export function TabTrigger({ children, value, className, disabled }: TabTriggerP
       tabIndex={isActive ? 0 : -1}
       disabled={disabled}
       className={cn(
-        'inline-flex items-center justify-center whitespace-nowrap px-4 py-2 text-sm font-medium transition-all',
-        'focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
-        'disabled:pointer-events-none disabled:opacity-50',
-        orientation === 'horizontal'
-          ? '-mb-px border-b-2'
-          : '-mr-px border-r-2',
+        "inline-flex items-center justify-center whitespace-nowrap px-4 py-2 text-sm font-medium transition-all",
+        "focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+        "disabled:pointer-events-none disabled:opacity-50",
+        orientation === "horizontal"
+          ? "-mb-px border-b-2"
+          : "-mr-px border-r-2",
         isActive
-          ? 'border-primary text-primary'
-          : 'border-transparent text-text-muted hover:text-text-secondary',
-        className
+          ? "border-primary text-primary"
+          : "border-transparent text-text-muted hover:text-text-secondary",
+        className,
       )}
       onClick={() => onValueChange(value)}
     >
@@ -197,7 +205,12 @@ interface TabContentProps {
   forceMount?: boolean;
 }
 
-export function TabContent({ children, value, className, forceMount }: TabContentProps) {
+export function TabContent({
+  children,
+  value,
+  className,
+  forceMount,
+}: TabContentProps) {
   const { value: activeValue } = useTabs();
   const isActive = activeValue === value;
 
@@ -213,9 +226,9 @@ export function TabContent({ children, value, className, forceMount }: TabConten
       tabIndex={0}
       hidden={!isActive}
       className={cn(
-        'mt-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2',
-        !isActive && 'hidden',
-        className
+        "mt-4 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary focus-visible:ring-offset-2",
+        !isActive && "hidden",
+        className,
       )}
     >
       {children}

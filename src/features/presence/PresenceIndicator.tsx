@@ -1,10 +1,10 @@
-import { cn } from '@/lib/utils.ts';
-import { Tooltip } from '@/components/ui/Tooltip.tsx';
+import { cn } from "@/lib/utils.ts";
+import { Tooltip } from "@/components/ui/Tooltip.tsx";
 
 /**
  * Online status indicator sizes
  */
-type IndicatorSize = 'sm' | 'md' | 'lg';
+type IndicatorSize = "sm" | "md" | "lg";
 
 /**
  * Props for PresenceIndicator
@@ -32,32 +32,32 @@ interface PresenceIndicatorProps {
  */
 export function PresenceIndicator({
   isOnline,
-  size = 'md',
+  size = "md",
   className,
   showTooltip = false,
   tooltipContent,
   showPulse = true,
 }: PresenceIndicatorProps) {
   const sizeClasses: Record<IndicatorSize, string> = {
-    sm: 'w-2 h-2',
-    md: 'w-2.5 h-2.5',
-    lg: 'w-3 h-3',
+    sm: "w-2 h-2",
+    md: "w-2.5 h-2.5",
+    lg: "w-3 h-3",
   };
 
   const indicator = (
     <span
       className={cn(
-        'relative inline-flex rounded-full',
+        "relative inline-flex rounded-full",
         sizeClasses[size],
-        isOnline ? 'bg-success' : 'bg-text-muted',
-        className
+        isOnline ? "bg-success" : "bg-text-muted",
+        className,
       )}
-      aria-label={isOnline ? 'Online' : 'Offline'}
+      aria-label={isOnline ? "Online" : "Offline"}
     >
       {isOnline && showPulse && (
         <span
           className={cn(
-            'absolute inset-0 rounded-full bg-success animate-ping opacity-75'
+            "absolute inset-0 rounded-full bg-success animate-ping opacity-75",
           )}
         />
       )}
@@ -66,7 +66,7 @@ export function PresenceIndicator({
 
   if (showTooltip) {
     return (
-      <Tooltip content={tooltipContent || (isOnline ? 'Online' : 'Offline')}>
+      <Tooltip content={tooltipContent || (isOnline ? "Online" : "Offline")}>
         {indicator}
       </Tooltip>
     );
@@ -105,14 +105,14 @@ export function UserStatusBadge({
     const hours = Math.floor(diff / 3600000);
     const days = Math.floor(diff / 86400000);
 
-    if (minutes < 1) return 'Just now';
+    if (minutes < 1) return "Just now";
     if (minutes < 60) return `${minutes}m ago`;
     if (hours < 24) return `${hours}h ago`;
     return `${days}d ago`;
   };
 
   return (
-    <div className={cn('flex items-center gap-2', className)}>
+    <div className={cn("flex items-center gap-2", className)}>
       <PresenceIndicator isOnline={isOnline} size="sm" />
       <span className="text-sm text-text-primary">{name}</span>
       {!isOnline && lastSeen && (

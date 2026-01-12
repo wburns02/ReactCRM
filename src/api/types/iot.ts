@@ -2,47 +2,47 @@
  * IoT Integration Types
  * Connected equipment, sensors, and predictive maintenance
  */
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Device types
  */
 export const deviceTypeSchema = z.enum([
-  'thermostat',
-  'hvac_monitor',
-  'septic_sensor',
-  'water_heater',
-  'pump_monitor',
-  'flow_meter',
-  'pressure_sensor',
-  'temperature_sensor',
-  'humidity_sensor',
-  'generic',
+  "thermostat",
+  "hvac_monitor",
+  "septic_sensor",
+  "water_heater",
+  "pump_monitor",
+  "flow_meter",
+  "pressure_sensor",
+  "temperature_sensor",
+  "humidity_sensor",
+  "generic",
 ]);
 export type DeviceType = z.infer<typeof deviceTypeSchema>;
 
 export const DEVICE_TYPE_LABELS: Record<DeviceType, string> = {
-  thermostat: 'Smart Thermostat',
-  hvac_monitor: 'HVAC Monitor',
-  septic_sensor: 'Septic Tank Sensor',
-  water_heater: 'Water Heater Sensor',
-  pump_monitor: 'Pump Monitor',
-  flow_meter: 'Flow Meter',
-  pressure_sensor: 'Pressure Sensor',
-  temperature_sensor: 'Temperature Sensor',
-  humidity_sensor: 'Humidity Sensor',
-  generic: 'Generic Sensor',
+  thermostat: "Smart Thermostat",
+  hvac_monitor: "HVAC Monitor",
+  septic_sensor: "Septic Tank Sensor",
+  water_heater: "Water Heater Sensor",
+  pump_monitor: "Pump Monitor",
+  flow_meter: "Flow Meter",
+  pressure_sensor: "Pressure Sensor",
+  temperature_sensor: "Temperature Sensor",
+  humidity_sensor: "Humidity Sensor",
+  generic: "Generic Sensor",
 };
 
 /**
  * Device connection status
  */
 export const deviceStatusSchema = z.enum([
-  'online',
-  'offline',
-  'warning',
-  'critical',
-  'maintenance',
+  "online",
+  "offline",
+  "warning",
+  "critical",
+  "maintenance",
 ]);
 export type DeviceStatus = z.infer<typeof deviceStatusSchema>;
 
@@ -50,12 +50,12 @@ export type DeviceStatus = z.infer<typeof deviceStatusSchema>;
  * IoT Platform/Provider
  */
 export const iotProviderSchema = z.enum([
-  'ecobee',
-  'nest',
-  'honeywell',
-  'custom',
-  'mqtt',
-  'lorawan',
+  "ecobee",
+  "nest",
+  "honeywell",
+  "custom",
+  "mqtt",
+  "lorawan",
 ]);
 export type IoTProvider = z.infer<typeof iotProviderSchema>;
 
@@ -92,7 +92,10 @@ export const deviceReadingSchema = z.object({
   id: z.string(),
   device_id: z.string(),
   timestamp: z.string(),
-  readings: z.record(z.string(), z.union([z.number(), z.string(), z.boolean()])),
+  readings: z.record(
+    z.string(),
+    z.union([z.number(), z.string(), z.boolean()]),
+  ),
   // Common reading fields (also in readings object)
   temperature: z.number().optional().nullable(),
   humidity: z.number().optional().nullable(),
@@ -108,7 +111,7 @@ export type DeviceReading = z.infer<typeof deviceReadingSchema>;
 /**
  * Device alert
  */
-export const alertSeveritySchema = z.enum(['info', 'warning', 'critical']);
+export const alertSeveritySchema = z.enum(["info", "warning", "critical"]);
 export type AlertSeverity = z.infer<typeof alertSeveritySchema>;
 
 export const deviceAlertSchema = z.object({
@@ -143,16 +146,19 @@ export const alertRuleSchema = z.object({
   name: z.string(),
   description: z.string().optional().nullable(),
   metric: z.string(), // e.g., "temperature", "level", "runtime_hours"
-  operator: z.enum(['gt', 'lt', 'eq', 'gte', 'lte', 'ne']),
+  operator: z.enum(["gt", "lt", "eq", "gte", "lte", "ne"]),
   threshold: z.number(),
   severity: alertSeveritySchema,
   auto_create_work_order: z.boolean(),
-  work_order_template: z.object({
-    job_type: z.string(),
-    priority: z.string(),
-    notes_template: z.string(),
-  }).optional().nullable(),
-  notification_channels: z.array(z.enum(['email', 'sms', 'push', 'webhook'])),
+  work_order_template: z
+    .object({
+      job_type: z.string(),
+      priority: z.string(),
+      notes_template: z.string(),
+    })
+    .optional()
+    .nullable(),
+  notification_channels: z.array(z.enum(["email", "sms", "push", "webhook"])),
   cooldown_minutes: z.number(), // Don't re-alert for this period
   is_active: z.boolean(),
   created_at: z.string(),
@@ -172,23 +178,30 @@ export const equipmentHealthSchema = z.object({
   health_score: z.number(), // 0-100
   predicted_failure_date: z.string().optional().nullable(),
   days_until_maintenance: z.number().optional().nullable(),
-  risk_level: z.enum(['low', 'medium', 'high', 'critical']),
-  factors: z.array(z.object({
-    factor: z.string(),
-    impact: z.number(), // -100 to +100
-    description: z.string(),
-  })),
-  recommended_actions: z.array(z.object({
-    action: z.string(),
-    urgency: z.enum(['now', 'soon', 'scheduled']),
-    estimated_cost: z.number().optional().nullable(),
-  })),
+  risk_level: z.enum(["low", "medium", "high", "critical"]),
+  factors: z.array(
+    z.object({
+      factor: z.string(),
+      impact: z.number(), // -100 to +100
+      description: z.string(),
+    }),
+  ),
+  recommended_actions: z.array(
+    z.object({
+      action: z.string(),
+      urgency: z.enum(["now", "soon", "scheduled"]),
+      estimated_cost: z.number().optional().nullable(),
+    }),
+  ),
   last_service_date: z.string().optional().nullable(),
-  usage_stats: z.object({
-    total_runtime_hours: z.number().optional(),
-    avg_daily_cycles: z.number().optional(),
-    efficiency_rating: z.number().optional(),
-  }).optional().nullable(),
+  usage_stats: z
+    .object({
+      total_runtime_hours: z.number().optional(),
+      avg_daily_cycles: z.number().optional(),
+      efficiency_rating: z.number().optional(),
+    })
+    .optional()
+    .nullable(),
 });
 
 export type EquipmentHealth = z.infer<typeof equipmentHealthSchema>;
@@ -202,8 +215,8 @@ export const maintenanceRecommendationSchema = z.object({
   customer_id: z.string(),
   customer_name: z.string().optional(),
   equipment_name: z.string(),
-  recommendation_type: z.enum(['preventive', 'predictive', 'reactive']),
-  priority: z.enum(['low', 'medium', 'high', 'urgent']),
+  recommendation_type: z.enum(["preventive", "predictive", "reactive"]),
+  priority: z.enum(["low", "medium", "high", "urgent"]),
   title: z.string(),
   description: z.string(),
   estimated_cost: z.number().optional().nullable(),
@@ -211,11 +224,13 @@ export const maintenanceRecommendationSchema = z.object({
   confidence: z.number(), // 0-1
   due_by: z.string().optional().nullable(),
   work_order_id: z.string().optional().nullable(),
-  status: z.enum(['pending', 'scheduled', 'completed', 'declined']),
+  status: z.enum(["pending", "scheduled", "completed", "declined"]),
   created_at: z.string(),
 });
 
-export type MaintenanceRecommendation = z.infer<typeof maintenanceRecommendationSchema>;
+export type MaintenanceRecommendation = z.infer<
+  typeof maintenanceRecommendationSchema
+>;
 
 /**
  * Device connection request
@@ -250,6 +265,6 @@ export interface TelemetryQueryParams {
   device_id: string;
   start_date?: string;
   end_date?: string;
-  resolution?: 'minute' | 'hour' | 'day';
+  resolution?: "minute" | "hour" | "day";
   metrics?: string[];
 }

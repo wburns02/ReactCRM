@@ -2,15 +2,15 @@
  * MiniMap Component
  * Compact map widget showing a single location with pin marker and address display
  */
-import { useEffect, useRef, useState } from 'react';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import * as L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
+import { useEffect, useRef, useState } from "react";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import * as L from "leaflet";
+import "leaflet/dist/leaflet.css";
 
 // Fix Leaflet default marker icons
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
 // @ts-expect-error - Leaflet type issue with default icon
 delete L.Icon.Default.prototype._getIconUrl;
@@ -59,9 +59,9 @@ export interface MiniMapProps {
 // Custom Pin Marker
 // ============================================
 
-function createPinMarker(color = '#ef4444'): L.DivIcon {
+function createPinMarker(color = "#ef4444"): L.DivIcon {
   return L.divIcon({
-    className: 'custom-pin-marker',
+    className: "custom-pin-marker",
     html: `
       <div style="position: relative; width: 30px; height: 40px;">
         <svg width="30" height="40" viewBox="0 0 30 40" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -80,7 +80,15 @@ function createPinMarker(color = '#ef4444'): L.DivIcon {
 // Map Center Updater Component
 // ============================================
 
-function MapCenterUpdater({ lat, lng, zoom }: { lat: number; lng: number; zoom: number }) {
+function MapCenterUpdater({
+  lat,
+  lng,
+  zoom,
+}: {
+  lat: number;
+  lng: number;
+  zoom: number;
+}) {
   const map = useMap();
 
   useEffect(() => {
@@ -98,15 +106,15 @@ export function MiniMap({
   lat,
   lng,
   address,
-  height = '150px',
-  width = '100%',
+  height = "150px",
+  width = "100%",
   zoom = 15,
   showAddress = true,
   showDirectionsButton = true,
-  markerColor = '#ef4444',
+  markerColor = "#ef4444",
   customMarker,
   onClick,
-  className = '',
+  className = "",
   interactive = false,
   popupContent,
 }: MiniMapProps) {
@@ -129,10 +137,10 @@ export function MiniMap({
       window.location.href = appleMapsUrl;
       // Fallback to Google Maps after a delay if Apple Maps doesn't open
       setTimeout(() => {
-        window.open(mapsUrl, '_blank');
+        window.open(mapsUrl, "_blank");
       }, 500);
     } else {
-      window.open(mapsUrl, '_blank');
+      window.open(mapsUrl, "_blank");
     }
   };
 
@@ -156,7 +164,7 @@ export function MiniMap({
       <MapContainer
         center={[lat, lng]}
         zoom={zoom}
-        style={{ height: '100%', width: '100%' }}
+        style={{ height: "100%", width: "100%" }}
         zoomControl={false}
         attributionControl={false}
         dragging={interactive}
@@ -166,16 +174,10 @@ export function MiniMap({
         boxZoom={interactive}
         keyboard={interactive}
       >
-        <TileLayer
-          url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-        />
+        <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
         <MapCenterUpdater lat={lat} lng={lng} zoom={zoom} />
         <Marker position={[lat, lng]} icon={markerIcon}>
-          {popupContent && (
-            <Popup>
-              {popupContent}
-            </Popup>
-          )}
+          {popupContent && <Popup>{popupContent}</Popup>}
         </Marker>
       </MapContainer>
 
@@ -191,12 +193,12 @@ export function MiniMap({
         <button
           onClick={handleClick}
           className="absolute inset-0 bg-transparent cursor-pointer z-10"
-          aria-label={onClick ? 'Open map' : 'Open directions'}
+          aria-label={onClick ? "Open map" : "Open directions"}
         >
           {/* Hover effect */}
           <div
             className={`absolute inset-0 bg-black/10 transition-opacity duration-200 ${
-              isHovered ? 'opacity-100' : 'opacity-0'
+              isHovered ? "opacity-100" : "opacity-0"
             }`}
           />
         </button>
@@ -252,9 +254,9 @@ export function MiniMap({
 // ============================================
 
 export function MiniMapSkeleton({
-  height = '150px',
-  width = '100%',
-  className = '',
+  height = "150px",
+  width = "100%",
+  className = "",
 }: {
   height?: string;
   width?: string;
@@ -286,7 +288,10 @@ export function MiniMapSkeleton({
 // MiniMap with Address Lookup
 // ============================================
 
-export interface MiniMapWithAddressProps extends Omit<MiniMapProps, 'lat' | 'lng'> {
+export interface MiniMapWithAddressProps extends Omit<
+  MiniMapProps,
+  "lat" | "lng"
+> {
   /** Full address string (will be geocoded) */
   fullAddress: string;
   /** Fallback coordinates if geocoding fails */
@@ -300,7 +305,10 @@ export function MiniMapWithAddress({
   fallbackLng = 0,
   ...props
 }: MiniMapWithAddressProps) {
-  const [coordinates, setCoordinates] = useState<{ lat: number; lng: number } | null>(null);
+  const [coordinates, setCoordinates] = useState<{
+    lat: number;
+    lng: number;
+  } | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
@@ -311,7 +319,7 @@ export function MiniMapWithAddress({
         // Use Nominatim (OpenStreetMap) for free geocoding
         const encodedAddress = encodeURIComponent(fullAddress);
         const response = await fetch(
-          `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}&limit=1`
+          `https://nominatim.openstreetmap.org/search?format=json&q=${encodedAddress}&limit=1`,
         );
         const data = await response.json();
 
@@ -321,13 +329,13 @@ export function MiniMapWithAddress({
             lng: parseFloat(data[0].lon),
           });
         } else {
-          setError('Address not found');
+          setError("Address not found");
           if (fallbackLat && fallbackLng) {
             setCoordinates({ lat: fallbackLat, lng: fallbackLng });
           }
         }
       } catch (err) {
-        setError('Failed to geocode address');
+        setError("Failed to geocode address");
         if (fallbackLat && fallbackLng) {
           setCoordinates({ lat: fallbackLat, lng: fallbackLng });
         }
@@ -342,14 +350,23 @@ export function MiniMapWithAddress({
   }, [fullAddress, fallbackLat, fallbackLng]);
 
   if (loading) {
-    return <MiniMapSkeleton height={props.height} width={props.width} className={props.className} />;
+    return (
+      <MiniMapSkeleton
+        height={props.height}
+        width={props.width}
+        className={props.className}
+      />
+    );
   }
 
   if (!coordinates) {
     return (
       <div
-        className={`relative rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center ${props.className || ''}`}
-        style={{ height: props.height || '150px', width: props.width || '100%' }}
+        className={`relative rounded-lg overflow-hidden bg-gray-100 flex items-center justify-center ${props.className || ""}`}
+        style={{
+          height: props.height || "150px",
+          width: props.width || "100%",
+        }}
       >
         <div className="text-center text-gray-500 p-4">
           <svg
@@ -365,13 +382,20 @@ export function MiniMapWithAddress({
             <line x1="15" y1="9" x2="9" y2="15" />
             <line x1="9" y1="9" x2="15" y2="15" />
           </svg>
-          <p className="text-sm">{error || 'Location unavailable'}</p>
+          <p className="text-sm">{error || "Location unavailable"}</p>
         </div>
       </div>
     );
   }
 
-  return <MiniMap lat={coordinates.lat} lng={coordinates.lng} address={fullAddress} {...props} />;
+  return (
+    <MiniMap
+      lat={coordinates.lat}
+      lng={coordinates.lng}
+      address={fullAddress}
+      {...props}
+    />
+  );
 }
 
 export default MiniMap;

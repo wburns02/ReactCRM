@@ -4,13 +4,18 @@
  * Line items editor with running totals, tax calculation, and discount support.
  */
 
-import { useState, useMemo, useCallback } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { cn } from '@/lib/utils.ts';
+import { useState, useMemo, useCallback } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import { cn } from "@/lib/utils.ts";
 import {
   type PricingLineItem,
   type Discount,
@@ -19,7 +24,7 @@ import {
   formatCurrency,
   generateLineItemId,
   getTaxRate,
-} from './utils/pricingEngine.ts';
+} from "./utils/pricingEngine.ts";
 
 // ============================================================================
 // TYPES
@@ -55,7 +60,7 @@ export interface PriceCalculatorProps {
 
 export function PriceCalculator({
   initialItems = [],
-  stateCode = 'TX',
+  stateCode = "TX",
   taxRate: customTaxRate,
   discount,
   onItemsChange,
@@ -69,8 +74,8 @@ export function PriceCalculator({
     return [
       {
         id: generateLineItemId(),
-        service: '',
-        description: '',
+        service: "",
+        description: "",
         quantity: 1,
         unitPrice: 0,
         taxable: true,
@@ -83,7 +88,11 @@ export function PriceCalculator({
 
   // Calculate totals whenever items or discount changes
   const totals = useMemo(() => {
-    const result = calculateInvoiceTotals(items.filter((i) => i.service), taxRate, discount ?? undefined);
+    const result = calculateInvoiceTotals(
+      items.filter((i) => i.service),
+      taxRate,
+      discount ?? undefined,
+    );
     return result;
   }, [items, taxRate, discount]);
 
@@ -91,7 +100,11 @@ export function PriceCalculator({
   const notifyChanges = useCallback(
     (newItems: PricingLineItem[]) => {
       onItemsChange?.(newItems.filter((i) => i.service));
-      const newTotals = calculateInvoiceTotals(newItems.filter((i) => i.service), taxRate, discount ?? undefined);
+      const newTotals = calculateInvoiceTotals(
+        newItems.filter((i) => i.service),
+        taxRate,
+        discount ?? undefined,
+      );
       onTotalsChange?.({
         subtotal: newTotals.subtotal,
         tax: newTotals.tax,
@@ -99,7 +112,7 @@ export function PriceCalculator({
         total: newTotals.total,
       });
     },
-    [onItemsChange, onTotalsChange, taxRate, discount]
+    [onItemsChange, onTotalsChange, taxRate, discount],
   );
 
   // Update a specific item
@@ -128,8 +141,8 @@ export function PriceCalculator({
       ...items,
       {
         id: generateLineItemId(),
-        service: '',
-        description: '',
+        service: "",
+        description: "",
         quantity: 1,
         unitPrice: 0,
         taxable: true,
@@ -147,7 +160,7 @@ export function PriceCalculator({
   };
 
   return (
-    <Card className={cn('w-full', className)}>
+    <Card className={cn("w-full", className)}>
       <CardHeader>
         <CardTitle className="flex items-center gap-2">
           <svg
@@ -188,10 +201,14 @@ export function PriceCalculator({
             >
               {/* Service Select */}
               <div className="md:col-span-3">
-                <Label className="md:hidden text-xs text-text-muted">Service</Label>
+                <Label className="md:hidden text-xs text-text-muted">
+                  Service
+                </Label>
                 <Select
                   value={item.service}
-                  onChange={(e) => updateItem(item.id, { service: e.target.value })}
+                  onChange={(e) =>
+                    updateItem(item.id, { service: e.target.value })
+                  }
                   disabled={readOnly}
                   className="w-full"
                 >
@@ -207,10 +224,14 @@ export function PriceCalculator({
 
               {/* Description */}
               <div className="md:col-span-4">
-                <Label className="md:hidden text-xs text-text-muted">Description</Label>
+                <Label className="md:hidden text-xs text-text-muted">
+                  Description
+                </Label>
                 <Input
                   value={item.description}
-                  onChange={(e) => updateItem(item.id, { description: e.target.value })}
+                  onChange={(e) =>
+                    updateItem(item.id, { description: e.target.value })
+                  }
                   placeholder="Service description"
                   disabled={readOnly}
                   className="w-full"
@@ -219,13 +240,19 @@ export function PriceCalculator({
 
               {/* Quantity */}
               <div className="md:col-span-1">
-                <Label className="md:hidden text-xs text-text-muted">Quantity</Label>
+                <Label className="md:hidden text-xs text-text-muted">
+                  Quantity
+                </Label>
                 <Input
                   type="number"
                   min="0.01"
                   step="0.01"
                   value={item.quantity}
-                  onChange={(e) => updateItem(item.id, { quantity: parseFloat(e.target.value) || 0 })}
+                  onChange={(e) =>
+                    updateItem(item.id, {
+                      quantity: parseFloat(e.target.value) || 0,
+                    })
+                  }
                   disabled={readOnly}
                   className="w-full text-center"
                 />
@@ -233,15 +260,23 @@ export function PriceCalculator({
 
               {/* Unit Price */}
               <div className="md:col-span-2">
-                <Label className="md:hidden text-xs text-text-muted">Unit Price</Label>
+                <Label className="md:hidden text-xs text-text-muted">
+                  Unit Price
+                </Label>
                 <div className="relative">
-                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">$</span>
+                  <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
+                    $
+                  </span>
                   <Input
                     type="number"
                     min="0"
                     step="0.01"
                     value={item.unitPrice}
-                    onChange={(e) => updateItem(item.id, { unitPrice: parseFloat(e.target.value) || 0 })}
+                    onChange={(e) =>
+                      updateItem(item.id, {
+                        unitPrice: parseFloat(e.target.value) || 0,
+                      })
+                    }
                     disabled={readOnly}
                     className="w-full pl-7 text-right"
                   />
@@ -250,7 +285,9 @@ export function PriceCalculator({
 
               {/* Line Total */}
               <div className="md:col-span-1 text-right font-medium">
-                <Label className="md:hidden text-xs text-text-muted">Total</Label>
+                <Label className="md:hidden text-xs text-text-muted">
+                  Total
+                </Label>
                 {formatCurrency(item.quantity * item.unitPrice)}
               </div>
 
@@ -284,11 +321,16 @@ export function PriceCalculator({
                   type="checkbox"
                   id={`taxable-${item.id}`}
                   checked={item.taxable}
-                  onChange={(e) => updateItem(item.id, { taxable: e.target.checked })}
+                  onChange={(e) =>
+                    updateItem(item.id, { taxable: e.target.checked })
+                  }
                   disabled={readOnly}
                   className="h-4 w-4 rounded border-border text-primary focus:ring-primary"
                 />
-                <label htmlFor={`taxable-${item.id}`} className="text-sm text-text-secondary">
+                <label
+                  htmlFor={`taxable-${item.id}`}
+                  className="text-sm text-text-secondary"
+                >
                   Taxable
                 </label>
               </div>
@@ -297,7 +339,12 @@ export function PriceCalculator({
 
           {/* Add Item Button */}
           {!readOnly && (
-            <Button variant="outline" size="sm" onClick={addItem} className="w-full md:w-auto">
+            <Button
+              variant="outline"
+              size="sm"
+              onClick={addItem}
+              className="w-full md:w-auto"
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 className="h-4 w-4 mr-2"
@@ -320,7 +367,9 @@ export function PriceCalculator({
             {/* Subtotal */}
             <div className="flex justify-between text-sm">
               <span className="text-text-secondary">Subtotal</span>
-              <span className="font-medium">{formatCurrency(totals.subtotal)}</span>
+              <span className="font-medium">
+                {formatCurrency(totals.subtotal)}
+              </span>
             </div>
 
             {/* Discount (if applied) */}
@@ -342,7 +391,9 @@ export function PriceCalculator({
             {/* Total */}
             <div className="flex justify-between pt-2 border-t border-border">
               <span className="text-lg font-semibold">Total</span>
-              <span className="text-lg font-bold text-primary">{formatCurrency(totals.total)}</span>
+              <span className="text-lg font-bold text-primary">
+                {formatCurrency(totals.total)}
+              </span>
             </div>
           </div>
         </div>

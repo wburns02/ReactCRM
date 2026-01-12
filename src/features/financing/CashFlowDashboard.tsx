@@ -2,26 +2,27 @@
  * Cash Flow Dashboard Component
  * Real-time cash flow intelligence and forecasting
  */
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
+import { useState } from "react";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import {
   useCashFlowForecast,
   useARAgingReport,
   useRevenueIntelligence,
   useCollectionRecommendations,
   useSendPaymentReminder,
-} from '@/api/hooks/useFintech';
-import type { CashFlowPeriod } from '@/api/types/fintech';
-import { formatCurrency, formatDate, cn } from '@/lib/utils';
-import { getErrorMessage } from '@/api/client';
-import { toastSuccess, toastError } from '@/components/ui/Toast';
+} from "@/api/hooks/useFintech";
+import type { CashFlowPeriod } from "@/api/types/fintech";
+import { formatCurrency, formatDate, cn } from "@/lib/utils";
+import { getErrorMessage } from "@/api/client";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 export function CashFlowDashboard() {
-  const [period, setPeriod] = useState<CashFlowPeriod>('weekly');
+  const [period, setPeriod] = useState<CashFlowPeriod>("weekly");
 
-  const { data: forecast, isLoading: forecastLoading } = useCashFlowForecast(period);
+  const { data: forecast, isLoading: forecastLoading } =
+    useCashFlowForecast(period);
   const { data: arAging, isLoading: arLoading } = useARAgingReport();
   const { data: revenue, isLoading: revenueLoading } = useRevenueIntelligence();
 
@@ -30,16 +31,18 @@ export function CashFlowDashboard() {
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">Cash Flow Intelligence</h1>
+          <h1 className="text-2xl font-bold text-text-primary">
+            Cash Flow Intelligence
+          </h1>
           <p className="text-text-secondary">
             Monitor cash flow, receivables, and revenue insights
           </p>
         </div>
         <div className="flex gap-2">
-          {(['daily', 'weekly', 'monthly'] as CashFlowPeriod[]).map((p) => (
+          {(["daily", "weekly", "monthly"] as CashFlowPeriod[]).map((p) => (
             <Button
               key={p}
-              variant={period === p ? 'primary' : 'outline'}
+              variant={period === p ? "primary" : "outline"}
               size="sm"
               onClick={() => setPeriod(p)}
             >
@@ -93,16 +96,19 @@ export function CashFlowDashboard() {
                 <div
                   key={index}
                   className={cn(
-                    'flex items-start gap-3 p-3 rounded-lg',
-                    alert.severity === 'critical' && 'bg-error/10 border border-error/30',
-                    alert.severity === 'warning' && 'bg-warning/10 border border-warning/30',
-                    alert.severity === 'info' && 'bg-info/10 border border-info/30'
+                    "flex items-start gap-3 p-3 rounded-lg",
+                    alert.severity === "critical" &&
+                      "bg-error/10 border border-error/30",
+                    alert.severity === "warning" &&
+                      "bg-warning/10 border border-warning/30",
+                    alert.severity === "info" &&
+                      "bg-info/10 border border-info/30",
                   )}
                 >
                   <span className="text-xl">
-                    {alert.severity === 'critical' && '🚨'}
-                    {alert.severity === 'warning' && '⚠️'}
-                    {alert.severity === 'info' && 'ℹ️'}
+                    {alert.severity === "critical" && "🚨"}
+                    {alert.severity === "warning" && "⚠️"}
+                    {alert.severity === "info" && "ℹ️"}
                   </span>
                   <div className="flex-1">
                     <p className="font-medium">{alert.message}</p>
@@ -164,11 +170,11 @@ function MetricCard({
               {trend !== null && trend !== undefined && (
                 <span
                   className={cn(
-                    'text-sm font-medium',
-                    trend >= 0 ? 'text-success' : 'text-error'
+                    "text-sm font-medium",
+                    trend >= 0 ? "text-success" : "text-error",
                   )}
                 >
-                  {trend >= 0 ? '+' : ''}
+                  {trend >= 0 ? "+" : ""}
                   {(trend * 100).toFixed(1)}%
                 </span>
               )}
@@ -188,7 +194,7 @@ function ARAgingCard({
   data,
   loading,
 }: {
-  data?: ReturnType<typeof useARAgingReport>['data'];
+  data?: ReturnType<typeof useARAgingReport>["data"];
   loading: boolean;
 }) {
   if (loading) {
@@ -207,10 +213,10 @@ function ARAgingCard({
   if (!data) return null;
 
   const buckets = [
-    { label: 'Current', value: data.current, color: 'bg-success' },
-    { label: '31-60 days', value: data.days_31_60, color: 'bg-warning' },
-    { label: '61-90 days', value: data.days_61_90, color: 'bg-orange-500' },
-    { label: '90+ days', value: data.over_90, color: 'bg-error' },
+    { label: "Current", value: data.current, color: "bg-success" },
+    { label: "31-60 days", value: data.days_31_60, color: "bg-warning" },
+    { label: "61-90 days", value: data.days_61_90, color: "bg-orange-500" },
+    { label: "90+ days", value: data.over_90, color: "bg-error" },
   ];
 
   const total = data.total_outstanding || 1;
@@ -232,7 +238,7 @@ function ARAgingCard({
             return (
               <div
                 key={bucket.label}
-                className={cn('h-full', bucket.color)}
+                className={cn("h-full", bucket.color)}
                 style={{ width: `${width}%` }}
                 title={`${bucket.label}: ${formatCurrency(bucket.value)}`}
               />
@@ -244,8 +250,10 @@ function ARAgingCard({
         <div className="grid grid-cols-2 gap-3">
           {buckets.map((bucket) => (
             <div key={bucket.label} className="flex items-center gap-2">
-              <div className={cn('w-3 h-3 rounded', bucket.color)} />
-              <span className="text-sm text-text-secondary">{bucket.label}</span>
+              <div className={cn("w-3 h-3 rounded", bucket.color)} />
+              <span className="text-sm text-text-secondary">
+                {bucket.label}
+              </span>
               <span className="text-sm font-medium ml-auto">
                 {formatCurrency(bucket.value)}
               </span>
@@ -265,7 +273,9 @@ function ARAgingCard({
                   key={customer.customer_id}
                   className="flex items-center justify-between text-sm"
                 >
-                  <span className="text-text-secondary">{customer.customer_name}</span>
+                  <span className="text-text-secondary">
+                    {customer.customer_name}
+                  </span>
                   <div className="flex items-center gap-2">
                     <span className="font-medium">
                       {formatCurrency(customer.total_outstanding)}
@@ -289,7 +299,7 @@ function RevenueByServiceCard({
   data,
   loading,
 }: {
-  data?: ReturnType<typeof useRevenueIntelligence>['data'];
+  data?: ReturnType<typeof useRevenueIntelligence>["data"];
   loading: boolean;
 }) {
   if (loading) {
@@ -325,20 +335,24 @@ function RevenueByServiceCard({
           {data.revenue_by_service.map((service) => (
             <div key={service.service_type}>
               <div className="flex items-center justify-between text-sm mb-1">
-                <span className="text-text-secondary">{service.service_type}</span>
+                <span className="text-text-secondary">
+                  {service.service_type}
+                </span>
                 <div className="flex items-center gap-2">
-                  <span className="font-medium">{formatCurrency(service.revenue)}</span>
+                  <span className="font-medium">
+                    {formatCurrency(service.revenue)}
+                  </span>
                   <span
                     className={cn(
-                      'text-xs',
-                      service.trend === 'up' && 'text-success',
-                      service.trend === 'down' && 'text-error',
-                      service.trend === 'stable' && 'text-text-muted'
+                      "text-xs",
+                      service.trend === "up" && "text-success",
+                      service.trend === "down" && "text-error",
+                      service.trend === "stable" && "text-text-muted",
                     )}
                   >
-                    {service.trend === 'up' && '↑'}
-                    {service.trend === 'down' && '↓'}
-                    {service.trend === 'stable' && '→'}
+                    {service.trend === "up" && "↑"}
+                    {service.trend === "down" && "↓"}
+                    {service.trend === "stable" && "→"}
                   </span>
                 </div>
               </div>
@@ -355,7 +369,9 @@ function RevenueByServiceCard({
         {/* Top customers */}
         {data.top_customers && data.top_customers.length > 0 && (
           <div className="mt-4 pt-4 border-t border-border">
-            <p className="text-sm font-medium text-text-primary mb-2">Top Customers</p>
+            <p className="text-sm font-medium text-text-primary mb-2">
+              Top Customers
+            </p>
             <div className="space-y-2">
               {data.top_customers.slice(0, 3).map((customer, i) => (
                 <div
@@ -383,7 +399,7 @@ function CashFlowForecastCard({
   data,
   loading,
 }: {
-  data?: ReturnType<typeof useCashFlowForecast>['data'];
+  data?: ReturnType<typeof useCashFlowForecast>["data"];
   loading: boolean;
 }) {
   if (loading) {
@@ -414,11 +430,21 @@ function CashFlowForecastCard({
           <table className="w-full text-sm">
             <thead>
               <tr className="border-b border-border">
-                <th className="text-left py-2 text-text-secondary font-medium">Date</th>
-                <th className="text-right py-2 text-text-secondary font-medium">Revenue</th>
-                <th className="text-right py-2 text-text-secondary font-medium">Expenses</th>
-                <th className="text-right py-2 text-text-secondary font-medium">Cash Flow</th>
-                <th className="text-right py-2 text-text-secondary font-medium">Confidence</th>
+                <th className="text-left py-2 text-text-secondary font-medium">
+                  Date
+                </th>
+                <th className="text-right py-2 text-text-secondary font-medium">
+                  Revenue
+                </th>
+                <th className="text-right py-2 text-text-secondary font-medium">
+                  Expenses
+                </th>
+                <th className="text-right py-2 text-text-secondary font-medium">
+                  Cash Flow
+                </th>
+                <th className="text-right py-2 text-text-secondary font-medium">
+                  Confidence
+                </th>
               </tr>
             </thead>
             <tbody>
@@ -433,22 +459,25 @@ function CashFlowForecastCard({
                   </td>
                   <td
                     className={cn(
-                      'py-2 text-right font-medium',
-                      forecast.projected_cash_flow >= 0 ? 'text-success' : 'text-error'
+                      "py-2 text-right font-medium",
+                      forecast.projected_cash_flow >= 0
+                        ? "text-success"
+                        : "text-error",
                     )}
                   >
-                    {forecast.projected_cash_flow >= 0 ? '+' : ''}
+                    {forecast.projected_cash_flow >= 0 ? "+" : ""}
                     {formatCurrency(forecast.projected_cash_flow)}
                   </td>
                   <td className="py-2 text-right">
                     <span
                       className={cn(
-                        'px-2 py-0.5 rounded text-xs',
-                        forecast.confidence >= 0.8 && 'bg-success/10 text-success',
+                        "px-2 py-0.5 rounded text-xs",
+                        forecast.confidence >= 0.8 &&
+                          "bg-success/10 text-success",
                         forecast.confidence >= 0.5 &&
                           forecast.confidence < 0.8 &&
-                          'bg-warning/10 text-warning',
-                        forecast.confidence < 0.5 && 'bg-error/10 text-error'
+                          "bg-warning/10 text-warning",
+                        forecast.confidence < 0.5 && "bg-error/10 text-error",
                       )}
                     >
                       {(forecast.confidence * 100).toFixed(0)}%
@@ -474,9 +503,9 @@ function CollectionRecommendationsCard() {
       await sendReminder.mutateAsync({
         customer_id: customerId,
         invoice_ids: [],
-        channel: 'email',
+        channel: "email",
       });
-      toastSuccess('Payment reminder sent successfully');
+      toastSuccess("Payment reminder sent successfully");
     } catch (error) {
       toastError(`Error: ${getErrorMessage(error)}`);
     }
@@ -514,10 +543,10 @@ function CollectionRecommendationsCard() {
             >
               <div
                 className={cn(
-                  'w-2 h-2 rounded-full mt-2',
-                  rec.priority === 'high' && 'bg-error',
-                  rec.priority === 'medium' && 'bg-warning',
-                  rec.priority === 'low' && 'bg-success'
+                  "w-2 h-2 rounded-full mt-2",
+                  rec.priority === "high" && "bg-error",
+                  rec.priority === "medium" && "bg-warning",
+                  rec.priority === "low" && "bg-success",
                 )}
               />
               <div className="flex-1">
@@ -532,7 +561,8 @@ function CollectionRecommendationsCard() {
                 </p>
                 <div className="flex items-center justify-between">
                   <span className="text-xs text-text-muted">
-                    {(rec.success_probability * 100).toFixed(0)}% success probability
+                    {(rec.success_probability * 100).toFixed(0)}% success
+                    probability
                   </span>
                   <Button
                     size="sm"

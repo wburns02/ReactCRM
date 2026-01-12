@@ -9,12 +9,12 @@
  * - Display thumbnails with status indicators
  */
 
-import { useState, useEffect, useCallback, useRef } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { useOnlineStatus } from '@/hooks/usePWA';
-import { apiClient } from '@/api/client';
+import { useState, useEffect, useCallback, useRef } from "react";
+import { Button } from "@/components/ui/Button";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { useOnlineStatus } from "@/hooks/usePWA";
+import { apiClient } from "@/api/client";
 import {
   addPhotoToQueue,
   getPhotosForWorkOrder,
@@ -24,7 +24,7 @@ import {
   removePhotoFromQueue,
   getPhotoQueueStats,
   type QueuedPhoto,
-} from '@/lib/db';
+} from "@/lib/db";
 
 // ============================================
 // Types
@@ -56,18 +56,18 @@ function PhotoItem({ photo, onRetry, onRemove }: PhotoItemProps) {
     return () => URL.revokeObjectURL(url);
   }, [photo.blob]);
 
-  const statusColors: Record<QueuedPhoto['status'], string> = {
-    pending: 'bg-yellow-100 text-yellow-800',
-    uploading: 'bg-blue-100 text-blue-800',
-    uploaded: 'bg-green-100 text-green-800',
-    failed: 'bg-red-100 text-red-800',
+  const statusColors: Record<QueuedPhoto["status"], string> = {
+    pending: "bg-yellow-100 text-yellow-800",
+    uploading: "bg-blue-100 text-blue-800",
+    uploaded: "bg-green-100 text-green-800",
+    failed: "bg-red-100 text-red-800",
   };
 
-  const statusLabels: Record<QueuedPhoto['status'], string> = {
-    pending: 'Pending',
-    uploading: 'Uploading',
-    uploaded: 'Uploaded',
-    failed: 'Failed',
+  const statusLabels: Record<QueuedPhoto["status"], string> = {
+    pending: "Pending",
+    uploading: "Uploading",
+    uploaded: "Uploaded",
+    failed: "Failed",
   };
 
   return (
@@ -93,7 +93,7 @@ function PhotoItem({ photo, onRetry, onRemove }: PhotoItemProps) {
       </div>
 
       {/* Progress bar for uploading */}
-      {photo.status === 'uploading' && photo.uploadProgress !== undefined && (
+      {photo.status === "uploading" && photo.uploadProgress !== undefined && (
         <div className="absolute bottom-0 left-0 right-0 h-1 bg-gray-200">
           <div
             className="h-full bg-blue-500 transition-all"
@@ -103,14 +103,24 @@ function PhotoItem({ photo, onRetry, onRemove }: PhotoItemProps) {
       )}
 
       {/* Retry button for failed */}
-      {photo.status === 'failed' && (
+      {photo.status === "failed" && (
         <button
           onClick={() => onRetry(photo.id)}
           className="absolute bottom-1 right-1 p-1 bg-white rounded-full shadow hover:bg-gray-100"
           title="Retry upload"
         >
-          <svg className="w-3 h-3 text-gray-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15" />
+          <svg
+            className="w-3 h-3 text-gray-600"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
+            />
           </svg>
         </button>
       )}
@@ -121,8 +131,18 @@ function PhotoItem({ photo, onRetry, onRemove }: PhotoItemProps) {
         className="absolute top-1 left-1 p-1 bg-white/80 rounded-full opacity-0 group-hover:opacity-100 transition-opacity hover:bg-red-100"
         title="Remove photo"
       >
-        <svg className="w-3 h-3 text-red-600" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+        <svg
+          className="w-3 h-3 text-red-600"
+          fill="none"
+          viewBox="0 0 24 24"
+          stroke="currentColor"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M6 18L18 6M6 6l12 12"
+          />
         </svg>
       </button>
     </div>
@@ -133,11 +153,20 @@ function PhotoItem({ photo, onRetry, onRemove }: PhotoItemProps) {
 // Main Component
 // ============================================
 
-export function PhotoQueue({ workOrderId, onPhotoUploaded, maxPhotos = 10 }: PhotoQueueProps) {
+export function PhotoQueue({
+  workOrderId,
+  onPhotoUploaded,
+  maxPhotos = 10,
+}: PhotoQueueProps) {
   const isOnline = useOnlineStatus();
   const [photos, setPhotos] = useState<QueuedPhoto[]>([]);
   const [isUploading, setIsUploading] = useState(false);
-  const [stats, setStats] = useState({ pending: 0, uploading: 0, uploaded: 0, failed: 0 });
+  const [stats, setStats] = useState({
+    pending: 0,
+    uploading: 0,
+    uploaded: 0,
+    failed: 0,
+  });
   const fileInputRef = useRef<HTMLInputElement>(null);
   const uploadingRef = useRef(false);
 
@@ -189,7 +218,7 @@ export function PhotoQueue({ workOrderId, onPhotoUploaded, maxPhotos = 10 }: Pho
 
       // Clear input
       if (fileInputRef.current) {
-        fileInputRef.current.value = '';
+        fileInputRef.current.value = "";
       }
 
       // Reload photos
@@ -200,7 +229,7 @@ export function PhotoQueue({ workOrderId, onPhotoUploaded, maxPhotos = 10 }: Pho
         uploadPending();
       }
     },
-    [workOrderId, photos.length, maxPhotos, loadPhotos, isOnline]
+    [workOrderId, photos.length, maxPhotos, loadPhotos, isOnline],
   );
 
   // ============================================
@@ -210,18 +239,18 @@ export function PhotoQueue({ workOrderId, onPhotoUploaded, maxPhotos = 10 }: Pho
   const uploadPhoto = useCallback(
     async (photo: QueuedPhoto): Promise<boolean> => {
       try {
-        await updatePhotoStatus(photo.id, 'uploading');
+        await updatePhotoStatus(photo.id, "uploading");
         await loadPhotos();
 
         // Create FormData for upload
         const formData = new FormData();
-        formData.append('file', photo.blob, photo.filename);
-        formData.append('work_order_id', workOrderId);
+        formData.append("file", photo.blob, photo.filename);
+        formData.append("work_order_id", workOrderId);
 
         // Upload with progress tracking
-        const response = await apiClient.post('/work-orders/photos', formData, {
+        const response = await apiClient.post("/work-orders/photos", formData, {
           headers: {
-            'Content-Type': 'multipart/form-data',
+            "Content-Type": "multipart/form-data",
           },
           onUploadProgress: (progressEvent) => {
             const progress = progressEvent.total
@@ -232,7 +261,7 @@ export function PhotoQueue({ workOrderId, onPhotoUploaded, maxPhotos = 10 }: Pho
         });
 
         const uploadedUrl = response.data?.url || response.data?.photo_url;
-        await updatePhotoStatus(photo.id, 'uploaded', uploadedUrl);
+        await updatePhotoStatus(photo.id, "uploaded", uploadedUrl);
 
         if (onPhotoUploaded && uploadedUrl) {
           onPhotoUploaded(uploadedUrl);
@@ -240,13 +269,14 @@ export function PhotoQueue({ workOrderId, onPhotoUploaded, maxPhotos = 10 }: Pho
 
         return true;
       } catch (err) {
-        console.error('Photo upload failed:', err);
-        const errorMessage = err instanceof Error ? err.message : 'Upload failed';
-        await updatePhotoStatus(photo.id, 'failed', undefined, errorMessage);
+        console.error("Photo upload failed:", err);
+        const errorMessage =
+          err instanceof Error ? err.message : "Upload failed";
+        await updatePhotoStatus(photo.id, "failed", undefined, errorMessage);
         return false;
       }
     },
-    [workOrderId, onPhotoUploaded, loadPhotos]
+    [workOrderId, onPhotoUploaded, loadPhotos],
   );
 
   const uploadPending = useCallback(async () => {
@@ -257,7 +287,9 @@ export function PhotoQueue({ workOrderId, onPhotoUploaded, maxPhotos = 10 }: Pho
 
     try {
       const pending = await getPendingPhotos();
-      const workOrderPending = pending.filter(p => p.workOrderId === workOrderId);
+      const workOrderPending = pending.filter(
+        (p) => p.workOrderId === workOrderId,
+      );
 
       for (const photo of workOrderPending) {
         await uploadPhoto(photo);
@@ -282,13 +314,13 @@ export function PhotoQueue({ workOrderId, onPhotoUploaded, maxPhotos = 10 }: Pho
 
   const handleRetry = useCallback(
     async (id: string) => {
-      await updatePhotoStatus(id, 'pending');
+      await updatePhotoStatus(id, "pending");
       await loadPhotos();
       if (isOnline) {
         uploadPending();
       }
     },
-    [loadPhotos, isOnline, uploadPending]
+    [loadPhotos, isOnline, uploadPending],
   );
 
   const handleRemove = useCallback(
@@ -296,15 +328,17 @@ export function PhotoQueue({ workOrderId, onPhotoUploaded, maxPhotos = 10 }: Pho
       await removePhotoFromQueue(id);
       await loadPhotos();
     },
-    [loadPhotos]
+    [loadPhotos],
   );
 
   // ============================================
   // Render
   // ============================================
 
-  const pendingCount = photos.filter(p => p.status === 'pending' || p.status === 'uploading').length;
-  const failedCount = photos.filter(p => p.status === 'failed').length;
+  const pendingCount = photos.filter(
+    (p) => p.status === "pending" || p.status === "uploading",
+  ).length;
+  const failedCount = photos.filter((p) => p.status === "failed").length;
 
   return (
     <Card>
@@ -313,20 +347,12 @@ export function PhotoQueue({ workOrderId, onPhotoUploaded, maxPhotos = 10 }: Pho
           <CardTitle className="text-base">Photos</CardTitle>
           <div className="flex items-center gap-2">
             {pendingCount > 0 && (
-              <Badge variant="warning">
-                {pendingCount} pending
-              </Badge>
+              <Badge variant="warning">{pendingCount} pending</Badge>
             )}
             {failedCount > 0 && (
-              <Badge variant="danger">
-                {failedCount} failed
-              </Badge>
+              <Badge variant="danger">{failedCount} failed</Badge>
             )}
-            {!isOnline && (
-              <Badge variant="default">
-                Offline
-              </Badge>
-            )}
+            {!isOnline && <Badge variant="default">Offline</Badge>}
           </div>
         </div>
       </CardHeader>
@@ -334,7 +360,7 @@ export function PhotoQueue({ workOrderId, onPhotoUploaded, maxPhotos = 10 }: Pho
         {/* Photo grid */}
         {photos.length > 0 && (
           <div className="flex flex-wrap gap-2 mb-4">
-            {photos.map(photo => (
+            {photos.map((photo) => (
               <PhotoItem
                 key={photo.id}
                 photo={photo}
@@ -372,7 +398,7 @@ export function PhotoQueue({ workOrderId, onPhotoUploaded, maxPhotos = 10 }: Pho
                 d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
               />
             </svg>
-            {photos.length > 0 ? 'Add Photo' : 'Take Photo'}
+            {photos.length > 0 ? "Add Photo" : "Take Photo"}
           </Button>
 
           {isUploading && (

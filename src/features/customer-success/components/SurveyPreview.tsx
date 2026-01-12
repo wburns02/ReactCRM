@@ -7,15 +7,15 @@
  * - Test submission mode
  */
 
-import { useState, useMemo } from 'react';
-import { cn } from '@/lib/utils.ts';
-import type { SurveyQuestion } from './SurveyBuilder.tsx';
+import { useState, useMemo } from "react";
+import { cn } from "@/lib/utils.ts";
+import type { SurveyQuestion } from "./SurveyBuilder.tsx";
 
 // ============================================
 // Types
 // ============================================
 
-type ViewMode = 'desktop' | 'tablet' | 'mobile';
+type ViewMode = "desktop" | "tablet" | "mobile";
 
 export interface SurveyPreviewProps {
   surveyName: string;
@@ -53,8 +53,10 @@ function RatingPreview({
           key={star}
           onClick={() => onChange(star)}
           className={cn(
-            'p-1 transition-colors',
-            (value ?? 0) >= star ? 'text-yellow-400' : 'text-gray-300 hover:text-yellow-200'
+            "p-1 transition-colors",
+            (value ?? 0) >= star
+              ? "text-yellow-400"
+              : "text-gray-300 hover:text-yellow-200",
           )}
         >
           <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
@@ -87,10 +89,10 @@ function ScalePreview({
             key={num}
             onClick={() => onChange(num)}
             className={cn(
-              'w-10 h-10 rounded-lg font-medium transition-all',
+              "w-10 h-10 rounded-lg font-medium transition-all",
               value === num
-                ? 'bg-primary text-white shadow-md scale-110'
-                : 'bg-bg-hover text-text-secondary hover:bg-bg-tertiary'
+                ? "bg-primary text-white shadow-md scale-110"
+                : "bg-bg-hover text-text-secondary hover:bg-bg-tertiary",
             )}
           >
             {num}
@@ -120,7 +122,7 @@ function TextPreview({
     <textarea
       value={value}
       onChange={(e) => onChange(e.target.value)}
-      placeholder={question.placeholder || 'Enter your response...'}
+      placeholder={question.placeholder || "Enter your response..."}
       maxLength={question.max_length}
       className="w-full px-4 py-3 border border-border rounded-lg bg-bg-primary text-text-primary placeholder:text-text-muted focus:outline-none focus:ring-2 focus:ring-primary resize-none"
       rows={4}
@@ -150,23 +152,33 @@ function MultipleChoicePreview({
             }
           }}
           className={cn(
-            'flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors',
+            "flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors",
             value.includes(option)
-              ? 'border-primary bg-primary/5'
-              : 'border-border hover:bg-bg-hover'
+              ? "border-primary bg-primary/5"
+              : "border-border hover:bg-bg-hover",
           )}
         >
           <div
             className={cn(
-              'w-5 h-5 rounded border-2 flex items-center justify-center transition-colors',
+              "w-5 h-5 rounded border-2 flex items-center justify-center transition-colors",
               value.includes(option)
-                ? 'bg-primary border-primary'
-                : 'border-border'
+                ? "bg-primary border-primary"
+                : "border-border",
             )}
           >
             {value.includes(option) && (
-              <svg className="w-3 h-3 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={3} d="M5 13l4 4L19 7" />
+              <svg
+                className="w-3 h-3 text-white"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={3}
+                  d="M5 13l4 4L19 7"
+                />
               </svg>
             )}
           </div>
@@ -193,18 +205,16 @@ function SingleChoicePreview({
           key={idx}
           onClick={() => onChange(option)}
           className={cn(
-            'flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors',
+            "flex items-center gap-3 p-3 rounded-lg border cursor-pointer transition-colors",
             value === option
-              ? 'border-primary bg-primary/5'
-              : 'border-border hover:bg-bg-hover'
+              ? "border-primary bg-primary/5"
+              : "border-border hover:bg-bg-hover",
           )}
         >
           <div
             className={cn(
-              'w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors',
-              value === option
-                ? 'border-primary'
-                : 'border-border'
+              "w-5 h-5 rounded-full border-2 flex items-center justify-center transition-colors",
+              value === option ? "border-primary" : "border-border",
             )}
           >
             {value === option && (
@@ -236,42 +246,42 @@ function QuestionPreview({
         </span>
         <div>
           <h3 className="font-medium text-text-primary">
-            {question.text || 'Untitled Question'}
+            {question.text || "Untitled Question"}
             {question.required && <span className="text-danger ml-1">*</span>}
           </h3>
         </div>
       </div>
 
       <div className="ml-11">
-        {question.type === 'rating' && (
+        {question.type === "rating" && (
           <RatingPreview
             question={question}
             value={value as number | null}
             onChange={onChange as (v: number) => void}
           />
         )}
-        {question.type === 'scale' && (
+        {question.type === "scale" && (
           <ScalePreview
             question={question}
             value={value as number | null}
             onChange={onChange as (v: number) => void}
           />
         )}
-        {question.type === 'text' && (
+        {question.type === "text" && (
           <TextPreview
             question={question}
-            value={(value as string) || ''}
+            value={(value as string) || ""}
             onChange={onChange as (v: string) => void}
           />
         )}
-        {question.type === 'multiple_choice' && (
+        {question.type === "multiple_choice" && (
           <MultipleChoicePreview
             question={question}
             value={(value as string[]) || []}
             onChange={onChange as (v: string[]) => void}
           />
         )}
-        {question.type === 'single_choice' && (
+        {question.type === "single_choice" && (
           <SingleChoicePreview
             question={question}
             value={value as string | null}
@@ -295,14 +305,14 @@ function DeviceFrame({
   children: React.ReactNode;
 }) {
   const frameClasses: Record<ViewMode, string> = {
-    desktop: 'w-full max-w-2xl',
-    tablet: 'w-full max-w-md',
-    mobile: 'w-full max-w-sm',
+    desktop: "w-full max-w-2xl",
+    tablet: "w-full max-w-md",
+    mobile: "w-full max-w-sm",
   };
 
   return (
-    <div className={cn('mx-auto', frameClasses[mode])}>
-      {mode !== 'desktop' && (
+    <div className={cn("mx-auto", frameClasses[mode])}>
+      {mode !== "desktop" && (
         <div className="bg-gray-800 rounded-t-3xl pt-6 pb-2 px-6">
           <div className="flex items-center justify-center gap-2">
             <div className="w-16 h-4 bg-gray-700 rounded-full" />
@@ -311,9 +321,10 @@ function DeviceFrame({
       )}
       <div
         className={cn(
-          'bg-white overflow-hidden',
-          mode === 'desktop' && 'rounded-xl shadow-2xl',
-          mode !== 'desktop' && 'rounded-b-3xl shadow-2xl border-x-4 border-b-4 border-gray-800'
+          "bg-white overflow-hidden",
+          mode === "desktop" && "rounded-xl shadow-2xl",
+          mode !== "desktop" &&
+            "rounded-b-3xl shadow-2xl border-x-4 border-b-4 border-gray-800",
         )}
       >
         {children}
@@ -332,7 +343,9 @@ function ProgressBar({ current, total }: { current: number; total: number }) {
   return (
     <div className="space-y-1">
       <div className="flex justify-between text-xs text-white/70">
-        <span>{current} of {total} completed</span>
+        <span>
+          {current} of {total} completed
+        </span>
         <span>{percentage}%</span>
       </div>
       <div className="h-2 bg-white/20 rounded-full overflow-hidden">
@@ -354,10 +367,10 @@ export function SurveyPreview({
   questions,
   onClose,
   onSubmitTest,
-  brandColor = '#4F46E5',
+  brandColor = "#4F46E5",
   logoUrl,
 }: SurveyPreviewProps) {
-  const [viewMode, setViewMode] = useState<ViewMode>('desktop');
+  const [viewMode, setViewMode] = useState<ViewMode>("desktop");
   const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
   const [responses, setResponses] = useState<Record<string, unknown>>({});
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -366,16 +379,22 @@ export function SurveyPreview({
 
   const currentQuestion = questions[currentQuestionIndex];
   const isLastQuestion = currentQuestionIndex === questions.length - 1;
-  const answeredCount = Object.keys(responses).filter(k => {
+  const answeredCount = Object.keys(responses).filter((k) => {
     const val = responses[k];
-    return val !== undefined && val !== null && val !== '' && !(Array.isArray(val) && val.length === 0);
+    return (
+      val !== undefined &&
+      val !== null &&
+      val !== "" &&
+      !(Array.isArray(val) && val.length === 0)
+    );
   }).length;
 
   const canProceed = useMemo(() => {
     if (!currentQuestion) return false;
     if (!currentQuestion.required) return true;
     const response = responses[currentQuestion.id];
-    if (response === undefined || response === null || response === '') return false;
+    if (response === undefined || response === null || response === "")
+      return false;
     if (Array.isArray(response) && response.length === 0) return false;
     return true;
   }, [currentQuestion, responses]);
@@ -387,7 +406,7 @@ export function SurveyPreview({
         const response = responses[q.id];
         if (response === undefined || response === null) return false;
         if (Array.isArray(response)) return response.length > 0;
-        if (typeof response === 'string') return response.trim().length > 0;
+        if (typeof response === "string") return response.trim().length > 0;
         return true;
       });
   }, [questions, responses]);
@@ -427,11 +446,25 @@ export function SurveyPreview({
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
         <div className="bg-bg-card rounded-xl p-8 max-w-md text-center">
-          <svg className="w-16 h-16 text-text-muted mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+          <svg
+            className="w-16 h-16 text-text-muted mx-auto mb-4"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={1.5}
+              d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M12 12h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+            />
           </svg>
-          <h3 className="text-lg font-medium text-text-primary mb-2">No Questions to Preview</h3>
-          <p className="text-text-muted mb-4">Add some questions to see how your survey will look.</p>
+          <h3 className="text-lg font-medium text-text-primary mb-2">
+            No Questions to Preview
+          </h3>
+          <p className="text-text-muted mb-4">
+            Add some questions to see how your survey will look.
+          </p>
           <button
             onClick={onClose}
             className="px-4 py-2 text-sm font-medium text-white bg-primary rounded-lg hover:bg-primary-dark"
@@ -454,8 +487,18 @@ export function SurveyPreview({
                 onClick={onClose}
                 className="text-gray-400 hover:text-white transition-colors"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M6 18L18 6M6 6l12 12"
+                  />
                 </svg>
               </button>
               <div>
@@ -467,39 +510,75 @@ export function SurveyPreview({
             {/* View Mode Selector */}
             <div className="flex items-center gap-2 bg-gray-700 rounded-lg p-1">
               <button
-                onClick={() => setViewMode('desktop')}
+                onClick={() => setViewMode("desktop")}
                 className={cn(
-                  'p-2 rounded transition-colors',
-                  viewMode === 'desktop' ? 'bg-gray-600 text-white' : 'text-gray-400 hover:text-white'
+                  "p-2 rounded transition-colors",
+                  viewMode === "desktop"
+                    ? "bg-gray-600 text-white"
+                    : "text-gray-400 hover:text-white",
                 )}
                 title="Desktop view"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M9.75 17L9 20l-1 1h8l-1-1-.75-3M3 13h18M5 17h14a2 2 0 002-2V5a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                  />
                 </svg>
               </button>
               <button
-                onClick={() => setViewMode('tablet')}
+                onClick={() => setViewMode("tablet")}
                 className={cn(
-                  'p-2 rounded transition-colors',
-                  viewMode === 'tablet' ? 'bg-gray-600 text-white' : 'text-gray-400 hover:text-white'
+                  "p-2 rounded transition-colors",
+                  viewMode === "tablet"
+                    ? "bg-gray-600 text-white"
+                    : "text-gray-400 hover:text-white",
                 )}
                 title="Tablet view"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 18h.01M7 21h10a2 2 0 002-2V5a2 2 0 00-2-2H7a2 2 0 00-2 2v14a2 2 0 002 2z"
+                  />
                 </svg>
               </button>
               <button
-                onClick={() => setViewMode('mobile')}
+                onClick={() => setViewMode("mobile")}
                 className={cn(
-                  'p-2 rounded transition-colors',
-                  viewMode === 'mobile' ? 'bg-gray-600 text-white' : 'text-gray-400 hover:text-white'
+                  "p-2 rounded transition-colors",
+                  viewMode === "mobile"
+                    ? "bg-gray-600 text-white"
+                    : "text-gray-400 hover:text-white",
                 )}
                 title="Mobile view"
               >
-                <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                <svg
+                  className="w-5 h-5"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M12 18h.01M8 21h8a2 2 0 002-2V5a2 2 0 00-2-2H8a2 2 0 00-2 2v14a2 2 0 002 2z"
+                  />
                 </svg>
               </button>
             </div>
@@ -547,13 +626,14 @@ export function SurveyPreview({
               className="p-6 text-white"
               style={{ backgroundColor: brandColor }}
             >
-              {logoUrl && (
-                <img src={logoUrl} alt="Logo" className="h-8 mb-4" />
-              )}
+              {logoUrl && <img src={logoUrl} alt="Logo" className="h-8 mb-4" />}
               <h1 className="text-xl font-semibold">{surveyName}</h1>
               {!isSubmitted && (
                 <div className="mt-4">
-                  <ProgressBar current={answeredCount} total={questions.length} />
+                  <ProgressBar
+                    current={answeredCount}
+                    total={questions.length}
+                  />
                 </div>
               )}
             </div>
@@ -563,16 +643,32 @@ export function SurveyPreview({
               {isSubmitted ? (
                 <div className="text-center py-12">
                   <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-                    <svg className="w-8 h-8 text-green-500" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+                    <svg
+                      className="w-8 h-8 text-green-500"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M5 13l4 4L19 7"
+                      />
                     </svg>
                   </div>
-                  <h2 className="text-xl font-semibold text-gray-900 mb-2">Thank You!</h2>
-                  <p className="text-gray-600 mb-6">Your feedback has been submitted successfully.</p>
+                  <h2 className="text-xl font-semibold text-gray-900 mb-2">
+                    Thank You!
+                  </h2>
+                  <p className="text-gray-600 mb-6">
+                    Your feedback has been submitted successfully.
+                  </p>
 
                   {testMode && (
                     <div className="mt-6 p-4 bg-gray-50 rounded-lg text-left">
-                      <h3 className="font-medium text-gray-700 mb-2">Test Submission Data:</h3>
+                      <h3 className="font-medium text-gray-700 mb-2">
+                        Test Submission Data:
+                      </h3>
                       <pre className="text-xs text-gray-600 overflow-auto max-h-40">
                         {JSON.stringify(responses, null, 2)}
                       </pre>
@@ -595,7 +691,9 @@ export function SurveyPreview({
                       question={question}
                       questionNumber={idx + 1}
                       value={responses[question.id]}
-                      onChange={(value) => handleResponseChange(question.id, value)}
+                      onChange={(value) =>
+                        handleResponseChange(question.id, value)
+                      }
                     />
                   ))}
                 </div>
@@ -610,7 +708,9 @@ export function SurveyPreview({
                       question={currentQuestion}
                       questionNumber={currentQuestionIndex + 1}
                       value={responses[currentQuestion.id]}
-                      onChange={(value) => handleResponseChange(currentQuestion.id, value)}
+                      onChange={(value) =>
+                        handleResponseChange(currentQuestion.id, value)
+                      }
                     />
                   </div>
                 )
@@ -626,10 +726,10 @@ export function SurveyPreview({
                       onClick={handleBack}
                       disabled={currentQuestionIndex === 0}
                       className={cn(
-                        'px-4 py-2 text-sm font-medium rounded-lg transition-colors',
+                        "px-4 py-2 text-sm font-medium rounded-lg transition-colors",
                         currentQuestionIndex === 0
-                          ? 'text-gray-300 cursor-not-allowed'
-                          : 'text-gray-600 hover:bg-gray-100'
+                          ? "text-gray-300 cursor-not-allowed"
+                          : "text-gray-600 hover:bg-gray-100",
                       )}
                     >
                       Back
@@ -639,14 +739,18 @@ export function SurveyPreview({
                       onClick={handleNext}
                       disabled={!canProceed && testMode}
                       className={cn(
-                        'px-6 py-2 text-sm font-medium rounded-lg transition-colors text-white',
+                        "px-6 py-2 text-sm font-medium rounded-lg transition-colors text-white",
                         canProceed || !testMode
-                          ? 'hover:opacity-90'
-                          : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                          ? "hover:opacity-90"
+                          : "bg-gray-200 text-gray-400 cursor-not-allowed",
                       )}
-                      style={canProceed || !testMode ? { backgroundColor: brandColor } : { backgroundColor: undefined }}
+                      style={
+                        canProceed || !testMode
+                          ? { backgroundColor: brandColor }
+                          : { backgroundColor: undefined }
+                      }
                     >
-                      {isLastQuestion ? 'Submit' : 'Next'}
+                      {isLastQuestion ? "Submit" : "Next"}
                     </button>
                   </>
                 ) : (
@@ -658,12 +762,16 @@ export function SurveyPreview({
                       onClick={handleNext}
                       disabled={!isComplete && testMode}
                       className={cn(
-                        'px-6 py-2 text-sm font-medium rounded-lg transition-colors text-white',
+                        "px-6 py-2 text-sm font-medium rounded-lg transition-colors text-white",
                         isComplete || !testMode
-                          ? 'hover:opacity-90'
-                          : 'bg-gray-200 text-gray-400 cursor-not-allowed'
+                          ? "hover:opacity-90"
+                          : "bg-gray-200 text-gray-400 cursor-not-allowed",
                       )}
-                      style={isComplete || !testMode ? { backgroundColor: brandColor } : { backgroundColor: undefined }}
+                      style={
+                        isComplete || !testMode
+                          ? { backgroundColor: brandColor }
+                          : { backgroundColor: undefined }
+                      }
                     >
                       Submit Survey
                     </button>

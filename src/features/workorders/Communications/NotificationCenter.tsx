@@ -4,53 +4,61 @@
  * Displays all sent/pending notifications with filtering and resend capabilities.
  */
 
-import { useState, useMemo } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Card } from '@/components/ui/Card.tsx';
-import { Skeleton } from '@/components/ui/Skeleton.tsx';
+import { useState, useMemo } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Card } from "@/components/ui/Card.tsx";
+import { Skeleton } from "@/components/ui/Skeleton.tsx";
 import {
   useCommunications,
   useResendNotification,
-} from './hooks/useCommunications.ts';
-import type { CommunicationType, CommunicationStatus } from '@/api/types/communication.ts';
+} from "./hooks/useCommunications.ts";
+import type {
+  CommunicationType,
+  CommunicationStatus,
+} from "@/api/types/communication.ts";
 
 interface NotificationCenterProps {
   workOrderId?: string;
   customerId?: string;
 }
 
-type FilterType = 'all' | CommunicationType;
-type FilterStatus = 'all' | CommunicationStatus;
+type FilterType = "all" | CommunicationType;
+type FilterStatus = "all" | CommunicationStatus;
 
-const STATUS_COLORS: Record<CommunicationStatus, 'success' | 'warning' | 'danger' | 'default'> = {
-  delivered: 'success',
-  sent: 'default',
-  pending: 'warning',
-  failed: 'danger',
+const STATUS_COLORS: Record<
+  CommunicationStatus,
+  "success" | "warning" | "danger" | "default"
+> = {
+  delivered: "success",
+  sent: "default",
+  pending: "warning",
+  failed: "danger",
 };
 
 const STATUS_LABELS: Record<CommunicationStatus, string> = {
-  delivered: 'Delivered',
-  sent: 'Sent',
-  pending: 'Pending',
-  failed: 'Failed',
+  delivered: "Delivered",
+  sent: "Sent",
+  pending: "Pending",
+  failed: "Failed",
 };
 
- 
-export function NotificationCenter({ workOrderId: _workOrderId, customerId }: NotificationCenterProps) {
-  const [typeFilter, setTypeFilter] = useState<FilterType>('all');
-  const [statusFilter, setStatusFilter] = useState<FilterStatus>('all');
-  const [searchQuery, setSearchQuery] = useState('');
+export function NotificationCenter({
+  workOrderId: _workOrderId,
+  customerId,
+}: NotificationCenterProps) {
+  const [typeFilter, setTypeFilter] = useState<FilterType>("all");
+  const [statusFilter, setStatusFilter] = useState<FilterStatus>("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const [page, setPage] = useState(1);
 
   const { data, isLoading, error } = useCommunications({
     page,
     page_size: 20,
     customer_id: customerId,
-    communication_type: typeFilter === 'all' ? undefined : typeFilter,
+    communication_type: typeFilter === "all" ? undefined : typeFilter,
   });
 
   const resendMutation = useResendNotification();
@@ -60,16 +68,22 @@ export function NotificationCenter({ workOrderId: _workOrderId, customerId }: No
 
     return data.items.filter((notification) => {
       // Status filter
-      if (statusFilter !== 'all' && notification.status !== statusFilter) {
+      if (statusFilter !== "all" && notification.status !== statusFilter) {
         return false;
       }
 
       // Search filter
       if (searchQuery) {
         const query = searchQuery.toLowerCase();
-        const matchesRecipient = notification.recipient.toLowerCase().includes(query);
-        const matchesMessage = notification.message.toLowerCase().includes(query);
-        const matchesSubject = notification.subject?.toLowerCase().includes(query);
+        const matchesRecipient = notification.recipient
+          .toLowerCase()
+          .includes(query);
+        const matchesMessage = notification.message
+          .toLowerCase()
+          .includes(query);
+        const matchesSubject = notification.subject
+          ?.toLowerCase()
+          .includes(query);
         if (!matchesRecipient && !matchesMessage && !matchesSubject) {
           return false;
         }
@@ -83,17 +97,17 @@ export function NotificationCenter({ workOrderId: _workOrderId, customerId }: No
     try {
       await resendMutation.mutateAsync(notificationId);
     } catch (err) {
-      console.error('Failed to resend notification:', err);
+      console.error("Failed to resend notification:", err);
     }
   };
 
   const formatTimestamp = (timestamp: string) => {
     const date = new Date(timestamp);
-    return date.toLocaleString('en-US', {
-      month: 'short',
-      day: 'numeric',
-      hour: 'numeric',
-      minute: '2-digit',
+    return date.toLocaleString("en-US", {
+      month: "short",
+      day: "numeric",
+      hour: "numeric",
+      minute: "2-digit",
       hour12: true,
     });
   };
@@ -186,9 +200,9 @@ export function NotificationCenter({ workOrderId: _workOrderId, customerId }: No
               </svg>
               <p>No notifications found</p>
               <p className="text-sm mt-1">
-                {searchQuery || typeFilter !== 'all' || statusFilter !== 'all'
-                  ? 'Try adjusting your filters'
-                  : 'Notifications will appear here when sent'}
+                {searchQuery || typeFilter !== "all" || statusFilter !== "all"
+                  ? "Try adjusting your filters"
+                  : "Notifications will appear here when sent"}
               </p>
             </div>
           </Card>
@@ -203,11 +217,16 @@ export function NotificationCenter({ workOrderId: _workOrderId, customerId }: No
                 <div
                   className={`
                     w-10 h-10 rounded-full flex items-center justify-center
-                    ${notification.communication_type === 'sms' ? 'bg-blue-500/10 text-blue-500' : 'bg-purple-500/10 text-purple-500'}
+                    ${notification.communication_type === "sms" ? "bg-blue-500/10 text-blue-500" : "bg-purple-500/10 text-purple-500"}
                   `}
                 >
-                  {notification.communication_type === 'sms' ? (
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  {notification.communication_type === "sms" ? (
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -216,7 +235,12 @@ export function NotificationCenter({ workOrderId: _workOrderId, customerId }: No
                       />
                     </svg>
                   ) : (
-                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <svg
+                      className="w-5 h-5"
+                      fill="none"
+                      viewBox="0 0 24 24"
+                      stroke="currentColor"
+                    >
                       <path
                         strokeLinecap="round"
                         strokeLinejoin="round"
@@ -230,7 +254,9 @@ export function NotificationCenter({ workOrderId: _workOrderId, customerId }: No
                 {/* Content */}
                 <div className="flex-1 min-w-0">
                   <div className="flex items-center gap-2 mb-1">
-                    <span className="font-medium truncate">{notification.recipient}</span>
+                    <span className="font-medium truncate">
+                      {notification.recipient}
+                    </span>
                     <Badge variant={STATUS_COLORS[notification.status]}>
                       {STATUS_LABELS[notification.status]}
                     </Badge>
@@ -249,24 +275,28 @@ export function NotificationCenter({ workOrderId: _workOrderId, customerId }: No
                   <div className="flex items-center gap-4 mt-2 text-xs text-text-secondary">
                     <span>{formatTimestamp(notification.sent_at)}</span>
                     {notification.delivered_at && (
-                      <span>Delivered: {formatTimestamp(notification.delivered_at)}</span>
+                      <span>
+                        Delivered: {formatTimestamp(notification.delivered_at)}
+                      </span>
                     )}
                     {notification.error_message && (
-                      <span className="text-danger">{notification.error_message}</span>
+                      <span className="text-danger">
+                        {notification.error_message}
+                      </span>
                     )}
                   </div>
                 </div>
 
                 {/* Actions */}
                 <div className="flex items-center gap-2">
-                  {notification.status === 'failed' && (
+                  {notification.status === "failed" && (
                     <Button
                       size="sm"
                       variant="secondary"
                       onClick={() => handleResend(notification.id)}
                       disabled={resendMutation.isPending}
                     >
-                      {resendMutation.isPending ? 'Resending...' : 'Resend'}
+                      {resendMutation.isPending ? "Resending..." : "Resend"}
                     </Button>
                   )}
                 </div>

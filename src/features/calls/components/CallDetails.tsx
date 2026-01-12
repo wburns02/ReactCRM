@@ -1,9 +1,18 @@
-import { useState } from 'react';
-import { useCall, useCallDispositions, useSetCallDisposition } from '../api/calls.ts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { formatDate } from '@/lib/utils.ts';
+import { useState } from "react";
+import {
+  useCall,
+  useCallDispositions,
+  useSetCallDisposition,
+} from "../api/calls.ts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { formatDate } from "@/lib/utils.ts";
 
 interface CallDetailsProps {
   callId: number;
@@ -16,22 +25,22 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
   const setDisposition = useSetCallDisposition();
 
   const [showDispositionPicker, setShowDispositionPicker] = useState(false);
-  const [notes, setNotes] = useState('');
+  const [notes, setNotes] = useState("");
 
   const formatDuration = (seconds: number | null | undefined): string => {
-    if (!seconds) return '0s';
+    if (!seconds) return "0s";
     const mins = Math.floor(seconds / 60);
     const secs = seconds % 60;
     return mins > 0 ? `${mins}m ${secs}s` : `${secs}s`;
   };
 
   const formatPhoneNumber = (phone: string | null | undefined): string => {
-    if (!phone) return '-';
-    const digits = phone.replace(/\D/g, '');
+    if (!phone) return "-";
+    const digits = phone.replace(/\D/g, "");
     if (digits.length === 10) {
       return `(${digits.slice(0, 3)}) ${digits.slice(3, 6)}-${digits.slice(6)}`;
     }
-    if (digits.length === 11 && digits.startsWith('1')) {
+    if (digits.length === 11 && digits.startsWith("1")) {
       return `(${digits.slice(1, 4)}) ${digits.slice(4, 7)}-${digits.slice(7)}`;
     }
     return phone;
@@ -45,9 +54,9 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
         notes: notes || undefined,
       });
       setShowDispositionPicker(false);
-      setNotes('');
+      setNotes("");
     } catch (err) {
-      console.error('Failed to set disposition:', err);
+      console.error("Failed to set disposition:", err);
     }
   };
 
@@ -86,7 +95,7 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
     <Card>
       <CardHeader className="flex flex-row items-center justify-between">
         <CardTitle className="flex items-center gap-2">
-          {call.direction === 'inbound' ? '📥' : '📤'}
+          {call.direction === "inbound" ? "📥" : "📤"}
           Call Details
         </CardTitle>
         {onClose && (
@@ -100,11 +109,15 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
         <div className="grid grid-cols-2 gap-4">
           <div>
             <p className="text-sm font-medium text-text-muted mb-1">From</p>
-            <p className="text-lg font-mono">{formatPhoneNumber(call.caller_number)}</p>
+            <p className="text-lg font-mono">
+              {formatPhoneNumber(call.caller_number)}
+            </p>
           </div>
           <div>
             <p className="text-sm font-medium text-text-muted mb-1">To</p>
-            <p className="text-lg font-mono">{formatPhoneNumber(call.called_number)}</p>
+            <p className="text-lg font-mono">
+              {formatPhoneNumber(call.called_number)}
+            </p>
           </div>
         </div>
 
@@ -115,7 +128,7 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
             <div>
               <p className="text-sm text-text-muted">Date</p>
               <p className="font-medium">
-                {call.call_date ? formatDate(call.call_date) : '-'}
+                {call.call_date ? formatDate(call.call_date) : "-"}
               </p>
             </div>
           </div>
@@ -123,14 +136,18 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
             <span>⏱️</span>
             <div>
               <p className="text-sm text-text-muted">Duration</p>
-              <p className="font-medium">{formatDuration(call.duration_seconds)}</p>
+              <p className="font-medium">
+                {formatDuration(call.duration_seconds)}
+              </p>
             </div>
           </div>
           <div className="flex items-center gap-2">
             <span>📞</span>
             <div>
               <p className="text-sm text-text-muted">Direction</p>
-              <Badge variant={call.direction === 'inbound' ? 'success' : 'info'}>
+              <Badge
+                variant={call.direction === "inbound" ? "success" : "info"}
+              >
                 {call.direction}
               </Badge>
             </div>
@@ -179,13 +196,15 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
                 size="sm"
                 onClick={() => setShowDispositionPicker(true)}
               >
-                {call.call_disposition ? 'Change' : 'Set Disposition'}
+                {call.call_disposition ? "Change" : "Set Disposition"}
               </Button>
             )}
           </div>
 
           {call.call_disposition && !showDispositionPicker && (
-            <Badge className="text-base py-1 px-3">{call.call_disposition}</Badge>
+            <Badge className="text-base py-1 px-3">
+              {call.call_disposition}
+            </Badge>
           )}
 
           {showDispositionPicker && (
@@ -198,13 +217,17 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
                     disabled={setDisposition.isPending}
                     className={`
                       p-2 rounded-md border text-sm font-medium transition-colors
-                      ${call.call_disposition === disp.name
-                        ? 'border-primary bg-primary/10 text-primary'
-                        : 'border-border hover:bg-bg-hover'
+                      ${
+                        call.call_disposition === disp.name
+                          ? "border-primary bg-primary/10 text-primary"
+                          : "border-border hover:bg-bg-hover"
                       }
                     `}
                     style={{
-                      borderColor: call.call_disposition === disp.name ? disp.color : undefined,
+                      borderColor:
+                        call.call_disposition === disp.name
+                          ? disp.color
+                          : undefined,
                     }}
                   >
                     {disp.name}
@@ -212,7 +235,9 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
                 ))}
               </div>
               <div>
-                <label htmlFor="notes" className="text-sm text-text-muted">Notes (optional)</label>
+                <label htmlFor="notes" className="text-sm text-text-muted">
+                  Notes (optional)
+                </label>
                 <textarea
                   id="notes"
                   value={notes}
@@ -227,7 +252,7 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
                   variant="ghost"
                   onClick={() => {
                     setShowDispositionPicker(false);
-                    setNotes('');
+                    setNotes("");
                   }}
                 >
                   Cancel
@@ -241,7 +266,9 @@ export function CallDetails({ callId, onClose }: CallDetailsProps) {
         {call.notes && !showDispositionPicker && (
           <div>
             <p className="text-sm font-medium text-text-muted mb-1">Notes</p>
-            <p className="text-text-primary whitespace-pre-wrap">{call.notes}</p>
+            <p className="text-text-primary whitespace-pre-wrap">
+              {call.notes}
+            </p>
           </div>
         )}
       </CardContent>

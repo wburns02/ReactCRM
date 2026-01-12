@@ -1,19 +1,19 @@
-import { type ReactNode, useEffect, useRef, useCallback } from 'react';
-import { createPortal } from 'react-dom';
-import { cn } from '@/lib/utils.ts';
-import { Button } from './Button.tsx';
+import { type ReactNode, useEffect, useRef, useCallback } from "react";
+import { createPortal } from "react-dom";
+import { cn } from "@/lib/utils.ts";
+import { Button } from "./Button.tsx";
 
 /**
  * Focusable element selectors for focus trap
  */
 const FOCUSABLE_SELECTORS = [
-  'a[href]',
-  'button:not([disabled])',
-  'input:not([disabled])',
-  'select:not([disabled])',
-  'textarea:not([disabled])',
+  "a[href]",
+  "button:not([disabled])",
+  "input:not([disabled])",
+  "select:not([disabled])",
+  "textarea:not([disabled])",
   '[tabindex]:not([tabindex="-1"])',
-].join(',');
+].join(",");
 
 export interface DialogProps {
   open: boolean;
@@ -70,18 +70,17 @@ export function Dialog({
   // Focus trap and keyboard handling
   const handleKeyDown = useCallback(
     (e: React.KeyboardEvent) => {
-      if (e.key === 'Escape') {
+      if (e.key === "Escape") {
         handleClose();
         return;
       }
 
       // Tab key focus trapping
-      if (e.key === 'Tab' && contentRef.current) {
-        const focusableElements = contentRef.current.querySelectorAll<HTMLElement>(
-          FOCUSABLE_SELECTORS
-        );
+      if (e.key === "Tab" && contentRef.current) {
+        const focusableElements =
+          contentRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS);
         const focusable = Array.from(focusableElements).filter(
-          (el) => el.offsetParent !== null
+          (el) => el.offsetParent !== null,
         );
 
         if (focusable.length === 0) return;
@@ -104,7 +103,7 @@ export function Dialog({
         }
       }
     },
-    [handleClose]
+    [handleClose],
   );
 
   // Focus first element when dialog opens
@@ -112,11 +111,10 @@ export function Dialog({
     if (!open || !contentRef.current) return;
 
     // Focus first focusable element
-    const focusableElements = contentRef.current.querySelectorAll<HTMLElement>(
-      FOCUSABLE_SELECTORS
-    );
+    const focusableElements =
+      contentRef.current.querySelectorAll<HTMLElement>(FOCUSABLE_SELECTORS);
     const focusable = Array.from(focusableElements).filter(
-      (el) => el.offsetParent !== null
+      (el) => el.offsetParent !== null,
     );
 
     requestAnimationFrame(() => {
@@ -130,7 +128,7 @@ export function Dialog({
 
     // Prevent body scroll
     const originalOverflow = document.body.style.overflow;
-    document.body.style.overflow = 'hidden';
+    document.body.style.overflow = "hidden";
 
     return () => {
       document.body.style.overflow = originalOverflow;
@@ -174,7 +172,7 @@ export function Dialog({
         {children}
       </div>
     </div>,
-    document.body
+    document.body,
   );
 }
 
@@ -182,22 +180,26 @@ export interface DialogContentProps {
   children: ReactNode;
   className?: string;
   /** Width size preset */
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: "sm" | "md" | "lg" | "xl";
 }
 
-export function DialogContent({ children, className, size = 'md' }: DialogContentProps) {
+export function DialogContent({
+  children,
+  className,
+  size = "md",
+}: DialogContentProps) {
   return (
     <div
       className={cn(
-        'bg-bg-card rounded-lg shadow-xl border border-border',
-        'animate-in fade-in-0 zoom-in-95 duration-200',
+        "bg-bg-card rounded-lg shadow-xl border border-border",
+        "animate-in fade-in-0 zoom-in-95 duration-200",
         {
-          'w-[400px]': size === 'sm',
-          'w-[500px]': size === 'md',
-          'w-[600px]': size === 'lg',
-          'w-[800px]': size === 'xl',
+          "w-[400px]": size === "sm",
+          "w-[500px]": size === "md",
+          "w-[600px]": size === "lg",
+          "w-[800px]": size === "xl",
         },
-        className
+        className,
       )}
     >
       {children}
@@ -211,12 +213,16 @@ export interface DialogHeaderProps {
   onClose?: () => void;
 }
 
-export function DialogHeader({ children, className, onClose }: DialogHeaderProps) {
+export function DialogHeader({
+  children,
+  className,
+  onClose,
+}: DialogHeaderProps) {
   return (
     <div
       className={cn(
-        'flex items-center justify-between px-6 py-4 border-b border-border',
-        className
+        "flex items-center justify-between px-6 py-4 border-b border-border",
+        className,
       )}
     >
       <div className="font-semibold text-lg text-text-primary">{children}</div>
@@ -257,7 +263,7 @@ export interface DialogTitleProps {
 
 export function DialogTitle({ children, className }: DialogTitleProps) {
   return (
-    <h2 className={cn('font-semibold text-lg text-text-primary', className)}>
+    <h2 className={cn("font-semibold text-lg text-text-primary", className)}>
       {children}
     </h2>
   );
@@ -269,7 +275,7 @@ export interface DialogBodyProps {
 }
 
 export function DialogBody({ children, className }: DialogBodyProps) {
-  return <div className={cn('px-6 py-4', className)}>{children}</div>;
+  return <div className={cn("px-6 py-4", className)}>{children}</div>;
 }
 
 export interface DialogFooterProps {
@@ -281,8 +287,8 @@ export function DialogFooter({ children, className }: DialogFooterProps) {
   return (
     <div
       className={cn(
-        'flex items-center justify-end gap-3 px-6 py-4 border-t border-border bg-bg-hover/50',
-        className
+        "flex items-center justify-end gap-3 px-6 py-4 border-t border-border bg-bg-hover/50",
+        className,
       )}
     >
       {children}
@@ -301,7 +307,7 @@ export interface ConfirmDialogProps {
   message: string;
   confirmLabel?: string;
   cancelLabel?: string;
-  variant?: 'danger' | 'primary';
+  variant?: "danger" | "primary";
   isLoading?: boolean;
 }
 
@@ -311,9 +317,9 @@ export function ConfirmDialog({
   onConfirm,
   title,
   message,
-  confirmLabel = 'Confirm',
-  cancelLabel = 'Cancel',
-  variant = 'primary',
+  confirmLabel = "Confirm",
+  cancelLabel = "Cancel",
+  variant = "primary",
   isLoading,
 }: ConfirmDialogProps) {
   return (
@@ -328,11 +334,11 @@ export function ConfirmDialog({
             {cancelLabel}
           </Button>
           <Button
-            variant={variant === 'danger' ? 'danger' : 'primary'}
+            variant={variant === "danger" ? "danger" : "primary"}
             onClick={onConfirm}
             disabled={isLoading}
           >
-            {isLoading ? 'Loading...' : confirmLabel}
+            {isLoading ? "Loading..." : confirmLabel}
           </Button>
         </DialogFooter>
       </DialogContent>

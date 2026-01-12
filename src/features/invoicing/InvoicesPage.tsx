@@ -1,30 +1,35 @@
-import { useState, useCallback } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
+import { useState, useCallback } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   useInvoices,
   useCreateInvoice,
   useUpdateInvoice,
   useDeleteInvoice,
-} from '@/api/hooks/useInvoices.ts';
-import { InvoicesList } from './components/InvoicesList.tsx';
-import { InvoiceForm } from './components/InvoiceForm.tsx';
+} from "@/api/hooks/useInvoices.ts";
+import { InvoicesList } from "./components/InvoicesList.tsx";
+import { InvoiceForm } from "./components/InvoiceForm.tsx";
 import {
   INVOICE_STATUS_LABELS,
   type Invoice,
   type InvoiceFormData,
   type InvoiceFilters,
   type InvoiceStatus,
-} from '@/api/types/invoice.ts';
+} from "@/api/types/invoice.ts";
 
 const PAGE_SIZE = 20;
 
@@ -36,9 +41,9 @@ export function InvoicesPage() {
   const [filters, setFilters] = useState<InvoiceFilters>({
     page: 1,
     page_size: PAGE_SIZE,
-    status: '',
-    date_from: '',
-    date_to: '',
+    status: "",
+    date_from: "",
+    date_to: "",
   });
 
   // Form modal state
@@ -57,17 +62,26 @@ export function InvoicesPage() {
   const deleteMutation = useDeleteInvoice();
 
   // Handlers
-  const handleStatusChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilters((prev) => ({ ...prev, status: e.target.value, page: 1 }));
-  }, []);
+  const handleStatusChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setFilters((prev) => ({ ...prev, status: e.target.value, page: 1 }));
+    },
+    [],
+  );
 
-  const handleDateFromChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters((prev) => ({ ...prev, date_from: e.target.value, page: 1 }));
-  }, []);
+  const handleDateFromChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilters((prev) => ({ ...prev, date_from: e.target.value, page: 1 }));
+    },
+    [],
+  );
 
-  const handleDateToChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters((prev) => ({ ...prev, date_to: e.target.value, page: 1 }));
-  }, []);
+  const handleDateToChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilters((prev) => ({ ...prev, date_to: e.target.value, page: 1 }));
+    },
+    [],
+  );
 
   const handlePageChange = useCallback((page: number) => {
     setFilters((prev) => ({ ...prev, page }));
@@ -97,7 +111,7 @@ export function InvoicesPage() {
       setIsFormOpen(false);
       setEditingInvoice(null);
     },
-    [editingInvoice, createMutation, updateMutation]
+    [editingInvoice, createMutation, updateMutation],
   );
 
   const handleConfirmDelete = useCallback(async () => {
@@ -113,7 +127,9 @@ export function InvoicesPage() {
         <Card>
           <CardContent className="py-12 text-center">
             <div className="text-4xl mb-4">Error</div>
-            <p className="text-danger">Failed to load invoices. Please try again.</p>
+            <p className="text-danger">
+              Failed to load invoices. Please try again.
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -139,11 +155,16 @@ export function InvoicesPage() {
           <div className="flex flex-wrap items-center gap-4">
             <div className="w-48">
               <Select
-                value={filters.status || ''}
+                value={filters.status || ""}
                 onChange={handleStatusChange}
               >
                 <option value="">All Statuses</option>
-                {(Object.entries(INVOICE_STATUS_LABELS) as [InvoiceStatus, string][]).map(([value, label]) => (
+                {(
+                  Object.entries(INVOICE_STATUS_LABELS) as [
+                    InvoiceStatus,
+                    string,
+                  ][]
+                ).map(([value, label]) => (
                   <option key={value} value={value}>
                     {label}
                   </option>
@@ -153,7 +174,7 @@ export function InvoicesPage() {
             <div className="w-48">
               <Input
                 type="date"
-                value={filters.date_from || ''}
+                value={filters.date_from || ""}
                 onChange={handleDateFromChange}
                 placeholder="From date"
               />
@@ -161,7 +182,7 @@ export function InvoicesPage() {
             <div className="w-48">
               <Input
                 type="date"
-                value={filters.date_to || ''}
+                value={filters.date_to || ""}
                 onChange={handleDateToChange}
                 placeholder="To date"
               />
@@ -170,7 +191,15 @@ export function InvoicesPage() {
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setFilters((prev) => ({ ...prev, status: '', date_from: '', date_to: '', page: 1 }))}
+                onClick={() =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    status: "",
+                    date_from: "",
+                    date_to: "",
+                    page: 1,
+                  }))
+                }
               >
                 Clear filters
               </Button>
@@ -183,7 +212,9 @@ export function InvoicesPage() {
       <Card>
         <CardHeader>
           <CardTitle>
-            {data?.total ? `${data.total} invoice${data.total !== 1 ? 's' : ''}` : 'Invoices'}
+            {data?.total
+              ? `${data.total} invoice${data.total !== 1 ? "s" : ""}`
+              : "Invoices"}
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
@@ -213,17 +244,14 @@ export function InvoicesPage() {
       />
 
       {/* Delete Confirmation Dialog */}
-      <Dialog
-        open={!!deletingInvoice}
-        onClose={() => setDeletingInvoice(null)}
-      >
+      <Dialog open={!!deletingInvoice} onClose={() => setDeletingInvoice(null)}>
         <DialogContent size="sm">
           <DialogHeader onClose={() => setDeletingInvoice(null)}>
             Delete Invoice
           </DialogHeader>
           <DialogBody>
             <p className="text-text-secondary">
-              Are you sure you want to delete invoice{' '}
+              Are you sure you want to delete invoice{" "}
               <span className="font-medium text-text-primary">
                 {deletingInvoice?.invoice_number || deletingInvoice?.id}
               </span>
@@ -243,7 +271,7 @@ export function InvoicesPage() {
               onClick={handleConfirmDelete}
               disabled={deleteMutation.isPending}
             >
-              {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
+              {deleteMutation.isPending ? "Deleting..." : "Delete"}
             </Button>
           </DialogFooter>
         </DialogContent>

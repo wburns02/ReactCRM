@@ -1,5 +1,5 @@
-import { Outlet, NavLink, useLocation } from 'react-router-dom';
-import { useAuth } from '@/features/auth/useAuth.ts';
+import { Outlet, NavLink, useLocation } from "react-router-dom";
+import { useAuth } from "@/features/auth/useAuth.ts";
 
 /**
  * Mobile-first layout for field technicians
@@ -10,10 +10,10 @@ export function FieldLayout() {
   const location = useLocation();
 
   const navItems = [
-    { path: '/field', label: 'My Jobs', icon: '📋', exact: true },
-    { path: '/field/route', label: 'Route', icon: '🗺️' },
-    { path: '/field/stats', label: 'Stats', icon: '📊' },
-    { path: '/field/profile', label: 'Profile', icon: '👤' },
+    { path: "/field", label: "My Jobs", icon: "📋", exact: true },
+    { path: "/field/route", label: "Route", icon: "🗺️" },
+    { path: "/field/stats", label: "Stats", icon: "📊" },
+    { path: "/field/profile", label: "Profile", icon: "👤" },
   ];
 
   const isActive = (path: string, exact?: boolean) => {
@@ -34,7 +34,7 @@ export function FieldLayout() {
         <div className="flex-1" />
         <div className="flex items-center gap-3">
           <div className="h-8 w-8 rounded-full bg-mac-dark-blue text-white flex items-center justify-center text-sm font-semibold">
-            {user?.first_name?.charAt(0) || '?'}
+            {user?.first_name?.charAt(0) || "?"}
           </div>
           <button
             onClick={logout}
@@ -59,8 +59,8 @@ export function FieldLayout() {
             end={item.exact}
             className={`flex flex-col items-center gap-1 px-4 py-2 rounded-lg transition-colors ${
               isActive(item.path, item.exact)
-                ? 'text-primary bg-primary-light'
-                : 'text-text-secondary hover:text-text-primary'
+                ? "text-primary bg-primary-light"
+                : "text-text-secondary hover:text-text-primary"
             }`}
           >
             <span className="text-xl">{item.icon}</span>

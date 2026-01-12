@@ -2,10 +2,13 @@
  * Checkbox Component
  * Accessible standalone checkbox with proper ARIA support
  */
-import { forwardRef, useId, type InputHTMLAttributes } from 'react';
-import { cn } from '@/lib/utils';
+import { forwardRef, useId, type InputHTMLAttributes } from "react";
+import { cn } from "@/lib/utils";
 
-export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement>, 'type' | 'size'> {
+export interface CheckboxProps extends Omit<
+  InputHTMLAttributes<HTMLInputElement>,
+  "type" | "size"
+> {
   /** Label for the checkbox */
   label?: string;
   /** Description text below label */
@@ -15,7 +18,7 @@ export interface CheckboxProps extends Omit<InputHTMLAttributes<HTMLInputElement
   /** Indeterminate state (for parent checkboxes) */
   indeterminate?: boolean;
   /** Size variant */
-  size?: 'sm' | 'md' | 'lg';
+  size?: "sm" | "md" | "lg";
 }
 
 export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
@@ -25,27 +28,27 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
       description,
       error,
       indeterminate,
-      size = 'md',
+      size = "md",
       className,
       id: customId,
       ...props
     },
-    ref
+    ref,
   ) => {
     const generatedId = useId();
     const id = customId || generatedId;
     const descId = description ? `${id}-desc` : undefined;
 
     const sizeClasses = {
-      sm: 'h-3.5 w-3.5',
-      md: 'h-4 w-4',
-      lg: 'h-5 w-5',
+      sm: "h-3.5 w-3.5",
+      md: "h-4 w-4",
+      lg: "h-5 w-5",
     };
 
     const labelSizeClasses = {
-      sm: 'text-xs',
-      md: 'text-sm',
-      lg: 'text-base',
+      sm: "text-xs",
+      md: "text-sm",
+      lg: "text-base",
     };
 
     return (
@@ -53,7 +56,7 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         <input
           ref={(element) => {
             // Handle both ref and indeterminate
-            if (typeof ref === 'function') {
+            if (typeof ref === "function") {
               ref(element);
             } else if (ref) {
               ref.current = element;
@@ -65,12 +68,12 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
           id={id}
           type="checkbox"
           className={cn(
-            'rounded border transition-colors',
-            'text-primary focus:ring-2 focus:ring-primary focus:ring-offset-2',
-            'disabled:cursor-not-allowed disabled:opacity-50',
-            error ? 'border-danger' : 'border-border',
+            "rounded border transition-colors",
+            "text-primary focus:ring-2 focus:ring-primary focus:ring-offset-2",
+            "disabled:cursor-not-allowed disabled:opacity-50",
+            error ? "border-danger" : "border-border",
             sizeClasses[size],
-            className
+            className,
           )}
           aria-describedby={descId}
           aria-invalid={error}
@@ -82,9 +85,9 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
               <label
                 htmlFor={id}
                 className={cn(
-                  'font-medium text-text-primary cursor-pointer select-none',
+                  "font-medium text-text-primary cursor-pointer select-none",
                   labelSizeClasses[size],
-                  props.disabled && 'cursor-not-allowed opacity-50'
+                  props.disabled && "cursor-not-allowed opacity-50",
                 )}
               >
                 {label}
@@ -93,7 +96,10 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
             {description && (
               <span
                 id={descId}
-                className={cn('text-text-muted', size === 'sm' ? 'text-xs' : 'text-sm')}
+                className={cn(
+                  "text-text-muted",
+                  size === "sm" ? "text-xs" : "text-sm",
+                )}
               >
                 {description}
               </span>
@@ -102,10 +108,10 @@ export const Checkbox = forwardRef<HTMLInputElement, CheckboxProps>(
         )}
       </div>
     );
-  }
+  },
 );
 
-Checkbox.displayName = 'Checkbox';
+Checkbox.displayName = "Checkbox";
 
 /**
  * CheckboxGroup - Container for multiple checkboxes
@@ -118,7 +124,7 @@ export interface CheckboxGroupProps {
   /** Error message */
   error?: string;
   /** Orientation */
-  orientation?: 'horizontal' | 'vertical';
+  orientation?: "horizontal" | "vertical";
   /** Children checkboxes */
   children: React.ReactNode;
   /** Additional class */
@@ -129,7 +135,7 @@ export function CheckboxGroup({
   label,
   description,
   error,
-  orientation = 'vertical',
+  orientation = "vertical",
   children,
   className,
 }: CheckboxGroupProps) {
@@ -139,11 +145,16 @@ export function CheckboxGroup({
     <div
       role="group"
       aria-labelledby={label ? `${groupId}-label` : undefined}
-      aria-describedby={error ? `${groupId}-error` : description ? `${groupId}-desc` : undefined}
-      className={cn('space-y-3', className)}
+      aria-describedby={
+        error ? `${groupId}-error` : description ? `${groupId}-desc` : undefined
+      }
+      className={cn("space-y-3", className)}
     >
       {label && (
-        <div id={`${groupId}-label`} className="text-sm font-medium text-text-primary">
+        <div
+          id={`${groupId}-label`}
+          className="text-sm font-medium text-text-primary"
+        >
           {label}
         </div>
       )}
@@ -154,8 +165,8 @@ export function CheckboxGroup({
       )}
       <div
         className={cn(
-          'flex gap-4',
-          orientation === 'vertical' ? 'flex-col' : 'flex-row flex-wrap'
+          "flex gap-4",
+          orientation === "vertical" ? "flex-col" : "flex-row flex-wrap",
         )}
       >
         {children}

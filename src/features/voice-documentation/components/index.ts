@@ -1,2 +1,2 @@
-export { VoiceNotesRecorder } from './VoiceNotesRecorder';
-export { DictationField } from './DictationField';
+export { VoiceNotesRecorder } from "./VoiceNotesRecorder";
+export { DictationField } from "./DictationField";

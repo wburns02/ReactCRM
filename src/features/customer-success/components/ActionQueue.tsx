@@ -10,16 +10,16 @@
  * Designed to answer "WHAT DO I DO NEXT?" at a glance
  */
 
-import { useState } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
-import { cn } from '@/lib/utils';
+import { useState } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
+import { cn } from "@/lib/utils";
 
 interface ActionQueueItem {
   escalation_id: number;
   customer_name: string;
   title: string;
-  severity: 'critical' | 'high' | 'medium' | 'low';
+  severity: "critical" | "high" | "medium" | "low";
   sentiment_emoji: string;
   sentiment_label: string;
   time_remaining_minutes: number | null;
@@ -45,7 +45,7 @@ interface ActionQueueProps {
 }
 
 function formatTimeRemaining(minutes: number | null): string {
-  if (minutes === null) return 'No SLA';
+  if (minutes === null) return "No SLA";
   if (minutes < 0) {
     const overdue = Math.abs(minutes);
     if (overdue < 60) return `${overdue}m overdue`;
@@ -107,31 +107,31 @@ function ActionCard({
   onAction: () => void;
 }) {
   const severityColors = {
-    critical: 'border-red-500 bg-red-500/5',
-    high: 'border-orange-500 bg-orange-500/5',
-    medium: 'border-yellow-500 bg-yellow-500/5',
-    low: 'border-green-500 bg-green-500/5',
+    critical: "border-red-500 bg-red-500/5",
+    high: "border-orange-500 bg-orange-500/5",
+    medium: "border-yellow-500 bg-yellow-500/5",
+    low: "border-green-500 bg-green-500/5",
   };
 
   const buttonColors = {
-    critical: 'bg-red-600 hover:bg-red-700',
-    high: 'bg-orange-500 hover:bg-orange-600',
-    medium: 'bg-yellow-500 hover:bg-yellow-600 text-black',
-    low: 'bg-primary hover:bg-primary-dark',
+    critical: "bg-red-600 hover:bg-red-700",
+    high: "bg-orange-500 hover:bg-orange-600",
+    medium: "bg-yellow-500 hover:bg-yellow-600 text-black",
+    low: "bg-primary hover:bg-primary-dark",
   };
 
   const slaColorClasses = {
-    green: 'text-success',
-    yellow: 'text-yellow-600',
-    red: 'text-red-600',
-    gray: 'text-gray-500',
+    green: "text-success",
+    yellow: "text-yellow-600",
+    red: "text-red-600",
+    gray: "text-gray-500",
   };
 
   return (
     <div
       className={cn(
-        'rounded-xl border-2 p-4 transition-all hover:shadow-lg cursor-pointer',
-        severityColors[item.severity]
+        "rounded-xl border-2 p-4 transition-all hover:shadow-lg cursor-pointer",
+        severityColors[item.severity],
       )}
       onClick={onSelect}
     >
@@ -140,14 +140,14 @@ function ActionCard({
         <div className="flex items-center gap-3">
           <div
             className={cn(
-              'w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg',
-              item.severity === 'critical'
-                ? 'bg-red-500'
-                : item.severity === 'high'
-                ? 'bg-orange-500'
-                : item.severity === 'medium'
-                ? 'bg-yellow-500 text-black'
-                : 'bg-green-500'
+              "w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-lg",
+              item.severity === "critical"
+                ? "bg-red-500"
+                : item.severity === "high"
+                  ? "bg-orange-500"
+                  : item.severity === "medium"
+                    ? "bg-yellow-500 text-black"
+                    : "bg-green-500",
             )}
           >
             {rank}
@@ -165,8 +165,9 @@ function ActionCard({
         <span className="text-sm text-text-muted">{item.sentiment_label}</span>
         <span
           className={cn(
-            'text-sm font-bold',
-            slaColorClasses[item.sla_color as keyof typeof slaColorClasses] || 'text-gray-500'
+            "text-sm font-bold",
+            slaColorClasses[item.sla_color as keyof typeof slaColorClasses] ||
+              "text-gray-500",
           )}
         >
           ⏰ {formatTimeRemaining(item.time_remaining_minutes)}
@@ -180,8 +181,8 @@ function ActionCard({
           onAction();
         }}
         className={cn(
-          'w-full py-3 px-4 rounded-xl text-white font-bold text-lg transition-all',
-          buttonColors[item.severity]
+          "w-full py-3 px-4 rounded-xl text-white font-bold text-lg transition-all",
+          buttonColors[item.severity],
         )}
       >
         {item.big_button_text}
@@ -194,19 +195,26 @@ function EmptyQueue() {
   return (
     <div className="text-center py-16">
       <div className="text-6xl mb-4">🎉</div>
-      <h3 className="text-2xl font-bold text-text-primary mb-2">All caught up!</h3>
-      <p className="text-text-muted">No escalations need your attention right now.</p>
+      <h3 className="text-2xl font-bold text-text-primary mb-2">
+        All caught up!
+      </h3>
+      <p className="text-text-muted">
+        No escalations need your attention right now.
+      </p>
     </div>
   );
 }
 
-export function ActionQueue({ onSelectEscalation, onActionTaken }: ActionQueueProps) {
+export function ActionQueue({
+  onSelectEscalation,
+  onActionTaken,
+}: ActionQueueProps) {
   const [showAll, setShowAll] = useState(false);
 
   const { data, isLoading, error } = useQuery<ActionQueueResponse>({
-    queryKey: ['action-queue'],
+    queryKey: ["action-queue"],
     queryFn: async () => {
-      const response = await apiClient.get('/cs/escalations/ai/action-queue', {
+      const response = await apiClient.get("/cs/escalations/ai/action-queue", {
         params: { assigned_to_me: true },
       });
       return response.data;
@@ -254,9 +262,12 @@ export function ActionQueue({ onSelectEscalation, onActionTaken }: ActionQueuePr
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h2 className="text-xl font-bold text-text-primary">Your Action Queue</h2>
+          <h2 className="text-xl font-bold text-text-primary">
+            Your Action Queue
+          </h2>
           <p className="text-sm text-text-muted">
-            {data.total} escalation{data.total !== 1 ? 's' : ''} need your attention
+            {data.total} escalation{data.total !== 1 ? "s" : ""} need your
+            attention
           </p>
         </div>
         <SeverityHeader counts={data} />
@@ -270,7 +281,9 @@ export function ActionQueue({ onSelectEscalation, onActionTaken }: ActionQueuePr
             item={item}
             rank={index + 1}
             onSelect={() => onSelectEscalation(item.escalation_id)}
-            onAction={() => handleAction(item.escalation_id, item.recommended_action)}
+            onAction={() =>
+              handleAction(item.escalation_id, item.recommended_action)
+            }
           />
         ))}
       </div>
@@ -281,7 +294,7 @@ export function ActionQueue({ onSelectEscalation, onActionTaken }: ActionQueuePr
           onClick={() => setShowAll(!showAll)}
           className="w-full py-3 text-center text-primary hover:text-primary-dark font-medium"
         >
-          {showAll ? 'Show Less' : `Show ${data.items.length - 5} More`}
+          {showAll ? "Show Less" : `Show ${data.items.length - 5} More`}
         </button>
       )}
     </div>

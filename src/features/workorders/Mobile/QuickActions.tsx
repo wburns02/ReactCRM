@@ -10,13 +10,10 @@
  * - Large touch targets (44px min)
  */
 
-import { useState, useRef, useCallback, useEffect } from 'react';
-import { cn } from '@/lib/utils';
-import type { WorkOrder, WorkOrderStatus } from '@/api/types/workOrder';
-import {
-  WORK_ORDER_STATUS_LABELS,
-  STATUS_COLORS,
-} from '@/api/types/workOrder';
+import { useState, useRef, useCallback, useEffect } from "react";
+import { cn } from "@/lib/utils";
+import type { WorkOrder, WorkOrderStatus } from "@/api/types/workOrder";
+import { WORK_ORDER_STATUS_LABELS, STATUS_COLORS } from "@/api/types/workOrder";
 
 // ============================================
 // Types
@@ -39,7 +36,7 @@ interface SwipeState {
   startY: number;
   currentX: number;
   isDragging: boolean;
-  direction: 'left' | 'right' | null;
+  direction: "left" | "right" | null;
 }
 
 // ============================================
@@ -56,19 +53,54 @@ const LONG_PRESS_DURATION = 500; // ms for long press
 
 const Icons = {
   enroute: (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
+      />
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
+      />
     </svg>
   ),
   details: (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M9 5l7 7-7 7"
+      />
     </svg>
   ),
   menu: (
-    <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z" />
+    <svg
+      className="w-6 h-6"
+      fill="none"
+      viewBox="0 0 24 24"
+      stroke="currentColor"
+    >
+      <path
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth={2}
+        d="M12 5v.01M12 12v.01M12 19v.01M12 6a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2zm0 7a1 1 0 110-2 1 1 0 010 2z"
+      />
     </svg>
   ),
 };
@@ -83,7 +115,11 @@ interface QuickStatusMenuProps {
   onClose: () => void;
 }
 
-function QuickStatusMenu({ currentStatus, onSelect, onClose }: QuickStatusMenuProps) {
+function QuickStatusMenu({
+  currentStatus,
+  onSelect,
+  onClose,
+}: QuickStatusMenuProps) {
   const menuRef = useRef<HTMLDivElement>(null);
 
   // Close on outside click
@@ -94,23 +130,23 @@ function QuickStatusMenu({ currentStatus, onSelect, onClose }: QuickStatusMenuPr
       }
     }
 
-    document.addEventListener('mousedown', handleClickOutside);
-    document.addEventListener('touchstart', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    document.addEventListener("touchstart", handleClickOutside);
 
     return () => {
-      document.removeEventListener('mousedown', handleClickOutside);
-      document.removeEventListener('touchstart', handleClickOutside);
+      document.removeEventListener("mousedown", handleClickOutside);
+      document.removeEventListener("touchstart", handleClickOutside);
     };
   }, [onClose]);
 
   const statusOptions: WorkOrderStatus[] = [
-    'scheduled',
-    'confirmed',
-    'enroute',
-    'on_site',
-    'in_progress',
-    'completed',
-    'requires_followup',
+    "scheduled",
+    "confirmed",
+    "enroute",
+    "on_site",
+    "in_progress",
+    "completed",
+    "requires_followup",
   ];
 
   return (
@@ -132,10 +168,10 @@ function QuickStatusMenu({ currentStatus, onSelect, onClose }: QuickStatusMenuPr
           }}
           disabled={status === currentStatus}
           className={cn(
-            'w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left min-h-[48px] touch-manipulation transition-colors',
+            "w-full flex items-center gap-3 px-3 py-3 rounded-lg text-left min-h-[48px] touch-manipulation transition-colors",
             status === currentStatus
-              ? 'bg-bg-muted text-text-secondary cursor-not-allowed'
-              : 'hover:bg-bg-hover active:bg-bg-muted'
+              ? "bg-bg-muted text-text-secondary cursor-not-allowed"
+              : "hover:bg-bg-hover active:bg-bg-muted",
           )}
           role="menuitem"
         >
@@ -143,7 +179,9 @@ function QuickStatusMenu({ currentStatus, onSelect, onClose }: QuickStatusMenuPr
             className="w-3 h-3 rounded-full"
             style={{ backgroundColor: STATUS_COLORS[status] }}
           />
-          <span className="font-medium">{WORK_ORDER_STATUS_LABELS[status]}</span>
+          <span className="font-medium">
+            {WORK_ORDER_STATUS_LABELS[status]}
+          </span>
           {status === currentStatus && (
             <span className="ml-auto text-xs text-text-secondary">Current</span>
           )}
@@ -164,8 +202,8 @@ export function QuickActions({
   onLongPress,
   onStatusChange,
   children,
-  swipeRightLabel = 'En Route',
-  swipeLeftLabel = 'Details',
+  swipeRightLabel = "En Route",
+  swipeLeftLabel = "Details",
   disabled = false,
 }: QuickActionsProps) {
   const containerRef = useRef<HTMLDivElement>(null);
@@ -184,7 +222,7 @@ export function QuickActions({
   // Calculate swipe offset (clamped)
   const swipeOffset = Math.max(
     -SWIPE_MAX,
-    Math.min(SWIPE_MAX, swipeState.currentX - swipeState.startX)
+    Math.min(SWIPE_MAX, swipeState.currentX - swipeState.startX),
   );
 
   // Determine if swipe will trigger action
@@ -212,7 +250,7 @@ export function QuickActions({
         onLongPress?.();
       }, LONG_PRESS_DURATION);
     },
-    [disabled, onLongPress]
+    [disabled, onLongPress],
   );
 
   // Handle touch move
@@ -238,11 +276,11 @@ export function QuickActions({
         setSwipeState((prev) => ({
           ...prev,
           currentX: touch.clientX,
-          direction: deltaX > 0 ? 'right' : 'left',
+          direction: deltaX > 0 ? "right" : "left",
         }));
       }
     },
-    [disabled, swipeState.isDragging, swipeState.startX, swipeState.startY]
+    [disabled, swipeState.isDragging, swipeState.startX, swipeState.startY],
   );
 
   // Handle touch end
@@ -301,7 +339,7 @@ export function QuickActions({
       onStatusChange?.(status);
       setShowMenu(false);
     },
-    [onStatusChange]
+    [onStatusChange],
   );
 
   // Calculate background color intensity based on swipe distance
@@ -319,13 +357,13 @@ export function QuickActions({
       {/* Right swipe background (En Route) */}
       <div
         className={cn(
-          'absolute inset-y-0 left-0 flex items-center justify-start pl-4 transition-opacity',
-          swipeState.direction === 'right' ? 'opacity-100' : 'opacity-0'
+          "absolute inset-y-0 left-0 flex items-center justify-start pl-4 transition-opacity",
+          swipeState.direction === "right" ? "opacity-100" : "opacity-0",
         )}
         style={{
           width: SWIPE_MAX,
           backgroundColor: willTriggerRight
-            ? '#22c55e'
+            ? "#22c55e"
             : `rgba(34, 197, 94, ${rightBgOpacity * 0.8})`,
         }}
       >
@@ -338,13 +376,13 @@ export function QuickActions({
       {/* Left swipe background (Details) */}
       <div
         className={cn(
-          'absolute inset-y-0 right-0 flex items-center justify-end pr-4 transition-opacity',
-          swipeState.direction === 'left' ? 'opacity-100' : 'opacity-0'
+          "absolute inset-y-0 right-0 flex items-center justify-end pr-4 transition-opacity",
+          swipeState.direction === "left" ? "opacity-100" : "opacity-0",
         )}
         style={{
           width: SWIPE_MAX,
           backgroundColor: willTriggerLeft
-            ? '#3b82f6'
+            ? "#3b82f6"
             : `rgba(59, 130, 246, ${leftBgOpacity * 0.8})`,
         }}
       >
@@ -357,15 +395,15 @@ export function QuickActions({
       {/* Main content */}
       <div
         className={cn(
-          'relative bg-bg-card',
-          isAnimating && 'transition-transform duration-300'
+          "relative bg-bg-card",
+          isAnimating && "transition-transform duration-300",
         )}
         style={{
           transform: swipeState.isDragging
             ? `translateX(${swipeOffset}px)`
             : isAnimating
-            ? `translateX(${willTriggerRight ? SWIPE_MAX : willTriggerLeft ? -SWIPE_MAX : 0}px)`
-            : 'translateX(0)',
+              ? `translateX(${willTriggerRight ? SWIPE_MAX : willTriggerLeft ? -SWIPE_MAX : 0}px)`
+              : "translateX(0)",
         }}
       >
         {children}

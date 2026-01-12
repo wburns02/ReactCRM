@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react';
+import { useState, useEffect } from "react";
 
 /**
  * Debounce hook - delays updating value until after wait time
@@ -43,9 +43,11 @@ export function useDebounce<T>(value: T, delay = 300): T {
  */
 export function useDebouncedCallback<T extends (...args: unknown[]) => void>(
   callback: T,
-  delay = 300
+  delay = 300,
 ): T {
-  const [timeoutId, setTimeoutId] = useState<ReturnType<typeof setTimeout> | null>(null);
+  const [timeoutId, setTimeoutId] = useState<ReturnType<
+    typeof setTimeout
+  > | null>(null);
 
   const debouncedCallback = ((...args: Parameters<T>) => {
     if (timeoutId) {

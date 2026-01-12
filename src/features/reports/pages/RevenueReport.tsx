@@ -1,12 +1,12 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useRevenueMetrics } from '../api.ts';
-import { MetricCard } from '../components/MetricCard.tsx';
-import { DateRangePicker } from '../components/DateRangePicker.tsx';
-import { RevenueChart } from '../components/RevenueChart.tsx';
-import { ServiceTypeBreakdown } from '../components/ServiceTypeBreakdown.tsx';
-import { ExportButton } from '../components/ExportButton.tsx';
-import type { DateRange } from '../types.ts';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useRevenueMetrics } from "../api.ts";
+import { MetricCard } from "../components/MetricCard.tsx";
+import { DateRangePicker } from "../components/DateRangePicker.tsx";
+import { RevenueChart } from "../components/RevenueChart.tsx";
+import { ServiceTypeBreakdown } from "../components/ServiceTypeBreakdown.tsx";
+import { ExportButton } from "../components/ExportButton.tsx";
+import type { DateRange } from "../types.ts";
 
 /**
  * RevenueReport - Detailed revenue analysis page
@@ -20,13 +20,13 @@ export function RevenueReport() {
     start.setDate(start.getDate() - 30);
 
     return {
-      start_date: start.toISOString().split('T')[0],
-      end_date: end.toISOString().split('T')[0],
+      start_date: start.toISOString().split("T")[0],
+      end_date: end.toISOString().split("T")[0],
     };
   };
 
   const [dateRange, setDateRange] = useState<DateRange>(getDefaultDateRange());
-  const [chartType, setChartType] = useState<'line' | 'bar'>('line');
+  const [chartType, setChartType] = useState<"line" | "bar">("line");
 
   // Fetch revenue data
   const { data: revenueData, isLoading } = useRevenueMetrics(dateRange);
@@ -43,7 +43,9 @@ export function RevenueReport() {
             >
               ← Back to Reports
             </Link>
-            <h1 className="text-3xl font-bold text-text-primary">Revenue Report</h1>
+            <h1 className="text-3xl font-bold text-text-primary">
+              Revenue Report
+            </h1>
             <p className="text-text-secondary mt-1">
               Detailed analysis of revenue trends and service performance
             </p>
@@ -77,14 +79,18 @@ export function RevenueReport() {
             <MetricCard
               title="Work Orders Completed"
               value={revenueData.metrics.work_orders_completed}
-              changePercent={revenueData.metrics.work_orders_completed_change_percent}
+              changePercent={
+                revenueData.metrics.work_orders_completed_change_percent
+              }
               icon="✅"
               format="number"
             />
             <MetricCard
               title="Average Job Value"
               value={revenueData.metrics.average_job_value}
-              changePercent={revenueData.metrics.average_job_value_change_percent}
+              changePercent={
+                revenueData.metrics.average_job_value_change_percent
+              }
               icon="📊"
               format="currency"
             />
@@ -105,21 +111,21 @@ export function RevenueReport() {
               </h3>
               <div className="flex gap-2">
                 <button
-                  onClick={() => setChartType('line')}
+                  onClick={() => setChartType("line")}
                   className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
-                    chartType === 'line'
-                      ? 'bg-primary text-white'
-                      : 'bg-bg-body text-text-secondary hover:bg-bg-hover'
+                    chartType === "line"
+                      ? "bg-primary text-white"
+                      : "bg-bg-body text-text-secondary hover:bg-bg-hover"
                   }`}
                 >
                   Line Chart
                 </button>
                 <button
-                  onClick={() => setChartType('bar')}
+                  onClick={() => setChartType("bar")}
                   className={`px-3 py-1 text-sm font-medium rounded-md transition-colors ${
-                    chartType === 'bar'
-                      ? 'bg-primary text-white'
-                      : 'bg-bg-body text-text-secondary hover:bg-bg-hover'
+                    chartType === "bar"
+                      ? "bg-primary text-white"
+                      : "bg-bg-body text-text-secondary hover:bg-bg-hover"
                   }`}
                 >
                   Bar Chart
@@ -173,16 +179,16 @@ export function RevenueReport() {
                           {service.count}
                         </td>
                         <td className="py-3 px-4 text-sm text-text-primary text-right font-medium">
-                          {new Intl.NumberFormat('en-US', {
-                            style: 'currency',
-                            currency: 'USD',
+                          {new Intl.NumberFormat("en-US", {
+                            style: "currency",
+                            currency: "USD",
                             minimumFractionDigits: 0,
                           }).format(service.revenue)}
                         </td>
                         <td className="py-3 px-4 text-sm text-text-secondary text-right">
-                          {new Intl.NumberFormat('en-US', {
-                            style: 'currency',
-                            currency: 'USD',
+                          {new Intl.NumberFormat("en-US", {
+                            style: "currency",
+                            currency: "USD",
                             minimumFractionDigits: 0,
                           }).format(service.revenue / service.count)}
                         </td>
@@ -202,7 +208,9 @@ export function RevenueReport() {
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-text-secondary">Repeat Customer Rate</span>
+                  <span className="text-sm text-text-secondary">
+                    Repeat Customer Rate
+                  </span>
                   <span className="text-lg font-semibold text-text-primary">
                     {revenueData.metrics.repeat_customer_rate.toFixed(1)}%
                   </span>
@@ -212,7 +220,9 @@ export function RevenueReport() {
                     Customer Satisfaction Score
                   </span>
                   <span className="text-lg font-semibold text-text-primary">
-                    {revenueData.metrics.customer_satisfaction_score?.toFixed(1) || 'N/A'}
+                    {revenueData.metrics.customer_satisfaction_score?.toFixed(
+                      1,
+                    ) || "N/A"}
                   </span>
                 </div>
               </div>
@@ -224,15 +234,21 @@ export function RevenueReport() {
               </h3>
               <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <span className="text-sm text-text-secondary">Start Date</span>
+                  <span className="text-sm text-text-secondary">
+                    Start Date
+                  </span>
                   <span className="text-lg font-semibold text-text-primary">
-                    {new Date(revenueData.date_range.start_date).toLocaleDateString()}
+                    {new Date(
+                      revenueData.date_range.start_date,
+                    ).toLocaleDateString()}
                   </span>
                 </div>
                 <div className="flex items-center justify-between">
                   <span className="text-sm text-text-secondary">End Date</span>
                   <span className="text-lg font-semibold text-text-primary">
-                    {new Date(revenueData.date_range.end_date).toLocaleDateString()}
+                    {new Date(
+                      revenueData.date_range.end_date,
+                    ).toLocaleDateString()}
                   </span>
                 </div>
               </div>

@@ -1,43 +1,48 @@
-import { z } from 'zod';
-import { paginatedResponseSchema } from './common.ts';
+import { z } from "zod";
+import { paginatedResponseSchema } from "./common.ts";
 
 /**
  * Ticket type enum
  */
-export const ticketTypeSchema = z.enum(['bug', 'feature', 'support', 'task']);
+export const ticketTypeSchema = z.enum(["bug", "feature", "support", "task"]);
 export type TicketType = z.infer<typeof ticketTypeSchema>;
 
 export const TICKET_TYPE_LABELS: Record<TicketType, string> = {
-  bug: 'Bug',
-  feature: 'Feature',
-  support: 'Support',
-  task: 'Task',
+  bug: "Bug",
+  feature: "Feature",
+  support: "Support",
+  task: "Task",
 };
 
 /**
  * Ticket status enum
  */
-export const ticketStatusSchema = z.enum(['open', 'in_progress', 'resolved', 'closed']);
+export const ticketStatusSchema = z.enum([
+  "open",
+  "in_progress",
+  "resolved",
+  "closed",
+]);
 export type TicketStatus = z.infer<typeof ticketStatusSchema>;
 
 export const TICKET_STATUS_LABELS: Record<TicketStatus, string> = {
-  open: 'Open',
-  in_progress: 'In Progress',
-  resolved: 'Resolved',
-  closed: 'Closed',
+  open: "Open",
+  in_progress: "In Progress",
+  resolved: "Resolved",
+  closed: "Closed",
 };
 
 /**
  * Ticket priority enum
  */
-export const ticketPrioritySchema = z.enum(['low', 'medium', 'high', 'urgent']);
+export const ticketPrioritySchema = z.enum(["low", "medium", "high", "urgent"]);
 export type TicketPriority = z.infer<typeof ticketPrioritySchema>;
 
 export const TICKET_PRIORITY_LABELS: Record<TicketPriority, string> = {
-  low: 'Low',
-  medium: 'Medium',
-  high: 'High',
-  urgent: 'Urgent',
+  low: "Low",
+  medium: "Medium",
+  high: "High",
+  urgent: "Urgent",
 };
 
 /**
@@ -86,11 +91,11 @@ export interface TicketFilters {
  * Create/update ticket request
  */
 export const ticketFormSchema = z.object({
-  title: z.string().min(1, 'Title is required'),
-  description: z.string().min(1, 'Description is required'),
+  title: z.string().min(1, "Title is required"),
+  description: z.string().min(1, "Description is required"),
   type: ticketTypeSchema,
-  status: ticketStatusSchema.default('open'),
-  priority: ticketPrioritySchema.default('medium'),
+  status: ticketStatusSchema.default("open"),
+  priority: ticketPrioritySchema.default("medium"),
   reach: z.coerce.number().min(0).max(10).optional(),
   impact: z.coerce.number().min(0).max(10).optional(),
   confidence: z.coerce.number().min(0).max(100).optional(),
@@ -114,7 +119,7 @@ export function calculateRICEScore(
   reach: number,
   impact: number,
   confidence: number,
-  effort: number
+  effort: number,
 ): number {
   if (effort === 0) return 0;
   return (reach * impact * (confidence / 100)) / effort;
@@ -124,8 +129,8 @@ export function calculateRICEScore(
  * Get priority suggestion based on RICE score
  */
 export function getPrioritySuggestion(riceScore: number): TicketPriority {
-  if (riceScore >= 75) return 'urgent';
-  if (riceScore >= 50) return 'high';
-  if (riceScore >= 25) return 'medium';
-  return 'low';
+  if (riceScore >= 75) return "urgent";
+  if (riceScore >= 50) return "high";
+  if (riceScore >= 25) return "medium";
+  return "low";
 }

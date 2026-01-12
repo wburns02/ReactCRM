@@ -19,24 +19,39 @@ export const STATE_TAX_RATES: Record<string, number> = {
 /**
  * Service pricing catalog (sample - should come from API in production)
  */
-export const SERVICE_PRICES: Record<string, { name: string; basePrice: number; unit: string }> = {
-  pumping: { name: 'Septic Pumping', basePrice: 350, unit: 'service' },
-  inspection: { name: 'System Inspection', basePrice: 175, unit: 'service' },
-  repair: { name: 'Repair Service', basePrice: 150, unit: 'hour' },
-  installation: { name: 'System Installation', basePrice: 8500, unit: 'project' },
-  emergency: { name: 'Emergency Service', basePrice: 500, unit: 'call' },
-  maintenance: { name: 'Maintenance Service', basePrice: 200, unit: 'service' },
-  grease_trap: { name: 'Grease Trap Cleaning', basePrice: 275, unit: 'service' },
-  camera_inspection: { name: 'Camera Inspection', basePrice: 350, unit: 'service' },
-  riser_install: { name: 'Riser Installation', basePrice: 450, unit: 'each' },
-  filter_replace: { name: 'Filter Replacement', basePrice: 85, unit: 'each' },
-  line_cleaning: { name: 'Line Cleaning', basePrice: 225, unit: 'service' },
+export const SERVICE_PRICES: Record<
+  string,
+  { name: string; basePrice: number; unit: string }
+> = {
+  pumping: { name: "Septic Pumping", basePrice: 350, unit: "service" },
+  inspection: { name: "System Inspection", basePrice: 175, unit: "service" },
+  repair: { name: "Repair Service", basePrice: 150, unit: "hour" },
+  installation: {
+    name: "System Installation",
+    basePrice: 8500,
+    unit: "project",
+  },
+  emergency: { name: "Emergency Service", basePrice: 500, unit: "call" },
+  maintenance: { name: "Maintenance Service", basePrice: 200, unit: "service" },
+  grease_trap: {
+    name: "Grease Trap Cleaning",
+    basePrice: 275,
+    unit: "service",
+  },
+  camera_inspection: {
+    name: "Camera Inspection",
+    basePrice: 350,
+    unit: "service",
+  },
+  riser_install: { name: "Riser Installation", basePrice: 450, unit: "each" },
+  filter_replace: { name: "Filter Replacement", basePrice: 85, unit: "each" },
+  line_cleaning: { name: "Line Cleaning", basePrice: 225, unit: "service" },
 };
 
 /**
  * Discount types
  */
-export type DiscountType = 'percentage' | 'fixed';
+export type DiscountType = "percentage" | "fixed";
 
 export interface Discount {
   code: string;
@@ -80,8 +95,13 @@ export function getTaxRate(stateCode: string): number {
  */
 export function applyDiscount(
   total: number,
-  discount: Discount
-): { discountedTotal: number; discountAmount: number; isValid: boolean; message?: string } {
+  discount: Discount,
+): {
+  discountedTotal: number;
+  discountAmount: number;
+  isValid: boolean;
+  message?: string;
+} {
   // Check minimum purchase
   if (discount.minPurchase && total < discount.minPurchase) {
     return {
@@ -100,14 +120,14 @@ export function applyDiscount(
         discountedTotal: total,
         discountAmount: 0,
         isValid: false,
-        message: 'This discount code has expired',
+        message: "This discount code has expired",
       };
     }
   }
 
   let discountAmount: number;
 
-  if (discount.type === 'percentage') {
+  if (discount.type === "percentage") {
     discountAmount = total * (discount.value / 100);
   } else {
     discountAmount = discount.value;
@@ -133,10 +153,10 @@ export function applyDiscount(
  * Format a number as currency (USD)
  */
 export function formatCurrency(amount: number | null | undefined): string {
-  if (amount == null) return '$0.00';
-  return new Intl.NumberFormat('en-US', {
-    style: 'currency',
-    currency: 'USD',
+  if (amount == null) return "$0.00";
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
   }).format(amount);
 }
 
@@ -144,7 +164,7 @@ export function formatCurrency(amount: number | null | undefined): string {
  * Parse a currency string to number
  */
 export function parseCurrency(value: string): number {
-  const cleaned = value.replace(/[^0-9.-]+/g, '');
+  const cleaned = value.replace(/[^0-9.-]+/g, "");
   const parsed = parseFloat(cleaned);
   return isNaN(parsed) ? 0 : parsed;
 }
@@ -155,7 +175,7 @@ export function parseCurrency(value: string): number {
 export function calculateMonthlyPayment(
   principal: number,
   months: number,
-  annualRate: number
+  annualRate: number,
 ): { monthlyPayment: number; totalPayment: number; totalInterest: number } {
   if (principal <= 0 || months <= 0) {
     return { monthlyPayment: 0, totalPayment: 0, totalInterest: 0 };
@@ -189,7 +209,10 @@ export function calculateMonthlyPayment(
 /**
  * Calculate line item total
  */
-export function calculateLineItemTotal(quantity: number, unitPrice: number): number {
+export function calculateLineItemTotal(
+  quantity: number,
+  unitPrice: number,
+): number {
   return Math.round(quantity * unitPrice * 100) / 100;
 }
 
@@ -220,7 +243,7 @@ export function calculateTaxableSubtotal(items: PricingLineItem[]): number {
 export function calculateInvoiceTotals(
   items: PricingLineItem[],
   taxRate: number,
-  discount?: Discount
+  discount?: Discount,
 ): {
   subtotal: number;
   taxableSubtotal: number;
@@ -270,7 +293,9 @@ export function getServicePrice(serviceCode: string): number {
 /**
  * Get service details from catalog
  */
-export function getServiceDetails(serviceCode: string): { name: string; basePrice: number; unit: string } | null {
+export function getServiceDetails(
+  serviceCode: string,
+): { name: string; basePrice: number; unit: string } | null {
   return SERVICE_PRICES[serviceCode] ?? null;
 }
 
@@ -294,11 +319,11 @@ export function generateLineItemId(): string {
  * Financing plan options
  */
 export const FINANCING_PLANS = [
-  { months: 3, rate: 0, label: '3 months - 0% APR' },
-  { months: 6, rate: 0, label: '6 months - 0% APR' },
-  { months: 12, rate: 0.0599, label: '12 months - 5.99% APR' },
-  { months: 18, rate: 0.0899, label: '18 months - 8.99% APR' },
-  { months: 24, rate: 0.0999, label: '24 months - 9.99% APR' },
+  { months: 3, rate: 0, label: "3 months - 0% APR" },
+  { months: 6, rate: 0, label: "6 months - 0% APR" },
+  { months: 12, rate: 0.0599, label: "12 months - 5.99% APR" },
+  { months: 18, rate: 0.0899, label: "18 months - 8.99% APR" },
+  { months: 24, rate: 0.0999, label: "24 months - 9.99% APR" },
 ] as const;
 
 /**

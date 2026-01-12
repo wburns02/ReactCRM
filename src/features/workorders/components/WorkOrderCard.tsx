@@ -1,19 +1,19 @@
-import { useCallback, type MouseEvent } from 'react';
-import { Link } from 'react-router-dom';
-import { cn } from '@/lib/utils';
-import { Card } from '@/components/ui/Card';
+import { useCallback, type MouseEvent } from "react";
+import { Link } from "react-router-dom";
+import { cn } from "@/lib/utils";
+import { Card } from "@/components/ui/Card";
 // import { Button } from '@/components/ui/Button';
-import { Tooltip } from '@/components/ui/Tooltip';
+import { Tooltip } from "@/components/ui/Tooltip";
 import {
   Dropdown,
   DropdownTrigger,
   DropdownMenu,
   DropdownItem,
   DropdownSeparator,
-} from '@/components/ui/Dropdown';
-import type { WorkOrder, WorkOrderStatus } from '@/api/types/workOrder';
-import { JOB_TYPE_LABELS, PRIORITY_LABELS } from '@/api/types/workOrder';
-import { WorkOrderStatusBadge } from './WorkOrderStatusBadge';
+} from "@/components/ui/Dropdown";
+import type { WorkOrder, WorkOrderStatus } from "@/api/types/workOrder";
+import { JOB_TYPE_LABELS, PRIORITY_LABELS } from "@/api/types/workOrder";
+import { WorkOrderStatusBadge } from "./WorkOrderStatusBadge";
 import {
   getCustomerName,
   formatShortAddress,
@@ -24,7 +24,7 @@ import {
   isOverdue,
   isToday,
   calculateAge,
-} from '../utils/workOrderHelpers';
+} from "../utils/workOrderHelpers";
 
 // Icons
 const GripVerticalIcon = () => (
@@ -189,7 +189,7 @@ export interface WorkOrderCardProps {
   /** Additional CSS classes */
   className?: string;
   /** Display variant */
-  variant?: 'default' | 'compact';
+  variant?: "default" | "compact";
   /** Drag handle props for react-beautiful-dnd or similar */
   dragHandleProps?: Record<string, unknown>;
 }
@@ -215,7 +215,7 @@ export function WorkOrderCard({
   onEdit,
   onStatusChange,
   className,
-  variant = 'default',
+  variant = "default",
   dragHandleProps,
 }: WorkOrderCardProps) {
   const customerName = getCustomerName(workOrder);
@@ -230,10 +230,10 @@ export function WorkOrderCard({
     (e: MouseEvent) => {
       // Don't trigger if clicking on dropdown or buttons
       if ((e.target as HTMLElement).closest('[role="menu"]')) return;
-      if ((e.target as HTMLElement).closest('button')) return;
+      if ((e.target as HTMLElement).closest("button")) return;
       onClick?.(workOrder);
     },
-    [onClick, workOrder]
+    [onClick, workOrder],
   );
 
   // const _handleView = useCallback(
@@ -249,40 +249,40 @@ export function WorkOrderCard({
       e.stopPropagation();
       onEdit?.(workOrder);
     },
-    [onEdit, workOrder]
+    [onEdit, workOrder],
   );
 
   // Available status transitions based on current status
   const getAvailableStatuses = (): WorkOrderStatus[] => {
     const statusFlow: Record<WorkOrderStatus, WorkOrderStatus[]> = {
-      draft: ['scheduled', 'canceled'],
-      scheduled: ['confirmed', 'canceled', 'draft'],
-      confirmed: ['enroute', 'canceled', 'scheduled'],
-      enroute: ['on_site', 'canceled'],
-      on_site: ['in_progress', 'canceled'],
-      in_progress: ['completed', 'requires_followup', 'canceled'],
-      completed: ['requires_followup'],
-      canceled: ['draft', 'scheduled'],
-      requires_followup: ['scheduled', 'completed'],
+      draft: ["scheduled", "canceled"],
+      scheduled: ["confirmed", "canceled", "draft"],
+      confirmed: ["enroute", "canceled", "scheduled"],
+      enroute: ["on_site", "canceled"],
+      on_site: ["in_progress", "canceled"],
+      in_progress: ["completed", "requires_followup", "canceled"],
+      completed: ["requires_followup"],
+      canceled: ["draft", "scheduled"],
+      requires_followup: ["scheduled", "completed"],
     };
     return statusFlow[workOrder.status] || [];
   };
 
   // Compact variant for list views
-  if (variant === 'compact') {
+  if (variant === "compact") {
     return (
       <div
         className={cn(
-          'flex items-center gap-3 rounded-lg border border-border bg-bg-card p-3',
-          'hover:border-primary/50 hover:shadow-sm transition-all cursor-pointer',
-          isSelected && 'border-primary ring-1 ring-primary',
-          overdueStatus && 'border-red-300 dark:border-red-800',
-          className
+          "flex items-center gap-3 rounded-lg border border-border bg-bg-card p-3",
+          "hover:border-primary/50 hover:shadow-sm transition-all cursor-pointer",
+          isSelected && "border-primary ring-1 ring-primary",
+          overdueStatus && "border-red-300 dark:border-red-800",
+          className,
         )}
         onClick={handleCardClick}
         role="button"
         tabIndex={0}
-        onKeyDown={(e) => e.key === 'Enter' && onClick?.(workOrder)}
+        onKeyDown={(e) => e.key === "Enter" && onClick?.(workOrder)}
       >
         {showDragHandle && (
           <div
@@ -305,9 +305,9 @@ export function WorkOrderCard({
         {isUrgent && (
           <span
             className={cn(
-              'inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium',
+              "inline-flex items-center gap-1 px-1.5 py-0.5 rounded text-xs font-medium",
               getPriorityClasses(workOrder.priority),
-              'animate-pulse'
+              "animate-pulse",
             )}
           >
             <AlertTriangleIcon />
@@ -332,12 +332,12 @@ export function WorkOrderCard({
   return (
     <Card
       className={cn(
-        'relative overflow-hidden transition-all cursor-pointer',
-        'hover:shadow-md hover:border-primary/50',
-        isSelected && 'border-primary ring-2 ring-primary/20',
-        overdueStatus && 'border-red-300 dark:border-red-800',
-        isUrgent && 'ring-2 ring-red-500/30',
-        className
+        "relative overflow-hidden transition-all cursor-pointer",
+        "hover:shadow-md hover:border-primary/50",
+        isSelected && "border-primary ring-2 ring-primary/20",
+        overdueStatus && "border-red-300 dark:border-red-800",
+        isUrgent && "ring-2 ring-red-500/30",
+        className,
       )}
       onClick={handleCardClick}
     >
@@ -345,10 +345,10 @@ export function WorkOrderCard({
       {isUrgent && (
         <div
           className={cn(
-            'absolute top-0 left-0 right-0 h-1',
-            workOrder.priority === 'emergency'
-              ? 'bg-red-600 animate-pulse'
-              : 'bg-red-500'
+            "absolute top-0 left-0 right-0 h-1",
+            workOrder.priority === "emergency"
+              ? "bg-red-600 animate-pulse"
+              : "bg-red-500",
           )}
         />
       )}
@@ -367,7 +367,11 @@ export function WorkOrderCard({
 
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
-              <WorkOrderStatusBadge status={workOrder.status} size="sm" showTooltip />
+              <WorkOrderStatusBadge
+                status={workOrder.status}
+                size="sm"
+                showTooltip
+              />
               {overdueStatus && (
                 <span className="text-xs text-red-600 dark:text-red-400 font-medium">
                   OVERDUE
@@ -409,8 +413,12 @@ export function WorkOrderCard({
                       onClick={() => onStatusChange?.(workOrder, status)}
                     >
                       <span className="flex items-center gap-2">
-                        <WorkOrderStatusBadge status={status} dotOnly size="sm" />
-                        Change to {status.replace('_', ' ')}
+                        <WorkOrderStatusBadge
+                          status={status}
+                          dotOnly
+                          size="sm"
+                        />
+                        Change to {status.replace("_", " ")}
                       </span>
                     </DropdownItem>
                   ))}
@@ -425,12 +433,12 @@ export function WorkOrderCard({
           <span className="inline-flex items-center px-2 py-0.5 bg-bg-muted rounded text-xs text-text-secondary">
             {JOB_TYPE_LABELS[workOrder.job_type]}
           </span>
-          {workOrder.priority !== 'normal' && (
+          {workOrder.priority !== "normal" && (
             <span
               className={cn(
-                'inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium',
+                "inline-flex items-center gap-1 px-2 py-0.5 rounded text-xs font-medium",
                 getPriorityClasses(workOrder.priority),
-                isUrgent && 'animate-pulse'
+                isUrgent && "animate-pulse",
               )}
             >
               {isUrgent && <AlertTriangleIcon />}
@@ -451,13 +459,16 @@ export function WorkOrderCard({
             <div className="flex items-center gap-1.5">
               <CalendarIcon />
               <span>
-                {new Date(workOrder.scheduled_date).toLocaleDateString('en-US', {
-                  month: 'short',
-                  day: 'numeric',
-                })}
+                {new Date(workOrder.scheduled_date).toLocaleDateString(
+                  "en-US",
+                  {
+                    month: "short",
+                    day: "numeric",
+                  },
+                )}
               </span>
             </div>
-            {timeWindow !== 'No time set' && (
+            {timeWindow !== "No time set" && (
               <div className="flex items-center gap-1.5">
                 <ClockIcon />
                 <span>{timeWindow}</span>

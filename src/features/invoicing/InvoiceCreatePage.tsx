@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 interface LineItem {
   description: string;
@@ -17,20 +17,20 @@ export function InvoiceCreatePage() {
   const queryClient = useQueryClient();
 
   const [invoice, setInvoice] = useState({
-    customer_id: '',
-    customer_name: '',
-    due_date: '',
-    notes: '',
-    line_items: [{ description: '', quantity: 1, rate: 0 }] as LineItem[],
+    customer_id: "",
+    customer_name: "",
+    due_date: "",
+    notes: "",
+    line_items: [{ description: "", quantity: 1, rate: 0 }] as LineItem[],
   });
 
   const createMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiClient.post('/invoices', invoice);
+      const response = await apiClient.post("/invoices", invoice);
       return response.data;
     },
     onSuccess: (data) => {
-      queryClient.invalidateQueries({ queryKey: ['invoices'] });
+      queryClient.invalidateQueries({ queryKey: ["invoices"] });
       navigate(`/invoices/${data.id}`);
     },
   });
@@ -38,11 +38,18 @@ export function InvoiceCreatePage() {
   const addLineItem = () => {
     setInvoice({
       ...invoice,
-      line_items: [...invoice.line_items, { description: '', quantity: 1, rate: 0 }],
+      line_items: [
+        ...invoice.line_items,
+        { description: "", quantity: 1, rate: 0 },
+      ],
     });
   };
 
-  const updateLineItem = (index: number, field: keyof LineItem, value: string | number) => {
+  const updateLineItem = (
+    index: number,
+    field: keyof LineItem,
+    value: string | number,
+  ) => {
     const items = [...invoice.line_items];
     items[index] = { ...items[index], [field]: value };
     setInvoice({ ...invoice, line_items: items });
@@ -50,12 +57,17 @@ export function InvoiceCreatePage() {
 
   const removeLineItem = (index: number) => {
     const items = invoice.line_items.filter((_, i) => i !== index);
-    setInvoice({ ...invoice, line_items: items.length ? items : [{ description: '', quantity: 1, rate: 0 }] });
+    setInvoice({
+      ...invoice,
+      line_items: items.length
+        ? items
+        : [{ description: "", quantity: 1, rate: 0 }],
+    });
   };
 
   const subtotal = invoice.line_items.reduce(
-    (sum, item) => sum + (item.quantity * item.rate),
-    0
+    (sum, item) => sum + item.quantity * item.rate,
+    0,
   );
   const tax = subtotal * 0.0825; // 8.25% tax
   const total = subtotal + tax;
@@ -64,10 +76,15 @@ export function InvoiceCreatePage() {
     <div className="p-6">
       {/* Header */}
       <div className="mb-6">
-        <Link to="/invoices" className="text-text-muted hover:text-text-primary mb-2 inline-block">
+        <Link
+          to="/invoices"
+          className="text-text-muted hover:text-text-primary mb-2 inline-block"
+        >
           &larr; Back to Invoices
         </Link>
-        <h1 className="text-2xl font-semibold text-text-primary">Create Invoice</h1>
+        <h1 className="text-2xl font-semibold text-text-primary">
+          Create Invoice
+        </h1>
       </div>
 
       <div className="grid lg:grid-cols-3 gap-6">
@@ -78,21 +95,29 @@ export function InvoiceCreatePage() {
             <h2 className="font-medium text-text-primary mb-4">Customer</h2>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm text-text-muted mb-1">Customer Name</label>
+                <label className="block text-sm text-text-muted mb-1">
+                  Customer Name
+                </label>
                 <input
                   type="text"
                   value={invoice.customer_name}
-                  onChange={(e) => setInvoice({ ...invoice, customer_name: e.target.value })}
+                  onChange={(e) =>
+                    setInvoice({ ...invoice, customer_name: e.target.value })
+                  }
                   placeholder="Enter customer name"
                   className="w-full px-4 py-2 border border-border rounded-lg bg-bg-body text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
               <div>
-                <label className="block text-sm text-text-muted mb-1">Due Date</label>
+                <label className="block text-sm text-text-muted mb-1">
+                  Due Date
+                </label>
                 <input
                   type="date"
                   value={invoice.due_date}
-                  onChange={(e) => setInvoice({ ...invoice, due_date: e.target.value })}
+                  onChange={(e) =>
+                    setInvoice({ ...invoice, due_date: e.target.value })
+                  }
                   className="w-full px-4 py-2 border border-border rounded-lg bg-bg-body text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
@@ -118,7 +143,9 @@ export function InvoiceCreatePage() {
                     <input
                       type="text"
                       value={item.description}
-                      onChange={(e) => updateLineItem(index, 'description', e.target.value)}
+                      onChange={(e) =>
+                        updateLineItem(index, "description", e.target.value)
+                      }
                       placeholder="Description"
                       className="w-full px-3 py-2 border border-border rounded-lg bg-bg-body text-text-primary text-sm"
                     />
@@ -127,7 +154,13 @@ export function InvoiceCreatePage() {
                     <input
                       type="number"
                       value={item.quantity}
-                      onChange={(e) => updateLineItem(index, 'quantity', parseInt(e.target.value) || 0)}
+                      onChange={(e) =>
+                        updateLineItem(
+                          index,
+                          "quantity",
+                          parseInt(e.target.value) || 0,
+                        )
+                      }
                       placeholder="Qty"
                       min="1"
                       className="w-full px-3 py-2 border border-border rounded-lg bg-bg-body text-text-primary text-sm"
@@ -137,7 +170,13 @@ export function InvoiceCreatePage() {
                     <input
                       type="number"
                       value={item.rate}
-                      onChange={(e) => updateLineItem(index, 'rate', parseFloat(e.target.value) || 0)}
+                      onChange={(e) =>
+                        updateLineItem(
+                          index,
+                          "rate",
+                          parseFloat(e.target.value) || 0,
+                        )
+                      }
                       placeholder="Rate"
                       step="0.01"
                       className="w-full px-3 py-2 border border-border rounded-lg bg-bg-body text-text-primary text-sm"
@@ -162,7 +201,9 @@ export function InvoiceCreatePage() {
             <h2 className="font-medium text-text-primary mb-4">Notes</h2>
             <textarea
               value={invoice.notes}
-              onChange={(e) => setInvoice({ ...invoice, notes: e.target.value })}
+              onChange={(e) =>
+                setInvoice({ ...invoice, notes: e.target.value })
+              }
               placeholder="Add any notes or terms..."
               rows={3}
               className="w-full px-4 py-2 border border-border rounded-lg bg-bg-body text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
@@ -195,7 +236,7 @@ export function InvoiceCreatePage() {
                 disabled={createMutation.isPending || !invoice.customer_name}
                 className="w-full py-2 bg-primary text-white rounded-lg font-medium disabled:opacity-50"
               >
-                {createMutation.isPending ? 'Creating...' : 'Create Invoice'}
+                {createMutation.isPending ? "Creating..." : "Create Invoice"}
               </button>
               <button className="w-full py-2 border border-border rounded-lg text-text-secondary hover:bg-bg-hover">
                 Save as Draft

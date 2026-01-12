@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 interface Template {
   id: number;
@@ -18,14 +18,19 @@ interface Template {
 export function EmailTemplates() {
   const queryClient = useQueryClient();
   const [isCreating, setIsCreating] = useState(false);
-  const [newTemplate, setNewTemplate] = useState({ name: '', category: '', subject: '', content: '' });
+  const [newTemplate, setNewTemplate] = useState({
+    name: "",
+    category: "",
+    subject: "",
+    content: "",
+  });
 
   const { data: templates, isLoading } = useQuery({
-    queryKey: ['email-templates'],
+    queryKey: ["email-templates"],
     queryFn: async () => {
       try {
-        const response = await apiClient.get('/templates', {
-          params: { type: 'email' }
+        const response = await apiClient.get("/templates", {
+          params: { type: "email" },
         });
         return response.data.items || response.data || [];
       } catch {
@@ -36,30 +41,42 @@ export function EmailTemplates() {
 
   const createMutation = useMutation({
     mutationFn: async (template: typeof newTemplate) => {
-      await apiClient.post('/templates', {
+      await apiClient.post("/templates", {
         ...template,
-        type: 'email',
+        type: "email",
       });
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['email-templates'] });
+      queryClient.invalidateQueries({ queryKey: ["email-templates"] });
       setIsCreating(false);
-      setNewTemplate({ name: '', category: '', subject: '', content: '' });
+      setNewTemplate({ name: "", category: "", subject: "", content: "" });
     },
   });
 
-  const categories = ['Welcome', 'Appointment', 'Invoice', 'Follow-up', 'Service Report', 'Marketing'];
+  const categories = [
+    "Welcome",
+    "Appointment",
+    "Invoice",
+    "Follow-up",
+    "Service Report",
+    "Marketing",
+  ];
 
   return (
     <div className="p-6">
       {/* Header */}
       <div className="mb-6">
-        <Link to="/communications/templates" className="text-text-muted hover:text-text-primary mb-2 inline-block">
+        <Link
+          to="/communications/templates"
+          className="text-text-muted hover:text-text-primary mb-2 inline-block"
+        >
           &larr; Back to Templates
         </Link>
         <div className="flex items-center justify-between">
           <div>
-            <h1 className="text-2xl font-semibold text-text-primary">Email Templates</h1>
+            <h1 className="text-2xl font-semibold text-text-primary">
+              Email Templates
+            </h1>
             <p className="text-text-muted">Create and manage email templates</p>
           </div>
           <button
@@ -74,61 +91,87 @@ export function EmailTemplates() {
       {/* Create Form */}
       {isCreating && (
         <div className="bg-bg-card border border-border rounded-lg p-4 mb-6">
-          <h3 className="font-medium text-text-primary mb-4">New Email Template</h3>
+          <h3 className="font-medium text-text-primary mb-4">
+            New Email Template
+          </h3>
           <div className="space-y-4">
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-1">Name</label>
+                <label className="block text-sm font-medium text-text-secondary mb-1">
+                  Name
+                </label>
                 <input
                   type="text"
                   value={newTemplate.name}
-                  onChange={(e) => setNewTemplate({ ...newTemplate, name: e.target.value })}
+                  onChange={(e) =>
+                    setNewTemplate({ ...newTemplate, name: e.target.value })
+                  }
                   placeholder="Template name"
                   className="w-full px-4 py-2 border border-border rounded-lg bg-bg-body text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-1">Category</label>
+                <label className="block text-sm font-medium text-text-secondary mb-1">
+                  Category
+                </label>
                 <select
                   value={newTemplate.category}
-                  onChange={(e) => setNewTemplate({ ...newTemplate, category: e.target.value })}
+                  onChange={(e) =>
+                    setNewTemplate({ ...newTemplate, category: e.target.value })
+                  }
                   className="w-full px-4 py-2 border border-border rounded-lg bg-bg-body text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
                 >
                   <option value="">Select category</option>
                   {categories.map((cat) => (
-                    <option key={cat} value={cat}>{cat}</option>
+                    <option key={cat} value={cat}>
+                      {cat}
+                    </option>
                   ))}
                 </select>
               </div>
             </div>
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-1">Subject</label>
+              <label className="block text-sm font-medium text-text-secondary mb-1">
+                Subject
+              </label>
               <input
                 type="text"
                 value={newTemplate.subject}
-                onChange={(e) => setNewTemplate({ ...newTemplate, subject: e.target.value })}
+                onChange={(e) =>
+                  setNewTemplate({ ...newTemplate, subject: e.target.value })
+                }
                 placeholder="Email subject line"
                 className="w-full px-4 py-2 border border-border rounded-lg bg-bg-body text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-text-secondary mb-1">Content</label>
+              <label className="block text-sm font-medium text-text-secondary mb-1">
+                Content
+              </label>
               <textarea
                 value={newTemplate.content}
-                onChange={(e) => setNewTemplate({ ...newTemplate, content: e.target.value })}
+                onChange={(e) =>
+                  setNewTemplate({ ...newTemplate, content: e.target.value })
+                }
                 placeholder="Email body content..."
                 rows={8}
                 className="w-full px-4 py-2 border border-border rounded-lg bg-bg-body text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
               />
               <p className="text-xs text-text-muted mt-1">
-                Available variables: {'{{customer_name}}'}, {'{{company_name}}'}, {'{{date}}'}, {'{{invoice_number}}'}
+                Available variables: {"{{customer_name}}"}, {"{{company_name}}"}
+                , {"{{date}}"}, {"{{invoice_number}}"}
               </p>
             </div>
             <div className="flex justify-end gap-2">
               <button
                 onClick={() => {
                   setIsCreating(false);
-                  setNewTemplate({ name: '', category: '', subject: '', content: '' });
+                  setNewTemplate({
+                    name: "",
+                    category: "",
+                    subject: "",
+                    content: "",
+                  });
                 }}
                 className="px-4 py-2 border border-border rounded-lg text-text-secondary hover:bg-bg-hover"
               >
@@ -136,10 +179,14 @@ export function EmailTemplates() {
               </button>
               <button
                 onClick={() => createMutation.mutate(newTemplate)}
-                disabled={!newTemplate.name || !newTemplate.content || createMutation.isPending}
+                disabled={
+                  !newTemplate.name ||
+                  !newTemplate.content ||
+                  createMutation.isPending
+                }
                 className="px-4 py-2 bg-primary text-white rounded-lg font-medium disabled:opacity-50"
               >
-                {createMutation.isPending ? 'Creating...' : 'Create'}
+                {createMutation.isPending ? "Creating..." : "Create"}
               </button>
             </div>
           </div>
@@ -161,11 +208,18 @@ export function EmailTemplates() {
         ) : (
           <div className="divide-y divide-border">
             {templates?.map((template: Template) => (
-              <div key={template.id} className="p-4 hover:bg-bg-hover transition-colors">
+              <div
+                key={template.id}
+                className="p-4 hover:bg-bg-hover transition-colors"
+              >
                 <div className="flex items-start justify-between">
                   <div>
-                    <h3 className="font-medium text-text-primary">{template.name}</h3>
-                    <p className="text-sm text-text-muted">{template.category}</p>
+                    <h3 className="font-medium text-text-primary">
+                      {template.name}
+                    </h3>
+                    <p className="text-sm text-text-muted">
+                      {template.category}
+                    </p>
                     <p className="text-sm text-text-secondary mt-1">
                       Subject: {template.subject}
                     </p>
@@ -174,8 +228,12 @@ export function EmailTemplates() {
                     </p>
                   </div>
                   <div className="flex gap-2">
-                    <button className="text-sm text-primary hover:underline">Edit</button>
-                    <button className="text-sm text-danger hover:underline">Delete</button>
+                    <button className="text-sm text-primary hover:underline">
+                      Edit
+                    </button>
+                    <button className="text-sm text-danger hover:underline">
+                      Delete
+                    </button>
                   </div>
                 </div>
               </div>

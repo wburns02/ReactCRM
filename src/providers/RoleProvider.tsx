@@ -11,13 +11,13 @@ import {
   useCallback,
   useMemo,
   type ReactNode,
-} from 'react';
+} from "react";
 import {
   useRoles,
   useSwitchRole,
   type RoleKey,
   type RoleView,
-} from '@/api/hooks/useRoles';
+} from "@/api/hooks/useRoles";
 
 // ============================================
 // Types
@@ -66,7 +66,7 @@ const RoleContext = createContext<RoleContextValue | undefined>(undefined);
 export function useRole(): RoleContextValue {
   const context = useContext(RoleContext);
   if (!context) {
-    throw new Error('useRole must be used within a RoleProvider');
+    throw new Error("useRole must be used within a RoleProvider");
   }
   return context;
 }
@@ -114,17 +114,17 @@ export function RoleProvider({ children }: RoleProviderProps) {
   const switchRole = useCallback(
     (roleKey: RoleKey) => {
       if (!isDemoUser) {
-        console.warn('Role switching is only available for demo users');
+        console.warn("Role switching is only available for demo users");
         return;
       }
       switchRoleMutation.mutate(roleKey);
     },
-    [isDemoUser, switchRoleMutation]
+    [isDemoUser, switchRoleMutation],
   );
 
   // Role-based access helpers
   const visibleModules = useMemo(() => {
-    return currentRole?.visible_modules ?? ['*'];
+    return currentRole?.visible_modules ?? ["*"];
   }, [currentRole]);
 
   const quickActions = useMemo(() => {
@@ -140,10 +140,10 @@ export function RoleProvider({ children }: RoleProviderProps) {
       if (!currentRole?.features) return true; // Default to allowed if no features defined
       return currentRole.features[feature] ?? false;
     },
-    [currentRole]
+    [currentRole],
   );
 
-  const defaultRoute = currentRole?.default_route ?? '/';
+  const defaultRoute = currentRole?.default_route ?? "/";
 
   // Context value
   const contextValue: RoleContextValue = {

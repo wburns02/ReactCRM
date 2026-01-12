@@ -1,8 +1,12 @@
-import { useState, useEffect } from 'react';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { calculateRICEScore, getPrioritySuggestion, TICKET_PRIORITY_LABELS } from '@/api/types/ticket.ts';
+import { useState, useEffect } from "react";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import {
+  calculateRICEScore,
+  getPrioritySuggestion,
+  TICKET_PRIORITY_LABELS,
+} from "@/api/types/ticket.ts";
 
 interface RICEScoringProps {
   reach?: number;
@@ -47,15 +51,19 @@ export function RICEScoring({
     }
   }, [reach, impact, confidence, effort]);
 
-  const suggestedPriority = riceScore > 0 ? getPrioritySuggestion(riceScore) : null;
+  const suggestedPriority =
+    riceScore > 0 ? getPrioritySuggestion(riceScore) : null;
 
   return (
     <div className="space-y-4">
       <div className="bg-bg-muted rounded-lg p-4">
-        <h4 className="text-sm font-medium text-text-primary mb-2">RICE Framework</h4>
+        <h4 className="text-sm font-medium text-text-primary mb-2">
+          RICE Framework
+        </h4>
         <p className="text-xs text-text-secondary mb-4">
-          RICE helps prioritize features by scoring them on Reach, Impact, Confidence, and Effort.
-          Score = (Reach × Impact × Confidence%) / Effort
+          RICE helps prioritize features by scoring them on Reach, Impact,
+          Confidence, and Effort. Score = (Reach × Impact × Confidence%) /
+          Effort
         </p>
 
         <div className="grid grid-cols-2 gap-4">
@@ -72,8 +80,12 @@ export function RICEScoring({
               min="0"
               max="10"
               step="0.1"
-              value={reach || ''}
-              onChange={(e) => onReachChange(e.target.value ? Number(e.target.value) : undefined)}
+              value={reach || ""}
+              onChange={(e) =>
+                onReachChange(
+                  e.target.value ? Number(e.target.value) : undefined,
+                )
+              }
               error={!!errors?.reach}
               placeholder="0"
             />
@@ -95,8 +107,12 @@ export function RICEScoring({
               min="0"
               max="10"
               step="0.1"
-              value={impact || ''}
-              onChange={(e) => onImpactChange(e.target.value ? Number(e.target.value) : undefined)}
+              value={impact || ""}
+              onChange={(e) =>
+                onImpactChange(
+                  e.target.value ? Number(e.target.value) : undefined,
+                )
+              }
               error={!!errors?.impact}
               placeholder="0"
             />
@@ -118,8 +134,12 @@ export function RICEScoring({
               min="0"
               max="100"
               step="1"
-              value={confidence || ''}
-              onChange={(e) => onConfidenceChange(e.target.value ? Number(e.target.value) : undefined)}
+              value={confidence || ""}
+              onChange={(e) =>
+                onConfidenceChange(
+                  e.target.value ? Number(e.target.value) : undefined,
+                )
+              }
               error={!!errors?.confidence}
               placeholder="0"
             />
@@ -140,8 +160,12 @@ export function RICEScoring({
               type="number"
               min="0.1"
               step="0.1"
-              value={effort || ''}
-              onChange={(e) => onEffortChange(e.target.value ? Number(e.target.value) : undefined)}
+              value={effort || ""}
+              onChange={(e) =>
+                onEffortChange(
+                  e.target.value ? Number(e.target.value) : undefined,
+                )
+              }
               error={!!errors?.effort}
               placeholder="0.1"
             />
@@ -164,13 +188,18 @@ export function RICEScoring({
             </div>
             {suggestedPriority && (
               <div className="text-right">
-                <p className="text-xs text-text-secondary mb-1">Suggested Priority</p>
+                <p className="text-xs text-text-secondary mb-1">
+                  Suggested Priority
+                </p>
                 <Badge
                   variant={
-                    suggestedPriority === 'urgent' ? 'danger' :
-                    suggestedPriority === 'high' ? 'warning' :
-                    suggestedPriority === 'medium' ? 'info' :
-                    'default'
+                    suggestedPriority === "urgent"
+                      ? "danger"
+                      : suggestedPriority === "high"
+                        ? "warning"
+                        : suggestedPriority === "medium"
+                          ? "info"
+                          : "default"
                   }
                 >
                   {TICKET_PRIORITY_LABELS[suggestedPriority]}

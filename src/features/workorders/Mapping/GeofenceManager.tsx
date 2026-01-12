@@ -2,23 +2,31 @@
  * GeofenceManager Component
  * Visual geofence configuration with auto arrival/departure detection
  */
-import { useState, useEffect, useCallback, useRef, useMemo } from 'react';
-import { MapContainer, TileLayer, Circle, Marker, Popup, useMap, useMapEvents } from 'react-leaflet';
-import * as L from 'leaflet';
-import type { WorkOrder } from '@/api/types/workOrder';
+import { useState, useEffect, useCallback, useRef, useMemo } from "react";
+import {
+  MapContainer,
+  TileLayer,
+  Circle,
+  Marker,
+  Popup,
+  useMap,
+  useMapEvents,
+} from "react-leaflet";
+import * as L from "leaflet";
+import type { WorkOrder } from "@/api/types/workOrder";
 import {
   calculateDistanceBetweenPoints,
   isWithinGeofence,
   detectGeofenceCrossing,
   formatDistance,
   type Coordinates,
-} from './utils/routingUtils';
-import 'leaflet/dist/leaflet.css';
+} from "./utils/routingUtils";
+import "leaflet/dist/leaflet.css";
 
 // Fix Leaflet default marker icons
-import markerIcon2x from 'leaflet/dist/images/marker-icon-2x.png';
-import markerIcon from 'leaflet/dist/images/marker-icon.png';
-import markerShadow from 'leaflet/dist/images/marker-shadow.png';
+import markerIcon2x from "leaflet/dist/images/marker-icon-2x.png";
+import markerIcon from "leaflet/dist/images/marker-icon.png";
+import markerShadow from "leaflet/dist/images/marker-shadow.png";
 
 // @ts-expect-error - Leaflet type issue with default icon
 delete L.Icon.Default.prototype._getIconUrl;
@@ -43,7 +51,7 @@ export interface Geofence {
 }
 
 export interface GeofenceEvent {
-  type: 'enter' | 'exit';
+  type: "enter" | "exit";
   geofenceId: string;
   workOrderId?: string;
   timestamp: Date;
@@ -86,10 +94,10 @@ export interface GeofenceManagerProps {
 // ============================================
 
 const GEOFENCE_COLORS = {
-  default: '#3b82f6',
-  inside: '#22c55e',
-  outside: '#f59e0b',
-  inactive: '#6b7280',
+  default: "#3b82f6",
+  inside: "#22c55e",
+  outside: "#f59e0b",
+  inactive: "#6b7280",
 } as const;
 
 // ============================================
@@ -100,7 +108,7 @@ function createCenterMarker(isInside: boolean): L.DivIcon {
   const color = isInside ? GEOFENCE_COLORS.inside : GEOFENCE_COLORS.default;
 
   return L.divIcon({
-    className: 'geofence-center-marker',
+    className: "geofence-center-marker",
     html: `
       <div style="
         position: relative;
@@ -123,7 +131,7 @@ function createDeviceMarker(isInside: boolean): L.DivIcon {
   const color = isInside ? GEOFENCE_COLORS.inside : GEOFENCE_COLORS.outside;
 
   return L.divIcon({
-    className: 'device-marker',
+    className: "device-marker",
     html: `
       <div style="
         width: 24px;
@@ -196,7 +204,8 @@ function MapBoundsUpdater({
 
     // Add points at radius boundary
     const latOffset = (radiusMeters / 111000) * 1.2;
-    const lngOffset = (radiusMeters / (111000 * Math.cos(center.lat * Math.PI / 180))) * 1.2;
+    const lngOffset =
+      (radiusMeters / (111000 * Math.cos((center.lat * Math.PI) / 180))) * 1.2;
     points.push([center.lat + latOffset, center.lng]);
     points.push([center.lat - latOffset, center.lng]);
     points.push([center.lat, center.lng + lngOffset]);
@@ -230,7 +239,9 @@ function RadiusSlider({
     <div className="space-y-2">
       <div className="flex items-center justify-between text-sm">
         <label className="font-medium text-gray-700">Geofence Radius</label>
-        <span className="text-blue-600 font-semibold">{formatDistance(value)}</span>
+        <span className="text-blue-600 font-semibold">
+          {formatDistance(value)}
+        </span>
       </div>
       <input
         type="range"
@@ -266,13 +277,15 @@ function GeofenceStatus({
   return (
     <div
       className={`rounded-lg p-4 ${
-        isInside ? 'bg-green-50 border border-green-200' : 'bg-amber-50 border border-amber-200'
+        isInside
+          ? "bg-green-50 border border-green-200"
+          : "bg-amber-50 border border-amber-200"
       }`}
     >
       <div className="flex items-center gap-3">
         <div
           className={`w-10 h-10 rounded-full flex items-center justify-center ${
-            isInside ? 'bg-green-500' : 'bg-amber-500'
+            isInside ? "bg-green-500" : "bg-amber-500"
           }`}
         >
           {isInside ? (
@@ -288,18 +301,18 @@ function GeofenceStatus({
         <div>
           <h4
             className={`font-semibold ${
-              isInside ? 'text-green-800' : 'text-amber-800'
+              isInside ? "text-green-800" : "text-amber-800"
             }`}
           >
-            {isInside ? 'Inside Geofence' : 'Outside Geofence'}
+            {isInside ? "Inside Geofence" : "Outside Geofence"}
           </h4>
           <p
             className={`text-sm ${
-              isInside ? 'text-green-600' : 'text-amber-600'
+              isInside ? "text-green-600" : "text-amber-600"
             }`}
           >
             {isInside
-              ? 'Technician is at the job site'
+              ? "Technician is at the job site"
               : `${formatDistance(distance)} from location`}
           </p>
         </div>
@@ -308,7 +321,7 @@ function GeofenceStatus({
       {lastEvent && (
         <div className="mt-3 pt-3 border-t border-gray-200">
           <p className="text-xs text-gray-500">
-            Last {lastEvent.type === 'enter' ? 'arrived' : 'departed'}:{' '}
+            Last {lastEvent.type === "enter" ? "arrived" : "departed"}:{" "}
             {lastEvent.timestamp.toLocaleTimeString()}
           </p>
         </div>
@@ -332,10 +345,10 @@ export function GeofenceManager({
   onExit,
   onGeofenceUpdate,
   editable = true,
-  height = '400px',
+  height = "400px",
   showDistance = true,
   showStatus = true,
-  className = '',
+  className = "",
 }: GeofenceManagerProps) {
   // Initialize geofence from workOrder or prop
   const initialCenter: Coordinates = useMemo(() => {
@@ -353,7 +366,9 @@ export function GeofenceManager({
 
   // State
   const [center, setCenter] = useState<Coordinates>(initialCenter);
-  const [radius, setRadius] = useState(initialGeofence?.radiusMeters || defaultRadius);
+  const [radius, setRadius] = useState(
+    initialGeofence?.radiusMeters || defaultRadius,
+  );
   const [isEditingCenter, setIsEditingCenter] = useState(false);
   const [lastEvent, setLastEvent] = useState<GeofenceEvent | null>(null);
 
@@ -371,15 +386,15 @@ export function GeofenceManager({
   // Current geofence object
   const geofence: Geofence = useMemo(
     () => ({
-      id: initialGeofence?.id || workOrder?.id || 'geofence-1',
+      id: initialGeofence?.id || workOrder?.id || "geofence-1",
       workOrderId: workOrder?.id,
       center,
       radiusMeters: radius,
-      name: initialGeofence?.name || workOrder?.customer_name || 'Geofence',
+      name: initialGeofence?.name || workOrder?.customer_name || "Geofence",
       color: initialGeofence?.color || GEOFENCE_COLORS.default,
       isActive: initialGeofence?.isActive ?? true,
     }),
-    [center, radius, workOrder, initialGeofence]
+    [center, radius, workOrder, initialGeofence],
   );
 
   // Check if current location is inside geofence
@@ -406,7 +421,7 @@ export function GeofenceManager({
     const crossing = detectGeofenceCrossing(
       previousLocationRef.current,
       currentLocation,
-      geofence
+      geofence,
     );
 
     if (crossing) {
@@ -420,7 +435,7 @@ export function GeofenceManager({
 
       setLastEvent(event);
 
-      if (crossing === 'enter') {
+      if (crossing === "enter") {
         onEnterRef.current?.(event);
       } else {
         onExitRef.current?.(event);
@@ -440,7 +455,7 @@ export function GeofenceManager({
         center: newCenter,
       });
     },
-    [geofence, onGeofenceUpdate]
+    [geofence, onGeofenceUpdate],
   );
 
   // Handle radius change
@@ -452,11 +467,13 @@ export function GeofenceManager({
         radiusMeters: newRadius,
       });
     },
-    [geofence, onGeofenceUpdate]
+    [geofence, onGeofenceUpdate],
   );
 
   // Geofence circle color
-  const circleColor = isInside ? GEOFENCE_COLORS.inside : GEOFENCE_COLORS.default;
+  const circleColor = isInside
+    ? GEOFENCE_COLORS.inside
+    : GEOFENCE_COLORS.default;
 
   return (
     <div className={`space-y-4 ${className}`}>
@@ -468,13 +485,11 @@ export function GeofenceManager({
         <MapContainer
           center={[center.lat, center.lng]}
           zoom={16}
-          style={{ height: '100%', width: '100%' }}
+          style={{ height: "100%", width: "100%" }}
           zoomControl={true}
           attributionControl={false}
         >
-          <TileLayer
-            url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png"
-          />
+          <TileLayer url="https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png" />
 
           <MapBoundsUpdater
             center={center}
@@ -496,7 +511,7 @@ export function GeofenceManager({
               fillColor: circleColor,
               fillOpacity: 0.15,
               weight: 2,
-              dashArray: isInside ? undefined : '6, 6',
+              dashArray: isInside ? undefined : "6, 6",
             }}
           />
 
@@ -516,7 +531,7 @@ export function GeofenceManager({
             <Popup>
               <div className="text-center">
                 <strong className="block">
-                  {workOrder?.customer_name || 'Job Site'}
+                  {workOrder?.customer_name || "Job Site"}
                 </strong>
                 {workOrder?.service_address_line1 && (
                   <span className="text-xs text-gray-500">
@@ -551,15 +566,20 @@ export function GeofenceManager({
             onClick={() => setIsEditingCenter(!isEditingCenter)}
             className={`absolute top-4 right-4 px-3 py-2 rounded-lg shadow-lg z-[1000] transition-colors ${
               isEditingCenter
-                ? 'bg-blue-500 text-white'
-                : 'bg-white hover:bg-gray-50 text-gray-700'
+                ? "bg-blue-500 text-white"
+                : "bg-white hover:bg-gray-50 text-gray-700"
             }`}
           >
             <span className="flex items-center gap-2 text-sm font-medium">
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+              <svg
+                width="16"
+                height="16"
+                viewBox="0 0 24 24"
+                fill="currentColor"
+              >
                 <path d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3c-.46-4.17-3.77-7.48-7.94-7.94V1h-2v2.06C6.83 3.52 3.52 6.83 3.06 11H1v2h2.06c.46 4.17 3.77 7.48 7.94 7.94V23h2v-2.06c4.17-.46 7.48-3.77 7.94-7.94H23v-2h-2.06zM12 19c-3.87 0-7-3.13-7-7s3.13-7 7-7 7 3.13 7 7-3.13 7-7 7z" />
               </svg>
-              {isEditingCenter ? 'Click Map to Set' : 'Move Center'}
+              {isEditingCenter ? "Click Map to Set" : "Move Center"}
             </span>
           </button>
         )}
@@ -568,10 +588,10 @@ export function GeofenceManager({
         {showDistance && currentLocation && (
           <div className="absolute bottom-4 left-4 bg-white/95 backdrop-blur-sm rounded-lg shadow-lg px-3 py-2 z-[1000]">
             <p className="text-sm">
-              <span className="text-gray-500">Distance:</span>{' '}
+              <span className="text-gray-500">Distance:</span>{" "}
               <span
                 className={`font-semibold ${
-                  isInside ? 'text-green-600' : 'text-amber-600'
+                  isInside ? "text-green-600" : "text-amber-600"
                 }`}
               >
                 {formatDistance(distanceToCenter)}
@@ -597,7 +617,9 @@ export function GeofenceManager({
       {showStatus && currentLocation && (
         <GeofenceStatus
           isInside={isInside}
-          distance={distanceToBoundary > 0 ? distanceToBoundary : distanceToCenter}
+          distance={
+            distanceToBoundary > 0 ? distanceToBoundary : distanceToCenter
+          }
           lastEvent={lastEvent}
         />
       )}
@@ -637,7 +659,7 @@ export function useGeofenceMonitor({
     const crossing = detectGeofenceCrossing(
       previousLocationRef.current,
       currentLocation,
-      geofence
+      geofence,
     );
 
     if (crossing) {
@@ -651,7 +673,7 @@ export function useGeofenceMonitor({
 
       setLastEvent(event);
 
-      if (crossing === 'enter') {
+      if (crossing === "enter") {
         onEnter?.(event);
       } else {
         onExit?.(event);

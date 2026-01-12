@@ -4,10 +4,22 @@
  * Export all notification templates and their types.
  */
 
-export { appointmentConfirmationTemplate, type AppointmentConfirmationVariables } from './appointment-confirmation.ts';
-export { technicianEnrouteTemplate, type TechnicianEnrouteVariables } from './technician-enroute.ts';
-export { serviceCompleteTemplate, type ServiceCompleteVariables } from './service-complete.ts';
-export { paymentReminderTemplate, type PaymentReminderVariables } from './payment-reminder.ts';
+export {
+  appointmentConfirmationTemplate,
+  type AppointmentConfirmationVariables,
+} from "./appointment-confirmation.ts";
+export {
+  technicianEnrouteTemplate,
+  type TechnicianEnrouteVariables,
+} from "./technician-enroute.ts";
+export {
+  serviceCompleteTemplate,
+  type ServiceCompleteVariables,
+} from "./service-complete.ts";
+export {
+  paymentReminderTemplate,
+  type PaymentReminderVariables,
+} from "./payment-reminder.ts";
 
 /**
  * Template definition interface
@@ -24,10 +36,10 @@ export interface NotificationTemplate {
 /**
  * All available templates
  */
-import { appointmentConfirmationTemplate } from './appointment-confirmation.ts';
-import { technicianEnrouteTemplate } from './technician-enroute.ts';
-import { serviceCompleteTemplate } from './service-complete.ts';
-import { paymentReminderTemplate } from './payment-reminder.ts';
+import { appointmentConfirmationTemplate } from "./appointment-confirmation.ts";
+import { technicianEnrouteTemplate } from "./technician-enroute.ts";
+import { serviceCompleteTemplate } from "./service-complete.ts";
+import { paymentReminderTemplate } from "./payment-reminder.ts";
 
 export const ALL_TEMPLATES: NotificationTemplate[] = [
   appointmentConfirmationTemplate,
@@ -48,11 +60,11 @@ export function getTemplateById(id: string): NotificationTemplate | undefined {
  */
 export function renderTemplate(
   template: string,
-  variables: Record<string, string>
+  variables: Record<string, string>,
 ): string {
   let result = template;
   for (const [key, value] of Object.entries(variables)) {
-    const regex = new RegExp(`\\{\\{${key}\\}\\}`, 'g');
+    const regex = new RegExp(`\\{\\{${key}\\}\\}`, "g");
     result = result.replace(regex, value);
   }
   return result;
@@ -63,7 +75,7 @@ export function renderTemplate(
  */
 export function extractVariables(template: string): string[] {
   const matches = template.match(/\{\{(\w+)\}\}/g) || [];
-  return [...new Set(matches.map((m) => m.replace(/\{\{|\}\}/g, '')))];
+  return [...new Set(matches.map((m) => m.replace(/\{\{|\}\}/g, "")))];
 }
 
 /**
@@ -71,10 +83,10 @@ export function extractVariables(template: string): string[] {
  */
 export function validateVariables(
   template: NotificationTemplate,
-  variables: Record<string, string>
+  variables: Record<string, string>,
 ): { valid: boolean; missing: string[] } {
   const missing = template.variables.filter(
-    (v) => !variables[v] || variables[v].trim() === ''
+    (v) => !variables[v] || variables[v].trim() === "",
   );
   return {
     valid: missing.length === 0,

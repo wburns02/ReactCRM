@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client.ts";
 
 /**
  * Types for Compliance API
@@ -115,14 +115,20 @@ export interface InspectionFilters {
  * Query keys
  */
 export const complianceKeys = {
-  all: ['compliance'] as const,
-  dashboard: (days?: number) => [...complianceKeys.all, 'dashboard', days] as const,
-  licenses: (filters?: LicenseFilters) => [...complianceKeys.all, 'licenses', filters] as const,
-  license: (id: string) => [...complianceKeys.all, 'license', id] as const,
-  certifications: (filters?: CertificationFilters) => [...complianceKeys.all, 'certifications', filters] as const,
-  certification: (id: string) => [...complianceKeys.all, 'certification', id] as const,
-  inspections: (filters?: InspectionFilters) => [...complianceKeys.all, 'inspections', filters] as const,
-  inspection: (id: string) => [...complianceKeys.all, 'inspection', id] as const,
+  all: ["compliance"] as const,
+  dashboard: (days?: number) =>
+    [...complianceKeys.all, "dashboard", days] as const,
+  licenses: (filters?: LicenseFilters) =>
+    [...complianceKeys.all, "licenses", filters] as const,
+  license: (id: string) => [...complianceKeys.all, "license", id] as const,
+  certifications: (filters?: CertificationFilters) =>
+    [...complianceKeys.all, "certifications", filters] as const,
+  certification: (id: string) =>
+    [...complianceKeys.all, "certification", id] as const,
+  inspections: (filters?: InspectionFilters) =>
+    [...complianceKeys.all, "inspections", filters] as const,
+  inspection: (id: string) =>
+    [...complianceKeys.all, "inspection", id] as const,
 };
 
 // ========================
@@ -133,7 +139,9 @@ export function useComplianceDashboard(expiringWithinDays: number = 30) {
   return useQuery({
     queryKey: complianceKeys.dashboard(expiringWithinDays),
     queryFn: async (): Promise<ComplianceDashboard> => {
-      const { data } = await apiClient.get(`/compliance/dashboard?expiring_within_days=${expiringWithinDays}`);
+      const { data } = await apiClient.get(
+        `/compliance/dashboard?expiring_within_days=${expiringWithinDays}`,
+      );
       return data;
     },
     staleTime: 60_000, // 1 minute
@@ -149,13 +157,20 @@ export function useLicenses(filters?: LicenseFilters) {
     queryKey: complianceKeys.licenses(filters),
     queryFn: async (): Promise<ListResponse<License>> => {
       const params = new URLSearchParams();
-      if (filters?.page) params.set('page', String(filters.page));
-      if (filters?.page_size) params.set('page_size', String(filters.page_size));
-      if (filters?.holder_type) params.set('holder_type', filters.holder_type);
-      if (filters?.status) params.set('status', filters.status);
-      if (filters?.expiring_within_days) params.set('expiring_within_days', String(filters.expiring_within_days));
+      if (filters?.page) params.set("page", String(filters.page));
+      if (filters?.page_size)
+        params.set("page_size", String(filters.page_size));
+      if (filters?.holder_type) params.set("holder_type", filters.holder_type);
+      if (filters?.status) params.set("status", filters.status);
+      if (filters?.expiring_within_days)
+        params.set(
+          "expiring_within_days",
+          String(filters.expiring_within_days),
+        );
 
-      const url = '/compliance/licenses' + (params.toString() ? '?' + params.toString() : '');
+      const url =
+        "/compliance/licenses" +
+        (params.toString() ? "?" + params.toString() : "");
       const { data } = await apiClient.get(url);
       return data;
     },
@@ -177,8 +192,13 @@ export function useLicense(id: string) {
 export function useCreateLicense() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (license: Omit<License, 'id' | 'status' | 'days_until_expiry' | 'created_at'>) => {
-      const { data } = await apiClient.post('/compliance/licenses', license);
+    mutationFn: async (
+      license: Omit<
+        License,
+        "id" | "status" | "days_until_expiry" | "created_at"
+      >,
+    ) => {
+      const { data } = await apiClient.post("/compliance/licenses", license);
       return data;
     },
     onSuccess: () => {
@@ -190,8 +210,17 @@ export function useCreateLicense() {
 export function useUpdateLicense() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, updates }: { id: string; updates: Partial<License> }) => {
-      const { data } = await apiClient.patch(`/compliance/licenses/${id}`, updates);
+    mutationFn: async ({
+      id,
+      updates,
+    }: {
+      id: string;
+      updates: Partial<License>;
+    }) => {
+      const { data } = await apiClient.patch(
+        `/compliance/licenses/${id}`,
+        updates,
+      );
       return data;
     },
     onSuccess: () => {
@@ -221,14 +250,23 @@ export function useCertifications(filters?: CertificationFilters) {
     queryKey: complianceKeys.certifications(filters),
     queryFn: async (): Promise<ListResponse<Certification>> => {
       const params = new URLSearchParams();
-      if (filters?.page) params.set('page', String(filters.page));
-      if (filters?.page_size) params.set('page_size', String(filters.page_size));
-      if (filters?.technician_id) params.set('technician_id', filters.technician_id);
-      if (filters?.certification_type) params.set('certification_type', filters.certification_type);
-      if (filters?.status) params.set('status', filters.status);
-      if (filters?.expiring_within_days) params.set('expiring_within_days', String(filters.expiring_within_days));
+      if (filters?.page) params.set("page", String(filters.page));
+      if (filters?.page_size)
+        params.set("page_size", String(filters.page_size));
+      if (filters?.technician_id)
+        params.set("technician_id", filters.technician_id);
+      if (filters?.certification_type)
+        params.set("certification_type", filters.certification_type);
+      if (filters?.status) params.set("status", filters.status);
+      if (filters?.expiring_within_days)
+        params.set(
+          "expiring_within_days",
+          String(filters.expiring_within_days),
+        );
 
-      const url = '/compliance/certifications' + (params.toString() ? '?' + params.toString() : '');
+      const url =
+        "/compliance/certifications" +
+        (params.toString() ? "?" + params.toString() : "");
       const { data } = await apiClient.get(url);
       return data;
     },
@@ -250,8 +288,13 @@ export function useCertification(id: string) {
 export function useCreateCertification() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (cert: Omit<Certification, 'id' | 'status' | 'days_until_expiry' | 'created_at'>) => {
-      const { data } = await apiClient.post('/compliance/certifications', cert);
+    mutationFn: async (
+      cert: Omit<
+        Certification,
+        "id" | "status" | "days_until_expiry" | "created_at"
+      >,
+    ) => {
+      const { data } = await apiClient.post("/compliance/certifications", cert);
       return data;
     },
     onSuccess: () => {
@@ -263,8 +306,17 @@ export function useCreateCertification() {
 export function useUpdateCertification() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, updates }: { id: string; updates: Partial<Certification> }) => {
-      const { data } = await apiClient.patch(`/compliance/certifications/${id}`, updates);
+    mutationFn: async ({
+      id,
+      updates,
+    }: {
+      id: string;
+      updates: Partial<Certification>;
+    }) => {
+      const { data } = await apiClient.patch(
+        `/compliance/certifications/${id}`,
+        updates,
+      );
       return data;
     },
     onSuccess: () => {
@@ -294,16 +346,22 @@ export function useInspections(filters?: InspectionFilters) {
     queryKey: complianceKeys.inspections(filters),
     queryFn: async (): Promise<ListResponse<Inspection>> => {
       const params = new URLSearchParams();
-      if (filters?.page) params.set('page', String(filters.page));
-      if (filters?.page_size) params.set('page_size', String(filters.page_size));
-      if (filters?.customer_id) params.set('customer_id', String(filters.customer_id));
-      if (filters?.technician_id) params.set('technician_id', filters.technician_id);
-      if (filters?.status) params.set('status', filters.status);
-      if (filters?.inspection_type) params.set('inspection_type', filters.inspection_type);
-      if (filters?.date_from) params.set('date_from', filters.date_from);
-      if (filters?.date_to) params.set('date_to', filters.date_to);
+      if (filters?.page) params.set("page", String(filters.page));
+      if (filters?.page_size)
+        params.set("page_size", String(filters.page_size));
+      if (filters?.customer_id)
+        params.set("customer_id", String(filters.customer_id));
+      if (filters?.technician_id)
+        params.set("technician_id", filters.technician_id);
+      if (filters?.status) params.set("status", filters.status);
+      if (filters?.inspection_type)
+        params.set("inspection_type", filters.inspection_type);
+      if (filters?.date_from) params.set("date_from", filters.date_from);
+      if (filters?.date_to) params.set("date_to", filters.date_to);
 
-      const url = '/compliance/inspections' + (params.toString() ? '?' + params.toString() : '');
+      const url =
+        "/compliance/inspections" +
+        (params.toString() ? "?" + params.toString() : "");
       const { data } = await apiClient.get(url);
       return data;
     },
@@ -325,8 +383,22 @@ export function useInspection(id: string) {
 export function useCreateInspection() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async (inspection: Omit<Inspection, 'id' | 'inspection_number' | 'status' | 'result' | 'overall_condition' | 'requires_followup' | 'created_at'>) => {
-      const { data } = await apiClient.post('/compliance/inspections', inspection);
+    mutationFn: async (
+      inspection: Omit<
+        Inspection,
+        | "id"
+        | "inspection_number"
+        | "status"
+        | "result"
+        | "overall_condition"
+        | "requires_followup"
+        | "created_at"
+      >,
+    ) => {
+      const { data } = await apiClient.post(
+        "/compliance/inspections",
+        inspection,
+      );
       return data;
     },
     onSuccess: () => {
@@ -338,8 +410,17 @@ export function useCreateInspection() {
 export function useUpdateInspection() {
   const queryClient = useQueryClient();
   return useMutation({
-    mutationFn: async ({ id, updates }: { id: string; updates: Partial<Inspection> }) => {
-      const { data } = await apiClient.patch(`/compliance/inspections/${id}`, updates);
+    mutationFn: async ({
+      id,
+      updates,
+    }: {
+      id: string;
+      updates: Partial<Inspection>;
+    }) => {
+      const { data } = await apiClient.patch(
+        `/compliance/inspections/${id}`,
+        updates,
+      );
       return data;
     },
     onSuccess: () => {

@@ -1,5 +1,10 @@
-import { Dialog, DialogContent, DialogHeader, DialogBody } from '@/components/ui/Dialog';
-import { StripeCheckout } from './StripeCheckout';
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+} from "@/components/ui/Dialog";
+import { StripeCheckout } from "./StripeCheckout";
 
 interface PaymentModalProps {
   open: boolean;

@@ -8,13 +8,18 @@
  * - Collaborative editing
  */
 
-import { addBreadcrumb } from '@/lib/sentry';
+import { addBreadcrumb } from "@/lib/sentry";
 
 // ============================================
 // Types
 // ============================================
 
-export type WebSocketStatus = 'connecting' | 'connected' | 'disconnected' | 'reconnecting' | 'error';
+export type WebSocketStatus =
+  | "connecting"
+  | "connected"
+  | "disconnected"
+  | "reconnecting"
+  | "error";
 
 export interface WebSocketMessage<T = unknown> {
   type: string;
@@ -28,7 +33,7 @@ export interface PresenceUser {
   name: string;
   email: string;
   avatar?: string;
-  status: 'online' | 'away' | 'busy';
+  status: "online" | "away" | "busy";
   currentPage?: string;
   lastSeen: string;
 }
@@ -45,7 +50,7 @@ export interface TechnicianLocation {
 
 export interface NotificationPayload {
   id: string;
-  type: 'info' | 'success' | 'warning' | 'error';
+  type: "info" | "success" | "warning" | "error";
   title: string;
   message: string;
   link?: string;
@@ -61,7 +66,7 @@ type MessageHandler<T = unknown> = (message: WebSocketMessage<T>) => void;
 class WebSocketManager {
   private socket: WebSocket | null = null;
   private url: string;
-  private status: WebSocketStatus = 'disconnected';
+  private status: WebSocketStatus = "disconnected";
   private reconnectAttempts = 0;
   private maxReconnectAttempts = 5;
   private reconnectDelay = 1000;
@@ -72,8 +77,12 @@ class WebSocketManager {
 
   constructor() {
     // Default WebSocket URL - uses environment variable or derives from API URL
-    const apiUrl = import.meta.env.VITE_API_URL || 'https://react-crm-api-production.up.railway.app';
-    this.url = import.meta.env.VITE_WS_URL || apiUrl.replace('https://', 'wss://').replace('http://', 'ws://') + '/ws';
+    const apiUrl =
+      import.meta.env.VITE_API_URL ||
+      "https://react-crm-api-production.up.railway.app";
+    this.url =
+      import.meta.env.VITE_WS_URL ||
+      apiUrl.replace("https://", "wss://").replace("http://", "ws://") + "/ws";
   }
 
   // ============================================
@@ -85,7 +94,7 @@ class WebSocketManager {
       return;
     }
 
-    this.setStatus('connecting');
+    this.setStatus("connecting");
 
     try {
       const url = token ? `${this.url}?token=${token}` : this.url;
@@ -96,44 +105,64 @@ class WebSocketManager {
       this.socket.onerror = this.handleError.bind(this);
       this.socket.onmessage = this.handleMessage.bind(this);
     } catch (error) {
-      this.setStatus('error');
-      addBreadcrumb('WebSocket connection error', 'websocket', { error }, 'error');
+      this.setStatus("error");
+      addBreadcrumb(
+        "WebSocket connection error",
+        "websocket",
+        { error },
+        "error",
+      );
     }
   }
 
   disconnect(): void {
     this.stopHeartbeat();
     if (this.socket) {
-      this.socket.close(1000, 'Client disconnect');
+      this.socket.close(1000, "Client disconnect");
       this.socket = null;
     }
-    this.setStatus('disconnected');
+    this.setStatus("disconnected");
     this.reconnectAttempts = 0;
   }
 
   private handleOpen(): void {
-    this.setStatus('connected');
+    this.setStatus("connected");
     this.reconnectAttempts = 0;
     this.startHeartbeat();
     this.flushPendingMessages();
-    addBreadcrumb('WebSocket connected', 'websocket', { url: this.url }, 'info');
+    addBreadcrumb(
+      "WebSocket connected",
+      "websocket",
+      { url: this.url },
+      "info",
+    );
   }
 
   private handleClose(event: CloseEvent): void {
     this.stopHeartbeat();
-    addBreadcrumb('WebSocket closed', 'websocket', { code: event.code, reason: event.reason }, 'info');
+    addBreadcrumb(
+      "WebSocket closed",
+      "websocket",
+      { code: event.code, reason: event.reason },
+      "info",
+    );
 
     if (event.code !== 1000) {
       // Abnormal closure - attempt reconnect
       this.attemptReconnect();
     } else {
-      this.setStatus('disconnected');
+      this.setStatus("disconnected");
     }
   }
 
   private handleError(event: Event): void {
-    this.setStatus('error');
-    addBreadcrumb('WebSocket error', 'websocket', { event: String(event) }, 'error');
+    this.setStatus("error");
+    addBreadcrumb(
+      "WebSocket error",
+      "websocket",
+      { event: String(event) },
+      "error",
+    );
   }
 
   private handleMessage(event: MessageEvent): void {
@@ -141,23 +170,28 @@ class WebSocketManager {
       const message: WebSocketMessage = JSON.parse(event.data);
 
       // Handle system messages
-      if (message.type === 'pong') {
+      if (message.type === "pong") {
         return; // Heartbeat response
       }
 
       // Dispatch to registered handlers
       const handlers = this.messageHandlers.get(message.type);
       if (handlers) {
-        handlers.forEach(handler => handler(message));
+        handlers.forEach((handler) => handler(message));
       }
 
       // Also dispatch to wildcard handlers
-      const wildcardHandlers = this.messageHandlers.get('*');
+      const wildcardHandlers = this.messageHandlers.get("*");
       if (wildcardHandlers) {
-        wildcardHandlers.forEach(handler => handler(message));
+        wildcardHandlers.forEach((handler) => handler(message));
       }
     } catch (error) {
-      addBreadcrumb('WebSocket message parse error', 'websocket', { error, data: event.data }, 'error');
+      addBreadcrumb(
+        "WebSocket message parse error",
+        "websocket",
+        { error, data: event.data },
+        "error",
+      );
     }
   }
 
@@ -167,16 +201,26 @@ class WebSocketManager {
 
   private attemptReconnect(): void {
     if (this.reconnectAttempts >= this.maxReconnectAttempts) {
-      this.setStatus('error');
-      addBreadcrumb('WebSocket max reconnect attempts reached', 'websocket', {}, 'error');
+      this.setStatus("error");
+      addBreadcrumb(
+        "WebSocket max reconnect attempts reached",
+        "websocket",
+        {},
+        "error",
+      );
       return;
     }
 
-    this.setStatus('reconnecting');
+    this.setStatus("reconnecting");
     this.reconnectAttempts++;
 
     const delay = this.reconnectDelay * Math.pow(2, this.reconnectAttempts - 1);
-    addBreadcrumb('WebSocket reconnecting', 'websocket', { attempt: this.reconnectAttempts, delay }, 'info');
+    addBreadcrumb(
+      "WebSocket reconnecting",
+      "websocket",
+      { attempt: this.reconnectAttempts, delay },
+      "info",
+    );
 
     setTimeout(() => {
       this.connect();
@@ -190,7 +234,7 @@ class WebSocketManager {
   private startHeartbeat(): void {
     this.heartbeatInterval = setInterval(() => {
       if (this.socket?.readyState === WebSocket.OPEN) {
-        this.send({ type: 'ping', payload: {} });
+        this.send({ type: "ping", payload: {} });
       }
     }, 30000); // 30 seconds
   }
@@ -206,7 +250,7 @@ class WebSocketManager {
   // Message Sending
   // ============================================
 
-  send<T>(message: Omit<WebSocketMessage<T>, 'timestamp'>): void {
+  send<T>(message: Omit<WebSocketMessage<T>, "timestamp">): void {
     const fullMessage: WebSocketMessage<T> = {
       ...message,
       timestamp: new Date().toISOString(),
@@ -257,7 +301,7 @@ class WebSocketManager {
 
   private setStatus(status: WebSocketStatus): void {
     this.status = status;
-    this.statusListeners.forEach(listener => listener(status));
+    this.statusListeners.forEach((listener) => listener(status));
   }
 
   getStatus(): WebSocketStatus {
@@ -273,9 +317,9 @@ class WebSocketManager {
   // Presence
   // ============================================
 
-  updatePresence(status: PresenceUser['status'], currentPage?: string): void {
+  updatePresence(status: PresenceUser["status"], currentPage?: string): void {
     this.send({
-      type: 'presence:update',
+      type: "presence:update",
       payload: { status, currentPage },
     });
   }
@@ -284,16 +328,19 @@ class WebSocketManager {
   // Room Management (for collaborative features)
   // ============================================
 
-  joinRoom(roomId: string, roomType: 'workorder' | 'schedule' | 'dashboard'): void {
+  joinRoom(
+    roomId: string,
+    roomType: "workorder" | "schedule" | "dashboard",
+  ): void {
     this.send({
-      type: 'room:join',
+      type: "room:join",
       payload: { roomId, roomType },
     });
   }
 
   leaveRoom(roomId: string): void {
     this.send({
-      type: 'room:leave',
+      type: "room:leave",
       payload: { roomId },
     });
   }
@@ -314,33 +361,33 @@ export const wsManager = new WebSocketManager();
  */
 export const WS_EVENTS = {
   // Work Orders
-  WORK_ORDER_CREATED: 'workorder:created',
-  WORK_ORDER_UPDATED: 'workorder:updated',
-  WORK_ORDER_DELETED: 'workorder:deleted',
-  WORK_ORDER_ASSIGNED: 'workorder:assigned',
-  WORK_ORDER_STATUS_CHANGED: 'workorder:status',
+  WORK_ORDER_CREATED: "workorder:created",
+  WORK_ORDER_UPDATED: "workorder:updated",
+  WORK_ORDER_DELETED: "workorder:deleted",
+  WORK_ORDER_ASSIGNED: "workorder:assigned",
+  WORK_ORDER_STATUS_CHANGED: "workorder:status",
 
   // Technician Locations
-  TECHNICIAN_LOCATION: 'technician:location',
-  TECHNICIAN_STATUS: 'technician:status',
+  TECHNICIAN_LOCATION: "technician:location",
+  TECHNICIAN_STATUS: "technician:status",
 
   // Schedule
-  SCHEDULE_UPDATED: 'schedule:updated',
-  SCHEDULE_CONFLICT: 'schedule:conflict',
+  SCHEDULE_UPDATED: "schedule:updated",
+  SCHEDULE_CONFLICT: "schedule:conflict",
 
   // Notifications
-  NOTIFICATION: 'notification',
+  NOTIFICATION: "notification",
 
   // Presence
-  PRESENCE_UPDATE: 'presence:update',
-  PRESENCE_LIST: 'presence:list',
-  USER_JOINED: 'user:joined',
-  USER_LEFT: 'user:left',
+  PRESENCE_UPDATE: "presence:update",
+  PRESENCE_LIST: "presence:list",
+  USER_JOINED: "user:joined",
+  USER_LEFT: "user:left",
 
   // System
-  PING: 'ping',
-  PONG: 'pong',
-  ERROR: 'error',
+  PING: "ping",
+  PONG: "pong",
+  ERROR: "error",
 } as const;
 
-export type WSEventType = typeof WS_EVENTS[keyof typeof WS_EVENTS];
+export type WSEventType = (typeof WS_EVENTS)[keyof typeof WS_EVENTS];

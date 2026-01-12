@@ -1,17 +1,17 @@
-import { Label } from '@/components/ui/Label.tsx';
-import { Select } from '@/components/ui/Select.tsx';
+import { Label } from "@/components/ui/Label.tsx";
+import { Select } from "@/components/ui/Select.tsx";
 
 interface RoleSelectorProps {
-  value: 'admin' | 'manager' | 'technician' | 'office';
-  onChange: (role: 'admin' | 'manager' | 'technician' | 'office') => void;
+  value: "admin" | "manager" | "technician" | "office";
+  onChange: (role: "admin" | "manager" | "technician" | "office") => void;
   disabled?: boolean;
 }
 
 const roleDescriptions: Record<string, string> = {
-  admin: 'Full system access - manage all settings, users, and data',
-  manager: 'View all data, manage team and schedules, no system settings',
-  technician: 'Access own work orders and schedules only',
-  office: 'Manage customers, prospects, scheduling - no admin access',
+  admin: "Full system access - manage all settings, users, and data",
+  manager: "View all data, manage team and schedules, no system settings",
+  technician: "Access own work orders and schedules only",
+  office: "Manage customers, prospects, scheduling - no admin access",
 };
 
 export function RoleSelector({ value, onChange, disabled }: RoleSelectorProps) {
@@ -22,7 +22,9 @@ export function RoleSelector({ value, onChange, disabled }: RoleSelectorProps) {
         id="role"
         value={value}
         onChange={(e) =>
-          onChange(e.target.value as 'admin' | 'manager' | 'technician' | 'office')
+          onChange(
+            e.target.value as "admin" | "manager" | "technician" | "office",
+          )
         }
         disabled={disabled}
       >

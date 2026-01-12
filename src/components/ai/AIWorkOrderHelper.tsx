@@ -2,11 +2,11 @@
  * AI Work Order Helper Component
  * Shows AI recommendations for work orders
  */
-import { Clock, Wrench, User, History } from 'lucide-react';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { Button } from '@/components/ui/Button';
-import { useWorkOrderRecommendations } from '@/hooks/useAI';
+import { Clock, Wrench, User, History } from "lucide-react";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { Button } from "@/components/ui/Button";
+import { useWorkOrderRecommendations } from "@/hooks/useAI";
 
 interface AIWorkOrderHelperProps {
   workOrderId: string;
@@ -16,8 +16,15 @@ interface AIWorkOrderHelperProps {
 /**
  * AI helper panel for work order detail view
  */
-export function AIWorkOrderHelper({ workOrderId, onAssignTechnician }: AIWorkOrderHelperProps) {
-  const { data: recommendations, isLoading, error } = useWorkOrderRecommendations(workOrderId);
+export function AIWorkOrderHelper({
+  workOrderId,
+  onAssignTechnician,
+}: AIWorkOrderHelperProps) {
+  const {
+    data: recommendations,
+    isLoading,
+    error,
+  } = useWorkOrderRecommendations(workOrderId);
 
   if (isLoading) {
     return (
@@ -48,7 +55,8 @@ export function AIWorkOrderHelper({ workOrderId, onAssignTechnician }: AIWorkOrd
         </CardHeader>
         <CardContent>
           <p className="text-sm text-text-muted">
-            AI recommendations are not available for this work order at the moment.
+            AI recommendations are not available for this work order at the
+            moment.
           </p>
         </CardContent>
       </Card>
@@ -71,7 +79,10 @@ export function AIWorkOrderHelper({ workOrderId, onAssignTechnician }: AIWorkOrd
             <p className="text-sm font-medium">
               {recommendations.estimated_duration} minutes
               <span className="text-text-muted ml-1">
-                ({Math.round(recommendations.estimated_duration / 60 * 10) / 10} hrs)
+                (
+                {Math.round((recommendations.estimated_duration / 60) * 10) /
+                  10}{" "}
+                hrs)
               </span>
             </p>
           </div>
@@ -84,8 +95,12 @@ export function AIWorkOrderHelper({ workOrderId, onAssignTechnician }: AIWorkOrd
               <div className="flex items-center gap-3">
                 <User className="w-5 h-5 text-success" />
                 <div>
-                  <p className="text-xs text-text-muted">Best Match Technician</p>
-                  <p className="text-sm font-medium">{recommendations.technician_match.name}</p>
+                  <p className="text-xs text-text-muted">
+                    Best Match Technician
+                  </p>
+                  <p className="text-sm font-medium">
+                    {recommendations.technician_match.name}
+                  </p>
                   <p className="text-xs text-text-muted">
                     Match score: {recommendations.technician_match.score}%
                   </p>
@@ -95,7 +110,9 @@ export function AIWorkOrderHelper({ workOrderId, onAssignTechnician }: AIWorkOrd
                 <Button
                   variant="primary"
                   size="sm"
-                  onClick={() => onAssignTechnician(recommendations.technician_match!.id)}
+                  onClick={() =>
+                    onAssignTechnician(recommendations.technician_match!.id)
+                  }
                 >
                   Assign
                 </Button>
@@ -134,10 +151,7 @@ export function AIWorkOrderHelper({ workOrderId, onAssignTechnician }: AIWorkOrd
             </div>
             <div className="space-y-2">
               {recommendations.similar_jobs.slice(0, 3).map((job) => (
-                <div
-                  key={job.id}
-                  className="p-2 bg-bg-muted rounded text-sm"
-                >
+                <div key={job.id} className="p-2 bg-bg-muted rounded text-sm">
                   <p className="text-text-secondary">{job.solution}</p>
                   <p className="text-xs text-text-muted mt-1">WO #{job.id}</p>
                 </div>
