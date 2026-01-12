@@ -111,7 +111,7 @@ export function TwilioSMSPanel({
     const template = SMS_TEMPLATES.find(t => t.id === selectedTemplate);
     if (template && template.content) {
       // Replace merge fields with actual values
-      let content = template.content
+      const content = template.content
         .replace('{{customer_name}}', customerName)
         .replace('{{eta_minutes}}', '15'); // Default ETA
       setMessage(content);

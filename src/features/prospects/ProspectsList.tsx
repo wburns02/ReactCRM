@@ -133,13 +133,13 @@ export function ProspectsList({
   const startItem = (page - 1) * pageSize + 1;
   const endItem = Math.min(page * pageSize, total);
 
+  // Memoized callbacks for child components - must be before any early returns
+  const handleEdit = useCallback((prospect: Prospect) => onEdit?.(prospect), [onEdit]);
+  const handleDelete = useCallback((prospect: Prospect) => onDelete?.(prospect), [onDelete]);
+
   if (isLoading) {
     return <LoadingSkeleton />;
   }
-
-  // Memoized callbacks for child components
-  const handleEdit = useCallback((prospect: Prospect) => onEdit?.(prospect), [onEdit]);
-  const handleDelete = useCallback((prospect: Prospect) => onDelete?.(prospect), [onDelete]);
 
   if (prospects.length === 0) {
     return (

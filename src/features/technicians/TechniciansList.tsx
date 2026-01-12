@@ -147,13 +147,13 @@ export function TechniciansList({
   const startItem = (page - 1) * pageSize + 1;
   const endItem = Math.min(page * pageSize, total);
 
+  // Memoized callbacks for child components - must be before any early returns
+  const handleEdit = useCallback((technician: Technician) => onEdit?.(technician), [onEdit]);
+  const handleDelete = useCallback((technician: Technician) => onDelete?.(technician), [onDelete]);
+
   if (isLoading) {
     return <LoadingSkeleton />;
   }
-
-  // Memoized callbacks for child components
-  const handleEdit = useCallback((technician: Technician) => onEdit?.(technician), [onEdit]);
-  const handleDelete = useCallback((technician: Technician) => onDelete?.(technician), [onDelete]);
 
   if (technicians.length === 0) {
     return (

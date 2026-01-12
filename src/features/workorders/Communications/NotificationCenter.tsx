@@ -39,7 +39,7 @@ const STATUS_LABELS: Record<CommunicationStatus, string> = {
   failed: 'Failed',
 };
 
-// eslint-disable-next-line @typescript-eslint/no-unused-vars
+ 
 export function NotificationCenter({ workOrderId: _workOrderId, customerId }: NotificationCenterProps) {
   const [typeFilter, setTypeFilter] = useState<FilterType>('all');
   const [statusFilter, setStatusFilter] = useState<FilterStatus>('all');
