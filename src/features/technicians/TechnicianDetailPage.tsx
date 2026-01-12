@@ -101,8 +101,13 @@ export function TechnicianDetailPage() {
 
   const handleDelete = useCallback(async () => {
     if (id) {
-      await deleteMutation.mutateAsync(id);
-      navigate("/technicians");
+      try {
+        await deleteMutation.mutateAsync(id);
+        navigate("/technicians");
+      } catch (error) {
+        console.error("Failed to delete technician:", error);
+        // TODO: Show error toast/notification to user
+      }
     }
   }, [id, deleteMutation, navigate]);
 

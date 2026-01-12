@@ -106,8 +106,13 @@ export function TechniciansPage() {
 
   const handleConfirmDelete = useCallback(async () => {
     if (deletingTechnician) {
-      await deleteMutation.mutateAsync(deletingTechnician.id);
-      setDeletingTechnician(null);
+      try {
+        await deleteMutation.mutateAsync(deletingTechnician.id);
+        setDeletingTechnician(null);
+      } catch (error) {
+        console.error("Failed to delete technician:", error);
+        // Keep the dialog open on error so user can try again
+      }
     }
   }, [deletingTechnician, deleteMutation]);
 
