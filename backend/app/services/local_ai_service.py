@@ -397,6 +397,246 @@ Respond in JSON format:
                 "reasoning": str(e)
             }
 
+    async def analyze_image(
+        self,
+        image_base64: str,
+        prompt: str = "Describe this image in detail. If it's a septic system or plumbing equipment, identify any issues or equipment visible.",
+        context: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Analyze an image using LLaVA vision model.
+
+        Args:
+            image_base64: Base64 encoded image
+            prompt: Analysis prompt
+            context: Optional context about the image
+
+        Returns:
+            Dict with analysis results
+        """
+        start_time = time.time()
+
+        full_prompt = prompt
+        if context:
+            full_prompt = f"Context: {context}\n\n{prompt}"
+
+        try:
+            async with aiohttp.ClientSession(timeout=self.timeout) as session:
+                payload = {
+                    "model": self.llava_model,
+                    "prompt": full_prompt,
+                    "images": [image_base64],
+                    "stream": False
+                }
+
+                async with session.post(
+                    f"{self.ollama_base_url}/api/generate",
+                    json=payload
+                ) as resp:
+                    if resp.status != 200:
+                        error_text = await resp.text()
+                        raise LocalAIError(f"LLaVA request failed: {resp.status} - {error_text}")
+
+                    result = await resp.json()
+                    processing_time = time.time() - start_time
+
+                    return {
+                        "status": "success",
+                        "analysis": result.get("response", ""),
+                        "model": self.llava_model,
+                        "processing_time_seconds": processing_time
+                    }
+
+        except aiohttp.ClientError as e:
+            logger.error(f"LLaVA connection error: {e}")
+            raise LocalAIError(f"Failed to connect to LLaVA: {str(e)}")
+        except Exception as e:
+            logger.error(f"Image analysis error: {e}")
+            raise LocalAIError(f"Image analysis failed: {str(e)}")
+
+    async def analyze_work_order_photo(
+        self,
+        image_base64: str,
+        work_order_type: str = "septic"
+    ) -> Dict[str, Any]:
+        """
+        Analyze a work order photo for equipment issues and recommendations.
+
+        Args:
+            image_base64: Base64 encoded image
+            work_order_type: Type of work (septic, hvac, plumbing)
+
+        Returns:
+            Structured analysis with issues, equipment, and recommendations
+        """
+        prompt = f"""Analyze this {work_order_type} service photo. Provide your analysis in JSON format:
+
+{{
+    "description": "Brief description of what's shown",
+    "equipment_identified": ["list of equipment/components visible"],
+    "issues_detected": ["list of any problems or concerns"],
+    "condition_rating": "excellent/good/fair/poor/critical",
+    "recommendations": ["list of recommended actions"],
+    "urgency": "none/low/medium/high/emergency",
+    "additional_notes": "any other relevant observations"
+}}
+
+Respond ONLY with valid JSON."""
+
+        try:
+            result = await self.analyze_image(image_base64, prompt)
+
+            if result["status"] == "success":
+                try:
+                    analysis = json.loads(result["analysis"])
+                    return {
+                        "status": "success",
+                        "structured_analysis": analysis,
+                        "raw_response": result["analysis"],
+                        "model": result["model"],
+                        "processing_time_seconds": result["processing_time_seconds"]
+                    }
+                except json.JSONDecodeError:
+                    return {
+                        "status": "success",
+                        "structured_analysis": None,
+                        "raw_response": result["analysis"],
+                        "model": result["model"],
+                        "processing_time_seconds": result["processing_time_seconds"],
+                        "parse_warning": "Response was not valid JSON"
+                    }
+            else:
+                return result
+
+        except Exception as e:
+            logger.error(f"Work order photo analysis error: {e}")
+            raise LocalAIError(f"Photo analysis failed: {str(e)}")
+
+    async def extract_document_data(
+        self,
+        image_base64: str,
+        document_type: str = "service_record"
+    ) -> Dict[str, Any]:
+        """
+        Extract structured data from a scanned document using LLaVA OCR.
+
+        Args:
+            image_base64: Base64 encoded document image
+            document_type: Type of document (service_record, invoice, permit, inspection)
+
+        Returns:
+            Extracted structured data
+        """
+        prompt = f"""This is a scanned {document_type} document. Extract all text and data visible.
+
+Return your extraction in JSON format:
+{{
+    "raw_text": "All text visible in the document",
+    "extracted_data": {{
+        "customer_name": "extracted if found or null",
+        "address": "extracted if found or null",
+        "phone": "extracted if found or null",
+        "email": "extracted if found or null",
+        "date": "any dates found or null",
+        "amount": "any dollar amounts found or null",
+        "service_type": "type of service if mentioned or null",
+        "tank_info": "septic tank details if found or null",
+        "permit_number": "permit/license number if found or null",
+        "technician": "technician name if found or null",
+        "notes": "any handwritten or typed notes"
+    }},
+    "confidence": 0.95,
+    "handwriting_detected": true,
+    "document_quality": "good/fair/poor",
+    "needs_review": false
+}}
+
+Extract as much information as possible. For handwritten text, do your best to interpret it.
+Respond ONLY with valid JSON."""
+
+        try:
+            result = await self.analyze_image(image_base64, prompt)
+
+            if result["status"] == "success":
+                try:
+                    extracted = json.loads(result["analysis"])
+                    return {
+                        "status": "success",
+                        "extraction": extracted,
+                        "model": result["model"],
+                        "processing_time_seconds": result["processing_time_seconds"]
+                    }
+                except json.JSONDecodeError:
+                    return {
+                        "status": "partial",
+                        "raw_text": result["analysis"],
+                        "extraction": None,
+                        "model": result["model"],
+                        "processing_time_seconds": result["processing_time_seconds"],
+                        "error": "Could not parse structured data"
+                    }
+            else:
+                return result
+
+        except Exception as e:
+            logger.error(f"Document extraction error: {e}")
+            raise LocalAIError(f"Document extraction failed: {str(e)}")
+
+    async def heavy_analysis(
+        self,
+        prompt: str,
+        context: Optional[str] = None
+    ) -> Dict[str, Any]:
+        """
+        Use the heavy qwen2.5:32b model on hctg-ai for complex reasoning tasks.
+
+        Args:
+            prompt: The analysis prompt
+            context: Optional additional context
+
+        Returns:
+            Analysis results from the 32B model
+        """
+        start_time = time.time()
+
+        full_prompt = prompt
+        if context:
+            full_prompt = f"Context:\n{context}\n\nTask:\n{prompt}"
+
+        try:
+            async with aiohttp.ClientSession(timeout=self.timeout) as session:
+                payload = {
+                    "model": self.hctg_ai_model,
+                    "prompt": full_prompt,
+                    "stream": False
+                }
+
+                async with session.post(
+                    f"{self.hctg_ai_url}/api/generate",
+                    json=payload
+                ) as resp:
+                    if resp.status != 200:
+                        error_text = await resp.text()
+                        raise LocalAIError(f"Heavy analysis request failed: {resp.status} - {error_text}")
+
+                    result = await resp.json()
+                    processing_time = time.time() - start_time
+
+                    return {
+                        "status": "success",
+                        "response": result.get("response", ""),
+                        "model": self.hctg_ai_model,
+                        "server": "hctg-ai",
+                        "processing_time_seconds": processing_time
+                    }
+
+        except aiohttp.ClientError as e:
+            logger.error(f"Heavy analysis connection error: {e}")
+            raise LocalAIError(f"Failed to connect to hctg-ai: {str(e)}")
+        except Exception as e:
+            logger.error(f"Heavy analysis error: {e}")
+            raise LocalAIError(f"Heavy analysis failed: {str(e)}")
+
 
 # Create singleton instance
 local_ai_service = LocalAIService()
