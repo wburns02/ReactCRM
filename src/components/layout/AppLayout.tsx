@@ -4,6 +4,7 @@ import { useAuth } from "@/features/auth/useAuth.ts";
 import { RCStatusIndicator } from "@/features/phone/index.ts";
 import { NotificationCenter } from "@/features/notifications/index.ts";
 import { ConnectionStatus } from "@/components/ui/ConnectionStatus";
+import { OnboardingAssistant } from "@/features/onboarding/components/OnboardingAssistant";
 
 /**
  * Navigation item type
@@ -321,6 +322,9 @@ export function AppLayout() {
           <Outlet />
         </div>
       </main>
+
+      {/* AI Onboarding Assistant */}
+      <OnboardingAssistant />
     </div>
   );
 }

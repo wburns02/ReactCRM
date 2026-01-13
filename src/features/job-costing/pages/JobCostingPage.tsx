@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useCostReportsSummary, COST_TYPES } from "../api/jobCosting.ts";
 import { JobCostList } from "../components/JobCostList.tsx";
+import { JobProfitabilityPanel } from "../components/JobProfitabilityPanel.tsx";
 import {
   Card,
   CardHeader,
@@ -145,6 +146,11 @@ export function JobCostingPage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* AI Profitability Panel */}
+      <JobProfitabilityPanel
+        dateRange={{ start: dateRange.from, end: dateRange.to }}
+      />
 
       {/* Cost Breakdown by Type */}
       {reports?.by_type && Object.keys(reports.by_type).length > 0 && (

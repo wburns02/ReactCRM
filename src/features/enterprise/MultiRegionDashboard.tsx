@@ -13,6 +13,7 @@ import {
 } from "@/api/hooks/useEnterprise";
 import type { Region, MultiRegionFilters } from "@/api/types/enterprise";
 import { formatCurrency, cn } from "@/lib/utils";
+import { BenchmarkingPanel } from "./components/BenchmarkingPanel";
 
 export function MultiRegionDashboard() {
   const [selectedMetric, setSelectedMetric] = useState<string>("total_revenue");
@@ -102,6 +103,9 @@ export function MultiRegionDashboard() {
           icon="🔧"
         />
       </div>
+
+      {/* AI Benchmarking Panel */}
+      <BenchmarkingPanel />
 
       {/* Metric Selector */}
       <Card>

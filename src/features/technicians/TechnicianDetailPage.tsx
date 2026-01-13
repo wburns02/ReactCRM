@@ -35,6 +35,7 @@ import {
   type WorkOrderStatus,
   type JobType,
 } from "@/api/types/workOrder.ts";
+import { TechnicianCoachPanel } from "./components/TechnicianCoachPanel";
 
 /**
  * Technician detail page - shows full technician info with edit/delete
@@ -180,6 +181,11 @@ export function TechnicianDetailPage() {
             Delete
           </Button>
         </div>
+      </div>
+
+      {/* AI Performance Coach */}
+      <div className="mb-6">
+        <TechnicianCoachPanel technicianId={id} />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">

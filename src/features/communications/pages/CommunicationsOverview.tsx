@@ -4,6 +4,7 @@ import { useQuery } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
 import { SMSComposeModal } from "@/features/sms/SMSComposeModal";
 import { EmailComposeModal } from "../components/EmailComposeModal";
+import { CommunicationOptimizerPanel } from "../components/CommunicationOptimizerPanel";
 
 /**
  * Communications Overview - Unified Inbox Dashboard
@@ -117,6 +118,11 @@ export function CommunicationsOverview() {
             )}
           </Link>
         ))}
+      </div>
+
+      {/* AI Communication Optimizer */}
+      <div className="mb-6">
+        <CommunicationOptimizerPanel />
       </div>
 
       {/* Recent Activity */}

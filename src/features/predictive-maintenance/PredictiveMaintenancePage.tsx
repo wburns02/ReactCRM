@@ -13,6 +13,7 @@ import {
   type MaintenancePrediction,
   type PredictionFilters,
 } from "@/api/hooks/usePredictiveMaintenance";
+import { AutoSchedulePanel } from "./components/AutoSchedulePanel";
 
 /**
  * Risk Level Badge Component
@@ -320,6 +321,9 @@ export function PredictiveMaintenancePage() {
           </CardContent>
         </Card>
       </div>
+
+      {/* AI Auto-Scheduler */}
+      <AutoSchedulePanel onScheduleCreated={() => refetch()} />
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Main Content - Predictions List */}
