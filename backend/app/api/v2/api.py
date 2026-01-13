@@ -4,7 +4,7 @@ Main API router for v2 endpoints.
 
 from fastapi import APIRouter
 
-from app.api.v2.endpoints import ai_assistant, ringcentral, call_dispositions, webhooks, jobs
+from app.api.v2.endpoints import ai_assistant, ringcentral, call_dispositions, webhooks, jobs, local_ai
 
 # Create main API router
 api_router = APIRouter()
@@ -42,4 +42,11 @@ api_router.include_router(
     jobs.router,
     prefix="/jobs",
     tags=["jobs"]
+)
+
+# Local AI (R730 ML Workstation) endpoints
+api_router.include_router(
+    local_ai.router,
+    prefix="/local-ai",
+    tags=["local-ai"]
 )

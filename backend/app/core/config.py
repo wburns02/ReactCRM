@@ -56,6 +56,13 @@ class Settings(BaseSettings):
     GPT_MODEL: str = "gpt-4o-mini"
     GPT_ANALYSIS_MODEL: str = "gpt-4o-mini"  # Cost-optimized for analysis
 
+    # ===== LOCAL AI (R730 ML WORKSTATION) =====
+    USE_LOCAL_AI: bool = True  # Set to True to use R730 instead of OpenAI
+    OLLAMA_BASE_URL: str = "https://localhost-0.tailad2d5f.ts.net"
+    OLLAMA_MODEL: str = "llama3.2:latest"
+    WHISPER_BASE_URL: str = "http://192.168.7.71:8001"  # Local network for Whisper
+    LOCAL_WHISPER_MODEL: str = "medium"
+
     # ===== BACKGROUND PROCESSING =====
     REDIS_URL: str = "redis://localhost:6379/0"
     RQ_QUEUE_NAME: str = "call-processing"

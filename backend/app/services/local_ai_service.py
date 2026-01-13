@@ -1,0 +1,397 @@
+"""
+Local AI service using Ollama on the R730 ML Workstation.
+Provides transcription (via Whisper) and analysis (via LLaMA) without external API costs.
+"""
+
+import logging
+import asyncio
+import time
+import json
+import aiohttp
+from typing import Optional, Dict, Any, List
+from datetime import datetime
+
+from app.core.config import settings
+
+logger = logging.getLogger(__name__)
+
+
+class LocalAIError(Exception):
+    """Custom exception for local AI service errors."""
+    pass
+
+
+class LocalAIService:
+    """
+    Service for AI processing using local R730 ML Workstation.
+    Uses Ollama for LLM analysis and local Whisper for transcription.
+    """
+
+    def __init__(self):
+        """Initialize local AI service with R730 endpoints."""
+        # R730 ML Workstation endpoints via Tailscale Funnel
+        self.ollama_base_url = getattr(settings, 'OLLAMA_BASE_URL', 'https://localhost-0.tailad2d5f.ts.net')
+        self.whisper_base_url = getattr(settings, 'WHISPER_BASE_URL', 'https://localhost-0.tailad2d5f.ts.net:8001')
+        self.model = getattr(settings, 'OLLAMA_MODEL', 'llama3.2:latest')
+        self.whisper_model = getattr(settings, 'LOCAL_WHISPER_MODEL', 'medium')
+        self.timeout = aiohttp.ClientTimeout(total=300)  # 5 minute timeout
+
+    async def health_check(self) -> Dict[str, Any]:
+        """Check if local AI services are available."""
+        results = {
+            "ollama": False,
+            "whisper": False,
+            "ollama_models": [],
+            "timestamp": datetime.utcnow().isoformat()
+        }
+
+        async with aiohttp.ClientSession(timeout=self.timeout) as session:
+            # Check Ollama
+            try:
+                async with session.get(f"{self.ollama_base_url}/api/tags") as resp:
+                    if resp.status == 200:
+                        data = await resp.json()
+                        results["ollama"] = True
+                        results["ollama_models"] = [m["name"] for m in data.get("models", [])]
+            except Exception as e:
+                logger.warning(f"Ollama health check failed: {e}")
+
+            # Check Whisper API
+            try:
+                async with session.get(f"{self.whisper_base_url}/health") as resp:
+                    if resp.status == 200:
+                        data = await resp.json()
+                        results["whisper"] = True
+                        results["whisper_info"] = data
+            except Exception as e:
+                logger.warning(f"Whisper health check failed: {e}")
+
+        return results
+
+    async def analyze_call_transcript(
+        self,
+        transcript: str,
+        call_metadata: Optional[Dict[str, Any]] = None
+    ) -> Dict[str, Any]:
+        """
+        Analyze a call transcript using Ollama LLM.
+
+        Args:
+            transcript: The call transcript text
+            call_metadata: Optional metadata about the call
+
+        Returns:
+            Dict with analysis results
+        """
+        start_time = time.time()
+
+        # Build analysis prompt
+        prompt = self._build_analysis_prompt(transcript, call_metadata)
+
+        try:
+            async with aiohttp.ClientSession(timeout=self.timeout) as session:
+                payload = {
+                    "model": self.model,
+                    "prompt": prompt,
+                    "stream": False,
+                    "format": "json"
+                }
+
+                async with session.post(
+                    f"{self.ollama_base_url}/api/generate",
+                    json=payload
+                ) as resp:
+                    if resp.status != 200:
+                        error_text = await resp.text()
+                        raise LocalAIError(f"Ollama request failed: {resp.status} - {error_text}")
+
+                    result = await resp.json()
+                    response_text = result.get("response", "")
+
+                    # Parse JSON response
+                    try:
+                        analysis = json.loads(response_text)
+                    except json.JSONDecodeError:
+                        # If not valid JSON, wrap in structure
+                        analysis = {
+                            "raw_analysis": response_text,
+                            "parse_error": True
+                        }
+
+                    processing_time = time.time() - start_time
+
+                    return {
+                        "status": "success",
+                        "analysis": analysis,
+                        "model": self.model,
+                        "processing_time_seconds": processing_time,
+                        "tokens": {
+                            "prompt": result.get("prompt_eval_count", 0),
+                            "response": result.get("eval_count", 0)
+                        }
+                    }
+
+        except aiohttp.ClientError as e:
+            logger.error(f"Ollama connection error: {e}")
+            raise LocalAIError(f"Failed to connect to Ollama: {str(e)}")
+        except Exception as e:
+            logger.error(f"Analysis error: {e}")
+            raise LocalAIError(f"Analysis failed: {str(e)}")
+
+    def _build_analysis_prompt(
+        self,
+        transcript: str,
+        metadata: Optional[Dict[str, Any]] = None
+    ) -> str:
+        """Build the analysis prompt for Ollama."""
+        context = ""
+        if metadata:
+            context = f"""
+Call Information:
+- Direction: {metadata.get('direction', 'unknown')}
+- Duration: {metadata.get('duration_seconds', 0)} seconds
+- From: {metadata.get('from_number', 'unknown')}
+- To: {metadata.get('to_number', 'unknown')}
+"""
+
+        return f"""You are a CRM call analysis assistant for an HVAC service company. Analyze the following call transcript and provide a structured JSON response.
+
+{context}
+
+Transcript:
+{transcript}
+
+Provide your analysis in the following JSON format:
+{{
+    "overall_sentiment": "positive" | "neutral" | "negative",
+    "sentiment_score": <number from -100 to 100>,
+    "sentiment_trajectory": "improving" | "stable" | "declining",
+    "quality_scores": {{
+        "professionalism": <0-100>,
+        "empathy": <0-100>,
+        "clarity": <0-100>,
+        "resolution": <0-100>,
+        "overall": <0-100>
+    }},
+    "escalation_risk": "low" | "medium" | "high",
+    "escalation_factors": [<list of risk factors if any>],
+    "key_topics": [<list of main topics discussed>],
+    "action_items": [<list of follow-up actions needed>],
+    "customer_intent": "<brief description of what customer wanted>",
+    "call_outcome": "<brief description of call result>",
+    "predicted_disposition": "<suggested call disposition category>",
+    "disposition_confidence": <0-100>,
+    "disposition_reasoning": [<list of reasons for disposition choice>],
+    "coaching_insights": {{
+        "strengths": [<what agent did well>],
+        "improvements": [<areas for improvement>],
+        "recommendations": [<specific coaching tips>]
+    }},
+    "summary": "<2-3 sentence summary of the call>"
+}}
+
+Respond ONLY with valid JSON, no additional text."""
+
+    async def transcribe_audio(
+        self,
+        audio_url: str,
+        language: str = "en"
+    ) -> Dict[str, Any]:
+        """
+        Transcribe audio using local Whisper on R730.
+
+        Args:
+            audio_url: URL to the audio file
+            language: Language code (default: en)
+
+        Returns:
+            Dict with transcription results
+        """
+        start_time = time.time()
+
+        try:
+            async with aiohttp.ClientSession(timeout=self.timeout) as session:
+                # Use the URL transcription endpoint
+                params = {"url": audio_url, "language": language}
+
+                async with session.post(
+                    f"{self.whisper_base_url}/transcribe_url",
+                    params=params
+                ) as resp:
+                    if resp.status != 200:
+                        error_text = await resp.text()
+                        raise LocalAIError(f"Whisper request failed: {resp.status} - {error_text}")
+
+                    result = await resp.json()
+                    processing_time = time.time() - start_time
+
+                    return {
+                        "status": "success",
+                        "text": result.get("text", ""),
+                        "language": result.get("language", language),
+                        "segments": result.get("segments", []),
+                        "processing_time_seconds": processing_time,
+                        "model": self.whisper_model
+                    }
+
+        except aiohttp.ClientError as e:
+            logger.error(f"Whisper connection error: {e}")
+            raise LocalAIError(f"Failed to connect to Whisper: {str(e)}")
+        except Exception as e:
+            logger.error(f"Transcription error: {e}")
+            raise LocalAIError(f"Transcription failed: {str(e)}")
+
+    async def transcribe_audio_file(
+        self,
+        file_path: str,
+        language: str = "en"
+    ) -> Dict[str, Any]:
+        """
+        Transcribe a local audio file using Whisper on R730.
+
+        Args:
+            file_path: Path to the audio file
+            language: Language code (default: en)
+
+        Returns:
+            Dict with transcription results
+        """
+        start_time = time.time()
+
+        try:
+            async with aiohttp.ClientSession(timeout=self.timeout) as session:
+                # Read file and upload
+                with open(file_path, 'rb') as f:
+                    data = aiohttp.FormData()
+                    data.add_field('file', f, filename=file_path.split('/')[-1])
+                    data.add_field('language', language)
+
+                    async with session.post(
+                        f"{self.whisper_base_url}/transcribe",
+                        data=data
+                    ) as resp:
+                        if resp.status != 200:
+                            error_text = await resp.text()
+                            raise LocalAIError(f"Whisper request failed: {resp.status} - {error_text}")
+
+                        result = await resp.json()
+                        processing_time = time.time() - start_time
+
+                        return {
+                            "status": "success",
+                            "text": result.get("text", ""),
+                            "language": result.get("language", language),
+                            "segments": result.get("segments", []),
+                            "processing_time_seconds": processing_time,
+                            "model": self.whisper_model
+                        }
+
+        except FileNotFoundError:
+            raise LocalAIError(f"Audio file not found: {file_path}")
+        except Exception as e:
+            logger.error(f"Transcription error: {e}")
+            raise LocalAIError(f"Transcription failed: {str(e)}")
+
+    async def generate_call_summary(self, transcript: str) -> str:
+        """Generate a brief summary of a call transcript."""
+        prompt = f"""Summarize this customer service call in 2-3 sentences:
+
+{transcript}
+
+Summary:"""
+
+        try:
+            async with aiohttp.ClientSession(timeout=self.timeout) as session:
+                payload = {
+                    "model": self.model,
+                    "prompt": prompt,
+                    "stream": False
+                }
+
+                async with session.post(
+                    f"{self.ollama_base_url}/api/generate",
+                    json=payload
+                ) as resp:
+                    if resp.status == 200:
+                        result = await resp.json()
+                        return result.get("response", "").strip()
+                    else:
+                        return "Unable to generate summary"
+
+        except Exception as e:
+            logger.error(f"Summary generation error: {e}")
+            return "Unable to generate summary"
+
+    async def suggest_disposition(
+        self,
+        transcript: str,
+        available_dispositions: List[str]
+    ) -> Dict[str, Any]:
+        """
+        Suggest the best disposition for a call.
+
+        Args:
+            transcript: Call transcript
+            available_dispositions: List of valid disposition options
+
+        Returns:
+            Dict with suggested disposition and confidence
+        """
+        dispositions_str = "\n".join(f"- {d}" for d in available_dispositions)
+
+        prompt = f"""Based on this call transcript, select the most appropriate disposition from the list below.
+
+Available Dispositions:
+{dispositions_str}
+
+Transcript:
+{transcript}
+
+Respond in JSON format:
+{{
+    "disposition": "<selected disposition from list>",
+    "confidence": <0-100>,
+    "reasoning": "<brief explanation>"
+}}"""
+
+        try:
+            async with aiohttp.ClientSession(timeout=self.timeout) as session:
+                payload = {
+                    "model": self.model,
+                    "prompt": prompt,
+                    "stream": False,
+                    "format": "json"
+                }
+
+                async with session.post(
+                    f"{self.ollama_base_url}/api/generate",
+                    json=payload
+                ) as resp:
+                    if resp.status == 200:
+                        result = await resp.json()
+                        try:
+                            return json.loads(result.get("response", "{}"))
+                        except json.JSONDecodeError:
+                            return {
+                                "disposition": None,
+                                "confidence": 0,
+                                "reasoning": "Failed to parse response"
+                            }
+                    else:
+                        return {
+                            "disposition": None,
+                            "confidence": 0,
+                            "reasoning": f"Request failed: {resp.status}"
+                        }
+
+        except Exception as e:
+            logger.error(f"Disposition suggestion error: {e}")
+            return {
+                "disposition": None,
+                "confidence": 0,
+                "reasoning": str(e)
+            }
+
+
+# Create singleton instance
+local_ai_service = LocalAIService()
