@@ -45,3 +45,7 @@ yarn-error.log*
 .aider*
 audit-results/
 tmpclaude-*
+
+# Claude-to-Claude coordination
+claude-mesh-logs/
+claude-mesh-response.json
