@@ -36,6 +36,27 @@ export {
   type ActivityResult
 } from './adapters/ActivityAIAdapter';
 
+export {
+  DispatchAIAdapter,
+  validateDispatchQuery,
+  type DispatchQuery,
+  type DispatchResult
+} from './adapters/DispatchAIAdapter';
+
+export {
+  TicketAIAdapter,
+  validateTicketQuery,
+  type TicketQuery,
+  type TicketResult
+} from './adapters/TicketAIAdapter';
+
+export {
+  SearchAIAdapter,
+  validateSearchQuery,
+  type SearchQuery,
+  type SearchResult
+} from './adapters/SearchAIAdapter';
+
 // Re-export types for convenience
 export type {
   AIContext,

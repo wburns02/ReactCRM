@@ -12,6 +12,9 @@ import { QueryProcessor } from './QueryProcessor';
 import { ContextManager } from './ContextManager';
 import { ActionOrchestrator } from './ActionOrchestrator';
 import { ActivityAIAdapter } from './adapters/ActivityAIAdapter';
+import { DispatchAIAdapter } from './adapters/DispatchAIAdapter';
+import { TicketAIAdapter } from './adapters/TicketAIAdapter';
+import { SearchAIAdapter } from './adapters/SearchAIAdapter';
 import type {
   AIContext,
   AIConversation,
@@ -72,7 +75,9 @@ export function useAIAssistant(conversationId?: string): UseAIAssistantReturn {
 
     // Register AI adapters
     orchestrator.registerAdapter(new ActivityAIAdapter());
-    // TODO: Register other adapters (DispatchAI, TicketAI, etc.)
+    orchestrator.registerAdapter(new DispatchAIAdapter());
+    orchestrator.registerAdapter(new TicketAIAdapter());
+    orchestrator.registerAdapter(new SearchAIAdapter());
 
     return { orchestrator, contextManager, actionOrchestrator };
   }, []);
