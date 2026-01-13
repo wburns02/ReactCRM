@@ -244,13 +244,22 @@ export const aiApi = {
    * Analyze data with AI
    */
   async analyze(params: {
-    type: "revenue" | "performance" | "trends" | "anomalies";
+    type: "revenue" | "performance" | "trends" | "anomalies" | "billing" | "payment_prediction" | "equipment" | "maintenance";
+    data?: Record<string, unknown>;
+    question?: string;
     date_range?: { start: string; end: string };
     filters?: Record<string, unknown>;
   }): Promise<{
     summary: string;
     insights: string[];
     charts_data: Record<string, unknown>;
+    analysis?: string;
+    prediction?: {
+      likelihood: number;
+      daysToPayment: number;
+      riskLevel: "low" | "medium" | "high";
+      recommendation: string;
+    };
   }> {
     const { data } = await apiClient.post("/ai/analyze", params);
     return data;

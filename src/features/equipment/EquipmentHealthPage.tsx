@@ -2,12 +2,13 @@ import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import { useEquipment } from "@/api/hooks/useEquipment.ts";
 import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
-import { Card, CardContent } from "@/components/ui/Card.tsx";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { Input } from "@/components/ui/Input.tsx";
 import { Select } from "@/components/ui/Select.tsx";
 import { cn, formatDate } from "@/lib/utils.ts";
+import { useAIAnalyze } from "@/hooks/useAI";
 import type { Equipment } from "@/api/types/equipment.ts";
 import type { WorkOrder } from "@/api/types/workOrder.ts";
 
@@ -30,6 +31,166 @@ interface EquipmentHealth {
   predictedReplacementDate: string | null;
   riskFactors: string[];
   recommendations: string[];
+}
+
+/**
+ * AI Predictive Maintenance Panel
+ */
+interface AIPredictiveMaintenanceProps {
+  stats: { critical: number; warning: number; good: number; avgHealth: number; total: number };
+  equipmentHealth: EquipmentHealth[];
+}
+
+function AIPredictiveMaintenance({ stats, equipmentHealth }: AIPredictiveMaintenanceProps) {
+  const [insights, setInsights] = useState<string | null>(null);
+  const [showPanel, setShowPanel] = useState(false);
+  const analyzeAI = useAIAnalyze();
+
+  const generateInsights = async () => {
+    const criticalEquipment = equipmentHealth.filter(eh => eh.healthScore < 50);
+    const upcomingMaintenance = equipmentHealth.filter(eh => {
+      const nextService = new Date(eh.nextRecommendedService);
+      const twoWeeksFromNow = new Date();
+      twoWeeksFromNow.setDate(twoWeeksFromNow.getDate() + 14);
+      return nextService <= twoWeeksFromNow;
+    });
+
+    try {
+      const result = await analyzeAI.mutateAsync({
+        type: "maintenance",
+        data: {
+          total_equipment: stats.total,
+          critical_count: stats.critical,
+          warning_count: stats.warning,
+          good_count: stats.good,
+          avg_health: stats.avgHealth,
+          critical_equipment: criticalEquipment.map(eh => ({
+            name: eh.equipment.name,
+            type: eh.equipment.type,
+            health: eh.healthScore,
+            risks: eh.riskFactors,
+          })),
+          upcoming_maintenance: upcomingMaintenance.length,
+        },
+        question: "Analyze equipment fleet health and provide predictive maintenance recommendations",
+      });
+      const formatted = result.analysis ||
+        (result.summary + "\n\n" + (result.insights || []).join("\n"));
+      setInsights(formatted || "Analysis complete.");
+    } catch {
+      setInsights(generateDemoMaintenanceInsights(stats, equipmentHealth));
+    }
+  };
+
+  function generateDemoMaintenanceInsights(
+    s: typeof stats,
+    health: EquipmentHealth[]
+  ): string {
+    const criticalItems = health.filter(eh => eh.healthScore < 50);
+    const overdueItems = health.filter(eh => {
+      if (!eh.equipment.next_maintenance) return false;
+      return new Date(eh.equipment.next_maintenance) < new Date();
+    });
+
+    let insights = `**AI Predictive Maintenance Analysis (Demo Mode)**\n\n`;
+    insights += `**Fleet Overview:**\n`;
+    insights += `- Total Equipment: ${s.total}\n`;
+    insights += `- Average Fleet Health: ${s.avgHealth.toFixed(0)}%\n`;
+    insights += `- Critical Items: ${s.critical}\n`;
+    insights += `- Needs Attention: ${s.warning}\n\n`;
+
+    if (criticalItems.length > 0) {
+      insights += `**Immediate Action Required:**\n`;
+      criticalItems.slice(0, 3).forEach(item => {
+        insights += `- ${item.equipment.name}: Health ${item.healthScore}% - ${item.riskFactors[0] || "Needs inspection"}\n`;
+      });
+      insights += `\n`;
+    }
+
+    if (overdueItems.length > 0) {
+      insights += `**Overdue Maintenance (${overdueItems.length} items):**\n`;
+      insights += `Schedule maintenance for these items immediately to prevent failures.\n\n`;
+    }
+
+    insights += `**AI Predictions:**\n`;
+    if (s.critical > 0) {
+      insights += `- ${s.critical} equipment items at risk of failure within 30 days\n`;
+    }
+    if (s.avgHealth < 70) {
+      insights += `- Fleet health below target. Recommend increasing maintenance frequency\n`;
+    }
+    if (s.avgHealth >= 80) {
+      insights += `- Fleet is in good condition. Continue current maintenance schedule\n`;
+    }
+
+    insights += `\n**Recommendations:**\n`;
+    insights += `1. ${s.critical > 0 ? "Address critical equipment immediately" : "No critical items - maintain current schedule"}\n`;
+    insights += `2. ${s.warning > 2 ? "Schedule batch maintenance for warning items" : "Warning items are manageable"}\n`;
+    insights += `3. Consider predictive replacement for equipment older than 8 years\n`;
+
+    return insights;
+  }
+
+  if (!showPanel) {
+    return (
+      <button
+        onClick={() => setShowPanel(true)}
+        className="flex items-center gap-2 text-sm text-purple-500 hover:text-purple-400 transition-colors"
+      >
+        <span>✨</span>
+        <span>Get AI Predictive Maintenance Insights</span>
+      </button>
+    );
+  }
+
+  return (
+    <Card className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border-purple-500/30">
+      <CardHeader>
+        <div className="flex items-center justify-between">
+          <CardTitle className="flex items-center gap-2">
+            <span>✨</span>
+            AI Predictive Maintenance
+          </CardTitle>
+          <button
+            onClick={() => setShowPanel(false)}
+            className="text-text-muted hover:text-text-primary text-sm"
+          >
+            Close
+          </button>
+        </div>
+      </CardHeader>
+      <CardContent>
+        {!insights ? (
+          <div className="space-y-3">
+            <p className="text-sm text-text-secondary">
+              AI will analyze your equipment fleet and provide predictive maintenance recommendations.
+            </p>
+            <Button
+              onClick={generateInsights}
+              disabled={analyzeAI.isPending}
+              className="bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+            >
+              {analyzeAI.isPending ? "Analyzing Fleet..." : "Analyze Equipment Fleet"}
+            </Button>
+          </div>
+        ) : (
+          <div className="space-y-3">
+            <div className="text-sm text-text-secondary whitespace-pre-wrap">
+              {insights}
+            </div>
+            <Button
+              size="sm"
+              variant="secondary"
+              onClick={generateInsights}
+              disabled={analyzeAI.isPending}
+            >
+              {analyzeAI.isPending ? "..." : "Refresh Analysis"}
+            </Button>
+          </div>
+        )}
+      </CardContent>
+    </Card>
+  );
 }
 
 /**
@@ -388,6 +549,11 @@ export function EquipmentHealthPage() {
             Monitor equipment condition and plan maintenance
           </p>
         </div>
+      </div>
+
+      {/* AI Predictive Maintenance */}
+      <div className="mb-6">
+        <AIPredictiveMaintenance stats={stats} equipmentHealth={equipmentHealth} />
       </div>
 
       {/* Summary Stats */}
