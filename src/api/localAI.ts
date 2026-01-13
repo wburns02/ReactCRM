@@ -54,6 +54,7 @@ export interface DocumentOCRResult {
 
 export interface TranscriptionResult {
   transcript: string;
+  text?: string; // Alias for backward compatibility
   segments?: Array<{
     start: number;
     end: number;
@@ -61,7 +62,7 @@ export interface TranscriptionResult {
   }>;
   language: string;
   duration_seconds: number;
-  model_used: string;
+  model_used?: string;
 }
 
 export interface HeavyAnalysisResult {
@@ -214,6 +215,26 @@ export const localAIApi = {
     const { data } = await apiClient.post<TranscriptionResult>("/local-ai/transcribe", {
       audio_url: audioUrl,
       language,
+    });
+    return data;
+  },
+
+  /**
+   * Upload and transcribe an audio file using local Whisper
+   */
+  async uploadAndTranscribeAudio(
+    file: Blob,
+    language: string = "en",
+    filename: string = "recording.webm"
+  ): Promise<TranscriptionResult & { filename: string; file_size_bytes: number }> {
+    const formData = new FormData();
+    formData.append("file", file, filename);
+    formData.append("language", language);
+
+    const { data } = await apiClient.post("/local-ai/transcribe/upload", formData, {
+      headers: {
+        "Content-Type": "multipart/form-data",
+      },
     });
     return data;
   },

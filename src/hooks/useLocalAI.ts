@@ -238,12 +238,35 @@ export function useDispositionSuggestionMutation() {
 // ===== TRANSCRIPTION HOOKS =====
 
 /**
- * Mutation hook for audio transcription
+ * Mutation hook for audio transcription from URL
  */
 export function useTranscriptionMutation() {
   return useMutation({
     mutationFn: async ({ audioUrl, language }: { audioUrl: string; language?: string }) => {
       return localAIApi.transcribeAudio(audioUrl, language || "en");
+    },
+  });
+}
+
+/**
+ * Mutation hook for audio file upload and transcription
+ */
+export function useAudioUploadTranscriptionMutation() {
+  return useMutation({
+    mutationFn: async ({
+      file,
+      language,
+      filename,
+    }: {
+      file: Blob;
+      language?: string;
+      filename?: string;
+    }) => {
+      return localAIApi.uploadAndTranscribeAudio(
+        file,
+        language || "en",
+        filename || "recording.webm"
+      );
     },
   });
 }
