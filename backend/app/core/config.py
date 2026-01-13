@@ -58,10 +58,15 @@ class Settings(BaseSettings):
 
     # ===== LOCAL AI (R730 ML WORKSTATION) =====
     USE_LOCAL_AI: bool = True  # Set to True to use R730 instead of OpenAI
-    OLLAMA_BASE_URL: str = "https://localhost-0.tailad2d5f.ts.net"
-    OLLAMA_MODEL: str = "llama3.2:latest"
-    WHISPER_BASE_URL: str = "http://192.168.7.71:8001"  # Local network for Whisper
+    OLLAMA_BASE_URL: str = "https://localhost-0.tailad2d5f.ts.net/ollama"
+    OLLAMA_MODEL: str = "llama3.2:3b"
+    WHISPER_BASE_URL: str = "https://localhost-0.tailad2d5f.ts.net/whisper"
     LOCAL_WHISPER_MODEL: str = "medium"
+
+    # ===== ADDITIONAL AI SERVERS =====
+    LLAVA_MODEL: str = "llava:13b"  # Vision model for photo/document analysis
+    HCTG_AI_URL: str = "https://hctg-ai.tailad2d5f.ts.net"  # RTX 5090 server
+    HCTG_AI_MODEL: str = "qwen2.5:32b"  # Heavy analysis tasks
 
     # ===== BACKGROUND PROCESSING =====
     REDIS_URL: str = "redis://localhost:6379/0"

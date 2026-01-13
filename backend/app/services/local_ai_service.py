@@ -30,11 +30,16 @@ class LocalAIService:
     def __init__(self):
         """Initialize local AI service with R730 endpoints."""
         # R730 ML Workstation endpoints via Tailscale Funnel
-        self.ollama_base_url = getattr(settings, 'OLLAMA_BASE_URL', 'https://localhost-0.tailad2d5f.ts.net')
-        self.whisper_base_url = getattr(settings, 'WHISPER_BASE_URL', 'https://localhost-0.tailad2d5f.ts.net:8001')
-        self.model = getattr(settings, 'OLLAMA_MODEL', 'llama3.2:latest')
+        self.ollama_base_url = getattr(settings, 'OLLAMA_BASE_URL', 'https://localhost-0.tailad2d5f.ts.net/ollama')
+        self.whisper_base_url = getattr(settings, 'WHISPER_BASE_URL', 'https://localhost-0.tailad2d5f.ts.net/whisper')
+        self.model = getattr(settings, 'OLLAMA_MODEL', 'llama3.2:3b')
         self.whisper_model = getattr(settings, 'LOCAL_WHISPER_MODEL', 'medium')
         self.timeout = aiohttp.ClientTimeout(total=300)  # 5 minute timeout
+
+        # Additional AI servers
+        self.llava_model = getattr(settings, 'LLAVA_MODEL', 'llava:13b')
+        self.hctg_ai_url = getattr(settings, 'HCTG_AI_URL', 'https://hctg-ai.tailad2d5f.ts.net')
+        self.hctg_ai_model = getattr(settings, 'HCTG_AI_MODEL', 'qwen2.5:32b')
 
     async def health_check(self) -> Dict[str, Any]:
         """Check if local AI services are available."""
