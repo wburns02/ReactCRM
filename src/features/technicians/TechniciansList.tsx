@@ -158,7 +158,10 @@ export function TechniciansList({
     [onEdit],
   );
   const handleDelete = useCallback(
-    (technician: Technician) => onDelete?.(technician),
+    (technician: Technician) => {
+      console.log('[TechniciansList] handleDelete called:', technician.id);
+      onDelete?.(technician);
+    },
     [onDelete],
   );
 

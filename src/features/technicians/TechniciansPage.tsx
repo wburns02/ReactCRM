@@ -1,4 +1,4 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import {
   Card,
   CardHeader,
@@ -88,8 +88,14 @@ export function TechniciansPage() {
   }, []);
 
   const handleDelete = useCallback((technician: Technician) => {
+    console.log('[TechniciansPage] handleDelete called:', technician.id);
     setDeletingTechnician(technician);
   }, []);
+
+  // Debug: Monitor state changes
+  useEffect(() => {
+    console.log('[TechniciansPage] deletingTechnician changed:', deletingTechnician?.id ?? 'null');
+  }, [deletingTechnician]);
 
   const handleFormSubmit = useCallback(
     async (data: TechnicianFormData) => {
