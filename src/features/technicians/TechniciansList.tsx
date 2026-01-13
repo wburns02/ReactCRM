@@ -1,4 +1,3 @@
-import { memo } from "react";
 import { Link } from "react-router-dom";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
@@ -16,9 +15,9 @@ interface TechnicianRowProps {
 }
 
 /**
- * Memoized table row - prevents re-render unless props change
+ * Table row component for technician data
  */
-const TableTechnicianRow = memo(function TableTechnicianRow({
+function TableTechnicianRow({
   technician,
   onEdit,
   onDelete,
@@ -122,7 +121,7 @@ const TableTechnicianRow = memo(function TableTechnicianRow({
       </td>
     </tr>
   );
-});
+}
 
 interface TechniciansListProps {
   technicians: Technician[];
@@ -174,7 +173,7 @@ export function TechniciansList({
     <div>
       {/* Table */}
       <div className="overflow-x-auto">
-        <table className="w-full" role="grid" aria-label="Technicians list">
+        <table className="w-full" aria-label="Technicians list">
           <thead>
             <tr className="border-b border-border bg-bg-muted">
               <th
