@@ -109,12 +109,7 @@ const TableTechnicianRow = memo(function TableTechnicianRow({
             <Button
               variant="ghost"
               size="sm"
-              onClick={(e) => {
-                console.log('[TableTechnicianRow] Delete button clicked, technician:', technician.id);
-                console.log('[TableTechnicianRow] onDelete function exists:', !!onDelete);
-                e.stopPropagation(); // Prevent any parent handlers from interfering
-                onDelete(technician);
-              }}
+              onClick={() => onDelete(technician)}
               aria-label={
                 "Delete " + technician.first_name + " " + technician.last_name
               }
@@ -156,9 +151,6 @@ export function TechniciansList({
   const totalPages = Math.ceil(total / pageSize);
   const startItem = (page - 1) * pageSize + 1;
   const endItem = Math.min(page * pageSize, total);
-
-  // Debug: Log when onDelete prop is received
-  console.log('[TechniciansList] onDelete prop received:', !!onDelete);
 
   if (isLoading) {
     return <LoadingSkeleton />;
