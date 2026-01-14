@@ -80,7 +80,7 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
         <div className="flex justify-between text-sm">
           <span className="text-text-secondary">Percentage</span>
           <span className="font-medium text-text-primary">
-            {data.percentage.toFixed(1)}%
+            {(data.percentage ?? 0).toFixed(1)}%
           </span>
         </div>
         <div className="flex justify-between text-sm">
@@ -92,7 +92,7 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
         <div className="flex justify-between text-sm">
           <span className="text-text-secondary">Confidence</span>
           <span className="font-medium text-text-primary">
-            {(data.avg_confidence * 100).toFixed(0)}%
+            {((data.avg_confidence ?? 0) * 100).toFixed(0)}%
           </span>
         </div>
       </div>
@@ -148,7 +148,7 @@ function renderActiveShape(props: any) {
         fill="#111827"
         className="text-lg font-bold"
       >
-        {payload.percentage.toFixed(1)}%
+        {(payload?.percentage ?? 0).toFixed(1)}%
       </text>
       <text
         x={cx}
@@ -239,7 +239,7 @@ function DispositionLegend({
               {item.count.toLocaleString()}
             </span>
             <span className="text-sm font-medium text-text-primary min-w-[40px] text-right">
-              {item.percentage.toFixed(1)}%
+              {(item.percentage ?? 0).toFixed(1)}%
             </span>
           </div>
         </button>

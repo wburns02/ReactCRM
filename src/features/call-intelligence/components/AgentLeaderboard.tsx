@@ -89,7 +89,7 @@ function SortableHeader({
  * Progress bar for quality score
  */
 function QualityProgressBar({ value }: { value: number }) {
-  const percentage = Math.min(Math.max(value, 0), 100);
+  const percentage = Math.min(Math.max(value ?? 0, 0), 100);
 
   // Color based on score
   const getColorClass = () => {
@@ -149,7 +149,7 @@ function TrendIndicator({
   trend: "up" | "down" | "neutral";
   percentage: number;
 }) {
-  const absPercentage = Math.abs(percentage);
+  const absPercentage = Math.abs(percentage ?? 0);
 
   if (trend === "up") {
     return (

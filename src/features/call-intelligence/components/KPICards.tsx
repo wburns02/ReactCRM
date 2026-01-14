@@ -358,30 +358,46 @@ export const KPICards = memo(function KPICards({
       return [];
     }
 
+    // Safe getters for metrics with defaults
+    const totalCalls = metrics.total_calls ?? 0;
+    const callsToday = metrics.calls_today ?? 0;
+    const callsThisWeek = metrics.calls_this_week ?? 0;
+    const avgSentiment = metrics.avg_sentiment_score ?? 0;
+    const positiveCalls = metrics.positive_calls ?? 0;
+    const negativeCalls = metrics.negative_calls ?? 0;
+    const avgQuality = metrics.avg_quality_score ?? 0;
+    const qualityTrend = metrics.quality_trend ?? 0;
+    const avgCsat = metrics.avg_csat_prediction ?? 0;
+    const escalationRate = metrics.escalation_rate ?? 0;
+    const highRiskCalls = metrics.high_risk_calls ?? 0;
+    const criticalRiskCalls = metrics.critical_risk_calls ?? 0;
+    const autoDispositionRate = metrics.auto_disposition_rate ?? 0;
+    const autoDispositionAccuracy = metrics.auto_disposition_accuracy ?? 0;
+
     const volumeSparkline =
       extractSparklineData(metrics.volume_trend).length > 0
         ? extractSparklineData(metrics.volume_trend)
-        : generateMockSparkline(metrics.total_calls);
+        : generateMockSparkline(totalCalls);
 
     const sentimentSparkline =
       extractSparklineData(metrics.sentiment_trend).length > 0
         ? extractSparklineData(metrics.sentiment_trend)
-        : generateMockSparkline(metrics.avg_sentiment_score + 100, 0.1);
+        : generateMockSparkline(avgSentiment + 100, 0.1);
 
     const qualitySparkline =
       extractSparklineData(metrics.quality_trend_data).length > 0
         ? extractSparklineData(metrics.quality_trend_data)
-        : generateMockSparkline(metrics.avg_quality_score, 0.1);
+        : generateMockSparkline(avgQuality, 0.1);
 
     return [
       // 1. Total Calls
       {
         id: "total-calls",
         title: "Total Calls",
-        value: metrics.total_calls.toLocaleString(),
-        subtitle: `${metrics.calls_today} today`,
+        value: totalCalls.toLocaleString(),
+        subtitle: `${callsToday} today`,
         trend: {
-          value: metrics.calls_this_week > 0 ? 5.2 : 0,
+          value: callsThisWeek > 0 ? 5.2 : 0,
           direction: getTrendDirection(5.2),
         },
         sparklineData: volumeSparkline,
@@ -393,28 +409,28 @@ export const KPICards = memo(function KPICards({
         id: "avg-sentiment",
         title: "Avg Sentiment Score",
         value:
-          metrics.avg_sentiment_score >= 0
-            ? `+${metrics.avg_sentiment_score.toFixed(1)}`
-            : metrics.avg_sentiment_score.toFixed(1),
-        subtitle: `${metrics.positive_calls} positive, ${metrics.negative_calls} negative`,
+          avgSentiment >= 0
+            ? `+${avgSentiment.toFixed(1)}`
+            : avgSentiment.toFixed(1),
+        subtitle: `${positiveCalls} positive, ${negativeCalls} negative`,
         trend: {
           value: 3.5,
           direction: getTrendDirection(
-            metrics.avg_sentiment_score >= 0 ? 3.5 : -3.5
+            avgSentiment >= 0 ? 3.5 : -3.5
           ),
         },
         sparklineData: sentimentSparkline,
         sparklineColor:
-          metrics.avg_sentiment_score >= 20
+          avgSentiment >= 20
             ? CHART_COLORS.success
-            : metrics.avg_sentiment_score <= -20
+            : avgSentiment <= -20
               ? CHART_COLORS.danger
               : CHART_COLORS.warning,
         icon: "😊",
         colorClass:
-          metrics.avg_sentiment_score >= 20
+          avgSentiment >= 20
             ? "text-green-600"
-            : metrics.avg_sentiment_score <= -20
+            : avgSentiment <= -20
               ? "text-red-600"
               : "text-yellow-600",
       },
@@ -422,22 +438,22 @@ export const KPICards = memo(function KPICards({
       {
         id: "quality-score",
         title: "Quality Score",
-        value: `${metrics.avg_quality_score.toFixed(0)}`,
+        value: `${avgQuality.toFixed(0)}`,
         subtitle: "out of 100",
         trend: {
-          value: metrics.quality_trend,
-          direction: getTrendDirection(metrics.quality_trend),
+          value: qualityTrend,
+          direction: getTrendDirection(qualityTrend),
         },
         sparklineData: qualitySparkline,
         sparklineColor:
-          metrics.avg_quality_score >= 80
+          avgQuality >= 80
             ? CHART_COLORS.success
-            : metrics.avg_quality_score >= 60
+            : avgQuality >= 60
               ? CHART_COLORS.warning
               : CHART_COLORS.danger,
         icon: "📊",
         progressBar: {
-          value: metrics.avg_quality_score,
+          value: avgQuality,
           max: 100,
         },
       },
@@ -445,43 +461,43 @@ export const KPICards = memo(function KPICards({
       {
         id: "csat-prediction",
         title: "CSAT Prediction",
-        value: metrics.avg_csat_prediction.toFixed(1),
+        value: avgCsat.toFixed(1),
         subtitle: "predicted rating",
         trend: {
           value: 2.1,
           direction: getTrendDirection(2.1),
         },
         sparklineData: generateMockSparkline(
-          metrics.avg_csat_prediction,
+          avgCsat || 3.5,
           0.08
         ),
         sparklineColor: CHART_COLORS.purple,
         icon: "⭐",
-        stars: metrics.avg_csat_prediction,
+        stars: avgCsat,
       },
       // 5. Escalation Rate
       {
         id: "escalation-rate",
         title: "Escalation Rate",
-        value: `${metrics.escalation_rate.toFixed(1)}%`,
-        subtitle: `${metrics.high_risk_calls} high risk, ${metrics.critical_risk_calls} critical`,
+        value: `${escalationRate.toFixed(1)}%`,
+        subtitle: `${highRiskCalls} high risk, ${criticalRiskCalls} critical`,
         trend: {
           value: -2.3,
           direction: getTrendDirection(-2.3),
         },
-        sparklineData: generateMockSparkline(metrics.escalation_rate, 0.2),
+        sparklineData: generateMockSparkline(escalationRate || 5, 0.2),
         sparklineColor:
-          metrics.escalation_rate <= 5
+          escalationRate <= 5
             ? CHART_COLORS.success
-            : metrics.escalation_rate <= 15
+            : escalationRate <= 15
               ? CHART_COLORS.warning
               : CHART_COLORS.danger,
         icon: "⚠️",
         warningThreshold: 15,
         colorClass:
-          metrics.escalation_rate > 15
+          escalationRate > 15
             ? "text-red-600"
-            : metrics.escalation_rate > 5
+            : escalationRate > 5
               ? "text-yellow-600"
               : "text-green-600",
       },
@@ -489,14 +505,14 @@ export const KPICards = memo(function KPICards({
       {
         id: "auto-disposition-rate",
         title: "Auto-Disposition Rate",
-        value: `${metrics.auto_disposition_rate.toFixed(1)}%`,
-        subtitle: `${metrics.auto_disposition_accuracy.toFixed(0)}% accuracy`,
+        value: `${autoDispositionRate.toFixed(1)}%`,
+        subtitle: `${autoDispositionAccuracy.toFixed(0)}% accuracy`,
         trend: {
           value: 4.7,
           direction: getTrendDirection(4.7),
         },
         sparklineData: generateMockSparkline(
-          metrics.auto_disposition_rate,
+          autoDispositionRate || 50,
           0.1
         ),
         sparklineColor: CHART_COLORS.info,

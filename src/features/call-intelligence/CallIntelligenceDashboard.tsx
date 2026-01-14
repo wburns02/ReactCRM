@@ -310,7 +310,7 @@ function AgentLeaderboard({
               <div className="text-right">
                 <div className="flex items-center gap-1">
                   <span className="text-lg font-bold text-text-primary">
-                    {agent.avg_quality_score.toFixed(0)}
+                    {(agent.avg_quality_score ?? 0).toFixed(0)}
                   </span>
                   {getTrendIcon(agent.quality_trend)}
                 </div>
@@ -625,7 +625,7 @@ function RecentCallsTable({
                   </td>
                   <td className="py-3 px-2">
                     <span className="font-medium text-text-primary">
-                      {call.quality_score.toFixed(0)}
+                      {(call.quality_score ?? 0).toFixed(0)}
                     </span>
                   </td>
                   <td className="py-3 px-2">
@@ -745,7 +745,7 @@ function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps) {
           <div className="grid grid-cols-3 gap-4 p-4 bg-bg-muted rounded-lg">
             <div className="text-center">
               <p className="text-2xl font-bold text-text-primary">
-                {call.quality_score.toFixed(0)}
+                {(call.quality_score ?? 0).toFixed(0)}
               </p>
               <p className="text-sm text-text-secondary">Quality Score</p>
             </div>
@@ -753,11 +753,11 @@ function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps) {
               <p
                 className={cn(
                   "text-2xl font-bold",
-                  call.sentiment_score >= 0 ? "text-green-600" : "text-red-600"
+                  (call.sentiment_score ?? 0) >= 0 ? "text-green-600" : "text-red-600"
                 )}
               >
-                {call.sentiment_score >= 0 ? "+" : ""}
-                {call.sentiment_score.toFixed(0)}
+                {(call.sentiment_score ?? 0) >= 0 ? "+" : ""}
+                {(call.sentiment_score ?? 0).toFixed(0)}
               </p>
               <p className="text-sm text-text-secondary">Sentiment</p>
             </div>
@@ -832,9 +832,9 @@ function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps) {
                 Disposition
               </h3>
               <p className="font-medium text-text-primary">{call.disposition}</p>
-              {call.disposition_confidence && (
+              {call.disposition_confidence != null && (
                 <p className="text-sm text-text-secondary">
-                  Confidence: {(call.disposition_confidence * 100).toFixed(0)}%
+                  Confidence: {((call.disposition_confidence ?? 0) * 100).toFixed(0)}%
                 </p>
               )}
             </div>
@@ -954,7 +954,7 @@ export function CallIntelligenceDashboard() {
       call.agent_name || "Unknown",
       call.duration_seconds,
       call.sentiment,
-      call.quality_score.toFixed(0),
+      (call.quality_score ?? 0).toFixed(0),
       call.escalation_risk,
       call.disposition || "",
     ]);

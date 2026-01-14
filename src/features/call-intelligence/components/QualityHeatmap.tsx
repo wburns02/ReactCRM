@@ -100,13 +100,13 @@ function Tooltip({ score, callCount, agentName, date, position }: TooltipProps) 
       <div className="font-medium">{agentName}</div>
       <div className="text-gray-300 dark:text-gray-600">{formatDayLabel(date)}</div>
       <div className="mt-1 flex items-center gap-2">
-        <span className="font-semibold">{score.toFixed(0)}</span>
+        <span className="font-semibold">{(score ?? 0).toFixed(0)}</span>
         <span className={cn(
           "text-xs px-1.5 py-0.5 rounded",
-          score >= 85 ? "bg-emerald-500/20 text-emerald-300" :
-          score >= 70 ? "bg-green-500/20 text-green-300" :
-          score >= 55 ? "bg-amber-500/20 text-amber-300" :
-          score >= 40 ? "bg-orange-500/20 text-orange-300" :
+          (score ?? 0) >= 85 ? "bg-emerald-500/20 text-emerald-300" :
+          (score ?? 0) >= 70 ? "bg-green-500/20 text-green-300" :
+          (score ?? 0) >= 55 ? "bg-amber-500/20 text-amber-300" :
+          (score ?? 0) >= 40 ? "bg-orange-500/20 text-orange-300" :
           "bg-red-500/20 text-red-300"
         )}>
           {getScoreLabel(score)}
@@ -309,7 +309,7 @@ export function QualityHeatmap({ data, isLoading, onCellClick }: QualityHeatmapP
                       onMouseLeave={handleMouseLeave}
                       onClick={() => hasData && handleCellClick(agent.agent_id, date)}
                     >
-                      {hasData ? score.toFixed(0) : "-"}
+                      {hasData ? (score ?? 0).toFixed(0) : "-"}
                     </div>
                   );
                 })}
