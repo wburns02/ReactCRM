@@ -466,16 +466,9 @@ export function useDispositionStats() {
   return useQuery({
     queryKey: callIntelligenceKeys.dispositionStats(),
     queryFn: async (): Promise<DispositionStatsResponse> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get("/call-dispositions/analytics");
-          return data;
-        },
-        (() => {
-          warnMissingEndpoint("/call-dispositions/analytics");
-          return DEFAULT_DISPOSITION_STATS;
-        })()
-      );
+      // Always use fallback data until backend endpoint is deployed
+      warnMissingEndpoint("/call-dispositions/analytics");
+      return DEFAULT_DISPOSITION_STATS;
     },
     staleTime: 120_000, // 2 minutes
   });
@@ -490,18 +483,9 @@ export function useQualityHeatmap(days: number = 14) {
   return useQuery({
     queryKey: callIntelligenceKeys.qualityHeatmap(days),
     queryFn: async (): Promise<QualityHeatmapResponse> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get(
-            `/ringcentral/quality/heatmap?days=${days}`
-          );
-          return data;
-        },
-        (() => {
-          warnMissingEndpoint("/ringcentral/quality/heatmap");
-          return DEFAULT_QUALITY_HEATMAP;
-        })()
-      );
+      // Always use fallback data until backend endpoint is deployed
+      warnMissingEndpoint(`/ringcentral/quality/heatmap?days=${days}`);
+      return DEFAULT_QUALITY_HEATMAP;
     },
     staleTime: 300_000, // 5 minutes
   });
