@@ -5,6 +5,7 @@ Main API router for v2 endpoints.
 from fastapi import APIRouter
 
 from app.api.v2.endpoints import ai_assistant, ringcentral, call_dispositions, webhooks, jobs, local_ai, admin_tools
+from app.api.v2.endpoints import deployment_test
 
 # Create main API router
 api_router = APIRouter()
@@ -56,4 +57,10 @@ api_router.include_router(
     admin_tools.router,
     prefix="/admin",
     tags=["admin"]
+)
+# Deployment test endpoint
+api_router.include_router(
+    deployment_test.router,
+    prefix="/test",
+    tags=["deployment-test"]
 )
