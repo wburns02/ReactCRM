@@ -1,6 +1,7 @@
 /**
  * AI Assistant Page
  * Full-page AI chat interface with enhanced features
+ * Includes: Chat, Voice Memo, Support Chat, Batch OCR
  */
 import { useState, useRef, useEffect } from "react";
 import {
@@ -14,10 +15,30 @@ import {
   Calendar,
   FileText,
   Sparkles,
+  Mic,
+  HelpCircle,
+  FileStack,
+  Bot,
 } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import { useAIChat, useAIChatHistory } from "@/hooks/useAI";
+import { useLocalAIHealth } from "@/hooks/useLocalAI";
 import type { AIMessage } from "@/api/ai";
+
+// Lazy load heavy AI components
+import { VoiceMemoRecorder } from "@/components/ai/VoiceMemoRecorder";
+import { CustomerSupportChat } from "@/components/ai/CustomerSupportChat";
+import { BatchOCRProcessor } from "@/components/ai/BatchOCRProcessor";
+
+type AITab = "chat" | "voice" | "support" | "ocr";
+
+const AI_TABS: { id: AITab; label: string; icon: React.ElementType; description: string }[] = [
+  { id: "chat", label: "AI Chat", icon: Bot, description: "General AI assistant" },
+  { id: "voice", label: "Voice Memo", icon: Mic, description: "Record & transcribe" },
+  { id: "support", label: "Support Chat", icon: HelpCircle, description: "RAG-powered Q&A" },
+  { id: "ocr", label: "Batch OCR", icon: FileStack, description: "Document processing" },
+];
 
 /**
  * Quick action suggestions for the AI
@@ -53,6 +74,7 @@ const QUICK_ACTIONS = [
  * AI Assistant full page component
  */
 export function AIAssistantPage() {
+  const [activeTab, setActiveTab] = useState<AITab>("chat");
   const [input, setInput] = useState("");
   const [showHistory, setShowHistory] = useState(false);
   const messagesEndRef = useRef<HTMLDivElement>(null);
@@ -63,6 +85,8 @@ export function AIAssistantPage() {
   });
 
   const { data: chatHistory } = useAIChatHistory();
+  const { data: aiHealth } = useLocalAIHealth();
+  const isR730Available = aiHealth?.status === "healthy" || aiHealth?.status === "degraded";
 
   // Auto-resize textarea
   useEffect(() => {
@@ -101,7 +125,7 @@ export function AIAssistantPage() {
       <div className="flex-1 flex flex-col">
         {/* Header */}
         <div className="border-b border-border bg-bg-card px-6 py-4">
-          <div className="flex items-center justify-between">
+          <div className="flex items-center justify-between mb-4">
             <div className="flex items-center gap-3">
               <div className="w-10 h-10 rounded-full bg-gradient-to-br from-primary to-primary-dark flex items-center justify-center">
                 <Sparkles className="w-5 h-5 text-white" />
@@ -116,6 +140,9 @@ export function AIAssistantPage() {
               </div>
             </div>
             <div className="flex items-center gap-2">
+              <Badge variant={isR730Available ? "success" : "secondary"}>
+                {isR730Available ? "R730 Online" : "R730 Offline"}
+              </Badge>
               <Button
                 variant="ghost"
                 size="sm"
@@ -124,16 +151,67 @@ export function AIAssistantPage() {
               >
                 <History className="w-4 h-4" />
               </Button>
-              <Button variant="ghost" size="sm" onClick={clearChat}>
-                <Trash2 className="w-4 h-4 mr-2" />
-                Clear
-              </Button>
+              {activeTab === "chat" && (
+                <Button variant="ghost" size="sm" onClick={clearChat}>
+                  <Trash2 className="w-4 h-4 mr-2" />
+                  Clear
+                </Button>
+              )}
             </div>
+          </div>
+          {/* Tab Navigation */}
+          <div className="flex gap-1 overflow-x-auto">
+            {AI_TABS.map((tab) => (
+              <button
+                key={tab.id}
+                onClick={() => setActiveTab(tab.id)}
+                className={`flex items-center gap-2 px-4 py-2 rounded-lg text-sm font-medium transition-colors whitespace-nowrap ${
+                  activeTab === tab.id
+                    ? "bg-primary text-white"
+                    : "bg-bg-muted text-text-secondary hover:bg-bg-hover"
+                }`}
+              >
+                <tab.icon className="w-4 h-4" />
+                {tab.label}
+              </button>
+            ))}
           </div>
         </div>
 
-        {/* Messages */}
-        <div className="flex-1 overflow-y-auto p-6 space-y-6 bg-bg-body">
+        {/* Content Area */}
+        <div className="flex-1 overflow-y-auto bg-bg-body">
+          {/* Voice Memo Tab */}
+          {activeTab === "voice" && (
+            <div className="p-6 max-w-2xl mx-auto">
+              <VoiceMemoRecorder
+                onTranscriptionComplete={(result) => {
+                  console.log("Transcription complete:", result);
+                }}
+              />
+            </div>
+          )}
+
+          {/* Support Chat Tab */}
+          {activeTab === "support" && (
+            <div className="p-6 max-w-3xl mx-auto">
+              <CustomerSupportChat />
+            </div>
+          )}
+
+          {/* Batch OCR Tab */}
+          {activeTab === "ocr" && (
+            <div className="p-6 max-w-3xl mx-auto">
+              <BatchOCRProcessor
+                onComplete={(results) => {
+                  console.log("Batch OCR complete:", results);
+                }}
+              />
+            </div>
+          )}
+
+          {/* Chat Tab (default) */}
+          {activeTab === "chat" && (
+            <div className="p-6 space-y-6">
           {messages.length === 1 && (
             <div className="max-w-2xl mx-auto">
               {/* Welcome Section */}
@@ -198,9 +276,12 @@ export function AIAssistantPage() {
             )}
             <div ref={messagesEndRef} />
           </div>
+            </div>
+          )}
         </div>
 
-        {/* Input Area */}
+        {/* Input Area - Only show for chat tab */}
+        {activeTab === "chat" && (
         <div className="border-t border-border bg-bg-card p-4">
           <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
             <div className="flex gap-3 items-end">
@@ -233,6 +314,7 @@ export function AIAssistantPage() {
             </p>
           </form>
         </div>
+        )}
       </div>
 
       {/* Sidebar - History & Suggestions */}
