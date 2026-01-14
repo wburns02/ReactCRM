@@ -72,7 +72,7 @@ export function useOnboardingProgress() {
     queryKey: ["onboarding-progress"],
     queryFn: async (): Promise<OnboardingProgress> => {
       try {
-        const response = await apiClient.get("/ai/onboarding/progress");
+        const response = await apiClient.get("/onboarding/progress");
         return response.data;
       } catch {
         return generateDemoOnboardingProgress();
@@ -90,7 +90,7 @@ export function useContextualHelp(context: { page: string; action?: string }) {
     queryKey: ["contextual-help", context],
     queryFn: async (): Promise<ContextualHelp[]> => {
       try {
-        const response = await apiClient.get("/ai/onboarding/contextual-help", {
+        const response = await apiClient.get("/onboarding/contextual-help", {
           params: context,
         });
         return response.data;
@@ -110,7 +110,7 @@ export function useOnboardingRecommendations() {
     queryKey: ["onboarding-recommendations"],
     queryFn: async (): Promise<OnboardingRecommendation[]> => {
       try {
-        const response = await apiClient.get("/ai/onboarding/recommendations");
+        const response = await apiClient.get("/onboarding/recommendations");
         return response.data;
       } catch {
         return generateDemoRecommendations();
@@ -127,7 +127,7 @@ export function useCompleteOnboardingTask() {
   return useMutation({
     mutationFn: async (taskId: string): Promise<{ success: boolean; next_task?: OnboardingTask }> => {
       try {
-        const response = await apiClient.post(`/ai/onboarding/tasks/${taskId}/complete`);
+        const response = await apiClient.patch(`/onboarding/steps/${taskId}`, { status: 'completed' });
         return response.data;
       } catch {
         return { success: true };
@@ -143,7 +143,7 @@ export function useSkipOnboardingTask() {
   return useMutation({
     mutationFn: async (taskId: string): Promise<{ success: boolean }> => {
       try {
-        const response = await apiClient.post(`/ai/onboarding/tasks/${taskId}/skip`);
+        const response = await apiClient.post(`/onboarding/steps/${taskId}/skip`);
         return response.data;
       } catch {
         return { success: true };
@@ -163,7 +163,7 @@ export function useFeatureTour(featureId: string) {
       estimated_duration: number;
     }> => {
       try {
-        const response = await apiClient.get(`/ai/onboarding/tour/${featureId}`);
+        const response = await apiClient.get(`/onboarding/tour/${featureId}`);
         return response.data;
       } catch {
         return generateDemoTour(featureId);
