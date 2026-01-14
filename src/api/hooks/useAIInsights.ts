@@ -131,7 +131,7 @@ export function useCampaignAIAnalysis(campaignId: number | null) {
     queryKey: aiInsightsKeys.campaignAnalysis(campaignId!),
     queryFn: async (): Promise<CampaignAIAnalysis> => {
       const { data } = await apiClient.get(
-        `/cs/ai/campaigns/${campaignId}/analysis`,
+        `/cs/ai/campaigns/${campaignId}/ai-analysis`,
       );
       return data;
     },

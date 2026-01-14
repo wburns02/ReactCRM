@@ -329,7 +329,7 @@ export function useAIRouteOptimize() {
       };
     }> => {
       const { data } = await apiClient.post(
-        "/ai/dispatch/optimize-routes",
+        "/ai/dispatch/optimize-route",
         params,
       );
       return data;
