@@ -261,12 +261,23 @@ export function is404Error(error: unknown): boolean {
 }
 
 /**
- * Wrapper for API calls that gracefully handles 404 by returning a default value.
- * Use this for endpoints that may not be implemented yet on the backend.
+ * Check if error is a 500 Internal Server Error
+ * Used to gracefully handle endpoints that are broken or have DB issues
+ */
+export function is500Error(error: unknown): boolean {
+  if (axios.isAxiosError(error)) {
+    return error.response?.status === 500;
+  }
+  return false;
+}
+
+/**
+ * Wrapper for API calls that gracefully handles 404/500 by returning a default value.
+ * Use this for endpoints that may not be implemented yet or may have backend issues.
  *
  * @param apiFn - The async API function to call
- * @param defaultValue - The value to return if the endpoint returns 404
- * @returns The API response or default value on 404
+ * @param defaultValue - The value to return if the endpoint returns 404 or 500
+ * @returns The API response or default value on 404/500
  */
 export async function withFallback<T>(
   apiFn: () => Promise<T>,
@@ -275,7 +286,7 @@ export async function withFallback<T>(
   try {
     return await apiFn();
   } catch (error) {
-    if (is404Error(error)) {
+    if (is404Error(error) || is500Error(error)) {
       return defaultValue;
     }
     throw error;
