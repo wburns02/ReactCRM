@@ -1,9 +1,13 @@
-import { Link } from 'react-router-dom';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { PaymentMethodBadge } from './PaymentMethodBadge.tsx';
-import { formatDate, formatCurrency } from '@/lib/utils.ts';
-import { PAYMENT_STATUS_LABELS, type Payment, type PaymentStatus } from '@/api/types/payment.ts';
+import { Link } from "react-router-dom";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { PaymentMethodBadge } from "./PaymentMethodBadge.tsx";
+import { formatDate, formatCurrency } from "@/lib/utils.ts";
+import {
+  PAYMENT_STATUS_LABELS,
+  type Payment,
+  type PaymentStatus,
+} from "@/api/types/payment.ts";
 
 interface PaymentsListProps {
   payments: Payment[];
@@ -19,18 +23,20 @@ interface PaymentsListProps {
 /**
  * Get badge variant based on payment status
  */
-function getStatusVariant(status: PaymentStatus): 'default' | 'success' | 'warning' | 'danger' {
+function getStatusVariant(
+  status: PaymentStatus,
+): "default" | "success" | "warning" | "danger" {
   switch (status) {
-    case 'completed':
-      return 'success';
-    case 'pending':
-      return 'warning';
-    case 'failed':
-      return 'danger';
-    case 'refunded':
-      return 'default';
+    case "completed":
+      return "success";
+    case "pending":
+      return "warning";
+    case "failed":
+      return "danger";
+    case "refunded":
+      return "default";
     default:
-      return 'default';
+      return "default";
   }
 }
 
@@ -59,8 +65,12 @@ export function PaymentsList({
     return (
       <div className="text-center py-12">
         <div className="text-4xl mb-4">💰</div>
-        <h3 className="text-lg font-medium text-text-primary mb-2">No payments found</h3>
-        <p className="text-text-secondary">Try adjusting your filters or record a new payment.</p>
+        <h3 className="text-lg font-medium text-text-primary mb-2">
+          No payments found
+        </h3>
+        <p className="text-text-secondary">
+          Try adjusting your filters or record a new payment.
+        </p>
       </div>
     );
   }
@@ -72,25 +82,46 @@ export function PaymentsList({
         <table className="w-full" role="grid" aria-label="Payments list">
           <thead>
             <tr className="border-b border-border bg-bg-muted">
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Customer
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Invoice
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Amount
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Method
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Status
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Date
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Actions
               </th>
             </tr>
@@ -111,7 +142,9 @@ export function PaymentsList({
                           : `Customer #${payment.customer_id}`)}
                     </p>
                     {payment.customer?.email && (
-                      <p className="text-sm text-text-secondary">{payment.customer.email}</p>
+                      <p className="text-sm text-text-secondary">
+                        {payment.customer.email}
+                      </p>
                     )}
                   </div>
                 </td>

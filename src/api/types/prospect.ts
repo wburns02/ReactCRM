@@ -1,11 +1,11 @@
-import { z } from 'zod';
+import { z } from "zod";
 import {
   prospectStageSchema,
   leadSourceSchema,
   paginatedResponseSchema,
   type ProspectStage,
   type LeadSource,
-} from './common.ts';
+} from "./common.ts";
 
 /**
  * Prospect schema - validates API responses
@@ -36,7 +36,8 @@ export type Prospect = z.infer<typeof prospectSchema>;
 /**
  * Paginated prospect list response
  */
-export const prospectListResponseSchema = paginatedResponseSchema(prospectSchema);
+export const prospectListResponseSchema =
+  paginatedResponseSchema(prospectSchema);
 export type ProspectListResponse = z.infer<typeof prospectListResponseSchema>;
 
 /**
@@ -57,14 +58,14 @@ export interface ProspectFilters {
  * Default value ('new_lead') should be set in form defaultValues.
  */
 export const prospectFormSchema = z.object({
-  first_name: z.string().min(1, 'First name is required'),
-  last_name: z.string().min(1, 'Last name is required'),
-  email: z.string().email('Invalid email').optional().or(z.literal('')),
+  first_name: z.string().min(1, "First name is required"),
+  last_name: z.string().min(1, "Last name is required"),
+  email: z.string().email("Invalid email").optional().or(z.literal("")),
   phone: z.string().optional(),
   company_name: z.string().optional(),
   address_line1: z.string().optional(),
   city: z.string().optional(),
-  state: z.string().max(2, 'Use 2-letter state code').optional(),
+  state: z.string().max(2, "Use 2-letter state code").optional(),
   postal_code: z.string().optional(),
   prospect_stage: prospectStageSchema,
   lead_source: leadSourceSchema.optional(),

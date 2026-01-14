@@ -1,12 +1,12 @@
-import { useState } from 'react';
+import { useState } from "react";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
-} from '@/components/ui/Dialog.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { type Document, isViewableFile } from '@/api/types/document.ts';
+} from "@/components/ui/Dialog.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { type Document, isViewableFile } from "@/api/types/document.ts";
 
 export interface DocumentViewerProps {
   open: boolean;
@@ -18,14 +18,19 @@ export interface DocumentViewerProps {
 /**
  * Document Viewer component - view PDFs and images in modal
  */
-export function DocumentViewer({ open, onClose, document, onDownload }: DocumentViewerProps) {
+export function DocumentViewer({
+  open,
+  onClose,
+  document,
+  onDownload,
+}: DocumentViewerProps) {
   const [imageError, setImageError] = useState(false);
 
   if (!document) return null;
 
   const canView = isViewableFile(document.file_type);
-  const isPDF = document.file_type.includes('pdf');
-  const isImage = document.file_type.includes('image');
+  const isPDF = document.file_type.includes("pdf");
+  const isImage = document.file_type.includes("image");
 
   const handleDownload = () => {
     if (onDownload && document) {

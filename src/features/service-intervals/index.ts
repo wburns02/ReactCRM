@@ -1,1 +1,1 @@
-export { ServiceIntervalsPage } from './ServiceIntervalsPage';
+export { ServiceIntervalsPage } from "./ServiceIntervalsPage";

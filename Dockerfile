@@ -3,11 +3,14 @@
 FROM node:20-alpine AS builder
 WORKDIR /app
 
+# Skip Playwright browser downloads (not needed for build)
+ENV PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD=1
+
 # Copy package files
 COPY package*.json ./
 
-# Install dependencies
-RUN npm ci
+# Install dependencies (skip optional to avoid playwright browsers)
+RUN npm ci --ignore-scripts
 
 # Copy source code
 COPY . .

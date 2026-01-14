@@ -1,14 +1,14 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { useInitiateCall, useMyExtension } from '../api.ts';
-import type { InitiateCallRequest } from '../types.ts';
+import { useState } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { useInitiateCall, useMyExtension } from "../api.ts";
+import type { InitiateCallRequest } from "../types.ts";
 
 interface DialButtonProps {
   phoneNumber: string;
   customerId?: string;
   prospectId?: string;
-  variant?: 'primary' | 'secondary' | 'danger';
-  size?: 'sm' | 'md' | 'lg';
+  variant?: "primary" | "secondary" | "danger";
+  size?: "sm" | "md" | "lg";
   className?: string;
 }
 
@@ -20,8 +20,8 @@ export function DialButton({
   phoneNumber,
   customerId,
   prospectId,
-  variant = 'secondary',
-  size = 'sm',
+  variant = "secondary",
+  size = "sm",
   className,
 }: DialButtonProps) {
   const [isDialing, setIsDialing] = useState(false);
@@ -47,7 +47,7 @@ export function DialButton({
     try {
       await initiateMutation.mutateAsync(request);
     } catch (error) {
-      console.error('Failed to initiate call:', error);
+      console.error("Failed to initiate call:", error);
     } finally {
       setIsDialing(false);
     }
@@ -62,7 +62,7 @@ export function DialButton({
       className={className}
       title="Click to call"
     >
-      {isDialing ? '...' : '📞'}
+      {isDialing ? "..." : "📞"}
     </Button>
   );
 }

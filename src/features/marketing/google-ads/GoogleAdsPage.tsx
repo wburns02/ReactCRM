@@ -1,12 +1,17 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
 import {
   useAdsPerformance,
   useIntegrationSettings,
-} from '@/api/hooks/useMarketingHub.ts';
+} from "@/api/hooks/useMarketingHub.ts";
 
 export function GoogleAdsPage() {
   const [periodDays, setPeriodDays] = useState(30);
@@ -17,15 +22,15 @@ export function GoogleAdsPage() {
   const isConfigured = settings?.integrations?.google_ads?.configured;
 
   const formatCurrency = (value: number) => {
-    return new Intl.NumberFormat('en-US', {
-      style: 'currency',
-      currency: 'USD',
+    return new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: "USD",
       minimumFractionDigits: 2,
     }).format(value);
   };
 
   const formatNumber = (value: number) => {
-    return new Intl.NumberFormat('en-US').format(value);
+    return new Intl.NumberFormat("en-US").format(value);
   };
 
   return (
@@ -34,10 +39,14 @@ export function GoogleAdsPage() {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-4">
           <Link to="/marketing">
-            <Button variant="ghost" size="sm">&larr; Back</Button>
+            <Button variant="ghost" size="sm">
+              &larr; Back
+            </Button>
           </Link>
           <div>
-            <h1 className="text-2xl font-semibold text-text-primary">Google Ads Dashboard</h1>
+            <h1 className="text-2xl font-semibold text-text-primary">
+              Google Ads Dashboard
+            </h1>
             <p className="text-sm text-text-secondary mt-1">
               Campaign performance and optimization
             </p>
@@ -68,9 +77,12 @@ export function GoogleAdsPage() {
             <div className="flex items-center gap-4">
               <span className="text-4xl">⚠️</span>
               <div className="flex-1">
-                <h3 className="font-semibold text-text-primary">Google Ads Not Connected</h3>
+                <h3 className="font-semibold text-text-primary">
+                  Google Ads Not Connected
+                </h3>
                 <p className="text-sm text-text-secondary">
-                  Connect your Google Ads account to see real performance data and manage campaigns.
+                  Connect your Google Ads account to see real performance data
+                  and manage campaigns.
                 </p>
               </div>
               <Link to="/integrations">
@@ -87,7 +99,7 @@ export function GoogleAdsPage() {
           <CardContent className="pt-6">
             <div className="text-sm text-text-secondary">Total Spend</div>
             <div className="text-2xl font-bold text-text-primary">
-              {isLoading ? '...' : formatCurrency(adsData?.metrics?.cost || 0)}
+              {isLoading ? "..." : formatCurrency(adsData?.metrics?.cost || 0)}
             </div>
           </CardContent>
         </Card>
@@ -96,7 +108,7 @@ export function GoogleAdsPage() {
           <CardContent className="pt-6">
             <div className="text-sm text-text-secondary">Clicks</div>
             <div className="text-2xl font-bold text-primary">
-              {isLoading ? '...' : formatNumber(adsData?.metrics?.clicks || 0)}
+              {isLoading ? "..." : formatNumber(adsData?.metrics?.clicks || 0)}
             </div>
           </CardContent>
         </Card>
@@ -105,7 +117,9 @@ export function GoogleAdsPage() {
           <CardContent className="pt-6">
             <div className="text-sm text-text-secondary">Impressions</div>
             <div className="text-2xl font-bold text-text-primary">
-              {isLoading ? '...' : formatNumber(adsData?.metrics?.impressions || 0)}
+              {isLoading
+                ? "..."
+                : formatNumber(adsData?.metrics?.impressions || 0)}
             </div>
           </CardContent>
         </Card>
@@ -114,7 +128,9 @@ export function GoogleAdsPage() {
           <CardContent className="pt-6">
             <div className="text-sm text-text-secondary">Conversions</div>
             <div className="text-2xl font-bold text-success">
-              {isLoading ? '...' : formatNumber(adsData?.metrics?.conversions || 0)}
+              {isLoading
+                ? "..."
+                : formatNumber(adsData?.metrics?.conversions || 0)}
             </div>
           </CardContent>
         </Card>
@@ -123,7 +139,7 @@ export function GoogleAdsPage() {
           <CardContent className="pt-6">
             <div className="text-sm text-text-secondary">Cost/Conversion</div>
             <div className="text-2xl font-bold text-warning">
-              {isLoading ? '...' : formatCurrency(adsData?.metrics?.cpa || 0)}
+              {isLoading ? "..." : formatCurrency(adsData?.metrics?.cpa || 0)}
             </div>
           </CardContent>
         </Card>
@@ -145,7 +161,9 @@ export function GoogleAdsPage() {
               <div className="space-y-4">
                 <div>
                   <div className="flex justify-between mb-1">
-                    <span className="text-sm text-text-secondary">CTR (Click-Through Rate)</span>
+                    <span className="text-sm text-text-secondary">
+                      CTR (Click-Through Rate)
+                    </span>
                     <span className="text-sm font-medium">
                       {((adsData?.metrics?.ctr || 0) * 100).toFixed(2)}%
                     </span>
@@ -153,7 +171,9 @@ export function GoogleAdsPage() {
                   <div className="w-full bg-surface-hover rounded-full h-2">
                     <div
                       className="bg-primary h-2 rounded-full"
-                      style={{ width: `${Math.min((adsData?.metrics?.ctr || 0) * 100 * 10, 100)}%` }}
+                      style={{
+                        width: `${Math.min((adsData?.metrics?.ctr || 0) * 100 * 10, 100)}%`,
+                      }}
                     ></div>
                   </div>
                   <p className="text-xs text-text-secondary mt-1">
@@ -163,16 +183,23 @@ export function GoogleAdsPage() {
 
                 <div>
                   <div className="flex justify-between mb-1">
-                    <span className="text-sm text-text-secondary">Conversion Rate</span>
+                    <span className="text-sm text-text-secondary">
+                      Conversion Rate
+                    </span>
                     <span className="text-sm font-medium">
-                      {(((adsData?.metrics?.conversions || 0) / Math.max(1, adsData?.metrics?.clicks || 1)) * 100).toFixed(2)}%
+                      {(
+                        ((adsData?.metrics?.conversions || 0) /
+                          Math.max(1, adsData?.metrics?.clicks || 1)) *
+                        100
+                      ).toFixed(2)}
+                      %
                     </span>
                   </div>
                   <div className="w-full bg-surface-hover rounded-full h-2">
                     <div
                       className="bg-success h-2 rounded-full"
                       style={{
-                        width: `${Math.min(((adsData?.metrics?.conversions || 0) / Math.max(1, adsData?.metrics?.clicks || 1)) * 100 * 5, 100)}%`
+                        width: `${Math.min(((adsData?.metrics?.conversions || 0) / Math.max(1, adsData?.metrics?.clicks || 1)) * 100 * 5, 100)}%`,
                       }}
                     ></div>
                   </div>
@@ -186,13 +213,20 @@ export function GoogleAdsPage() {
                     <div>
                       <p className="text-sm text-text-secondary">Avg. CPC</p>
                       <p className="text-lg font-semibold">
-                        {formatCurrency((adsData?.metrics?.cost || 0) / Math.max(1, adsData?.metrics?.clicks || 1))}
+                        {formatCurrency(
+                          (adsData?.metrics?.cost || 0) /
+                            Math.max(1, adsData?.metrics?.clicks || 1),
+                        )}
                       </p>
                     </div>
                     <div>
                       <p className="text-sm text-text-secondary">ROAS</p>
                       <p className="text-lg font-semibold">
-                        {(((adsData?.metrics?.conversions || 0) * 250) / Math.max(1, adsData?.metrics?.cost || 1)).toFixed(2)}x
+                        {(
+                          ((adsData?.metrics?.conversions || 0) * 250) /
+                          Math.max(1, adsData?.metrics?.cost || 1)
+                        ).toFixed(2)}
+                        x
                       </p>
                     </div>
                   </div>
@@ -226,13 +260,20 @@ export function GoogleAdsPage() {
                     className="flex items-center justify-between p-3 bg-surface-hover rounded-lg"
                   >
                     <div>
-                      <p className="font-medium text-text-primary">{campaign.name}</p>
+                      <p className="font-medium text-text-primary">
+                        {campaign.name}
+                      </p>
                       <p className="text-sm text-text-secondary">
-                        {formatNumber(campaign.clicks)} clicks | {formatNumber(campaign.conversions)} conversions
+                        {formatNumber(campaign.clicks)} clicks |{" "}
+                        {formatNumber(campaign.conversions)} conversions
                       </p>
                     </div>
                     <div className="text-right">
-                      <Badge variant={campaign.status === 'active' ? 'success' : 'default'}>
+                      <Badge
+                        variant={
+                          campaign.status === "active" ? "success" : "default"
+                        }
+                      >
                         {campaign.status}
                       </Badge>
                       <p className="text-sm font-medium mt-1">
@@ -247,8 +288,8 @@ export function GoogleAdsPage() {
                 <p>No campaigns found</p>
                 <p className="text-sm mt-1">
                   {isConfigured
-                    ? 'Create your first campaign to start advertising'
-                    : 'Connect Google Ads to view campaigns'}
+                    ? "Create your first campaign to start advertising"
+                    : "Connect Google Ads to view campaigns"}
                 </p>
               </div>
             )}
@@ -279,15 +320,22 @@ export function GoogleAdsPage() {
                   <div className="flex items-start gap-3">
                     <Badge
                       variant={
-                        rec.priority === 'high' ? 'danger' :
-                        rec.priority === 'medium' ? 'warning' : 'info'
+                        rec.priority === "high"
+                          ? "danger"
+                          : rec.priority === "medium"
+                            ? "warning"
+                            : "info"
                       }
                     >
                       {rec.priority}
                     </Badge>
                     <div className="flex-1">
-                      <p className="font-medium text-text-primary">{rec.type}</p>
-                      <p className="text-sm text-text-secondary mt-1">{rec.message}</p>
+                      <p className="font-medium text-text-primary">
+                        {rec.type}
+                      </p>
+                      <p className="text-sm text-text-secondary mt-1">
+                        {rec.message}
+                      </p>
                       {rec.impact && (
                         <p className="text-xs text-success mt-2">
                           Potential impact: {rec.impact}
@@ -316,7 +364,9 @@ export function GoogleAdsPage() {
             <div className="flex items-center gap-4">
               <span className="text-3xl">🔑</span>
               <div>
-                <h3 className="font-semibold text-text-primary">Keyword Ideas</h3>
+                <h3 className="font-semibold text-text-primary">
+                  Keyword Ideas
+                </h3>
                 <p className="text-sm text-text-secondary">
                   Get AI-powered keyword suggestions
                 </p>
@@ -330,7 +380,9 @@ export function GoogleAdsPage() {
             <div className="flex items-center gap-4">
               <span className="text-3xl">📝</span>
               <div>
-                <h3 className="font-semibold text-text-primary">Ad Copy Generator</h3>
+                <h3 className="font-semibold text-text-primary">
+                  Ad Copy Generator
+                </h3>
                 <p className="text-sm text-text-secondary">
                   Generate headlines and descriptions
                 </p>
@@ -344,7 +396,9 @@ export function GoogleAdsPage() {
             <div className="flex items-center gap-4">
               <span className="text-3xl">🎯</span>
               <div>
-                <h3 className="font-semibold text-text-primary">Competitor Analysis</h3>
+                <h3 className="font-semibold text-text-primary">
+                  Competitor Analysis
+                </h3>
                 <p className="text-sm text-text-secondary">
                   See what competitors are bidding on
                 </p>

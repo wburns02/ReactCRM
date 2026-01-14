@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient, withFallback } from '@/api/client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient, withFallback } from "@/api/client.ts";
 import type {
   EmployeeJob,
   TimeClockEntry,
@@ -9,7 +9,7 @@ import type {
   ChecklistItem,
   JobUpdateInput,
   EmployeeDashboardStats,
-} from '@/api/types/employee.ts';
+} from "@/api/types/employee.ts";
 
 /**
  * Default values for 404 fallback
@@ -22,11 +22,11 @@ const DEFAULT_DASHBOARD_STATS: EmployeeDashboardStats = {
 };
 
 const DEFAULT_PROFILE: EmployeeProfile = {
-  id: '',
-  first_name: '',
-  last_name: '',
-  email: '',
-  role: 'technician',
+  id: "",
+  first_name: "",
+  last_name: "",
+  email: "",
+  role: "technician",
   is_active: true,
 };
 
@@ -36,15 +36,12 @@ const DEFAULT_PROFILE: EmployeeProfile = {
  */
 export function useEmployeeDashboard() {
   return useQuery({
-    queryKey: ['employee', 'dashboard'],
+    queryKey: ["employee", "dashboard"],
     queryFn: async (): Promise<EmployeeDashboardStats> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/employee/dashboard');
-          return data;
-        },
-        DEFAULT_DASHBOARD_STATS
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/employee/dashboard");
+        return data;
+      }, DEFAULT_DASHBOARD_STATS);
     },
     refetchInterval: 60000, // Refresh every minute
   });
@@ -56,15 +53,12 @@ export function useEmployeeDashboard() {
  */
 export function useEmployeeProfile() {
   return useQuery({
-    queryKey: ['employee', 'profile'],
+    queryKey: ["employee", "profile"],
     queryFn: async (): Promise<EmployeeProfile> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/employee/profile');
-          return data;
-        },
-        DEFAULT_PROFILE
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/employee/profile");
+        return data;
+      }, DEFAULT_PROFILE);
     },
   });
 }
@@ -75,16 +69,13 @@ export function useEmployeeProfile() {
  */
 export function useEmployeeJobs(date?: string) {
   return useQuery({
-    queryKey: ['employee', 'jobs', date],
+    queryKey: ["employee", "jobs", date],
     queryFn: async (): Promise<EmployeeJob[]> => {
-      return withFallback(
-        async () => {
-          const params = date ? { date } : {};
-          const { data } = await apiClient.get('/employee/jobs', { params });
-          return data.jobs || [];
-        },
-        []
-      );
+      return withFallback(async () => {
+        const params = date ? { date } : {};
+        const { data } = await apiClient.get("/employee/jobs", { params });
+        return data.jobs || [];
+      }, []);
     },
   });
 }
@@ -94,7 +85,7 @@ export function useEmployeeJobs(date?: string) {
  */
 export function useEmployeeJob(jobId: string) {
   return useQuery({
-    queryKey: ['employee', 'jobs', jobId],
+    queryKey: ["employee", "jobs", jobId],
     queryFn: async (): Promise<EmployeeJob> => {
       const { data } = await apiClient.get(`/employee/jobs/${jobId}`);
       return data;
@@ -109,15 +100,14 @@ export function useEmployeeJob(jobId: string) {
  */
 export function useJobChecklist(jobId: string) {
   return useQuery({
-    queryKey: ['employee', 'jobs', jobId, 'checklist'],
+    queryKey: ["employee", "jobs", jobId, "checklist"],
     queryFn: async (): Promise<ChecklistItem[]> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get(`/employee/jobs/${jobId}/checklist`);
-          return data.items || [];
-        },
-        []
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get(
+          `/employee/jobs/${jobId}/checklist`,
+        );
+        return data.items || [];
+      }, []);
     },
     enabled: !!jobId,
   });
@@ -141,9 +131,9 @@ export function useUpdateJob() {
       return data;
     },
     onSuccess: (_, { jobId }) => {
-      queryClient.invalidateQueries({ queryKey: ['employee', 'jobs'] });
-      queryClient.invalidateQueries({ queryKey: ['employee', 'jobs', jobId] });
-      queryClient.invalidateQueries({ queryKey: ['employee', 'dashboard'] });
+      queryClient.invalidateQueries({ queryKey: ["employee", "jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["employee", "jobs", jobId] });
+      queryClient.invalidateQueries({ queryKey: ["employee", "dashboard"] });
     },
   });
 }
@@ -154,15 +144,12 @@ export function useUpdateJob() {
  */
 export function useTimeClockStatus() {
   return useQuery({
-    queryKey: ['employee', 'timeclock', 'status'],
+    queryKey: ["employee", "timeclock", "status"],
     queryFn: async (): Promise<TimeClockEntry | null> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/employee/timeclock/status');
-          return data.entry || null;
-        },
-        null
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/employee/timeclock/status");
+        return data.entry || null;
+      }, null);
     },
     refetchInterval: 30000, // Refresh every 30 seconds
   });
@@ -176,12 +163,15 @@ export function useClockIn() {
 
   return useMutation({
     mutationFn: async (input: ClockInInput): Promise<TimeClockEntry> => {
-      const { data } = await apiClient.post('/employee/timeclock/clock-in', input);
+      const { data } = await apiClient.post(
+        "/employee/timeclock/clock-in",
+        input,
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['employee', 'timeclock'] });
-      queryClient.invalidateQueries({ queryKey: ['employee', 'dashboard'] });
+      queryClient.invalidateQueries({ queryKey: ["employee", "timeclock"] });
+      queryClient.invalidateQueries({ queryKey: ["employee", "dashboard"] });
     },
   });
 }
@@ -194,12 +184,15 @@ export function useClockOut() {
 
   return useMutation({
     mutationFn: async (input: ClockOutInput): Promise<TimeClockEntry> => {
-      const { data } = await apiClient.post('/employee/timeclock/clock-out', input);
+      const { data } = await apiClient.post(
+        "/employee/timeclock/clock-out",
+        input,
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['employee', 'timeclock'] });
-      queryClient.invalidateQueries({ queryKey: ['employee', 'dashboard'] });
+      queryClient.invalidateQueries({ queryKey: ["employee", "timeclock"] });
+      queryClient.invalidateQueries({ queryKey: ["employee", "dashboard"] });
     },
   });
 }
@@ -208,17 +201,19 @@ export function useClockOut() {
  * Time Clock - History
  * Returns empty array if endpoint not implemented (404)
  */
-export function useTimeClockHistory(params?: { start_date?: string; end_date?: string }) {
+export function useTimeClockHistory(params?: {
+  start_date?: string;
+  end_date?: string;
+}) {
   return useQuery({
-    queryKey: ['employee', 'timeclock', 'history', params],
+    queryKey: ["employee", "timeclock", "history", params],
     queryFn: async (): Promise<TimeClockEntry[]> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/employee/timeclock/history', { params });
-          return data.entries || [];
-        },
-        []
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/employee/timeclock/history", {
+          params,
+        });
+        return data.entries || [];
+      }, []);
     },
   });
 }
@@ -246,8 +241,8 @@ export function useStartJob() {
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['employee', 'jobs'] });
-      queryClient.invalidateQueries({ queryKey: ['employee', 'dashboard'] });
+      queryClient.invalidateQueries({ queryKey: ["employee", "jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["employee", "dashboard"] });
     },
   });
 }
@@ -274,18 +269,21 @@ export function useCompleteJob() {
       customer_signature?: string;
       technician_signature?: string;
     }): Promise<EmployeeJob> => {
-      const { data } = await apiClient.post(`/employee/jobs/${jobId}/complete`, {
-        notes,
-        latitude,
-        longitude,
-        customer_signature,
-        technician_signature,
-      });
+      const { data } = await apiClient.post(
+        `/employee/jobs/${jobId}/complete`,
+        {
+          notes,
+          latitude,
+          longitude,
+          customer_signature,
+          technician_signature,
+        },
+      );
       return data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['employee', 'jobs'] });
-      queryClient.invalidateQueries({ queryKey: ['employee', 'dashboard'] });
+      queryClient.invalidateQueries({ queryKey: ["employee", "jobs"] });
+      queryClient.invalidateQueries({ queryKey: ["employee", "dashboard"] });
     },
   });
 }

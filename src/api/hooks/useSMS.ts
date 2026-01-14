@@ -1,5 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient, withFallback } from '@/api/client';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiClient, withFallback } from "@/api/client";
 
 /**
  * SMS Types
@@ -7,7 +7,13 @@ import { apiClient, withFallback } from '@/api/client';
 export interface SMSTemplate {
   id: string;
   name: string;
-  type: 'appointment_reminder' | 'appointment_confirmation' | 'service_complete' | 'invoice_sent' | 'payment_reminder' | 'custom';
+  type:
+    | "appointment_reminder"
+    | "appointment_confirmation"
+    | "service_complete"
+    | "invoice_sent"
+    | "payment_reminder"
+    | "custom";
   content: string;
   variables: string[]; // Available template variables like {{customer_name}}, {{appointment_date}}
   is_active: boolean;
@@ -20,8 +26,8 @@ export interface SMSMessage {
   to_phone: string;
   from_phone: string;
   content: string;
-  status: 'queued' | 'sent' | 'delivered' | 'failed' | 'undelivered';
-  direction: 'inbound' | 'outbound';
+  status: "queued" | "sent" | "delivered" | "failed" | "undelivered";
+  direction: "inbound" | "outbound";
   twilio_sid?: string;
   error_message?: string;
   customer_id?: number;
@@ -33,7 +39,7 @@ export interface SMSMessage {
 export interface SMSSettings {
   twilio_enabled: boolean;
   twilio_phone_number?: string;
-  twilio_account_status?: 'active' | 'suspended' | 'pending';
+  twilio_account_status?: "active" | "suspended" | "pending";
   // Auto-send settings
   auto_appointment_reminder: boolean;
   reminder_hours_before: number; // Hours before appointment to send reminder
@@ -89,8 +95,8 @@ const DEFAULT_SETTINGS: SMSSettings = {
   auto_payment_reminder: false,
   payment_reminder_days: 7,
   quiet_hours_enabled: false,
-  quiet_start: '22:00',
-  quiet_end: '07:00',
+  quiet_start: "22:00",
+  quiet_end: "07:00",
   total_opted_out: 0,
 };
 
@@ -108,15 +114,16 @@ const DEFAULT_STATS: SMSStats = {
  * Query keys for SMS
  */
 export const smsKeys = {
-  all: ['sms'] as const,
-  settings: () => [...smsKeys.all, 'settings'] as const,
-  stats: () => [...smsKeys.all, 'stats'] as const,
-  templates: () => [...smsKeys.all, 'templates'] as const,
-  template: (id: string) => [...smsKeys.all, 'template', id] as const,
+  all: ["sms"] as const,
+  settings: () => [...smsKeys.all, "settings"] as const,
+  stats: () => [...smsKeys.all, "stats"] as const,
+  templates: () => [...smsKeys.all, "templates"] as const,
+  template: (id: string) => [...smsKeys.all, "template", id] as const,
   messages: (filters?: { customer_id?: number; status?: string }) =>
-    [...smsKeys.all, 'messages', filters] as const,
-  conversations: () => [...smsKeys.all, 'conversations'] as const,
-  conversation: (customerId: number) => [...smsKeys.all, 'conversation', customerId] as const,
+    [...smsKeys.all, "messages", filters] as const,
+  conversations: () => [...smsKeys.all, "conversations"] as const,
+  conversation: (customerId: number) =>
+    [...smsKeys.all, "conversation", customerId] as const,
 };
 
 /**
@@ -127,13 +134,10 @@ export function useSMSSettings() {
   return useQuery({
     queryKey: smsKeys.settings(),
     queryFn: async (): Promise<SMSSettings> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/sms/settings');
-          return data;
-        },
-        DEFAULT_SETTINGS
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/sms/settings");
+        return data;
+      }, DEFAULT_SETTINGS);
     },
   });
 }
@@ -145,8 +149,10 @@ export function useUpdateSMSSettings() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (settings: Partial<SMSSettings>): Promise<SMSSettings> => {
-      const { data } = await apiClient.put('/sms/settings', settings);
+    mutationFn: async (
+      settings: Partial<SMSSettings>,
+    ): Promise<SMSSettings> => {
+      const { data } = await apiClient.put("/sms/settings", settings);
       return data;
     },
     onSuccess: () => {
@@ -163,13 +169,10 @@ export function useSMSStats() {
   return useQuery({
     queryKey: smsKeys.stats(),
     queryFn: async (): Promise<SMSStats> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/sms/stats');
-          return data;
-        },
-        DEFAULT_STATS
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/sms/stats");
+        return data;
+      }, DEFAULT_STATS);
     },
   });
 }
@@ -182,13 +185,10 @@ export function useSMSTemplates() {
   return useQuery({
     queryKey: smsKeys.templates(),
     queryFn: async (): Promise<SMSTemplate[]> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/sms/templates');
-          return data.templates || [];
-        },
-        []
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/sms/templates");
+        return data.templates || [];
+      }, []);
     },
   });
 }
@@ -214,8 +214,13 @@ export function useCreateSMSTemplate() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (template: Omit<SMSTemplate, 'id' | 'created_at' | 'updated_at' | 'variables'>): Promise<SMSTemplate> => {
-      const { data } = await apiClient.post('/sms/templates', template);
+    mutationFn: async (
+      template: Omit<
+        SMSTemplate,
+        "id" | "created_at" | "updated_at" | "variables"
+      >,
+    ): Promise<SMSTemplate> => {
+      const { data } = await apiClient.post("/sms/templates", template);
       return data;
     },
     onSuccess: () => {
@@ -231,13 +236,18 @@ export function useUpdateSMSTemplate() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ id, ...template }: Partial<SMSTemplate> & { id: string }): Promise<SMSTemplate> => {
+    mutationFn: async ({
+      id,
+      ...template
+    }: Partial<SMSTemplate> & { id: string }): Promise<SMSTemplate> => {
       const { data } = await apiClient.put(`/sms/templates/${id}`, template);
       return data;
     },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: smsKeys.templates() });
-      queryClient.invalidateQueries({ queryKey: smsKeys.template(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: smsKeys.template(variables.id),
+      });
     },
   });
 }
@@ -266,7 +276,7 @@ export function useSendSMS() {
 
   return useMutation({
     mutationFn: async (request: SendSMSRequest): Promise<SMSMessage> => {
-      const { data } = await apiClient.post('/sms/send', request);
+      const { data } = await apiClient.post("/sms/send", request);
       return data;
     },
     onSuccess: () => {
@@ -280,21 +290,28 @@ export function useSendSMS() {
  * Get SMS messages
  * Returns empty list if endpoint not implemented (404)
  */
-export function useSMSMessages(filters?: { customer_id?: number; status?: string; limit?: number }) {
+export function useSMSMessages(filters?: {
+  customer_id?: number;
+  status?: string;
+  limit?: number;
+}) {
   return useQuery({
     queryKey: smsKeys.messages(filters),
     queryFn: async (): Promise<{ messages: SMSMessage[]; total: number }> => {
       return withFallback(
         async () => {
           const params = new URLSearchParams();
-          if (filters?.customer_id) params.append('customer_id', filters.customer_id.toString());
-          if (filters?.status) params.append('status', filters.status);
-          if (filters?.limit) params.append('limit', filters.limit.toString());
+          if (filters?.customer_id)
+            params.append("customer_id", filters.customer_id.toString());
+          if (filters?.status) params.append("status", filters.status);
+          if (filters?.limit) params.append("limit", filters.limit.toString());
 
-          const { data } = await apiClient.get(`/sms/messages?${params.toString()}`);
+          const { data } = await apiClient.get(
+            `/sms/messages?${params.toString()}`,
+          );
           return data;
         },
-        { messages: [], total: 0 }
+        { messages: [], total: 0 },
       );
     },
   });
@@ -308,13 +325,10 @@ export function useSMSConversations() {
   return useQuery({
     queryKey: smsKeys.conversations(),
     queryFn: async (): Promise<SMSConversation[]> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get('/sms/conversations');
-          return data.conversations || [];
-        },
-        []
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get("/sms/conversations");
+        return data.conversations || [];
+      }, []);
     },
     refetchInterval: 30000, // Poll every 30 seconds
   });
@@ -328,13 +342,12 @@ export function useSMSConversation(customerId: number) {
   return useQuery({
     queryKey: smsKeys.conversation(customerId),
     queryFn: async (): Promise<SMSMessage[]> => {
-      return withFallback(
-        async () => {
-          const { data } = await apiClient.get(`/sms/conversations/${customerId}`);
-          return data.messages || [];
-        },
-        []
-      );
+      return withFallback(async () => {
+        const { data } = await apiClient.get(
+          `/sms/conversations/${customerId}`,
+        );
+        return data.messages || [];
+      }, []);
     },
     enabled: !!customerId,
   });
@@ -352,7 +365,7 @@ export function useSendBulkSMS() {
       template_id: string;
       template_variables?: Record<string, string>;
     }): Promise<{ sent: number; failed: number; errors: string[] }> => {
-      const { data } = await apiClient.post('/sms/send-bulk', params);
+      const { data } = await apiClient.post("/sms/send-bulk", params);
       return data;
     },
     onSuccess: () => {
@@ -368,7 +381,7 @@ export function useSendBulkSMS() {
 export function useTestTwilioConnection() {
   return useMutation({
     mutationFn: async (): Promise<{ success: boolean; message: string }> => {
-      const { data } = await apiClient.post('/sms/test-connection');
+      const { data } = await apiClient.post("/sms/test-connection");
       return data;
     },
   });
@@ -383,7 +396,7 @@ export function usePreviewSMSTemplate() {
       template_id: string;
       variables: Record<string, string>;
     }): Promise<{ preview: string; character_count: number }> => {
-      const { data } = await apiClient.post('/sms/templates/preview', params);
+      const { data } = await apiClient.post("/sms/templates/preview", params);
       return data;
     },
   });

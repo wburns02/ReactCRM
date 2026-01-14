@@ -1,31 +1,36 @@
-import { useState, useCallback } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
+import { useState, useCallback } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   useInventory,
   useCreateInventoryItem,
   useUpdateInventoryItem,
   useAdjustInventory,
   useDeleteInventoryItem,
-} from '@/api/hooks/useInventory.ts';
-import { InventoryList } from './components/InventoryList.tsx';
-import { InventoryForm } from './components/InventoryForm.tsx';
-import { InventoryAdjustment } from './components/InventoryAdjustment.tsx';
-import { StockAlerts } from './components/StockAlerts.tsx';
+} from "@/api/hooks/useInventory.ts";
+import { InventoryList } from "./components/InventoryList.tsx";
+import { InventoryForm } from "./components/InventoryForm.tsx";
+import { InventoryAdjustment } from "./components/InventoryAdjustment.tsx";
+import { StockAlerts } from "./components/StockAlerts.tsx";
 import {
   type InventoryItem,
   type InventoryFormData,
   type InventoryFilters,
   type InventoryAdjustmentData,
-} from '@/api/types/inventory.ts';
+} from "@/api/types/inventory.ts";
 
 const PAGE_SIZE = 20;
 
@@ -37,7 +42,7 @@ export function InventoryPage() {
   const [filters, setFilters] = useState<InventoryFilters>({
     page: 1,
     page_size: PAGE_SIZE,
-    search: '',
+    search: "",
     low_stock: false,
   });
 
@@ -47,7 +52,9 @@ export function InventoryPage() {
 
   // Adjustment modal state
   const [isAdjustmentOpen, setIsAdjustmentOpen] = useState(false);
-  const [adjustingItem, setAdjustingItem] = useState<InventoryItem | null>(null);
+  const [adjustingItem, setAdjustingItem] = useState<InventoryItem | null>(
+    null,
+  );
 
   // Delete confirmation state
   const [deletingItem, setDeletingItem] = useState<InventoryItem | null>(null);
@@ -103,7 +110,7 @@ export function InventoryPage() {
       setIsFormOpen(false);
       setEditingItem(null);
     },
-    [editingItem, createMutation, updateMutation]
+    [editingItem, createMutation, updateMutation],
   );
 
   const handleAdjustmentSubmit = useCallback(
@@ -114,7 +121,7 @@ export function InventoryPage() {
         setAdjustingItem(null);
       }
     },
-    [adjustingItem, adjustMutation]
+    [adjustingItem, adjustMutation],
   );
 
   const handleConfirmDelete = useCallback(async () => {
@@ -130,7 +137,9 @@ export function InventoryPage() {
         <Card>
           <CardContent className="py-12 text-center">
             <div className="text-4xl mb-4">Error</div>
-            <p className="text-danger">Failed to load inventory. Please try again.</p>
+            <p className="text-danger">
+              Failed to load inventory. Please try again.
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -142,7 +151,9 @@ export function InventoryPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-text-primary">Inventory</h1>
+          <h1 className="text-2xl font-semibold text-text-primary">
+            Inventory
+          </h1>
           <p className="text-sm text-text-secondary mt-1">
             Track stock levels and manage inventory
           </p>
@@ -165,7 +176,7 @@ export function InventoryPage() {
               <Input
                 type="search"
                 placeholder="Search by name, SKU, or category..."
-                value={filters.search || ''}
+                value={filters.search || ""}
                 onChange={handleSearch}
               />
             </div>
@@ -176,7 +187,9 @@ export function InventoryPage() {
                 onChange={handleLowStockToggle}
                 className="w-4 h-4 rounded border-border text-primary focus:ring-2 focus:ring-primary/20"
               />
-              <span className="text-sm text-text-secondary">Low stock only</span>
+              <span className="text-sm text-text-secondary">
+                Low stock only
+              </span>
             </label>
           </div>
         </CardContent>
@@ -186,7 +199,9 @@ export function InventoryPage() {
       <Card>
         <CardHeader>
           <CardTitle>
-            {data?.total ? `${data.total} item${data.total !== 1 ? 's' : ''}` : 'Inventory Items'}
+            {data?.total
+              ? `${data.total} item${data.total !== 1 ? "s" : ""}`
+              : "Inventory Items"}
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
@@ -229,17 +244,14 @@ export function InventoryPage() {
       />
 
       {/* Delete Confirmation Dialog */}
-      <Dialog
-        open={!!deletingItem}
-        onClose={() => setDeletingItem(null)}
-      >
+      <Dialog open={!!deletingItem} onClose={() => setDeletingItem(null)}>
         <DialogContent size="sm">
           <DialogHeader onClose={() => setDeletingItem(null)}>
             Delete Inventory Item
           </DialogHeader>
           <DialogBody>
             <p className="text-text-secondary">
-              Are you sure you want to delete{' '}
+              Are you sure you want to delete{" "}
               <span className="font-medium text-text-primary">
                 {deletingItem?.name}
               </span>
@@ -259,7 +271,7 @@ export function InventoryPage() {
               onClick={handleConfirmDelete}
               disabled={deleteMutation.isPending}
             >
-              {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
+              {deleteMutation.isPending ? "Deleting..." : "Delete"}
             </Button>
           </DialogFooter>
         </DialogContent>

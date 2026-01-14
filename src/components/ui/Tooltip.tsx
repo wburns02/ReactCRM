@@ -2,18 +2,19 @@ import {
   useState,
   useRef,
   useEffect,
+  useId,
   type ReactNode,
   type ReactElement,
   cloneElement,
-} from 'react';
-import { createPortal } from 'react-dom';
-import { cn } from '@/lib/utils';
+} from "react";
+import { createPortal } from "react-dom";
+import { cn } from "@/lib/utils";
 
 /**
  * Tooltip position types
  */
-type TooltipSide = 'top' | 'right' | 'bottom' | 'left';
-type TooltipAlign = 'start' | 'center' | 'end';
+type TooltipSide = "top" | "right" | "bottom" | "left";
+type TooltipAlign = "start" | "center" | "end";
 
 interface TooltipProps {
   /** The element that triggers the tooltip */
@@ -22,7 +23,7 @@ interface TooltipProps {
     onMouseLeave?: (e: React.MouseEvent) => void;
     onFocus?: (e: React.FocusEvent) => void;
     onBlur?: (e: React.FocusEvent) => void;
-    'aria-describedby'?: string;
+    "aria-describedby"?: string;
   }>;
   /** Tooltip content */
   content: ReactNode;
@@ -49,8 +50,8 @@ interface TooltipProps {
 export function Tooltip({
   children,
   content,
-  side = 'top',
-  align = 'center',
+  side = "top",
+  align = "center",
   delayShow = 200,
   delayHide = 0,
   className,
@@ -60,9 +61,13 @@ export function Tooltip({
   const [position, setPosition] = useState({ top: 0, left: 0 });
   const triggerRef = useRef<HTMLSpanElement>(null);
   const tooltipRef = useRef<HTMLDivElement>(null);
-  const showTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-  const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(undefined);
-  const tooltipId = useRef(`tooltip-${Math.random().toString(36).slice(2, 9)}`);
+  const showTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
+  const hideTimeoutRef = useRef<ReturnType<typeof setTimeout> | undefined>(
+    undefined,
+  );
+  const tooltipId = useId();
 
   // Calculate position
   const calculatePosition = () => {
@@ -77,46 +82,46 @@ export function Tooltip({
 
     // Calculate based on side
     switch (side) {
-      case 'top':
+      case "top":
         top = trigger.top - tooltip.height - gap;
         left = trigger.left + trigger.width / 2;
         break;
-      case 'bottom':
+      case "bottom":
         top = trigger.bottom + gap;
         left = trigger.left + trigger.width / 2;
         break;
-      case 'left':
+      case "left":
         top = trigger.top + trigger.height / 2;
         left = trigger.left - tooltip.width - gap;
         break;
-      case 'right':
+      case "right":
         top = trigger.top + trigger.height / 2;
         left = trigger.right + gap;
         break;
     }
 
     // Adjust for alignment
-    if (side === 'top' || side === 'bottom') {
+    if (side === "top" || side === "bottom") {
       switch (align) {
-        case 'start':
+        case "start":
           left = trigger.left;
           break;
-        case 'end':
+        case "end":
           left = trigger.right - tooltip.width;
           break;
-        case 'center':
+        case "center":
           left = left - tooltip.width / 2;
           break;
       }
     } else {
       switch (align) {
-        case 'start':
+        case "start":
           top = trigger.top;
           break;
-        case 'end':
+        case "end":
           top = trigger.bottom - tooltip.height;
           break;
-        case 'center':
+        case "center":
           top = top - tooltip.height / 2;
           break;
       }
@@ -124,8 +129,14 @@ export function Tooltip({
 
     // Keep tooltip in viewport
     const padding = 8;
-    left = Math.max(padding, Math.min(left, window.innerWidth - tooltip.width - padding));
-    top = Math.max(padding, Math.min(top, window.innerHeight - tooltip.height - padding));
+    left = Math.max(
+      padding,
+      Math.min(left, window.innerWidth - tooltip.width - padding),
+    );
+    top = Math.max(
+      padding,
+      Math.min(top, window.innerHeight - tooltip.height - padding),
+    );
 
     setPosition({ top, left });
   };
@@ -150,11 +161,11 @@ export function Tooltip({
     if (isVisible) {
       calculatePosition();
       // Recalculate on scroll/resize
-      window.addEventListener('scroll', calculatePosition, true);
-      window.addEventListener('resize', calculatePosition);
+      window.addEventListener("scroll", calculatePosition, true);
+      window.addEventListener("resize", calculatePosition);
       return () => {
-        window.removeEventListener('scroll', calculatePosition, true);
-        window.removeEventListener('resize', calculatePosition);
+        window.removeEventListener("scroll", calculatePosition, true);
+        window.removeEventListener("resize", calculatePosition);
       };
     }
   }, [isVisible]);
@@ -185,7 +196,7 @@ export function Tooltip({
       children.props.onBlur?.(e);
       hide();
     },
-    'aria-describedby': isVisible ? tooltipId.current : undefined,
+    "aria-describedby": isVisible ? tooltipId : undefined,
   });
 
   return (
@@ -197,12 +208,12 @@ export function Tooltip({
         createPortal(
           <div
             ref={tooltipRef}
-            id={tooltipId.current}
+            id={tooltipId}
             role="tooltip"
             className={cn(
-              'fixed z-[100] max-w-xs rounded-md bg-bg-inverse px-3 py-1.5 text-sm text-text-inverse shadow-md',
-              'animate-in fade-in-0 zoom-in-95 duration-100',
-              className
+              "fixed z-[100] max-w-xs rounded-md bg-bg-inverse px-3 py-1.5 text-sm text-text-inverse shadow-md",
+              "animate-in fade-in-0 zoom-in-95 duration-100",
+              className,
             )}
             style={{
               top: position.top,
@@ -213,15 +224,15 @@ export function Tooltip({
             {/* Arrow */}
             <div
               className={cn(
-                'absolute h-2 w-2 rotate-45 bg-bg-inverse',
-                side === 'top' && 'bottom-[-4px] left-1/2 -translate-x-1/2',
-                side === 'bottom' && 'top-[-4px] left-1/2 -translate-x-1/2',
-                side === 'left' && 'right-[-4px] top-1/2 -translate-y-1/2',
-                side === 'right' && 'left-[-4px] top-1/2 -translate-y-1/2'
+                "absolute h-2 w-2 rotate-45 bg-bg-inverse",
+                side === "top" && "bottom-[-4px] left-1/2 -translate-x-1/2",
+                side === "bottom" && "top-[-4px] left-1/2 -translate-x-1/2",
+                side === "left" && "right-[-4px] top-1/2 -translate-y-1/2",
+                side === "right" && "left-[-4px] top-1/2 -translate-y-1/2",
               )}
             />
           </div>,
-          document.body
+          document.body,
         )}
     </>
   );

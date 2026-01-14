@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '../client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "../client.ts";
 import {
   equipmentListResponseSchema,
   equipmentSchema,
@@ -7,16 +7,17 @@ import {
   type EquipmentListResponse,
   type EquipmentFilters,
   type EquipmentFormData,
-} from '../types/equipment.ts';
+} from "../types/equipment.ts";
 
 /**
  * Query keys for equipment
  */
 export const equipmentKeys = {
-  all: ['equipment'] as const,
-  lists: () => [...equipmentKeys.all, 'list'] as const,
-  list: (filters: EquipmentFilters) => [...equipmentKeys.lists(), filters] as const,
-  details: () => [...equipmentKeys.all, 'detail'] as const,
+  all: ["equipment"] as const,
+  lists: () => [...equipmentKeys.all, "list"] as const,
+  list: (filters: EquipmentFilters) =>
+    [...equipmentKeys.lists(), filters] as const,
+  details: () => [...equipmentKeys.all, "detail"] as const,
   detail: (id: string) => [...equipmentKeys.details(), id] as const,
 };
 
@@ -28,20 +29,23 @@ export function useEquipment(filters: EquipmentFilters = {}) {
     queryKey: equipmentKeys.list(filters),
     queryFn: async (): Promise<EquipmentListResponse> => {
       const params = new URLSearchParams();
-      if (filters.page) params.set('page', String(filters.page));
-      if (filters.page_size) params.set('page_size', String(filters.page_size));
-      if (filters.search) params.set('search', filters.search);
-      if (filters.status) params.set('status', filters.status);
-      if (filters.assigned_to) params.set('assigned_to', filters.assigned_to);
+      if (filters.page) params.set("page", String(filters.page));
+      if (filters.page_size) params.set("page_size", String(filters.page_size));
+      if (filters.search) params.set("search", filters.search);
+      if (filters.status) params.set("status", filters.status);
+      if (filters.assigned_to) params.set("assigned_to", filters.assigned_to);
 
-      const url = '/equipment/?' + params.toString();
+      const url = "/equipment/?" + params.toString();
       const { data } = await apiClient.get(url);
 
       // Validate response in development
       if (import.meta.env.DEV) {
         const result = equipmentListResponseSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Equipment list response validation failed:', result.error);
+          console.warn(
+            "Equipment list response validation failed:",
+            result.error,
+          );
         }
       }
 
@@ -58,12 +62,12 @@ export function useEquipmentItem(id: string | undefined) {
   return useQuery({
     queryKey: equipmentKeys.detail(id!),
     queryFn: async (): Promise<Equipment> => {
-      const { data } = await apiClient.get('/equipment/' + id);
+      const { data } = await apiClient.get("/equipment/" + id);
 
       if (import.meta.env.DEV) {
         const result = equipmentSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Equipment response validation failed:', result.error);
+          console.warn("Equipment response validation failed:", result.error);
         }
       }
 
@@ -81,7 +85,7 @@ export function useCreateEquipment() {
 
   return useMutation({
     mutationFn: async (data: EquipmentFormData): Promise<Equipment> => {
-      const response = await apiClient.post('/equipment/', data);
+      const response = await apiClient.post("/equipment/", data);
       return response.data;
     },
     onSuccess: () => {
@@ -104,11 +108,13 @@ export function useUpdateEquipment() {
       id: string;
       data: Partial<EquipmentFormData>;
     }): Promise<Equipment> => {
-      const response = await apiClient.patch('/equipment/' + id, data);
+      const response = await apiClient.patch("/equipment/" + id, data);
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: equipmentKeys.detail(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: equipmentKeys.detail(variables.id),
+      });
       queryClient.invalidateQueries({ queryKey: equipmentKeys.lists() });
     },
   });
@@ -122,7 +128,7 @@ export function useDeleteEquipment() {
 
   return useMutation({
     mutationFn: async (id: string): Promise<void> => {
-      await apiClient.delete('/equipment/' + id);
+      await apiClient.delete("/equipment/" + id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: equipmentKeys.lists() });

@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '../client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "../client.ts";
 
 // Types for Marketing Hub API responses
 export interface MarketingOverview {
@@ -110,7 +110,7 @@ export interface PendingReview {
 }
 
 export interface AIContentRequest {
-  type: 'ad_copy' | 'email_subject' | 'blog_outline' | 'social_post';
+  type: "ad_copy" | "email_subject" | "blog_outline" | "social_post";
   context: Record<string, string>;
 }
 
@@ -140,19 +140,21 @@ export interface IntegrationSettings {
 
 // Query Keys
 export const marketingKeys = {
-  all: ['marketing'] as const,
-  overview: (days: number) => [...marketingKeys.all, 'overview', days] as const,
-  adsPerformance: (days: number) => [...marketingKeys.all, 'ads', 'performance', days] as const,
-  adsStatus: () => [...marketingKeys.all, 'ads', 'status'] as const,
-  seoOverview: () => [...marketingKeys.all, 'seo', 'overview'] as const,
-  seoKeywords: () => [...marketingKeys.all, 'seo', 'keywords'] as const,
-  leadPipeline: () => [...marketingKeys.all, 'leads', 'pipeline'] as const,
-  hotLeads: () => [...marketingKeys.all, 'leads', 'hot'] as const,
-  pendingReviews: () => [...marketingKeys.all, 'reviews', 'pending'] as const,
-  campaigns: () => [...marketingKeys.all, 'campaigns'] as const,
-  settings: () => [...marketingKeys.all, 'settings'] as const,
-  aiRecommendations: () => [...marketingKeys.all, 'ai', 'recommendations'] as const,
-  blogIdeas: () => [...marketingKeys.all, 'seo', 'blog-ideas'] as const,
+  all: ["marketing"] as const,
+  overview: (days: number) => [...marketingKeys.all, "overview", days] as const,
+  adsPerformance: (days: number) =>
+    [...marketingKeys.all, "ads", "performance", days] as const,
+  adsStatus: () => [...marketingKeys.all, "ads", "status"] as const,
+  seoOverview: () => [...marketingKeys.all, "seo", "overview"] as const,
+  seoKeywords: () => [...marketingKeys.all, "seo", "keywords"] as const,
+  leadPipeline: () => [...marketingKeys.all, "leads", "pipeline"] as const,
+  hotLeads: () => [...marketingKeys.all, "leads", "hot"] as const,
+  pendingReviews: () => [...marketingKeys.all, "reviews", "pending"] as const,
+  campaigns: () => [...marketingKeys.all, "campaigns"] as const,
+  settings: () => [...marketingKeys.all, "settings"] as const,
+  aiRecommendations: () =>
+    [...marketingKeys.all, "ai", "recommendations"] as const,
+  blogIdeas: () => [...marketingKeys.all, "seo", "blog-ideas"] as const,
 };
 
 // Hooks
@@ -165,7 +167,7 @@ export function useMarketingOverview(days: number = 30) {
     queryKey: marketingKeys.overview(days),
     queryFn: async () => {
       const response = await apiClient.get<MarketingOverview>(
-        `/marketing-hub/overview?days=${days}`
+        `/marketing-hub/overview?days=${days}`,
       );
       return response.data;
     },
@@ -180,7 +182,7 @@ export function useAdsPerformance(days: number = 30) {
     queryKey: marketingKeys.adsPerformance(days),
     queryFn: async () => {
       const response = await apiClient.get<AdsPerformance>(
-        `/marketing-hub/ads/performance?days=${days}`
+        `/marketing-hub/ads/performance?days=${days}`,
       );
       return response.data;
     },
@@ -194,7 +196,7 @@ export function useAdsStatus() {
   return useQuery({
     queryKey: marketingKeys.adsStatus(),
     queryFn: async () => {
-      const response = await apiClient.get('/marketing-hub/ads/status');
+      const response = await apiClient.get("/marketing-hub/ads/status");
       return response.data;
     },
   });
@@ -207,7 +209,9 @@ export function useSEOOverview() {
   return useQuery({
     queryKey: marketingKeys.seoOverview(),
     queryFn: async () => {
-      const response = await apiClient.get<SEOOverview>('/marketing-hub/seo/overview');
+      const response = await apiClient.get<SEOOverview>(
+        "/marketing-hub/seo/overview",
+      );
       return response.data;
     },
   });
@@ -220,7 +224,9 @@ export function useLeadPipeline() {
   return useQuery({
     queryKey: marketingKeys.leadPipeline(),
     queryFn: async () => {
-      const response = await apiClient.get<LeadPipeline>('/marketing-hub/leads/pipeline');
+      const response = await apiClient.get<LeadPipeline>(
+        "/marketing-hub/leads/pipeline",
+      );
       return response.data;
     },
   });
@@ -233,7 +239,7 @@ export function useHotLeads() {
   return useQuery({
     queryKey: marketingKeys.hotLeads(),
     queryFn: async () => {
-      const response = await apiClient.get('/marketing-hub/leads/hot');
+      const response = await apiClient.get("/marketing-hub/leads/hot");
       return response.data;
     },
   });
@@ -246,9 +252,10 @@ export function usePendingReviews() {
   return useQuery({
     queryKey: marketingKeys.pendingReviews(),
     queryFn: async () => {
-      const response = await apiClient.get<{ success: boolean; reviews: PendingReview[] }>(
-        '/marketing-hub/reviews/pending'
-      );
+      const response = await apiClient.get<{
+        success: boolean;
+        reviews: PendingReview[];
+      }>("/marketing-hub/reviews/pending");
       return response.data;
     },
   });
@@ -261,7 +268,7 @@ export function useMarketingCampaigns() {
   return useQuery({
     queryKey: marketingKeys.campaigns(),
     queryFn: async () => {
-      const response = await apiClient.get('/marketing-hub/campaigns');
+      const response = await apiClient.get("/marketing-hub/campaigns");
       return response.data;
     },
   });
@@ -274,7 +281,9 @@ export function useIntegrationSettings() {
   return useQuery({
     queryKey: marketingKeys.settings(),
     queryFn: async () => {
-      const response = await apiClient.get<IntegrationSettings>('/marketing-hub/settings');
+      const response = await apiClient.get<IntegrationSettings>(
+        "/marketing-hub/settings",
+      );
       return response.data;
     },
   });
@@ -287,7 +296,7 @@ export function useAIRecommendations() {
   return useQuery({
     queryKey: marketingKeys.aiRecommendations(),
     queryFn: async () => {
-      const response = await apiClient.get('/marketing-hub/ai/recommendations');
+      const response = await apiClient.get("/marketing-hub/ai/recommendations");
       return response.data;
     },
   });
@@ -300,7 +309,7 @@ export function useBlogIdeas() {
   return useQuery({
     queryKey: marketingKeys.blogIdeas(),
     queryFn: async () => {
-      const response = await apiClient.get('/marketing-hub/seo/blog-ideas');
+      const response = await apiClient.get("/marketing-hub/seo/blog-ideas");
       return response.data;
     },
   });
@@ -313,8 +322,13 @@ export function useBlogIdeas() {
  */
 export function useGenerateAIContent() {
   return useMutation({
-    mutationFn: async (request: AIContentRequest): Promise<AIContentResponse> => {
-      const response = await apiClient.post('/marketing-hub/ai/generate-content', request);
+    mutationFn: async (
+      request: AIContentRequest,
+    ): Promise<AIContentResponse> => {
+      const response = await apiClient.post(
+        "/marketing-hub/ai/generate-content",
+        request,
+      );
       return response.data;
     },
   });
@@ -325,8 +339,15 @@ export function useGenerateAIContent() {
  */
 export function useGenerateLandingPage() {
   return useMutation({
-    mutationFn: async (data: { city: string; service?: string; keywords?: string }) => {
-      const response = await apiClient.post('/marketing-hub/ai/generate-landing-page', data);
+    mutationFn: async (data: {
+      city: string;
+      service?: string;
+      keywords?: string;
+    }) => {
+      const response = await apiClient.post(
+        "/marketing-hub/ai/generate-landing-page",
+        data,
+      );
       return response.data;
     },
   });
@@ -337,8 +358,15 @@ export function useGenerateLandingPage() {
  */
 export function useGenerateBlogPost() {
   return useMutation({
-    mutationFn: async (data: { topic: string; keyword?: string; word_count?: number }) => {
-      const response = await apiClient.post('/marketing-hub/seo/generate-blog', data);
+    mutationFn: async (data: {
+      topic: string;
+      keyword?: string;
+      word_count?: number;
+    }) => {
+      const response = await apiClient.post(
+        "/marketing-hub/seo/generate-blog",
+        data,
+      );
       return response.data;
     },
   });
@@ -352,11 +380,16 @@ export function useReplyToReview() {
 
   return useMutation({
     mutationFn: async (data: { review_id: string; reply: string }) => {
-      const response = await apiClient.post('/marketing-hub/reviews/reply', data);
+      const response = await apiClient.post(
+        "/marketing-hub/reviews/reply",
+        data,
+      );
       return response.data;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: marketingKeys.pendingReviews() });
+      queryClient.invalidateQueries({
+        queryKey: marketingKeys.pendingReviews(),
+      });
     },
   });
 }
@@ -376,7 +409,7 @@ export function useCreateCampaign() {
       scheduled_end?: string;
       message_template?: string;
     }) => {
-      const response = await apiClient.post('/marketing-hub/campaigns', data);
+      const response = await apiClient.post("/marketing-hub/campaigns", data);
       return response.data;
     },
     onSuccess: () => {
@@ -396,7 +429,7 @@ export function useSaveIntegrationSettings() {
       integration_type: string;
       credentials: Record<string, string>;
     }) => {
-      const response = await apiClient.post('/marketing-hub/settings', data);
+      const response = await apiClient.post("/marketing-hub/settings", data);
       return response.data;
     },
     onSuccess: () => {

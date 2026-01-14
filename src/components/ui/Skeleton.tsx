@@ -1,4 +1,4 @@
-import { cn } from '@/lib/utils';
+import { cn } from "@/lib/utils";
 
 /**
  * Skeleton loading placeholder
@@ -9,9 +9,9 @@ import { cn } from '@/lib/utils';
 interface SkeletonProps {
   className?: string;
   /** Preset shapes */
-  variant?: 'text' | 'circular' | 'rectangular' | 'rounded';
+  variant?: "text" | "circular" | "rectangular" | "rounded";
   /** Animation type */
-  animation?: 'pulse' | 'wave' | 'none';
+  animation?: "pulse" | "wave" | "none";
   /** Width (use className for responsive) */
   width?: string | number;
   /** Height (use className for responsive) */
@@ -20,35 +20,35 @@ interface SkeletonProps {
 
 export function Skeleton({
   className,
-  variant = 'rectangular',
-  animation = 'pulse',
+  variant = "rectangular",
+  animation = "pulse",
   width,
   height,
 }: SkeletonProps) {
   const variantClass = {
-    text: 'rounded',
-    circular: 'rounded-full',
-    rectangular: '',
-    rounded: 'rounded-md',
+    text: "rounded",
+    circular: "rounded-full",
+    rectangular: "",
+    rounded: "rounded-md",
   };
 
   const animationClass = {
-    pulse: 'animate-pulse',
-    wave: 'skeleton-wave',
-    none: '',
+    pulse: "animate-pulse",
+    wave: "skeleton-wave",
+    none: "",
   };
 
   return (
     <div
       className={cn(
-        'bg-bg-muted',
+        "bg-bg-muted",
         variantClass[variant],
         animationClass[animation],
-        className
+        className,
       )}
       style={{
-        width: typeof width === 'number' ? `${width}px` : width,
-        height: typeof height === 'number' ? `${height}px` : height,
+        width: typeof width === "number" ? `${width}px` : width,
+        height: typeof height === "number" ? `${height}px` : height,
       }}
       aria-hidden="true"
     />
@@ -66,15 +66,15 @@ export function SkeletonText({
   className?: string;
 }) {
   return (
-    <div className={cn('space-y-2', className)}>
+    <div className={cn("space-y-2", className)}>
       {Array.from({ length: lines }).map((_, i) => (
         <Skeleton
           key={i}
           variant="text"
           className={cn(
-            'h-4',
+            "h-4",
             // Last line is shorter
-            i === lines - 1 && lines > 1 ? 'w-3/4' : 'w-full'
+            i === lines - 1 && lines > 1 ? "w-3/4" : "w-full",
           )}
         />
       ))}
@@ -86,20 +86,22 @@ export function SkeletonText({
  * Skeleton avatar - for profile pictures
  */
 export function SkeletonAvatar({
-  size = 'md',
+  size = "md",
   className,
 }: {
-  size?: 'sm' | 'md' | 'lg' | 'xl';
+  size?: "sm" | "md" | "lg" | "xl";
   className?: string;
 }) {
   const sizeClass = {
-    sm: 'h-8 w-8',
-    md: 'h-10 w-10',
-    lg: 'h-12 w-12',
-    xl: 'h-16 w-16',
+    sm: "h-8 w-8",
+    md: "h-10 w-10",
+    lg: "h-12 w-12",
+    xl: "h-16 w-16",
   };
 
-  return <Skeleton variant="circular" className={cn(sizeClass[size], className)} />;
+  return (
+    <Skeleton variant="circular" className={cn(sizeClass[size], className)} />
+  );
 }
 
 /**
@@ -107,7 +109,9 @@ export function SkeletonAvatar({
  */
 export function SkeletonCard({ className }: { className?: string }) {
   return (
-    <div className={cn('rounded-lg border border-border p-4 space-y-4', className)}>
+    <div
+      className={cn("rounded-lg border border-border p-4 space-y-4", className)}
+    >
       <div className="flex items-center gap-3">
         <SkeletonAvatar size="md" />
         <div className="flex-1 space-y-2">
@@ -135,7 +139,7 @@ export function SkeletonTableRow({
   className?: string;
 }) {
   return (
-    <tr className={cn('border-b border-border', className)}>
+    <tr className={cn("border-b border-border", className)}>
       {Array.from({ length: columns }).map((_, i) => (
         <td key={i} className="px-4 py-3">
           <Skeleton variant="text" className="h-4 w-full" />
@@ -158,7 +162,7 @@ export function SkeletonTable({
   className?: string;
 }) {
   return (
-    <table className={cn('w-full', className)}>
+    <table className={cn("w-full", className)}>
       <thead>
         <tr className="border-b border-border bg-bg-muted/50">
           {Array.from({ length: columns }).map((_, i) => (
@@ -182,7 +186,12 @@ export function SkeletonTable({
  */
 export function SkeletonListItem({ className }: { className?: string }) {
   return (
-    <div className={cn('flex items-center gap-3 p-3 border-b border-border', className)}>
+    <div
+      className={cn(
+        "flex items-center gap-3 p-3 border-b border-border",
+        className,
+      )}
+    >
       <SkeletonAvatar size="sm" />
       <div className="flex-1 space-y-1">
         <Skeleton variant="text" className="h-4 w-1/3" />
@@ -204,7 +213,7 @@ export function SkeletonForm({
   className?: string;
 }) {
   return (
-    <div className={cn('space-y-4', className)}>
+    <div className={cn("space-y-4", className)}>
       {Array.from({ length: fields }).map((_, i) => (
         <div key={i} className="space-y-2">
           <Skeleton variant="text" className="h-4 w-24" />

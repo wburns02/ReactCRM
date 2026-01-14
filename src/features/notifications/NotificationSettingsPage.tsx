@@ -1,6 +1,7 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { toastSuccess, toastError, toastWarning } from "@/components/ui/Toast";
 import {
   useNotificationPreferences,
   useUpdateNotificationPreferences,
@@ -10,14 +11,14 @@ import {
   useVapidPublicKey,
   useSendTestNotification,
   type NotificationPreferences,
-} from '@/api/hooks/useNotifications';
+} from "@/api/hooks/useNotifications";
 import {
   isPushSupported,
   getNotificationPermission,
   subscribeToPush,
   unsubscribeFromPush,
   getDeviceName,
-} from '@/lib/push-notifications';
+} from "@/lib/push-notifications";
 
 /**
  * Toggle switch component
@@ -37,12 +38,12 @@ function Toggle({
       onClick={() => onChange(!checked)}
       disabled={disabled}
       className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-        checked ? 'bg-primary' : 'bg-gray-300'
-      } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+        checked ? "bg-primary" : "bg-gray-300"
+      } ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
     >
       <span
         className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-          checked ? 'translate-x-6' : 'translate-x-1'
+          checked ? "translate-x-6" : "translate-x-1"
         }`}
       />
     </button>
@@ -61,17 +62,19 @@ export function NotificationSettingsPage() {
   const unregisterSubscription = useUnregisterPushSubscription();
   const sendTestNotification = useSendTestNotification();
 
-  const [pushStatus, setPushStatus] = useState<'unsupported' | 'denied' | 'prompt' | 'granted'>('prompt');
+  const [pushStatus, setPushStatus] = useState<
+    "unsupported" | "denied" | "prompt" | "granted"
+  >("prompt");
   const [isSubscribing, setIsSubscribing] = useState(false);
 
   // Check push support and permission on mount
   useEffect(() => {
     if (!isPushSupported()) {
-      setPushStatus('unsupported');
+      setPushStatus("unsupported");
     } else {
       const permission = getNotificationPermission();
       // Map 'default' to 'prompt' for our state
-      setPushStatus(permission === 'default' ? 'prompt' : permission);
+      setPushStatus(permission === "default" ? "prompt" : permission);
     }
   }, []);
 
@@ -82,7 +85,7 @@ export function NotificationSettingsPage() {
 
   const handleEnablePush = async () => {
     if (!vapidData?.public_key) {
-      alert('Push notification configuration not available');
+      toastWarning("Push notification configuration not available");
       return;
     }
 
@@ -94,14 +97,14 @@ export function NotificationSettingsPage() {
           ...subscription,
           device_name: getDeviceName(),
         });
-        setPushStatus('granted');
+        setPushStatus("granted");
       } else {
         const perm = getNotificationPermission();
-        setPushStatus(perm === 'default' ? 'prompt' : perm);
+        setPushStatus(perm === "default" ? "prompt" : perm);
       }
     } catch (error) {
-      console.error('Failed to enable push:', error);
-      alert('Failed to enable push notifications');
+      console.error("Failed to enable push:", error);
+      toastError("Failed to enable push notifications");
     } finally {
       setIsSubscribing(false);
     }
@@ -112,18 +115,18 @@ export function NotificationSettingsPage() {
       await unsubscribeFromPush();
       await unregisterSubscription.mutateAsync(subscriptionId);
     } catch (error) {
-      console.error('Failed to disable push:', error);
-      alert('Failed to disable push notifications');
+      console.error("Failed to disable push:", error);
+      toastError("Failed to disable push notifications");
     }
   };
 
   const handleTestNotification = async () => {
     try {
       await sendTestNotification.mutateAsync();
-      alert('Test notification sent! Check your device.');
+      toastSuccess("Test notification sent! Check your device.");
     } catch (error) {
-      console.error('Failed to send test:', error);
-      alert('Failed to send test notification');
+      console.error("Failed to send test:", error);
+      toastError("Failed to send test notification");
     }
   };
 
@@ -141,7 +144,9 @@ export function NotificationSettingsPage() {
   return (
     <div className="p-6 max-w-4xl mx-auto space-y-6">
       <div>
-        <h1 className="text-2xl font-bold text-text-primary">Notification Settings</h1>
+        <h1 className="text-2xl font-bold text-text-primary">
+          Notification Settings
+        </h1>
         <p className="text-text-secondary mt-1">
           Manage how and when you receive notifications
         </p>
@@ -155,16 +160,18 @@ export function NotificationSettingsPage() {
           </CardTitle>
         </CardHeader>
         <CardContent className="space-y-4">
-          {pushStatus === 'unsupported' ? (
+          {pushStatus === "unsupported" ? (
             <div className="p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
               <p className="text-yellow-800 text-sm">
-                Push notifications are not supported in your browser. Try using Chrome, Firefox, or Edge.
+                Push notifications are not supported in your browser. Try using
+                Chrome, Firefox, or Edge.
               </p>
             </div>
-          ) : pushStatus === 'denied' ? (
+          ) : pushStatus === "denied" ? (
             <div className="p-4 bg-red-50 border border-red-200 rounded-lg">
               <p className="text-red-800 text-sm">
-                Push notifications are blocked. Please enable them in your browser settings.
+                Push notifications are blocked. Please enable them in your
+                browser settings.
               </p>
             </div>
           ) : (
@@ -180,7 +187,7 @@ export function NotificationSettingsPage() {
                     >
                       <div>
                         <p className="font-medium text-text-primary">
-                          {sub.device_name || 'Unknown Device'}
+                          {sub.device_name || "Unknown Device"}
                         </p>
                         <p className="text-xs text-text-muted">
                           Added {new Date(sub.created_at).toLocaleDateString()}
@@ -199,10 +206,13 @@ export function NotificationSettingsPage() {
               ) : (
                 <div className="p-4 bg-bg-muted rounded-lg">
                   <p className="text-text-secondary text-sm mb-3">
-                    Enable push notifications to receive real-time updates on your device.
+                    Enable push notifications to receive real-time updates on
+                    your device.
                   </p>
                   <Button onClick={handleEnablePush} disabled={isSubscribing}>
-                    {isSubscribing ? 'Enabling...' : 'Enable Push Notifications'}
+                    {isSubscribing
+                      ? "Enabling..."
+                      : "Enable Push Notifications"}
                   </Button>
                 </div>
               )}
@@ -215,7 +225,9 @@ export function NotificationSettingsPage() {
                     onClick={handleTestNotification}
                     disabled={sendTestNotification.isPending}
                   >
-                    {sendTestNotification.isPending ? 'Sending...' : 'Send Test Notification'}
+                    {sendTestNotification.isPending
+                      ? "Sending..."
+                      : "Send Test Notification"}
                   </Button>
                 </div>
               )}
@@ -232,34 +244,44 @@ export function NotificationSettingsPage() {
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between py-2">
             <div>
-              <p className="font-medium text-text-primary">Push Notifications</p>
-              <p className="text-sm text-text-muted">Receive notifications in your browser</p>
+              <p className="font-medium text-text-primary">
+                Push Notifications
+              </p>
+              <p className="text-sm text-text-muted">
+                Receive notifications in your browser
+              </p>
             </div>
             <Toggle
               checked={preferences?.push_enabled ?? false}
-              onChange={(v) => handleToggle('push_enabled', v)}
+              onChange={(v) => handleToggle("push_enabled", v)}
               disabled={updatePreferences.isPending}
             />
           </div>
           <div className="flex items-center justify-between py-2 border-t border-border">
             <div>
-              <p className="font-medium text-text-primary">Email Notifications</p>
-              <p className="text-sm text-text-muted">Receive important updates via email</p>
+              <p className="font-medium text-text-primary">
+                Email Notifications
+              </p>
+              <p className="text-sm text-text-muted">
+                Receive important updates via email
+              </p>
             </div>
             <Toggle
               checked={preferences?.email_enabled ?? false}
-              onChange={(v) => handleToggle('email_enabled', v)}
+              onChange={(v) => handleToggle("email_enabled", v)}
               disabled={updatePreferences.isPending}
             />
           </div>
           <div className="flex items-center justify-between py-2 border-t border-border">
             <div>
               <p className="font-medium text-text-primary">SMS Notifications</p>
-              <p className="text-sm text-text-muted">Receive text messages for urgent alerts</p>
+              <p className="text-sm text-text-muted">
+                Receive text messages for urgent alerts
+              </p>
             </div>
             <Toggle
               checked={preferences?.sms_enabled ?? false}
-              onChange={(v) => handleToggle('sms_enabled', v)}
+              onChange={(v) => handleToggle("sms_enabled", v)}
               disabled={updatePreferences.isPending}
             />
           </div>
@@ -273,26 +295,64 @@ export function NotificationSettingsPage() {
         </CardHeader>
         <CardContent className="space-y-4">
           {[
-            { key: 'work_order_assigned', label: 'Work Order Assigned', desc: 'When a work order is assigned to you' },
-            { key: 'work_order_updated', label: 'Work Order Updated', desc: 'When a work order you\'re involved with changes' },
-            { key: 'work_order_completed', label: 'Work Order Completed', desc: 'When a work order is marked complete' },
-            { key: 'schedule_changes', label: 'Schedule Changes', desc: 'When your schedule is modified' },
-            { key: 'customer_messages', label: 'Customer Messages', desc: 'When customers send messages' },
-            { key: 'payment_received', label: 'Payment Received', desc: 'When a payment is processed' },
-            { key: 'invoice_overdue', label: 'Invoice Overdue', desc: 'When an invoice becomes overdue' },
-            { key: 'system_alerts', label: 'System Alerts', desc: 'Important system notifications' },
+            {
+              key: "work_order_assigned",
+              label: "Work Order Assigned",
+              desc: "When a work order is assigned to you",
+            },
+            {
+              key: "work_order_updated",
+              label: "Work Order Updated",
+              desc: "When a work order you're involved with changes",
+            },
+            {
+              key: "work_order_completed",
+              label: "Work Order Completed",
+              desc: "When a work order is marked complete",
+            },
+            {
+              key: "schedule_changes",
+              label: "Schedule Changes",
+              desc: "When your schedule is modified",
+            },
+            {
+              key: "customer_messages",
+              label: "Customer Messages",
+              desc: "When customers send messages",
+            },
+            {
+              key: "payment_received",
+              label: "Payment Received",
+              desc: "When a payment is processed",
+            },
+            {
+              key: "invoice_overdue",
+              label: "Invoice Overdue",
+              desc: "When an invoice becomes overdue",
+            },
+            {
+              key: "system_alerts",
+              label: "System Alerts",
+              desc: "Important system notifications",
+            },
           ].map((item, idx) => (
             <div
               key={item.key}
-              className={`flex items-center justify-between py-2 ${idx > 0 ? 'border-t border-border' : ''}`}
+              className={`flex items-center justify-between py-2 ${idx > 0 ? "border-t border-border" : ""}`}
             >
               <div>
                 <p className="font-medium text-text-primary">{item.label}</p>
                 <p className="text-sm text-text-muted">{item.desc}</p>
               </div>
               <Toggle
-                checked={preferences?.[item.key as keyof typeof preferences] as boolean ?? true}
-                onChange={(v) => handleToggle(item.key as keyof typeof preferences, v)}
+                checked={
+                  (preferences?.[
+                    item.key as keyof typeof preferences
+                  ] as boolean) ?? true
+                }
+                onChange={(v) =>
+                  handleToggle(item.key as keyof typeof preferences, v)
+                }
                 disabled={updatePreferences.isPending}
               />
             </div>
@@ -310,12 +370,16 @@ export function NotificationSettingsPage() {
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between py-2">
             <div>
-              <p className="font-medium text-text-primary">Enable Quiet Hours</p>
-              <p className="text-sm text-text-muted">Pause non-urgent notifications during set hours</p>
+              <p className="font-medium text-text-primary">
+                Enable Quiet Hours
+              </p>
+              <p className="text-sm text-text-muted">
+                Pause non-urgent notifications during set hours
+              </p>
             </div>
             <Toggle
               checked={preferences?.quiet_hours_enabled ?? false}
-              onChange={(v) => handleToggle('quiet_hours_enabled', v)}
+              onChange={(v) => handleToggle("quiet_hours_enabled", v)}
               disabled={updatePreferences.isPending}
             />
           </div>
@@ -323,20 +387,28 @@ export function NotificationSettingsPage() {
           {preferences?.quiet_hours_enabled && (
             <div className="flex items-center gap-4 pt-4 border-t border-border">
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-1">Start</label>
+                <label className="block text-sm font-medium text-text-secondary mb-1">
+                  Start
+                </label>
                 <input
                   type="time"
-                  value={preferences.quiet_start || '22:00'}
-                  onChange={(e) => updatePreferences.mutate({ quiet_start: e.target.value })}
+                  value={preferences.quiet_start || "22:00"}
+                  onChange={(e) =>
+                    updatePreferences.mutate({ quiet_start: e.target.value })
+                  }
                   className="px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-1">End</label>
+                <label className="block text-sm font-medium text-text-secondary mb-1">
+                  End
+                </label>
                 <input
                   type="time"
-                  value={preferences.quiet_end || '07:00'}
-                  onChange={(e) => updatePreferences.mutate({ quiet_end: e.target.value })}
+                  value={preferences.quiet_end || "07:00"}
+                  onChange={(e) =>
+                    updatePreferences.mutate({ quiet_end: e.target.value })
+                  }
                   className="px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary"
                 />
               </div>

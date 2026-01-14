@@ -1,51 +1,52 @@
-import { useState, useMemo } from 'react';
-import { useDraggable, useDroppable } from '@dnd-kit/core';
-import { CSS } from '@dnd-kit/utilities';
-import { Input } from '@/components/ui/Input.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { useUnscheduledWorkOrders } from '@/api/hooks/useWorkOrders.ts';
+import { useState, useMemo } from "react";
+import { useDraggable, useDroppable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
+import { Input } from "@/components/ui/Input.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { useUnscheduledWorkOrders } from "@/api/hooks/useWorkOrders.ts";
 import {
   type WorkOrder,
   type Priority,
   type JobType,
   JOB_TYPE_LABELS,
   PRIORITY_LABELS,
-} from '@/api/types/workOrder.ts';
+} from "@/api/types/workOrder.ts";
 
 /**
  * Priority color mapping for indicators
  */
 const PRIORITY_COLORS: Record<Priority, string> = {
-  emergency: 'bg-red-500',
-  urgent: 'bg-orange-500',
-  high: 'bg-yellow-500',
-  normal: 'bg-blue-500',
-  low: 'bg-gray-400',
+  emergency: "bg-red-500",
+  urgent: "bg-orange-500",
+  high: "bg-yellow-500",
+  normal: "bg-blue-500",
+  low: "bg-gray-400",
 };
 
 const PRIORITY_TEXT_COLORS: Record<Priority, string> = {
-  emergency: 'text-red-600',
-  urgent: 'text-orange-600',
-  high: 'text-yellow-600',
-  normal: 'text-blue-600',
-  low: 'text-gray-500',
+  emergency: "text-red-600",
+  urgent: "text-orange-600",
+  high: "text-yellow-600",
+  normal: "text-blue-600",
+  low: "text-gray-500",
 };
 
 /**
  * Draggable table row for unscheduled work orders
  */
 function DraggableWorkOrderRow({ workOrder }: { workOrder: WorkOrder }) {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: workOrder.id,
-    data: { workOrder },
-  });
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: workOrder.id,
+      data: { workOrder },
+    });
 
   const style = {
     transform: CSS.Translate.toString(transform),
   };
 
-  const priority = (workOrder.priority as Priority) || 'normal';
+  const priority = (workOrder.priority as Priority) || "normal";
 
   return (
     <tr
@@ -56,14 +57,18 @@ function DraggableWorkOrderRow({ workOrder }: { workOrder: WorkOrder }) {
       className={`
         border-b border-border hover:bg-bg-hover transition-colors
         cursor-grab active:cursor-grabbing
-        ${isDragging ? 'opacity-50 shadow-lg bg-primary/10' : ''}
+        ${isDragging ? "opacity-50 shadow-lg bg-primary/10" : ""}
       `}
     >
       {/* Priority */}
       <td className="px-3 py-2">
         <div className="flex items-center gap-2">
-          <div className={`w-2 h-6 rounded-full ${PRIORITY_COLORS[priority]}`} />
-          <span className={`text-xs font-medium ${PRIORITY_TEXT_COLORS[priority]}`}>
+          <div
+            className={`w-2 h-6 rounded-full ${PRIORITY_COLORS[priority]}`}
+          />
+          <span
+            className={`text-xs font-medium ${PRIORITY_TEXT_COLORS[priority]}`}
+          >
             {PRIORITY_LABELS[priority]}
           </span>
         </div>
@@ -71,7 +76,7 @@ function DraggableWorkOrderRow({ workOrder }: { workOrder: WorkOrder }) {
 
       {/* Region (placeholder - using city as region) */}
       <td className="px-3 py-2 text-sm text-text-secondary">
-        {workOrder.service_city || '-'}
+        {workOrder.service_city || "-"}
       </td>
 
       {/* Customer */}
@@ -90,23 +95,23 @@ function DraggableWorkOrderRow({ workOrder }: { workOrder: WorkOrder }) {
 
       {/* City */}
       <td className="px-3 py-2 text-sm text-text-secondary">
-        {workOrder.service_city || '-'}
+        {workOrder.service_city || "-"}
       </td>
 
       {/* Address */}
       <td className="px-3 py-2 text-sm text-text-secondary max-w-[200px] truncate">
-        {workOrder.service_address_line1 || 'No address'}
+        {workOrder.service_address_line1 || "No address"}
       </td>
 
       {/* Est. Time */}
       <td className="px-3 py-2 text-sm text-text-muted text-center">
-        {workOrder.estimated_duration_hours ? `${workOrder.estimated_duration_hours}h` : '-'}
+        {workOrder.estimated_duration_hours
+          ? `${workOrder.estimated_duration_hours}h`
+          : "-"}
       </td>
 
       {/* Value (placeholder - not in schema) */}
-      <td className="px-3 py-2 text-sm text-text-secondary text-right">
-        -
-      </td>
+      <td className="px-3 py-2 text-sm text-text-secondary text-right">-</td>
 
       {/* Actions */}
       <td className="px-3 py-2">
@@ -127,8 +132,15 @@ function DraggableWorkOrderRow({ workOrder }: { workOrder: WorkOrder }) {
 /**
  * Sortable column definitions
  */
-type SortField = 'priority' | 'region' | 'customer' | 'service' | 'city' | 'duration' | 'value';
-type SortDirection = 'asc' | 'desc';
+type SortField =
+  | "priority"
+  | "region"
+  | "customer"
+  | "service"
+  | "city"
+  | "duration"
+  | "value";
+type SortDirection = "asc" | "desc";
 
 interface SortState {
   field: SortField;
@@ -142,13 +154,13 @@ interface ColumnDef {
 }
 
 const COLUMNS: ColumnDef[] = [
-  { field: 'priority', label: 'Priority' },
-  { field: 'region', label: 'Region' },
-  { field: 'customer', label: 'Customer' },
-  { field: 'service', label: 'Service' },
-  { field: 'city', label: 'City' },
-  { field: 'duration', label: 'Est. Time', className: 'text-center' },
-  { field: 'value', label: 'Value', className: 'text-right' },
+  { field: "priority", label: "Priority" },
+  { field: "region", label: "Region" },
+  { field: "customer", label: "Customer" },
+  { field: "service", label: "Service" },
+  { field: "city", label: "City" },
+  { field: "duration", label: "Est. Time", className: "text-center" },
+  { field: "value", label: "Value", className: "text-right" },
 ];
 
 /**
@@ -158,18 +170,22 @@ const COLUMNS: ColumnDef[] = [
  * Rows are draggable and can be dropped onto the calendar below.
  */
 export function UnscheduledOrdersTable() {
-  const { data, isLoading, isError, refetch, isFetching } = useUnscheduledWorkOrders();
+  const { data, isLoading, isError, refetch, isFetching } =
+    useUnscheduledWorkOrders();
 
   // Droppable zone for unscheduling work orders (drag scheduled items here)
   const { setNodeRef: setDropRef, isOver: isDropOver } = useDroppable({
-    id: 'unscheduled-drop-zone',
-    data: { type: 'unschedule' },
+    id: "unscheduled-drop-zone",
+    data: { type: "unschedule" },
   });
 
   const [isExpanded, setIsExpanded] = useState(true);
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sort, setSort] = useState<SortState>({ field: 'priority', direction: 'desc' });
-  const [regionFilter, setRegionFilter] = useState<string>('all');
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sort, setSort] = useState<SortState>({
+    field: "priority",
+    direction: "desc",
+  });
+  const [regionFilter, setRegionFilter] = useState<string>("all");
 
   // Priority order for sorting
   const priorityOrder: Record<Priority, number> = {
@@ -194,7 +210,7 @@ export function UnscheduledOrdersTable() {
     let items = data?.items || [];
 
     // Filter by region
-    if (regionFilter !== 'all') {
+    if (regionFilter !== "all") {
       items = items.filter((wo) => wo.service_city === regionFilter);
     }
 
@@ -206,7 +222,7 @@ export function UnscheduledOrdersTable() {
           wo.customer_name?.toLowerCase().includes(query) ||
           wo.service_city?.toLowerCase().includes(query) ||
           wo.service_address_line1?.toLowerCase().includes(query) ||
-          wo.job_type?.toLowerCase().includes(query)
+          wo.job_type?.toLowerCase().includes(query),
       );
     }
 
@@ -215,31 +231,39 @@ export function UnscheduledOrdersTable() {
       let comparison = 0;
 
       switch (sort.field) {
-        case 'priority':
+        case "priority":
           comparison =
             (priorityOrder[b.priority as Priority] || 0) -
             (priorityOrder[a.priority as Priority] || 0);
           break;
-        case 'region':
-        case 'city':
-          comparison = (a.service_city || '').localeCompare(b.service_city || '');
+        case "region":
+        case "city":
+          comparison = (a.service_city || "").localeCompare(
+            b.service_city || "",
+          );
           break;
-        case 'customer':
-          comparison = (a.customer_name || '').localeCompare(b.customer_name || '');
+        case "customer":
+          comparison = (a.customer_name || "").localeCompare(
+            b.customer_name || "",
+          );
           break;
-        case 'service':
-          comparison = (a.job_type || '').localeCompare(b.job_type || '');
+        case "service":
+          comparison = (a.job_type || "").localeCompare(b.job_type || "");
           break;
-        case 'duration':
-          comparison = (a.estimated_duration_hours || 0) - (b.estimated_duration_hours || 0);
+        case "duration":
+          comparison =
+            (a.estimated_duration_hours || 0) -
+            (b.estimated_duration_hours || 0);
           break;
-        case 'value':
+        case "value":
           // Value field not in schema, sort by duration as placeholder
-          comparison = (a.estimated_duration_hours || 0) - (b.estimated_duration_hours || 0);
+          comparison =
+            (a.estimated_duration_hours || 0) -
+            (b.estimated_duration_hours || 0);
           break;
       }
 
-      return sort.direction === 'desc' ? -comparison : comparison;
+      return sort.direction === "desc" ? -comparison : comparison;
     });
 
     return items;
@@ -249,7 +273,8 @@ export function UnscheduledOrdersTable() {
   const toggleSort = (field: SortField) => {
     setSort((prev) => ({
       field,
-      direction: prev.field === field && prev.direction === 'desc' ? 'asc' : 'desc',
+      direction:
+        prev.field === field && prev.direction === "desc" ? "asc" : "desc",
     }));
   };
 
@@ -258,7 +283,9 @@ export function UnscheduledOrdersTable() {
     if (sort.field !== field) {
       return <span className="text-text-muted opacity-50 ml-1">⇅</span>;
     }
-    return <span className="ml-1">{sort.direction === 'desc' ? '↓' : '↑'}</span>;
+    return (
+      <span className="ml-1">{sort.direction === "desc" ? "↓" : "↑"}</span>
+    );
   };
 
   const totalCount = data?.items?.length || 0;
@@ -269,8 +296,8 @@ export function UnscheduledOrdersTable() {
       data-testid="unscheduled-drop-zone"
       className={`bg-bg-card border rounded-lg mb-6 overflow-hidden transition-all ${
         isDropOver
-          ? 'border-primary ring-2 ring-primary/30 bg-primary/5'
-          : 'border-border'
+          ? "border-primary ring-2 ring-primary/30 bg-primary/5"
+          : "border-border"
       }`}
     >
       {/* Header */}
@@ -281,9 +308,16 @@ export function UnscheduledOrdersTable() {
         <div className="flex items-center gap-3">
           <button
             className="text-text-secondary hover:text-text-primary transition-transform"
-            style={{ transform: isExpanded ? 'rotate(90deg)' : 'rotate(0deg)' }}
+            style={{ transform: isExpanded ? "rotate(90deg)" : "rotate(0deg)" }}
           >
-            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+            <svg
+              width="16"
+              height="16"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
               <polyline points="9 18 15 12 9 6" />
             </svg>
           </button>
@@ -291,11 +325,16 @@ export function UnscheduledOrdersTable() {
             Unscheduled Work Orders
           </h3>
           <Badge variant="primary" className="text-xs">
-            {filteredWorkOrders.length} {regionFilter !== 'all' || searchQuery ? `of ${totalCount}` : ''} jobs
+            {filteredWorkOrders.length}{" "}
+            {regionFilter !== "all" || searchQuery ? `of ${totalCount}` : ""}{" "}
+            jobs
           </Badge>
         </div>
 
-        <div className="flex items-center gap-3" onClick={(e) => e.stopPropagation()}>
+        <div
+          className="flex items-center gap-3"
+          onClick={(e) => e.stopPropagation()}
+        >
           {/* Region filter */}
           <select
             value={regionFilter}
@@ -325,23 +364,21 @@ export function UnscheduledOrdersTable() {
       {isExpanded && (
         <div className="overflow-x-auto max-h-[300px] overflow-y-auto">
           {isLoading || isFetching ? (
-            <div className="p-8 text-center text-text-muted">Loading unscheduled work orders...</div>
+            <div className="p-8 text-center text-text-muted">
+              Loading unscheduled work orders...
+            </div>
           ) : isError ? (
             <div className="p-8 text-center">
               <p className="text-danger mb-3">Failed to load work orders</p>
-              <Button
-                variant="secondary"
-                size="sm"
-                onClick={() => refetch()}
-              >
+              <Button variant="secondary" size="sm" onClick={() => refetch()}>
                 Retry
               </Button>
             </div>
           ) : filteredWorkOrders.length === 0 ? (
             <div className="p-8 text-center text-text-muted">
-              {searchQuery || regionFilter !== 'all'
-                ? 'No matching jobs found'
-                : 'No unscheduled work orders'}
+              {searchQuery || regionFilter !== "all"
+                ? "No matching jobs found"
+                : "No unscheduled work orders"}
             </div>
           ) : (
             <table className="w-full">
@@ -351,7 +388,7 @@ export function UnscheduledOrdersTable() {
                     <th
                       key={col.field}
                       onClick={() => toggleSort(col.field)}
-                      className={`px-3 py-2 text-left text-xs font-medium text-text-secondary uppercase tracking-wider cursor-pointer hover:text-primary hover:bg-bg-hover transition-colors ${col.className || ''}`}
+                      className={`px-3 py-2 text-left text-xs font-medium text-text-secondary uppercase tracking-wider cursor-pointer hover:text-primary hover:bg-bg-hover transition-colors ${col.className || ""}`}
                     >
                       {col.label}
                       <SortIndicator field={col.field} />
@@ -374,7 +411,14 @@ export function UnscheduledOrdersTable() {
           {filteredWorkOrders.length > 0 && (
             <div className="px-4 py-2 bg-bg-subtle border-t border-border text-xs text-text-muted text-center">
               <span className="inline-flex items-center gap-1">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                <svg
+                  width="14"
+                  height="14"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                >
                   <path d="M5 9l7 7 7-7" />
                 </svg>
                 Drag rows to the calendar below to schedule

@@ -1,8 +1,10 @@
-import { useState } from 'react';
-import { Outlet, Link, useLocation } from 'react-router-dom';
-import { useAuth } from '@/features/auth/useAuth.ts';
-import { RCStatusIndicator } from '@/features/phone/index.ts';
-import { NotificationCenter } from '@/features/notifications/index.ts';
+import { useState } from "react";
+import { Outlet, Link, useLocation } from "react-router-dom";
+import { useAuth } from "@/features/auth/useAuth.ts";
+import { RCStatusIndicator } from "@/features/phone/index.ts";
+import { NotificationCenter } from "@/features/notifications/index.ts";
+import { ConnectionStatus } from "@/components/ui/ConnectionStatus";
+import { OnboardingAssistant } from "@/features/onboarding/components/OnboardingAssistant";
 
 /**
  * Navigation item type
@@ -34,96 +36,139 @@ export function AppLayout() {
   const location = useLocation();
   const [expandedGroups, setExpandedGroups] = useState<Set<string>>(() => {
     // Auto-expand group containing current page
-    const saved = localStorage.getItem('sidebarExpandedGroups');
-    return saved ? new Set(JSON.parse(saved)) : new Set(['operations']);
+    const saved = localStorage.getItem("sidebarExpandedGroups");
+    return saved ? new Set(JSON.parse(saved)) : new Set(["operations"]);
   });
 
   // Top-level navigation items (always visible)
   const topNavItems: NavItem[] = [
-    { path: '/dashboard', label: 'Dashboard', icon: '📊' },
-    { path: '/customers', label: 'Customers', icon: '👥' },
-    { path: '/prospects', label: 'Prospects', icon: '📋' },
+    { path: "/dashboard", label: "Dashboard", icon: "📊" },
+    { path: "/customers", label: "Customers", icon: "👥" },
+    { path: "/prospects", label: "Prospects", icon: "📋" },
+    { path: "/customer-success", label: "Customer Success", icon: "💚" },
   ];
 
   // Collapsible navigation groups - matching legacy structure
   const navGroups: NavGroup[] = [
     {
-      name: 'operations',
-      label: 'Operations',
-      icon: '📝',
+      name: "operations",
+      label: "Operations",
+      icon: "📝",
       items: [
-        { path: '/work-orders', label: 'Work Orders', icon: '🔧' },
-        { path: '/schedule', label: 'Schedule', icon: '📅' },
-        { path: '/technicians', label: 'Technicians', icon: '👷' },
-        { path: '/employee', label: 'Employee Portal', icon: '📱' },
-        { path: '/service-intervals', label: 'Service Intervals', icon: '🔄' },
-        { path: '/predictive-maintenance', label: 'AI Predictions', icon: '🤖' },
+        { path: "/command-center", label: "Command Center", icon: "🎯" },
+        { path: "/work-orders", label: "Work Orders", icon: "🔧" },
+        { path: "/tracking", label: "Tracking", icon: "🗺️", badge: "LIVE" },
+        { path: "/schedule", label: "Schedule", icon: "📅" },
+        { path: "/technicians", label: "Technicians", icon: "👷" },
+        { path: "/employee", label: "Employee Portal", icon: "📱" },
+        { path: "/service-intervals", label: "Service Intervals", icon: "🔄" },
+        { path: "/compliance", label: "Compliance", icon: "✅" },
+        { path: "/contracts", label: "Contracts", icon: "📄" },
+        { path: "/timesheets", label: "Timesheets", icon: "⏱️" },
       ],
     },
     {
-      name: 'communications',
-      label: 'Communications',
-      icon: '📞',
+      name: "communications",
+      label: "Communications",
+      icon: "📞",
       items: [
-        { path: '/phone', label: 'Phone Dashboard', icon: '📞' },
-        { path: '/integrations', label: 'Integrations', icon: '🔌' },
+        { path: "/communications", label: "Inbox & Messages", icon: "💬" },
+        { path: "/communications/sms", label: "SMS Inbox", icon: "📱" },
+        {
+          path: "/communications/email-inbox",
+          label: "Email Inbox",
+          icon: "📧",
+        },
+        { path: "/calls", label: "Call Center", icon: "📞" },
+        { path: "/phone", label: "Phone Dashboard", icon: "☎️" },
+        {
+          path: "/communications/templates",
+          label: "Message Templates",
+          icon: "📝",
+        },
+        {
+          path: "/communications/reminders",
+          label: "Auto-Reminders",
+          icon: "🔔",
+        },
+        { path: "/integrations", label: "Integrations", icon: "🔌" },
       ],
     },
     {
-      name: 'financial',
-      label: 'Financial',
-      icon: '💰',
+      name: "financial",
+      label: "Financial",
+      icon: "💰",
       items: [
-        { path: '/invoices', label: 'Invoices', icon: '🧾' },
-        { path: '/payments', label: 'Payments', icon: '💳' },
-        { path: '/payroll', label: 'Payroll', icon: '💵' },
+        { path: "/invoices", label: "Invoices", icon: "🧾" },
+        { path: "/payments", label: "Payments", icon: "💳" },
+        { path: "/estimates", label: "Estimates", icon: "📊" },
+        { path: "/billing/payment-plans", label: "Payment Plans", icon: "📈" },
+        { path: "/payroll", label: "Payroll", icon: "💵" },
+        { path: "/job-costing", label: "Job Costing", icon: "💹" },
       ],
     },
     {
-      name: 'assets',
-      label: 'Assets',
-      icon: '📦',
+      name: "assets",
+      label: "Assets",
+      icon: "📦",
       items: [
-        { path: '/inventory', label: 'Inventory', icon: '📦' },
-        { path: '/equipment', label: 'Equipment', icon: '🛠️' },
-        { path: '/fleet', label: 'Fleet Map', icon: '🚛' },
+        { path: "/inventory", label: "Inventory", icon: "📦" },
+        { path: "/equipment", label: "Equipment", icon: "🛠️" },
+        { path: "/fleet", label: "Fleet Map", icon: "🚛" },
       ],
     },
     {
-      name: 'marketing',
-      label: 'Marketing',
-      icon: '📧',
-      badge: 'AI',
+      name: "marketing",
+      label: "Marketing",
+      icon: "📧",
+      badge: "AI",
       items: [
-        { path: '/marketing', label: 'Marketing Hub', icon: '📊' },
-        { path: '/marketing/ads', label: 'Google Ads', icon: '📈' },
-        { path: '/marketing/reviews', label: 'Reviews', icon: '⭐' },
-        { path: '/marketing/ai-content', label: 'AI Content', icon: '🤖' },
-        { path: '/email-marketing', label: 'Email Marketing', icon: '📧' },
-        { path: '/reports', label: 'Reports', icon: '📈' },
+        { path: "/marketing", label: "Marketing Hub", icon: "📊" },
+        { path: "/marketing/ads", label: "Google Ads", icon: "📈" },
+        { path: "/marketing/reviews", label: "Reviews", icon: "⭐" },
+        { path: "/marketing/ai-content", label: "AI Content", icon: "🤖" },
+        { path: "/email-marketing", label: "Email Marketing", icon: "📧" },
+        { path: "/reports", label: "Reports", icon: "📈" },
       ],
     },
     {
-      name: 'support',
-      label: 'Support',
-      icon: '🎫',
+      name: "ai-analytics",
+      label: "AI & Analytics",
+      icon: "🤖",
+      badge: "GPU",
       items: [
-        { path: '/tickets', label: 'Tickets', icon: '🎫' },
+        { path: "/ai-assistant", label: "AI Assistant", icon: "✨" },
+        { path: "/call-intelligence", label: "Call Intelligence", icon: "📞", badge: "NEW" },
+        { path: "/analytics/bi", label: "BI Dashboard", icon: "📊" },
+        { path: "/analytics/ftfr", label: "First-Time Fix Rate", icon: "✔" },
+        {
+          path: "/predictive-maintenance",
+          label: "AI Predictions",
+          icon: "🔮",
+        },
       ],
     },
     {
-      name: 'system',
-      label: 'System',
-      icon: '⚙️',
+      name: "support",
+      label: "Support",
+      icon: "🎫",
+      items: [{ path: "/tickets", label: "Tickets", icon: "🎫" }],
+    },
+    {
+      name: "system",
+      label: "System",
+      icon: "⚙️",
       items: [
-        { path: '/users', label: 'Users', icon: '👤' },
-        { path: '/admin', label: 'Settings', icon: '⚙️' },
+        { path: "/users", label: "Users", icon: "👤" },
+        { path: "/admin", label: "Settings", icon: "⚙️" },
+        { path: "/admin/import", label: "Data Import", icon: "📥" },
       ],
     },
   ];
 
   // Check if path is active (includes sub-paths)
-  const isActive = (path: string) => location.pathname === path || location.pathname.startsWith(path + '/');
+  const isActive = (path: string) =>
+    location.pathname === path || location.pathname.startsWith(path + "/");
 
   // Toggle group expansion
   const toggleGroup = (groupName: string) => {
@@ -134,13 +179,14 @@ export function AppLayout() {
       } else {
         next.add(groupName);
       }
-      localStorage.setItem('sidebarExpandedGroups', JSON.stringify([...next]));
+      localStorage.setItem("sidebarExpandedGroups", JSON.stringify([...next]));
       return next;
     });
   };
 
   // Check if any item in group is active
-  const isGroupActive = (group: NavGroup) => group.items.some((item) => isActive(item.path));
+  const isGroupActive = (group: NavGroup) =>
+    group.items.some((item) => isActive(item.path));
 
   return (
     <div className="flex h-screen bg-bg-body">
@@ -156,7 +202,10 @@ export function AppLayout() {
       <aside className="w-64 bg-bg-sidebar border-r border-border flex flex-col overflow-hidden">
         {/* Logo */}
         <div className="h-16 flex items-center px-4 border-b border-border flex-shrink-0">
-          <Link to="/dashboard" className="flex items-center gap-2 text-mac-dark-blue font-semibold">
+          <Link
+            to="/dashboard"
+            className="flex items-center gap-2 text-mac-dark-blue font-semibold"
+          >
             <span className="text-xl">🚽</span>
             <span>MAC Septic CRM</span>
           </Link>
@@ -172,8 +221,8 @@ export function AppLayout() {
                   to={item.path}
                   className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     isActive(item.path)
-                      ? 'bg-primary-light text-primary'
-                      : 'text-text-secondary hover:bg-bg-hover hover:text-text-primary'
+                      ? "bg-primary-light text-primary"
+                      : "text-text-secondary hover:bg-bg-hover hover:text-text-primary"
                   }`}
                 >
                   <span>{item.icon}</span>
@@ -191,8 +240,8 @@ export function AppLayout() {
                   onClick={() => toggleGroup(group.name)}
                   className={`w-full flex items-center gap-3 px-3 py-2 rounded-md text-sm font-medium transition-colors ${
                     isGroupActive(group)
-                      ? 'text-primary'
-                      : 'text-text-secondary hover:bg-bg-hover hover:text-text-primary'
+                      ? "text-primary"
+                      : "text-text-secondary hover:bg-bg-hover hover:text-text-primary"
                   }`}
                 >
                   <span>{group.icon}</span>
@@ -203,7 +252,7 @@ export function AppLayout() {
                     </span>
                   )}
                   <span
-                    className={`transition-transform ${expandedGroups.has(group.name) ? 'rotate-180' : ''}`}
+                    className={`transition-transform ${expandedGroups.has(group.name) ? "rotate-180" : ""}`}
                   >
                     ▼
                   </span>
@@ -218,8 +267,8 @@ export function AppLayout() {
                           to={item.path}
                           className={`flex items-center gap-3 px-3 py-2 rounded-md text-sm transition-colors ${
                             isActive(item.path)
-                              ? 'bg-primary-light text-primary font-medium'
-                              : 'text-text-secondary hover:bg-bg-hover hover:text-text-primary'
+                              ? "bg-primary-light text-primary font-medium"
+                              : "text-text-secondary hover:bg-bg-hover hover:text-text-primary"
                           }`}
                         >
                           <span className="text-xs">{item.icon}</span>
@@ -238,7 +287,7 @@ export function AppLayout() {
         <div className="p-4 border-t border-border flex-shrink-0">
           <div className="flex items-center gap-3">
             <div className="h-8 w-8 rounded-full bg-mac-dark-blue text-white flex items-center justify-center text-sm font-semibold">
-              {user?.first_name?.charAt(0) || '?'}
+              {user?.first_name?.charAt(0) || "?"}
             </div>
             <div className="flex-1 min-w-0">
               <p className="text-sm font-medium text-text-primary truncate">
@@ -257,9 +306,14 @@ export function AppLayout() {
       </aside>
 
       {/* Main content */}
-      <main id="main-content" className="flex-1 overflow-auto flex flex-col" tabIndex={-1}>
-        {/* Top bar with notifications and RingCentral status */}
+      <main
+        id="main-content"
+        className="flex-1 overflow-auto flex flex-col"
+        tabIndex={-1}
+      >
+        {/* Top bar with connection status, notifications and RingCentral status */}
         <div className="h-12 border-b border-border bg-bg-card px-6 flex items-center justify-end gap-4">
+          <ConnectionStatus showTooltip size="sm" />
           <NotificationCenter />
           <RCStatusIndicator />
         </div>
@@ -269,6 +323,9 @@ export function AppLayout() {
           <Outlet />
         </div>
       </main>
+
+      {/* AI Onboarding Assistant */}
+      <OnboardingAssistant />
     </div>
   );
 }

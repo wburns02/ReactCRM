@@ -1,5 +1,8 @@
-import { Badge } from '@/components/ui/Badge.tsx';
-import { INVOICE_STATUS_LABELS, type InvoiceStatus } from '@/api/types/invoice.ts';
+import { Badge } from "@/components/ui/Badge.tsx";
+import {
+  INVOICE_STATUS_LABELS,
+  type InvoiceStatus,
+} from "@/api/types/invoice.ts";
 
 interface InvoiceStatusBadgeProps {
   status: InvoiceStatus;
@@ -8,20 +11,22 @@ interface InvoiceStatusBadgeProps {
 /**
  * Get badge variant based on invoice status
  */
-function getStatusVariant(status: InvoiceStatus): 'default' | 'success' | 'warning' | 'danger' {
+function getStatusVariant(
+  status: InvoiceStatus,
+): "default" | "success" | "warning" | "danger" {
   switch (status) {
-    case 'paid':
-      return 'success';
-    case 'sent':
-      return 'default';
-    case 'draft':
-      return 'warning';
-    case 'overdue':
-      return 'danger';
-    case 'void':
-      return 'danger';
+    case "paid":
+      return "success";
+    case "sent":
+      return "default";
+    case "draft":
+      return "warning";
+    case "overdue":
+      return "danger";
+    case "void":
+      return "danger";
     default:
-      return 'default';
+      return "default";
   }
 }
 

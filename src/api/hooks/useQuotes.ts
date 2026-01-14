@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '../client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "../client.ts";
 import {
   quoteListResponseSchema,
   quoteSchema,
@@ -7,16 +7,16 @@ import {
   type QuoteListResponse,
   type QuoteFilters,
   type QuoteFormData,
-} from '../types/quote.ts';
+} from "../types/quote.ts";
 
 /**
  * Query keys for quotes
  */
 export const quoteKeys = {
-  all: ['quotes'] as const,
-  lists: () => [...quoteKeys.all, 'list'] as const,
+  all: ["quotes"] as const,
+  lists: () => [...quoteKeys.all, "list"] as const,
   list: (filters: QuoteFilters) => [...quoteKeys.lists(), filters] as const,
-  details: () => [...quoteKeys.all, 'detail'] as const,
+  details: () => [...quoteKeys.all, "detail"] as const,
   detail: (id: string) => [...quoteKeys.details(), id] as const,
 };
 
@@ -28,24 +28,29 @@ export function useQuotes(filters: QuoteFilters = {}) {
     queryKey: quoteKeys.list(filters),
     queryFn: async (): Promise<QuoteListResponse> => {
       const params = new URLSearchParams();
-      if (filters.page) params.set('page', String(filters.page));
-      if (filters.page_size) params.set('page_size', String(filters.page_size));
-      if (filters.status) params.set('status', filters.status);
-      if (filters.customer_id) params.set('customer_id', filters.customer_id);
+      if (filters.page) params.set("page", String(filters.page));
+      if (filters.page_size) params.set("page_size", String(filters.page_size));
+      if (filters.status) params.set("status", filters.status);
+      if (filters.customer_id) params.set("customer_id", filters.customer_id);
 
-      const url = '/quotes?' + params.toString();
+      const url = "/quotes?" + params.toString();
       const { data } = await apiClient.get(url);
 
       // Handle both array and paginated response
       if (Array.isArray(data)) {
-        return { items: data, total: data.length, page: 1, page_size: data.length };
+        return {
+          items: data,
+          total: data.length,
+          page: 1,
+          page_size: data.length,
+        };
       }
 
       // Validate response in development
       if (import.meta.env.DEV) {
         const result = quoteListResponseSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Quote list response validation failed:', result.error);
+          console.warn("Quote list response validation failed:", result.error);
         }
       }
 
@@ -62,12 +67,12 @@ export function useQuote(id: string | undefined) {
   return useQuery({
     queryKey: quoteKeys.detail(id!),
     queryFn: async (): Promise<Quote> => {
-      const { data } = await apiClient.get('/quotes/' + id);
+      const { data } = await apiClient.get("/quotes/" + id);
 
       if (import.meta.env.DEV) {
         const result = quoteSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Quote response validation failed:', result.error);
+          console.warn("Quote response validation failed:", result.error);
         }
       }
 
@@ -104,7 +109,7 @@ export function useCreateQuote() {
         total,
       };
 
-      const response = await apiClient.post('/quotes', quoteData);
+      const response = await apiClient.post("/quotes", quoteData);
       return response.data;
     },
     onSuccess: () => {
@@ -143,11 +148,13 @@ export function useUpdateQuote() {
         };
       }
 
-      const response = await apiClient.patch('/quotes/' + id, quoteData);
+      const response = await apiClient.patch("/quotes/" + id, quoteData);
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: quoteKeys.detail(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: quoteKeys.detail(variables.id),
+      });
       queryClient.invalidateQueries({ queryKey: quoteKeys.lists() });
     },
   });
@@ -161,7 +168,7 @@ export function useDeleteQuote() {
 
   return useMutation({
     mutationFn: async (id: string): Promise<void> => {
-      await apiClient.delete('/quotes/' + id);
+      await apiClient.delete("/quotes/" + id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: quoteKeys.lists() });
@@ -184,7 +191,7 @@ export function useConvertQuoteToInvoice() {
       queryClient.invalidateQueries({ queryKey: quoteKeys.detail(id) });
       queryClient.invalidateQueries({ queryKey: quoteKeys.lists() });
       // Also invalidate invoices since a new one was created
-      queryClient.invalidateQueries({ queryKey: ['invoices'] });
+      queryClient.invalidateQueries({ queryKey: ["invoices"] });
     },
   });
 }

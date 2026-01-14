@@ -1,5 +1,6 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '../client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "../client.ts";
+import { FEATURE_FLAGS } from "@/lib/feature-flags.ts";
 import {
   documentListResponseSchema,
   uploadResponseSchema,
@@ -8,45 +9,60 @@ import {
   type DocumentFilters,
   type UploadResponse,
   type EntityType,
-} from '../types/document.ts';
+} from "../types/document.ts";
 
 /**
  * Query keys for documents
  */
 export const documentKeys = {
-  all: ['documents'] as const,
-  lists: () => [...documentKeys.all, 'list'] as const,
-  list: (filters: DocumentFilters) => [...documentKeys.lists(), filters] as const,
+  all: ["documents"] as const,
+  lists: () => [...documentKeys.all, "list"] as const,
+  list: (filters: DocumentFilters) =>
+    [...documentKeys.lists(), filters] as const,
   byEntity: (entityType: EntityType, entityId: string) =>
-    [...documentKeys.all, 'entity', entityType, entityId] as const,
+    [...documentKeys.all, "entity", entityType, entityId] as const,
 };
 
 /**
  * Fetch documents for an entity
+ * Note: Disabled until backend /attachments/ endpoint is implemented
  */
-export function useDocuments(entityId: string | undefined, entityType: EntityType) {
+export function useDocuments(
+  entityId: string | undefined,
+  entityType: EntityType,
+) {
   return useQuery({
     queryKey: documentKeys.byEntity(entityType, entityId!),
     queryFn: async (): Promise<DocumentListResponse> => {
+      // Return empty list if attachments feature is disabled
+      if (!FEATURE_FLAGS.attachments) {
+        return { items: [], total: 0, page: 1, page_size: 100 };
+      }
+
       const params = new URLSearchParams({
         entity_type: entityType,
         entity_id: entityId!,
-        page_size: '100',
+        page_size: "100",
       });
 
-      const { data } = await apiClient.get(`/attachments/?${params.toString()}`);
+      const { data } = await apiClient.get(
+        `/attachments/?${params.toString()}`,
+      );
 
       // Validate response in development
       if (import.meta.env.DEV) {
         const result = documentListResponseSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Document list response validation failed:', result.error);
+          console.warn(
+            "Document list response validation failed:",
+            result.error,
+          );
         }
       }
 
       return data;
     },
-    enabled: !!entityId,
+    enabled: !!entityId && FEATURE_FLAGS.attachments,
     staleTime: 30_000, // 30 seconds
   });
 }
@@ -70,17 +86,19 @@ export function useUploadDocument() {
       onProgress?: (progress: number) => void;
     }): Promise<UploadResponse> => {
       const formData = new FormData();
-      formData.append('file', file);
-      formData.append('entity_type', entityType);
-      formData.append('entity_id', entityId);
+      formData.append("file", file);
+      formData.append("entity_type", entityType);
+      formData.append("entity_id", entityId);
 
-      const response = await apiClient.post('/attachments/upload', formData, {
+      const response = await apiClient.post("/attachments/upload", formData, {
         headers: {
-          'Content-Type': 'multipart/form-data',
+          "Content-Type": "multipart/form-data",
         },
         onUploadProgress: (progressEvent) => {
           if (onProgress && progressEvent.total) {
-            const progress = Math.round((progressEvent.loaded * 100) / progressEvent.total);
+            const progress = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total,
+            );
             onProgress(progress);
           }
         },
@@ -89,7 +107,7 @@ export function useUploadDocument() {
       if (import.meta.env.DEV) {
         const result = uploadResponseSchema.safeParse(response.data);
         if (!result.success) {
-          console.warn('Upload response validation failed:', result.error);
+          console.warn("Upload response validation failed:", result.error);
         }
       }
 
@@ -98,7 +116,10 @@ export function useUploadDocument() {
     onSuccess: (_, variables) => {
       // Invalidate documents for this entity
       queryClient.invalidateQueries({
-        queryKey: documentKeys.byEntity(variables.entityType, variables.entityId),
+        queryKey: documentKeys.byEntity(
+          variables.entityType,
+          variables.entityId,
+        ),
       });
       queryClient.invalidateQueries({ queryKey: documentKeys.lists() });
     },
@@ -130,13 +151,13 @@ export function useDownloadDocument() {
     mutationFn: async (document: Document): Promise<void> => {
       // Fetch the file as a blob
       const response = await apiClient.get(document.file_url, {
-        responseType: 'blob',
+        responseType: "blob",
       });
 
       // Create a blob URL and trigger download
       const blob = new Blob([response.data], { type: document.file_type });
       const url = window.URL.createObjectURL(blob);
-      const link = window.document.createElement('a');
+      const link = window.document.createElement("a");
       link.href = url;
       link.download = document.file_name;
       window.document.body.appendChild(link);

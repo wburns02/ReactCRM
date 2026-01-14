@@ -1,6 +1,9 @@
-import { describe, it, expect } from 'vitest';
-import { prospectSchema, prospectListResponseSchema } from '../types/prospect.ts';
-import { prospectStageSchema, leadSourceSchema } from '../types/common.ts';
+import { describe, it, expect } from "vitest";
+import {
+  prospectSchema,
+  prospectListResponseSchema,
+} from "../types/prospect.ts";
+import { prospectStageSchema, leadSourceSchema } from "../types/common.ts";
 import {
   validProspectComplete,
   validProspectMinimal,
@@ -8,7 +11,7 @@ import {
   validListResponse,
   emptyListResponse,
   invalidFixtures,
-} from './fixtures.ts';
+} from "./fixtures.ts";
 
 /**
  * Contract tests - validate API response shapes against Zod schemas
@@ -22,9 +25,9 @@ import {
  * These tests run in CI to catch schema drift before deployment.
  * If a test fails, update the Zod schema AND fixtures to match the new API.
  */
-describe('Prospect API Contracts', () => {
-  describe('prospectSchema', () => {
-    it('validates a complete prospect with all fields', () => {
+describe("Prospect API Contracts", () => {
+  describe("prospectSchema", () => {
+    it("validates a complete prospect with all fields", () => {
       const result = prospectSchema.safeParse(validProspectComplete);
       expect(result.success).toBe(true);
       if (result.success) {
@@ -32,42 +35,42 @@ describe('Prospect API Contracts', () => {
       }
     });
 
-    it('validates prospect with nullable fields as null', () => {
+    it("validates prospect with nullable fields as null", () => {
       const result = prospectSchema.safeParse(validProspectMinimal);
       expect(result.success).toBe(true);
     });
 
-    it('validates all prospect stages', () => {
+    it("validates all prospect stages", () => {
       Object.values(prospectsByStage).forEach((prospect) => {
         const result = prospectSchema.safeParse(prospect);
         expect(result.success).toBe(true);
       });
     });
 
-    it('rejects invalid prospect_stage', () => {
+    it("rejects invalid prospect_stage", () => {
       const result = prospectSchema.safeParse(invalidFixtures.invalidStage);
       expect(result.success).toBe(false);
       if (!result.success) {
-        const stageError = result.error.issues.find(
-          (i) => i.path.includes('prospect_stage')
+        const stageError = result.error.issues.find((i) =>
+          i.path.includes("prospect_stage"),
         );
         expect(stageError).toBeDefined();
       }
     });
 
-    it('rejects invalid UUID for id', () => {
+    it("rejects invalid UUID for id", () => {
       const result = prospectSchema.safeParse(invalidFixtures.invalidUuid);
       expect(result.success).toBe(false);
     });
 
-    it('rejects missing required fields', () => {
+    it("rejects missing required fields", () => {
       const result = prospectSchema.safeParse(invalidFixtures.missingRequired);
       expect(result.success).toBe(false);
     });
   });
 
-  describe('prospectListResponseSchema', () => {
-    it('validates paginated response with items', () => {
+  describe("prospectListResponseSchema", () => {
+    it("validates paginated response with items", () => {
       const result = prospectListResponseSchema.safeParse(validListResponse);
       expect(result.success).toBe(true);
       if (result.success) {
@@ -76,7 +79,7 @@ describe('Prospect API Contracts', () => {
       }
     });
 
-    it('validates empty items array', () => {
+    it("validates empty items array", () => {
       const result = prospectListResponseSchema.safeParse(emptyListResponse);
       expect(result.success).toBe(true);
       if (result.success) {
@@ -85,7 +88,7 @@ describe('Prospect API Contracts', () => {
       }
     });
 
-    it('rejects response with invalid item', () => {
+    it("rejects response with invalid item", () => {
       const invalidResponse = {
         ...validListResponse,
         items: [invalidFixtures.invalidStage],
@@ -95,17 +98,17 @@ describe('Prospect API Contracts', () => {
     });
   });
 
-  describe('Enum schemas', () => {
-    it('prospectStageSchema validates all stages', () => {
+  describe("Enum schemas", () => {
+    it("prospectStageSchema validates all stages", () => {
       // Must match backend ProspectStage enum
       const validStages = [
-        'new_lead',
-        'contacted',
-        'qualified',
-        'quoted',
-        'negotiation',
-        'won',
-        'lost',
+        "new_lead",
+        "contacted",
+        "qualified",
+        "quoted",
+        "negotiation",
+        "won",
+        "lost",
       ];
       validStages.forEach((stage) => {
         const result = prospectStageSchema.safeParse(stage);
@@ -113,16 +116,16 @@ describe('Prospect API Contracts', () => {
       });
     });
 
-    it('leadSourceSchema validates all sources', () => {
+    it("leadSourceSchema validates all sources", () => {
       // Must match backend LeadSource enum
       const validSources = [
-        'referral',
-        'website',
-        'google',
-        'facebook',
-        'repeat_customer',
-        'door_to_door',
-        'other',
+        "referral",
+        "website",
+        "google",
+        "facebook",
+        "repeat_customer",
+        "door_to_door",
+        "other",
       ];
       validSources.forEach((source) => {
         const result = leadSourceSchema.safeParse(source);
@@ -130,9 +133,9 @@ describe('Prospect API Contracts', () => {
       });
     });
 
-    it('rejects invalid enum values', () => {
-      expect(prospectStageSchema.safeParse('invalid').success).toBe(false);
-      expect(leadSourceSchema.safeParse('invalid').success).toBe(false);
+    it("rejects invalid enum values", () => {
+      expect(prospectStageSchema.safeParse("invalid").success).toBe(false);
+      expect(leadSourceSchema.safeParse("invalid").success).toBe(false);
     });
   });
 });

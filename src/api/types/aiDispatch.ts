@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * AI Dispatch Zod Schemas
@@ -10,7 +10,7 @@ import { z } from 'zod';
 /**
  * AI Dispatch Action Type schema
  */
-export const aiDispatchActionTypeSchema = z.enum(['primary', 'secondary']);
+export const aiDispatchActionTypeSchema = z.enum(["primary", "secondary"]);
 export type AIDispatchActionType = z.infer<typeof aiDispatchActionTypeSchema>;
 
 /**
@@ -30,13 +30,15 @@ export type AIDispatchAction = z.infer<typeof aiDispatchActionSchema>;
  * AI Dispatch Suggestion Type schema
  */
 export const aiDispatchSuggestionTypeSchema = z.enum([
-  'assign',
-  'reschedule',
-  'route_optimize',
-  'parts_order',
-  'follow_up',
+  "assign",
+  "reschedule",
+  "route_optimize",
+  "parts_order",
+  "follow_up",
 ]);
-export type AIDispatchSuggestionType = z.infer<typeof aiDispatchSuggestionTypeSchema>;
+export type AIDispatchSuggestionType = z.infer<
+  typeof aiDispatchSuggestionTypeSchema
+>;
 
 /**
  * Estimated Impact schema
@@ -108,34 +110,48 @@ export type AIDispatchHistory = z.infer<typeof aiDispatchHistorySchema>;
  */
 export const aiDispatchRequestSchema = z.object({
   prompt: z.string().min(1),
-  context: z.object({
-    work_orders: z.array(z.object({
-      id: z.string(),
-      status: z.string(),
-      priority: z.string(),
-      service_type: z.string(),
-      customer_name: z.string(),
-      address: z.string(),
-      scheduled_date: z.string().optional(),
-      estimated_duration: z.number().optional(),
-    })).optional(),
-    technicians: z.array(z.object({
-      id: z.number(),
-      name: z.string(),
-      skills: z.array(z.string()),
-      current_location: z.object({
-        lat: z.number(),
-        lng: z.number(),
-      }).optional(),
-      available_from: z.string().optional(),
-      jobs_today: z.number(),
-    })).optional(),
-    constraints: z.object({
-      max_drive_time_minutes: z.number().optional(),
-      prefer_same_technician: z.boolean().optional(),
-      respect_territories: z.boolean().optional(),
-    }).optional(),
-  }).optional(),
+  context: z
+    .object({
+      work_orders: z
+        .array(
+          z.object({
+            id: z.string(),
+            status: z.string(),
+            priority: z.string(),
+            service_type: z.string(),
+            customer_name: z.string(),
+            address: z.string(),
+            scheduled_date: z.string().optional(),
+            estimated_duration: z.number().optional(),
+          }),
+        )
+        .optional(),
+      technicians: z
+        .array(
+          z.object({
+            id: z.number(),
+            name: z.string(),
+            skills: z.array(z.string()),
+            current_location: z
+              .object({
+                lat: z.number(),
+                lng: z.number(),
+              })
+              .optional(),
+            available_from: z.string().optional(),
+            jobs_today: z.number(),
+          }),
+        )
+        .optional(),
+      constraints: z
+        .object({
+          max_drive_time_minutes: z.number().optional(),
+          prefer_same_technician: z.boolean().optional(),
+          respect_territories: z.boolean().optional(),
+        })
+        .optional(),
+    })
+    .optional(),
   auto_execute: z.boolean().optional(),
 });
 
@@ -147,11 +163,13 @@ export type AIDispatchRequest = z.infer<typeof aiDispatchRequestSchema>;
 export const aiDispatchResponseSchema = z.object({
   suggestions: z.array(aiDispatchSuggestionSchema),
   natural_response: z.string(),
-  execution_result: z.object({
-    success: z.boolean(),
-    message: z.string(),
-    changes_made: z.array(z.string()),
-  }).optional(),
+  execution_result: z
+    .object({
+      success: z.boolean(),
+      message: z.string(),
+      changes_made: z.array(z.string()),
+    })
+    .optional(),
 });
 
 export type AIDispatchResponse = z.infer<typeof aiDispatchResponseSchema>;
@@ -170,15 +188,19 @@ export type ExecuteActionResponse = z.infer<typeof executeActionResponseSchema>;
  * Auto-assign Response schema
  */
 export const autoAssignResponseSchema = z.object({
-  assignments: z.array(z.object({
-    work_order_id: z.string(),
-    technician_id: z.number(),
-    scheduled_time: z.string(),
-  })),
-  failures: z.array(z.object({
-    work_order_id: z.string(),
-    reason: z.string(),
-  })),
+  assignments: z.array(
+    z.object({
+      work_order_id: z.string(),
+      technician_id: z.number(),
+      scheduled_time: z.string(),
+    }),
+  ),
+  failures: z.array(
+    z.object({
+      work_order_id: z.string(),
+      reason: z.string(),
+    }),
+  ),
 });
 
 export type AutoAssignResponse = z.infer<typeof autoAssignResponseSchema>;
@@ -187,16 +209,20 @@ export type AutoAssignResponse = z.infer<typeof autoAssignResponseSchema>;
  * Route Optimization Response schema
  */
 export const routeOptimizeResponseSchema = z.object({
-  optimized_routes: z.array(z.object({
-    technician_id: z.number(),
-    route: z.array(z.object({
-      work_order_id: z.string(),
-      order: z.number(),
-      eta: z.string(),
-    })),
-    total_distance_miles: z.number(),
-    total_time_minutes: z.number(),
-  })),
+  optimized_routes: z.array(
+    z.object({
+      technician_id: z.number(),
+      route: z.array(
+        z.object({
+          work_order_id: z.string(),
+          order: z.number(),
+          eta: z.string(),
+        }),
+      ),
+      total_distance_miles: z.number(),
+      total_time_minutes: z.number(),
+    }),
+  ),
   savings: z.object({
     distance_saved_miles: z.number(),
     time_saved_minutes: z.number(),
@@ -210,20 +236,26 @@ export type RouteOptimizeResponse = z.infer<typeof routeOptimizeResponseSchema>;
  */
 export const workOrderPredictionsSchema = z.object({
   estimated_duration_minutes: z.number(),
-  predicted_parts: z.array(z.object({
-    name: z.string(),
-    probability: z.number(),
-  })),
-  similar_jobs: z.array(z.object({
-    id: z.string(),
-    solution: z.string(),
-    success: z.boolean(),
-  })),
-  recommended_technician: z.object({
-    id: z.number(),
-    name: z.string(),
-    reason: z.string(),
-  }).nullable(),
+  predicted_parts: z.array(
+    z.object({
+      name: z.string(),
+      probability: z.number(),
+    }),
+  ),
+  similar_jobs: z.array(
+    z.object({
+      id: z.string(),
+      solution: z.string(),
+      success: z.boolean(),
+    }),
+  ),
+  recommended_technician: z
+    .object({
+      id: z.number(),
+      name: z.string(),
+      reason: z.string(),
+    })
+    .nullable(),
 });
 
 export type WorkOrderPredictions = z.infer<typeof workOrderPredictionsSchema>;

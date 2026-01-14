@@ -1,18 +1,28 @@
-import { useState } from 'react';
-import { useDocuments, useDeleteDocument, useDownloadDocument } from '@/api/hooks/useDocuments.ts';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { ConfirmDialog } from '@/components/ui/Dialog.tsx';
-import { FileUploader } from './FileUploader.tsx';
-import { DocumentViewer } from './DocumentViewer.tsx';
-import { formatDate } from '@/lib/utils.ts';
+import { useState } from "react";
+import {
+  useDocuments,
+  useDeleteDocument,
+  useDownloadDocument,
+} from "@/api/hooks/useDocuments.ts";
+import { FEATURE_FLAGS } from "@/lib/feature-flags.ts";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { ConfirmDialog } from "@/components/ui/Dialog.tsx";
+import { FileUploader } from "./FileUploader.tsx";
+import { DocumentViewer } from "./DocumentViewer.tsx";
+import { formatDate } from "@/lib/utils.ts";
 import {
   type Document,
   type EntityType,
   formatFileSize,
   getFileIcon,
   isViewableFile,
-} from '@/api/types/document.ts';
+} from "@/api/types/document.ts";
 
 export interface AttachmentListProps {
   entityId: string;
@@ -52,6 +62,11 @@ export function AttachmentList({ entityId, entityType }: AttachmentListProps) {
     }
   };
 
+  // Don't render anything if attachments feature is disabled
+  if (!FEATURE_FLAGS.attachments) {
+    return null;
+  }
+
   return (
     <>
       <Card>
@@ -59,7 +74,7 @@ export function AttachmentList({ entityId, entityType }: AttachmentListProps) {
           <div className="flex items-center justify-between">
             <CardTitle>Attachments</CardTitle>
             <Button onClick={() => setShowUploader(!showUploader)}>
-              {showUploader ? 'Cancel' : 'Upload File'}
+              {showUploader ? "Cancel" : "Upload File"}
             </Button>
           </div>
         </CardHeader>
@@ -92,7 +107,9 @@ export function AttachmentList({ entityId, entityType }: AttachmentListProps) {
               <div className="text-4xl mb-3">📎</div>
               <p className="text-text-muted mb-4">No attachments yet</p>
               {!showUploader && (
-                <Button onClick={() => setShowUploader(true)}>Upload First File</Button>
+                <Button onClick={() => setShowUploader(true)}>
+                  Upload First File
+                </Button>
               )}
             </div>
           ) : (
@@ -103,7 +120,9 @@ export function AttachmentList({ entityId, entityType }: AttachmentListProps) {
                   className="flex items-center gap-3 p-3 rounded-lg border border-border hover:bg-bg-hover transition-colors group"
                 >
                   {/* File Icon */}
-                  <div className="flex-shrink-0 text-2xl">{getFileIcon(doc.file_type)}</div>
+                  <div className="flex-shrink-0 text-2xl">
+                    {getFileIcon(doc.file_type)}
+                  </div>
 
                   {/* File Info */}
                   <div className="flex-1 min-w-0">

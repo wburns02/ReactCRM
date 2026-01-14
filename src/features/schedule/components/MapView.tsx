@@ -1,12 +1,16 @@
-import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
-import L from 'leaflet';
-import 'leaflet/dist/leaflet.css';
-import { useWorkOrders, useUnscheduledWorkOrders, useAssignWorkOrder } from '@/api/hooks/useWorkOrders.ts';
-import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { MapContainer, TileLayer, Marker, Popup, useMap } from "react-leaflet";
+import L from "leaflet";
+import "leaflet/dist/leaflet.css";
+import {
+  useWorkOrders,
+  useUnscheduledWorkOrders,
+  useAssignWorkOrder,
+} from "@/api/hooks/useWorkOrders.ts";
+import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
 import {
   type WorkOrder,
   type WorkOrderStatus,
@@ -15,17 +19,21 @@ import {
   WORK_ORDER_STATUS_LABELS,
   JOB_TYPE_LABELS,
   PRIORITY_LABELS,
-} from '@/api/types/workOrder.ts';
-import type { Technician } from '@/api/types/technician.ts';
-import { useScheduleStore } from '../store/scheduleStore.ts';
-import { formatTimeDisplay } from '@/api/types/schedule.ts';
+} from "@/api/types/workOrder.ts";
+import type { Technician } from "@/api/types/technician.ts";
+import { useScheduleStore } from "../store/scheduleStore.ts";
+import { formatTimeDisplay } from "@/api/types/schedule.ts";
 
 // Fix Leaflet default marker icon issue with bundlers
-delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: unknown })._getIconUrl;
+delete (L.Icon.Default.prototype as unknown as { _getIconUrl?: unknown })
+  ._getIconUrl;
 L.Icon.Default.mergeOptions({
-  iconRetinaUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png',
-  iconUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png',
-  shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png',
+  iconRetinaUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon-2x.png",
+  iconUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-icon.png",
+  shadowUrl:
+    "https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/images/marker-shadow.png",
 });
 
 // San Marcos, TX center for mock coordinates
@@ -38,22 +46,22 @@ const SAN_MARCOS_CENTER: [number, number] = [29.8833, -97.9414];
 function generateMockCoordinates(workOrder: WorkOrder): [number, number] {
   // Known address mappings for San Marcos area
   const addressMappings: Record<string, [number, number]> = {
-    '326 n lbj': [29.8855, -97.9406],
-    'lbj drive': [29.8855, -97.9406],
-    'n lbj': [29.8855, -97.9406],
-    '568 gravel': [29.8830, -97.9450],
-    'gravel st': [29.8830, -97.9450],
-    'gravel street': [29.8830, -97.9450],
-    '1200 wonder': [29.8600, -97.9500],
-    'wonder world': [29.8600, -97.9500],
-    '450 hopkins': [29.8900, -97.9400],
-    'hopkins st': [29.8900, -97.9400],
-    '789 aquarena': [29.8700, -97.9200],
-    'aquarena springs': [29.8700, -97.9200],
+    "326 n lbj": [29.8855, -97.9406],
+    "lbj drive": [29.8855, -97.9406],
+    "n lbj": [29.8855, -97.9406],
+    "568 gravel": [29.883, -97.945],
+    "gravel st": [29.883, -97.945],
+    "gravel street": [29.883, -97.945],
+    "1200 wonder": [29.86, -97.95],
+    "wonder world": [29.86, -97.95],
+    "450 hopkins": [29.89, -97.94],
+    "hopkins st": [29.89, -97.94],
+    "789 aquarena": [29.87, -97.92],
+    "aquarena springs": [29.87, -97.92],
   };
 
   // Check if address matches any known mapping
-  const address = (workOrder.service_address_line1 || '').toLowerCase();
+  const address = (workOrder.service_address_line1 || "").toLowerCase();
   for (const [pattern, coords] of Object.entries(addressMappings)) {
     if (address.includes(pattern)) {
       return coords;
@@ -62,16 +70,14 @@ function generateMockCoordinates(workOrder: WorkOrder): [number, number] {
 
   // Generate deterministic offset from customer/work order ID
   const seed = workOrder.id || workOrder.customer_id || 0;
-  const seedNum = typeof seed === 'string' ? parseInt(seed, 10) || seed.length : seed;
+  const seedNum =
+    typeof seed === "string" ? parseInt(seed, 10) || seed.length : seed;
 
   // Create pseudo-random but deterministic offsets
-  const latOffset = ((seedNum * 17) % 100 - 50) / 1000;
-  const lngOffset = ((seedNum * 31) % 100 - 50) / 1000;
+  const latOffset = (((seedNum * 17) % 100) - 50) / 1000;
+  const lngOffset = (((seedNum * 31) % 100) - 50) / 1000;
 
-  return [
-    SAN_MARCOS_CENTER[0] + latOffset,
-    SAN_MARCOS_CENTER[1] + lngOffset,
-  ];
+  return [SAN_MARCOS_CENTER[0] + latOffset, SAN_MARCOS_CENTER[1] + lngOffset];
 }
 
 /**
@@ -84,14 +90,13 @@ function getWorkOrderCoordinates(workOrder: WorkOrder): [number, number] {
   return generateMockCoordinates(workOrder);
 }
 
-
 /**
  * Create custom colored marker icon
  */
 function createColoredIcon(color: string, isLarge = false): L.DivIcon {
   const size = isLarge ? 36 : 28;
   return L.divIcon({
-    className: 'custom-marker',
+    className: "custom-marker",
     html: `
       <div style="
         background-color: ${color};
@@ -114,44 +119,45 @@ function createColoredIcon(color: string, isLarge = false): L.DivIcon {
  */
 function getStatusColor(status: WorkOrderStatus): string {
   switch (status) {
-    case 'completed':
-      return '#22c55e'; // green
-    case 'canceled':
-      return '#ef4444'; // red
-    case 'in_progress':
-    case 'on_site':
-      return '#f59e0b'; // amber
-    case 'enroute':
-      return '#3b82f6'; // blue
-    case 'scheduled':
-    case 'confirmed':
-      return '#0091ae'; // MAC blue
-    case 'requires_followup':
-      return '#8b5cf6'; // purple
-    case 'draft':
-      return '#6b7280'; // gray for unscheduled/draft
+    case "completed":
+      return "#22c55e"; // green
+    case "canceled":
+      return "#ef4444"; // red
+    case "in_progress":
+    case "on_site":
+      return "#f59e0b"; // amber
+    case "enroute":
+      return "#3b82f6"; // blue
+    case "scheduled":
+    case "confirmed":
+      return "#0091ae"; // MAC blue
+    case "requires_followup":
+      return "#8b5cf6"; // purple
+    case "draft":
+      return "#6b7280"; // gray for unscheduled/draft
     default:
-      return '#6b7280'; // gray
+      return "#6b7280"; // gray
   }
 }
-
 
 /**
  * Status badge variant helper
  */
-function getStatusVariant(status: WorkOrderStatus): 'default' | 'success' | 'warning' | 'danger' {
+function getStatusVariant(
+  status: WorkOrderStatus,
+): "default" | "success" | "warning" | "danger" {
   switch (status) {
-    case 'completed':
-      return 'success';
-    case 'canceled':
-      return 'danger';
-    case 'enroute':
-    case 'on_site':
-    case 'in_progress':
-    case 'requires_followup':
-      return 'warning';
+    case "completed":
+      return "success";
+    case "canceled":
+      return "danger";
+    case "enroute":
+    case "on_site":
+    case "in_progress":
+    case "requires_followup":
+      return "warning";
     default:
-      return 'default';
+      return "default";
   }
 }
 
@@ -160,7 +166,7 @@ function getStatusVariant(status: WorkOrderStatus): 'default' | 'success' | 'war
  */
 function createTechnicianIcon(): L.DivIcon {
   return L.divIcon({
-    className: 'technician-marker',
+    className: "technician-marker",
     html: `
       <div style="
         background-color: #104b95;
@@ -204,58 +210,67 @@ function FitBounds({ bounds }: { bounds: L.LatLngBoundsExpression | null }) {
 function WorkOrderMarker({
   workOrder,
   position,
-  technicians
+  technicians,
 }: {
   workOrder: WorkOrder;
   position: [number, number];
   technicians: Technician[];
 }) {
-  const icon = createColoredIcon(getStatusColor(workOrder.status as WorkOrderStatus));
-  const [editMode, setEditMode] = useState<'none' | 'schedule' | 'tech'>('none');
-  const [formDate, setFormDate] = useState(workOrder.scheduled_date || '');
-  const [formTime, setFormTime] = useState(workOrder.time_window_start || '');
-  const [formTech, setFormTech] = useState(workOrder.assigned_technician || '');
+  const icon = createColoredIcon(
+    getStatusColor(workOrder.status as WorkOrderStatus),
+  );
+  const [editMode, setEditMode] = useState<"none" | "schedule" | "tech">(
+    "none",
+  );
+  const [formDate, setFormDate] = useState(workOrder.scheduled_date || "");
+  const [formTime, setFormTime] = useState(workOrder.time_window_start || "");
+  const [formTech, setFormTech] = useState(workOrder.assigned_technician || "");
 
   const assignWorkOrder = useAssignWorkOrder();
 
   const handleScheduleSave = () => {
-    assignWorkOrder.mutate({
-      id: workOrder.id,
-      date: formDate || undefined,
-      timeStart: formTime || undefined,
-      technician: workOrder.assigned_technician || undefined,
-    }, {
-      onSuccess: () => setEditMode('none'),
-    });
+    assignWorkOrder.mutate(
+      {
+        id: workOrder.id,
+        date: formDate || undefined,
+        timeStart: formTime || undefined,
+        technician: workOrder.assigned_technician || undefined,
+      },
+      {
+        onSuccess: () => setEditMode("none"),
+      },
+    );
   };
 
   const handleTechSave = () => {
-    assignWorkOrder.mutate({
-      id: workOrder.id,
-      date: workOrder.scheduled_date || undefined,
-      timeStart: workOrder.time_window_start || undefined,
-      technician: formTech || undefined,
-    }, {
-      onSuccess: () => setEditMode('none'),
-    });
+    assignWorkOrder.mutate(
+      {
+        id: workOrder.id,
+        date: workOrder.scheduled_date || undefined,
+        timeStart: workOrder.time_window_start || undefined,
+        technician: formTech || undefined,
+      },
+      {
+        onSuccess: () => setEditMode("none"),
+      },
+    );
   };
 
   const handleCancelEdit = () => {
-    setEditMode('none');
-    setFormDate(workOrder.scheduled_date || '');
-    setFormTime(workOrder.time_window_start || '');
-    setFormTech(workOrder.assigned_technician || '');
+    setEditMode("none");
+    setFormDate(workOrder.scheduled_date || "");
+    setFormTime(workOrder.time_window_start || "");
+    setFormTech(workOrder.assigned_technician || "");
   };
 
   return (
-    <Marker
-      position={position}
-      icon={icon}
-    >
+    <Marker position={position} icon={icon}>
       <Popup>
         <div className="min-w-[280px]">
           <div className="flex items-center justify-between gap-2 mb-2">
-            <Badge variant={getStatusVariant(workOrder.status as WorkOrderStatus)}>
+            <Badge
+              variant={getStatusVariant(workOrder.status as WorkOrderStatus)}
+            >
               {WORK_ORDER_STATUS_LABELS[workOrder.status as WorkOrderStatus]}
             </Badge>
             <span className="text-xs text-gray-500">
@@ -272,7 +287,7 @@ function WorkOrderMarker({
           </p>
 
           {/* Schedule Section */}
-          {editMode === 'schedule' ? (
+          {editMode === "schedule" ? (
             <div className="bg-gray-50 rounded p-2 mb-2 space-y-2">
               <div className="flex gap-2">
                 <input
@@ -296,7 +311,7 @@ function WorkOrderMarker({
                   onClick={handleScheduleSave}
                   disabled={assignWorkOrder.isPending}
                 >
-                  {assignWorkOrder.isPending ? 'Saving...' : 'Save'}
+                  {assignWorkOrder.isPending ? "Saving..." : "Save"}
                 </Button>
                 <Button
                   variant="secondary"
@@ -312,22 +327,22 @@ function WorkOrderMarker({
             <div className="flex items-center justify-between mb-1">
               <p className="text-xs text-gray-500">
                 {workOrder.scheduled_date
-                  ? `${workOrder.scheduled_date}${workOrder.time_window_start ? ` @ ${formatTimeDisplay(workOrder.time_window_start)}` : ''}`
-                  : 'Not scheduled'}
+                  ? `${workOrder.scheduled_date}${workOrder.time_window_start ? ` @ ${formatTimeDisplay(workOrder.time_window_start)}` : ""}`
+                  : "Not scheduled"}
               </p>
               <Button
                 variant="secondary"
                 size="sm"
                 className="h-6 text-xs px-2"
-                onClick={() => setEditMode('schedule')}
+                onClick={() => setEditMode("schedule")}
               >
-                {workOrder.scheduled_date ? 'Reschedule' : 'Schedule'}
+                {workOrder.scheduled_date ? "Reschedule" : "Schedule"}
               </Button>
             </div>
           )}
 
           {/* Technician Section */}
-          {editMode === 'tech' ? (
+          {editMode === "tech" ? (
             <div className="bg-gray-50 rounded p-2 mb-2 space-y-2">
               <select
                 value={formTech}
@@ -336,7 +351,10 @@ function WorkOrderMarker({
               >
                 <option value="">Unassigned</option>
                 {technicians.map((tech) => (
-                  <option key={tech.id} value={`${tech.first_name} ${tech.last_name}`}>
+                  <option
+                    key={tech.id}
+                    value={`${tech.first_name} ${tech.last_name}`}
+                  >
                     {tech.first_name} {tech.last_name}
                   </option>
                 ))}
@@ -349,7 +367,7 @@ function WorkOrderMarker({
                   onClick={handleTechSave}
                   disabled={assignWorkOrder.isPending}
                 >
-                  {assignWorkOrder.isPending ? 'Assigning...' : 'Assign'}
+                  {assignWorkOrder.isPending ? "Assigning..." : "Assign"}
                 </Button>
                 <Button
                   variant="secondary"
@@ -364,13 +382,13 @@ function WorkOrderMarker({
           ) : (
             <div className="flex items-center justify-between mb-2">
               <p className="text-xs text-gray-500">
-                Tech: {workOrder.assigned_technician || 'Unassigned'}
+                Tech: {workOrder.assigned_technician || "Unassigned"}
               </p>
               <Button
                 variant="secondary"
                 size="sm"
                 className="h-6 text-xs px-2"
-                onClick={() => setEditMode('tech')}
+                onClick={() => setEditMode("tech")}
               >
                 Change
               </Button>
@@ -410,7 +428,8 @@ function TechnicianMarker({ technician }: { technician: Technician }) {
         <div className="min-w-[180px]">
           <div className="flex items-center gap-2 mb-2">
             <div className="w-8 h-8 rounded-full bg-primary flex items-center justify-center text-white font-bold">
-              {technician.first_name[0]}{technician.last_name[0]}
+              {technician.first_name[0]}
+              {technician.last_name[0]}
             </div>
             <div>
               <h3 className="font-semibold text-gray-900">
@@ -450,27 +469,45 @@ function MapLegend() {
       <div className="font-semibold mb-2 text-gray-900">Work Order Status</div>
       <div className="space-y-1">
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#6b7280' }} />
+          <div
+            className="w-3 h-3 rounded-full"
+            style={{ backgroundColor: "#6b7280" }}
+          />
           <span>Unscheduled/Draft</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#0091ae' }} />
+          <div
+            className="w-3 h-3 rounded-full"
+            style={{ backgroundColor: "#0091ae" }}
+          />
           <span>Scheduled/Confirmed</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#3b82f6' }} />
+          <div
+            className="w-3 h-3 rounded-full"
+            style={{ backgroundColor: "#3b82f6" }}
+          />
           <span>En Route</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#f59e0b' }} />
+          <div
+            className="w-3 h-3 rounded-full"
+            style={{ backgroundColor: "#f59e0b" }}
+          />
           <span>On Site/In Progress</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#22c55e' }} />
+          <div
+            className="w-3 h-3 rounded-full"
+            style={{ backgroundColor: "#22c55e" }}
+          />
           <span>Completed</span>
         </div>
         <div className="flex items-center gap-2">
-          <div className="w-3 h-3 rounded-full" style={{ backgroundColor: '#8b5cf6' }} />
+          <div
+            className="w-3 h-3 rounded-full"
+            style={{ backgroundColor: "#8b5cf6" }}
+          />
           <span>Requires Follow-up</span>
         </div>
       </div>
@@ -495,13 +532,18 @@ export function MapView() {
   const [showCompleted, setShowCompleted] = useState(false);
 
   // Fetch scheduled work orders
-  const { data: workOrdersData, isLoading: woLoading, isError: woError } = useWorkOrders({
+  const {
+    data: workOrdersData,
+    isLoading: woLoading,
+    isError: woError,
+  } = useWorkOrders({
     page: 1,
     page_size: 200,
   });
 
   // Fetch unscheduled work orders
-  const { data: unscheduledData, isLoading: unscheduledLoading } = useUnscheduledWorkOrders();
+  const { data: unscheduledData, isLoading: unscheduledLoading } =
+    useUnscheduledWorkOrders();
 
   // Fetch technicians
   const { data: techniciansData, isLoading: techLoading } = useTechnicians({
@@ -511,14 +553,18 @@ export function MapView() {
 
   // Combine and filter work orders for map display
   const workOrdersForMap = useMemo(() => {
-    const allWorkOrders: Array<{ workOrder: WorkOrder; position: [number, number] }> = [];
+    const allWorkOrders: Array<{
+      workOrder: WorkOrder;
+      position: [number, number];
+    }> = [];
     const seenIds = new Set<string | number>();
 
     // Add unscheduled work orders first (they always show)
     if (unscheduledData?.items) {
       unscheduledData.items.forEach((wo) => {
         // Apply technician filter
-        if (filters.technician && wo.assigned_technician !== filters.technician) return;
+        if (filters.technician && wo.assigned_technician !== filters.technician)
+          return;
 
         const position = getWorkOrderCoordinates(wo);
         allWorkOrders.push({ workOrder: wo, position });
@@ -533,13 +579,18 @@ export function MapView() {
         if (seenIds.has(wo.id)) return;
 
         // Apply technician filter
-        if (filters.technician && wo.assigned_technician !== filters.technician) return;
+        if (filters.technician && wo.assigned_technician !== filters.technician)
+          return;
 
         // Apply status filter
-        if (filters.statuses.length > 0 && !filters.statuses.includes(wo.status)) return;
+        if (
+          filters.statuses.length > 0 &&
+          !filters.statuses.includes(wo.status)
+        )
+          return;
 
         // Hide completed unless toggled on
-        if (!showCompleted && wo.status === 'completed') return;
+        if (!showCompleted && wo.status === "completed") return;
 
         // For scheduled work orders, show within a reasonable date range
         if (wo.scheduled_date) {
@@ -565,7 +616,7 @@ export function MapView() {
     if (!techniciansData?.items || !showTechnicians) return [];
 
     return techniciansData.items.filter(
-      (tech) => tech.home_latitude && tech.home_longitude && tech.is_active
+      (tech) => tech.home_latitude && tech.home_longitude && tech.is_active,
     );
   }, [techniciansData, showTechnicians]);
 
@@ -585,10 +636,7 @@ export function MapView() {
     if (allPoints.length === 1) {
       // Single point - create a small bounds around it
       const [lat, lng] = allPoints[0];
-      return L.latLngBounds(
-        [lat - 0.1, lng - 0.1],
-        [lat + 0.1, lng + 0.1]
-      );
+      return L.latLngBounds([lat - 0.1, lng - 0.1], [lat + 0.1, lng + 0.1]);
     }
 
     return L.latLngBounds(allPoints);
@@ -613,7 +661,9 @@ export function MapView() {
       <div className="bg-bg-muted rounded-lg flex items-center justify-center h-[600px]">
         <div className="text-center">
           <p className="text-danger mb-2">Failed to load work orders</p>
-          <p className="text-sm text-text-muted">Please try refreshing the page</p>
+          <p className="text-sm text-text-muted">
+            Please try refreshing the page
+          </p>
         </div>
       </div>
     );
@@ -645,21 +695,28 @@ export function MapView() {
 
       {/* Stats */}
       <div className="absolute top-4 left-1/2 -translate-x-1/2 z-[1000] bg-white rounded-lg shadow-lg px-4 py-2 text-sm">
-        <span className="font-medium">{workOrdersForMap.length}</span> work orders
+        <span className="font-medium">{workOrdersForMap.length}</span> work
+        orders
         {showTechnicians && (
           <>
-            {' · '}
-            <span className="font-medium">{techniciansWithLocation.length}</span> technicians
+            {" · "}
+            <span className="font-medium">
+              {techniciansWithLocation.length}
+            </span>{" "}
+            technicians
           </>
         )}
       </div>
 
       {/* Map Container */}
-      <div className="rounded-lg overflow-hidden border border-border" style={{ height: '600px' }}>
+      <div
+        className="rounded-lg overflow-hidden border border-border"
+        style={{ height: "600px" }}
+      >
         <MapContainer
           center={defaultCenter}
           zoom={12}
-          style={{ height: '100%', width: '100%' }}
+          style={{ height: "100%", width: "100%" }}
           scrollWheelZoom={true}
         >
           <TileLayer
@@ -691,16 +748,19 @@ export function MapView() {
       <MapLegend />
 
       {/* Empty state */}
-      {workOrdersForMap.length === 0 && techniciansWithLocation.length === 0 && (
-        <div className="absolute inset-0 flex items-center justify-center bg-white/80 rounded-lg">
-          <div className="text-center p-6">
-            <p className="text-text-secondary mb-2">No locations to display</p>
-            <p className="text-sm text-text-muted">
-              No work orders found matching current filters
-            </p>
+      {workOrdersForMap.length === 0 &&
+        techniciansWithLocation.length === 0 && (
+          <div className="absolute inset-0 flex items-center justify-center bg-white/80 rounded-lg">
+            <div className="text-center p-6">
+              <p className="text-text-secondary mb-2">
+                No locations to display
+              </p>
+              <p className="text-sm text-text-muted">
+                No work orders found matching current filters
+              </p>
+            </div>
           </div>
-        </div>
-      )}
+        )}
     </div>
   );
 }

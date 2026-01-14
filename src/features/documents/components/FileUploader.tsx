@@ -1,14 +1,14 @@
-import { useState, useRef, type DragEvent } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { useUploadDocument } from '@/api/hooks/useDocuments.ts';
+import { useState, useRef, type DragEvent } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { useUploadDocument } from "@/api/hooks/useDocuments.ts";
 import {
   MAX_FILE_SIZE,
   ALLOWED_FILE_TYPES,
   ALLOWED_FILE_EXTENSIONS,
   formatFileSize,
   type EntityType,
-} from '@/api/types/document.ts';
-import { cn } from '@/lib/utils.ts';
+} from "@/api/types/document.ts";
+import { cn } from "@/lib/utils.ts";
 
 export interface FileUploaderProps {
   entityId: string;
@@ -20,7 +20,11 @@ export interface FileUploaderProps {
  * File Uploader component with drag-and-drop support
  * Enforces 5MB file size limit and shows upload progress
  */
-export function FileUploader({ entityId, entityType, onUploadComplete }: FileUploaderProps) {
+export function FileUploader({
+  entityId,
+  entityType,
+  onUploadComplete,
+}: FileUploaderProps) {
   const [isDragging, setIsDragging] = useState(false);
   const [uploadProgress, setUploadProgress] = useState(0);
   const [error, setError] = useState<string | null>(null);
@@ -36,9 +40,9 @@ export function FileUploader({ entityId, entityType, onUploadComplete }: FileUpl
 
     // Check file type
     if (!ALLOWED_FILE_TYPES.includes(file.type)) {
-      const extension = '.' + file.name.split('.').pop()?.toLowerCase();
+      const extension = "." + file.name.split(".").pop()?.toLowerCase();
       if (!ALLOWED_FILE_EXTENSIONS.includes(extension)) {
-        return 'File type not allowed. Allowed types: PDF, images, Word, Excel, text files';
+        return "File type not allowed. Allowed types: PDF, images, Word, Excel, text files";
       }
     }
 
@@ -68,7 +72,7 @@ export function FileUploader({ entityId, entityType, onUploadComplete }: FileUpl
         onUploadComplete();
       }
     } catch (err: any) {
-      setError(err.response?.data?.error || 'Failed to upload file');
+      setError(err.response?.data?.error || "Failed to upload file");
       setUploadProgress(0);
     }
   };
@@ -80,7 +84,7 @@ export function FileUploader({ entityId, entityType, onUploadComplete }: FileUpl
     }
     // Reset input so same file can be selected again
     if (fileInputRef.current) {
-      fileInputRef.current.value = '';
+      fileInputRef.current.value = "";
     }
   };
 
@@ -126,11 +130,11 @@ export function FileUploader({ entityId, entityType, onUploadComplete }: FileUpl
         onDragOver={handleDragOver}
         onDrop={handleDrop}
         className={cn(
-          'border-2 border-dashed rounded-lg p-8 text-center transition-colors',
+          "border-2 border-dashed rounded-lg p-8 text-center transition-colors",
           isDragging
-            ? 'border-primary bg-primary/5'
-            : 'border-border hover:border-primary/50 hover:bg-bg-hover',
-          isUploading && 'pointer-events-none opacity-50'
+            ? "border-primary bg-primary/5"
+            : "border-border hover:border-primary/50 hover:bg-bg-hover",
+          isUploading && "pointer-events-none opacity-50",
         )}
       >
         <input
@@ -138,7 +142,7 @@ export function FileUploader({ entityId, entityType, onUploadComplete }: FileUpl
           type="file"
           onChange={handleFileSelect}
           className="hidden"
-          accept={ALLOWED_FILE_EXTENSIONS.join(',')}
+          accept={ALLOWED_FILE_EXTENSIONS.join(",")}
           disabled={isUploading}
         />
 
@@ -146,7 +150,7 @@ export function FileUploader({ entityId, entityType, onUploadComplete }: FileUpl
           <div className="text-4xl">📁</div>
           <div>
             <p className="text-text-primary font-medium mb-1">
-              {isDragging ? 'Drop file here' : 'Drag and drop file here'}
+              {isDragging ? "Drop file here" : "Drag and drop file here"}
             </p>
             <p className="text-sm text-text-muted mb-3">or</p>
             <Button
@@ -172,7 +176,9 @@ export function FileUploader({ entityId, entityType, onUploadComplete }: FileUpl
         <div className="space-y-2">
           <div className="flex items-center justify-between text-sm">
             <span className="text-text-secondary">Uploading...</span>
-            <span className="text-text-primary font-medium">{uploadProgress}%</span>
+            <span className="text-text-primary font-medium">
+              {uploadProgress}%
+            </span>
           </div>
           <div className="w-full h-2 bg-bg-muted rounded-full overflow-hidden">
             <div

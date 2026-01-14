@@ -1,5 +1,5 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 /**
  * Multi-Region/Franchise Types
@@ -8,8 +8,8 @@ export interface Region {
   id: string;
   name: string;
   code: string; // e.g., "TX-DAL", "SC-CHS"
-  type: 'company_owned' | 'franchise' | 'partner';
-  status: 'active' | 'inactive' | 'pending';
+  type: "company_owned" | "franchise" | "partner";
+  status: "active" | "inactive" | "pending";
   address: {
     street: string;
     city: string;
@@ -65,7 +65,7 @@ export interface RegionUser {
   id: number;
   user_id: number;
   region_id: string;
-  role: 'admin' | 'manager' | 'technician' | 'dispatcher' | 'viewer';
+  role: "admin" | "manager" | "technician" | "dispatcher" | "viewer";
   is_primary_region: boolean;
   permissions: string[];
   created_at: string;
@@ -86,9 +86,9 @@ export interface CrossRegionTransfer {
   id: string;
   from_region_id: string;
   to_region_id: string;
-  entity_type: 'customer' | 'work_order' | 'technician';
+  entity_type: "customer" | "work_order" | "technician";
   entity_id: string;
-  status: 'pending' | 'approved' | 'rejected' | 'completed';
+  status: "pending" | "approved" | "rejected" | "completed";
   reason?: string;
   requested_by: number;
   requested_at: string;
@@ -100,14 +100,14 @@ export interface CrossRegionTransfer {
  * Query keys for Multi-Region
  */
 export const regionKeys = {
-  all: ['regions'] as const,
-  list: () => [...regionKeys.all, 'list'] as const,
-  detail: (id: string) => [...regionKeys.all, 'detail', id] as const,
-  users: (regionId: string) => [...regionKeys.all, 'users', regionId] as const,
-  stats: () => [...regionKeys.all, 'stats'] as const,
-  regionStats: (id: string) => [...regionKeys.all, 'stats', id] as const,
-  transfers: () => [...regionKeys.all, 'transfers'] as const,
-  currentRegion: () => [...regionKeys.all, 'current'] as const,
+  all: ["regions"] as const,
+  list: () => [...regionKeys.all, "list"] as const,
+  detail: (id: string) => [...regionKeys.all, "detail", id] as const,
+  users: (regionId: string) => [...regionKeys.all, "users", regionId] as const,
+  stats: () => [...regionKeys.all, "stats"] as const,
+  regionStats: (id: string) => [...regionKeys.all, "stats", id] as const,
+  transfers: () => [...regionKeys.all, "transfers"] as const,
+  currentRegion: () => [...regionKeys.all, "current"] as const,
 };
 
 /**
@@ -117,7 +117,7 @@ export function useCurrentRegion() {
   return useQuery({
     queryKey: regionKeys.currentRegion(),
     queryFn: async (): Promise<Region> => {
-      const { data } = await apiClient.get('/regions/current');
+      const { data } = await apiClient.get("/regions/current");
       return data;
     },
   });
@@ -130,7 +130,7 @@ export function useRegions() {
   return useQuery({
     queryKey: regionKeys.list(),
     queryFn: async (): Promise<Region[]> => {
-      const { data } = await apiClient.get('/regions/');
+      const { data } = await apiClient.get("/regions/");
       return data.regions || [];
     },
   });
@@ -157,8 +157,10 @@ export function useCreateRegion() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (region: Omit<Region, 'id' | 'created_at' | 'updated_at'>): Promise<Region> => {
-      const { data } = await apiClient.post('/regions/', region);
+    mutationFn: async (
+      region: Omit<Region, "id" | "created_at" | "updated_at">,
+    ): Promise<Region> => {
+      const { data } = await apiClient.post("/regions/", region);
       return data;
     },
     onSuccess: () => {
@@ -174,13 +176,18 @@ export function useUpdateRegion() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ id, ...region }: Partial<Region> & { id: string }): Promise<Region> => {
+    mutationFn: async ({
+      id,
+      ...region
+    }: Partial<Region> & { id: string }): Promise<Region> => {
       const { data } = await apiClient.put(`/regions/${id}`, region);
       return data;
     },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: regionKeys.list() });
-      queryClient.invalidateQueries({ queryKey: regionKeys.detail(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: regionKeys.detail(variables.id),
+      });
     },
   });
 }
@@ -243,14 +250,19 @@ export function useAddUserToRegion() {
     mutationFn: async (params: {
       region_id: string;
       user_id: number;
-      role: RegionUser['role'];
+      role: RegionUser["role"];
       is_primary_region?: boolean;
     }): Promise<RegionUser> => {
-      const { data } = await apiClient.post(`/regions/${params.region_id}/users`, params);
+      const { data } = await apiClient.post(
+        `/regions/${params.region_id}/users`,
+        params,
+      );
       return data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: regionKeys.users(variables.region_id) });
+      queryClient.invalidateQueries({
+        queryKey: regionKeys.users(variables.region_id),
+      });
     },
   });
 }
@@ -266,10 +278,14 @@ export function useRemoveUserFromRegion() {
       region_id: string;
       user_id: number;
     }): Promise<void> => {
-      await apiClient.delete(`/regions/${params.region_id}/users/${params.user_id}`);
+      await apiClient.delete(
+        `/regions/${params.region_id}/users/${params.user_id}`,
+      );
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: regionKeys.users(variables.region_id) });
+      queryClient.invalidateQueries({
+        queryKey: regionKeys.users(variables.region_id),
+      });
     },
   });
 }
@@ -284,16 +300,18 @@ export function useUpdateRegionUserRole() {
     mutationFn: async (params: {
       region_id: string;
       user_id: number;
-      role: RegionUser['role'];
+      role: RegionUser["role"];
     }): Promise<RegionUser> => {
       const { data } = await apiClient.put(
         `/regions/${params.region_id}/users/${params.user_id}`,
-        { role: params.role }
+        { role: params.role },
       );
       return data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: regionKeys.users(variables.region_id) });
+      queryClient.invalidateQueries({
+        queryKey: regionKeys.users(variables.region_id),
+      });
     },
   });
 }
@@ -305,7 +323,7 @@ export function useAllRegionStats() {
   return useQuery({
     queryKey: regionKeys.stats(),
     queryFn: async (): Promise<RegionStats[]> => {
-      const { data } = await apiClient.get('/regions/stats');
+      const { data } = await apiClient.get("/regions/stats");
       return data.stats || [];
     },
   });
@@ -328,11 +346,13 @@ export function useRegionStats(regionId: string) {
 /**
  * Get pending transfers
  */
-export function useCrossRegionTransfers(status?: CrossRegionTransfer['status']) {
+export function useCrossRegionTransfers(
+  status?: CrossRegionTransfer["status"],
+) {
   return useQuery({
     queryKey: regionKeys.transfers(),
     queryFn: async (): Promise<CrossRegionTransfer[]> => {
-      const params = status ? `?status=${status}` : '';
+      const params = status ? `?status=${status}` : "";
       const { data } = await apiClient.get(`/regions/transfers${params}`);
       return data.transfers || [];
     },
@@ -349,11 +369,11 @@ export function useRequestCrossRegionTransfer() {
     mutationFn: async (params: {
       from_region_id: string;
       to_region_id: string;
-      entity_type: CrossRegionTransfer['entity_type'];
+      entity_type: CrossRegionTransfer["entity_type"];
       entity_id: string;
       reason?: string;
     }): Promise<CrossRegionTransfer> => {
-      const { data } = await apiClient.post('/regions/transfers', params);
+      const { data } = await apiClient.post("/regions/transfers", params);
       return data;
     },
     onSuccess: () => {
@@ -370,7 +390,9 @@ export function useApproveCrossRegionTransfer() {
 
   return useMutation({
     mutationFn: async (transferId: string): Promise<CrossRegionTransfer> => {
-      const { data } = await apiClient.post(`/regions/transfers/${transferId}/approve`);
+      const { data } = await apiClient.post(
+        `/regions/transfers/${transferId}/approve`,
+      );
       return data;
     },
     onSuccess: () => {
@@ -390,9 +412,12 @@ export function useRejectCrossRegionTransfer() {
       transfer_id: string;
       reason: string;
     }): Promise<CrossRegionTransfer> => {
-      const { data } = await apiClient.post(`/regions/transfers/${params.transfer_id}/reject`, {
-        reason: params.reason,
-      });
+      const { data } = await apiClient.post(
+        `/regions/transfers/${params.transfer_id}/reject`,
+        {
+          reason: params.reason,
+        },
+      );
       return data;
     },
     onSuccess: () => {
@@ -406,13 +431,15 @@ export function useRejectCrossRegionTransfer() {
  */
 export function useUserRegions() {
   return useQuery({
-    queryKey: [...regionKeys.all, 'user-regions'],
-    queryFn: async (): Promise<{
-      region: Region;
-      role: RegionUser['role'];
-      is_primary: boolean;
-    }[]> => {
-      const { data } = await apiClient.get('/regions/user-regions');
+    queryKey: [...regionKeys.all, "user-regions"],
+    queryFn: async (): Promise<
+      {
+        region: Region;
+        role: RegionUser["role"];
+        is_primary: boolean;
+      }[]
+    > => {
+      const { data } = await apiClient.get("/regions/user-regions");
       return data.regions || [];
     },
   });

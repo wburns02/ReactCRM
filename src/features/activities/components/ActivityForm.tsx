@@ -1,23 +1,23 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
-import { Label } from '@/components/ui/Label.tsx';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { Label } from "@/components/ui/Label.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   activityFormSchema,
   type ActivityFormData,
   type Activity,
   ACTIVITY_TYPE_LABELS,
-} from '@/api/types/activity.ts';
+} from "@/api/types/activity.ts";
 
 export interface ActivityFormProps {
   open: boolean;
@@ -54,13 +54,13 @@ export function ActivityForm({
           customer_id: activity.customer_id,
           activity_type: activity.activity_type,
           description: activity.description,
-          activity_date: activity.activity_date.split('T')[0],
+          activity_date: activity.activity_date.split("T")[0],
         }
       : {
           customer_id: customerId,
-          activity_type: 'note',
-          description: '',
-          activity_date: new Date().toISOString().split('T')[0],
+          activity_type: "note",
+          description: "",
+          activity_date: new Date().toISOString().split("T")[0],
         },
   });
 
@@ -78,7 +78,7 @@ export function ActivityForm({
     <Dialog open={open} onClose={handleClose} disableOverlayClose={isDirty}>
       <DialogContent size="md">
         <DialogHeader onClose={handleClose}>
-          {isEdit ? 'Edit Activity' : 'Log New Activity'}
+          {isEdit ? "Edit Activity" : "Log New Activity"}
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -89,7 +89,7 @@ export function ActivityForm({
               </Label>
               <Select
                 id="activity_type"
-                {...register('activity_type')}
+                {...register("activity_type")}
                 error={!!errors.activity_type}
               >
                 {Object.entries(ACTIVITY_TYPE_LABELS).map(([value, label]) => (
@@ -99,7 +99,9 @@ export function ActivityForm({
                 ))}
               </Select>
               {errors.activity_type && (
-                <p className="text-sm text-danger">{errors.activity_type.message}</p>
+                <p className="text-sm text-danger">
+                  {errors.activity_type.message}
+                </p>
               )}
             </div>
 
@@ -110,11 +112,13 @@ export function ActivityForm({
               <Input
                 id="activity_date"
                 type="date"
-                {...register('activity_date')}
+                {...register("activity_date")}
                 error={!!errors.activity_date}
               />
               {errors.activity_date && (
-                <p className="text-sm text-danger">{errors.activity_date.message}</p>
+                <p className="text-sm text-danger">
+                  {errors.activity_date.message}
+                </p>
               )}
             </div>
 
@@ -124,23 +128,34 @@ export function ActivityForm({
               </Label>
               <Textarea
                 id="description"
-                {...register('description')}
+                {...register("description")}
                 error={!!errors.description}
                 placeholder="Enter activity details..."
                 rows={6}
               />
               {errors.description && (
-                <p className="text-sm text-danger">{errors.description.message}</p>
+                <p className="text-sm text-danger">
+                  {errors.description.message}
+                </p>
               )}
             </div>
           </DialogBody>
 
           <DialogFooter>
-            <Button type="button" variant="secondary" onClick={handleClose} disabled={isLoading}>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={handleClose}
+              disabled={isLoading}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Saving...' : isEdit ? 'Save Changes' : 'Log Activity'}
+              {isLoading
+                ? "Saving..."
+                : isEdit
+                  ? "Save Changes"
+                  : "Log Activity"}
             </Button>
           </DialogFooter>
         </form>

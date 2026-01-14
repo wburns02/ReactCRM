@@ -1,8 +1,8 @@
-import { useState } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Select } from '@/components/ui/Select';
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Select } from "@/components/ui/Select";
 import {
   usePredictionSummary,
   useMaintenancePredictions,
@@ -12,21 +12,24 @@ import {
   useMarkAlertRead,
   type MaintenancePrediction,
   type PredictionFilters,
-} from '@/api/hooks/usePredictiveMaintenance';
+} from "@/api/hooks/usePredictiveMaintenance";
+import { AutoSchedulePanel } from "./components/AutoSchedulePanel";
 
 /**
  * Risk Level Badge Component
  */
-function RiskBadge({ level }: { level: MaintenancePrediction['risk_level'] }) {
+function RiskBadge({ level }: { level: MaintenancePrediction["risk_level"] }) {
   const colors = {
-    low: 'bg-green-100 text-green-700',
-    medium: 'bg-yellow-100 text-yellow-700',
-    high: 'bg-orange-100 text-orange-700',
-    critical: 'bg-red-100 text-red-700',
+    low: "bg-green-100 text-green-700",
+    medium: "bg-yellow-100 text-yellow-700",
+    high: "bg-orange-100 text-orange-700",
+    critical: "bg-red-100 text-red-700",
   };
 
   return (
-    <span className={`px-2 py-1 rounded-full text-xs font-medium ${colors[level]}`}>
+    <span
+      className={`px-2 py-1 rounded-full text-xs font-medium ${colors[level]}`}
+    >
       {level.charAt(0).toUpperCase() + level.slice(1)} Risk
     </span>
   );
@@ -47,12 +50,17 @@ function PredictionCard({
   const navigate = useNavigate();
 
   return (
-    <Card className={`border-l-4 ${
-      prediction.risk_level === 'critical' ? 'border-l-red-500' :
-      prediction.risk_level === 'high' ? 'border-l-orange-500' :
-      prediction.risk_level === 'medium' ? 'border-l-yellow-500' :
-      'border-l-green-500'
-    }`}>
+    <Card
+      className={`border-l-4 ${
+        prediction.risk_level === "critical"
+          ? "border-l-red-500"
+          : prediction.risk_level === "high"
+            ? "border-l-orange-500"
+            : prediction.risk_level === "medium"
+              ? "border-l-yellow-500"
+              : "border-l-green-500"
+      }`}
+    >
       <CardContent className="p-4">
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1">
@@ -66,12 +74,23 @@ function PredictionCard({
               <RiskBadge level={prediction.risk_level} />
             </div>
 
-            <p className="text-sm text-text-secondary mb-2">{prediction.address}</p>
+            <p className="text-sm text-text-secondary mb-2">
+              {prediction.address}
+            </p>
 
             <div className="flex flex-wrap gap-4 text-sm text-text-muted">
-              <span>Last Service: {new Date(prediction.last_service_date).toLocaleDateString()}</span>
+              <span>
+                Last Service:{" "}
+                {new Date(prediction.last_service_date).toLocaleDateString()}
+              </span>
               <span>|</span>
-              <span className={prediction.days_until_service < 0 ? 'text-red-600 font-medium' : ''}>
+              <span
+                className={
+                  prediction.days_until_service < 0
+                    ? "text-red-600 font-medium"
+                    : ""
+                }
+              >
                 {prediction.days_until_service < 0
                   ? `${Math.abs(prediction.days_until_service)} days overdue`
                   : `Due in ${prediction.days_until_service} days`}
@@ -84,9 +103,11 @@ function PredictionCard({
                 <span
                   key={i}
                   className={`text-xs px-2 py-0.5 rounded ${
-                    factor.impact === 'high' ? 'bg-red-50 text-red-600' :
-                    factor.impact === 'medium' ? 'bg-yellow-50 text-yellow-600' :
-                    'bg-gray-100 text-gray-600'
+                    factor.impact === "high"
+                      ? "bg-red-50 text-red-600"
+                      : factor.impact === "medium"
+                        ? "bg-yellow-50 text-yellow-600"
+                        : "bg-gray-100 text-gray-600"
                   }`}
                 >
                   {factor.name}
@@ -96,7 +117,7 @@ function PredictionCard({
 
             {/* Recommended Services */}
             <div className="mt-2 text-xs text-text-muted">
-              Recommended: {prediction.recommended_services.join(', ')}
+              Recommended: {prediction.recommended_services.join(", ")}
             </div>
           </div>
 
@@ -115,7 +136,7 @@ function PredictionCard({
               onClick={() => onCreateWorkOrder(prediction.id)}
               disabled={isCreating}
             >
-              {isCreating ? 'Creating...' : 'Schedule Service'}
+              {isCreating ? "Creating..." : "Schedule Service"}
             </Button>
           </div>
         </div>
@@ -131,30 +152,39 @@ function AlertItem({
   alert,
   onMarkRead,
 }: {
-  alert: { id: string; alert_type: string; severity: string; message: string; customer_name: string; is_read: boolean };
+  alert: {
+    id: string;
+    alert_type: string;
+    severity: string;
+    message: string;
+    customer_name: string;
+    is_read: boolean;
+  };
   onMarkRead: (id: string) => void;
 }) {
   const icons = {
-    overdue: '⚠️',
-    upcoming: '📅',
-    risk_increase: '📈',
-    weather_impact: '🌧️',
+    overdue: "⚠️",
+    upcoming: "📅",
+    risk_increase: "📈",
+    weather_impact: "🌧️",
   };
 
   const severityColors = {
-    info: 'border-blue-200 bg-blue-50',
-    warning: 'border-yellow-200 bg-yellow-50',
-    urgent: 'border-red-200 bg-red-50',
+    info: "border-blue-200 bg-blue-50",
+    warning: "border-yellow-200 bg-yellow-50",
+    urgent: "border-red-200 bg-red-50",
   };
 
   return (
     <div
-      className={`p-3 border rounded-lg ${severityColors[alert.severity as keyof typeof severityColors] || 'border-gray-200'} ${
-        alert.is_read ? 'opacity-60' : ''
+      className={`p-3 border rounded-lg ${severityColors[alert.severity as keyof typeof severityColors] || "border-gray-200"} ${
+        alert.is_read ? "opacity-60" : ""
       }`}
     >
       <div className="flex items-start gap-2">
-        <span className="text-lg">{icons[alert.alert_type as keyof typeof icons] || '🔔'}</span>
+        <span className="text-lg">
+          {icons[alert.alert_type as keyof typeof icons] || "🔔"}
+        </span>
         <div className="flex-1">
           <div className="font-medium text-sm">{alert.customer_name}</div>
           <div className="text-xs text-text-secondary">{alert.message}</div>
@@ -184,7 +214,11 @@ export function PredictiveMaintenancePage() {
 
   // Queries
   const { data: summary, isLoading: summaryLoading } = usePredictionSummary();
-  const { data: predictions, isLoading: predictionsLoading, refetch } = useMaintenancePredictions(filters);
+  const {
+    data: predictions,
+    isLoading: predictionsLoading,
+    refetch,
+  } = useMaintenancePredictions(filters);
   const { data: alerts = [] } = useMaintenanceAlerts(false);
 
   // Mutations
@@ -198,7 +232,7 @@ export function PredictiveMaintenancePage() {
       await createWorkOrder.mutateAsync(predictionId);
       refetch();
     } catch (error) {
-      console.error('Failed to create work order:', error);
+      console.error("Failed to create work order:", error);
     } finally {
       setCreatingForId(null);
     }
@@ -213,22 +247,28 @@ export function PredictiveMaintenancePage() {
     await markAlertRead.mutateAsync(alertId);
   };
 
-  const unreadAlerts = alerts.filter(a => !a.is_read);
+  const unreadAlerts = alerts.filter((a) => !a.is_read);
 
   return (
     <div className="space-y-6">
       {/* Header */}
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">Predictive Maintenance</h1>
-          <p className="text-text-secondary">AI-powered service predictions and risk analysis</p>
+          <h1 className="text-2xl font-bold text-text-primary">
+            Predictive Maintenance
+          </h1>
+          <p className="text-text-secondary">
+            AI-powered service predictions and risk analysis
+          </p>
         </div>
         <Button
           onClick={handleRefresh}
           disabled={refreshPredictions.isPending}
           variant="secondary"
         >
-          {refreshPredictions.isPending ? 'Refreshing...' : '🔄 Refresh Predictions'}
+          {refreshPredictions.isPending
+            ? "Refreshing..."
+            : "🔄 Refresh Predictions"}
         </Button>
       </div>
 
@@ -237,7 +277,7 @@ export function PredictiveMaintenancePage() {
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-3xl font-bold text-red-600">
-              {summaryLoading ? '-' : summary?.high_risk_count || 0}
+              {summaryLoading ? "-" : summary?.high_risk_count || 0}
             </div>
             <div className="text-sm text-text-secondary">High Risk</div>
           </CardContent>
@@ -245,7 +285,7 @@ export function PredictiveMaintenancePage() {
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-3xl font-bold text-yellow-600">
-              {summaryLoading ? '-' : summary?.medium_risk_count || 0}
+              {summaryLoading ? "-" : summary?.medium_risk_count || 0}
             </div>
             <div className="text-sm text-text-secondary">Medium Risk</div>
           </CardContent>
@@ -253,7 +293,7 @@ export function PredictiveMaintenancePage() {
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-3xl font-bold text-green-600">
-              {summaryLoading ? '-' : summary?.low_risk_count || 0}
+              {summaryLoading ? "-" : summary?.low_risk_count || 0}
             </div>
             <div className="text-sm text-text-secondary">Low Risk</div>
           </CardContent>
@@ -261,7 +301,11 @@ export function PredictiveMaintenancePage() {
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-3xl font-bold text-primary">
-              ${summaryLoading ? '-' : ((summary?.predicted_revenue_30_days || 0) / 1000).toFixed(0)}k
+              $
+              {summaryLoading
+                ? "-"
+                : ((summary?.predicted_revenue_30_days || 0) / 1000).toFixed(0)}
+              k
             </div>
             <div className="text-sm text-text-secondary">30-Day Revenue</div>
           </CardContent>
@@ -269,12 +313,17 @@ export function PredictiveMaintenancePage() {
         <Card>
           <CardContent className="p-4 text-center">
             <div className="text-3xl font-bold text-text-primary">
-              {summaryLoading ? '-' : summary?.average_days_between_service || 0}
+              {summaryLoading
+                ? "-"
+                : summary?.average_days_between_service || 0}
             </div>
             <div className="text-sm text-text-secondary">Avg Days/Service</div>
           </CardContent>
         </Card>
       </div>
+
+      {/* AI Auto-Scheduler */}
+      <AutoSchedulePanel onScheduleCreated={() => refetch()} />
 
       <div className="grid grid-cols-1 lg:grid-cols-4 gap-6">
         {/* Main Content - Predictions List */}
@@ -284,8 +333,15 @@ export function PredictiveMaintenancePage() {
             <CardContent className="p-4">
               <div className="flex flex-wrap items-center gap-4">
                 <Select
-                  value={filters.risk_level || ''}
-                  onChange={(e) => setFilters({ ...filters, risk_level: e.target.value as PredictionFilters['risk_level'] || undefined })}
+                  value={filters.risk_level || ""}
+                  onChange={(e) =>
+                    setFilters({
+                      ...filters,
+                      risk_level:
+                        (e.target.value as PredictionFilters["risk_level"]) ||
+                        undefined,
+                    })
+                  }
                   className="w-40"
                 >
                   <option value="">All Risk Levels</option>
@@ -296,8 +352,13 @@ export function PredictiveMaintenancePage() {
                 </Select>
 
                 <Select
-                  value={filters.equipment_type || ''}
-                  onChange={(e) => setFilters({ ...filters, equipment_type: e.target.value || undefined })}
+                  value={filters.equipment_type || ""}
+                  onChange={(e) =>
+                    setFilters({
+                      ...filters,
+                      equipment_type: e.target.value || undefined,
+                    })
+                  }
                   className="w-48"
                 >
                   <option value="">All Equipment</option>
@@ -308,8 +369,15 @@ export function PredictiveMaintenancePage() {
                 </Select>
 
                 <Select
-                  value={filters.days_until_service?.toString() || ''}
-                  onChange={(e) => setFilters({ ...filters, days_until_service: e.target.value ? parseInt(e.target.value) : undefined })}
+                  value={filters.days_until_service?.toString() || ""}
+                  onChange={(e) =>
+                    setFilters({
+                      ...filters,
+                      days_until_service: e.target.value
+                        ? parseInt(e.target.value)
+                        : undefined,
+                    })
+                  }
                   className="w-44"
                 >
                   <option value="">Any Timeframe</option>
@@ -378,13 +446,15 @@ export function PredictiveMaintenancePage() {
                   No alerts at this time
                 </p>
               ) : (
-                alerts.slice(0, 10).map((alert) => (
-                  <AlertItem
-                    key={alert.id}
-                    alert={alert}
-                    onMarkRead={handleMarkRead}
-                  />
-                ))
+                alerts
+                  .slice(0, 10)
+                  .map((alert) => (
+                    <AlertItem
+                      key={alert.id}
+                      alert={alert}
+                      onMarkRead={handleMarkRead}
+                    />
+                  ))
               )}
             </CardContent>
           </Card>
@@ -399,29 +469,39 @@ export function PredictiveMaintenancePage() {
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-text-secondary">30 Days</span>
                   <span className="font-bold text-text-primary">
-                    ${((summary?.predicted_revenue_30_days || 0)).toLocaleString()}
+                    $
+                    {(summary?.predicted_revenue_30_days || 0).toLocaleString()}
                   </span>
                 </div>
                 <div className="flex justify-between items-center">
                   <span className="text-sm text-text-secondary">90 Days</span>
                   <span className="font-bold text-text-primary">
-                    ${((summary?.predicted_revenue_90_days || 0)).toLocaleString()}
+                    $
+                    {(summary?.predicted_revenue_90_days || 0).toLocaleString()}
                   </span>
                 </div>
                 <div className="border-t pt-4">
-                  <div className="text-xs text-text-muted mb-2">Risk Distribution</div>
+                  <div className="text-xs text-text-muted mb-2">
+                    Risk Distribution
+                  </div>
                   <div className="flex h-4 rounded overflow-hidden">
                     <div
                       className="bg-red-500"
-                      style={{ width: `${(summary?.high_risk_count || 0) / (summary?.total_customers_at_risk || 1) * 100}%` }}
+                      style={{
+                        width: `${((summary?.high_risk_count || 0) / (summary?.total_customers_at_risk || 1)) * 100}%`,
+                      }}
                     />
                     <div
                       className="bg-yellow-500"
-                      style={{ width: `${(summary?.medium_risk_count || 0) / (summary?.total_customers_at_risk || 1) * 100}%` }}
+                      style={{
+                        width: `${((summary?.medium_risk_count || 0) / (summary?.total_customers_at_risk || 1)) * 100}%`,
+                      }}
                     />
                     <div
                       className="bg-green-500"
-                      style={{ width: `${(summary?.low_risk_count || 0) / (summary?.total_customers_at_risk || 1) * 100}%` }}
+                      style={{
+                        width: `${((summary?.low_risk_count || 0) / (summary?.total_customers_at_risk || 1)) * 100}%`,
+                      }}
                     />
                   </div>
                 </div>

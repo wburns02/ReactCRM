@@ -1,9 +1,9 @@
 /// <reference types="vitest/globals" />
-import '@testing-library/jest-dom';
-import { vi } from 'vitest';
+import "@testing-library/jest-dom";
+import { vi } from "vitest";
 
 // Mock window.matchMedia for responsive components
-Object.defineProperty(window, 'matchMedia', {
+Object.defineProperty(window, "matchMedia", {
   writable: true,
   value: (query: string) => ({
     matches: false,
@@ -19,14 +19,14 @@ Object.defineProperty(window, 'matchMedia', {
 
 // Mock window.location for auth redirects
 const mockLocation = {
-  href: 'http://localhost:5173/prospects',
-  pathname: '/prospects',
-  search: '',
+  href: "http://localhost:5173/prospects",
+  pathname: "/prospects",
+  search: "",
   assign: vi.fn(),
   replace: vi.fn(),
 };
 
-Object.defineProperty(window, 'location', {
+Object.defineProperty(window, "location", {
   value: mockLocation,
   writable: true,
 });

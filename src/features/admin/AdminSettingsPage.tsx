@@ -1,9 +1,10 @@
-import { useLocation } from 'react-router-dom';
-import { SettingsTabs } from './components/SettingsTabs.tsx';
-import { GeneralSettings } from './components/GeneralSettings.tsx';
-import { NotificationSettings } from './components/NotificationSettings.tsx';
-import { IntegrationSettings } from './components/IntegrationSettings.tsx';
-import { SecuritySettings } from './components/SecuritySettings.tsx';
+import { useLocation } from "react-router-dom";
+import { SettingsTabs } from "./components/SettingsTabs.tsx";
+import { GeneralSettings } from "./components/GeneralSettings.tsx";
+import { NotificationSettings } from "./components/NotificationSettings.tsx";
+import { IntegrationSettings } from "./components/IntegrationSettings.tsx";
+import { SecuritySettings } from "./components/SecuritySettings.tsx";
+import { ApiSettings } from "./components/ApiSettings.tsx";
 
 /**
  * Admin Settings Page
@@ -12,7 +13,7 @@ import { SecuritySettings } from './components/SecuritySettings.tsx';
 export function AdminSettingsPage() {
   const location = useLocation();
   const params = new URLSearchParams(location.search);
-  const activeTab = params.get('tab') || 'general';
+  const activeTab = params.get("tab") || "general";
 
   return (
     <div className="h-full overflow-auto">
@@ -30,10 +31,11 @@ export function AdminSettingsPage() {
 
         {/* Tab Content */}
         <div className="mt-6">
-          {activeTab === 'general' && <GeneralSettings />}
-          {activeTab === 'notifications' && <NotificationSettings />}
-          {activeTab === 'integrations' && <IntegrationSettings />}
-          {activeTab === 'security' && <SecuritySettings />}
+          {activeTab === "general" && <GeneralSettings />}
+          {activeTab === "notifications" && <NotificationSettings />}
+          {activeTab === "integrations" && <IntegrationSettings />}
+          {activeTab === "security" && <SecuritySettings />}
+          {activeTab === "api" && <ApiSettings />}
         </div>
       </div>
     </div>

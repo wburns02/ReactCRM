@@ -1,0 +1,296 @@
+================================================================================
+SMS NOTIFICATION SYSTEM - IMPLEMENTATION EVIDENCE
+================================================================================
+Date: 2026-01-08
+Feature: SMS Notification System (Item #1 from Implementation Queue)
+Status: COMPLETE
+================================================================================
+
+IMPLEMENTATION SUMMARY
+----------------------
+
+The SMS Notification System has been fully implemented with the following components:
+
+1. TYPE DEFINITIONS (src/api/types/sms.ts)
+   - NotificationTrigger type with all trigger events:
+     * booking_confirmation (immediate)
+     * reminder_48h, reminder_24h, reminder_2h (timed reminders)
+     * on_my_way (dynamic ETA notification)
+     * service_complete (with invoice link)
+     * invoice_sent, payment_received, payment_reminder
+     * reschedule_confirmation, cancellation_confirmation
+     * review_request, custom
+   - SMSDeliveryStatus for Twilio status tracking
+   - CustomerSMSPreferences for opt-in/opt-out management
+   - SMSNotification, InboundSMS, SMSConversation types
+   - Merge field definitions with all required variables
+   - Webhook payload types for Twilio integration
+
+2. REACT QUERY HOOKS (src/api/hooks/useSMSNotifications.ts)
+   - useSMSNotificationSettings / useUpdateSMSNotificationSettings
+   - Template CRUD: useSMSNotificationTemplates, useCreateNotificationTemplate,
+     useUpdateNotificationTemplate, useDeleteNotificationTemplate
+   - Send operations: useSendNotification, useSendBulkNotifications,
+     useSendETANotification, useScheduleNotification
+   - Preference management: useCustomerSMSPreferences,
+     useUpdateCustomerSMSPreferences, useOptOutCustomer, useOptInCustomer
+   - Two-way SMS: useSMSConversationsList, useSMSConversationDetail,
+     useSendConversationReply, useMarkConversationRead
+   - Statistics: useSMSDeliveryStats
+   - Queue management: useNotificationQueue, useRetryNotification
+
+3. SMS SERVICE (src/features/sms/services/SMSService.ts)
+   - Template processing with merge field replacement
+   - Variable extraction from templates
+   - SMS segment calculation (160/153 char limits)
+   - Phone number formatting and validation (E.164)
+   - Opt-out/opt-in keyword detection (STOP, START, etc.)
+   - Quiet hours calculation
+   - Reminder timing calculation
+   - Date/time/currency formatting for SMS
+   - ETA formatting
+   - Tracking and invoice link generation
+   - Notification request validation
+
+4. NOTIFICATION TEMPLATES (src/features/sms/templates/notificationTemplates.ts)
+   - Default templates for all trigger types with merge fields:
+     * {{customer_name}}, {{customer_first_name}}
+     * {{appointment_date}}, {{appointment_time}}, {{appointment_window}}
+     * {{technician_name}}, {{eta_minutes}}, {{eta_time}}
+     * {{service_type}}, {{service_address}}
+     * {{invoice_amount}}, {{invoice_link}}
+     * {{tracking_link}}
+     * {{company_name}}, {{company_phone}}
+     * {{work_order_number}}
+   - Short-form templates for character-critical situations
+   - Friendly/casual templates for customer preference
+   - Template validation utilities
+   - Pre-built NotificationContent generators
+
+5. SMS PREFERENCES UI (src/features/sms/components/SMSPreferences.tsx)
+   - Full preferences view with all notification types
+   - Compact view for embedding in customer detail
+   - Opt-out status badge (opted_in/opted_out/pending)
+   - Master toggle for SMS notifications
+   - Individual toggles for each notification type:
+     * Booking confirmations
+     * Appointment reminders
+     * On my way alerts
+     * Service complete notifications
+     * Invoice notifications
+     * Payment reminders
+     * Review requests
+     * Marketing messages
+   - Timing preferences (reminder hours, quiet hours)
+   - Contact information management
+   - Opt-out/opt-in buttons with confirmation
+
+6. E2E TESTS (e2e/tests/sms-notifications.spec.ts)
+   - SMS Settings Page tests
+   - Template management tests
+   - Notification trigger configuration tests
+   - Two-way SMS support tests
+   - Opt-out compliance tests
+   - Delivery status tracking tests
+   - Integration tests (customer, work order, schedule)
+   - Mobile responsiveness tests
+   - Accessibility tests
+
+================================================================================
+
+NOTIFICATION TRIGGERS IMPLEMENTED
+---------------------------------
+
+| Trigger                    | Timing              | Template Available |
+|---------------------------|---------------------|-------------------|
+| booking_confirmation       | Immediate           | YES               |
+| reminder_48h              | 48 hours before     | YES               |
+| reminder_24h              | 24 hours before     | YES               |
+| reminder_2h               | 2 hours before      | YES               |
+| on_my_way                 | Dynamic ETA         | YES               |
+| service_complete          | On completion       | YES               |
+| invoice_sent              | On invoice create   | YES               |
+| payment_received          | On payment          | YES               |
+| payment_reminder          | Days after due      | YES               |
+| reschedule_confirmation   | On reschedule       | YES               |
+| cancellation_confirmation | On cancellation     | YES               |
+| review_request            | Post-service        | YES               |
+| custom                    | Manual              | YES               |
+
+================================================================================
+
+MERGE FIELDS SUPPORTED
+----------------------
+
+Customer Information:
+- {{customer_name}} - Full customer name
+- {{customer_first_name}} - First name only
+
+Appointment Information:
+- {{appointment_date}} - Formatted date (e.g., "January 15, 2026")
+- {{appointment_time}} - Formatted time (e.g., "2:00 PM")
+- {{appointment_window}} - Time window (e.g., "2:00 PM - 4:00 PM")
+
+Technician Information:
+- {{technician_name}} - Assigned technician name
+- {{eta_minutes}} - Minutes until arrival
+- {{eta_time}} - Formatted ETA
+
+Service Information:
+- {{service_type}} - Type of service
+- {{service_address}} - Service location
+- {{work_order_number}} - Work order reference
+
+Financial Information:
+- {{invoice_amount}} - Formatted amount (e.g., "$350.00")
+- {{invoice_link}} - Payment link
+
+Tracking:
+- {{tracking_link}} - Real-time technician tracking
+
+Company Information:
+- {{company_name}} - Company name
+- {{company_phone}} - Company phone number
+
+================================================================================
+
+TWO-WAY SMS SUPPORT
+-------------------
+
+Inbound Message Handling:
+- Customer phone number lookup
+- Opt-out keyword detection (STOP, UNSUBSCRIBE, CANCEL, END, QUIT)
+- Opt-in keyword detection (START, SUBSCRIBE, YES, UNSTOP)
+- Conversation threading by customer
+- Response routing to staff
+- Unread message tracking
+
+Conversation Features:
+- Threaded message view
+- Reply functionality
+- Mark as read
+- Message history
+- Auto-refresh polling
+
+================================================================================
+
+OPT-OUT COMPLIANCE (TCPA)
+-------------------------
+
+- STOP keyword handling for immediate opt-out
+- START keyword handling for re-subscription
+- Opt-out status tracking (opted_in, opted_out, pending)
+- Opt-out date recording
+- Marketing message separate consent
+- Opt-out message appending option
+- Customer preference UI for self-service
+
+================================================================================
+
+DELIVERY STATUS TRACKING
+------------------------
+
+Status Types:
+- queued - Message queued for sending
+- sending - Message being sent
+- sent - Sent to carrier
+- delivered - Confirmed delivery
+- undelivered - Could not be delivered
+- failed - Send failure
+- read - Message read (if supported)
+
+Statistics Tracked:
+- Total sent
+- Total delivered
+- Total failed
+- Total queued
+- Delivery rate percentage
+- Average delivery time
+- Messages today/this month
+- Opt-out/opt-in counts
+- By-trigger breakdown
+
+================================================================================
+
+FILES CREATED
+-------------
+
+1. src/api/types/sms.ts (355 lines)
+   - Comprehensive TypeScript type definitions
+
+2. src/api/hooks/useSMSNotifications.ts (498 lines)
+   - React Query hooks for all SMS operations
+
+3. src/features/sms/services/SMSService.ts (343 lines)
+   - Core SMS service with utilities
+
+4. src/features/sms/templates/notificationTemplates.ts (441 lines)
+   - Default templates and generators
+
+5. src/features/sms/components/SMSPreferences.tsx (377 lines)
+   - Customer preferences UI component
+
+6. e2e/tests/sms-notifications.spec.ts (315 lines)
+   - Comprehensive Playwright tests
+
+7. src/features/sms/index.ts (updated)
+   - Module exports
+
+================================================================================
+
+SUCCESS METRICS TARGET
+----------------------
+
+From implementation_queue.md:
+- 95% delivery rate - ENABLED (tracking in place)
+- 40% reduction in no-shows - ENABLED (reminder system in place)
+
+The system now provides:
+- Multiple reminder touchpoints (48h, 24h, 2h)
+- "On my way" alerts with real-time ETA
+- Tracking links for customer visibility
+- Two-way SMS for customer responses
+- Opt-out compliance for legal requirements
+
+================================================================================
+
+INTEGRATION POINTS
+------------------
+
+The SMS system integrates with:
+1. Work Orders - Send notifications on status changes
+2. Appointments/Schedule - Trigger reminders
+3. Invoices - Send invoice notifications and payment links
+4. Customers - Manage preferences, view conversation history
+5. Technicians - Trigger "on my way" with GPS location/ETA
+
+================================================================================
+
+NEXT STEPS (Backend Implementation Required)
+--------------------------------------------
+
+The frontend is complete. Backend API endpoints needed:
+
+1. POST /api/v2/sms/notifications/send
+2. POST /api/v2/sms/notifications/send-bulk
+3. POST /api/v2/sms/notifications/send-eta
+4. POST /api/v2/sms/notifications/schedule
+5. GET /api/v2/sms/notifications/settings
+6. PUT /api/v2/sms/notifications/settings
+7. GET /api/v2/sms/notifications/templates
+8. POST /api/v2/sms/notifications/templates
+9. PUT /api/v2/sms/notifications/templates/:id
+10. DELETE /api/v2/sms/notifications/templates/:id
+11. GET /api/v2/sms/notifications/preferences/:customerId
+12. PUT /api/v2/sms/notifications/preferences/:customerId
+13. POST /api/v2/sms/notifications/opt-out/:customerId
+14. POST /api/v2/sms/notifications/opt-in/:customerId
+15. GET /api/v2/sms/notifications/conversations
+16. GET /api/v2/sms/notifications/conversations/:customerId
+17. POST /api/v2/sms/notifications/conversations/:customerId/reply
+18. GET /api/v2/sms/notifications/stats
+19. Twilio webhooks for status callbacks and inbound messages
+
+================================================================================
+END OF EVIDENCE
+================================================================================

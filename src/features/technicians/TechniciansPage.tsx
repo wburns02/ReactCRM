@@ -1,23 +1,32 @@
-import { useState, useCallback } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
+import { useState, useCallback } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   useTechnicians,
   useCreateTechnician,
   useUpdateTechnician,
   useDeleteTechnician,
-} from '@/api/hooks/useTechnicians.ts';
-import { TechniciansList } from './TechniciansList.tsx';
-import { TechnicianForm } from './components/TechnicianForm.tsx';
-import type { Technician, TechnicianFormData, TechnicianFilters } from '@/api/types/technician.ts';
+} from "@/api/hooks/useTechnicians.ts";
+import { TechniciansList } from "./TechniciansList.tsx";
+import { TechnicianForm } from "./components/TechnicianForm.tsx";
+import type {
+  Technician,
+  TechnicianFormData,
+  TechnicianFilters,
+} from "@/api/types/technician.ts";
 
 const PAGE_SIZE = 20;
 
@@ -29,16 +38,19 @@ export function TechniciansPage() {
   const [filters, setFilters] = useState<TechnicianFilters>({
     page: 1,
     page_size: PAGE_SIZE,
-    search: '',
-    active_only: false,
+    search: "",
+    active_only: true, // Only show active technicians by default
   });
 
   // Form modal state
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editingTechnician, setEditingTechnician] = useState<Technician | null>(null);
+  const [editingTechnician, setEditingTechnician] = useState<Technician | null>(
+    null,
+  );
 
   // Delete confirmation state
-  const [deletingTechnician, setDeletingTechnician] = useState<Technician | null>(null);
+  const [deletingTechnician, setDeletingTechnician] =
+    useState<Technician | null>(null);
 
   // Fetch technicians
   const { data, isLoading, error } = useTechnicians(filters);
@@ -54,7 +66,11 @@ export function TechniciansPage() {
   }, []);
 
   const handleActiveOnlyToggle = useCallback(() => {
-    setFilters((prev) => ({ ...prev, active_only: !prev.active_only, page: 1 }));
+    setFilters((prev) => ({
+      ...prev,
+      active_only: !prev.active_only,
+      page: 1,
+    }));
   }, []);
 
   const handlePageChange = useCallback((page: number) => {
@@ -72,6 +88,7 @@ export function TechniciansPage() {
   }, []);
 
   const handleDelete = useCallback((technician: Technician) => {
+    alert('Delete clicked: ' + technician.first_name);
     setDeletingTechnician(technician);
   }, []);
 
@@ -85,13 +102,18 @@ export function TechniciansPage() {
       setIsFormOpen(false);
       setEditingTechnician(null);
     },
-    [editingTechnician, createMutation, updateMutation]
+    [editingTechnician, createMutation, updateMutation],
   );
 
   const handleConfirmDelete = useCallback(async () => {
     if (deletingTechnician) {
-      await deleteMutation.mutateAsync(deletingTechnician.id);
-      setDeletingTechnician(null);
+      try {
+        await deleteMutation.mutateAsync(deletingTechnician.id);
+        setDeletingTechnician(null);
+      } catch (error) {
+        console.error("Failed to delete technician:", error);
+        // Keep the dialog open on error so user can try again
+      }
     }
   }, [deletingTechnician, deleteMutation]);
 
@@ -101,7 +123,9 @@ export function TechniciansPage() {
         <Card>
           <CardContent className="py-12 text-center">
             <div className="text-4xl mb-4">Error</div>
-            <p className="text-danger">Failed to load technicians. Please try again.</p>
+            <p className="text-danger">
+              Failed to load technicians. Please try again.
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -113,7 +137,9 @@ export function TechniciansPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-text-primary">Technicians</h1>
+          <h1 className="text-2xl font-semibold text-text-primary">
+            Technicians
+          </h1>
           <p className="text-sm text-text-secondary mt-1">
             Manage your field technicians
           </p>
@@ -129,7 +155,7 @@ export function TechniciansPage() {
               <Input
                 type="search"
                 placeholder="Search by name, email, or employee ID..."
-                value={filters.search || ''}
+                value={filters.search || ""}
                 onChange={handleSearch}
               />
             </div>
@@ -150,7 +176,9 @@ export function TechniciansPage() {
       <Card>
         <CardHeader>
           <CardTitle>
-            {data?.total ? `${data.total} technician${data.total !== 1 ? 's' : ''}` : 'Technicians'}
+            {data?.total
+              ? `${data.total} technician${data.total !== 1 ? "s" : ""}`
+              : "Technicians"}
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
@@ -190,7 +218,7 @@ export function TechniciansPage() {
           </DialogHeader>
           <DialogBody>
             <p className="text-text-secondary">
-              Are you sure you want to delete{' '}
+              Are you sure you want to delete{" "}
               <span className="font-medium text-text-primary">
                 {deletingTechnician?.first_name} {deletingTechnician?.last_name}
               </span>
@@ -210,7 +238,7 @@ export function TechniciansPage() {
               onClick={handleConfirmDelete}
               disabled={deleteMutation.isPending}
             >
-              {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
+              {deleteMutation.isPending ? "Deleting..." : "Delete"}
             </Button>
           </DialogFooter>
         </DialogContent>

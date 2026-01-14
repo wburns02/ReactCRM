@@ -1,8 +1,14 @@
-import { useMemo } from 'react';
-import { Card, CardContent } from '@/components/ui/Card.tsx';
-import { useScheduleStats, useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
-import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
-import { format, startOfWeek, endOfWeek, isWithinInterval, parseISO } from 'date-fns';
+import { useMemo } from "react";
+import { Card, CardContent } from "@/components/ui/Card.tsx";
+import { useScheduleStats, useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
+import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
+import {
+  format,
+  startOfWeek,
+  endOfWeek,
+  isWithinInterval,
+  parseISO,
+} from "date-fns";
 
 /**
  * Stat card component with support for different value types
@@ -30,11 +36,17 @@ function StatCard({
           <div className="flex-1">
             <div className="flex items-baseline gap-1">
               {valuePrefix && (
-                <span className="text-lg font-medium text-text-secondary">{valuePrefix}</span>
+                <span className="text-lg font-medium text-text-secondary">
+                  {valuePrefix}
+                </span>
               )}
-              <span className="text-2xl font-bold text-text-primary">{value}</span>
+              <span className="text-2xl font-bold text-text-primary">
+                {value}
+              </span>
               {valueSuffix && (
-                <span className="text-lg font-medium text-text-secondary">{valueSuffix}</span>
+                <span className="text-lg font-medium text-text-secondary">
+                  {valueSuffix}
+                </span>
               )}
             </div>
             <p className="text-xs text-text-secondary">{label}</p>
@@ -77,12 +89,16 @@ export function ScheduleStats() {
         const scheduledDate = parseISO(wo.scheduled_date);
 
         // Check if scheduled for today
-        if (format(scheduledDate, 'yyyy-MM-dd') === format(today, 'yyyy-MM-dd')) {
+        if (
+          format(scheduledDate, "yyyy-MM-dd") === format(today, "yyyy-MM-dd")
+        ) {
           todayJobs++;
         }
 
         // Check if scheduled this week
-        if (isWithinInterval(scheduledDate, { start: weekStart, end: weekEnd })) {
+        if (
+          isWithinInterval(scheduledDate, { start: weekStart, end: weekEnd })
+        ) {
           weekJobs++;
           totalScheduledHours += wo.estimated_duration_hours || 0;
         }
@@ -93,9 +109,13 @@ export function ScheduleStats() {
     // Assume 8 hours per day, 5 days per week per tech
     const activeTechs = technicians.filter((t) => t.is_active).length;
     const availableHours = activeTechs * 8 * 5; // 40 hours per tech per week
-    const utilization = availableHours > 0
-      ? Math.min(Math.round((totalScheduledHours / availableHours) * 100), 100)
-      : 0;
+    const utilization =
+      availableHours > 0
+        ? Math.min(
+            Math.round((totalScheduledHours / availableHours) * 100),
+            100,
+          )
+        : 0;
 
     return {
       todayJobs,

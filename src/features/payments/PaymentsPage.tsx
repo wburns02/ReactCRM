@@ -1,24 +1,29 @@
-import { useState, useCallback } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
+import { useState, useCallback } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   usePayments,
   useRecordPayment,
   useUpdatePayment,
   useDeletePayment,
   usePaymentStats,
-} from '@/api/hooks/usePayments.ts';
-import { PaymentsList } from './components/PaymentsList.tsx';
-import { PaymentForm } from './components/PaymentForm.tsx';
+} from "@/api/hooks/usePayments.ts";
+import { PaymentsList } from "./components/PaymentsList.tsx";
+import { PaymentForm } from "./components/PaymentForm.tsx";
 import {
   PAYMENT_METHOD_LABELS,
   PAYMENT_STATUS_LABELS,
@@ -27,8 +32,8 @@ import {
   type PaymentFilters,
   type PaymentMethod,
   type PaymentStatus,
-} from '@/api/types/payment.ts';
-import { formatCurrency } from '@/lib/utils.ts';
+} from "@/api/types/payment.ts";
+import { formatCurrency } from "@/lib/utils.ts";
 
 const PAGE_SIZE = 20;
 
@@ -40,10 +45,10 @@ export function PaymentsPage() {
   const [filters, setFilters] = useState<PaymentFilters>({
     page: 1,
     page_size: PAGE_SIZE,
-    status: '',
-    payment_method: '',
-    date_from: '',
-    date_to: '',
+    status: "",
+    payment_method: "",
+    date_from: "",
+    date_to: "",
   });
 
   // Form modal state
@@ -63,21 +68,37 @@ export function PaymentsPage() {
   const deleteMutation = useDeletePayment();
 
   // Handlers
-  const handleStatusChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilters((prev) => ({ ...prev, status: e.target.value, page: 1 }));
-  }, []);
+  const handleStatusChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setFilters((prev) => ({ ...prev, status: e.target.value, page: 1 }));
+    },
+    [],
+  );
 
-  const handleMethodChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilters((prev) => ({ ...prev, payment_method: e.target.value, page: 1 }));
-  }, []);
+  const handleMethodChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setFilters((prev) => ({
+        ...prev,
+        payment_method: e.target.value,
+        page: 1,
+      }));
+    },
+    [],
+  );
 
-  const handleDateFromChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters((prev) => ({ ...prev, date_from: e.target.value, page: 1 }));
-  }, []);
+  const handleDateFromChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilters((prev) => ({ ...prev, date_from: e.target.value, page: 1 }));
+    },
+    [],
+  );
 
-  const handleDateToChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters((prev) => ({ ...prev, date_to: e.target.value, page: 1 }));
-  }, []);
+  const handleDateToChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilters((prev) => ({ ...prev, date_to: e.target.value, page: 1 }));
+    },
+    [],
+  );
 
   const handlePageChange = useCallback((page: number) => {
     setFilters((prev) => ({ ...prev, page }));
@@ -107,7 +128,7 @@ export function PaymentsPage() {
       setIsFormOpen(false);
       setEditingPayment(null);
     },
-    [editingPayment, createMutation, updateMutation]
+    [editingPayment, createMutation, updateMutation],
   );
 
   const handleConfirmDelete = useCallback(async () => {
@@ -123,7 +144,9 @@ export function PaymentsPage() {
         <Card>
           <CardContent className="py-12 text-center">
             <div className="text-4xl mb-4">Error</div>
-            <p className="text-danger">Failed to load payments. Please try again.</p>
+            <p className="text-danger">
+              Failed to load payments. Please try again.
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -187,11 +210,16 @@ export function PaymentsPage() {
           <div className="flex flex-wrap items-center gap-4">
             <div className="w-48">
               <Select
-                value={filters.status || ''}
+                value={filters.status || ""}
                 onChange={handleStatusChange}
               >
                 <option value="">All Statuses</option>
-                {(Object.entries(PAYMENT_STATUS_LABELS) as [PaymentStatus, string][]).map(([value, label]) => (
+                {(
+                  Object.entries(PAYMENT_STATUS_LABELS) as [
+                    PaymentStatus,
+                    string,
+                  ][]
+                ).map(([value, label]) => (
                   <option key={value} value={value}>
                     {label}
                   </option>
@@ -200,11 +228,16 @@ export function PaymentsPage() {
             </div>
             <div className="w-48">
               <Select
-                value={filters.payment_method || ''}
+                value={filters.payment_method || ""}
                 onChange={handleMethodChange}
               >
                 <option value="">All Methods</option>
-                {(Object.entries(PAYMENT_METHOD_LABELS) as [PaymentMethod, string][]).map(([value, label]) => (
+                {(
+                  Object.entries(PAYMENT_METHOD_LABELS) as [
+                    PaymentMethod,
+                    string,
+                  ][]
+                ).map(([value, label]) => (
                   <option key={value} value={value}>
                     {label}
                   </option>
@@ -214,7 +247,7 @@ export function PaymentsPage() {
             <div className="w-48">
               <Input
                 type="date"
-                value={filters.date_from || ''}
+                value={filters.date_from || ""}
                 onChange={handleDateFromChange}
                 placeholder="From date"
               />
@@ -222,16 +255,28 @@ export function PaymentsPage() {
             <div className="w-48">
               <Input
                 type="date"
-                value={filters.date_to || ''}
+                value={filters.date_to || ""}
                 onChange={handleDateToChange}
                 placeholder="To date"
               />
             </div>
-            {(filters.status || filters.payment_method || filters.date_from || filters.date_to) && (
+            {(filters.status ||
+              filters.payment_method ||
+              filters.date_from ||
+              filters.date_to) && (
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() => setFilters((prev) => ({ ...prev, status: '', payment_method: '', date_from: '', date_to: '', page: 1 }))}
+                onClick={() =>
+                  setFilters((prev) => ({
+                    ...prev,
+                    status: "",
+                    payment_method: "",
+                    date_from: "",
+                    date_to: "",
+                    page: 1,
+                  }))
+                }
               >
                 Clear filters
               </Button>
@@ -244,7 +289,9 @@ export function PaymentsPage() {
       <Card>
         <CardHeader>
           <CardTitle>
-            {data?.total ? `${data.total} payment${data.total !== 1 ? 's' : ''}` : 'Payments'}
+            {data?.total
+              ? `${data.total} payment${data.total !== 1 ? "s" : ""}`
+              : "Payments"}
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
@@ -274,17 +321,14 @@ export function PaymentsPage() {
       />
 
       {/* Delete Confirmation Dialog */}
-      <Dialog
-        open={!!deletingPayment}
-        onClose={() => setDeletingPayment(null)}
-      >
+      <Dialog open={!!deletingPayment} onClose={() => setDeletingPayment(null)}>
         <DialogContent size="sm">
           <DialogHeader onClose={() => setDeletingPayment(null)}>
             Delete Payment
           </DialogHeader>
           <DialogBody>
             <p className="text-text-secondary">
-              Are you sure you want to delete this payment of{' '}
+              Are you sure you want to delete this payment of{" "}
               <span className="font-medium text-text-primary">
                 {formatCurrency(deletingPayment?.amount || 0)}
               </span>
@@ -304,7 +348,7 @@ export function PaymentsPage() {
               onClick={handleConfirmDelete}
               disabled={deleteMutation.isPending}
             >
-              {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
+              {deleteMutation.isPending ? "Deleting..." : "Delete"}
             </Button>
           </DialogFooter>
         </DialogContent>

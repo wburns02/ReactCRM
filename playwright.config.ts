@@ -124,11 +124,44 @@ export default defineConfig({
       fullyParallel: false,
     },
 
+    // Feature tests - offline mode, AI dispatch, customer intelligence
+    {
+      name: 'features',
+      testDir: './e2e/features',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: authFile,
+      },
+      dependencies: ['setup'],
+    },
+
+    // Accessibility tests - form a11y, keyboard navigation
+    {
+      name: 'accessibility',
+      testDir: './e2e/accessibility',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: authFile,
+      },
+      dependencies: ['setup'],
+    },
+
+    // Performance tests - load times, Web Vitals
+    {
+      name: 'performance',
+      testDir: './e2e/performance',
+      use: {
+        ...devices['Desktop Chrome'],
+        storageState: authFile,
+      },
+      dependencies: ['setup'],
+    },
+
     // Default chromium project for any remaining tests
     {
       name: 'chromium',
       testDir: './e2e',
-      testIgnore: ['**/health/**', '**/contracts/**', '**/modules/**', '**/security/**', '**/audit/**', '**/fixtures/**'],
+      testIgnore: ['**/health/**', '**/contracts/**', '**/modules/**', '**/security/**', '**/audit/**', '**/fixtures/**', '**/features/**', '**/accessibility/**', '**/performance/**'],
       use: {
         ...devices['Desktop Chrome'],
         storageState: authFile,

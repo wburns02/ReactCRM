@@ -1,16 +1,16 @@
-import { useState, useRef, useEffect, memo, useCallback } from 'react';
-import { Card } from '@/components/ui/Card';
-import { Button } from '@/components/ui/Button';
-import { Badge } from '@/components/ui/Badge';
+import { useState, useRef, useEffect, memo, useCallback } from "react";
+import { Card } from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Badge } from "@/components/ui/Badge";
 import {
   useAIDispatchSuggestions,
   useAIDispatchPrompt,
   useExecuteAIAction,
   useDismissAISuggestion,
   type AIDispatchSuggestion,
-} from '@/api/hooks/useAIDispatch';
-import { toastSuccess, toastError } from '@/components/ui/Toast';
-import { cn } from '@/lib/utils';
+} from "@/api/hooks/useAIDispatch";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
+import { cn } from "@/lib/utils";
 
 /**
  * AI Dispatch Assistant
@@ -25,10 +25,11 @@ import { cn } from '@/lib/utils';
  */
 export function AIDispatchAssistant({ className }: { className?: string }) {
   const [isExpanded, setIsExpanded] = useState(false);
-  const [prompt, setPrompt] = useState('');
+  const [prompt, setPrompt] = useState("");
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { data: suggestions = [], isLoading: loadingSuggestions } = useAIDispatchSuggestions();
+  const { data: suggestions = [], isLoading: loadingSuggestions } =
+    useAIDispatchSuggestions();
   const promptMutation = useAIDispatchPrompt();
   const executeMutation = useExecuteAIAction();
   const dismissMutation = useDismissAISuggestion();
@@ -48,14 +49,14 @@ export function AIDispatchAssistant({ className }: { className?: string }) {
       try {
         const response = await promptMutation.mutateAsync({ prompt });
         if (response.execution_result?.success) {
-          toastSuccess('Action executed', response.execution_result.message);
+          toastSuccess("Action executed", response.execution_result.message);
         }
-        setPrompt('');
+        setPrompt("");
       } catch {
-        toastError('Error', 'Failed to process your request');
+        toastError("Error", "Failed to process your request");
       }
     },
-    [prompt, promptMutation]
+    [prompt, promptMutation],
   );
 
   const handleExecute = useCallback(
@@ -66,15 +67,15 @@ export function AIDispatchAssistant({ className }: { className?: string }) {
           action_id: actionId,
         });
         if (result.success) {
-          toastSuccess('Success', result.message);
+          toastSuccess("Success", result.message);
         } else {
-          toastError('Failed', result.message);
+          toastError("Failed", result.message);
         }
       } catch {
-        toastError('Error', 'Failed to execute action');
+        toastError("Error", "Failed to execute action");
       }
     },
-    [executeMutation]
+    [executeMutation],
   );
 
   const handleDismiss = useCallback(
@@ -82,31 +83,31 @@ export function AIDispatchAssistant({ className }: { className?: string }) {
       try {
         await dismissMutation.mutateAsync({ suggestion_id: suggestionId });
       } catch {
-        toastError('Error', 'Failed to dismiss suggestion');
+        toastError("Error", "Failed to dismiss suggestion");
       }
     },
-    [dismissMutation]
+    [dismissMutation],
   );
 
   const pendingSuggestions = suggestions.filter(
-    (s) => new Date(s.expires_at) > new Date()
+    (s) => new Date(s.expires_at) > new Date(),
   );
   const highPrioritySuggestions = pendingSuggestions.filter(
-    (s) => s.confidence >= 0.8
+    (s) => s.confidence >= 0.8,
   );
 
   return (
-    <div className={cn('relative', className)}>
+    <div className={cn("relative", className)}>
       {/* Collapsed View - Floating Button */}
       {!isExpanded && (
         <button
           onClick={() => setIsExpanded(true)}
           className={cn(
-            'fixed bottom-6 right-6 z-50 flex items-center gap-2',
-            'bg-gradient-to-r from-primary to-purple-600 text-white',
-            'px-4 py-3 rounded-full shadow-lg',
-            'hover:shadow-xl transition-all duration-200',
-            'animate-in slide-in-from-bottom-4'
+            "fixed bottom-6 right-6 z-50 flex items-center gap-2",
+            "bg-gradient-to-r from-primary to-purple-600 text-white",
+            "px-4 py-3 rounded-full shadow-lg",
+            "hover:shadow-xl transition-all duration-200",
+            "animate-in slide-in-from-bottom-4",
           )}
         >
           <span className="text-xl">🤖</span>
@@ -132,7 +133,7 @@ export function AIDispatchAssistant({ className }: { className?: string }) {
                     <h3 className="font-semibold">AI Dispatch Assistant</h3>
                     <p className="text-xs text-white/80">
                       {loadingSuggestions
-                        ? 'Analyzing...'
+                        ? "Analyzing..."
                         : `${pendingSuggestions.length} suggestions`}
                     </p>
                   </div>
@@ -160,7 +161,10 @@ export function AIDispatchAssistant({ className }: { className?: string }) {
             </div>
 
             {/* Natural Language Input */}
-            <form onSubmit={handleSubmit} className="p-3 border-b border-border">
+            <form
+              onSubmit={handleSubmit}
+              className="p-3 border-b border-border"
+            >
               <div className="flex gap-2">
                 <input
                   ref={inputRef}
@@ -176,7 +180,7 @@ export function AIDispatchAssistant({ className }: { className?: string }) {
                   size="sm"
                   disabled={!prompt.trim() || promptMutation.isPending}
                 >
-                  {promptMutation.isPending ? '...' : 'Ask'}
+                  {promptMutation.isPending ? "..." : "Ask"}
                 </Button>
               </div>
               <div className="flex gap-2 mt-2 flex-wrap">
@@ -237,10 +241,22 @@ export function AIDispatchAssistant({ className }: { className?: string }) {
  * Quick prompt suggestions
  */
 const QUICK_PROMPTS = [
-  { label: 'Optimize routes', prompt: 'Optimize tomorrow\'s routes for fuel efficiency' },
-  { label: 'Auto-assign', prompt: 'Auto-assign all unscheduled jobs for this week' },
-  { label: 'Running late?', prompt: 'Which technicians are running late today?' },
-  { label: 'Parts needed', prompt: 'What parts are likely needed for today\'s jobs?' },
+  {
+    label: "Optimize routes",
+    prompt: "Optimize tomorrow's routes for fuel efficiency",
+  },
+  {
+    label: "Auto-assign",
+    prompt: "Auto-assign all unscheduled jobs for this week",
+  },
+  {
+    label: "Running late?",
+    prompt: "Which technicians are running late today?",
+  },
+  {
+    label: "Parts needed",
+    prompt: "What parts are likely needed for today's jobs?",
+  },
 ];
 
 /**
@@ -261,17 +277,17 @@ const SuggestionCard = memo(function SuggestionCard({
 
   const confidenceColor =
     suggestion.confidence >= 0.8
-      ? 'bg-success'
+      ? "bg-success"
       : suggestion.confidence >= 0.6
-        ? 'bg-warning'
-        : 'bg-text-muted';
+        ? "bg-warning"
+        : "bg-text-muted";
 
   const typeIcons: Record<string, string> = {
-    assign: '👷',
-    reschedule: '📅',
-    route_optimize: '🗺️',
-    parts_order: '📦',
-    follow_up: '📞',
+    assign: "👷",
+    reschedule: "📅",
+    route_optimize: "🗺️",
+    parts_order: "📦",
+    follow_up: "📞",
   };
 
   return (
@@ -279,14 +295,14 @@ const SuggestionCard = memo(function SuggestionCard({
       <div className="p-3">
         {/* Header */}
         <div className="flex items-start gap-2">
-          <span className="text-xl">{typeIcons[suggestion.type] || '💡'}</span>
+          <span className="text-xl">{typeIcons[suggestion.type] || "💡"}</span>
           <div className="flex-1 min-w-0">
             <div className="flex items-center gap-2 mb-1">
               <h4 className="font-medium text-sm text-text-primary truncate">
                 {suggestion.title}
               </h4>
               <div
-                className={cn('w-2 h-2 rounded-full', confidenceColor)}
+                className={cn("w-2 h-2 rounded-full", confidenceColor)}
                 title={`${Math.round(suggestion.confidence * 100)}% confidence`}
               />
             </div>
@@ -299,7 +315,12 @@ const SuggestionCard = memo(function SuggestionCard({
             className="p-1 text-text-muted hover:text-text-primary transition-colors"
             aria-label="Dismiss"
           >
-            <svg className="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <svg
+              className="w-4 h-4"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"
@@ -331,7 +352,7 @@ const SuggestionCard = memo(function SuggestionCard({
           onClick={() => setShowReasoning(!showReasoning)}
           className="text-xs text-primary hover:underline mt-2"
         >
-          {showReasoning ? 'Hide reasoning' : 'Why this suggestion?'}
+          {showReasoning ? "Hide reasoning" : "Why this suggestion?"}
         </button>
 
         {showReasoning && (
@@ -347,7 +368,7 @@ const SuggestionCard = memo(function SuggestionCard({
           <Button
             key={action.id}
             size="sm"
-            variant={action.type === 'primary' ? 'primary' : 'secondary'}
+            variant={action.type === "primary" ? "primary" : "secondary"}
             onClick={() => onExecute(suggestion, action.id)}
             disabled={isExecuting}
             className="text-xs"

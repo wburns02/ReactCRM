@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '../client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "../client.ts";
 import {
   paymentListResponseSchema,
   paymentSchema,
@@ -7,18 +7,18 @@ import {
   type PaymentListResponse,
   type PaymentFilters,
   type PaymentFormData,
-} from '../types/payment.ts';
+} from "../types/payment.ts";
 
 /**
  * Query keys for payments
  */
 export const paymentKeys = {
-  all: ['payments'] as const,
-  lists: () => [...paymentKeys.all, 'list'] as const,
+  all: ["payments"] as const,
+  lists: () => [...paymentKeys.all, "list"] as const,
   list: (filters: PaymentFilters) => [...paymentKeys.lists(), filters] as const,
-  details: () => [...paymentKeys.all, 'detail'] as const,
+  details: () => [...paymentKeys.all, "detail"] as const,
   detail: (id: string) => [...paymentKeys.details(), id] as const,
-  stats: () => [...paymentKeys.all, 'stats'] as const,
+  stats: () => [...paymentKeys.all, "stats"] as const,
 };
 
 /**
@@ -29,27 +29,36 @@ export function usePayments(filters: PaymentFilters = {}) {
     queryKey: paymentKeys.list(filters),
     queryFn: async (): Promise<PaymentListResponse> => {
       const params = new URLSearchParams();
-      if (filters.page) params.set('page', String(filters.page));
-      if (filters.page_size) params.set('page_size', String(filters.page_size));
-      if (filters.status) params.set('status', filters.status);
-      if (filters.payment_method) params.set('payment_method', filters.payment_method);
-      if (filters.customer_id) params.set('customer_id', filters.customer_id);
-      if (filters.date_from) params.set('date_from', filters.date_from);
-      if (filters.date_to) params.set('date_to', filters.date_to);
+      if (filters.page) params.set("page", String(filters.page));
+      if (filters.page_size) params.set("page_size", String(filters.page_size));
+      if (filters.status) params.set("status", filters.status);
+      if (filters.payment_method)
+        params.set("payment_method", filters.payment_method);
+      if (filters.customer_id) params.set("customer_id", filters.customer_id);
+      if (filters.date_from) params.set("date_from", filters.date_from);
+      if (filters.date_to) params.set("date_to", filters.date_to);
 
-      const url = '/payments?' + params.toString();
+      const url = "/payments?" + params.toString();
       const { data } = await apiClient.get(url);
 
       // Handle both array and paginated response
       if (Array.isArray(data)) {
-        return { items: data, total: data.length, page: 1, page_size: data.length };
+        return {
+          items: data,
+          total: data.length,
+          page: 1,
+          page_size: data.length,
+        };
       }
 
       // Validate response in development
       if (import.meta.env.DEV) {
         const result = paymentListResponseSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Payment list response validation failed:', result.error);
+          console.warn(
+            "Payment list response validation failed:",
+            result.error,
+          );
         }
       }
 
@@ -66,12 +75,12 @@ export function usePayment(id: string | undefined) {
   return useQuery({
     queryKey: paymentKeys.detail(id!),
     queryFn: async (): Promise<Payment> => {
-      const { data } = await apiClient.get('/payments/' + id);
+      const { data } = await apiClient.get("/payments/" + id);
 
       if (import.meta.env.DEV) {
         const result = paymentSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Payment response validation failed:', result.error);
+          console.warn("Payment response validation failed:", result.error);
         }
       }
 
@@ -89,7 +98,7 @@ export function useRecordPayment() {
 
   return useMutation({
     mutationFn: async (data: PaymentFormData): Promise<Payment> => {
-      const response = await apiClient.post('/payments', data);
+      const response = await apiClient.post("/payments", data);
       return response.data;
     },
     onSuccess: () => {
@@ -113,11 +122,13 @@ export function useUpdatePayment() {
       id: string;
       data: Partial<PaymentFormData>;
     }): Promise<Payment> => {
-      const response = await apiClient.patch('/payments/' + id, data);
+      const response = await apiClient.patch("/payments/" + id, data);
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: paymentKeys.detail(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: paymentKeys.detail(variables.id),
+      });
       queryClient.invalidateQueries({ queryKey: paymentKeys.lists() });
       queryClient.invalidateQueries({ queryKey: paymentKeys.stats() });
     },
@@ -132,7 +143,7 @@ export function useDeletePayment() {
 
   return useMutation({
     mutationFn: async (id: string): Promise<void> => {
-      await apiClient.delete('/payments/' + id);
+      await apiClient.delete("/payments/" + id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: paymentKeys.lists() });
@@ -149,7 +160,7 @@ export function usePaymentStats() {
     queryKey: paymentKeys.stats(),
     queryFn: async () => {
       // Fetch all payments for stats calculation
-      const { data } = await apiClient.get('/payments?page=1&page_size=500');
+      const { data } = await apiClient.get("/payments?page=1&page_size=500");
       const payments: Payment[] = Array.isArray(data) ? data : data.items || [];
 
       const stats = {
@@ -165,24 +176,24 @@ export function usePaymentStats() {
 
       payments.forEach((payment) => {
         // Total received (completed payments)
-        if (payment.status === 'completed') {
+        if (payment.status === "completed") {
           stats.totalReceived += payment.amount;
           stats.completed++;
         }
 
         // Pending
-        if (payment.status === 'pending') {
+        if (payment.status === "pending") {
           stats.pending++;
         }
 
         // Failed
-        if (payment.status === 'failed') {
+        if (payment.status === "failed") {
           stats.failed++;
         }
 
         // This month's payments
         const paymentDate = new Date(payment.payment_date);
-        if (paymentDate >= firstDayOfMonth && payment.status === 'completed') {
+        if (paymentDate >= firstDayOfMonth && payment.status === "completed") {
           stats.thisMonth += payment.amount;
         }
       });

@@ -1,12 +1,12 @@
-import { Link } from 'react-router-dom';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
+import { Link } from "react-router-dom";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
 import {
   type Ticket,
   TICKET_TYPE_LABELS,
   TICKET_STATUS_LABELS,
   TICKET_PRIORITY_LABELS,
-} from '@/api/types/ticket.ts';
+} from "@/api/types/ticket.ts";
 
 interface TicketsListProps {
   tickets: Ticket[];
@@ -44,30 +44,34 @@ export function TicketsList({
     return (
       <div className="text-center py-12">
         <div className="text-4xl mb-4">🎫</div>
-        <h3 className="text-lg font-medium text-text-primary mb-2">No tickets found</h3>
-        <p className="text-text-secondary">Try adjusting your filters or create a new ticket.</p>
+        <h3 className="text-lg font-medium text-text-primary mb-2">
+          No tickets found
+        </h3>
+        <p className="text-text-secondary">
+          Try adjusting your filters or create a new ticket.
+        </p>
       </div>
     );
   }
 
   const getPriorityBadgeVariant = (priority: string) => {
     const variantMap = {
-      urgent: 'danger',
-      high: 'warning',
-      medium: 'info',
-      low: 'default',
+      urgent: "danger",
+      high: "warning",
+      medium: "info",
+      low: "default",
     } as const;
-    return variantMap[priority as keyof typeof variantMap] || 'default';
+    return variantMap[priority as keyof typeof variantMap] || "default";
   };
 
   const getStatusBadgeVariant = (status: string) => {
     const variantMap = {
-      open: 'info',
-      in_progress: 'warning',
-      resolved: 'success',
-      closed: 'default',
+      open: "info",
+      in_progress: "warning",
+      resolved: "success",
+      closed: "default",
     } as const;
-    return variantMap[status as keyof typeof variantMap] || 'default';
+    return variantMap[status as keyof typeof variantMap] || "default";
   };
 
   return (
@@ -77,25 +81,46 @@ export function TicketsList({
         <table className="w-full" role="grid" aria-label="Tickets list">
           <thead>
             <tr className="border-b border-border bg-bg-muted">
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Title
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Type
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Status
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Priority
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 RICE Score
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Created
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Actions
               </th>
             </tr>
@@ -109,7 +134,9 @@ export function TicketsList({
               >
                 <td className="px-4 py-3">
                   <div>
-                    <p className="font-medium text-text-primary">{ticket.title}</p>
+                    <p className="font-medium text-text-primary">
+                      {ticket.title}
+                    </p>
                     <p className="text-sm text-text-secondary line-clamp-1">
                       {ticket.description}
                     </p>
@@ -148,7 +175,7 @@ export function TicketsList({
                       <Button
                         variant="ghost"
                         size="sm"
-                        aria-label={'View ' + ticket.title}
+                        aria-label={"View " + ticket.title}
                       >
                         View
                       </Button>
@@ -158,7 +185,7 @@ export function TicketsList({
                         variant="ghost"
                         size="sm"
                         onClick={() => onEdit(ticket)}
-                        aria-label={'Edit ' + ticket.title}
+                        aria-label={"Edit " + ticket.title}
                       >
                         Edit
                       </Button>
@@ -168,7 +195,7 @@ export function TicketsList({
                         variant="ghost"
                         size="sm"
                         onClick={() => onDelete(ticket)}
-                        aria-label={'Delete ' + ticket.title}
+                        aria-label={"Delete " + ticket.title}
                         className="text-danger hover:text-danger"
                       >
                         Delete

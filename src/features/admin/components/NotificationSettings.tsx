@@ -1,11 +1,20 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { useNotificationSettings, useUpdateNotificationSettings } from '@/api/hooks/useAdmin.ts';
-import { getErrorMessage } from '@/api/client.ts';
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import {
+  useNotificationSettings,
+  useUpdateNotificationSettings,
+} from "@/api/hooks/useAdmin.ts";
+import { getErrorMessage } from "@/api/client.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 export function NotificationSettings() {
   const { data: settings, isLoading } = useNotificationSettings();
@@ -14,14 +23,14 @@ export function NotificationSettings() {
   const [formData, setFormData] = useState({
     email_enabled: true,
     sms_enabled: false,
-    email_from_address: '',
-    email_from_name: '',
-    smtp_host: '',
+    email_from_address: "",
+    email_from_name: "",
+    smtp_host: "",
     smtp_port: 587,
-    smtp_username: '',
+    smtp_username: "",
     smtp_use_tls: true,
-    sms_provider: 'none' as 'twilio' | 'none',
-    sms_from_number: '',
+    sms_provider: "none" as "twilio" | "none",
+    sms_from_number: "",
   });
 
   useEffect(() => {
@@ -29,14 +38,14 @@ export function NotificationSettings() {
       setFormData({
         email_enabled: settings.email_enabled,
         sms_enabled: settings.sms_enabled,
-        email_from_address: settings.email_from_address || '',
-        email_from_name: settings.email_from_name || '',
-        smtp_host: settings.smtp_host || '',
+        email_from_address: settings.email_from_address || "",
+        email_from_name: settings.email_from_name || "",
+        smtp_host: settings.smtp_host || "",
         smtp_port: settings.smtp_port || 587,
-        smtp_username: settings.smtp_username || '',
+        smtp_username: settings.smtp_username || "",
         smtp_use_tls: settings.smtp_use_tls,
-        sms_provider: settings.sms_provider || 'none',
-        sms_from_number: settings.sms_from_number || '',
+        sms_provider: settings.sms_provider || "none",
+        sms_from_number: settings.sms_from_number || "",
       });
     }
   }, [settings]);
@@ -45,9 +54,9 @@ export function NotificationSettings() {
     e.preventDefault();
     try {
       await updateSettings.mutateAsync(formData);
-      alert('Notification settings saved successfully!');
+      toastSuccess("Notification settings saved successfully!");
     } catch (error) {
-      alert(`Error: ${getErrorMessage(error)}`);
+      toastError(`Error: ${getErrorMessage(error)}`);
     }
   };
 
@@ -101,14 +110,19 @@ export function NotificationSettings() {
                 type="email"
                 value={formData.email_from_address}
                 onChange={(e) =>
-                  setFormData({ ...formData, email_from_address: e.target.value })
+                  setFormData({
+                    ...formData,
+                    email_from_address: e.target.value,
+                  })
                 }
                 placeholder="noreply@macseptic.com"
               />
             </div>
 
             <div className="pt-4 border-t border-border">
-              <h5 className="font-medium text-text-primary mb-4">SMTP Configuration</h5>
+              <h5 className="font-medium text-text-primary mb-4">
+                SMTP Configuration
+              </h5>
               <div className="space-y-4">
                 <div className="grid grid-cols-2 gap-4">
                   <div>
@@ -129,7 +143,10 @@ export function NotificationSettings() {
                       type="number"
                       value={formData.smtp_port}
                       onChange={(e) =>
-                        setFormData({ ...formData, smtp_port: parseInt(e.target.value) })
+                        setFormData({
+                          ...formData,
+                          smtp_port: parseInt(e.target.value),
+                        })
                       }
                       placeholder="587"
                     />
@@ -142,7 +159,10 @@ export function NotificationSettings() {
                     id="smtp_username"
                     value={formData.smtp_username}
                     onChange={(e) =>
-                      setFormData({ ...formData, smtp_username: e.target.value })
+                      setFormData({
+                        ...formData,
+                        smtp_username: e.target.value,
+                      })
                     }
                     placeholder="your-email@gmail.com"
                   />
@@ -154,7 +174,10 @@ export function NotificationSettings() {
                     id="smtp_use_tls"
                     checked={formData.smtp_use_tls}
                     onChange={(e) =>
-                      setFormData({ ...formData, smtp_use_tls: e.target.checked })
+                      setFormData({
+                        ...formData,
+                        smtp_use_tls: e.target.checked,
+                      })
                     }
                     className="h-4 w-4 rounded border-border"
                   />
@@ -199,7 +222,7 @@ export function NotificationSettings() {
                 onChange={(e) =>
                   setFormData({
                     ...formData,
-                    sms_provider: e.target.value as 'twilio' | 'none',
+                    sms_provider: e.target.value as "twilio" | "none",
                   })
                 }
               >
@@ -208,7 +231,7 @@ export function NotificationSettings() {
               </Select>
             </div>
 
-            {formData.sms_provider === 'twilio' && (
+            {formData.sms_provider === "twilio" && (
               <div>
                 <Label htmlFor="sms_from_number">From Phone Number</Label>
                 <Input
@@ -216,7 +239,10 @@ export function NotificationSettings() {
                   type="tel"
                   value={formData.sms_from_number}
                   onChange={(e) =>
-                    setFormData({ ...formData, sms_from_number: e.target.value })
+                    setFormData({
+                      ...formData,
+                      sms_from_number: e.target.value,
+                    })
                   }
                   placeholder="+15551234567"
                 />
@@ -231,7 +257,7 @@ export function NotificationSettings() {
         {/* Submit */}
         <div className="flex justify-end">
           <Button type="submit" disabled={updateSettings.isPending}>
-            {updateSettings.isPending ? 'Saving...' : 'Save Changes'}
+            {updateSettings.isPending ? "Saving..." : "Save Changes"}
           </Button>
         </div>
       </div>

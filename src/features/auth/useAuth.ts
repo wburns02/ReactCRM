@@ -1,7 +1,14 @@
-import { useEffect } from 'react';
-import { useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient, clearAuthToken, hasAuthToken } from '@/api/client.ts';
-import { setUser as setSentryUser } from '@/lib/sentry';
+import { useEffect, useCallback } from "react";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiClient, clearAuthToken, hasAuthToken } from "@/api/client.ts";
+import { setUser as setSentryUser } from "@/lib/sentry";
+import {
+  markSessionValidated,
+  markSessionInvalid,
+  clearSessionState,
+  onSecurityEvent,
+  dispatchSecurityEvent,
+} from "@/lib/security";
 
 /**
  * User type from /api/auth/me
@@ -12,7 +19,7 @@ export interface User {
   email: string;
   first_name: string;
   last_name: string;
-  role: 'admin' | 'manager' | 'technician' | 'sales' | 'user';
+  role: "admin" | "manager" | "technician" | "sales" | "user";
   permissions?: Record<string, Record<string, boolean>>;
   technician_id?: string;
 }
@@ -25,29 +32,33 @@ interface AuthResponse {
 }
 
 /**
- * Auth hook - checks JWT token validity via /api/auth/me
+ * Auth hook - validates session via /api/auth/me
  *
- * The backend expects JWT token in Authorization header and returns user data.
- * On 401, the apiClient interceptor clears token and redirects to login page.
+ * SECURITY ARCHITECTURE:
+ * - Uses HTTP-only cookie for authentication (XSS-safe)
+ * - Session state stored in sessionStorage (not the token itself)
+ * - Validates session on mount and periodically
+ * - Handles session expiry and CSRF errors gracefully
  */
 export function useAuth() {
   const queryClient = useQueryClient();
 
-  const {
-    data,
-    isLoading,
-    error,
-    refetch,
-  } = useQuery({
-    queryKey: ['auth', 'me'],
+  const { data, isLoading, error, refetch } = useQuery({
+    queryKey: ["auth", "me"],
     queryFn: async (): Promise<AuthResponse> => {
-      const { data } = await apiClient.get('/auth/me');
+      const { data } = await apiClient.get("/auth/me");
+
+      // SECURITY: Mark session as validated on successful auth check
+      if (data?.user) {
+        markSessionValidated(data.user.id);
+      }
+
       return data;
     },
     retry: false,
     staleTime: 5 * 60 * 1000, // 5 minutes
     gcTime: 10 * 60 * 1000, // 10 minutes
-    // Only fetch if we have a token
+    // Check auth if we have a session or legacy token
     enabled: hasAuthToken(),
   });
 
@@ -67,29 +78,57 @@ export function useAuth() {
     }
   }, [user]);
 
-  const logout = async () => {
+  // Listen for security events
+  useEffect(() => {
+    const unsubscribeExpired = onSecurityEvent("session:expired", () => {
+      queryClient.setQueryData(["auth", "me"], null);
+    });
+
+    const unsubscribeInvalid = onSecurityEvent("session:invalid", () => {
+      queryClient.setQueryData(["auth", "me"], null);
+    });
+
+    return () => {
+      unsubscribeExpired();
+      unsubscribeInvalid();
+    };
+  }, [queryClient]);
+
+  /**
+   * Logout - clears session and redirects to login
+   */
+  const logout = useCallback(async () => {
     try {
-      await apiClient.post('/auth/logout');
+      // Call backend logout to clear HTTP-only cookie
+      await apiClient.post("/auth/logout");
     } catch {
-      // Ignore logout errors
+      // Ignore logout errors - proceed with client cleanup
     }
-    // Clear user from Sentry
+
+    // SECURITY: Clear all client-side auth state
     setSentryUser(null);
-    // Clear JWT token from localStorage
+    markSessionInvalid();
+    clearSessionState();
     clearAuthToken();
+
+    // Clear all cached data
     queryClient.clear();
-    // Navigate to login page (no /app prefix in standalone mode)
-    window.location.href = '/login';
-  };
+
+    // Dispatch logout event for listeners
+    dispatchSecurityEvent("auth:logout");
+
+    // Navigate to login page
+    window.location.href = "/login";
+  }, [queryClient]);
 
   return {
     user,
     isLoading,
     isAuthenticated: !!user && !error,
-    isAdmin: user?.role === 'admin',
-    isManager: user?.role === 'manager',
-    isTechnician: user?.role === 'technician',
-    isSales: user?.role === 'sales',
+    isAdmin: user?.role === "admin",
+    isManager: user?.role === "manager",
+    isTechnician: user?.role === "technician",
+    isSales: user?.role === "sales",
     // Helper to get full name
     fullName: user ? `${user.first_name} ${user.last_name}` : undefined,
     logout,

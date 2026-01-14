@@ -1,17 +1,17 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
-import { Label } from '@/components/ui/Label.tsx';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { Label } from "@/components/ui/Label.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   workOrderFormSchema,
   type WorkOrderFormData,
@@ -22,9 +22,9 @@ import {
   type WorkOrderStatus,
   type JobType,
   type Priority,
-} from '@/api/types/workOrder.ts';
-import { useCustomers } from '@/api/hooks/useCustomers.ts';
-import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
+} from "@/api/types/workOrder.ts";
+import { useCustomers } from "@/api/hooks/useCustomers.ts";
+import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
 
 export interface WorkOrderFormProps {
   open: boolean;
@@ -48,7 +48,11 @@ export function WorkOrderForm({
 
   // Fetch customers and technicians for dropdowns
   const { data: customersData } = useCustomers({ page: 1, page_size: 200 });
-  const { data: techniciansData } = useTechnicians({ page: 1, page_size: 100, active_only: true });
+  const { data: techniciansData } = useTechnicians({
+    page: 1,
+    page_size: 100,
+    active_only: true,
+  });
 
   const customers = customersData?.items || [];
   const technicians = techniciansData?.items || [];
@@ -67,36 +71,37 @@ export function WorkOrderForm({
           job_type: workOrder.job_type as JobType,
           status: workOrder.status as WorkOrderStatus,
           priority: workOrder.priority as Priority,
-          scheduled_date: workOrder.scheduled_date || '',
-          time_window_start: workOrder.time_window_start?.slice(0, 5) || '',
-          time_window_end: workOrder.time_window_end?.slice(0, 5) || '',
-          estimated_duration_hours: workOrder.estimated_duration_hours || undefined,
-          assigned_technician: workOrder.assigned_technician || '',
-          assigned_vehicle: workOrder.assigned_vehicle || '',
-          service_address_line1: workOrder.service_address_line1 || '',
-          service_address_line2: workOrder.service_address_line2 || '',
-          service_city: workOrder.service_city || '',
-          service_state: workOrder.service_state || '',
-          service_postal_code: workOrder.service_postal_code || '',
-          notes: workOrder.notes || '',
+          scheduled_date: workOrder.scheduled_date || "",
+          time_window_start: workOrder.time_window_start?.slice(0, 5) || "",
+          time_window_end: workOrder.time_window_end?.slice(0, 5) || "",
+          estimated_duration_hours:
+            workOrder.estimated_duration_hours || undefined,
+          assigned_technician: workOrder.assigned_technician || "",
+          assigned_vehicle: workOrder.assigned_vehicle || "",
+          service_address_line1: workOrder.service_address_line1 || "",
+          service_address_line2: workOrder.service_address_line2 || "",
+          service_city: workOrder.service_city || "",
+          service_state: workOrder.service_state || "",
+          service_postal_code: workOrder.service_postal_code || "",
+          notes: workOrder.notes || "",
         }
       : {
           customer_id: 0,
-          job_type: 'pumping' as JobType,
-          status: 'draft' as WorkOrderStatus,
-          priority: 'normal' as Priority,
-          scheduled_date: '',
-          time_window_start: '',
-          time_window_end: '',
+          job_type: "pumping" as JobType,
+          status: "draft" as WorkOrderStatus,
+          priority: "normal" as Priority,
+          scheduled_date: "",
+          time_window_start: "",
+          time_window_end: "",
           estimated_duration_hours: 2,
-          assigned_technician: '',
-          assigned_vehicle: '',
-          service_address_line1: '',
-          service_address_line2: '',
-          service_city: '',
-          service_state: '',
-          service_postal_code: '',
-          notes: '',
+          assigned_technician: "",
+          assigned_vehicle: "",
+          service_address_line1: "",
+          service_address_line2: "",
+          service_city: "",
+          service_state: "",
+          service_postal_code: "",
+          notes: "",
         },
   });
 
@@ -131,7 +136,7 @@ export function WorkOrderForm({
     <Dialog open={open} onClose={handleClose} disableOverlayClose={isDirty}>
       <DialogContent size="lg">
         <DialogHeader onClose={handleClose}>
-          {isEdit ? 'Edit Work Order' : 'Create Work Order'}
+          {isEdit ? "Edit Work Order" : "Create Work Order"}
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -146,7 +151,11 @@ export function WorkOrderForm({
                   <Label htmlFor="customer_id" required>
                     Customer
                   </Label>
-                  <Select id="customer_id" {...register('customer_id')} disabled={isEdit}>
+                  <Select
+                    id="customer_id"
+                    {...register("customer_id")}
+                    disabled={isEdit}
+                  >
                     <option value="">Select customer...</option>
                     {customers.map((c) => (
                       <option key={c.id} value={c.id}>
@@ -155,7 +164,9 @@ export function WorkOrderForm({
                     ))}
                   </Select>
                   {errors.customer_id && (
-                    <p className="text-sm text-danger">{errors.customer_id.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.customer_id.message}
+                    </p>
                   )}
                 </div>
 
@@ -163,8 +174,10 @@ export function WorkOrderForm({
                   <Label htmlFor="job_type" required>
                     Job Type
                   </Label>
-                  <Select id="job_type" {...register('job_type')}>
-                    {(Object.entries(JOB_TYPE_LABELS) as [JobType, string][]).map(([value, label]) => (
+                  <Select id="job_type" {...register("job_type")}>
+                    {(
+                      Object.entries(JOB_TYPE_LABELS) as [JobType, string][]
+                    ).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
                       </option>
@@ -174,8 +187,13 @@ export function WorkOrderForm({
 
                 <div className="space-y-2">
                   <Label htmlFor="status">Status</Label>
-                  <Select id="status" {...register('status')}>
-                    {(Object.entries(WORK_ORDER_STATUS_LABELS) as [WorkOrderStatus, string][]).map(([value, label]) => (
+                  <Select id="status" {...register("status")}>
+                    {(
+                      Object.entries(WORK_ORDER_STATUS_LABELS) as [
+                        WorkOrderStatus,
+                        string,
+                      ][]
+                    ).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
                       </option>
@@ -185,8 +203,10 @@ export function WorkOrderForm({
 
                 <div className="space-y-2">
                   <Label htmlFor="priority">Priority</Label>
-                  <Select id="priority" {...register('priority')}>
-                    {(Object.entries(PRIORITY_LABELS) as [Priority, string][]).map(([value, label]) => (
+                  <Select id="priority" {...register("priority")}>
+                    {(
+                      Object.entries(PRIORITY_LABELS) as [Priority, string][]
+                    ).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
                       </option>
@@ -207,18 +227,20 @@ export function WorkOrderForm({
                   <Input
                     id="scheduled_date"
                     type="date"
-                    {...register('scheduled_date')}
+                    {...register("scheduled_date")}
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="estimated_duration_hours">Duration (hours)</Label>
+                  <Label htmlFor="estimated_duration_hours">
+                    Duration (hours)
+                  </Label>
                   <Input
                     id="estimated_duration_hours"
                     type="number"
                     min="0"
                     step="0.5"
-                    {...register('estimated_duration_hours')}
+                    {...register("estimated_duration_hours")}
                     placeholder="2"
                   />
                 </div>
@@ -228,7 +250,7 @@ export function WorkOrderForm({
                   <Input
                     id="time_window_start"
                     type="time"
-                    {...register('time_window_start')}
+                    {...register("time_window_start")}
                   />
                 </div>
 
@@ -237,7 +259,7 @@ export function WorkOrderForm({
                   <Input
                     id="time_window_end"
                     type="time"
-                    {...register('time_window_end')}
+                    {...register("time_window_end")}
                   />
                 </div>
               </div>
@@ -251,10 +273,16 @@ export function WorkOrderForm({
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="assigned_technician">Technician</Label>
-                  <Select id="assigned_technician" {...register('assigned_technician')}>
+                  <Select
+                    id="assigned_technician"
+                    {...register("assigned_technician")}
+                  >
                     <option value="">Select technician...</option>
                     {technicians.map((t) => (
-                      <option key={t.id} value={`${t.first_name} ${t.last_name}`}>
+                      <option
+                        key={t.id}
+                        value={`${t.first_name} ${t.last_name}`}
+                      >
                         {t.first_name} {t.last_name}
                       </option>
                     ))}
@@ -265,7 +293,7 @@ export function WorkOrderForm({
                   <Label htmlFor="assigned_vehicle">Vehicle</Label>
                   <Input
                     id="assigned_vehicle"
-                    {...register('assigned_vehicle')}
+                    {...register("assigned_vehicle")}
                     placeholder="Truck #1"
                   />
                 </div>
@@ -282,7 +310,7 @@ export function WorkOrderForm({
                   <Label htmlFor="service_address_line1">Street Address</Label>
                   <Input
                     id="service_address_line1"
-                    {...register('service_address_line1')}
+                    {...register("service_address_line1")}
                     placeholder="123 Main St"
                   />
                 </div>
@@ -291,7 +319,7 @@ export function WorkOrderForm({
                   <Label htmlFor="service_address_line2">Address Line 2</Label>
                   <Input
                     id="service_address_line2"
-                    {...register('service_address_line2')}
+                    {...register("service_address_line2")}
                     placeholder="Apt 4B"
                   />
                 </div>
@@ -300,7 +328,7 @@ export function WorkOrderForm({
                   <Label htmlFor="service_city">City</Label>
                   <Input
                     id="service_city"
-                    {...register('service_city')}
+                    {...register("service_city")}
                     placeholder="Tampa"
                   />
                 </div>
@@ -310,12 +338,14 @@ export function WorkOrderForm({
                     <Label htmlFor="service_state">State</Label>
                     <Input
                       id="service_state"
-                      {...register('service_state')}
+                      {...register("service_state")}
                       placeholder="FL"
                       maxLength={2}
                     />
                     {errors.service_state && (
-                      <p className="text-sm text-danger">{errors.service_state.message}</p>
+                      <p className="text-sm text-danger">
+                        {errors.service_state.message}
+                      </p>
                     )}
                   </div>
 
@@ -323,7 +353,7 @@ export function WorkOrderForm({
                     <Label htmlFor="service_postal_code">ZIP Code</Label>
                     <Input
                       id="service_postal_code"
-                      {...register('service_postal_code')}
+                      {...register("service_postal_code")}
                       placeholder="33601"
                     />
                   </div>
@@ -340,7 +370,7 @@ export function WorkOrderForm({
                 <Label htmlFor="notes">Notes</Label>
                 <Textarea
                   id="notes"
-                  {...register('notes')}
+                  {...register("notes")}
                   placeholder="Additional notes about this work order..."
                   rows={4}
                 />
@@ -349,11 +379,20 @@ export function WorkOrderForm({
           </DialogBody>
 
           <DialogFooter>
-            <Button type="button" variant="secondary" onClick={handleClose} disabled={isLoading}>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={handleClose}
+              disabled={isLoading}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Saving...' : isEdit ? 'Save Changes' : 'Create Work Order'}
+              {isLoading
+                ? "Saving..."
+                : isEdit
+                  ? "Save Changes"
+                  : "Create Work Order"}
             </Button>
           </DialogFooter>
         </form>

@@ -1,5 +1,5 @@
-import { Select } from '@/components/ui/Select.tsx';
-import { Input } from '@/components/ui/Input.tsx';
+import { Select } from "@/components/ui/Select.tsx";
+import { Input } from "@/components/ui/Input.tsx";
 import {
   TICKET_TYPE_LABELS,
   TICKET_STATUS_LABELS,
@@ -7,7 +7,7 @@ import {
   type TicketType,
   type TicketStatus,
   type TicketPriority,
-} from '@/api/types/ticket.ts';
+} from "@/api/types/ticket.ts";
 
 interface TicketFiltersProps {
   search: string;
@@ -45,8 +45,10 @@ export function TicketFilters({
       </div>
       <div className="w-40">
         <Select
-          value={type || ''}
-          onChange={(e) => onTypeChange(e.target.value as TicketType || undefined)}
+          value={type || ""}
+          onChange={(e) =>
+            onTypeChange((e.target.value as TicketType) || undefined)
+          }
         >
           <option value="">All Types</option>
           {Object.entries(TICKET_TYPE_LABELS).map(([value, label]) => (
@@ -58,8 +60,10 @@ export function TicketFilters({
       </div>
       <div className="w-40">
         <Select
-          value={status || ''}
-          onChange={(e) => onStatusChange(e.target.value as TicketStatus || undefined)}
+          value={status || ""}
+          onChange={(e) =>
+            onStatusChange((e.target.value as TicketStatus) || undefined)
+          }
         >
           <option value="">All Statuses</option>
           {Object.entries(TICKET_STATUS_LABELS).map(([value, label]) => (
@@ -71,8 +75,10 @@ export function TicketFilters({
       </div>
       <div className="w-40">
         <Select
-          value={priority || ''}
-          onChange={(e) => onPriorityChange(e.target.value as TicketPriority || undefined)}
+          value={priority || ""}
+          onChange={(e) =>
+            onPriorityChange((e.target.value as TicketPriority) || undefined)
+          }
         >
           <option value="">All Priorities</option>
           {Object.entries(TICKET_PRIORITY_LABELS).map(([value, label]) => (

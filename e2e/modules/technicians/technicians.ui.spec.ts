@@ -31,7 +31,8 @@ test.describe('Technicians Page Smoke Tests', () => {
   test('technicians page renders header', async ({ page }) => {
     await page.goto(`${BASE_URL}/technicians`);
 
-    const header = page.getByRole('heading', { name: 'Technicians', exact: true });
+    // Use level: 1 to match only the h1 heading, not the h3 section heading
+    const header = page.getByRole('heading', { name: 'Technicians', level: 1 });
     const loginPage = page.getByText('Sign in to your account');
 
     await expect(header.or(loginPage)).toBeVisible({ timeout: 10000 });

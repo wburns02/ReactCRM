@@ -1,4 +1,4 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * RingCentral Status
@@ -18,7 +18,7 @@ export type RCStatus = z.infer<typeof rcStatusSchema>;
 /**
  * Call Direction
  */
-export const callDirectionSchema = z.enum(['inbound', 'outbound']);
+export const callDirectionSchema = z.enum(["inbound", "outbound"]);
 export type CallDirection = z.infer<typeof callDirectionSchema>;
 
 /**
@@ -66,7 +66,11 @@ export type CallListResponse = z.infer<typeof callListResponseSchema>;
 /**
  * Call Disposition Category
  */
-export const dispositionCategorySchema = z.enum(['positive', 'neutral', 'negative']);
+export const dispositionCategorySchema = z.enum([
+  "positive",
+  "neutral",
+  "negative",
+]);
 export type DispositionCategory = z.infer<typeof dispositionCategorySchema>;
 
 /**
@@ -102,8 +106,9 @@ export interface LogDispositionRequest {
 /**
  * Disposition labels for display
  */
-export const DISPOSITION_CATEGORY_LABELS: Record<DispositionCategory, string> = {
-  positive: 'Positive',
-  neutral: 'Neutral',
-  negative: 'Negative',
-};
+export const DISPOSITION_CATEGORY_LABELS: Record<DispositionCategory, string> =
+  {
+    positive: "Positive",
+    neutral: "Neutral",
+    negative: "Negative",
+  };

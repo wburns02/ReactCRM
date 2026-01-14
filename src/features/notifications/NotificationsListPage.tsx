@@ -1,7 +1,7 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/Button';
-import { Card, CardContent } from '@/components/ui/Card';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent } from "@/components/ui/Card";
 import {
   useNotifications,
   useNotificationStats,
@@ -9,29 +9,29 @@ import {
   useMarkAllNotificationsRead,
   useDeleteNotification,
   type Notification,
-} from '@/api/hooks/useNotifications';
+} from "@/api/hooks/useNotifications";
 
-type FilterType = 'all' | 'unread' | Notification['type'];
+type FilterType = "all" | "unread" | Notification["type"];
 
 /**
  * Notification icon based on type
  */
-function getNotificationIcon(type: Notification['type']): string {
+function getNotificationIcon(type: Notification["type"]): string {
   switch (type) {
-    case 'work_order':
-      return '🔧';
-    case 'schedule':
-      return '📅';
-    case 'payment':
-      return '💳';
-    case 'message':
-      return '💬';
-    case 'alert':
-      return '⚠️';
-    case 'system':
-      return '🔔';
+    case "work_order":
+      return "🔧";
+    case "schedule":
+      return "📅";
+    case "payment":
+      return "💳";
+    case "message":
+      return "💬";
+    case "alert":
+      return "⚠️";
+    case "system":
+      return "🔔";
     default:
-      return '📌';
+      return "📌";
   }
 }
 
@@ -46,10 +46,10 @@ function formatRelativeTime(dateString: string): string {
   const diffHours = Math.floor(diffMins / 60);
   const diffDays = Math.floor(diffHours / 24);
 
-  if (diffMins < 1) return 'Just now';
+  if (diffMins < 1) return "Just now";
   if (diffMins < 60) return `${diffMins} minutes ago`;
   if (diffHours < 24) return `${diffHours} hours ago`;
-  if (diffDays === 1) return 'Yesterday';
+  if (diffDays === 1) return "Yesterday";
   if (diffDays < 7) return `${diffDays} days ago`;
   return date.toLocaleDateString();
 }
@@ -58,11 +58,11 @@ function formatRelativeTime(dateString: string): string {
  * Notifications List Page
  */
 export function NotificationsListPage() {
-  const [filter, setFilter] = useState<FilterType>('all');
+  const [filter, setFilter] = useState<FilterType>("all");
   const { data: stats } = useNotificationStats();
   const { data: notificationsData, isLoading } = useNotifications({
-    unread_only: filter === 'unread',
-    type: !['all', 'unread'].includes(filter) ? filter : undefined,
+    unread_only: filter === "unread",
+    type: !["all", "unread"].includes(filter) ? filter : undefined,
   });
   const markRead = useMarkNotificationRead();
   const markAllRead = useMarkAllNotificationsRead();
@@ -71,14 +71,14 @@ export function NotificationsListPage() {
   const notifications = notificationsData?.notifications || [];
 
   const filterOptions: { value: FilterType; label: string }[] = [
-    { value: 'all', label: 'All' },
-    { value: 'unread', label: `Unread (${stats?.unread || 0})` },
-    { value: 'work_order', label: 'Work Orders' },
-    { value: 'schedule', label: 'Schedule' },
-    { value: 'payment', label: 'Payments' },
-    { value: 'message', label: 'Messages' },
-    { value: 'alert', label: 'Alerts' },
-    { value: 'system', label: 'System' },
+    { value: "all", label: "All" },
+    { value: "unread", label: `Unread (${stats?.unread || 0})` },
+    { value: "work_order", label: "Work Orders" },
+    { value: "schedule", label: "Schedule" },
+    { value: "payment", label: "Payments" },
+    { value: "message", label: "Messages" },
+    { value: "alert", label: "Alerts" },
+    { value: "system", label: "System" },
   ];
 
   return (
@@ -86,11 +86,13 @@ export function NotificationsListPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">Notifications</h1>
+          <h1 className="text-2xl font-bold text-text-primary">
+            Notifications
+          </h1>
           <p className="text-text-secondary mt-1">
             {stats?.unread
-              ? `${stats.unread} unread notification${stats.unread === 1 ? '' : 's'}`
-              : 'All caught up!'}
+              ? `${stats.unread} unread notification${stats.unread === 1 ? "" : "s"}`
+              : "All caught up!"}
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -117,8 +119,8 @@ export function NotificationsListPage() {
             onClick={() => setFilter(option.value)}
             className={`px-4 py-2 rounded-full text-sm font-medium whitespace-nowrap transition-colors ${
               filter === option.value
-                ? 'bg-primary text-white'
-                : 'bg-bg-muted text-text-secondary hover:bg-bg-hover'
+                ? "bg-primary text-white"
+                : "bg-bg-muted text-text-secondary hover:bg-bg-hover"
             }`}
           >
             {option.label}
@@ -139,11 +141,13 @@ export function NotificationsListPage() {
         <Card>
           <CardContent className="py-16 text-center">
             <span className="text-5xl block mb-4">🔔</span>
-            <h3 className="text-lg font-medium text-text-primary mb-2">No notifications</h3>
+            <h3 className="text-lg font-medium text-text-primary mb-2">
+              No notifications
+            </h3>
             <p className="text-text-muted">
-              {filter === 'unread'
+              {filter === "unread"
                 ? "You've read all your notifications!"
-                : 'You have no notifications matching this filter.'}
+                : "You have no notifications matching this filter."}
             </p>
           </CardContent>
         </Card>
@@ -152,24 +156,28 @@ export function NotificationsListPage() {
           {notifications.map((notification) => (
             <Card
               key={notification.id}
-              className={`overflow-hidden ${!notification.read ? 'border-l-4 border-l-primary' : ''}`}
+              className={`overflow-hidden ${!notification.read ? "border-l-4 border-l-primary" : ""}`}
             >
               <CardContent className="p-4">
                 <div className="flex gap-4">
-                  <span className="text-2xl">{getNotificationIcon(notification.type)}</span>
+                  <span className="text-2xl">
+                    {getNotificationIcon(notification.type)}
+                  </span>
                   <div className="flex-1 min-w-0">
                     <div className="flex items-start justify-between gap-4">
                       <div className="min-w-0">
                         <h3
                           className={`text-base truncate ${
                             notification.read
-                              ? 'font-normal text-text-secondary'
-                              : 'font-semibold text-text-primary'
+                              ? "font-normal text-text-secondary"
+                              : "font-semibold text-text-primary"
                           }`}
                         >
                           {notification.title}
                         </h3>
-                        <p className="text-sm text-text-muted mt-1">{notification.body}</p>
+                        <p className="text-sm text-text-muted mt-1">
+                          {notification.body}
+                        </p>
                         <p className="text-xs text-text-muted mt-2">
                           {formatRelativeTime(notification.created_at)}
                         </p>
@@ -202,7 +210,9 @@ export function NotificationsListPage() {
                         <Button
                           variant="secondary"
                           size="sm"
-                          onClick={() => deleteNotification.mutate(notification.id)}
+                          onClick={() =>
+                            deleteNotification.mutate(notification.id)
+                          }
                           disabled={deleteNotification.isPending}
                           className="text-danger hover:bg-danger/10"
                         >

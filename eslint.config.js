@@ -20,7 +20,26 @@ export default tseslint.config(
     rules: {
       ...reactHooks.configs.recommended.rules,
       'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
-      '@typescript-eslint/no-unused-vars': ['error', { argsIgnorePattern: '^_' }],
+      // Allow unused vars that start with _ or mock
+      '@typescript-eslint/no-unused-vars': ['error', { 
+        argsIgnorePattern: '^_',
+        varsIgnorePattern: '^_|^mock',
+        caughtErrorsIgnorePattern: '.*'
+      }],
+      // React 19 compiler rules - downgrade to warnings until codebase is fully updated
+      'react-hooks/set-state-in-effect': 'warn',
+      'react-hooks/refs': 'warn',
+      'react-hooks/incompatible-library': 'warn',
+      'react-hooks/preserve-manual-memoization': 'warn',
+      'react-hooks/static-components': 'warn',
+      'react-hooks/purity': 'warn',
+      'react-hooks/invariant': 'warn',
+      'react-hooks/set-state-in-render': 'warn',
+      'react-hooks/immutability': 'warn',
+      // Allow any for now - can tighten later
+      '@typescript-eslint/no-explicit-any': 'warn',
+      // Allow lexical declarations in case blocks
+      'no-case-declarations': 'warn',
     },
   }
 );

@@ -8,9 +8,12 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export default defineConfig({
   test: {
     globals: true,
-    environment: 'node',
-    include: ['src/**/*.{test,spec}.{ts,tsx}', 'healing/**/*.spec.ts'],
-    exclude: ['**/node_modules/**', '**/.git/**', 'e2e/**'],
+    environment: 'jsdom',
+    include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    // Exclude healing folder (experimental), e2e (Playwright), and node_modules
+    exclude: ['**/node_modules/**', '**/.git/**', 'e2e/**', 'healing/**'],
+    // Setup files for React Testing Library
+    setupFiles: ['./src/test-setup.ts'],
   },
   resolve: {
     alias: {

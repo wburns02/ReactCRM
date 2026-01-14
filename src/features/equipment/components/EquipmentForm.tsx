@@ -1,24 +1,24 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
-import { Label } from '@/components/ui/Label.tsx';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { Label } from "@/components/ui/Label.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   equipmentFormSchema,
   type EquipmentFormData,
   type Equipment,
   EQUIPMENT_STATUS_LABELS,
-} from '@/api/types/equipment.ts';
-import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
+} from "@/api/types/equipment.ts";
+import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
 
 export interface EquipmentFormProps {
   open: boolean;
@@ -29,15 +29,15 @@ export interface EquipmentFormProps {
 }
 
 const EQUIPMENT_TYPES = [
-  'Pump Truck',
-  'Jetter Truck',
-  'Vacuum Truck',
-  'Camera Equipment',
-  'Portable Pump',
-  'Generator',
-  'Power Tools',
-  'Safety Equipment',
-  'Other',
+  "Pump Truck",
+  "Jetter Truck",
+  "Vacuum Truck",
+  "Camera Equipment",
+  "Portable Pump",
+  "Generator",
+  "Power Tools",
+  "Safety Equipment",
+  "Other",
 ];
 
 /**
@@ -53,7 +53,11 @@ export function EquipmentForm({
   const isEdit = !!equipment;
 
   // Fetch technicians for assignment dropdown
-  const { data: techniciansData } = useTechnicians({ page: 1, page_size: 100, active_only: true });
+  const { data: techniciansData } = useTechnicians({
+    page: 1,
+    page_size: 100,
+    active_only: true,
+  });
 
   const {
     register,
@@ -67,22 +71,22 @@ export function EquipmentForm({
       ? {
           name: equipment.name,
           type: equipment.type,
-          serial_number: equipment.serial_number || '',
+          serial_number: equipment.serial_number || "",
           status: equipment.status,
-          assigned_to: equipment.assigned_to || '',
-          last_maintenance: equipment.last_maintenance || '',
-          next_maintenance: equipment.next_maintenance || '',
-          notes: equipment.notes || '',
+          assigned_to: equipment.assigned_to || "",
+          last_maintenance: equipment.last_maintenance || "",
+          next_maintenance: equipment.next_maintenance || "",
+          notes: equipment.notes || "",
         }
       : {
-          name: '',
-          type: '',
-          serial_number: '',
-          status: 'available',
-          assigned_to: '',
-          last_maintenance: '',
-          next_maintenance: '',
-          notes: '',
+          name: "",
+          type: "",
+          serial_number: "",
+          status: "available",
+          assigned_to: "",
+          last_maintenance: "",
+          next_maintenance: "",
+          notes: "",
         },
   });
 
@@ -109,7 +113,7 @@ export function EquipmentForm({
     <Dialog open={open} onClose={handleClose} disableOverlayClose={isDirty}>
       <DialogContent size="md">
         <DialogHeader onClose={handleClose}>
-          {isEdit ? 'Edit Equipment' : 'Add New Equipment'}
+          {isEdit ? "Edit Equipment" : "Add New Equipment"}
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -122,7 +126,7 @@ export function EquipmentForm({
                 </Label>
                 <Input
                   id="name"
-                  {...register('name')}
+                  {...register("name")}
                   error={!!errors.name}
                   placeholder="e.g., Truck #5 Pump"
                 />
@@ -135,7 +139,7 @@ export function EquipmentForm({
                 <Label htmlFor="type" required>
                   Type
                 </Label>
-                <Select id="type" {...register('type')} error={!!errors.type}>
+                <Select id="type" {...register("type")} error={!!errors.type}>
                   <option value="">Select type...</option>
                   {EQUIPMENT_TYPES.map((type) => (
                     <option key={type} value={type}>
@@ -152,7 +156,7 @@ export function EquipmentForm({
                 <Label htmlFor="serial_number">Serial Number</Label>
                 <Input
                   id="serial_number"
-                  {...register('serial_number')}
+                  {...register("serial_number")}
                   placeholder="SN12345"
                 />
               </div>
@@ -161,12 +165,14 @@ export function EquipmentForm({
                 <Label htmlFor="status" required>
                   Status
                 </Label>
-                <Select id="status" {...register('status')}>
-                  {Object.entries(EQUIPMENT_STATUS_LABELS).map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
-                    </option>
-                  ))}
+                <Select id="status" {...register("status")}>
+                  {Object.entries(EQUIPMENT_STATUS_LABELS).map(
+                    ([value, label]) => (
+                      <option key={value} value={value}>
+                        {label}
+                      </option>
+                    ),
+                  )}
                 </Select>
               </div>
             </div>
@@ -178,7 +184,7 @@ export function EquipmentForm({
               </h4>
               <div className="space-y-2">
                 <Label htmlFor="assigned_to">Assigned To</Label>
-                <Select id="assigned_to" {...register('assigned_to')}>
+                <Select id="assigned_to" {...register("assigned_to")}>
                   <option value="">Unassigned</option>
                   {techniciansData?.items.map((tech) => (
                     <option key={tech.id} value={tech.id}>
@@ -200,7 +206,7 @@ export function EquipmentForm({
                   <Input
                     id="last_maintenance"
                     type="date"
-                    {...register('last_maintenance')}
+                    {...register("last_maintenance")}
                   />
                 </div>
 
@@ -209,7 +215,7 @@ export function EquipmentForm({
                   <Input
                     id="next_maintenance"
                     type="date"
-                    {...register('next_maintenance')}
+                    {...register("next_maintenance")}
                   />
                 </div>
               </div>
@@ -224,7 +230,7 @@ export function EquipmentForm({
                 <Label htmlFor="notes">Notes</Label>
                 <Textarea
                   id="notes"
-                  {...register('notes')}
+                  {...register("notes")}
                   placeholder="Additional notes about this equipment..."
                   rows={4}
                 />
@@ -233,11 +239,20 @@ export function EquipmentForm({
           </DialogBody>
 
           <DialogFooter>
-            <Button type="button" variant="secondary" onClick={handleClose} disabled={isLoading}>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={handleClose}
+              disabled={isLoading}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Saving...' : isEdit ? 'Save Changes' : 'Create Equipment'}
+              {isLoading
+                ? "Saving..."
+                : isEdit
+                  ? "Save Changes"
+                  : "Create Equipment"}
             </Button>
           </DialogFooter>
         </form>

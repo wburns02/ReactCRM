@@ -1,16 +1,16 @@
-import { useMutation, useQuery, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 /**
  * Compliance Form Types
  */
-export type ComplianceState = 'TX' | 'SC' | 'TN' | 'other';
+export type ComplianceState = "TX" | "SC" | "TN" | "other";
 
 export interface ComplianceTemplate {
   id: string;
   name: string;
   state: ComplianceState;
-  form_type: 'inspection' | 'permit' | 'installation' | 'maintenance' | 'other';
+  form_type: "inspection" | "permit" | "installation" | "maintenance" | "other";
   version: string;
   fields: ComplianceField[];
   is_active: boolean;
@@ -23,7 +23,15 @@ export interface ComplianceField {
   id: string;
   name: string;
   label: string;
-  type: 'text' | 'number' | 'date' | 'select' | 'checkbox' | 'signature' | 'photo' | 'textarea';
+  type:
+    | "text"
+    | "number"
+    | "date"
+    | "select"
+    | "checkbox"
+    | "signature"
+    | "photo"
+    | "textarea";
   required: boolean;
   options?: string[]; // For select type
   validation?: {
@@ -43,7 +51,7 @@ export interface ComplianceForm {
   customer_id: number;
   customer_name: string;
   property_address: string;
-  status: 'draft' | 'completed' | 'submitted' | 'approved' | 'rejected';
+  status: "draft" | "completed" | "submitted" | "approved" | "rejected";
   data: Record<string, unknown>;
   signatures: ComplianceSignature[];
   photos: CompliancePhoto[];
@@ -85,15 +93,18 @@ export interface ComplianceStats {
  * Query keys for Compliance
  */
 export const complianceKeys = {
-  all: ['compliance'] as const,
-  templates: () => [...complianceKeys.all, 'templates'] as const,
-  templatesByState: (state: ComplianceState) => [...complianceKeys.templates(), state] as const,
-  template: (id: string) => [...complianceKeys.all, 'template', id] as const,
-  forms: () => [...complianceKeys.all, 'forms'] as const,
-  form: (id: string) => [...complianceKeys.all, 'form', id] as const,
-  customerForms: (customerId: number) => [...complianceKeys.all, 'customer', customerId] as const,
-  workOrderForm: (workOrderId: string) => [...complianceKeys.all, 'work-order', workOrderId] as const,
-  stats: () => [...complianceKeys.all, 'stats'] as const,
+  all: ["compliance"] as const,
+  templates: () => [...complianceKeys.all, "templates"] as const,
+  templatesByState: (state: ComplianceState) =>
+    [...complianceKeys.templates(), state] as const,
+  template: (id: string) => [...complianceKeys.all, "template", id] as const,
+  forms: () => [...complianceKeys.all, "forms"] as const,
+  form: (id: string) => [...complianceKeys.all, "form", id] as const,
+  customerForms: (customerId: number) =>
+    [...complianceKeys.all, "customer", customerId] as const,
+  workOrderForm: (workOrderId: string) =>
+    [...complianceKeys.all, "work-order", workOrderId] as const,
+  stats: () => [...complianceKeys.all, "stats"] as const,
 };
 
 /**
@@ -101,9 +112,11 @@ export const complianceKeys = {
  */
 export function useComplianceTemplates(state?: ComplianceState) {
   return useQuery({
-    queryKey: state ? complianceKeys.templatesByState(state) : complianceKeys.templates(),
+    queryKey: state
+      ? complianceKeys.templatesByState(state)
+      : complianceKeys.templates(),
     queryFn: async (): Promise<ComplianceTemplate[]> => {
-      const params = state ? `?state=${state}` : '';
+      const params = state ? `?state=${state}` : "";
       const { data } = await apiClient.get(`/compliance/templates${params}`);
       return data.templates || [];
     },
@@ -131,8 +144,10 @@ export function useCreateComplianceTemplate() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (template: Omit<ComplianceTemplate, 'id' | 'created_at' | 'updated_at'>): Promise<ComplianceTemplate> => {
-      const { data } = await apiClient.post('/compliance/templates', template);
+    mutationFn: async (
+      template: Omit<ComplianceTemplate, "id" | "created_at" | "updated_at">,
+    ): Promise<ComplianceTemplate> => {
+      const { data } = await apiClient.post("/compliance/templates", template);
       return data;
     },
     onSuccess: () => {
@@ -148,13 +163,23 @@ export function useUpdateComplianceTemplate() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async ({ id, ...template }: Partial<ComplianceTemplate> & { id: string }): Promise<ComplianceTemplate> => {
-      const { data } = await apiClient.put(`/compliance/templates/${id}`, template);
+    mutationFn: async ({
+      id,
+      ...template
+    }: Partial<ComplianceTemplate> & {
+      id: string;
+    }): Promise<ComplianceTemplate> => {
+      const { data } = await apiClient.put(
+        `/compliance/templates/${id}`,
+        template,
+      );
       return data;
     },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: complianceKeys.templates() });
-      queryClient.invalidateQueries({ queryKey: complianceKeys.template(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: complianceKeys.template(variables.id),
+      });
     },
   });
 }
@@ -163,7 +188,7 @@ export function useUpdateComplianceTemplate() {
  * Get compliance forms
  */
 export function useComplianceForms(filters?: {
-  status?: ComplianceForm['status'];
+  status?: ComplianceForm["status"];
   state?: ComplianceState;
   customer_id?: number;
   limit?: number;
@@ -172,12 +197,15 @@ export function useComplianceForms(filters?: {
     queryKey: complianceKeys.forms(),
     queryFn: async (): Promise<{ forms: ComplianceForm[]; total: number }> => {
       const params = new URLSearchParams();
-      if (filters?.status) params.append('status', filters.status);
-      if (filters?.state) params.append('state', filters.state);
-      if (filters?.customer_id) params.append('customer_id', filters.customer_id.toString());
-      if (filters?.limit) params.append('limit', filters.limit.toString());
+      if (filters?.status) params.append("status", filters.status);
+      if (filters?.state) params.append("state", filters.state);
+      if (filters?.customer_id)
+        params.append("customer_id", filters.customer_id.toString());
+      if (filters?.limit) params.append("limit", filters.limit.toString());
 
-      const { data } = await apiClient.get(`/compliance/forms?${params.toString()}`);
+      const { data } = await apiClient.get(
+        `/compliance/forms?${params.toString()}`,
+      );
       return data;
     },
   });
@@ -204,7 +232,9 @@ export function useCustomerComplianceForms(customerId: number) {
   return useQuery({
     queryKey: complianceKeys.customerForms(customerId),
     queryFn: async (): Promise<ComplianceForm[]> => {
-      const { data } = await apiClient.get(`/compliance/customer/${customerId}/forms`);
+      const { data } = await apiClient.get(
+        `/compliance/customer/${customerId}/forms`,
+      );
       return data.forms || [];
     },
     enabled: !!customerId,
@@ -218,7 +248,9 @@ export function useWorkOrderComplianceForm(workOrderId: string) {
   return useQuery({
     queryKey: complianceKeys.workOrderForm(workOrderId),
     queryFn: async (): Promise<ComplianceForm | null> => {
-      const { data } = await apiClient.get(`/compliance/work-order/${workOrderId}/form`);
+      const { data } = await apiClient.get(
+        `/compliance/work-order/${workOrderId}/form`,
+      );
       return data;
     },
     enabled: !!workOrderId,
@@ -238,7 +270,7 @@ export function useCreateComplianceForm() {
       work_order_id?: string;
       property_address: string;
     }): Promise<ComplianceForm> => {
-      const { data } = await apiClient.post('/compliance/forms', params);
+      const { data } = await apiClient.post("/compliance/forms", params);
       return data;
     },
     onSuccess: () => {
@@ -258,11 +290,15 @@ export function useUpdateComplianceForm() {
       id: string;
       data: Record<string, unknown>;
     }): Promise<ComplianceForm> => {
-      const { data } = await apiClient.put(`/compliance/forms/${params.id}`, { data: params.data });
+      const { data } = await apiClient.put(`/compliance/forms/${params.id}`, {
+        data: params.data,
+      });
       return data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: complianceKeys.form(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: complianceKeys.form(variables.id),
+      });
       queryClient.invalidateQueries({ queryKey: complianceKeys.forms() });
     },
   });
@@ -281,11 +317,16 @@ export function useAddComplianceSignature() {
       signer_name: string;
       signature_data: string;
     }): Promise<ComplianceSignature> => {
-      const { data } = await apiClient.post(`/compliance/forms/${params.form_id}/signatures`, params);
+      const { data } = await apiClient.post(
+        `/compliance/forms/${params.form_id}/signatures`,
+        params,
+      );
       return data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: complianceKeys.form(variables.form_id) });
+      queryClient.invalidateQueries({
+        queryKey: complianceKeys.form(variables.form_id),
+      });
     },
   });
 }
@@ -304,19 +345,21 @@ export function useAddCompliancePhoto() {
       caption?: string;
     }): Promise<CompliancePhoto> => {
       const formData = new FormData();
-      formData.append('photo', params.photo);
-      formData.append('field_id', params.field_id);
-      if (params.caption) formData.append('caption', params.caption);
+      formData.append("photo", params.photo);
+      formData.append("field_id", params.field_id);
+      if (params.caption) formData.append("caption", params.caption);
 
       const { data } = await apiClient.post(
         `/compliance/forms/${params.form_id}/photos`,
         formData,
-        { headers: { 'Content-Type': 'multipart/form-data' } }
+        { headers: { "Content-Type": "multipart/form-data" } },
       );
       return data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: complianceKeys.form(variables.form_id) });
+      queryClient.invalidateQueries({
+        queryKey: complianceKeys.form(variables.form_id),
+      });
     },
   });
 }
@@ -329,7 +372,9 @@ export function useSubmitComplianceForm() {
 
   return useMutation({
     mutationFn: async (formId: string): Promise<ComplianceForm> => {
-      const { data } = await apiClient.post(`/compliance/forms/${formId}/submit`);
+      const { data } = await apiClient.post(
+        `/compliance/forms/${formId}/submit`,
+      );
       return data;
     },
     onSuccess: (_, formId) => {
@@ -348,7 +393,9 @@ export function useApproveComplianceForm() {
 
   return useMutation({
     mutationFn: async (formId: string): Promise<ComplianceForm> => {
-      const { data } = await apiClient.post(`/compliance/forms/${formId}/approve`);
+      const { data } = await apiClient.post(
+        `/compliance/forms/${formId}/approve`,
+      );
       return data;
     },
     onSuccess: (_, formId) => {
@@ -370,13 +417,18 @@ export function useRejectComplianceForm() {
       form_id: string;
       reason: string;
     }): Promise<ComplianceForm> => {
-      const { data } = await apiClient.post(`/compliance/forms/${params.form_id}/reject`, {
-        reason: params.reason,
-      });
+      const { data } = await apiClient.post(
+        `/compliance/forms/${params.form_id}/reject`,
+        {
+          reason: params.reason,
+        },
+      );
       return data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: complianceKeys.form(variables.form_id) });
+      queryClient.invalidateQueries({
+        queryKey: complianceKeys.form(variables.form_id),
+      });
       queryClient.invalidateQueries({ queryKey: complianceKeys.forms() });
       queryClient.invalidateQueries({ queryKey: complianceKeys.stats() });
     },
@@ -402,7 +454,7 @@ export function useComplianceStats() {
   return useQuery({
     queryKey: complianceKeys.stats(),
     queryFn: async (): Promise<ComplianceStats> => {
-      const { data } = await apiClient.get('/compliance/stats');
+      const { data } = await apiClient.get("/compliance/stats");
       return data;
     },
   });

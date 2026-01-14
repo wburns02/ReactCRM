@@ -1,2 +1,2 @@
-export { StripeCheckout } from './StripeCheckout';
-export { PaymentModal } from './PaymentModal';
+export { StripeCheckout } from "./StripeCheckout";
+export { PaymentModal } from "./PaymentModal";

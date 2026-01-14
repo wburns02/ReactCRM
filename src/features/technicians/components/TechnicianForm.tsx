@@ -1,24 +1,24 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
-import { Label } from '@/components/ui/Label.tsx';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { Label } from "@/components/ui/Label.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   technicianFormSchema,
   type TechnicianFormData,
   type Technician,
   TECHNICIAN_SKILL_LABELS,
   type TechnicianSkill,
-} from '@/api/types/technician.ts';
+} from "@/api/types/technician.ts";
 
 export interface TechnicianFormProps {
   open: boolean;
@@ -29,15 +29,12 @@ export interface TechnicianFormProps {
   isLoading?: boolean;
 }
 
-const SKILL_OPTIONS = Object.entries(TECHNICIAN_SKILL_LABELS) as [TechnicianSkill, string][];
+const SKILL_OPTIONS = Object.entries(TECHNICIAN_SKILL_LABELS) as [
+  TechnicianSkill,
+  string,
+][];
 
-const REGION_OPTIONS = [
-  'North',
-  'South',
-  'East',
-  'West',
-  'Central',
-];
+const REGION_OPTIONS = ["North", "South", "East", "West", "Central"];
 
 /**
  * Technician create/edit form modal
@@ -65,57 +62,58 @@ export function TechnicianForm({
       ? {
           first_name: technician.first_name,
           last_name: technician.last_name,
-          email: technician.email || '',
-          phone: technician.phone || '',
-          employee_id: technician.employee_id || '',
+          email: technician.email || "",
+          phone: technician.phone || "",
+          employee_id: technician.employee_id || "",
           is_active: technician.is_active,
-          home_region: technician.home_region || '',
-          home_address: technician.home_address || '',
-          home_city: technician.home_city || '',
-          home_state: technician.home_state || '',
-          home_postal_code: technician.home_postal_code || '',
+          home_region: technician.home_region || "",
+          home_address: technician.home_address || "",
+          home_city: technician.home_city || "",
+          home_state: technician.home_state || "",
+          home_postal_code: technician.home_postal_code || "",
           home_latitude: technician.home_latitude || undefined,
           home_longitude: technician.home_longitude || undefined,
           skills: (technician.skills as TechnicianSkill[]) || [],
-          assigned_vehicle: technician.assigned_vehicle || '',
-          vehicle_capacity_gallons: technician.vehicle_capacity_gallons || undefined,
-          license_number: technician.license_number || '',
-          license_expiry: technician.license_expiry || '',
+          assigned_vehicle: technician.assigned_vehicle || "",
+          vehicle_capacity_gallons:
+            technician.vehicle_capacity_gallons || undefined,
+          license_number: technician.license_number || "",
+          license_expiry: technician.license_expiry || "",
           hourly_rate: technician.hourly_rate || undefined,
-          notes: technician.notes || '',
+          notes: technician.notes || "",
         }
       : {
-          first_name: '',
-          last_name: '',
-          email: '',
-          phone: '',
-          employee_id: '',
+          first_name: "",
+          last_name: "",
+          email: "",
+          phone: "",
+          employee_id: "",
           is_active: true,
-          home_region: '',
-          home_address: '',
-          home_city: '',
-          home_state: '',
-          home_postal_code: '',
+          home_region: "",
+          home_address: "",
+          home_city: "",
+          home_state: "",
+          home_postal_code: "",
           home_latitude: undefined,
           home_longitude: undefined,
           skills: [],
-          assigned_vehicle: '',
+          assigned_vehicle: "",
           vehicle_capacity_gallons: undefined,
-          license_number: '',
-          license_expiry: '',
+          license_number: "",
+          license_expiry: "",
           hourly_rate: undefined,
-          notes: '',
+          notes: "",
         },
   });
 
-  const selectedSkills = watch('skills') || [];
+  const selectedSkills = watch("skills") || [];
 
   const handleSkillToggle = (skill: TechnicianSkill) => {
     const current = selectedSkills;
     const newSkills = current.includes(skill)
       ? current.filter((s) => s !== skill)
       : [...current, skill];
-    setValue('skills', newSkills, { shouldDirty: true });
+    setValue("skills", newSkills, { shouldDirty: true });
   };
 
   const handleClose = () => {
@@ -154,7 +152,7 @@ export function TechnicianForm({
     <Dialog open={open} onClose={handleClose} disableOverlayClose={isDirty}>
       <DialogContent size="lg">
         <DialogHeader onClose={handleClose}>
-          {isEdit ? 'Edit Technician' : 'Add New Technician'}
+          {isEdit ? "Edit Technician" : "Add New Technician"}
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -171,12 +169,14 @@ export function TechnicianForm({
                   </Label>
                   <Input
                     id="first_name"
-                    {...register('first_name')}
+                    {...register("first_name")}
                     error={!!errors.first_name}
                     placeholder="John"
                   />
                   {errors.first_name && (
-                    <p className="text-sm text-danger">{errors.first_name.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.first_name.message}
+                    </p>
                   )}
                 </div>
 
@@ -186,12 +186,14 @@ export function TechnicianForm({
                   </Label>
                   <Input
                     id="last_name"
-                    {...register('last_name')}
+                    {...register("last_name")}
                     error={!!errors.last_name}
                     placeholder="Doe"
                   />
                   {errors.last_name && (
-                    <p className="text-sm text-danger">{errors.last_name.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.last_name.message}
+                    </p>
                   )}
                 </div>
 
@@ -200,12 +202,14 @@ export function TechnicianForm({
                   <Input
                     id="email"
                     type="email"
-                    {...register('email')}
+                    {...register("email")}
                     error={!!errors.email}
                     placeholder="john@example.com"
                   />
                   {errors.email && (
-                    <p className="text-sm text-danger">{errors.email.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.email.message}
+                    </p>
                   )}
                 </div>
 
@@ -214,12 +218,14 @@ export function TechnicianForm({
                   <Input
                     id="phone"
                     type="tel"
-                    {...register('phone')}
+                    {...register("phone")}
                     error={!!errors.phone}
                     placeholder="(555) 123-4567"
                   />
                   {errors.phone && (
-                    <p className="text-sm text-danger">{errors.phone.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.phone.message}
+                    </p>
                   )}
                 </div>
 
@@ -227,7 +233,7 @@ export function TechnicianForm({
                   <Label htmlFor="employee_id">Employee ID</Label>
                   <Input
                     id="employee_id"
-                    {...register('employee_id')}
+                    {...register("employee_id")}
                     error={!!errors.employee_id}
                     placeholder="EMP001"
                   />
@@ -268,18 +274,20 @@ export function TechnicianForm({
                   <Label htmlFor="assigned_vehicle">Assigned Vehicle</Label>
                   <Input
                     id="assigned_vehicle"
-                    {...register('assigned_vehicle')}
+                    {...register("assigned_vehicle")}
                     placeholder="Truck #5"
                   />
                 </div>
 
                 <div className="space-y-2">
-                  <Label htmlFor="vehicle_capacity_gallons">Capacity (Gallons)</Label>
+                  <Label htmlFor="vehicle_capacity_gallons">
+                    Capacity (Gallons)
+                  </Label>
                   <Input
                     id="vehicle_capacity_gallons"
                     type="number"
                     min="0"
-                    {...register('vehicle_capacity_gallons')}
+                    {...register("vehicle_capacity_gallons")}
                     placeholder="2000"
                   />
                 </div>
@@ -296,7 +304,7 @@ export function TechnicianForm({
                   <Label htmlFor="license_number">License Number</Label>
                   <Input
                     id="license_number"
-                    {...register('license_number')}
+                    {...register("license_number")}
                     placeholder="LIC12345"
                   />
                 </div>
@@ -306,7 +314,7 @@ export function TechnicianForm({
                   <Input
                     id="license_expiry"
                     type="date"
-                    {...register('license_expiry')}
+                    {...register("license_expiry")}
                   />
                 </div>
 
@@ -317,7 +325,7 @@ export function TechnicianForm({
                     type="number"
                     min="0"
                     step="0.01"
-                    {...register('hourly_rate')}
+                    {...register("hourly_rate")}
                     placeholder="25.00"
                   />
                 </div>
@@ -332,7 +340,7 @@ export function TechnicianForm({
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="home_region">Region</Label>
-                  <Select id="home_region" {...register('home_region')}>
+                  <Select id="home_region" {...register("home_region")}>
                     <option value="">Select region...</option>
                     {REGION_OPTIONS.map((region) => (
                       <option key={region} value={region}>
@@ -346,7 +354,7 @@ export function TechnicianForm({
                   <Label htmlFor="home_address">Street Address</Label>
                   <Input
                     id="home_address"
-                    {...register('home_address')}
+                    {...register("home_address")}
                     placeholder="123 Main St"
                   />
                 </div>
@@ -355,7 +363,7 @@ export function TechnicianForm({
                   <Label htmlFor="home_city">City</Label>
                   <Input
                     id="home_city"
-                    {...register('home_city')}
+                    {...register("home_city")}
                     placeholder="Tampa"
                   />
                 </div>
@@ -365,12 +373,14 @@ export function TechnicianForm({
                     <Label htmlFor="home_state">State</Label>
                     <Input
                       id="home_state"
-                      {...register('home_state')}
+                      {...register("home_state")}
                       placeholder="FL"
                       maxLength={2}
                     />
                     {errors.home_state && (
-                      <p className="text-sm text-danger">{errors.home_state.message}</p>
+                      <p className="text-sm text-danger">
+                        {errors.home_state.message}
+                      </p>
                     )}
                   </div>
 
@@ -378,7 +388,7 @@ export function TechnicianForm({
                     <Label htmlFor="home_postal_code">ZIP Code</Label>
                     <Input
                       id="home_postal_code"
-                      {...register('home_postal_code')}
+                      {...register("home_postal_code")}
                       placeholder="33601"
                     />
                   </div>
@@ -395,7 +405,7 @@ export function TechnicianForm({
                 <Label htmlFor="notes">Notes</Label>
                 <Textarea
                   id="notes"
-                  {...register('notes')}
+                  {...register("notes")}
                   error={!!errors.notes}
                   placeholder="Additional notes about this technician..."
                   rows={4}
@@ -412,21 +422,32 @@ export function TechnicianForm({
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
                     type="checkbox"
-                    {...register('is_active')}
+                    {...register("is_active")}
                     className="w-4 h-4 rounded border-border text-primary focus:ring-2 focus:ring-primary/20"
                   />
-                  <span className="text-sm text-text-primary">Active Technician</span>
+                  <span className="text-sm text-text-primary">
+                    Active Technician
+                  </span>
                 </label>
               </div>
             </div>
           </DialogBody>
 
           <DialogFooter>
-            <Button type="button" variant="secondary" onClick={handleClose} disabled={isLoading}>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={handleClose}
+              disabled={isLoading}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Saving...' : isEdit ? 'Save Changes' : 'Create Technician'}
+              {isLoading
+                ? "Saving..."
+                : isEdit
+                  ? "Save Changes"
+                  : "Create Technician"}
             </Button>
           </DialogFooter>
         </form>

@@ -18,8 +18,9 @@ const PRODUCTION_URL = 'https://react.ecbtx.com';
 const BASE_URL = process.env.BASE_URL || PRODUCTION_URL;
 const API_URL = process.env.VITE_API_URL || 'https://react-crm-api-production.up.railway.app/api/v2';
 
-// All routes to audit
+// All routes to audit - comprehensive list from router config
 const ALL_ROUTES = [
+  // Main pages
   '/dashboard',
   '/prospects',
   '/customers',
@@ -37,8 +38,35 @@ const ALL_ROUTES = [
   '/integrations',
   '/users',
   '/admin',
-  '/intel',
-  '/settings',
+  // Operations
+  '/employee',
+  '/service-intervals',
+  '/compliance',
+  '/contracts',
+  '/timesheets',
+  '/predictive-maintenance',
+  // Communications
+  '/calls',
+  '/phone',
+  // Financial
+  '/payroll',
+  '/job-costing',
+  // Marketing
+  '/marketing',
+  '/marketing/ads',
+  '/marketing/reviews',
+  '/marketing/ai-content',
+  // Reports
+  '/reports/revenue',
+  '/reports/technicians',
+  '/reports/clv',
+  '/reports/service',
+  '/reports/location',
+  // Settings
+  '/notifications',
+  '/settings/notifications',
+  '/settings/sms',
+  '/admin/import',
 ];
 
 // Audit data structures
@@ -295,7 +323,7 @@ test.describe('Full Site Audit', () => {
       '/work-orders/',
       '/technicians/',
       '/invoices/',
-      '/dashboard/summary',
+      '/prospects/',
       '/ringcentral/status',
     ];
 

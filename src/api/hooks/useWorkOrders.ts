@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '../client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "../client.ts";
 import {
   workOrderListResponseSchema,
   workOrderSchema,
@@ -7,16 +7,17 @@ import {
   type WorkOrderListResponse,
   type WorkOrderFilters,
   type WorkOrderFormData,
-} from '../types/workOrder.ts';
+} from "../types/workOrder.ts";
 
 /**
  * Query keys for work orders
  */
 export const workOrderKeys = {
-  all: ['workOrders'] as const,
-  lists: () => [...workOrderKeys.all, 'list'] as const,
-  list: (filters: WorkOrderFilters) => [...workOrderKeys.lists(), filters] as const,
-  details: () => [...workOrderKeys.all, 'detail'] as const,
+  all: ["workOrders"] as const,
+  lists: () => [...workOrderKeys.all, "list"] as const,
+  list: (filters: WorkOrderFilters) =>
+    [...workOrderKeys.lists(), filters] as const,
+  details: () => [...workOrderKeys.all, "detail"] as const,
   detail: (id: string) => [...workOrderKeys.details(), id] as const,
 };
 
@@ -28,24 +29,33 @@ export function useWorkOrders(filters: WorkOrderFilters = {}) {
     queryKey: workOrderKeys.list(filters),
     queryFn: async (): Promise<WorkOrderListResponse> => {
       const params = new URLSearchParams();
-      if (filters.page) params.set('page', String(filters.page));
-      if (filters.page_size) params.set('page_size', String(filters.page_size));
-      if (filters.status) params.set('status', filters.status);
-      if (filters.scheduled_date) params.set('scheduled_date', filters.scheduled_date);
+      if (filters.page) params.set("page", String(filters.page));
+      if (filters.page_size) params.set("page_size", String(filters.page_size));
+      if (filters.status) params.set("status", filters.status);
+      if (filters.scheduled_date)
+        params.set("scheduled_date", filters.scheduled_date);
 
-      const url = '/work-orders?' + params.toString();
+      const url = "/work-orders?" + params.toString();
       const { data } = await apiClient.get(url);
 
       // Handle both array and paginated response
       if (Array.isArray(data)) {
-        return { items: data, total: data.length, page: 1, page_size: data.length };
+        return {
+          items: data,
+          total: data.length,
+          page: 1,
+          page_size: data.length,
+        };
       }
 
       // Validate response in development
       if (import.meta.env.DEV) {
         const result = workOrderListResponseSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Work order list response validation failed:', result.error);
+          console.warn(
+            "Work order list response validation failed:",
+            result.error,
+          );
         }
       }
 
@@ -62,12 +72,12 @@ export function useWorkOrder(id: string | undefined) {
   return useQuery({
     queryKey: workOrderKeys.detail(id!),
     queryFn: async (): Promise<WorkOrder> => {
-      const { data } = await apiClient.get('/work-orders/' + id);
+      const { data } = await apiClient.get("/work-orders/" + id);
 
       if (import.meta.env.DEV) {
         const result = workOrderSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Work order response validation failed:', result.error);
+          console.warn("Work order response validation failed:", result.error);
         }
       }
 
@@ -85,7 +95,7 @@ export function useCreateWorkOrder() {
 
   return useMutation({
     mutationFn: async (data: WorkOrderFormData): Promise<WorkOrder> => {
-      const response = await apiClient.post('/work-orders', data);
+      const response = await apiClient.post("/work-orders", data);
       return response.data;
     },
     onSuccess: () => {
@@ -108,11 +118,13 @@ export function useUpdateWorkOrder() {
       id: string;
       data: Partial<WorkOrderFormData>;
     }): Promise<WorkOrder> => {
-      const response = await apiClient.patch('/work-orders/' + id, data);
+      const response = await apiClient.patch("/work-orders/" + id, data);
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: workOrderKeys.detail(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: workOrderKeys.detail(variables.id),
+      });
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
     },
   });
@@ -126,14 +138,13 @@ export function useDeleteWorkOrder() {
 
   return useMutation({
     mutationFn: async (id: string): Promise<void> => {
-      await apiClient.delete('/work-orders/' + id);
+      await apiClient.delete("/work-orders/" + id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
     },
   });
 }
-
 
 // ============================================
 // Schedule-specific hooks
@@ -143,8 +154,8 @@ export function useDeleteWorkOrder() {
  * Query keys for schedule operations
  */
 export const scheduleKeys = {
-  unscheduled: () => [...workOrderKeys.all, 'unscheduled'] as const,
-  stats: () => [...workOrderKeys.all, 'stats'] as const,
+  unscheduled: () => [...workOrderKeys.all, "unscheduled"] as const,
+  stats: () => [...workOrderKeys.all, "stats"] as const,
 };
 
 /**
@@ -156,22 +167,29 @@ export function useUnscheduledWorkOrders() {
     queryFn: async (): Promise<WorkOrderListResponse> => {
       // Fetch draft and unscheduled work orders
       const params = new URLSearchParams({
-        page: '1',
-        page_size: '200',
-        status: 'draft',
+        page: "1",
+        page_size: "200",
+        status: "draft",
       });
 
-      const { data } = await apiClient.get('/work-orders?' + params.toString());
+      const { data } = await apiClient.get("/work-orders?" + params.toString());
 
       // Handle both array and paginated response
       if (Array.isArray(data)) {
         // Filter to only unscheduled (no date)
         const unscheduled = data.filter((wo: WorkOrder) => !wo.scheduled_date);
-        return { items: unscheduled, total: unscheduled.length, page: 1, page_size: 200 };
+        return {
+          items: unscheduled,
+          total: unscheduled.length,
+          page: 1,
+          page_size: 200,
+        };
       }
 
       // Filter paginated items
-      const unscheduled = (data.items || []).filter((wo: WorkOrder) => !wo.scheduled_date);
+      const unscheduled = (data.items || []).filter(
+        (wo: WorkOrder) => !wo.scheduled_date,
+      );
       return { ...data, items: unscheduled, total: unscheduled.length };
     },
     staleTime: 30_000,
@@ -206,20 +224,22 @@ export function useAssignWorkOrder() {
         updateData.scheduled_date = date || undefined;
         // Auto-set status to scheduled if date is set
         if (date) {
-          updateData.status = 'scheduled';
+          updateData.status = "scheduled";
         }
       }
       if (timeStart !== undefined) {
         updateData.time_window_start = timeStart || undefined;
       }
 
-      const response = await apiClient.patch('/work-orders/' + id, updateData);
+      const response = await apiClient.patch("/work-orders/" + id, updateData);
       return response.data;
     },
     onSuccess: (_, variables) => {
       // Invalidate all work order queries to refresh views
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
-      queryClient.invalidateQueries({ queryKey: workOrderKeys.detail(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: workOrderKeys.detail(variables.id),
+      });
       queryClient.invalidateQueries({ queryKey: scheduleKeys.unscheduled() });
     },
   });
@@ -239,12 +259,14 @@ export function useUpdateWorkOrderStatus() {
       id: string;
       status: string;
     }): Promise<WorkOrder> => {
-      const response = await apiClient.patch('/work-orders/' + id, { status });
+      const response = await apiClient.patch("/work-orders/" + id, { status });
       return response.data;
     },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
-      queryClient.invalidateQueries({ queryKey: workOrderKeys.detail(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: workOrderKeys.detail(variables.id),
+      });
       queryClient.invalidateQueries({ queryKey: scheduleKeys.unscheduled() });
     },
   });
@@ -259,11 +281,11 @@ export function useUnscheduleWorkOrder() {
 
   return useMutation({
     mutationFn: async (id: string): Promise<WorkOrder> => {
-      const response = await apiClient.patch('/work-orders/' + id, {
+      const response = await apiClient.patch("/work-orders/" + id, {
         scheduled_date: null,
         assigned_technician: null,
         time_window_start: null,
-        status: 'draft',
+        status: "draft",
       });
       return response.data;
     },
@@ -291,14 +313,16 @@ export function useUpdateWorkOrderDuration() {
       id: string;
       durationHours: number;
     }): Promise<WorkOrder> => {
-      const response = await apiClient.patch('/work-orders/' + id, {
+      const response = await apiClient.patch("/work-orders/" + id, {
         estimated_duration_hours: durationHours,
       });
       return response.data;
     },
     onSuccess: (_, variables) => {
       queryClient.invalidateQueries({ queryKey: workOrderKeys.lists() });
-      queryClient.invalidateQueries({ queryKey: workOrderKeys.detail(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: workOrderKeys.detail(variables.id),
+      });
     },
   });
 }
@@ -308,9 +332,13 @@ export function useUpdateWorkOrderDuration() {
  * Computes stats from work orders data
  */
 export function useScheduleStats() {
-  const today = new Date().toISOString().split('T')[0];
+  const today = new Date().toISOString().split("T")[0];
   const weekStart = new Date();
-  weekStart.setDate(weekStart.getDate() - weekStart.getDay() + (weekStart.getDay() === 0 ? -6 : 1));
+  weekStart.setDate(
+    weekStart.getDate() -
+      weekStart.getDay() +
+      (weekStart.getDay() === 0 ? -6 : 1),
+  );
   const weekEnd = new Date(weekStart);
   weekEnd.setDate(weekEnd.getDate() + 6);
 
@@ -340,12 +368,12 @@ export function useScheduleStats() {
       }
 
       // Unscheduled (draft without date)
-      if (wo.status === 'draft' && !wo.scheduled_date) {
+      if (wo.status === "draft" && !wo.scheduled_date) {
         stats.unscheduledJobs++;
       }
 
       // Emergency priority
-      if (wo.priority === 'emergency') {
+      if (wo.priority === "emergency") {
         stats.emergencyJobs++;
       }
     });

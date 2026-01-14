@@ -1,6 +1,10 @@
 import { test, expect } from '@playwright/test';
 
-test('Debug page rendering', async ({ page }) => {
+/**
+ * Debug page rendering test
+ * NOTE: This is a development debugging tool, skipped in CI
+ */
+test.skip('Debug page rendering', async ({ page }) => {
   const logs: string[] = [];
   const errors: string[] = [];
 

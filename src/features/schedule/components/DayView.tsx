@@ -1,9 +1,12 @@
-import { useMemo, useState, useRef, useCallback, useEffect } from 'react';
-import { useDroppable, useDraggable } from '@dnd-kit/core';
-import { CSS } from '@dnd-kit/utilities';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { useWorkOrders, useUpdateWorkOrderDuration } from '@/api/hooks/useWorkOrders.ts';
-import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
+import { useMemo, useState, useRef, useCallback, useEffect } from "react";
+import { useDroppable, useDraggable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
+import { Badge } from "@/components/ui/Badge.tsx";
+import {
+  useWorkOrders,
+  useUpdateWorkOrderDuration,
+} from "@/api/hooks/useWorkOrders.ts";
+import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
 import {
   type WorkOrder,
   type WorkOrderStatus,
@@ -11,14 +14,14 @@ import {
   type Priority,
   WORK_ORDER_STATUS_LABELS,
   JOB_TYPE_LABELS,
-} from '@/api/types/workOrder.ts';
+} from "@/api/types/workOrder.ts";
 import {
   formatDateKey,
   generateTimeSlots,
   SCHEDULE_CONFIG,
   type DropTargetData,
-} from '@/api/types/schedule.ts';
-import { useScheduleStore } from '../store/scheduleStore.ts';
+} from "@/api/types/schedule.ts";
+import { useScheduleStore } from "../store/scheduleStore.ts";
 
 /** Height of one hour slot in pixels */
 const HOUR_HEIGHT = 64;
@@ -34,32 +37,34 @@ const MAX_DURATION = 8;
  */
 function getPriorityBgColor(priority: Priority): string {
   switch (priority) {
-    case 'emergency':
-      return 'bg-red-100 border-red-400';
-    case 'urgent':
-      return 'bg-orange-100 border-orange-400';
-    case 'high':
-      return 'bg-yellow-100 border-yellow-400';
+    case "emergency":
+      return "bg-red-100 border-red-400";
+    case "urgent":
+      return "bg-orange-100 border-orange-400";
+    case "high":
+      return "bg-yellow-100 border-yellow-400";
     default:
-      return 'bg-blue-100 border-blue-400';
+      return "bg-blue-100 border-blue-400";
   }
 }
 
 /**
  * Get status badge variant
  */
-function getStatusVariant(status: WorkOrderStatus): 'default' | 'success' | 'warning' | 'danger' {
+function getStatusVariant(
+  status: WorkOrderStatus,
+): "default" | "success" | "warning" | "danger" {
   switch (status) {
-    case 'completed':
-      return 'success';
-    case 'canceled':
-      return 'danger';
-    case 'enroute':
-    case 'on_site':
-    case 'in_progress':
-      return 'warning';
+    case "completed":
+      return "success";
+    case "canceled":
+      return "danger";
+    case "enroute":
+    case "on_site":
+    case "in_progress":
+      return "warning";
     default:
-      return 'default';
+      return "default";
   }
 }
 
@@ -73,33 +78,43 @@ function DraggableWorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
   const startY = useRef(0);
   const startDuration = useRef(0);
 
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: `scheduled-${workOrder.id}`,
-    data: {
-      workOrder,
-      isScheduled: true,
-      originalDate: workOrder.scheduled_date,
-      originalTechnician: workOrder.assigned_technician,
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: `scheduled-${workOrder.id}`,
+      data: {
+        workOrder,
+        isScheduled: true,
+        originalDate: workOrder.scheduled_date,
+        originalTechnician: workOrder.assigned_technician,
+      },
+      disabled: isResizing,
+    });
+
+  const handleResizeStart = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      e.preventDefault();
+      setIsResizing(true);
+      startY.current = e.clientY;
+      startDuration.current = workOrder.estimated_duration_hours || 1;
+      setResizeDuration(startDuration.current);
     },
-    disabled: isResizing,
-  });
+    [workOrder.estimated_duration_hours],
+  );
 
-  const handleResizeStart = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-    setIsResizing(true);
-    startY.current = e.clientY;
-    startDuration.current = workOrder.estimated_duration_hours || 1;
-    setResizeDuration(startDuration.current);
-  }, [workOrder.estimated_duration_hours]);
-
-  const handleResizeMove = useCallback((e: MouseEvent) => {
-    if (!isResizing) return;
-    const deltaY = e.clientY - startY.current;
-    const deltaHours = deltaY / HOUR_HEIGHT;
-    const newDuration = Math.max(MIN_DURATION, Math.min(MAX_DURATION, startDuration.current + deltaHours));
-    setResizeDuration(Math.round(newDuration * 2) / 2); // Round to nearest 0.5
-  }, [isResizing]);
+  const handleResizeMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isResizing) return;
+      const deltaY = e.clientY - startY.current;
+      const deltaHours = deltaY / HOUR_HEIGHT;
+      const newDuration = Math.max(
+        MIN_DURATION,
+        Math.min(MAX_DURATION, startDuration.current + deltaHours),
+      );
+      setResizeDuration(Math.round(newDuration * 2) / 2); // Round to nearest 0.5
+    },
+    [isResizing],
+  );
 
   const handleResizeEnd = useCallback(() => {
     if (!isResizing || resizeDuration === null) return;
@@ -113,16 +128,22 @@ function DraggableWorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
       });
     }
     setResizeDuration(null);
-  }, [isResizing, resizeDuration, workOrder.id, workOrder.estimated_duration_hours, updateDuration]);
+  }, [
+    isResizing,
+    resizeDuration,
+    workOrder.id,
+    workOrder.estimated_duration_hours,
+    updateDuration,
+  ]);
 
   // Add global mouse listeners when resizing
   useEffect(() => {
     if (isResizing) {
-      document.addEventListener('mousemove', handleResizeMove);
-      document.addEventListener('mouseup', handleResizeEnd);
+      document.addEventListener("mousemove", handleResizeMove);
+      document.addEventListener("mouseup", handleResizeEnd);
       return () => {
-        document.removeEventListener('mousemove', handleResizeMove);
-        document.removeEventListener('mouseup', handleResizeEnd);
+        document.removeEventListener("mousemove", handleResizeMove);
+        document.removeEventListener("mouseup", handleResizeEnd);
       };
     }
   }, [isResizing, handleResizeMove, handleResizeEnd]);
@@ -132,7 +153,8 @@ function DraggableWorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
     opacity: isDragging ? 0.5 : 1,
   };
 
-  const displayDuration = resizeDuration ?? (workOrder.estimated_duration_hours || 1);
+  const displayDuration =
+    resizeDuration ?? (workOrder.estimated_duration_hours || 1);
 
   return (
     <div
@@ -140,7 +162,7 @@ function DraggableWorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
       style={{
         ...style,
         height: `${displayDuration * HOUR_HEIGHT - 8}px`,
-        minHeight: '56px',
+        minHeight: "56px",
       }}
       {...attributes}
       {...(isResizing ? {} : listeners)}
@@ -148,10 +170,10 @@ function DraggableWorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
       className={`
         absolute inset-1 rounded border-l-4 p-1.5 overflow-hidden
         hover:shadow-md transition-shadow
-        ${isResizing ? 'cursor-ns-resize' : 'cursor-grab active:cursor-grabbing'}
+        ${isResizing ? "cursor-ns-resize" : "cursor-grab active:cursor-grabbing"}
         ${getPriorityBgColor(workOrder.priority as Priority)}
-        ${isDragging ? 'shadow-lg ring-2 ring-primary z-50' : ''}
-        ${isResizing ? 'ring-2 ring-primary z-50' : ''}
+        ${isDragging ? "shadow-lg ring-2 ring-primary z-50" : ""}
+        ${isResizing ? "ring-2 ring-primary z-50" : ""}
       `}
     >
       <div className="flex items-start justify-between gap-1">
@@ -162,7 +184,10 @@ function DraggableWorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
           variant={getStatusVariant(workOrder.status as WorkOrderStatus)}
           className="text-[9px] px-1 py-0 shrink-0"
         >
-          {WORK_ORDER_STATUS_LABELS[workOrder.status as WorkOrderStatus]?.slice(0, 3)}
+          {WORK_ORDER_STATUS_LABELS[workOrder.status as WorkOrderStatus]?.slice(
+            0,
+            3,
+          )}
         </Badge>
       </div>
       <p className="text-[10px] text-text-secondary truncate">
@@ -217,7 +242,7 @@ function TimeSlotCell({
         ref={setNodeRef}
         className={`
           relative h-16 border-b border-r border-border
-          ${isLunchHour ? 'bg-gray-100' : ''}
+          ${isLunchHour ? "bg-gray-100" : ""}
         `}
       >
         <DraggableWorkOrderBlock workOrder={workOrder} />
@@ -231,8 +256,8 @@ function TimeSlotCell({
       ref={setNodeRef}
       className={`
         h-16 border-b border-r border-border transition-colors
-        ${isLunchHour ? 'bg-gray-100' : 'bg-white'}
-        ${isOver ? 'bg-primary/20 ring-2 ring-primary ring-inset' : ''}
+        ${isLunchHour ? "bg-gray-100" : "bg-white"}
+        ${isOver ? "bg-primary/20 ring-2 ring-primary ring-inset" : ""}
       `}
     >
       {isOver && (
@@ -252,7 +277,11 @@ export function DayView() {
   const dateKey = formatDateKey(currentDate);
 
   // Fetch data
-  const { data: workOrdersData, isLoading, isError } = useWorkOrders({
+  const {
+    data: workOrdersData,
+    isLoading,
+    isError,
+  } = useWorkOrders({
     page: 1,
     page_size: 200,
   });
@@ -271,7 +300,7 @@ export function DayView() {
     let techs = techniciansData?.items || [];
     if (filters.technician) {
       techs = techs.filter(
-        (t) => `${t.first_name} ${t.last_name}` === filters.technician
+        (t) => `${t.first_name} ${t.last_name}` === filters.technician,
       );
     }
     return techs;
@@ -294,12 +323,13 @@ export function DayView() {
       if (!wo.assigned_technician) return;
 
       // Apply status filter
-      if (filters.statuses.length > 0 && !filters.statuses.includes(wo.status)) return;
+      if (filters.statuses.length > 0 && !filters.statuses.includes(wo.status))
+        return;
 
       // Parse hour from time_window_start
       let hour: number = SCHEDULE_CONFIG.WORK_HOURS.start;
       if (wo.time_window_start) {
-        const parsed = parseInt(wo.time_window_start.split(':')[0], 10);
+        const parsed = parseInt(wo.time_window_start.split(":")[0], 10);
         if (!isNaN(parsed)) hour = parsed;
       }
 
@@ -356,7 +386,9 @@ export function DayView() {
             <p className="font-medium text-sm text-text-primary">
               {tech.first_name} {tech.last_name}
             </p>
-            <p className="text-xs text-text-muted">{tech.phone || 'No phone'}</p>
+            <p className="text-xs text-text-muted">
+              {tech.phone || "No phone"}
+            </p>
           </div>
         ))}
       </div>
@@ -369,7 +401,7 @@ export function DayView() {
             <div
               className={`
                 w-20 shrink-0 p-2 border-r border-b border-border text-xs font-medium
-                ${slot.isLunchHour ? 'bg-gray-100 text-text-muted' : 'text-text-secondary'}
+                ${slot.isLunchHour ? "bg-gray-100 text-text-muted" : "text-text-secondary"}
               `}
             >
               {slot.label}

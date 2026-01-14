@@ -1,16 +1,16 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
-import { Badge } from '@/components/ui/Badge';
-import { PhotoCapture } from './PhotoCapture';
-import type { PhotoData } from './PhotoCapture';
-import { CustomerSignaturePad, TechnicianSignaturePad } from './SignaturePad';
-import { LocationCapture } from './LocationCapture';
-import type { LocationData } from './LocationCapture';
-import { InlineOfflineStatus } from './OfflineIndicator';
-import { formatDate } from '@/lib/utils';
-import type { WorkOrder } from '@/api/types/workOrder';
-import { JOB_TYPE_LABELS } from '@/api/types/workOrder';
+import { useState } from "react";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
+import { Badge } from "@/components/ui/Badge";
+import { PhotoCapture } from "./PhotoCapture";
+import type { PhotoData } from "./PhotoCapture";
+import { CustomerSignaturePad, TechnicianSignaturePad } from "./SignaturePad";
+import { LocationCapture } from "./LocationCapture";
+import type { LocationData } from "./LocationCapture";
+import { InlineOfflineStatus } from "./OfflineIndicator";
+import { formatDate } from "@/lib/utils";
+import type { WorkOrder } from "@/api/types/workOrder";
+import { JOB_TYPE_LABELS } from "@/api/types/workOrder";
 
 /**
  * Work order field data collected on mobile
@@ -33,15 +33,15 @@ export interface MobileWorkOrderData {
  * Workflow steps
  */
 type WorkflowStep =
-  | 'overview'
-  | 'navigate'
-  | 'arrive'
-  | 'before_photos'
-  | 'work'
-  | 'after_photos'
-  | 'customer_signature'
-  | 'technician_signature'
-  | 'complete';
+  | "overview"
+  | "navigate"
+  | "arrive"
+  | "before_photos"
+  | "work"
+  | "after_photos"
+  | "customer_signature"
+  | "technician_signature"
+  | "complete";
 
 interface MobileWorkOrderViewProps {
   workOrder: WorkOrder;
@@ -58,7 +58,7 @@ export function MobileWorkOrderView({
   onComplete,
   onCancel,
 }: MobileWorkOrderViewProps) {
-  const [currentStep, setCurrentStep] = useState<WorkflowStep>('overview');
+  const [currentStep, setCurrentStep] = useState<WorkflowStep>("overview");
   const [data, setData] = useState<MobileWorkOrderData>({
     work_order_id: workOrder.id,
     before_photos: [],
@@ -71,15 +71,15 @@ export function MobileWorkOrderView({
    */
   const getProgress = (): number => {
     const steps: WorkflowStep[] = [
-      'overview',
-      'navigate',
-      'arrive',
-      'before_photos',
-      'work',
-      'after_photos',
-      'customer_signature',
-      'technician_signature',
-      'complete',
+      "overview",
+      "navigate",
+      "arrive",
+      "before_photos",
+      "work",
+      "after_photos",
+      "customer_signature",
+      "technician_signature",
+      "complete",
     ];
     const currentIndex = steps.indexOf(currentStep);
     return Math.round((currentIndex / (steps.length - 1)) * 100);
@@ -90,15 +90,15 @@ export function MobileWorkOrderView({
    */
   const nextStep = () => {
     const stepFlow: Record<WorkflowStep, WorkflowStep> = {
-      overview: 'navigate',
-      navigate: 'arrive',
-      arrive: 'before_photos',
-      before_photos: 'work',
-      work: 'after_photos',
-      after_photos: 'customer_signature',
-      customer_signature: 'technician_signature',
-      technician_signature: 'complete',
-      complete: 'complete',
+      overview: "navigate",
+      navigate: "arrive",
+      arrive: "before_photos",
+      before_photos: "work",
+      work: "after_photos",
+      after_photos: "customer_signature",
+      customer_signature: "technician_signature",
+      technician_signature: "complete",
+      complete: "complete",
     };
     setCurrentStep(stepFlow[currentStep]);
   };
@@ -108,15 +108,15 @@ export function MobileWorkOrderView({
    */
   const prevStep = () => {
     const stepFlow: Record<WorkflowStep, WorkflowStep> = {
-      overview: 'overview',
-      navigate: 'overview',
-      arrive: 'navigate',
-      before_photos: 'arrive',
-      work: 'before_photos',
-      after_photos: 'work',
-      customer_signature: 'after_photos',
-      technician_signature: 'customer_signature',
-      complete: 'technician_signature',
+      overview: "overview",
+      navigate: "overview",
+      arrive: "navigate",
+      before_photos: "arrive",
+      work: "before_photos",
+      after_photos: "work",
+      customer_signature: "after_photos",
+      technician_signature: "customer_signature",
+      complete: "technician_signature",
     };
     setCurrentStep(stepFlow[currentStep]);
   };
@@ -140,7 +140,7 @@ export function MobileWorkOrderView({
    */
   const renderStep = () => {
     switch (currentStep) {
-      case 'overview':
+      case "overview":
         return (
           <div className="space-y-4">
             <Card className="p-4 space-y-3">
@@ -157,7 +157,11 @@ export function MobileWorkOrderView({
                   </p>
                 </div>
                 <Badge variant="default">
-                  {JOB_TYPE_LABELS[workOrder.job_type as keyof typeof JOB_TYPE_LABELS]}
+                  {
+                    JOB_TYPE_LABELS[
+                      workOrder.job_type as keyof typeof JOB_TYPE_LABELS
+                    ]
+                  }
                 </Badge>
               </div>
 
@@ -186,14 +190,17 @@ export function MobileWorkOrderView({
                   <div>
                     {workOrder.service_city}
                     {workOrder.service_state && `, ${workOrder.service_state}`}
-                    {workOrder.service_postal_code && ` ${workOrder.service_postal_code}`}
+                    {workOrder.service_postal_code &&
+                      ` ${workOrder.service_postal_code}`}
                   </div>
                 </div>
               )}
 
               {workOrder.notes && (
                 <div className="text-sm">
-                  <div className="text-text-secondary font-medium mb-1">Notes:</div>
+                  <div className="text-text-secondary font-medium mb-1">
+                    Notes:
+                  </div>
                   <div className="text-text-primary bg-bg-muted rounded p-2">
                     {workOrder.notes}
                   </div>
@@ -203,18 +210,24 @@ export function MobileWorkOrderView({
 
             <InlineOfflineStatus />
 
-            <Button variant="primary" onClick={nextStep} className="w-full h-12 text-lg">
+            <Button
+              variant="primary"
+              onClick={nextStep}
+              className="w-full h-12 text-lg"
+            >
               Start Work Order
             </Button>
           </div>
         );
 
-      case 'navigate':
+      case "navigate":
         return (
           <div className="space-y-4">
             <Card className="p-4 space-y-3">
-              <h3 className="text-lg font-medium text-text-primary">Navigate to Location</h3>
-              {(workOrder.service_latitude && workOrder.service_longitude) ? (
+              <h3 className="text-lg font-medium text-text-primary">
+                Navigate to Location
+              </h3>
+              {workOrder.service_latitude && workOrder.service_longitude ? (
                 <div className="space-y-3">
                   <p className="text-text-secondary text-sm">
                     Use GPS navigation to reach the work site
@@ -229,7 +242,8 @@ export function MobileWorkOrderView({
                       🗺️ Open in Google Maps
                     </Button>
                   </a>
-                  {(workOrder.service_address_line1 || workOrder.service_city) && (
+                  {(workOrder.service_address_line1 ||
+                    workOrder.service_city) && (
                     <div className="text-sm text-text-secondary bg-bg-muted rounded p-3">
                       <div>{workOrder.service_address_line1}</div>
                       {workOrder.service_address_line2 && (
@@ -237,7 +251,8 @@ export function MobileWorkOrderView({
                       )}
                       <div>
                         {workOrder.service_city}
-                        {workOrder.service_state && `, ${workOrder.service_state}`}
+                        {workOrder.service_state &&
+                          `, ${workOrder.service_state}`}
                       </div>
                     </div>
                   )}
@@ -247,7 +262,8 @@ export function MobileWorkOrderView({
                   <p className="text-text-secondary mb-4">
                     No GPS coordinates available for this location
                   </p>
-                  {(workOrder.service_address_line1 || workOrder.service_city) && (
+                  {(workOrder.service_address_line1 ||
+                    workOrder.service_city) && (
                     <div className="text-sm text-text-secondary bg-bg-muted rounded p-3 mb-4">
                       <div>{workOrder.service_address_line1}</div>
                       {workOrder.service_address_line2 && (
@@ -255,7 +271,8 @@ export function MobileWorkOrderView({
                       )}
                       <div>
                         {workOrder.service_city}
-                        {workOrder.service_state && `, ${workOrder.service_state}`}
+                        {workOrder.service_state &&
+                          `, ${workOrder.service_state}`}
                       </div>
                     </div>
                   )}
@@ -273,7 +290,7 @@ export function MobileWorkOrderView({
           </div>
         );
 
-      case 'arrive':
+      case "arrive":
         return (
           <div className="space-y-4">
             <Card className="p-4">
@@ -304,10 +321,12 @@ export function MobileWorkOrderView({
           </div>
         );
 
-      case 'before_photos':
+      case "before_photos":
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-medium text-text-primary">Before Photos</h3>
+            <h3 className="text-lg font-medium text-text-primary">
+              Before Photos
+            </h3>
             <p className="text-sm text-text-secondary">
               Take photos of the work site before starting (recommended)
             </p>
@@ -315,7 +334,10 @@ export function MobileWorkOrderView({
             {data.before_photos.length > 0 && (
               <div className="grid grid-cols-2 gap-2">
                 {data.before_photos.map((photo, index) => (
-                  <div key={index} className="relative aspect-square rounded-lg overflow-hidden">
+                  <div
+                    key={index}
+                    className="relative aspect-square rounded-lg overflow-hidden"
+                  >
                     <img
                       src={photo.image_data}
                       alt={`Before photo ${index + 1}`}
@@ -325,7 +347,9 @@ export function MobileWorkOrderView({
                       onClick={() => {
                         setData((prev) => ({
                           ...prev,
-                          before_photos: prev.before_photos.filter((_, i) => i !== index),
+                          before_photos: prev.before_photos.filter(
+                            (_, i) => i !== index,
+                          ),
                         }));
                       }}
                       className="absolute top-2 right-2 bg-danger text-white rounded-full w-6 h-6 flex items-center justify-center text-sm"
@@ -352,31 +376,41 @@ export function MobileWorkOrderView({
                 Back
               </Button>
               <Button variant="primary" onClick={nextStep} className="flex-1">
-                {data.before_photos.length > 0 ? 'Continue' : 'Skip Photos'}
+                {data.before_photos.length > 0 ? "Continue" : "Skip Photos"}
               </Button>
             </div>
           </div>
         );
 
-      case 'work':
+      case "work":
         return (
           <div className="space-y-4">
             <Card className="p-4 space-y-3">
-              <h3 className="text-lg font-medium text-text-primary">Complete Work</h3>
+              <h3 className="text-lg font-medium text-text-primary">
+                Complete Work
+              </h3>
               <p className="text-text-secondary">
                 Perform the service and complete any required tasks
               </p>
 
               <div className="bg-bg-muted rounded-lg p-3 text-sm">
-                <div className="font-medium text-text-primary mb-2">Service Type:</div>
+                <div className="font-medium text-text-primary mb-2">
+                  Service Type:
+                </div>
                 <div className="text-text-secondary">
-                  {JOB_TYPE_LABELS[workOrder.job_type as keyof typeof JOB_TYPE_LABELS]}
+                  {
+                    JOB_TYPE_LABELS[
+                      workOrder.job_type as keyof typeof JOB_TYPE_LABELS
+                    ]
+                  }
                 </div>
               </div>
 
               {workOrder.notes && (
                 <div className="bg-bg-muted rounded-lg p-3 text-sm">
-                  <div className="font-medium text-text-primary mb-2">Notes:</div>
+                  <div className="font-medium text-text-primary mb-2">
+                    Notes:
+                  </div>
                   <div className="text-text-secondary">{workOrder.notes}</div>
                 </div>
               )}
@@ -384,8 +418,10 @@ export function MobileWorkOrderView({
               <textarea
                 placeholder="Add work notes (optional)..."
                 className="w-full min-h-[100px] px-3 py-2 border border-border rounded-md text-sm"
-                value={data.notes || ''}
-                onChange={(e) => setData((prev) => ({ ...prev, notes: e.target.value }))}
+                value={data.notes || ""}
+                onChange={(e) =>
+                  setData((prev) => ({ ...prev, notes: e.target.value }))
+                }
               />
             </Card>
 
@@ -400,10 +436,12 @@ export function MobileWorkOrderView({
           </div>
         );
 
-      case 'after_photos':
+      case "after_photos":
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-medium text-text-primary">After Photos</h3>
+            <h3 className="text-lg font-medium text-text-primary">
+              After Photos
+            </h3>
             <p className="text-sm text-text-secondary">
               Take photos of the completed work (recommended)
             </p>
@@ -411,7 +449,10 @@ export function MobileWorkOrderView({
             {data.after_photos.length > 0 && (
               <div className="grid grid-cols-2 gap-2">
                 {data.after_photos.map((photo, index) => (
-                  <div key={index} className="relative aspect-square rounded-lg overflow-hidden">
+                  <div
+                    key={index}
+                    className="relative aspect-square rounded-lg overflow-hidden"
+                  >
                     <img
                       src={photo.image_data}
                       alt={`After photo ${index + 1}`}
@@ -421,7 +462,9 @@ export function MobileWorkOrderView({
                       onClick={() => {
                         setData((prev) => ({
                           ...prev,
-                          after_photos: prev.after_photos.filter((_, i) => i !== index),
+                          after_photos: prev.after_photos.filter(
+                            (_, i) => i !== index,
+                          ),
                         }));
                       }}
                       className="absolute top-2 right-2 bg-danger text-white rounded-full w-6 h-6 flex items-center justify-center text-sm"
@@ -448,16 +491,18 @@ export function MobileWorkOrderView({
                 Back
               </Button>
               <Button variant="primary" onClick={nextStep} className="flex-1">
-                {data.after_photos.length > 0 ? 'Continue' : 'Skip Photos'}
+                {data.after_photos.length > 0 ? "Continue" : "Skip Photos"}
               </Button>
             </div>
           </div>
         );
 
-      case 'customer_signature':
+      case "customer_signature":
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-medium text-text-primary">Customer Signature</h3>
+            <h3 className="text-lg font-medium text-text-primary">
+              Customer Signature
+            </h3>
             <p className="text-sm text-text-secondary">
               Get customer signature to confirm work completion
             </p>
@@ -473,7 +518,12 @@ export function MobileWorkOrderView({
                 </div>
                 <Button
                   variant="secondary"
-                  onClick={() => setData((prev) => ({ ...prev, customer_signature: undefined }))}
+                  onClick={() =>
+                    setData((prev) => ({
+                      ...prev,
+                      customer_signature: undefined,
+                    }))
+                  }
                   className="w-full"
                 >
                   Clear Signature
@@ -482,7 +532,10 @@ export function MobileWorkOrderView({
             ) : (
               <CustomerSignaturePad
                 onSave={(signature) => {
-                  setData((prev) => ({ ...prev, customer_signature: signature }));
+                  setData((prev) => ({
+                    ...prev,
+                    customer_signature: signature,
+                  }));
                 }}
               />
             )}
@@ -503,10 +556,12 @@ export function MobileWorkOrderView({
           </div>
         );
 
-      case 'technician_signature':
+      case "technician_signature":
         return (
           <div className="space-y-4">
-            <h3 className="text-lg font-medium text-text-primary">Technician Signature</h3>
+            <h3 className="text-lg font-medium text-text-primary">
+              Technician Signature
+            </h3>
             <p className="text-sm text-text-secondary">
               Sign to confirm work completion
             </p>
@@ -523,7 +578,10 @@ export function MobileWorkOrderView({
                 <Button
                   variant="secondary"
                   onClick={() =>
-                    setData((prev) => ({ ...prev, technician_signature: undefined }))
+                    setData((prev) => ({
+                      ...prev,
+                      technician_signature: undefined,
+                    }))
                   }
                   className="w-full"
                 >
@@ -558,7 +616,7 @@ export function MobileWorkOrderView({
           </div>
         );
 
-      case 'complete':
+      case "complete":
         return (
           <div className="space-y-4">
             <Card className="p-4 space-y-4">
@@ -575,19 +633,31 @@ export function MobileWorkOrderView({
               <div className="space-y-3 text-sm">
                 <div className="flex justify-between py-2 border-b border-border">
                   <span className="text-text-secondary">Before Photos:</span>
-                  <span className="font-medium">{data.before_photos.length}</span>
+                  <span className="font-medium">
+                    {data.before_photos.length}
+                  </span>
                 </div>
                 <div className="flex justify-between py-2 border-b border-border">
                   <span className="text-text-secondary">After Photos:</span>
-                  <span className="font-medium">{data.after_photos.length}</span>
+                  <span className="font-medium">
+                    {data.after_photos.length}
+                  </span>
                 </div>
                 <div className="flex justify-between py-2 border-b border-border">
-                  <span className="text-text-secondary">Customer Signature:</span>
-                  <span className="font-medium">{data.customer_signature ? '✓' : '✗'}</span>
+                  <span className="text-text-secondary">
+                    Customer Signature:
+                  </span>
+                  <span className="font-medium">
+                    {data.customer_signature ? "✓" : "✗"}
+                  </span>
                 </div>
                 <div className="flex justify-between py-2 border-b border-border">
-                  <span className="text-text-secondary">Technician Signature:</span>
-                  <span className="font-medium">{data.technician_signature ? '✓' : '✗'}</span>
+                  <span className="text-text-secondary">
+                    Technician Signature:
+                  </span>
+                  <span className="font-medium">
+                    {data.technician_signature ? "✓" : "✗"}
+                  </span>
                 </div>
                 {data.notes && (
                   <div className="py-2">
@@ -604,7 +674,11 @@ export function MobileWorkOrderView({
               <Button variant="secondary" onClick={prevStep} className="flex-1">
                 Back
               </Button>
-              <Button variant="primary" onClick={handleComplete} className="flex-1 h-12 text-lg">
+              <Button
+                variant="primary"
+                onClick={handleComplete}
+                className="flex-1 h-12 text-lg"
+              >
                 Submit Work Order
               </Button>
             </div>
@@ -635,7 +709,10 @@ export function MobileWorkOrderView({
           {/* Progress bar */}
           <div className="space-y-1">
             <div className="flex justify-between text-xs text-text-secondary">
-              <span>Step {getProgress() === 0 ? 1 : Math.ceil(getProgress() / 12.5)}/8</span>
+              <span>
+                Step {getProgress() === 0 ? 1 : Math.ceil(getProgress() / 12.5)}
+                /8
+              </span>
               <span>{getProgress()}%</span>
             </div>
             <div className="h-2 bg-bg-muted rounded-full overflow-hidden">
@@ -649,9 +726,7 @@ export function MobileWorkOrderView({
       </div>
 
       {/* Content */}
-      <div className="p-4">
-        {renderStep()}
-      </div>
+      <div className="p-4">{renderStep()}</div>
     </div>
   );
 }

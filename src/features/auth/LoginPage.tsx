@@ -1,27 +1,42 @@
-import { useState, useEffect } from 'react';
-import { useNavigate, useSearchParams } from 'react-router-dom';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { z } from 'zod';
-import { useQueryClient } from '@tanstack/react-query';
-import { apiClient, getErrorMessage, setAuthToken, hasAuthToken } from '@/api/client.ts';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
+import { useState, useEffect } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { z } from "zod";
+import { useQueryClient } from "@tanstack/react-query";
+import { apiClient, getErrorMessage, hasAuthToken } from "@/api/client.ts";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import {
+  markSessionValidated,
+  sanitizeRedirectUrl,
+  cleanupLegacyAuth,
+} from "@/lib/security";
 
 /**
  * Login form validation schema
  */
 const loginSchema = z.object({
-  email: z.string().email('Please enter a valid email'),
-  password: z.string().min(1, 'Password is required'),
+  email: z.string().email("Please enter a valid email"),
+  password: z.string().min(1, "Password is required"),
 });
 
 type LoginFormData = z.infer<typeof loginSchema>;
 
 /**
  * Login page - handles user authentication
+ *
+ * SECURITY:
+ * - Supports both cookie auth (preferred) and token auth (migration)
+ * - Sanitizes redirect URLs to prevent open redirect attacks
+ * - Cleans up legacy tokens on successful cookie auth
  */
 export function LoginPage() {
   const navigate = useNavigate();
@@ -31,8 +46,9 @@ export function LoginPage() {
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
-  // Get return URL from query params (standalone mode - no /app prefix)
-  const returnUrl = searchParams.get('return') || '/dashboard';
+  // SECURITY: Sanitize return URL to prevent open redirect
+  const rawReturnUrl = searchParams.get("return") || "/dashboard";
+  const returnUrl = sanitizeRedirectUrl(rawReturnUrl);
 
   const {
     register,
@@ -42,21 +58,24 @@ export function LoginPage() {
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(loginSchema) as any,
     defaultValues: {
-      email: '',
-      password: '',
+      email: "",
+      password: "",
     },
   });
 
-  // Check if already logged in (has valid token)
+  // Check if already logged in (has valid session/token)
   useEffect(() => {
     if (hasAuthToken()) {
       const checkAuth = async () => {
         try {
-          await apiClient.get('/auth/me');
-          // Token is valid, redirect
-          navigate(returnUrl, { replace: true });
+          const { data } = await apiClient.get("/auth/me");
+          if (data?.user) {
+            // Session is valid, update state and redirect
+            markSessionValidated(data.user.id);
+            navigate(returnUrl, { replace: true });
+          }
         } catch {
-          // Token is invalid, stay on login
+          // Session is invalid, stay on login
         }
       };
       checkAuth();
@@ -68,18 +87,25 @@ export function LoginPage() {
     setError(null);
 
     try {
-      const response = await apiClient.post('/auth/login', {
+      const response = await apiClient.post("/auth/login", {
         email: data.email,
         password: data.password,
       });
 
-      // If login successful, store JWT token and redirect
-      if (response.data?.token) {
-        setAuthToken(response.data.token);
+      // SECURITY: Handle different auth responses
+      // Priority: cookie auth (HTTP-only) > token auth (legacy)
+      if (response.data?.user) {
+        // Cookie-based auth (preferred) - backend sets HTTP-only cookie
+        // Mark session as valid and clean up any legacy tokens
+        markSessionValidated(response.data.user.id);
+        cleanupLegacyAuth();
         queryClient.clear();
         navigate(returnUrl, { replace: true });
-      } else if (response.data?.user) {
-        // Fallback for session-based auth during transition
+      } else if (response.data?.token) {
+        // SECURITY: Backend sets HTTP-only cookie, no need to store token in localStorage
+        // Clean up any legacy tokens that might exist
+        cleanupLegacyAuth();
+        markSessionValidated();
         queryClient.clear();
         navigate(returnUrl, { replace: true });
       }
@@ -98,7 +124,9 @@ export function LoginPage() {
           <div className="flex items-center justify-center gap-2 mb-4">
             <span className="text-4xl">🚽</span>
           </div>
-          <h1 className="text-2xl font-bold text-mac-dark-blue">MAC Septic CRM</h1>
+          <h1 className="text-2xl font-bold text-mac-dark-blue">
+            MAC Septic CRM
+          </h1>
           <p className="text-text-secondary mt-2">Sign in to your account</p>
         </div>
 
@@ -123,7 +151,7 @@ export function LoginPage() {
                   type="email"
                   autoComplete="email"
                   placeholder="you@example.com"
-                  {...register('email')}
+                  {...register("email")}
                   error={!!errors.email}
                   disabled={isLoading}
                 />
@@ -140,28 +168,26 @@ export function LoginPage() {
                   type="password"
                   autoComplete="current-password"
                   placeholder="Enter your password"
-                  {...register('password')}
+                  {...register("password")}
                   error={!!errors.password}
                   disabled={isLoading}
                 />
                 {errors.password && (
-                  <p className="text-sm text-danger">{errors.password.message}</p>
+                  <p className="text-sm text-danger">
+                    {errors.password.message}
+                  </p>
                 )}
               </div>
 
               {/* Submit Button */}
-              <Button
-                type="submit"
-                className="w-full"
-                disabled={isLoading}
-              >
+              <Button type="submit" className="w-full" disabled={isLoading}>
                 {isLoading ? (
                   <span className="flex items-center justify-center gap-2">
                     <span className="h-4 w-4 animate-spin rounded-full border-2 border-white border-t-transparent" />
                     Signing in...
                   </span>
                 ) : (
-                  'Sign In'
+                  "Sign In"
                 )}
               </Button>
             </form>

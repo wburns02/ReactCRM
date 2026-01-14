@@ -1,34 +1,44 @@
-import { useMemo, useState, useRef, useCallback, useEffect } from 'react';
-import { useDroppable, useDraggable } from '@dnd-kit/core';
-import { CSS } from '@dnd-kit/utilities';
-import { format, startOfWeek, addDays, addHours, isSameDay, parseISO } from 'date-fns';
-import { useWorkOrders, useUpdateWorkOrderDuration } from '@/api/hooks/useWorkOrders.ts';
-import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
-import { useScheduleStore } from '../store/scheduleStore.ts';
+import { useMemo, useState, useRef, useCallback, useEffect } from "react";
+import { useDroppable, useDraggable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
+import {
+  format,
+  startOfWeek,
+  addDays,
+  addHours,
+  isSameDay,
+  parseISO,
+} from "date-fns";
+import {
+  useWorkOrders,
+  useUpdateWorkOrderDuration,
+} from "@/api/hooks/useWorkOrders.ts";
+import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
+import { useScheduleStore } from "../store/scheduleStore.ts";
 import {
   type WorkOrder,
   type Priority,
   type JobType,
   JOB_TYPE_LABELS,
-} from '@/api/types/workOrder.ts';
+} from "@/api/types/workOrder.ts";
 
 /**
  * Priority color mapping
  */
 const PRIORITY_COLORS: Record<Priority, string> = {
-  emergency: 'bg-red-500 border-red-600',
-  urgent: 'bg-orange-500 border-orange-600',
-  high: 'bg-yellow-500 border-yellow-600',
-  normal: 'bg-blue-500 border-blue-600',
-  low: 'bg-gray-400 border-gray-500',
+  emergency: "bg-red-500 border-red-600",
+  urgent: "bg-orange-500 border-orange-600",
+  high: "bg-yellow-500 border-yellow-600",
+  normal: "bg-blue-500 border-blue-600",
+  low: "bg-gray-400 border-gray-500",
 };
 
 const PRIORITY_BG_COLORS: Record<Priority, string> = {
-  emergency: 'bg-red-100',
-  urgent: 'bg-orange-100',
-  high: 'bg-yellow-100',
-  normal: 'bg-blue-100',
-  low: 'bg-gray-100',
+  emergency: "bg-red-100",
+  urgent: "bg-orange-100",
+  high: "bg-yellow-100",
+  normal: "bg-blue-100",
+  low: "bg-gray-100",
 };
 
 /** Width of one hour slot in pixels */
@@ -54,11 +64,17 @@ interface TechnicianHeaderProps {
   totalHours: number;
 }
 
-function TechnicianHeader({ technician, workOrderCount, totalHours }: TechnicianHeaderProps) {
+function TechnicianHeader({
+  technician,
+  workOrderCount,
+  totalHours,
+}: TechnicianHeaderProps) {
   return (
     <div className="sticky left-0 z-10 bg-bg-card border-r border-border p-3 min-w-[180px]">
       <div className="flex items-center gap-2">
-        <div className={`w-3 h-3 rounded-full ${technician.is_active ? 'bg-green-500' : 'bg-gray-400'}`} />
+        <div
+          className={`w-3 h-3 rounded-full ${technician.is_active ? "bg-green-500" : "bg-gray-400"}`}
+        />
         <span className="font-medium text-sm text-text-primary truncate">
           {technician.first_name} {technician.last_name}
         </span>
@@ -81,14 +97,19 @@ interface TimeSlotCellProps {
   workOrders: WorkOrder[];
 }
 
-function TimeSlotCell({ technicianId, date, hour, workOrders }: TimeSlotCellProps) {
-  const cellId = `${technicianId}-${format(date, 'yyyy-MM-dd')}-${hour}`;
+function TimeSlotCell({
+  technicianId,
+  date,
+  hour,
+  workOrders,
+}: TimeSlotCellProps) {
+  const cellId = `${technicianId}-${format(date, "yyyy-MM-dd")}-${hour}`;
 
   const { setNodeRef, isOver } = useDroppable({
     id: cellId,
     data: {
       technicianId,
-      date: format(date, 'yyyy-MM-dd'),
+      date: format(date, "yyyy-MM-dd"),
       hour,
     },
   });
@@ -99,8 +120,8 @@ function TimeSlotCell({ technicianId, date, hour, workOrders }: TimeSlotCellProp
       className={`
         min-h-[60px] border-r border-b border-border p-1
         transition-colors
-        ${isOver ? 'bg-primary/20 ring-2 ring-primary ring-inset' : 'hover:bg-bg-hover'}
-        ${hour === 12 ? 'border-r-2 border-r-border' : ''}
+        ${isOver ? "bg-primary/20 ring-2 ring-primary ring-inset" : "hover:bg-bg-hover"}
+        ${hour === 12 ? "border-r-2 border-r-border" : ""}
       `}
     >
       {workOrders.map((wo) => (
@@ -120,33 +141,43 @@ function WorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
   const startX = useRef(0);
   const startDuration = useRef(0);
 
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: `scheduled-${workOrder.id}`,
-    data: {
-      workOrder,
-      isScheduled: true,
-      originalDate: workOrder.scheduled_date,
-      originalTechnician: workOrder.assigned_technician,
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: `scheduled-${workOrder.id}`,
+      data: {
+        workOrder,
+        isScheduled: true,
+        originalDate: workOrder.scheduled_date,
+        originalTechnician: workOrder.assigned_technician,
+      },
+      disabled: isResizing,
+    });
+
+  const handleResizeStart = useCallback(
+    (e: React.MouseEvent) => {
+      e.stopPropagation();
+      e.preventDefault();
+      setIsResizing(true);
+      startX.current = e.clientX;
+      startDuration.current = workOrder.estimated_duration_hours || 1;
+      setResizeDuration(startDuration.current);
     },
-    disabled: isResizing,
-  });
+    [workOrder.estimated_duration_hours],
+  );
 
-  const handleResizeStart = useCallback((e: React.MouseEvent) => {
-    e.stopPropagation();
-    e.preventDefault();
-    setIsResizing(true);
-    startX.current = e.clientX;
-    startDuration.current = workOrder.estimated_duration_hours || 1;
-    setResizeDuration(startDuration.current);
-  }, [workOrder.estimated_duration_hours]);
-
-  const handleResizeMove = useCallback((e: MouseEvent) => {
-    if (!isResizing) return;
-    const deltaX = e.clientX - startX.current;
-    const deltaHours = deltaX / HOUR_WIDTH;
-    const newDuration = Math.max(MIN_DURATION, Math.min(MAX_DURATION, startDuration.current + deltaHours));
-    setResizeDuration(Math.round(newDuration * 2) / 2); // Round to nearest 0.5
-  }, [isResizing]);
+  const handleResizeMove = useCallback(
+    (e: MouseEvent) => {
+      if (!isResizing) return;
+      const deltaX = e.clientX - startX.current;
+      const deltaHours = deltaX / HOUR_WIDTH;
+      const newDuration = Math.max(
+        MIN_DURATION,
+        Math.min(MAX_DURATION, startDuration.current + deltaHours),
+      );
+      setResizeDuration(Math.round(newDuration * 2) / 2); // Round to nearest 0.5
+    },
+    [isResizing],
+  );
 
   const handleResizeEnd = useCallback(() => {
     if (!isResizing || resizeDuration === null) return;
@@ -160,22 +191,29 @@ function WorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
       });
     }
     setResizeDuration(null);
-  }, [isResizing, resizeDuration, workOrder.id, workOrder.estimated_duration_hours, updateDuration]);
+  }, [
+    isResizing,
+    resizeDuration,
+    workOrder.id,
+    workOrder.estimated_duration_hours,
+    updateDuration,
+  ]);
 
   // Add global mouse listeners when resizing
   useEffect(() => {
     if (isResizing) {
-      document.addEventListener('mousemove', handleResizeMove);
-      document.addEventListener('mouseup', handleResizeEnd);
+      document.addEventListener("mousemove", handleResizeMove);
+      document.addEventListener("mouseup", handleResizeEnd);
       return () => {
-        document.removeEventListener('mousemove', handleResizeMove);
-        document.removeEventListener('mouseup', handleResizeEnd);
+        document.removeEventListener("mousemove", handleResizeMove);
+        document.removeEventListener("mouseup", handleResizeEnd);
       };
     }
   }, [isResizing, handleResizeMove, handleResizeEnd]);
 
-  const priority = (workOrder.priority as Priority) || 'normal';
-  const displayDuration = resizeDuration ?? (workOrder.estimated_duration_hours || 1);
+  const priority = (workOrder.priority as Priority) || "normal";
+  const displayDuration =
+    resizeDuration ?? (workOrder.estimated_duration_hours || 1);
 
   const style = {
     transform: CSS.Translate.toString(transform),
@@ -192,12 +230,12 @@ function WorkOrderBlock({ workOrder }: { workOrder: WorkOrder }) {
       data-testid={`scheduled-wo-${workOrder.id}`}
       className={`
         relative p-1.5 rounded text-xs mb-1
-        ${isResizing ? 'cursor-ew-resize' : 'cursor-grab active:cursor-grabbing'}
+        ${isResizing ? "cursor-ew-resize" : "cursor-grab active:cursor-grabbing"}
         border-l-4 ${PRIORITY_COLORS[priority]}
         ${PRIORITY_BG_COLORS[priority]}
         hover:shadow-md transition-shadow
-        ${isDragging ? 'shadow-lg ring-2 ring-primary z-50' : ''}
-        ${isResizing ? 'ring-2 ring-primary z-50' : ''}
+        ${isDragging ? "shadow-lg ring-2 ring-primary z-50" : ""}
+        ${isResizing ? "ring-2 ring-primary z-50" : ""}
       `}
       title={`${workOrder.customer_name} - ${JOB_TYPE_LABELS[workOrder.job_type as JobType] || workOrder.job_type}`}
     >
@@ -251,8 +289,8 @@ export function ResourceTimeline() {
 
     // Filter by selected technician name
     if (filters.technician) {
-      techs = techs.filter((t) =>
-        `${t.first_name} ${t.last_name}` === filters.technician
+      techs = techs.filter(
+        (t) => `${t.first_name} ${t.last_name}` === filters.technician,
       );
     }
 
@@ -273,10 +311,10 @@ export function ResourceTimeline() {
       const scheduledDate = parseISO(wo.scheduled_date);
       // Parse time from time_window_start if available
       const scheduledHour = wo.time_window_start
-        ? parseInt(wo.time_window_start.split(':')[0], 10)
+        ? parseInt(wo.time_window_start.split(":")[0], 10)
         : 8; // Default to 8 AM
 
-      const key = `${wo.assigned_technician}-${format(scheduledDate, 'yyyy-MM-dd')}-${scheduledHour}`;
+      const key = `${wo.assigned_technician}-${format(scheduledDate, "yyyy-MM-dd")}-${scheduledHour}`;
 
       if (!map.has(key)) {
         map.set(key, []);
@@ -310,7 +348,7 @@ export function ResourceTimeline() {
 
   // Get work orders for a specific slot
   const getWorkOrdersForSlot = (techName: string, date: Date, hour: number) => {
-    const key = `${techName}-${format(date, 'yyyy-MM-dd')}-${hour}`;
+    const key = `${techName}-${format(date, "yyyy-MM-dd")}-${hour}`;
     return workOrdersByTechAndSlot.get(key) || [];
   };
 
@@ -331,7 +369,9 @@ export function ResourceTimeline() {
           <div className="flex border-b border-border sticky top-0 z-20 bg-bg-card">
             {/* Empty corner cell */}
             <div className="sticky left-0 z-30 bg-bg-card border-r border-border min-w-[180px] p-3">
-              <span className="font-medium text-sm text-text-secondary">Technicians</span>
+              <span className="font-medium text-sm text-text-secondary">
+                Technicians
+              </span>
             </div>
 
             {/* Day headers */}
@@ -343,10 +383,10 @@ export function ResourceTimeline() {
                 <div
                   className={`
                     p-2 text-center font-medium text-sm border-b border-border
-                    ${isSameDay(day, new Date()) ? 'bg-primary/10 text-primary' : 'text-text-primary'}
+                    ${isSameDay(day, new Date()) ? "bg-primary/10 text-primary" : "text-text-primary"}
                   `}
                 >
-                  {format(day, 'EEE, MMM d')}
+                  {format(day, "EEE, MMM d")}
                 </div>
 
                 {/* Hour headers */}
@@ -356,10 +396,13 @@ export function ResourceTimeline() {
                       key={hour}
                       className={`
                         flex-1 p-1 text-center text-xs text-text-muted border-r border-border
-                        ${hour === 12 ? 'border-r-2 font-medium' : ''}
+                        ${hour === 12 ? "border-r-2 font-medium" : ""}
                       `}
                     >
-                      {format(addHours(new Date().setHours(0, 0, 0, 0), hour), 'ha')}
+                      {format(
+                        addHours(new Date().setHours(0, 0, 0, 0), hour),
+                        "ha",
+                      )}
                     </div>
                   ))}
                 </div>
@@ -373,7 +416,10 @@ export function ResourceTimeline() {
             const stats = techStats.get(techName) || { count: 0, hours: 0 };
 
             return (
-              <div key={tech.id} className="flex border-b border-border last:border-b-0">
+              <div
+                key={tech.id}
+                className="flex border-b border-border last:border-b-0"
+              >
                 {/* Technician info */}
                 <TechnicianHeader
                   technician={tech}

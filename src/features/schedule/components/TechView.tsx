@@ -1,11 +1,16 @@
-import { useMemo, useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useDroppable } from '@dnd-kit/core';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
-import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
+import { useMemo, useState } from "react";
+import { Link } from "react-router-dom";
+import { useDroppable } from "@dnd-kit/core";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
+import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
 import {
   type WorkOrder,
   type WorkOrderStatus,
@@ -13,32 +18,34 @@ import {
   type Priority,
   WORK_ORDER_STATUS_LABELS,
   JOB_TYPE_LABELS,
-} from '@/api/types/workOrder.ts';
-import type { Technician } from '@/api/types/technician.ts';
+} from "@/api/types/workOrder.ts";
+import type { Technician } from "@/api/types/technician.ts";
 import {
   getWeekDays,
   formatDateKey,
   formatTimeDisplay,
   type DropTargetData,
-} from '@/api/types/schedule.ts';
-import { useScheduleStore } from '../store/scheduleStore.ts';
+} from "@/api/types/schedule.ts";
+import { useScheduleStore } from "../store/scheduleStore.ts";
 
 /**
  * Get status badge variant
  */
-function getStatusVariant(status: WorkOrderStatus): 'default' | 'success' | 'warning' | 'danger' {
+function getStatusVariant(
+  status: WorkOrderStatus,
+): "default" | "success" | "warning" | "danger" {
   switch (status) {
-    case 'completed':
-      return 'success';
-    case 'canceled':
-      return 'danger';
-    case 'enroute':
-    case 'on_site':
-    case 'in_progress':
-    case 'requires_followup':
-      return 'warning';
+    case "completed":
+      return "success";
+    case "canceled":
+      return "danger";
+    case "enroute":
+    case "on_site":
+    case "in_progress":
+    case "requires_followup":
+      return "warning";
     default:
-      return 'default';
+      return "default";
   }
 }
 
@@ -47,14 +54,14 @@ function getStatusVariant(status: WorkOrderStatus): 'default' | 'success' | 'war
  */
 function getPriorityColor(priority: Priority): string {
   switch (priority) {
-    case 'emergency':
-      return 'border-l-red-500';
-    case 'urgent':
-      return 'border-l-orange-500';
-    case 'high':
-      return 'border-l-yellow-500';
+    case "emergency":
+      return "border-l-red-500";
+    case "urgent":
+      return "border-l-orange-500";
+    case "high":
+      return "border-l-yellow-500";
     default:
-      return 'border-l-blue-500';
+      return "border-l-blue-500";
   }
 }
 
@@ -62,11 +69,11 @@ function getPriorityColor(priority: Priority): string {
  * Calculate workload status
  */
 function getWorkloadStatus(hours: number): { label: string; color: string } {
-  if (hours >= 10) return { label: 'Overloaded', color: 'text-danger' };
-  if (hours >= 8) return { label: 'Full', color: 'text-warning' };
-  if (hours >= 4) return { label: 'Moderate', color: 'text-success' };
-  if (hours > 0) return { label: 'Light', color: 'text-primary' };
-  return { label: 'Available', color: 'text-text-muted' };
+  if (hours >= 10) return { label: "Overloaded", color: "text-danger" };
+  if (hours >= 8) return { label: "Full", color: "text-warning" };
+  if (hours >= 4) return { label: "Moderate", color: "text-success" };
+  if (hours > 0) return { label: "Light", color: "text-primary" };
+  return { label: "Available", color: "text-text-muted" };
 }
 
 /**
@@ -94,7 +101,7 @@ function DroppableTechCard({
   return (
     <div
       ref={setNodeRef}
-      className={`transition-all duration-150 ${isOver ? 'ring-2 ring-primary' : ''}`}
+      className={`transition-all duration-150 ${isOver ? "ring-2 ring-primary" : ""}`}
     >
       {children}
       {isOver && (
@@ -140,7 +147,8 @@ function WorkOrderCard({ workOrder }: { workOrder: WorkOrder }) {
       <div className="flex items-center justify-between text-xs text-text-muted">
         <span>
           {workOrder.scheduled_date}
-          {workOrder.time_window_start && ` @ ${formatTimeDisplay(workOrder.time_window_start)}`}
+          {workOrder.time_window_start &&
+            ` @ ${formatTimeDisplay(workOrder.time_window_start)}`}
         </span>
         {workOrder.estimated_duration_hours && (
           <span>{workOrder.estimated_duration_hours}h</span>
@@ -181,9 +189,9 @@ function TechnicianCard({
 
     workOrders.forEach((wo) => {
       totalHours += wo.estimated_duration_hours || 1;
-      if (wo.status === 'completed') {
+      if (wo.status === "completed") {
         completedCount++;
-      } else if (wo.status !== 'canceled') {
+      } else if (wo.status !== "canceled") {
         pendingCount++;
       }
     });
@@ -208,8 +216,8 @@ function TechnicianCard({
     // Sort each day's work orders by time
     Object.keys(grouped).forEach((key) => {
       grouped[key].sort((a, b) => {
-        const timeA = a.time_window_start || '99:99';
-        const timeB = b.time_window_start || '99:99';
+        const timeA = a.time_window_start || "99:99";
+        const timeB = b.time_window_start || "99:99";
         return timeA.localeCompare(timeB);
       });
     });
@@ -227,14 +235,15 @@ function TechnicianCard({
             <div className="flex items-center gap-3">
               {/* Avatar */}
               <div className="w-12 h-12 rounded-full bg-primary flex items-center justify-center text-white font-bold text-lg">
-                {technician.first_name[0]}{technician.last_name[0]}
+                {technician.first_name[0]}
+                {technician.last_name[0]}
               </div>
               <div>
                 <CardTitle className="text-base">
                   {technician.first_name} {technician.last_name}
                 </CardTitle>
                 <p className="text-xs text-text-muted">
-                  {technician.phone || 'No phone'}
+                  {technician.phone || "No phone"}
                 </p>
               </div>
             </div>
@@ -243,7 +252,7 @@ function TechnicianCard({
               size="sm"
               onClick={() => setExpanded(!expanded)}
             >
-              {expanded ? 'Collapse' : 'Expand'}
+              {expanded ? "Collapse" : "Expand"}
             </Button>
           </div>
         </CardHeader>
@@ -252,15 +261,21 @@ function TechnicianCard({
           {/* Stats Row */}
           <div className="grid grid-cols-4 gap-2 mb-4 text-center">
             <div className="bg-bg-muted rounded-lg p-2">
-              <p className="text-lg font-bold text-text-primary">{stats.totalHours}h</p>
+              <p className="text-lg font-bold text-text-primary">
+                {stats.totalHours}h
+              </p>
               <p className="text-xs text-text-muted">Total</p>
             </div>
             <div className="bg-bg-muted rounded-lg p-2">
-              <p className="text-lg font-bold text-success">{stats.completedCount}</p>
+              <p className="text-lg font-bold text-success">
+                {stats.completedCount}
+              </p>
               <p className="text-xs text-text-muted">Done</p>
             </div>
             <div className="bg-bg-muted rounded-lg p-2">
-              <p className="text-lg font-bold text-primary">{stats.pendingCount}</p>
+              <p className="text-lg font-bold text-primary">
+                {stats.pendingCount}
+              </p>
               <p className="text-xs text-text-muted">Pending</p>
             </div>
             <div className="bg-bg-muted rounded-lg p-2">
@@ -296,14 +311,20 @@ function TechnicianCard({
                     <div
                       className={`
                         text-xs font-medium mb-2 flex items-center gap-2
-                        ${isToday ? 'text-primary' : 'text-text-secondary'}
+                        ${isToday ? "text-primary" : "text-text-secondary"}
                       `}
                     >
                       <span>
-                        {day.toLocaleDateString('en-US', { weekday: 'short', month: 'short', day: 'numeric' })}
+                        {day.toLocaleDateString("en-US", {
+                          weekday: "short",
+                          month: "short",
+                          day: "numeric",
+                        })}
                       </span>
                       {isToday && <Badge variant="default">Today</Badge>}
-                      <span className="text-text-muted">({dayOrders.length} jobs)</span>
+                      <span className="text-text-muted">
+                        ({dayOrders.length} jobs)
+                      </span>
                     </div>
                     <div className="space-y-2">
                       {dayOrders.map((wo) => (
@@ -337,7 +358,11 @@ export function TechView() {
   const { currentDate, filters } = useScheduleStore();
 
   // Fetch work orders
-  const { data: workOrdersData, isLoading: woLoading, isError: woError } = useWorkOrders({
+  const {
+    data: workOrdersData,
+    isLoading: woLoading,
+    isError: woError,
+  } = useWorkOrders({
     page: 1,
     page_size: 200,
   });
@@ -376,7 +401,8 @@ export function TechView() {
       if (wo.scheduled_date < weekStart || wo.scheduled_date > weekEnd) return;
 
       // Apply status filter
-      if (filters.statuses.length > 0 && !filters.statuses.includes(wo.status)) return;
+      if (filters.statuses.length > 0 && !filters.statuses.includes(wo.status))
+        return;
 
       if (!grouped[wo.assigned_technician]) {
         grouped[wo.assigned_technician] = [];
@@ -394,7 +420,7 @@ export function TechView() {
     // Apply technician filter
     if (filters.technician) {
       techs = techs.filter(
-        (t) => `${t.first_name} ${t.last_name}` === filters.technician
+        (t) => `${t.first_name} ${t.last_name}` === filters.technician,
       );
     }
 
@@ -460,22 +486,32 @@ export function TechView() {
     <div className="space-y-6">
       {/* Week Overview Stats */}
       <div className="bg-white rounded-lg border border-border p-4">
-        <h3 className="text-sm font-medium text-text-secondary mb-3">Week Overview</h3>
+        <h3 className="text-sm font-medium text-text-secondary mb-3">
+          Week Overview
+        </h3>
         <div className="grid grid-cols-4 gap-4">
           <div className="text-center">
-            <p className="text-2xl font-bold text-primary">{overallStats.totalWorkOrders}</p>
+            <p className="text-2xl font-bold text-primary">
+              {overallStats.totalWorkOrders}
+            </p>
             <p className="text-xs text-text-muted">Work Orders</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-bold text-text-primary">{overallStats.totalHours}h</p>
+            <p className="text-2xl font-bold text-text-primary">
+              {overallStats.totalHours}h
+            </p>
             <p className="text-xs text-text-muted">Total Hours</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-bold text-success">{overallStats.techsWithWork}</p>
+            <p className="text-2xl font-bold text-success">
+              {overallStats.techsWithWork}
+            </p>
             <p className="text-xs text-text-muted">Techs Assigned</p>
           </div>
           <div className="text-center">
-            <p className="text-2xl font-bold text-text-secondary">{overallStats.activeTechs}</p>
+            <p className="text-2xl font-bold text-text-secondary">
+              {overallStats.activeTechs}
+            </p>
             <p className="text-xs text-text-muted">Active Techs</p>
           </div>
         </div>
@@ -502,7 +538,8 @@ export function TechView() {
       {/* Instructions */}
       <div className="bg-bg-muted rounded-lg p-4 text-center text-sm text-text-secondary">
         <p>
-          Drag work orders from the <strong>Unscheduled Panel</strong> onto a technician card to assign them.
+          Drag work orders from the <strong>Unscheduled Panel</strong> onto a
+          technician card to assign them.
         </p>
       </div>
     </div>

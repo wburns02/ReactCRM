@@ -1,9 +1,14 @@
-import { z } from 'zod';
+import { z } from "zod";
 
 /**
  * Vehicle Status
  */
-export const vehicleStatusSchema = z.enum(['moving', 'stopped', 'idling', 'offline']);
+export const vehicleStatusSchema = z.enum([
+  "moving",
+  "stopped",
+  "idling",
+  "offline",
+]);
 export type VehicleStatus = z.infer<typeof vehicleStatusSchema>;
 
 /**
@@ -50,18 +55,18 @@ export type LocationHistoryPoint = z.infer<typeof locationHistoryPointSchema>;
  * Vehicle status display labels
  */
 export const VEHICLE_STATUS_LABELS: Record<VehicleStatus, string> = {
-  moving: 'Moving',
-  stopped: 'Stopped',
-  idling: 'Idling',
-  offline: 'Offline',
+  moving: "Moving",
+  stopped: "Stopped",
+  idling: "Idling",
+  offline: "Offline",
 };
 
 /**
  * Vehicle status colors for map markers
  */
 export const VEHICLE_STATUS_COLORS: Record<VehicleStatus, string> = {
-  moving: '#22c55e', // green
-  stopped: '#ef4444', // red
-  idling: '#f59e0b', // amber
-  offline: '#9ca3af', // gray
+  moving: "#22c55e", // green
+  stopped: "#ef4444", // red
+  idling: "#f59e0b", // amber
+  offline: "#9ca3af", // gray
 };

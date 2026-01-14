@@ -1,8 +1,8 @@
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/Button.tsx';
-import { InvoiceStatusBadge } from './InvoiceStatusBadge.tsx';
-import { formatDate, formatCurrency } from '@/lib/utils.ts';
-import type { Invoice } from '@/api/types/invoice.ts';
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/Button.tsx";
+import { InvoiceStatusBadge } from "./InvoiceStatusBadge.tsx";
+import { formatDate, formatCurrency } from "@/lib/utils.ts";
+import type { Invoice } from "@/api/types/invoice.ts";
 
 interface InvoicesListProps {
   invoices: Invoice[];
@@ -40,8 +40,12 @@ export function InvoicesList({
     return (
       <div className="text-center py-12">
         <div className="text-4xl mb-4">📄</div>
-        <h3 className="text-lg font-medium text-text-primary mb-2">No invoices found</h3>
-        <p className="text-text-secondary">Try adjusting your filters or create a new invoice.</p>
+        <h3 className="text-lg font-medium text-text-primary mb-2">
+          No invoices found
+        </h3>
+        <p className="text-text-secondary">
+          Try adjusting your filters or create a new invoice.
+        </p>
       </div>
     );
   }
@@ -53,25 +57,46 @@ export function InvoicesList({
         <table className="w-full" role="grid" aria-label="Invoices list">
           <thead>
             <tr className="border-b border-border bg-bg-muted">
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Invoice #
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Customer
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Status
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Total
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Due Date
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Created
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Actions
               </th>
             </tr>
@@ -100,7 +125,9 @@ export function InvoicesList({
                           : `Customer #${invoice.customer_id}`)}
                     </p>
                     {invoice.customer?.email && (
-                      <p className="text-sm text-text-secondary">{invoice.customer.email}</p>
+                      <p className="text-sm text-text-secondary">
+                        {invoice.customer.email}
+                      </p>
                     )}
                   </div>
                 </td>
@@ -114,7 +141,9 @@ export function InvoicesList({
                 </td>
                 <td className="px-4 py-3 text-sm">
                   {invoice.due_date ? (
-                    <span className="text-text-primary">{formatDate(invoice.due_date)}</span>
+                    <span className="text-text-primary">
+                      {formatDate(invoice.due_date)}
+                    </span>
                   ) : (
                     <span className="text-text-muted">-</span>
                   )}

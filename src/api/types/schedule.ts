@@ -1,20 +1,20 @@
-import { z } from 'zod';
-import { type WorkOrder } from './workOrder.ts';
+import { z } from "zod";
+import { type WorkOrder } from "./workOrder.ts";
 
 /**
  * Region configuration for multi-region support
  */
 export const REGIONS = {
   central_texas: {
-    name: 'Central Texas',
+    name: "Central Texas",
     center: { lat: 30.2672, lon: -97.7431 },
   },
   midlands_sc: {
-    name: 'Midlands SC',
+    name: "Midlands SC",
     center: { lat: 34.0007, lon: -81.0348 },
   },
   greater_nashville: {
-    name: 'Greater Nashville',
+    name: "Greater Nashville",
     center: { lat: 36.1627, lon: -86.7816 },
   },
 } as const;
@@ -22,41 +22,41 @@ export const REGIONS = {
 export type Region = keyof typeof REGIONS;
 
 export const REGION_LABELS: Record<Region, string> = {
-  central_texas: 'Central Texas',
-  midlands_sc: 'Midlands SC',
-  greater_nashville: 'Greater Nashville',
+  central_texas: "Central Texas",
+  midlands_sc: "Midlands SC",
+  greater_nashville: "Greater Nashville",
 };
 
 /**
  * Technician status for dispatch
  */
 export const technicianStatusSchema = z.enum([
-  'available',
-  'en_route',
-  'on_site',
-  'on_break',
-  'off_duty',
-  'unavailable',
+  "available",
+  "en_route",
+  "on_site",
+  "on_break",
+  "off_duty",
+  "unavailable",
 ]);
 
 export type TechnicianStatus = z.infer<typeof technicianStatusSchema>;
 
 export const TECHNICIAN_STATUS_LABELS: Record<TechnicianStatus, string> = {
-  available: 'Available',
-  en_route: 'En Route',
-  on_site: 'On Site',
-  on_break: 'On Break',
-  off_duty: 'Off Duty',
-  unavailable: 'Unavailable',
+  available: "Available",
+  en_route: "En Route",
+  on_site: "On Site",
+  on_break: "On Break",
+  off_duty: "Off Duty",
+  unavailable: "Unavailable",
 };
 
 export const TECHNICIAN_STATUS_COLORS: Record<TechnicianStatus, string> = {
-  available: 'bg-green-500',
-  en_route: 'bg-blue-500',
-  on_site: 'bg-purple-500',
-  on_break: 'bg-yellow-500',
-  off_duty: 'bg-gray-500',
-  unavailable: 'bg-red-500',
+  available: "bg-green-500",
+  en_route: "bg-blue-500",
+  on_site: "bg-purple-500",
+  on_break: "bg-yellow-500",
+  off_duty: "bg-gray-500",
+  unavailable: "bg-red-500",
 };
 
 /**
@@ -140,7 +140,7 @@ export function generateTimeSlots(): TimeSlot[] {
 
   for (let hour: number = start; hour < end; hour++) {
     const isLunchHour = hour >= lunchStart && hour < lunchEnd;
-    const period = hour >= 12 ? 'PM' : 'AM';
+    const period = hour >= 12 ? "PM" : "AM";
     // Convert 24h to 12h format (13-23 -> 1-11, 0 -> 12, 1-12 -> 1-12)
     const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
 
@@ -158,14 +158,14 @@ export function generateTimeSlots(): TimeSlot[] {
  * Format time string for display
  */
 export function formatTimeDisplay(time: string | null | undefined): string {
-  if (!time) return 'TBD';
+  if (!time) return "TBD";
   // Handle HH:MM:SS or HH:MM format
-  const parts = time.split(':');
+  const parts = time.split(":");
   if (parts.length < 2) return time;
 
   const hour = parseInt(parts[0], 10);
   const minute = parts[1];
-  const period = hour >= 12 ? 'PM' : 'AM';
+  const period = hour >= 12 ? "PM" : "AM";
   const displayHour = hour > 12 ? hour - 12 : hour === 0 ? 12 : hour;
 
   return `${displayHour}:${minute} ${period}`;
@@ -188,7 +188,7 @@ export function getWeekDays(startDate: Date): Date[] {
  * Format date as YYYY-MM-DD
  */
 export function formatDateKey(date: Date): string {
-  return date.toISOString().split('T')[0];
+  return date.toISOString().split("T")[0];
 }
 
 /**
@@ -198,14 +198,14 @@ export function formatWeekRange(startDate: Date): string {
   const endDate = new Date(startDate);
   endDate.setDate(startDate.getDate() + 6);
 
-  const startStr = startDate.toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
+  const startStr = startDate.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
   });
-  const endStr = endDate.toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
+  const endStr = endDate.toLocaleDateString("en-US", {
+    month: "long",
+    day: "numeric",
+    year: "numeric",
   });
 
   return `${startStr} - ${endStr}`;

@@ -1,17 +1,17 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
-import { Label } from '@/components/ui/Label.tsx';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { Label } from "@/components/ui/Label.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   ticketFormSchema,
   type TicketFormData,
@@ -19,9 +19,9 @@ import {
   TICKET_TYPE_LABELS,
   TICKET_STATUS_LABELS,
   TICKET_PRIORITY_LABELS,
-} from '@/api/types/ticket.ts';
-import { RICEScoring } from './RICEScoring.tsx';
-import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
+} from "@/api/types/ticket.ts";
+import { RICEScoring } from "./RICEScoring.tsx";
+import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
 
 export interface TicketFormProps {
   open: boolean;
@@ -44,7 +44,11 @@ export function TicketForm({
   const isEdit = !!ticket;
 
   // Fetch technicians for assignment dropdown
-  const { data: techniciansData } = useTechnicians({ page: 1, page_size: 100, active_only: true });
+  const { data: techniciansData } = useTechnicians({
+    page: 1,
+    page_size: 100,
+    active_only: true,
+  });
 
   const {
     register,
@@ -67,26 +71,26 @@ export function TicketForm({
           impact: ticket.impact || undefined,
           confidence: ticket.confidence || undefined,
           effort: ticket.effort || undefined,
-          assigned_to: ticket.assigned_to || '',
+          assigned_to: ticket.assigned_to || "",
         }
       : {
-          title: '',
-          description: '',
-          type: 'task',
-          status: 'open',
-          priority: 'medium',
+          title: "",
+          description: "",
+          type: "task",
+          status: "open",
+          priority: "medium",
           reach: undefined,
           impact: undefined,
           confidence: undefined,
           effort: undefined,
-          assigned_to: '',
+          assigned_to: "",
         },
   });
 
-  const reach = watch('reach');
-  const impact = watch('impact');
-  const confidence = watch('confidence');
-  const effort = watch('effort');
+  const reach = watch("reach");
+  const impact = watch("impact");
+  const confidence = watch("confidence");
+  const effort = watch("effort");
 
   const handleClose = () => {
     reset();
@@ -111,7 +115,7 @@ export function TicketForm({
     <Dialog open={open} onClose={handleClose} disableOverlayClose={isDirty}>
       <DialogContent size="lg">
         <DialogHeader onClose={handleClose}>
-          {isEdit ? 'Edit Ticket' : 'Create New Ticket'}
+          {isEdit ? "Edit Ticket" : "Create New Ticket"}
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -128,12 +132,14 @@ export function TicketForm({
                   </Label>
                   <Input
                     id="title"
-                    {...register('title')}
+                    {...register("title")}
                     error={!!errors.title}
                     placeholder="Brief description of the issue or request"
                   />
                   {errors.title && (
-                    <p className="text-sm text-danger">{errors.title.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.title.message}
+                    </p>
                   )}
                 </div>
 
@@ -143,13 +149,15 @@ export function TicketForm({
                   </Label>
                   <Textarea
                     id="description"
-                    {...register('description')}
+                    {...register("description")}
                     error={!!errors.description}
                     placeholder="Detailed description of the ticket..."
                     rows={4}
                   />
                   {errors.description && (
-                    <p className="text-sm text-danger">{errors.description.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.description.message}
+                    </p>
                   )}
                 </div>
 
@@ -158,12 +166,14 @@ export function TicketForm({
                     <Label htmlFor="type" required>
                       Type
                     </Label>
-                    <Select id="type" {...register('type')}>
-                      {Object.entries(TICKET_TYPE_LABELS).map(([value, label]) => (
-                        <option key={value} value={value}>
-                          {label}
-                        </option>
-                      ))}
+                    <Select id="type" {...register("type")}>
+                      {Object.entries(TICKET_TYPE_LABELS).map(
+                        ([value, label]) => (
+                          <option key={value} value={value}>
+                            {label}
+                          </option>
+                        ),
+                      )}
                     </Select>
                   </div>
 
@@ -171,12 +181,14 @@ export function TicketForm({
                     <Label htmlFor="status" required>
                       Status
                     </Label>
-                    <Select id="status" {...register('status')}>
-                      {Object.entries(TICKET_STATUS_LABELS).map(([value, label]) => (
-                        <option key={value} value={value}>
-                          {label}
-                        </option>
-                      ))}
+                    <Select id="status" {...register("status")}>
+                      {Object.entries(TICKET_STATUS_LABELS).map(
+                        ([value, label]) => (
+                          <option key={value} value={value}>
+                            {label}
+                          </option>
+                        ),
+                      )}
                     </Select>
                   </div>
 
@@ -184,18 +196,20 @@ export function TicketForm({
                     <Label htmlFor="priority" required>
                       Priority
                     </Label>
-                    <Select id="priority" {...register('priority')}>
-                      {Object.entries(TICKET_PRIORITY_LABELS).map(([value, label]) => (
-                        <option key={value} value={value}>
-                          {label}
-                        </option>
-                      ))}
+                    <Select id="priority" {...register("priority")}>
+                      {Object.entries(TICKET_PRIORITY_LABELS).map(
+                        ([value, label]) => (
+                          <option key={value} value={value}>
+                            {label}
+                          </option>
+                        ),
+                      )}
                     </Select>
                   </div>
 
                   <div className="space-y-2">
                     <Label htmlFor="assigned_to">Assigned To</Label>
-                    <Select id="assigned_to" {...register('assigned_to')}>
+                    <Select id="assigned_to" {...register("assigned_to")}>
                       <option value="">Unassigned</option>
                       {techniciansData?.items.map((tech) => (
                         <option key={tech.id} value={tech.id}>
@@ -218,21 +232,30 @@ export function TicketForm({
                 impact={impact}
                 confidence={confidence}
                 effort={effort}
-                onReachChange={(value) => setValue('reach', value)}
-                onImpactChange={(value) => setValue('impact', value)}
-                onConfidenceChange={(value) => setValue('confidence', value)}
-                onEffortChange={(value) => setValue('effort', value)}
+                onReachChange={(value) => setValue("reach", value)}
+                onImpactChange={(value) => setValue("impact", value)}
+                onConfidenceChange={(value) => setValue("confidence", value)}
+                onEffortChange={(value) => setValue("effort", value)}
                 errors={errors}
               />
             </div>
           </DialogBody>
 
           <DialogFooter>
-            <Button type="button" variant="secondary" onClick={handleClose} disabled={isLoading}>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={handleClose}
+              disabled={isLoading}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Saving...' : isEdit ? 'Save Changes' : 'Create Ticket'}
+              {isLoading
+                ? "Saving..."
+                : isEdit
+                  ? "Save Changes"
+                  : "Create Ticket"}
             </Button>
           </DialogFooter>
         </form>

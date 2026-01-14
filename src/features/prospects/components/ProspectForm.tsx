@@ -1,26 +1,26 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
-import { Label } from '@/components/ui/Label.tsx';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { Label } from "@/components/ui/Label.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   prospectFormSchema,
   type ProspectFormData,
   type Prospect,
-} from '@/api/types/prospect.ts';
+} from "@/api/types/prospect.ts";
 import {
   PROSPECT_STAGE_LABELS,
   LEAD_SOURCE_LABELS,
-} from '@/api/types/common.ts';
+} from "@/api/types/common.ts";
 
 export interface ProspectFormProps {
   open: boolean;
@@ -58,36 +58,36 @@ export function ProspectForm({
       ? {
           first_name: prospect.first_name,
           last_name: prospect.last_name,
-          email: prospect.email || '',
-          phone: prospect.phone || '',
-          company_name: prospect.company_name || '',
-          address_line1: prospect.address_line1 || '',
-          city: prospect.city || '',
-          state: prospect.state || '',
-          postal_code: prospect.postal_code || '',
+          email: prospect.email || "",
+          phone: prospect.phone || "",
+          company_name: prospect.company_name || "",
+          address_line1: prospect.address_line1 || "",
+          city: prospect.city || "",
+          state: prospect.state || "",
+          postal_code: prospect.postal_code || "",
           prospect_stage: prospect.prospect_stage,
           lead_source: prospect.lead_source || undefined,
           estimated_value: prospect.estimated_value || undefined,
-          assigned_sales_rep: prospect.assigned_sales_rep || '',
-          next_follow_up_date: prospect.next_follow_up_date || '',
-          lead_notes: prospect.lead_notes || '',
+          assigned_sales_rep: prospect.assigned_sales_rep || "",
+          next_follow_up_date: prospect.next_follow_up_date || "",
+          lead_notes: prospect.lead_notes || "",
         }
       : {
-          first_name: '',
-          last_name: '',
-          email: '',
-          phone: '',
-          company_name: '',
-          address_line1: '',
-          city: '',
-          state: '',
-          postal_code: '',
-          prospect_stage: 'new_lead',
+          first_name: "",
+          last_name: "",
+          email: "",
+          phone: "",
+          company_name: "",
+          address_line1: "",
+          city: "",
+          state: "",
+          postal_code: "",
+          prospect_stage: "new_lead",
           lead_source: undefined,
           estimated_value: undefined,
-          assigned_sales_rep: '',
-          next_follow_up_date: '',
-          lead_notes: '',
+          assigned_sales_rep: "",
+          next_follow_up_date: "",
+          lead_notes: "",
         },
   });
 
@@ -122,7 +122,7 @@ export function ProspectForm({
     <Dialog open={open} onClose={handleClose} disableOverlayClose={isDirty}>
       <DialogContent size="lg">
         <DialogHeader onClose={handleClose}>
-          {isEdit ? 'Edit Prospect' : 'Add New Prospect'}
+          {isEdit ? "Edit Prospect" : "Add New Prospect"}
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -139,12 +139,14 @@ export function ProspectForm({
                   </Label>
                   <Input
                     id="first_name"
-                    {...register('first_name')}
+                    {...register("first_name")}
                     error={!!errors.first_name}
                     placeholder="John"
                   />
                   {errors.first_name && (
-                    <p className="text-sm text-danger">{errors.first_name.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.first_name.message}
+                    </p>
                   )}
                 </div>
 
@@ -154,12 +156,14 @@ export function ProspectForm({
                   </Label>
                   <Input
                     id="last_name"
-                    {...register('last_name')}
+                    {...register("last_name")}
                     error={!!errors.last_name}
                     placeholder="Doe"
                   />
                   {errors.last_name && (
-                    <p className="text-sm text-danger">{errors.last_name.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.last_name.message}
+                    </p>
                   )}
                 </div>
 
@@ -168,12 +172,14 @@ export function ProspectForm({
                   <Input
                     id="email"
                     type="email"
-                    {...register('email')}
+                    {...register("email")}
                     error={!!errors.email}
                     placeholder="john@example.com"
                   />
                   {errors.email && (
-                    <p className="text-sm text-danger">{errors.email.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.email.message}
+                    </p>
                   )}
                 </div>
 
@@ -182,12 +188,14 @@ export function ProspectForm({
                   <Input
                     id="phone"
                     type="tel"
-                    {...register('phone')}
+                    {...register("phone")}
                     error={!!errors.phone}
                     placeholder="(555) 123-4567"
                   />
                   {errors.phone && (
-                    <p className="text-sm text-danger">{errors.phone.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.phone.message}
+                    </p>
                   )}
                 </div>
 
@@ -195,7 +203,7 @@ export function ProspectForm({
                   <Label htmlFor="company_name">Company Name</Label>
                   <Input
                     id="company_name"
-                    {...register('company_name')}
+                    {...register("company_name")}
                     error={!!errors.company_name}
                     placeholder="Acme Corp"
                   />
@@ -213,7 +221,7 @@ export function ProspectForm({
                   <Label htmlFor="address_line1">Street Address</Label>
                   <Input
                     id="address_line1"
-                    {...register('address_line1')}
+                    {...register("address_line1")}
                     error={!!errors.address_line1}
                     placeholder="123 Main St"
                   />
@@ -223,7 +231,7 @@ export function ProspectForm({
                   <Label htmlFor="city">City</Label>
                   <Input
                     id="city"
-                    {...register('city')}
+                    {...register("city")}
                     error={!!errors.city}
                     placeholder="Tampa"
                   />
@@ -234,13 +242,15 @@ export function ProspectForm({
                     <Label htmlFor="state">State</Label>
                     <Input
                       id="state"
-                      {...register('state')}
+                      {...register("state")}
                       error={!!errors.state}
                       placeholder="FL"
                       maxLength={2}
                     />
                     {errors.state && (
-                      <p className="text-sm text-danger">{errors.state.message}</p>
+                      <p className="text-sm text-danger">
+                        {errors.state.message}
+                      </p>
                     )}
                   </div>
 
@@ -248,7 +258,7 @@ export function ProspectForm({
                     <Label htmlFor="postal_code">ZIP Code</Label>
                     <Input
                       id="postal_code"
-                      {...register('postal_code')}
+                      {...register("postal_code")}
                       error={!!errors.postal_code}
                       placeholder="33601"
                     />
@@ -265,24 +275,28 @@ export function ProspectForm({
               <div className="grid grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="prospect_stage">Stage</Label>
-                  <Select id="prospect_stage" {...register('prospect_stage')}>
-                    {Object.entries(PROSPECT_STAGE_LABELS).map(([value, label]) => (
-                      <option key={value} value={value}>
-                        {label}
-                      </option>
-                    ))}
+                  <Select id="prospect_stage" {...register("prospect_stage")}>
+                    {Object.entries(PROSPECT_STAGE_LABELS).map(
+                      ([value, label]) => (
+                        <option key={value} value={value}>
+                          {label}
+                        </option>
+                      ),
+                    )}
                   </Select>
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="lead_source">Lead Source</Label>
-                  <Select id="lead_source" {...register('lead_source')}>
+                  <Select id="lead_source" {...register("lead_source")}>
                     <option value="">Select source...</option>
-                    {Object.entries(LEAD_SOURCE_LABELS).map(([value, label]) => (
-                      <option key={value} value={value}>
-                        {label}
-                      </option>
-                    ))}
+                    {Object.entries(LEAD_SOURCE_LABELS).map(
+                      ([value, label]) => (
+                        <option key={value} value={value}>
+                          {label}
+                        </option>
+                      ),
+                    )}
                   </Select>
                 </div>
 
@@ -293,12 +307,14 @@ export function ProspectForm({
                     type="number"
                     min="0"
                     step="0.01"
-                    {...register('estimated_value')}
+                    {...register("estimated_value")}
                     error={!!errors.estimated_value}
                     placeholder="5000"
                   />
                   {errors.estimated_value && (
-                    <p className="text-sm text-danger">{errors.estimated_value.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.estimated_value.message}
+                    </p>
                   )}
                 </div>
 
@@ -307,7 +323,7 @@ export function ProspectForm({
                   <Input
                     id="next_follow_up_date"
                     type="date"
-                    {...register('next_follow_up_date')}
+                    {...register("next_follow_up_date")}
                     error={!!errors.next_follow_up_date}
                   />
                 </div>
@@ -316,7 +332,7 @@ export function ProspectForm({
                   <Label htmlFor="assigned_sales_rep">Assigned Sales Rep</Label>
                   <Input
                     id="assigned_sales_rep"
-                    {...register('assigned_sales_rep')}
+                    {...register("assigned_sales_rep")}
                     error={!!errors.assigned_sales_rep}
                     placeholder="Sales rep name"
                   />
@@ -333,7 +349,7 @@ export function ProspectForm({
                 <Label htmlFor="lead_notes">Lead Notes</Label>
                 <Textarea
                   id="lead_notes"
-                  {...register('lead_notes')}
+                  {...register("lead_notes")}
                   error={!!errors.lead_notes}
                   placeholder="Additional notes about this prospect..."
                   rows={4}
@@ -343,11 +359,20 @@ export function ProspectForm({
           </DialogBody>
 
           <DialogFooter>
-            <Button type="button" variant="secondary" onClick={handleClose} disabled={isLoading}>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={handleClose}
+              disabled={isLoading}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Saving...' : isEdit ? 'Save Changes' : 'Create Prospect'}
+              {isLoading
+                ? "Saving..."
+                : isEdit
+                  ? "Save Changes"
+                  : "Create Prospect"}
             </Button>
           </DialogFooter>
         </form>

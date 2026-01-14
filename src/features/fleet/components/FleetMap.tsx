@@ -1,8 +1,8 @@
-import { useState, useEffect, useRef } from 'react';
-import { useFleetLocations, useVehicleHistory } from '../api.ts';
-import { VehicleMarker } from './VehicleMarker.tsx';
-import { VehicleInfoPopup } from './VehicleInfoPopup.tsx';
-import type { Vehicle } from '../types.ts';
+import { useState, useEffect, useRef } from "react";
+import { useFleetLocations, useVehicleHistory } from "../api.ts";
+import { VehicleMarker } from "./VehicleMarker.tsx";
+import { VehicleInfoPopup } from "./VehicleInfoPopup.tsx";
+import type { Vehicle } from "../types.ts";
 
 interface FleetMapProps {
   height?: string;
@@ -14,16 +14,24 @@ interface FleetMapProps {
  * Note: This is a simplified map implementation.
  * In production, you would integrate with Google Maps, Mapbox, or Leaflet.
  */
-export function FleetMap({ height = '600px', showHistory = true }: FleetMapProps) {
+export function FleetMap({
+  height = "600px",
+  showHistory = true,
+}: FleetMapProps) {
   const { data: vehicles, isLoading, error } = useFleetLocations();
   const [selectedVehicle, setSelectedVehicle] = useState<Vehicle | null>(null);
   const { data: history } = useVehicleHistory(
     selectedVehicle?.id,
-    showHistory ? 1 : undefined
+    showHistory ? 1 : undefined,
   );
 
   const mapRef = useRef<HTMLDivElement>(null);
-  const [mapBounds, setMapBounds] = useState({ minLat: 0, maxLat: 0, minLng: 0, maxLng: 0 });
+  const [mapBounds, setMapBounds] = useState({
+    minLat: 0,
+    maxLat: 0,
+    minLng: 0,
+    maxLng: 0,
+  });
 
   // Calculate map bounds based on vehicle locations
   useEffect(() => {
@@ -41,7 +49,10 @@ export function FleetMap({ height = '600px', showHistory = true }: FleetMapProps
   }, [vehicles]);
 
   // Convert lat/lng to pixel coordinates
-  const latLngToPixel = (lat: number, lng: number): { x: number; y: number } => {
+  const latLngToPixel = (
+    lat: number,
+    lng: number,
+  ): { x: number; y: number } => {
     if (!mapRef.current) return { x: 0, y: 0 };
 
     const bounds = mapBounds;
@@ -81,7 +92,7 @@ export function FleetMap({ height = '600px', showHistory = true }: FleetMapProps
         <div className="text-center">
           <p className="text-danger mb-2">Failed to load fleet locations</p>
           <p className="text-sm text-text-muted">
-            {error instanceof Error ? error.message : 'Unknown error'}
+            {error instanceof Error ? error.message : "Unknown error"}
           </p>
         </div>
       </div>
@@ -102,7 +113,10 @@ export function FleetMap({ height = '600px', showHistory = true }: FleetMapProps
   }
 
   return (
-    <div className="relative rounded-lg overflow-hidden border border-border" style={{ height }}>
+    <div
+      className="relative rounded-lg overflow-hidden border border-border"
+      style={{ height }}
+    >
       {/* Map Container - Simple grid background to represent map */}
       <div
         ref={mapRef}
@@ -112,7 +126,7 @@ export function FleetMap({ height = '600px', showHistory = true }: FleetMapProps
             linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
             linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)
           `,
-          backgroundSize: '50px 50px',
+          backgroundSize: "50px 50px",
         }}
       >
         {/* Vehicle Trail/Path (if history is available) */}
@@ -122,9 +136,9 @@ export function FleetMap({ height = '600px', showHistory = true }: FleetMapProps
               d={history
                 .map((point, index) => {
                   const { x, y } = latLngToPixel(point.lat, point.lng);
-                  return `${index === 0 ? 'M' : 'L'} ${x} ${y}`;
+                  return `${index === 0 ? "M" : "L"} ${x} ${y}`;
                 })
-                .join(' ')}
+                .join(" ")}
               stroke="#3b82f6"
               strokeWidth="2"
               fill="none"
@@ -136,7 +150,10 @@ export function FleetMap({ height = '600px', showHistory = true }: FleetMapProps
 
         {/* Vehicle Markers */}
         {vehicles.map((vehicle) => {
-          const { x, y } = latLngToPixel(vehicle.location.lat, vehicle.location.lng);
+          const { x, y } = latLngToPixel(
+            vehicle.location.lat,
+            vehicle.location.lng,
+          );
 
           return (
             <div
@@ -145,7 +162,7 @@ export function FleetMap({ height = '600px', showHistory = true }: FleetMapProps
               style={{
                 left: `${x}px`,
                 top: `${y}px`,
-                transform: 'translate(-50%, -50%)',
+                transform: "translate(-50%, -50%)",
               }}
             >
               <VehicleMarker
@@ -169,7 +186,9 @@ export function FleetMap({ height = '600px', showHistory = true }: FleetMapProps
 
         {/* Legend */}
         <div className="absolute bottom-4 left-4 bg-white rounded-lg shadow-lg p-3 text-xs">
-          <div className="font-semibold mb-2 text-text-primary">Vehicle Status</div>
+          <div className="font-semibold mb-2 text-text-primary">
+            Vehicle Status
+          </div>
           <div className="space-y-1">
             <div className="flex items-center gap-2">
               <div className="w-3 h-3 rounded-full bg-success" />

@@ -1,0 +1,84 @@
+{
+  "expo": {
+    "name": "CRM Mobile",
+    "slug": "crm-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "scheme": "crm-mobile",
+    "splash": {
+      "image": "./assets/splash.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#1a365d"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "com.crm.mobile",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to capture photos of work sites.",
+        "NSLocationWhenInUseUsageDescription": "This app uses your location to verify arrival at work sites.",
+        "NSPhotoLibraryUsageDescription": "This app accesses your photo library to upload work site photos."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#1a365d"
+      },
+      "package": "com.crm.mobile",
+      "permissions": [
+        "CAMERA",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "VIBRATE",
+        "RECEIVE_BOOT_COMPLETED"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-secure-store",
+      [
+        "expo-camera",
+        {
+          "cameraPermission": "Allow CRM Mobile to access your camera to capture work site photos."
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Allow CRM Mobile to use your location to verify arrival at work sites."
+        }
+      ],
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#1a365d"
+        }
+      ],
+      [
+        "expo-barcode-scanner",
+        {
+          "cameraPermission": "Allow CRM Mobile to access your camera to scan barcodes."
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "apiUrl": "https://react-crm-api-production.up.railway.app/api/v2",
+      "eas": {
+        "projectId": "your-project-id"
+      }
+    }
+  }
+}

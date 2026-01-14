@@ -1,9 +1,9 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
-import { formatCurrency } from '@/lib/utils.ts';
-import type { LineItemFormData } from '@/api/types/invoice.ts';
+import { useState } from "react";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { formatCurrency } from "@/lib/utils.ts";
+import type { LineItemFormData } from "@/api/types/invoice.ts";
 
 interface LineItemsTableProps {
   lineItems: LineItemFormData[];
@@ -14,13 +14,17 @@ interface LineItemsTableProps {
 /**
  * Editable line items table component
  */
-export function LineItemsTable({ lineItems, onChange, readOnly = false }: LineItemsTableProps) {
+export function LineItemsTable({
+  lineItems,
+  onChange,
+  readOnly = false,
+}: LineItemsTableProps) {
   const [editingIndex, setEditingIndex] = useState<number | null>(null);
 
   const handleAddItem = () => {
     const newItem: LineItemFormData = {
-      service: '',
-      description: '',
+      service: "",
+      description: "",
       quantity: 1,
       rate: 0,
     };
@@ -36,7 +40,11 @@ export function LineItemsTable({ lineItems, onChange, readOnly = false }: LineIt
     }
   };
 
-  const handleUpdateItem = (index: number, field: keyof LineItemFormData, value: string | number) => {
+  const handleUpdateItem = (
+    index: number,
+    field: keyof LineItemFormData,
+    value: string | number,
+  ) => {
     const newItems = [...lineItems];
     newItems[index] = {
       ...newItems[index],
@@ -51,14 +59,12 @@ export function LineItemsTable({ lineItems, onChange, readOnly = false }: LineIt
 
   const subtotal = lineItems.reduce(
     (sum, item) => sum + calculateAmount(item.quantity, item.rate),
-    0
+    0,
   );
 
   if (readOnly && lineItems.length === 0) {
     return (
-      <div className="text-center py-8 text-text-muted">
-        No line items
-      </div>
+      <div className="text-center py-8 text-text-muted">No line items</div>
     );
   }
 
@@ -95,11 +101,15 @@ export function LineItemsTable({ lineItems, onChange, readOnly = false }: LineIt
               <tr key={index} className="hover:bg-bg-hover">
                 <td className="px-4 py-3">
                   {readOnly ? (
-                    <span className="text-text-primary font-medium">{item.service}</span>
+                    <span className="text-text-primary font-medium">
+                      {item.service}
+                    </span>
                   ) : (
                     <Input
                       value={item.service}
-                      onChange={(e) => handleUpdateItem(index, 'service', e.target.value)}
+                      onChange={(e) =>
+                        handleUpdateItem(index, "service", e.target.value)
+                      }
                       placeholder="Service name"
                       className="min-w-[150px]"
                     />
@@ -107,11 +117,15 @@ export function LineItemsTable({ lineItems, onChange, readOnly = false }: LineIt
                 </td>
                 <td className="px-4 py-3">
                   {readOnly ? (
-                    <span className="text-text-secondary text-sm">{item.description || '-'}</span>
+                    <span className="text-text-secondary text-sm">
+                      {item.description || "-"}
+                    </span>
                   ) : (
                     <Textarea
-                      value={item.description || ''}
-                      onChange={(e) => handleUpdateItem(index, 'description', e.target.value)}
+                      value={item.description || ""}
+                      onChange={(e) =>
+                        handleUpdateItem(index, "description", e.target.value)
+                      }
                       placeholder="Optional description"
                       rows={1}
                       className="min-w-[200px]"
@@ -127,21 +141,35 @@ export function LineItemsTable({ lineItems, onChange, readOnly = false }: LineIt
                       min="0"
                       step="0.01"
                       value={item.quantity}
-                      onChange={(e) => handleUpdateItem(index, 'quantity', parseFloat(e.target.value) || 0)}
+                      onChange={(e) =>
+                        handleUpdateItem(
+                          index,
+                          "quantity",
+                          parseFloat(e.target.value) || 0,
+                        )
+                      }
                       className="text-right"
                     />
                   )}
                 </td>
                 <td className="px-4 py-3 text-right">
                   {readOnly ? (
-                    <span className="text-text-primary">{formatCurrency(item.rate)}</span>
+                    <span className="text-text-primary">
+                      {formatCurrency(item.rate)}
+                    </span>
                   ) : (
                     <Input
                       type="number"
                       min="0"
                       step="0.01"
                       value={item.rate}
-                      onChange={(e) => handleUpdateItem(index, 'rate', parseFloat(e.target.value) || 0)}
+                      onChange={(e) =>
+                        handleUpdateItem(
+                          index,
+                          "rate",
+                          parseFloat(e.target.value) || 0,
+                        )
+                      }
                       className="text-right"
                     />
                   )}
@@ -168,7 +196,10 @@ export function LineItemsTable({ lineItems, onChange, readOnly = false }: LineIt
           </tbody>
           <tfoot>
             <tr className="border-t-2 border-border">
-              <td colSpan={readOnly ? 4 : 5} className="px-4 py-3 text-right font-semibold text-text-primary">
+              <td
+                colSpan={readOnly ? 4 : 5}
+                className="px-4 py-3 text-right font-semibold text-text-primary"
+              >
                 Subtotal
               </td>
               <td className="px-4 py-3 text-right font-semibold text-text-primary">

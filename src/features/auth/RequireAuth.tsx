@@ -1,10 +1,10 @@
-import { useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
-import { useAuth } from './useAuth.ts';
+import { useEffect } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "./useAuth.ts";
 
 interface RequireAuthProps {
   children: React.ReactNode;
-  requiredRole?: 'admin' | 'technician' | 'sales';
+  requiredRole?: "admin" | "technician" | "sales";
 }
 
 /**
@@ -20,7 +20,13 @@ export function RequireAuth({ children, requiredRole }: RequireAuthProps) {
       const returnUrl = encodeURIComponent(location.pathname + location.search);
       navigate(`/login?return=${returnUrl}`, { replace: true });
     }
-  }, [isLoading, isAuthenticated, location.pathname, location.search, navigate]);
+  }, [
+    isLoading,
+    isAuthenticated,
+    location.pathname,
+    location.search,
+    navigate,
+  ]);
 
   if (isLoading) {
     return (
@@ -45,11 +51,13 @@ export function RequireAuth({ children, requiredRole }: RequireAuthProps) {
   }
 
   // Check role if required
-  if (requiredRole && user?.role !== requiredRole && user?.role !== 'admin') {
+  if (requiredRole && user?.role !== requiredRole && user?.role !== "admin") {
     return (
       <div className="flex h-screen items-center justify-center bg-bg-body">
         <div className="text-center">
-          <h1 className="text-2xl font-semibold text-text-primary">Access Denied</h1>
+          <h1 className="text-2xl font-semibold text-text-primary">
+            Access Denied
+          </h1>
           <p className="mt-2 text-text-secondary">
             You don't have permission to access this page.
           </p>

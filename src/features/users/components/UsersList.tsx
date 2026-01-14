@@ -1,7 +1,7 @@
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import type { User } from '@/api/types/admin.ts';
-import { formatDate } from '@/lib/utils.ts';
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import type { User } from "@/api/types/admin.ts";
+import { formatDate } from "@/lib/utils.ts";
 
 interface UsersListProps {
   users: User[];
@@ -9,18 +9,21 @@ interface UsersListProps {
   onDeactivate: (user: User) => void;
 }
 
-const roleColors: Record<string, 'primary' | 'success' | 'warning' | 'secondary'> = {
-  admin: 'primary',
-  manager: 'success',
-  technician: 'warning',
-  office: 'secondary',
+const roleColors: Record<
+  string,
+  "primary" | "success" | "warning" | "secondary"
+> = {
+  admin: "primary",
+  manager: "success",
+  technician: "warning",
+  office: "secondary",
 };
 
 const roleLabels: Record<string, string> = {
-  admin: 'Admin',
-  manager: 'Manager',
-  technician: 'Technician',
-  office: 'Office',
+  admin: "Admin",
+  manager: "Manager",
+  technician: "Technician",
+  office: "Office",
 };
 
 export function UsersList({ users, onEdit, onDeactivate }: UsersListProps) {
@@ -62,10 +65,7 @@ export function UsersList({ users, onEdit, onDeactivate }: UsersListProps) {
         </thead>
         <tbody className="divide-y divide-border">
           {users.map((user) => (
-            <tr
-              key={user.id}
-              className="hover:bg-bg-hover transition-colors"
-            >
+            <tr key={user.id} className="hover:bg-bg-hover transition-colors">
               <td className="px-4 py-3 text-sm">
                 <div className="font-medium text-text-primary">
                   {user.first_name} {user.last_name}
@@ -80,22 +80,18 @@ export function UsersList({ users, onEdit, onDeactivate }: UsersListProps) {
                 </Badge>
               </td>
               <td className="px-4 py-3 text-sm">
-                <Badge variant={user.is_active ? 'success' : 'secondary'}>
-                  {user.is_active ? 'Active' : 'Inactive'}
+                <Badge variant={user.is_active ? "success" : "secondary"}>
+                  {user.is_active ? "Active" : "Inactive"}
                 </Badge>
               </td>
               <td className="px-4 py-3 text-sm text-text-secondary">
-                {user.last_login ? formatDate(user.last_login) : 'Never'}
+                {user.last_login ? formatDate(user.last_login) : "Never"}
               </td>
               <td className="px-4 py-3 text-sm text-text-secondary">
                 {formatDate(user.created_at)}
               </td>
               <td className="px-4 py-3 text-sm text-right space-x-2">
-                <Button
-                  size="sm"
-                  variant="ghost"
-                  onClick={() => onEdit(user)}
-                >
+                <Button size="sm" variant="ghost" onClick={() => onEdit(user)}>
                   Edit
                 </Button>
                 {user.is_active && (

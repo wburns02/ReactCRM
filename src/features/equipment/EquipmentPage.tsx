@@ -1,30 +1,35 @@
-import { useState, useCallback } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
+import { useState, useCallback } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   useEquipment,
   useCreateEquipment,
   useUpdateEquipment,
   useDeleteEquipment,
-} from '@/api/hooks/useEquipment.ts';
-import { EquipmentList } from './components/EquipmentList.tsx';
-import { EquipmentForm } from './components/EquipmentForm.tsx';
+} from "@/api/hooks/useEquipment.ts";
+import { EquipmentList } from "./components/EquipmentList.tsx";
+import { EquipmentForm } from "./components/EquipmentForm.tsx";
 import {
   type Equipment,
   type EquipmentFormData,
   type EquipmentFilters,
   type EquipmentStatus,
   EQUIPMENT_STATUS_LABELS,
-} from '@/api/types/equipment.ts';
+} from "@/api/types/equipment.ts";
 
 const PAGE_SIZE = 20;
 
@@ -36,16 +41,20 @@ export function EquipmentPage() {
   const [filters, setFilters] = useState<EquipmentFilters>({
     page: 1,
     page_size: PAGE_SIZE,
-    search: '',
+    search: "",
     status: undefined,
   });
 
   // Form modal state
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editingEquipment, setEditingEquipment] = useState<Equipment | null>(null);
+  const [editingEquipment, setEditingEquipment] = useState<Equipment | null>(
+    null,
+  );
 
   // Delete confirmation state
-  const [deletingEquipment, setDeletingEquipment] = useState<Equipment | null>(null);
+  const [deletingEquipment, setDeletingEquipment] = useState<Equipment | null>(
+    null,
+  );
 
   // Fetch equipment
   const { data, isLoading, error } = useEquipment(filters);
@@ -60,14 +69,17 @@ export function EquipmentPage() {
     setFilters((prev) => ({ ...prev, search: e.target.value, page: 1 }));
   }, []);
 
-  const handleStatusFilter = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    const value = e.target.value;
-    setFilters((prev) => ({
-      ...prev,
-      status: value ? (value as EquipmentStatus) : undefined,
-      page: 1,
-    }));
-  }, []);
+  const handleStatusFilter = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      const value = e.target.value;
+      setFilters((prev) => ({
+        ...prev,
+        status: value ? (value as EquipmentStatus) : undefined,
+        page: 1,
+      }));
+    },
+    [],
+  );
 
   const handlePageChange = useCallback((page: number) => {
     setFilters((prev) => ({ ...prev, page }));
@@ -97,7 +109,7 @@ export function EquipmentPage() {
       setIsFormOpen(false);
       setEditingEquipment(null);
     },
-    [editingEquipment, createMutation, updateMutation]
+    [editingEquipment, createMutation, updateMutation],
   );
 
   const handleConfirmDelete = useCallback(async () => {
@@ -113,7 +125,9 @@ export function EquipmentPage() {
         <Card>
           <CardContent className="py-12 text-center">
             <div className="text-4xl mb-4">Error</div>
-            <p className="text-danger">Failed to load equipment. Please try again.</p>
+            <p className="text-danger">
+              Failed to load equipment. Please try again.
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -125,7 +139,9 @@ export function EquipmentPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-semibold text-text-primary">Equipment</h1>
+          <h1 className="text-2xl font-semibold text-text-primary">
+            Equipment
+          </h1>
           <p className="text-sm text-text-secondary mt-1">
             Manage your company equipment and assets
           </p>
@@ -141,21 +157,23 @@ export function EquipmentPage() {
               <Input
                 type="search"
                 placeholder="Search by name, type, or serial number..."
-                value={filters.search || ''}
+                value={filters.search || ""}
                 onChange={handleSearch}
               />
             </div>
             <div className="w-48">
               <Select
-                value={filters.status || ''}
+                value={filters.status || ""}
                 onChange={handleStatusFilter}
               >
                 <option value="">All Statuses</option>
-                {Object.entries(EQUIPMENT_STATUS_LABELS).map(([value, label]) => (
-                  <option key={value} value={value}>
-                    {label}
-                  </option>
-                ))}
+                {Object.entries(EQUIPMENT_STATUS_LABELS).map(
+                  ([value, label]) => (
+                    <option key={value} value={value}>
+                      {label}
+                    </option>
+                  ),
+                )}
               </Select>
             </div>
           </div>
@@ -166,7 +184,9 @@ export function EquipmentPage() {
       <Card>
         <CardHeader>
           <CardTitle>
-            {data?.total ? `${data.total} item${data.total !== 1 ? 's' : ''}` : 'Equipment'}
+            {data?.total
+              ? `${data.total} item${data.total !== 1 ? "s" : ""}`
+              : "Equipment"}
           </CardTitle>
         </CardHeader>
         <CardContent className="p-0">
@@ -206,7 +226,7 @@ export function EquipmentPage() {
           </DialogHeader>
           <DialogBody>
             <p className="text-text-secondary">
-              Are you sure you want to delete{' '}
+              Are you sure you want to delete{" "}
               <span className="font-medium text-text-primary">
                 {deletingEquipment?.name}
               </span>
@@ -226,7 +246,7 @@ export function EquipmentPage() {
               onClick={handleConfirmDelete}
               disabled={deleteMutation.isPending}
             >
-              {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
+              {deleteMutation.isPending ? "Deleting..." : "Delete"}
             </Button>
           </DialogFooter>
         </DialogContent>

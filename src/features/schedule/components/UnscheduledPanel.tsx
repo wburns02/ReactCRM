@@ -1,38 +1,44 @@
-import { useState, useMemo } from 'react';
-import { useDraggable } from '@dnd-kit/core';
-import { CSS } from '@dnd-kit/utilities';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { useUnscheduledWorkOrders } from '@/api/hooks/useWorkOrders.ts';
+import { useState, useMemo, memo } from "react";
+import { useDraggable } from "@dnd-kit/core";
+import { CSS } from "@dnd-kit/utilities";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { useUnscheduledWorkOrders } from "@/api/hooks/useWorkOrders.ts";
 import {
   type WorkOrder,
   type Priority,
   type JobType,
   JOB_TYPE_LABELS,
   PRIORITY_LABELS,
-} from '@/api/types/workOrder.ts';
-import { useScheduleStore } from '../store/scheduleStore.ts';
+} from "@/api/types/workOrder.ts";
+import { useScheduleStore } from "../store/scheduleStore.ts";
 
 /**
  * Priority color mapping
  */
 const PRIORITY_COLORS: Record<Priority, string> = {
-  emergency: 'bg-red-500',
-  urgent: 'bg-orange-500',
-  high: 'bg-yellow-500',
-  normal: 'bg-blue-500',
-  low: 'bg-gray-400',
+  emergency: "bg-red-500",
+  urgent: "bg-orange-500",
+  high: "bg-yellow-500",
+  normal: "bg-blue-500",
+  low: "bg-gray-400",
 };
 
 /**
  * Draggable work order row in the unscheduled panel
+ * Memoized to prevent unnecessary re-renders when parent list updates
  */
-function DraggableWorkOrderRow({ workOrder }: { workOrder: WorkOrder }) {
-  const { attributes, listeners, setNodeRef, transform, isDragging } = useDraggable({
-    id: workOrder.id,
-    data: { workOrder },
-  });
+const DraggableWorkOrderRow = memo(function DraggableWorkOrderRow({
+  workOrder,
+}: {
+  workOrder: WorkOrder;
+}) {
+  const { attributes, listeners, setNodeRef, transform, isDragging } =
+    useDraggable({
+      id: workOrder.id,
+      data: { workOrder },
+    });
 
   const style = {
     transform: CSS.Translate.toString(transform),
@@ -47,7 +53,7 @@ function DraggableWorkOrderRow({ workOrder }: { workOrder: WorkOrder }) {
       className={`
         flex items-center gap-3 p-3 bg-white border-b border-border
         cursor-grab active:cursor-grabbing hover:bg-bg-hover transition-colors
-        ${isDragging ? 'opacity-50 shadow-lg z-50' : ''}
+        ${isDragging ? "opacity-50 shadow-lg z-50" : ""}
       `}
     >
       {/* Priority indicator */}
@@ -63,12 +69,13 @@ function DraggableWorkOrderRow({ workOrder }: { workOrder: WorkOrder }) {
             {workOrder.customer_name || `Customer #${workOrder.customer_id}`}
           </span>
           <Badge variant="default" className="text-[10px] shrink-0">
-            {JOB_TYPE_LABELS[workOrder.job_type as JobType] || workOrder.job_type}
+            {JOB_TYPE_LABELS[workOrder.job_type as JobType] ||
+              workOrder.job_type}
           </Badge>
         </div>
         <div className="text-xs text-text-secondary truncate">
           {workOrder.service_city && `${workOrder.service_city}, `}
-          {workOrder.service_address_line1 || 'No address'}
+          {workOrder.service_address_line1 || "No address"}
         </div>
       </div>
 
@@ -80,13 +87,13 @@ function DraggableWorkOrderRow({ workOrder }: { workOrder: WorkOrder }) {
       )}
     </div>
   );
-}
+});
 
 /**
  * Sortable column header
  */
-type SortField = 'priority' | 'customer' | 'city' | 'job_type';
-type SortDirection = 'asc' | 'desc';
+type SortField = "priority" | "customer" | "city" | "job_type";
+type SortDirection = "asc" | "desc";
 
 interface SortState {
   field: SortField;
@@ -100,8 +107,11 @@ export function UnscheduledPanel() {
   const { unscheduledPanelOpen, setUnscheduledPanelOpen } = useScheduleStore();
   const { data, isLoading, isError } = useUnscheduledWorkOrders();
 
-  const [searchQuery, setSearchQuery] = useState('');
-  const [sort, setSort] = useState<SortState>({ field: 'priority', direction: 'desc' });
+  const [searchQuery, setSearchQuery] = useState("");
+  const [sort, setSort] = useState<SortState>({
+    field: "priority",
+    direction: "desc",
+  });
 
   // Priority order for sorting
   const priorityOrder: Record<Priority, number> = {
@@ -124,7 +134,7 @@ export function UnscheduledPanel() {
           wo.customer_name?.toLowerCase().includes(query) ||
           wo.service_city?.toLowerCase().includes(query) ||
           wo.service_address_line1?.toLowerCase().includes(query) ||
-          wo.job_type?.toLowerCase().includes(query)
+          wo.job_type?.toLowerCase().includes(query),
       );
     }
 
@@ -133,23 +143,27 @@ export function UnscheduledPanel() {
       let comparison = 0;
 
       switch (sort.field) {
-        case 'priority':
+        case "priority":
           comparison =
             (priorityOrder[b.priority as Priority] || 0) -
             (priorityOrder[a.priority as Priority] || 0);
           break;
-        case 'customer':
-          comparison = (a.customer_name || '').localeCompare(b.customer_name || '');
+        case "customer":
+          comparison = (a.customer_name || "").localeCompare(
+            b.customer_name || "",
+          );
           break;
-        case 'city':
-          comparison = (a.service_city || '').localeCompare(b.service_city || '');
+        case "city":
+          comparison = (a.service_city || "").localeCompare(
+            b.service_city || "",
+          );
           break;
-        case 'job_type':
-          comparison = (a.job_type || '').localeCompare(b.job_type || '');
+        case "job_type":
+          comparison = (a.job_type || "").localeCompare(b.job_type || "");
           break;
       }
 
-      return sort.direction === 'desc' ? -comparison : comparison;
+      return sort.direction === "desc" ? -comparison : comparison;
     });
 
     return items;
@@ -159,14 +173,15 @@ export function UnscheduledPanel() {
   const toggleSort = (field: SortField) => {
     setSort((prev) => ({
       field,
-      direction: prev.field === field && prev.direction === 'desc' ? 'asc' : 'desc',
+      direction:
+        prev.field === field && prev.direction === "desc" ? "asc" : "desc",
     }));
   };
 
   // Sort indicator
   const SortIndicator = ({ field }: { field: SortField }) => {
     if (sort.field !== field) return <span className="text-text-muted">⇅</span>;
-    return <span>{sort.direction === 'desc' ? '↓' : '↑'}</span>;
+    return <span>{sort.direction === "desc" ? "↓" : "↑"}</span>;
   };
 
   if (!unscheduledPanelOpen) {
@@ -175,6 +190,7 @@ export function UnscheduledPanel() {
         onClick={() => setUnscheduledPanelOpen(true)}
         className="fixed right-0 top-1/2 -translate-y-1/2 bg-primary text-white px-2 py-4 rounded-l-lg shadow-lg hover:bg-primary-hover transition-colors z-40"
         title="Open Unscheduled Jobs"
+        aria-label={`Open unscheduled jobs panel, ${data?.items?.length || 0} jobs`}
       >
         <span className="writing-mode-vertical text-sm font-medium">
           Unscheduled ({data?.items?.length || 0})
@@ -194,6 +210,7 @@ export function UnscheduledPanel() {
           onClick={() => setUnscheduledPanelOpen(false)}
           className="text-text-muted hover:text-text-primary p-1"
           title="Close panel"
+          aria-label="Close unscheduled jobs panel"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -223,13 +240,25 @@ export function UnscheduledPanel() {
 
       {/* Sort headers */}
       <div className="flex items-center gap-2 px-3 py-2 border-b border-border bg-bg-subtle text-xs text-text-secondary">
-        <button onClick={() => toggleSort('priority')} className="hover:text-primary">
+        <button
+          onClick={() => toggleSort("priority")}
+          className="hover:text-primary"
+          aria-label="Sort by priority"
+        >
           Pri <SortIndicator field="priority" />
         </button>
-        <button onClick={() => toggleSort('customer')} className="hover:text-primary flex-1">
+        <button
+          onClick={() => toggleSort("customer")}
+          className="hover:text-primary flex-1"
+          aria-label="Sort by customer name"
+        >
           Customer <SortIndicator field="customer" />
         </button>
-        <button onClick={() => toggleSort('city')} className="hover:text-primary">
+        <button
+          onClick={() => toggleSort("city")}
+          className="hover:text-primary"
+          aria-label="Sort by city"
+        >
           City <SortIndicator field="city" />
         </button>
       </div>
@@ -239,13 +268,17 @@ export function UnscheduledPanel() {
         {isLoading ? (
           <div className="p-4 text-center text-text-muted">Loading...</div>
         ) : isError ? (
-          <div className="p-4 text-center text-danger">Failed to load work orders</div>
+          <div className="p-4 text-center text-danger">
+            Failed to load work orders
+          </div>
         ) : filteredWorkOrders.length === 0 ? (
           <div className="p-4 text-center text-text-muted">
-            {searchQuery ? 'No matching jobs' : 'No unscheduled jobs'}
+            {searchQuery ? "No matching jobs" : "No unscheduled jobs"}
           </div>
         ) : (
-          filteredWorkOrders.map((wo) => <DraggableWorkOrderRow key={wo.id} workOrder={wo} />)
+          filteredWorkOrders.map((wo) => (
+            <DraggableWorkOrderRow key={wo.id} workOrder={wo} />
+          ))
         )}
       </div>
 

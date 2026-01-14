@@ -1,21 +1,21 @@
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Label } from '@/components/ui/Label.tsx';
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { Label } from "@/components/ui/Label.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   inventoryFormSchema,
   type InventoryFormData,
   type InventoryItem,
-} from '@/api/types/inventory.ts';
+} from "@/api/types/inventory.ts";
 
 export interface InventoryFormProps {
   open: boolean;
@@ -26,13 +26,13 @@ export interface InventoryFormProps {
 }
 
 const INVENTORY_CATEGORIES = [
-  'Chemicals',
-  'Parts',
-  'Tools',
-  'Safety Equipment',
-  'Office Supplies',
-  'Vehicle Supplies',
-  'Other',
+  "Chemicals",
+  "Parts",
+  "Tools",
+  "Safety Equipment",
+  "Office Supplies",
+  "Vehicle Supplies",
+  "Other",
 ];
 
 /**
@@ -58,23 +58,23 @@ export function InventoryForm({
     defaultValues: item
       ? {
           name: item.name,
-          sku: item.sku || '',
+          sku: item.sku || "",
           category: item.category,
           quantity: item.quantity,
           reorder_level: item.reorder_level,
           unit_cost: item.unit_cost,
-          supplier: item.supplier || '',
-          location: item.location || '',
+          supplier: item.supplier || "",
+          location: item.location || "",
         }
       : {
-          name: '',
-          sku: '',
-          category: '',
+          name: "",
+          sku: "",
+          category: "",
           quantity: 0,
           reorder_level: 0,
           unit_cost: 0,
-          supplier: '',
-          location: '',
+          supplier: "",
+          location: "",
         },
   });
 
@@ -99,7 +99,7 @@ export function InventoryForm({
     <Dialog open={open} onClose={handleClose} disableOverlayClose={isDirty}>
       <DialogContent size="md">
         <DialogHeader onClose={handleClose}>
-          {isEdit ? 'Edit Inventory Item' : 'Add New Inventory Item'}
+          {isEdit ? "Edit Inventory Item" : "Add New Inventory Item"}
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -112,7 +112,7 @@ export function InventoryForm({
                 </Label>
                 <Input
                   id="name"
-                  {...register('name')}
+                  {...register("name")}
                   error={!!errors.name}
                   placeholder="e.g., Septic Tank Cleaner"
                 />
@@ -123,18 +123,18 @@ export function InventoryForm({
 
               <div className="space-y-2">
                 <Label htmlFor="sku">SKU</Label>
-                <Input
-                  id="sku"
-                  {...register('sku')}
-                  placeholder="SKU-001"
-                />
+                <Input id="sku" {...register("sku")} placeholder="SKU-001" />
               </div>
 
               <div className="space-y-2">
                 <Label htmlFor="category" required>
                   Category
                 </Label>
-                <Select id="category" {...register('category')} error={!!errors.category}>
+                <Select
+                  id="category"
+                  {...register("category")}
+                  error={!!errors.category}
+                >
                   <option value="">Select category...</option>
                   {INVENTORY_CATEGORIES.map((cat) => (
                     <option key={cat} value={cat}>
@@ -143,7 +143,9 @@ export function InventoryForm({
                   ))}
                 </Select>
                 {errors.category && (
-                  <p className="text-sm text-danger">{errors.category.message}</p>
+                  <p className="text-sm text-danger">
+                    {errors.category.message}
+                  </p>
                 )}
               </div>
             </div>
@@ -162,12 +164,14 @@ export function InventoryForm({
                     id="quantity"
                     type="number"
                     min="0"
-                    {...register('quantity')}
+                    {...register("quantity")}
                     error={!!errors.quantity}
                     placeholder="0"
                   />
                   {errors.quantity && (
-                    <p className="text-sm text-danger">{errors.quantity.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.quantity.message}
+                    </p>
                   )}
                 </div>
 
@@ -179,12 +183,14 @@ export function InventoryForm({
                     id="reorder_level"
                     type="number"
                     min="0"
-                    {...register('reorder_level')}
+                    {...register("reorder_level")}
                     error={!!errors.reorder_level}
                     placeholder="10"
                   />
                   {errors.reorder_level && (
-                    <p className="text-sm text-danger">{errors.reorder_level.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.reorder_level.message}
+                    </p>
                   )}
                   <p className="text-xs text-text-muted">
                     Alert when stock falls to this level
@@ -200,12 +206,14 @@ export function InventoryForm({
                     type="number"
                     min="0"
                     step="0.01"
-                    {...register('unit_cost')}
+                    {...register("unit_cost")}
                     error={!!errors.unit_cost}
                     placeholder="0.00"
                   />
                   {errors.unit_cost && (
-                    <p className="text-sm text-danger">{errors.unit_cost.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.unit_cost.message}
+                    </p>
                   )}
                 </div>
               </div>
@@ -221,7 +229,7 @@ export function InventoryForm({
                   <Label htmlFor="supplier">Supplier</Label>
                   <Input
                     id="supplier"
-                    {...register('supplier')}
+                    {...register("supplier")}
                     placeholder="ABC Supplies Inc."
                   />
                 </div>
@@ -230,7 +238,7 @@ export function InventoryForm({
                   <Label htmlFor="location">Storage Location</Label>
                   <Input
                     id="location"
-                    {...register('location')}
+                    {...register("location")}
                     placeholder="Warehouse A - Shelf 3"
                   />
                 </div>
@@ -239,11 +247,20 @@ export function InventoryForm({
           </DialogBody>
 
           <DialogFooter>
-            <Button type="button" variant="secondary" onClick={handleClose} disabled={isLoading}>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={handleClose}
+              disabled={isLoading}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Saving...' : isEdit ? 'Save Changes' : 'Create Item'}
+              {isLoading
+                ? "Saving..."
+                : isEdit
+                  ? "Save Changes"
+                  : "Create Item"}
             </Button>
           </DialogFooter>
         </form>

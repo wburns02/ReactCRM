@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '../client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "../client.ts";
 import {
   activityListResponseSchema,
   activitySchema,
@@ -7,16 +7,17 @@ import {
   type ActivityListResponse,
   type ActivityFilters,
   type ActivityFormData,
-} from '../types/activity.ts';
+} from "../types/activity.ts";
 
 /**
  * Query keys for activities
  */
 export const activityKeys = {
-  all: ['activities'] as const,
-  lists: () => [...activityKeys.all, 'list'] as const,
-  list: (filters: ActivityFilters) => [...activityKeys.lists(), filters] as const,
-  details: () => [...activityKeys.all, 'detail'] as const,
+  all: ["activities"] as const,
+  lists: () => [...activityKeys.all, "list"] as const,
+  list: (filters: ActivityFilters) =>
+    [...activityKeys.lists(), filters] as const,
+  details: () => [...activityKeys.all, "detail"] as const,
   detail: (id: string) => [...activityKeys.details(), id] as const,
 };
 
@@ -28,10 +29,11 @@ export function useActivities(filters: ActivityFilters = {}) {
     queryKey: activityKeys.list(filters),
     queryFn: async (): Promise<ActivityListResponse> => {
       const params = new URLSearchParams();
-      if (filters.page) params.set('page', String(filters.page));
-      if (filters.page_size) params.set('page_size', String(filters.page_size));
-      if (filters.customer_id) params.set('customer_id', filters.customer_id);
-      if (filters.activity_type) params.set('activity_type', filters.activity_type);
+      if (filters.page) params.set("page", String(filters.page));
+      if (filters.page_size) params.set("page_size", String(filters.page_size));
+      if (filters.customer_id) params.set("customer_id", filters.customer_id);
+      if (filters.activity_type)
+        params.set("activity_type", filters.activity_type);
 
       const { data } = await apiClient.get(`/activities/?${params.toString()}`);
 
@@ -39,7 +41,10 @@ export function useActivities(filters: ActivityFilters = {}) {
       if (import.meta.env.DEV) {
         const result = activityListResponseSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Activity list response validation failed:', result.error);
+          console.warn(
+            "Activity list response validation failed:",
+            result.error,
+          );
         }
       }
 
@@ -61,7 +66,7 @@ export function useActivity(id: string | undefined) {
       if (import.meta.env.DEV) {
         const result = activitySchema.safeParse(data);
         if (!result.success) {
-          console.warn('Activity response validation failed:', result.error);
+          console.warn("Activity response validation failed:", result.error);
         }
       }
 
@@ -79,7 +84,7 @@ export function useCreateActivity() {
 
   return useMutation({
     mutationFn: async (data: ActivityFormData): Promise<Activity> => {
-      const response = await apiClient.post('/activities/', data);
+      const response = await apiClient.post("/activities/", data);
       return response.data;
     },
     onSuccess: () => {
@@ -106,7 +111,9 @@ export function useUpdateActivity() {
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: activityKeys.detail(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: activityKeys.detail(variables.id),
+      });
       queryClient.invalidateQueries({ queryKey: activityKeys.lists() });
     },
   });

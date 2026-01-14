@@ -1,5 +1,5 @@
-import { useMutation, useQuery } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 
 /**
  * Route Optimization Types
@@ -8,7 +8,7 @@ export interface RouteOptimizationRequest {
   date: string; // YYYY-MM-DD
   technician_ids?: number[];
   work_order_ids?: string[];
-  optimize_for?: 'time' | 'distance' | 'balanced';
+  optimize_for?: "time" | "distance" | "balanced";
   start_location?: {
     lat: number;
     lng: number;
@@ -77,8 +77,13 @@ export interface RoutePreviewResponse {
  */
 export function useOptimizeRoutes() {
   return useMutation({
-    mutationFn: async (request: RouteOptimizationRequest): Promise<RouteOptimizationResponse> => {
-      const { data } = await apiClient.post('/scheduling/optimize-routes', request);
+    mutationFn: async (
+      request: RouteOptimizationRequest,
+    ): Promise<RouteOptimizationResponse> => {
+      const { data } = await apiClient.post(
+        "/scheduling/optimize-routes",
+        request,
+      );
       return data;
     },
   });
@@ -89,8 +94,13 @@ export function useOptimizeRoutes() {
  */
 export function useApplyOptimizedRoutes() {
   return useMutation({
-    mutationFn: async (routes: TechnicianRoute[]): Promise<{ success: boolean; updated_count: number }> => {
-      const { data } = await apiClient.post('/scheduling/apply-optimized-routes', { routes });
+    mutationFn: async (
+      routes: TechnicianRoute[],
+    ): Promise<{ success: boolean; updated_count: number }> => {
+      const { data } = await apiClient.post(
+        "/scheduling/apply-optimized-routes",
+        { routes },
+      );
       return data;
     },
   });
@@ -101,8 +111,13 @@ export function useApplyOptimizedRoutes() {
  */
 export function useRoutePreview() {
   return useMutation({
-    mutationFn: async (request: RoutePreviewRequest): Promise<RoutePreviewResponse> => {
-      const { data } = await apiClient.post('/scheduling/route-preview', request);
+    mutationFn: async (
+      request: RoutePreviewRequest,
+    ): Promise<RoutePreviewResponse> => {
+      const { data } = await apiClient.post(
+        "/scheduling/route-preview",
+        request,
+      );
       return data;
     },
   });
@@ -121,7 +136,10 @@ export function useDrivingDirections() {
       duration_minutes: number;
       polyline: string;
     }> => {
-      const { data } = await apiClient.post('/scheduling/driving-directions', params);
+      const { data } = await apiClient.post(
+        "/scheduling/driving-directions",
+        params,
+      );
       return data;
     },
   });
@@ -132,9 +150,9 @@ export function useDrivingDirections() {
  */
 export function useOptimizationHistory(startDate: string, endDate: string) {
   return useQuery({
-    queryKey: ['optimization-history', startDate, endDate],
+    queryKey: ["optimization-history", startDate, endDate],
     queryFn: async () => {
-      const { data } = await apiClient.get('/scheduling/optimization-history', {
+      const { data } = await apiClient.get("/scheduling/optimization-history", {
         params: { start_date: startDate, end_date: endDate },
       });
       return data as {

@@ -1,5 +1,5 @@
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '../client.ts';
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "../client.ts";
 import {
   invoiceListResponseSchema,
   invoiceSchema,
@@ -7,16 +7,16 @@ import {
   type InvoiceListResponse,
   type InvoiceFilters,
   type InvoiceFormData,
-} from '../types/invoice.ts';
+} from "../types/invoice.ts";
 
 /**
  * Query keys for invoices
  */
 export const invoiceKeys = {
-  all: ['invoices'] as const,
-  lists: () => [...invoiceKeys.all, 'list'] as const,
+  all: ["invoices"] as const,
+  lists: () => [...invoiceKeys.all, "list"] as const,
   list: (filters: InvoiceFilters) => [...invoiceKeys.lists(), filters] as const,
-  details: () => [...invoiceKeys.all, 'detail'] as const,
+  details: () => [...invoiceKeys.all, "detail"] as const,
   detail: (id: string) => [...invoiceKeys.details(), id] as const,
 };
 
@@ -28,26 +28,34 @@ export function useInvoices(filters: InvoiceFilters = {}) {
     queryKey: invoiceKeys.list(filters),
     queryFn: async (): Promise<InvoiceListResponse> => {
       const params = new URLSearchParams();
-      if (filters.page) params.set('page', String(filters.page));
-      if (filters.page_size) params.set('page_size', String(filters.page_size));
-      if (filters.status) params.set('status', filters.status);
-      if (filters.customer_id) params.set('customer_id', filters.customer_id);
-      if (filters.date_from) params.set('date_from', filters.date_from);
-      if (filters.date_to) params.set('date_to', filters.date_to);
+      if (filters.page) params.set("page", String(filters.page));
+      if (filters.page_size) params.set("page_size", String(filters.page_size));
+      if (filters.status) params.set("status", filters.status);
+      if (filters.customer_id) params.set("customer_id", filters.customer_id);
+      if (filters.date_from) params.set("date_from", filters.date_from);
+      if (filters.date_to) params.set("date_to", filters.date_to);
 
-      const url = '/invoices?' + params.toString();
+      const url = "/invoices?" + params.toString();
       const { data } = await apiClient.get(url);
 
       // Handle both array and paginated response
       if (Array.isArray(data)) {
-        return { items: data, total: data.length, page: 1, page_size: data.length };
+        return {
+          items: data,
+          total: data.length,
+          page: 1,
+          page_size: data.length,
+        };
       }
 
       // Validate response in development
       if (import.meta.env.DEV) {
         const result = invoiceListResponseSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Invoice list response validation failed:', result.error);
+          console.warn(
+            "Invoice list response validation failed:",
+            result.error,
+          );
         }
       }
 
@@ -64,12 +72,12 @@ export function useInvoice(id: string | undefined) {
   return useQuery({
     queryKey: invoiceKeys.detail(id!),
     queryFn: async (): Promise<Invoice> => {
-      const { data } = await apiClient.get('/invoices/' + id);
+      const { data } = await apiClient.get("/invoices/" + id);
 
       if (import.meta.env.DEV) {
         const result = invoiceSchema.safeParse(data);
         if (!result.success) {
-          console.warn('Invoice response validation failed:', result.error);
+          console.warn("Invoice response validation failed:", result.error);
         }
       }
 
@@ -106,7 +114,7 @@ export function useCreateInvoice() {
         total,
       };
 
-      const response = await apiClient.post('/invoices', invoiceData);
+      const response = await apiClient.post("/invoices", invoiceData);
       return response.data;
     },
     onSuccess: () => {
@@ -145,11 +153,13 @@ export function useUpdateInvoice() {
         };
       }
 
-      const response = await apiClient.patch('/invoices/' + id, invoiceData);
+      const response = await apiClient.patch("/invoices/" + id, invoiceData);
       return response.data;
     },
     onSuccess: (_, variables) => {
-      queryClient.invalidateQueries({ queryKey: invoiceKeys.detail(variables.id) });
+      queryClient.invalidateQueries({
+        queryKey: invoiceKeys.detail(variables.id),
+      });
       queryClient.invalidateQueries({ queryKey: invoiceKeys.lists() });
     },
   });
@@ -163,7 +173,7 @@ export function useDeleteInvoice() {
 
   return useMutation({
     mutationFn: async (id: string): Promise<void> => {
-      await apiClient.delete('/invoices/' + id);
+      await apiClient.delete("/invoices/" + id);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: invoiceKeys.lists() });

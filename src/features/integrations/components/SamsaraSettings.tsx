@@ -1,17 +1,23 @@
-import { useState } from 'react';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Label } from '@/components/ui/Label.tsx';
-import { useFleetLocations } from '@/features/fleet/api.ts';
+import { useState } from "react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import { useFleetLocations } from "@/features/fleet/api.ts";
+import { toastSuccess } from "@/components/ui/Toast";
 
 /**
  * Samsara GPS configuration settings
  */
 export function SamsaraSettings() {
   const { data: vehicles, isLoading } = useFleetLocations();
-  const [apiToken, setApiToken] = useState('');
-  const [refreshInterval, setRefreshInterval] = useState('30');
+  const [apiToken, setApiToken] = useState("");
+  const [refreshInterval, setRefreshInterval] = useState("30");
   const [isSaving, setIsSaving] = useState(false);
 
   const handleSave = async () => {
@@ -19,7 +25,7 @@ export function SamsaraSettings() {
     // In a real implementation, this would call an API to save the settings
     await new Promise((resolve) => setTimeout(resolve, 1000));
     setIsSaving(false);
-    alert('Samsara settings saved (demo only)');
+    toastSuccess("Samsara settings saved (demo only)");
   };
 
   return (
@@ -39,16 +45,21 @@ export function SamsaraSettings() {
             <div className="p-3 bg-bg-hover rounded-lg">
               <div className="flex items-center justify-between">
                 <div>
-                  <p className="font-medium text-text-primary">Connection Status</p>
+                  <p className="font-medium text-text-primary">
+                    Connection Status
+                  </p>
                   {vehicles && vehicles.length > 0 && (
                     <p className="text-sm text-text-secondary">
-                      Tracking {vehicles.length} vehicle{vehicles.length !== 1 ? 's' : ''}
+                      Tracking {vehicles.length} vehicle
+                      {vehicles.length !== 1 ? "s" : ""}
                     </p>
                   )}
                 </div>
                 <div
                   className={`w-3 h-3 rounded-full ${
-                    vehicles && vehicles.length > 0 ? 'bg-success' : 'bg-text-muted'
+                    vehicles && vehicles.length > 0
+                      ? "bg-success"
+                      : "bg-text-muted"
                   }`}
                 />
               </div>
@@ -71,7 +82,9 @@ export function SamsaraSettings() {
 
             {/* Settings */}
             <div>
-              <Label htmlFor="refresh-interval">Location Refresh Interval (seconds)</Label>
+              <Label htmlFor="refresh-interval">
+                Location Refresh Interval (seconds)
+              </Label>
               <Input
                 id="refresh-interval"
                 type="number"
@@ -87,7 +100,9 @@ export function SamsaraSettings() {
 
             {/* Features */}
             <div>
-              <p className="font-medium text-text-primary mb-2">Enabled Features</p>
+              <p className="font-medium text-text-primary mb-2">
+                Enabled Features
+              </p>
               <div className="space-y-2">
                 <label className="flex items-center gap-2 text-sm">
                   <input type="checkbox" defaultChecked className="rounded" />
@@ -111,7 +126,9 @@ export function SamsaraSettings() {
             {/* Vehicle Stats */}
             {vehicles && vehicles.length > 0 && (
               <div className="p-3 bg-bg-hover rounded-lg">
-                <p className="font-medium text-text-primary mb-2">Fleet Statistics</p>
+                <p className="font-medium text-text-primary mb-2">
+                  Fleet Statistics
+                </p>
                 <div className="grid grid-cols-2 gap-2 text-sm">
                   <div>
                     <span className="text-text-secondary">Total Vehicles:</span>
@@ -120,11 +137,13 @@ export function SamsaraSettings() {
                   <div>
                     <span className="text-text-secondary">Active:</span>
                     <span className="ml-2 font-medium text-success">
-                      {vehicles.filter((v) => v.status !== 'offline').length}
+                      {vehicles.filter((v) => v.status !== "offline").length}
                     </span>
                   </div>
                   <div>
-                    <span className="text-text-secondary">Assigned Drivers:</span>
+                    <span className="text-text-secondary">
+                      Assigned Drivers:
+                    </span>
                     <span className="ml-2 font-medium">
                       {vehicles.filter((v) => v.driver_id).length}
                     </span>
@@ -132,7 +151,7 @@ export function SamsaraSettings() {
                   <div>
                     <span className="text-text-secondary">Offline:</span>
                     <span className="ml-2 font-medium text-text-muted">
-                      {vehicles.filter((v) => v.status === 'offline').length}
+                      {vehicles.filter((v) => v.status === "offline").length}
                     </span>
                   </div>
                 </div>
@@ -142,9 +161,12 @@ export function SamsaraSettings() {
             {/* Actions */}
             <div className="flex gap-2 pt-2">
               <Button onClick={handleSave} disabled={isSaving}>
-                {isSaving ? 'Saving...' : 'Save Settings'}
+                {isSaving ? "Saving..." : "Save Settings"}
               </Button>
-              <Button variant="secondary" onClick={() => window.open('https://cloud.samsara.com')}>
+              <Button
+                variant="secondary"
+                onClick={() => window.open("https://cloud.samsara.com")}
+              >
                 Samsara Dashboard
               </Button>
             </div>

@@ -1,7 +1,7 @@
-import { create } from 'zustand';
-import { persist } from 'zustand/middleware';
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
-export type ScheduleView = 'week' | 'day' | 'tech' | 'map' | 'timeline';
+export type ScheduleView = "week" | "day" | "tech" | "map" | "timeline";
 
 export interface ScheduleFilters {
   technician: string | null;
@@ -64,7 +64,7 @@ export const useScheduleStore = create<ScheduleState>()(
   persist(
     (set, get) => ({
       // Initial state
-      currentView: 'week',
+      currentView: "week",
       currentDate: getWeekStart(new Date()),
       filters: {
         technician: null,
@@ -83,7 +83,7 @@ export const useScheduleStore = create<ScheduleState>()(
 
       goToToday: () => {
         const { currentView } = get();
-        if (currentView === 'day') {
+        if (currentView === "day") {
           const today = new Date();
           today.setHours(0, 0, 0, 0);
           set({ currentDate: today });
@@ -156,11 +156,11 @@ export const useScheduleStore = create<ScheduleState>()(
       selectWorkOrder: (id) => set({ selectedWorkOrderId: id }),
     }),
     {
-      name: 'schedule-store',
+      name: "schedule-store",
       partialize: (state) => ({
         currentView: state.currentView,
         filters: state.filters,
       }),
-    }
-  )
+    },
+  ),
 );

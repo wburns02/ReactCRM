@@ -7,9 +7,9 @@ import {
   useCallback,
   type ReactNode,
   type KeyboardEvent,
-} from 'react';
-import { createPortal } from 'react-dom';
-import { cn } from '@/lib/utils';
+} from "react";
+import { createPortal } from "react-dom";
+import { cn } from "@/lib/utils";
 
 /**
  * Dropdown Context
@@ -23,12 +23,14 @@ interface DropdownContextValue {
   setActiveIndex: (index: number) => void;
 }
 
-const DropdownContext = createContext<DropdownContextValue | undefined>(undefined);
+const DropdownContext = createContext<DropdownContextValue | undefined>(
+  undefined,
+);
 
 function useDropdown() {
   const context = useContext(DropdownContext);
   if (!context) {
-    throw new Error('Dropdown components must be used within a Dropdown');
+    throw new Error("Dropdown components must be used within a Dropdown");
   }
   return context;
 }
@@ -44,7 +46,11 @@ interface DropdownProps {
   onOpenChange?: (open: boolean) => void;
 }
 
-export function Dropdown({ children, open: controlledOpen, onOpenChange }: DropdownProps) {
+export function Dropdown({
+  children,
+  open: controlledOpen,
+  onOpenChange,
+}: DropdownProps) {
   const [internalOpen, setInternalOpen] = useState(false);
   const isOpen = controlledOpen ?? internalOpen;
   const triggerRef = useRef<HTMLButtonElement>(null);
@@ -62,7 +68,7 @@ export function Dropdown({ children, open: controlledOpen, onOpenChange }: Dropd
         setActiveIndex(-1);
       }
     },
-    [onOpenChange]
+    [onOpenChange],
   );
 
   // Close on click outside
@@ -81,8 +87,8 @@ export function Dropdown({ children, open: controlledOpen, onOpenChange }: Dropd
       }
     };
 
-    document.addEventListener('mousedown', handleClickOutside);
-    return () => document.removeEventListener('mousedown', handleClickOutside);
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
   }, [isOpen, setIsOpen]);
 
   // Close on escape
@@ -90,19 +96,26 @@ export function Dropdown({ children, open: controlledOpen, onOpenChange }: Dropd
     if (!isOpen) return;
 
     const handleEscape = (event: globalThis.KeyboardEvent) => {
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setIsOpen(false);
         triggerRef.current?.focus();
       }
     };
 
-    document.addEventListener('keydown', handleEscape);
-    return () => document.removeEventListener('keydown', handleEscape);
+    document.addEventListener("keydown", handleEscape);
+    return () => document.removeEventListener("keydown", handleEscape);
   }, [isOpen, setIsOpen]);
 
   return (
     <DropdownContext.Provider
-      value={{ isOpen, setIsOpen, triggerRef, menuRef, activeIndex, setActiveIndex }}
+      value={{
+        isOpen,
+        setIsOpen,
+        triggerRef,
+        menuRef,
+        activeIndex,
+        setActiveIndex,
+      }}
     >
       <div className="relative inline-block">{children}</div>
     </DropdownContext.Provider>
@@ -118,13 +131,14 @@ interface DropdownTriggerProps {
 }
 
 export function DropdownTrigger({ children, className }: DropdownTriggerProps) {
-  const { isOpen, setIsOpen, triggerRef, menuRef, setActiveIndex } = useDropdown();
+  const { isOpen, setIsOpen, triggerRef, menuRef, setActiveIndex } =
+    useDropdown();
 
   const handleKeyDown = (e: KeyboardEvent<HTMLButtonElement>) => {
     switch (e.key) {
-      case 'Enter':
-      case ' ':
-      case 'ArrowDown':
+      case "Enter":
+      case " ":
+      case "ArrowDown":
         e.preventDefault();
         setIsOpen(true);
         setActiveIndex(0);
@@ -134,7 +148,7 @@ export function DropdownTrigger({ children, className }: DropdownTriggerProps) {
           (items?.[0] as HTMLElement)?.focus();
         });
         break;
-      case 'ArrowUp':
+      case "ArrowUp":
         e.preventDefault();
         setIsOpen(true);
         // Focus last item
@@ -153,10 +167,7 @@ export function DropdownTrigger({ children, className }: DropdownTriggerProps) {
     <button
       ref={triggerRef}
       type="button"
-      className={cn(
-        'inline-flex items-center justify-center gap-2',
-        className
-      )}
+      className={cn("inline-flex items-center justify-center gap-2", className)}
       onClick={() => setIsOpen(!isOpen)}
       onKeyDown={handleKeyDown}
       aria-haspopup="menu"
@@ -164,12 +175,17 @@ export function DropdownTrigger({ children, className }: DropdownTriggerProps) {
     >
       {children}
       <svg
-        className={cn('h-4 w-4 transition-transform', isOpen && 'rotate-180')}
+        className={cn("h-4 w-4 transition-transform", isOpen && "rotate-180")}
         fill="none"
         viewBox="0 0 24 24"
         stroke="currentColor"
       >
-        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M19 9l-7 7-7-7"
+        />
       </svg>
     </button>
   );
@@ -181,11 +197,22 @@ export function DropdownTrigger({ children, className }: DropdownTriggerProps) {
 interface DropdownMenuProps {
   children: ReactNode;
   className?: string;
-  align?: 'start' | 'center' | 'end';
+  align?: "start" | "center" | "end";
 }
 
-export function DropdownMenu({ children, className, align = 'start' }: DropdownMenuProps) {
-  const { isOpen, setIsOpen, triggerRef, menuRef, activeIndex, setActiveIndex } = useDropdown();
+export function DropdownMenu({
+  children,
+  className,
+  align = "start",
+}: DropdownMenuProps) {
+  const {
+    isOpen,
+    setIsOpen,
+    triggerRef,
+    menuRef,
+    activeIndex,
+    setActiveIndex,
+  } = useDropdown();
   const [position, setPosition] = useState({ top: 0, left: 0 });
 
   // Calculate position
@@ -195,9 +222,9 @@ export function DropdownMenu({ children, className, align = 'start' }: DropdownM
     const trigger = triggerRef.current.getBoundingClientRect();
     let left = trigger.left;
 
-    if (align === 'center') {
+    if (align === "center") {
       left = trigger.left + trigger.width / 2;
-    } else if (align === 'end') {
+    } else if (align === "end") {
       left = trigger.right;
     }
 
@@ -212,29 +239,31 @@ export function DropdownMenu({ children, className, align = 'start' }: DropdownM
     if (!items || items.length === 0) return;
 
     switch (e.key) {
-      case 'ArrowDown':
+      case "ArrowDown": {
         e.preventDefault();
         const nextIndex = activeIndex < items.length - 1 ? activeIndex + 1 : 0;
         setActiveIndex(nextIndex);
         (items[nextIndex] as HTMLElement)?.focus();
         break;
-      case 'ArrowUp':
+      }
+      case "ArrowUp": {
         e.preventDefault();
         const prevIndex = activeIndex > 0 ? activeIndex - 1 : items.length - 1;
         setActiveIndex(prevIndex);
         (items[prevIndex] as HTMLElement)?.focus();
         break;
-      case 'Home':
+      }
+      case "Home":
         e.preventDefault();
         setActiveIndex(0);
         (items[0] as HTMLElement)?.focus();
         break;
-      case 'End':
+      case "End":
         e.preventDefault();
         setActiveIndex(items.length - 1);
         (items[items.length - 1] as HTMLElement)?.focus();
         break;
-      case 'Tab':
+      case "Tab":
         setIsOpen(false);
         break;
     }
@@ -248,20 +277,25 @@ export function DropdownMenu({ children, className, align = 'start' }: DropdownM
       role="menu"
       aria-orientation="vertical"
       className={cn(
-        'fixed z-50 min-w-[180px] overflow-hidden rounded-md border border-border bg-bg-card shadow-lg',
-        'animate-in fade-in-0 zoom-in-95 duration-100',
-        className
+        "fixed z-50 min-w-[180px] overflow-hidden rounded-md border border-border bg-bg-card shadow-lg",
+        "animate-in fade-in-0 zoom-in-95 duration-100",
+        className,
       )}
       style={{
         top: position.top,
         left: position.left,
-        transform: align === 'center' ? 'translateX(-50%)' : align === 'end' ? 'translateX(-100%)' : undefined,
+        transform:
+          align === "center"
+            ? "translateX(-50%)"
+            : align === "end"
+              ? "translateX(-100%)"
+              : undefined,
       }}
       onKeyDown={handleKeyDown}
     >
       <div className="py-1">{children}</div>
     </div>,
-    document.body
+    document.body,
   );
 }
 
@@ -293,7 +327,7 @@ export function DropdownItem({
   };
 
   const handleKeyDown = (e: KeyboardEvent<HTMLDivElement>) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       handleClick();
     }
@@ -304,12 +338,12 @@ export function DropdownItem({
       role="menuitem"
       tabIndex={disabled ? -1 : 0}
       className={cn(
-        'relative flex cursor-pointer select-none items-center px-3 py-2 text-sm outline-none transition-colors',
-        'focus:bg-bg-hover focus:text-text-primary',
-        'hover:bg-bg-hover',
-        disabled && 'pointer-events-none opacity-50',
-        destructive && 'text-danger focus:text-danger',
-        className
+        "relative flex cursor-pointer select-none items-center px-3 py-2 text-sm outline-none transition-colors",
+        "focus:bg-bg-hover focus:text-text-primary",
+        "hover:bg-bg-hover",
+        disabled && "pointer-events-none opacity-50",
+        destructive && "text-danger focus:text-danger",
+        className,
       )}
       onClick={handleClick}
       onKeyDown={handleKeyDown}
@@ -324,15 +358,31 @@ export function DropdownItem({
  * Dropdown Separator
  */
 export function DropdownSeparator({ className }: { className?: string }) {
-  return <div className={cn('-mx-1 my-1 h-px bg-border', className)} role="separator" />;
+  return (
+    <div
+      className={cn("-mx-1 my-1 h-px bg-border", className)}
+      role="separator"
+    />
+  );
 }
 
 /**
  * Dropdown Label (non-interactive)
  */
-export function DropdownLabel({ children, className }: { children: ReactNode; className?: string }) {
+export function DropdownLabel({
+  children,
+  className,
+}: {
+  children: ReactNode;
+  className?: string;
+}) {
   return (
-    <div className={cn('px-3 py-1.5 text-xs font-semibold text-text-muted', className)}>
+    <div
+      className={cn(
+        "px-3 py-1.5 text-xs font-semibold text-text-muted",
+        className,
+      )}
+    >
       {children}
     </div>
   );

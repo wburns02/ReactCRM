@@ -1,4 +1,4 @@
-import { useState, type ReactNode } from 'react';
+import { useState, type ReactNode } from "react";
 import {
   DndContext,
   type DragEndEvent,
@@ -9,18 +9,23 @@ import {
   useSensor,
   useSensors,
   closestCenter,
-} from '@dnd-kit/core';
-import { useQueryClient } from '@tanstack/react-query';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { useAssignWorkOrder, useUnscheduleWorkOrder, workOrderKeys, scheduleKeys } from '@/api/hooks/useWorkOrders.ts';
+} from "@dnd-kit/core";
+import { useQueryClient } from "@tanstack/react-query";
+import { Badge } from "@/components/ui/Badge.tsx";
+import {
+  useAssignWorkOrder,
+  useUnscheduleWorkOrder,
+  workOrderKeys,
+  scheduleKeys,
+} from "@/api/hooks/useWorkOrders.ts";
 import {
   type WorkOrder,
   type Priority,
   type JobType,
   JOB_TYPE_LABELS,
   PRIORITY_LABELS,
-} from '@/api/types/workOrder.ts';
-import { type DropTargetData } from '@/api/types/schedule.ts';
+} from "@/api/types/workOrder.ts";
+import { type DropTargetData } from "@/api/types/schedule.ts";
 
 interface ScheduleDndContextProps {
   children: ReactNode;
@@ -35,18 +40,24 @@ interface DragData {
  * Priority color mapping for drag overlay
  */
 const PRIORITY_COLORS: Record<Priority, string> = {
-  emergency: 'border-l-red-500',
-  urgent: 'border-l-orange-500',
-  high: 'border-l-yellow-500',
-  normal: 'border-l-blue-500',
-  low: 'border-l-gray-400',
+  emergency: "border-l-red-500",
+  urgent: "border-l-orange-500",
+  high: "border-l-yellow-500",
+  normal: "border-l-blue-500",
+  low: "border-l-gray-400",
 };
 
 /**
  * Drag overlay card shown while dragging
  * Shows different label for scheduled (Moving) vs unscheduled (Scheduling)
  */
-function DragOverlayCard({ workOrder, isScheduled }: { workOrder: WorkOrder; isScheduled: boolean }) {
+function DragOverlayCard({
+  workOrder,
+  isScheduled,
+}: {
+  workOrder: WorkOrder;
+  isScheduled: boolean;
+}) {
   return (
     <div
       className={`
@@ -59,15 +70,35 @@ function DragOverlayCard({ workOrder, isScheduled }: { workOrder: WorkOrder; isS
       <div className="flex items-center gap-1 mb-2 text-[10px] text-primary font-semibold uppercase tracking-wide">
         {isScheduled ? (
           <>
-            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4" />
+            <svg
+              className="w-3 h-3"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 7h12m0 0l-4-4m4 4l-4 4m0 6H4m0 0l4 4m-4-4l4-4"
+              />
             </svg>
             Moving
           </>
         ) : (
           <>
-            <svg className="w-3 h-3" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            <svg
+              className="w-3 h-3"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z"
+              />
             </svg>
             Scheduling
           </>
@@ -83,7 +114,8 @@ function DragOverlayCard({ workOrder, isScheduled }: { workOrder: WorkOrder; isS
       </div>
       <div className="text-xs text-text-secondary">
         {workOrder.service_city && `${workOrder.service_city}`}
-        {workOrder.estimated_duration_hours && ` • ${workOrder.estimated_duration_hours}h`}
+        {workOrder.estimated_duration_hours &&
+          ` • ${workOrder.estimated_duration_hours}h`}
       </div>
       <div className="mt-2 text-xs font-medium text-primary">
         {PRIORITY_LABELS[workOrder.priority as Priority]} Priority
@@ -116,7 +148,7 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
         distance: 8,
       },
     }),
-    useSensor(KeyboardSensor)
+    useSensor(KeyboardSensor),
   );
 
   const handleDragStart = (event: DragStartEvent) => {
@@ -139,43 +171,68 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
 
     // Check if dropped on unschedule zone
     const overData = over.data.current as { type?: string } | undefined;
-    if (overData?.type === 'unschedule') {
+    if (overData?.type === "unschedule") {
       // Only unschedule if it was a scheduled work order
       if (active.data.current?.isScheduled) {
         // Optimistic update - add to unscheduled cache
         const previousLists = queryClient.getQueryData(workOrderKeys.lists());
-        const previousUnscheduled = queryClient.getQueryData(scheduleKeys.unscheduled());
+        const previousUnscheduled = queryClient.getQueryData(
+          scheduleKeys.unscheduled(),
+        );
 
         queryClient.setQueryData(
           scheduleKeys.unscheduled(),
           (oldData: { items: WorkOrder[] } | undefined) => {
-            if (!oldData) return { items: [{ ...workOrder, scheduled_date: null, status: 'draft' }], total: 1, page: 1, page_size: 200 };
+            if (!oldData)
+              return {
+                items: [
+                  { ...workOrder, scheduled_date: null, status: "draft" },
+                ],
+                total: 1,
+                page: 1,
+                page_size: 200,
+              };
             return {
               ...oldData,
-              items: [...oldData.items, { ...workOrder, scheduled_date: null, status: 'draft' }],
+              items: [
+                ...oldData.items,
+                { ...workOrder, scheduled_date: null, status: "draft" },
+              ],
             };
-          }
+          },
         );
 
         // Remove from scheduled lists
-        queryClient.setQueryData(workOrderKeys.lists(), (oldData: { items: WorkOrder[] } | undefined) => {
-          if (!oldData) return oldData;
-          return {
-            ...oldData,
-            items: oldData.items.map((wo: WorkOrder) =>
-              wo.id === workOrder.id
-                ? { ...wo, scheduled_date: null, assigned_technician: null, time_window_start: null, status: 'draft' }
-                : wo
-            ),
-          };
-        });
+        queryClient.setQueryData(
+          workOrderKeys.lists(),
+          (oldData: { items: WorkOrder[] } | undefined) => {
+            if (!oldData) return oldData;
+            return {
+              ...oldData,
+              items: oldData.items.map((wo: WorkOrder) =>
+                wo.id === workOrder.id
+                  ? {
+                      ...wo,
+                      scheduled_date: null,
+                      assigned_technician: null,
+                      time_window_start: null,
+                      status: "draft",
+                    }
+                  : wo,
+              ),
+            };
+          },
+        );
 
         // Perform actual API call
         unscheduleWorkOrder.mutate(workOrder.id, {
           onError: () => {
             // Rollback on error
             queryClient.setQueryData(workOrderKeys.lists(), previousLists);
-            queryClient.setQueryData(scheduleKeys.unscheduled(), previousUnscheduled);
+            queryClient.setQueryData(
+              scheduleKeys.unscheduled(),
+              previousUnscheduled,
+            );
           },
         });
       }
@@ -197,29 +254,33 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
     // Build time string if hour is specified (day view)
     let timeStart: string | undefined;
     if (dropData.hour !== undefined) {
-      timeStart = `${String(dropData.hour).padStart(2, '0')}:00`;
+      timeStart = `${String(dropData.hour).padStart(2, "0")}:00`;
     }
 
     // Optimistic update - update cache immediately
     const previousData = queryClient.getQueryData(workOrderKeys.lists());
 
-    queryClient.setQueryData(workOrderKeys.lists(), (oldData: { items: WorkOrder[] } | undefined) => {
-      if (!oldData) return oldData;
-      return {
-        ...oldData,
-        items: oldData.items.map((wo: WorkOrder) =>
-          wo.id === workOrder.id
-            ? {
-                ...wo,
-                scheduled_date: dropData.date,
-                assigned_technician: dropData.technician || wo.assigned_technician,
-                time_window_start: timeStart || wo.time_window_start,
-                status: 'scheduled',
-              }
-            : wo
-        ),
-      };
-    });
+    queryClient.setQueryData(
+      workOrderKeys.lists(),
+      (oldData: { items: WorkOrder[] } | undefined) => {
+        if (!oldData) return oldData;
+        return {
+          ...oldData,
+          items: oldData.items.map((wo: WorkOrder) =>
+            wo.id === workOrder.id
+              ? {
+                  ...wo,
+                  scheduled_date: dropData.date,
+                  assigned_technician:
+                    dropData.technician || wo.assigned_technician,
+                  time_window_start: timeStart || wo.time_window_start,
+                  status: "scheduled",
+                }
+              : wo,
+          ),
+        };
+      },
+    );
 
     // Also update unscheduled cache
     queryClient.setQueryData(
@@ -228,9 +289,11 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
         if (!oldData) return oldData;
         return {
           ...oldData,
-          items: oldData.items.filter((wo: WorkOrder) => wo.id !== workOrder.id),
+          items: oldData.items.filter(
+            (wo: WorkOrder) => wo.id !== workOrder.id,
+          ),
         };
-      }
+      },
     );
 
     // Perform actual API call
@@ -245,9 +308,11 @@ export function ScheduleDndContext({ children }: ScheduleDndContextProps) {
         onError: () => {
           // Rollback on error
           queryClient.setQueryData(workOrderKeys.lists(), previousData);
-          queryClient.invalidateQueries({ queryKey: scheduleKeys.unscheduled() });
+          queryClient.invalidateQueries({
+            queryKey: scheduleKeys.unscheduled(),
+          });
         },
-      }
+      },
     );
   };
 

@@ -1,0 +1,48 @@
+PLAYWRIGHT RUN RESULTS:
+========================
+Timestamp: 2026-01-08T10:11:00Z
+Target URL: https://react.ecbtx.com/customer-success
+Test File: e2e/tests/csm-queue.spec.ts
+Total Tests: 10
+Passed: 10
+Failed: 0
+
+Test Results:
+-------------
+✓ CSM Queue tab is visible and loads task queue (6.7s)
+✓ Task queue shows tasks sorted by priority (6.9s)
+✓ Clicking task opens task detail with playbook (6.6s)
+✓ Task detail shows customer context (7.0s)
+✓ Outcome form shows quality gates (6.5s)
+✓ Weekly Outcomes view shows metrics (6.7s)
+✓ Priority filters work correctly (6.2s)
+✓ Category filters work correctly (6.0s)
+✓ Playbook shows objection handlers (4.5s)
+✓ Authentication setup (3.2s)
+
+Actions Performed:
+------------------
+1. Navigate to /customer-success
+2. Click Task Queue tab
+3. Verify queue header, stats, and priority sections
+4. Click task card to open detail view
+5. Navigate between Playbook/Customer/History/Complete tabs
+6. Verify playbook content with objective and objection handlers
+7. Verify customer context with Health Score, ARR, tier
+8. Verify outcome form with quality gates
+9. Switch to Weekly Outcomes view
+10. Test priority and category filters
+
+Console Logs: No errors
+Network Failures: None
+
+Screenshot Descriptions:
+------------------------
+- csm-queue-view.png: Main queue showing priority-sorted tasks with stats
+- csm-task-detail.png: Task detail view with playbook tab selected
+- csm-customer-context.png: Customer tab showing health score, ARR, contacts
+- csm-outcome-form.png: Complete tab with outcome type and quality gates
+- csm-weekly-outcomes.png: Weekly outcomes dashboard with metrics
+- csm-playbook-detail.png: Playbook with objection handlers expanded
+
+Test Outcome: PASS (10/10)

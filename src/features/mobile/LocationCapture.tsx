@@ -1,6 +1,6 @@
-import { useState, useEffect } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Card } from '@/components/ui/Card';
+import { useState, useEffect } from "react";
+import { Button } from "@/components/ui/Button";
+import { Card } from "@/components/ui/Card";
 
 export interface LocationData {
   latitude: number;
@@ -30,9 +30,9 @@ export function LocationCapture({
 
   useEffect(() => {
     // Check if geolocation is supported
-    if (!('geolocation' in navigator)) {
+    if (!("geolocation" in navigator)) {
       setIsSupported(false);
-      setError('Geolocation is not supported by your browser');
+      setError("Geolocation is not supported by your browser");
       return;
     }
 
@@ -62,18 +62,19 @@ export function LocationCapture({
         setIsLoading(false);
       },
       (err) => {
-        console.error('Error getting location:', err);
-        let errorMessage = 'Unable to get your location';
+        console.error("Error getting location:", err);
+        let errorMessage = "Unable to get your location";
 
         switch (err.code) {
           case err.PERMISSION_DENIED:
-            errorMessage = 'Location permission denied. Please enable location access.';
+            errorMessage =
+              "Location permission denied. Please enable location access.";
             break;
           case err.POSITION_UNAVAILABLE:
-            errorMessage = 'Location information is unavailable.';
+            errorMessage = "Location information is unavailable.";
             break;
           case err.TIMEOUT:
-            errorMessage = 'Location request timed out.';
+            errorMessage = "Location request timed out.";
             break;
         }
 
@@ -84,7 +85,7 @@ export function LocationCapture({
         enableHighAccuracy: true,
         timeout: 10000,
         maximumAge: 0,
-      }
+      },
     );
   };
 
@@ -101,8 +102,8 @@ export function LocationCapture({
    * Format coordinates for display
    */
   const formatCoordinates = (lat: number, lng: number): string => {
-    const latDir = lat >= 0 ? 'N' : 'S';
-    const lngDir = lng >= 0 ? 'E' : 'W';
+    const latDir = lat >= 0 ? "N" : "S";
+    const lngDir = lng >= 0 ? "E" : "W";
     return `${Math.abs(lat).toFixed(6)}° ${latDir}, ${Math.abs(lng).toFixed(6)}° ${lngDir}`;
   };
 
@@ -157,7 +158,9 @@ export function LocationCapture({
               <div className="flex items-start gap-2">
                 <span className="text-2xl">📍</span>
                 <div className="flex-1">
-                  <p className="font-medium text-text-primary mb-1">Current Location</p>
+                  <p className="font-medium text-text-primary mb-1">
+                    Current Location
+                  </p>
                   <p className="text-sm text-text-secondary font-mono">
                     {formatCoordinates(location.latitude, location.longitude)}
                   </p>
@@ -179,10 +182,18 @@ export function LocationCapture({
             </div>
 
             <div className="flex gap-2">
-              <Button variant="secondary" onClick={captureLocation} className="flex-1">
+              <Button
+                variant="secondary"
+                onClick={captureLocation}
+                className="flex-1"
+              >
                 Refresh
               </Button>
-              <Button variant="primary" onClick={handleConfirm} className="flex-1">
+              <Button
+                variant="primary"
+                onClick={handleConfirm}
+                className="flex-1"
+              >
                 Use Location
               </Button>
             </div>
@@ -217,8 +228,8 @@ export function LocationDisplay({
   longitude: number;
 }) {
   const formatCoordinates = (lat: number, lng: number): string => {
-    const latDir = lat >= 0 ? 'N' : 'S';
-    const lngDir = lng >= 0 ? 'E' : 'W';
+    const latDir = lat >= 0 ? "N" : "S";
+    const lngDir = lng >= 0 ? "E" : "W";
     return `${Math.abs(lat).toFixed(6)}° ${latDir}, ${Math.abs(lng).toFixed(6)}° ${lngDir}`;
   };
 

@@ -1,7 +1,7 @@
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import type { InventoryItem } from '@/api/types/inventory.ts';
-import { getStockLevel, getStockLevelLabel } from '@/api/types/inventory.ts';
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import type { InventoryItem } from "@/api/types/inventory.ts";
+import { getStockLevel, getStockLevelLabel } from "@/api/types/inventory.ts";
 
 interface InventoryListProps {
   items: InventoryItem[];
@@ -41,8 +41,12 @@ export function InventoryList({
     return (
       <div className="text-center py-12">
         <div className="text-4xl mb-4">📦</div>
-        <h3 className="text-lg font-medium text-text-primary mb-2">No inventory items found</h3>
-        <p className="text-text-secondary">Try adjusting your filters or add new items.</p>
+        <h3 className="text-lg font-medium text-text-primary mb-2">
+          No inventory items found
+        </h3>
+        <p className="text-text-secondary">
+          Try adjusting your filters or add new items.
+        </p>
       </div>
     );
   }
@@ -50,15 +54,13 @@ export function InventoryList({
   const getStockBadge = (item: InventoryItem) => {
     const level = getStockLevel(item);
     const variantMap = {
-      out: 'danger',
-      low: 'warning',
-      ok: 'success',
+      out: "danger",
+      low: "warning",
+      ok: "success",
     } as const;
 
     return (
-      <Badge variant={variantMap[level]}>
-        {getStockLevelLabel(level)}
-      </Badge>
+      <Badge variant={variantMap[level]}>{getStockLevelLabel(level)}</Badge>
     );
   };
 
@@ -69,28 +71,52 @@ export function InventoryList({
         <table className="w-full" role="grid" aria-label="Inventory list">
           <thead>
             <tr className="border-b border-border bg-bg-muted">
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Item Name
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 SKU
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Category
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Quantity
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Reorder Level
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Unit Cost
               </th>
-              <th scope="col" className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Status
               </th>
-              <th scope="col" className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider">
+              <th
+                scope="col"
+                className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider"
+              >
                 Actions
               </th>
             </tr>
@@ -111,17 +137,21 @@ export function InventoryList({
                   </div>
                 </td>
                 <td className="px-4 py-3 text-sm text-text-secondary">
-                  {item.sku || '-'}
+                  {item.sku || "-"}
                 </td>
                 <td className="px-4 py-3 text-sm text-text-secondary">
                   {item.category}
                 </td>
                 <td className="px-4 py-3 text-right">
-                  <span className={`font-medium ${
-                    getStockLevel(item) === 'out' ? 'text-danger' :
-                    getStockLevel(item) === 'low' ? 'text-warning' :
-                    'text-text-primary'
-                  }`}>
+                  <span
+                    className={`font-medium ${
+                      getStockLevel(item) === "out"
+                        ? "text-danger"
+                        : getStockLevel(item) === "low"
+                          ? "text-warning"
+                          : "text-text-primary"
+                    }`}
+                  >
                     {item.quantity}
                   </span>
                 </td>
@@ -131,9 +161,7 @@ export function InventoryList({
                 <td className="px-4 py-3 text-right text-sm text-text-secondary">
                   ${item.unit_cost.toFixed(2)}
                 </td>
-                <td className="px-4 py-3">
-                  {getStockBadge(item)}
-                </td>
+                <td className="px-4 py-3">{getStockBadge(item)}</td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-2">
                     {onAdjust && (
@@ -141,7 +169,7 @@ export function InventoryList({
                         variant="ghost"
                         size="sm"
                         onClick={() => onAdjust(item)}
-                        aria-label={'Adjust quantity for ' + item.name}
+                        aria-label={"Adjust quantity for " + item.name}
                       >
                         Adjust
                       </Button>
@@ -151,7 +179,7 @@ export function InventoryList({
                         variant="ghost"
                         size="sm"
                         onClick={() => onEdit(item)}
-                        aria-label={'Edit ' + item.name}
+                        aria-label={"Edit " + item.name}
                       >
                         Edit
                       </Button>
@@ -161,7 +189,7 @@ export function InventoryList({
                         variant="ghost"
                         size="sm"
                         onClick={() => onDelete(item)}
-                        aria-label={'Delete ' + item.name}
+                        aria-label={"Delete " + item.name}
                         className="text-danger hover:text-danger"
                       >
                         Delete

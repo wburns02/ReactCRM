@@ -1,17 +1,22 @@
-import { useState, useCallback, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
+import { useState, useCallback, useMemo } from "react";
+import { Link } from "react-router-dom";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
+} from "@/components/ui/Dialog.tsx";
 import {
   useWorkOrders,
   useCreateWorkOrder,
@@ -19,10 +24,10 @@ import {
   useDeleteWorkOrder,
   useScheduleStats,
   useUpdateWorkOrderStatus,
-} from '@/api/hooks/useWorkOrders.ts';
-import { useTechnicians } from '@/api/hooks/useTechnicians.ts';
-import { WorkOrdersList } from './WorkOrdersList.tsx';
-import { WorkOrderForm } from './components/WorkOrderForm.tsx';
+} from "@/api/hooks/useWorkOrders.ts";
+import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
+import { WorkOrdersList } from "./WorkOrdersList.tsx";
+import { WorkOrderForm } from "./components/WorkOrderForm.tsx";
 import {
   WORK_ORDER_STATUS_LABELS,
   JOB_TYPE_LABELS,
@@ -33,22 +38,26 @@ import {
   type WorkOrderStatus,
   type JobType,
   type Priority,
-} from '@/api/types/workOrder.ts';
-import { formatDate } from '@/lib/utils.ts';
+} from "@/api/types/workOrder.ts";
+import { formatDate } from "@/lib/utils.ts";
 
 const PAGE_SIZE = 20;
 
-type ViewMode = 'list' | 'kanban';
+type ViewMode = "list" | "kanban";
 
 // Status columns for Kanban view
-const KANBAN_COLUMNS: { status: WorkOrderStatus; label: string; color: string }[] = [
-  { status: 'draft', label: 'Draft', color: 'bg-gray-100' },
-  { status: 'scheduled', label: 'Scheduled', color: 'bg-blue-50' },
-  { status: 'confirmed', label: 'Confirmed', color: 'bg-indigo-50' },
-  { status: 'enroute', label: 'En Route', color: 'bg-yellow-50' },
-  { status: 'on_site', label: 'On Site', color: 'bg-orange-50' },
-  { status: 'in_progress', label: 'In Progress', color: 'bg-amber-50' },
-  { status: 'completed', label: 'Completed', color: 'bg-green-50' },
+const KANBAN_COLUMNS: {
+  status: WorkOrderStatus;
+  label: string;
+  color: string;
+}[] = [
+  { status: "draft", label: "Draft", color: "bg-gray-100" },
+  { status: "scheduled", label: "Scheduled", color: "bg-blue-50" },
+  { status: "confirmed", label: "Confirmed", color: "bg-indigo-50" },
+  { status: "enroute", label: "En Route", color: "bg-yellow-50" },
+  { status: "on_site", label: "On Site", color: "bg-orange-50" },
+  { status: "in_progress", label: "In Progress", color: "bg-amber-50" },
+  { status: "completed", label: "Completed", color: "bg-green-50" },
 ];
 
 /**
@@ -61,52 +70,60 @@ const KANBAN_COLUMNS: { status: WorkOrderStatus; label: string; color: string }[
  */
 export function WorkOrdersPage() {
   // View mode state
-  const [viewMode, setViewMode] = useState<ViewMode>('list');
+  const [viewMode, setViewMode] = useState<ViewMode>("list");
 
   // Search state
-  const [searchQuery, setSearchQuery] = useState('');
+  const [searchQuery, setSearchQuery] = useState("");
 
   // Filters state
   const [filters, setFilters] = useState<WorkOrderFilters>({
     page: 1,
     page_size: PAGE_SIZE,
-    status: '',
-    scheduled_date: '',
+    status: "",
+    scheduled_date: "",
   });
 
   // Additional filter state
-  const [jobTypeFilter, setJobTypeFilter] = useState('');
-  const [priorityFilter, setPriorityFilter] = useState('');
-  const [technicianFilter, setTechnicianFilter] = useState('');
-  const [quickFilter, setQuickFilter] = useState<string>('');
+  const [jobTypeFilter, setJobTypeFilter] = useState("");
+  const [priorityFilter, setPriorityFilter] = useState("");
+  const [technicianFilter, setTechnicianFilter] = useState("");
+  const [quickFilter, setQuickFilter] = useState<string>("");
 
   // Form modal state
   const [isFormOpen, setIsFormOpen] = useState(false);
-  const [editingWorkOrder, setEditingWorkOrder] = useState<WorkOrder | null>(null);
+  const [editingWorkOrder, setEditingWorkOrder] = useState<WorkOrder | null>(
+    null,
+  );
 
   // Delete confirmation state
-  const [deletingWorkOrder, setDeletingWorkOrder] = useState<WorkOrder | null>(null);
+  const [deletingWorkOrder, setDeletingWorkOrder] = useState<WorkOrder | null>(
+    null,
+  );
 
   // Fetch work orders with extended filters
   const apiFilters = useMemo(() => {
-    const today = new Date().toISOString().split('T')[0];
+    const today = new Date().toISOString().split("T")[0];
     const weekStart = new Date();
-    weekStart.setDate(weekStart.getDate() - weekStart.getDay() + (weekStart.getDay() === 0 ? -6 : 1));
+    weekStart.setDate(
+      weekStart.getDate() -
+        weekStart.getDay() +
+        (weekStart.getDay() === 0 ? -6 : 1),
+    );
     const weekEnd = new Date(weekStart);
     weekEnd.setDate(weekEnd.getDate() + 6);
 
-    let effectiveFilters: WorkOrderFilters = { ...filters };
+    const effectiveFilters: WorkOrderFilters = { ...filters };
 
     // Apply quick filters
-    if (quickFilter === 'today') {
+    if (quickFilter === "today") {
       effectiveFilters.scheduled_date = today;
-    } else if (quickFilter === 'unscheduled') {
-      effectiveFilters.status = 'draft';
+    } else if (quickFilter === "unscheduled") {
+      effectiveFilters.status = "draft";
     }
     // Note: emergency, job_type, priority, technician filters applied client-side
 
     // For kanban view, fetch more items
-    if (viewMode === 'kanban') {
+    if (viewMode === "kanban") {
       effectiveFilters.page_size = 200;
     }
 
@@ -130,8 +147,11 @@ export function WorkOrdersPage() {
 
     const query = searchQuery.toLowerCase();
     return data.items.filter((wo) => {
-      const customerName = wo.customer_name ||
-        (wo.customer ? `${wo.customer.first_name} ${wo.customer.last_name}` : '');
+      const customerName =
+        wo.customer_name ||
+        (wo.customer
+          ? `${wo.customer.first_name} ${wo.customer.last_name}`
+          : "");
       return (
         customerName.toLowerCase().includes(query) ||
         wo.id.toLowerCase().includes(query) ||
@@ -144,8 +164,11 @@ export function WorkOrdersPage() {
 
   // Group work orders by status for Kanban
   const kanbanData = useMemo(() => {
-    const grouped: Record<WorkOrderStatus, WorkOrder[]> = {} as Record<WorkOrderStatus, WorkOrder[]>;
-    KANBAN_COLUMNS.forEach(col => {
+    const grouped: Record<WorkOrderStatus, WorkOrder[]> = {} as Record<
+      WorkOrderStatus,
+      WorkOrder[]
+    >;
+    KANBAN_COLUMNS.forEach((col) => {
       grouped[col.status] = [];
     });
 
@@ -160,15 +183,25 @@ export function WorkOrdersPage() {
   }, [filteredWorkOrders]);
 
   // Handlers
-  const handleStatusChange = useCallback((e: React.ChangeEvent<HTMLSelectElement>) => {
-    setFilters((prev) => ({ ...prev, status: e.target.value, page: 1 }));
-    setQuickFilter('');
-  }, []);
+  const handleStatusChange = useCallback(
+    (e: React.ChangeEvent<HTMLSelectElement>) => {
+      setFilters((prev) => ({ ...prev, status: e.target.value, page: 1 }));
+      setQuickFilter("");
+    },
+    [],
+  );
 
-  const handleDateChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    setFilters((prev) => ({ ...prev, scheduled_date: e.target.value, page: 1 }));
-    setQuickFilter('');
-  }, []);
+  const handleDateChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      setFilters((prev) => ({
+        ...prev,
+        scheduled_date: e.target.value,
+        page: 1,
+      }));
+      setQuickFilter("");
+    },
+    [],
+  );
 
   const handlePageChange = useCallback((page: number) => {
     setFilters((prev) => ({ ...prev, page }));
@@ -198,7 +231,7 @@ export function WorkOrdersPage() {
       setIsFormOpen(false);
       setEditingWorkOrder(null);
     },
-    [editingWorkOrder, createMutation, updateMutation]
+    [editingWorkOrder, createMutation, updateMutation],
   );
 
   const handleConfirmDelete = useCallback(async () => {
@@ -208,21 +241,38 @@ export function WorkOrdersPage() {
     }
   }, [deletingWorkOrder, deleteMutation]);
 
-  const handleQuickStatusChange = useCallback(async (workOrderId: string, newStatus: WorkOrderStatus) => {
-    await updateStatusMutation.mutateAsync({ id: workOrderId, status: newStatus });
-  }, [updateStatusMutation]);
+  const handleQuickStatusChange = useCallback(
+    async (workOrderId: string, newStatus: WorkOrderStatus) => {
+      await updateStatusMutation.mutateAsync({
+        id: workOrderId,
+        status: newStatus,
+      });
+    },
+    [updateStatusMutation],
+  );
 
   const clearAllFilters = useCallback(() => {
-    setFilters({ page: 1, page_size: PAGE_SIZE, status: '', scheduled_date: '' });
-    setJobTypeFilter('');
-    setPriorityFilter('');
-    setTechnicianFilter('');
-    setQuickFilter('');
-    setSearchQuery('');
+    setFilters({
+      page: 1,
+      page_size: PAGE_SIZE,
+      status: "",
+      scheduled_date: "",
+    });
+    setJobTypeFilter("");
+    setPriorityFilter("");
+    setTechnicianFilter("");
+    setQuickFilter("");
+    setSearchQuery("");
   }, []);
 
-  const hasActiveFilters = filters.status || filters.scheduled_date || jobTypeFilter ||
-    priorityFilter || technicianFilter || quickFilter || searchQuery;
+  const hasActiveFilters =
+    filters.status ||
+    filters.scheduled_date ||
+    jobTypeFilter ||
+    priorityFilter ||
+    technicianFilter ||
+    quickFilter ||
+    searchQuery;
 
   if (error) {
     return (
@@ -230,7 +280,9 @@ export function WorkOrdersPage() {
         <Card>
           <CardContent className="py-12 text-center">
             <div className="text-4xl mb-4">⚠️</div>
-            <p className="text-danger">Failed to load work orders. Please try again.</p>
+            <p className="text-danger">
+              Failed to load work orders. Please try again.
+            </p>
             <Button onClick={() => window.location.reload()} className="mt-4">
               Retry
             </Button>
@@ -246,7 +298,9 @@ export function WorkOrdersPage() {
         {/* Header */}
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 mb-6">
           <div>
-            <h1 className="text-2xl font-bold text-text-primary">Work Orders</h1>
+            <h1 className="text-2xl font-bold text-text-primary">
+              Work Orders
+            </h1>
             <p className="text-sm text-text-secondary mt-1">
               Manage service appointments and field operations
             </p>
@@ -255,21 +309,21 @@ export function WorkOrdersPage() {
             {/* View Toggle */}
             <div className="flex items-center bg-bg-muted rounded-lg p-1">
               <button
-                onClick={() => setViewMode('list')}
+                onClick={() => setViewMode("list")}
                 className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
-                  viewMode === 'list'
-                    ? 'bg-white text-text-primary shadow-sm'
-                    : 'text-text-secondary hover:text-text-primary'
+                  viewMode === "list"
+                    ? "bg-white text-text-primary shadow-sm"
+                    : "text-text-secondary hover:text-text-primary"
                 }`}
               >
                 📋 List
               </button>
               <button
-                onClick={() => setViewMode('kanban')}
+                onClick={() => setViewMode("kanban")}
                 className={`px-3 py-1.5 text-sm font-medium rounded-md transition-colors ${
-                  viewMode === 'kanban'
-                    ? 'bg-white text-text-primary shadow-sm'
-                    : 'text-text-secondary hover:text-text-primary'
+                  viewMode === "kanban"
+                    ? "bg-white text-text-primary shadow-sm"
+                    : "text-text-secondary hover:text-text-primary"
                 }`}
               >
                 📊 Kanban
@@ -282,15 +336,23 @@ export function WorkOrdersPage() {
         {/* Stats Dashboard */}
         <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
           <button
-            onClick={() => { setQuickFilter('today'); clearAllFilters(); setQuickFilter('today'); }}
-            className={`text-left ${quickFilter === 'today' ? 'ring-2 ring-primary' : ''}`}
+            onClick={() => {
+              setQuickFilter("today");
+              clearAllFilters();
+              setQuickFilter("today");
+            }}
+            className={`text-left ${quickFilter === "today" ? "ring-2 ring-primary" : ""}`}
           >
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-text-secondary">Today</p>
-                    <p className="text-2xl font-bold text-text-primary">{stats.todayJobs}</p>
+                    <p className="text-sm font-medium text-text-secondary">
+                      Today
+                    </p>
+                    <p className="text-2xl font-bold text-text-primary">
+                      {stats.todayJobs}
+                    </p>
                   </div>
                   <div className="w-12 h-12 bg-blue-100 rounded-full flex items-center justify-center">
                     <span className="text-2xl">📅</span>
@@ -301,15 +363,22 @@ export function WorkOrdersPage() {
           </button>
 
           <button
-            onClick={() => { clearAllFilters(); setQuickFilter('week'); }}
-            className={`text-left ${quickFilter === 'week' ? 'ring-2 ring-primary' : ''}`}
+            onClick={() => {
+              clearAllFilters();
+              setQuickFilter("week");
+            }}
+            className={`text-left ${quickFilter === "week" ? "ring-2 ring-primary" : ""}`}
           >
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-text-secondary">This Week</p>
-                    <p className="text-2xl font-bold text-text-primary">{stats.weekJobs}</p>
+                    <p className="text-sm font-medium text-text-secondary">
+                      This Week
+                    </p>
+                    <p className="text-2xl font-bold text-text-primary">
+                      {stats.weekJobs}
+                    </p>
                   </div>
                   <div className="w-12 h-12 bg-green-100 rounded-full flex items-center justify-center">
                     <span className="text-2xl">📆</span>
@@ -320,15 +389,22 @@ export function WorkOrdersPage() {
           </button>
 
           <button
-            onClick={() => { clearAllFilters(); setQuickFilter('unscheduled'); }}
-            className={`text-left ${quickFilter === 'unscheduled' ? 'ring-2 ring-primary' : ''}`}
+            onClick={() => {
+              clearAllFilters();
+              setQuickFilter("unscheduled");
+            }}
+            className={`text-left ${quickFilter === "unscheduled" ? "ring-2 ring-primary" : ""}`}
           >
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-text-secondary">Unscheduled</p>
-                    <p className="text-2xl font-bold text-warning">{stats.unscheduledJobs}</p>
+                    <p className="text-sm font-medium text-text-secondary">
+                      Unscheduled
+                    </p>
+                    <p className="text-2xl font-bold text-warning">
+                      {stats.unscheduledJobs}
+                    </p>
                   </div>
                   <div className="w-12 h-12 bg-yellow-100 rounded-full flex items-center justify-center">
                     <span className="text-2xl">⏳</span>
@@ -339,15 +415,22 @@ export function WorkOrdersPage() {
           </button>
 
           <button
-            onClick={() => { clearAllFilters(); setQuickFilter('emergency'); }}
-            className={`text-left ${quickFilter === 'emergency' ? 'ring-2 ring-primary' : ''}`}
+            onClick={() => {
+              clearAllFilters();
+              setQuickFilter("emergency");
+            }}
+            className={`text-left ${quickFilter === "emergency" ? "ring-2 ring-primary" : ""}`}
           >
             <Card className="hover:shadow-md transition-shadow cursor-pointer">
               <CardContent className="p-4">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="text-sm font-medium text-text-secondary">Emergency</p>
-                    <p className="text-2xl font-bold text-danger">{stats.emergencyJobs}</p>
+                    <p className="text-sm font-medium text-text-secondary">
+                      Emergency
+                    </p>
+                    <p className="text-2xl font-bold text-danger">
+                      {stats.emergencyJobs}
+                    </p>
                   </div>
                   <div className="w-12 h-12 bg-red-100 rounded-full flex items-center justify-center">
                     <span className="text-2xl">🚨</span>
@@ -364,7 +447,9 @@ export function WorkOrdersPage() {
             <div className="flex flex-col gap-4">
               {/* Search */}
               <div className="relative">
-                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">🔍</span>
+                <span className="absolute left-3 top-1/2 -translate-y-1/2 text-text-muted">
+                  🔍
+                </span>
                 <Input
                   type="text"
                   value={searchQuery}
@@ -378,11 +463,16 @@ export function WorkOrdersPage() {
               <div className="flex flex-wrap items-center gap-3">
                 <div className="w-40">
                   <Select
-                    value={filters.status || ''}
+                    value={filters.status || ""}
                     onChange={handleStatusChange}
                   >
                     <option value="">All Statuses</option>
-                    {(Object.entries(WORK_ORDER_STATUS_LABELS) as [WorkOrderStatus, string][]).map(([value, label]) => (
+                    {(
+                      Object.entries(WORK_ORDER_STATUS_LABELS) as [
+                        WorkOrderStatus,
+                        string,
+                      ][]
+                    ).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
                       </option>
@@ -393,10 +483,15 @@ export function WorkOrdersPage() {
                 <div className="w-36">
                   <Select
                     value={jobTypeFilter}
-                    onChange={(e) => { setJobTypeFilter(e.target.value); setQuickFilter(''); }}
+                    onChange={(e) => {
+                      setJobTypeFilter(e.target.value);
+                      setQuickFilter("");
+                    }}
                   >
                     <option value="">All Job Types</option>
-                    {(Object.entries(JOB_TYPE_LABELS) as [JobType, string][]).map(([value, label]) => (
+                    {(
+                      Object.entries(JOB_TYPE_LABELS) as [JobType, string][]
+                    ).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
                       </option>
@@ -407,10 +502,15 @@ export function WorkOrdersPage() {
                 <div className="w-32">
                   <Select
                     value={priorityFilter}
-                    onChange={(e) => { setPriorityFilter(e.target.value); setQuickFilter(''); }}
+                    onChange={(e) => {
+                      setPriorityFilter(e.target.value);
+                      setQuickFilter("");
+                    }}
                   >
                     <option value="">All Priorities</option>
-                    {(Object.entries(PRIORITY_LABELS) as [Priority, string][]).map(([value, label]) => (
+                    {(
+                      Object.entries(PRIORITY_LABELS) as [Priority, string][]
+                    ).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
                       </option>
@@ -421,12 +521,22 @@ export function WorkOrdersPage() {
                 <div className="w-40">
                   <Select
                     value={technicianFilter}
-                    onChange={(e) => { setTechnicianFilter(e.target.value); setQuickFilter(''); }}
+                    onChange={(e) => {
+                      setTechnicianFilter(e.target.value);
+                      setQuickFilter("");
+                    }}
                   >
                     <option value="">All Technicians</option>
                     {technicians?.items?.map((tech) => (
-                      <option key={tech.id} value={tech.full_name || (tech.first_name + ' ' + tech.last_name)}>
-                        {tech.full_name || (tech.first_name + ' ' + tech.last_name)}
+                      <option
+                        key={tech.id}
+                        value={
+                          tech.full_name ||
+                          tech.first_name + " " + tech.last_name
+                        }
+                      >
+                        {tech.full_name ||
+                          tech.first_name + " " + tech.last_name}
                       </option>
                     ))}
                   </Select>
@@ -435,7 +545,7 @@ export function WorkOrdersPage() {
                 <div className="w-40">
                   <Input
                     type="date"
-                    value={filters.scheduled_date || ''}
+                    value={filters.scheduled_date || ""}
                     onChange={handleDateChange}
                     placeholder="Filter by date"
                   />
@@ -457,12 +567,12 @@ export function WorkOrdersPage() {
               <div className="flex flex-wrap gap-2">
                 {quickFilter && (
                   <Badge variant="default" className="px-3 py-1">
-                    {quickFilter === 'today' && '📅 Today'}
-                    {quickFilter === 'week' && '📆 This Week'}
-                    {quickFilter === 'unscheduled' && '⏳ Unscheduled'}
-                    {quickFilter === 'emergency' && '🚨 Emergency'}
+                    {quickFilter === "today" && "📅 Today"}
+                    {quickFilter === "week" && "📆 This Week"}
+                    {quickFilter === "unscheduled" && "⏳ Unscheduled"}
+                    {quickFilter === "emergency" && "🚨 Emergency"}
                     <button
-                      onClick={() => setQuickFilter('')}
+                      onClick={() => setQuickFilter("")}
                       className="ml-2 hover:text-danger"
                     >
                       ✕
@@ -475,28 +585,33 @@ export function WorkOrdersPage() {
         </Card>
 
         {/* Content */}
-        {viewMode === 'list' ? (
+        {viewMode === "list" ? (
           /* List View */
           <Card>
             <CardHeader className="flex flex-row items-center justify-between">
               <CardTitle>
                 {searchQuery
-                  ? `${filteredWorkOrders.length} result${filteredWorkOrders.length !== 1 ? 's' : ''}`
+                  ? `${filteredWorkOrders.length} result${filteredWorkOrders.length !== 1 ? "s" : ""}`
                   : data?.total
-                    ? `${data.total} work order${data.total !== 1 ? 's' : ''}`
-                    : 'Work Orders'
-                }
+                    ? `${data.total} work order${data.total !== 1 ? "s" : ""}`
+                    : "Work Orders"}
               </CardTitle>
               <div className="flex gap-2">
                 <Link to="/schedule">
-                  <Button variant="secondary" size="sm">📅 Schedule View</Button>
+                  <Button variant="secondary" size="sm">
+                    📅 Schedule View
+                  </Button>
                 </Link>
               </div>
             </CardHeader>
             <CardContent className="p-0">
               <WorkOrdersList
-                workOrders={searchQuery ? filteredWorkOrders : (data?.items || [])}
-                total={searchQuery ? filteredWorkOrders.length : (data?.total || 0)}
+                workOrders={
+                  searchQuery ? filteredWorkOrders : data?.items || []
+                }
+                total={
+                  searchQuery ? filteredWorkOrders.length : data?.total || 0
+                }
                 page={filters.page || 1}
                 pageSize={PAGE_SIZE}
                 isLoading={isLoading}
@@ -518,7 +633,9 @@ export function WorkOrdersPage() {
                   {/* Column Header */}
                   <div className="p-3 border-b border-border">
                     <div className="flex items-center justify-between">
-                      <h3 className="font-semibold text-text-primary">{column.label}</h3>
+                      <h3 className="font-semibold text-text-primary">
+                        {column.label}
+                      </h3>
                       <Badge variant="default" className="text-xs">
                         {kanbanData[column.status]?.length || 0}
                       </Badge>
@@ -571,9 +688,10 @@ export function WorkOrdersPage() {
             </DialogHeader>
             <DialogBody>
               <p className="text-text-secondary">
-                Are you sure you want to delete this work order for{' '}
+                Are you sure you want to delete this work order for{" "}
                 <span className="font-medium text-text-primary">
-                  {deletingWorkOrder?.customer_name || `Customer #${deletingWorkOrder?.customer_id}`}
+                  {deletingWorkOrder?.customer_name ||
+                    `Customer #${deletingWorkOrder?.customer_id}`}
                 </span>
                 ? This action cannot be undone.
               </p>
@@ -591,7 +709,7 @@ export function WorkOrdersPage() {
                 onClick={handleConfirmDelete}
                 disabled={deleteMutation.isPending}
               >
-                {deleteMutation.isPending ? 'Deleting...' : 'Delete'}
+                {deleteMutation.isPending ? "Deleting..." : "Delete"}
               </Button>
             </DialogFooter>
           </DialogContent>
@@ -613,22 +731,29 @@ function KanbanCard({
   onEdit: (wo: WorkOrder) => void;
   onStatusChange: (id: string, status: WorkOrderStatus) => void;
 }) {
-  const customerName = workOrder.customer_name ||
+  const customerName =
+    workOrder.customer_name ||
     (workOrder.customer
       ? `${workOrder.customer.first_name} ${workOrder.customer.last_name}`
       : `Customer #${workOrder.customer_id}`);
 
   const getPriorityColor = (priority: Priority) => {
     switch (priority) {
-      case 'emergency': return 'border-l-red-500';
-      case 'urgent': return 'border-l-orange-500';
-      case 'high': return 'border-l-yellow-500';
-      default: return 'border-l-gray-300';
+      case "emergency":
+        return "border-l-red-500";
+      case "urgent":
+        return "border-l-orange-500";
+      case "high":
+        return "border-l-yellow-500";
+      default:
+        return "border-l-gray-300";
     }
   };
 
   return (
-    <Card className={`p-3 border-l-4 ${getPriorityColor(workOrder.priority as Priority)} hover:shadow-md transition-shadow cursor-pointer`}>
+    <Card
+      className={`p-3 border-l-4 ${getPriorityColor(workOrder.priority as Priority)} hover:shadow-md transition-shadow cursor-pointer`}
+    >
       <div className="space-y-2">
         {/* Customer Name */}
         <div className="flex items-start justify-between gap-2">
@@ -636,7 +761,8 @@ function KanbanCard({
             {customerName}
           </h4>
           <Badge variant="default" className="text-[10px] px-1.5 shrink-0">
-            {JOB_TYPE_LABELS[workOrder.job_type as JobType] || workOrder.job_type}
+            {JOB_TYPE_LABELS[workOrder.job_type as JobType] ||
+              workOrder.job_type}
           </Badge>
         </div>
 
@@ -664,7 +790,10 @@ function KanbanCard({
           {workOrder.service_city && (
             <div className="flex items-center gap-1">
               <span>📍</span>
-              <span>{workOrder.service_city}{workOrder.service_state && `, ${workOrder.service_state}`}</span>
+              <span>
+                {workOrder.service_city}
+                {workOrder.service_state && `, ${workOrder.service_state}`}
+              </span>
             </div>
           )}
         </div>
@@ -678,7 +807,10 @@ function KanbanCard({
             View Details
           </Link>
           <button
-            onClick={(e) => { e.stopPropagation(); onEdit(workOrder); }}
+            onClick={(e) => {
+              e.stopPropagation();
+              onEdit(workOrder);
+            }}
             className="text-xs text-text-muted hover:text-text-primary"
           >
             Edit

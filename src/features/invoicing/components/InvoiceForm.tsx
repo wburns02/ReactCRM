@@ -1,19 +1,19 @@
-import { useEffect, useState } from 'react';
-import { useForm } from 'react-hook-form';
-import { zodResolver } from '@hookform/resolvers/zod';
-import { Button } from '@/components/ui/Button.tsx';
-import { Input } from '@/components/ui/Input.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { Textarea } from '@/components/ui/Textarea.tsx';
-import { Label } from '@/components/ui/Label.tsx';
+import { useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { Label } from "@/components/ui/Label.tsx";
 import {
   Dialog,
   DialogContent,
   DialogHeader,
   DialogBody,
   DialogFooter,
-} from '@/components/ui/Dialog.tsx';
-import { LineItemsTable } from './LineItemsTable.tsx';
+} from "@/components/ui/Dialog.tsx";
+import { LineItemsTable } from "./LineItemsTable.tsx";
 import {
   invoiceFormSchema,
   type InvoiceFormData,
@@ -21,10 +21,10 @@ import {
   type LineItemFormData,
   INVOICE_STATUS_LABELS,
   type InvoiceStatus,
-} from '@/api/types/invoice.ts';
-import { useCustomers } from '@/api/hooks/useCustomers.ts';
-import { useWorkOrders } from '@/api/hooks/useWorkOrders.ts';
-import { formatCurrency } from '@/lib/utils.ts';
+} from "@/api/types/invoice.ts";
+import { useCustomers } from "@/api/hooks/useCustomers.ts";
+import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
+import { formatCurrency } from "@/lib/utils.ts";
 
 export interface InvoiceFormProps {
   open: boolean;
@@ -55,7 +55,9 @@ export function InvoiceForm({
 
   // Local state for line items (needed for real-time calculations)
   const [lineItems, setLineItems] = useState<LineItemFormData[]>(
-    invoice?.line_items || [{ service: '', description: '', quantity: 1, rate: 0 }]
+    invoice?.line_items || [
+      { service: "", description: "", quantity: 1, rate: 0 },
+    ],
   );
 
   const {
@@ -71,41 +73,44 @@ export function InvoiceForm({
     defaultValues: invoice
       ? {
           customer_id: Number(invoice.customer_id),
-          work_order_id: invoice.work_order_id || '',
+          work_order_id: invoice.work_order_id || "",
           status: invoice.status as InvoiceStatus,
           line_items: invoice.line_items,
           tax_rate: invoice.tax_rate || 0,
-          due_date: invoice.due_date || '',
-          notes: invoice.notes || '',
-          terms: invoice.terms || '',
+          due_date: invoice.due_date || "",
+          notes: invoice.notes || "",
+          terms: invoice.terms || "",
         }
       : {
           customer_id: 0,
-          work_order_id: '',
-          status: 'draft' as InvoiceStatus,
-          line_items: [{ service: '', description: '', quantity: 1, rate: 0 }],
+          work_order_id: "",
+          status: "draft" as InvoiceStatus,
+          line_items: [{ service: "", description: "", quantity: 1, rate: 0 }],
           tax_rate: 0,
-          due_date: '',
-          notes: '',
-          terms: 'Payment due within 30 days',
+          due_date: "",
+          notes: "",
+          terms: "Payment due within 30 days",
         },
   });
 
-  const taxRate = watch('tax_rate') || 0;
+  const taxRate = watch("tax_rate") || 0;
 
   // Update form when line items change
   useEffect(() => {
-    setValue('line_items', lineItems, { shouldValidate: true });
+    setValue("line_items", lineItems, { shouldValidate: true });
   }, [lineItems, setValue]);
 
   // Calculate totals
-  const subtotal = lineItems.reduce((sum, item) => sum + item.quantity * item.rate, 0);
+  const subtotal = lineItems.reduce(
+    (sum, item) => sum + item.quantity * item.rate,
+    0,
+  );
   const tax = subtotal * (taxRate / 100);
   const total = subtotal + tax;
 
   const handleClose = () => {
     reset();
-    setLineItems([{ service: '', description: '', quantity: 1, rate: 0 }]);
+    setLineItems([{ service: "", description: "", quantity: 1, rate: 0 }]);
     onClose();
   };
 
@@ -127,7 +132,7 @@ export function InvoiceForm({
     <Dialog open={open} onClose={handleClose} disableOverlayClose={isDirty}>
       <DialogContent size="xl">
         <DialogHeader onClose={handleClose}>
-          {isEdit ? 'Edit Invoice' : 'Create Invoice'}
+          {isEdit ? "Edit Invoice" : "Create Invoice"}
         </DialogHeader>
 
         <form onSubmit={handleSubmit(handleFormSubmit)}>
@@ -142,7 +147,11 @@ export function InvoiceForm({
                   <Label htmlFor="customer_id" required>
                     Customer
                   </Label>
-                  <Select id="customer_id" {...register('customer_id')} disabled={isEdit}>
+                  <Select
+                    id="customer_id"
+                    {...register("customer_id")}
+                    disabled={isEdit}
+                  >
                     <option value="">Select customer...</option>
                     {customers.map((c) => (
                       <option key={c.id} value={c.id}>
@@ -151,17 +160,20 @@ export function InvoiceForm({
                     ))}
                   </Select>
                   {errors.customer_id && (
-                    <p className="text-sm text-danger">{errors.customer_id.message}</p>
+                    <p className="text-sm text-danger">
+                      {errors.customer_id.message}
+                    </p>
                   )}
                 </div>
 
                 <div className="space-y-2">
                   <Label htmlFor="work_order_id">Work Order (Optional)</Label>
-                  <Select id="work_order_id" {...register('work_order_id')}>
+                  <Select id="work_order_id" {...register("work_order_id")}>
                     <option value="">None</option>
                     {workOrders.map((wo) => (
                       <option key={wo.id} value={wo.id}>
-                        {wo.customer_name} - {wo.job_type} ({wo.scheduled_date || 'Unscheduled'})
+                        {wo.customer_name} - {wo.job_type} (
+                        {wo.scheduled_date || "Unscheduled"})
                       </option>
                     ))}
                   </Select>
@@ -169,8 +181,13 @@ export function InvoiceForm({
 
                 <div className="space-y-2">
                   <Label htmlFor="status">Status</Label>
-                  <Select id="status" {...register('status')}>
-                    {(Object.entries(INVOICE_STATUS_LABELS) as [InvoiceStatus, string][]).map(([value, label]) => (
+                  <Select id="status" {...register("status")}>
+                    {(
+                      Object.entries(INVOICE_STATUS_LABELS) as [
+                        InvoiceStatus,
+                        string,
+                      ][]
+                    ).map(([value, label]) => (
                       <option key={value} value={value}>
                         {label}
                       </option>
@@ -180,11 +197,7 @@ export function InvoiceForm({
 
                 <div className="space-y-2">
                   <Label htmlFor="due_date">Due Date</Label>
-                  <Input
-                    id="due_date"
-                    type="date"
-                    {...register('due_date')}
-                  />
+                  <Input id="due_date" type="date" {...register("due_date")} />
                 </div>
               </div>
             </div>
@@ -194,12 +207,11 @@ export function InvoiceForm({
               <h4 className="text-sm font-medium text-text-secondary mb-3 uppercase tracking-wide">
                 Line Items
               </h4>
-              <LineItemsTable
-                lineItems={lineItems}
-                onChange={setLineItems}
-              />
+              <LineItemsTable lineItems={lineItems} onChange={setLineItems} />
               {errors.line_items && (
-                <p className="text-sm text-danger mt-2">{errors.line_items.message}</p>
+                <p className="text-sm text-danger mt-2">
+                  {errors.line_items.message}
+                </p>
               )}
             </div>
 
@@ -218,7 +230,7 @@ export function InvoiceForm({
                       min="0"
                       max="100"
                       step="0.01"
-                      {...register('tax_rate')}
+                      {...register("tax_rate")}
                       placeholder="0"
                     />
                   </div>
@@ -226,15 +238,23 @@ export function InvoiceForm({
                 <div className="bg-bg-muted p-4 rounded-md space-y-2">
                   <div className="flex justify-between text-sm">
                     <span className="text-text-secondary">Subtotal:</span>
-                    <span className="text-text-primary font-medium">{formatCurrency(subtotal)}</span>
+                    <span className="text-text-primary font-medium">
+                      {formatCurrency(subtotal)}
+                    </span>
                   </div>
                   <div className="flex justify-between text-sm">
-                    <span className="text-text-secondary">Tax ({taxRate}%):</span>
-                    <span className="text-text-primary font-medium">{formatCurrency(tax)}</span>
+                    <span className="text-text-secondary">
+                      Tax ({taxRate}%):
+                    </span>
+                    <span className="text-text-primary font-medium">
+                      {formatCurrency(tax)}
+                    </span>
                   </div>
                   <div className="flex justify-between text-lg font-semibold border-t border-border pt-2">
                     <span className="text-text-primary">Total:</span>
-                    <span className="text-text-primary">{formatCurrency(total)}</span>
+                    <span className="text-text-primary">
+                      {formatCurrency(total)}
+                    </span>
                   </div>
                 </div>
               </div>
@@ -250,7 +270,7 @@ export function InvoiceForm({
                   <Label htmlFor="notes">Notes</Label>
                   <Textarea
                     id="notes"
-                    {...register('notes')}
+                    {...register("notes")}
                     placeholder="Internal notes about this invoice..."
                     rows={3}
                   />
@@ -259,7 +279,7 @@ export function InvoiceForm({
                   <Label htmlFor="terms">Payment Terms</Label>
                   <Textarea
                     id="terms"
-                    {...register('terms')}
+                    {...register("terms")}
                     placeholder="Payment due within 30 days"
                     rows={2}
                   />
@@ -269,11 +289,20 @@ export function InvoiceForm({
           </DialogBody>
 
           <DialogFooter>
-            <Button type="button" variant="secondary" onClick={handleClose} disabled={isLoading}>
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={handleClose}
+              disabled={isLoading}
+            >
               Cancel
             </Button>
             <Button type="submit" disabled={isLoading}>
-              {isLoading ? 'Saving...' : isEdit ? 'Save Changes' : 'Create Invoice'}
+              {isLoading
+                ? "Saving..."
+                : isEdit
+                  ? "Save Changes"
+                  : "Create Invoice"}
             </Button>
           </DialogFooter>
         </form>

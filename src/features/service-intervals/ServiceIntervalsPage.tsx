@@ -1,8 +1,9 @@
-import { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { Button } from '@/components/ui/Button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Input } from "@/components/ui/Input";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 import {
   useServiceIntervals,
   useCustomerServiceSchedules,
@@ -14,30 +15,36 @@ import {
   useSendServiceReminder,
   type ServiceInterval,
   type CustomerServiceSchedule,
-} from '@/api/hooks/useServiceIntervals';
+} from "@/api/hooks/useServiceIntervals";
 
-type TabType = 'intervals' | 'schedules' | 'overdue';
+type TabType = "intervals" | "schedules" | "overdue";
 
 /**
  * Status badge component
  */
-function StatusBadge({ status }: { status: CustomerServiceSchedule['status'] }) {
+function StatusBadge({
+  status,
+}: {
+  status: CustomerServiceSchedule["status"];
+}) {
   const styles = {
-    upcoming: 'bg-blue-100 text-blue-700',
-    due: 'bg-yellow-100 text-yellow-700',
-    overdue: 'bg-red-100 text-red-700',
-    scheduled: 'bg-green-100 text-green-700',
+    upcoming: "bg-blue-100 text-blue-700",
+    due: "bg-yellow-100 text-yellow-700",
+    overdue: "bg-red-100 text-red-700",
+    scheduled: "bg-green-100 text-green-700",
   };
 
   const labels = {
-    upcoming: 'Upcoming',
-    due: 'Due Soon',
-    overdue: 'Overdue',
-    scheduled: 'Scheduled',
+    upcoming: "Upcoming",
+    due: "Due Soon",
+    overdue: "Overdue",
+    scheduled: "Scheduled",
   };
 
   return (
-    <span className={`px-2 py-1 text-xs rounded-full font-medium ${styles[status]}`}>
+    <span
+      className={`px-2 py-1 text-xs rounded-full font-medium ${styles[status]}`}
+    >
       {labels[status]}
     </span>
   );
@@ -47,13 +54,14 @@ function StatusBadge({ status }: { status: CustomerServiceSchedule['status'] }) 
  * Service Intervals Page
  */
 export function ServiceIntervalsPage() {
-  const [activeTab, setActiveTab] = useState<TabType>('schedules');
+  const [activeTab, setActiveTab] = useState<TabType>("schedules");
   const [showIntervalForm, setShowIntervalForm] = useState(false);
-  const [editingInterval, setEditingInterval] = useState<ServiceInterval | null>(null);
+  const [editingInterval, setEditingInterval] =
+    useState<ServiceInterval | null>(null);
   const [intervalForm, setIntervalForm] = useState({
-    name: '',
-    description: '',
-    service_type: 'maintenance',
+    name: "",
+    description: "",
+    service_type: "maintenance",
     interval_months: 12,
     reminder_days_before: [30, 7, 1],
     is_active: true,
@@ -61,10 +69,11 @@ export function ServiceIntervalsPage() {
 
   const { data: stats } = useServiceIntervalStats();
   const { data: intervals } = useServiceIntervals();
-  const { data: schedulesData, isLoading: schedulesLoading } = useCustomerServiceSchedules({
-    status: activeTab === 'overdue' ? 'overdue' : undefined,
-    limit: 50,
-  });
+  const { data: schedulesData, isLoading: schedulesLoading } =
+    useCustomerServiceSchedules({
+      status: activeTab === "overdue" ? "overdue" : undefined,
+      limit: 50,
+    });
   const createInterval = useCreateServiceInterval();
   const updateInterval = useUpdateServiceInterval();
   const deleteInterval = useDeleteServiceInterval();
@@ -76,22 +85,25 @@ export function ServiceIntervalsPage() {
   const handleSaveInterval = async () => {
     try {
       if (editingInterval) {
-        await updateInterval.mutateAsync({ id: editingInterval.id, ...intervalForm });
+        await updateInterval.mutateAsync({
+          id: editingInterval.id,
+          ...intervalForm,
+        });
       } else {
         await createInterval.mutateAsync(intervalForm);
       }
       setShowIntervalForm(false);
       setEditingInterval(null);
       setIntervalForm({
-        name: '',
-        description: '',
-        service_type: 'maintenance',
+        name: "",
+        description: "",
+        service_type: "maintenance",
         interval_months: 12,
         reminder_days_before: [30, 7, 1],
         is_active: true,
       });
     } catch (error) {
-      alert('Failed to save interval');
+      toastError("Failed to save interval");
     }
   };
 
@@ -99,7 +111,7 @@ export function ServiceIntervalsPage() {
     setEditingInterval(interval);
     setIntervalForm({
       name: interval.name,
-      description: interval.description || '',
+      description: interval.description || "",
       service_type: interval.service_type,
       interval_months: interval.interval_months,
       reminder_days_before: interval.reminder_days_before,
@@ -109,34 +121,41 @@ export function ServiceIntervalsPage() {
   };
 
   const handleDeleteInterval = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this service interval?')) return;
+    if (!confirm("Are you sure you want to delete this service interval?"))
+      return;
     try {
       await deleteInterval.mutateAsync(id);
     } catch (error) {
-      alert('Failed to delete interval');
+      toastError("Failed to delete interval");
     }
   };
 
   const handleCreateWorkOrder = async (schedule: CustomerServiceSchedule) => {
-    const date = prompt('Enter scheduled date (YYYY-MM-DD):');
+    const date = prompt("Enter scheduled date (YYYY-MM-DD):");
     if (!date) return;
     try {
       await createWorkOrder.mutateAsync({
         schedule_id: schedule.id,
         scheduled_date: date,
       });
-      alert('Work order created successfully!');
+      toastSuccess("Work order created successfully!");
     } catch (error) {
-      alert('Failed to create work order');
+      toastError("Failed to create work order");
     }
   };
 
-  const handleSendReminder = async (scheduleId: string, type: 'sms' | 'email') => {
+  const handleSendReminder = async (
+    scheduleId: string,
+    type: "sms" | "email",
+  ) => {
     try {
-      await sendReminder.mutateAsync({ schedule_id: scheduleId, reminder_type: type });
-      alert('Reminder sent successfully!');
+      await sendReminder.mutateAsync({
+        schedule_id: scheduleId,
+        reminder_type: type,
+      });
+      toastSuccess("Reminder sent successfully!");
     } catch (error) {
-      alert('Failed to send reminder');
+      toastError("Failed to send reminder");
     }
   };
 
@@ -145,7 +164,9 @@ export function ServiceIntervalsPage() {
       {/* Header */}
       <div className="flex items-center justify-between mb-6">
         <div>
-          <h1 className="text-2xl font-bold text-text-primary">Service Intervals</h1>
+          <h1 className="text-2xl font-bold text-text-primary">
+            Service Intervals
+          </h1>
           <p className="text-text-secondary mt-1">
             Manage recurring service schedules and automated reminders
           </p>
@@ -165,19 +186,25 @@ export function ServiceIntervalsPage() {
         <Card>
           <CardContent className="p-4">
             <p className="text-sm text-text-muted">Upcoming</p>
-            <p className="text-2xl font-bold text-blue-600">{stats?.upcoming_services || 0}</p>
+            <p className="text-2xl font-bold text-blue-600">
+              {stats?.upcoming_services || 0}
+            </p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
             <p className="text-sm text-text-muted">Due Soon</p>
-            <p className="text-2xl font-bold text-yellow-600">{stats?.due_services || 0}</p>
+            <p className="text-2xl font-bold text-yellow-600">
+              {stats?.due_services || 0}
+            </p>
           </CardContent>
         </Card>
         <Card className="border-l-4 border-l-danger">
           <CardContent className="p-4">
             <p className="text-sm text-text-muted">Overdue</p>
-            <p className="text-2xl font-bold text-danger">{stats?.overdue_services || 0}</p>
+            <p className="text-2xl font-bold text-danger">
+              {stats?.overdue_services || 0}
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -186,17 +213,20 @@ export function ServiceIntervalsPage() {
       <div className="border-b border-border mb-6">
         <div className="flex gap-4">
           {[
-            { id: 'schedules' as TabType, label: 'All Schedules' },
-            { id: 'overdue' as TabType, label: `Overdue (${stats?.overdue_services || 0})` },
-            { id: 'intervals' as TabType, label: 'Interval Types' },
+            { id: "schedules" as TabType, label: "All Schedules" },
+            {
+              id: "overdue" as TabType,
+              label: `Overdue (${stats?.overdue_services || 0})`,
+            },
+            { id: "intervals" as TabType, label: "Interval Types" },
           ].map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2 border-b-2 transition-colors ${
                 activeTab === tab.id
-                  ? 'border-primary text-primary font-medium'
-                  : 'border-transparent text-text-secondary hover:text-text-primary'
+                  ? "border-primary text-primary font-medium"
+                  : "border-transparent text-text-secondary hover:text-text-primary"
               }`}
             >
               {tab.label}
@@ -206,7 +236,7 @@ export function ServiceIntervalsPage() {
       </div>
 
       {/* Intervals Tab */}
-      {activeTab === 'intervals' && (
+      {activeTab === "intervals" && (
         <Card>
           <CardHeader className="flex flex-row items-center justify-between">
             <CardTitle>Service Interval Types</CardTitle>
@@ -214,9 +244,9 @@ export function ServiceIntervalsPage() {
               onClick={() => {
                 setEditingInterval(null);
                 setIntervalForm({
-                  name: '',
-                  description: '',
-                  service_type: 'maintenance',
+                  name: "",
+                  description: "",
+                  service_type: "maintenance",
                   interval_months: 12,
                   reminder_days_before: [30, 7, 1],
                   is_active: true,
@@ -237,7 +267,9 @@ export function ServiceIntervalsPage() {
                   >
                     <div>
                       <div className="flex items-center gap-2">
-                        <h4 className="font-medium text-text-primary">{interval.name}</h4>
+                        <h4 className="font-medium text-text-primary">
+                          {interval.name}
+                        </h4>
                         <span className="px-2 py-0.5 text-xs bg-primary/10 text-primary rounded">
                           Every {interval.interval_months} months
                         </span>
@@ -248,10 +280,13 @@ export function ServiceIntervalsPage() {
                         )}
                       </div>
                       {interval.description && (
-                        <p className="text-sm text-text-muted mt-1">{interval.description}</p>
+                        <p className="text-sm text-text-muted mt-1">
+                          {interval.description}
+                        </p>
                       )}
                       <p className="text-xs text-text-muted mt-1">
-                        Reminders: {interval.reminder_days_before.join(', ')} days before
+                        Reminders: {interval.reminder_days_before.join(", ")}{" "}
+                        days before
                       </p>
                     </div>
                     <div className="flex items-center gap-2">
@@ -278,7 +313,8 @@ export function ServiceIntervalsPage() {
               <div className="text-center py-8 text-text-muted">
                 <p>No service intervals defined yet.</p>
                 <p className="text-sm mt-1">
-                  Create intervals like "Annual Inspection" or "6-Month Maintenance"
+                  Create intervals like "Annual Inspection" or "6-Month
+                  Maintenance"
                 </p>
               </div>
             )}
@@ -287,11 +323,13 @@ export function ServiceIntervalsPage() {
       )}
 
       {/* Schedules Tab */}
-      {(activeTab === 'schedules' || activeTab === 'overdue') && (
+      {(activeTab === "schedules" || activeTab === "overdue") && (
         <Card>
           <CardHeader>
             <CardTitle>
-              {activeTab === 'overdue' ? 'Overdue Services' : 'Customer Service Schedules'}
+              {activeTab === "overdue"
+                ? "Overdue Services"
+                : "Customer Service Schedules"}
             </CardTitle>
           </CardHeader>
           <CardContent>
@@ -307,9 +345,9 @@ export function ServiceIntervalsPage() {
                   <div
                     key={schedule.id}
                     className={`flex items-center justify-between p-4 rounded-lg border ${
-                      schedule.status === 'overdue'
-                        ? 'border-danger/50 bg-danger/5'
-                        : 'border-border bg-bg-muted'
+                      schedule.status === "overdue"
+                        ? "border-danger/50 bg-danger/5"
+                        : "border-border bg-bg-muted"
                     }`}
                   >
                     <div className="flex-1 min-w-0">
@@ -327,7 +365,10 @@ export function ServiceIntervalsPage() {
                       </p>
                       <div className="flex items-center gap-4 mt-1 text-xs text-text-muted">
                         <span>
-                          Due: {new Date(schedule.next_due_date).toLocaleDateString()}
+                          Due:{" "}
+                          {new Date(
+                            schedule.next_due_date,
+                          ).toLocaleDateString()}
                         </span>
                         {schedule.days_until_due < 0 ? (
                           <span className="text-danger font-medium">
@@ -338,8 +379,10 @@ export function ServiceIntervalsPage() {
                         )}
                         {schedule.last_service_date && (
                           <span>
-                            Last service:{' '}
-                            {new Date(schedule.last_service_date).toLocaleDateString()}
+                            Last service:{" "}
+                            {new Date(
+                              schedule.last_service_date,
+                            ).toLocaleDateString()}
                           </span>
                         )}
                       </div>
@@ -355,7 +398,9 @@ export function ServiceIntervalsPage() {
                         </Button>
                       )}
                       {schedule.scheduled_work_order_id && (
-                        <Link to={`/work-orders/${schedule.scheduled_work_order_id}`}>
+                        <Link
+                          to={`/work-orders/${schedule.scheduled_work_order_id}`}
+                        >
                           <Button variant="secondary" size="sm">
                             View WO
                           </Button>
@@ -364,14 +409,14 @@ export function ServiceIntervalsPage() {
                       <Button
                         variant="secondary"
                         size="sm"
-                        onClick={() => handleSendReminder(schedule.id, 'sms')}
+                        onClick={() => handleSendReminder(schedule.id, "sms")}
                       >
                         SMS
                       </Button>
                       <Button
                         variant="secondary"
                         size="sm"
-                        onClick={() => handleSendReminder(schedule.id, 'email')}
+                        onClick={() => handleSendReminder(schedule.id, "email")}
                       >
                         Email
                       </Button>
@@ -383,7 +428,8 @@ export function ServiceIntervalsPage() {
               <div className="text-center py-8 text-text-muted">
                 <p>No service schedules found.</p>
                 <p className="text-sm mt-1">
-                  Assign service intervals to customers to track their maintenance schedules
+                  Assign service intervals to customers to track their
+                  maintenance schedules
                 </p>
               </div>
             )}
@@ -396,7 +442,9 @@ export function ServiceIntervalsPage() {
         <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
           <div className="bg-bg-card rounded-lg shadow-xl w-full max-w-lg mx-4 p-6">
             <h3 className="text-lg font-semibold text-text-primary mb-4">
-              {editingInterval ? 'Edit Service Interval' : 'New Service Interval'}
+              {editingInterval
+                ? "Edit Service Interval"
+                : "New Service Interval"}
             </h3>
             <div className="space-y-4">
               <div>
@@ -405,7 +453,9 @@ export function ServiceIntervalsPage() {
                 </label>
                 <Input
                   value={intervalForm.name}
-                  onChange={(e) => setIntervalForm({ ...intervalForm, name: e.target.value })}
+                  onChange={(e) =>
+                    setIntervalForm({ ...intervalForm, name: e.target.value })
+                  }
                   placeholder="e.g., Annual Inspection"
                 />
               </div>
@@ -416,7 +466,10 @@ export function ServiceIntervalsPage() {
                 <Input
                   value={intervalForm.description}
                   onChange={(e) =>
-                    setIntervalForm({ ...intervalForm, description: e.target.value })
+                    setIntervalForm({
+                      ...intervalForm,
+                      description: e.target.value,
+                    })
                   }
                   placeholder="Optional description"
                 />
@@ -429,7 +482,10 @@ export function ServiceIntervalsPage() {
                   <select
                     value={intervalForm.service_type}
                     onChange={(e) =>
-                      setIntervalForm({ ...intervalForm, service_type: e.target.value })
+                      setIntervalForm({
+                        ...intervalForm,
+                        service_type: e.target.value,
+                      })
                     }
                     className="w-full px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary"
                   >
@@ -450,7 +506,10 @@ export function ServiceIntervalsPage() {
                     max="120"
                     value={intervalForm.interval_months}
                     onChange={(e) =>
-                      setIntervalForm({ ...intervalForm, interval_months: parseInt(e.target.value) })
+                      setIntervalForm({
+                        ...intervalForm,
+                        interval_months: parseInt(e.target.value),
+                      })
                     }
                   />
                 </div>
@@ -460,11 +519,14 @@ export function ServiceIntervalsPage() {
                   Reminder Days Before
                 </label>
                 <Input
-                  value={intervalForm.reminder_days_before.join(', ')}
+                  value={intervalForm.reminder_days_before.join(", ")}
                   onChange={(e) =>
                     setIntervalForm({
                       ...intervalForm,
-                      reminder_days_before: e.target.value.split(',').map((d) => parseInt(d.trim())).filter((d) => !isNaN(d)),
+                      reminder_days_before: e.target.value
+                        .split(",")
+                        .map((d) => parseInt(d.trim()))
+                        .filter((d) => !isNaN(d)),
                     })
                   }
                   placeholder="30, 7, 1"
@@ -479,11 +541,17 @@ export function ServiceIntervalsPage() {
                   id="is_active"
                   checked={intervalForm.is_active}
                   onChange={(e) =>
-                    setIntervalForm({ ...intervalForm, is_active: e.target.checked })
+                    setIntervalForm({
+                      ...intervalForm,
+                      is_active: e.target.checked,
+                    })
                   }
                   className="rounded border-border"
                 />
-                <label htmlFor="is_active" className="text-sm text-text-secondary">
+                <label
+                  htmlFor="is_active"
+                  className="text-sm text-text-secondary"
+                >
                   Interval is active
                 </label>
               </div>
@@ -498,8 +566,11 @@ export function ServiceIntervalsPage() {
               >
                 Cancel
               </Button>
-              <Button onClick={handleSaveInterval} disabled={!intervalForm.name}>
-                {editingInterval ? 'Save Changes' : 'Create Interval'}
+              <Button
+                onClick={handleSaveInterval}
+                disabled={!intervalForm.name}
+              >
+                {editingInterval ? "Save Changes" : "Create Interval"}
               </Button>
             </div>
           </div>

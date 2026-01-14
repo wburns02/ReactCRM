@@ -1,7 +1,8 @@
-import { useState } from 'react';
-import { Button } from '@/components/ui/Button';
-import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/Card';
-import { Input } from '@/components/ui/Input';
+import { useState } from "react";
+import { Button } from "@/components/ui/Button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Input } from "@/components/ui/Input";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 import {
   useSMSSettings,
   useUpdateSMSSettings,
@@ -12,7 +13,7 @@ import {
   useDeleteSMSTemplate,
   useTestTwilioConnection,
   type SMSTemplate,
-} from '@/api/hooks/useSMS';
+} from "@/api/hooks/useSMS";
 
 /**
  * Toggle switch component
@@ -32,12 +33,12 @@ function Toggle({
       onClick={() => onChange(!checked)}
       disabled={disabled}
       className={`relative inline-flex h-6 w-11 items-center rounded-full transition-colors ${
-        checked ? 'bg-primary' : 'bg-gray-300'
-      } ${disabled ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}
+        checked ? "bg-primary" : "bg-gray-300"
+      } ${disabled ? "opacity-50 cursor-not-allowed" : "cursor-pointer"}`}
     >
       <span
         className={`inline-block h-4 w-4 transform rounded-full bg-white transition-transform ${
-          checked ? 'translate-x-6' : 'translate-x-1'
+          checked ? "translate-x-6" : "translate-x-1"
         }`}
       />
     </button>
@@ -47,13 +48,13 @@ function Toggle({
 /**
  * Template type labels
  */
-const templateTypeLabels: Record<SMSTemplate['type'], string> = {
-  appointment_reminder: 'Appointment Reminder',
-  appointment_confirmation: 'Appointment Confirmation',
-  service_complete: 'Service Complete',
-  invoice_sent: 'Invoice Sent',
-  payment_reminder: 'Payment Reminder',
-  custom: 'Custom',
+const templateTypeLabels: Record<SMSTemplate["type"], string> = {
+  appointment_reminder: "Appointment Reminder",
+  appointment_confirmation: "Appointment Confirmation",
+  service_complete: "Service Complete",
+  invoice_sent: "Invoice Sent",
+  payment_reminder: "Payment Reminder",
+  custom: "Custom",
 };
 
 /**
@@ -70,20 +71,22 @@ export function SMSSettingsPage() {
   const deleteTemplate = useDeleteSMSTemplate();
 
   const [showTemplateForm, setShowTemplateForm] = useState(false);
-  const [editingTemplate, setEditingTemplate] = useState<SMSTemplate | null>(null);
+  const [editingTemplate, setEditingTemplate] = useState<SMSTemplate | null>(
+    null,
+  );
   const [templateForm, setTemplateForm] = useState({
-    name: '',
-    type: 'custom' as SMSTemplate['type'],
-    content: '',
+    name: "",
+    type: "custom" as SMSTemplate["type"],
+    content: "",
     is_active: true,
   });
 
   const handleTestConnection = async () => {
     try {
       const result = await testConnection.mutateAsync();
-      alert(result.message);
+      toastSuccess(result.message);
     } catch (error) {
-      alert('Failed to test connection');
+      toastError("Failed to test connection");
     }
   };
 
@@ -99,9 +102,14 @@ export function SMSSettingsPage() {
       }
       setShowTemplateForm(false);
       setEditingTemplate(null);
-      setTemplateForm({ name: '', type: 'custom', content: '', is_active: true });
+      setTemplateForm({
+        name: "",
+        type: "custom",
+        content: "",
+        is_active: true,
+      });
     } catch (error) {
-      alert('Failed to save template');
+      toastError("Failed to save template");
     }
   };
 
@@ -117,11 +125,11 @@ export function SMSSettingsPage() {
   };
 
   const handleDeleteTemplate = async (id: string) => {
-    if (!confirm('Are you sure you want to delete this template?')) return;
+    if (!confirm("Are you sure you want to delete this template?")) return;
     try {
       await deleteTemplate.mutateAsync(id);
     } catch (error) {
-      alert('Failed to delete template');
+      toastError("Failed to delete template");
     }
   };
 
@@ -152,27 +160,35 @@ export function SMSSettingsPage() {
         <Card>
           <CardContent className="p-4">
             <p className="text-sm text-text-muted">Messages Today</p>
-            <p className="text-2xl font-bold text-text-primary">{stats?.messages_today || 0}</p>
+            <p className="text-2xl font-bold text-text-primary">
+              {stats?.messages_today || 0}
+            </p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
             <p className="text-sm text-text-muted">This Month</p>
-            <p className="text-2xl font-bold text-text-primary">{stats?.messages_this_month || 0}</p>
+            <p className="text-2xl font-bold text-text-primary">
+              {stats?.messages_this_month || 0}
+            </p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
             <p className="text-sm text-text-muted">Delivery Rate</p>
             <p className="text-2xl font-bold text-success">
-              {stats?.delivery_rate ? `${(stats.delivery_rate * 100).toFixed(1)}%` : 'N/A'}
+              {stats?.delivery_rate
+                ? `${(stats.delivery_rate * 100).toFixed(1)}%`
+                : "N/A"}
             </p>
           </CardContent>
         </Card>
         <Card>
           <CardContent className="p-4">
             <p className="text-sm text-text-muted">Opted Out</p>
-            <p className="text-2xl font-bold text-text-primary">{stats?.opt_out_count || 0}</p>
+            <p className="text-2xl font-bold text-text-primary">
+              {stats?.opt_out_count || 0}
+            </p>
           </CardContent>
         </Card>
       </div>
@@ -188,7 +204,9 @@ export function SMSSettingsPage() {
           <div className="flex items-center justify-between">
             <div>
               <p className="font-medium text-text-primary">SMS Enabled</p>
-              <p className="text-sm text-text-muted">Enable or disable all SMS functionality</p>
+              <p className="text-sm text-text-muted">
+                Enable or disable all SMS functionality
+              </p>
             </div>
             <Toggle
               checked={settings?.twilio_enabled ?? false}
@@ -202,22 +220,24 @@ export function SMSSettingsPage() {
               <div className="pt-4 border-t border-border">
                 <div className="flex items-center justify-between">
                   <div>
-                    <p className="font-medium text-text-primary">Phone Number</p>
+                    <p className="font-medium text-text-primary">
+                      Phone Number
+                    </p>
                     <p className="text-sm text-text-muted">
-                      {settings.twilio_phone_number || 'Not configured'}
+                      {settings.twilio_phone_number || "Not configured"}
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
                     <span
                       className={`px-2 py-1 text-xs rounded-full ${
-                        settings.twilio_account_status === 'active'
-                          ? 'bg-success/20 text-success'
-                          : settings.twilio_account_status === 'pending'
-                          ? 'bg-warning/20 text-warning'
-                          : 'bg-danger/20 text-danger'
+                        settings.twilio_account_status === "active"
+                          ? "bg-success/20 text-success"
+                          : settings.twilio_account_status === "pending"
+                            ? "bg-warning/20 text-warning"
+                            : "bg-danger/20 text-danger"
                       }`}
                     >
-                      {settings.twilio_account_status || 'Unknown'}
+                      {settings.twilio_account_status || "Unknown"}
                     </span>
                     <Button
                       variant="secondary"
@@ -225,7 +245,9 @@ export function SMSSettingsPage() {
                       onClick={handleTestConnection}
                       disabled={testConnection.isPending}
                     >
-                      {testConnection.isPending ? 'Testing...' : 'Test Connection'}
+                      {testConnection.isPending
+                        ? "Testing..."
+                        : "Test Connection"}
                     </Button>
                   </div>
                 </div>
@@ -243,8 +265,12 @@ export function SMSSettingsPage() {
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between py-2">
             <div>
-              <p className="font-medium text-text-primary">Appointment Reminders</p>
-              <p className="text-sm text-text-muted">Automatically send reminders before appointments</p>
+              <p className="font-medium text-text-primary">
+                Appointment Reminders
+              </p>
+              <p className="text-sm text-text-muted">
+                Automatically send reminders before appointments
+              </p>
             </div>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
@@ -253,14 +279,20 @@ export function SMSSettingsPage() {
                   min="1"
                   max="72"
                   value={settings?.reminder_hours_before || 24}
-                  onChange={(e) => updateSettings.mutate({ reminder_hours_before: parseInt(e.target.value) })}
+                  onChange={(e) =>
+                    updateSettings.mutate({
+                      reminder_hours_before: parseInt(e.target.value),
+                    })
+                  }
                   className="w-20"
                 />
                 <span className="text-sm text-text-muted">hours before</span>
               </div>
               <Toggle
                 checked={settings?.auto_appointment_reminder ?? false}
-                onChange={(v) => updateSettings.mutate({ auto_appointment_reminder: v })}
+                onChange={(v) =>
+                  updateSettings.mutate({ auto_appointment_reminder: v })
+                }
                 disabled={updateSettings.isPending}
               />
             </div>
@@ -269,11 +301,15 @@ export function SMSSettingsPage() {
           <div className="flex items-center justify-between py-2 border-t border-border">
             <div>
               <p className="font-medium text-text-primary">Service Complete</p>
-              <p className="text-sm text-text-muted">Notify customers when service is completed</p>
+              <p className="text-sm text-text-muted">
+                Notify customers when service is completed
+              </p>
             </div>
             <Toggle
               checked={settings?.auto_service_complete ?? false}
-              onChange={(v) => updateSettings.mutate({ auto_service_complete: v })}
+              onChange={(v) =>
+                updateSettings.mutate({ auto_service_complete: v })
+              }
               disabled={updateSettings.isPending}
             />
           </div>
@@ -281,7 +317,9 @@ export function SMSSettingsPage() {
           <div className="flex items-center justify-between py-2 border-t border-border">
             <div>
               <p className="font-medium text-text-primary">Invoice Sent</p>
-              <p className="text-sm text-text-muted">Notify customers when an invoice is created</p>
+              <p className="text-sm text-text-muted">
+                Notify customers when an invoice is created
+              </p>
             </div>
             <Toggle
               checked={settings?.auto_invoice_sent ?? false}
@@ -293,7 +331,9 @@ export function SMSSettingsPage() {
           <div className="flex items-center justify-between py-2 border-t border-border">
             <div>
               <p className="font-medium text-text-primary">Payment Reminders</p>
-              <p className="text-sm text-text-muted">Send reminders for overdue invoices</p>
+              <p className="text-sm text-text-muted">
+                Send reminders for overdue invoices
+              </p>
             </div>
             <div className="flex items-center gap-4">
               <div className="flex items-center gap-2">
@@ -302,14 +342,20 @@ export function SMSSettingsPage() {
                   min="1"
                   max="30"
                   value={settings?.payment_reminder_days || 7}
-                  onChange={(e) => updateSettings.mutate({ payment_reminder_days: parseInt(e.target.value) })}
+                  onChange={(e) =>
+                    updateSettings.mutate({
+                      payment_reminder_days: parseInt(e.target.value),
+                    })
+                  }
                   className="w-20"
                 />
                 <span className="text-sm text-text-muted">days overdue</span>
               </div>
               <Toggle
                 checked={settings?.auto_payment_reminder ?? false}
-                onChange={(v) => updateSettings.mutate({ auto_payment_reminder: v })}
+                onChange={(v) =>
+                  updateSettings.mutate({ auto_payment_reminder: v })
+                }
                 disabled={updateSettings.isPending}
               />
             </div>
@@ -327,12 +373,18 @@ export function SMSSettingsPage() {
         <CardContent className="space-y-4">
           <div className="flex items-center justify-between py-2">
             <div>
-              <p className="font-medium text-text-primary">Enable Quiet Hours</p>
-              <p className="text-sm text-text-muted">Don't send automated messages during these hours</p>
+              <p className="font-medium text-text-primary">
+                Enable Quiet Hours
+              </p>
+              <p className="text-sm text-text-muted">
+                Don't send automated messages during these hours
+              </p>
             </div>
             <Toggle
               checked={settings?.quiet_hours_enabled ?? false}
-              onChange={(v) => updateSettings.mutate({ quiet_hours_enabled: v })}
+              onChange={(v) =>
+                updateSettings.mutate({ quiet_hours_enabled: v })
+              }
               disabled={updateSettings.isPending}
             />
           </div>
@@ -340,20 +392,28 @@ export function SMSSettingsPage() {
           {settings?.quiet_hours_enabled && (
             <div className="flex items-center gap-4 pt-4 border-t border-border">
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-1">Start</label>
+                <label className="block text-sm font-medium text-text-secondary mb-1">
+                  Start
+                </label>
                 <input
                   type="time"
-                  value={settings.quiet_start || '21:00'}
-                  onChange={(e) => updateSettings.mutate({ quiet_start: e.target.value })}
+                  value={settings.quiet_start || "21:00"}
+                  onChange={(e) =>
+                    updateSettings.mutate({ quiet_start: e.target.value })
+                  }
                   className="px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-text-secondary mb-1">End</label>
+                <label className="block text-sm font-medium text-text-secondary mb-1">
+                  End
+                </label>
                 <input
                   type="time"
-                  value={settings.quiet_end || '08:00'}
-                  onChange={(e) => updateSettings.mutate({ quiet_end: e.target.value })}
+                  value={settings.quiet_end || "08:00"}
+                  onChange={(e) =>
+                    updateSettings.mutate({ quiet_end: e.target.value })
+                  }
                   className="px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary"
                 />
               </div>
@@ -369,7 +429,12 @@ export function SMSSettingsPage() {
           <Button
             onClick={() => {
               setEditingTemplate(null);
-              setTemplateForm({ name: '', type: 'custom', content: '', is_active: true });
+              setTemplateForm({
+                name: "",
+                type: "custom",
+                content: "",
+                is_active: true,
+              });
               setShowTemplateForm(true);
             }}
           >
@@ -386,7 +451,9 @@ export function SMSSettingsPage() {
                 >
                   <div className="flex-1 min-w-0">
                     <div className="flex items-center gap-2">
-                      <h4 className="font-medium text-text-primary">{template.name}</h4>
+                      <h4 className="font-medium text-text-primary">
+                        {template.name}
+                      </h4>
                       <span className="px-2 py-0.5 text-xs bg-primary/10 text-primary rounded">
                         {templateTypeLabels[template.type]}
                       </span>
@@ -396,10 +463,12 @@ export function SMSSettingsPage() {
                         </span>
                       )}
                     </div>
-                    <p className="text-sm text-text-muted mt-1 line-clamp-2">{template.content}</p>
+                    <p className="text-sm text-text-muted mt-1 line-clamp-2">
+                      {template.content}
+                    </p>
                     {template.variables.length > 0 && (
                       <p className="text-xs text-text-muted mt-2">
-                        Variables: {template.variables.join(', ')}
+                        Variables: {template.variables.join(", ")}
                       </p>
                     )}
                   </div>
@@ -425,7 +494,9 @@ export function SMSSettingsPage() {
             </div>
           ) : (
             <div className="text-center py-8 text-text-muted">
-              <p>No templates yet. Create your first template to get started.</p>
+              <p>
+                No templates yet. Create your first template to get started.
+              </p>
             </div>
           )}
 
@@ -434,7 +505,7 @@ export function SMSSettingsPage() {
             <div className="fixed inset-0 z-50 flex items-center justify-center bg-black/50">
               <div className="bg-bg-card rounded-lg shadow-xl w-full max-w-lg mx-4 p-6">
                 <h3 className="text-lg font-semibold text-text-primary mb-4">
-                  {editingTemplate ? 'Edit Template' : 'New Template'}
+                  {editingTemplate ? "Edit Template" : "New Template"}
                 </h3>
                 <div className="space-y-4">
                   <div>
@@ -443,7 +514,12 @@ export function SMSSettingsPage() {
                     </label>
                     <Input
                       value={templateForm.name}
-                      onChange={(e) => setTemplateForm({ ...templateForm, name: e.target.value })}
+                      onChange={(e) =>
+                        setTemplateForm({
+                          ...templateForm,
+                          name: e.target.value,
+                        })
+                      }
                       placeholder="e.g., 24-Hour Reminder"
                     />
                   </div>
@@ -454,15 +530,20 @@ export function SMSSettingsPage() {
                     <select
                       value={templateForm.type}
                       onChange={(e) =>
-                        setTemplateForm({ ...templateForm, type: e.target.value as SMSTemplate['type'] })
+                        setTemplateForm({
+                          ...templateForm,
+                          type: e.target.value as SMSTemplate["type"],
+                        })
                       }
                       className="w-full px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary"
                     >
-                      {Object.entries(templateTypeLabels).map(([value, label]) => (
-                        <option key={value} value={value}>
-                          {label}
-                        </option>
-                      ))}
+                      {Object.entries(templateTypeLabels).map(
+                        ([value, label]) => (
+                          <option key={value} value={value}>
+                            {label}
+                          </option>
+                        ),
+                      )}
                     </select>
                   </div>
                   <div>
@@ -471,24 +552,37 @@ export function SMSSettingsPage() {
                     </label>
                     <textarea
                       value={templateForm.content}
-                      onChange={(e) => setTemplateForm({ ...templateForm, content: e.target.value })}
+                      onChange={(e) =>
+                        setTemplateForm({
+                          ...templateForm,
+                          content: e.target.value,
+                        })
+                      }
                       rows={4}
                       className="w-full px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary resize-none"
                       placeholder="Hi {{customer_name}}, this is a reminder about your appointment on {{appointment_date}} at {{appointment_time}}."
                     />
                     <p className="text-xs text-text-muted mt-1">
-                      Available variables: {'{{customer_name}}'}, {'{{appointment_date}}'}, {'{{appointment_time}}'}, {'{{service_type}}'}, {'{{technician_name}}'}, {'{{invoice_amount}}'}, {'{{company_name}}'}
+                      Available variables: {"{{customer_name}}"},{" "}
+                      {"{{appointment_date}}"}, {"{{appointment_time}}"},{" "}
+                      {"{{service_type}}"}, {"{{technician_name}}"},{" "}
+                      {"{{invoice_amount}}"}, {"{{company_name}}"}
                     </p>
                     <p className="text-xs text-text-muted mt-1">
-                      {templateForm.content.length}/160 characters (standard SMS)
+                      {templateForm.content.length}/160 characters (standard
+                      SMS)
                     </p>
                   </div>
                   <div className="flex items-center gap-2">
                     <Toggle
                       checked={templateForm.is_active}
-                      onChange={(v) => setTemplateForm({ ...templateForm, is_active: v })}
+                      onChange={(v) =>
+                        setTemplateForm({ ...templateForm, is_active: v })
+                      }
                     />
-                    <span className="text-sm text-text-secondary">Template is active</span>
+                    <span className="text-sm text-text-secondary">
+                      Template is active
+                    </span>
                   </div>
                 </div>
                 <div className="flex justify-end gap-3 mt-6">
@@ -501,8 +595,11 @@ export function SMSSettingsPage() {
                   >
                     Cancel
                   </Button>
-                  <Button onClick={handleSaveTemplate} disabled={!templateForm.name || !templateForm.content}>
-                    {editingTemplate ? 'Save Changes' : 'Create Template'}
+                  <Button
+                    onClick={handleSaveTemplate}
+                    disabled={!templateForm.name || !templateForm.content}
+                  >
+                    {editingTemplate ? "Save Changes" : "Create Template"}
                   </Button>
                 </div>
               </div>

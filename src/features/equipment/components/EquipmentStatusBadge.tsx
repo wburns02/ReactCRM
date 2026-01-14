@@ -1,5 +1,8 @@
-import { Badge } from '@/components/ui/Badge.tsx';
-import { EQUIPMENT_STATUS_LABELS, type EquipmentStatus } from '@/api/types/equipment.ts';
+import { Badge } from "@/components/ui/Badge.tsx";
+import {
+  EQUIPMENT_STATUS_LABELS,
+  type EquipmentStatus,
+} from "@/api/types/equipment.ts";
 
 interface EquipmentStatusBadgeProps {
   status: EquipmentStatus;
@@ -9,12 +12,18 @@ interface EquipmentStatusBadgeProps {
 /**
  * Equipment status badge with color coding
  */
-export function EquipmentStatusBadge({ status, className }: EquipmentStatusBadgeProps) {
-  const variantMap: Record<EquipmentStatus, 'success' | 'warning' | 'danger' | 'default' | 'info'> = {
-    available: 'success',
-    in_use: 'info',
-    maintenance: 'warning',
-    retired: 'default',
+export function EquipmentStatusBadge({
+  status,
+  className,
+}: EquipmentStatusBadgeProps) {
+  const variantMap: Record<
+    EquipmentStatus,
+    "success" | "warning" | "danger" | "default" | "info"
+  > = {
+    available: "success",
+    in_use: "info",
+    maintenance: "warning",
+    retired: "default",
   };
 
   return (

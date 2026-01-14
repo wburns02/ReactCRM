@@ -1,28 +1,33 @@
-import { useState } from 'react';
-import { useParams, useNavigate, Link } from 'react-router-dom';
+import { useState } from "react";
+import { useParams, useNavigate, Link } from "react-router-dom";
 import {
   useProspect,
   useUpdateProspect,
   useUpdateProspectStage,
   useDeleteProspect,
-} from '@/api/hooks/useProspects.ts';
-import { ProspectForm } from './components/ProspectForm.tsx';
-import { Button } from '@/components/ui/Button.tsx';
-import { Card, CardHeader, CardTitle, CardContent } from '@/components/ui/Card.tsx';
-import { Badge } from '@/components/ui/Badge.tsx';
-import { Select } from '@/components/ui/Select.tsx';
-import { ApiError } from '@/components/ui/ApiError.tsx';
-import { ConfirmDialog } from '@/components/ui/Dialog.tsx';
-import { formatCurrency, formatDate, formatPhone } from '@/lib/utils.ts';
+} from "@/api/hooks/useProspects.ts";
+import { ProspectForm } from "./components/ProspectForm.tsx";
+import { Button } from "@/components/ui/Button.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
+import { Badge } from "@/components/ui/Badge.tsx";
+import { Select } from "@/components/ui/Select.tsx";
+import { ApiError } from "@/components/ui/ApiError.tsx";
+import { ConfirmDialog } from "@/components/ui/Dialog.tsx";
+import { formatCurrency, formatDate, formatPhone } from "@/lib/utils.ts";
 import {
   PROSPECT_STAGE_LABELS,
   LEAD_SOURCE_LABELS,
   type ProspectStage,
-} from '@/api/types/common.ts';
-import type { ProspectFormData } from '@/api/types/prospect.ts';
-import { ActivityTimeline } from '@/features/activities';
-import { AttachmentList } from '@/features/documents';
-import { DialButton, CallLog } from '@/features/phone/index.ts';
+} from "@/api/types/common.ts";
+import type { ProspectFormData } from "@/api/types/prospect.ts";
+import { ActivityTimeline } from "@/features/activities";
+import { AttachmentList } from "@/features/documents";
+import { DialButton, CallLog } from "@/features/phone/index.ts";
 
 /**
  * Prospect detail page - view/edit individual prospect
@@ -57,7 +62,7 @@ export function ProspectDetailPage() {
   const handleDelete = async () => {
     if (id) {
       await deleteMutation.mutateAsync(id);
-      navigate('/prospects');
+      navigate("/prospects");
     }
   };
 
@@ -87,7 +92,9 @@ export function ProspectDetailPage() {
   if (!prospect) {
     return (
       <div className="p-6 text-center">
-        <h2 className="text-xl font-semibold text-text-primary mb-2">Prospect not found</h2>
+        <h2 className="text-xl font-semibold text-text-primary mb-2">
+          Prospect not found
+        </h2>
         <p className="text-text-secondary mb-4">
           The prospect you're looking for doesn't exist or has been deleted.
         </p>
@@ -131,7 +138,9 @@ export function ProspectDetailPage() {
       {/* Stage Quick Update */}
       <Card className="mb-6">
         <div className="flex items-center gap-4">
-          <span className="text-sm font-medium text-text-secondary">Current Stage:</span>
+          <span className="text-sm font-medium text-text-secondary">
+            Current Stage:
+          </span>
           <Badge variant="stage" stage={prospect.prospect_stage}>
             {PROSPECT_STAGE_LABELS[prospect.prospect_stage]}
           </Badge>
@@ -139,7 +148,9 @@ export function ProspectDetailPage() {
             <span className="text-sm text-text-secondary">Quick update:</span>
             <Select
               value={prospect.prospect_stage}
-              onChange={(e) => handleStageChange(e.target.value as ProspectStage)}
+              onChange={(e) =>
+                handleStageChange(e.target.value as ProspectStage)
+              }
               className="w-40"
               disabled={stageMutation.isPending}
             >
@@ -181,10 +192,16 @@ export function ProspectDetailPage() {
                 <dd className="font-medium flex items-center gap-2">
                   {prospect.phone ? (
                     <>
-                      <a href={`tel:${prospect.phone}`} className="text-text-link hover:underline">
+                      <a
+                        href={`tel:${prospect.phone}`}
+                        className="text-text-link hover:underline"
+                      >
                         {formatPhone(prospect.phone)}
                       </a>
-                      <DialButton phoneNumber={prospect.phone} prospectId={id} />
+                      <DialButton
+                        phoneNumber={prospect.phone}
+                        prospectId={id}
+                      />
                     </>
                   ) : (
                     <span className="text-text-muted">Not provided</span>
@@ -220,9 +237,11 @@ export function ProspectDetailPage() {
               <div>
                 <dt className="text-sm text-text-secondary">Lead Source</dt>
                 <dd className="font-medium">
-                  {prospect.lead_source
-                    ? LEAD_SOURCE_LABELS[prospect.lead_source]
-                    : <span className="text-text-muted">Unknown</span>}
+                  {prospect.lead_source ? (
+                    LEAD_SOURCE_LABELS[prospect.lead_source]
+                  ) : (
+                    <span className="text-text-muted">Unknown</span>
+                  )}
                 </dd>
               </div>
               <div>
@@ -232,9 +251,13 @@ export function ProspectDetailPage() {
                 </dd>
               </div>
               <div>
-                <dt className="text-sm text-text-secondary">Assigned Sales Rep</dt>
+                <dt className="text-sm text-text-secondary">
+                  Assigned Sales Rep
+                </dt>
                 <dd className="font-medium">
-                  {prospect.assigned_sales_rep || <span className="text-text-muted">Unassigned</span>}
+                  {prospect.assigned_sales_rep || (
+                    <span className="text-text-muted">Unassigned</span>
+                  )}
                 </dd>
               </div>
               <div>
@@ -258,7 +281,9 @@ export function ProspectDetailPage() {
           </CardHeader>
           <CardContent>
             {prospect.lead_notes ? (
-              <p className="whitespace-pre-wrap text-text-primary">{prospect.lead_notes}</p>
+              <p className="whitespace-pre-wrap text-text-primary">
+                {prospect.lead_notes}
+              </p>
             ) : (
               <p className="text-text-muted italic">No notes added yet.</p>
             )}
@@ -286,7 +311,9 @@ export function ProspectDetailPage() {
             <div className="flex items-center justify-between text-sm text-text-secondary">
               <span>Created: {formatDate(prospect.created_at)}</span>
               <span>Last Updated: {formatDate(prospect.updated_at)}</span>
-              <span className="text-xs font-mono text-text-muted">ID: {prospect.id}</span>
+              <span className="text-xs font-mono text-text-muted">
+                ID: {prospect.id}
+              </span>
             </div>
           </CardContent>
         </Card>
