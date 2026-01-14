@@ -49,6 +49,7 @@ export interface CallWithAnalysis {
   // AI processing
   has_transcript: boolean;
   has_analysis: boolean;
+  has_recording?: boolean;
 }
 
 // Dashboard metrics
