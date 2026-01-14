@@ -39,22 +39,50 @@ class CallIntelligenceService:
         week_ago = today - timedelta(days=7)
 
         try:
-            # Base query for all calls in period
+            # Base query for all calls in period - use start_time if created_at is null
             base_query = self.db.query(CallLog).filter(
-                CallLog.created_at >= since_date
+                or_(
+                    CallLog.created_at >= since_date,
+                    and_(
+                        CallLog.created_at.is_(None),
+                        CallLog.start_time >= since_date
+                    )
+                )
             )
 
             # Total calls
             total_calls = base_query.count()
-            calls_today = base_query.filter(CallLog.created_at >= today).count()
-            calls_this_week = base_query.filter(CallLog.created_at >= week_ago).count()
+            calls_today = base_query.filter(
+                or_(
+                    CallLog.created_at >= today,
+                    and_(
+                        CallLog.created_at.is_(None),
+                        CallLog.start_time >= today
+                    )
+                )
+            ).count()
+            calls_this_week = base_query.filter(
+                or_(
+                    CallLog.created_at >= week_ago,
+                    and_(
+                        CallLog.created_at.is_(None),
+                        CallLog.start_time >= week_ago
+                    )
+                )
+            ).count()
 
             # Sentiment distribution
             sentiment_counts = self.db.query(
                 CallLog.sentiment,
                 func.count(CallLog.id)
             ).filter(
-                CallLog.created_at >= since_date,
+                or_(
+                    CallLog.created_at >= since_date,
+                    and_(
+                        CallLog.created_at.is_(None),
+                        CallLog.start_time >= since_date
+                    )
+                ),
                 CallLog.sentiment.isnot(None)
             ).group_by(CallLog.sentiment).all()
 
@@ -67,7 +95,13 @@ class CallIntelligenceService:
             avg_sentiment = self.db.query(
                 func.avg(CallLog.sentiment_score)
             ).filter(
-                CallLog.created_at >= since_date,
+                or_(
+                    CallLog.created_at >= since_date,
+                    and_(
+                        CallLog.created_at.is_(None),
+                        CallLog.start_time >= since_date
+                    )
+                ),
                 CallLog.sentiment_score.isnot(None)
             ).scalar() or 0.0
 
@@ -75,7 +109,13 @@ class CallIntelligenceService:
             avg_quality = self.db.query(
                 func.avg(CallLog.quality_score)
             ).filter(
-                CallLog.created_at >= since_date,
+                or_(
+                    CallLog.created_at >= since_date,
+                    and_(
+                        CallLog.created_at.is_(None),
+                        CallLog.start_time >= since_date
+                    )
+                ),
                 CallLog.quality_score.isnot(None)
             ).scalar() or 0.0
 
