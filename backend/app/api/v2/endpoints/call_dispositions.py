@@ -16,10 +16,35 @@ from app.schemas.ringcentral import (
     UpdateDispositionRequest,
     ErrorResponse
 )
+from app.schemas.call_intelligence import DispositionStatsResponse
+from app.services.call_intelligence_service import CallIntelligenceService
 
 logger = logging.getLogger(__name__)
 
 router = APIRouter()
+
+
+# ===== DISPOSITION ANALYTICS =====
+@router.get("/analytics", response_model=DispositionStatsResponse)
+async def get_disposition_stats(
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_active_user)
+):
+    """
+    Get aggregated disposition statistics for the dashboard.
+    Matches frontend useDispositionStats() hook.
+    """
+    try:
+        service = CallIntelligenceService(db)
+        result = service.get_disposition_stats()
+
+        return DispositionStatsResponse(**result)
+    except Exception as e:
+        logger.error(f"Failed to get disposition stats: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to get disposition statistics"
+        )
 
 
 # ===== GET DISPOSITIONS =====

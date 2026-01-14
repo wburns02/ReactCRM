@@ -20,6 +20,13 @@ from app.schemas.ringcentral import (
     DispositionResponse,
     ErrorResponse
 )
+from app.schemas.call_intelligence import (
+    CallAnalyticsResponse,
+    AgentPerformanceResponse,
+    QualityHeatmapResponse,
+    CoachingInsightsResponse,
+)
+from app.services.call_intelligence_service import CallIntelligenceService
 from app.models.ringcentral import CallDisposition
 from app.core.security import generate_state_token
 
@@ -502,4 +509,101 @@ async def get_ringcentral_stats(
         raise HTTPException(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Failed to get statistics"
+        )
+
+
+# ===== CALL INTELLIGENCE ANALYTICS ENDPOINTS =====
+
+@router.get("/calls/analytics", response_model=CallAnalyticsResponse)
+async def get_call_analytics(
+    days: int = Query(30, description="Number of days to analyze", ge=1, le=365),
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_active_user)
+):
+    """
+    Get comprehensive call analytics metrics for the dashboard.
+    Matches frontend useCallAnalytics() hook.
+    """
+    try:
+        service = CallIntelligenceService(db)
+        metrics = service.get_dashboard_metrics(days=days)
+
+        from datetime import datetime
+        return CallAnalyticsResponse(
+            metrics=metrics,
+            updated_at=datetime.utcnow().isoformat()
+        )
+    except Exception as e:
+        logger.error(f"Failed to get call analytics: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to get call analytics"
+        )
+
+
+@router.get("/agents/performance", response_model=AgentPerformanceResponse)
+async def get_agents_performance(
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_active_user)
+):
+    """
+    Get performance metrics for all agents.
+    Matches frontend useAgentPerformance() hook.
+    """
+    try:
+        service = CallIntelligenceService(db)
+        result = service.get_agent_performance()
+
+        return AgentPerformanceResponse(**result)
+    except Exception as e:
+        logger.error(f"Failed to get agent performance: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to get agent performance"
+        )
+
+
+@router.get("/quality/heatmap", response_model=QualityHeatmapResponse)
+async def get_quality_heatmap(
+    days: int = Query(14, description="Number of days to show", ge=7, le=90),
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_active_user)
+):
+    """
+    Get quality scores by agent over time for heatmap visualization.
+    Matches frontend useQualityHeatmap() hook.
+    """
+    try:
+        service = CallIntelligenceService(db)
+        result = service.get_quality_heatmap(days=days)
+
+        return QualityHeatmapResponse(**result)
+    except Exception as e:
+        logger.error(f"Failed to get quality heatmap: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to get quality heatmap"
+        )
+
+
+@router.get("/coaching/insights", response_model=CoachingInsightsResponse)
+async def get_coaching_insights(
+    days: int = Query(30, description="Number of days to analyze", ge=7, le=365),
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_active_user)
+):
+    """
+    Get aggregated coaching insights across all agents.
+    Matches frontend useCoachingInsights() hook.
+    """
+    try:
+        service = CallIntelligenceService(db)
+        result = service.get_coaching_insights(days=days)
+
+        return CoachingInsightsResponse(**result)
+    except Exception as e:
+        logger.error(f"Failed to get coaching insights: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to get coaching insights"
         )
