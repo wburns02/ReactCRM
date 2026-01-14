@@ -15,7 +15,7 @@ passlib[bcrypt]==1.7.4
 python-multipart==0.0.6
 
 # RingCentral integration
-ringcentral==1.0.0b11
+ringcentral==0.9.2
 cryptography==41.0.8
 
 # AI and machine learning
