@@ -406,7 +406,7 @@ function CoachingInsightsPanel({
               Team Strengths
             </h4>
             <div className="flex flex-wrap gap-2">
-              {insights.top_strengths.slice(0, 3).map((strength) => (
+              {(insights.top_strengths || []).slice(0, 3).map((strength) => (
                 <span
                   key={strength.name}
                   className="px-2 py-1 bg-green-50 text-green-700 text-sm rounded-full"
@@ -423,7 +423,7 @@ function CoachingInsightsPanel({
               Focus Areas
             </h4>
             <div className="flex flex-wrap gap-2">
-              {insights.top_improvements.slice(0, 3).map((improvement) => (
+              {(insights.top_improvements || []).slice(0, 3).map((improvement) => (
                 <span
                   key={improvement.name}
                   className="px-2 py-1 bg-amber-50 text-amber-700 text-sm rounded-full"
@@ -435,13 +435,13 @@ function CoachingInsightsPanel({
           </div>
 
           {/* Recommended Training */}
-          {insights.recommended_training.length > 0 && (
+          {(insights.recommended_training || []).length > 0 && (
             <div>
               <h4 className="text-sm font-semibold text-text-secondary mb-2">
                 Recommended Training
               </h4>
               <div className="space-y-2">
-                {insights.recommended_training.slice(0, 3).map((training) => (
+                {(insights.recommended_training || []).slice(0, 3).map((training) => (
                   <button
                     key={training.module}
                     type="button"
@@ -894,13 +894,13 @@ export function CallIntelligenceDashboard() {
   const qualityHeatmapQuery = useQualityHeatmap(14);
   const coachingInsightsQuery = useCoachingInsights();
 
-  // Extract data from queries
+  // Extract data from queries with robust error handling
   const metrics = analyticsQuery.data?.metrics;
-  const calls = callsQuery.data?.items || [];
-  const agents = agentPerformanceQuery.data?.agents || [];
-  const dispositions = dispositionStatsQuery.data?.dispositions || [];
+  const calls = Array.isArray(callsQuery.data?.items) ? callsQuery.data.items : [];
+  const agents = Array.isArray(agentPerformanceQuery.data?.agents) ? agentPerformanceQuery.data.agents : [];
+  const dispositions = Array.isArray(dispositionStatsQuery.data?.dispositions) ? dispositionStatsQuery.data.dispositions : [];
   const totalDispositionCalls = dispositionStatsQuery.data?.total_calls || 0;
-  const heatmapData = qualityHeatmapQuery.data?.data || [];
+  const heatmapData = Array.isArray(qualityHeatmapQuery.data?.data) ? qualityHeatmapQuery.data.data : [];
   const coachingInsights = coachingInsightsQuery.data?.insights;
 
   // Calculate escalation risk data from metrics

@@ -1,107 +1,41 @@
-# REAL RINGCENTRAL RECORDINGS INTEGRATION ⚡
+# CALL INTELLIGENCE FIX - RALPH LOOP SESSION
 
-## NEW TASK: REAL RC RECORDINGS IN PLAYWRIGHT
-- 🎯 **Goal**: Get page to pull REAL RingCentral recordings successfully in Playwright
-- 📋 **Strategy**: Deep analysis of both codebases, then implement what works
-- ⚡ **Priority**: Use knowledge from previous working backend to implement properly
+## CURRENT ISSUES IDENTIFIED:
 
-## PREVIOUS TASK COMPLETED ✅
-- ✅ Emergency rollback completed
-- ✅ CRM login/connectivity restored
-- ✅ Comprehensive RingCentral implementation plan created
-- ✅ System ready for proper data integration
+1. **401 Unauthorized** - `/api/v2/roles` endpoint
+2. **500 Internal Server Error** - `/ringcentral/calls/analytics` endpoint
+3. **404 Not Found** - `/call-dispositions/analytics` endpoint
+4. **404 Not Found** - `/ringcentral/quality/heatmap?days=14` endpoint
+5. **React TypeError** - `Cannot read properties of undefined (reading 'slice')`
 
-## WHAT WAS ACCOMPLISHED:
-1. **Immediate Crisis Response**: Rolled back breaking commits
-2. **System Restoration**: Fixed frontend/backend connectivity
-3. **Root Cause Analysis**: Identified endpoint path mismatches
-4. **Implementation Roadmap**: Created detailed 5-7 hour plan
-5. **Documentation**: Full report in EMERGENCY_ROLLBACK_REPORT.md
+## ANALYSIS:
+- Multiple missing backend endpoints causing 404s
+- Frontend trying to access data that doesn't exist
+- React component crashing due to undefined data
+- Need to test with real credentials: will@macseptic.com/#Espn2025
 
----
+## FIX PLAN:
+1. ✅ Document current issues
+2. Create missing backend endpoints
+3. Fix frontend error handling for undefined data
+4. Test authentication with real credentials
+5. Sync real RingCentral data
+6. Verify Call Intelligence dashboard fully functional
 
-# AI Integration Task Notes (PREVIOUS)
+## STATUS: Found the core issue!
 
-## Previous Status: COMPLETE
-- All AI integrations implemented
-- Build passes successfully
-- Ready for production deployment
+### ✅ PROGRESS:
+1. ✅ Added missing backend endpoints (quality/heatmap, call-dispositions/analytics)
+2. ✅ Successfully authenticated with will@macseptic.com/#Espn2025
+3. ✅ Accessed Call Intelligence page via Playwright
+4. ✅ **IDENTIFIED CORE ISSUE**: Call Intelligence page shows "Something went wrong" error
 
-## GPU Note (For Tomorrow)
-- Only 1 RTX 3090 detected at PCI level
-- User confirmed both GPUs physically seated with power
-- Likely BIOS setting: "Lower Memory Mapped I/O Base to 512G" needs to be re-enabled
-- Location: BIOS → Integrated Devices
+### 🚨 ROOT CAUSE:
+- Page displays: "⚠️Something went wrong. Error ID: ERR-MKEI9MK5"
+- React component is crashing with TypeError about undefined.slice
+- Need to fix the frontend error handling in Call Intelligence dashboard
 
-## AI Integration Summary
-
-### Areas WITH AI Integration (Existing + New)
-
-1. **AI Chat Widget** - Floating assistant across platform (existing)
-2. **AI Dispatch System** - Autonomous scheduling/routing, Executive Mode (existing)
-3. **Customer Insights** - Churn risk, sentiment, LTV prediction (existing)
-4. **Work Order Helper** - Duration/parts/technician predictions (existing)
-5. **Customer Success** - Portfolio insights, campaign analysis (existing)
-6. **Analytics** - Anomalies, predictions, prescriptive insights (existing)
-7. **Email Compose** - AI-powered email drafting with demo fallback (NEW)
-8. **SMS Compose** - AI-powered SMS drafting with demo fallback (NEW)
-9. **Billing Overview** - AI billing insights and analysis (NEW)
-10. **Invoice Detail** - AI payment prediction with risk assessment (NEW)
-11. **Equipment Health** - AI predictive maintenance for fleet (NEW)
-12. **Reports Dashboard** - Natural language queries for business data (NEW)
-13. **Estimates Page** - AI smart pricing suggestions (NEW)
-
-### Files Modified
-
-**Communications AI:**
-- `src/features/communications/components/EmailComposeModal.tsx`
-- `src/features/sms/SMSComposeModal.tsx`
-
-**Billing/Invoice AI:**
-- `src/features/billing/pages/BillingOverview.tsx`
-- `src/features/invoicing/InvoiceDetailPage.tsx`
-
-**Equipment AI:**
-- `src/features/equipment/EquipmentHealthPage.tsx`
-
-**Reports AI:**
-- `src/features/reports/pages/ReportsPage.tsx`
-
-**Estimates AI:**
-- `src/features/billing/pages/EstimatesPage.tsx`
-
-**API Types Extended:**
-- `src/api/ai.ts` - Added billing, payment_prediction, equipment, maintenance types
-
-### Implementation Pattern
-
-All AI features follow the same pattern:
-1. Show collapsible AI panel with sparkle icon
-2. Use `useAIGenerate()` or `useAIAnalyze()` hooks
-3. Graceful demo fallback when backend unavailable
-4. Quick action buttons for common prompts
-5. Formatted results display
-
-### Demo Mode Fallbacks
-
-Each AI feature includes intelligent demo responses:
-- Email: Follow-up, thank you, appointment, payment templates
-- SMS: Reminder, on-way, complete, thank you messages
-- Billing: Collection rate, revenue analysis, recommendations
-- Payment: Likelihood percentage, days to payment, risk level
-- Equipment: Fleet analysis, critical items, maintenance scheduling
-- Reports: Revenue trends, customer retention, pipeline status
-- Estimates: Service-based pricing (septic, drain, inspection)
-
-## ML Server Integration
-
-- Ollama API: https://localhost-0.tailad2d5f.ts.net
-- 17 models available (~135GB)
-- Backend env vars set for AI_SERVER_URL
-
-## Next Steps
-
-1. Enable second GPU (BIOS setting tomorrow)
-2. Deploy to production via git push
-3. Test AI features with live backend
-4. Fine-tune demo fallbacks based on user feedback
+### NEXT STEPS:
+1. Fix the React TypeError in Call Intelligence components
+2. Test backend endpoints are working after deployment
+3. Ensure proper error boundaries and data validation
