@@ -51,6 +51,16 @@ import type {
   TrainingRecommendation,
 } from "./types";
 
+// Helper to check if error is expected (404 or 500 from unimplemented endpoints)
+function is404or500(error: unknown): boolean {
+  if (error && typeof error === "object" && "response" in error) {
+    const axiosError = error as { response?: { status?: number } };
+    const status = axiosError.response?.status;
+    return status === 404 || status === 500;
+  }
+  return false;
+}
+
 // ============================================================================
 // DASHBOARD FILTERS COMPONENT
 // ============================================================================
@@ -1044,14 +1054,16 @@ export function CallIntelligenceDashboard() {
     qualityHeatmapQuery.isLoading ||
     coachingInsightsQuery.isLoading;
 
-  // Check if any query has error
-  const hasError =
-    analyticsQuery.isError ||
-    callsQuery.isError ||
-    agentPerformanceQuery.isError ||
-    dispositionStatsQuery.isError ||
-    qualityHeatmapQuery.isError ||
-    coachingInsightsQuery.isError;
+  // Note: With withFallback, queries gracefully return default data on 404/500
+  // so hasError will be false for expected missing endpoints.
+  // We only show errors for truly unexpected failures (non-404/500 errors)
+  const hasUnexpectedError =
+    (analyticsQuery.isError && !is404or500(analyticsQuery.error)) ||
+    (callsQuery.isError && !is404or500(callsQuery.error)) ||
+    (agentPerformanceQuery.isError && !is404or500(agentPerformanceQuery.error)) ||
+    (dispositionStatsQuery.isError && !is404or500(dispositionStatsQuery.error)) ||
+    (qualityHeatmapQuery.isError && !is404or500(qualityHeatmapQuery.error)) ||
+    (coachingInsightsQuery.isError && !is404or500(coachingInsightsQuery.error));
 
   return (
     <div className="min-h-screen bg-bg-page">
