@@ -100,7 +100,7 @@ export function useCallLog(filters?: {
       if (filters?.direction) params.set('direction', filters.direction);
       if (filters?.customer_id) params.set('customer_id', filters.customer_id);
 
-      const url = '/ringcentral/calls' + (params.toString() ? '?' + params.toString() : '');
+      const url = '/ringcentral/user/calls' + (params.toString() ? '?' + params.toString() : '');
       const { data } = await apiClient.get(url);
 
       // Return the paginated response
