@@ -1,13 +1,23 @@
-# ReactCRM Feature Migration - Autonomous Task Queue
+# TODO: Real RingCentral Recordings Integration
 
-This file drives overnight autonomous loops. Each task is atomic and completable in one session.
+## GOAL
+Get the page to pull REAL RC (RingCentral) recordings successfully in Playwright
 
-## Format
-- `[ ]` Pending | `[~]` In-progress | `[x]` Completed
-- `PRIORITY:HIGH` - Process first
-- `BLOCKED: reason` - Skip until unblocked
+## PRIORITY TASKS
+- [~] Deep analysis of frontend structure (C:\Users\Will\crm-work\ReactCRM)
+- [ ] Deep analysis of backend structure (C:\Users\Will\crm-work\react-crm-api)
+- [ ] Identify existing RingCentral integration points
+- [ ] Map recording-related endpoints and data flow
+- [ ] Implement real recording fetching functionality
+- [ ] Test with Playwright to verify real recordings load
+- [ ] Verify end-to-end functionality
+
+## STATUS
+Starting comprehensive analysis...
 
 ---
+
+# LEGACY ReactCRM Feature Migration (COMPLETED)
 
 ## PHASE 1: CALL CENTER & TELEPHONY ✅ COMPLETE
 

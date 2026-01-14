@@ -39,6 +39,7 @@ import { Badge } from "@/components/ui/Badge";
 import { Button } from "@/components/ui/Button";
 import { Tabs, TabList, TabTrigger } from "@/components/ui/Tabs";
 import { cn } from "@/lib/utils";
+import { SecureCallRecordingPlayer } from "@/features/calls/components/SecureCallRecordingPlayer.tsx";
 import type { CallWithAnalysis, SentimentLevel, EscalationRisk } from "../types";
 
 interface CallDetailModalProps {
@@ -409,7 +410,7 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
           {activeTab === "overview" && (
             <div className="space-y-6">
               {/* Recording Player */}
-              {call.recording_url && (
+              {call.has_recording && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg">
@@ -418,14 +419,7 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <audio
-                      controls
-                      className="w-full"
-                      src={call.recording_url}
-                      preload="metadata"
-                    >
-                      Your browser does not support the audio element.
-                    </audio>
+                    <SecureCallRecordingPlayer callId={call.id} />
                     <p className="text-sm text-text-secondary mt-2">
                       Duration: {formatDuration(call.duration_seconds)}
                     </p>
@@ -784,7 +778,7 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
             <Button variant="outline" onClick={onClose}>
               Close
             </Button>
-            {call.recording_url && (
+            {call.has_recording && (
               <Button variant="primary">
                 <Mic className="w-4 h-4 mr-2" />
                 Download Recording
