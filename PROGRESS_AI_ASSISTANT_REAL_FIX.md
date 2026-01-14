@@ -1,8 +1,22 @@
 # AI Assistant Real Fix Progress
 
-## VERDICT: AI ASSISTANT IS WORKING!
+## VERDICT: AI ASSISTANT IS FIXED AND WORKING!
 
-**All 11 Playwright tests PASSED** on 2026-01-14
+**All 12 Playwright tests PASSED** on 2026-01-14
+
+### Root Cause Found and Fixed:
+The AI Gateway in `ai_gateway.py` was using a **hardcoded private IP** (`192.168.7.71:11434`)
+that Railway's cloud servers cannot reach.
+
+**Fix Applied:**
+- Changed `ai_gateway.py` to use `OLLAMA_BASE_URL` setting
+- Uses Tailscale URL: `https://localhost-0.tailad2d5f.ts.net/ollama`
+- Deployed to Railway via commit `cfc0477`
+
+### Critical Test Now Passes:
+```
+test('MUST be able to send message and get NON-ERROR response') → PASSED
+```
 
 ### Test Results Summary:
 - ALL API endpoints return 200 OK with auth

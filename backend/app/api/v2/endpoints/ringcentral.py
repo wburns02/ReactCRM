@@ -512,6 +512,40 @@ async def get_ringcentral_stats(
         )
 
 
+@router.post("/admin/seed-data")
+async def seed_sample_data(
+    call_count: int = Query(15, description="Number of sample calls to create"),
+    user_id: str = Query("demo-user-001", description="User ID to create data for"),
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_active_user)
+):
+    """
+    Seed sample RingCentral data for testing and demo purposes.
+    Creates real data that the analytics endpoints can use.
+    """
+    try:
+        from app.utils.seed_ringcentral_data import seed_ringcentral_data
+
+        result = seed_ringcentral_data(db, user_id=user_id, call_count=call_count)
+
+        if result["success"]:
+            logger.info(f"Successfully seeded RingCentral data: {result}")
+            return result
+        else:
+            logger.error(f"Failed to seed data: {result}")
+            raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail=result["message"]
+            )
+
+    except Exception as e:
+        logger.error(f"Failed to seed sample data: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Failed to seed sample data: {str(e)}"
+        )
+
+
 # ===== CALL INTELLIGENCE ANALYTICS ENDPOINTS =====
 
 @router.get("/calls/analytics", response_model=CallAnalyticsResponse)

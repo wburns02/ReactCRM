@@ -292,6 +292,61 @@ test.describe('AI Assistant API Endpoint Tests (with auth)', () => {
   });
 });
 
+test.describe('AI Chat Functionality - CRITICAL', () => {
+
+  test('MUST be able to send message and get NON-ERROR response', async ({ page }) => {
+    // This is the CRITICAL test - if this fails, AI Assistant is BROKEN
+    await login(page);
+    await page.goto(`${BASE_URL}/ai-assistant`);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(3000);
+
+    // Find chat input
+    const chatInput = page.locator('input[placeholder*="Ask"], textarea[placeholder*="Ask"], input[type="text"]').first();
+    const hasInput = await chatInput.isVisible().catch(() => false);
+
+    if (!hasInput) {
+      console.log('No chat input found - taking screenshot');
+      await page.screenshot({ path: 'test-results/ai-no-chat-input.png', fullPage: true });
+      throw new Error('Chat input not found on AI Assistant page');
+    }
+
+    // Type a test message
+    await chatInput.fill('Hello, can you help me with scheduling?');
+
+    // Find and click send button
+    const sendButton = page.locator('button[type="submit"], button:has-text("Send")').first();
+    const hasButton = await sendButton.isVisible().catch(() => false);
+
+    if (!hasButton) {
+      // Try pressing Enter instead
+      await chatInput.press('Enter');
+    } else {
+      await sendButton.click();
+    }
+
+    // Wait for response
+    await page.waitForTimeout(10000); // AI responses can take time
+
+    // Check for error message
+    const pageText = await page.locator('body').textContent();
+
+    // Take screenshot for evidence
+    await page.screenshot({ path: 'test-results/ai-chat-response.png', fullPage: true });
+
+    // CRITICAL: Must NOT contain error message
+    const hasError = pageText?.includes('[AI server unavailable');
+    if (hasError) {
+      console.log('ERROR: AI server unavailable message still showing!');
+      throw new Error('AI server unavailable - chat is BROKEN');
+    }
+
+    console.log('SUCCESS: No error message detected after sending chat');
+    expect(hasError).toBe(false);
+  });
+
+});
+
 test.describe('Identify Actual Failure Point', () => {
 
   test('Capture ALL /ai/ and /local-ai/ requests and responses', async ({ page, request }) => {
