@@ -11,6 +11,9 @@ import {
   type LocalAIHealthStatus,
   type WorkOrderPhotoResult,
   type DocumentOCRResult,
+  type BatchOCRDocument,
+  type BatchOCRJobStatus,
+  type BatchOCRJobResults,
 } from "@/api/localAI";
 
 // ===== QUERY KEYS =====
@@ -387,4 +390,80 @@ export function useCustomerDocumentWorkflow() {
     isProcessing: documentOCR.isPending,
     error: documentOCR.error,
   };
+}
+
+// ===== BATCH OCR HOOKS =====
+
+export const batchOCRKeys = {
+  all: ["batch-ocr"] as const,
+  status: (jobId: string) => [...batchOCRKeys.all, "status", jobId] as const,
+  results: (jobId: string) => [...batchOCRKeys.all, "results", jobId] as const,
+  jobs: () => [...batchOCRKeys.all, "jobs"] as const,
+};
+
+/**
+ * Hook for starting batch OCR jobs
+ */
+export function useBatchOCRMutation() {
+  return useMutation({
+    mutationFn: async ({
+      documents,
+      documentType,
+    }: {
+      documents: BatchOCRDocument[];
+      documentType?: string;
+    }) => {
+      return localAIApi.startBatchOCR(documents, documentType || "service_record");
+    },
+  });
+}
+
+/**
+ * Hook for checking batch job status with polling
+ */
+export function useBatchJobStatus(jobId: string | null, enabled = true) {
+  return useQuery({
+    queryKey: batchOCRKeys.status(jobId || ""),
+    queryFn: async (): Promise<BatchOCRJobStatus> => {
+      if (!jobId) throw new Error("No job ID");
+      return localAIApi.getBatchStatus(jobId);
+    },
+    enabled: enabled && !!jobId,
+    refetchInterval: (query) => {
+      const data = query.state.data as BatchOCRJobStatus | undefined;
+      // Poll every 2 seconds while processing, stop when complete
+      if (data?.status === "processing" || data?.status === "pending") {
+        return 2000;
+      }
+      return false;
+    },
+  });
+}
+
+/**
+ * Hook for getting batch job results
+ */
+export function useBatchJobResults(jobId: string | null, enabled = true) {
+  return useQuery({
+    queryKey: batchOCRKeys.results(jobId || ""),
+    queryFn: async (): Promise<BatchOCRJobResults> => {
+      if (!jobId) throw new Error("No job ID");
+      return localAIApi.getBatchResults(jobId);
+    },
+    enabled: enabled && !!jobId,
+    staleTime: Infinity, // Results don't change once complete
+  });
+}
+
+/**
+ * Hook for listing batch jobs
+ */
+export function useBatchJobsList(limit = 50) {
+  return useQuery({
+    queryKey: batchOCRKeys.jobs(),
+    queryFn: async () => {
+      return localAIApi.listBatchJobs(limit);
+    },
+    staleTime: 30 * 1000,
+  });
 }

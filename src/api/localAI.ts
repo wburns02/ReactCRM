@@ -98,6 +98,42 @@ export interface DispositionSuggestion {
   }>;
 }
 
+// ===== BATCH OCR TYPES =====
+
+export interface BatchOCRDocument {
+  id: string;
+  image_base64: string;
+  filename?: string;
+}
+
+export interface BatchOCRJobStatus {
+  job_id: string;
+  status: "pending" | "processing" | "completed" | "failed" | "cancelled";
+  total_documents: number;
+  processed: number;
+  failed: number;
+  started_at: string;
+  completed_at: string | null;
+  processing_time_seconds: number | null;
+}
+
+export interface BatchOCRResult {
+  document_id: string;
+  filename: string;
+  status: "success" | "failed";
+  extraction: Record<string, unknown> | null;
+  processing_time: number;
+}
+
+export interface BatchOCRJobResults extends BatchOCRJobStatus {
+  results: BatchOCRResult[];
+  errors: Array<{
+    document_id: string;
+    filename: string;
+    error: string;
+  }>;
+}
+
 // ===== API FUNCTIONS =====
 
 export const localAIApi = {
@@ -294,6 +330,46 @@ export const localAIApi = {
       prompt,
       context,
     });
+    return data;
+  },
+
+  // ===== BATCH OCR PROCESSING =====
+
+  /**
+   * Start a batch OCR job for multiple documents
+   */
+  async startBatchOCR(
+    documents: BatchOCRDocument[],
+    documentType: string = "service_record"
+  ): Promise<{ job_id: string; status: string; total_documents: number; message: string }> {
+    const { data } = await apiClient.post("/local-ai/batch/ocr", {
+      documents,
+      document_type: documentType,
+    });
+    return data;
+  },
+
+  /**
+   * Get status of a batch OCR job
+   */
+  async getBatchStatus(jobId: string): Promise<BatchOCRJobStatus> {
+    const { data } = await apiClient.get<BatchOCRJobStatus>(`/local-ai/batch/status/${jobId}`);
+    return data;
+  },
+
+  /**
+   * Get full results of a completed batch OCR job
+   */
+  async getBatchResults(jobId: string): Promise<BatchOCRJobResults> {
+    const { data } = await apiClient.get<BatchOCRJobResults>(`/local-ai/batch/results/${jobId}`);
+    return data;
+  },
+
+  /**
+   * List recent batch OCR jobs
+   */
+  async listBatchJobs(limit: number = 50): Promise<{ jobs: BatchOCRJobStatus[] }> {
+    const { data } = await apiClient.get<{ jobs: BatchOCRJobStatus[] }>(`/local-ai/batch/jobs?limit=${limit}`);
     return data;
   },
 };
