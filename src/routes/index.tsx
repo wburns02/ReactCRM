@@ -536,6 +536,13 @@ const AIAssistantPage = lazy(() =>
   })),
 );
 
+// Call Intelligence Dashboard - lazy loaded
+const CallIntelligenceDashboard = lazy(() =>
+  import("@/features/call-intelligence/index.ts").then((m) => ({
+    default: m.CallIntelligenceDashboard,
+  })),
+);
+
 // Calls/Call Center - lazy loaded
 const CallsPage = lazy(() =>
   import("@/features/calls/index.ts").then((m) => ({ default: m.CallsPage })),
@@ -1582,6 +1589,16 @@ export function AppRoutes() {
           element={
             <Suspense fallback={<PageLoader />}>
               <AIAssistantPage />
+            </Suspense>
+          }
+        />
+
+        {/* Call Intelligence Dashboard */}
+        <Route
+          path="call-intelligence"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <CallIntelligenceDashboard />
             </Suspense>
           }
         />
