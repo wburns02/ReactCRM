@@ -11,7 +11,7 @@ from sqlalchemy.orm import Session
 
 from app.models.ringcentral import CallLog, CallDisposition, RCAccount
 from app.models.call_analysis import CallAnalysis
-from app.database.session import SessionLocal
+from app.database.base_class import SessionLocal
 
 
 def create_sample_dispositions(db: Session) -> List[CallDisposition]:
