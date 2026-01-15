@@ -1,4 +1,4 @@
-import { useMemo, type ReactNode } from "react";
+import { useMemo, useEffect, type ReactNode } from "react";
 import { Navigate, useLocation } from "react-router-dom";
 import { isOnboardingCompleted } from "./useOnboarding";
 import { useAuth } from "@/features/auth/useAuth";
@@ -6,6 +6,9 @@ import { useAuth } from "@/features/auth/useAuth";
 export interface OnboardingCheckProps {
   children: ReactNode;
 }
+
+// Demo users that should skip onboarding
+const DEMO_USERS = ["will@macseptic.com"];
 
 /**
  * Component that checks if onboarding is needed
@@ -15,7 +18,19 @@ export interface OnboardingCheckProps {
  */
 export function OnboardingCheck({ children }: OnboardingCheckProps) {
   const location = useLocation();
-  const { isAuthenticated, isLoading } = useAuth();
+  const { isAuthenticated, isLoading, user } = useAuth();
+
+  // Auto-complete onboarding for demo users
+  useEffect(() => {
+    if (user?.email && DEMO_USERS.includes(user.email)) {
+      // Mark onboarding as completed for demo users
+      try {
+        localStorage.setItem("crm_onboarding_completed", "true");
+      } catch {
+        // Ignore storage errors
+      }
+    }
+  }, [user?.email]);
 
   // Check onboarding status only once per render
   const shouldRedirectToOnboarding = useMemo(() => {
@@ -25,6 +40,11 @@ export function OnboardingCheck({ children }: OnboardingCheckProps) {
     // Only check for authenticated users
     if (!isAuthenticated) return false;
 
+    // Skip onboarding for demo users
+    if (user?.email && DEMO_USERS.includes(user.email)) {
+      return false;
+    }
+
     // Skip check for certain paths
     const skipPaths = ["/onboarding", "/login", "/portal"];
     if (skipPaths.some((path) => location.pathname.startsWith(path))) {
@@ -33,7 +53,7 @@ export function OnboardingCheck({ children }: OnboardingCheckProps) {
 
     // Check if onboarding is completed
     return !isOnboardingCompleted();
-  }, [isAuthenticated, isLoading, location.pathname]);
+  }, [isAuthenticated, isLoading, location.pathname, user?.email]);
 
   // Show loading while auth is checking
   if (isLoading) {

@@ -29,6 +29,7 @@ import { SentimentTrendChart } from "./components/SentimentTrendChart";
 import { QualityHeatmap } from "./components/QualityHeatmap";
 import { DispositionDonut } from "./components/DispositionDonut";
 import { EscalationGauge } from "./components/EscalationGauge";
+import { KPIDetailModal } from "./components/KPIDetailModal";
 
 // Import hooks
 import {
@@ -882,11 +883,15 @@ export function CallIntelligenceDashboard() {
   const [selectedCall, setSelectedCall] = useState<CallWithAnalysis | null>(null);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  // KPI Detail Modal state
+  const [selectedKPI, setSelectedKPI] = useState<string | null>(null);
+  const [isKPIModalOpen, setIsKPIModalOpen] = useState(false);
+
   // Fetch data using hooks
   const analyticsQuery = useCallAnalytics();
   const callsQuery = useCallsWithAnalysis({
     page: 1,
-    page_size: 20,
+    page_size: 100, // Increased to show more calls in KPI detail modal
     ...filters,
   });
   const agentPerformanceQuery = useAgentPerformance();
@@ -997,56 +1002,17 @@ export function CallIntelligenceDashboard() {
     setSelectedCall(null);
   }, []);
 
-  // Handle KPI card click (filter by metric type)
+  // Handle KPI card click - open detail modal
   const handleKPIClick = useCallback((metricId: string) => {
     console.log("KPI clicked:", metricId);
+    setSelectedKPI(metricId);
+    setIsKPIModalOpen(true);
+  }, []);
 
-    // Apply relevant filters based on which KPI was clicked
-    switch (metricId) {
-      case "total-calls":
-        // Reset filters to show all calls
-        setFilters({});
-        break;
-      case "avg-sentiment":
-        // Filter to show positive calls (sentiment > 0)
-        setFilters((prev) => ({
-          ...prev,
-          sentiment: ["positive", "negative"],
-        }));
-        break;
-      case "quality-score":
-        // Filter to show calls needing attention (quality < 70)
-        setFilters((prev) => ({
-          ...prev,
-          qualityRange: { min: 0, max: 70 },
-        }));
-        break;
-      case "csat-prediction":
-        // Show calls with low predicted CSAT (would need backend support)
-        // For now, just show all calls
-        setFilters({});
-        break;
-      case "escalation-rate":
-        // Filter to show high-risk and critical calls
-        setFilters((prev) => ({
-          ...prev,
-          escalationRisk: ["high", "critical"],
-        }));
-        break;
-      case "auto-disposition-rate":
-        // Show all calls (auto-disposition filter would need backend support)
-        setFilters({});
-        break;
-      default:
-        // For any other metric, reset filters
-        setFilters({});
-    }
-
-    // Scroll to the calls table section
-    const callsSection = document.getElementById("recent-calls-section");
-    if (callsSection) {
-      callsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
+  // Handle KPI modal close
+  const handleKPIModalClose = useCallback(() => {
+    setIsKPIModalOpen(false);
+    setSelectedKPI(null);
   }, []);
 
   // Handle sentiment chart point click
@@ -1291,6 +1257,16 @@ export function CallIntelligenceDashboard() {
           call={selectedCall}
           isOpen={isModalOpen}
           onClose={handleModalClose}
+        />
+
+        {/* KPI Detail Modal */}
+        <KPIDetailModal
+          isOpen={isKPIModalOpen}
+          onClose={handleKPIModalClose}
+          metricId={selectedKPI}
+          metrics={metrics}
+          calls={calls}
+          isLoading={callsQuery.isLoading}
         />
       </div>
     </div>
