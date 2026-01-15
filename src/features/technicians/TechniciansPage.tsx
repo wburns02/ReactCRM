@@ -88,7 +88,6 @@ export function TechniciansPage() {
   }, []);
 
   const handleDelete = useCallback((technician: Technician) => {
-    alert('Delete clicked: ' + technician.first_name);
     setDeletingTechnician(technician);
   }, []);
 
