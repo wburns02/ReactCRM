@@ -116,3 +116,70 @@ export const technicianFormSchema = z.object({
 });
 
 export type TechnicianFormData = z.infer<typeof technicianFormSchema>;
+
+// =====================================================
+// Performance Stats Types
+// =====================================================
+
+/**
+ * Aggregated performance statistics for a technician
+ */
+export const technicianPerformanceStatsSchema = z.object({
+  technician_id: z.string(),
+  total_jobs_completed: z.number(),
+  total_revenue: z.number(),
+  returns_count: z.number(),
+  pump_out_jobs: z.number(),
+  pump_out_revenue: z.number(),
+  repair_jobs: z.number(),
+  repair_revenue: z.number(),
+  other_jobs: z.number(),
+  other_revenue: z.number(),
+});
+
+export type TechnicianPerformanceStats = z.infer<
+  typeof technicianPerformanceStatsSchema
+>;
+
+/**
+ * Detailed information about a single job performed by a technician
+ */
+export const technicianJobDetailSchema = z.object({
+  id: z.string(),
+  scheduled_date: z.string().nullable(),
+  completed_date: z.string().nullable(),
+  customer_id: z.number().nullable(),
+  customer_name: z.string().nullable(),
+  service_location: z.string().nullable(),
+  job_type: z.string().nullable(),
+  status: z.string().nullable(),
+  total_amount: z.number(),
+  duration_minutes: z.number().nullable(),
+  notes: z.string().nullable(),
+  gallons_pumped: z.number().nullable(),
+  tank_size: z.string().nullable(),
+  labor_hours: z.number().nullable(),
+  parts_cost: z.number().nullable(),
+});
+
+export type TechnicianJobDetail = z.infer<typeof technicianJobDetailSchema>;
+
+/**
+ * Paginated list of jobs for a technician
+ */
+export const technicianJobsResponseSchema = z.object({
+  items: z.array(technicianJobDetailSchema),
+  total: z.number(),
+  page: z.number(),
+  page_size: z.number(),
+  job_category: z.string(),
+});
+
+export type TechnicianJobsResponse = z.infer<
+  typeof technicianJobsResponseSchema
+>;
+
+/**
+ * Job category filter for technician jobs
+ */
+export type JobCategory = "pump_outs" | "repairs" | "all";

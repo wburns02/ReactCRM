@@ -36,6 +36,9 @@ import {
   type JobType,
 } from "@/api/types/workOrder.ts";
 import { TechnicianCoachPanel } from "./components/TechnicianCoachPanel";
+import { TechnicianPerformanceStats } from "./components/TechnicianPerformanceStats";
+import { TechnicianJobsModal } from "./components/TechnicianJobsModal";
+import type { JobCategory } from "@/api/types/technician";
 
 /**
  * Technician detail page - shows full technician info with edit/delete
@@ -89,6 +92,16 @@ export function TechnicianDetailPage() {
   // Modal states
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [jobsModalCategory, setJobsModalCategory] = useState<JobCategory | null>(null);
+
+  // Handlers for performance stats clicks
+  const handlePumpOutsClick = useCallback(() => {
+    setJobsModalCategory("pump_outs");
+  }, []);
+
+  const handleRepairsClick = useCallback(() => {
+    setJobsModalCategory("repairs");
+  }, []);
 
   const handleUpdate = useCallback(
     async (data: TechnicianFormData) => {
@@ -186,6 +199,15 @@ export function TechnicianDetailPage() {
       {/* AI Performance Coach */}
       <div className="mb-6">
         <TechnicianCoachPanel technicianId={id} />
+      </div>
+
+      {/* Performance Stats */}
+      <div className="mb-6">
+        <TechnicianPerformanceStats
+          technicianId={id}
+          onPumpOutsClick={handlePumpOutsClick}
+          onRepairsClick={handleRepairsClick}
+        />
       </div>
 
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -561,6 +583,17 @@ export function TechnicianDetailPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Jobs Detail Modal */}
+      {id && jobsModalCategory && (
+        <TechnicianJobsModal
+          isOpen={!!jobsModalCategory}
+          onClose={() => setJobsModalCategory(null)}
+          technicianId={id}
+          technicianName={technicianName}
+          jobCategory={jobsModalCategory}
+        />
+      )}
     </div>
   );
 }

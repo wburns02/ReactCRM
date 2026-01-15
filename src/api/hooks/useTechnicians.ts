@@ -3,10 +3,15 @@ import { apiClient } from "../client.ts";
 import {
   technicianListResponseSchema,
   technicianSchema,
+  technicianPerformanceStatsSchema,
+  technicianJobsResponseSchema,
   type Technician,
   type TechnicianListResponse,
   type TechnicianFilters,
   type TechnicianFormData,
+  type TechnicianPerformanceStats,
+  type TechnicianJobsResponse,
+  type JobCategory,
 } from "../types/technician.ts";
 
 /**
@@ -19,6 +24,9 @@ export const technicianKeys = {
     [...technicianKeys.lists(), filters] as const,
   details: () => [...technicianKeys.all, "detail"] as const,
   detail: (id: string) => [...technicianKeys.details(), id] as const,
+  performance: (id: string) => [...technicianKeys.all, "performance", id] as const,
+  jobs: (id: string, category: JobCategory, page: number) =>
+    [...technicianKeys.all, "jobs", id, category, page] as const,
 };
 
 /**
@@ -133,5 +141,76 @@ export function useDeleteTechnician() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: technicianKeys.lists() });
     },
+  });
+}
+
+// =====================================================
+// Performance Stats Hooks
+// =====================================================
+
+/**
+ * Fetch technician performance statistics
+ */
+export function useTechnicianPerformance(technicianId: string | undefined) {
+  return useQuery({
+    queryKey: technicianKeys.performance(technicianId!),
+    queryFn: async (): Promise<TechnicianPerformanceStats> => {
+      const { data } = await apiClient.get(
+        `/technicians/${technicianId}/performance`
+      );
+
+      if (import.meta.env.DEV) {
+        const result = technicianPerformanceStatsSchema.safeParse(data);
+        if (!result.success) {
+          console.warn(
+            "Technician performance response validation failed:",
+            result.error
+          );
+        }
+      }
+
+      return data;
+    },
+    enabled: !!technicianId,
+    staleTime: 30_000, // 30 seconds
+  });
+}
+
+/**
+ * Fetch technician job details with pagination and filtering
+ */
+export function useTechnicianJobs(
+  technicianId: string | undefined,
+  jobCategory: JobCategory = "all",
+  page: number = 1,
+  pageSize: number = 20
+) {
+  return useQuery({
+    queryKey: technicianKeys.jobs(technicianId!, jobCategory, page),
+    queryFn: async (): Promise<TechnicianJobsResponse> => {
+      const params = new URLSearchParams({
+        job_category: jobCategory,
+        page: String(page),
+        page_size: String(pageSize),
+      });
+
+      const { data } = await apiClient.get(
+        `/technicians/${technicianId}/jobs?${params.toString()}`
+      );
+
+      if (import.meta.env.DEV) {
+        const result = technicianJobsResponseSchema.safeParse(data);
+        if (!result.success) {
+          console.warn(
+            "Technician jobs response validation failed:",
+            result.error
+          );
+        }
+      }
+
+      return data;
+    },
+    enabled: !!technicianId,
+    staleTime: 30_000, // 30 seconds
   });
 }
