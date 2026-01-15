@@ -274,7 +274,8 @@ export function KPIDetailModal({
                       <td className="py-3 px-4">
                         <div>
                           <div className="font-medium text-text-primary">
-                            {call.customer_name || "Unknown"}
+                            {/* @ts-expect-error API returns contact_name, not customer_name */}
+                            {call.contact_name || call.customer_name || "Unknown"}
                           </div>
                           <div className="text-xs text-text-muted">
                             {call.from_number || call.to_number}
@@ -299,7 +300,7 @@ export function KPIDetailModal({
                             getSentimentColor(call.sentiment, call.sentiment_score)
                           )}>
                             {call.sentiment || "N/A"}
-                            {call.sentiment_score !== undefined && ` (${call.sentiment_score > 0 ? "+" : ""}${call.sentiment_score.toFixed(0)})`}
+                            {call.sentiment_score != null && ` (${call.sentiment_score > 0 ? "+" : ""}${call.sentiment_score.toFixed(0)})`}
                           </span>
                         </td>
                       )}
