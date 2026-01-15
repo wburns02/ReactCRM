@@ -1000,7 +1000,53 @@ export function CallIntelligenceDashboard() {
   // Handle KPI card click (filter by metric type)
   const handleKPIClick = useCallback((metricId: string) => {
     console.log("KPI clicked:", metricId);
-    // Could open a drill-down modal or navigate to filtered view
+
+    // Apply relevant filters based on which KPI was clicked
+    switch (metricId) {
+      case "total-calls":
+        // Reset filters to show all calls
+        setFilters({});
+        break;
+      case "avg-sentiment":
+        // Filter to show positive calls (sentiment > 0)
+        setFilters((prev) => ({
+          ...prev,
+          sentiment: ["positive", "negative"],
+        }));
+        break;
+      case "quality-score":
+        // Filter to show calls needing attention (quality < 70)
+        setFilters((prev) => ({
+          ...prev,
+          qualityRange: { min: 0, max: 70 },
+        }));
+        break;
+      case "csat-prediction":
+        // Show calls with low predicted CSAT (would need backend support)
+        // For now, just show all calls
+        setFilters({});
+        break;
+      case "escalation-rate":
+        // Filter to show high-risk and critical calls
+        setFilters((prev) => ({
+          ...prev,
+          escalationRisk: ["high", "critical"],
+        }));
+        break;
+      case "auto-disposition-rate":
+        // Show all calls (auto-disposition filter would need backend support)
+        setFilters({});
+        break;
+      default:
+        // For any other metric, reset filters
+        setFilters({});
+    }
+
+    // Scroll to the calls table section
+    const callsSection = document.getElementById("recent-calls-section");
+    if (callsSection) {
+      callsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
   }, []);
 
   // Handle sentiment chart point click
@@ -1223,7 +1269,7 @@ export function CallIntelligenceDashboard() {
         </section>
 
         {/* Agent Leaderboard & Recent Calls Row */}
-        <section className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+        <section id="recent-calls-section" className="grid grid-cols-1 lg:grid-cols-5 gap-6">
           <div className="lg:col-span-2">
             <AgentLeaderboard
               agents={agents}
