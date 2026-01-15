@@ -60,13 +60,13 @@ export function TechnicianDetailPage() {
     page_size: 100,
   });
 
-  // Filter work orders for this technician (API doesn't support technician filter yet)
+  // Filter work orders for this technician by technician_id or assigned_technician name
   const assignedWorkOrders = useMemo(() => {
-    if (!workOrdersData?.items || !technicianName) return [];
+    if (!workOrdersData?.items || !id) return [];
     return workOrdersData.items.filter(
-      (wo) => wo.assigned_technician === technicianName,
+      (wo) => wo.technician_id === id || wo.assigned_technician === technicianName,
     );
-  }, [workOrdersData, technicianName]);
+  }, [workOrdersData, id, technicianName]);
 
   // Calculate workload stats
   const workloadStats = useMemo(() => {

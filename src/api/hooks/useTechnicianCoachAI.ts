@@ -75,12 +75,13 @@ export interface TeamPerformanceSummary {
 export function useTechnicianCoaching(technicianId: string) {
   return useQuery({
     queryKey: ["technician-coaching", technicianId],
-    queryFn: async (): Promise<TechnicianCoaching> => {
+    queryFn: async (): Promise<TechnicianCoaching | null> => {
       try {
         const response = await apiClient.get(`/ai/technicians/${technicianId}/coaching`);
         return response.data;
       } catch {
-        return generateDemoCoaching(technicianId);
+        // Return null when API is not available - no fake data
+        return null;
       }
     },
     enabled: !!technicianId,
@@ -94,12 +95,13 @@ export function useTechnicianCoaching(technicianId: string) {
 export function useTeamPerformanceSummary() {
   return useQuery({
     queryKey: ["team-performance-summary"],
-    queryFn: async (): Promise<TeamPerformanceSummary> => {
+    queryFn: async (): Promise<TeamPerformanceSummary | null> => {
       try {
         const response = await apiClient.get("/ai/technicians/team-summary");
         return response.data;
       } catch {
-        return generateDemoTeamSummary();
+        // Return null when API is not available - no fake data
+        return null;
       }
     },
     staleTime: 10 * 60 * 1000,
@@ -161,171 +163,18 @@ export function useGenerateCoachingFeedback() {
     mutationFn: async (params: {
       technician_id: string;
       context: "weekly_review" | "after_job" | "goal_progress" | "improvement_needed";
-    }): Promise<{ feedback: string; tone: string; action_items: string[] }> => {
+    }): Promise<{ feedback: string; tone: string; action_items: string[] } | null> => {
       try {
         const response = await apiClient.post("/ai/technicians/generate-feedback", params);
         return response.data;
       } catch {
-        return generateDemoFeedback(params.context);
+        // Return null when API is not available - no fake data
+        return null;
       }
     },
   });
 }
 
-function generateDemoCoaching(technicianId: string): TechnicianCoaching {
-  return {
-    technician_id: technicianId,
-    technician_name: "Mike Johnson",
-    overall_score: 87,
-    trend: "improving",
-    strengths: [
-      {
-        area: "Customer Communication",
-        score: 94,
-        description: "Consistently receives excellent customer feedback on communication",
-        compared_to_team: "above",
-      },
-      {
-        area: "First-Time Fix Rate",
-        score: 91,
-        description: "Rarely requires callbacks for the same issue",
-        compared_to_team: "above",
-      },
-      {
-        area: "Safety Compliance",
-        score: 98,
-        description: "Perfect safety record with no incidents",
-        compared_to_team: "above",
-      },
-    ],
-    areas_for_improvement: [
-      {
-        area: "Job Documentation",
-        current_score: 72,
-        target_score: 85,
-        gap: 13,
-        priority: "high",
-        action_plan: "Complete all photo requirements and add detailed notes for each job",
-      },
-      {
-        area: "Schedule Adherence",
-        current_score: 78,
-        target_score: 90,
-        gap: 12,
-        priority: "medium",
-        action_plan: "Better time estimation and proactive communication when running late",
-      },
-    ],
-    goals: [
-      {
-        id: "goal-1",
-        title: "Improve documentation score to 85%",
-        description: "Complete all required photos and detailed job notes",
-        target_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(),
-        progress_percent: 45,
-        status: "in_progress",
-      },
-      {
-        id: "goal-2",
-        title: "Complete advanced septic certification",
-        description: "Pass the Level 2 certification exam",
-        target_date: new Date(Date.now() + 60 * 24 * 60 * 60 * 1000).toISOString(),
-        progress_percent: 20,
-        status: "in_progress",
-      },
-    ],
-    recent_achievements: [
-      {
-        id: "ach-1",
-        title: "Customer Satisfaction Champion",
-        description: "Achieved 5-star average rating for 3 consecutive months",
-        earned_date: new Date(Date.now() - 7 * 24 * 60 * 60 * 1000).toISOString(),
-        type: "excellence",
-      },
-      {
-        id: "ach-2",
-        title: "Safety Milestone",
-        description: "1 year without any safety incidents",
-        earned_date: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString(),
-        type: "milestone",
-      },
-    ],
-    coaching_suggestions: [
-      {
-        id: "sug-1",
-        type: "training",
-        title: "Documentation Best Practices Workshop",
-        description: "30-minute training on efficient photo and note-taking techniques",
-        expected_impact: "15% improvement in documentation scores within 2 weeks",
-        resources: ["Documentation Guide PDF", "Example Photos Gallery"],
-      },
-      {
-        id: "sug-2",
-        type: "practice",
-        title: "Time Estimation Practice",
-        description: "Review last 10 jobs to identify where time estimates were off",
-        expected_impact: "Better schedule adherence and customer satisfaction",
-      },
-      {
-        id: "sug-3",
-        type: "recognition",
-        title: "Share Success Story",
-        description: "Feature Mike's customer communication approach in team meeting",
-        expected_impact: "Boost team morale and share best practices",
-      },
-    ],
-  };
-}
-
-function generateDemoTeamSummary(): TeamPerformanceSummary {
-  return {
-    team_average_score: 82,
-    top_performer: { id: "tech-1", name: "Mike Johnson", score: 94 },
-    most_improved: { id: "tech-3", name: "Sarah Williams", improvement: 12 },
-    needs_attention: [
-      { id: "tech-4", name: "Tom Davis", reason: "Documentation scores declining for 3 weeks" },
-    ],
-    team_goals_progress: 67,
-  };
-}
-
-function generateDemoFeedback(context: string): { feedback: string; tone: string; action_items: string[] } {
-  const feedbacks: Record<string, { feedback: string; tone: string; action_items: string[] }> = {
-    weekly_review: {
-      feedback: "Great week overall! Your customer ratings continue to be excellent. I noticed your documentation has improved - keep it up! One area to focus on: try to update job status in real-time so dispatch can better plan routes.",
-      tone: "encouraging",
-      action_items: [
-        "Continue excellent customer communication",
-        "Update job status immediately upon completion",
-        "Review next week's schedule for any complex jobs",
-      ],
-    },
-    after_job: {
-      feedback: "Nice work on the Smith job! The customer mentioned you explained everything clearly. Just a reminder to upload the after photos before leaving the site - it helps with billing.",
-      tone: "positive",
-      action_items: [
-        "Upload all required photos before leaving",
-        "Note any follow-up items in job notes",
-      ],
-    },
-    goal_progress: {
-      feedback: "You're making good progress on your documentation goal - 45% there! At this rate, you'll hit your target ahead of schedule. Keep focusing on the before/after photos.",
-      tone: "motivating",
-      action_items: [
-        "Continue current documentation habits",
-        "Consider reviewing the photo guide for additional tips",
-      ],
-    },
-    improvement_needed: {
-      feedback: "I've noticed schedule adherence has been challenging this week. Let's work together on this - would it help to pad your estimates by 15 minutes? That often reduces stress.",
-      tone: "supportive",
-      action_items: [
-        "Add 15-minute buffer to complex job estimates",
-        "Communicate proactively if running behind",
-        "Schedule a quick call to discuss strategies",
-      ],
-    },
-  };
-
-  return feedbacks[context] || feedbacks.weekly_review;
-}
+// Note: Demo/fake data generators have been removed.
+// The AI coaching API endpoints are not yet implemented.
+// When they are, real data will be returned from the API.

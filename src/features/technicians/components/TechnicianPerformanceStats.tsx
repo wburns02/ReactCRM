@@ -1,5 +1,4 @@
 import { useTechnicianPerformance } from "@/api/hooks/useTechnicians";
-import type { JobCategory } from "@/api/types/technician";
 
 interface TechnicianPerformanceStatsProps {
   technicianId?: string;

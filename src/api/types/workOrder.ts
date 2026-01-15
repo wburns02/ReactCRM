@@ -102,6 +102,7 @@ export const workOrderSchema = z.object({
   time_window_end: z.string().nullable(),
   estimated_duration_hours: z.number().nullable(),
   // Assignment
+  technician_id: z.string().nullable().optional(),
   assigned_technician: z.string().nullable(),
   assigned_vehicle: z.string().nullable(),
   // Service address
