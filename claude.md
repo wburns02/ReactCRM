@@ -188,11 +188,25 @@ When user activates this mode:
 # Frontend (.env.production)
 VITE_API_URL=https://react-crm-api-production.up.railway.app/api/v2
 
+# Sentry Error Tracking (Optional)
+VITE_SENTRY_DSN=https://your-key@o123456.ingest.sentry.io/123456
+
 # Backend
 DATABASE_URL=postgresql://...
 SECRET_KEY=...
 JWT_SECRET=...
 ```
+
+### Sentry DSN Configuration
+
+To enable Sentry error tracking:
+1. Create a Sentry account at https://sentry.io
+2. Create a new React project
+3. Copy the DSN from Project Settings > Client Keys (DSN)
+4. Add `VITE_SENTRY_DSN` to Railway environment variables
+5. Redeploy the frontend
+
+Without VITE_SENTRY_DSN, error tracking is disabled (console shows "[Sentry] DSN not configured").
 
 ---
 
