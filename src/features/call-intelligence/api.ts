@@ -379,7 +379,23 @@ export function useCallsWithAnalysis(filters?: {
   hasTranscript?: boolean;
 }) {
   return useQuery({
-    queryKey: callIntelligenceKeys.callsList(filters),
+    // Include ALL filter params in query key to ensure proper cache invalidation
+    queryKey: [
+      ...callIntelligenceKeys.calls(),
+      {
+        page: filters?.page,
+        page_size: filters?.page_size,
+        hasRecording: filters?.hasRecording,
+        hasAnalysis: filters?.hasAnalysis,
+        hasTranscript: filters?.hasTranscript,
+        dateRange: filters?.dateRange,
+        agents: filters?.agents,
+        dispositions: filters?.dispositions,
+        sentiment: filters?.sentiment,
+        qualityRange: filters?.qualityRange,
+        escalationRisk: filters?.escalationRisk,
+      },
+    ] as const,
     queryFn: async (): Promise<PaginatedCallsResponse> => {
       return withFallback(
         async () => {

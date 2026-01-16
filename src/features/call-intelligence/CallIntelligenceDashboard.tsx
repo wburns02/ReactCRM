@@ -16,7 +16,7 @@
  * +------------------------------------------------------------------+
  */
 
-import { useState, useCallback, useMemo } from "react";
+import { useState, useCallback, useMemo, useEffect } from "react";
 import { useQueryClient } from "@tanstack/react-query";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -81,18 +81,19 @@ function DashboardFiltersPanel({
   const handleDateRangeChange = useCallback(
     (range: "today" | "week" | "month" | "custom") => {
       const now = new Date();
-      let start: Date;
-      const end = now;
+      const endDate = new Date(now); // Don't mutate 'now'
+      let startDate: Date;
 
       switch (range) {
         case "today":
-          start = new Date(now.setHours(0, 0, 0, 0));
+          startDate = new Date(now);
+          startDate.setHours(0, 0, 0, 0);
           break;
         case "week":
-          start = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
+          startDate = new Date(now.getTime() - 7 * 24 * 60 * 60 * 1000);
           break;
         case "month":
-          start = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
+          startDate = new Date(now.getTime() - 30 * 24 * 60 * 60 * 1000);
           break;
         default:
           return;
@@ -101,8 +102,8 @@ function DashboardFiltersPanel({
       onFiltersChange({
         ...filters,
         dateRange: {
-          start: start.toISOString().split("T")[0],
-          end: end.toISOString().split("T")[0],
+          start: startDate.toISOString().split("T")[0],
+          end: endDate.toISOString().split("T")[0],
         },
       });
     },
@@ -704,6 +705,15 @@ export function CallIntelligenceDashboard() {
   const totalDispositionCalls = dispositionStatsQuery.data?.total_calls || 0;
   const heatmapData = Array.isArray(qualityHeatmapQuery.data?.data) ? qualityHeatmapQuery.data.data : [];
   const coachingInsights = coachingInsightsQuery.data?.insights;
+
+  // Auto-refresh dashboard every 60 seconds for real-time updates
+  useEffect(() => {
+    const interval = setInterval(() => {
+      queryClient.invalidateQueries({ queryKey: callIntelligenceKeys.all });
+    }, 60_000); // 60 seconds
+
+    return () => clearInterval(interval);
+  }, [queryClient]);
 
   // Calculate escalation risk data from metrics
   const escalationData = useMemo(() => {
