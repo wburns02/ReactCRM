@@ -413,11 +413,11 @@ export function useCallsWithAnalysis(filters?: {
           if (filters?.hasTranscript !== undefined)
             params.set("has_transcript", String(filters.hasTranscript));
 
-          // Date range
+          // Date range - backend uses date_from/date_to, not start_date/end_date
           if (filters?.dateRange?.start)
-            params.set("start_date", filters.dateRange.start);
+            params.set("date_from", filters.dateRange.start);
           if (filters?.dateRange?.end)
-            params.set("end_date", filters.dateRange.end);
+            params.set("date_to", filters.dateRange.end);
 
           // Array filters - join with comma
           if (filters?.agents?.length)
