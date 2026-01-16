@@ -348,9 +348,10 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
     );
   }
 
-  const sentimentConfig = SENTIMENT_CONFIG[call.sentiment];
-  const escalationConfig = ESCALATION_CONFIG[call.escalation_risk];
-  const SentimentIcon = sentimentConfig.icon;
+  // Safely get config with fallbacks for missing/undefined values
+  const sentimentConfig = SENTIMENT_CONFIG[call.sentiment] || SENTIMENT_CONFIG.neutral;
+  const escalationConfig = ESCALATION_CONFIG[call.escalation_risk] || ESCALATION_CONFIG.low;
+  const SentimentIcon = sentimentConfig?.icon || Activity;
   const DirectionIcon = call.direction === "inbound" ? PhoneIncoming : PhoneOutgoing;
   // Use real transcript from API, parsed into entries
   const transcript = parsedTranscript;
