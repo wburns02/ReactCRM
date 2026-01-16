@@ -30,6 +30,7 @@ import { QualityHeatmap } from "./components/QualityHeatmap";
 import { DispositionDonut } from "./components/DispositionDonut";
 import { EscalationGauge } from "./components/EscalationGauge";
 import { KPIDetailModal } from "./components/KPIDetailModal";
+import { CallDetailModal } from "./components/CallDetailModal";
 
 // Import hooks
 import {
@@ -663,212 +664,6 @@ function RecentCallsTable({
 }
 
 // ============================================================================
-// CALL DETAIL MODAL COMPONENT
-// ============================================================================
-
-interface CallDetailModalProps {
-  call: CallWithAnalysis | null;
-  isOpen: boolean;
-  onClose: () => void;
-}
-
-function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps) {
-  if (!isOpen || !call) {
-    return null;
-  }
-
-  const formatDuration = (seconds: number) => {
-    const mins = Math.floor(seconds / 60);
-    const secs = seconds % 60;
-    return `${mins}:${secs.toString().padStart(2, "0")}`;
-  };
-
-  return (
-    <div
-      className="fixed inset-0 z-50 flex items-center justify-center"
-      role="dialog"
-      aria-modal="true"
-    >
-      {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/50 backdrop-blur-sm"
-        onClick={onClose}
-      />
-
-      {/* Modal */}
-      <div className="relative bg-bg-card rounded-xl shadow-2xl max-w-2xl w-full mx-4 max-h-[90vh] overflow-y-auto">
-        {/* Header */}
-        <div className="sticky top-0 bg-bg-card border-b border-border p-6 flex items-center justify-between">
-          <h2 className="text-xl font-bold text-text-primary">Call Details</h2>
-          <button
-            type="button"
-            onClick={onClose}
-            className="p-2 rounded-lg hover:bg-bg-muted transition-colors"
-            aria-label="Close modal"
-          >
-            <svg
-              className="w-5 h-5 text-text-secondary"
-              fill="none"
-              stroke="currentColor"
-              viewBox="0 0 24 24"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M6 18L18 6M6 6l12 12"
-              />
-            </svg>
-          </button>
-        </div>
-
-        {/* Content */}
-        <div className="p-6 space-y-6">
-          {/* Call Info */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <p className="text-sm text-text-secondary">Customer</p>
-              <p className="font-medium text-text-primary">
-                {call.customer_name || call.from_number}
-              </p>
-            </div>
-            <div>
-              <p className="text-sm text-text-secondary">Agent</p>
-              <p className="font-medium text-text-primary">
-                {call.agent_name || "Unknown"}
-              </p>
-            </div>
-            <div>
-              <p className="text-sm text-text-secondary">Duration</p>
-              <p className="font-medium text-text-primary">
-                {formatDuration(call.duration_seconds)}
-              </p>
-            </div>
-            <div>
-              <p className="text-sm text-text-secondary">Direction</p>
-              <p className="font-medium text-text-primary capitalize">
-                {call.direction}
-              </p>
-            </div>
-          </div>
-
-          {/* Scores */}
-          <div className="grid grid-cols-3 gap-4 p-4 bg-bg-muted rounded-lg">
-            <div className="text-center">
-              <p className="text-2xl font-bold text-text-primary">
-                {(call.quality_score ?? 0).toFixed(0)}
-              </p>
-              <p className="text-sm text-text-secondary">Quality Score</p>
-            </div>
-            <div className="text-center">
-              <p
-                className={cn(
-                  "text-2xl font-bold",
-                  (call.sentiment_score ?? 0) >= 0 ? "text-green-600" : "text-red-600"
-                )}
-              >
-                {(call.sentiment_score ?? 0) >= 0 ? "+" : ""}
-                {(call.sentiment_score ?? 0).toFixed(0)}
-              </p>
-              <p className="text-sm text-text-secondary">Sentiment</p>
-            </div>
-            <div className="text-center">
-              <p className="text-2xl font-bold text-text-primary">
-                {call.csat_prediction?.toFixed(1) || "-"}
-              </p>
-              <p className="text-sm text-text-secondary">CSAT Prediction</p>
-            </div>
-          </div>
-
-          {/* Quality Breakdown */}
-          {(call.professionalism_score ||
-            call.empathy_score ||
-            call.clarity_score ||
-            call.resolution_score) && (
-            <div>
-              <h3 className="text-sm font-semibold text-text-secondary mb-3">
-                Quality Breakdown
-              </h3>
-              <div className="space-y-2">
-                {[
-                  { label: "Professionalism", value: call.professionalism_score },
-                  { label: "Empathy", value: call.empathy_score },
-                  { label: "Clarity", value: call.clarity_score },
-                  { label: "Resolution", value: call.resolution_score },
-                ]
-                  .filter((item) => item.value !== undefined)
-                  .map((item) => (
-                    <div key={item.label} className="flex items-center gap-3">
-                      <span className="text-sm text-text-secondary w-28">
-                        {item.label}
-                      </span>
-                      <div className="flex-1 h-2 bg-bg-muted rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-primary rounded-full"
-                          style={{ width: `${item.value}%` }}
-                        />
-                      </div>
-                      <span className="text-sm font-medium text-text-primary w-10 text-right">
-                        {item.value?.toFixed(0)}
-                      </span>
-                    </div>
-                  ))}
-              </div>
-            </div>
-          )}
-
-          {/* Topics */}
-          {call.topics && call.topics.length > 0 && (
-            <div>
-              <h3 className="text-sm font-semibold text-text-secondary mb-3">
-                Topics Discussed
-              </h3>
-              <div className="flex flex-wrap gap-2">
-                {call.topics.map((topic) => (
-                  <span
-                    key={topic}
-                    className="px-3 py-1 bg-primary/10 text-primary text-sm rounded-full"
-                  >
-                    {topic}
-                  </span>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Disposition */}
-          {call.disposition && (
-            <div>
-              <h3 className="text-sm font-semibold text-text-secondary mb-2">
-                Disposition
-              </h3>
-              <p className="font-medium text-text-primary">{call.disposition}</p>
-              {call.disposition_confidence != null && (
-                <p className="text-sm text-text-secondary">
-                  Confidence: {((call.disposition_confidence ?? 0) * 100).toFixed(0)}%
-                </p>
-              )}
-            </div>
-          )}
-        </div>
-
-        {/* Footer */}
-        <div className="sticky bottom-0 bg-bg-card border-t border-border p-4 flex justify-end gap-3">
-          {call.recording_url && (
-            <Button variant="secondary" size="sm">
-              Play Recording
-            </Button>
-          )}
-          <Button variant="primary" size="sm" onClick={onClose}>
-            Close
-          </Button>
-        </div>
-      </div>
-    </div>
-  );
-}
-
-// ============================================================================
 // MAIN DASHBOARD COMPONENT
 // ============================================================================
 
@@ -878,6 +673,7 @@ export function CallIntelligenceDashboard() {
   // Filter state
   const [filters, setFilters] = useState<Partial<DashboardFilters>>({});
   const [showFilters, setShowFilters] = useState(false);
+  const [showRecordingsOnly, setShowRecordingsOnly] = useState(true); // Default to RingCentral calls with recordings
 
   // Modal state
   const [selectedCall, setSelectedCall] = useState<CallWithAnalysis | null>(null);
@@ -892,6 +688,7 @@ export function CallIntelligenceDashboard() {
   const callsQuery = useCallsWithAnalysis({
     page: 1,
     page_size: 100, // Increased to show more calls in KPI detail modal
+    hasRecording: showRecordingsOnly ? true : undefined,
     ...filters,
   });
   const agentPerformanceQuery = useAgentPerformance();
@@ -1091,6 +888,28 @@ export function CallIntelligenceDashboard() {
             </p>
           </div>
           <div className="flex items-center gap-3">
+            {/* Recording Filter Toggle */}
+            <Button
+              variant={showRecordingsOnly ? "primary" : "ghost"}
+              size="sm"
+              onClick={() => setShowRecordingsOnly((prev) => !prev)}
+              title={showRecordingsOnly ? "Showing RingCentral calls with recordings" : "Showing all calls"}
+            >
+              <svg
+                className="w-4 h-4 mr-2"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                />
+              </svg>
+              {showRecordingsOnly ? "With Recordings" : "All Calls"}
+            </Button>
             <Button
               variant="ghost"
               size="sm"

@@ -12,7 +12,7 @@
  * - Transcript with speaker labels
  */
 
-import { useEffect, useCallback, useState } from "react";
+import { useEffect, useCallback, useState, useMemo } from "react";
 import {
   X,
   Phone,
@@ -33,6 +33,7 @@ import {
   FileText,
   Star,
   Activity,
+  Loader2,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -40,6 +41,7 @@ import { Button } from "@/components/ui/Button";
 import { Tabs, TabList, TabTrigger } from "@/components/ui/Tabs";
 import { cn } from "@/lib/utils";
 import { SecureCallRecordingPlayer } from "@/features/calls/components/SecureCallRecordingPlayer.tsx";
+import { useCallTranscript } from "../api";
 import type { CallWithAnalysis, SentimentLevel, EscalationRisk } from "../types";
 
 interface CallDetailModalProps {
@@ -171,27 +173,78 @@ function QualityProgressBar({
   );
 }
 
-// Mock transcript data (in production, this would come from the API)
+// Transcript entry interface for parsed transcripts
 interface TranscriptEntry {
   speaker: "customer" | "agent";
   text: string;
   timestamp: string;
 }
 
-function getMockTranscript(): TranscriptEntry[] {
-  return [
-    { speaker: "agent", text: "Thank you for calling MAC Septic Services. My name is Sarah, how can I help you today?", timestamp: "0:00" },
-    { speaker: "customer", text: "Hi Sarah, I'm having an issue with my septic system. There's a bad smell coming from the yard.", timestamp: "0:08" },
-    { speaker: "agent", text: "I'm sorry to hear that. Let me help you get that resolved. Can I get your address and account number?", timestamp: "0:18" },
-    { speaker: "customer", text: "Sure, it's 1234 Oak Street. Account number is 789456.", timestamp: "0:28" },
-    { speaker: "agent", text: "Thank you. I can see your account here. When did you first notice the smell?", timestamp: "0:38" },
-    { speaker: "customer", text: "Started about two days ago. It's getting worse.", timestamp: "0:45" },
-    { speaker: "agent", text: "I understand that must be concerning. Based on what you're describing, I'd recommend scheduling a service inspection. We have availability tomorrow morning. Would 9 AM work for you?", timestamp: "0:52" },
-    { speaker: "customer", text: "Yes, that would be perfect. Thank you so much!", timestamp: "1:08" },
-    { speaker: "agent", text: "Great, I've scheduled that for you. You'll receive a confirmation email shortly. Is there anything else I can help you with?", timestamp: "1:15" },
-    { speaker: "customer", text: "No, that's all. Thanks again for your help!", timestamp: "1:28" },
-    { speaker: "agent", text: "You're welcome! Have a great day!", timestamp: "1:33" },
-  ];
+/**
+ * Parse a transcript string into structured entries
+ * Tries to detect speaker labels and timestamps from various formats
+ */
+function parseTranscript(transcriptText: string | null): TranscriptEntry[] {
+  if (!transcriptText) return [];
+
+  const entries: TranscriptEntry[] = [];
+
+  // Try to parse as structured format (Speaker: text or [timestamp] Speaker: text)
+  const lines = transcriptText.split(/\n+/).filter(line => line.trim());
+
+  // Pattern: [timestamp] Speaker: text or Speaker: text or Speaker (timestamp): text
+  const speakerPattern = /^(?:\[?(\d+:\d+(?::\d+)?)\]?\s*)?(?:(Agent|Customer|Speaker\s*\d*|Rep|Representative|Caller|CSR)[\s:]+)?(.+)$/i;
+
+  let lineIndex = 0;
+  for (const line of lines) {
+    const match = line.match(speakerPattern);
+    if (match) {
+      const timestamp = match[1] || formatTimeFromIndex(lineIndex);
+      const speakerRaw = match[2] || "";
+      const text = match[3]?.trim() || line.trim();
+
+      // Determine speaker type based on keywords
+      const speakerLower = speakerRaw.toLowerCase();
+      const isAgent = speakerLower.includes("agent") ||
+                      speakerLower.includes("rep") ||
+                      speakerLower.includes("csr");
+      const isCustomer = speakerLower.includes("customer") ||
+                         speakerLower.includes("caller");
+
+      // Alternate speakers if no clear label
+      let speaker: "customer" | "agent";
+      if (isAgent) {
+        speaker = "agent";
+      } else if (isCustomer) {
+        speaker = "customer";
+      } else {
+        // Alternate based on position
+        speaker = lineIndex % 2 === 0 ? "agent" : "customer";
+      }
+
+      entries.push({ speaker, text, timestamp });
+    }
+    lineIndex++;
+  }
+
+  // If parsing didn't work well, just show as single block
+  if (entries.length === 0 && transcriptText.length > 0) {
+    entries.push({
+      speaker: "agent",
+      text: transcriptText,
+      timestamp: "0:00"
+    });
+  }
+
+  return entries;
+}
+
+function formatTimeFromIndex(index: number): string {
+  // Estimate ~10 seconds per line
+  const totalSeconds = index * 10;
+  const mins = Math.floor(totalSeconds / 60);
+  const secs = totalSeconds % 60;
+  return `${mins}:${secs.toString().padStart(2, "0")}`;
 }
 
 // Mock disposition history
@@ -233,6 +286,16 @@ function getMockCoachingInsights(): CoachingData {
 
 export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps) {
   const [activeTab, setActiveTab] = useState("overview");
+
+  // Fetch real transcript data from API
+  const { data: transcriptData, isLoading: isTranscriptLoading } = useCallTranscript(
+    isOpen && call ? call.id : null
+  );
+
+  // Parse transcript into structured entries
+  const parsedTranscript = useMemo(() => {
+    return parseTranscript(transcriptData?.transcript ?? null);
+  }, [transcriptData?.transcript]);
 
   // Handle escape key
   const handleEscape = useCallback(
@@ -289,7 +352,9 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
   const escalationConfig = ESCALATION_CONFIG[call.escalation_risk];
   const SentimentIcon = sentimentConfig.icon;
   const DirectionIcon = call.direction === "inbound" ? PhoneIncoming : PhoneOutgoing;
-  const transcript = call.has_transcript ? getMockTranscript() : [];
+  // Use real transcript from API, parsed into entries
+  const transcript = parsedTranscript;
+  const hasTranscriptData = transcriptData?.has_transcript || parsedTranscript.length > 0;
   const dispositionHistory = getMockDispositionHistory();
   const coaching = getMockCoachingInsights();
 
@@ -647,61 +712,99 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
 
           {/* Transcript Tab */}
           {activeTab === "transcript" && (
-            <Card>
-              <CardHeader>
-                <CardTitle className="flex items-center gap-2 text-lg">
-                  <FileText className="w-5 h-5 text-primary" />
-                  Call Transcript
-                </CardTitle>
-              </CardHeader>
-              <CardContent>
-                {call.has_transcript ? (
-                  <div className="space-y-4">
-                    {transcript.map((entry, index) => (
-                      <div
-                        key={index}
-                        className={cn(
-                          "flex gap-3 p-3 rounded-lg",
-                          entry.speaker === "agent" ? "bg-primary/5" : "bg-bg-muted"
-                        )}
-                      >
+            <div className="space-y-6">
+              {/* AI Summary Card */}
+              {transcriptData?.ai_summary && (
+                <Card>
+                  <CardHeader>
+                    <CardTitle className="flex items-center gap-2 text-lg">
+                      <Brain className="w-5 h-5 text-primary" />
+                      AI Summary
+                    </CardTitle>
+                  </CardHeader>
+                  <CardContent>
+                    <p className="text-text-secondary whitespace-pre-wrap">{transcriptData.ai_summary}</p>
+                  </CardContent>
+                </Card>
+              )}
+
+              {/* Transcript Card */}
+              <Card>
+                <CardHeader>
+                  <CardTitle className="flex items-center gap-2 text-lg">
+                    <FileText className="w-5 h-5 text-primary" />
+                    Call Transcript
+                    {transcriptData?.transcription_status && (
+                      <Badge variant="outline" className="ml-2 text-xs">
+                        {transcriptData.transcription_status}
+                      </Badge>
+                    )}
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {isTranscriptLoading ? (
+                    <div className="flex items-center justify-center py-12">
+                      <Loader2 className="w-8 h-8 text-primary animate-spin" />
+                      <span className="ml-3 text-text-secondary">Loading transcript...</span>
+                    </div>
+                  ) : hasTranscriptData && transcript.length > 0 ? (
+                    <div className="space-y-4">
+                      {transcript.map((entry, index) => (
                         <div
+                          key={index}
                           className={cn(
-                            "flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center",
-                            entry.speaker === "agent"
-                              ? "bg-primary text-white"
-                              : "bg-gray-500 text-white"
+                            "flex gap-3 p-3 rounded-lg",
+                            entry.speaker === "agent" ? "bg-primary/5" : "bg-bg-muted"
                           )}
                         >
-                          {entry.speaker === "agent" ? (
-                            <Headphones className="w-4 h-4" />
-                          ) : (
-                            <User className="w-4 h-4" />
-                          )}
-                        </div>
-                        <div className="flex-1">
-                          <div className="flex items-center gap-2 mb-1">
-                            <span className="font-semibold text-sm text-text-primary">
-                              {entry.speaker === "agent" ? call.agent_name || "Agent" : "Customer"}
-                            </span>
-                            <span className="text-xs text-text-muted">{entry.timestamp}</span>
+                          <div
+                            className={cn(
+                              "flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center",
+                              entry.speaker === "agent"
+                                ? "bg-primary text-white"
+                                : "bg-gray-500 text-white"
+                            )}
+                          >
+                            {entry.speaker === "agent" ? (
+                              <Headphones className="w-4 h-4" />
+                            ) : (
+                              <User className="w-4 h-4" />
+                            )}
                           </div>
-                          <p className="text-text-secondary">{entry.text}</p>
+                          <div className="flex-1">
+                            <div className="flex items-center gap-2 mb-1">
+                              <span className="font-semibold text-sm text-text-primary">
+                                {entry.speaker === "agent" ? call.agent_name || "Agent" : "Customer"}
+                              </span>
+                              <span className="text-xs text-text-muted">{entry.timestamp}</span>
+                            </div>
+                            <p className="text-text-secondary">{entry.text}</p>
+                          </div>
                         </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="text-center py-12">
-                    <FileText className="w-12 h-12 text-text-muted mx-auto mb-4" />
-                    <p className="text-text-secondary">No transcript available for this call.</p>
-                    <p className="text-sm text-text-muted mt-1">
-                      Transcripts are generated for calls with recordings.
-                    </p>
-                  </div>
-                )}
-              </CardContent>
-            </Card>
+                      ))}
+                    </div>
+                  ) : call.has_recording && transcriptData?.transcription_hint ? (
+                    <div className="text-center py-12">
+                      <FileText className="w-12 h-12 text-text-muted mx-auto mb-4" />
+                      <p className="text-text-secondary">{transcriptData.transcription_hint}</p>
+                      <p className="text-sm text-text-muted mt-1">
+                        Status: {transcriptData?.transcription_status || "pending"}
+                      </p>
+                    </div>
+                  ) : (
+                    <div className="text-center py-12">
+                      <FileText className="w-12 h-12 text-text-muted mx-auto mb-4" />
+                      <p className="text-text-secondary">No transcript available for this call.</p>
+                      <p className="text-sm text-text-muted mt-1">
+                        {call.has_recording
+                          ? "Transcription may still be processing."
+                          : "Transcripts are generated for calls with recordings."}
+                      </p>
+                    </div>
+                  )}
+                </CardContent>
+              </Card>
+            </div>
           )}
 
           {/* History Tab */}

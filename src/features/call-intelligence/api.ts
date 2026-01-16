@@ -374,6 +374,9 @@ export function useCallsWithAnalysis(filters?: {
   sentiment?: SentimentLevel[];
   qualityRange?: { min: number; max: number };
   escalationRisk?: EscalationRisk[];
+  hasRecording?: boolean;
+  hasAnalysis?: boolean;
+  hasTranscript?: boolean;
 }) {
   return useQuery({
     queryKey: callIntelligenceKeys.callsList(filters),
@@ -385,6 +388,14 @@ export function useCallsWithAnalysis(filters?: {
           if (filters?.page) params.set("page", String(filters.page));
           if (filters?.page_size)
             params.set("page_size", String(filters.page_size));
+
+          // Recording/Analysis/Transcript filters
+          if (filters?.hasRecording !== undefined)
+            params.set("has_recording", String(filters.hasRecording));
+          if (filters?.hasAnalysis !== undefined)
+            params.set("has_analysis", String(filters.hasAnalysis));
+          if (filters?.hasTranscript !== undefined)
+            params.set("has_transcript", String(filters.hasTranscript));
 
           // Date range
           if (filters?.dateRange?.start)
@@ -512,5 +523,78 @@ export function useCoachingInsights() {
       );
     },
     staleTime: 300_000, // 5 minutes
+  });
+}
+
+/**
+ * Transcript response type
+ */
+export interface TranscriptResponse {
+  call_id: string;
+  has_recording: boolean;
+  has_transcript: boolean;
+  has_analysis: boolean;
+  transcription_status: string | null;
+  transcript: string | null;
+  ai_summary: string | null;
+  sentiment: string | null;
+  sentiment_score: number | null;
+  quality_score: number | null;
+  csat_prediction: number | null;
+  escalation_risk: string | null;
+  professionalism_score: number | null;
+  empathy_score: number | null;
+  clarity_score: number | null;
+  resolution_score: number | null;
+  topics: string[] | null;
+  analyzed_at: string | null;
+  call_date: string | null;
+  duration_seconds: number | null;
+  direction: string | null;
+  transcription_available?: boolean;
+  transcription_hint?: string;
+}
+
+/**
+ * Get transcript and analysis for a specific call
+ */
+export function useCallTranscript(callId: string | null) {
+  return useQuery({
+    queryKey: ["call-transcript", callId],
+    queryFn: async (): Promise<TranscriptResponse | null> => {
+      if (!callId) return null;
+      try {
+        const { data } = await apiClient.get(`/ringcentral/calls/${callId}/transcript`);
+        return data;
+      } catch (error) {
+        console.error("Failed to fetch transcript:", error);
+        return null;
+      }
+    },
+    enabled: !!callId,
+    staleTime: 60_000, // 1 minute
+  });
+}
+
+/**
+ * Get analysis status for calls
+ */
+export interface AnalysisStatusResponse {
+  total_calls_with_recordings: number;
+  transcribed_calls: number;
+  analyzed_calls: number;
+  pending_transcription: number;
+  coverage_percentage: number;
+  status: string;
+}
+
+export function useAnalysisStatus() {
+  return useQuery({
+    queryKey: ["call-analysis-status"],
+    queryFn: async (): Promise<AnalysisStatusResponse> => {
+      const { data } = await apiClient.get("/ringcentral/calls/analysis-status");
+      return data;
+    },
+    staleTime: 30_000, // 30 seconds
   });
 }
