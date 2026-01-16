@@ -596,6 +596,11 @@ function RecentCallsTable({
                 <th className="text-left py-3 px-2 font-medium text-text-secondary">
                   Duration
                 </th>
+                <th className="text-center py-3 px-2 font-medium text-text-secondary" title="Recording Available">
+                  <svg className="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                  </svg>
+                </th>
                 <th className="text-left py-3 px-2 font-medium text-text-secondary">
                   Sentiment
                 </th>
@@ -630,6 +635,15 @@ function RecentCallsTable({
                   </td>
                   <td className="py-3 px-2 text-text-secondary">
                     {formatDuration(call.duration_seconds)}
+                  </td>
+                  <td className="py-3 px-2 text-center">
+                    {(call.has_recording || call.recording_url) && (
+                      <span title="Recording available">
+                        <svg className="w-4 h-4 mx-auto text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 1.93c-3.94-.49-7-3.85-7-7.93h2c0 3.31 2.69 6 6 6s6-2.69 6-6h2c0 4.08-3.06 7.44-7 7.93V20h4v2H8v-2h4v-4.07z" />
+                        </svg>
+                      </span>
+                    )}
                   </td>
                   <td className="py-3 px-2">
                     <span className={cn("font-medium", getSentimentColor(call.sentiment))}>
@@ -700,6 +714,7 @@ export function CallIntelligenceDashboard() {
   // Extract data from queries with robust error handling
   const metrics = analyticsQuery.data?.metrics;
   const calls = Array.isArray(callsQuery.data?.items) ? callsQuery.data.items : [];
+  const totalCallsInQuery = callsQuery.data?.total || 0;
   const agents = Array.isArray(agentPerformanceQuery.data?.agents) ? agentPerformanceQuery.data.agents : [];
   const dispositions = Array.isArray(dispositionStatsQuery.data?.dispositions) ? dispositionStatsQuery.data.dispositions : [];
   const totalDispositionCalls = dispositionStatsQuery.data?.total_calls || 0;
@@ -919,6 +934,11 @@ export function CallIntelligenceDashboard() {
                 />
               </svg>
               {showRecordingsOnly ? "With Recordings" : "All Calls"}
+              {totalCallsInQuery > 0 && (
+                <span className="ml-2 px-1.5 py-0.5 text-xs rounded-full bg-white/20">
+                  {totalCallsInQuery}
+                </span>
+              )}
             </Button>
             <Button
               variant="ghost"
