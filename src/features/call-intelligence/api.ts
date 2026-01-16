@@ -1,4 +1,4 @@
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient, withFallback } from "@/api/client.ts";
 import {
   type CallAnalyticsResponse,
@@ -612,5 +612,50 @@ export function useAnalysisStatus() {
       return data;
     },
     staleTime: 30_000, // 30 seconds
+  });
+}
+
+/**
+ * Trigger AI analysis for a single call
+ * Returns status and queues background analysis
+ */
+export interface AnalyzeCallResponse {
+  status: "queued" | "already_analyzed" | "error";
+  message: string;
+  call_id: string;
+  analyzed_at?: string;
+  sentiment?: string;
+  quality_score?: number;
+  previous_sentiment?: string;
+  previous_quality_score?: number;
+}
+
+export function useAnalyzeCall() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      callId,
+      force = false,
+    }: {
+      callId: string;
+      force?: boolean;
+    }): Promise<AnalyzeCallResponse> => {
+      const { data } = await apiClient.post(
+        `/ringcentral/calls/analyze/${callId}${force ? "?force=true" : ""}`
+      );
+      return data;
+    },
+    onSuccess: (data, { callId }) => {
+      // Invalidate queries to refresh data after analysis starts
+      if (data.status === "queued") {
+        // Poll for updates after a short delay (analysis takes ~10s)
+        setTimeout(() => {
+          queryClient.invalidateQueries({ queryKey: ["call-transcript", callId] });
+          queryClient.invalidateQueries({ queryKey: ["calls-with-analysis"] });
+          queryClient.invalidateQueries({ queryKey: ["call-analytics"] });
+        }, 10000);
+      }
+    },
   });
 }

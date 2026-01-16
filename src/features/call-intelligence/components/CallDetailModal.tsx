@@ -34,6 +34,7 @@ import {
   Star,
   Activity,
   Loader2,
+  RefreshCw,
 } from "lucide-react";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -41,7 +42,7 @@ import { Button } from "@/components/ui/Button";
 import { Tabs, TabList, TabTrigger } from "@/components/ui/Tabs";
 import { cn } from "@/lib/utils";
 import { SecureCallRecordingPlayer } from "@/features/calls/components/SecureCallRecordingPlayer.tsx";
-import { useCallTranscript } from "../api";
+import { useCallTranscript, useAnalyzeCall } from "../api";
 import type { CallWithAnalysis, SentimentLevel, EscalationRisk } from "../types";
 
 interface CallDetailModalProps {
@@ -286,11 +287,15 @@ function getMockCoachingInsights(): CoachingData {
 
 export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps) {
   const [activeTab, setActiveTab] = useState("overview");
+  const [analyzeStatus, setAnalyzeStatus] = useState<string | null>(null);
 
   // Fetch real transcript data from API
   const { data: transcriptData, isLoading: isTranscriptLoading } = useCallTranscript(
     isOpen && call ? call.id : null
   );
+
+  // Analyze call mutation
+  const analyzeMutation = useAnalyzeCall();
 
   // Parse transcript into structured entries
   const parsedTranscript = useMemo(() => {
@@ -875,10 +880,54 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
 
         {/* Footer */}
         <div className="flex-shrink-0 border-t border-border p-4 flex items-center justify-between">
-          <div className="text-sm text-text-muted">
-            Call ID: {call.id}
+          <div className="flex items-center gap-3 text-sm text-text-muted">
+            <span>Call ID: {call.id}</span>
+            {analyzeStatus && (
+              <span className={cn(
+                "px-2 py-1 rounded text-xs",
+                analyzeStatus === "queued" ? "bg-info/20 text-info" :
+                analyzeStatus === "already_analyzed" ? "bg-warning/20 text-warning" :
+                "bg-success/20 text-success"
+              )}>
+                {analyzeStatus === "queued" ? "Analysis started..." :
+                 analyzeStatus === "already_analyzed" ? "Already analyzed" :
+                 analyzeStatus}
+              </span>
+            )}
           </div>
           <div className="flex items-center gap-3">
+            {/* Reanalyze Button - triggers manual sentiment analysis */}
+            {call.has_recording && (
+              <Button
+                variant="outline"
+                onClick={() => {
+                  setAnalyzeStatus(null);
+                  analyzeMutation.mutate(
+                    { callId: call.id, force: true },
+                    {
+                      onSuccess: (data) => {
+                        setAnalyzeStatus(data.status);
+                        if (data.status === "queued") {
+                          // Auto-clear status after 12 seconds
+                          setTimeout(() => setAnalyzeStatus("complete"), 12000);
+                        }
+                      },
+                      onError: () => {
+                        setAnalyzeStatus("error");
+                      },
+                    }
+                  );
+                }}
+                disabled={analyzeMutation.isPending}
+              >
+                {analyzeMutation.isPending ? (
+                  <Loader2 className="w-4 h-4 mr-2 animate-spin" />
+                ) : (
+                  <RefreshCw className="w-4 h-4 mr-2" />
+                )}
+                {analyzeMutation.isPending ? "Analyzing..." : "Reanalyze"}
+              </Button>
+            )}
             <Button variant="outline" onClick={onClose}>
               Close
             </Button>
