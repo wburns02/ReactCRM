@@ -834,6 +834,473 @@ Wisconsin uses POWTS (Private Onsite Wastewater Treatment Systems) terminology.
 | WA | 39 | 12 | 6 |
 | WI | 72 | 15 | 8 |
 
-**Total States Documented:** 32/50
-**Total Counties Documented:** ~400+
-**Online Portals Identified:** ~150+
+---
+
+## MASSACHUSETTS (14 counties, 351 towns)
+
+Massachusetts uses **town-level Boards of Health** for septic permits (Title 5).
+
+| Town/Area | Population | Portal/Contact | Platform | Search | Notes |
+|-----------|------------|----------------|----------|--------|-------|
+| Boston | 680,000 | Contact city | BWSC | N/A | Sewered |
+| Worcester | 205,000 | Contact BOH | - | Contact | |
+| Springfield | 155,000 | Contact BOH | - | Contact | |
+| Cambridge | 120,000 | Contact BOH | - | Contact | |
+| Lowell | 115,000 | Contact BOH | - | Contact | |
+| Brockton | 105,000 | Contact BOH | - | Contact | |
+| Easton | 25,000 | easton.ma.us (ViewPoint) | ViewPoint | Online | Has permit search |
+| Cape Cod towns | Varies | Contact BOH | - | Contact | Nitrogen-sensitive |
+| Islands | Varies | Contact BOH | - | Contact | Nantucket, Martha's Vineyard |
+
+**State Contact:** MassDEP - mass.gov/septic-systems-title-5
+**Title 5 Forms:** mass.gov/lists/title-5-septic-system-forms
+**Note:** Contact local Board of Health for permit records
+
+---
+
+## MINNESOTA (87 counties)
+
+Minnesota has **statewide SSTS database** through MPCA.
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Hennepin | 1,280,000 | MPCA SSTS | State | Online | Minneapolis |
+| Ramsey | 560,000 | MPCA SSTS | State | Online | St. Paul |
+| Dakota | 440,000 | MPCA SSTS | State | Online | |
+| Anoka | 365,000 | MPCA SSTS | State | Online | |
+| Washington | 270,000 | MPCA SSTS | State | Online | |
+| St. Louis | 200,000 | MPCA SSTS | State | Online | Duluth |
+| Stearns | 165,000 | MPCA SSTS | State | Online | St. Cloud |
+| Olmsted | 165,000 | MPCA SSTS | State | Online | Rochester |
+| Scott | 155,000 | MPCA SSTS | State | Online | |
+| Wright | 145,000 | MPCA SSTS | State | Online | |
+
+**State Portal:** webapp.pca.state.mn.us/ssts/
+**Coverage:** 600,000+ SSTS systems statewide
+**Note:** Counties enforce locally, MPCA maintains central database
+
+---
+
+## NEVADA (17 counties)
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Clark | 2,300,000 | aca-prod.accela.com/clarkco | Accela | Online | Las Vegas |
+| Washoe | 490,000 | Contact county | - | Contact | Reno |
+| Carson City | 60,000 | Contact city | - | Contact | State capital |
+| Douglas | 50,000 | Contact county | - | Contact | Lake Tahoe |
+| Elko | 55,000 | Contact county | - | Contact | |
+| Lyon | 60,000 | Contact county | - | Contact | |
+| Nye | 50,000 | Contact county | - | Contact | |
+| Churchill | 25,000 | Contact county | - | Contact | |
+| Humboldt | 17,000 | Contact county | - | Contact | |
+| White Pine | 9,500 | Contact county | - | Contact | |
+
+**State Contact:** NDEP - ndep.nv.gov
+**Clark County Accela:** aca-prod.accela.com/clarkco/
+
+---
+
+## NEW HAMPSHIRE (10 counties)
+
+New Hampshire has **statewide SSB OneStop database**.
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Hillsborough | 420,000 | SSB OneStop | State | Online | Manchester, Nashua |
+| Rockingham | 320,000 | SSB OneStop | State | Online | |
+| Merrimack | 155,000 | SSB OneStop | State | Online | Concord |
+| Strafford | 135,000 | SSB OneStop | State | Online | Dover |
+| Grafton | 90,000 | SSB OneStop | State | Online | |
+| Cheshire | 77,000 | SSB OneStop | State | Online | Keene |
+| Belknap | 62,000 | SSB OneStop | State | Online | |
+| Carroll | 50,000 | SSB OneStop | State | Online | |
+| Sullivan | 43,000 | SSB OneStop | State | Online | |
+| Coos | 31,000 | SSB OneStop | State | Online | |
+
+**State Portal:** www4.des.state.nh.us/SSBOneStop/mainmenu.aspx
+**Coverage:** 140,000+ files (1967-1986 and 2016-present)
+
+---
+
+## NEW JERSEY (21 counties)
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Bergen | 950,000 | Contact county | - | Contact | |
+| Middlesex | 860,000 | Contact county | - | Contact | |
+| Essex | 860,000 | Contact county | - | Contact | Newark |
+| Hudson | 720,000 | Contact county | - | Contact | Jersey City |
+| Monmouth | 640,000 | Contact county | - | Contact | |
+| Ocean | 640,000 | Contact county | - | Contact | |
+| Union | 575,000 | Contact county | - | Contact | |
+| Passaic | 520,000 | Contact county | - | Contact | |
+| Camden | 520,000 | Contact county | - | Contact | |
+| Morris | 510,000 | Contact county | - | Contact | |
+
+**State Contact:** NJ DEP - nj.gov/dep/dwq/owm.htm
+**Note:** 71 Certified Environmental Health Agencies (CEHAs) handle local permits
+
+---
+
+## NEW MEXICO (33 counties)
+
+New Mexico has **statewide NMED permit finder**.
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Bernalillo | 680,000 | Contact county (separate) | - | Contact | Albuquerque - NOT in state system |
+| Dona Ana | 220,000 | NMED Permit Finder | State | Online | Las Cruces |
+| Santa Fe | 155,000 | NMED Permit Finder | State | Online | State capital |
+| Sandoval | 150,000 | NMED Permit Finder | State | Online | |
+| San Juan | 125,000 | NMED Permit Finder | State | Online | Farmington |
+| Valencia | 77,000 | NMED Permit Finder | State | Online | |
+| McKinley | 72,000 | NMED Permit Finder | State | Online | |
+| Lea | 70,000 | NMED Permit Finder | State | Online | |
+| Eddy | 60,000 | NMED Permit Finder | State | Online | Carlsbad |
+| Chaves | 65,000 | NMED Permit Finder | State | Online | Roswell |
+
+**State Portal:** lwop.waste.web.env.nm.gov/wwtspf/
+**Note:** Bernalillo County has separate permitting system
+
+---
+
+## NORTH DAKOTA (53 counties)
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Cass | 185,000 | Contact FDHU | FDHU | Contact | Fargo |
+| Burleigh | 100,000 | Contact local HD | - | Contact | Bismarck |
+| Grand Forks | 72,000 | Contact local HD | - | Contact | |
+| Ward | 70,000 | Contact FDHU | FDHU | Contact | Minot |
+| Williams | 40,000 | Contact local HD | - | Contact | Williston |
+| Morton | 33,000 | Contact local HD | - | Contact | |
+| Stark | 32,000 | Contact local HD | - | Contact | Dickinson |
+| Stutsman | 21,000 | Contact local HD | - | Contact | Jamestown |
+| Richland | 16,000 | Contact local HD | - | Contact | |
+| Walsh | 10,000 | Contact local HD | - | Contact | |
+
+**State Contact:** ND DEQ - deq.nd.gov
+**FDHU:** First District Health Unit - fdhu.org
+**Note:** State license required since SB 2267
+
+---
+
+## OKLAHOMA (77 counties)
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Oklahoma | 800,000 | applications.deq.ok.gov | DEQ | Online | Oklahoma City |
+| Tulsa | 670,000 | applications.deq.ok.gov | DEQ | Online | |
+| Cleveland | 295,000 | applications.deq.ok.gov | DEQ | Online | Norman |
+| Canadian | 155,000 | applications.deq.ok.gov | DEQ | Online | |
+| Comanche | 120,000 | applications.deq.ok.gov | DEQ | Online | Lawton |
+| Rogers | 95,000 | applications.deq.ok.gov | DEQ | Online | |
+| Payne | 82,000 | applications.deq.ok.gov | DEQ | Online | Stillwater |
+| Wagoner | 82,000 | applications.deq.ok.gov | DEQ | Online | |
+| Creek | 72,000 | applications.deq.ok.gov | DEQ | Online | |
+| Muskogee | 68,000 | applications.deq.ok.gov | DEQ | Online | |
+
+**State Portal:** applications.deq.ok.gov/sewagepermit/
+**Note:** Statewide DEQ online system
+
+---
+
+## OREGON (36 counties)
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Multnomah | 815,000 | County agent | Custom | Contact | Portland |
+| Washington | 610,000 | County agent | Custom | Contact | |
+| Clackamas | 425,000 | aca-prod.accela.com/CLACKAMAS | Accela | Online | |
+| Lane | 380,000 | County agent | Custom | Contact | Eugene |
+| Marion | 350,000 | co.marion.or.us/PW | Custom | Contact | Salem, DEQ contract agent |
+| Jackson | 225,000 | DEQ records | DEQ | Online | DEQ managed |
+| Deschutes | 210,000 | deschutes.org/cd | ePermitting | Online | Oregon ePermitting |
+| Linn | 130,000 | County agent | Custom | Contact | |
+| Douglas | 110,000 | County agent | Custom | Contact | |
+| Josephine | 90,000 | DEQ records | DEQ | Online | DEQ managed |
+| Curry | 23,000 | DEQ records | DEQ | Online | DEQ managed |
+
+**State Portal:** oregon.gov/deq/residential/pages/onsite-records.aspx
+**DEQ Managed:** Jackson, Josephine, Curry (+ Baker, Union, Wallowa pre-June 2025)
+**ePermitting:** BuildingPermits.Oregon.gov
+
+---
+
+## RHODE ISLAND (5 counties, 39 municipalities)
+
+Rhode Island has **statewide DEM OWTS database**.
+
+| Municipality | Population | Portal/Contact | Platform | Search | Notes |
+|--------------|------------|----------------|----------|--------|-------|
+| Providence | 190,000 | DEM OWTS | State | Online | Mostly sewered |
+| Warwick | 82,000 | DEM OWTS | State | Online | |
+| Cranston | 82,000 | DEM OWTS | State | Online | |
+| Pawtucket | 76,000 | DEM OWTS | State | Online | |
+| East Providence | 47,000 | DEM OWTS | State | Online | |
+| Newport | 25,000 | DEM OWTS | State | Online | |
+| Woonsocket | 44,000 | DEM OWTS | State | Online | |
+| Bristol | 23,000 | DEM OWTS | State | Online | |
+| South Kingstown | 31,000 | DEM OWTS | State | Online | |
+| Westerly | 23,000 | DEM OWTS | State | Online | |
+
+**State Portal:** ri.gov/dem/owts
+**Coverage:** Permits since 1968
+
+---
+
+## SOUTH CAROLINA (46 counties)
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Greenville | 540,000 | DHEC Tracker | DES | Online | |
+| Richland | 420,000 | DHEC Tracker | DES | Online | Columbia |
+| Charleston | 410,000 | DHEC Tracker | DES | Online | |
+| Horry | 360,000 | DHEC Tracker | DES | Online | Myrtle Beach |
+| Spartanburg | 335,000 | DHEC Tracker | DES | Online | |
+| Lexington | 310,000 | DHEC Tracker | DES | Online | |
+| York | 285,000 | DHEC Tracker | DES | Online | |
+| Anderson | 205,000 | DHEC Tracker | DES | Online | |
+| Berkeley | 240,000 | DHEC Tracker | DES | Online | |
+| Beaufort | 200,000 | DHEC Tracker | DES | Online | Hilton Head |
+| Pickens | 130,000 | energovweb.pickenscountysc.us | EnerGov | Online | |
+
+**State Portal:** apps.dhec.sc.gov/Environment/EnvironmentalApplicationTracker/Search.aspx
+**Note:** DHEC split into DPH and DES. Septic now under DES (des.sc.gov)
+
+---
+
+## SOUTH DAKOTA (66 counties)
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Minnehaha | 200,000 | minnehahacounty.gov/dept/pl | Custom | Contact | Sioux Falls, permits through Planning |
+| Pennington | 115,000 | Contact county | - | Contact | Rapid City |
+| Lincoln | 65,000 | Contact county | - | Contact | |
+| Brown | 39,000 | Contact county | - | Contact | Aberdeen |
+| Brookings | 36,000 | Contact county | - | Contact | |
+| Codington | 29,000 | Contact county | - | Contact | Watertown |
+| Meade | 29,000 | meadecounty.org/equalizationplanning | Custom | Contact | |
+| Lawrence | 26,000 | lawrence.sd.us/214 | Custom | Contact | |
+| Hughes | 18,000 | Contact county | - | Contact | Pierre |
+| Yankton | 23,000 | Contact county | - | Contact | |
+
+**State Contact:** SD DANR - danr.sd.gov
+**Note:** Database currently being updated (as of search results)
+
+---
+
+## TENNESSEE (95 counties)
+
+Tennessee has **TDEC FileNet search** (excludes 9 metro counties).
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Shelby | 930,000 | Contact county (excluded) | - | Contact | Memphis - NOT in state system |
+| Davidson | 690,000 | Contact county (excluded) | - | Contact | Nashville - NOT in state system |
+| Knox | 480,000 | Contact county (excluded) | - | Contact | Knoxville - NOT in state system |
+| Hamilton | 370,000 | Contact county (excluded) | - | Contact | Chattanooga - NOT in state system |
+| Rutherford | 350,000 | TDEC FileNet | State | Online | Murfreesboro |
+| Williamson | 250,000 | Contact county (excluded) | - | Contact | Franklin - NOT in state system |
+| Sumner | 200,000 | TDEC FileNet | State | Online | |
+| Wilson | 155,000 | TDEC FileNet | State | Online | |
+| Montgomery | 220,000 | TDEC FileNet | State | Online | Clarksville |
+| Sullivan | 160,000 | TDEC FileNet | State | Online | |
+
+**State Portal:** tdec.tn.gov/filenetsearch
+**Document Viewer:** tdec.tn.gov/document-viewer/search/stp
+**Excluded Metro Counties:** Blount, Davidson, Hamilton, Jefferson, Knox, Madison, Sevier, Shelby, Williamson
+
+---
+
+## TEXAS (254 counties)
+
+Texas has 254 counties - authority delegated from TCEQ to local jurisdictions.
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Harris | 4,800,000 | epermits.harriscountytx.gov | ePermits | Online | Houston |
+| Dallas | 2,700,000 | dallascounty.org | Custom | Contact | |
+| Tarrant | 2,100,000 | tarrantcountytx.gov (817-321-4960) | Custom | Contact | Fort Worth |
+| Bexar | 2,000,000 | Contact county | - | Contact | San Antonio |
+| Travis | 1,350,000 | traviscountytx.gov/tnr | MyGovOnline | Online | Austin |
+| Collin | 1,150,000 | Contact county | - | Contact | |
+| Hidalgo | 880,000 | Contact county | - | Contact | |
+| Denton | 950,000 | Contact county | - | Contact | |
+| Fort Bend | 850,000 | Contact county | - | Contact | |
+| El Paso | 870,000 | Contact county | - | Contact | |
+| Comal | 175,000 | cceo.org | Custom | Online | Environmental search |
+| Montgomery | 650,000 | mctx.org/environmental_health | Custom | Contact | |
+
+**State Contact:** TCEQ OSSF - tceq.texas.gov/permitting/ossf
+**Historical Data:** tceq.texas.gov/permitting/ossf/texas-historical-ossf-permitting-data
+**2024 Permits:** 43,215 issued statewide
+
+---
+
+## UTAH (29 counties)
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Salt Lake | 1,200,000 | Contact county | - | Contact | Salt Lake City |
+| Utah | 680,000 | Contact county | - | Contact | Provo |
+| Davis | 365,000 | Contact county | - | Contact | |
+| Weber | 270,000 | Contact county | - | Contact | Ogden |
+| Washington | 195,000 | Contact county | - | Contact | St. George |
+| Cache | 135,000 | Contact county | - | Contact | Logan |
+| Tooele | 75,000 | Contact county | - | Contact | |
+| Box Elder | 57,000 | Contact county | - | Contact | |
+| Iron | 57,000 | Contact county | - | Contact | Cedar City |
+| Summit | 42,000 | Contact county | - | Contact | Park City |
+
+**State Contact:** Utah DEQ - deq.utah.gov
+**Note:** Local health departments handle permitting
+
+---
+
+## VERMONT (14 counties)
+
+Vermont has **statewide DEC WWDocs database**.
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Chittenden | 170,000 | DEC WWDocs | State | Online | Burlington |
+| Rutland | 58,000 | DEC WWDocs | State | Online | |
+| Washington | 59,000 | DEC WWDocs | State | Online | Montpelier |
+| Windsor | 55,000 | DEC WWDocs | State | Online | |
+| Franklin | 50,000 | DEC WWDocs | State | Online | |
+| Windham | 42,000 | DEC WWDocs | State | Online | |
+| Addison | 37,000 | DEC WWDocs | State | Online | |
+| Bennington | 36,000 | DEC WWDocs | State | Online | |
+| Caledonia | 30,000 | DEC WWDocs | State | Online | |
+| Orange | 29,000 | DEC WWDocs | State | Online | |
+
+**State Portal:** anrweb.vt.gov/DEC/WWDocs/Default.aspx
+**Coverage:** Permits since September 18, 1969
+**Note:** Some older records on microfilm only
+
+---
+
+## WEST VIRGINIA (55 counties)
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Kanawha | 180,000 | Contact county | DHHR | Contact | Charleston |
+| Berkeley | 125,000 | Contact county | DHHR | Contact | |
+| Cabell | 93,000 | Contact county | DHHR | Contact | Huntington |
+| Monongalia | 105,000 | Contact county | DHHR | Contact | Morgantown |
+| Wood | 84,000 | Contact county | DHHR | Contact | Parkersburg |
+| Harrison | 67,000 | Contact county | DHHR | Contact | Clarksburg |
+| Raleigh | 75,000 | Contact county | DHHR | Contact | Beckley |
+| Putnam | 57,000 | Contact county | DHHR | Contact | |
+| Jefferson | 60,000 | Contact county | DHHR | Contact | |
+| Marion | 55,000 | Contact county | DHHR | Contact | Fairmont |
+
+**State Contact:** WV DHHR OEHS - dhhr.wv.gov/oehs
+**Note:** Contact county health department for records
+
+---
+
+## WYOMING (23 counties)
+
+| County | Population | Portal/Contact | Platform | Search | Notes |
+|--------|------------|----------------|----------|--------|-------|
+| Laramie | 100,000 | Contact county | - | Contact | Cheyenne |
+| Natrona | 80,000 | Contact county | - | Contact | Casper |
+| Campbell | 47,000 | campbellcountywy.gov/2327 | Custom | Contact | Delegated authority |
+| Sweetwater | 42,000 | Contact county | - | Contact | |
+| Fremont | 40,000 | Contact county | - | Contact | |
+| Albany | 38,000 | Contact county | - | Contact | Laramie |
+| Sheridan | 30,000 | Contact county | - | Contact | |
+| Park | 30,000 | parkcounty-wy.gov | Custom | Contact | |
+| Teton | 24,000 | tetoncountymt.gov/sanitarian | Custom | Contact | Jackson |
+| Johnson | 8,600 | johnsoncowy.gov | Custom | Contact | Delegated authority |
+
+**State Portal:** deq.wyoming.gov/water-quality/water-wastewater/permitting/
+**Historical Data:** Excel files 1960-2021 available online
+**DEQ Managed Counties:** Campbell (commercial only), Carbon, Niobrara, Platte, Weston
+
+---
+
+## Database Statistics (Final)
+
+| State | Counties | Documented | Online Portals |
+|-------|----------|------------|----------------|
+| AL | 67 | 15 | 0 |
+| AK | 29 | 5 | 1 |
+| AZ | 15 | 15 | 2 |
+| AR | 75 | 10 | 1 |
+| CA | 58 | 31 | 5 |
+| CO | 64 | 17 | 5 |
+| CT | (towns) | 10 | 1 |
+| DE | 3 | 3 | 4 |
+| FL | 67 | 31 | 67 |
+| GA | 159 | 20 | 2 |
+| HI | 5 | 5 | 2 |
+| ID | 44 | 7 HD | 2 |
+| IL | 102 | 15 | 1 |
+| IN | 92 | 15 | 2 |
+| IA | 99 | 10 | 3 |
+| KS | 105 | 10 | 2 |
+| KY | 120 | 10 | 2 |
+| LA | 64 | 10 | 2 |
+| ME | 16 | 16 | 16 |
+| MD | 24 | 10 | 4 |
+| MA | (towns) | 10 | 1 |
+| MI | 83 | 12 | 3 |
+| MN | 87 | 10 | 87 |
+| MS | 82 | 10 | 1 |
+| MO | 115 | 10 | 1 |
+| MT | 56 | 10 | 1 |
+| NE | 93 | 10 | 1 |
+| NV | 17 | 10 | 1 |
+| NH | 10 | 10 | 10 |
+| NJ | 21 | 10 | 0 |
+| NM | 33 | 10 | 32 |
+| NY | 62 | 12 | 3 |
+| NC | 100 | 12 | 4 |
+| ND | 53 | 10 | 0 |
+| OH | 88 | 13 | 3 |
+| OK | 77 | 10 | 77 |
+| OR | 36 | 11 | 5 |
+| PA | 67 | 10 | 2 |
+| RI | 39 | 10 | 39 |
+| SC | 46 | 11 | 46 |
+| SD | 66 | 10 | 0 |
+| TN | 95 | 10 | 86 |
+| TX | 254 | 12 | 3 |
+| UT | 29 | 10 | 0 |
+| VT | 14 | 14 | 14 |
+| VA | 133 | 10 | 3 |
+| WA | 39 | 12 | 6 |
+| WV | 55 | 10 | 0 |
+| WI | 72 | 15 | 8 |
+| WY | 23 | 10 | 1 |
+
+**GRAND TOTALS:**
+- **States Documented:** 50/50 ✅
+- **Counties/Jurisdictions Documented:** ~600+
+- **Online Portals Identified:** ~500+
+- **Statewide Databases:** 12 states (DE, FL, ME, MN, NH, NM, OK, OR, RI, SC, TN, VT)
+
+---
+
+## Quick Reference: Statewide Online Search Portals
+
+| State | Portal Name | URL | Est. Records |
+|-------|-------------|-----|--------------|
+| DE | DNREC | den.dnrec.delaware.gov | 100K+ |
+| FL | eBridge/DEP | County DOH sites | 2M+ |
+| ME | Septic Plans | apps.web.maine.gov | 100K+ |
+| MN | MPCA SSTS | webapp.pca.state.mn.us/ssts/ | 600K+ |
+| NH | SSB OneStop | www4.des.state.nh.us/SSBOneStop/ | 140K+ |
+| NM | NMED | lwop.waste.web.env.nm.gov/wwtspf/ | 200K+ |
+| OK | DEQ Online | applications.deq.ok.gov/sewagepermit/ | 100K+ |
+| OR | DEQ Records | oregon.gov/deq/residential/pages/onsite-records | 50K+ |
+| RI | DEM OWTS | ri.gov/dem/owts | 50K+ |
+| SC | DHEC/DES | apps.dhec.sc.gov | 200K+ |
+| TN | TDEC FileNet | tdec.tn.gov/filenetsearch | 500K+ |
+| VT | DEC WWDocs | anrweb.vt.gov/DEC/WWDocs/ | 300K+ |
+
+**Total Estimated Online Accessible Records:** 4.3M+
