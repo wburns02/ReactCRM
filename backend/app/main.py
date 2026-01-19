@@ -9,8 +9,12 @@ from fastapi.responses import JSONResponse
 from fastapi.exceptions import HTTPException
 from starlette.exceptions import HTTPException as StarletteHTTPException
 import logging
+import logging.config
 import time
 import traceback
+import subprocess
+import sys
+import os
 
 from app.core.config import settings, LOGGING_CONFIG
 from app.database.base_class import test_database_connection, get_database_info
@@ -19,6 +23,48 @@ from app.api.v2.api import api_router
 # Configure logging
 logging.config.dictConfig(LOGGING_CONFIG)
 logger = logging.getLogger(__name__)
+
+
+def run_database_migrations():
+    """Run Alembic database migrations on startup."""
+    try:
+        # Get the directory where alembic.ini is located
+        backend_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+        alembic_ini = os.path.join(backend_dir, "alembic.ini")
+
+        if not os.path.exists(alembic_ini):
+            logger.warning(f"alembic.ini not found at {alembic_ini}, skipping migrations")
+            return False
+
+        logger.info("Running database migrations...")
+        result = subprocess.run(
+            [sys.executable, "-m", "alembic", "upgrade", "head"],
+            cwd=backend_dir,
+            capture_output=True,
+            text=True,
+            timeout=300  # 5 minute timeout
+        )
+
+        if result.returncode == 0:
+            logger.info("Database migrations completed successfully")
+            if result.stdout:
+                logger.debug(f"Migration output: {result.stdout}")
+            return True
+        else:
+            logger.error(f"Migration failed with return code {result.returncode}")
+            if result.stderr:
+                logger.error(f"Migration stderr: {result.stderr}")
+            if result.stdout:
+                logger.error(f"Migration stdout: {result.stdout}")
+            return False
+
+    except subprocess.TimeoutExpired:
+        logger.error("Migration timed out after 5 minutes")
+        return False
+    except Exception as e:
+        logger.error(f"Error running migrations: {e}")
+        return False
+
 
 # ===== APPLICATION SETUP =====
 def create_application() -> FastAPI:
@@ -129,6 +175,10 @@ def create_application() -> FastAPI:
         # Test database connection
         if test_database_connection():
             logger.info("Database connection successful")
+
+            # Run database migrations automatically
+            if not settings.DEBUG:  # Only auto-migrate in production
+                run_database_migrations()
         else:
             logger.error("Database connection failed!")
 

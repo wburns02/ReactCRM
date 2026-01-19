@@ -65,7 +65,7 @@ class AIMessage(Base):
     processing_time_ms = Column(Integer, nullable=True)
 
     # Message context
-    metadata = Column(JSON, nullable=False, default={})
+    message_metadata = Column(JSON, nullable=False, default={})
 
     # Intent and entities (from query processing)
     intent_type = Column(String(100), nullable=True)

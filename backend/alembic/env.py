@@ -3,6 +3,8 @@ import sys
 import os
 from pathlib import Path
 
+from sqlalchemy import create_engine, MetaData
+from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy import engine_from_config
 from sqlalchemy import pool
 
@@ -11,8 +13,8 @@ from alembic import context
 # Add the parent directory to Python path to import our app
 sys.path.append(str(Path(__file__).parent.parent))
 
-from app.database.base_class import Base, get_database_url
-from app.core.config import settings
+# Import config separately to avoid circular imports
+from app.core.config import settings, get_database_url
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.
@@ -28,9 +30,14 @@ if config.config_file_name is not None:
 
 # add your model's MetaData object here
 # for 'autogenerate' support
+# Import Base after setting up the path - use deferred import to avoid circular deps
+from app.database.base_class import Base
+
 # Import all models to ensure they are registered with SQLAlchemy
+# These must be imported AFTER Base to avoid circular imports
 from app.models import ringcentral  # noqa
 from app.models import ai_assistant  # noqa
+from app.models import septic_permit  # noqa
 
 target_metadata = Base.metadata
 

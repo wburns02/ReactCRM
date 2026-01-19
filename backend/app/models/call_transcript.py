@@ -195,7 +195,7 @@ class TranscriptionJob(Base):
 
     # Job configuration
     config = Column(JSON, nullable=True)  # Store job-specific configuration
-    metadata = Column(JSON, nullable=True)  # Additional metadata
+    job_metadata = Column(JSON, nullable=True)  # Additional metadata
 
     # Relationships
     call_log = relationship("CallLog", backref="transcription_jobs")

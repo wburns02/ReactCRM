@@ -28,12 +28,6 @@ SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
 # Metadata for migrations
 metadata = MetaData()
 
-# Import all models to register them with SQLAlchemy
-from app.models.ai_assistant import *  # noqa
-from app.models.ringcentral import *  # noqa
-from app.models.call_transcript import *  # noqa
-from app.models.call_analysis import *  # noqa
-
 
 # ===== BASE MODEL CLASS =====
 @as_declarative(metadata=metadata)

@@ -144,7 +144,7 @@ class CallLog(Base):
     disposition_applied_at = Column(DateTime(timezone=True), nullable=True)
 
     # Metadata and raw data
-    metadata = Column(JSON, nullable=True)  # Store raw RC response
+    call_metadata = Column(JSON, nullable=True)  # Store raw RC response
     billing_duration_seconds = Column(Integer, nullable=True)
     cost = Column(Float, nullable=True)
 

@@ -543,6 +543,18 @@ const CallIntelligenceDashboard = lazy(() =>
   })),
 );
 
+// National Septic Permit Database - lazy loaded
+const PermitsPage = lazy(() =>
+  import("@/features/permits/index.ts").then((m) => ({
+    default: m.PermitsPage,
+  })),
+);
+const PermitDetailPage = lazy(() =>
+  import("@/features/permits/index.ts").then((m) => ({
+    default: m.PermitDetailPage,
+  })),
+);
+
 // Calls/Call Center - lazy loaded
 const CallsPage = lazy(() =>
   import("@/features/calls/index.ts").then((m) => ({ default: m.CallsPage })),
@@ -1599,6 +1611,24 @@ export function AppRoutes() {
           element={
             <Suspense fallback={<PageLoader />}>
               <CallIntelligenceDashboard />
+            </Suspense>
+          }
+        />
+
+        {/* National Septic Permit Database */}
+        <Route
+          path="permits"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <PermitsPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="permits/:id"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <PermitDetailPage />
             </Suspense>
           }
         />

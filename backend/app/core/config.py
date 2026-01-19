@@ -170,11 +170,10 @@ def get_database_url() -> str:
     """Get the properly formatted database URL."""
     url = settings.DATABASE_URL
 
-    # Handle Railway PostgreSQL URL format
-    if url.startswith("postgresql://"):
-        # Railway may use postgresql:// which some drivers don't support
-        # Convert to postgres:// if needed
-        url = url.replace("postgresql://", "postgres://", 1)
+    # SQLAlchemy 2.0 requires postgresql://, not postgres://
+    # Convert postgres:// to postgresql:// if present
+    if url.startswith("postgres://"):
+        url = url.replace("postgres://", "postgresql://", 1)
 
     return url
 
