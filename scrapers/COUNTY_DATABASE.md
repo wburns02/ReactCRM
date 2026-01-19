@@ -1304,3 +1304,161 @@ Vermont has **statewide DEC WWDocs database**.
 | VT | DEC WWDocs | anrweb.vt.gov/DEC/WWDocs/ | 300K+ |
 
 **Total Estimated Online Accessible Records:** 4.3M+
+
+---
+
+## CONFIRMED SCRAPERS (Active Development)
+
+> **Updated:** 2026-01-19
+> **Source:** National Septic Scraper Dashboard
+> **Status:** 51 scrapers identified, databases confirmed, need scraper development
+
+These counties have **confirmed online databases** and are actively being targeted for scraper development:
+
+### Arizona (2 scrapers)
+| County | Portal | Platform | Years | Status |
+|--------|--------|----------|-------|--------|
+| Maricopa | EPLPAV | Accela/Custom | 2021-2024 | Needs scraper |
+| Pima | OnBase | OnBase Public Access | TBD | Needs scraper |
+
+### California (8 scrapers)
+| County | Portal | Platform | Years | Status |
+|--------|--------|----------|-------|--------|
+| Fresno | DPH OWTS Portal | Custom | All | Needs scraper |
+| Kern | KCEHSD Portal | Custom | All | Needs scraper |
+| Los Angeles | Public Health OWTS | Custom | All | Needs scraper |
+| Orange | HCA Permit Portal | Custom | All | Needs scraper |
+| Sacramento | EMD Portal | Custom | All | Needs scraper |
+| San Bernardino | DEH Portal | Custom | All | Needs scraper |
+| San Diego | DEH Permit Portal | Custom | All | Needs scraper |
+| Santa Clara | DEH Portal | Custom | All | Needs scraper |
+
+### Florida (1 scraper)
+| County | Portal | Platform | Years | Status |
+|--------|--------|----------|-------|--------|
+| St. Lucie | eBridge | eBridge | All | Needs scraper |
+
+### Georgia (2 scrapers)
+| County | Portal | Platform | Years | Status |
+|--------|--------|----------|-------|--------|
+| Forsyth | ForsythCo Portal | Custom | All | Needs scraper |
+| Hall | Health Department | Custom | All | Needs scraper |
+
+### Indiana (5 scrapers)
+| County | Portal | Platform | Years | Status |
+|--------|--------|----------|-------|--------|
+| Allen | Health Department | Custom | All | Needs scraper |
+| Hamilton | Health Department | Custom | All | Needs scraper |
+| Lake | Health Department | Custom | All | Needs scraper |
+| Marion | Health Department | Custom | All | Needs scraper |
+
+### Maine (1 scraper - Statewide)
+| County | Portal | Platform | Years | Status |
+|--------|--------|----------|-------|--------|
+| Statewide | HHE-200 Forms | DocuWare Cloud | All | Needs scraper |
+
+### Michigan (8 scrapers)
+| County | Portal | Platform | Years | Status |
+|--------|--------|----------|-------|--------|
+| Genesee | Health Department | Custom | All | Needs scraper |
+| Grand Traverse | BS&A Online | BS&A | All | Needs scraper |
+| Kalamazoo | Health Department | Custom | All | Needs scraper |
+| Kent | AccessKent GIS | GIS/Custom | All | Needs scraper |
+| Macomb | Health Department | Custom | All | Needs scraper |
+| Oakland | Tyler EnerGov | Tyler EnerGov | All | Needs scraper |
+| Washtenaw | PublicAccess24 | Custom | All | Needs scraper |
+| Wayne | Health Department | Custom | All | Needs scraper |
+
+### North Carolina (4 scrapers)
+| County | Portal | Platform | Years | Status |
+|--------|--------|----------|-------|--------|
+| CDP NC Counties | CDP Inspection Mgmt | CDP | All | Needs scraper |
+| Charlotte | eBridge | eBridge | Partial | Needs scraper |
+| Onslow | Tyler EnerGov | Tyler EnerGov | All | Needs scraper |
+| Wake (Pre-2018) | Wake County Permit Search | Custom | 1970-2017 | Needs scraper |
+
+### Ohio (2 scrapers)
+| County | Portal | Platform | Years | Status |
+|--------|--------|----------|-------|--------|
+| Clermont | Legacy Search Portal | Custom | All | Needs scraper |
+| Stark | mySCView | mySCView | All | Needs scraper |
+
+### Pennsylvania (5 scrapers)
+| County | Portal | Platform | Years | Status |
+|--------|--------|----------|-------|--------|
+| Allegheny | Health Department | Custom | All | Needs scraper |
+| Bucks | Health Department | Custom | All | Needs scraper |
+| Chester | Environmental Health | Custom | All | Needs scraper |
+| Lancaster | GIS Portal | GIS | All | Needs scraper |
+| Montgomery | Health Department | Custom | All | Needs scraper |
+
+### Texas (6 scrapers)
+| County | Portal | Platform | Years | Status |
+|--------|--------|----------|-------|--------|
+| Bell | MyGovernmentOnline | MyGovOnline | All | Needs scraper |
+| Collin | MyGovernmentOnline | MyGovOnline | All | Needs scraper |
+| Guadalupe | County Records | Custom | All | Needs scraper |
+| Hays | MyGovernmentOnline | MyGovOnline | All | Needs scraper |
+| Travis | PublicAccess | Custom | 1970-2013 | Needs scraper |
+| Williamson | TBD | TBD | TBD | Needs scraper |
+| **TCEQ Statewide** | TCEQ OSSF Data | State Portal | 2024 (43,215 permits) | Needs scraper |
+
+### Virginia (5 scrapers)
+| County | Portal | Platform | Years | Status |
+|--------|--------|----------|-------|--------|
+| Chesterfield | Accela CitizenAccess | Accela | All | Needs scraper |
+| Fairfax | Plan2Build | Custom | All | Needs scraper |
+| Henrico | GIS Portal | GIS | All | Needs scraper |
+| Loudoun | LF Portal | Custom | All | Needs scraper |
+| Spotsylvania | Health Department | Custom | All | Needs scraper |
+
+### Washington (2 scrapers)
+| County | Portal | Platform | Years | Status |
+|--------|--------|----------|-------|--------|
+| King | OnlineRME | OnlineRME | All | Needs scraper |
+| Skagit | Skagit County GIS | GIS/ASP.NET | All | Needs scraper |
+
+---
+
+## Scraper Development Priority
+
+### Tier 1: High-Value Statewide Databases
+1. **Texas TCEQ** - 43,215 permits (2024 alone)
+2. **Maine HHE-200** - Statewide DocuWare
+3. **California Counties** - 8 major counties = millions of records
+
+### Tier 2: Platform-Based (Reusable Scrapers)
+1. **Tyler EnerGov** - Oakland MI, Onslow NC (extend existing)
+2. **MyGovernmentOnline** - Bell TX, Collin TX, Hays TX
+3. **Accela CitizenAccess** - Chesterfield VA, Maricopa AZ
+4. **eBridge** - St. Lucie FL, Charlotte NC (extend existing)
+5. **BS&A Online** - Grand Traverse MI
+6. **OnlineRME** - King WA (extend existing)
+
+### Tier 3: Custom Health Department Portals
+1. **Michigan** - 8 counties with various portals
+2. **Pennsylvania** - 5 counties with health dept systems
+3. **Indiana** - 4 counties with health dept systems
+4. **Virginia** - 5 counties with mixed systems
+
+---
+
+## Platform Type Summary (Confirmed Scrapers)
+
+| Platform | Counties | Scraper Approach |
+|----------|----------|------------------|
+| Tyler EnerGov | 2 | REST API, extend existing |
+| MyGovernmentOnline | 3 | Permit tracking portal |
+| Accela CitizenAccess | 2 | Permit search API |
+| eBridge | 2 | Login required, extend existing |
+| OnlineRME | 2 | Multi-county, extend existing |
+| BS&A Online | 1 | Property/permit lookup |
+| mySCView | 1 | Custom portal |
+| DocuWare | 1 | Document management |
+| OnBase | 1 | Query builder |
+| GIS Portals | 4 | Map-based search |
+| Health Dept Custom | 20+ | Various approaches |
+
+---
+
+*Updated from National Septic Scraper Dashboard - 51 confirmed scrapers*
