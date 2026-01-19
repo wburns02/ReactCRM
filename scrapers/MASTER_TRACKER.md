@@ -1,9 +1,9 @@
 # National Septic OCR - Master Portal Tracker
 
-> **Last Updated:** 2026-01-19 00:00 UTC
-> **Phase:** 1 - Metadata Collection
+> **Last Updated:** 2026-01-19 10:12 UTC
+> **Phase:** 1 - Metadata Collection (ACTIVE ASSAULT)
 > **Total Portals:** 500+
-> **Records Captured:** 0 (starting)
+> **Server:** 100.85.99.69 (88 cores, 755GB RAM, RTX 3090)
 
 ---
 
@@ -13,13 +13,13 @@
 |--------|-------|
 | Portals Identified | 500+ |
 | Portals Processed | 2 |
-| Portals In Progress | 3 |
-| **Total Records Captured** | **147,859** |
+| Portals In Progress | 5 |
+| **Total Records Captured** | **152,232** |
 | Records in CRM | 0 (pending ingest) |
 
 ### Captured Data Summary
-- Vermont DEC: 17,911 records
-- Delaware Open Data: 129,948 records
+- **Vermont DEC: 22,284 records** ✅ CAPTURED (server: ~/scrapers/output/vermont/)
+- **Delaware Open Data: 129,948 records** ✅ CAPTURED (server: ~/scrapers/output/delaware/)
 
 ---
 
@@ -27,10 +27,10 @@
 
 | State | Region | Portal URL | Platform | Username | Password | Login Tested | Scraper Exists | Est. Records | Phase 1 Status | Phase 2 Status | Sample Permit IDs | Notes |
 |-------|--------|------------|----------|----------|----------|--------------|----------------|--------------|----------------|----------------|-------------------|-------|
-| VT | Statewide | https://anrweb.vt.gov/DEC/WWDocs/Default.aspx | Custom | PUBLIC | N/A | YES | YES | 300,000+ | **17,911 CAPTURED** | PENDING | 5W0431-3A, 5W0431-3B, WW-1-0516 | Batch 1 complete, more queries pending |
-| NH | Statewide | https://www4.des.state.nh.us/DESOnestop/BasicSearch.aspx | Custom | PUBLIC | N/A | - | NO | 140,000+ | PENDING | PENDING | - | 1967-1986 + 2016-present |
-| TN | Statewide | https://tdec.tn.gov/document-viewer/search/stp | FileNet | PUBLIC | N/A | - | YES | 500,000+ | PENDING | PENDING | - | Excludes 9 metro counties |
-| MN | Statewide | https://webapp.pca.state.mn.us/ssts/ | Custom | PUBLIC | N/A | - | NO | 600,000+ | PENDING | PENDING | - | MPCA central database |
+| VT | Statewide | https://anrweb.vt.gov/DEC/WWDocs/Default.aspx | Custom | PUBLIC | N/A | YES | YES | 300,000+ | **22,284 CAPTURED** | PENDING | 5W0431-3A, 5W0431-3B, WW-1-0516 | Bulk extraction complete on server! |
+| NH | Statewide | https://www4.des.state.nh.us/DESOnestop/BasicSearch.aspx | Custom | PUBLIC | N/A | YES | YES | 140,000+ | IN_PROGRESS | PENDING | - | 1967-1986 + 2016-present, scraper needs tuning |
+| TN | Statewide | https://tdec.tn.gov/document-viewer/search/stp | FileNet | PUBLIC | N/A | - | YES | 500,000+ | IN_PROGRESS | PENDING | - | Excludes 9 metro counties, Playwright ready |
+| MN | Statewide | https://webapp.pca.state.mn.us/ssts/ | Custom | PUBLIC | N/A | - | YES | 600,000+ | IN_PROGRESS | PENDING | - | MPCA scraper created, 87 counties |
 | FL | Statewide | https://www.floridahealth.gov/environmental-health/onsite-sewage/ | eBridge | PUBLIC | N/A | - | YES | 2,000,000+ | PENDING | PENDING | - | 67 counties, transitioning to DEP |
 | DE | Statewide | https://data.delaware.gov/Energy-and-Environment/Permitted-Septic-Systems/mv7j-tx3u | Open Data | PUBLIC | N/A | YES | YES | 129,948 | **129,948 CAPTURED** | PENDING | 0310-90S, 031177-90S, 031215-90S | Full API download complete! Rich metadata |
 | ME | Statewide | https://apps.web.maine.gov/cgi-bin/online/mecdc/septicplans/index.pl | Custom | PUBLIC | N/A | - | NO | 100,000+ | PENDING | PENDING | - | Since July 1974 |
@@ -144,7 +144,13 @@
 
 | Timestamp | Portal | Action | Result | Records | Notes |
 |-----------|--------|--------|--------|---------|-------|
-| 2026-01-19 | - | TRACKER INITIALIZED | SUCCESS | 0 | Beginning assault |
+| 2026-01-19 00:00 | - | TRACKER INITIALIZED | SUCCESS | 0 | Beginning assault |
+| 2026-01-19 09:27 | Vermont DEC | BULK EXTRACTION | SUCCESS | 17,911 | Initial batch via broad search |
+| 2026-01-19 09:42 | Delaware Open Data | FULL DOWNLOAD | SUCCESS | 129,948 | Complete API download via Socrata |
+| 2026-01-19 10:08 | Delaware Open Data | RE-VERIFICATION | SUCCESS | 129,948 | Confirmed via fresh download |
+| 2026-01-19 10:11 | Vermont DEC | EXPANDED EXTRACTION | SUCCESS | 22,284 | 10 search terms, deduplicated |
+| 2026-01-19 10:12 | Minnesota MPCA | SCRAPER CREATED | - | 0 | 87 counties, Playwright-based |
+| 2026-01-19 10:12 | NH DES OneStop | TEST RUN | NEEDS_TUNING | 17 | Parser picking up non-records |
 
 ---
 
