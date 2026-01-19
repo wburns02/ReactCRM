@@ -1,6 +1,6 @@
 # National Septic OCR - Master Portal Tracker
 
-> **Last Updated:** 2026-01-19 10:12 UTC
+> **Last Updated:** 2026-01-19 10:20 UTC
 > **Phase:** 1 - Metadata Collection (ACTIVE ASSAULT)
 > **Total Portals:** 500+
 > **Server:** 100.85.99.69 (88 cores, 755GB RAM, RTX 3090)
@@ -13,13 +13,13 @@
 |--------|-------|
 | Portals Identified | 500+ |
 | Portals Processed | 2 |
-| Portals In Progress | 5 |
-| **Total Records Captured** | **152,232** |
+| Portals In Progress | 3 |
+| **Total Records Captured** | **210,104** |
 | Records in CRM | 0 (pending ingest) |
 
 ### Captured Data Summary
-- **Vermont DEC: 22,284 records** ✅ CAPTURED (server: ~/scrapers/output/vermont/)
-- **Delaware Open Data: 129,948 records** ✅ CAPTURED (server: ~/scrapers/output/delaware/)
+- **Vermont DEC: 80,156 records** ✅ CAPTURED (server: ~/scrapers/output/vermont/vt_full_extraction.json)
+- **Delaware Open Data: 129,948 records** ✅ CAPTURED (server: ~/scrapers/output/delaware/de_permits_full.json)
 
 ---
 
@@ -27,7 +27,7 @@
 
 | State | Region | Portal URL | Platform | Username | Password | Login Tested | Scraper Exists | Est. Records | Phase 1 Status | Phase 2 Status | Sample Permit IDs | Notes |
 |-------|--------|------------|----------|----------|----------|--------------|----------------|--------------|----------------|----------------|-------------------|-------|
-| VT | Statewide | https://anrweb.vt.gov/DEC/WWDocs/Default.aspx | Custom | PUBLIC | N/A | YES | YES | 300,000+ | **22,284 CAPTURED** | PENDING | 5W0431-3A, 5W0431-3B, WW-1-0516 | Bulk extraction complete on server! |
+| VT | Statewide | https://anrweb.vt.gov/DEC/WWDocs/Default.aspx | Custom | PUBLIC | N/A | YES | YES | 300,000+ | **80,156 CAPTURED** | PENDING | 5W0431-3A, 5W0431-3B, WW-1-0516 | 54 search terms, deduplicated, vt_full_extraction.json |
 | NH | Statewide | https://www4.des.state.nh.us/DESOnestop/BasicSearch.aspx | Custom | PUBLIC | N/A | YES | YES | 140,000+ | IN_PROGRESS | PENDING | - | 1967-1986 + 2016-present, scraper needs tuning |
 | TN | Statewide | https://tdec.tn.gov/document-viewer/search/stp | FileNet | PUBLIC | N/A | - | YES | 500,000+ | IN_PROGRESS | PENDING | - | Excludes 9 metro counties, Playwright ready |
 | MN | Statewide | https://webapp.pca.state.mn.us/ssts/ | Custom | PUBLIC | N/A | - | YES | 600,000+ | IN_PROGRESS | PENDING | - | MPCA scraper created, 87 counties |
@@ -151,6 +151,9 @@
 | 2026-01-19 10:11 | Vermont DEC | EXPANDED EXTRACTION | SUCCESS | 22,284 | 10 search terms, deduplicated |
 | 2026-01-19 10:12 | Minnesota MPCA | SCRAPER CREATED | - | 0 | 87 counties, Playwright-based |
 | 2026-01-19 10:12 | NH DES OneStop | TEST RUN | NEEDS_TUNING | 17 | Parser picking up non-records |
+| 2026-01-19 10:13 | Tennessee TDEC | PORTAL TEST | BLOCKED | 0 | 403 Forbidden on FileNet URLs |
+| 2026-01-19 10:17 | Maine CDC | SCRAPER CREATED | - | 0 | Needs portal analysis |
+| 2026-01-19 10:20 | Vermont DEC | EXPANDED EXTRACT | SUCCESS | 80,156 | 54 search terms, deduplicated |
 
 ---
 
