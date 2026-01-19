@@ -49,3 +49,5 @@ tmpclaude-*
 # Claude-to-Claude coordination
 claude-mesh-logs/
 claude-mesh-response.json
+*.pyc
+__pycache__/

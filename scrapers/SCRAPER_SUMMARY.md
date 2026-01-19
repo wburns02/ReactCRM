@@ -139,19 +139,51 @@ scrapers/
 
 ---
 
+## Scraper Implementation Status
+
+### State Scrapers Completed
+
+| State | Scraper | Portal | Coverage | Status |
+|-------|---------|--------|----------|--------|
+| VT | `VermontDECScraper` | DEC Wastewater | Statewide | ✅ Complete |
+| FL | `FloridaEBridgeScraper` | eBridge OSTDS | 20+ counties | ✅ Complete |
+| TN | `TennesseeTDECScraper` | TDEC FileNet | Statewide (86 counties) | ✅ Complete |
+
+### Platform Scrapers Completed
+
+| Platform | Scraper | Portals Configured | Status |
+|----------|---------|-------------------|--------|
+| Accela | `AccelaScraper` | 16 counties | ✅ Complete |
+
+### Configured Accela Portals
+
+- **Arizona:** Maricopa, Pima
+- **California:** San Diego, Riverside, Sacramento
+- **Colorado:** El Paso
+- **Georgia:** Fulton, Gwinnett
+- **North Carolina:** Wake, Mecklenburg
+- **Texas:** Travis, Tarrant
+- **Virginia:** Fairfax, Loudoun
+- **Washington:** King, Pierce
+
+### Configured Florida eBridge Counties
+
+Hillsborough, Martin, Okeechobee, Osceola, Charlotte, Lee, Hernando,
+Brevard, Volusia, Seminole, Orange, Polk, Pasco, Pinellas, Sarasota,
+Manatee, Collier, Palm Beach, Broward, Miami-Dade
+
 ## Next Steps
 
-1. **Implement Priority State Scrapers**
-   - [ ] Florida eBridge/OSTDS
-   - [ ] Minnesota MPCA SSTS
-   - [ ] Tennessee TDEC
+1. **Additional State Scrapers**
    - [ ] Delaware DNREC
    - [ ] New Mexico NMED
+   - [ ] South Carolina DHEC
+   - [ ] Rhode Island DEM
 
-2. **Implement Platform Scrapers**
-   - [ ] Accela generic scraper
+2. **Additional Platform Scrapers**
    - [ ] EnerGov generic scraper
    - [ ] Ascent (Wisconsin) scraper
+   - [ ] OpenGov platform scraper
 
 3. **Testing Phase**
    - [ ] Run `test_all_portals.py`

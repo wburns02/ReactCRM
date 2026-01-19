@@ -212,16 +212,20 @@ class VermontDECScraper(BaseScraper):
         viewstate_gen = soup.find('input', {'name': '__VIEWSTATEGENERATOR'})
         viewstate_gen_val = viewstate_gen['value'] if viewstate_gen else ""
 
-        # Build form data
+        # Build form data - correct field names from actual page inspection
         form_data = {
             '__VIEWSTATE': viewstate_val,
             '__EVENTVALIDATION': validation_val,
             '__VIEWSTATEGENERATOR': viewstate_gen_val,
-            'ctl00$MainContent$txtPermitNo': permit_number,
-            'ctl00$MainContent$txtTown': town,
-            'ctl00$MainContent$txtLandOwner': owner,
-            'ctl00$MainContent$txtStreet': street,
-            'ctl00$MainContent$btnSearch': 'Search',
+            'ctl00$body$TextBoxProjectID': permit_number,
+            'ctl00$body$DropDownListTown': town,
+            'ctl00$body$TextBoxName': owner,
+            'ctl00$body$TextBoxStreetRoad': street,
+            'ctl00$body$TextBoxProjectDescription': '',
+            'ctl00$body$TextBoxSPANNumber': '',
+            'ctl00$body$TextBoxPermitIssuedDateBegin': '',
+            'ctl00$body$TextBoxPermitIssuedDateEnd': '',
+            'ctl00$body$ButtonSearch': 'Search',
         }
 
         # Submit search
@@ -240,6 +244,18 @@ class VermontDECScraper(BaseScraper):
         """
         Parse search results HTML into SepticRecord objects.
 
+        Table columns (from actual page inspection):
+        0: Project ID (permit number)
+        1: Town
+        2: Land Owner Names
+        3: Street
+        4: Applicant Name
+        5: Purchaser Name
+        6: SPAN Number
+        7: Permit Issued Date
+        8: Lot Name
+        9: Project Description
+
         Args:
             html: Response HTML
 
@@ -249,10 +265,10 @@ class VermontDECScraper(BaseScraper):
         records = []
         soup = BeautifulSoup(html, 'html.parser')
 
-        # Look for results table
-        results_table = soup.find('table', {'id': 'MainContent_gvResults'})
+        # Look for results table - correct ID from page inspection
+        results_table = soup.find('table', {'id': 'body_GridViewSearchResults'})
         if not results_table:
-            results_table = soup.find('table', class_='GridView')
+            results_table = soup.find('table', class_='dataList')
 
         if not results_table:
             logger.debug("No results table found")
@@ -267,36 +283,53 @@ class VermontDECScraper(BaseScraper):
                 continue
 
             try:
-                # Extract fields based on table structure
-                # Typical columns: Permit#, Town, Owner, Street, Documents
-                permit_num = cells[0].get_text(strip=True)
+                # Extract fields based on known column structure
+                permit_num = cells[0].get_text(strip=True) if len(cells) > 0 else ""
                 town = cells[1].get_text(strip=True) if len(cells) > 1 else ""
                 owner = cells[2].get_text(strip=True) if len(cells) > 2 else ""
                 street = cells[3].get_text(strip=True) if len(cells) > 3 else ""
+                applicant = cells[4].get_text(strip=True) if len(cells) > 4 else ""
+                span_number = cells[6].get_text(strip=True) if len(cells) > 6 else ""
+                permit_date_str = cells[7].get_text(strip=True) if len(cells) > 7 else ""
+                description = cells[9].get_text(strip=True) if len(cells) > 9 else ""
 
-                # Look for PDF link
-                pdf_link = None
-                doc_cell = cells[-1] if cells else None
-                if doc_cell:
-                    link = doc_cell.find('a', href=True)
-                    if link and '.pdf' in link['href'].lower():
-                        pdf_link = link['href']
-                        if not pdf_link.startswith('http'):
-                            pdf_link = f"https://anrweb.vt.gov{pdf_link}"
+                # Parse permit date
+                permit_date = None
+                if permit_date_str:
+                    try:
+                        permit_date = datetime.strptime(permit_date_str, '%Y-%m-%d')
+                    except:
+                        pass
+
+                # Look for document link (first cell usually has link)
+                doc_link = None
+                link = cells[0].find('a', href=True) if cells else None
+                if link:
+                    href = link['href']
+                    if not href.startswith('http'):
+                        href = f"https://anrweb.vt.gov/DEC/WWDocs/{href}"
+                    doc_link = href
 
                 record = SepticRecord(
                     permit_number=permit_num,
                     state="VT",
                     address=street,
                     city=town,
-                    county=None,  # Town name used instead
+                    county=None,  # Town name used instead of county in VT
                     owner_name=owner,
-                    pdf_url=pdf_link,
+                    applicant_name=applicant if applicant else None,
+                    parcel_number=span_number if span_number else None,
+                    permit_date=permit_date,
+                    permit_url=doc_link,
                     source_portal=self.portal_name,
                     raw_data={
                         'town': town,
                         'owner': owner,
                         'street': street,
+                        'applicant': applicant,
+                        'span_number': span_number,
+                        'permit_date': permit_date_str,
+                        'description': description,
                     }
                 )
                 records.append(record)
