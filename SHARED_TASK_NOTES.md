@@ -152,8 +152,68 @@ Last Sale: 2019-08-12 for $1,000,000
 
 ## Next Steps for Property Enrichment
 
-1. Run full ArcGIS scrape (100K+ properties)
+1. ✅ Run full ArcGIS scrape (100K+ properties) - COMPLETE: 100,369 properties scraped
 2. Deploy migration to production
 3. Ingest property data via API
 4. Link permits to properties
 5. (Optional) Build INIGO scraper for building details (year_built, bedrooms)
+
+---
+
+# Property-to-Permit Matching - Session 2 (2026-01-20)
+
+## Summary
+
+Created a matching script to identify properties that have corresponding septic permits in the Williamson County database.
+
+### Data Sources
+- **Properties**: 100,369 records from ArcGIS REST API (`williamson_properties_20260120_171252.ndjson`)
+- **Permits**: 13,141 septic project records from IDT Projects portal (`williamson_projects_all.json`)
+
+### Matching Script
+- **File**: `scrapers/williamson/match_properties_to_permits.py`
+- Uses normalized address matching with exact and fuzzy strategies
+- Extracts addresses from permit labels and normalizes both datasets
+
+### Matching Results
+
+| Metric | Count |
+|--------|-------|
+| Total permits | 13,141 |
+| Permits with no extractable address | 4 |
+| Exact matches | 5,925 |
+| Fuzzy matches | 585 |
+| No match found | 6,627 |
+| **Unique properties matched** | **3,908** |
+| Total properties available | 100,369 |
+
+### Output Files
+- `scrapers/output/williamson_county/matched_properties.json` - Full JSON with metadata
+- `scrapers/output/williamson_county/matched_properties.ndjson` - NDJSON for ingestion (3,908 records)
+
+### Ingestion Instructions
+
+To ingest only the matched properties (properties with septic permits):
+
+```bash
+cd scrapers/williamson
+python property_enrichment.py \
+  --file ../output/williamson_county/matched_properties.ndjson \
+  --token YOUR_API_TOKEN
+```
+
+To link permits after ingestion:
+
+```bash
+curl -X POST \
+  "https://react-crm-api-production.up.railway.app/api/v2/properties/link-all?state_code=TN&county_name=Williamson" \
+  -H "Authorization: Bearer YOUR_TOKEN"
+```
+
+### Notes
+- 6,627 permits (50.4%) could not be matched to properties
+  - Many are for new construction (property may not exist in assessor records yet)
+  - Some have incomplete address information
+  - Some may be for adjacent vacant lots
+- The 3,908 matched properties represent properties with documented septic permits
+- Average ~1.66 permits per matched property (some properties have multiple permits)
