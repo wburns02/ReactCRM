@@ -250,6 +250,8 @@ npx tsx scrapers/energov/energov-playwright-scraper.ts --proxy
 | 2026-01-20 10:45 | - | DATA AUDIT | SUCCESS | 4,711,783+ | Created EXISTING_DATA_AUDIT.md |
 | 2026-01-20 10:45 | - | PORTAL DISCOVERY | SUCCESS | 33 portals | Created PORTAL_DISCOVERY.md |
 | 2026-01-20 14:39 | Comal County TX | API DISCOVERY | SUCCESS | 119,000+ | **Found 4 JSON typeahead endpoints! PermitNumSearch.php, AddressSearch.php, NameSearch.php, SubnameSearch.php. Highest permit: 119291** |
+| 2026-01-20 15:02 | Comal County TX | LOCAL EXTRACTION | SUCCESS | 12,919 | Local extraction: 12,919 permits, 497 addresses, 275 owners |
+| 2026-01-20 15:05 | Comal County TX | SERVER EXTRACTION | IN_PROGRESS | - | Running on 100.85.99.69: ~/scrapers/output/texas/comal_county/ |
 
 ---
 
