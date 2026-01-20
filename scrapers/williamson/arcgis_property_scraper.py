@@ -254,7 +254,8 @@ async def query_parcels(
     session: aiohttp.ClientSession,
     where_clause: str = "1=1",
     offset: int = 0,
-    batch_size: int = 1000
+    batch_size: int = 1000,
+    min_objectid: Optional[int] = None
 ) -> Dict[str, Any]:
     """
     Query ArcGIS REST API for parcel data.
@@ -262,19 +263,28 @@ async def query_parcels(
     Args:
         session: aiohttp session
         where_clause: SQL WHERE clause for filtering
-        offset: Result offset for pagination
+        offset: Result offset for pagination (may be ignored by server)
         batch_size: Number of records per request (max ~1000)
+        min_objectid: For OBJECTID-based pagination (more reliable)
 
     Returns:
         JSON response with features
     """
+    # Use OBJECTID-based pagination if server ignores offset
+    effective_where = where_clause
+    if min_objectid is not None:
+        if where_clause == "1=1":
+            effective_where = f"OBJECTID > {min_objectid}"
+        else:
+            effective_where = f"({where_clause}) AND OBJECTID > {min_objectid}"
+
     params = {
-        'where': where_clause,
+        'where': effective_where,
         'outFields': ','.join(OUT_FIELDS),
         'returnGeometry': 'true',
         'outSR': '4326',  # WGS84 lat/lon
         'f': 'json',
-        'resultOffset': offset,
+        'orderByFields': 'OBJECTID ASC',
         'resultRecordCount': batch_size
     }
 
@@ -351,37 +361,50 @@ async def scrape_all_properties(batch_size: int = 1000, save_interval: int = 500
             logger.error("No records found or count query failed")
             return []
 
-        offset = 0
         batch_num = 0
+        max_objectid = 0  # Track highest OBJECTID seen for pagination
+        consecutive_empty = 0  # Track empty batches to detect end
 
-        while offset < total_count:
+        while len(all_properties) < total_count and consecutive_empty < 3:
             batch_num += 1
-            logger.info(f"Fetching batch {batch_num} (offset {offset:,} / {total_count:,})")
+            logger.info(f"Fetching batch {batch_num} (after OBJECTID {max_objectid:,}, have {len(all_properties):,} / {total_count:,})")
 
-            result = await query_parcels(session, offset=offset, batch_size=batch_size)
+            # Use OBJECTID-based pagination
+            result = await query_parcels(session, batch_size=batch_size, min_objectid=max_objectid if max_objectid > 0 else None)
 
             features = result.get('features', [])
             if not features:
-                logger.warning(f"No features in batch {batch_num}, checking for error")
+                consecutive_empty += 1
+                logger.warning(f"No features in batch {batch_num}, empty count: {consecutive_empty}")
                 if result.get('error'):
                     logger.error(f"API error: {result.get('error')}")
-                break
+                continue
+
+            consecutive_empty = 0  # Reset on success
 
             # Process features
+            batch_max_id = 0
             for feature in features:
                 prop = extract_property_data(feature)
 
-                # Deduplicate by parcel_id
-                parcel_id = prop.get('parcel_id')
-                if parcel_id and parcel_id in seen_parcel_ids:
-                    continue
+                # Track max OBJECTID for pagination
+                object_id = prop.get('arcgis_object_id')
+                if object_id:
+                    batch_max_id = max(batch_max_id, object_id)
 
-                if parcel_id:
-                    seen_parcel_ids.add(parcel_id)
+                    # Skip if already seen
+                    if object_id in seen_parcel_ids:
+                        continue
+
+                    seen_parcel_ids.add(object_id)
 
                 all_properties.append(prop)
 
-            logger.info(f"  → {len(features)} features, {len(all_properties)} total unique properties")
+            # Update max OBJECTID for next query
+            if batch_max_id > 0:
+                max_objectid = batch_max_id
+
+            logger.info(f"  → {len(features)} features, {len(all_properties)} total unique, max OBJECTID: {max_objectid:,}")
 
             # Save checkpoint
             if len(all_properties) % save_interval < batch_size:
@@ -393,8 +416,6 @@ async def scrape_all_properties(batch_size: int = 1000, save_interval: int = 500
                         'data': all_properties
                     }, f, indent=2)
                 logger.info(f"  → Checkpoint saved: {checkpoint_file}")
-
-            offset += batch_size
 
             # Rate limiting - be polite to the server
             await asyncio.sleep(0.5)
