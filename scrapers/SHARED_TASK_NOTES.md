@@ -1,8 +1,71 @@
 # National Septic OCR - Shared Task Notes
 
 > **Session Started:** 2026-01-18
-> **Updated:** 2026-01-19
+> **Updated:** 2026-01-20
 > **Mission:** Discover, catalog, and scrape EVERY public septic permit repository in the US
+
+---
+
+## MGO Connect Breakthrough (2026-01-20)
+
+### API-First Approach SUCCESS
+
+**Problem Solved:** Previous 14 Python scrapers all failed (0 records) due to Angular/PrimeNG dropdown issues.
+
+**Solution:** Discovered backend APIs via network interception, bypassing UI entirely.
+
+### Discovered API Endpoints
+
+| Endpoint | Method | Purpose |
+|----------|--------|---------|
+| `https://www.mygovernmentonline.org/api/user/login/-` | POST | Login (URL-encoded JSON) |
+| `https://api.mgoconnect.org/api/v3/cp/public/jurisdictions` | GET | Get all jurisdictions (432 total, 107 TX) |
+| `https://api.mgoconnect.org/api/v3/cp/filter-items/jurisdiction-project-types/{id}` | GET | Get project types for jurisdiction |
+| `https://api.mgoconnect.org/api/v3/cp/project/search-projects` | POST | Search permits (paginated) |
+
+### Search API Request Format
+
+```json
+{
+  "filters": {
+    "JURISDICTIONID": 231,
+    "PROJECTTYPEID": 27,
+    "ADDRESS": "1",
+    "ISADDRESSEXACTMATCH": false
+  },
+  "Rows": 100,
+  "OffSet": 0,
+  "SortOrder": 1
+}
+```
+
+### Data Extracted (First Run)
+
+| County | Records | Status |
+|--------|---------|--------|
+| Williamson County | 3,095 | Saved to local + server |
+| Travis County | 0 | No OSSF type (uses "Permit") |
+
+### Files Created
+
+- `scrapers/mgo/mgo-api-discovery.ts` - Network interception
+- `scrapers/mgo/mgo-api-scraper.ts` - API-first scraper
+- `scrapers/mgo/mgo-types.ts` - TypeScript interfaces
+- `scrapers/mgo/mgo-config.ts` - County configs
+- `scrapers/output/mgo/williamson_county_ossf_2026-01-20.ndjson` - 3,095 records
+
+### Known Issues
+
+1. **Rate Limiting (429)** - Exponential backoff added
+2. **Session Blocking (403)** - Need longer cooldown between batches
+3. **Travis County** - Uses generic "Permit" type, not specific OSSF
+
+### Next Steps
+
+1. Re-run with increased delays to avoid blocking
+2. Add checkpoint saves during extraction
+3. Try Travis County with "Permit" project type
+4. Process remaining Texas counties
 
 ---
 
