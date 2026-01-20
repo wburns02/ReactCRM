@@ -1,0 +1,139 @@
+{
+  "jurisdiction": "Metro Nashville",
+  "state": "TN",
+  "tenant": "metronashvilletn",
+  "portalUrl": "https://metronashvilletn.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6468",
+      "name": "Vehicle Accident Report",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Pursuant to the Metro Code of Laws, all accidents involving a vehicle registered by the Transportation Licensing commission which is involved in an accident with injuries or death as well as any accident with more than $400 in damages must be reported within 72 hours. If an injury occurs, then a drug screen must be taken within 24 hours of the accident with the report faxed to the Commission office.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Taxi Company Decal/Quarterly Reviews",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Quarterly Reviews and fees are due by January 1st, April 1st, July 1st, and October 1st.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Residential Parking Permit (RPP) - Resident",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This is the application for Resident parking permits only, search for \"Residential Parking Permit (RPP) - Visitor\" for the visitor parking application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Residential Parking Permit (RPP) -  Visitor",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This is the application for Residential Parking Permit holders to apply for visitor permits.  Maximum issued is 2 per address.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Company Owner/Partner Background Check",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Applicants must have a TN Driver’s License",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Downtown Residential Parking Permit (DTRPP)",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Request NEW or RENEW DTRPP (Downtown Residential Parking Permit) for a DTRPP Permit Parking Only Street.  Permits expire yearly on December 31st and must be renewed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Taxicab Driver Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Wrecker Driver Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Taxi Company Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Certificate of Public Convenience and Necessity",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Request for Additional Taxicab Permits",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Use this form to request additional taxi cab permits",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "General Wrecker Service Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "General Wrecker ",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Emergency Wrecker Service",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Emergency Wrecker Service",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Non-Consent Towing Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "General Wrecker Service and to Perform Non-Consent Towing",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1093",
+      "name": "Residential Parking Permit (RPP) ",
+      "isEnabled": 1,
+      "content": "<div><a href=\"https://www.nashville.gov/sites/default/files/2025-01/DowntownResidentialParkingPermitArea_Map.pdf?ct=1736203266\" rel=\"noopener noreferrer\" target=\"_blank\">Downtown Residential Parking Zone Map</a></div>"
+    },
+    {
+      "id": "1091",
+      "name": "Taxi Industry",
+      "isEnabled": 1
+    },
+    {
+      "id": "1081",
+      "name": "Miscellaneous Forms",
+      "isEnabled": 1,
+      "content": "<div><strong><span style=\"font-size: 18px;\">Forms to be printed off and completed. Once completed, upload to your application.</span></strong></div><div><br></div><div><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Company_Affiliation_Form__Wed_Nov_12_2025_15:55:21_GMT+0000_(Coordinated_Universal_Time).docx\" target=\"_blank\">Company Affiliation Form .docx</a></div><div><br></div><div><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/prof"
+    },
+    {
+      "id": "1085",
+      "name": "Wrecker Industry",
+      "isEnabled": 1,
+      "content": "<div><a href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/WreckerZoneMap_DavidsonCo_Wed_Oct_15_2025_14:14:41_GMT+0000_(Coordinated_Universal_Time).pdf\" rel=\"noopener noreferrer\" style='user-select: auto; position: relative; font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:51.239Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

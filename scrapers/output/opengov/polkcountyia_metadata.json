@@ -1,0 +1,685 @@
+{
+  "jurisdiction": "Polk County",
+  "state": "IA",
+  "tenant": "polkcountyia",
+  "portalUrl": "https://polkcountyia.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6436",
+      "name": "Code Violation ",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "This record submittal type is for any items or issues of concern that ARE NOT related to vehicles, building, trash/debris, septic and wells or zoning related. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6603",
+      "name": "Change of Use",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Oversized/Overweight/Trip Permits",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Report A Problem",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6354",
+      "name": "Mechanical Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Burn Permit Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Contractor Registration",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "Electrical Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6791",
+      "name": "Well Sample Testing Request ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This Record request is for Water Sampling of Private Drinking Wells Only throughout Polk County. \n\nFor Additional Information you may visit the IDNR site at - https://www.iowadnr.gov/environmental-protection/water-quality/private-well-program/well-testing. \n\nIf you are on a Public Water Supply and would like to have your water tested please contact your water provider. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6750",
+      "name": "Zoning Violation",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Separate from other code violations, zoning violation forms are for use by planning staff to record progress within enforcement activities pertaining to illegal uses, businesses, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6782",
+      "name": "Compliance - Air Quality Request",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Report an Air Quality concern. May remain anonymous.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Plumbing Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6717",
+      "name": "Construction Permit Application - Standard",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6736",
+      "name": "Construction Permit Application - Spray Booth Permit-by-Rule",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Permit-by-Rule (PBR) for spray booths. \nFacilities that facility-wide spray more than 3 gallons/day are not eligible to use the permit by rule for spray booths (see PCBHRR Chapter V Section 5-28.1).",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Commercial New Building Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Entrance Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Septic Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit record type is for the installation, alteration, modification, and of Septic Systems for new and existing systems. This permit covers abandonment of existing system if existing system is being replaced. If scope of work is to abandon only, please submit Septic Abandon Permit\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6757",
+      "name": "Code Violation - Trash/Debris ",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "This violation type is for Trash and Debris located on a property. If other concerns are present on the property please list them in the comments section of the complaint form. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Conditional Use Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Conditional Use Permits are required for certain uses within a given zoning district. Please contact staff for more information if a proposed use would require a conditional use permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6726",
+      "name": "DOT Zoning Letter",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6700",
+      "name": "Construction Plan Review",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Review of Construction plans for street and utility extensions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6712",
+      "name": "Septic Abandonment Only Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit record type is for the abandonment of the Septic system ONLY. If replacing the existing Septic system the permit for that work covers the abandonment of the existing system.  \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Commercial Addition Building Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6593",
+      "name": "Fire Suppression System Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6768",
+      "name": "Permit Determination Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Regulatory applicability determination.",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Commercial Footing/Foundation Only Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Floodplain Development Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Flood Plain Development Permits are required to develop, alter, or preform work, including flood protection works, in a flood plain.  All such work shall be done in accordance with the requirements of the Zoning Ordinance for the Unincorporated Polk County, Iowa, Article 7, Division 4, Section 1. Floodplains and with all other applicable County ordinances and the laws and regulations of the State of Iowa. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Well Permit - New",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "A well permit is required to be obtained from the County if a water well permit is not required by the State of Iowa. No water well for which a County permit is required shall be installed or reconstructed until an application has been submitted and permit issued by Polk County.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6762",
+      "name": "Code Violation - Building ",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "This violation type is for building and building code related items including abandoned or dilapidated structures, fire damaged structures, etc. If other concerns are present on the property, please list them in the comments section of the complaint form. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6728",
+      "name": "Zoning Certification Letter",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6835",
+      "name": "Code Violation - Environmental Health",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "This violation type is for Septic and Well systems, permits required, and other environmental health related items. If other concerns are present on the property, please list them in the comments section of the complaint form. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6594",
+      "name": "Binding Waiver Agreement ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This record type is for submittals for Binding Waivers for demolition, future installations or weather as allowed per IAC 567-69 (2). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6778",
+      "name": "Permit Rescission Request",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Request to rescind a construction permit and/or an operating permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6719",
+      "name": "Well Permit - Plugging",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6589",
+      "name": "Grading & Site Improvement Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A site improvement permit is required to begin grading and/or site improvement construction associated with an approved site plan or approved grading plan. Site improvement permits are required when no new building construction is taking place. Any property or development site to conduct land-disturbing activities including fill in excess of three (3) feet, or excavation exceeding five (5) feet, or work that involves greater than 50 cubic yards of excavation, or fill or any grading or clearing activity that disturbs an area five thousand (5,000) square feet or greater within unincorporated Polk County shall obtain a permit prior to any land-disturbing activities.",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Commercial Shell Building Only Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Commercial Alteration/Interior Remodel/Tenant Finish Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6586",
+      "name": "Home Occupation Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "All home occupations require a permit. The home occupation must be clearly subordinate to the residential use of the property. A completed application with a diagram of dwelling or garage is required for a submittal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6761",
+      "name": "Code Violation - Junk Vehicles",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "This violation type is for Junk Vehicles on Private property. If other concerns are present on the property please list them in the comments section of the complaint form. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Private Well Grant",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "For Private Well Grant Reimbursement requests. \nWell Reconstruction or Renovation\nWell Water Tests\nWell Assessment\nShock Chlorination\nWell Closure/Plugging",
+      "isEnabled": true
+    },
+    {
+      "id": "6591",
+      "name": "Demolition/Removal Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Work Within the Right-of-Way",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Ditch Fill Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Fence/Retaining Wall Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6606",
+      "name": "Major Site Plan",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A major site plan is required prior to the development of a site for non-residential uses permitted or conditional or planned residential uses, a site plan shall be submitted and shall conform to the requirements as outlined in Article 14 of the Polk County Zoning Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Pole Barn Permit - Residential Only ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is for the construction of \"Pole Type\" Structures utilized for accessory residential structures such as detached garages/sheds/pavilions/etc. \n\nFor \"Barndominiums\" or \"ADU's\" please submit a New Single Family Dwelling permit. For commercial/industrial structures please submit a New Commercial building permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6733",
+      "name": "Registration - CI Engine <400bhp",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Registration for stationary compression ignition internal combustion engines less than 400 brake horsepower.",
+      "isEnabled": true
+    },
+    {
+      "id": "6715",
+      "name": "Minor Preliminary Plat",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Minor Preliminary Plat",
+      "isEnabled": true
+    },
+    {
+      "id": "6725",
+      "name": "Minor Final Plat",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Minor Final Plat",
+      "isEnabled": true
+    },
+    {
+      "id": "6741",
+      "name": "Registration - SI Engine <400bhp",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Registration for stationary spark ignition internal combustion engines less than 400 brake horsepower.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Pool Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Residential New Dwelling/House Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit record type is for new single family homes including bi-attached homes, ADU's, manufactured/modular homes and \"pole-barn\" type homes also known as \"barndominiums\".\n\nPlease also use this permit type for moving/relocating homes within the County from one place to another or into the County as well as manufactured/mobile homes into a community park.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6605",
+      "name": "Event Road Use Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6611",
+      "name": "Minor Site Plan",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A Minor Site Plan is allowed when there is an existing site plan on file and the following: \n* Addition to an existing non-residential building \nor\n* Expansion of a non-residential use which includes, but is not limited to, the addition of paved surfaces or outdoor storage areas\nor\n* Unmanned utility substation \nor\n* New non-residential use on a property where a change of use permit is required ",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Major Preliminary Plat ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6612",
+      "name": "Sketch Plan ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A Sketch Plan is a scaled drawing that is not required to be certified due to the\nminimal changes to an existing site and is allowed when one of the following\nconditions exist: \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6608",
+      "name": "Major Final Plat",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A subdivision plat for five or more lots within a tract of record. \n\nThe Major Final Plat will be reviewed and approved upon satisfactory compliance with the Comprehensive Plan, Zoning Ordinance and pertinent Subdivision Ordinance regulations. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6590",
+      "name": "Sound Equipment Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "No person shall use operate or cause to be used or operated any sound equipment upon the public streets or in any building or upon any premises, public or private, if the sound therefrom be plainly audible from any public street or public place within the county, unless said person first obtains a permit in accordance with this section; complies with the condition imposed by the permit including the maximum permitted sound level shown therein; and complies with all other applicable provisions of the Polk County Noise Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6773",
+      "name": "Reporting - Performance Test",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "For reporting of performance tests including (but not limited to): stack testing as a result of  a construction permit requirement, stack testing as a result of an operating permit requirement, NESHAP test reporting (e.g. ZZZZ testing), NSPS test reporting (e.g. JJJJ testing), product/material test reporting, or other compliance demonstrations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Residential Addition to Dwelling/House Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6692",
+      "name": "Plat of Survey",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Plat of Survey shall be prepared in accordance with Chapter 354 and 355 of the Iowa\nCode for the division of a “Tract of Record” into two parts that does not dedicate street\nright-of way or land reserved for public use",
+      "isEnabled": true
+    },
+    {
+      "id": "6803",
+      "name": "Residential Interior Alterations/Foundation Repair/Egress Window Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit record is for Interior Alterations including Fire/Water Damage, Finishing of Basement, Foundation Repairs and Installation of Egress Windows",
+      "isEnabled": true
+    },
+    {
+      "id": "6787",
+      "name": "Reporting - Portable Equipment Relocation Notice",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6776",
+      "name": "Reporting - Small Unit Exemption (SUE) Justification Document",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "An owner or operator that utilizes the small unit exemption as specified in PCBHRR Chapter V, Article X, Section 5-33(63) must maintain on-site an exemption justification document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Water Connect",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Residential Roofed Deck/Patio/Porch/3-season Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6802",
+      "name": "Residential Detached Garage/Shed/Acc Bldg Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is for the construction of detached garages/sheds or similar accessory structures that are \"TRADITIONALLY \" framed meaning \"STICK-BUILT\".\n\nPlease also use this permit type for moving/relocating existing detached garages within the County from one place to another or into the County.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Residential Deck Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Secondary Meter ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Secondary Meters on DMWW",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Solar (Photovoltaic) Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6652",
+      "name": "Sign Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A sign permit is required for the erection, alteration, or relocation of any sign in the unincorporated areas of Polk County. The repainting, changing of parts, and preventative maintenance of signs located on the site shall not be deemed alterations requiring a Sign Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6769",
+      "name": "Variance Request - Construction Permitting Air Quality Only",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Application for a construction permitting variance. \n**This is only for Air Quality equipment, not for a building variance.**",
+      "isEnabled": true
+    },
+    {
+      "id": "6767",
+      "name": "Sanitary Sewer Connection Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Application for Polk County Residential or Commercial/Industrial Sanitary Sewer Connection Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6645",
+      "name": "Variance Appeal Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "The Polk County Board of Adjustment is empowered by Iowa law and by the Zoning Ordinance of Polk County to hear requests and to make decisions on variance appeals to the Zoning Ordinance for individual properties where provisions of the Ordinance impose a unique and unnecessary hardship on the property owner and where the granting of a variance is not contrary to the intent of the Zoning Ordinance or to the public interest. \n\nEach variance appeal is only a request to have a hearing before the Board of Adjustment. Notice of the hearing will be provided to all property owners located within 250 feet from the subject property.  The Board of Adjustment will make a determination at a public hearing whether or not to approve or deny the request based on a staff report, applicant presentation, as well as public input.  All appeals that are denied shall not come back to the Board of Adjustment for one year.  Refunds will not be made once notice has been sent out to adjacent property owners.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Comprehensive Plan Amendment and Rezoning Application ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A submittal is only a request to have the Comprehensive Plan amendment and/or Zoning\nMap change reviewed at a public hearing before the Zoning Commission. The Zoning\nCommission reviews the requested Comprehensive Plan amendment and/or Zoning Map\nchange at a public hearing making a recommendation based on a staff report, applicant\npresentation, as well as public input. The Zoning Commission recommendation is considered\nby the Board of Supervisors at a public hearing on the request. Notice of each public hearing\nis published in the official county newspapers and individual notice will be mailed to all\nproperty owners located within 500 feet of the subject property. Requests that are denied\nshall not come back to the Board of Supervisors for one year. Refunds will not be made once\nnotice has been sent out to adjacent property owners. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6814",
+      "name": "Reporting - Bulk Gasoline Plant Reporting (NESHAP BBBBBB)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "NESHAP Reporting - Bulk Gasoline Plant Reporting (NESHAP BBBBBB)",
+      "isEnabled": true
+    },
+    {
+      "id": "6764",
+      "name": "Easement Vacation",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A request to vacate a portion of an existing public utility, drainage, or other publicly established easement.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1079",
+      "name": "Contractor Registration - CONTRACTORS START HERE!!!!",
+      "isEnabled": 1,
+      "content": "<div><strong><span style=\"font-size: 60px;\">Contractors Start Here</span></strong></div>"
+    },
+    {
+      "id": "1081",
+      "name": "Air Quality",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-size: 18px;\">If you are looking for the <strong>Responsible Official Registration</strong>, it has been removed. </span></div>"
+    },
+    {
+      "id": "1080",
+      "name": "Building Permits",
+      "isEnabled": 1,
+      "content": "<div>The Polk County Building Department reviews plans, issues permits and inspects building construction located within the unincorporated areas of the County. The 2021 International Codes have been adopted for Residential, Commercial and Industrial projects. Required permits can range from decks and pools to factories, storage facilities, chemical/fuel tanks and more. The County has also adopted the State Plumbing, Mechanical, Electrical and Energy Codes.&nbsp;</div><div><br></div><div>*<a cla"
+    },
+    {
+      "id": "1082",
+      "name": "Code Violations/Enforcement",
+      "isEnabled": 1,
+      "content": "<div>Code Enforcement investigates and enacts enforcement of properties in violation of the Zoning and Health Nuisance Ordinances in an effort to eliminate conditions that threaten the life, health, safety and general welfare of the community.&nbsp;</div><div><br></div><div>Polk County has adopted a Health Nuisance Regulation that assists in keeping properties cleaned up in the unincorporated areas of the County. If you have junk, debris, unlicensed and/or inoperable vehicles on your property yo"
+    },
+    {
+      "id": "1072",
+      "name": "Department of Public Works",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1083",
+      "name": "Environmental Health Services",
+      "isEnabled": 1,
+      "content": "<div>Environmental Health Services Division provides services related to those affecting the health and safety to the physical environment in which we live.&nbsp;</div><div><br></div><div>Services include:</div><div>* Permitting and Inspections of On-Site Wastewater Treatment Systems (OWTS)&nbsp;</div><div>* Review of Time of Transfer (TOT) Inspection Reports for Private On-site Water Treatment Systems</div><div>* Private Well inspections for New and Abandoned Wells throughout the County</div><d"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Inspection Services",
+      "isEnabled": 1,
+      "content": "<div>Fire Department Services for unincorporated Polk County are served mostly by volunteer Township Fire Departments. The two main active Township Fire Departments are Saylor and Delaware. The <u>Polk County Building Department</u> performs plan reviews, inspections and issues permits for Fire Protection Systems and Fire Code related items. Polk County has adopted the 2021 International Fire Code with amendments per Polk County Construction Code Chapter 20 (<a href=\"http://chrome-extension%3A//"
+    },
+    {
+      "id": "1084",
+      "name": "Planning & Zoning ",
+      "isEnabled": 1,
+      "content": "<div><a data-uw-original-href=\"https://www.polkcountyiowa.gov/public-works/planning-development/planning-zoning-services/\" data-uw-rm-brl=\"PR\" href=\"https://www.polkcountyiowa.gov/public-works/planning-development/planning-zoning-services/\" style=\"box-sizing: border-box; color: rgb(0, 123, 255); text-decoration: none; background-color: transparent;\" target=\"_blank\" title=\"Planning Services\">Planning &amp; Zoning Services</a><a href=\"https://www.polkcountyiowa.gov/public-works/planning-developmen"
+    },
+    {
+      "id": "1076",
+      "name": "Report A Problem",
+      "isEnabled": 1,
+      "content": "<div>Please use this form to report the following:</div><div><br></div><div>Dead Deer</div><div>Drainage Repair</div><div>Flashing Beacon Repair</div><div><br></div><div>Intersection Light Repair</div><div>Junk in Ditch</div><div>Mailbox Repair (due to snow removal only)</div><div>New Road Sign Installation</div><div>Pot Hole</div><div>Roadway Mowing</div><div>Roadway Repair</div><div>Snow Removal - (Allow for 24 hours after it stops snowing for all the roads to be clear)</div><div>Traffic Sign "
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:08.588Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,397 @@
+{
+  "jurisdiction": "Smyrna",
+  "state": "GA",
+  "tenant": "smyrnaga",
+  "portalUrl": "https://smyrnaga.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6485",
+      "name": "Fire Marshal - Fire/Safety System Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Complete this application for Fire Sprinklers, Alarms, Kitchen Ventilation Control/Hoods and Suppression Systems, Emergency Responder Radio Communication System (ERRCS), Fuel Tanks, Spray Booths, and other engineered systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Home Business Occupation Tax Certificate",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Home Business Occupation Tax Certificate is required for anyone, without a commercial location, that uses their residence as an office only to conduct business.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Utility Permit",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Contact Assistant Director Paul Osburn at 678-631-5454 or at pwpermits@smyrnaga.gov with any questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Film Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Film permits are issued by the Economic Development Department for all productions which exceed ten (10) on-location crew members and three (3) on-location vehicles on public and private properties within City limits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Residential Building Permit",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Residential Building Permits are required for New Construction, Accessory Structures, Building Additions, Decks/Porches (including replacements), Interior Renovations, Solar Panels & Generators, Roof Replacements, Window Replacements, and projects involving two (2) or more licensed trades. Other permits may be required based on the scope of work. Contact Community Development at 678-631-5387 with questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Sign Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Sign Permits are required for new monument signs, wall signs, subdivision directional signs, face changes to existing signs, and temporary signage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Tree Removal Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Tree Removal Permits are required to remove any tree with a diameter breast height (dbh) of 24 inches or greater on properties with no development activity. Contact the City Arborist for more details: 678-631-5362.",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Irrigation Meter",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Property owners may apply for a separate irrigation meter to be billed by the Water Department. Meters must be installed in accordance with the City of Smyrna \"Irrigation Backflow Standards\". Total fees: $1,765 (Irrigation Meter Fee- $1,700; Meter Permit Fee- $50; Technology Fee- $15).",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Fire Marshal - Fire/Safety System Permit for Limited Work",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Any time work is done to a fire protection system in Smyrna, a limited work permit must be issued. These permits are free of charge (applicant responsible for $15 technology fee,) and only require a scope of work letter to obtain. All applications must be made through OpenGov.\n\nThe scope of work letter shall include the project name, address, anticipated start and completion dates, project scope of work, number of sprinkler heads, and a statement indicating there will be no adverse hydraulic effects on the system’s remote area or demand.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Commercial Business Occupation Tax Certificate",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Commercial Business Occupation Tax Certificate is required for any business located in a commercial space within the city limits of Smyrna. The Business Occupation Tax Certificate must be issued prior to opening the business.\n—\nIf the business plans to sell alcohol, an Alcoholic Beverage License application must also be submitted.",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Fire Marshal - Commodity Protection Assessment and Arrangement Plan",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Tenants/Owners for all Storage Occupancies and Storage use areas must submit a Storage Commodity Description Letter, as well as Commodity Arrangement Plans as documents on the following screen.  Additional items will be required where the building or space is protected with a fire sprinkler system.  The applicable sections for sprinklered buildings are found in the Commodity Protection Assessment and Arrangement Plan Review Checklist that can be found on our website.\n\nIt is important to provide accurate information for the proposed commodities and the arrangement of the storage to apply the most appropriate provisions of the fire codes.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Water Meter Request",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "All new single-family homes require a 1\" domestic water meter to be purchased and installed prior to Certificate of Occupancy. All other meters can also be requested. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Tree Assessment Report",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Tree Assessment Reports can be requested to identify the condition of a tree and make suggestions for mitigating any issues the tree may have. Contact the City Arborist for more details: 678-631-5362.",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Variance Application",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "All requests for a variance from the terms of the Zoning Code relating to setbacks, distance requirements between buildings or other substantially similar dimensional regulations, parking, or accessory structures, except when requested as part of a rezoning, shall be heard by the License and Variance Board as established by city ordinance. \n\nThe City of Smyrna License and Variance Board meets on the 2nd and 4th Wednesday of each month.  Hearings begin at 10:00am in the Council Chambers in City Hall at 2800 King St SE. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Commercial Building Permit ",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Commercial Building Permits are required for New Construction, Accessory Structures, Building Additions, Interior Renovations/Tenant Finishes, White Boxes, Racking Systems, Solar Panels & Generators, Cell Tower Colocations, Temporary Modular Buildings, Roof Replacements, and projects involving two (2) or more licensed trades. Other permits may be required based on the scope of work. Contact Community Development at 678-631-5387 with questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Fire Marshal - Knox Box Key Installation/Update Request",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Complete this request and a member of the Smyrna Fire Department will arrange to secure the keys in your new box or update the keys in your existing box.",
+      "isEnabled": true
+    },
+    {
+      "id": "6355",
+      "name": "Fire Marshal - Blasting Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Fire Marshal - Fire Safety System Removal Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "This permit, when approved, allows for the removal an existing fire safety system. Any fire safety system required by the State of Georgia's minimum standards and/or an approved automatic fire sprinkler system that is required by City of Smyrna ordinance shall not be removed.\n\nThis permit to remove a Fire Safety System shall include a letter that contains the project name, the commercial building permit number, the address, the fire safety system type requested to be removed, and a supporting narrative which defines the request.\n\nNote: If approved, there will be no fee if there is either a Commercial Building Permit or a Commercial Building Permit associated with this application (The applicant will be responsible for $15 technology fee). All applications must be made through OpenGov.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Demolition Permit",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Residential and Commercial Demolition Permits are required for Full & Partial Structural Demo, Interior-Only Demo, and Pool Demo/Infilling. Contact Community Development at 678-631-5387 with questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Pawnbroker Occupation Tax Certificate",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Pawnbroker Occupation Tax Certificates are issued to any business wherein a well-defined part thereof is to take or receive–by way of pledge, pawn, or exchange–any goods, wares, merchandise, titles for vehicles, or any kind of personal property whatsoever as security for the repayment of money lent thereon.",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Rezoning Application",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Rezoning applications are due Friday by 4:00pm, 30 days prior to the Planning and Zoning Board meeting.  A copy of the rezoning package can be downloaded from the Community Development Section of the City Website. Appointments are suggested with Community Development before submittal.  Please call Joey Staubes at 678-631-5355 to schedule an appointment.  \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Special Land Use Application ",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Rezoning applications are due Friday by 4:00pm, 30 days prior to the Planning and Zoning Board meeting.  A copy of the rezoning package can be downloaded from the Community Development Section of the City Website. Appointments are suggested with Community Development before submittal.  Please call Joey Staubes at 678-631-5355 to schedule an appointment.  \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Land Disturbance Permit",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "All land-disturbing activity must be regulated via the issuance of a Land Disturbance Permit. Land-disturbing activity includes, but is not limited to: Tree/Vegetation Removal, Clearing, Grubbing, Stripping, Dredging, Excavation, Reclamation/Infilling, Paving, etc. Contact Community Development at 678-631-5387 with questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Precious Metals Dealer Certificate",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Precious Metals Dealer Certificate application must be completed by any business planning to buy or sell precious metals (e.g., gold, silver, etc.).\n—\nA Precious Metals Dealer business operating in Smyrna must have a current City of Smyrna Occupation Tax Certificate and a Precious Metals Dealer Certificate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Fire Marshal - Burn Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Fire Marshal - Consumer Fireworks Use Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Mobile Food Vendor Occupation Tax Certificate",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "This application should be completed for the following: 1) Ice Cream Trucks; 2) Mobile Food Vendors; 3) Pushcarts; 4) Temporary Food Establishments.",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Pool Permit",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Residential and Commercial Pool Permits are required for new inground and above-ground pools and spas. Contact Community Development at 678-631-5387 with questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Zoning Amendment Application ",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Rezoning applications are due Friday by 4:00pm, 30 days prior to the Planning and Zoning Board meeting.  A copy of the rezoning package can be downloaded from the Community Development Section of the City Website. Appointments are suggested with Community Development before submittal.  Please call Joey Staubes at 678-631-5355 to schedule an appointment.  \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Retaining/Detention Wall Permit",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Residential and Commercial Retaining Wall Permits are required for walls (including wall replacements) that are taller than four (4) feet when measured from the bottom of the footing to the top of the wall. Retaining walls that support a surcharge load or classified liquids must also be permitted, regardless of height. Contact Community Development at 678-631-5387 with questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Zoning Verification Letter",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Zoning Verification letters are $30 per parcel. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Short-Term Rental License",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Every property with a short-term rental unit operating in Smyrna must have a current City of Smyrna Occupation Tax Certificate and Short-Term Rental License. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Temporary Sales Certificate",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Temporary Sales Certificate is required for any person who sells, or offers to sell, any goods, wares, merchandise, or services from any truck, tent, temporary structure, or temporary location.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Electrical Permit (Standalone)",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Electrical Permits are required for standalone electrical work that is NOT part of an active Building Permit. Contact Community Development at 678-631-5387 with questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Fire Marshal - Public Fireworks Display Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Plat Approval",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Plats are required for any subdivisions, after installation of any water quality, and/or reconfiguring land lot lines. Plats must be submitted, approved, and signed by City of Smyrna staff prior to being recorded with the Cobb County Superior Court.",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Annexation Application ",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Please contact Community Development at 678-631-5355 to confirm your property is eligible for annexation before submitting an application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Fire Marshal - Tent, Membrane or Special Event Structure Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Out of Local Area - Commercial Business Occupation Tax Certificate",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "The Out of Local Area - Commercial Business Occupation Tax Certificate is for those companies wishing to do business in the City of Smyrna that do not have a physical location in the area.",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "HVAC Permit (Standalone)",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "HVAC Permits are required for standalone mechanical work that is NOT part of an active Building Permit. Contact Community Development at 678-631-5387 with questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Plumbing Permit (Standalone)",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Plumbing Permits are required for standalone plumbing work that is NOT part of an active Building Permit. Contact Community Development at 678-631-5387 with questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Accessory Parking Registration",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "The City of Smyrna requires the registration of accessory parking areas for Special Events and Braves parking. All that is needed to register your parking area is the completion of a quick registration form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Alcoholic Beverage License",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "An Alcoholic Beverage License application must be completed by any business planning to sell alcohol.  Agent changes for the business also require an application.\n—\nFor new businesses, a Commercial Business Occupation Tax Certificate application must also be completed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Special Event Alcohol Catering Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Special Event Alcohol Catering Permit is required for anyone who desires to sell or serve alcoholic beverages temporarily (no more than three consecutive days during the term of the license) for consumption on non-licensed premises during a special event.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1084",
+      "name": "Building & Trade Permits",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 16px;\">City of Smyrna Community Development</span></strong></p><p style=\"text-align: center;\"><span style=\"font-size: 16px;\">678-631-5387 &nbsp;&bull; &nbsp;3180 Atlanta Rd SE, Smyrna, GA 30080</span></p><p style=\"text-align: center;\"><a href=\"https://www.smyrnaga.gov/departments/departments/community-development-economic-development/staff-directory/-sortn-STitle/-sortd-asc\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"colo"
+    },
+    {
+      "id": "1081",
+      "name": "Business Licensing",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 16px;\">City of Smyrna Community Development</span></strong></p><p style=\"text-align: center;\"><strong>Business License Coordinator<strong><span style=\"font-size: 16px;\">&nbsp; &bull; &nbsp;<strong>Rahel Turner<strong><strong><span style=\"font-size: 16px;\">&nbsp; &bull; &nbsp;<span style=\"font-size: 16px;\"><strong>678-631-5363</strong></span></span></strong></strong></strong></span></strong></strong></p><p style=\"text-align: center;\">"
+    },
+    {
+      "id": "1085",
+      "name": "Planning & Zoning",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 16px;\">City of Smyrna Community Development</span></strong></p><p style=\"text-align: center;\"><span style=\"font-size: 16px;\">678-631-5387 &nbsp;&bull; &nbsp;3180 Atlanta Rd SE, Smyrna, GA 30080</span></p><p style=\"text-align: center;\"><a href=\"https://www.smyrnaga.gov/departments/departments/community-development-economic-development/staff-directory/-sortn-STitle/-sortd-asc\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"colo"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Marshal",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 16px;\">City of Smyrna Fire Department</span></strong><br><strong><span style=\"font-size: 16px;\">Bureau of Fire Prevention</span></strong></p><p style=\"text-align: center;\"><span style=\"font-size: 16px;\">678-631-5372 &bull; 3180 Atlanta Rd SE, Smyrna, GA 30080</span></p><p style=\"text-align: center;\"><a href=\"https://www.smyrnaga.gov/your-city/public-safety/fire-department/chief-s-office/about-fire-dept/staff-directory\" rel=\"noopener "
+    },
+    {
+      "id": "1082",
+      "name": "Public Works and Water & Sewer",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 16px;\">City of Smyrna Public Works</span></strong></p><p style=\"text-align: center;\"><span style=\"font-size: 16px;\">770-431-2850 &nbsp;&bull; &nbsp;2190 Atlanta Rd SE, Smyrna, GA 30080</span></p><p style=\"text-align: center;\"><a href=\"https://www.smyrnaga.gov/departments/departments/public-works/staff-directory/-sortn-STitle/-sortd-asc\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"color: rgb(44, 130, 201);\"><span style=\"fon"
+    },
+    {
+      "id": "1083",
+      "name": "Economic Development",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 16px;\">City of Smyrna Economic Development</span></strong></p><p style=\"text-align: center;\"><span style=\"font-size: 16px;\">678-631-5348&nbsp; &bull; &nbsp;3180 Atlanta Rd SE, Smyrna, GA 30080</span></p><p style=\"text-align: center;\"><a href=\"https://www.smyrnaga.gov/departments/departments/community-development-economic-development/staff-directory/-sortn-STitle/-sortd-asc\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"color"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:51.594Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

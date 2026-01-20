@@ -1,0 +1,427 @@
+{
+  "jurisdiction": "Fairfield",
+  "state": "OH",
+  "tenant": "fairfieldoh",
+  "portalUrl": "https://fairfieldoh.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6371",
+      "name": "Electrical Contractor Registration",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Contractor registration and renewal in order to perform work",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Contact",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "This record type is used to enter general contacts such as Architects, Engineers, Designers, Surveyors and so on.  Please enter your information into the form if you want to add yourself to a permit as the contractor.",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Accessory Building - Residential",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Permits for accessory buildings, garages, sheds over 150sf. THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Accessory Building - Commercial",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Accessory Building - Zoning Certificate ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Any shed or accessory structure 150sf or less must obtain a no-cost zoning certificate. THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Building Permit - Commercial",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "New construction, building additions, remodeling. THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "HVAC Contractor Registration",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Contractor registration and renewal in order to perform work",
+      "isEnabled": true
+    },
+    {
+      "id": "6554",
+      "name": "Cell Tower",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Permits for cell towers and equipment. THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Sign Erector License",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Sign Erector license and renewal in order to perform work",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Change of Occupancy",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Permit for opening a new business in an existing building.  A floor plan is required to be submitted upon application. THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Building Permit - Residential",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "New home construction, building additions, remodeling. THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Deck - Residential",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Deck - Commercial ",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6605",
+      "name": "Zoning Verification Letter Request",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Demolition - Commercial ",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Permits for the demolition of commercial buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Demolition - Residential",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Permits for house demolition.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Driveway/Apron - Zoning Certificate ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This application is for the widening of a driveway, apron/sidewalk replacements, and curb cuts. A site map showing where the work is to be done and the dimensions is required. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Electrical - Commercial",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Fence - Commercial",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6603",
+      "name": "Apron/Curb - Commercial",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "This application is for existing apron areas and/or curbs only for commercial properties. A site map showing where the work is to be done and the dimensions is required. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Fire Alarm",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Electrical - Residential",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Fence - Residential",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This permit is for fences over 4ft tall ONLY. The tallest fencing allowed in the City of Fairfield is 6ft. \n\nTHIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Fire Suppression Hood",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Fire Suppression Sprinkler",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Fire suppression sprinklers and underground fire lines",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Fence - Zoning Certificate ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This no cost Fence - Zoning Certificate is required for fences 4ft tall or less in height. \n\nFor fences over 4ft in height, please go back and fill out a \"Fence - Residential\" permit application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6586",
+      "name": "Flagpole - Zoning Certificate",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Gas Piping - Commercial",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "HVAC - Commercial",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Gas Piping - Residential",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6557",
+      "name": "HVAC Kitchen Hood- Commercial ",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "This permit requires the applicant to have an HVAC registration.",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "HVAC - Residential",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Handicap Ramp/Stairlift (Metal) - Zoning Certificate",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6584",
+      "name": "Phased Approval - Residential",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Paint / Spray Booth",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Pool - Residential",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6583",
+      "name": "Phased Approval - Commercial",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6580",
+      "name": "Retaining Wall - Residential",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Pool - Commercial",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Promotional Tent",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Flame Retardant Certificate is required to be submitted upon application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Roofing - Residential",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Refrigeration / Boiler",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6590",
+      "name": "Solar Panels - Residential ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6581",
+      "name": "Retaining Wall - Commercial",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Roofing - Commercial",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Sign - Grand Opening",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Permit for temporary Grand Opening Signage. THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Sign - Permanent",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "This permit requires application by a sign contractor that has been licensed with the City of Fairfield. THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Sign - Promotional",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Permit for temporary Special Event Signs, Flutter Flags, and Promotional Banners. THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6591",
+      "name": "Solar Panel - Commercial",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "THIS PERMIT TYPE REQUIRES ZONING REVIEW AND APPROVAL. PLAN REVIEW WILL BEGIN AFTER ZONING IS APPROVED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6592",
+      "name": "Storage Racking - Commercial",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Tanks",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Permit for aboveground/underground storage tanks.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1079",
+      "name": "Building Department - Residential Permits",
+      "isEnabled": 1,
+      "content": "<div class=\"fr-view\"><p><span class=\"subhead1\"><strong><span style=\"color: rgb(3, 64, 86);\">Responsibilities</span></strong></span></p><p>The Building and Zoning Division protects residents&rsquo; health, safety and welfare as they relate to new construction, additions, remodeling and existing buildings.</p><p>The City of Fairfield enforces building codes, along with other adopted zoning and property maintenance codes, to protect you by making sure the building is constructed properly, that the "
+    },
+    {
+      "id": "1089",
+      "name": "Building Department - Commercial Permits",
+      "isEnabled": 1,
+      "content": "<div style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><div><strong style=\"font-weight: 700;\"><"
+    },
+    {
+      "id": "1088",
+      "name": "Contractor Registration",
+      "isEnabled": 1,
+      "content": "<div class=\"inner col col24 first last id0c735e66-89a9-4d74-9461-76257f3a54ed\" data-widgetcontainerid=\"0c735e66-89a9-4d74-9461-76257f3a54ed\" style=\"height: 921px; min-height: 0px;\"><div class=\"widget editor pageStyles wide\" data-elementqueryclasses='{\"wide-narrow\":\"min-width:25em\"}' id=\"divEditorc6f864e9-986d-41d7-a8cb-dc582403ac16\"><div class=\"fr-view\"><h2 class=\"subhead1 \"><span style=\"color: rgb(3, 64, 86);\">Overview</span><img class=\"fr-dii fr-fir\" src=\"https://www.fairfield-city.org/ImageRe"
+    },
+    {
+      "id": "1080",
+      "name": "Development Services",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: in"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:29.582Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

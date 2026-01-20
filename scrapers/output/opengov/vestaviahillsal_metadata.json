@@ -1,0 +1,568 @@
+{
+  "jurisdiction": "Vestavia Hills",
+  "state": "AL",
+  "tenant": "vestaviahillsal",
+  "portalUrl": "https://vestaviahillsal.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6482",
+      "name": "Annexation Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Annexation application is used to apply for annexation into the City of Vestavia Hills.  Information concerning annexation maybe obtained in the help section preceding this application along with an owner affidavit authorizing the annexation of this property.  Please ensure that these documents have been reviewed and the owner's affidavit completed and notarized prior to applying for annexation as this annexation petition cannot be processed without that affidavit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Conditional Use Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Conditional Use Application is for requesting uses that aren't permitted by right in a zoning classification.  This application must be filled out in it's entirety and filed simultaneously with a notarized owner's affidavit (blank owner's affidavit is found on the home sheet).  Failure to submit all needed information and the owner's affidavit may result in a delay of scheduling this request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "CoLocated Small Cell Facility Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This application shall be used for small cell facilities to be colocated on an existing utility pole.  If a new pole is desired, please use the application for new pole facility.",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Employee Onboarding",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Driveway Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Driveway permits are required for all new driveways, repairs/resurfacing of existing driveways, and driveway spanners that connect to a City roadway.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Blasting Permit ",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Permit for Blasting activity within Vestavia Hills ",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Design Review Board Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Design Review Board meets the 1st Thursday of every month in the Executive Conference Room of City Hall.  Deadline for Application before this Board are 15 days prior to the hearing.  Be sure to submit the correct application for your request and all other information as required by the Vestavia Hills Zoning Code, Subdivision Regulations, etc.  Please note, this application date is prescribed by law and cannot be amended by staff. There are no exceptions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Cell Tower Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This cell tower permit application is required when installing or modifying any cell tower equipment, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Fire Alarm Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This permit is required when installing or altering any portion of a fire alarm system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Commercial Building Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This commercial permit application is used for who intends to construct, enlarge, alter, repair, renovate, move, demolish or change the occupancy of the commercial building or structure.  Architects, Engineers and Designers that want to start the review process before a contractor is chosen for the project are required to submit a Plan Review Application listed below.",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Land Disturbance Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Land Disturbance Permits are required for any construction activity that results in soil disturbance of 500 sf or greater.\n\nProjects that involve residential buildings, additions, renovations, retaining walls, decks, etc. should complete a Residential Building Permit application only.  The Land Disturbance record type is specifically for commercial construction, subdivisions and/or projects needing a stand-alone Land Disturbance Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "New Support Small Cell Facility Application ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This application shall be used for small cell facilities to be colocated on an existing utility pole.  If a new pole is desired, please use the application for new pole facility.",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "License Agreement",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "License agreement for permanent private improvements within public right-of-ways, alleys, and other public property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Fire Department  Special Event Request ",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This workflow is used to request a fire station tour or an on-site public relations event.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "VH Civic Center Rental",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This contract is to be utilized for Vestavia Hills Civic Center facility/room rentals.",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Contractor License",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Any home builder, general contractor, contractor or sub-contractor must obtain a City contractor license to conduct business within the City of Vestavia Hills. Please review each license type that best describes the type of license you need. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Final Plat Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Planning and Zoning Commission meets the 2nd Thursday of every month.\nApplication dates vary and must be received in the Office on or before these dates. Be sure to\nsubmit the correct application for your request. Please note, these application dates are\nprescribed by law and cannot be amended by staff. There are no exceptions. Application\ndeadlines are outlined as follows:\n\nFinal Plat Approval Requests – 15 days prior to the meeting ",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Preliminary Plat Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Planning and Zoning Commission meets the 2nd Thursday of every month.\nApplication dates vary and must be received in the Office on or before these dates. Be sure to\nsubmit the correct application for your request. Please note, these application dates are\nprescribed by law and cannot be amended by staff. There are no exceptions. Application\ndeadlines are outlined as follows:\n\nPreliminary Plat Approval Requests – 20 days prior to the meeting ",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Fire Hood Suppression Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This permit is required when installing or altering any portion of a commercial kitchen hood suppression system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliance, electrical services, etc. Also includes low voltage wiring, including cable TV, internet, phones, security alarm systems, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "VH Facility Use Approval – VHCS",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This agreement is to be utilized for the reservation of Vestavia Hills facilities by Vestavia Hills City Schools and related entities.",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Post Construction Stormwater Submittal",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "All development sites or re-development sites that result in total soil disturbance of one or more acres must be designed to have permanent stormwater control structures in place and those structural controls must be properly maintained. (City of Vestavia Hills Ordinance Number 2771).  \n\nPost-construction stormwater design is reviewed and approved as part of the Land Disturbance permitting process.\n\nFollowing construction, submittal to the City of a certified as-built of the stormwater management features and a letter of substantial compliance from the design engineer are required within 120 days of construction.\n\nAn annual inspection of all post-construction stormwater management features is required by the Developer or Owner and must be submitted to the City each year by September 30th.",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Garage Sale Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "A permit is required for all garage/yard sales in Vestavia Hills. The cost is $5 per participating household* and must be obtained prior to the sale. Upon approval by the Finance department, the applicant will receive an email to access the completed permit. The permit may be used on an alternate date in the event of bad weather. For more information, contact the Vestavia Hills Finance department during normal business hours at 205.978.0157.\n\n*If the permit is for a neighborhood garage sale, each location must be provided in the application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Municipal Assessment Letter",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Due to the magnitude of non-payment, the City has had to begin processing Municipal Assessment letters following payment.  Municipal Assessment letters are issued as soon as practical following receipt of payment at the rate of $10 per property.   Please make your request through the online portal.  You can make payment by mailing a check or paying online using a credit/debit card (includes a 3%  and surcharge and 90 cent transaction fee). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6528",
+      "name": "Public Works Bid Contract",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This contract is to be utilized for all Public Works projects estimated to be $100,000 or more.",
+      "isEnabled": true
+    },
+    {
+      "id": "6349",
+      "name": "Gas Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances.",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Fire Main Permit ",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This permit is required when installing or altering any portion of a fire main system",
+      "isEnabled": true
+    },
+    {
+      "id": "6367",
+      "name": "Rezoning Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Vestavia Hills Planning and Zoning Commission meets the second Thursday of ever month.  The deadline for application is 25 working days (5 weeks) prior to the meeting date.  It is strongly recommended that any intended development plans be discussed with the City Zoning Staff prior to submittal of any requests for rezoning at the risk that the development does not meet code and require rejection.  The Zoning Staff meets every Tuesday, 9 AM, in the Executive Conference Room, 1st Floor, City Hall.  There is no requirement for an appointment to attend. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Variance Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Board of Zoning Adjustment was established by the State of Alabama to grant variances from the Vestavia Hills Zoning Code in cases of undue hardship only.  The Vestavia Hills Zoning Ordinance allows for variances due to undue hardship as well as certain special exceptions.  Before applying, please ensure you have all applicable information.  The Vestavia Hills Zoning Staff meets every Tuesday morning at 9 AM in the Executive Conference Room of City Hall.  Applicants are encouraged to bring their information or contact Jack Wakefield (jwakefield@vhal.org) or phone 205.978.0101 prior to submittal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Fire Sprinkler Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This permit is required when installing or altering any portion of a fire sprinkler or fire standpipe system",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Irrigation Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required to install, enlarge, alter, do major repairs or remove a irrigation system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Public Record Request",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Pursuant to §36-12-40, Code of Alabama, 1975, inspection and copying of records, “Every citizen has a right to inspect and take a copy of any public writing of this state, except as otherwise expressly provided by statute.”  The fee schedule to obtain copies of records and/or to inspect records and the statement of general public records policy are incorporated within Ordinance Number 3179.  Please read carefully before submitting your records request or making inquiries.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Street Cutting Permit Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Street Cutting Permit is required to make any opening, cut or excavation in or under the surface of any street, alley, sidewalk, gutter, etc. within a City of Vestavia Hills' right-of-way.  This permit is applicable to all underground public and private utilities that are to be located, adjusted, repaired or relocated within those rights-of-way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6541",
+      "name": "Caterer Contract",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This contract is to be used for preferred caterers for the Vestavia HIlls Civic Center.  The contract's duration is for a period of one year (1 year) and must be renewed annually for catering services to the Center.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Traffic Calming Request",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Refer to City of Vestavia Hills' Traffic Calming Policy.  \n\nThe purpose of the Traffic Calming Policy for Residential Streets is to address safety concerns related to vehicular traffic in residential neighborhoods.  \n\nTo initiate a Traffic Calming Request, a resident who lives on the street of concern completes a Traffic Calming Request Form.  If the street is located in a neighborhood with an active Homeowner's Association (HOA), the Form should be completed by a representative of the HOA Board.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Special Exception Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Board of Zoning Adjustment was established by the State of Alabama to grant variances and special exceptions from the Vestavia Hills Zoning Code. Before applying, please ensure you have all applicable information.  The Vestavia Hills Zoning Staff meets every Tuesday morning at 9 AM in the Executive Conference Room of City Hall.  Applicants are encouraged to bring their information or contact Jack Wakefield (jwakefield@vhal.org) or phone 205.978.0101 prior to submittal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Solicitation Permit Registration",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Door to Door solicitation in the City is allowed pursuant to Ordinance Number 2418 only after a vendor obtains a business license for solicitation and a permit from the City Clerk's office.  Before beginning this registration, please ensure that you have the following items ready to upload:  (1) Copy of a current Vestavia Hills Business license for solicitation (not an application, this needs to be the license); (2) Documentation that you, the applicant, is personally authorized to solicit for the organization/business (must be on company letterhead and name the applicant by name); A copy of a government issued identification I.E. driver license; a passport head/shoulder recent photograph of the applicant.  These must be uploaded at the time of application of your application cannot be processed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6354",
+      "name": "Mechanical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required to erect, install, enlarge, alter, do major repairs, remove, convert or replace a mechanical system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Mobile Food Truck Permit ",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This permit is required for the operation of a Mobile Food Preparation Vehicle within Vestavia Hills ",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Medical Gas Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime Medical Gas systems is being installed, altered, removed, replaced or repaired. This includes but is not limited to any Medical Gas systems, distribution piping, supply manifolds, connections, regulators, valves, alarms, sensors and associated equipment. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Utility Land Disturbance Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Utility Permits are required when a public utility is installing a new public underground utility line or extending an existing public underground utility line that exceeds 1,000 linear feet in accordance with Ordinance 2987 entitled Erosion and Sediment Control Ordinance.\n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Vacation of Easement",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Vacation of a recorded easement can only be accomplished by way of the Vestavia Hills City Council.  This also requires that a public hearing be held to determine the viability of the vacation. These procedures cannot be circumvented.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Vacation of Public Right-of-Way",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Vacation of right-of-way is regulated by the Code of the State of Alabama (23-4-20, Code of Alabama, 1975) and certain procedures must be followed.  The State of Alabama (11-49-6, Code of Alabama, 1975) also requires that a public hearing be held to determine the price for payment of area, should the vacation be approved. These procedures cannot be circumvented.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Noise Waiver Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This waiver permit is for construction activity to be approved outside of the allowable time frame of 7am to 10pm Monday-Friday. This application is also required for construction activity on Saturday. If you wish to submit a permit request for non-construction events, i.e. block party or other community event, submit an Event Request at https://vestaviahillsal.portal.opengov.com/categories/1086/record-types/6517. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Permit Extension Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit extension application is for permits that have expired but are not complete. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Zoning Certification",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Certifications for zoning can only be provided if the City Council has adopted an Ordinance to rezone said property.  The cost of providing a zoning certification is $35.00 which would include a statement of zoning, a copy of the Ordinance rezoning the property and a table of permittable uses.  If there is no Ordinance rezoning said property, a zoning certification cannot be provided by the City.",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Event Request",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "An event permit is required prior to hosting a block party or other community event in the City of Vestavia Hills. This also includes large events, such as weddings, showers or estate sales, that may require significant on- or off-street parking. There is no charge for an event permit. If you are unsure whether or not your event requires a permit, contact City Administration at administration@vhal.org or 205.978.0152.",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Holiday Parade & Party in the Park",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This record type is for use by those who wish to participate/enter a float in the holiday parade and/or be a participating sponsor for the Party in the Park following the parade.",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Permit Fee Waiver Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit fee waiver application is for requesting permit fees to be waived by the city manager for non-profit organizations and city schools.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Plan Review Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for Architects, Engineers and Designers that want to start the review process before a contractor is chosen for the project.",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Professional Engineering Services Agreement",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Agreement with the City of Vestavia Hills for Professional Engineering Services",
+      "isEnabled": true
+    },
+    {
+      "id": "6353",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime plumbing is being installed, altered, removed, replaced or repaired. This includes but is not limited to any plumbing fixtures such as water and drainage lines, water service, water heater, backflow preventer, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Portable Storage Unit/Dumpster Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when a Portable Storage Unit/POD is placed at a home for storage of household items, inventory, temporary storage of items necessary for office use or personal property for a limited period of time. This permit is also required for construction dumpsters used by general or subcontractors for temporary storage of item necessary for construction or renovation of a residence. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Public Works Construction Contract $100,000 or Less",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This contract is to be utilized for all Public Works projects estimated to be $100,000 or less. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "VHCC Employee After Hours Acknowledgement",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This employee acknowledgement is required, along with a Civic Center membership, for City staff to access the facility outside of regular business hours.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Residential Building Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This residential building permit application is used for new construction, additions, renovations, alterations, window replacement, siding, fence, demolition, retaining walls, accessory structure, etc.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Roofing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This roofing permit application is required for re-roofing, repairs, alterations and modifications of a roof on an existing  building.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Sign Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Sign Permit Application. Use this form to apply for permanent sign permit, a temporary sign permit, or a non-profit charitable organization temporary sign permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6380",
+      "name": "Swimming Pool Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing a new swimming pool and performing renovations, addition, alterations, repairs or resurfacing an existing swimming pool and pool deck.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Tree Preservation Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit application is required for any person wishing to remove, relocate, destroy, or otherwise damage a Protected Tree under the provisions of city ordinance 2203.",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Tent Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Temporary structures that cover an area greater than 120 square feet (11.16 m2), including connecting areas or spaces with a common means of egress or entrance that are used or intended to be used for the gathering together of 10 or more persons, shall not be erected, operated or maintained for any purpose without obtaining a permit from the building official.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1079",
+      "name": "Annexation",
+      "isEnabled": 1,
+      "content": "<p><strong><u>NOTE: &nbsp;Annexation requests are suspended until after the upcoming Municipal Election and the seating of a new Council in November 2025.</u></strong>&nbsp; Annexation into the City of Vestavia Hills is at the sole discretion of the Vestavia Hills City Council by a petition of the owner or designated representative of the owner. Annexation information is available by clicking <a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/The_Annexation_Pr"
+    },
+    {
+      "id": "1071",
+      "name": "Building Safety",
+      "isEnabled": 1,
+      "content": "<p>Welcome to the Department of Building Safety permit selection page. Please view all permits options before making a selection. Detailed information is provided for each permit type and can be viewed before applying. If you have questions or need assistance, contact us at 205.978.0125, 205.978.0147 or <a href=\"mailto:inspections@vhal.org\" target=\"_blank\" title=\"mailto:inspections@vhal.org\">inspections@vhal.org</a>.</p>"
+    },
+    {
+      "id": "1085",
+      "name": "City Clerk",
+      "isEnabled": 1,
+      "content": "<p><strong>Assessment Letters: &nbsp;</strong>Due to high demand, costs of accounting and the high number of non-payments, the City has now <u>required</u> that all Municipal Assessment letters be prepared following the required payment of $10. Payments may be paid online with a credit or debit card with a 3% surcharge and a 90 cent transaction fee. Or, checks may be mailed to the City of Vestavia Hills at the address below or hand delivered for the sake of expediting receipt of the letter. Lett"
+    },
+    {
+      "id": "1082",
+      "name": "Engineering",
+      "isEnabled": 1
+    },
+    {
+      "id": "1083",
+      "name": "Finance",
+      "isEnabled": 1
+    },
+    {
+      "id": "1074",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p>The Vestavia Hills Fire Department Fire Marshal&#39;s office processes all permits related to fire protection systems, blasting and mobile food vendors. We may be contacted at 205.978.0218 or 205.978.0224 if you have any questions.</p>"
+    },
+    {
+      "id": "1091",
+      "name": "Human Resources",
+      "isEnabled": 1
+    },
+    {
+      "id": "1087",
+      "name": "Meeting Rooms & Event Spaces",
+      "isEnabled": 1
+    },
+    {
+      "id": "1086",
+      "name": "Miscellaneous",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Planning & Zoning",
+      "isEnabled": 1,
+      "content": "<p><strong>PLEASE NOTE: &nbsp;ALL REQUIRED FORMS AND DRAWINGS MUST BE SUPPLIED BY THE APPLICANT AT THE TIME OF APPLICATION AND RECEIVED PRIOR TO THE DEADLINE DATE. &nbsp;IF ALL INFORMATION IS NOT RECEIVED PRIOR TO THE DEADLINE DATE, YOUR APPLICATION WAS FILED INCORRECTLY AND WILL NOT BE PROCESSED. &nbsp;THESE DEADLINES ARE SET BY WAY OF ORDINANCE, THE STAFF DOES NOT HAVE FLEXIBILITY TO BEND THESE RULES.&nbsp;&nbsp;</strong>These forms are to file for various land development requests including r"
+    },
+    {
+      "id": "1081",
+      "name": "Small Cell",
+      "isEnabled": 1,
+      "content": "<p>New cellular 5G technology has been authorized by the Vestavia Hills City Council by adoption of Ordinance Number 2814-A with fees as set out in Ordinance Number 2815-A. &nbsp; Applications may be submitted online through the following links: &nbsp;Colocated Small Cell Facility Application (for nodes that are co-located on existing structures) and New Support Small Cell Facility Application (when a new support structure is requested). &nbsp;NOTE: &nbsp;New support structure require a public h"
+    },
+    {
+      "id": "1089",
+      "name": "Volunteer Opportunities, Boards and Commissions",
+      "isEnabled": 1,
+      "content": "<div>Board/Commission applications shall be open when vacancies occur on any of the following: Vestavia Hills Board of Education (annually in spring); Vestavia Hills Library Board (annually in the fall); and the Vestavia Hills Parks and Recreation Board (annually in the fall). Please note that if a link is not present, there is not a current vacancy on said Board/Commission.</div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:14.639Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

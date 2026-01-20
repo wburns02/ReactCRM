@@ -1,0 +1,432 @@
+{
+  "jurisdiction": "Sandy Springs",
+  "state": "GA",
+  "tenant": "sandyspringsga",
+  "portalUrl": "https://sandyspringsga.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6552",
+      "name": "Commercial Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Variance",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Variance is a request for relief from the provisions of the Development Code. Use this application to apply for a Stream Buffer Variance, Administrative Variance, Noise Variance, or General Variance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "Certified Building Inspector (CBI) Inspections",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Certified Building Inspector (CBI) Inspections are included as part of the City of Sandy Springs new Multifamily Rental Housing ordinance that consolidates all the requirements into a single ordinance to simplify the annual inspection process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Contact Registration",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6583",
+      "name": "Film Production Permit Application",
+      "categoryId": 1097,
+      "viewAccess": null,
+      "description": "Also includes Park Photography permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Residential Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Land Disturbance Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Zoning Map Amendment (Rezoning)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Zoning Map Amendment is a request to amend the Official Zoning Map from one zoning district to another, to change the boundaries of an existing zoning district, or to modify any existing condition of rezoning. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Right of Way Utility Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6606",
+      "name": "3. Adding a Guest to a Record",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to Add Contacts as Guests to any OpenGov Records. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Neighborhood Streetlight Program Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6588",
+      "name": "Public Assembly Permit Application",
+      "categoryId": 1097,
+      "viewAccess": null,
+      "description": "For all Public Assembly permits within the City of Sandy Springs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6586",
+      "name": "Special Event Permit Application",
+      "categoryId": 1097,
+      "viewAccess": null,
+      "description": "For all privatized special event and special event alcohol permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "4. Contact Registration",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "It is also recommended that all other contacts that are frequently used in permit applications (i.e. Design Professionals, Owners, Project Managers, Superintendents, etc.) also complete a Contact Registration.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Zoning Certification Letters",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Zoning Certification is a letter confirming the existing zoning for a property, usually for legal purposes, and will state the current zoning classification and a list of prior zoning cases.  The zoning certification letters are only provided for parcels within the City of Sandy Springs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6601",
+      "name": "Attics Inspections",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Attic inspections are included as part of the City of Sandy Springs new Multifamily Rental Housing ordinance that consolidates all the requirements into a single ordinance to simplify the annual inspection process. Attics Inspections are conducted by a Certified Building Inspector (CBI). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Pool Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Retaining Wall Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6611",
+      "name": "Mechanical Inspections",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Mechanical inspections are included as part of the City of Sandy Springs new Multifamily Rental Housing ordinance that consolidates all the requirements into a single ordinance to simplify the annual inspection process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6620",
+      "name": "5. User Login & Password Reset Guide",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "If you're having trouble signing into your OpenGov account, follow these steps to troubleshoot and resolve the issue.",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Character Area Map Amendment",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Comprehensive Plan Character Area Map Amendment is a request to amend the City's Comprehensive Plan.  This is required before a Zoning Map Amendment (Rezoning) where the proposed zoning is not allowed in the applicable Character Area.",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Vendor Verification",
+      "categoryId": 1097,
+      "viewAccess": null,
+      "description": "Food and Alcohol Vendors only at this time. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "6 City Development Code ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Use this document to determine design parameters such as setbacks, minimum lot dimensions, maximum building heights, maximum lot coverage, minimum canopy coverage, and more.",
+      "isEnabled": true
+    },
+    {
+      "id": "6612",
+      "name": "Electrical Inspections",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Electrical inspections are included as part of the City of Sandy Springs new Multifamily Rental Housing ordinance that consolidates all the requirements into a single ordinance to simplify the annual inspection process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Fence Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Mechanical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6613",
+      "name": "Plumbing Inspections",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Plumbing inspections are included as part of the City of Sandy Springs new Multifamily Rental Housing ordinance that consolidates all the requirements into a single ordinance to simplify the annual inspection process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6607",
+      "name": "7. City Technical Manual",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Use this document to research technical design requirements such as sidewalks, roadway design, water conservation, landscaping, buffer requirements, and more.",
+      "isEnabled": true
+    },
+    {
+      "id": "6541",
+      "name": "Plat Division",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A plat is a map, drawn to scale, showing the divisions of a piece of land.  When a property is divided into “subdivisions”, a review of the proposed divisions is required. The City of Sandy Springs has three types of plat review: a Preliminary Plan (concept) review, a Minor Plat (up to 3 lots), and a Final Plat (4 or more lots) review.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Use Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A request to change or expand an existing use identified as a conditional use in Article 3 through Article 7 or expressly requiring a conditional use permit elsewhere in this Development Code. Conditional use may not be used to allow additional height beyond the allocated district or beyond the maximum bonus height.",
+      "isEnabled": true
+    },
+    {
+      "id": "6615",
+      "name": "Quick Tip: How to Complete a Multifamily Rental Housing Inspection ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "8. Community Development GIS Map ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Determine your zoning district, plat info, nearby waterways, flood zone, topography & aerial imagery.",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6626",
+      "name": "City Certified Building Inspector (CBI) Inspections (FOR OFFICIAL CITY USE ONLY)",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Certified Building Inspector (CBI) Inspections are included as part of the City of Sandy Springs new Multifamily Rental Housing ordinance that consolidates all the requirements into a single ordinance to simplify the annual inspection process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6614",
+      "name": "New Tenant Occupancy",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Sign Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Address Change Request",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Property owners can request a change to their individual address through City staff review.  Any changes must still be in sequence and meet all of the City's addressing policies. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "River Corridor Review (MRPA)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Chattahoochee River Corridor is an area that contains any property within 2000 feet from the banks of the Chattahoochee River. The area extends from directly below Buford Dam downstream to the limits of Fulton and Douglas counties. Properties along the Chattahoochee River have an undisturbed 50-foot buffer from the banks of the river as determined by the State of Georgia. These properties also have an impervious surface setback of 150 feet from the banks of the river which prohibits the installation of pavers, gravel, concrete, structures, etc. These buffers are in place to protect state waters and to prevent erosion.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6592",
+      "name": "MRH Code Upgrade Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit type is exclusive to Multifamily Rental Housing (MRH) properties that are required to modify their structures to meet the current MRH ordinance.  This permit includes the following types of work:\n   - Attic Fire Barrier Installation\n   - Attic Intumescent Paint Installation\n   - Attic Fire Sprinkler System Installation\n   - Corridor Non-Combustible Siding Installation",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "City Project Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Tree Removal Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This Tree Removal Permit is for the removal of live trees.",
+      "isEnabled": true
+    },
+    {
+      "id": "6573",
+      "name": "DDH Tree Email Notification",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This Tree Removal Permit is for the removal of suspected Dead, Dying or Hazardous (DDH) trees.",
+      "isEnabled": true
+    },
+    {
+      "id": "6625",
+      "name": "Pool Permit *DO NOT USE - TESTING ONLY\"",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Construction Permits",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: left;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(41, 105, 176);\"><strong>Welcome to the City of Sandy Springs Construction Permits portal.</strong><strong><br></strong></span></span></span></p><p style=\"text-align: left;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(41, 105, 176);\">Here you can apply for, track, and manage your construction pe"
+    },
+    {
+      "id": "1086",
+      "name": "Tree Removal Permit",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><span style=\"color: rgb(41, 105, 176);\"><s"
+    },
+    {
+      "id": "1080",
+      "name": "Planning & Zoning Applications",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><span style=\"font-family: Arial, Helvetica,"
+    },
+    {
+      "id": "1097",
+      "name": "Special Event, Film Production, and Public Assembly Permits",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px; color: rgb(41, 105, 176);\"><strong>Welcome to the City of Sandy Springs Special Events portal.</strong></span></div><div><span style=\"color: rgb(41, 105, 176);\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 18px;\"><br></span></span></span></div><div><span style=\"color: rgb(41, 105, 176);\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 18px;\">Here you can "
+    },
+    {
+      "id": "1084",
+      "name": "Right of Way Permits",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><span style=\"color: rgb(41, 105, 176);\"><s"
+    },
+    {
+      "id": "1089",
+      "name": "Contact Registration",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(41, 105, 176); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><span style=\"font-family: Arial, Helve"
+    },
+    {
+      "id": "1087",
+      "name": "Neighborhood Streetlight Program",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><span style=\"color: rgb(41, 105, 176);\"><s"
+    },
+    {
+      "id": "1088",
+      "name": "Multifamily Rental Housing (MRH) Annual Inspections",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><span style=\"color: rgb(41, 105, 176);\"><sp"
+    },
+    {
+      "id": "1098",
+      "name": "Developers Meeting",
+      "isEnabled": 1,
+      "content": "<h2 style='box-sizing: inherit; margin: 1.7rem 0px 0.35rem; line-height: 1.333; font-family: \"Brauer Neue\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"; color: rgb(51, 89, 121); font-size: 2rem; font-weight: 400; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing"
+    },
+    {
+      "id": "1078",
+      "name": "Useful Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": "<div><span style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-colo"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:45.752Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

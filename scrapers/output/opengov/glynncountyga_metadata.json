@@ -1,0 +1,531 @@
+{
+  "jurisdiction": "Glynn County",
+  "state": "GA",
+  "tenant": "glynncountyga",
+  "portalUrl": "https://glynncountyga.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Final Plat",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The Final Plat provides the legal and technical data required to confirm compliance with Glynn County Regulations and to proceed with the final approval process for a subdivision.  The Final Plat shall consist of a map or maps, drawn at a scale of not less than one inch in one hundred feet. (Note:  References are to Article VII of the Glynn County Regulations - §709)(scale 1”=100’) ",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Abandonment",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Application to remove dedicated public interest on specific rights-of-way. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Zoning Letter",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This is a request for a zoning certification letter",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Land Disturbance",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Board of Appeals Variance",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Alcohol Beverage License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Home Occupation Tax Registration- In Home Business",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Foreclosure",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Solicitor Permit (Door-to-Door Sales)",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Event Permit",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Tax Refund",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Any taxpayer from whom a tax or license fee was collected who alleges that such tax or license fee was collected illegally or erroneously may file a claim for a refund with the Glynn County Board of Commissioners at any time within one year or, in the case of taxes, three years after the date of the payment of the tax or license fee to Glynn County. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Right-of-Way Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "Close Business ",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "This form should be completed when a business ceases operation in order to officially close the business and stop the assessment of annual Occupation Taxes.",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Tree Removal Request",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "St. Simons Island property owners Live Oak tree removal request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6566",
+      "name": "Reduced or Waived Fee Request Form",
+      "categoryId": 1092,
+      "viewAccess": null,
+      "description": "Fee waivers and reductions are considered for non-profit and community engagement events at county parks. Requests are subject to board approval. A representative must attend the Finance Committee meeting to speak on behalf of the request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6569",
+      "name": "NO SOLICITATION LIST",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Complete this form to be added to the No Solicitation List which prohibits door-to-door sales at the registered address. This list is provided to all applicants for a door-to-door solicitor applicants. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6576",
+      "name": "Fireworks Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Permit to Conduct Public Exhibition or Display of Fireworks and/or Fireworks or Pyrotechnics Exhibition or Display Before a Proximate Audience.",
+      "isEnabled": true
+    },
+    {
+      "id": "6577",
+      "name": "STR Certificate Application- Individual",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is for individual property owners who rent one or two locations.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6578",
+      "name": "STR Master Certificate Application- Property Managers",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is for individuals and companies who manage the rental process for three or more locations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6570",
+      "name": "Report an Issue",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6582",
+      "name": "Add/Remove Property from Master Certificate",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "Complete this form to add or remove a property from your MASTER CERTIFICATE. (This is not to be used for individual STR certificates)",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "PTV Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Personal Transportation Vehicle Registration Form",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Condemnation",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": " For a condemnation to be reviewed, there needs to be at least 5 Glynn County residents filing a complaint. Please add any additional applicants in the additional applicants section. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Residential Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6543",
+      "name": "Festival Permit",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Pool Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Plat Vacation",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Any plat or any part of any plat may be vacated by the owner of the premises, at any time before the sale of any lot therein by filing a written instrument to which a copy of such plat shall be attached, declaring the same to be vacated. Such an instrument shall be executed, acknowledged or approved, and recorded or filed, in like manner as plats or subdivision; and being duly recorded or filed shall operate to destroy the force and effect of the recording of the plat so vacated, and to divest all public rights in the streets, alleys, and public grounds, and all dedications laid out or described in such plat. Sec. 803 Subdivision Regulations",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Sign Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Residential Mobile Home Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Driveway Construction Permit Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Temporary Event Sign Permit ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Foundation Only ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Foundation only permits must be approved by The Glynn County Community Development Department before an application may be submitted. Please contact the Community Development Department at 912-554-7459 for more information. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Site Plan ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Special Use",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Demolition",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Conditional Use Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Village Preservation District",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Occupation Tax Registration- Commercial Location",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Comprehensive Plan Amendment",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Mechanical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Preliminary  Plat",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Residential Accessory Building",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Rezoning",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Application to amend or change the zoning classification of a property as depicted on the Official Zoning Map of Glynn County",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Shell Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Ordinance Text Amendment",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Temporary Sandwich Board Sign Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Temporary Inflatable Banner Permit ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Commercial Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Expedited Subdivision",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Applications for subdivisions or modification of a previously approved subdivision as set forth in Subdivision Regulations Article VIII",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Commercial Accessory Building ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6537",
+      "name": "Feather Banner Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A free-standing temporary sign typically constructed with a plastic or metal shaft driven in the ground and an attached pennant typically in the shape of a feather, teardrop or rectangle that is vertically elongated and attached to a shaft.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Promotional Banner Sign Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Tower",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Subdivision Construction Plans",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Application that typically follows approval of a preliminary plat of a subdivision to describe, in detail, any physical improvements related to streets, drainage, and utilities. \nIf the site is on septic, you must attach a Level 3 Soil Evaluation to this application and have applied for a commercial septic tank permit with the Department of Public Health.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1096",
+      "name": "Short Term Rental Registration",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">Apply for or renew a short-term rental certificate or master certificate. Step by step instructions can be found below.</span></div><div><br></div><div><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\"><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/INDIVIDUAL_STR_Certificate_Application_Instructions-_2026_Wed_Dec_31_2025_00:41:25_GMT+0000_(Coordinated_Uni"
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": "<p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Planning_Fee_Schedule_Mon_Mar_20_2023_19:04:20_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\">Planning Fee Schedule.pdf</a></p>"
+    },
+    {
+      "id": "1071",
+      "name": "Building Inspection Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1081",
+      "name": "Planning Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1084",
+      "name": "Code Enforcement",
+      "isEnabled": 1
+    },
+    {
+      "id": "1091",
+      "name": "Engineering Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1089",
+      "name": "Tree Removal Request",
+      "isEnabled": 1,
+      "content": "<div><em>St. Simons Island property owners Live Oak tree removal request.</em></div>"
+    },
+    {
+      "id": "1083",
+      "name": "PTV Permits",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Personal Transportation Vehicles (<span style=\"color: rgb(5, 5, 5); font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: pre-wrap; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-de"
+    },
+    {
+      "id": "1093",
+      "name": "No Solicitation List",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Georgia,serif;\">Complete this form to be added to the No Solicitation List which prohibits door-to-door sales at the registered address. This list is provided to all applicants for a door-to-door solicitor applicants.</span></div>"
+    },
+    {
+      "id": "1082",
+      "name": "Licensing (Business, Alcohol, Events)",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Georgia,serif;\">Apply here for licenses and permits including:</span></p><p><span style=\"font-family: Georgia,serif;\">Alcohol Licenses- new applications, changes and updates</span></p><p><span style=\"font-family: Georgia,serif;\">Solicitor Permits&nbsp;</span></p><p><span style=\"font-family: Georgia,serif;\">Business licenses/Occupation Tax registrations- new applications, &nbsp;changes and updates</span></p><p><span style=\"font-family: Georgia,serif;\">Event and Festiv"
+    },
+    {
+      "id": "1072",
+      "name": "Department of Public Works",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1085",
+      "name": "Tax Refund Request",
+      "isEnabled": 1,
+      "content": "<p><a class=\"fr-file\" href=\"https://www.glynncounty.org/DocumentCenter/View/60739/Refunds-of-Taxes-and-License-Fees-Fillable-Form\" rel=\"noopener noreferrer\" target=\"_blank\">Tax Refund Claim.pdf</a></p>"
+    },
+    {
+      "id": "1092",
+      "name": "Recreation & Parks",
+      "isEnabled": 1
+    },
+    {
+      "id": "1074",
+      "name": "Glynn County Fire Rescue",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:53.616Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

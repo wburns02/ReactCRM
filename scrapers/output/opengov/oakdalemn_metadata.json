@@ -1,0 +1,694 @@
+{
+  "jurisdiction": "Oakdale",
+  "state": "MN",
+  "tenant": "oakdalemn",
+  "portalUrl": "https://oakdalemn.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6766",
+      "name": "Cannabis Business Registration",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Use this application to register a cannabis retail business with the City. Applicants must have confirmed zoning compliance and have passed fire and building inspections prior to applying for a registration. Applicants MUST have a license from the Office of Cannabis Management prior to applying for a registration.",
+      "isEnabled": true
+    },
+    {
+      "id": "6780",
+      "name": "Charitable Gambling Local Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Use this to apply for a local permit for charitable gambling events.",
+      "isEnabled": true
+    },
+    {
+      "id": "6783",
+      "name": "Charitable Gambling Premises Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Use this to apply for a premises permit for charitable gambling. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Advisory Body Application Form",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Apply to serve on a City Council advisory body.",
+      "isEnabled": true
+    },
+    {
+      "id": "6617",
+      "name": "Right-of-Way Annual Registration",
+      "categoryId": 1091,
+      "viewAccess": null,
+      "description": "The City requires that utility work within the Right of Way (ROW) be performed by a company authorized as a public utility by the MN Public Utilities Commission (MPUC). Entities that own utilities/facilities that will remain in the ROW must complete a registration form annually.",
+      "isEnabled": true
+    },
+    {
+      "id": "6670",
+      "name": "Right-of-Way Permit",
+      "categoryId": 1091,
+      "viewAccess": null,
+      "description": "Apply for a permit to conduct work or place equipment in the public Right of Way. An equipment owner or contractor must first register with the City annually.",
+      "isEnabled": true
+    },
+    {
+      "id": "6729",
+      "name": "Aerial Fireworks Display Permit",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Use this application to apply for a permit for an aerial outdoor fireworks display. This must be completed by the fireworks operator at least 15 days prior to the date of display.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Keeping of Animals Application",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Use this form to apply for a permit to keep more than three dogs or cats, poultry/chickens, or the following types of animals on any lot or premises within the City: hoofed animals, small animals and birds of the orders Anseriforms and Galliformes, bees, wild or exotic animals.",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Christmas Tree Sales License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for a license to sell natural tress, or Christmas trees, during the holiday season in Oakdale.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Administrative Minor Subdivision",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application for minor subdivision of a parcel or parcels of property. Refer to City Code sections referenced for required submittal documents and subsequent process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Backflow Preventer Test Report ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "If your property has inground irrigation or is heated by a boiler, the City of Oakdale needs an annual backflow preventer test filed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Building Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A building permit is required for roofing, siding, windows, doors, new construction, remodeling, additions, garages, decks, porches, drain tile, retaining walls, and shed\n\nYou can also apply for a Certificate of Occupancy inspection with the building permit\n\nNOTE: Electrical, Mechanical and Plumbing permits are not included in Building Permits. You must also apply for those individual permits as applicable for your project.\n\nCity of Oakdale Building and Inspections Notice\n\nLead times for building permit application review and inspections for the City of Oakdale. \n•Permit issuance: 3 business days\n•Plan review: 10 business days\n•Request an inspection: 5 business days before inspection \n\nWe are committed to great customer service, and these amended timelines allow our staff to provide the best service possible during an increasingly busy time of year. Thanks in advance for your time and patience. \n\nIf you have questions, please call 651-739-5150.\n\nCERTIFICATE OF OCCUPANCY - apply here say change of use\n\nLocating property lines https://www.oakdalemn.gov/991/Locating-Property-Lines\nDECK  HANDOUT https://www.oakdalemn.gov/154/Informational-Handouts \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Comprehensive Plan Amendment (Map or Text)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application for map or text amendments to the Comprehensive Plan. Refer to City Code sections referenced for required submittal documents and subsequent process.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6618",
+      "name": "Open Burning Permit",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Use this form to apply for a permit to have an open burn.",
+      "isEnabled": true
+    },
+    {
+      "id": "6522",
+      "name": "Special Event Permit",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "Apply for a Special Event Permit to host an event in the City of Oakdale that meets applicable event criteria per City Code Chapter 14.",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Noise Variance Request",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "Use this application to request a variance to City Code Chapter 19: Noise to temporarily allow amplified sound.",
+      "isEnabled": true
+    },
+    {
+      "id": "6788",
+      "name": "Short-Term Rental Fire Inspection",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Please complete this form if directed by the Fire Marshal to initiate a fire inspection for a short-term rental property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6577",
+      "name": "Concept Plan",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application to request your concept plan to be heard by the City Council at a work session. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Conditional Use Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application for a conditional use permit. Refer to City Code Section 25-3-900 for required submittal documents and subsequent process.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Commercial Parking Lot Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A permit is required for commercial parking lot replacement/re-surfacing, expansion or seal coating. This application requires a civil plan and site plan.",
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "Keg Beer Permit",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "Keg beer may be brought into City of Oakdale parks with a permit and park shelter reservation. Application must be received 14 days prior to scheduled event.",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Block Party Permit/Night to Unite Application",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "Use this form to register your Night to Unite event or apply for a block party permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6717",
+      "name": "Encroachment Agreement",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application for an encroachment agreement involving structures located within the public Right-of-Way or City owned property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Property and Assessment Verification Request",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Submit a request for a property and special assessment verification. This request itemizes all outstanding balances that relate to a particular property within the City of Oakdale.",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Temporary On-Street Parking Request",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Use this form to apply for an exception to local ordinance restrictions related to winter parking, event parking, temporary parking, oversized vehicles, and weight restrictions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Fireworks Sales License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for fireworks sales license. If applying to sell fireworks in a tent, applicants must also complete a tent sales license application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Demolition Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A demolition permit is required for demolition of residential, commercial or garage structures. A lot survey is required to be submitted with the permit application.\n\nHow to find a Minnesota Licensed Asbestos Contractor or Consultant\nhttps://asbs.web.health.state.mn.us/search/find-contractor.jsf\n\nMPCA Asbestos foRms\nhttps://www.pca.state.mn.us/business-with-us/asbestos-in-demolition-or-renovations\n\nIf there are hazardous materials on site, please review the links below. You will need to download and complete the checklist. You will be prompted to upload the checklist in upcoming steps:\n\nPre-Renovation or Demolition Requirements\nhttps://www.pca.state.mn.us/sites/default/files/w-sw4-07.pdf\n\nBuilding Material Reuse and Recycling\nhttps://www.pca.state.mn.us/business-with-us/building-material-reuse-and-recycling\n\nChecklist https://www.pca.state.mn.us/sites/default/files/w-sw4-20.doc \n\nRequired Submittals: will be prompted to upload the following to this application \n1.\\tA site plan showing\na.\\tA north indictor\nb.\\tThe actual dimensions of the lot or lots drawn to a scale of 1\"=20' and drawn to the actual bearings of the lot(s)\nc.\\tThe actual location of all building or structures on the property in relation to the property lines.\nd.\\tThe actual location of the building(s) or structure(s) to be demolished.\n2.\\tProvide proof of cancelation of property insurance\n3.\\tA copy of a written release from all utility companies stating such utilities to the building or structure being demolished have been properly terminated. Please download the form that will be available after you submit your application. Then upload once signed before final inspection. \n4.\\tVerify SAC units are retained or credited to the property\n5.   Hazardous materials and Asbestos abetment IF APPLICABLE ",
+      "isEnabled": true
+    },
+    {
+      "id": "6770",
+      "name": "Environmental Review",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application for an environmental review if your project requires an Environmental Impact Statement (EIS), Environmental Assessment Worksheet (EAW), or Alternative Urban Areawide Review (AUAR). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Driveway Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A driveway permit is required for driveway replacement or expansion.\n\nLocating Property Lines https://www.oakdalemn.gov/991/Locating-Property-Lines",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Final Plat",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application for a final plat. Refer to City Code sections referenced for required submittal documents and subsequent process.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "Fireworks Sales Supplemental Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "The fireworks sales supplemental form must be completed by a license applicant’s spouse, officer of business, person in charge of premise or person controlling/owning five percent or more of interest in business.",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Utility Task Vehicle (UTV) Annual Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Apply for a permit to operate a Utility Task Vehicle (UTV) in Oakdale.",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Vacation Check",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Use this form to request Oakdale Police to check on your home while you are away.",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Garden Center/Tent Sales License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for a license to conduct garden center or retail tent sales. If planning to sell fireworks in a tent, applicants must also complete a fireworks sales license application.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Interim Use Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application for an interim use permit. Refer to City Code sections referenced for required submittal documents and subsequent process.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Electrical Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "An electrical permit is required for commercial and residential properties. Electrical work must be completed in compliance with the 2023 National Electrical Code (NEC).\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6575",
+      "name": "Minor Subdivision",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application for a minor subdivision. This form should also be used if it is for a lot split of a two-family dwelling. Refer to City Code sections referenced for required submittal documents and subsequent process.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Liquor Sales License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for liquor sales license or renewals. Please complete this application for all liquor licenses except for temporary sales.",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Planned Unit Development (PUD)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application for a Planned Unit Development (PUD). The purpose of a PUD is to improve the overall quality of a project through collaborative design. If there is a subdivision, an applicant must also follow requirements of a Preliminary and Final Plat process. Refer to City Code sections referenced for required submittal documents and subsequent process. A project initiation meeting with the City Planner is required prior to submitting an application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Fence Approval",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Zoning department approval is required for a fence erected in the City of Oakdale, per City Code (Chapter 25, Article 18, Section 25-318). Fences must be constructed according to the ordinance, and site plan must be included with the permit application. \n\nLocating property Lines https://www.oakdalemn.gov/991/Locating-Property-Lines ",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Fire Sprinkler/Alarm Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A permit is required for the alteration or installation of a fire sprinkler and/or alarm system. Contact the Oakdale Fire Department for more information.",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Planned Unit Development (PUD) Amendment",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application for a Planned Unit Development (PUD) Amendment. This requires approval by City Council. Refer to City Code sections referenced for required submittal documents and subsequent process.    ",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Preliminary Plat (Major Subdivision)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete the preliminary plat to subdivide a property. The preliminary plat drawing must conform to all Minnesota State laws and be consistent with the City’s Subdivision regulations, Comprehensive Plan and Zoning Code. Refer to City Code sections referenced for required submittal documents and subsequent process. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Site Plan",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "A site plan must be submitted and approved by City Council for development in certain districts before a building permit can be issued. Refer to City Code sections referenced for required submittal documents and subsequent process. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Grading/Filling Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A permit is required for grading or filling. Applicants must include the amount of fill required and submit a site plan detailing the area and scope of work at the time of application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Lawn Sprinkler/Irrigation Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A permit is required for lawn sprinkler or irrigation system installation. Applicants must include the type of installation and anti-siphon device.",
+      "isEnabled": true
+    },
+    {
+      "id": "6718",
+      "name": "Site Plan Amendment",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "An amendment to a previously approved Site Plan must be submitted to and approved by the City Council if proposed modifications to the subject property are not consistent with the originally approved Site Plan. This approval applies to development in certain zoning districts before a building permit can be issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Liquor Sales Supplemental Application ",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "The liquor sales supplemental form must be completed by a license applicant’s spouse, officer of business, person in charge of premise or person controlling/owning five percent or more of interest in business.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": " Rental Housing License ",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "The City issues licenses for all rental properties in Oakdale. The licensing term is January 1 through December 31. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Manufactured Home Installation Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A permit is required for new or reinstalled manufactured homes. Homeowners cannot install manufactured homes. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Massage Therapy or Bodywork License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for Massage and Bodywork Therapy license or renewals. Please use the same application to apply for either premise and/or practitioner license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Vacation of Property",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application for the vacation of street, alley or utility easement. Please refer to MN Statute 412.851 for requirements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Variance",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application to request a variance from ordinances. Refer to City Code sections referenced for required submittal documents and subsequent process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Mechanical Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A mechanical permit is required for residential or commercial mechanical projects including air conditioners, air exchangers, boilers (new or replacement), ductwork addition or remodel, fireplace installation or conversion, furnace installation or replacement, and gas piping.",
+      "isEnabled": true
+    },
+    {
+      "id": "6556",
+      "name": "Non Rental Property or Transfer of Ownership Certificate",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "The City issues licenses for all rental properties in Oakdale. The licensing term is January 1 through December 31. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Massage Therapy or Bodywork Supplemental Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "The massage and bodywork therapy supplemental form must be completed by a premise license applicant’s spouse, officer of business, person in charge of premise or person controlling/owning five percent or more of interest in business.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Variance (Administrative)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application to request an administrative variance. Refer to City Code sections referenced for required submittal documents and subsequent process. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Zoning Compliance Letter",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application to request an official letter from the City that verifies zoning and land use information on specified property located in the City. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "Mobile Food Vendor License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for a mobile food vendor license. Applicants must also have a food license from the State of Minnesota and Washington County. If you have a Minnesota Department of Agriculture license, no proof of County license is needed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Zoning Ordinance Amendment - Map",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application to request rezoning of parcels within the City. Refer to City Code sections referenced for required submittal documents and subsequent process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Plumbing/Sewer and Water Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A plumbing permit is required for residential or commercial plumbing projects including automatic washers, bathtubs and showers, dishwashers, drinking fountains, fire sprinkler heads, floor drains, garbage disposals, newly added kitchen sinks or laundry trays, backflow protection devices, sewer installation and repairs, new water line installation, sump pumps, washbasins, water closets and urinals, water heaters and water softeners.",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Sign Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A permit is required for temporary and permanent signs. Applications must include a site plan and a construction plan.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Zoning Ordinance Amendment - Text",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this application to request a text amendment to the Zoning Ordinance. Refer to City Code sections referenced for required submittal documents and subsequent process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Pawnbroker/Precious Metal Dealer/Secondhand Goods Dealer License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for pawnbroker, precious metal dealer or secondhand goods license or renewals. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Storage Tank Installation/Removal Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A permit is required for storage tank installation or removal.  A site plan must be included with the application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Structure Relocation Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A permit is required for structure relocation. This application requires City Council approval. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Pawnbroker/Precious Metal/Secondhand Dealer Supplemental Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "The pawnbroker, precious metal dealer, secondhand goods supplemental form must be completed by a license applicant’s spouse, officer of business, person in charge of premise or person controlling/owning five percent or more of interest in business.",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Solicitor Registration",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for solicitor registration. The registration is renewable annually. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6528",
+      "name": "Swimming Pool Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A swimming pool permit is required for swimming pools that are underground or above ground and over 3000 gallons. \nNOTE: Electrical, Mechanical and Plumbing permits are not included in Building Permits. You must also apply for those individual permits as applicable for your project.\nSWIMMING POOL means any pool, tank, depression or excavation in or above-ground, or other structure which shall cause or has the capacity to retain water with a depth greater than 30 inches which shall be designed for the intent to be used for swimming, wading, or immersion purposes by individuals.",
+      "isEnabled": true
+    },
+    {
+      "id": "6787",
+      "name": "Peddler/Transient Merchant License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for peddler or transient merchant license. Licenses are issued quarterly in January, April, July and October. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Peddler/Solicitor/Transient Merchant Supplemental Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "A supplemental form must be completed for anyone conducting business door-to-door on behalf of a Solicitor/Peddler/Transient Merchant license applicant.",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Solid Waste Hauler License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for a license to conduct solid waste hauler services in Oakdale, as well as recycling and roll-off services.",
+      "isEnabled": true
+    },
+    {
+      "id": "6554",
+      "name": "Temporary Liquor License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Complete this application for organizations holding events in non-licensed premises wishing to provide or sell liquor.",
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Temporary Outdoor Patio License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for a license to for a temporary outdoor patio license. If selling liquor, a liquor license must already have been obtained.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "THC Product Sales License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for Tetrahydrocannabinol (THC) product sales license or renewals. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "THC Product Sales Supplemental Application ",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "The THC product sales supplemental form must be completed by a license applicant’s spouse, officer of business, person in charge of premise or person controlling/owning five percent or more of interest in business.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Tobacco Sales License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for tobacco sales license or renewals. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Tobacco Sales Supplemental Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "The tobacco sales supplemental form must be completed by a license applicant’s spouse, officer of business, person in charge of premise or person controlling/owning five percent or more of interest in business. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Used Car Dealer License",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for a license to operate a used car dealership in Oakdale.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Building Permits",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">This page is intended to assist in applying online for building permits for the City of Oakdale. All building and related permits ensure that projects will be constructed according to nationally recognized standards. The standards are designed to protect buildings from collapse and fire, and to ensure the safety of all building occupants. Review of permit applications also ensures that projects meet zoning requirements, such as yard cover"
+    },
+    {
+      "id": "1084",
+      "name": "Rental Housing",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">The City issues permits for all rental properties in Oakdale. Once a completed license application has been received by City staff, the application will be reviewed. You will then receive an email to complete the payment process before scheduling an inspection and receiving the license. Please refer to page 2 of the</span><a href=\"https://www.ci.oakdale.mn.us/DocumentCenter/View/5773/2023--Fee-Schedule?bidId=\" rel=\"noopener noreferrer\" ta"
+    },
+    {
+      "id": "1082",
+      "name": "Business Licenses",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">This page is intended to assist in applying online for business licenses in the City of Oakdale. If you have questions about whether your business requires a specific license, please contact the City at 651-730-2139.</span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">The following online business license and registration applications are available for Oakdale:</span></p><ul><li><span style=\"font-family: Arial,Helvetica,sa"
+    },
+    {
+      "id": "1076",
+      "name": "Planning and Zoning",
+      "isEnabled": 1,
+      "content": "<p style=\"mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">This page is intended to assist with completion of planning applications for the City of Oakdale. If you have questions about planning applications, please contact the City at 651-730-2720. Applicants are also encouraged to review the webpage on the <a href=\"https://www.oakdalemn.gov/951/Land-Use-Applications-Process\" target=\"_blank\">land use application process</a> before applyi"
+    },
+    {
+      "id": "1085",
+      "name": "Community Resources",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">This section allows residents to complete requests and forms related to a variety of City functions.&nbsp;</span></p>"
+    },
+    {
+      "id": "1091",
+      "name": "Engineering",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">The City requires that utility work within the Right of Way (ROW) be performed by a company authorized as a public utility by the MN Public Utilities Commission (MPUC). Entities that own utilities/facilities that will remain in the ROW must complete a registration form annually.</span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">The annual fee for ROW registration is $50. Permit fees vary based on project scope. Please re"
+    },
+    {
+      "id": "1090",
+      "name": "Events",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Use this page to apply for permits or requests related to events in the City of Oakdale.</span></p>"
+    },
+    {
+      "id": "1089",
+      "name": "Fire",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial,Helvetica,sans-serif;\">Use this section to apply for permits from the Fire Department.</span></div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:12.395Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

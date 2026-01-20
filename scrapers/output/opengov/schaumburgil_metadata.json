@@ -1,0 +1,213 @@
+{
+  "jurisdiction": "Schaumburg",
+  "state": "IL",
+  "tenant": "schaumburgil",
+  "portalUrl": "https://schaumburgil.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6521",
+      "name": "Sign Permit  - Permanent",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit if for permanent signs only. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Fire Special Events",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This application is used for:  RSCCH Events, Open Burn, and Fireworks/Pyrotechnics  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Development Review Application",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "The development review application should be used for requests for zoning approval.  Residential, commercial and industrial zoning requests can be process with this application.  Applicants are strongly encouraged to contact a planner prior to submitting an application at 847-923-4420.",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Special Event Permit Application ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Business License/Registration Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a new Business License or to renew a current Business License. This application should also be selected for any businesses that are state-licensed and need to register with the Village. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Express Permit Application - Residential",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this application for the following: Roofing, Siding, Air Conditioner, Furnace, Water Heater, Sewer Repair, Plumbing, and  Miscellaneous Electric.",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Residential New Construction",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This Permit is used for new residential construction : \nConstructing a new single family home, new townhome, new duplex, or new rowhouse unit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "Sign Permit  - Temporary ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is for temporary signs only.",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Temporary Food Service Application for Special Events ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Home Based Business Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Residential Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This Permit is used for residential alterations, additions, accessory structures, and anything else that does not fall under residential express or residential new construction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "Out-of-Town Business License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This application is to be used for refuse haulers and food trucks that operate in Schaumburg with offices outside of Schaumburg. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Land Development",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this permit application for Commercial/Industrial Development, Single Family Residential Subdivisions, Non-Single Family Residential Development (Townhomes/Condos), Multi Family Residential Development (Apartments), Site & Parking Lot Maintenance and Repair, Single Family Residential Drainage Improvements, Retaining Walls, & Hydrant Repairs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Contractor Registration",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this application to register as a contractor in the Village of the Schaumburg. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Liquor License Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Rental License Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This application should be used for ASSOCIATION and APARTMENT rental licenses only.",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Short Term Rental License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Vending / Electric Vehicle Charging Station License Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Fire Systems Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "This permit type is selected when repairing/replacing fire systems",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Fire Systems Operational Permit ",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Commercial Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This Permit is used for commercial alterations, additions, accessory structures, and anything else that does not fall under residential express or residential new construction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Commercial New Construction",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This Permit is used for commercial new construction.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Planning and Zoning",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: left;\"><br></div><div style=\"text-align: left;\"><strong><span style=\"font-size: 18px; font-family: Arial, Helvetica, sans-serif;\">This portal is currently live for all development review applications.&nbsp;</span></strong><span style=\"font-size: 18px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">&nbsp;</span></span></div><div style=\"text-align: left;\"><span style=\"font-size: 18px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><br></span></span></div><"
+    },
+    {
+      "id": "1071",
+      "name": "Building Permits",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 24px;\"><u>New Application Process for Building Permits</u></span></strong></p><p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\"><strong>T</strong></span><span style=\"font-size: 18px;\"><span style=\"font-family: Arial, Helvetica, sans-serif;\"><strong>his portal is currently active for Residential and Commercial Construction, and Land Development Permits.</strong></span></span></p><div><br></div"
+    },
+    {
+      "id": "1079",
+      "name": "Clerk / Licensing",
+      "isEnabled": 1,
+      "content": "<h2 style=\"box-sizing: border-box; font-family: Roboto, sans-serif; font-weight: 500; line-height: 1.2; color: rgb(48, 52, 54); margin-top: 20px; margin-bottom: 10px; font-size: 32px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickn"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Permits",
+      "isEnabled": 1,
+      "content": "<div><strong><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 24px;\"><u>New Application Process for Fire Permits</u></span></strong></div><div><br></div><div><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\"><strong>T</strong></span><span style=\"font-size: 18px;\"><span style=\"font-family: Arial, Helvetica, sans-serif;\"><strong>his portal is currently active for fire permits.&nbsp;</strong>F</span></span><span style=\"font-family: Arial, Helvetica, sans-se"
+    },
+    {
+      "id": "1084",
+      "name": "Special Events & Farmers Market",
+      "isEnabled": 1,
+      "content": "<div>The portal is currently active for Special Event Permits and corresponding Temporary Food Service Applications for Special Events.&nbsp;</div><div><br></div><div><br></div><div>Applications for the 2025 Farmers Market have closed.&nbsp;</div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:00.936Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

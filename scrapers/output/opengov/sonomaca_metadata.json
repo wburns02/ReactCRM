@@ -1,0 +1,354 @@
+{
+  "jurisdiction": "Sonoma",
+  "state": "CA",
+  "tenant": "sonomaca",
+  "portalUrl": "https://sonomaca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6456",
+      "name": "Encroachment Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Encroachment permits are required for construction work in the sidewalk area, in an easement, on City owned property (median islands, parks, city facilities) or in the street. Common reasons you would need one: Utility Saw-cuts, Excavation, Bicycle Racks Sidewalk Dining, Debris Boxes, Fences/Walls, Construction Staging",
+      "isEnabled": true
+    },
+    {
+      "id": "6567",
+      "name": "Hydrant Flow Request",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "A fire flow request is a request to perform a fire flow test to determine the maximum water flow rate a water distribution system can deliver. Fire flow tests are typically requested by engineers, developers, contractors, fire-suppression sprinkler companies, and/or insurance companies. Fire flow tests provide actual pressure and flow data measured at specific fire hydrants. This data can be used for fire-protection, sprinkler design, and sizing of domestic/fire service lines.",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "New Address Request",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "This form is used by the public to request a new address assignment(s) where new or revised addresses assignments are necessary due to new or altered development projects, housing units such as ADUs, or new tenant spaces in existing buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6566",
+      "name": "Zone Clearance Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "All new City of Sonoma Business License need to receive a Zoning Clearance from the Planning Division. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "~ How to Schedule Inspections",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to Schedule Inspections",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Uniform  Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "The Uniform Application is used to apply for the following Planning entitlements: \n• Zoning Clearance\n• Pre-zoning\n• General Plan Amendment\n• Use Permit\n• Music Venue License\n• Exception\n• Variance\n• Design Review \n• Planned Development Permit\n• Two Unit Permit\n• Demolition Permit\n• Parcel Map (4 or fewer lots)\n• Subdivision Map (5 or more lots)\n• Residential Lot Split (SB 9)\n• Lot Merger\n• Lot Line Adjustment\n• Certificate of Compliance\n• Deferral Agreement\n• Extension",
+      "isEnabled": true
+    },
+    {
+      "id": "6563",
+      "name": "Plaza Use Application",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "A Plaza Use Permit is required when a person or organization has intent to organize a gathering/event and wants to reserve a specific section of the Plaza for such use. Plaza Use Permits are also required when the organizer has intent to utilize vendors (not limited too caterers, transportation, party rental companies) on public property, sell, peddle, instruct, or distribute any merchandise within the Plaza.  Additional examples of when a Plaza Use permit is required: use of amplified music, use of a barbeque, and plans to monetize the public space in anyway. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Building Permit",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "A Building Permit is required for buildings, structures, equipment, facilities, electrical, gas, mechanical and plumbing systems and other constructed improvements that are regulated by the California Building Standards Code and that are proposed to be constructed, erected, enlarged, installed, altered, repaired, moved, demolished,  removed, converted or replaced; or if a change of the use or occupancy of a building or structure is proposed; or if anyone causes any such work to be done.",
+      "isEnabled": true
+    },
+    {
+      "id": "6562",
+      "name": "Historic Resource Evaluation",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Historic Resource Evaluation (HRE) is required for all primary and detached accessory structures over 45 years old and is to be prepared by a qualified architectural historian. The HRE shall evaluate the potential significance of the existing structures and their eligibility for listing on the Local, California, and/or National Register. The HRE or peer review shall be prepared by a qualified architectural historian selected and retained by the City. This application is only for properties without a proposed project that are planning to conduct the HRE or Peer Review prior to submitting a Uniform Application for Design Review. For structures determined to be eligible for listing, a secondary review shall be conducted during the Uniform Application - Design Review process for compliance with the Secretary of the Interior's Standards. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "~ Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "~ How to Invite a Guest to a Record",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "Depot Park Use Application ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "A Depot Park Use Permit is required when a person or organization has intent to organize a gathering/event and wants to reserve a specific section of the Depot Park for such use. Depot Park Use Permits are also required when the organizer has intent to utilize vendors (not limited too caterers, transportation, party rental companies) on public property, sell, peddle, instruct, or distribute any merchandise within the Park.  Additional examples of when a Depot Park Use permit is required: use of amplified music, use of a barbeque, and plans to monetize the public space in anyway. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6574",
+      "name": "Express Building Permit",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Express Building Permits are for residential (no multi-family) projects that do not require plan review before permit is issued. Reroof, HVAC Replacement, Water Heater Replacement, Window/Door Replacement, Bathroom & Kitchen Remodels, Electric Vehicle Chargers, Temp Power Poles, Electrical Panel Replacement, and Siding Repair/Replacement. Please review the submittal requirements and limitations by clicking 'select'.",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Limited Scope Building Permit",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "A Limited Scope Building Permit project is limited to only one or more of the following types of projects:\n\n• Residential or Commercial: Reroofing - Needing Planning Approval.\n• Residential: Rooftop Solar Photovoltaic (PV) with output of 10kW or less\n• Residential: Energy Storage System (ESS) with capacity of 20kWh or less\n• Residential: Electrical Service Panel Changeout - Needing Planning Approval\n• Residential: Electric Vehicle Charging Station (EVCS) Level 1 or 2 for a Dwelling Unit\n• Residential: Standby Power Generator\n• Residential or Commercial: Temporary Power Pole\n• Residential or Commercial: HVAC Equipment Replacement - Needing Planning Approval\n• Residential: Gas Fireplace Insert\n• Residential or Commercial: Water Heater Replacement - Needing Planning Approval\n• Residential or Commercial: Conversion to Heat Pump or Tankless Water Heater\n• Residential or Commercial: Window & Door Replacements - Needing Planning Approval\n• Residential or Commercial: Siding Repair or Replacement - Needing Planning Approval\n• Residential: Swimming Pool and/or Spa\n• Commercial: Sign\n• Residential or Commercial: Awning",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Plaza Light Post Banner Application",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Local public, non-profit, or not-for-profit organizations are eligible to sponsor banners. Applications may also be accepted from for-profit organizations to promote philanthropic events that generate financial support for local community organizations. Applications for banners that are determined to be inconsistent with the goals of the banner policy will not be approved.  All banner application i.e. the specific artwork is subject to review and approval by the Design Review and Historic Preservation Commission. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "~ Uploading and Updating Attachments ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on initial Uploading of file Attachments when completing a new application as well as how to Update existing file Attachments with new versions of the file as corrections or updates are made to the document(s).",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Improvement Plan & Final Map Review",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "• Subdivision Map\n• Final Map\n• Improvement Plans\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "~ Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6572",
+      "name": "STNM Vendor Application  Non-Profit \"Free Speech Table\"",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Sonoma's Tuesday Night Market has a first come first serve spaces for local to Sonoma Valley Non-Profits to participate in the Tuesday evening market. It does require an application to be completed, a fee to be paid in advance and a certificate of insurance to be on file prior to participating.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": "Fire Permit ",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "A Fire Permit project is limited to only one or more of the following types of projects:\n\n• Fire Alarm Systems\n   General Fire Alarm \n                   New System\n                   Modifications / Replacement to existing \n   Dedicated Function Fire Alarm     \n                   New System\n                   Modifications / Replacement to existing \n\n• Fire Sprinkler System\n    NFPA 13D – Single Family Residential \n                    New\n                   Modifications to existing\n    NFPA 13R – Multifamily Residential \n                   New\n                   Modifications to existing\n     NFPA 13 – Commercial\n                   New\n                   Modifications to existing\n\n• UL 300 Commercial Kitchen Suppression Systems\n   New\n   Modification / Replacement\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6569",
+      "name": "Sonoma's Tuesday Night Market Sponsorship Contract ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Sonoma's Tuesday Night Market is a cherished community event that runs every Tuesday evening May through the end of September.  This event is one of the number one attractions in Sonoma Valley attracting over 2,000 individuals  each evening.  The Tuesday night market brings fresh fruits and vegetables to the community through its certified farmers market, as well as some amazing artisan package foods.  Each Tuesday night the community comes out to celebrate being Sonoma with live music, coordinated by Sonoma Music and Sonoma Jazz Society.  \n\nBy sponsoring the market you can get your company, product, brand in front of this very dynamic group of attendees. The market partners with over 30 different local non-profits each year. The market has a comprehensive marketing campaign partnering with both the Sonoma Valley Chamber of Commerce and the Sonoma Valley Visitors Bureau.  \n\nDon't miss out on your chance to be a market sponsor! ",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Design Change Application",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "This application form is used ONLY for design changes that do not increase or add to the existing scope of work covered under an existing permit. Changes in the design that add or increase the scope or valuation of work covered under a permit will require a new (separate) permit application. When approved plans for an issued building permit were prepared by a registered design professional, all proposed design changes for those portions of the plans must be designed and prepared by a registered design professional.  THIS RECORD IS ONLY USED IF THERE IS AN EXISTING ACTIVE BUILDING PERMIT FOR THE SUBJECT WORK.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Sign Review Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Sign Permit is required to display or change a sign within the City of Sonoma. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6528",
+      "name": "Tree Removal Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "A Tree Removal Permit is required to alter, remove, relocate, or plant any tree on public property and certain trees on private property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "~ How to Apply for an Encroachment Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to submit a Design Change to Building Permit Application or an existing Building Permit using the Plan Submittal Portal. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Home Occupation Permit ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "A Home Occupation permit is required to operate business within a dwelling unit or on a residential zoned site.",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "~ What's the Difference between a Building Permit and a Limited Scope Building Permit?",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "What's the Difference between a Building Permit and a Limited Scope Building Permit?",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "~ How to submit Design Changes or Deferred Submittals for an Existing Building Permit.",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to submit Design Changes or Deferred Submittals for an Existing Building Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "SolarAPP+ Solar Permit",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Expedited Solar Permitting is available through the SolarAPP+ program, a collaboration between the National Renewable Energy Laboratory (NREL) and local communities.\n\nSolarAPP+ is an automated plan review process for permitting new residential rooftop solar and storage systems that result in nearly instantaneous permitting. SolarAPP+ lowers permit costs and expedites solar installations.\n\nIf you are a licensed contractor, you must register with SolarAPP+ to utilize the process. \nNon-licensed individuals and owner-builders may not use the SolarAPP+ process and instead must apply for a Limited Scope Building Permit or a regular Building Permit (which require normal plan reviews).\n\nAfter registering, applying for, and obtaining approval of a  SolarAPP+ plan review, contractors must apply for a SolarAPP+ Solar Permit with the City of Sonoma (directly from this location).\n\nThe application for the City's SolarAPP+ Solar Permit requires SolarAPP+ Approval Documents. If you don't already have the SolarAPP+ Approval Documents (which includes a AloarAPP+ Approval ID), you can learn how to get one at solarapp.nrel.gov.\n\nYou will be asked to log into your City of Sonoma Online Services account or register for an account if you do not have one.",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Temporary Use Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A temporary use permit is required for short-term activities on private property such as pumpkin patches, Christmas tree lots, rummage sales, temporary construction staging, and private festivals or events. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "~ SolarAPP+  FAQ's",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "SolarAPP+ Frequently Asked Questions",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "~ Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6522",
+      "name": "Sidewalk Seating Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A sidewalk seating permit shall be required pursuant to Chapter 12.06 SMC, for any new outdoor seating on a public right-of-way that is not subject to Use Permit review. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Garage Sale License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "A Garage Sale License is required to sell personal property for a limited time at a private residence by the owner, owners, tenants or occupants of the residence. General retail is not allowed at private residences.",
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "~ Submit Help Ticket",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Have a question? Submit ticket here. \nIf inquiring about a permit, please comment on the current active step within the active record.",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Wine Tasting Use Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Wine Tasting Use Permit is required for all wine tasting facilities and wine bars in the City. Only 25 WTUPs will be issued within the Plaza Retail Overlay District (PROD).\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Housing Development Project Pre-Application (SB 330)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "California Senate Bill 330, \"The Housing Crisis Act of 2019\" (\"Act\") became effective on January 1, 2020. The Act allows for an applicant to submit this Preliminary Application to vest development rights upon the date of application for a period of 180 days. The Act applies to housing development projects and is intended to streamline discretionary review under local zoning laws. \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Wireless Telecommunication Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Wireless Telecommunication Permit is required to locate or modify any wireless telecommunications facility in any zone within the City, including the public right-of-way.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1072",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1081",
+      "name": "Planning Division",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1084",
+      "name": "Building Division",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1083",
+      "name": "Parks and Recreation",
+      "isEnabled": 1,
+      "content": "<h3 style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; font-weight: 600; line-height: 1.25; color: rgb(255, 255, 255); margin-top: 20px; margin-bottom: 10px; font-size: 1.75rem; text-shadow: rgb(154, 157, 161) 1px 1px 1px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; "
+    },
+    {
+      "id": "1076",
+      "name": "Community Development",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:31.063Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

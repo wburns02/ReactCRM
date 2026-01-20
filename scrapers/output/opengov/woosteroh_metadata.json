@@ -1,0 +1,625 @@
+{
+  "jurisdiction": "Wooster",
+  "state": "OH",
+  "tenant": "woosteroh",
+  "portalUrl": "https://woosteroh.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6375",
+      "name": "Use of City Fire Hydrant",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Use of a City Fire Hydrant requires a Hydrant Meter and Backflow Device. With this permit, the City will provide these for your project and allow use of a fire hydrant.",
+      "isEnabled": true
+    },
+    {
+      "id": "6390",
+      "name": "Planning Commission",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application to the Planning Commission for review of a Development Plan, Conditional Use, Subdivision, or Zoning Code or Map Amendment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "Board of Building & Zoning Appeals",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application to the Board of Building & Zoning Appeals for review of a variance, substitution of a nonconforming use, an appeal of an interpretation of the Planning & Zoning Code, an appeal of the Building Code for one, two and three family dwellings, or an appeal of the Property Maintenance Code. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6399",
+      "name": "Design and Review Board",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application to the Design and Review Board for a Certificate of Appropriateness, changes to signs in the C-4 zoning district, recommendation for a Development plan at a non-landmark property in the C-4 zoning district, or the designation of a Landmark or Landmark District.",
+      "isEnabled": true
+    },
+    {
+      "id": "6414",
+      "name": "Water Line or Sewer Lateral work inside City limits",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Use this permit application when you are only installing, replacing or repairing a water or sewer line lateral into an existing residential or commercial building that is INSIDE City limits and no other plumbing work is being performed. This work is included with the building permit on new construction or with a plumbing permit when other plumbing work is being performed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6425",
+      "name": "Water Line or Sewer Lateral work outside City limits",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Use this permit application when you are only installing, replacing or repairing a water or sewer line lateral into an existing residential or commercial building that is OUTSIDE City limits but has City of Wooster water or sewer. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Downtown Waste Collection Program",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Downtown businesses and residents can access the City's common Waste Collection and Recycling enclosures and containers.",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Traffic Commission Request Application",
+      "categoryId": 1073,
+      "viewAccess": "private",
+      "description": "Application for an issue to be brought before the Traffic Commission. The Traffic Commission coordinates traffic activities, supervises the preparation and publication of traffic reports, receives complaints having to do with traffic matters, and recommends to the Mayor and Council, the City Engineer, the Chief of the Police Division, and other City officials, ways and means for improving traffic and parking conditions and the administration and enforcement of traffic and parking regulations within the City. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Residential Waste Program for Non-Residential Property",
+      "categoryId": 1082,
+      "viewAccess": "private",
+      "description": "This application is for commercial or mixed use properties to access the residential waste collection program. The intent is for smaller commercial properties located on an existing residential waste collection route to obtain the rolling toters for waste collection.",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Address Request and Verification",
+      "categoryId": 1072,
+      "viewAccess": "private",
+      "description": "Request necessary for the the assignment and verification of the correct business, residence or site address. Each parcel number requires a separate application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Annual Mobile Food Unit Permit",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "PLEASE READ: ALL mobile food units operating inside the Wooster city limits (regardless of public or private events) are required to purchase a permit. There is a $30 processing fee associated with each permit. If you own multiple mobile food units, you will need a permit for each unit AND be required to pay the $30 fee for each one. Approved permits are valid for the current calendar year and will expire on December 31st.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "CRA: Residential Application for Tax Exemption",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Application for Residential CRA Tax Exemption - This program is available to any Wooster homeowner, landlord, or developer working to rehabilitate or even rebuild a single and two-family home within Wooster’s designated Community Reinvestment Area. Terms vary, but for most projects exceeding $2,500.00, property owners may receive a 100 percent Tax Abatement for 10 years on the improved value of the home. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Residential Waste Program for those Physically Unable to Place Totes",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "The City provides a waste and recycling pick-up service to residents who are disabled, impaired, or physically unable to place their refuse and recycling totes at the designated point of collection. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Downtown Renovation Grant Program",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Application requesting a grant to improve commercial properties in the C4 Central Business District.",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Above Ground Storage Tank (AST) - Flammable Liquids 500 gallons or less",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Acceptance testing for flammable liquid storage tanks that are \"engine mounted\" (e.g. generators) AND have a capacity of 500 gallons or less. Anything 501 gallons or more requires a State Fire Marshal AST permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "Fire Protection Permits - Fire Alarm, Sprinkler, Hood Suppression",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Please go to the Building Standards Division Section to find these permits. \nGo back on your browser or Use this link.\nhttps://woosteroh.portal.opengov.com/categories/1077 ",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Taxicab Company License - Renewed Annually",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "All Taxi Companies must register. Please submit this application first before applying for drivers and vehicles.  This license is $100 and must be renewed annually by March 1st. For questions, please call the Transportation Manager at 330-263-5255.",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Taxicab Driver License - Renewed Annually",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "All drivers for taxicab companies must be registered annually by March 1st. Per the City Ordinance  Chapter 743. To complete this application please be prepared to provide a Drivers License, BMV Driving Record, BCI &FBI Background check. The fee is $25 per driver.\n2 year unofficial driving abstract from BMV can be found at https://bmv.ohio.gov/more-record-types.aspx\nBCI&FBI background check can be scheduled at https://wayneoh.permitium.com/fingerprint/application\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6522",
+      "name": "Major Subdivision Plat",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application to file a Major Subdivision Plat.",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Alcohol Use Permit - The Chalet at Freedlander Park",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "An Alcohol Use Permit can be applied for by any events with a current building use agreement on file for the Chalet at Freedlander Park EXCEPT FOR High School Graduation Parties. The City of Wooster and the Recreation Department reserve the right to refuse Alcohol Use Permits to any events. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Building Permits",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Purchase building permits for projects such as new construction and additions, alterations, decks/porches/garages and home improvements (siding, windows and roofing) . For residential projects (residential is defined as a one, two, or three-family dwelling), plans must be submitted and reviewed as part of this building permit application process. For Commercial projects, plans must have already been approved prior to applying for a building permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Building Standards Division Contact and Other Information",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Here are all the emails and phone numbers of the inspectors and other personnel. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6413",
+      "name": "Development Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Permit necessary for any subdivisions, infrastructure improvements, commercial development site plan and other miscellaneous improvements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6379",
+      "name": "Zoning Certificate",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Select a Zoning Certificate application for all new, or changes to, buildings, additions, accessory structures, fences, patios, sidewalks, or other similar structures.  Also select a Zoning Certificate for a change of use or approval for an Itinerant Vendor.",
+      "isEnabled": true
+    },
+    {
+      "id": "6376",
+      "name": "Special Event Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This form is used exclusively for Public Events (Festivals, Concerts, Races, Walks, etc) within the city limits of Wooster.",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "Plan Review Application",
+      "categoryId": 1077,
+      "viewAccess": null,
+      "description": "Plans must be approved before obtaining construction permits for commercial projects. This application is for plan review of commercial projects - New construction, alterations, and additions. Types of plans submitted for review with this application include: Architectural, MEP, and others. This application is used for initial plan submittals, re-submittals or to request plan review/approval of responses to plan comments. Plan reviews may be submitted by owners, designers, contractors or other agents of the owner, however, plan review results/comments will only be shared with the applicant. Plan Reviews may take from 1 day to 30 days to complete depending on the complexity of the project. Most plan reviews are completed in two weeks. Plans are reviewed in the order they are submitted with no projects expedited ahead of other projects. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Parking Permit for BUSINESS EMPLOYEES in the Downtown C-4 Zoning District",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "A permit to park in one of the City's off-street parking lots without the hourly time limit.  These are the North Buckeye, South Buckeye, or Merchants Block, parking lots. There are monthly ($45), semi-annual ($210), and annual permits ($300). Keep in mind, no permit is necessary to park in other City off-street parking lots all day. These include the S. Market St. and North Street lots.",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Registering Licensed Contractors",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Must I register as a contractor in the City of Wooster?",
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "Taxicab Vehicle License - Renewed Annually",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "All vehicles for taxicab companies must be registered annually by March 1st. Per the City Ordinance  Chapter 743. To complete this application please be prepared to provide a completed inspection form signed by OSHP. The fee is $50 per vehicle.",
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "Annexation Workflow",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Workflow to process annexation requests",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Wooster Police Department Video Record Request Form",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Report Code Violations or Property Maintenance Complaint",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Select to report code violations or make a complaint about the condition of a property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "General Stormwater Management Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This permit is for both commercial and residential projects with earth disturbing activity on sites with less than 1 acre disturbance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Parking Permit for RESIDENTS OF THE DOWNTOWN C-4 Zoning District",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Residents of the downtown C4 zoning district may purchase an annual permit ($25) that allows parking without a time limit, in any of the Municipal off-street parking facilities. These are the North Buckeye, South Buckeye, Merchants Block, or South Market parking lots.",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "How do I get plan approval for a commercial project?",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Select this for answers to questions about getting your plans approved for your commercial projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6378",
+      "name": "Sign Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Select a Sign Permit application for the erection, location, relocation, alteration (including sign face replacement), or replacement of signs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6383",
+      "name": "Block Party",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application to have a block party in the City of Wooster.  For Residential Areas Only.",
+      "isEnabled": true
+    },
+    {
+      "id": "6391",
+      "name": "Minor Subdivision",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Minor subdivisions, including the relocation of lot lines and the combination of parcels, may be submitted when no more than 5 lots are created and  no street extension or public improvements are involved.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Parking Permit for VISITORS OF RESIDENTS of the Downtown C-4 Zoning District - Three- Day permit allowing overnight parking",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Residents of the downtown residential district with a current parking permit may obtain a temporary visitor parking permit that would allow visitor parking in the district, without a time limit, in any of the off-street city lots in a three hour public parking space. The permit is valid for up to three days and is free.",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Alley Vacation Petition",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This form is used to apply for an alley vacation within the Wooster Corporation Limits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Submitting a Backflow Preventer test report.",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Select this for information regarding the City of Wooster's cross connection control/backflow program.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Fire Protection Plan Review and Permit - Alarm/Sprinkler/Hood",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Note: This application is for the plan review and construction permitting of commercial Fire Protection Systems. This single application is used for initial plan submittals, re-submittals, and permits for Fire Alarm Systems, Fire Sprinkler Systems, and Commercial Type I hood systems. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Electrical Permits",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Purchase a permit for electrical work on a commercial or residential project. For most commercial projects, the plans must have already been reviewed and approved before purchasing the commercial electric permit. For residential and simple commercial projects, plans will be submitted and reviewed as part of this permit application process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Plan Holder Registration Projects",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This application is to be used by all potential bidders to register their name on the official plan holder list and to request an official copy of the contract documents and plans.  \n\nShipping fees are not included in the price of the plans.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Parking Permit for VISITORS to the Downtown C-4 Zoning District - One Day permit with overnight restrictions",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Visitors to the Downtown C-4 Zoning District may obtain a temporary parking permit that would allow visitor parking in the district, without a time limit, in any of the off-street city lots in a three hour public parking space. The permit is valid for one day and overnight restrictions apply. The permit fee is $5.00/day.",
+      "isEnabled": true
+    },
+    {
+      "id": "6416",
+      "name": "Portable Stage Rental",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "For lone stage rentals both inside and outside the City limits of Wooster. If you are holding an event in the City of Wooster and also require street closures, police presence, etc... please fill out a Special Event Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6405",
+      "name": "Verification Letter",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Requested letter outlining zoning information for a property or properties",
+      "isEnabled": true
+    },
+    {
+      "id": "6423",
+      "name": "Links to fee schedule, helpful guides, and other info.",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "How much is the permit or plan review? Also, ViewPoint Cloud Helpful Information, Guides and Links to Other Documents",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Facilities Maintenance Work Order",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "Request maintenance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Right-of-Way/Encroachment Permit (for both Utility and Non-Utility work)",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Utility Work: A permit is necessary for any contractor replacing and/or installing utilities (gas, electric, phone, fiber optic, etc.) within the City right-of-way. Applicants must be a registered member of the Ohio Utilities Protection Services. Non-Utility Work: A permit is necessary for driveway approaches, sidewalks, yard pipe, storm sewer connections or any other work within the City Right-of-Way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Plumbing Permits",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Purchase a permit for plumbing work on a commercial or residential project. For most commercial projects, the plans must have already been reviewed and approved before purchasing the commercial plumbing permit. For residential and simple commercial projects, plans will be submitted and reviewed as part of this permit application process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6417",
+      "name": "Signing Up and Creating a Profile then Accessing Your Profile & Records",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "You must sign up to use ViewPoint the first time. You will create a profile that you can access later and see all of your records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6410",
+      "name": "Sanitary Sewer Tap Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "A permit is necessary for sewer connections made to the City's sewer system. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6403",
+      "name": "Parking Permit for CONTRACTORS Working in the Downtown C-4 Parking District ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Time limited parking permit for licensed contractors to access their work vehicles during the time they are working on a construction project in the Downtown Parking District (351.18). Select the Downtown address where the work is being performed. A single permit is valid for a maximum of 7 days. The fee is $10 for the first day and $5 for each day thereafter up to 7 days or $40 for the full 7 days. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6419",
+      "name": "Applying for a Permit and Paying Fees",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Once you've created a profile and signed on, you can purchase permits by selecting the appropriate application and then paying the fees.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Parking Permit for RESIDENTS OF THE COLLEGE of Wooster Residential Parking District",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Each household in the District may obtain one parking permit per vehicle owned by residents and one visitor permit. There is no fee for these permits issued by the City.",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Heating, Ventilation, Air Conditioning Permits",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Purchase a permit for Heating, Ventilation or Air Conditioning work on a commercial or residential project. For most commercial projects, the plans must have already been reviewed and approved before purchasing the commercial HVAC permit. For residential and simple commercial projects, plans will be submitted and reviewed as part of this permit application process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6421",
+      "name": "Receiving Your Permit or other Document",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "You will be able to view and print your permits, certificates of completion, receipts, and any other documents.",
+      "isEnabled": true
+    },
+    {
+      "id": "6412",
+      "name": "Water Service Tap Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "A permit is necessary for water service and fire line connections made to the City's water system resulting from well abandonment, service replacement, or new service connections. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6396",
+      "name": "Demolition Permits",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Residential and commercial demolition of structures when the structures have water or sewer connections or a basement. Structures without water, sewer, and a basement do not require a permit to demolish. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6422",
+      "name": "Scheduling Your Inspection and Communicating with the Inspector",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "All scheduling and communication is done by email and within ViewPoint.",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Certificate of Occupancy or other request",
+      "categoryId": 1077,
+      "viewAccess": null,
+      "description": "Request for a certificate of occupancy for an existing building,   Request approval for a change in occupancy category of an existing building, request a safety inspection for approval of a day care program or other onsite inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Stormwater Guarantee Deposit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "A deposit is required to ensure permanent stormwater control measures are implemented and approved as part of development projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": "Floodplain Permits",
+      "categoryId": 1077,
+      "viewAccess": null,
+      "description": "Purchase this permit to document allowable compliant work in the designated floodplain. Prior plan approval must have been obtained. A requirement of this permit may be an elevation certificate upon completion of the project.",
+      "isEnabled": true
+    },
+    {
+      "id": "6392",
+      "name": "Tent Permits",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Permit to erect a tent or temporary structure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6404",
+      "name": "Special Inspection Report Submittal",
+      "categoryId": 1077,
+      "viewAccess": null,
+      "description": "The owner, or the engineer or architect of record acting as the owner’s agent, shall provide reports of structural tests and inspections. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1077",
+      "name": "Building Standards Division",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><br></p><table style=\"width: 100%; margin-left: calc(0%);\"><tbody><tr><td style=\"width: 100.0000%;\"><div data-empty=\"true\" style=\"text-align: center;\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/1702499361786_Wed_Dec_13_2023_20:29:32_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 300px;\" class=\"fr-fic fr-dib\"></div></td></tr><tr><td style=\"width: 100.0000%;\"><br><span style=\"font-family: Tahoma, Geneva, sans-serif; font-size: 1"
+    },
+    {
+      "id": "1074",
+      "name": "Planning & Zoning Division",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: left;\"><strong><span style=\"color: rgb(41, 105, 176);\">BOARD AND COMMISSION REQUESTS ARE FILED ONLINE ALSO BY USING THE &quot;BOARDS AND COMMISSIONS&quot; SECTION ON THE PREVIOUS PAGE.</span></strong></p><p><span style=\"font-size: 30px;\"><strong><span style=\"font-family: Tahoma,Geneva,sans-serif;\">Planning &amp; Zoning Division Responsibilities</span></strong></span></p><ul><li><span style=\"font-family: Tahoma,Geneva,sans-serif;\">Review and approval of Zoning Certificate (p"
+    },
+    {
+      "id": "1073",
+      "name": "Boards & Commissions",
+      "isEnabled": 1,
+      "content": "<div><a class=\"fr-strong\" href=\"https://www.woosteroh.com/sites/default/files/2025-11/2026%20Meeting%20Schedule_0.pdf\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">2026 Boards and Commission Meeting Schedule</span></a></div><div><br></div><!---->"
+    },
+    {
+      "id": "1072",
+      "name": "Engineering Division",
+      "isEnabled": 1,
+      "content": "<p>For a list of fees related to Engineering Permits, please use the link below. If you have questions about these fees, please call our office at 330-263-5251.</p><p><br></p><p><a class=\"fr-file fr-green fr-strong\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/City_Fee_Schedule_-_02_01_2023_Wed_Apr_12_2023_18:40:52_GMT+0000_(Coordinated_Universal_Time).pdf\" rel=\"noopener noreferrer\" target=\"_blank\">City Fee Schedule - 2023</a></p><p><br></p>"
+    },
+    {
+      "id": "1078",
+      "name": "Contact City Staff, Report an Issue, or Make a Complaint",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-left: 20px; text-align: left;\"><span style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: in"
+    },
+    {
+      "id": "1090",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: left;\"><strong><span style=\"font-size: 18px; font-family: Arial, Helvetica, sans-serif;\">The Wooster Fire Department has a Rich History&nbsp;</span></strong><strong><span style=\"font-size: 18px; font-family: Arial, Helvetica, sans-serif;\">of Professional Service in Our Community.</span></strong></p><p style=\"text-align: left;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"color: rgb(9, 31, 47); font-size: 14px; font-style: normal; font-variant-ligature"
+    },
+    {
+      "id": "1083",
+      "name": "Parking Permits",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 18px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\">The City has <strong>parking permits</strong> to ensure reasonable access of parking spaces for residents, visitors, building owners and employees of downtown businesses.&nbsp;</span></span></p><p style=\"text-align: center;\"><span style=\"font-size: 18px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><strong>Below are the applications for the City&#39;s parking permit programs.</strong></span></span></p"
+    },
+    {
+      "id": "1096",
+      "name": "Police Department",
+      "isEnabled": 1,
+      "content": "<div><strong><span style=\"font-size: 18px;\"><u>If you would like to request Video Records from the Wooster Police Department, please note the following:</u></span></strong></div><div>&nbsp;</div><p align=\"center\" style=\"text-align:center;\"><b style=\"mso-bidi-font-weight:normal;\"><u>Estimated Actual Cost Calculation</u></b></p><p style=\"text-align:justify;\">The WPD&rsquo;s charge for a Video Record is based on the Actual Cost, as defined in R.C. &sect;149.43(B)(1) and as incurred by WPD, in prepa"
+    },
+    {
+      "id": "1076",
+      "name": "Special Events, Block Party & Stage Rentals",
+      "isEnabled": 1,
+      "content": "<p align=\"LEFT\">Here you will find an alcohol use permit for Chalet at Freedlander Park rentals, permits for special events &amp; block parties within the City of Wooster, and permits for our portable stage which has been rented by communities and organizations all over the State of Ohio and beyond!</p><p align=\"LEFT\">A completed application must be filed at least 2 weeks prior to the first day of your event to be considered for approval.</p><p align=\"LEFT\"><strong>FOR SPECIAL EVENT PERMITS - IF"
+    },
+    {
+      "id": "1082",
+      "name": "City Utilities - permit to use City fire hydrants, permit to use downtown dumpsters   ",
+      "isEnabled": 1,
+      "content": "<ul><li><strong><span style=\"font-size: 36px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">City Fire Hydrant Use</span></span></strong><span style=\"font-size: 36px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><strong><br></strong></span></span><span style=\"font-size: 36px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><strong><br></strong></span></span></li><li><span style=\"font-size: 36px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><strong>Downtown "
+    },
+    {
+      "id": "1088",
+      "name": "Economic and Community Development Programs",
+      "isEnabled": 1,
+      "content": "<p>Whether finding a new home for a major manufacturing firm, working to launch a new company, or even reinvest in rehabilitating a home, the City of Wooster offers the perfect place to live, grow, and thrive. Working with our partners across the City, Wayne County, and the State of Ohio, Wooster offers businesses and residents a unique set of tools to build a prosperous future.</p>"
+    },
+    {
+      "id": "1085",
+      "name": "Building Department FAQ's, Information and Links",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"color: rgb(0, 0, 0); font-size: 18px;\"><strong style=\"box-sizing: border-box; font-weight: 700;\"><u><span style=\"font-family: Tahoma, Geneva, sans-serif;\">What is OpenGov?&nbsp;</span></u><span style=\"font-family: Tahoma,Geneva,sans-serif;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></strong></span></p><p style=\"box-sizing: border-box; margin: 0px 0px 10px; color: rgb(0, 0, 0); font-family: proxima-nova, Helvetica, Arial, sans-serif;"
+    },
+    {
+      "id": "1093",
+      "name": "Transportation",
+      "isEnabled": 1,
+      "content": "<div>Please complete the following taxi licenses and registrations. If you have any questions please contact the Transportation Manager at 330-263-5255.</div>"
+    },
+    {
+      "id": "1095",
+      "name": "Facilities Maintenance",
+      "isEnabled": 1,
+      "content": "<div>Request facilities maintenance. Internal Use Only</div><!---->"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:35.583Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

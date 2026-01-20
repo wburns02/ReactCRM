@@ -1,0 +1,279 @@
+{
+  "jurisdiction": "Norwich",
+  "state": "CT",
+  "tenant": "norwichct",
+  "portalUrl": "https://norwichct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6394",
+      "name": " Rental and Vacant Property Registration",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "Complaint",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "By using this section you can submit complaints relating to housing, blight, zoning, building code, streets, and sidewalks. If you do not have an address please be as specific as possible. You may use cross street names or telephone pole numbers to verify the location, along with building descriptions to assist staff in locating the area or property. Pictures of the complaint are also encouraged. These can be uploaded in the complaint form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "FMO Records Requests",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Temporary / Special Event - All Department Notice Form",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Temporary events include all organized municipal, civic, and private events which are temporary, non-reoccurring in any one calendar year, and last only one or two days, are open to the public, and not customarily associated with the primary use of the property.  Examples are, but not limited to a fair or carnival, a car show, block party, circus, craft fare, parade, festival, fishing derby,\nrace (walking, running, boat or bicycle), etc.... ",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permits for residential, commercial and industrial work as regulated by the state.  Trades must pull their individual permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "FOG Permit Application-NEW Food Preparation Establishments Fats, Oils & Grease ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The State of Connecticut has established a general permit for food preparation establishments (FPES) to meet compliance requirements for the discharge of fats, oils, and grease.\n\nIf you operate a Class III or IV Food Preparation Establishment (FPE) and you discharge to the Norwich sanitary sewer system, you must comply with the General Permit for the Discharge of Wastewater Associated with FPE.\n\nFor more information, visit our website at https://norwichpublicutilities.com/residential/polices/ ",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "ZONING - Letter of Zoning Compliance",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Upon request the Zoning Officer will provide a Letter of Zoning Compliance. Based on the information on file, the letter will contain the specifics regarding the property and the zone in which it is located. It will state if the use is conforming or existing non-conforming and if the lot coverage, setbacks, parking, etc. are conforming or not. We will check the electronic and paper files for any open ZONING violations and will address only Zoning violations. Any liens on the property will be on file in the City Clerk's office. A letter of zoning compliance is not a substitute for a proper title search and should not be used as an FOI request. Documents will not be attached to a letter of zoning compliance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "For the install, erect, enlarge, alter, repair, remove, convert or replace any electrical system or part thereof.  This includes but limited to electrical services, circuits, receptacles, light fixtures, low voltage, main breakers, disconnects and other devices.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Mechanical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permits for new, replacement, repair or modification of mechanical systems, equipment and venting. Includes like for like replacements of boilers or furnaces. Some installs will require both mechanical and electrical permits such as mini-split systems. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Sewer Permit (Commercial or Residential, New/Replace/Repair)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Sewer Permit is required for new connections to the City of Norwich sanitary sewer system and repairs to existing sewer connections. \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6522",
+      "name": "ZONING - Commercial & Business Zoning Verification - Including Home Business",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "\nThis application is required to verify conformity of buildings and land (use, location and occupancy) for new commercial uses, including changes in ownership of existing businesses, and home occupations. This record is in addition to any zoning permits required for site work, conversions, new construction, or additions to existing structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Water Permit (Commercial or Residential, New/Replace/Repair) ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Water Permit is required for new connections to the City of Norwich water distribution system and repairs to existing water services. \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "ZONING - Yard Sale Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Plumbing and/or Gas Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permit for new, replacement, repair or modification of plumbing systems, equipment and fixtures. Includes like for like replacements of water heaters, sinks or other fixtures.  Installing new, extending or repairing gas lines or tanks(without installing equipment)\n\n* For work on sewer or water lines from the street to the house a plumbing permit is not required. NPU has permits for new or repairs to existing water and sewer lines from the house to the street. Link to NPU permits https://norwichct.portal.opengov.com/categories/1080",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permit to demolish any building, structure or part thereof.  Major contractors license, Home Improvement Contractor Registration, or New Home Builder Registration does NOT take the place of a demo license or include demolition. There shall be no subcontracting of demolition operations unless the subcontractor possesses a proper demolition certificate. Demolition permit are valid for 30 days from date of issue",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Hydrant Meter/Backflow Request",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Applications and payment must be submitted prior to installation.\nInstallation is available only Tue-Thu\nDevices may NOT be removed or relocated by a contractor. NPU must be contacted to remove/replace/relocate the device. Applicable fees will apply. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "ZONING - Lot Line Revision or Free Split",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "BLD - Fire Protection Systems Permit (Sprinklers, Commercial Kitchen Hood, Alarm Systems, ETC...)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required for Fire Alarm System, Commercial Kitchen Hood, Hood Suppression Systems, Sprinkler - Commercial, Sprinkler - Residential 1-2 Family, Sprinkler - Residential 3 Family and Above",
+      "isEnabled": true
+    },
+    {
+      "id": "6368",
+      "name": "Zoning Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This application is required for, but not limited to the following:  new buildings, additions, pools, fences, sheds, garages (attached or detached), change of use, conversions, green houses, barns and other accessory structures, new driveways or parking lots, or the reconstruction of driveways and parking lots. \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "CCP - Site Development Plan",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Temporary Installation-Event-Occupancy Permit (Tents, Construction Trailers, Staging, Fairs, Carnavals, ETC..)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Carnivals, fairs, weddings, parties or other events. Temp trailers for construction, staging or similar. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Annual Maintenance Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "An annual service permit may be issued for work involving the minor repair, refurbishing, or replacement of parts of the building service systems, not affecting life safety or life safety systems. Examples include:\n* repairs or replacement of electrical equipment/devices performed on load side of meter,\n*repairs or replacement of plumbing, piping and related equipment/devices/fixtures on distribution side of water meter,\n*repairs or replacement of ductwork, coils, evaporators and related equipment and controllers with items which are of equal rating, load capacity, voltage, size, etc., as applicable.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "CCP - Special Permit/Exemption",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "CCP - Coastal Site Plan Review Application ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "CCP - Subdivision/Re-Subdivision",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "IWWCC - Inland Wetlands and Watercourses Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "ZBA - Variance Application Documents",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Variance Application Document Repository. Paper Applications are Required",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Fireworks/Sparkler Vendor",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Required for individual vendors for seasonal sales and businesses selling fireworks/sparklers in stores",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Motor Vehicle Location Approval",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Motor Vehicle Location Approval.\n",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1087",
+      "name": "Zoning Permit Applications & ZBA Records",
+      "isEnabled": 1,
+      "content": "<div>The City of Norwich, including the Planning and Neighborhood Services Department is committed to servicing the community in a timely and professional manner. Below is a list of application available online.&nbsp;</div>"
+    },
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 30px; color: rgb(40, 50, 78);\">Permits for new construction, alterations and repairs.</span></strong></p><table style=\"width: 100%;\"><tbody><tr><td style=\"width: 50.0000%;\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/1689167315323_Wed_Jul_12_2023_13:08:35_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 345px;\" class=\"fr-fic fr-dib\"></td><td style=\"width: 50.0000%;\"><img src=\"https://viewpointcloud"
+    },
+    {
+      "id": "1076",
+      "name": "Land Use (Planning  - Wetlands - CCP)",
+      "isEnabled": 1,
+      "content": "<p>The City of Norwich, including the Planning and Neighborhood Services Department is committed to servicing the community in a timely and professional manner. Below is a list of application available online. Paper applications will have to be completed for the Special Permit, site Plan, Wetlands, Subdivision, and Costal Area Management, and Variance applications. <strong><span style=\"color: rgb(226, 80, 65);\">The portal is only a repository for the documents and communications for the previous"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Marshal ",
+      "isEnabled": 1,
+      "content": "<p><b style=\"mso-bidi-font-weight:normal;\"><strong><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 24px; color: rgb(226, 80, 65);\"><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Proper_Smoke_Detector_Placement_Fri_Jul_21_2023_13:53:45_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\"></a><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Request_for_Extension_of_Time_to_correct_violations_Fri_"
+    },
+    {
+      "id": "1082",
+      "name": "Landlord Registration",
+      "isEnabled": 1,
+      "content": "<p>&nbsp;<span style='color: rgb(49, 51, 53); font-family: \"Open Sans\", sans-serif, Helvetica, Arial, sans-serif; font-size: 20px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 700; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style"
+    },
+    {
+      "id": "1081",
+      "name": "Complaints",
+      "isEnabled": 1,
+      "content": "<p>By using this section you can submit complaints relating to housing, blight, zoning, building code, streets, and sidewalks. If you do not have an address please be as specific as possible. You may use cross street names or telephone pole numbers to verify the location, along with building descriptions to assist staff in locating the area or property. Pictures of the complaint are also encouraged. These can be uploaded in the complaint form.</p>"
+    },
+    {
+      "id": "1080",
+      "name": "Norwich Public Utilities (NPU)",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-bottom:7.5pt;background:white;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">Welcome to the Norwich Public Utilities (NPU) permit portal. Use this portal to apply for utility service permits required by NPU. Please note: contractors and developers are encouraged to review NPU&rsquo;s policies and requirements prior to filling out any applications. Please view our website for additional information at <a href=\"https://norwichpublicutilities.com/doing-business-with-npu/p"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:40.210Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

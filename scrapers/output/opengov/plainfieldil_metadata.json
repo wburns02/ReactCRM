@@ -1,0 +1,141 @@
+{
+  "jurisdiction": "Plainfield",
+  "state": "IL",
+  "tenant": "plainfieldil",
+  "portalUrl": "https://plainfieldil.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6444",
+      "name": "Code Complaint",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Business License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Improvement Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a permit to improve your property including: chicken coop, deck, driveway, fence, foundation, gazebo, hot tub, patio, pergola, pool, roof, shed, and siding.",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Commercial Building Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a commercial permit including: new commercial structures, build-outs, change of occupancy, commercial roofing, commercial interior demolitions, and other miscellaneous commercial projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Sign Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a sign permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Contractor Registration",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Residential Building Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a residential permit including: a new single family residence, duplex, townhome, addition or detached garage structure. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Remodel Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a permit to remodel your existing home including: addition, basement, fire restoration, flood restoration, residential interior demolition, and general residential remodeling.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Electrical Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit including: electric service, generators, solar power, and other miscellaneous electrical work.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Water/Plumbing Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a water or plumbing permit including: irrigation systems, sewer service, water meter and water service.",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Miscellaneous Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a miscellaneous permit including: sales trailer, parking lot or miscellaneous/other. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Site Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a site permit to include mass grading and utilities.",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Demolition Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a demolition permit including: entire structure or an exterior feature.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Natural Planting Area Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Along with filling out the information in this submittal, a site plan detailing where the natural plantings are to be located on your property and a list of all plants to be planted must be attached to this record.  There is no fee for this permit.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Permits",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoratio"
+    },
+    {
+      "id": "1081",
+      "name": "Licenses and Registrations",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1082",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin: 0px 0px 1em; color: rgb(68, 68, 68); font-family: Lato, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: 0.16px; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:57.405Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

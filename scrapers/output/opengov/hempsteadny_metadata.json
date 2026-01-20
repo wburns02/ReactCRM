@@ -1,0 +1,299 @@
+{
+  "jurisdiction": "Town of Hempstead",
+  "state": "NY",
+  "tenant": "hempsteadny",
+  "portalUrl": "https://hempsteadny.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006517",
+      "name": "DAS Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006523",
+      "name": "Certificate Search or Updated Search ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006527",
+      "name": "Structures in Waterways ",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "For questions and more information regarding Bulkheads and Waterways Structures please contact the Dept. of Conservation & Waterways at 516-431-9200 or email eveltos@tohmail.org",
+      "isEnabled": true
+    },
+    {
+      "id": "1006533",
+      "name": "Letter in Lieu",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "The letter is in place of a C.O built before 1930 and is a  Residential One-family dwelling. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006535",
+      "name": "Certification of Occupancy/ Certification of Completion Request ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006553",
+      "name": "NAS Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006515",
+      "name": "Commercial",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "For Commercial Documents ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006478",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Sign Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": "Public Assembly License/Operating Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Online Public Assembly License/Operating Permit Application for the filing of new licenses and the renewal of existing licensed Places of Public Assembly.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Multiple Residence Registration",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Online Multiple Residence Registration for new filings and annual renewals.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006506",
+      "name": "Telecommunications Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006514",
+      "name": "Residential ",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "For Residential Documents ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006534",
+      "name": "BZA Granted Sign Permit Renewal",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Please select this option to initiate the filing for the renewal of the 5-year Sign Permits granted by the Board of Zoning Appeals.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006540",
+      "name": "Christmas Tree Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The temporary sale and storage of Christmas trees are not permitted in Residential Zones. A town of Hempstead Claim form is to be submitted upon inspection ( Inspection Request can be made through the Open Gov Portal) of the premises after the complete restoration of the site to its original condition for the reimbursement cash bond.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006546",
+      "name": "Special Event ",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006479",
+      "name": "Gas Plumbing Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006508",
+      "name": "Public Assembly Complaint",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Select this option for the filing of complaints against existing Places of Public Assembly and Multiple Residences.  Note: any complaints associated with non-permitted Places of Public Assembly and Multiple Residences are to be addressed by the Code Enforcement Division.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006547",
+      "name": "Misc. ",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006532",
+      "name": "Sign Permit Renewal",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006538",
+      "name": "Fire Escape Certification",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "As per the New York State Fire Code Chapter 11 Section 1104.16.5.1 (examination), fire escape stairways and balconies shall be examined for structural adequacy and safety in accordance with Section 1104.16.5 by a registered design professional or others acceptable to the fire code official every five (5) years, or as required by the fire code official.  An inspection report shall be submitted to the fire code official after such examination.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006480",
+      "name": "Plumbing Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006530",
+      "name": "Residential For Sale/Rent Sign Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006518",
+      "name": "Elevator Inspection Report",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "It shall be the duty of the owner or agent of a building which has a passenger or freight elevator therein contained to register and provide the Department of Buildings of the Town of Hempstead with a semi-annual inspection report, which shall be obtained from a recognized elevator repair or installation company or from an insurance company.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Sewer Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006542",
+      "name": "Condition Assessments of Parking Garages",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "In accordance with Part 1203 Section 1203.3(J) of the Uniform Code, the Town of Hempstead Department of Buildings requires that Condition Assessments be performed for all parking garages.  The condition assessment requires that an on-site inspection and evaluation be performed by a New York State Licensed Professional Engineer for evidence of deterioration of any structural element or building component of such parking garage; evidence of the existence of any unsafe condition in such parking garage; and evidence indicating that such parking garage is an unsafe structure.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Fire Sprinkler Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1102",
+      "name": "Public Announcements",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><strong><span style=\"font-size: 30px;\"><u>Announcement</u></span></strong></div><div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/1728573748450-18ffa80c-14d9-4698-9393-eb7e82cef71e_1_Thu_Oct_10_2024_15:22:52_GMT+0000_(Coordinated_Universal_Time).jpg\" style=\"width: 427px;\" class=\"fr-fic fr-dib\"></div><div style=\"text-align: center;\"><a href=\"https://www.nassaucountyny.gov/5654/Nassau-Septic\" rel=\"noopener noreferrer\" target=\"_blank\">http"
+    },
+    {
+      "id": "1071",
+      "name": "Building Department Permits",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><em><span style=\"font-size: 30px;\"><span style=\"color: rgb(44, 130, 201);\">Daniel J. Leo</span></span></em></strong></p><p style=\"text-align: center;\"><span style=\"color: rgb(44, 130, 201);\"><strong><em><span style=\"font-size: 18px;\"><u>Deputy Commissioner</u></span><span style=\"font-size: 24px;\">&nbsp;</span></em></strong></span></p><div style=\"text-align: center;\"><br></div><hr style=\"text-align: center;\"><div style=\"text-align: center;\"><strong><span sty"
+    },
+    {
+      "id": "1084",
+      "name": "Plumbing Department",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"text-align: center; line-height: normal;\"><strong><em><span style=\"font-size: 18px;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;Daniel J. Leo &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></em></strong></p><p align=\"center\" style=\"text-align: center; line-height: normal;\"><strong><em><span style=\"font-size: 18px;\">Deputy Commissioner &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;"
+    },
+    {
+      "id": "1093",
+      "name": "Certificate Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><em><span style=\"font-family: Verdana, Geneva, sans-serif; font-size: 18px;\">The Certificates Section allows Builders, Developers, Homeowners.. etc to search the history of a property.</span></em></strong></p>"
+    },
+    {
+      "id": "1100",
+      "name": "Electrician and Plumber Licensing",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"font-size: 18px; font-family: Verdana, Geneva, sans-serif;\">Welcome to the licensing page for the electrical and plumbing industries for The Town of Hempstead. This page provides essential information for individuals interested in pursuing careers as Master Electricians, Master Plumbers, Tri-Town Electricians, Tri-Town Plumbers, and Reciprocal Plumbers.</span><span style=\"color: rgb(0, 0, 255);\"><a href=\"https://hempsteadny.gov/496/Examining-Board-of-E"
+    },
+    {
+      "id": "1082",
+      "name": "Public Assembly Division",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"mso-margin-top-alt:auto;margin-bottom:  7.5pt;text-align:center;line-height:normal;\"><strong><span style=\"font-size: 24px; color: rgb(41, 105, 176);\">PUBLIC ASSEMBLY DIVISION</span></strong></p><p align=\"center\" style=\"mso-margin-top-alt:auto;margin-bottom:  7.5pt;text-align:center;line-height:normal;\"><strong><span style=\"font-size: 24px; color: rgb(41, 105, 176);\">DEPARTMENT OF BUILDINGS</span></strong></p><p align=\"center\" style=\"mso-margin-top-alt:auto;margin-bottom:"
+    },
+    {
+      "id": "1083",
+      "name": "Signs Division",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"margin-bottom:7.5pt;text-align:center;  line-height:normal;\"><u><strong><span style=\"font-size: 30px;\">SIGNS DIVISION</span></strong></u></p><p align=\"center\" style=\"margin-bottom:7.5pt;text-align:center;  line-height:normal;\"><u><strong><span style=\"font-size: 30px;\">DEPARTMENT OF BUILDINGS</span></strong></u></p><p align=\"center\" style=\"margin-bottom:7.5pt;text-align:center;  line-height:normal;\"><br></p><p style=\"margin-bottom: 7.5pt; line-height: normal; text-align: "
+    },
+    {
+      "id": "1095",
+      "name": "Conservation & Waterways ",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"font-size: 36px; font-family: Verdana, Geneva, sans-serif;\"><strong><span style=\"color: rgb(41, 105, 176);\">Conservation &amp; Waterways</span></strong></span></p><h1 style='box-sizing: content-box; font-family: \"Source Sans Pro\"; font-style: normal; font-weight: 900; color: rgb(42, 105, 138); font-size: 1.6em; text-decoration: none; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-i"
+    },
+    {
+      "id": "1086",
+      "name": "Telecommunications Permits",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong style=\"font-weight: 700;\"><em><span style='font-size: 30px; font-family: \"Times New Roman\", Times, serif, -webkit-standard;'>&nbsp;<span style=\"color: rgb(41, 105, 176);\">Daniel Leo</span></span></em></strong></p><p style=\"text-align: center;\"><span style=\"color: rgb(41, 105, 176);\"><strong style=\"font-weight: 700;\"><em><span style=\"font-size: 30px;\"><span style=\"font-family: Times New Roman,Times,serif,-webkit-standard;\">&nbsp;&nbsp;</span><u><span style=\""
+    },
+    {
+      "id": "1089",
+      "name": "F.O.I.L Request",
+      "isEnabled": 1,
+      "content": "<div style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; overflow-wrap: break-word; color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-de"
+    },
+    {
+      "id": "1090",
+      "name": "Board of Zoning Appeals ",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(86, 86, 86); font-family: Poppins, sans-serif; font-size: 17.6px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 300; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(250, 250, 250); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: init"
+    },
+    {
+      "id": "1098",
+      "name": "Vacant & Rental Property Registry ",
+      "isEnabled": 1,
+      "content": "<div data-containerid=\"5f8c90dc-b4cb-431b-90ee-10648f8df655\" data-contentcontainerbreakpoint=\"40\" style='box-sizing: border-box; margin: -1em; color: rgb(68, 68, 68); font-family: \"Source Sans Pro\"; font-size: 14.4px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; backgro"
+    },
+    {
+      "id": "1097",
+      "name": "FEMA/Storm Information",
+      "isEnabled": 1,
+      "content": "<h1 style='box-sizing: content-box; border: 0px none; font-family: \"Source Sans Pro\"; font-style: normal; font-weight: 900; color: rgb(3, 43, 105); font-size: 1.6em; text-decoration: none; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255);'>Hurricane Safety Brochure</h1><p><a"
+    },
+    {
+      "id": "1101",
+      "name": "Title Companies Only",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><strong><span style=\"font-size: 48px; color: rgb(184, 49, 47);\">For Title Companies Only </span></strong></div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:16.286Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

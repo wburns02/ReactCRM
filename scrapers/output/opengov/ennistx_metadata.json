@@ -1,0 +1,478 @@
+{
+  "jurisdiction": "City of Ennis",
+  "state": "TX",
+  "tenant": "ennistx",
+  "portalUrl": "https://ennistx.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6543",
+      "name": "Electrical Meter Release",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "**PLEASE READ**  If you are doing any type of electrical service repair you will need to fill out a Basic Building Permit Application.  An Electrical Meter Release is to ONLY be used for electrical service that has had an interruption in service due to disconnection or has been unoccupied without service. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Permit for Outdoor Burning",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "To permit the outdoor burning of brush piles resulting from land clearing operations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "Certificate of Demolition or Relocation of a Historic Building",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "For the demolition of any historic landmark or buildings within a historic overlay designation",
+      "isEnabled": true
+    },
+    {
+      "id": "6592",
+      "name": "Zoning Verification Letter",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A Zoning Verification Letter provides information about and verifies the current zoning of a\nparticular piece of property and the types of uses that may be allowed in that zoning district. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6593",
+      "name": "Pre-Development Meeting Request",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The City of Ennis is now holding Pre-Development meetings to guide and assist those seeking to build developments/projects in Ennis.  These meetings are scheduled for the 1st and 3rd Thursday of each month starting at 9:15 AM and the last meeting starting at 1:45 PM.  Each meeting is scheduled for 45 minutes and the developer(s) can request an in-person, a virtual or a hybrid meeting.  \n\nTo request a meeting, please complete each section of this request form and attach a location map and a site/concept plan of the area you wish to discuss. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Tournament Reservation Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for an OpenGov Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6617",
+      "name": "Civil Construction Master Record",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Complete this application when you are ready to schedule a preconstruction meeting.\n\nAll public infrastructure installations require preconstruction meetings.\n\nCivil Plans must be approved before a preconstruction meeting may be scheduled.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "3. Receiving Your Permit or Other Documents",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued documents.",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Utility Locate Request",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "For requesting locates of City of Ennis Utilities including Water, Sewer, Street Light Electrical, and Traffic Signal and other facilities. Fees are based upon a single address or the distance set in a location segment and must be paid before the City locates utilities.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Temporary Health Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Any group, organization, company, or individual preparing, selling, or offering any food item(s) to the public must first obtain a temporary food permit from the City of Ennis Health Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Food Establishment Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "A food establishment health permit is required for all businesses or organizations that provide perishable foods, whether prepackaged or non-prepackaged, to the public.\nAnnual permit renewals will be accessible approximately six weeks prior to the permit expiration date. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Verification of Water and Wastewater Availability Request",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "The Verification of Water and Wastewater Availability Request Form represents the nearest available water and wastewater points to the requested location.",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Early Grading Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Complete this application to obtain a permit to begin grading a development site before final building permits have been issued.  The City of Ennis reserves the right to deny or postpone authorization of early grading.",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Civil Plan Review",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Civil Plans review proposed construction site plans, which, depending on the type of development, include streets, drainage, utilities, lighting, signage, erosion control, details, and any other applicable plans. Civil drawings and site plan approvals shall expire 1-year after the approval date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Mobile Food Unit - Annual Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Mobile food units must pass an annual inspection from Health Department staff and Fire Marshal, and obtain a permit in order to operate within the City limits. The City of Ennis does not allow pushcarts or stand-alone kiosks as a mobile food unit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": "Will Serve Request",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Single Family/Duplex Rental Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "No single family rental unit may be operated within the city without registration and license.  The property owner or property manager of a rental dwelling unit shall apply for registration with the city.  A registration shall be valid from January 1st - December 31st of each year and must be renewed on an annual basis. \nThe definition of a single family rental unit includes duplexes.",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Special Event Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "The City of Ennis requires a Special Event Permit for any organized activity that takes place on public or, in some cases, private property, or may impact public services, such as festivals, parades, runs/walks, concerts, and large gatherings. The permitting process ensures that events are safe, well-organized, and in compliance with local ordinances.",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Public Works Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "The Public Works Application is used to request Water Meters and Boxes, Wastewater Cleanouts and Boxes, Estimates for Water and/or Wastewater installations, Driveway or Barrier-Free Ramp Inspections, and TxDOT Driveway and Utility Permit assistance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permits for New Construction, Additions, Detached Accessory Structure (Garage, Granny Flat, etc.), or Major Remodels or for any Residential and Commercial uses where there is any food or drink preparation or anything that will involve approval from the Health Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Right-of-Way Annual Registration Form",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Right-of-Way Annual Registration is required prior to applying for a ROW permit in accordance with Ordinance No. 19-0226-13 Section 16-6. Please refer to the ROW Permit checklist for additional information on application requirements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Ennis Bluebonnet Market Vendor Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Be part of a community-driven market that fosters growth and brings the best of local talent and products to the heart of Ennis. Apply here to become a vendor at the Bluebonnet Market!",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Multi-Family Rental Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "No multi-family complex may be operated within the city without registration and license.  The property manager of a complex shall apply for registration with the city.  A license shall be valid from January 1st - December 31st of each year and must be renewed on an annual basis. \nThe definition of a multi-family rental unit means one (1) or more buildings that are on one (1) platted lot and that each contain three (3) or more dwelling units.",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Rental Inspection Request Form",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Per city ordinance, when there is a change in tenancy in single-family dwellings, or upon request by the tenant, an inspection must be made by one of our inspectors to ensure there are no life-safety or critical violations present.\n\nPlease note: If a second re-inspection is required, a $75.00 fee will be assessed. Each additional re-inspection thereafter will incur a $150.00 fee per visit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6600",
+      "name": "Right-of-Way Construction Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "This application is for any work being performed within any Right of Way within the city limits of Ennis.  \n\nThere is a $250 non-refundable application fee for all applicants that do not have a franchise agreement or are not paying fees to the City of Ennis.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Basic Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permits for electrical, solar, plumbing, HVAC/mechanical, roofing, foundation, storage building under 400 sq ft, flatwork, demolition, brick work, or for simple remodels (windows, doors, siding) for Residential or Commercial. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Mosquito Complaint Investigation Request",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Are mosquitoes causing trouble in your area? Help us take action! Please fill out this form to report mosquito issues in your neighborhood. Your information will assist our public health team in identifying and addressing mosquito breeding sites. Together, we can reduce the risk of mosquito-borne diseases and make our community a safer place.",
+      "isEnabled": true
+    },
+    {
+      "id": "6589",
+      "name": "Fire Marshal Construction Permit ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Empower Ennis Volunteer Form",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Make a difference right where it counts—in your community. Empower Ennis is calling on neighbors like you to lend a hand and a heart in helping those around us in need of lawn maintenance and minor home repairs. Filling out this form is the first step towards becoming an Empower Ennis volunteer. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Additional Waste Container Form",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Driveway Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permits for new driveways or to repair existing driveways.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Industrial Pretreatment Program Self-Monitoring Report",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Please enter the information and the print and sign this document.  This must be submitted by Certified mail or Had delivery to the City of Ennis Pretreatment Program.",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Fire Marshal Inspection ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6588",
+      "name": "Fire Marshal Operational Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Driveway Approach or Barrier-Free Ramp Inspections",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Pretreatment Industrial User Waste Survey",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Annual Pretreatment Industrial User Survey",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Certificate of Occupancy Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please use this to apply for a new Certificate of Occupancy for commercial new constructions, a new owner, or new tenant.",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Bacteriological Sampling and Testing",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "On-Site Sewage Facility",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "For new construction and modifications of On-Site Sewage Facility and Septic System",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Wastewater Discharge Permit Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Industrial User Wastewater Discharge Permit Application",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Irrigation and Backflow Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Variance Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required to seek relief from the application of zoning regulations to alleviate from a hardship to a particular property",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Open Air Vendor Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Sign Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "No signs may be attached to trees, fences, shrubs, utility poles or street signs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Contractor Registration Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Each contractor shall maintain registration with the city until the work being performed under such permit is complete. Contractors shall furnish the building official with the contractor's permanent business and residential address, and telephone numbers.",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Development Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required for the submittal of a Concept Plan, Development or Site Plan",
+      "isEnabled": true
+    },
+    {
+      "id": "6554",
+      "name": "Mural Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required if seeking to paint a mural on a building. This application type will be reviewed by the Planning & Zoning Commission and Historic Landmark Commission (HLC if applicable) as required by City Code of Ordinances and Unified Development Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Plat Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required if seeking subdivision of land.  No plat application will be reviewed and processed until the required civil plans have been approved by the Department of Public Works.",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Abandonment Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Specific Use Permit (SUP)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required if seeking to obtain a Specific Use Permit (SUP) ",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Certificate of Appropriateness Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required for changes to the exterior of structures in the Historic Districts.  Do not upload or attach a paper copy of this application in lieu of the online application.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Zoning  Change Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required if seeking a change in use of the property",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Annexation Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required if seeking to bring a property into the City of Ennis limits",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1085",
+      "name": "Fire Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1073",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial, Helvetica, sans-serif;\"><span style=\"font-size: 24px;\">Welcome to the City of Ennis Health Department</span></span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">At the heart of our vibrant community lies the commitment to the well-being of all who live, work, and visit here. The City of Ennis Department of Health Services is dedicated to fostering a healthy, safe, and thriving environment for everyone. Upholding the highest standards of public "
+    },
+    {
+      "id": "1072",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<div>The Public Works Department&#39;s purpose is to provide the community with the highest quality water, sanitation, and streets services possible. Our priorities are to maintain a cost-effective operation while providing efficient services. We are dedicated to accomplishing the mission through prudent allocation of resources, utilizing advanced technology, innovative teamwork, and timely coordination.</div>"
+    },
+    {
+      "id": "1071",
+      "name": "Planning, Development and Building Inspections",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(184, 49, 47);\"><strong><u>Please follow carefully and closely the instructions and requirements for the application you intend to submit with the Department. &nbsp;Failing to do so will cause delays and/or rejection of your request. &nbsp;</u></strong></span></div><div><br></div><div><span style=\"color: rgb(184, 49, 47);\"><strong><u>In addition, do not upload or attach a hard copy of the application and/or ZIP files. &nbsp;</u></strong></span><span style=\"color: rgb("
+    },
+    {
+      "id": "1082",
+      "name": "Parks & Recreation",
+      "isEnabled": 1,
+      "content": "<div><strong><span style=\"color: rgb(26, 188, 156);\">Parks &amp; Recreation </span></strong></div>"
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 24px;\"><strong>Introducing OpenGov: Simplifying Permits and Licenses in Ennis</strong></span> <br> <br><span style=\"font-size: 14px;\">The City of Ennis is excited to announce our new permitting and licensing system, OpenGov. Designed with you in mind, OpenGov is set to streamline the application process, making it faster and more efficient for businesses and citizens alike to obtain the permits and licenses they "
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:53.073Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,254 @@
+{
+  "jurisdiction": "Kings Mountain",
+  "state": "NC",
+  "tenant": "kingsmountainnc",
+  "portalUrl": "https://kingsmountainnc.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6603",
+      "name": "Utility Tap Application",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "Use this application to apply for new services for electric, natural gas, water and sewer utilities served by the City of Kings Mountain.",
+      "isEnabled": true
+    },
+    {
+      "id": "6604",
+      "name": "Line Drop Request",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "Use this application to request the City of Kings Mountain's Electrical Utility to have an overhead service wire cut loose or removed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "Driveway Permit",
+      "categoryId": 1092,
+      "viewAccess": null,
+      "description": "Use this application to apply for a driveway permit when adding a new driveway that will access a city maintained street within the City limits. For questions please call 704-734-4501.",
+      "isEnabled": true
+    },
+    {
+      "id": "6571",
+      "name": "ABC Approval",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Address Request Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "The new address must be within the city limits of King's Mountain.",
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Additional/Replacement Rollout Container",
+      "categoryId": 1092,
+      "viewAccess": null,
+      "description": "Use this application to apply for an additional or replacement rollout container within the city limits. If you are requesting a replacement container due to container being damaged by a city garbage truck, please call the Public Works Department at 704-734-0735 before you proceed with this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6543",
+      "name": "Bulky Yard Waste Collection",
+      "categoryId": 1092,
+      "viewAccess": null,
+      "description": "Use this application to pay for Bulky Yard Waste collection within the city limits. Please call 704-734-0735 for any questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Annexation Petition Application ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "An  original Annexation Plat is required to be submitted with the petition which contains the original signature, registration number and seal of the surveyor, as well as the required language and signature space for the Review Officer to sign prior to recording.  This map will be recorded prior to the Ordinance that is adopted by City Council.  If the Annexation Plat has been previously recorded, please provide a copy that reflects the Plat Book and Page number in which it has been recorded.",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Administrative Decision Appeal Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Appeals from the decisions of an administrative officer in which it is alleged there is an error in an order, requirement, decision, or determination in the enforcement of this UDO shall be made to the Board of Adjustment (BOA).",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Encroachment Agreement",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "Use this application to apply for an encroachment agreement to perform utility work or other construction related activities on city maintained streets or right-of-ways adjacent to city maintained streets.",
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "Land-Disturbing Activity",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "Use this application for a Certificate of Approval to undertake any land-disturbing activity such as grading.",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Application for Rezoning or Text Amendment",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "A rezoning is a request to change the zoning district of a given parcel. The zoning district classifications can be found in the UDO; 156.10.02 Zoning District Establishment. \n\nA text amendment is a request to change, add, or include any new language into the Unified Development Ordinance (UDO). The UDO can be found at the following address: https://online.encodeplus.com/regs/kingsmountain-nc/doc-viewer.aspx#secid-2001  \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6612",
+      "name": "Campaign Sign Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Signs displaying support for or opposition to a candidate, political party, or referendum within the jurisdictional limits of the City of Kings Mountain.",
+      "isEnabled": true
+    },
+    {
+      "id": "6574",
+      "name": "Spill Cleanup",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "Use this application to pay invoices for spill cleanup services performed by City staff.",
+      "isEnabled": true
+    },
+    {
+      "id": "6609",
+      "name": "Central Business (CB) Vacant Property Registration",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Registration of businesses that have been vacant for longer than 90 days without sale or rental.",
+      "isEnabled": true
+    },
+    {
+      "id": "6533",
+      "name": "Certificate of Nonconforming Adjustment",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "An applicant for a Certificate of Nonconforming Adjustment shall submit a detailed plan of the existing site, showing the degree of Nonconformity with respect to the dimensional and design regulations of this UDO. In the case of a Nonconforming Use, the application shall include a detailed explanation of the current use, including documentation of traffic generated by the current use.",
+      "isEnabled": true
+    },
+    {
+      "id": "6562",
+      "name": "Commercial Site Plan Review",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This form is used for initial site plan review of commercial projects to include zoning and grading and erosion control. Once the plans are approved, the applicant can apply for a commercial building permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6583",
+      "name": "Construction Documents/Preliminary Plat Review for Major Subdivisions",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Sketch Plan approval is required before apply for this review.\nFor more detail on the subdivision review process please see section 156.120 Subdivision Review Procedures here: https://online.encodeplus.com/regs/kingsmountain-nc-update/doc-viewer.aspx#secid-179\nPreliminary Plat and Construction Plan requirements can be found in the Mapping Standards Appendix of the Kings Mountain UDO here: https://online.encodeplus.com/regs/kingsmountain-nc-update/doc-viewer.aspx#secid-209 \nThe applicant will be required to send 2 sets of hard copies to Public Works at 1013 N Piedmont Ave, Kings Mountain, NC 28086",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Final Plat Review Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "The is for a single phase of a major subdivision. Every phase requires its own unique Final Plat Review Application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Minor & Family Subdivision Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Minor Subdivisions are divisions of property that include up to five lots in the project design. Lots are served by frontage on an existing public road or by a new public or private road that is created during the design and review process for the Minor Subdivision.\n\nFamily Subdivision is a division of land solely among direct lineal descendants (children, grandchildren, and great-grandchildren) and direct lineal ascendants (father, mother, grandfather, and grandmother); and brothers, sisters, nieces, and nephews.",
+      "isEnabled": true
+    },
+    {
+      "id": "6608",
+      "name": "Road Closing Petition",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Form to submit a petition to City Council to fully close or partially close a road or street in the municipal limits of Kings Mountain.",
+      "isEnabled": true
+    },
+    {
+      "id": "6576",
+      "name": "Sketch Plan Review",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This is the first step in any commercial or Major Subdivision project review. \n\nAll sketch plans shall be drawn to a scale of not more than 100 feet to an inch, and meet all requirements listed in the mapping standards of the Kings Mountain UDO here: https://online.encodeplus.com/regs/kingsmountain-nc-update/doc-viewer.aspx#secid-205\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Special Use Permit Application ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "A land use designated as a \"special use\" in a zoning district is one that might be appropriate if special standards are in place to ensure it is located, designed and operated in a manner that is in harmony with neighboring development. Special Use Permits are granted by the Board of Adjustment or City Council through a quasi-judicial hearing and review process set forth in the Unified Development Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6588",
+      "name": "System Development Fee Refund Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Water and sanitary sewer system development fees may be waived if the development meets 3 criteria:\n1) For single-family, detached residential lots; wherein the combination of the lot size, as measured in square footage, when combined with the total gross square footage of living space of the dwelling constructed on the lot, totals 9500 or greater; and:\n2) Wherein, said same dwellings are offered for sale exclusively to owner-occupant purchasers, and not investor-for-rent purchasers; and:\n3) Wherein, said same dwellings are constructed consistent with exterior façade design standards which earn no fewer than three (3) cumulative \"performance points,\" as measured by the City of Kings Mountain UDO Section 156.50.08, Performance Flex Lot, Subsection B, utilizing only #1-5, being: wall materials; roofs; garages; façade articulation, and porches.\n\nhttps://online.encodeplus.com/regs/kingsmountain-nc-update/doc-viewer.aspx#secid-604",
+      "isEnabled": true
+    },
+    {
+      "id": "6528",
+      "name": "Temporary Use Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "The Temporary Use Permits  allow a use on a short-term basis and certain seasonal or transient uses not otherwise allowed. The following uses require a Temporary Use Permit: Amusement Enterprises, Commercial Outdoor Sales Events, Contractor Offices (Temporary),  Firework Stands, Food Trucks, Outdoor Circus, Carnival, Exhibition, or Show, Real Estate Offices in Construction or Temporary Modular Unit, Real Estate Office in Model Home, Seasonal Sales, Sidewalk Vendor, Temporary Mobile Home During Construction of New Home. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "Variance Request",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "When unnecessary hardships would result from carrying out the strict letter of a zoning ordinance, the Board of Adjustment shall vary any of the provisions of the ordinance if all of the standards of Chapter 156.110.01(C)  are met. \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Zoning Complaint",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This record is for tracking and investigating a suspected violation of the UDO's zoning requirements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": "Zoning Verification Letter",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "A zoning verification letter is a legally recognized document which informs commercial property owners, lenders and prospective buyers of zoning laws related to the particular property based on the municipalities current zoning ordinance.\n\nA zoning verification letter will provide a general description of the zoning district, references to any applicable zoning and development standards plus any conditional rezoning requirements, and compliance.\n\nThis letter is NOT a zoning permit. \n\n",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1087",
+      "name": "Planning Department ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1092",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 18px;\">Select the appropriate application below to begin.</span></strong></p>"
+    },
+    {
+      "id": "1094",
+      "name": "Utility Departments",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:25.836Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

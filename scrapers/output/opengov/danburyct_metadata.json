@@ -1,0 +1,333 @@
+{
+  "jurisdiction": "Danbury",
+  "state": "CT",
+  "tenant": "danburyct",
+  "portalUrl": "https://danburyct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6386",
+      "name": "Burn Permit ",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Burn Permits can be filled out prior to coming to the office to obtain a signature. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6414",
+      "name": "Carnival/Special Event Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Carnival and Special Events, Weddings, Festivals, Assembly ",
+      "isEnabled": true
+    },
+    {
+      "id": "6415",
+      "name": "Tent Permit Application",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Subdivision / Resubdivision Application",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "This application is for subdivision or resubdivision plan approval in the City of Danbury, ensuring compliance with Subdivision Regulations, zoning standards, and stormwater management requirements through the submission of detailed plans, reports, and fees.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Request for Information",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "This application is for requesting zoning or property information from the City of Danbury Planning & Zoning Department, excluding determinations of legal property use. This form is for information maintained by the Planning & Zoning Department only. For Building, Engineering, or other department records, please contact those departments directly.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "First Division Form",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "This record type is for the first division of land in Danbury, requiring a Class A-2 Survey, supporting documents, and verification of zoning and health code compliance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Site Plan Waiver Application",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "This application is for requesting a Site Plan Waiver from the City of Danbury Planning & Zoning Department for minor changes in use and temporary structures, ensuring compliance with local Zoning Regulations (§10.D.6).",
+      "isEnabled": true
+    },
+    {
+      "id": "6379",
+      "name": "Permit Project Application (Commercial) ",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "This application is designated for commercial projects: new construction, additions, change or use, and interior alterations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Permit Project Application (Residential)",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "This application is designated for residential projects: new construction, additions, change of use, and interior alterations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6355",
+      "name": "Blasting Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Blaster must come to office to obtain a blasting permit. Please bring proof of insurance and explosives license. There is a fee of $60.00 set by C.G.S. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Body Care Application",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "This application is designated for Body Care Establishments including: Hair Salons, Nail Salons, Beauty Salons/Spas (multi-service salons), Barber Shops, Tattoo Parlors (with or without Piercing), Aesthetician Salons (NO MASSAGE, NO BODY SCULPTING, NO BOTOX)",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Detached Garage Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Application for construction of a detached garage on a residential lot",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Danbury Fair Mall Kiosks Permit Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Application for Kiosks for the Dabury Fair Mall Only",
+      "isEnabled": true
+    },
+    {
+      "id": "6424",
+      "name": "Demolition Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This permit is for the demolition of an ENTIRE STRUCTURE being removed from a property. Commercial or Residential.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Finished Basement Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Application for construction of a Finished Basement on a residential lot",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Massage Therapy Application",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "This application is designated for Massage Therapy establishments ONLY",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Open Deck Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Application for construction of a Deck on an existing property",
+      "isEnabled": true
+    },
+    {
+      "id": "6391",
+      "name": "Electrical Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Electrical work NOT part of a project permit. THIS APPLICATION IS NOT FOR SOLAR!!",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Pool Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Application for construction of any type of pool",
+      "isEnabled": true
+    },
+    {
+      "id": "6423",
+      "name": "Sign Permit Application",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "This permit is for any signs installed on buildings or stand alone.",
+      "isEnabled": true
+    },
+    {
+      "id": "6336",
+      "name": "Grading  Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6338",
+      "name": "Highway/Right-of-Way Permit Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Highway Permit Application",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Shed Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Application for construction of a detached Shed on a residential lot",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Highway/CT DOT Utility Right-of-Way Permit Application (ONLY for use if on a State Road)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Highway Permit Application - (ONLY for use if on a State Road)",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Mechanical Permit (Plumbing, HVAC, Burners, Etc.)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Outdoor Dining",
+      "categoryId": 1079,
+      "viewAccess": "private",
+      "description": "Pursuant to the provisions of CT Public Act 22-1 Section 2 effective May 1, 2023 and this section, outdoor dining may be provided as an accessory use to a restaurant that is licensed or permitted to operate pursuant to CGS Section 19a-36i.  An outdoor dining accessory use shall require approval by the Zoning Enforcement Officer of a plot plan drawing required under this Section 3.G.14(h), payment of all required fees, and issuance of an Outdoor Dining Zoning Permit, and shall be subject to the following requirements and restrictions",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Retaining Wall Permit Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6399",
+      "name": "Roof Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Used when re-roofing or roof repair",
+      "isEnabled": true
+    },
+    {
+      "id": "6351",
+      "name": "Septic System Permit Application ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Application for permit to construct a new septic system or repair an existing septic system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Sewer and Water Connection Permit Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6397",
+      "name": "Siding Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Used when installing or replacing siding ",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Solar Permit Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Application for Solar Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Toll Brothers Amenities ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This application is designated for residential projects: new construction, additions, change or use, and interior alterations. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Window or Door Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Used when installing or replacing Windows or Doors. This excludes garage doors",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Wood Stove, Wood or Gas Insert, Chimney Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Wood stove, Wood or Gas Insert, Chimney (new or repair)",
+      "isEnabled": true
+    },
+    {
+      "id": "6368",
+      "name": "Zoning Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Please use this permit for Zoning Permit Only. Home Occupations, Change in Use, ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1085",
+      "name": "Information and FAQs",
+      "isEnabled": 1,
+      "content": "<p><em><strong><span style=\"font-size: 24px;\">Link for GIS: This may be helpful in establishing project location.</span></strong></em></p><p><a href=\"https://www.axisgis.com/danburyct/\" rel=\"noopener noreferrer\" target=\"_blank\">GIS Public Viewer</a></p><p><br></p><p><br></p><p><br></p><p><br></p><p><span style=\"font-size: 24px;\"><em>The Danbury Permit Center is responsible for overseeing the necessary actions needed by all municipal departments to properly address permit applications submitted b"
+    },
+    {
+      "id": "1079",
+      "name": "Standalone Permits",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 24px; color: rgb(85, 57, 130); font-family: Tahoma, Geneva, sans-serif;\">Some projects require a single permit and limited review . The following permits are single agency, single application permits. &nbsp;&nbsp;</span><span style=\"font-family: Tahoma, Geneva, sans-serif;\"><span style=\"font-size: 24px; color: rgb(226, 80, 65);\">&nbsp;</span></span><span style=\"font-family: Arial,Helvetica,sans-serif;\"><br></span></p><p><span style=\"font-size: 18px;\">When you submit yo"
+    },
+    {
+      "id": "1072",
+      "name": "Residential Projects",
+      "isEnabled": 1,
+      "content": "<p><br></p><p><br></p><p><span style=\"font-size: 30px;\"><strong><em>What are &quot;Residential Projects&quot;:</em></strong>&nbsp;</span></p><p><span style=\"font-size: 24px;\">Residential Project Applications have been built for you convenience. Use these applications when you intend to construct, enlarge, or alter a residential property including but not limited to finishing a basement, attic, adding a bathroom, converting a room to a bedroom, installing a pool, adding or converting a garage. ad"
+    },
+    {
+      "id": "1078",
+      "name": "Commercial Projects",
+      "isEnabled": 1,
+      "content": "<p><br></p><p><span style=\"font-size: 30px; color: rgb(0, 0, 0);\"><strong>What is a Commercial Project?</strong></span></p><p><br></p><p><br></p><p><strong><u><span style=\"font-size: 24px;\">Commercial Project Application</span></u></strong><span style=\"font-size: 24px;\">&nbsp;is for when you intend to construct, enlarge, alter, repair, move or change the occupancy or to fit out a building or portion of a building or structure.</span></p><p><br></p><p><span style=\"font-size: 24px;\">When you submi"
+    },
+    {
+      "id": "1074",
+      "name": "Event Permits",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 30px;\"><strong><em>What are &quot;Event Permits&quot;;</em></strong></span></p><p><span style=\"font-size: 24px;\">These fall into a special &quot;Temporary Approval&quot; category.&nbsp;</span></p><p><span style=\"font-size: 24px;\">They are issued for a limited time and will usually expire within 30 days.</span><span style=\"font-size: 14px;\">&nbsp;</span></p><p><span style=\"font-size: 14px;\"><strong><em>(please see issued permit for expiration dates. They will vary on ty"
+    },
+    {
+      "id": "1092",
+      "name": "Under Construction - Planning and Zoning",
+      "isEnabled": 1,
+      "content": "<h2 style=\"box-sizing: border-box; margin-top: 0.167em; margin-bottom: 0px; font-family: Lato; font-style: normal; font-weight: 700; color: rgb(70, 123, 162); font-size: 1.3em; text-decoration: none; display: block; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255);\"><span sty"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:38.219Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

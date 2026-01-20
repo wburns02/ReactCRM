@@ -1,0 +1,472 @@
+{
+  "jurisdiction": "Burnsville",
+  "state": "MN",
+  "tenant": "burnsvillemn",
+  "portalUrl": "https://burnsvillemn.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6539",
+      "name": "Administrative Appeal Hearing Request Form",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6580",
+      "name": "Peddler, Solicitor, Transient Merchant & Mobile Vendor",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Any peddler, solicitor, transient merchant or mobile vendor must obtain a license from the Police Department prior to conducting any business in the City of Burnsville. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Inspections",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6613",
+      "name": "Water Service Request",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6581",
+      "name": "Development Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "One application for all Development Application types (Conditional Use Permit, Planned Unit Development, Preliminary/Final Plat, Interim Use Permit, Comprehensive Plan Amendment, Zoning Ordinance Amendment, Rezoning, Variance, etc.)",
+      "isEnabled": true
+    },
+    {
+      "id": "6573",
+      "name": "Renewing Your License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "If you are renewing your license, DO NOT apply for a new one. Click here for instructions on renewing your current license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6576",
+      "name": "Renewing Your Rental License ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "If you are renewing your license, DO NOT apply for a new one. Click here for instructions on renewing your current license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Recreational Fire Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "No Fee",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Fire Suppression System Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Business Massage Therapist License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Businesses with store front locations and persons working as Independent Contractors.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Single Family Rental License ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Rental license for private owners who own a  single family home, townhome, condo unit,  twin home or duplex. For duplex owners, each side is considered a separate unit and each unit is required to have a rental license.    ",
+      "isEnabled": true
+    },
+    {
+      "id": "6595",
+      "name": "Hydrant Meter Rental",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6596",
+      "name": "Buckthorn Wrench Rental",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "Application to rent a \"weed wrench, \" a tool  that can be used to lift and remove small buckthorn by their roots. The tool is available for Burnsville residents only.",
+      "isEnabled": true
+    },
+    {
+      "id": "6565",
+      "name": "Single Family Rental License  .",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Rental license for private owners who own a  single family home, townhome, condo unit,  twin home or duplex. For duplex owners, each side is considered a separate unit and each unit is required to have a rental license.    ",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Permanent Sign Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Required for businesses installing permanent signs. One application must be submitted for each sign.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Employed Massage Therapist License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Massage therapists that are employed at Business locations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Residential Building Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for residential construction projects, including, but not limited to, new homes, remodels, additions, roofing, and decks.  Permits may be submitted by a licensed contractor or the property owner. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Fire Alarm System Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Fireworks Sales",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Zoning Letter",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "If you require written documentation of zoning information for a property, please submit a request for a zoning letter. This includes current zoning and comprehensive plan information, FEMA floodplain information, and any current zoning or building code violations.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Multi Family Rental License ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Rental license for multifamily rental. For a apartment complex or a townhome complex. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "Liquor License Application ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Includes on-sale intoxicating, Sunday on-sale, on-sale wine, on-sale 3.2 percent malt liquor, off-sale, off-sale 3.2 percent malt liquor, taproom, brewpub and brewer malt liquor.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Liquor License - Temporary ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Waiver of Subdivision",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6369",
+      "name": "Fireworks/Pyrotechnics Display Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Short Term Rental License ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Prescribed Burn Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Commercial Construction Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for commercial construction projects, including, but not limited to, new, tenant buildout, demo, remodel, and roofing.",
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Liquor License: Change in Operating Manager, Shareholders or Officers/Directors ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "When there is a change in the Operating Manager, Shareholders or Officers/Directors establishments must complete appropriate applications forms, and pay the associated fee. A background check will be conducted on the new application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Tent Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Seasonal Sales Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "For any temporary/seasonal outdoor sale, a permit is required. Each permit is valid for up to 90 days, and each site will receive no more than 2 permits (up to 90 days each) per year.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Retail Tobacco Sales License ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Tobacco, tobacco related products, nicotine and electronic delivery devices.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Zoning Verification",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "For auto dealers or other businesses needing a zoning approval sign off on a state license form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Cell Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for commercial construction projects, including, but not limited to, new, tenant buildout, demo, remodel, and roofing.",
+      "isEnabled": true
+    },
+    {
+      "id": "6597",
+      "name": "Hemp & Cannabis Retail Registration",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Tree Removal",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "When trees will be removed on project 2 acres or larger. Application requires a site survey, Tree Evaluation Worksheets, and Woodland Preservation Cash or Letter of Credit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Lawful Gambling",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Gambling Occasions and Premise Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "Electrical Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Electrical Permits may be submitted by a licensed electrical contractor or property owners who own and occupy the home.",
+      "isEnabled": true
+    },
+    {
+      "id": "6362",
+      "name": "Storage Tank  Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Fireplace Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A permit is required for the new installation or replacement of a fireplace. If you are doing gas piping for the fireplace, contractors must have a city license, as well as a mechanical bond through the state. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6551",
+      "name": "Municipal Solid Waste Hauling License ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application for license to collect municipal solid waste and recyclables.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Resellers License ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Includes pawnbrokers, secondhand goods dealers and precious metal dealers.",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Special/ Miscellaneous Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Mechanical Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Mechanical permits may be submitted by a licensed mechanical contractor or the property owner. Contractors must have a mechanical bond, as well as a city license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Plumbing Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Plumbing permits may be submitted by a licensed plumbing contractor or property owners who own and occupy the home.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Commercial Kennel License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "For commercial kennel licenses only. Residential Kennel Licenses are handled by City of Burnsville Police Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Tree License",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Any business that cuts, trims, prunes, removes, sprays or otherwise treats trees or shrubs must apply for a City Tree Contractor License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Backflow Preventer Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application must be completed by a certified tester, or their representative. A signed testing form is required when the application is completed by anyone other than a state-certified tester. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Grading Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for commercial construction projects, including, but not limited to, new, tenant buildout, demo, remodel, and roofing.",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Vehicle Storage Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Temporary storage areas for automobile dealerships to store consumer vehicle inventory at existing parking lots where there is sufficient excess capacity in the B-3, B-4, CRD, I-3, GIM, GIH, and MIX zoning districts. Used for the storage of \"new\" vehicles only. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Sketch Plan Review",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6589",
+      "name": "Private Utility Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for commercial  water and sewer installation or repair.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<h2 style=\"box-sizing: border-box; margin-top: 0.167em; margin-bottom: 0px; border: 0px none; font-family: Muli; font-style: normal; font-weight: 700; color: rgb(46, 91, 122); font-size: 1.8em; text-decoration: none; display: block; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255,"
+    },
+    {
+      "id": "1076",
+      "name": "Planning & Development",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1081",
+      "name": "Rental License ",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Tahoma, Geneva, sans-serif; font-size: 18px;\"><strong><span style=\"color: rgb(41, 105, 176);\">Rental License is required for</span></strong></span></p><ul><li style=\"font-family: Tahoma, Geneva, sans-serif; font-size: 14px;\">Single-family homes</li><li style=\"font-family: Tahoma, Geneva, sans-serif; font-size: 14px;\">Condominiums</li><li style=\"font-family: Tahoma, Geneva, sans-serif; font-size: 14px;\">Townhomes</li><li style=\"font-family: Tahoma, Geneva, sans-serif;"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p>The Burnsville Fire Department is now accepting online permit applications only. If you have questions or need assistance with permit submissions please contact:&nbsp;</p><p><strong>Burnsville Fire Department</strong><br>14275 Newton Ave<br>Burnsville, MN 55306<br style=\"box-sizing: border-box; color: rgb(51, 51, 51); font-family: sans-serif; font-size: 14.4px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; "
+    },
+    {
+      "id": "1079",
+      "name": "Business Licensing",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-size: 16px; font-family: Arial, Helvetica, sans-serif;\">The City of Burnsville does not provide a General Business License. However, it issues licenses for Liquor, Tobacco, Massage, Reseller/Pawn, Commercial Kennels, and Waste Haulers.</span></div>"
+    },
+    {
+      "id": "1082",
+      "name": "Neighborhood Services",
+      "isEnabled": 1,
+      "content": "<h2 style=\"box-sizing: border-box; font-family: Muli; font-weight: 700; line-height: 1.25; color: rgb(46, 91, 122); margin-top: 0.167em; margin-bottom: 0px; font-size: 1.8em; text-transform: none; white-space: normal; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration: none; border: 0px none; display: block; text-align: left; background-c"
+    },
+    {
+      "id": "1089",
+      "name": "Police Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1092",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<div>Information page</div>"
+    },
+    {
+      "id": "1088",
+      "name": "Appeals",
+      "isEnabled": 1,
+      "content": "<p>The Administrative Appeal process was established to offer an alternative and uniform method to resolve disputes regarding city code violations rather than relying on the court system. A property owner, resident, business, or licensee receiving a Notice of Code Violation(s) may contest the alleged violation(s) and any fees, civil penalties or adverse license actions. A person contesting a code enforcement or licensing violation shall complete the online Administrative Appeal Hearing Request F"
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:10.523Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

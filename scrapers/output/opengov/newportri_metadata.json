@@ -1,0 +1,181 @@
+{
+  "jurisdiction": "Newport",
+  "state": "RI",
+  "tenant": "newportri",
+  "portalUrl": "https://newportri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6388",
+      "name": "Certificate of Appropriateness Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Historic District Commission (HDC), Application for Certificate of Appropriateness (COA)",
+      "isEnabled": true
+    },
+    {
+      "id": "6391",
+      "name": "Zoning Board of Review Application ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance,  and Extension Requests.",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "Planning Application ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Subdivision, Land Development, & Development Plan Review applications",
+      "isEnabled": true
+    },
+    {
+      "id": "6403",
+      "name": "Appeal to Zoning Board of Review",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "An application to appeal a decision by the Historic District Commission (HDC) or the Zoning Officer",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "Sign Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a sign permit, from the City of Newport.  Any sign(s) that will require a structural design (i.e footings, post/pole, roof mounted, wall mounted) will require a separate building permit and any electrified signs will require a separate electrical permit to accompany this sign permit.  All sign permit applications should include photos of any EXISTING  signage and a design package of the proposed NEW signs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6338",
+      "name": "Tent/Event Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "The Floor Plans and Fire Retardant Certificate MUST be APPROVED by the FIRE DEPT before the Building Department will approve this permit application.  This application must be submitted at least TEN (10) business days in advance of the event.  If you have an urgent request, please call the Building Department directly at 401-845-5459.",
+      "isEnabled": true
+    },
+    {
+      "id": "6389",
+      "name": "Life Safety Inspection",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Click here to submit your request for an inspection from the Newport Fire Department (related to business licenses or construction rough/final)",
+      "isEnabled": true
+    },
+    {
+      "id": "6396",
+      "name": "Zoning Officer Modification Application ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Application requesting a Modification to the requirements of the code, granted by the Zoning Officer",
+      "isEnabled": true
+    },
+    {
+      "id": "6386",
+      "name": "Tent/Event Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit related to installing temporary electrical power for a tent event within the City of Newport.  This type of permit is ONLY needed when using a temporary generator or a temporary hard-wired feeder panel.",
+      "isEnabled": true
+    },
+    {
+      "id": "6400",
+      "name": "Physical Alteration/Excavation Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is REQUIRED if you will be performing any PHYSICAL ALTERATION, DIGGING, FILLING, or OBJECT INSTALLATION WORK in any city roadways/streets or public right of way, within the City of Newport, to repair roadways, sidewalks or utility repairs of installations.  The City of Newport regulates all such work in the city's roadways, sidewalks and public right of ways.",
+      "isEnabled": true
+    },
+    {
+      "id": "6332",
+      "name": "Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a building permit, from the City of Newport, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a demolition permit, from the City of Newport, for the COMPLETE demolition of structure, demolish a detached accessory structure(s), to demolish a porch/deck ONLY (with NO REPAIRS by the applicant) or remove an underground tank.",
+      "isEnabled": true
+    },
+    {
+      "id": "6401",
+      "name": "Obstruction Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is ONLY REQUIRED if you will be placing ladders, staging, scaffolding, etc. that will temporarily be OBSTRUCTING a sidewalk or city roadway/street within the City of Newport.  The City of Newport regulates the temporary obstruction of city roadways and sidewalks.\n\nNOTE: An Obstruction Permit is NOT REQUIRED for moving vans and registered vehicles requiring parking restrictions.  Obtain SIGNS directly from the NEWPORT POLICE DEPARTMENT.",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit, from the City of Newport, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit, from the City of Newport, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the City of Newport, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the City of Newport.",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "Building Moving Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a moving permit, from the City of Newport, if you wish to MOVE a building/structure from its EXISTING location to a NEW location.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1082",
+      "name": "Planning & Zoning Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1072",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style='font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; color: rgb(51, 51, 51); backgro"
+    },
+    {
+      "id": "1071",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; background"
+    },
+    {
+      "id": "1080",
+      "name": "Public Services: City Engineering",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; background"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:45.615Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

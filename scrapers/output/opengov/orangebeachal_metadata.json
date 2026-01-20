@@ -1,0 +1,117 @@
+{
+  "jurisdiction": "Orange Beach",
+  "state": "AL",
+  "tenant": "orangebeachal",
+  "portalUrl": "https://orangebeachal.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6431",
+      "name": "Sewer Availability/Tap Request Form",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Utility Billing Authorization for Bank Draft",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Business License Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Trash/ Recycle Can Request/ Removal Form",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Request form to replace or adjust the amount of trash and recycle cans at your property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for an OpenGov Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for Utilities/Business License & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for utility service or a business license, and pay any fees that are due. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Utility Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application for sewer service. Trash service is provided for properties within the city limits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "3. Receiving Your License Certificate or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your business license certificate, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Unlicensed Business Complaint Form",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Please use this form to submit complaints for unlicensed businesses. You can remain anonymous if you wish. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "4. Requirements and Information for New Businesses",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "A guide to the requirements and information for new businesses. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6375",
+      "name": "5. How to Reach Us! About Us & Contact Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to reach us in regards to any questions or concerns you may have. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Finance Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1072",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<div>Please note that Public Works handles bulk trash services and trash/recycle can replacements. Regular trash collection is processed via a third-party provider. Sewer service is handled by the city&rsquo;s sewer department. For any issues related to weekly trash collection or sewer service, please contact our finance department at 251-981-6096. Our finance staff will coordinate communication with the other departments. If you need any changes to the trash/recycle cans you currently have, ple"
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:16.597Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

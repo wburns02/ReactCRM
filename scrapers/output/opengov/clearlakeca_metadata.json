@@ -1,0 +1,140 @@
+{
+  "jurisdiction": "Clearlake",
+  "state": "CA",
+  "tenant": "clearlakeca",
+  "portalUrl": "https://clearlakeca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6432",
+      "name": " Special Event Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Transient Occupancy Tax Operators Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Event Vendor Application / Solicitud de proveedor de eventos",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Business License Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for Business Licenses ",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A Building Permit is required for any construction and/or structural improvements that are regulated by the State of California Building Standard/Codes, including but not limited to: Alterations/modifications to existing buildings, new buildings/structures, equipment, facilities, electrical, gas, mechanical, plumbing  and demolishing. \n\nIf you are unsure if a Building Permit is required, please the City of Clearlake at (707) 994-8201 prior to building permit application submittal and/or commencement of any work.  \n\n**All construction shall adhere to applicable City, State & Federal laws, codes & standards.\n-https://clearlake.municipal.codes/\n-https://www.dgs.ca.gov/BSC\n-https://msc.fema.gov/portal/home\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Rental Registration Portal Link",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "All residential type rentals (rented 1 or more days/year) are required to Register in our online portal. Registrations are renewed annually and inspections occur every 1-3 years, dependent on qualification for self-certification. Please visit the Registration Portal here:\n\nhttps://slate.tolemi.com/c/clearlake-ca",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Short Term Vacation Rental Application (STVR)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "The Short-Term Vacation Rental Application helps establish standards for the development and operation of vacation rentals within the City for fewer than thirty consecutive days and to help preserve the residential neighborhood(s) character and quality of life. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Recreation: Class & Event Registration ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "SUBSISTENCE UTILITY ASSISTANCE PROGRAM",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Transient Occupancy Tax Return",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Cannabis Development Fee Return Application ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1086",
+      "name": "Event Vendor Application",
+      "isEnabled": 1
+    },
+    {
+      "id": "1089",
+      "name": "City Grants",
+      "isEnabled": 1,
+      "content": "<h4 data-test=\"name\" style='box-sizing: border-box; font-family: \"DM Sans\", sans-serif; font-weight: 600; line-height: 1.25; color: rgb(19, 21, 23); margin-top: 10px; margin-bottom: 10px; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); "
+    },
+    {
+      "id": "1071",
+      "name": "BUILDING DEPARTMENT-Building Permits, Rental Registration",
+      "isEnabled": 1,
+      "content": "<h3 style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; border: 0px none; font-family: Montserrat; font-style: normal; font-weight: 700; color: rgb(140, 113, 34); font-size: 1.1em; text-decoration: none; display: block; overflow: auto; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-c"
+    },
+    {
+      "id": "1085",
+      "name": "Recreation: Class & Event Registration",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Special Event Applications",
+      "isEnabled": 1
+    },
+    {
+      "id": "1084",
+      "name": "Short Term Vacation Rental Application ",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1081",
+      "name": "DEPARTMENT OF FINANCE - Transient Occupancy Tax Operators Application, Transient Occupancy Tax and Cannabis Development Return Application ",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1076",
+      "name": "Business Licenses",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:34.676Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

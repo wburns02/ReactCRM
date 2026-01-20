@@ -1,0 +1,109 @@
+{
+  "jurisdiction": "Scotts Valley",
+  "state": "CA",
+  "tenant": "scottsvalleyca",
+  "portalUrl": "https://scottsvalleyca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6352",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This is the Stand Alone Electrical Permit commercial and residential. \nPlease apply here for Solar Systems, Battery, meter upgrade, Generator, LED lighting, etc\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6354",
+      "name": "Mechanical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This is the Stand Alone Mechanical Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Encroachment Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "On-Site Civil Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This is the Stand Alone Plumbing Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Residential Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this permit application for Residential new construction, additions or remodels of homes, apartment buildings, condominiums and townhouses.\nNOT SOLAR ",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Post-Construction Stormwater Maintenance Agreement",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Commercial Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this permit application for all Commercial/Business or Mixed Use properties for new construction, Tenant Improvements or Additions to buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Residential PV Solar ONLY",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Steps for obtaining an instant Solar & Energy Storage System permit.\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "HOW TO: Sign Up, Create a Profile & Access Your Information",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "HOW TO: Add Guests to Your Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1072",
+      "name": "Public Works Department",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><br></p><div><br></div><div><br></div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:22.247Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

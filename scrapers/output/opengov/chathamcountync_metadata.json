@@ -1,0 +1,936 @@
+{
+  "jurisdiction": "Chatham County",
+  "state": "NC",
+  "tenant": "chathamcountync",
+  "portalUrl": "https://chathamcountync.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6770",
+      "name": "Verification Form",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This form is required for the following categories: \n-Non-profit food vendors are exempt due to the 501C3 tax exemption status such as\nchurches, civic and political organizations\n-Some food manufacturing that is not retail or packaged foods are inspected under the jurisdiction of the Department of Agriculture. View a chart to help you decide (PDF).\n-Establishments are exempt from temporary food event permit. Vendors who sell items that are prepared and individually packaged at a permitted food service establishment are not required to have a TFE permit.\n-Mobile food units that hold a foodservice permit and return to the commissary daily are exempt from a temporary food regulations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6582",
+      "name": "Citizen Complaint",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Land-Disturbing Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Trade Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for Residential and/or Commercial Electrical/HVAC/Plumbing Trade Only Permits",
+      "isEnabled": true
+    },
+    {
+      "id": "6561",
+      "name": "Creating a Portal Account",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This section will provide info on setting up your Portal Account to apply, pay, schedule and track permits. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6692",
+      "name": "Zoning Compliance Certificate - Residential",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Pittsboro Zoning Compliance Certificate for residential developments. Includes: new residential dwelling, replacing residential dwelling, relocating residential dwelling, accessory dwelling, fence, pool, solar panels (roof and ground mounted), accessory structures, additions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6663",
+      "name": "Siler City Residential Zoning Compliance",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6664",
+      "name": "Siler City Flood Plain Determination",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Floodplain determination for Environmental Health approvals.",
+      "isEnabled": true
+    },
+    {
+      "id": "6667",
+      "name": "Siler City Commercial Zoning Compliance",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6620",
+      "name": "Zoning Compliance Certificate - Non-Residential ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Pittsboro Zoning Compliance for non-residential requests: ex. new business, expansion of business, relocating business, change of tenant, solar panels (roof and ground mounted), accessory structures, additions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6731",
+      "name": "Affidavit (for septic systems) - ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The affidavit can only be submitted for confirming wastewater (septic) system setbacks. An affidavit cannot be used for wells or for projects that increase the wastewater flow or wastewater strength. If a well is located on the property, a well setback approval will be required to confirm well setbacks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": "Agricultural Exemption",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Alcohol Beverage (ABC) Zoning Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This Permit request is ONLY for establishments that are subject to County Zoning.   Any ABC requests in municipalities should obtain zoning approval from that jurisdiction. \n(Separate application for Building and Fire Inspections must be made in all cases) See ABC Inspection Request under Permits & Inspections. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6668",
+      "name": "Siler City Sign Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Permit to allow the placement of signs within the Siler City Planning Jurisdiction in accordance with the Siler City Unified Development Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6640",
+      "name": "Construction Drawings",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Construction Drawing review for projects",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Residential New Building Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for a Residential Building Permit for the following NEW structures:\nSingle Family Dwelling, Townhouse/Attached SF Dwelling, Duplex, Addition (Covered area), Modular Home",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Residential Accessory Structure Permit ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for permitting residential accessory structures.  Examples include:detached garage, shed, storage building, retaining wall, carport, etc.  Structures which are detached from dwelling.                \n\n\nAccessory Dwelling(s) should use Residential New Building permit, Uncovered decks/ramps or access to dwelling should use Deck permit.  This permit cannot be used for commercial uses, apartments or multi-family dwellings.  \n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6562",
+      "name": "Applying and making Payments through Portal Account",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "2. Applying for a Permit & Paying Fees\nApplying for a Permit\n\nStart an Application:\n\nFirst, you must have a profile. Please see 1. Signing Up, Creating a Profile, & Accessing Your Information for more information.\n\nTo navigate to a specific application, click on Explore next to the Department or Category name. Then click Select next to the type of permit. Lastly click Start to start the application. At that time, you'll be prompted to log in (if you have not already logged in) and can apply for your permit or license.\n\nSaving Drafts:\n\nApplications can be saved as Drafts and completed at a later time. To save your application, click on Save and Exit on the upper right side of the form. \n\nTo return to that Draft:\n\n1. Go to your Profile\n\n2. In the Active Records section, click on the Record. All Draft records will be labeled \"Draft.\"\n\n\n\nPaying a Fee\n\nWhen a fee is due, you'll be notified automatically via email.\n\nTo pay:\n\n1. In the email notification, click on Pay Online. You can also go to the site, view your profile, and click on the Record in your Inbox.\n\n2. In the Permit Fee step on the Record page, you'll see an overview of the fees and you'll be able to pay automatically with a credit card or e-check.\n\n3. Click on Pay to pay the fee then follow the prompts to enter and submit your payment details.",
+      "isEnabled": true
+    },
+    {
+      "id": "6634",
+      "name": "Encroachment Agreement",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Engineering encroachment agreement. Application upload still required. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6697",
+      "name": "Exempt and Minor Subdivision Review",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Exempt and Minor Plat Review on subdivisions within the Siler City Planning Jurisdictions",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Commercial Zoning Compliance",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6761",
+      "name": "Septic System Permitting - (Public Option ) Improvement Permit/Construction Authorization NEW",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Health Department conducts the site visit and issues the permit.   (This is also for REPAIR permits to existing septic systems).",
+      "isEnabled": true
+    },
+    {
+      "id": "6638",
+      "name": "Septic System Permitting  (Hybrid Option)  (a2) ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Before submitting please confirm that the submittal is for an (a2) permit.\nAn (a2) requires an LSS or an AOWE to submit the Improvement permit and/or construction authorization permit to the health department for issuance. \n\n                                                                                                                                                       ",
+      "isEnabled": true
+    },
+    {
+      "id": "6632",
+      "name": "Agricultural/Timber Exemption - Erosion Control ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This application is only to be used for exempt activities as described in Section 164.04(B) of the Chatham County Soil Erosion and Sedimentation Control Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Conditional Zoning District Rezoning Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6612",
+      "name": "Floodplain Determination",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Pittsboro Floodplain Determination",
+      "isEnabled": true
+    },
+    {
+      "id": "6563",
+      "name": "Receiving and Printing Documents",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "3. Receiving Your Permit or Other Document\nReceiving your Permit, License, or Other Documents\n\nWhen a plan review, permit, license, certificate of occupancy, certificate of completion, or any other document is issued, the applicant will be notified automatically via email.\n\nTo Print Your Document \n\nIn the email, click on the Print button. This will take you to the Record page. You can also log in to the OpenGov Citizen Services Cloud site, go to your Profile, and click on the Record.\n\nOn the Record page, click on the Document Issuance step and click Print (toward the bottom right of the preview).",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Residential Alteration/Repair Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for residential alteration and repair permit.  This permit cannot be used to add any new area (including decks) to an existing home/building and cannot be used for apartments or multi-family dwellings.\n\nExamples include: foundation repair, finishing off an existing unfished bonus room or basement, truss repair from storm damage, reconfiguring an existing space into a different use (i.e. converting a closet into a bathroom).  \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6557",
+      "name": "Residential Mobile Home Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for Residential Mobile Home Building Permits.\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6558",
+      "name": "Guest Portal Access",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "New! Add additional guest applicants to a record.",
+      "isEnabled": true
+    },
+    {
+      "id": "6633",
+      "name": "Home Occupation Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Home Occupation Permit application",
+      "isEnabled": true
+    },
+    {
+      "id": "6622",
+      "name": "Septic System Permitting - (Private Option) EOP or AOWE ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Before submitting please confirm that the submittal is for EOP or AOWE private option permitting.\n\n\nEOP or AOWE private permitting options  require the engineer or LSS to submit a Notice of Intent (NOI) and an Authorization to Operate (ATO) to the health department.  The health department has minimal involvement in EOP/AOWE beyond the notification. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6760",
+      "name": "Wireless Telecommunications New Tower",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Existing System Approval or Well Setback Compliance NEW",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "An Existing System Approval (ESA) is required for properties served by a wastewater system prior to reconnecting to the existing wastewater system or making any other additions to the property. \n\nAffidavit - Instead of receiving an ESA from the Health Department an owner of a property can choose to submit an Affidavit confirming that the proposed construction will meet local and state on-site wastewater system setback requirements pursuant to NCGS 130A-335 as long as the construction does not increase the design daily flow or wastewater strength. \n\nNOTE - The affidavit can only be submitted for confirming wastewater system setbacks.  If a well is located on the property, a well setback approval will be required to confirm well setbacks. \n\nA Well Setback Compliance Approval is needed when an improvement is being made to a parcel of land with an existing well to verify setbacks from the well are met. (Well Setback Compliance Approval is not needed if an existing system approval is submitted for the improvements.)",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Flood Plain Determination",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6566",
+      "name": "Commercial New Building Permit ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for a Commercial Building Permit for the following: any NEW buildings, structures, or additions. \nThis application includes approvals from Environmental Health - Food & Lodging, please include Food Service, Educational, Institutional and Lodging applications with this building permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6777",
+      "name": "On-Site Verification of Surface Waters and Riparian Buffers",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This application is for surface waters, and riparian buffers by Town staff. It includes stream determination.",
+      "isEnabled": true
+    },
+    {
+      "id": "6706",
+      "name": "Record Drawing Submittal",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "General Use Rezoning Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6699",
+      "name": "Home Occupation Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This is for neighborhood and rural home occupations. This permit does not exclude the operator from obtaining approvals from other departments as required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6551",
+      "name": "Septic Contractors/Inspectors/Sub Surface Operators Workshop Registration Fee",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Septic installer, inspection, subsurface operator Annual Workshop  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6623",
+      "name": "General Environmental Documentation - New Residential Subdivisions (49 Lots or Less)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This application should only be used for new subdivision development applications that are 49 lots or less. This is an application that is required for the development phase of a subdivision and is not required for individual home building. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6626",
+      "name": "Rezoning Application - General Rezoning, Conditional Rezoning, Special Use Permits",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6583",
+      "name": "Commercial Alteration Building Permit ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for a Commercial Alteration Building Permit for the following: any change (other than addition) in the building that has a construction cost over $40,000; or any of the following - any structural work, change of occupancy or change of tenant, even if no work is performed.  Any trade work should be done with this permit.       \nThis application includes approvals from Environmental Health - Food & Lodging, please include Food Service, Educational, Institutional and Lodging applications with this building permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6644",
+      "name": "Riparian Buffer Authorization",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Development that requires impacts to Riparian Stream Buffers.",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Residential Lot Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6765",
+      "name": "Event Organizer Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Land Use Plan Amendment",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6739",
+      "name": "Kitchen - Catering, Shared Use, Commissary",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6707",
+      "name": "SCM As Built Record Drawing Submittal",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6618",
+      "name": "Sign Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Sign permit application for various types of signs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Stormwater Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6737",
+      "name": "Limited Food Stand Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6533",
+      "name": "Solar Panel Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for Residential and Commercial Solar Panels - roof mounted or ground mount.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6528",
+      "name": "On-site Riparian Buffer Review",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Mobile Food Unit Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Select this application for:\n\nRestaurant, \n\n           Mobile Food Unit,\n\nCommissary/Shared Use Kitchen,\n\nLimited Food Stand/Concession Stand,\n\nCaterer,",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Major Subdivision Concept Plan",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6652",
+      "name": "Swimming Pool Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for Residential and Commercial Swimming Pools, including Hot Tubs or similar. \n\nAny water feature such as fountains or man-made water features that have a pool depth over 24\" is required to have this permit.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6636",
+      "name": "Site Plan",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Site plan review for projects",
+      "isEnabled": true
+    },
+    {
+      "id": "6554",
+      "name": "Deck/Ramp Permit ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for permitting of Residential and Commercial decks, stairs, ramps or other structures without a roof.  Only for uncovered structures which are attached or used for access from building.                \n\n\n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6716",
+      "name": "Small Area Plan Review Application ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6738",
+      "name": "Outdoor Cooking Approval",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Major Subdivision Extension Request",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6691",
+      "name": "ABC Inspection Request",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "This application should be used to request an ABC inspection from the Building & Fire Official to sign the ABC form.   This request will not be accepted until you have Zoning approval from the Authority having Jurisdiction.  Please upload form provided by ABC and signed by Zoning.  Inspections cannot be scheduled until after a CO is issued for the space. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6641",
+      "name": "Stormwater Discharge Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Construction Drawing review for projects",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Sign Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for Sign Permits with or without lighting.    \n\nSigns that are not illuminated and can easily be removed from a wall or painted over do not require a permit.  For example: a No Parking sign affixed to a building wall. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6683",
+      "name": "Subdivision Plat Review Application ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Plat Review Application for properties within the Town of Pittsboro's planning jurisdiction. Use this application when submitting preliminary or final plats of any type (e.g., minor subdivision, major subdivision, exempt plat,  plat of correction). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6759",
+      "name": "Major Subdivision Preliminary/Construction Plan ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Ordinance Text Amendment",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6588",
+      "name": "Retaining Wall Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for permitting of Commercial retaining walls.  This permit is for walls that are located in the common area in residential subdivisions/apartments or commercial buildings.  This permit is NOT to be used for retaining walls totally located on a single lot that is for a single dwelling or duplex - Please use Residential Accessory Permit.                 \n\n\n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6637",
+      "name": "Text/Map Amendment",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6744",
+      "name": "Variance Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This application is to request a variance through the Town's Board of Adjustment",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Residential Zoning Compliance",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Sign Zoning Compliance Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6601",
+      "name": "Migrant Labor Camp Inspection ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6651",
+      "name": "Voluntary Annexation Petition",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6625",
+      "name": "Zoning Verification Letter",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Only needed if verifying parcel or structure for mortgage reasons, or to verify for real estate purposes.  This letter is NOT a zoning compliance certificate",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Special Use Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6758",
+      "name": "Wireless Telecommunications Co-Locations",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "OSWW Septic System Monitoring Annual  Fee ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Administrative fees will be assessed for the property owner for the lifetime of a Type IIIb, IV, V, or VI septic system.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Zoning Board of Adjustment Variance Request",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Zoning Interpretation Letter",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Pools- Seasonal and Year Round Pool Permits",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Apply for a Commercial/Community Pool Inspection. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6722",
+      "name": "Goldston Agricultural Exemption",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6721",
+      "name": "Goldston Alcohol Beverage (ABC) Zoning Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This Permit request is ONLY for establishments that are subject to County Zoning.   Any ABC requests in municipalities should obtain zoning approval from that jurisdiction. \n(Separate application for Building and Fire Inspections must be made in all cases) See ABC Inspection Request under Permits & Inspections. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6681",
+      "name": "Pool Reinspection Fee",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Riparian Buffer (Authorization) No Practical Alternatives",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Floodplain Development Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6708",
+      "name": "Goldston Commercial Zoning Compliance",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6564",
+      "name": "Demolition Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for permitting the demolition of any Residential and Commercial structure.                 \n\n\n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6682",
+      "name": "Goldston Conditional Zoning District Rezoning Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6686",
+      "name": "Goldston Flood Plain Determination",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Tattoo Studio Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Application to open a Tattoo Studio",
+      "isEnabled": true
+    },
+    {
+      "id": "6771",
+      "name": "Goldston General Use Rezoning Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6589",
+      "name": "Temporary Food  Establishment (TFE)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Temporary Food Service-Food Service for Fairs/Festivals/Events",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Goldston Home Occupation Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This is for neighborhood and rural home occupations. This permit does not exclude the operator from obtaining approvals from other departments as required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6572",
+      "name": "Fuel Storage Tank Removal, Installation, and Abandonment  Permit ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "This Permit is required for the removal or abandonment of any underground or aboveground fuel storage tank(s) in Chatham County.  This shall apply to residential and commercial properties.  \n\nApplicant Requirements:\nThe work area and equipment must be secured at all times. The Fire Marshal’s Office must be notified a minimum of seventy-two (72) hours prior to the requested date of removal. A complete closure report, including but not limited to a certified soil testing report, hazardous materials manifest, and tank disposal receipt must be submitted to the Fire Marshal's Office upon completion of the job. It shall be the responsibility of the person(s) conducting the removal of the tank to adhere to all procedures as outlined in the State of North Carolina Regulations, NFPA 30 and 327, as well as with the regulations of any other State or Federal Agency. IF THERE IS EVIDENCE OF A RELEASE OF PRODUCT, REGARDLESS OF THE AMOUNT RELEASED, YOU ARE REQUIRED TO NOTIFY THE PROPER AUTHORITIES.",
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "Foster Home Inspection",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "This application form is used for applying for Foster Home licensing inspection.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6702",
+      "name": "Goldston Major Subdivision First Plat",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Water Sample",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Please read below: You can’t pay until we approve the application & enter the fee!! \nApply to have a water sample taken at your property. This is a three step process. \n1)Choose the type sample to be taken & upload your application (you can not pay at this point).\n2)We review/approve your application & add the fee(s). \n3)You get a notification to your email to make the payment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Well Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Well permit application",
+      "isEnabled": true
+    },
+    {
+      "id": "6718",
+      "name": "Goldston Major Subdivision Construction Plan",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Blasting Operational Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "An operational permit is required for the manufacture, storage, handling, sale or use of any quantity of explosives, explosive materials, fireworks or pyrotechnic special effects within the scope of Chapter 56 of the N.C. Fire Prevention Code. Exception: 1. Fireworks allowed by N.C.G.S. 12-414, 2. Storage in Group R-3 occupancies of smokeless propellant and small arms primers for personal use, not for resale and in accordance with Section 5606.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6594",
+      "name": "Event / Festival Permit ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "This permit applies to the same events that had to obtain permits or approvals in the past: large outdoor public events, such as fairs, carnivals, street festivals or similar events involving tents, air-supported structures (inflatables), food sales, art shows, outdoor musical performances or plays, and fireworks displays.\n**PLEASE NOTE THAT ADDITIONAL PERMITS MAY BE REQUIRED**",
+      "isEnabled": true
+    },
+    {
+      "id": "6728",
+      "name": "Goldston Minor Subdivision ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6704",
+      "name": "Goldston Recreation Fee Chatham Central School District",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6687",
+      "name": "Goldston Residential Zoning Compliance",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6560",
+      "name": "Tent and Temporary Structure Permit ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Permit submittals shall be 10 business days in advance of the event. Zoning and building approval is required. The structure(s) shall not be erected for a period of more than 180 consecutive days with in a 12-month period on a single premises.  Multiple tents at the SAME LOCATION may be permitted on a single permit. \n\nEach tent permit packet will be forwarded to a Fire Inspector who will be handling the issuance of your tent permit. We will review the submitted information and contact you if additional information is required. Once the submittal has been approved, the fire department will contact you to arrange for an on-site inspection. All applicable fees will be paid prior to the actual site inspection. Upon successful completion of the on-site inspection, the tent permit will be issued.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6585",
+      "name": "Fireworks / Pyrotechnic Special Effects Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "An operational permit is required for the manufacture, storage, handling, sale or use of any quantity of explosives, explosive materials, fireworks or pyrotechnic special effects within the scope of Chapter 56 of the N.C. Fire Prevention Code. Exception: 1. Fireworks allowed by N.C.G.S. 12-414, 2. Storage in Group R-3 occupancies of smokeless propellant and small arms primers for personal use, not for resale and in accordance with Section 5606.",
+      "isEnabled": true
+    },
+    {
+      "id": "6719",
+      "name": "Goldston Sign Zoning Compliance Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6720",
+      "name": "Goldston Special Use Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6575",
+      "name": "Commercial Fireworks Vendor Permit ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "This permit is required for any vendor, temporary or permanent, that will be selling consumer fireworks in Chatham County. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6701",
+      "name": "Goldston Subdivision Concept Plan",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6689",
+      "name": "Goldston Subdivision Extension Request",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6710",
+      "name": "Goldston Watershed Map Amendment",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6709",
+      "name": "Goldston UDO Text Amendment",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6685",
+      "name": "Goldston Zoning Interpretation Letter",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "County Planning",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin: 0px 0px 1em; color: rgb(64, 64, 64); font-family: Lato, sans-serif; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: "
+    },
+    {
+      "id": "1082",
+      "name": "Watershed Protection",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">The Watershed Protection Department includes the following major programs:</span></p><p style=\"text-align: center;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><strong><u>General Permitting Questions</u></strong></span></p><p style=\"text-align: center;\">Hollie Squires</p><div style=\"text-align: center;\"><a href=\"mailto:Hollie.squires@chathamcountync.gov\">Hollie.squires@chathamcountync.gov</a></div><p style=\"text-align: center;\""
+    },
+    {
+      "id": "1081",
+      "name": "Environmental Health ",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"margin-bottom:12.0pt;text-align:center;  line-height:normal;background:white;\"><br></p><p align=\"center\" style=\"margin-bottom:12.0pt;text-align:center;  line-height:normal;background:white;\"><strong><u>CHATHAM COUNTY ENVIRONMENTAL HEALTH</u></strong></p><p align=\"center\" style=\"margin-bottom:12.0pt;text-align:center;  line-height:normal;background:white;\"><br></p><p align=\"center\" style=\"margin-bottom:12.0pt;text-align:center;  line-height:normal;background:white;\"><stro"
+    },
+    {
+      "id": "1083",
+      "name": "Permits & Inspections",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"text-align:center;\"><br></p><p align=\"center\" style=\"text-align:center;\"><br></p><p align=\"center\" style=\"text-align:center;\"><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\"><u><strong>Next Day Open Floor Inspections</strong></u></span></p><div><span style=\"font-family: Times New Roman,Times,serif,-webkit-standard;\">Until further notice, Open Floor inspections will be available next day if requested prior to 2:00pm. The open floor inspection is "
+    },
+    {
+      "id": "1085",
+      "name": "Pittsboro ",
+      "isEnabled": 1,
+      "content": "<h2 style=\"box-sizing: border-box; margin-top: 0.167em; margin-bottom: 0px; border: 0px none; font-family: Raleway; font-style: normal; font-weight: 600; color: rgb(63, 113, 145); font-size: 1.3em; text-decoration: none; display: block; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, "
+    },
+    {
+      "id": "1086",
+      "name": "Siler City",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin: 0px 0px 1em; color: rgb(64, 64, 64); font-family: Lato, sans-serif; font-size: 13px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: "
+    },
+    {
+      "id": "1084",
+      "name": "Help & Resources",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:21.771Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

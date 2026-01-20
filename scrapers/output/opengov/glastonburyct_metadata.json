@@ -1,0 +1,210 @@
+{
+  "jurisdiction": "Glastonbury",
+  "state": "CT",
+  "tenant": "glastonburyct",
+  "portalUrl": "https://glastonburyct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6466",
+      "name": "FAQs for GIS (No Applications - Informational Only )",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Permits and Licenses",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Right of Way License",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "A Town Right-of-Way License is required for issuance of a Right-of-Way Permit or Sanitary Sewer Permit from the Town Engineering Division.  This license requires a $10,000 Right-of-Way Bond and a current insurance certificate that provides the required minimum coverage and waiver of subrogation as per the Town's insurance requirements. This license expires annually on December 31st.",
+      "isEnabled": true
+    },
+    {
+      "id": "6343",
+      "name": "Food Service License Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "For annual licensure of public food service establishments",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "A Residential Building Application & One and Two Family Dwelling Only (for apt's or condo use Commercial Bldg)",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "The CT State Building Code requires building permits to construct, alter, or renovate any structure, building or mechanical, electrical or plumbing in compliance with the minimum standards of the CT State Building Code, and in accordance with the approved plans and specifications submitted with your application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Temporary Food Service License Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "PLEASE NOTE: Food Service Applications are due in the Health Dept. no later than two weeks before the start of an event.",
+      "isEnabled": true
+    },
+    {
+      "id": "6391",
+      "name": "Electrical Permit General",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "The CT State Building Code requires building permits to construct, alter, or renovate any structure, building or mechanical, electrical or plumbing in compliance with the minimum standards of the CT State Building Code, and in accordance with the approved plans and specifications submitted with your application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Right of Way Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Right-of-Way Permits are required for any excavation work performed within the Town Right-of-Way.  The Town right-of-way width varies for each street and includes both the roadway as well as abutting land that is designated for public use, such as for utilities and sidewalks. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Salon Establishment Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "For annual permit of salon establishments\nSalon Permits are valid from July 1st through June 30th",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Mechanical Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "The CT State Building Code requires building permits to construct, alter, or renovate any structure, building or mechanical, electrical or plumbing, or fire protection systems in compliance with the minimum standards of the CT State Building Code, and in accordance with the approved plans and specifications submitted with your application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6393",
+      "name": "Plumbing Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "The CT State Building Code requires building permits to construct, alter, or renovate any structure, building or mechanical, electrical or plumbing, or automatic fire sprinkler systems, in compliance with the minimum standards of the CT State Building Code, and in accordance with the approved plans and specifications submitted with your application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Subsurface Sewage Disposal System",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Approvals to Construct shall be issued by the Local Director of Health or Registered Sanitarian.",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Water Treatment Wastewater Disposal System",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit expires one year from date of issuance if construction fails to start with the one year period. Fee \nis non-refundable. The installer shall provide 24 hours minimum notice to the Health Department prior \nto commencement of installation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6379",
+      "name": "Commercial Building Permit Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "The CT State Building Code requires building permits to construct, alter, or renovate any structure or building in compliance with the minimum standards of the CT State Building Code and in accordance with the approved plans and specifications submitted with your application. \n\nCommercial Building Permits must have architectural plans showing elevations, floor plans, and structural design specifications and elevation grades. Plans for tenant spaces in buildings over 5000 square feet must have the seal of a design professional, registered in the State of Connecticut, and contain all information required by the CT State Building Code and State Fire Code.  Larger sets of plans may be requested in hard copy to the Building Department for ease of reviewing. Complete plans must include electrical, plumbing, HVAC, sprinkler, and all other required information. Plans must comply with these requirements before they can be approved construction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "Sewer Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Sanitary Sewer Permits are required for all activities performed on the sanitary sewer system, whether located within Town-owned property or within private property on the exterior of the building. These activities include the installation or repair of a private sanitary sewer house connection, street sewer, sewer trunk line, or any other activity involving the sanitary sewer system. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Fire Marshal / Open Burning Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "(1) This is a valid permit only when signed by the Local Open Burning Official;\n(2) The permit does not relieve the permittee of any legal liability, which may be incurred as a result of the fire;\n(3) Failure to adhere to the conditions of the permit may result in forfeiture of this permit and/or other enforcement actions;\n\nThis Permit is NOT VALID UNDER THE FOLLOWING CONDITIONS:\n(a) When national or state ambient air quality standards may be exceeded\n(b) Where a hazardous health condition might be created\n(c) When the Air Quality Index (AQI) is forecast to be 100 or higher anywhere in the state\n(d) When the Forest Fire Danger Index is high, very high, or extreme\n(e) When there is an advisory from the Department of Energy and Environmental Protection (DEEP) Commissioner of any air pollution episode\n(f) Burning of any material other than brush\n(g) On property other than residential property upon which the permittee resides\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Fire Marshal / Removal of Fuel Storage Tanks",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Inspection Services for REMOVAL of FUEL STORAGE TANKS (Section 7-12 Glastonbury Town Code) \n\nEffective July 1, 2010\n\nUnderground fuel storage tank removal – all fuel types (except propane)",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Zoning Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Zoning Permits are for those structures and uses that do not need a Building permit i.e. \nSheds under 200 square feet in area, \nFill and excavation operations under 600 cubic yards, \nHome Occupations",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Demolition Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Demolition Permits are for removing structures or parts thereof and not any part of an interior demolition. Please choose this only if you intend on taking down or knocking down a structure or outbuilding.\nOther than Home owners, a Home Improvement Contractors license is required for demolition of residential structures and their associated accessory structures.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Complaint/Violation Inspections",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Use this complaint form to provide information to the Town of Glastonbury's Building/Zoning Inspector relating to potential zoning code violations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Building Inspections TEST ONLY - PLEASE DO NOT USE",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "The CT State Building Code requires building permits to construct, alter, or renovate any structure, building or mechanical, electrical or plumbing in compliance with the minimum standards of the CT State Building Code, and in accordance with the approved plans and specifications submitted with your application. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1078",
+      "name": "Building Department & Fire Marshal",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"font-size: 24px; color: rgb(44, 130, 201);\">&nbsp;Welcome to Glastonbury&#39;s Online Permitting System</span></p><div style=\"text-align: center;\"><span style=\"color: rgb(44, 130, 201);\"><a href=\"https://www.glastonburyct.gov/home/showpublisheddocument/48306\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"font-size: 24px;\"><span style=\"font-size: 18px; font-family: Arial, Helvetica, sans-serif;\"><strong><u>Click here for a quick guide on &quot;"
+    },
+    {
+      "id": "1086",
+      "name": "All Permits & Licenses on this Portal",
+      "isEnabled": 1,
+      "content": "<p>Click on each Permit or License below to apply:</p><ul><li><a href=\"https://glastonburyct.portal.opengov.com/categories/1078/record-types/6461\" rel=\"noopener noreferrer\" target=\"_blank\">Building Application - One and Two Family Dwelling</a></li><li><a href=\"https://glastonburyct.portal.opengov.com/categories/1078/record-types/6379\" rel=\"noopener noreferrer\" target=\"_blank\">Commercial Building Permit Application</a></li><li><a href=\"https://glastonburyct.portal.opengov.com/categories/1078/reco"
+    },
+    {
+      "id": "1083",
+      "name": "Engineering Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">Welcome to the Town of Glastonbury Engineering Department Permitting Page. Please select a permit type below to continue. &nbsp;</span></p><p><span style=\"font-size: 18px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><strong><span style=\"color: rgb(0, 0, 0);\">Please note:&nbsp;</span></strong></span></span></p><p><span style=\"font-size: 18px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><strong><sp"
+    },
+    {
+      "id": "1073",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": "<h2 style=\"box-sizing: border-box; font-family: Roboto, sans-serif; font-weight: 500; line-height: 1.2; color: rgb(0, 66, 118); margin-top: 20px; margin-bottom: 10px; font-size: 25.6px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: 0.16px; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thic"
+    },
+    {
+      "id": "1085",
+      "name": "Glastonbury GIS",
+      "isEnabled": 1,
+      "content": "<p data-uw-styling-context=\"true\" style=\"box-sizing: border-box; margin: 0px 0px 1em; color: rgb(68, 68, 68); font-family: Roboto, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: 0.16px; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: i"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:41.913Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

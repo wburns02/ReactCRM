@@ -1,0 +1,318 @@
+{
+  "jurisdiction": "Easton",
+  "state": "PA",
+  "tenant": "eastonpa",
+  "portalUrl": "https://eastonpa.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6436",
+      "name": "Tree Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Sidewalk/Curb Improvement Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Address Assignment",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Pole Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Permit required for Removal or Installation of Pole.",
+      "isEnabled": true
+    },
+    {
+      "id": "6377",
+      "name": "Tattoo Parlor",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Health License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Handicap Parking Space Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Outdoor Dining Program",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "This is the application for the Outdoor Dining Program, \"Easton Alfresco\". The City will permit access to public, on-street parking spaces for the purpose of allowing permitted restaurants to use said area for extended, outdoor seating. Applicants will be limited to the parking space(s) that are directly in front of, or adjacent to, their physical location - subject to availability and approval by the City. Please refer to the program guidelines for additional rules and regulations. \n\nIf you are intending to utilize the sidewalk space in front of your business, please fill out and submit the \"Outdoor Café Application\".",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Business License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Zoning Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Subdivision and Land Development Application",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Special Exception/Variance Appeal",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Rental License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "A Separate Registration Application Is Required For Each Location. \nOne application can have multiple units. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Historic District Commission",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Contractor License",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Fire Alarm System Annual Report",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Antenna Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Outdoor Café ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Sewer Connection",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Junkyard/Savage/Yard/Scrap Yard",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Junkyard/Savage Yard/Scrap Yard License Application",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Street Opening",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Fire Escape Confidence Test (5 Year)",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Complaint Form",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Key Box Report",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Violation Form - Bureau of Engineering",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Complaint/Violation in Public Right-of-Way",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Building Code Board of Appeals",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Buyer Notification Inspection",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Required inspection for property transfers.",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Health Code Board of Appeals",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Fire Suppression System Annual Report",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Certificate of Occupancy",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application IS NOT for a Buyer Notification Inspection. \n\nIf you are seeking an inspection for the sale of a property, please select \"Buyer Notification Inspection\".",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Miscellaneous Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "USE THIS APPLICATION FOR:\n\nBlasting Permit, \n\nDemolition Permit (not interior \"tear-out\"), \n\nHot Work Permit, \n\nMoving Buildings, or\n\nScaffolding Permit\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Solar (PV) and Windmill Permit Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "UCC Permit (Building, Mechanical, Electrical, Plumbing)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Please note the following time frame when submitting permits:\n15 Business days for residential permits\n30 Business days for commercial permits",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1079",
+      "name": "Business Licensing",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1085",
+      "name": "Code Enforcement",
+      "isEnabled": 1
+    },
+    {
+      "id": "1076",
+      "name": "Community and Economic Development",
+      "isEnabled": 1,
+      "content": "<div><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/2025_OUTDOOR_DINING_PROGRAM_Guidelines_Tue_Mar_18_2025_19:21:41_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\"><strong><span style=\"font-size: 24px;\">2025 OUTDOOR DINING PROGRAM Guidelines.pdf</span></strong></a></div>"
+    },
+    {
+      "id": "1084",
+      "name": "Contractor Licensing",
+      "isEnabled": 1,
+      "content": "<p>Please use this application to apply for the following licenses:</p><ul><li>Residential</li><li>Building</li><li>Plumbing</li><li>Electrical</li><li>Fire Alarm</li><li>Fire Suppression</li><li>Framing/Wall Covering</li><li>General (All Trades)</li><li>Insulation</li><li>Masonry</li><li>Mechanical/Fuel Gas</li><li>Roofing</li><li>Tree Surgeon</li></ul>"
+    },
+    {
+      "id": "1072",
+      "name": "Engineering Bureau",
+      "isEnabled": 1,
+      "content": "<p><strong><u>IMPORTANT DOCUMENTS:</u></strong></p><div><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Developer's_Agreement__Template_Fri_Aug_29_2025_17:36:21_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\">Developer&#39;s Agreement Template.pdf</a></div><div><br></div><div><a href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Traffic_Notification_List_2023_Mon_Dec_09_2024_16:02:31_GMT+0000_(Coordinated_Universal_Time).pdf\" tar"
+    },
+    {
+      "id": "1073",
+      "name": "Health Bureau",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1082",
+      "name": "Historic District Commission",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Permits and Inspections",
+      "isEnabled": 1,
+      "content": "<p><a href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/WC_AFFIDAVIT_Wed_Feb_09_2022_18:28:44_GMT+0000_(Greenwich_Mean_Time).pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Workers&#39; Compensation Waiver Affidavit</a></p><p><a href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/SpecialInspections_Wed_Feb_09_2022_19:06:35_GMT+0000_(Greenwich_Mean_Time).pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Statement of Special Inspections</a></p><p><a href=\"https://view"
+    },
+    {
+      "id": "1080",
+      "name": "Planning and Zoning",
+      "isEnabled": 1,
+      "content": "<p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Pool_Example_Tue_Aug_17_2021_16:24:21_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_blank\"></a><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Zoning_Sign_Application_Regulations_Wed_Apr_23_2025_13:36:50_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\">Zoning_Sign_Application_Regulations.pdf</a></p><p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.w"
+    },
+    {
+      "id": "1081",
+      "name": "Rental Licensing",
+      "isEnabled": 1
+    },
+    {
+      "id": "1074",
+      "name": "Fire Safety",
+      "isEnabled": 1,
+      "content": "<p><a href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/CTF_-_Fire_Escape_-_12-2015_-_v1.1_Wed_Jan_19_2022_16:40:47_GMT+0000_(Greenwich_Mean_Time).pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Fire Escape Confidence Test Form</a></p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:39.777Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

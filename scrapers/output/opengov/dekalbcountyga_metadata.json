@@ -1,0 +1,121 @@
+{
+  "jurisdiction": "DeKalb County",
+  "state": "GA",
+  "tenant": "dekalbcountyga",
+  "portalUrl": "https://dekalbcountyga.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6473",
+      "name": "Animal Litter Registry",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This permit is required for owners of intact female Companion Animals and must be obtained before or within 1 week after the birth of a litter.",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Alcohol, Adult Entertainment, Wrecker ID, Pawn,  Precious Metals, Carnival, Escort/Dating",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Door to Door Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Employee Booting (Immobilization)  Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Firearm Fingerprint Permit (DeKalb County Residents Only)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "For Firearm applicants that have been to Probate Court",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Dangerous Animal Registration",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Internal record type that is used to generate \"Unregistered Dog\" letters and track response rates.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Miscellaneous Fingerprints",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Business License Background Check Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Booting Business (Immobilization Business) Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Private/Business Noise Ordinance Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Construction Noise Ordinance Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Report Backyard Breeders & Transient Animal Sales",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Permits Taxi Wrecker Unit (Alcohol Permits)",
+      "isEnabled": 1,
+      "content": "<div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/dkpd_logo_Fri_Dec_19_2025_19:52:31_GMT+0000_(Coordinated_Universal_Time).jpg\" style=\"width: 166px;\" class=\"fr-fic fr-dib\"></div><table style=\"width: 100%;\"><tbody><tr><td style=\"width: 100%; background-color: rgb(61, 142, 185);\"><div style=\"text-align: center;\">&nbsp; &nbsp; &nbsp; &nbsp; <a data-sessionid=\"e1cd4b67-0eed-75c9-794d-c3998a9caf24\" data-shapeids=\"10\" data-slideid=\"\" style='color: rgb(0, 0, 0); font-family: "
+    },
+    {
+      "id": "1078",
+      "name": "Frequently Asked Questions & Other Information",
+      "isEnabled": 1,
+      "content": "<div><span style='color: rgb(0, 0, 0); font-size: 14px; font-family: \"Times New Roman\", Times, serif, -webkit-standard;'><br></span></div><div style=\"text-align: center;\"><span style=\"font-family: Times New Roman,Times,serif,-webkit-standard;\"><span style=\"font-size: 14px;\"><span style=\"color: rgb(0, 0, 0);\"><br></span></span></span></div><div style=\"text-align: center;\"><span style=\"font-family: Arial, Helvetica, sans-serif;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(0, 0, 0);\"><sp"
+    },
+    {
+      "id": "1081",
+      "name": "Animal Enforcement Services",
+      "isEnabled": 1,
+      "content": "<p data-end=\"273\" data-start=\"87\"><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 12pt;\">Questions, please contact 404-294-2996.&nbsp;</span><a href=\"mailto:AnimalControl@dekalbcountyga.gov\" target=\"_blank\"><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 12pt;\">AnimalControl@dekalbcountyga.gov</span></a><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 12pt;\"><br>Office Hours: Monday&ndash;Friday, 8:30 AM&ndash;5:00 PM</span></p><div><span s"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:47.967Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

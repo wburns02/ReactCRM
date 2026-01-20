@@ -1,0 +1,197 @@
+{
+  "jurisdiction": "Oconomowoc",
+  "state": "WI",
+  "tenant": "oconomowocwi",
+  "portalUrl": "https://oconomowocwi.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6471",
+      "name": "Sprinkler Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This building permit covers all new buildings, additions, remodels, fences, sheds, pools, decks, roofing, siding, egress windows, porches, solar, gazebos, etc. for all building types (residential, commercial, industrial, multi-family, and institutional).",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Planning Review",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This permit will include Conditional Use Permits, Zoning Determination Letters, Temporary Use Permits, Special Exceptions, Zoning Map Amendments, Comprehensive Plan Amendments, Planned Development Districts, Subdivision Reviews, Certified Survey Maps, and Extraterritorial Plat / CSMs",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Erosion Control",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Erosion control permit for all sites besides 1-2 family new residential homes, as these will be issued with your building permit. All other sites will need to fill out this application prior to a building permit being issued. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Right-of-Way Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "The Right of Way Permit is intended for any work taking placing in the City’s Right of Way. This includes any company who wishes to construct, maintain, or repair utilities within the City of Oconomowoc's Right-Of-Way, as well as any Contractor that will be installing facilities for that company. This permit is also used for approval to store any materials within City ROW/property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Dog License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Dog and cats are required to be licensed in the City of Oconomowoc. The fee for spayed/neutered pets is $15 per animal/per year. The fee for pets not spayed or neutered is $20 per animal/per year.  All dogs and cats over the age of 5 months need to be licensed. We will need proof of a current rabies vaccination. An invoice or statement from your veterinarian, which shows the rabies manufacturer name, serial number and expiration date is acceptable proof. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Architectural Building Review",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This application will include Architectural Building Reviews, which including both a concept and final review by the Architectural Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "HVAC Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Cat License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Dog and cats are required to be licensed in the City of Oconomowoc. The fee for spayed/neutered pets is $15 per animal/per year. The fee for pets not spayed or neutered is $20 per animal/per year.  All dogs and cats over the age of 5 months need to be licensed. We will need proof of a current rabies vaccination. An invoice or statement from your veterinarian, which shows the rabies manufacturer name, serial number and expiration date is acceptable proof. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Electrical Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Plumbing Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Razing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Permanent Sign Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "All permanent signs with the City shall be reviewed and approved by the City prior to installation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Occupancy Compliance Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Occupancy Compliance is a notification to ensure the protection of the health, safety, morals, and general welfare for residents in the City of Oconomowoc per Section 17.002 of the City's Municipal Code. \n\nOccupancy Compliance is necessary when: Unoccupied space in an existing building is occupied, an occupancy in an existing building changes to a different use or a different Owner, or a new building construction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Food Truck Permit Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Keeping of Chickens",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The City of Oconomowoc allows the Keeping of Chickens per Section 17.109(5) of the City Ordinance.  Chickens are allowed within the following zoning districts: RR - Rural Residential; TR - Traditional Residential; SR - Suburban Residential; IP - Intuitional Public and UR - Urban Reserve.    ",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Adult Oriented Establishment Business Operator License",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Impact, Charcoal, sans-serif; font-size: 24px;\">Living in Oconomowoc</span><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\"><br style=\"box-sizing: border-box; color: rgb(0, 43, 70); font-family: &quot;Open Sans&quot;; font-size: 15.2px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-"
+    },
+    {
+      "id": "1071",
+      "name": "Building Inspection",
+      "isEnabled": 1,
+      "content": "<div>Page Content</div>"
+    },
+    {
+      "id": "1082",
+      "name": "Planning and Zoning",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Impact, Charcoal, sans-serif; font-size: 24px;\">THE PLANNING DEPARTMENT</span></div><div><br></div><div><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">The Planning Department is responsible for current and long-range planning efforts. &nbsp;Current planning involves projects related to zoning, development review, architectural and sign review, as well as various permits and other activities.</span></div><div><span style=\"font-size: 18px;\""
+    },
+    {
+      "id": "1083",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-size: 24px; font-family: Impact, Charcoal, sans-serif;\">Department of Public Works</span></div><div><br></div><div><span style=\"color: rgb(0, 43, 70); font-family: Arial, Helvetica, sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space"
+    },
+    {
+      "id": "1081",
+      "name": "City Clerk",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.4em;\"><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">The Clerk&rsquo;s Department issues many types of licenses and permits. Click on the links below to see more information about a specific license or permit and to find the application, etc. If you have questions, contact the <a href=\"https://www.oconomowoc-wi.gov/118/City-Clerk\" rel=\"noopener noreferrer\" style=\"box-sizing: border-box; color: rgb(41, "
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:58.870Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

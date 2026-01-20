@@ -1,0 +1,386 @@
+{
+  "jurisdiction": "Bolingbrook",
+  "state": "IL",
+  "tenant": "bolingbrookil",
+  "portalUrl": "https://bolingbrookil.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6444",
+      "name": "Site Development Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Permit application for commercial and residential development, associated with the initial preparation of a site, and maintenance and/or repair work of existing developments.",
+      "isEnabled": true
+    },
+    {
+      "id": "6669",
+      "name": "Self-Storage Facility Tax",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "The monthly tax return shall be filed with the Finance Department Director’s Office by the twentieth (20) day of the month for the preceding month’s receipts. Penalties for late filing will be imposed according to the Village of Bolingbrook Ordinance 25-024.",
+      "isEnabled": true
+    },
+    {
+      "id": "6558",
+      "name": "Single Family or Townhome Rental Inspection and Occupancy Permit",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "For rental inspections and permitting of Single-Family homes as well as Townhomes such as Beaconridge, Fernnwood, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6551",
+      "name": "Report an Issue",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Our primary focus is to ensure that residents have the opportunity to live in a clean, safe, and healthy environment.\n\nIt is not the intent of the Village to issue citations but to gain compliance with Village codes for better health, welfare, and harmony within the community.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Express Permit ",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Electric service upgrade/modification | Furnace / AC | Radon mitigation | Roofing Replacement | Sewer repair | Siding Replacement | Water heater Replacement | Window / Door Replacement",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Garage Sale Permit ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6622",
+      "name": "Fire Department Cadet Application",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Certificate of Occupancy",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Certificate of Occupancy application for new and/or existing businesses and organizations.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6670",
+      "name": "Animal Control/Wildlife Enforcement Officer Application",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Under general supervision, performs work providing animal control, capture, licensing and maintenance of the Village Animal Care Center in support of Police functions in the protection of life and property, prevention of crime, preservation of the public peace, maintenance of social order, enforcement of laws, and investigation of crimes; does related work as required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Amusement Tax ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "This monthly tax return shall be filed with the Finance Director’s office by the fifteenth (15th) day of the month for the preceding month’s receipts. \n\nPenalties for late filing will be imposed according to the Village of Bolingbrook Ordinance 75-016, Section 10-107, Ordinance 98-85 and Ordinance 98-98.",
+      "isEnabled": true
+    },
+    {
+      "id": "6650",
+      "name": "Commercial Business License Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6577",
+      "name": "Apartment Complex Rental Occupancy Permit",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "For apartment (within apartment complex) rental occupancy permitting.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Commercial Building Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Building Permit Application for an interior or exterior alternation to an EXISTING Commercial, Industrial, Office or Multi-Family property, including but not limited to: Accessory Structures |  Additions | Alterations |  Buildouts |  Remodeling |  Modifications to building, electrical, mechanical, and/or plumbing systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Commercial New Construction Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Building Permit Application for New Commercial, Industrial, Office, or Multi-Family principal structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "6600",
+      "name": "Utility Installation Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Permit application for installing, relocating and/or replacing utility facilities in the Village.",
+      "isEnabled": true
+    },
+    {
+      "id": "6369",
+      "name": "Outdoor Firework Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "Police Officer - Lateral Application (Certified Police Officers Only)",
+      "categoryId": 1091,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Construction Trailer Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Building Permit Application for a temporary jobsite trailer.",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Hotel Room Tax ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "This monthly tax return shall be filed with the Finance Director's office by the 15th day of the month for the proceeding month's receipts. As provided by Ordinance 03-43 & as amended by Ordinance 14-033 of the Municipal Code of The Village of Bolingbrook. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Liquor Tax ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "This monthly tax return shall be filed with the Finance Director’s office by the twenty-fifth (25th) day of the month for the preceding month’s receipts. \n\nPenalties for late filing will be imposed according to the Village of Bolingbrook Ordinance 01-73, Section 13-407, Ordinance 03-44, and ordinance 08-037 ",
+      "isEnabled": true
+    },
+    {
+      "id": "6592",
+      "name": "Contractor Registration",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Registration instructions for new and/or previously registered contractors.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Commercial CPR Registration Form",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Fire Alarm Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6647",
+      "name": "Juneteenth Bolingbrook - Participant Application 2025",
+      "categoryId": 1094,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Liquor Tax For Packaged Liquor Only",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "This monthly tax return shall be filed with the Finance Director’s office by the twenty-fifth (25th) day of the month for the preceding month’s receipts. \n\nPenalties for late filing will be imposed according to the Village of Bolingbrook Ordinance 01-73, Section 13-407, Ordinance 03-44, 08-037 and Ordinance 10-087.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Elevator Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Building Permit Application for the installation, modification, and/or repair of Elevators & Conveyances.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Motor Vehicle Leasing Tax ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "This monthly tax return shall be filed with the Finance Director’s office by the tenth (10th) day of the following month per Ordinance 99-041, Section 22. \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6633",
+      "name": "Commercial Hood/Ansul Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6643",
+      "name": "Home Business License Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Fence Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Building Permit Application for new and/or replacement fence installation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Irrigation System Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Building Permit Application for the installation of a lawn sprinkler system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6620",
+      "name": "Request for Easement Encroachment",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for relief to construct within an easement (i.e. public utility & drainage easement).",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Sprinkler System Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Residential Building Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Building Permit Application for various construction projects to an EXISTING residential property, including but not limited to: Addition | Basement Remodel | Deck | Demolition | Driveway | EV Charger | Fireplace | Fire Repair | Garage | Generator | Patio | Pavilion/Gazebo | Pergola | Pool & Spa | Remodel/Rehab | Solar | Stoop/Stairs | Storage Shed | Walkway | Weatherization.",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Restaurant Tax Form",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "This monthly tax return shall be filed with the Finance Director’s office by the twenty-fifth (25th) day of the month for the preceding month’s receipts. Penalties for late filing will be imposed according to the Village of Bolingbrook Ordinance 06-044, Section 8-2507, and Ordinance 08-036. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Residential New Construction Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Building Permit Application for a New Single Family or Single Family Attached Home",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Sign Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Sign Permit application for permanent, portable and temporary signs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Motor Fuel Tax",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "This monthly tax return shall be filed with the Finance Director’s office by the fifteenth (10th) day of the month for the preceding month’s receipts. \n\nPenalties for late filing will be imposed according to the Village of Bolingbrook Ordinance 15-064. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Raffle Device Tax",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "This monthly tax return shall be filed with the Finance Director’s office by the tenth (10th) day of the month for the preceding month’s receipts. Penalties for late filing will be imposed according to the Village of Bolingbrook Ordinance 09-003, Section 8-2405.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1096",
+      "name": "Code Test",
+      "isEnabled": 1
+    },
+    {
+      "id": "1081",
+      "name": "Getting Started with Online Services",
+      "isEnabled": 1,
+      "content": "<p><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Bolingbrook_Logo_Eagle_Fri_Jan_29_2021_21:13:19_GMT+0000_(Greenwich_Mean_Time).png\" style=\"width: 138px;\" class=\"fr-fic fr-dib fr-fil\"></p><p><span style=\"font-size: 24px;\"><u><strong>Welcome to Online Services</strong></u></span></p><p><span style=\"font-size: 14px;\">To utilize Online Services, create a user account by clicking &#39;Sign Up&#39; in the menu bar at the top. &nbsp;You will use this account to manage your se"
+    },
+    {
+      "id": "1085",
+      "name": "Building Division",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"margin: 0in; text-align: center; line-height: 12.6pt;\"><span style=\"font-family: Tahoma, Geneva, sans-serif; color: rgb(184, 49, 47);\"><strong><span style=\"font-size: 24px;\">Village Office Holiday Closure</span></strong></span><br><span style=\"color: rgb(184, 49, 47); font-family: Tahoma, Geneva, sans-serif; font-size: 18px;\">In observance of <strong>Martin Luther King Jr. Day</strong>,&nbsp;</span><span style=\"font-size: 18px;\"><br></span><span style=\"color: rgb(184, 49"
+    },
+    {
+      "id": "1079",
+      "name": "Clerks Office",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><span style=\"font-family: Arial, Helvetic"
+    },
+    {
+      "id": "1087",
+      "name": " Code Enforcement",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1083",
+      "name": "Engineering",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"margin: 0in; text-align: left; line-height: 12.6pt;\"><span style=\"font-family: Tahoma, Geneva, sans-serif; font-size: 14px;\">If you do not see the permit type you are looking for or if you have questions regarding a project you are about to take on, please feel free to contact the Engineering Division at 630-226-8850. Town Center is open Monday through Friday, 8:30 a.m. to 5:00 p.m. &nbsp; &nbsp;</span></p><p align=\"center\" style=\"margin: 0in; text-align: left; line-heig"
+    },
+    {
+      "id": "1090",
+      "name": "Executive Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1086",
+      "name": "Finance Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 18px;\">The Finance Department is responsible for all financial services, payroll, mail processing, real estate transfer tax stamps, public notary services &amp; garage sale permits. The Department also facilitates budgeting, planning, organizing, auditing, accounting, and control of the Village&#39;s operating and capital requirements.</span></p><p><br></p><p style=\"text-align: left;\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/logo_Wed_May_"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 18px;\">&nbsp;</span></p>"
+    },
+    {
+      "id": "1089",
+      "name": "Human Resources",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"text-align:center;\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/1657140585701_Wed_Jul_06_2022_20:50:08_GMT+0000_(Greenwich_Mean_Time).png\" style=\"width: 564px;\" class=\"fr-fic fr-dib\"></p><p align=\"center\" style=\"text-align:center;\"><br></p><p align=\"center\" style=\"text-align:center;\"><span style=\"font-size: 18px;\">Welcome to the Village of Bolingbrook&rsquo;s Human Resources departments Digital Front Door and thank you for your interest in wan"
+    },
+    {
+      "id": "1094",
+      "name": "IT Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1091",
+      "name": "Police Department",
+      "isEnabled": 1,
+      "content": "<p style=\"margin: 15pt 0in 7.5pt; line-height: normal; background: white; text-align: center;\"><strong><span style=\"font-size: 30px;\">JOIN OUR TEAM. BE THE DIFFERENCE.</span></strong></p><p style=\"margin: 15pt 0in 7.5pt; line-height: normal; background: white; text-align: center;\"><br></p><p align=\"center\" style=\"margin-bottom: 0in; text-align: center; line-height: normal; background: white;\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Bolingbrook_PD_Shield_Image_Mon_"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:59.171Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

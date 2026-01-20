@@ -1,0 +1,504 @@
+{
+  "jurisdiction": "City of Bedford",
+  "state": "TX",
+  "tenant": "bedfordtx",
+  "portalUrl": "https://bedfordtx.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6430",
+      "name": "Garage Sale Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Residential property owners are required to obtain a permit to conduct garage sales on their property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Recreational Vehicle -RV Parking Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "A temporary parking permit for on-street parking for a period of time not to exceed seven days may be issued by the city with the following conditions:(1)Allowed only for preparation of use and cleaning.(2)May not exceed seven consecutive days. After expiration of a permit, a new permit may not be issued until at least 45 days have elapsed since the issuance of the previous permit. Not more than three such permits may be issued to a single person or household in a single calendar year.(3)Under no circumstance shall the recreational vehicle be occupied for any residential purpose.",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Multi-Family Registration",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "No multi-family complex may be operated within the city without registration and license.  The landlord of a complex shall apply for registration with the city.  A registration shall be valid for a 12-month period upon issuance and must be renewed on an annual basis. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Solicitors/Handbill Permit",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Each person that is engaging in soliciting or distributing handbills must register with the city and obtain permits to aid in crime detection efforts and deter deceptive practices and fraud.",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Massage Establishment Registration",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "No person shall operate a massage parlor or massage establishment in the city without having first obtained a license therefore from the city.",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Fire Marshal Permit",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "All fire marshal related applications are covered within this one record type.  Applications include fire sprinkler systems, underground storage tanks, fire alarms, tents, vent-a-hoods, protechnics, access control, hazardous material or other related permits that are required to be issued through the Fire Marshal's Office. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Contractor Registration - General Contractor",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Each contractor shall maintain registration with the city until the work being performed under such permit is complete. Contractors shall furnish the building official with the contractor's permanent business and residential address, telephone numbers and driver's license number.",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "New Construction/Additions",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permits for new construction or additions for residential and nonresidential projects.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Public Infrastructure  - Civil Plan Review ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Any public infrastructure constructed including the public portion of the street, sidewalk, drive approaches, traffic improvements, water, sanitary sewer, and drainage of private construction projects must be reviewed and approved by the Engineering Department. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Pre-Application - Development Review Committee ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Bedford's Development Review Committee offer anyone wishing to develop in the City of Bedford an opportunity to meet with City Staff before making a development related application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Specific Use Permit (SUP)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "SUP (SPECIFIC USE PERMITS) - Certain uses, because of the characteristics of the use, may be appropriate in some zoning districts under certain conditions in addition to the zoning districts wherein they are a permitted use. These uses have been identified by the City Council in Section 3.1, Schedule of Permitted Uses.",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Drive Approach/Sidewalk Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Any work to driveways or sidewalks located within the City's right-of-way requires a permit to be issued and work to be inspected. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Remodel Building Permit - Residential & Non-Residential",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permits for structural remodels of both residential and non-residential structures. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Contractor Registration - Plumbing Contractor",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Contractors shall furnish the building official with the contractor's permanent business and residential address, telephone numbers and driver's license number.",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Rental Registration - Long Term",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "With the goal of preserving and improving the City of Bedford's neighborhoods, we require that all rental properties be registered with the City and inspected to ensure the City's adopted minimum housing code is met. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Contractor Registration - Electrical Contractor ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Electrical  Contractors shall furnish the building official with the contractor's permanent business and residential address, telephone numbers and state issued licenses.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Accessory Structure Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Accessory structures include patio covers, carports, detached garages, storage buildings, storm shelters and accessory dwelling units on residential properties include permits from this application.   Any nonresidential properties requesting an accessory structure will need to apply through the New Construction, Addition or Remodel permit application.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Land Disturbance (Grading) Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "No person shall engage in any clearing, grading, grubbing, stockpiling, excavating, cutting, or other site earthwork without first obtaining the proper permit and/or authorization as required by City ordinance, state, or federal law and in compliance with any other applicable criteria, manuals, plans, polices, city standards or general professional practices as they relate to earth moving activities.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Planned Unit Development",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "The purpose of this district is to accommodate planned associations or uses developed as integral land use units such as industrial parks or industrial districts, office, commercial or service centers, shopping centers, residential developments of multiple or mixed housing, or any appropriate combination of uses which may be planned, developed, and operated as integral land use units either by a single owner or combination of owners.",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Floodplain Development Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Zoning Change",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "All property within the City of Bedford is assigned a land use zoning designation in accordance with Ordinance #2275.  Zoning divides the City into districts for the purpose of regulating land use and development. Zoning addresses items such as the types of uses allowed, building height, setbacks from property lines, lot coverage and minimum lot area.  Property owners have a right to request a zoning change on their property, if you are a potential buyer of property and you wish to have the property rezoned then you must get approval from the registered property owner in order to make a zoning change application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Fence/ Retaining Wall  Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permits are required to erect a new fence or any part of a fence in excess of 25% per elevation side.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Rental Registration - Short-Term ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "With the goal of preserving and improving the City of Bedford's neighborhoods, we require that all rental properties be registered with the City and inspected to ensure the City's adopted minimum housing code is met. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Contractor Registration - Mechanical Contractor",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Each contractor shall maintain registration with the city until the work being performed under such permit is complete. Contractors shall furnish the building official with the contractor's permanent business and residential address, telephone numbers and driver's license number.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Special Event Permit ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Civic events and special events may be conducted within an existing use and ancillary to that use provided it meets the following criteria: \n(1)The event is carried on for a period of time not exceeding fifteen (15) consecutive days;\n(2)No retail sales conducted except those incidental to the primary activity such as refreshment and souvenir sales. Charitable and Nonprofit Organizations may conduct retail sales for fund-raising purposes in any zoning district;\n(3)Assemblies are carried on out-of-doors, in temporary shelters, or tents;\n(4)A permit is obtained in accordance with the provisions of the zoning ordinance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Contractor Registration  - Irrigation Contractor ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Each contractor shall maintain registration with the city until the work being performed under such permit is complete. Contractors shall furnish the building official with the contractor's permanent business and residential address, telephone numbers and driver's license number.",
+      "isEnabled": true
+    },
+    {
+      "id": "6354",
+      "name": "Mechanical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permit application for mechanical permits including new construction, remodels or addition permits, system replacements or upgrades and fixture installments.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Right of Way Permit (Franchise Utility Only)",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Any work conducted in the City of Bedford right-of-way requires a licensed contractor be registered within the City of Bedford and obtain permits for work being completed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Electrical Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permit application for electrical permits including new construction, remodels or addition permits, system replacements or upgrades and fixture installments.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Grease/Grit Generator Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Any establishment where food is manufactured, packaged, produced, processed, transported, stored, sold, commercially prepared, vended, or otherwise handled must obtain a grease trap/interceptor permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Site Plan Application ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "When required by the Administrative Official,  any applicant for a zoning change shall submit a proposed site plan for approval. It is the established policy of the Planning and Zoning Commission and the City Council under this section of the City of Bedford Zoning Ordinance that a site plan will be required for any application for a zoning change to \"S\", \"L\", or \"H\" Commercial, and to \"I\" Industrial, on any tract of land which meets one or more of the following conditions:\n\n(1)Adjacent to any of the following Single Family Residential Zoning Districts: \"R-l5,000\"; \"R-9,000\"; \"R-7,500\"; \"R-6,500\"; \"MD-1\", \"MD-2\", \"MD-3\", and \"MD-4\".\n(2)Unique topographical conditions are present on the tract.(\n3)Greater than three (3) acres in area.\n(4)Any property located within the Central Business District Overlay or Master Highway Corridor Overlay District.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Contractor Registration - Sign Contractor ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Contractors shall furnish the building official with the contractor's permanent business and residential address, telephone numbers and driver's license number.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Contractor Registration - Public Works Contractor",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Contractors shall furnish the building official with the contractor's permanent business and residential address, telephone numbers and driver's license number.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Plat Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "No permit for the construction upon any tract or plot shall be issued until the lot(s) have been platted. There are several different types of plats that can be submitted and approved depending on factors associated with the site. If a final plat, preliminary plat, or replat is required, action by the Planning and Zoning Commission must occur prior to recordation. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Liquid Waste Hauler Registration ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "All Haulers of liquid waste must register with the City. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Plumbing Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permits are required for any plumbing work to ensure compliance with all applicable codes. Only licensed Plumbing Contractor through the State of Texas and registered with the City of Bedford are allowed to apply for plumbing permits unless a homeowner who has a registered Homestead exemption of the property.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Miscellaneous Building Permits (Demolition, Siding, Temporary Buildings, Windows/Doors, Awnings)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application type is for miscellaneous building permits for construction work such as siding, demolition of structures, and temporary buildings.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Water Well Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Before constructing or modifying any water well within the jurisdiction of Bedford, a permit must be obtained.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Contractor Registration - Right-of-Way Contractor ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Contractors shall furnish the building official with the contractor's permanent business and residential address, telephone numbers and driver's license number.",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Special Exception ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "In some cases, a property owner may request a special exception from city regulations of permitted by ordinance, so long as they are not  contrary to the public interest and literal enforcement of the provisions of this ordinance would result in unnecessary hardship.",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Mobile Food Unit Permit Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Application for Mobile Food Units \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Variance (Building Requirements/ Zoning Requirements/ Alcohol Distance Requirements)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "In some cases, a property owner may request a variance from city regulations so long as they are not  contrary to the public interest and literal enforcement of the provisions of this ordinance would result in unnecessary hardship.",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Residential Roofing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application type is for residential roofing projects only.  A permit is required for any re-roofing, including shingles and decking, within the City of Bedford for any single-family residential structure. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Sign  Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Most signs erected or altered require permits to be issued by the City.  Each individual sign requires a separate permit application. If you have a question about a particular sign and the permitting requirement, please email building.permits@bedfordtx.gov. \n  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Tree Mitigation Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "No person, directly or indirectly, shall cut down, destroy, remove or move, or effectively destroy through damaging, any tree situated on property described above without first obtaining a tree removal permit. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Certificate of Occupancy Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All Commercial businesses in Bedford must have a Certificate of Occupancy.  This includes new business, business name changes, new location of business, or expansion of business.  If you are unsure whether a Certificate of Occupancy is required, please contact Building Inspections at 817-952-2140.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Clothing Donation Box",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "All Clothing Donation Containers within the City must have a valid permit on file.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Swimming Pool Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A permit is required for installation or demolition of in-ground, or prefabricated swimming pools that are greater than 24 inches deep, spas or hot tubs, in either commercial or residential use.",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Administrative Appeal ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Any person aggrieved by any interpretation or by any decision or ruling of the building official, fire marshal or code compliance official under the minimum housing codes, sign regulations, construction codes or the fire protection codes, shall have the right to make an appeal to the building and standards commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Outside Sales Event",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "OUTSIDE SALES- Certain outside sales and/or storage of merchandise may be essential to the full development and utilization of the land and deemed to promote the health, safety, and general welfare of the City. In \"L\" and \"H\", Commercial Zoning Districts, the outside sales and/or storage of merchandise for sale is prohibited in the City of Bedford unless a permit for such outdoor activities is obtained by the applicant. $100 PERMIT FEE",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Lawn Irrigation Systems Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application type is for any work related to a lawn irrigation system.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Communications Antenna and Supporting Equipment",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Credit Access Business Registration ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "To protect the welfare of the citizens of the City of Bedford, the City monitors credit access businesses in an effort to reduce abusive and predatory lending practices. All credit access business within the City of Bedford must annually register with the City. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Solar Panel Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permits are required for the installation of solar panels. *Please note that the City of Bedford now requires submission of proof of Interconnection Agreement approval.*  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Foundation Repair Permit - Residential Only",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A building permit is required for residential or commercial foundation repair. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Request for Temporary Utility Service (Clean & Show)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application type is for temporary utility service, including electric and gas.  ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Permits/Inspections",
+      "isEnabled": 1,
+      "content": "<p>Building Inspections is responsible for the oversight of all permit and inspection activities within the City of Bedford.&nbsp;</p><p>A person, firm or corporation shall not erect, construct, enlarge, add to, alter, repair, replace, improve, remove, install, convert, equip, use, occupy or maintain a structure of building service equipment without first obtaining a permit.&nbsp;</p><p>A permit is required for:&nbsp;</p><ul><li>New or remodel residential and commercial buildings&nbsp;</li><li>D"
+    },
+    {
+      "id": "1087",
+      "name": "Contractor Registration ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1076",
+      "name": "Planning and Zoning",
+      "isEnabled": 1,
+      "content": "<p>The Planning and Zoning Division promotes the efficient and orderly development of private properties and encourages the growth and enhancement of business relative to Comprehensive Land Use Plan.&nbsp;</p>"
+    },
+    {
+      "id": "1088",
+      "name": "Garage Sale Permit/ Recreational Vehicle (RV) Parking Permits",
+      "isEnabled": 1
+    },
+    {
+      "id": "1091",
+      "name": "Fire Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1072",
+      "name": "Public Works/Engineering",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1089",
+      "name": "Housing (Multi-Family Registration, Single-Family Long-Term Registration, Short-Term Rental Registration (Airbnb, vrbo, etc.))",
+      "isEnabled": 1,
+      "content": "<p>Neighborhood Services oversees the City&#39;s recently adopted Long-Term Rental and Short-Term Rental Registration Programs. Soon, all residential properties that are leased for either 30-days or less (short-term) or more than 30-days (long-term) will be required to register annually with the City. &nbsp;</p><p>If this is after hours and requires immediate attention, please call the Bedford Police Non-Emergency number at 817-952-2127.&nbsp;</p>"
+    },
+    {
+      "id": "1090",
+      "name": "Police Department",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:54.953Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

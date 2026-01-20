@@ -1,0 +1,706 @@
+{
+  "jurisdiction": "Camarillo",
+  "state": "CA",
+  "tenant": "camarilloca",
+  "portalUrl": "https://camarilloca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6614",
+      "name": "Final Tract/Parcel Map Check",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Engineering/Technical Review of Proposed Final Tract and Parcel Maps for Approval by the Department of Public Works before recordation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6685",
+      "name": "Request for Administrative Review - Pet Citations (English/Español)",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "To request initial administrative review and fee waiver of a Pet Citation issued by Ventura County Animal Services. [Español] Solicitud de Revisión Administrativa de Citación Animal de Ventura County Animal Services. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6575",
+      "name": "Business Approval and Tax Certificate - In-Town",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "If you're doing business in Camarillo, you'll need City approval and to pay an annual business tax. Our easy, all-in-one application takes care of both zoning and tax requirements. Just apply if you're starting up, relocating, expanding, or changing how you operate in town. Each location will need its own application, and we’re here to help every step of the way. This application includes Massage Establishment Permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up and Accessing Your Profile & Records",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6621",
+      "name": "Annexation",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "To annex property into Camarillo. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6554",
+      "name": "Stormwater Review",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "To determine whether the project needs to develop a Post Construction Stormwater Management Plan (PCSMP) for review by Stormwater Division. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Appeal",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "To appeal a decision of the Planning Commission or Community Development Director. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6612",
+      "name": "Business Tax Certificate - Out-of-Town",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Apply here if your business doesn’t have a physical location in Camarillo but still provides services or does work in the city. Out-of-town businesses are required to pay an annual business tax, and we’ve made the process quick and easy to get started.",
+      "isEnabled": true
+    },
+    {
+      "id": "6687",
+      "name": "Fats, Oils, and Grease (FOG) Wastewater Discharge Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "The Camarillo Sanitary District (CSD) administers a Fats, Oils, and Grease (FOG) Source Control Program to protect the public and the environment through the regulation of wastewater discharges from Food Service Establishments. Please do not submit this application if the facility uses a septic tank. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6680",
+      "name": "Change Order",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "For processing of revisions to approved plans for review and approval by the Department of Public Works before construction in the field.",
+      "isEnabled": true
+    },
+    {
+      "id": "6607",
+      "name": "Live Entertainment Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Businesses like restaurants and cafes can offer live music or entertainment once they’ve received a Live Entertainment Permit. It’s a simple step to keep things fun, safe, and compliant.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Banner Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Permit to display banners for temporary business promotion or for community events that do not require a City Special Event Permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6623",
+      "name": "Change of Zone",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Application for a change of zone or prezoning for annexation. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Commercial Planned Development (CPD)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "For new commercial developments. To modify an existing commercial building or site, see the Modification application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6375",
+      "name": "5. How to Reach Us! About Us & Contact Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to reach us!",
+      "isEnabled": true
+    },
+    {
+      "id": "6608",
+      "name": "Solicitors Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Anyone selling goods or services door-to-door in Camarillo needs to have a Solicitor's Permit—including charitable organizations. To help protect our residents and businesses, the City conducts a background check on every applicant before a permit is issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "6631",
+      "name": "4. Scheduling Inspections",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to schedule an inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "6641",
+      "name": "Conditional Use Permit (CUP)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "For new uses which are not permitted by right in the zone. To modify an existing Conditional Use Permit, see the Modification application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Camarillo Sanitary District Permit  - Sewer",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Camarillo Sanitary District (CSD) sewer permit application for the review of proposed repairs, improvements, new connections, and letters of availability within the Camarillo Sanitary District and within its sphere of influence.",
+      "isEnabled": true
+    },
+    {
+      "id": "6624",
+      "name": "General Plan Amendment (GPA)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "To request an amendment to the General Plan. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6640",
+      "name": "How to Apply for an Accessory Dwelling Unit (ADU)",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on How to apply for a Patio Cover",
+      "isEnabled": true
+    },
+    {
+      "id": "6643",
+      "name": "How to Apply for an Addition to Existing Building",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to an Addition to Existing Building",
+      "isEnabled": true
+    },
+    {
+      "id": "6633",
+      "name": "Industrial Planned Development (IPD)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "For new industrial developments. To modify an existing industrial building or site, see the Modification application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Transportation Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Transportation Permits are for Oversize Loads travelling within City Limits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6606",
+      "name": "Landscaping - New",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Landscape plan check for new development projects. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6644",
+      "name": "How to Apply for Exterior Building Alterations",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Exterior Building Alterations",
+      "isEnabled": true
+    },
+    {
+      "id": "6653",
+      "name": "How to Apply for Fireplace/Pizza Oven",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Fireplace/Pizza Oven",
+      "isEnabled": true
+    },
+    {
+      "id": "6617",
+      "name": "Landscaping - Modification",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Landscape modifications in existing developments. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6673",
+      "name": "Land Division/Parcel Map (LD)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "To subdivide land into up to four lots. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6654",
+      "name": "How to Apply for Foundation Only",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Foundation Only",
+      "isEnabled": true
+    },
+    {
+      "id": "6655",
+      "name": "How to Apply for HVAC (heating, ventilation, air conditioning) Change-Out",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for HVAC Change-Out",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Soils/Geotechnical Review (including Fault Investigation and Slope Stability)",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "The process to review soils reports including, but not limited to, Fault Investigation and Slope Stability Analysis.\nSoils reports must be prepared in accordance with the CITY OF CAMARILLO GUIDELINES FOR THE PREPARATION OF GEOTECHNICAL AND GEOLOGICAL STUDIES available upon request or on the City's Website.",
+      "isEnabled": true
+    },
+    {
+      "id": "6528",
+      "name": "Lot Line Adjustment/Parcel Merger",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Application for lot line adjustment or parcel merger, resulting in no increase in number of lots.",
+      "isEnabled": true
+    },
+    {
+      "id": "6674",
+      "name": "Mapping Information for Noticing",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "To request a radius map, list of property owners, and certification of the property owner's list. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6656",
+      "name": "How to Apply for Light Poles, Flag Poles, etc. ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Light Poles, Flag Poles, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6657",
+      "name": "How to Apply for Line Repair/Replacement - Sewer/Water/Gas",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Line Repair/Replacement - Sewer/Water/Gas",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Master Sign Program",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "For new or modified Master Sign Programs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6649",
+      "name": "Modification (MOD)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "To modify an existing Planned Development Permit (CPD/IPD/RPD), Conditional Use Permit (CUP), Wireless Communication Facility Administrative Permit, or approved Tentative Subdivision Maps (Parcel Maps/Tract Maps). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6658",
+      "name": "How to Apply for Manufactured Home, Mobile Home, Accessory Structures",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Manufactured Home, Mobile Home, Accessory Structures",
+      "isEnabled": true
+    },
+    {
+      "id": "6659",
+      "name": "How to Apply for Other Accessory Structures",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Other Accessory Structures",
+      "isEnabled": true
+    },
+    {
+      "id": "6618",
+      "name": "Pre-Application Review",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Preliminary review to provide information on potential issues with a project before a formal submittal. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6639",
+      "name": "Residential Planned Development (RPD)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "For new residential developments. To modify an existing residential building or site, see the Modification application or the Zone Clearance/Building Permit application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6661",
+      "name": "How to Apply for Photovoltaic (Solar) ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Photovoltaic (Solar) ",
+      "isEnabled": true
+    },
+    {
+      "id": "6662",
+      "name": "How to Apply for Replace Insulation",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Replace Insulation",
+      "isEnabled": true
+    },
+    {
+      "id": "6627",
+      "name": "SB 330 Preliminary Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Preliminary application for housing development projects seeking vesting rights pursuant to SB 330. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6663",
+      "name": "How to Apply for Replace/Repair Siding or Stucco",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Replace/Repair Siding or Stucco",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Special Event Permit (SPEV)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Required for most outdoor events such as concerts, carnivals, circuses, parking lot sales, marathons, or non-profit charitable events. Application must be filed 6-8 weeks prior to the event. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6664",
+      "name": "How to Apply for a Re-Roof",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for a Re-Roof",
+      "isEnabled": true
+    },
+    {
+      "id": "6584",
+      "name": "Special Event Permit (SPEV) - Filming",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Application must be filed with the Department of Community Development at least 7 days prior to the start of filming. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": "Special Event Permit (SPEV) - Animals ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Application for youth animal projects (4-H) or the keeping of wild birds. Must be submitted at least 30 days prior to the start of the use. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6665",
+      "name": "How to Apply for Service Panel Upgrade",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Service Panel Upgrade",
+      "isEnabled": true
+    },
+    {
+      "id": "6666",
+      "name": "How to Apply for SolarApp+ Only",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for SolarApp+",
+      "isEnabled": true
+    },
+    {
+      "id": "6703",
+      "name": "Specific Plan Amendment (SPA) ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "To request an amendment to a Specific Plan. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Street Furniture Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "To place street furniture on the public sidewalk area in the Camarillo Old Town Zone.",
+      "isEnabled": true
+    },
+    {
+      "id": "6667",
+      "name": "How to Apply for Swimming Pool/Spa",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Swimming Pool/Spa",
+      "isEnabled": true
+    },
+    {
+      "id": "6590",
+      "name": "Zone Clearance/Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Zone Clearance and Building Permit for residential and non-residential work. This application includes Sign Permits, but does not include landscaping. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6668",
+      "name": "How to Apply for Temporary Power Pole",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Temporary Power Pole",
+      "isEnabled": true
+    },
+    {
+      "id": "6628",
+      "name": "Temporary Use Permit (TUP)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "To allow for the short-term placement of uses not permitted permanently. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6678",
+      "name": "Tentative Tract Map (TT)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "To subdivide land into five or more parcels. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6669",
+      "name": "How to Apply for Wall/Fence",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Wall/Fence",
+      "isEnabled": true
+    },
+    {
+      "id": "6650",
+      "name": "How to Apply for Demolition",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Demolition",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Time Extension",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "To extend the expiration date of an approved entitlement (CPD/IPD/RPD/CUP). Not for building permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6632",
+      "name": "Variance",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "To request a variance from development standards, for properties with an exceptionally irregular layout. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6670",
+      "name": "How to Apply for Water Heater Change-Out",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Water Heater Change-Out",
+      "isEnabled": true
+    },
+    {
+      "id": "6671",
+      "name": "How to Apply for Windows/Doors/Skylights/Solar Tubes",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Windows/Doors/Skylights/Solar Tubes",
+      "isEnabled": true
+    },
+    {
+      "id": "6679",
+      "name": "Wireless Communication Facility Administrative Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "For new wireless communication facilities in the public right-of-way. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6626",
+      "name": "Zoning Ordinance Amendment (ZOA)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "For a non-City-initiated Zoning Ordnance Amendment. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6672",
+      "name": "How to Apply for Drought-Tolerant Landscaping",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Drought-Tolerant Landscaping\n \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6660",
+      "name": "How to Apply for a Patio Enclosure/Sunroom",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for a Patio Enclosure/Sunroom",
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "Zoning Verification Letter Request",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "To request a letter providing information regarding the history of a property, past records of approvals, and active code enforcement issues. For copies of plans, submit a Public Records Request. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6651",
+      "name": "How to Apply for Electric Vehicle Charging",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Electric Vehicle Charging",
+      "isEnabled": true
+    },
+    {
+      "id": "6652",
+      "name": "How to Apply for Energy Storage System",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Energy Storage System",
+      "isEnabled": true
+    },
+    {
+      "id": "6634",
+      "name": "Encroachment Permit (EP) ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Encroachment Permits for any work or construction, such as, but not limited to, driveway approaches, sidewalks, curb drains, trenches, sewer laterals, water laterals, and traffic control, within the City's right-of-way (streets), property and easements. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6647",
+      "name": "How to Apply for Cell Sites",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Cell Sites",
+      "isEnabled": true
+    },
+    {
+      "id": "6648",
+      "name": "How to Apply for Construction Trailer",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for Construction Trailer",
+      "isEnabled": true
+    },
+    {
+      "id": "6610",
+      "name": "Public Works Plan Check",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Application for the Public Works Department's engineering technical review for private land development grading and improvement plans, water, sewer, and storm drain plans, hardscape and drainage plans, street improvement plans prior to issuance of any applicable/requisite permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6645",
+      "name": "How to Apply for a New Building",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for a New Building",
+      "isEnabled": true
+    },
+    {
+      "id": "6646",
+      "name": "How to Apply for a New Shell Building",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for a New Shell Building",
+      "isEnabled": true
+    },
+    {
+      "id": "6636",
+      "name": "How to Apply for a Patio Cover/Pergola",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on How to apply for a Patio Cover/Pergola",
+      "isEnabled": true
+    },
+    {
+      "id": "6642",
+      "name": "How to Apply for a Sign Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on how to apply for a Sign",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1081",
+      "name": "Planning Division",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Verdana, Geneva, sans-serif; font-size: 14px;\">Camarillo&#39;s Planning Division of the Community Development Department is responsible for implementing zoning and development standards described in the City&#39;s Municipal Code.&nbsp;</span></div><div><span style=\"font-size: 14px;\"><span style=\"font-family: Verdana,Geneva,sans-serif;\"><br></span></span></div><div style=\"box-sizing: border-box;\"><span style=\"font-size: 14px;\"><span style=\"font-family: Verdana,Genev"
+    },
+    {
+      "id": "1071",
+      "name": "Building and Safety Division",
+      "isEnabled": 1,
+      "content": "<div style=\"box-sizing: border-box; padding: 0px 0px 80px; color: rgb(68, 68, 68); font-family: Poppins, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-st"
+    },
+    {
+      "id": "1083",
+      "name": "Public Works Department",
+      "isEnabled": 1,
+      "content": "<div style=\"box-sizing: border-box; padding: 0px 0px 80px; color: rgb(68, 68, 68); font-family: Poppins, sans-serif; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-st"
+    },
+    {
+      "id": "1084",
+      "name": "Business Tax",
+      "isEnabled": 1,
+      "content": "<div style=\"font-family: Arial, sans-serif; line-height: 1.6; max-width: 700px; margin: auto;\"><h2 style=\"color: #002d72;\">Welcome to Camarillo&mdash;We&rsquo;re Glad You&rsquo;re Here!</h2><p>Before you get started, make sure your business is approved and your annual business tax is submitted. For most businesses, it&rsquo;s a quick and easy process through our <strong>Business Approval and Tax Certificate</strong> application.</p><p>If your business involves <strong>live entertainment</strong>"
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Verdana, Geneva, sans-serif; font-size: 14px;\">Thank you for making the switch with us from a paper system to a fully digital system! We know this transition will take time and we are here to help you through it. Check out these resources for helpful tips on getting started, and please feel free to reach out to us at Camarillo City Hall if you have any questions or need further assistance.&nbsp;</span></p><div><span style=\"font-family: Verdana, Geneva, sans-serif; fo"
+    },
+    {
+      "id": "1088",
+      "name": "Code Compliance",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial,Helvetica,sans-serif;\">Camarillo&#39;s Code Compliance Division of the Community Development Department is responsible for the implementation of the Municipal Code including zoning/land use, property maintenance, conservation, inoperable vehicles on private property, and substandard housing. &nbsp;The Code Compliance Division is also responsible for enforcing weed and property maintenance ordinances, including weed over-growth of vegetation, inoperable or jun"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:18.124Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

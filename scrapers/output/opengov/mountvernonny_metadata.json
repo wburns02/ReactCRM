@@ -1,0 +1,679 @@
+{
+  "jurisdiction": "Mount Vernon",
+  "state": "NY",
+  "tenant": "mountvernonny",
+  "portalUrl": "https://mountvernonny.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6453",
+      "name": "Zoning Board of Appeals Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The City of Mount Vernon is required by New York State Law to have a Zoning Board of Appeals for situations where a development proposal does not conform to the City's Zoning Code. Therefore, the five-member Zoning Board of Appeals has specific duties that are clearly identified by New York State Law. The Zoning Board of Appeals is tasked with granting use variances, area variances as well as the interpretation of the Mount Vernon Zoning Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Transfer Tax Return Certification",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Request for Change of Address",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Architectural Review Board Application ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The Architectural Review Board is charged with conserving the value of buildings by preserving the aesthetic character of neighborhoods. Therefore, the Architectural Review Board reviews items like building/construction materials, building design and building style with the intent of issuing a certificate of appropriateness. Accordingly, the Architectural Review Board has been making determinations concerning these types of applications since 1961 when the Architectural Review Board was created by the City Council.",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Consumer Protection Complaint Form",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Item Pricing Waiver Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Register Your Business Here",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "The City of Mount Vernon (\"CMVNY\") is committed to its small business community.  The expansion of our local economy is interconnected with the growth of CMVNY small businesses. The Business Registration Program fosters growth of existing businesses; attracts new business; encourages partnerships within the business community; and provides technical guidance and support to the CMVNY small business community. \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6562",
+      "name": "About Department of Buildings",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Everything about the Mount Vernon Department of Buildings",
+      "isEnabled": true
+    },
+    {
+      "id": "6564",
+      "name": "Got Questions?",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Submit any troubleshooting questions related to OpenGov using this form. PCD staff will respond within 2 business days. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6565",
+      "name": "Annual Absentee Real Property Owner Payment Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Online Payment Application for Absentee Real Property Owner Fee. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6566",
+      "name": "Annual Elevator Fee Payment Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Online Payment Application for Elevator Fee. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6700",
+      "name": "Vacant Apartment Inspection",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6701",
+      "name": "Information Search Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6702",
+      "name": "Property File Request - Title Searches Only ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6709",
+      "name": "Violation Dismissal ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6718",
+      "name": "Capital Improvement Plan",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": " Capital Improvement Plan (CIP) is a multi-year strategic planning tool used to identify, prioritize, and allocate funding for major physical infrastructure projects. These projects typically involve the construction, repair, enhancement, or acquisition of long-term assets such as roads, buildings, parks, water systems, and public facilities.",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Planning Board Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The Planning Board has specific duties as identified by New York State Law. The seven (7) member Planning Board is tasked with Site Plan Review, Subdivision Review as well as the review of most Special Use Permits.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6731",
+      "name": "Application for Fire Department Inspections ",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "For inspections related to fire alarm, sprinkler, and suppression systems testing; daycare and school facilities; certificates of occupancy or tenancy- residential & commercial; hazardous materials; food trucks; gasoline or garage operations; and dry-cleaning establishments",
+      "isEnabled": true
+    },
+    {
+      "id": "6750",
+      "name": "Unified Solar Application Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The City of Mount Vernon has developed a checklist used by the Building Department and the Fire Department Plan Examiners when reviewing all Solar Panel applications.  To assist applicants when filing a Unified Solar Permit Application, we are sharing this checklist.  Note that requirements to qualify for review as a Unified Solar Permit application as noted on the USP applications remain in place and this checklist is only to be used as a guideline in addition to the application to aid the applicant by clearly detailing what our Plan Examiners will be looking for in the filing documents.  This checklist is unique to this City and was developed based on previous inadequate/incomplete USP applications filed since we launched the USP process in April 2024.\nThis City has the following challenges which has generated the need of these checklist to help mitigate issues due to the following:\n1.\\tAn older housing stock which has properties that might require:\na.\\tAdditional structural roof support that may be required for any additional dead load added to it.\nb.\\tRoofing materials and/or application that may need to be repaired or replaced to accommodate these types of installations.\nc.\\tOutdated and insufficient electrical power source and wiring which need to be upgraded to safely handle the requirements of these types of installations.\nd.\\tGenerally, the houses in this city were built in close adjacency to neighboring houses so there is more of a threat for the spread of a fire.\n2.\\tA history of a high rate of residential fires resulting in our fire department requiring the following:\na.\\tA clear and direct roof access path to the properties for firefighting.\nb.\\tRoofs that with this additional dead load added is still structurally capable of supporting the live load of firefighters/first responders when fighting fires.\nc.\\tUpgrading of electrical systems associated with these types of installations that can accommodate them safely.\nThe MV Building Department and Fire Department is supportive of the benefits to the environment and the energy savings of its residents installing solar panels and believes these guidelines will achieve this and at the same time if met they will keep our residents and our first responders safe.  \n\nPlease note:\n\nThe plans for this application will be reviewed by the third-party plans examiner company, Labella, and the Fire Department. Once both reviews are approved, a Building Department inspector will conduct an initial inspection to verify the site conditions.\n\nAfter the plans are approved and the initial inspection is passed, the permit will be issued.\n\nDo not begin any work before receiving the official permit and signed, approved plans from the Department of Buildings. Performing work without a permit will result in a Stop Work Order and a violation being issued.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6752",
+      "name": "Contract Submissions",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Depository for City contracts.  Contracts posted here are to be reviewed by the Law Department. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6755",
+      "name": "Application for Payment Plan",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6758",
+      "name": "Public Assembly",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6768",
+      "name": "Multi Dwelling Inspection Request",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6786",
+      "name": "Letter of Completion ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please be advised of the following requirements when requesting a Letter of Completion:\n\n1. Title Search: \nA current Title Search must be uploaded to attachments, highlight the permit# and scope of work that requires closing.\n\n2. Inspections Prior to 2010: \nA $100.00 fee per permit inspection was required. \nTo waive the additional fee, you must upload a copy of the receipt to the attached request in the Open Gov              portal. \nIf the original building permit is not available, submit it under the 2010 Letter of Completion process.\n\n3. Permits Issued After 2010: \nA $100.00 fee was paid at the time of permit issuance for Letter of Completion.\n\n4. Required Documents for Letter of Completion:\nA copy of the original building permit.\nA notarized Letter of completion from the contractor who performed the work.\n\nShould you have any questions or require assistance, please leave a comment on the portal.\n\nThank You.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6801",
+      "name": "Liquid Storage Tank Application - Removal/Abandonment and Installation",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6803",
+      "name": "Taxi / Tow License Application",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Application for individuals and companies to apply for a Taxi Owner, Taxi Driver, Tow Truck Owner and / or Tow Truck Driver License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6804",
+      "name": "SAMPLE",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6805",
+      "name": "Tax Lien Sale Registration Form",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Use this form to register for the Tax Lien Sale",
+      "isEnabled": true
+    },
+    {
+      "id": "6806",
+      "name": "Street Co-Naming Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Honorary Street Co-Naming: The ceremonial naming of a street or portion of a street in honor of a person or organization. The honorary name is added to existing signage and does not alter official addresses or emergency service designations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6796",
+      "name": "Fire Complaint",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Post your complaints online. You can submit your complaint anonymously unless it pertains to your personnel dwelling unit. If submitting a complain for your personal dwelling unit, full contact information must be submitted for the inspector to follow-up. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6797",
+      "name": "Shooting Range",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Chapter 218. Shooting Ranges\n§ 218-2. License required.\nIt shall be unlawful for any person to maintain a shooting range within the limits of the City without first obtaining and keeping in full force and effect a license therefor, and the same shall be conducted and maintained in compliance with the regulations hereafter set forth.",
+      "isEnabled": true
+    },
+    {
+      "id": "6809",
+      "name": "**Public Works Permits**",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application to apply for a Curb Lowering, Dumpster, Scaffolding/Sidewalk Bridge, Sidewalk Repair, Street/Sidewalk Obstruction, Street/Sidewalk Opening or Tree Removal Permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6821",
+      "name": "Event Facility Request Form - Current",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The Event Facilities Request Form is used by Mount Vernon residents, community groups, businesses, and third-party organizers to formally request the use of a city-owned facility, park, field, or designated public space for a planned event or activity.\n\nThis form collects key event details, including the event purpose, date and time, expected attendance, setup needs, and any special services required, so the department can review the request, confirm availability, determine staffing and safety needs, and ensure the event complies with all applicable policies, permits, and operational requirements.\n\nSubmission of this form does not guarantee approval. All requests are subject to department review and confirmation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6823",
+      "name": "One Day Marriage Officiant",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6824",
+      "name": "Funeral Home / Director Request for Death Certificates",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6832",
+      "name": "FDMV - Fire Department Fee Schedule ",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6814",
+      "name": "Special Event Application - AGE",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Special Event shall mean any preplanned meeting, activity, parade, banner hangings or gathering of a group of persons, animals or vehicles or a combination thereof, having a common purpose on any public/private street, sidewalk, alley, park, or other public/private place or building, which special event substantially inhibits the usual flow of pedestrian or vehicular travel, or which occupies any public/private place or building so as to preempt normal use of space by the general public or which deviates from the established use of such space or building.",
+      "isEnabled": true
+    },
+    {
+      "id": "6816",
+      "name": "Liquid Storage Tank Testing Inspection Application ",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Application for inspection and testing of storage tanks to ensure compliance with fire, safety, and environmental regulations. This includes evaluation of aboveground or underground tanks for leaks, pressure integrity, and proper installation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6366",
+      "name": "Dog License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Building Permit - Mount Vernon",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Building Permit Application\n\nThe application fee for a building permit shall be as follows:\n\n$125 filing fee\nFor all buildings, except existing one- and two-family dwellings, $15 for each $1,000 of estimated cost, permit fee.\nFor work on existing one- and two-family dwellings, $10 for each $1,000 of estimated cost, permit fee.\nAdditional documentation:\nLetter of completion $100.00 \n\n\nPlease upload to attachments a physical application found at https://cmvny.com/282/Documents-Forms-Fees \nReminder: sign and notarize necessary sections to prevent delay on processing your permit. We have 10 days to review your application.\n\nOnce the proposed work is completed and the final inspection has been passed, please submit the signed and notarized Letter of Completion from the contractor immediately following the final inspection. This will allow the Department of Buildings staff to close the permit within ten (10) business days.",
+      "isEnabled": true
+    },
+    {
+      "id": "6810",
+      "name": "Saturday Work Variance",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This is a variance to permit work on Saturday ",
+      "isEnabled": true
+    },
+    {
+      "id": "6807",
+      "name": "Liquid Storage Tank Application - Installation Only",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6808",
+      "name": "Liquid Storage Tank Application - Removal/Abandonment Only",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6759",
+      "name": "Request for Marriage Certification ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Requests for certified or genealogical copies of marriage licenses. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6795",
+      "name": "Request for Birth Certificate",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Requests for certified or genealogical copies of birth certificates. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Electrical Permit - Mount Vernon",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The application fee for an electrical permit shall be as follows:\n\n$125 filing fee\nFor all buildings, except existing one- and two-family dwellings, $15 for each $1,000 of estimated cost, permit fee.\nFor existing one- and two-family dwellings, $10 for each $1,000 of estimated cost, permit fee.\nFor all buildings, the fee to install new or additional electrical meters shall be $100 per meter, additional to the filing and permit fee.\nFiling and permit fees must be paid simultaneously at the time of filing.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Plumbing Permit - Mount Vernon",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The application fee for a Plumbing application shall be as follows:\n\n$125 filing fee\nFor all buildings, except existing one- and two-family dwellings, $20 per fixture.\nFor work on existing one- and two-family dwellings, $15 per fixture.\nLetter of completion $100.00 \nNote: Each floor drain and appliance, including each boiler, requiring plumbing connections shall constitute one fixture.\n\n$250 for sewer connection.\n$250 for water connection.\n$250 for the new gas line.\n$25 per gas meter.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Peddlers License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application for a Peddler or Food Vender's License.  This license may be used to sell goods, wares or merchandise or to offer or sell food on any PUBLIC WAY.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6798",
+      "name": "Request for Death Certificate",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Requests for certified or genealogical copies of death certificates. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Sign Permit - Mount Vernon",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The annual sign fee is only applicable to the following signs:\n\n$90 Ground sign\n$100 Roof sign\n$50 Awning or canopy per\n$500 per legally existing billboard.\n$5 per square feet of any type of signs overhanging more than 12 inches over the City's right-of-way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Demolition Permit - Mount Vernon",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The application fee for a demolition permit shall be as follows:\n\n$125 filing fee\n$100 per 1,000 square feet of gross floor area of structure or building to be demolished.\n$100.00 letter of completion fee",
+      "isEnabled": true
+    },
+    {
+      "id": "6728",
+      "name": "Private Carter's License  Copy",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "This license is required of any company that wished to engage in business of collecting, removing and/or transporting trade waste, garbage or rubbish in the City of Mount Vernon.  \n\nCOMMERCIAL MEAT WASTE\nOffal and all and every kind of refuse from the trimming of meats, fish and fowl in retail markets, fish markets and butcher shops.\nGARBAGE\nEvery refuse accumulation, except commercial meat wastes, of animal, fruit or vegetable matter that attends the preparation, use, cooking, dealing in or storing of meat, fish, fowl, fruits, vegetables or baked goods.\nPERSON\nAny individual, firm, corporation, association or partnership, and includes the plural as well as the singular and the feminine as well as the masculine gender.\nRUBBISH\nDiscarded combustible and noncombustible waste material and refuse of every character accumulated within the City, except garbage, trade waste, commercial meat wastes and offensive materials as defined in § 1 of Article X of the Sanitary Code of the City of Mount Vernon, New York, and includes but is not limited to ashes or the residue from burning wood, coal, coke and other combustible materials of every description, house dirt, trash, newspapers, papers, cartons, rags, boxes, wood, excelsior, wood shavings, sawdust, rubber, leather, tree branches, yard trimmings, dry leaves, tin cans, metals, mineral matter, glass, crockery and dust.\nTRADE WASTE\nAny refuse from the manufacture, processing, assembling or repair of any kind of goods, wares or merchandise and any such manufactured, processed, assembled or repaired goods, wares or merchandise which has been discarded by the person, firm or corporation manufacturing, processing, assembling or repairing same or who is engaged in the sale of any manufactured, processed, assembled or repaired goods, wares or merchandise, but such term does not include commercial meat waste, as defined herein.",
+      "isEnabled": true
+    },
+    {
+      "id": "6820",
+      "name": "Special Event Application - CURRENT",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Special Event shall mean any preplanned meeting, activity, parade, banner hangings or gathering of a group of persons, animals or vehicles or a combination thereof, having a common purpose on any public/private street, sidewalk, alley, park, or other public/private place or building, which special event substantially inhibits the usual flow of pedestrian or vehicular travel, or which occupies any public/private place or building so as to preempt normal use of space by the general public or which deviates from the established use of such space or building.",
+      "isEnabled": true
+    },
+    {
+      "id": "6757",
+      "name": "Parade / Procession Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Unless otherwise permitted by law, all processions and parades over any public streets or places are prohibited unless a prior written permit signed by the Mayor is obtained. Such permit shall designate the street or streets or public places over which processions and parades may move as well as the day and hours thereof.",
+      "isEnabled": true
+    },
+    {
+      "id": "6737",
+      "name": "Real Estate Purchase Offers - 2023 Copy",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Purchase Offers for City Properties from Citizens and Residents",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Equipment Permit - Mount Vernon",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The application fee for an Equipment application shall be as follows:\n\n$125 filing fee\nFor all buildings, except existing one- and two-family dwellings, $15 for each $1,000 of estimated cost, permit fee.\nFor work on existing one- and two-family dwellings, $10 for each $1,000 of estimated cost, permit fee.\n$100.00 letter of completion fee",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Private Carter's License ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This license is required of any company that wished to engage in business of collecting, removing and/or transporting trade waste, garbage or rubbish in the City of Mount Vernon.  \n\nCOMMERCIAL MEAT WASTE\nOffal and all and every kind of refuse from the trimming of meats, fish and fowl in retail markets, fish markets and butcher shops.\nGARBAGE\nEvery refuse accumulation, except commercial meat wastes, of animal, fruit or vegetable matter that attends the preparation, use, cooking, dealing in or storing of meat, fish, fowl, fruits, vegetables or baked goods.\nPERSON\nAny individual, firm, corporation, association or partnership, and includes the plural as well as the singular and the feminine as well as the masculine gender.\nRUBBISH\nDiscarded combustible and noncombustible waste material and refuse of every character accumulated within the City, except garbage, trade waste, commercial meat wastes and offensive materials as defined in § 1 of Article X of the Sanitary Code of the City of Mount Vernon, New York, and includes but is not limited to ashes or the residue from burning wood, coal, coke and other combustible materials of every description, house dirt, trash, newspapers, papers, cartons, rags, boxes, wood, excelsior, wood shavings, sawdust, rubber, leather, tree branches, yard trimmings, dry leaves, tin cans, metals, mineral matter, glass, crockery and dust.\nTRADE WASTE\nAny refuse from the manufacture, processing, assembling or repair of any kind of goods, wares or merchandise and any such manufactured, processed, assembled or repaired goods, wares or merchandise which has been discarded by the person, firm or corporation manufacturing, processing, assembling or repairing same or who is engaged in the sale of any manufactured, processed, assembled or repaired goods, wares or merchandise, but such term does not include commercial meat waste, as defined herein.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Film Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application to apply for permission to film in the City of Mount Vernon on both Public and Private property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Certificate of Occupancy Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Certificate of Tenancy Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6780",
+      "name": "Special Event Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application for organizations or individuals to request permission to close City streets for a Special Event or Block Party.",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Amendment Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permit Amendment Application",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "Leaf Blower Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "PURSUANT TO THE MOUNT VERNON ARTICLE VII § 191-42 GAS-POWERED LEAF AND LAWN BLOWERS, NO PERSON SHALL OPERATE A GAS-POWERED LEAF AND LAWN BLOWER FOR ANY PURPOSE EXCEPT DURING MARCH 1ST THROUGH APRIL 30TH AND OCTOBER 1ST TO DECEMBER 31ST.  OTHER NON – GAS POWERED LEAF BLOWERS MAY BE OPERATED FROM JUNE 1ST THROUGH SEPTEMBER 30TH. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6748",
+      "name": "Towing From Private Lot Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Permit allowing property owners to have illegally parked vehicles removed from their property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6764",
+      "name": "Amusement Device License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "License issued for the operation of amusement devices and jukeboxes by businesses within the City. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6767",
+      "name": "Junkyard / Junk Shop License ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "No person shall keep what are commonly called junk shops, nor collect, buy or sell, nor be engaged in the business of collecting, buying or selling within the City, old junk, rags, cloth, paper, paper bagging, old rope, scrap metals, old iron, brass, copper, tin, lead, slush, empty bottles, old rubber products, old cable and wire or any other article whose condition renders it practically useless for the purpose for which it was made and commonly intended, without first procuring from the Mayor a license therefor.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Zoning Analysis Search ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Property Information Search Application ",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Reapportionment and Subdivision Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Reapportionment an Subdivision Application ",
+      "isEnabled": true
+    },
+    {
+      "id": "6770",
+      "name": "Private Carter's License RENEWAL",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This license is required of any company that wished to engage in business of collecting, removing and/or transporting trade waste, garbage or rubbish in the City of Mount Vernon.  \n\nCOMMERCIAL MEAT WASTE\nOffal and all and every kind of refuse from the trimming of meats, fish and fowl in retail markets, fish markets and butcher shops.\nGARBAGE\nEvery refuse accumulation, except commercial meat wastes, of animal, fruit or vegetable matter that attends the preparation, use, cooking, dealing in or storing of meat, fish, fowl, fruits, vegetables or baked goods.\nPERSON\nAny individual, firm, corporation, association or partnership, and includes the plural as well as the singular and the feminine as well as the masculine gender.\nRUBBISH\nDiscarded combustible and noncombustible waste material and refuse of every character accumulated within the City, except garbage, trade waste, commercial meat wastes and offensive materials as defined in § 1 of Article X of the Sanitary Code of the City of Mount Vernon, New York, and includes but is not limited to ashes or the residue from burning wood, coal, coke and other combustible materials of every description, house dirt, trash, newspapers, papers, cartons, rags, boxes, wood, excelsior, wood shavings, sawdust, rubber, leather, tree branches, yard trimmings, dry leaves, tin cans, metals, mineral matter, glass, crockery and dust.\nTRADE WASTE\nAny refuse from the manufacture, processing, assembling or repair of any kind of goods, wares or merchandise and any such manufactured, processed, assembled or repaired goods, wares or merchandise which has been discarded by the person, firm or corporation manufacturing, processing, assembling or repairing same or who is engaged in the sale of any manufactured, processed, assembled or repaired goods, wares or merchandise, but such term does not include commercial meat waste, as defined herein.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Soliciting License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "The license is for the purpose of canvassing, vending or soliciting orders for any merchandise, device, books, periodical or printed matter whatsoever: or for the purpose of soliciting alms, or for a subscription or contribution to any church, charitable or public institution whatsoever; or for the purpose of distributing any handbills, pamphlets, tract, notice or advertising matter. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Sidewalk Display Permit ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Complaints",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Post your complaints online. You can submit your complaint anonymously unless it pertains to your personnel dwelling unit. If submitting a complain for your personal dwelling unit, full contact information must be submitted for the inspector to follow-up. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Sidewalk Cafe Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Fee Schedule DOB ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6406",
+      "name": "Pawnbroker License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply for a Pawnbroker License in the City of Mount Vernon. You need to apply for a license if you plan to conduct a retail Pawnbroker operation within the City of Mount Vernon.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1090",
+      "name": "Law Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1091",
+      "name": "Police Department ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1089",
+      "name": "Real Estate Committee",
+      "isEnabled": 1
+    },
+    {
+      "id": "1092",
+      "name": "Department of Public Safety",
+      "isEnabled": 1
+    },
+    {
+      "id": "1081",
+      "name": "Planning Department ",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1079",
+      "name": "City Clerk",
+      "isEnabled": 1,
+      "content": "<p><span style='font-family: \"Times New Roman\", Times, serif, -webkit-standard; font-size: 26px;'><strong><u>Office of The City Clerk / License Bureau</u></strong></span></p><p><span style=\"font-family: Tahoma,Geneva,sans-serif;\">The City Clerk&rsquo;s Office is also referred to as the Licensing Bureau <span style=\"font-family: Tahoma, Geneva, sans-serif;\"><span style=\"color: rgb(0, 0, 0); font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weig"
+    },
+    {
+      "id": "1083",
+      "name": "Department of Assessment ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1085",
+      "name": "Department of Recreation ",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1082",
+      "name": "Finance ",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1087",
+      "name": "Office of Consumer Protection ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1072",
+      "name": "Public Works ",
+      "isEnabled": 1,
+      "content": "<h2 style='box-sizing: border-box; margin-top: 0.167em; margin-bottom: 0px; border: 0px none; font-family: \"Open Sans\"; font-style: normal; font-weight: 700; color: rgb(147, 6, 40); font-size: 1.3em; text-decoration: none; display: block; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-"
+    },
+    {
+      "id": "1084",
+      "name": "Water Department ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Department of Buildings (DOB) ",
+      "isEnabled": 1,
+      "content": "<div><a href=\"https://cmvny.com/FormCenter/Building-12/DEPARTMENT-OF-BUILDING-Customer-Satisfac-97\" rel=\"noopener noreferrer\" target=\"_blank\"><strong>Customer Experience Survey</strong></a></div><div><br></div><div>By submitting any application, you consent to receive informational text messages regarding your permit and related updates from the City of Mount Vernon and its technology partner, Readyly.</div><div>Message frequency will vary based on the status of your application. Message and dat"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Department ",
+      "isEnabled": 1,
+      "content": "<p>ABOUT US</p><p>The Mount Vernon Fire Department (FDMV) has the primary task of providing adequate fire protection and fire extinguishment capability, initiating life rescue, rendering emergency medical assistance, controlling hazardous material situations and related emergency services. The Fire Department has the responsibility for the administration and enforcement of fire prevention code and housing code for promoting fire prevention activities designed to reduce the incidence and probabil"
+    },
+    {
+      "id": "1088",
+      "name": "Mount Vernon Industrial Development Agency",
+      "isEnabled": 1,
+      "content": "<p><u><span style=\"font-family: Arial,Helvetica,sans-serif;\">About Us</span></u></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">The Mount Vernon Industrial Development Agency (&ldquo;MV IDA&rdquo;) is a public benefit corporation authorized by the State of New York.</span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><u>Mission</u></span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">The mission of MV IDA is to promote, develop, and assist businesses "
+    },
+    {
+      "id": "1077",
+      "name": "**Practice Category**",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 18px;\">What is a category?</span></strong><br>Categories are a high level grouping of record types (e.g. permits &amp; licenses) within ViewPoint Cloud.&nbsp;</p><p><br></p><p><strong><span style=\"font-size: 18px;\">How are categories commonly used in ViewPoint Cloud?</span></strong><br>Categories are commonly associated with departments, such as Building or Licensing. They&rsquo;re a great way to divide users &amp; user settings, financial reporting, and guide "
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:19.733Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

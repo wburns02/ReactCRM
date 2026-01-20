@@ -1,0 +1,476 @@
+{
+  "jurisdiction": "North Canton",
+  "state": "OH",
+  "tenant": "northcantonoh",
+  "portalUrl": "https://northcantonoh.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6635",
+      "name": "Winterfest 2025 Vendor Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Complete this form to apply for vendor space on the City Hall Portico during the annual Winterfest Holiday Pop-Up Market.",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Code Enforcement",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Use this form to file a Code Enforcement Complaint with the City. Also known as nuisance complaints.",
+      "isEnabled": true
+    },
+    {
+      "id": "6559",
+      "name": "Zoning Certificate (Fence, Shed, Sign, etc.)",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Apply for a zoning permit for accessory structures such as sheds, fences, and signs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "Development Plan Review",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Apply for a review of proposed large-scale developments. A development plan review is required for all non-single-family residential new construction or major alterations including expanding the floor area of the permitted use; increasing the number of dwelling units in a multi-family development; changing the use which requires an increase in the amount of parking; or a change in the site's circulation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6594",
+      "name": "Commercial Building Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Complete this application to file for a Commercial Building Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Rental Registration",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Registration for rental units in the City of North Canton. One registration should be completed for each individual unit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6636",
+      "name": "July 4 Celebration Market Vendor Application - America250",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Complete this form to apply for vendor space during the America250 July 4 Celebration Market on Saturday, July 4th, 2026 from 5:00-9:30 PM on Main Street in North Canton.",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Conditional or Similar Use",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Apply for a conditional use permit or similar use determination from the North Canton Planning Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6590",
+      "name": "Rental Change of Tenant Form",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Use this form to request a change in tenant inspection for rental units registered with the Department of Development Services.",
+      "isEnabled": true
+    },
+    {
+      "id": "6605",
+      "name": "Residential Building Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Complete this application to file for a Residential (1-2-3 Family) Building Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Roof Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Complete this application to file for a Roofing Permit. (Residential or Commercial/Industrial)",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Vacant Property Registration",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Registration for vacant residential and commercial properties in the City of North Canton. Vacant properties must register and be inspected annually.",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Zoning Amendment",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Application for amendments to the zoning classification of property within the City of North Canton.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Zoning and Building Standards Board of Appeals",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Apply to the Zoning and Building Standards Board of Appeals for a variance or zoning appeal.\nAppeals must be filed within thirty (30) days of the issuance of the document being appealed.\nApplications must be filed by the 8th day of the month to be considered that month.",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Civil Service Job Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Application is for employment as a full-time Police Officer, Dispatcher, or EMT-P. This form will be used as an application for the appropriate Civil Service Examination.",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Recreational Fire Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Recreational fires are small backyard fires, similar to the type you would normally find at a campground. These fires are less than 3 feet wide and less than 2 feet tall. Perfect for backyard get-togethers or making delicious s'mores. While these fires are a fun way to spend the summer it is still important to practice fire safety to reduce the risk of damage to your property or that of your neighbors.",
+      "isEnabled": true
+    },
+    {
+      "id": "6562",
+      "name": "Plumbing Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Complete this application to file for a Plumbing Permit. (Residential or Commercial/Industrial)",
+      "isEnabled": true
+    },
+    {
+      "id": "6602",
+      "name": "Electrical Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Complete this application to file for an Electrical Permit (Residential or Commercial/Industrial).",
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "EMS Bill Payment",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Make a payment towards an EMS Bill from the City of North Canton.",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Rental Registration Removal",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Complete this application to remove a previously registered rental property from the City's registration program or confirm that a property is not a rental unit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Temporary Tent Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Application for a temporary event tent permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Transient Occupancy / Lodging Tax Filing",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "The City of North Canton levies a 3% Transient Occupancy or Lodging Tax on all hotel or motel accommodations within the City. Any hotel or motel with 5 or more rooms is required to file tax information quarterly using this form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6628",
+      "name": "North Canton Sun Newsletter Advertisement Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Apply to purchase advertisement space in the City's North Canton Sun newsletter, a quarterly print and digital publication mailed free of charge to nearly 12, 000 North Canton area addresses and published to the City's website.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Property Code Appeal",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Appeal a decision made by a Code Enforcement Officer to the Zoning and Building Standards Board of Appeals. Appeals must be filed within thirty (30) days of the issuance of the document being appealed.\nApplications must be filed by the 8th day of the month to be considered that month.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Parking Tickets",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Pay a parking ticket issued by the North Canton Police Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6597",
+      "name": "HVAC/Mechanical Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Complete this application to file for an HVAC/Mechanical Permit (Residential or Commercial/Industrial).",
+      "isEnabled": true
+    },
+    {
+      "id": "6537",
+      "name": "Subdivision of Land / Re-Plat",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Use this application to submit a subdivision or replay for consideration by the City. This includes residential and commercial subdivisions, and minor re-plats.",
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "Fire Suppression System",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Apply for a permit for a commercial fire suppression system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6615",
+      "name": "Special Duty Request",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Request Special Duty Police or Fire/EMS personnel for an event, sports game, or traffic management.",
+      "isEnabled": true
+    },
+    {
+      "id": "6409",
+      "name": "Solicitor Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Application to perform commercial door-to-door solicitation in the City of North Canton. Religious or political organizations not seeking monetary donations are not required to have a permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "MFU Parks Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Apply for a permit to operate a food truck or cart in North Canton City Parks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6624",
+      "name": "Board and Commissions Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Use this application to apply for an appointment on North Canton Boards and Commissions such as the Civil Service Commission, Planning Commission, or Zoning Board of Appeals. Appointments are typically made in December.",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Mobile Food Unit Registration",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Use this form to complete annual required registration for food trucks, ice cream trucks, food carts, and other mobile food units.",
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "Certificate of Occupancy",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Apply for a Certificate of Occupancy with the Development Services Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6610",
+      "name": "Window Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Complete this application to file for a Window Permit. (Residential or Commercial/Industrial)",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Road Closure Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "A road closure permit entitles the applicant or its organization to the reasonable use of certain city property in line with the property's intended purpose. This is commonly used for tree trimming, sewer or water lateral maintenance, parades, assemblies, block parties, and festivals.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "High Visibility Address Sign",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "High visibility address signs are available to order to help keep your home visible to first responders and delivery services.",
+      "isEnabled": true
+    },
+    {
+      "id": "6620",
+      "name": "Oversize Vehicle/Load Permit ",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This form is to attain a permit for oversized vehicles or loads that need to be moved on North Canton city streets. Depending on the number and size of these loads as well as the route that they will be taking an appropriate number of police escorts will be assigned.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6608",
+      "name": "Wedding Ceremony Request",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Complete this form to apply for a wedding ceremony performed by Mayor Matthew Stroia. This application will be reviewed by the Office of the Mayor for completion and scheduling. The original marriage license with the legal names of those to be married must be brought on the day of the ceremony for signing. The names on the license MUST match those provided in your request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6547",
+      "name": "Swimming Pool Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Complete this application in order to apply for a new Swimming Pool Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "Water or Sewer Lateral Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Complete this application to file for a Plumbing Permit for a new or replacement water or sewer lateral. (Residential or Commercial/Industrial)",
+      "isEnabled": true
+    },
+    {
+      "id": "6623",
+      "name": "Community Reinvestment Area Application (CRA)",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "CRAs provide real property tax exemptions for property owners who renovate or construct new buildings based on eligibility established by Ordinance 19-2020. A CRA benefits property owners who take advantage of the program by reducing their property taxes. As an investment in our community the program also has greater and more wide-ranging benefits for the whole City by helping to create healthy housing stock, provide for the City’s future, and improve property values.",
+      "isEnabled": true
+    },
+    {
+      "id": "6632",
+      "name": "Flammable and Combustible Liquid Tank and Piping Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Flammable and Combustible Liquid Tank and Piping Permits allow for the construction of Underground Storage Tank (UST) systems. Pursuant to Chapter 1301: 7-9-10 of the Ohio Administrative Code, the North Canton Fire Department is authorized by the State Fire Marshal to oversee the permitting and inspection of UST systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Civil Service Commission Appeal",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Appeal a decision made by an appointing authority with regard to the employment of a classified employee. This form can also be used to file challenges or protests related to promotional examinations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "New Water Service / Tap-In",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Request connection to the City of North Canton water system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Demolition Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Complete this application in order to apply for a demolition permit (Major or Minor).",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Main St. Facade Improvement Program",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "The North Canton Main Street Façade Improvement Program, provides permit fee waivers to businesses on Main Street for substantial improvements to their building’s facade. This program grants permit fee waivers for businesses that renovate or update their building’s façade in accordance with the Recommended Cohesive Design Standards.",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Request to Vacate a Street or Alley",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application to request that the City vacate a public street or alley. Property owners will be required to submit a Plat and Vacation Petition.",
+      "isEnabled": true
+    },
+    {
+      "id": "6555",
+      "name": "Right-Of-Way Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Apply to perform work in the public right-of-way that requires the deconstruction and repair of public infrastructure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6591",
+      "name": "Contractor Registration",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Use this application to complete contractor registration. All contractors performing work in the City of North Canton must be registered, even if a permit is not required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6627",
+      "name": "Banner Program (City Lampposts)",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "The City Lamppost Banner Program allows scholastic or non-profit community organizations to display banners on City lampposts along Main Street and Maple Street near the Downtown Square, given available space.",
+      "isEnabled": true
+    },
+    {
+      "id": "6595",
+      "name": "Water Abandonment Request",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Complete this application to request temporary, permanent, or semi-permanent water shut-off from the City of North Canton.",
+      "isEnabled": true
+    },
+    {
+      "id": "6599",
+      "name": "Water Service Line Inventory",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Complete this form to assist the City in evaluating the presence of lead in our water distribution system. The purpose of the OEPA Lead Service Line program is to inventory water distribution systems across the state to identify the presence of lead service lines in need of replacement. Any properties that are suspected to contain lead service lines will receive additional testing from the City at no cost, as well as additional information about replacing lead lines if necessary.",
+      "isEnabled": true
+    },
+    {
+      "id": "6565",
+      "name": "Donation Form",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Please fill out the following form to complete your donation to the City of North Canton Parks, Fire or Police Departments.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1089",
+      "name": "Building Permits",
+      "isEnabled": 1,
+      "content": "<p>The Department of Development Services is responsible for the administration of the Ohio Building Code and Ohio Residential Code in the City of North Canton and for issuing all permits for new construction, additions, or modification to buildings.</p><h2>Apply for a Permit</h2><p>Permits can be applied for online or in person. To apply for a permit find the appropriate permit application using the links below and and complete the fillable form along with paying the appropriate fees. An email "
+    },
+    {
+      "id": "1088",
+      "name": "Zoning Code Services",
+      "isEnabled": 1,
+      "content": "<p>The Division of Planning and Zoning is responsible for the administration of the City&#39;s Planning and Zoning Code. Duties include maintaining the City&#39;s Zoning map, development plan reviews, and administrative support for the Planning Commission and Zoning and Building Board of Appeals.</p><h2>What is Zoning?</h2><p>Zoning means local regulations as to what types of land uses can be placed in specific locations throughout the community. Every lot, parcel, or property in the City has an"
+    },
+    {
+      "id": "1084",
+      "name": "Property Code Programs",
+      "isEnabled": 1,
+      "content": "<p>The North Canton <a href=\"https://northcantonohio.gov/478/Part-17-Property-Maintenance-Code\" rel=\"noopener noreferrer\" target=\"_blank\">Property Maintenance Code (Part 17)</a> helps protect public health and safety by ensuring proper occupancy and maintenance of buildings and land throughout the City. Below residents can complete online applications for a number of property code related programs including rental registration, vacant property registration, and filing appeals with the Zoning and"
+    },
+    {
+      "id": "1074",
+      "name": "Emergency Services",
+      "isEnabled": 1,
+      "content": "<p>Below, residents can apply for services from the North Canton Fire and Police Departments. The Fire Prevention Bureau offers a number of services to help keep North Canton safe from fires, natural disasters, and other threats to safety. </p>"
+    },
+    {
+      "id": "1086",
+      "name": "Administration / Council's Office",
+      "isEnabled": 1,
+      "content": "<p>Through City Hall, residents can apply for various City services, such as food truck permits for City parks, high visibility address sign orders, and Civil Service Exam applications, as well as other services managed by Administration or the Council&rsquo;s Office.</p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:33.679Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

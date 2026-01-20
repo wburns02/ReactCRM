@@ -1,0 +1,199 @@
+{
+  "jurisdiction": "Valley Stream",
+  "state": "NY",
+  "tenant": "valleystreamny",
+  "portalUrl": "https://valleystreamny.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6476",
+      "name": "Master Electrician's License Renewal ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here to Renew you Master Electricians License \nYOU MUST HOLD A CURRENT LICENSE TO RENEW \nThere will be NO Refunds ",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Mother/ Daughter Special Use Permit Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Application for a Special Use Permit to use a single- family detached dwelling for Mother/ Daughter Residence.",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Complaint Form ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Dumpster/ Roll-Off Container Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for Permission to Place Dumpster/ Roll- Off Container on Village Street or Private Property ",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Rental Permit Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Non- owner occupied single- family dwelling, two- family dwelling and townhouses.\nRental Permit required for a dwelling unit occupied by persons, other than the owner or owner's immediate family",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Temporary Storage Container ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for Permission to Place Temporary Storage Container on Private Property",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Business Parking Decal ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "2025/ 2026 Business Parking Permit\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for a residential or commercial Building Permit\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Resident Parking Permit Form ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "2025/ 2026 Residential Parking Pass for Inc. Village of Valley Stream Residents Only\n\nIf you have any questions please call Village Hall at 516-825-4200.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Non- Resident Commuter Parking Permit Form ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "2025/ 2026 Non- Resident Parking Pass\n\n\n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Mercantile/ Business Permit Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Apply here for Mercantile Registration  \n**THIS IS NOT A BUSINESS PARKING PASS**",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Building Permit Application for Telecommunication ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for Alterations, Replacements or New Telecommunication Facilities.  \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Building Permit Application to Decommission Telecommunication Facility ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here to Decom Telecommunication Facilities.  \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Plumbing Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "**Must be applied for by licensed plumber with the Village of Valley Stream**",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Electrical Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "**Must be applied for by licensed electrician with the Village of Valley Stream**",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Application for Plumber's License I.D. Card ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Village of Valley Stream is part of the Tri-Town Plumbing Agreement.  Please note we do not reciprocate with Suffolk County or New York City.  Your Master License and Competency must be issued by the same town/ village within Nassau County.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Fence Permit Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for a Fence Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Sign Permit Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for a Sign Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Construction Application- Lines & Grades ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for sidewalk, driveway, apron, curb cut ",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Above Ground Pool Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for Above Ground Pool Application",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Street Opening Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permit to open Street, Sidewalk or Alley for underground Utility Work. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style=\"margin: 0.5em 0px; box-sizing: border-box; padding: 0px; color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; t"
+    },
+    {
+      "id": "1080",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<p>Welcome to the Inc. Village of Valley Stream Code Enforcement.</p><p><br></p>"
+    },
+    {
+      "id": "1079",
+      "name": "Clerk / Licensing",
+      "isEnabled": 1,
+      "content": "<p>Welcome to the Inc. Village of Valley Stream Clerk&#39;s Department.</p><p>We oversee the issuance of Licenses and Permits and enforce the Code of the Village of Valley Stream.</p><p>Our main goals are to promote the safety, health and general welfare of the public, provide exceptional service for the people we serve.&nbsp;</p><p><strong><span style=\"color: rgb(184, 49, 47); font-size: 24px;\">2025/ 2026 Parking Permits will be available to purchase on April 7, 2025&nbsp;</span></strong></p><p"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:17.913Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

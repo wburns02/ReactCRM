@@ -1,0 +1,635 @@
+{
+  "jurisdiction": "Eureka",
+  "state": "CA",
+  "tenant": "eurekaca",
+  "portalUrl": "https://eurekaca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6536",
+      "name": "Cannabis License Renewal",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Annual renewals of Cannabis Licenses",
+      "isEnabled": true
+    },
+    {
+      "id": "6798",
+      "name": "Holding Tank Wastewater Discharge Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6742",
+      "name": "Over the Counter Building Permit Application ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6796",
+      "name": "Administrative Adjustment",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "An Administrative Adjustment is a discretionary process to determine if a project is eligible for a modified standard. Standards which may be modified with an Administrative Adjustment are identified in Zoning Code Article 2 (Zoning Districts) and Article 3 (Citywide Standards).",
+      "isEnabled": true
+    },
+    {
+      "id": "6673",
+      "name": "Sewer Lateral Loan",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "For tracking sewer lateral loans throughout the process",
+      "isEnabled": true
+    },
+    {
+      "id": "6840",
+      "name": "Annexation",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Annexation is a process used to extend the City limit line around additional property(ies).  Contact Development Services - Planning BEFORE you apply.",
+      "isEnabled": true
+    },
+    {
+      "id": "6865",
+      "name": "Demolition Permit ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6682",
+      "name": "Cannabis License ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6731",
+      "name": "Encroachment Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "An encroachment permit is required prior to construction work or any other activity taking place within the public right-of-way. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6860",
+      "name": "Appeal to Design Review or Planning Commission",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A permit used to appeal either a Director's Decision or Design Review Committee decision to the Planning Commission",
+      "isEnabled": true
+    },
+    {
+      "id": "6717",
+      "name": "Sewer Lateral Certificate",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Sewer Lateral Compliance Certificate verifying that laterals is up to standard and good for 25 years.",
+      "isEnabled": true
+    },
+    {
+      "id": "6684",
+      "name": "Annual Encroachment Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Annual encroachment permits are issued by the City of Eureka to tree trimming companies, Franchise Utilities and their subcontractors. If you have not previously been approved for an annual encroachment permit, please contact the Engineering Department before applying.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Residential Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6790",
+      "name": "Burn Down Letter Request (Coastal)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A sketch site plan is required.\n\nBurn Down Letters may take up to two weeks to prepare.",
+      "isEnabled": true
+    },
+    {
+      "id": "6791",
+      "name": "Burn Down Letter Request (Inland)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A sketch site plan is required.\n\nBurn Down Letters may take up to two weeks to prepare.",
+      "isEnabled": true
+    },
+    {
+      "id": "6740",
+      "name": "Commercial Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6716",
+      "name": "Sewer Service Order",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6686",
+      "name": "Hydrant Rental/Bulk Water Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6570",
+      "name": "Downtown Residential Parking Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "The intent of the residential parking permit program is to allow for residents within the Downtown/Old Town area to park in City parking lots beyond the parking time limits and without paying parking meter fees.",
+      "isEnabled": true
+    },
+    {
+      "id": "6799",
+      "name": "Certificate of Compliance",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Certificate of Compliance is a legal document, recorded with the Humboldt County Recorder’s office, which certifies a parcel of land complies with the Subdivision Map Act. If the City determines the real property does not comply with the provisions of the Subdivision Map Act and/or local ordinances, a conditional certificate of compliance will be recorded. The City may, as a condition to granting a conditional certificate of compliance, impose any conditions allowed by the Subdivision Map Act. Compliance with the conditions will not be required until a permit or other grant of approval for development of the property is issued by the City of\nEureka.\n\nThe following documents are required to submit the application:\n1. Current Grant Deed\n2. Site Plan\n3. Chain of Title\n4. A Summary Description of each lot\n5. A Legal Description, Plat, and Calculations of each lot prepared and signed by a Qualified Registered Civil Engineer or Land Surveyor Pursuant to the Professional Land Surveyor’s Act",
+      "isEnabled": true
+    },
+    {
+      "id": "6774",
+      "name": "Downtown Employee Parking Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Improving the efficiency and utilization of parking for employees in the Old Town / Downtown Area.",
+      "isEnabled": true
+    },
+    {
+      "id": "6759",
+      "name": "Eureka High School Parking Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "The intent of the Eureka High School (EHS) parking permit program is to allow for residents within the EHS area to access on-street parking while still providing parking for students and staff, in designated areas only.",
+      "isEnabled": true
+    },
+    {
+      "id": "6745",
+      "name": "Coastal Development Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The Coastal Act of 1976 established detailed policies for land use within the Coastal Zone, and charged local governments with the responsibility to incorporate these policies into their planning and zoning regulations. Generally, the Coastal Act sets forth regulations which require the City to process Coastal Development Permits for all proposed development in the Coastal Zone. The Coastal Act, as well as the City’s Local Coastal Program, provide for exemptions and exclusions for certain types of projects. \n\nBefore you complete this application, please contact Development Service-Planning to determine whether your project requires a Coastal Development Permit or if you are eligible for an exemption or exclusion, and whether other permits or reviews are required. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6699",
+      "name": "Transportation Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Coastal  Exemption Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The Coastal Act of 1976 established detailed policies for land use within the Coastal zone, and\ncharged local governments with the responsibility to incorporate these policies into their planning\nand zoning regulations. Generally, the Coastal Act sets forth regulations which require the City to\nprocess Coastal Development Permits for all proposed development in the Coastal Zone. The\nCoastal Act, as well as the City’s Local Coastal Program, provides for exemptions and exclusions\nfor certain types of projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6829",
+      "name": "Consolidated CDP",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "In the Coastal Zone, some properties are located in an area where both the Coastal Commission and the City of Eureka have permit jurisdiction for development.  In some cases, it is advantageous to the applicant and the City to request the Coastal Commission take jurisdiction over the City's permit authority and consolidate the City's and Commission's Coastal Development Permit jurisdiction, which results in the applicant only having to apply for one Coastal Development Permit from the Coastal Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6581",
+      "name": "Water Service Order",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This is a permit request to have the City install a new water service from the water main to a water meter set in the sidewalk. Please note that a Building Permit is required for all work on private property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6738",
+      "name": "Cottage Food Operation Home Occupation Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Cottage Food Operation Home Occupation Permit can allow residents to prepare and package certain non-potentially hazardous foods in their private home-kitchen.",
+      "isEnabled": true
+    },
+    {
+      "id": "6809",
+      "name": "Density Bonus",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The purpose of this application is to allow for density bonuses and additional incentives, consistent with Government Code Section 65915 et. seq. and the General Plan Housing Element, and to promote the production of affordable, specialized, and senior housing.",
+      "isEnabled": true
+    },
+    {
+      "id": "6812",
+      "name": "Design Review (Coastal)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Design Review, which includes either Architectural Review or Site Plan Review, or both, in the Coastal Zone is intended to preserve the natural beauty of sites and prevent: indiscriminate clearing of property and grading of hillsides; destruction of trees and shrubs; creation of drainage hazards; or the erection of structures or signs which would be inharmonious with their surroundings or would have an adverse effect on the value of property or improvements in the vicinity; and to ensure structures are properly related to their sites and surrounding sites and structures, and to traffic circulation in the vicinity, and parking areas, walk ways, and landscaping are arranged to accomplish the objectives of the coastal zoning code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6721",
+      "name": "SolarAPP+ Solar Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "NEW! Expedited Solar Permitting is now available through the SolarAPP+ program, a collaboration between the NREL and local communities.\n\nNote: This application requires a SolarAPP+ Approval Document. If you don't already have one, you can learn how to get one at solarapp.nrel.gov ",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Design Review (Inland)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Design Review is a discretionary process to ensure street-facing facades and other aspects of\nproposed developments exhibit high quality design, complement neighboring properties, and\ncontribute to Eureka’s distinctive identity and unique sense of place. Design Review criteria focus\non the community character, surrounding context, pedestrian environment, architectural style,\narticulation and visual interest, materials, safety, and landscaping of the project. The project cannot\ncause serious public health, safety or welfare impacts or have an adverse impact on the\nenvironment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6724",
+      "name": "Development Review",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Development Review provides an opportunity for the City and other agencies to relay development requirements to applicants, and to answer applicant questions. Contact Development Services - Planning at 707-441-4160 or planning@eurekaca.gov to determine whether Development Review is required for your project, Development Review may also be requested by an applicant for any type of project.",
+      "isEnabled": true
+    },
+    {
+      "id": "6817",
+      "name": "Environmental Document",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Projects must be reviewed in accordance with the California Environmental Quality Act (CEQA) to determine if the project is statutorily or categorically exempt from CEQA, or if further environmental review is required. If the project is exempt from CEQA, an exemption is created and the Environmental Review is complete. If the project is not exempt from CEQA, then the applicant must draft the required environmental documents for City review. Once acceptable to the City, the environmental document will be circulated for agency and public comment, and then forwarded to the Review Authority for review and action.",
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "Extension Request",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "An applicant may request a one- or two-year extension of a permit/approval set to expire under Eureka Municipal Code 155.420.090 (Permit/Approval Expiration). If a one-year extension is requested first, and the project is not exercised/vested within the extended year, an additional two-year extension can be requested. If the first extension requested is a two-year extension, then no additional extensions can be requested at the end of the two years.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Business License - Inside City Limits",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for businesses that have a base of operations inside Eureka City limits (a base of operations is the fixed place of business in the City occupied for the particular purpose of conducting a business)  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6842",
+      "name": "Flood Development Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The flood hazard areas of the City of Eureka are subject to periodic inundation which can result in a loss of life and property, health and safety hazards, disruption of commerce and governmental services, extraordinary public expenditures for flood protection and relief, and impairment of the tax base, all of which adversely affect the public health, safety, and general welfare. These flood losses are caused by uses that are inadequately elevated, floodproofed, or protected from flood damage. The cumulative effect of obstructions in areas of special flood hazard which increase flood heights and velocities also contribute to flood losses.\n\nA development permit must be obtained before any construction or other development, including manufactured homes, is undertaken within any area of special flood hazard.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6830",
+      "name": "General Plan Conformance",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6814",
+      "name": "General Plan Petition",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Prior to submitting an application for a General Plan Amendment or a General Plan Map amendment, the City Council must review and accept a General Plan Petition.",
+      "isEnabled": true
+    },
+    {
+      "id": "6706",
+      "name": "Business License - Outside City Limits",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for businesses that have a base of operations outside Eureka City limits (a base of operations is the fixed place of business, i.e. your store, main office or headquarters) but are planning on doing business inside Eureka City limits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6863",
+      "name": "Gulch Greenway Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Gulch Greenway Permit is a discretionary review required for development within the Gulch Greenway Management Area (GGMA), a subset of the Gulch Greenway Overlay. The permit ensures projects minimize impacts to habitat, water quality, erosion, flooding, and fire hazards, with review by City staff (Minor permit) or the Planning Commission (Conditional permit).",
+      "isEnabled": true
+    },
+    {
+      "id": "6825",
+      "name": "Historic Preservation",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The Historic Preservation Commission,  has the authority to review applications for additions, alterations, new construction, or demolition of all or part of any structure or landscape element (such as historic walls and trees designated in the Historic Preservation Application) which is located on a property listed on the Local Register of Historic Places.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6704",
+      "name": "Amendments to Business License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This is the application to complete for an existing business license that has changes, such as an address change, change of ownership, etc. If you have an Inside City Limits business license and are moving outside City limits, or vice versa, you will need to complete a new application. *This is not the correct option for business license renewals. Contact licensing@eurekaca.gov for assistance with renewals.*",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Home Occupation Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Home Occupation Permit can allow residents to conduct certain business and employment activities in their home, in a manner compatible with a residential setting.",
+      "isEnabled": true
+    },
+    {
+      "id": "6810",
+      "name": "Infill Incentive - Major",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": " Allows deviations from development standards for projects which provide community benefits and/or public amenities. Infill Incentive Permits are discretionary actions intended to encourage high-quality infill development and/or the adaptive reuse of properties suitable for redevelopment. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6811",
+      "name": "Infill Incentive - Minor",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Allows deviations from development standards for projects which provide community benefits and/or public amenities. Infill Incentive Permits are discretionary actions intended to encourage high-quality infill development and/or the adaptive reuse of properties suitable for redevelopment. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6828",
+      "name": "Local Coastal Program Amendment",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6822",
+      "name": "Lot Line Adjustment",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Lot Line Adjustment is a minor movement of property lines between two, but no more than four adjoining lots. Lot Line Adjustments may also be used to correct minor trespasses (such as building over or too close to a property line) or to add acreage to a parcel for the owner’s convenience. When the property is located in the Coastal Zone, a Coastal Development Permit may be required.\n\nState Law requires the City review Lot Line Adjustments to ensure the land taken from one lot is added to an adjacent lot, and that additional lots over and above the number of lots that originally existed, are created. The City also reviews the adjustment to determine that the resulting lots will conform to the City’s Zoning and Building Ordinances and that the adjustment will not cause an adverse impact on the neighborhood or the environment.\n\nNOTE:  The following documents are REQUIRED for application submittal:\n1. A preliminary Title Report (PTR) prepared by a Title Company. The PTR must have been prepared not more than six (6) months before the date the subdivision application is submitted to Development Services - Planning.\n2. A Lot Line Adjustment Plan, prepared by a licensed Land Surveyor or a Civil Engineer licensed prior to 1982. The Tentative Parcel Map shall be clearly and legibly drawn.\n3. A Topographic Survey.\n4. The draft Legal Description of EACH resultant lot, prepared by a licensed Land Surveyor or a Civil Engineer licensed prior to 1982, and the portion(s) of land to be transferred in the grant deed (if separate owners).",
+      "isEnabled": true
+    },
+    {
+      "id": "6816",
+      "name": "Map Amendment",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The General Plan is the foundational policy document of the City of Eureka and consists of the the General Plan document, and the General Plan Map. The Zoning Code, consisting of the Zoning Code Text and Zoning Maps, implements the General Plan by establishing detailed regulations for land uses, structures, and activities in Eureka. All land uses, structures, and activities in Eureka must be consistent with the General Plan.\n\nIt may be in the public’s interest to amend either the General Plan, General Plan map, Zoning Code, or Zoning map, or a combination, to respond to the changing or evolving needs of the community.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Merger",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Merger is the joining of two or more adjacent lots into one or more new lots. Mergers are subject to the provisions of the Subdivision Map Act and, when the property is located in the Coastal Zone, require a Coastal Development Permit.\n\nNOTE:  The following documents are REQUIRED for application submittal:\n1. A Merger Plan, prepared by a licensed Land Surveyor or a Civil Engineer licensed prior to 1982. The TMerger Plan shall be clearly and legibly drawn.\n2. A preliminary Title Report (PTR) prepared by a Title Company. The PTR must have been prepared not more than six (6) months before the date the merger application is submitted to Development Services - Planning.\n3. A Legal Description of the resultant lot(s), prepared by a licensed Land Surveyor or a Civil Engineer licensed prior to 1982.",
+      "isEnabled": true
+    },
+    {
+      "id": "6836",
+      "name": "Mills Act",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6839",
+      "name": "Parking Indenture",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Parking Indenture is a covenant record filed with the County Recorder guaranteeing that off-site parking will be maintained exclusively for a use for the duration of the use. \n\nThe following documents are REQUIRED for application submittal:\n1. A legal description of the property containing the use.\n2. A legal description of the property where the off-site parking will be located.\nThe legal descriptions may be provided by submitting a copy of a recorded deed, or having the description prepared by a licensed Land Surveyor or a Civil Engineer licensed prior to 1982.",
+      "isEnabled": true
+    },
+    {
+      "id": "6843",
+      "name": "Project Modification",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "An application to modify an approved or conditionally approved project/application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6833",
+      "name": "Public Places Naming",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Eureka Municipal Code (EMC), Section 152.015, specifies the procedures for naming or renaming public facilities, including streets, buildings, parks, etc. The policy guidelines for naming or renaming support names which identify the location of the subject by reference to distinct geographic, environmental or development features in the immediate area; references the history of the subject site or its immediate area; identifies a person or family who made an extraordinary donation of land or funds to promote the construction or improvement of the subject public facility; or recognizes a person or family who made a distinct, significant contribution to the well-being of the city, including past mayors, councilmembers, board or commission members, officers, or employees of the city.\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "6834",
+      "name": "Real Property Conveyance",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "When the City of Eureka decides to acquire or dispose of real property and a General Plan has been adopted, California Government Code 65402 requires the City of Eureka Planning Commission to determine whether the location, purpose, and extent of the real property to be acquired or disposed conforms with the adopted general plan.  Once the determination is made, the City Council makes the ultimate decision on the conveyance of the real property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6831",
+      "name": "Reasonable Accommodation Request",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Reasonable Accommodation Request in land use, zoning and building regulations provides persons with disabilities equal access to housing consistent with the Federal Fair Housing Act (42 U.S.C. §§ 3601 et seq.) and the California Fair Employment and Housing Act (Cal. Gov’t Code §§ 12955 et seq.). A reasonable accommodation is typically a ministerial adjustment to physical design standards to accommodate the placement of wheelchair ramps or other exterior modifications to a dwelling in response to the needs of a disabled resident.",
+      "isEnabled": true
+    },
+    {
+      "id": "6804",
+      "name": "Sign Permit - Administrative",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Administrative Sign Permits are required for all new signs, unless otherwise exempted by the zoning code. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6801",
+      "name": "Sign Permit - Creative",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A  Creative Sign Permit is a discretionary permit which can allow unique, high-quality signs which deviate from sign standards. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6805",
+      "name": "Sign Permit - Master",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Master Sign Permit is a discretionary permit which can allow some deviations from sign standards for comprehensive and coordinated signs on large, complex, non-residential, multi-tenant sites. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6832",
+      "name": "Street/Alley Vacation",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6821",
+      "name": "Subdivision - Major",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A subdivision is the division of land for the purpose of sale, lease, or finance and is governed by state law and implemented by the City’s Subdivision Ordinance. The process of subdividing land applies to all subdividers regardless of the number of parcels and whether or not the land is improved. Minor, or Parcel Map, subdivisions involve four or fewer parcels. Major, or Final Map, subdivisions involve five or more parcels.\n\nNOTE:  The following documents are REQUIRED for application submittal:\n1. A Tentative Map, prepared by a licensed Land Surveyor or a Civil Engineer licensed prior to 1982. The Tentative Parcel Map shall be clearly and legibly drawn.\n2. A preliminary Title Report (PTR) prepared by a Title Company. The PTR must have been prepared not more than six (6) months before the date the subdivision application is submitted to Development Services - Planning.\n3. A preliminary Soils Report prepared in accordance with Chapter 70 of the Uniform Building Code. The soils report may be waived; please contact Development Services for a determination.\n4. A preliminary Engineering Geology and/or Seismic Safety Report for a subdivision located within a “medium risk” or “high risk” geological hazard area.",
+      "isEnabled": true
+    },
+    {
+      "id": "6819",
+      "name": "Subdivision - Minor",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A subdivision is the division of land for the purpose of sale, lease, or finance and is governed by state law and implemented by the City’s Subdivision Ordinance. The process of subdividing land applies to all subdividers regardless of the number of parcels and whether or not the land is improved. Minor, or Parcel Map, subdivisions involve four or fewer parcels. Major, or Final Map, subdivisions involve five or more parcels.\n\nNOTE:  The following documents are REQUIRED for application submittal:\n1. A Tentative Parcel Map, prepared by a licensed Land Surveyor or a Civil Engineer licensed prior to 1982. The Tentative Parcel Map shall be clearly and legibly drawn.\n2. A preliminary Title Report (PTR) prepared by a Title Company. The PTR must have been prepared not more than six (6) months before the date the subdivision application is submitted to Development Services - Planning.\n3. A preliminary Soils Report prepared in accordance with Chapter 70 of the Uniform Building Code. The soils report may be waived; please contact Development Services for a determination.\n4. A preliminary Engineering Geology and/or Seismic Safety Report for a subdivision located within a “medium risk” or “high risk” geological hazard area.",
+      "isEnabled": true
+    },
+    {
+      "id": "6813",
+      "name": "Text Amendment",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The General Plan is the foundational policy document of the City of Eureka and consists of the the General Plan document, and the General Plan Map. The Zoning Code, consisting of the Zoning Code Text and Zoning Maps, implements the General Plan by establishing detailed regulations for land uses, structures, and activities in Eureka. All land uses, structures, and activities in Eureka must be consistent with the General Plan.\n\nIt may be in the public’s interest to amend either the General Plan, General Plan map, Zoning Code, or Zoning map, or a combination, to respond to the changing or evolving needs of the community.",
+      "isEnabled": true
+    },
+    {
+      "id": "6838",
+      "name": "Tiny House on Wheels",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Tiny House on Wheels is allowed as an Accessory Dwelling Unit in any Inland residential zoning district.  One Tiny House on Wheels is allowed per lot, in lieu of one attached or detached Accessory Dwelling Unit, and must be located on a permanent foundation. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Tree Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Tree Permit is required to relocate, remove, cutdown, top, reduce the crown by more than 20%, or undertake any other act that causes the destruction of a protected tree identified in 155.304.140.D, with a chest high diameter of 24\" ",
+      "isEnabled": true
+    },
+    {
+      "id": "6795",
+      "name": "Use and Coastal Development Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The Coastal Act of 1976 established detailed policies for land use within the Coastal Zone, and charged local governments with the responsibility to incorporate these policies into their planning and zoning regulations. Generally, the Coastal Act sets forth regulations which require the City to process Coastal Development Permits for all proposed development in the Coastal Zone. The Coastal Act, as well as the City’s Local Coastal Program, provide for exemptions and exclusions for certain types of projects. \n\nUse permits are required for land uses which are generally appropriate within a zoning district, but where the potential impacts of the use on a site and its surroundings must be evaluated, and conditions of approval may be needed. Use permits are discretionary actions which enable the city to ensure a proposed use is consistent with the General Plan and will not create negative impacts to adjacent properties or the general public.\n\nBefore you complete this application, please contact Development Service-Planning to determine whether your project requires both a Use Permit and a Coastal Development Permit, or if you are eligible for an exemption or exclusion from a Coastal Development Permit, and whether other permits or reviews are required. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6846",
+      "name": "Use Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Use permits are required for land uses which are generally appropriate within a zoning district, but where the potential impacts of the use on a site and its surroundings must be evaluated, and conditions of approval may be needed. Use permits are discretionary actions which enable the city to ensure a proposed use is consistent with the General Plan and will not create negative impacts to adjacent properties or the general public.",
+      "isEnabled": true
+    },
+    {
+      "id": "6847",
+      "name": "Vacation Dwelling Unit (Coastal)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Vacation Dwelling Unit is the rental of an entire dwelling unit in the Coastal Zone, for a period not to exceed 30 consecutive days. All Vacation Dwelling Unit operators are required to obtain a Business License, pay quarterly Transient Occupancy Tax to the City, and have the Vacation Rental inspected by the Building Department. A Home Occupation Permit, Use Permit, or Coastal Development Permit may also be required. Department Staff can assist in determining which permits are required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6802",
+      "name": "Vacation Rental No Proprietor On-site and Minor Use Permit (Inland)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Vacation Rental with No Proprietor On-site is the rental of an entire dwelling unit, for a period not to exceed 30 consecutive days, without the proprietor in residence on-site during any portion of the duration of the rental. All Vacation Rental operators are required to obtain a Business License, pay quarterly Transient\nOccupancy Tax to the City, and have the Vacation Rental inspected by the Building Department. A Home Occupation Permit may also be required. Vacation Rentals with No Proprietor On-site for the duration of the rental require a Minor Use Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6803",
+      "name": "Vacation Rental Proprietor On-Site (Inland)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Vacation Rental Proprietor On-site is the rental of an entire dwelling unit, or any portion of a dwelling unit, for a period not to exceed 30 consecutive days, with the proprietor in residence on-site during the entire duration of the rental. All Vacation Rental operators are required to obtain a Business License, pay quarterly Transient Occupancy Tax to the City, and have the Vacation Rental inspected by the Building Department. A Home Occupation Permit may also be required. Department Staff can assist in determining which permits are required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6824",
+      "name": "Variance (Coastal)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Variance is a discretionary approval that allows for deviation from physical development standards in the Zoning Code. The City may grant a Variance only when the strict application of development standards creates a unique hardship due to unusual circumstances associated with the property. \n\nThe City may grant a Variance to allow for deviation from any physical development standard that applies         to the subject property. Examples of physical development standards include height, setbacks, open         space, floor area ratio (FAR), and off-street parking requirements.\n\nA Variance may not be granted to:\na. Permit a use other than a use permitted in the zoning district as specified in Eureka Municipal Code Chapter 155 Article 2 (Zoning District Standards);\nb. Allow deviation from a requirement of the General Plan (e.g., maximum residential density in zoning district); and\nc. Allow deviations to Zoning Code standards to reduce construction costs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6848",
+      "name": "Variance (Inland)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Variance is a discretionary approval that allows for deviation from physical development standards in the Zoning Code. The City may grant a Variance only when the strict application of development standards creates a unique hardship due to unusual circumstances associated with the property. \n\nThe City may grant a Variance to allow for deviation from any physical development standard that applies         to the subject property. Examples of physical development standards include height, setbacks, open         space, floor area ratio (FAR), and off-street parking requirements.\n\nA Variance may not be granted to:\na. Permit a use other than a use permitted in the zoning district as specified in Eureka Municipal Code Chapter 155 Article 2 (Zoning District Standards);\nb. Allow deviation from a requirement of the General Plan (e.g., maximum residential density in zoning district); and\nc. Allow deviations to Zoning Code standards to reduce construction costs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6827",
+      "name": "Wireless Telecommunication Facility",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Zoning Clearance",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A property or business owner may request a Zoning Clearance to request documentation that an existing structure or use complies with the Zoning Code. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6835",
+      "name": "Zoning Verification",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Engineering",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"color: rgb(209, 72, 65);\">During the application review process we may add comments, attachments, or change the status of a step which will automatically send you an email from &quot;OpenGov - City of Eureka, CA.&quot; In order to expedite the issuance of this permit please do not ignore these emails.</span></strong></p><p><strong><span style=\"color: rgb(184, 49, 47);\"><strong><span style=\"color: rgb(209, 72, 65);\">The following is a list of Engineering Permits and a shor"
+    },
+    {
+      "id": "1080",
+      "name": "Finance",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(41, 105, 176);\">During the business license application or renewal process, each step and comment will generate an email from &ldquo;OpenGov &ndash; City of Eureka, Ca&rdquo;. &nbsp;Please do not ignore or send these emails to your junk folder. &nbsp;This will delay the business license process.</span></p><p><span style=\"color: rgb(41, 105, 176);\"><strong>As of Nov 01, 2025, the 2026 business license renewals will be available to process. You will need to log into your"
+    },
+    {
+      "id": "1082",
+      "name": "Planning - Development Services",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(20, 20, 12); font-family: Arial; font-size: 15.2px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display"
+    },
+    {
+      "id": "1071",
+      "name": "Building - Development Services",
+      "isEnabled": 1,
+      "content": "<p>Apply for your building permit here.&nbsp;</p><p style=\"margin-bottom:15.0pt;line-height:normal;\">Examples of Over-the-Counter Permits:</p><ul><li>Re-roof: commercial or residential</li><li>HVAC: replacement or new installation (energy compliance documents may be required)</li><li>Water or Gas Line replacement</li><li>Upper Sewer Laterals</li><li>Hot Water Heater Replacement</li><li>Residential Siding Repair or Replacement</li><li>Residential Window Replacement (no change to size or operation"
+    },
+    {
+      "id": "1084",
+      "name": "Legal Disclaimers",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(226, 80, 65); font-family: sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float"
+    },
+    {
+      "id": "1081",
+      "name": "Economic Development",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:20.137Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

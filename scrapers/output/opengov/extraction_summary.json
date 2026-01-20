@@ -1,25 +1,25 @@
 {
-  "totalJurisdictions": 56,
-  "successful": 55,
+  "totalJurisdictions": 112,
+  "successful": 111,
   "failed": 1,
-  "totalRecordTypes": 2630,
-  "totalCategories": 383,
+  "totalRecordTypes": 4855,
+  "totalCategories": 775,
   "byState": {
     "CA": {
-      "count": 3,
-      "recordTypes": 80
+      "count": 13,
+      "recordTypes": 361
     },
     "CT": {
-      "count": 3,
-      "recordTypes": 89
+      "count": 8,
+      "recordTypes": 251
     },
     "FL": {
       "count": 4,
       "recordTypes": 86
     },
     "IN": {
-      "count": 1,
-      "recordTypes": 37
+      "count": 3,
+      "recordTypes": 156
     },
     "MD": {
       "count": 1,
@@ -30,28 +30,28 @@
       "recordTypes": 1284
     },
     "NY": {
-      "count": 1,
-      "recordTypes": 58
+      "count": 4,
+      "recordTypes": 181
     },
     "NC": {
-      "count": 4,
-      "recordTypes": 114
+      "count": 7,
+      "recordTypes": 270
     },
     "PA": {
-      "count": 1,
-      "recordTypes": 62
+      "count": 4,
+      "recordTypes": 178
     },
     "RI": {
-      "count": 7,
-      "recordTypes": 244
+      "count": 10,
+      "recordTypes": 332
     },
     "SC": {
-      "count": 2,
-      "recordTypes": 40
+      "count": 3,
+      "recordTypes": 116
     },
     "TN": {
-      "count": 2,
-      "recordTypes": 83
+      "count": 3,
+      "recordTypes": 96
     },
     "CO": {
       "count": 1,
@@ -74,17 +74,45 @@
       "recordTypes": 19
     },
     "WI": {
-      "count": 1,
-      "recordTypes": 34
+      "count": 2,
+      "recordTypes": 54
     },
     "IL": {
-      "count": 1,
-      "recordTypes": 51
+      "count": 5,
+      "recordTypes": 177
     },
     "WY": {
       "count": 1,
       "recordTypes": 122
+    },
+    "AL": {
+      "count": 2,
+      "recordTypes": 72
+    },
+    "GA": {
+      "count": 5,
+      "recordTypes": 164
+    },
+    "IA": {
+      "count": 2,
+      "recordTypes": 121
+    },
+    "MN": {
+      "count": 2,
+      "recordTypes": 131
+    },
+    "MS": {
+      "count": 1,
+      "recordTypes": 76
+    },
+    "OH": {
+      "count": 5,
+      "recordTypes": 262
+    },
+    "TX": {
+      "count": 3,
+      "recordTypes": 119
     }
   },
-  "extractedAt": "2026-01-20T22:55:30.214Z"
+  "extractedAt": "2026-01-20T23:00:23.667Z"
 }

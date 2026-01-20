@@ -1,0 +1,108 @@
+{
+  "jurisdiction": "Bexar County",
+  "state": "TX",
+  "tenant": "countyofbexartx",
+  "portalUrl": "https://countyofbexartx.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6427",
+      "name": "Right of Way Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Bexar County Right-of-Way permit is required for all work within a right of way maintained by Bexar County or proposed to be maintained by Bexar County.",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Subdivision Plat Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Detailed review of documents used to establish a graphic respresentation of the metes and bounds description of a lot; easements for utilities and other shared uses; building setbacks from the Right of Way or Private Street Lot to prevent permanent structure construction from obstructing clear vision; impacts/improvements to existing drainage infrastructure and floodplain; environmental impacts; plat notes and signature blocks; and that proposed construction is in complaince with current regulations for: 1) Street and drainage construction, 2) Mitigations identified in a Traffic Impact Analysis are studied, proposed, or constructed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Contact List Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This is the table of contacts that will be used to fill in contact information for the applications available on this website.",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Storm Water Quality Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "A Bexar County Storm Water Quality Permit is required when one (1) or more acres of soil are being disturbed on the site or as part of Common Plan of Development.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Construction Testing Reports Submittal to 3rd Party Reviewer",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Submit Construction Testing Reports and Precast shop drawings and lay schedules.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Floodplain Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "A Bexar County Floodplain Development Permit is required for any property that is encumbered or within 100 feet of a FEMA designated 1% (100yr) floodplain.  Floodplain permits are issued after the all other applicable Bexar County Permits (Storm Water Quality, Post Construction, Right of Way, and On-Site Sewage Facility (OSSF aka Septic) have been issued. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Building Permit Verification for Fire Marshal Building Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "The purpose of this Record is to ensure that you have obtained or applied for the necessary permits with Bexar County Public Works (PW) when a Building Permit is required from the Bexar County Fire Marshal Office (FMO).\n\nContact the FMO to determine if your project requires a building construction, electrical, or flammable liquids related  permit.  For more information, visit: https://www.bexar.org/643/Permits-Applications.\n\nIf you do not need a FMO permit, you will still be required to obtain permits from PW as well as permits from a city if your property is within a City's Extraterritorial Jurisdiction (ETJ) (e.g., Tree, Outdoor Sign, Irrigation, and residential building (if the property is within a Special Improvement District or Non-annexation Agreement Area)).  Visit:  https://countyofbexartx.portal.opengov.com/projectTemplate/2 to research information regarding your property and answer questions to determine the permits you will need.\n\nIn general, the process to follow for a signed PW Permit Verification in order to obtain a permit from the FMO is:\n\n1. Obtain City of San Antonio (COSA) documentation (from COSA Public Works Storm Water regarding storm water detention (application form must be stamped and dated by COSA staff along with any drainage report and stamped site plan reviewed by COSA) and a Certificate of Compliance in Military Protection Areas from COSA Development Services, if applicable).\n2. Submit Bexar County Permit Verification Form and supporting documents to Bexar County Public Works by clicking on the Select button above.\n3. Permit Verification (PV) Form signed by Bexar County Public Works (PW) once all items on the form have been confirmed\n4.  Once the PV is signed, PW will e-mail the signed form to Bexar County Fire Marshal Office (FMO) and applicant.\n5. Permit Review/Issuance by FMO.\n6. Construction and Inspection.\n7. Certification and Food Service Permits.\n8. Permit Renewal and Maintenance.\n\nBefore or during the PW Permit Verification process, you may schedule an appointment to submit the building permit application and electronic plan files to the Fire Marshal Office (FMO) for their review and approval.   For more information, visit: https://www.bexar.org/643/Permits-Applications.\n\nThe building permit issuance in step 5 will not occur until the FMO receives a signed Permit Verification Form from Public Works.\n\nPhysical Locations and Contact Phone Numbers:\n\nCOSA Permits and Platting Location: 1901 S Alamo St San Antonio TX 78204 Contact: 210-207-1111\n\nBexar County Public Works and Environmental Services Permits\nLocation: 1948 Probandt San Antonio TX 78214 Contact: Luz Gonzales 210-335-0030\n\nBexar County Fire Marshal Code Compliance Office\nLocation:  9810 Southton Rd San Antonio TX 78223 Contact:  210-335-0300\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Amendment to Storm Water Quality Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "A current Bexar County Storm Water Quality Permit may be amended when information related to the existing permit has changed.  The amendment is considered Major if any one of the following apply:\n          Change of Project Limits\n\n          - Major Field Modification\n\n          - Increase of Disturbance Area\n\n          - Increase of Impervious Cover",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1079",
+      "name": "Contact List - Start Here to add your permit contacts!",
+      "isEnabled": 1,
+      "content": "<div>This is the table of contacts that will be used to fill in contact information for the applications available on this website. &nbsp;Make sure the Role of the contact (Owner, Design Company, Surveying Company, Inspection Company, ROW Permit Organization (typically the contractor working in the ROW), and/or Contractor (working outside the ROW)) is consistent with the role of the contact for the permit.</div><div><br></div><div>There may be times when a company may want two or more contacts d"
+    },
+    {
+      "id": "1080",
+      "name": "Storm Water Quality",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial,Helvetica,sans-serif;\">Questions? E-mail <a href=\"mailto:swq@bexar.org\" rel=\"noopener noreferrer\" target=\"_blank\">swq@bexar.org</a> or call 210-335-6651</span></div><div><br></div><div><span style=\"font-family: Arial,Helvetica,sans-serif;\"><strong><span style=\"color: rgb(226, 80, 65);\">NOTE: &nbsp;Change of Ownership Requires a New Permit</span></strong></span></div><div><br></div>"
+    },
+    {
+      "id": "1081",
+      "name": "Development Services",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-size: 24px; color: rgb(184, 49, 47);\">You can now make bulk payments by going to your &quot;My Account&quot; page and selecting &quot;Payments&quot;</span></div><div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/1759845663942_Tue_Oct_07_2025_14:01:03_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 300px;\" class=\"fr-fic fr-dib\"></div>"
+    },
+    {
+      "id": "1082",
+      "name": "Pending Review Lists",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-size: 36px;\"><strong><u>Review Lists as of January 20, 2026</u></strong></span></div><div><br></div><div><span style=\"color: rgb(226, 80, 65);\"><span style=\"font-size: 24px;\"><strong><u>Subdivision Plats</u></strong></span></span></div><div><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/General_Plat_Reviews_-_Weekly_Tue_Jan_20_2026_14:18:20_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\">General Plat Reviews - Weekly.pdf</"
+    },
+    {
+      "id": "1071",
+      "name": "Inspectional Services",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:56.816Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

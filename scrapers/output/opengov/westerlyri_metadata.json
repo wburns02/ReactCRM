@@ -1,0 +1,236 @@
+{
+  "jurisdiction": "Westerly",
+  "state": "RI",
+  "tenant": "westerlyri",
+  "portalUrl": "https://westerlyri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6332",
+      "name": "Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a building permit from the Town of Westerly, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit from the Town of Westerly, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit from the Town of Westerly, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the Town of Westerly, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6338",
+      "name": "Tent Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This application must be submitted at least fourteen days in advance of the event.  If you have an urgent request, please call us directly at 401-348-2547.",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a demolition permit from the Town of Westerly.",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the Town of Westerly. If this is for a commercial application  you must first go to the local Fire department for approval.",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Planning Application ",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "  Subdivision & Land DevelopmentApplications",
+      "isEnabled": true
+    },
+    {
+      "id": "6393",
+      "name": "Business License Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply for your Business licenses (i.e. Victualer,  Holiday Sales,Entertainment, Junkyard, Peddler, Tourist Accommodations, Private Detective, etc. from the Town of Westerly. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "Short-term Rental Registration",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "§145-25.  Residential Zone Short-term Rental Registration.",
+      "isEnabled": true
+    },
+    {
+      "id": "6402",
+      "name": "One Time Event",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6417",
+      "name": "Liquor License Transfer Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Residential Smoke & Carbon Monoxide Inspection",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Zoning Board of Review Application ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6421",
+      "name": "Zoning Accessory Dwelling Unit (ADU)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Accessory dwelling unit (ADU). A secondary residential living unit on the same lot where the principal use is a legally established single-family dwelling-unit or multi-family dwelling up to three (3) units. An ADU provides separate, complete, independent living facilities with a separate entrance, kitchen, sleeping area, and full bathroom facilities. The ADU may take various forms (i.e., a detached unit, a unit within an accessory structure such as a detached garage, or a unit that is part of an expanded or remodeled primary dwelling).\n\n1.Per RIGL 45-24-37(e) an ADU is permitted as-of-right in all residential zoning districts, in each of the following circumstances.\n\nA.One accessory dwelling unit (\"ADU\") is permitted on residential property, in either an existing remodeled primary structure, as an addition to an existing primary structure, or within a new primary structure. \n\nB.One accessory dwelling unit (ADU) is permitted within the existing footprint of an existing detached accessory structure, provided the ADU does not expand the footprint of the structure.\n\nC.One accessory dwelling unit (ADU) in a new development or a new structure is permitted by right on a residential lot with a total area of twenty thousand square feet (20,000 sq. ft.). If such ADU is part of an inclusionary zoning or comprehensive permit application, it may be restricted to affordable housing. See Section 260-50.\n\n2.Tenants of an ADU are not restricted based on familial relationships or age unless required by the terms of a federal, state, or municipal subsidy related to affordability.\n\n3.Private restrictions on ADUs imposed by condominium associations, homeowner associations, or similar residential property governing bodies, which conflict with the provisions of this section or the definition of an ADU as outlined in § 45-24-31, shall be void as against public policy. \n\n4.The following requirements apply to all ADUs.\n\n(i)An ADU shall have no more than two (2) bedrooms.\n\n(ii)The off-street parking requirement for an ADU shall be no more than one (1) space per bedroom.\n\n(iii)A studio or one-bedroom ADU may contain up to 900 sq. ft., or sixty percent (60%) of the floor area of the principal dwelling unit, whichever is less. For this section, “floor area” shall be defined as heated above-ground living space.\n\n(iv)A two-bedroom ADU may contain up to 1,200 sq. ft., or sixty percent (60%) of the floor area of the principal dwelling unit, whichever is less. For this section, “floor area” shall be defined as heated above-ground living space.\n\n(v)Dimensional requirements applicable to any ADU shall be the same as any accessory or principal structure in the same zoning district. No additional lot area, lot frontage or lot width is required, for both conforming lots and legal nonconforming lots of record, solely to accommodate an ADU.\n\n(vi)ADUs shall not be offered or rented for tourist or transient use through a hosting platform, as such terms are defined in §42-63.1-2.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6395",
+      "name": "Accessory Structure",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "An accessory structure is a structure that is clearly incidental to and customarily found in connection with a principal use, is subordinate in size and intensity of use to a principal structure, is located on the same lot as the principal structure being served and contributes to the comfort, convenience, or necessity of the occupants, business, or industry located in the principal structure being served.\n\nTypical Accessory Structures include:  Detached Garage, Shed, Pool, Pool house, Pergola, Gazebo, Tennis Courts.  \n\nAdditional information is available online at:   https://ecode360.com/7757422 \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6397",
+      "name": "Addition to Structure",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Any increase in area of an existing structure (principle, or accessory) including decks, that must comply with the dimensional regulations of the Zoning Ordinance, § 260-19 Minimum dimensional regulations, § 260-20- Standard Dimensional Regulations\n\nConnected structures. Where a structure is within six feet of the principal structure or interconnected to the principal structure (which must include a foundation, walls and a roof), such structure is no longer accessory, but wholly part of the principal structure, and the dimensional and use requirements for a principal structure shall apply.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6414",
+      "name": "New Construction Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6407",
+      "name": "Certificate of Ownership",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "DBA (Doing Business As) - Registration of Assumed Business Name (the name that will be on the sign for the business)\n\nIf you are conducting a business in the Town of Westerly under an assumed business name, or under any designation, name or style, corporate or otherwise, other than the real name or names of the individual or individuals conducting or transacting, Title 6, Chapter 1, of the Rhode Island General Laws requires that the person or persons shall file electronically with the the Town Clerk's Department in the Town or City in which the person or persons conduct, or transact its business.",
+      "isEnabled": true
+    },
+    {
+      "id": "6401",
+      "name": "Home Occupation",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6406",
+      "name": "Sign Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Life Safety Inspection",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Click here to submit your request for an inspection from the Office of the Westerly Fire Marshal (related to business licenses or construction rough/final)",
+      "isEnabled": true
+    },
+    {
+      "id": "6405",
+      "name": "Appeal Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6408",
+      "name": "Aquifer Protection Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6404",
+      "name": "Verification of Use Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1081",
+      "name": "Police Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1083",
+      "name": "Fire Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1072",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"margin-bottom:7.5pt;text-align:center;  background:white;\"><strong>WELCOME</strong></p><p align=\"center\" style=\"margin-bottom:7.5pt;text-align:center;  background:white;\"><strong>EFFECTIVE 2/1/2022, THE STATE OF RHODE ISLAND IS</strong></p><p align=\"center\" style=\"margin-bottom:7.5pt;text-align:center;  background:white;\"><strong>ADOPTING ALL THE NEW SBC-2021 CODES</strong></p><p align=\"center\" style=\"margin-bottom:7.5pt;text-align:center;  background:white;\"><strong>whi"
+    },
+    {
+      "id": "1077",
+      "name": "Planning",
+      "isEnabled": 1
+    },
+    {
+      "id": "1079",
+      "name": "Town Clerk",
+      "isEnabled": 1
+    },
+    {
+      "id": "1076",
+      "name": "Zoning Department",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:47.510Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

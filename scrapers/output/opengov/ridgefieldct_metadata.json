@@ -1,0 +1,291 @@
+{
+  "jurisdiction": "Ridgefield",
+  "state": "CT",
+  "tenant": "ridgefieldct",
+  "portalUrl": "https://ridgefieldct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6418",
+      "name": "Itinerant Vendor/Caterer (Food/Ice Cream Truck) License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Mobile Food Vending (Requires approval by First Selectman's Office)",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Food Service Establishment License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6578",
+      "name": "Temporary Food Service License Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6586",
+      "name": "Health Department Review of Building Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "You must create a Building Application before proceeding.",
+      "isEnabled": true
+    },
+    {
+      "id": "6590",
+      "name": "Water Treatment Wastewater Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6591",
+      "name": "Beauty Salon License (Hair and Nails only)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6602",
+      "name": "Application for Septic Plan Review",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Building Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6599",
+      "name": "Wetlands Delineation Form",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6609",
+      "name": "Aquifer Protection Agency Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6560",
+      "name": "Affordable Housing",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6601",
+      "name": "Application for Soil Test",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6558",
+      "name": "After the Fact Building Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Zoning Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6593",
+      "name": "Inland Wetlands Referrals",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Water Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6562",
+      "name": "Architectural Advisory Committee Review",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6598",
+      "name": "First Division",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Inland Wetlands Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6563",
+      "name": "Flood Plain Applications",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6583",
+      "name": "Map Change (Boundary change/First Cut/Land Swap/Land merger/Property Line)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Miscellaneous",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6566",
+      "name": "Referrals",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Septic Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6581",
+      "name": "Special Permit Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Electrical Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Plumbing Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6569",
+      "name": "Subdivision",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6570",
+      "name": "Village District Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Mechanical Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Gas Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6567",
+      "name": "Zone Change Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Well Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Subdivision Soil Perc Test",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "(Vacant Parcels Only)",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1086",
+      "name": "Aquifer Protection Agency",
+      "isEnabled": 1,
+      "content": "<div data-olk-copy-source=\"MessageBody\" style='border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 12pt; line-height: inherit; font-family: \"Franklin Gothic Book\", \"Avenir Next Condensed\", sans-serif; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: inherit; margin: 0px; padding: 0px; vertical-align: baseline; color: rgb(0, 0, 0);'>Applications subm"
+    },
+    {
+      "id": "1078",
+      "name": "Building",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/logo_Thu_Dec_20_2018_19:00:41_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 300px;\" class=\"fr-fic fr-dib\"></p><p style=\"text-align: center;\"><strong>Town of Ridgefield Online Permit System</strong></p><p style=\"text-align: center;\">Welcome!</p><p><br></p><p>Here you can apply for various permits (LAND USE PERMITS ONLY - Does not include Planning &amp; &nbsp;Zoning Commission, Parking"
+    },
+    {
+      "id": "1073",
+      "name": "Health",
+      "isEnabled": 1,
+      "content": "<p><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/logo_Thu_Dec_20_2018_19:26:59_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 300px;\" class=\"fr-fic fr-dib\"></p><p style=\"text-align: center;\"><strong>Town of Ridgefield Online Permit System</strong></p><p style=\"text-align: center;\">Welcome!</p><p><strong>Health Permits &amp; Requirements</strong></p><p>The following permits are available online:</p><p><strong>Restaurant</strong> - Food Service - All require Foo"
+    },
+    {
+      "id": "1079",
+      "name": "Inland Wetlands",
+      "isEnabled": 1,
+      "content": "<p><strong>By using the ViewPermit portal/website (Online Permit System), you agree to the following conditions:</strong></p><p>The Town of Ridgefield and any of its employees shall not be liable for any or all inaccuracies that appear on this site.</p><p>All information on this site may be subject to the Freedom of Information Act.</p><p>The Town of Ridgefield and any of its employees have the right to remove access to this portal/website at any time for any reason.</p><p>The Town of Ridgefield"
+    },
+    {
+      "id": "1080",
+      "name": "Zoning",
+      "isEnabled": 1,
+      "content": "<p><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/logo_Thu_Dec_20_2018_20:09:12_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 300px;\" class=\"fr-fic fr-dib\"></p><p style=\"text-align: center;\"><strong>Town of Ridgefield Online Permit System</strong></p><p style=\"text-align: center;\">Welcome!</p><p><br></p><p>All permits <strong>REQUIRE</strong>:</p><p><strong>&bull; A Valid Email Address</strong></p><p><strong>&bull; An Online Account</strong></p><p><strong>&bul"
+    },
+    {
+      "id": "1076",
+      "name": "Planning and Zoning Commission Applications",
+      "isEnabled": 1,
+      "content": "<p><strong>By using the ViewPermit portal/website (Online Permit System), you agree to the following conditions:</strong></p><p>The Town of Ridgefield and any of its employees shall not be liable for any or all inaccuracies that appear on this site.</p><p>All information on this site may be subject to the Freedom of Information Act.</p><p>The Town of Ridgefield and any of its employees have the right to remove access to this portal/website at any time for any reason.</p><p>The Town of Ridgefield"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:43.776Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

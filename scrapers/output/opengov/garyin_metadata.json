@@ -1,0 +1,185 @@
+{
+  "jurisdiction": "Gary",
+  "state": "IN",
+  "tenant": "garyin",
+  "portalUrl": "https://garyin.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6334",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This is a permit for alterations, additions, and new construction. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6349",
+      "name": "HVAC Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Heating, Ventilation, Air Conditioning ",
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6353",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Rental Registration",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "You should receive all Rental Permit Stickers within five (5) business days. ALL RENTAL STICKERS MUST BE DISPLAYED IN EACH PROPERTY (as stated on front of sticker). IF STICKER ISN,T DIPLAYED 2022 & GOING FORWARD THERE WILL BE FEE ASSESSED TO OWNERSHIP (See Rental Registration Ordinance, Section 105-268 (f).",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "General Business License ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This online portal is for both new and renewal general business licenses.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Short-Term Rental Registration Permit Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Contractor Online Registration        (Must Be Completed First)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This application is an Online Registration for currently Licensed Contractors with the City of Gary Building Department only.\n\nContractors and Business Owners To begin your renewal process for the 2024 year please use your current record from 2023 to start your renewal. \n\nPLEASE USE THE SAME EXACT EMAIL FROM PREVIOUS YEAR REGISTRATION!!!!!!!\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "FOIA Request",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Pursuant to I.C. 5-14-3-1",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Gary's First ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Restaurant and Retail License  ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This online portal is for both new and renewal restaurant and retail licenses.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Air Permit (Short Form)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Air Construction Permit – Use this form to apply for an air construction permit:\n• For any purpose at a facility operating under an existing local operation permit\n• For a proposed project\n• To establish, revise, or renew an existing local air permit.\nAir Operation Permit – Use this form to apply for:\n• An initial local air operation permit; or\n• An initial, revised, or renewal of existing air operation permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Land Disturbing Activities Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This is a permit for land disturbing activities on project areas greater than 12,500 sq.ft.",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Air Permit (Short Form) Copy",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Air Construction Permit – Use this form to apply for an air construction permit:\n• For any purpose at a facility operating under an existing local operation permit\n• For a proposed project\n• To establish, revise, or renew an existing local air permit.\nAir Operation Permit – Use this form to apply for:\n• An initial local air operation permit; or\n• An initial, revised, or renewal of existing air operation permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Request for Vital Records",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "WARNING: False Application, Altering, or Mutilating or counterfeiting of Indiana Birth Certificates is Criminal Offense under Indiana Law #1.c.16-19-6 and is punishable to the fullest extent.\nNOTICE: Legitimate birth records are issued to the individual named on the record, their parents, legal guardian (Guardianship Papers MUST be presented), grandparents, **brother, sister, spouse, or children**\n*You must be at least 18 years of age with appropriate proof to obtain a copy of birth records. \n**Siblings and children must be at least 21 years of age with proof of relationship to obtain a copy of birth records**  Due to unforeseen increases, the FEDEX delivery charge will increase to $15. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Emergency Repair Program Guidelines",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Senior Rehabilitation Program Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1085",
+      "name": "Contractor Registration",
+      "isEnabled": 1,
+      "content": "<p>Welcome to the new City of Gary Online Contractor Registration Portal. We aim to get all contractors <span style=\"color: rgb(226, 80, 65);\"><strong><u>currently licensed</u></strong></span> to renew by clicking the link below.</p><p>Questions? Please email <a href=\"mailto:building@gary.gov\" rel=\"noopener noreferrer\" target=\"_blank\">building@gary.gov</a></p><p><br></p><p><span style=\"color: rgb(85, 57, 130);\"><strong><span style=\"font-family: Georgia, serif;\"><u><span style=\"font-size: 24px;\">"
+    },
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/1649796434927_Tue_Apr_12_2022_20:47:15_GMT+0000_(Greenwich_Mean_Time).png\" style=\"width: 300px;\" class=\"fr-fic fr-dib\"></p><p><span style=\"font-size: 24px;\"><strong><u>ALL PERMIT ISSUED MUST BE TACKED ON THE FRONT OF THE BUILDING</u></strong></span></p><p><strong><span style=\"color: rgb(184, 49, 47);\">Please be advised that some fees have recently changed. All applications are subject to the updated fees.</span></strong> "
+    },
+    {
+      "id": "1079",
+      "name": "Zoning",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Georgia, serif;\">Current, valid business licenses are required to conduct business in the City of Gary. General Business Licenses are valid until the end of the calendar year and are renewed annually.&nbsp;</span></p><div><span style=\"font-family: Georgia,serif;\">Applications for new business licenses are accepted throughout the year. Renewals for the current year are accepted January 3rd- December 31st.</span></div><div><span style=\"font-family: Georgia,serif;\"><br>"
+    },
+    {
+      "id": "1086",
+      "name": "Law",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1073",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": "<div><strong><span style=\"color: rgb(184, 49, 47);\">Please be advised that some fees have recently changed. All applications are subject to the updated fees.</span></strong> </div>"
+    },
+    {
+      "id": "1091",
+      "name": "Community Development",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Environmental Affairs",
+      "isEnabled": 1,
+      "content": "<div><strong><span style=\"color: rgb(184, 49, 47);\">Please be advised that some fees have recently changed. All applications are subject to the updated fees.</span></strong> </div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:04.826Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

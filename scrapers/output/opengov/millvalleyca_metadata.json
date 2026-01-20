@@ -1,0 +1,28 @@
+{
+  "jurisdiction": "Mill Valley",
+  "state": "CA",
+  "tenant": "millvalleyca",
+  "portalUrl": "https://millvalleyca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6426",
+      "name": "Business License Application/Renewal",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Use this form to apply for a new Business License or renew your existing Business License.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1081",
+      "name": "Business Licensing",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:29.300Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

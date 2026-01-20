@@ -1,0 +1,178 @@
+{
+  "jurisdiction": "El Segundo",
+  "state": "CA",
+  "tenant": "elsegundoca",
+  "portalUrl": "https://elsegundoca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6474",
+      "name": "Encroachment Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "A City of El Segundo Public Works Department Encroachment Permit is a permit that must be obtained prior to commencement of any activities affecting the public right-of-way (area outside private property line) or a dedicated public easement. These activities include, but are not limited to: excavation, sewer lateral repairs, street improvements, utilities, street closures, traffic control, construction equipment, temporary barricades and scaffolding, landscaping, tree trimming, etc. An encroachment permit assures that the City's public right-of-way work is done in a safe, correct way per standards and that the work zone shall be restored in a timely manner. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "*Downtown Outdoor Dining Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Fire Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Fire Permits include the following plan check:\n- Sprinkler Systems  \n-  Fire Alarm  \n- Standpipe System\n- Gas Detection System\n- Hazardous Materials\n- Underground Fire Main/Hydrants\n- Pre-Engineered Fire Extinguishing Systems\n- Emergency Responder Radio Coverage (ERRC)\n- Aboveground/ Underground Storage Tank/Generator\n- High-Piled Storage\n- Fire Access/Fire Master Plan \n- Fire Pump\n- Water Tank\n- Industrial Oven\n- Dust Collection\n- Refrigeration\n- Smoke Control  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "*Special Events Permit and Temporary Use Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Special Event Permit and Temporary Use Permit Online Application",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "*Alarm Permit - PD",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "*Dog License Application",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Cultural Development Program",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "The Cultural Development Program was initially established in November 2019, with\nthe adoption of Ordinance No. 1594, amending Title 15 of the El Segundo Municipal\nCode (ESMC) to establish the Public Art or In-Lieu Fee Requirement and a Cultural\nDevelopment Fund. As originally adopted, the requirement applied to specific\ncommercial and industrial developments with a project valuation exceeding\n$2,000,000.\n\nOn April 1st, 2025, the El Segundo City Council adopted Ordinance No. 1671, amending\nTitle 15 of the ESMC to allowing for a combination of providing both on-site public art\nand in-lieu fee to satisfy the Cultural Development Program requirement.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "*Residential Building Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Residential Building Permits for Express as well as Plan Check Projects.\n\nExpress Projects include:\n- Residential Solar Permits from Solar APP+\n- Non-Architectural/Structural Alterations & Repairs\n- Re-Roof, Re-Pipe, Re-Stucco\n\nAll Non-Express projects will require Plan Check from the appropriate Departments.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "*Solar (PV)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Solar, photovoltaic permits for Residential and Non-Residential projects. Including Energy Storage Systems (ESS) and electrical panel systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "*Commercial/Non-Residential Building Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Building permits are required any time a building or structure is erected, constructed, enlarged, altered, repaired, moved, improved, removed, converted or demolished.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "*Filming Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Filming Permit Online Application",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "*Field Change Request",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Select this option if your project needs changes made to approved & issued Building Permits. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "*LAWA-Residential Sound Insulation Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Residential Sound Insulation projects authorized from the Los Angeles World Airport ONLY. Qualified homeowners must Apply through LAWA.ORG, then the selected Contractors will use this portal to obtain Building Permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "*ADU Fee Calculator",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "ADU Plan Pre-Approval Application",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Select this option if you are an architect/engineer and wish to submit an ADU design for review and pre-approval. Your design, if pre-approved, will be placed on the Pre-Approved ADU (PRADU) list on the City website.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Entertainment Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Any person conducting, operating, owning, or in control of any premises open to the public, or private club within the city to allow any entertainment including dancing, upon the premises, or in or upon any adjoining room or premises, must obtain an Entertainment Permit. The application fee required by this section is established to cover part of the cost of the investigation and processing of applications and is not refundable. \nExemptions: An entertainment permit shall not be required of any bona fide nonprofit organization. An entertainment permit shall not be required of any person in connection with the use of city property, unless such property is leased for a period which exceeds seven (7) consecutive days.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1076",
+      "name": "Building and Safety Division",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"margin-bottom:0in;text-align:center;\"><strong>2025 CALIFORNIA BUILDING CODE UPDATE&nbsp;</strong></p><p align=\"center\" style=\"text-align:center;\"><span style=\"color: rgb(209, 72, 65);\"><strong>EFFECTIVE JANUARY 1, 2026</strong></span></p><div>&nbsp;<strong>NOTICE TO ALL PROPERTY OWNERS, BUILDERS, CONTRACTORS AND GENERAL PUBLIC:</strong></div><div>&nbsp;The State of California updates its building standards, also known as California Code of Regulations, Title 24, every th"
+    },
+    {
+      "id": "1085",
+      "name": "Planning Division",
+      "isEnabled": 1
+    },
+    {
+      "id": "1087",
+      "name": "Cultural Development Program",
+      "isEnabled": 1,
+      "content": "<div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/CDP_Steps_for_Developers_251126_Wed_Nov_26_2025_21:40:33_GMT+0000_(Coordinated_Universal_Time).jpg\" style=\"width: 825px;\" class=\"fr-fic fr-dib\"></div>"
+    },
+    {
+      "id": "1080",
+      "name": "Special Events and Filming",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Please use this electronic form to apply for a <strong>Special Event Permit</strong> (events on public property, e.g. block party, parade, public assembly, birthday party in the park, etc.), a <strong>Temporary Use Permit</strong> (events on private property), or a <strong>Filming Permit</strong>.</span> </p>"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1084",
+      "name": "Police Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1072",
+      "name": "Public Works Department",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:25.838Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

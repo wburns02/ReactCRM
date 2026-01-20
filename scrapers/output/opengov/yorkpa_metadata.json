@@ -1,0 +1,372 @@
+{
+  "jurisdiction": "York",
+  "state": "PA",
+  "tenant": "yorkpa",
+  "portalUrl": "https://yorkpa.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6467",
+      "name": "Yard Sale Permit Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "You may only have up to 9 yard sales annually. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Mechanical Amusement Devices and Juke Boxes Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Dumpster Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "PLUMBER'S LICENSE",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "*** IMPORTANT NOTE: Projects submitted on or after January 1, 2026 must comply with the 2021 Uniform Construction Code (UCC). ***\n\nPlease fill this out before applying for any Plumbing work in the City of York. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "UCC Permit Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "*** IMPORTANT NOTE: Projects submitted on or after January 1, 2026 must comply with the 2021 Uniform Construction Code (UCC). ***\n\nPlease complete the application below for building, electrical, plumbing, mechanical, demolition, and fire protection permits. If you have any questions, contact the York City Bureau of Permits and Inspections at (717) 849-2239.",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "CURB AND SIDEWALK PERMIT ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "*** IMPORTANT NOTE: Projects submitted on or after January 1, 2026 must comply with the 2021 Uniform Construction Code (UCC). ***\n\nPermit for repair or replacement of public sidewalks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Electrical Turn On Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Permit for an electrical turn on inspection required by the electrical utility.",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Demolition Agreement",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This must be filled out with every Demolition application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Certificate of Occupancy Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "*** IMPORTANT NOTE: Projects submitted on or after January 1, 2026 must comply with the 2021 Uniform Construction Code (UCC). ***\n\nA Certificate of Occupancy is required for all new construction, major renovations, to reoccupy condemn structures, change of occupancy, and in some cases state licensures. To confirm whether you need a Certificate of Occupancy, please contact the Permits & Inspections Bureau. \n\nInspections will be scheduled only after all work and final inspections have been completed. This inspection is to ensure that the property meets the minimum requirements of all codes. Under no circumstances may you occupy the premises prior to the issuance of a Certificate of Use and Occupancy. Plans, if any, must be reviewed and approved and all required permits obtained, and inspections completed prior to applying for the Certificate of Use and Occupancy. Please fill out this form completely. Incomplete applications will not be processed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Temporary Food Permits",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Per the Ordinance, you must apply for a temporary food service permit 10 days prior to the date of the event. \n As of 9/1/2024, all applications submitted less than 10 days prior to the event, will be DENIED.  If anyone continues to operate without a Temporary Food Service Permit, you will be escorted from the premises by the City of York Police department, and a citation will be issued for operating without a permit.\nVendors cannot exceed 14 permits in a calendar year. \n\nFor a short-term (up to five days) permit for food service at an event. A temporary food service license will not be issued unless this application meets all local applicable requirements and those found in the FDA Model Food Code and the permit has been signed and approved by the City of York Health Officer. Additionally, the applicant is aware that non-compliance may result in prosecution or closure of the temporary licensed facility. Temporary food service licenses are non-transferable and non-refundable. The Health Officer may deny any application submitted the day of the event. \n\nTemporary Food Service Permit Fees:\nCity license holder, on-site: Free\nCity license holder, off-site: $20\nVendors without a City license, 1 or 2-day events: $35\nVendors without a City license, 3 to 5-day events: $50\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Street Cut Permit Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Itinerant Vendor License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Itinerant vendors - all persons both principal and agent, who engage in or conduct a temporary or transient business in the City, selling goods, wares and merchandise with the intention of continuing in such business in any one place for a period of not more than sixty days and who, for the purpose of carrying on such business, hire, lease or occupy either in whole or in part any room, building or structure for the exhibition and sale of such goods, wares or merchandise.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Consolidated Board Of Appeals ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "The application is for an appeal to the Consolidated Board of Appeals. The Consolidated Board of Appeals hears appeals of the following:\n\nAssignment of nuisance abatement points, \nImposition of the vacant property registration fees, \nDeterminations of Blight, \nDecisions and interpretations of the Fire Code and Property Maintenance Code or their referenced \n   standards,\nConsideration of equivalencies to the requirements of the Fire Code and Property Maintenance Code or \n   their referenced standards.\n\nApplications that are incomplete will not be accepted. The appeal filing fee is $125.00 per address.",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "MOBILE FOOD LICENSING APPLICATION ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "ALL new applicants must complete a New Business Packet found on The City of York's website, www.yorkcity.org,  (Start of Business). Once completed a one time fee is required of $35.00. for the new business application. To complete the mobile vendor applicants a list of items must be upload. A copy of the ServSafe Certification, a picture of the mobile unit, a menu, hours of operation, a copy of insurance information, the number of employees,  the Tax ID Number, and  photo ID, and the address of the license facility where commissary is being stored.",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Park N Shop",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Purchase pre-paid chaser tickets for 1-hour of garage parking for customers, clients, or visitors.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Lost or Damaged Permits/Access Cards",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Submit a request to replace a lost or damaged garage access card.",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Response Form",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "The City of York Response Center is available to anyone who would like to submit a complaint, concern, compliment, or just has a general question for the City of York.  All complaints filed, must be for an address located in the City of York, ONLY. All complaints for an address outside the City of York boundaries, must be filed with their local jurisdiction.  If you submit your request via this website, you will receive updates about the status of your request and be able to check back on it at any time.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Zoning Permit Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please complete the application below for fence, decks, patios, sheds, driveways, signs, concrete pads, accessory structure, swimming pool, spa, whirlpool permits. If you have any questions, contact the York City Bureau of Permits, Planning, and Zoning at (717) 849-2239.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Zoning Determination Request",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This form is used for the applicant to determine if their proposed use is permitted, or further action will need to be taken.  While the Zoning Hearing Board may grant your variance or special exception, this applies only to the Zoning Ordinance. There most likely will be requirements from the Uniform Construction Code that will apply. Please contact the Bureau of Permits and Inspections to get information related to code requirements.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Zoning Hearing Board Appeal",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please complete this application to file an appeal to the York City Zoning Hearing Board. All zoning appeals are heard by the York City Planning Commission and the York City Zoning Hearing Board. The first Monday of each month is the submission deadline for appeals to be heard at the following month's meetings. For example, the first Monday in January is the deadline for the Planning Commission and Zoning Hearing Board meetings in February.\n\nPlease print out the attachments separately to be included in your packet.  Application does not print the full-size attachment.\n\nINCOMPLETE APPLICATIONS WILL NOT BE HEARD BY THE BOARDS AND A CASE NUMBER WILL NOT BE ASSIGNED.\n\nCompletion Check List:\nComplete Personal Information(application)\nSpecific about appeal description(application)\nIf known list previous use of property(application)\nCompleted Narrative Questions\nAttach Deed or Sales Agreement \nAttach Site Plan (Google Earth view of property)\nAttach Floor Plan (Drawing of each floor and its contents)\nAttach Photos (Front and back of property, each room inside of property, off-street parking accommodations) Must be clear.  The more the better. \n\nFollowing a review of your application by the York City Zoning Officer, you will need to pay the submission fee and submit 15 paper copies containing all of the above check list including Zoning Determination Letter to the Zoning Officer. You can submit the 15 copies in person or by mail at York City Hall, 101 S George St, York, PA 17401.  If submitting in person, please schedule an appointment with the Zoning Officer the first Monday of the month.\n\nWhile the Zoning Hearing Board may grant your variance or special exception, this applies only to the Zoning Ordinance. There most likely will be requirements from the Uniform Construction Code that will apply. Please contact the Bureau of Permits and Inspections to get information related to code requirements.\n\nIf you have any questions, contact the Zoning Officer at (717) 849-2280.",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "New Business Packet",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "IMPORTANT: A New Business Packet is to be completed for any new, change of name, or change of address business.  Please complete the following application in its entirety.  The applicant is responsible for submitting the required tax information to the York/Adams Tax Bureau. This application is for a new business license ONLY.  This does not include Certificate of Occupancy/Compliance and/or health license. \n\nALL STEPS MUST BE COMPLETED BEFORE A BUSINESS LICENSE WILL BE ISSUED.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Sidewalk Cafe",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please complete the form below. You will not be able to edit this information once you submit the form. You will not be able to submit the form until you have completed all required fields and attached all required information. By completing this application, upon approval of a sidewalk cafe permit, you are agreeing to comply with the provisions of the York City Sidewalk Cafe Ordinance as amended and to comply with all other city ordinances and applicable regulations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Subdivision and Land Development Plans",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please complete the application below.\n\n\n\nNOTE: The Planning Commission agenda deadline is the first Monday of the month preceding the meeting. For example, the first Monday of January is the deadline for the Planning Commission meeting in February.\n\n\n\nIf you have any questions, contact the City Planner at ngriffin@yorkcity.org.",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "FLOODPLAIN AREA APPLICATION",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Applicant to complete form when project lies within the Special Flood Hazard Area within the City of York.  Structured Fee Schedule to be followed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Garage Parking Permit ",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Acquire a parking permit for the Market St., Philadelphia St., or King St. Garages.",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Operational Permit Application - International Fire Code",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for Yearly Operational Permit for uses as defined in the International Fire Code (IFC) Section 105.\nThis includes all restaurants, places of assembly, auto repair shops, wood shops, open candle burning, hot work, and more. See Operational Permit Fee Chart above for all permitted categories.",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Vacant Property Registration",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Order an Incident Report",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Use this form to order Fire Department Incident Reports",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Certificate of Compliance",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "*** IMPORTANT NOTE: Projects submitted on or after January 1, 2026 must comply with the 2021 Uniform Construction Code (UCC). ***\n\nArticle 1714.01(a) requires that any existing structure or premises that undergoes a change of ownership or tenancy without a change in the use classification must obtain a certificate of compliance. An inspection to ensure compliance with the Property Maintenance Code is required prior to the issuance of the certificate of compliance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Temporary Operational Permit Application - International Fire Code",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for Single Day or Short Term Temporary Operational Permit for uses as defined in the International Fire Code (IFC) Section 105. Ex.'s: welding, grinding, floor refinishing, open flames, tradeshows/events, and more",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Underground Storage Tank (UST) - Installation or Removal",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for Single Day or Short Term Temporary Operational Permit for uses as defined in the International Fire Code (IFC) Section 105. Ex.'s: welding, grinding, floor refinishing, open flames, tradeshows/events, and more",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Lot Parking Permit ",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Apply for a permit at one of our parking lots.",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "General Food  Application for Health License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "General Food License is a yearly health license for the city of York facilities. The owner must have a Servsafe certification (managers) and must apply for a new business packet with the city of York. All applicants must pass an inspection in order to operate.  The Codified Ordinance of York City, Part Eleven- Health & Sanitation Code - Section 1105 Licensing, Subsection 1105.01 General Food License Required: No person, firm or corporation shall produce, transport, process, sell dispose of or offer for sale as human food any milk or milk products, meat or meat products, fish or other foods and food products within the city without first obtaining a general food license therefore, in accordance with the provisions of this article and food regulations of the Bureau of Health.\n\nThe license fee is due on or before January 1, of all following years.  Failure to pay for your annual license on or before January 1 may result in the Health & Sanitation Officer invoking the penalties provided for section 1105.99 of the Codified Ordinances of the City or York.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Fire Safety Inspections, Trainings, or Fire Drills - Including State Mandated ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for the Dept. of Fire/Rescue to conduct the following STATE MANDATED requirements:\n\nFire Safety Training,\nFire Safety Inspections,\nObserved Fire Drills, or \nHands on Fire Extinguisher Trainings (mandated or requested).\n\nAll applications must be completed at least two weeks prior to the request for approval",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Temporary Structure (Tent) Permit Application - International Fire Code",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for Temporary Structures (Tents) Permits as defined in the International Fire Code (IFC) Section 105",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Fireworks Permit Application - International Fire Code",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for Fireworks Permits as defined in the International Fire Code (IFC) Section 105",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Core/Non-Core Residential Meter Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Apply for a permit to park at the parking meters in the Downtown Core or Non-Core areas. Only residents living in these areas can apply. We will not grant permits for business or anyone who does not live in the city. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Tenant Occupied Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This application is for the licensing and inspection of all buildings and structures defined by the building code as Group I (Institutional) or Group R (Residential) that are tenant-occupied.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Garage Validation",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Apply for an account to have parking validated for customers, clients, or visitors. Parking charges are billed monthly for the parking hours used for your company's visitors.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Residential Parking Permit District Application",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Apply for a permit in a designated RPPD area. If your block is not designated as an RPPD area, please call the York City Parking Bureau for more information.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1085",
+      "name": "Department of Fire/Rescue Services",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(10, 10, 10); font-family: Verdana, Geneva, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(254, 254, 254); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-co"
+    },
+    {
+      "id": "1082",
+      "name": "City of York Response Center",
+      "isEnabled": 1,
+      "content": "<p><span style='color: rgb(10, 10, 10); font-family: \"Open Sans\", sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(254, 254, 254); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: i"
+    },
+    {
+      "id": "1084",
+      "name": "Bureau of Planning & Zoning ",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1076",
+      "name": "Community Development",
+      "isEnabled": 1,
+      "content": "<p><span style='color: rgb(10, 10, 10); font-family: \"Open Sans\", sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(254, 254, 254); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: i"
+    },
+    {
+      "id": "1079",
+      "name": "Permits and Inspections",
+      "isEnabled": 1,
+      "content": "<p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/PROPERTY_OWNER_AFFIDAVIT_OF_ACKNOWLEDGEMENT_FF_Mon_Sep_18_2023_12:36:01_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\"></a>&nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<a href=\"https://yorkcity-my.sharepoint.com/:b:/g/personal/cforrest_yorkcity_org/IQAciVfV9HJATKslt8JieQ2HAePyKllCOxDdJUHWgQPy_x4?e=tnDPgi\" target=\"_blank\">HARB APPLICATION - FILLABLE.pdf</a>&nbsp;</p>"
+    },
+    {
+      "id": "1080",
+      "name": "Parking",
+      "isEnabled": 1,
+      "content": "<h2 style='box-sizing: inherit; font-family: \"Open Sans\", sans-serif; font-weight: 600; margin: 0px 0px 0.5rem; padding: 0px; font-style: normal; color: rgb(21, 41, 86); text-rendering: optimizelegibility; line-height: 1.4; font-size: 1.25rem; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: r"
+    },
+    {
+      "id": "1072",
+      "name": "Department of Public Works",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:37.942Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

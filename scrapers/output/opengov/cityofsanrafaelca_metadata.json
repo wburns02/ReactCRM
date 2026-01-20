@@ -1,0 +1,97 @@
+{
+  "jurisdiction": "San Rafael",
+  "state": "CA",
+  "tenant": "cityofsanrafaelca",
+  "portalUrl": "https://cityofsanrafaelca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6433",
+      "name": "Encroachment Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This application is for requesting an encroachment permit that authorizes the permittee to perform work, construct approved facilities, place temporary storage within, or restrict the right-of-way in any way. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6528",
+      "name": "Special Event Permit Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Sidewalk Repair ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Grading Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Submit Help Ticket To Administrator",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Final Maps & Parcel Maps",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Final Maps and Parcel Maps are what convert a tentative subdivision map or tentative parcel map from a conceptual approval by the City’s Planning Commission into a legal subdivision of land.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Watercourse Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Tideland Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Transportation Permit (Oversize/Overweight Vehicles)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1086",
+      "name": "Administrative Division",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1081",
+      "name": "Public Works Department",
+      "isEnabled": 1,
+      "content": "<div><span data-teams=\"true\"><div><strong>The Department of Public Works is piloting a new online permitting system through OpenGov!</strong></div><div><br></div><div><strong><span style=\"color: rgb(184, 49, 47);\">Effective May 1st:</span></strong></div><div>This user-friendly platform will make it easier for community members and contractors to find information and apply for the following permits:</div><ul><li>Encroachment Permits</li><li>Grading Permits</li><li>Transportation Permits</li><li s"
+    },
+    {
+      "id": "1078",
+      "name": "Help Center",
+      "isEnabled": 1,
+      "content": "<div><strong style='font-size: 16px; box-sizing: border-box; caret-color: rgb(51, 51, 51); color: rgb(51, 51, 51); font-family: \"Benton Sans\", sans-serif;'><span style=\"box-sizing: border-box; font-size: 18px;\">New to the Online Permit Center?&nbsp;</span></strong><span style='box-sizing: border-box; caret-color: rgb(51, 51, 51); color: rgb(51, 51, 51); font-family: \"Benton Sans\", sans-serif; font-size: 18px;'>No problem! Learn how to set up a new account with the video tutorial below. Additiona"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:24.042Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

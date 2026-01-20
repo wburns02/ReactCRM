@@ -1,0 +1,365 @@
+{
+  "jurisdiction": "Waukee",
+  "state": "IA",
+  "tenant": "waukeeia",
+  "portalUrl": "https://waukeeia.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6461",
+      "name": "Celebration of Independence Food & Non-Food Vendor Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "The fee for each Waukee Celebration of Independence vendor is $25. \n\nVendors will receive a 10’ x 20’ booth. Vendors are required to keep all equipment and belongings within their designated spaces. All electrical cords are the responsibility of the vendor, and all cords must be marked appropriately so they do not become a tripping hazard. \n\nVendors attending July 3 must be set up by 3:30 p.m. and ready to serve at 4:30 p.m. until 9 p.m.\n\nVendors attending July 4 must be set up at 10 a.m. and ready to serve at 12 p.m. until 10 p.m.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Right of Way / Utility Easement Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Single Family Residential Building Packet",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Fire - Alarm System Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Block Party Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "A block party is defined as an event that is open to a specific/defined neighborhood or area; that is: held no more than twice each calendar year within the same specific/defined neighborhood or area; where no admission fee is charged for attendance; where alcoholic beverages are not sold or where no entrance fee or admission is charged for service of alcoholic beverages; where a street closure, if necessary, shall not exceed twelve (12) consecutive hours; where the use of portable restroom facilities is not necessary. Any and all requests for temporary street closings require approval by the Waukee City Council.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Fire - Emergency Responder Radio Coverage System Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Emergency Responder Radio Coverage System (ERRACS)",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Fireworks Display Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "A Fireworks Display Permit is required for any supervised public exhibitions or displays of display fireworks, as defined in Code of Iowa Section 727.2(1)(b); it is not required for private displays of consumer fireworks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Rental Certificate Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Application for new rentals and biennial recertification",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Fire - Special Effects",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Includes special effects, pyrotechnics, and CO2.",
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": "4. Helpful Links",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Links to Guides and other City/Town Information",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "TEST - Rental Certificate Application Copy",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Application for new rentals and biennial recertification",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Peddler/Solicitor Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Each individual peddler and solicitor must obtain a Peddler's and Solicitor's Permit from the City of Waukee.  If approved, each peddler and solicitor is required to display their permit at all times while conducting business in the City. If you are applying for multiple persons who will be peddling or soliciting on behalf of the same company, you must complete a new application for each person.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Fire - Sprinker System Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Fire - Commercial Kitchen Hood Fire Suppression",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6375",
+      "name": "5. How to Reach Us & Contact Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to reach us!",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Commercial Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Commercial Building Permit Copy",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "use for testing",
+      "isEnabled": true
+    },
+    {
+      "id": "6411",
+      "name": "Waste Hauler License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Any commercial hauler hauling or arranging for hauling refuse within the City of Waukee shall first obtain a license which shall be valid until the liability insurance expires, or December 31, of each year. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Fire - Clean Agent Extinguishing System",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Urban Chickens",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Mobile Food Unit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Fire - Operational Permit - Temporary Heat",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Fire - Operational Permit - Above Ground Storage Tanks",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Fire - Operational Permit - Open Burning",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Residential Building Addition, Alteration, Basement Finish",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Fence Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Mobile/Manufactured Home ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Mechanical, Electrical, Plumbing Trades Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "For trades work and contractor change only.\n If your scope of work is part of a larger project, please call the permit office at 515-978-9533 to verify if your information has already been listed for that project, before submitting a trades permit. \n\nSOLAR PERMITS- please submit your permit under the specified \"Commercial/Residential Solar Permit\" and not as a trades permit. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Residential Covered/Uncovered Deck",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Commercial/Residential Solar Installation",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Temporary Use Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Commercial Accessory Structure",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Residential Accessory Structures and Sheds",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Inground & Above Ground Pools",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Hot Tub/Spa Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Signage (Temporary, Permanent, Monument, Building)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Special Inspection Report",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This special inspection report is directed to the City of Waukee's Building Official in the Community Development department.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": "<p><span class=\"text-muted\"><strong>Building Permits</strong> are processed by the Community Development Department. Applications may be submitted at Waukee Community Development, 204 W Hickman. The City of Waukee has adopted the 2018 International Building Code and the 2020 National Electrical Code. Residential and commercial permit fees are calculated and builders are notified of permit costs upon issuance. Permit fee calculator spreadsheets are available to aid in estimating permit fees. For "
+    },
+    {
+      "id": "1071",
+      "name": "Building",
+      "isEnabled": 1,
+      "content": "<p>Please select the permit application that most aligns with your project.</p><p><strong>Inspections:</strong></p><p><u>To request/schedule an inspection, please call Community Development at: 515-978-9533.</u></p><div>PLEASE NOTE: &nbsp;<u>Do not</u> request an inspection by entering a comment in your permit. &nbsp; Inspection requests in the portal are not monitored and you will not receive a timely response. We want to speak with you in person and give you the best possible customer service."
+    },
+    {
+      "id": "1079",
+      "name": "City Clerk",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1074",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1084",
+      "name": "Parks & Recreation",
+      "isEnabled": 1
+    },
+    {
+      "id": "1082",
+      "name": "Rental",
+      "isEnabled": 1,
+      "content": "<p style=\"mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;\"><strong><span style=\"color: rgb(184, 49, 47);\"><u>Beginning Tuesday April 18, 2023:</u></span></strong></p><p style=\"mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;\"><strong>Upon City Council approval, fees related to rental applications &amp; recertifications will update to adhere to the following schedule. Any fee not listed in this announcement remains at its current rate.&nbsp;</strong></p><table border=\"1\" cellpadding=\"0\" ce"
+    },
+    {
+      "id": "1076",
+      "name": "Yearly Permits",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1085",
+      "name": "*** Development Area - DO NOT USE ***",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Verdana,Geneva,sans-serif;\">Do not apply to any permits in this section. This is on-going development of new processes.&nbsp;</span></div><div><br></div><div><br></div><div><span style=\"font-family: Verdana,Geneva,sans-serif;\"><span style=\"color: rgb(184, 49, 47);\"><strong><span style=\"font-size: 30px;\"><u>Requests in this area will be ignored.</u></span></strong></span></span></div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:06.659Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

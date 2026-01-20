@@ -1,0 +1,473 @@
+{
+  "jurisdiction": "Champaign",
+  "state": "IL",
+  "tenant": "champaignil",
+  "portalUrl": "https://champaignil.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6495",
+      "name": "Coop License Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Apply for a chicken coop license to keep backyard hens on your property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Zoning Verification Letter Request",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Request a Zoning Verification Letter for a property or multiple properties in the City of Champaign.",
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "Business Buildout Program",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Small businesses may apply for up to $20,000 in reimbursement to establish physical storefronts in the City of Champaign.",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": "4. Links to Helpful Documents",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Links to Guides and other City/Town Information",
+      "isEnabled": true
+    },
+    {
+      "id": "6375",
+      "name": "5. How to Reach Us! About Us & Contact Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to reach us!",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Sidewalk Cafe Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Apply for a sidewalk café permit to extend your service areas onto public rights-of-way.  These permits are renewed annually for qualifying businesses.  The permit runs concurrently with the calendar year.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Special Event Permit Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6537",
+      "name": "Tent Permit Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "For tents over 700 sq. ft. or multiple tents without 10 feet of separation in an over 700 sq. ft. footprint.  For events that require a special event permit, this tent permit application is not required.  The tent permit will be part of the special event application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Contractor Registration Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Complete this application if your company is a contractor wishing to apply for a permit, or any design firm (architectural, structural engineering, or professional engineering) responsible for signing/sealing any drawing to be submitted for review, even if that design firm is not the applicant or the architect of record. Professional Land Surveyors are not required to complete this application. Sole proprietors offering services in his/her name as licensed (e.g., Bob Smith, Architect) are not required to have a Design Firm Registration Number but are still required to complete this Contractor Registration Application. Sole proprietors shall contact Building Safety at 217-403-6100 for directions on how to complete the contractor registration form. Companies which have submitted an application and payment to the state but have not yet received the Design Firm Registration Number issued by the State of Illinois shall contact Building Safety at 217-403-6100 for directions on how to complete the contractor registration form while the state is processing your information.",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Development Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application forms for planning and zoning cases",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Liquor License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This liquor license application is used to apply for a new business liquor license, or to process a change to an existing liquor license (i.e. change of ownership, change of license category, change of form of ownership, expansion of premises, transfer of location, additional owner).",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Residential Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Complete this application for one- and two-family dwellings and townhouses (not more than three stories in height above grade plane) designed to meet the requirements of the International Residential Code (IRC), including new construction, additions, alterations, and changes of occupancy. For all other building types, complete the \"Commercial Building Permit\" application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Right of Way Occupancy Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "No person may temporarily occupy or use any City right-of-way other than a roadway for more than four consecutive hours without first obtaining a permit from the Director of Public Works.   No person shall cause, create or maintain any obstruction of any right-of-way, unless specifically authorized pursuant to the Champaign Municipal Code.  Except pursuant to a permit issued by the City, no person shall construct any facility, or perform any work on any facility, on, over, above, along, upon, under, across, or within any City right-of-way or occupy City right-of-way.   No person shall place sidewalk furniture, signs or dumpsters in any City right-of-way or operate any outdoor cafes or conduct outdoor retailing on any City right-of-way except pursuant to a permit issued by the City.",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Commercial Building Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Complete this application for commercial and multi-family buildings and structures designed to meet the requirements of the International Building Code (IBC), including new construction, additions, alterations,  changes of occupancy and specialty projects (e.g., footing and foundation only, roof recover, roof replacement, ground-mounted solar, roof-mounted solar, swimming pools and spas, and telecommunication and broadcast towers). Each building or structure on the lot requires a separate building permit. Where a single building has more than one address, input the primary address for the project and include the overall building address as an additional location. For one- and two-family dwellings and townhouses designed to comply with the International Residential Code (IRC), complete the \"Residential Building Permit\" application instead of this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Temporary Liquor License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "A temporary liquor license is needed if selling alcohol, charging admission to an event that includes the service of alcohol, or serving alcohol at a catered event where the caterer does not have a City liquor license. Applicants should carefully review the City's Liquor Ordinance for regulations concerning temporary liquor licenses before applying. Applicants may also contact City staff to review your particular proposal and discuss your eligibility and possible options before applying for a temporary license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Nuisance",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Exterior property area concerns in the City of Champaign.  Some examples are tall grass and weeds, garbage and refuse, & inoperable vehicles.",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Adding Guests to Your Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Sanitary Sewer Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Permit required to connect to the City of Champaign's sanitary sewer system or repair existing connections to the system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Tenant Inspection",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Interior inspections of tenant occupied residential properties in the City of Champaign.",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Housing Inspection",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Exterior building conditions of residential properties in the City of Champaign.",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Complete this application for all plumbing work, including new work, alterations, and replacement of fixtures (e.g., water heater replacement). This application shall also be used for gas piping installed by the plumbing contractor.",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Pavement Degradation Fee",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Pavement Degradation Fee",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Fire Sprinkler Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Complete this application for all fire sprinkler work, including new work, alterations, and replacement projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Redevelopment Incentive Program",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Reimbursement applications for up to $200,000 or 20% of project costs for building improvements in City of Champaign TIF districts.",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Storm Sewer Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Permit required to connect to the City of Champaign's storm sewer system or repair existing connections to the system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Commercial Building",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Exterior building issues at commercial properties.  For interior concerns in commercial properties, please contact the Fire Department at (217) 403-7200.",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Seasonal Liquor License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This short-term liquor license is designed for establishments that provide recreational or agricultural services to the public but are open 6 months or less. This license permits the licensee to sell alcoholic liquor by the drink for consumption on the premises where sold. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Farmers' Market License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "A Class F Farmers' Market license shall authorize the retail sale of alcohol in its original package, not for consumption on the premises, at a farmers' market.",
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "Vacant Structure",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Monitoring and registration of vacant residential structures in the City of Champaign.",
+      "isEnabled": true
+    },
+    {
+      "id": "6354",
+      "name": "Mechanical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Complete this application for all mechanical work, including new work, alterations, and replacement projects. This application encompasses heating, ventilating, air conditioning, refrigeration, hoods, and hood suppression. It also includes gas piping when installed by the mechanical contractor.",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Driveway Approach Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Permit required to construct, remove/replace, or alter driveway approach (portion of driveway that exists in City of Champaign right-of-way)",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Fireplace Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Complete this application for new construction of a gas or woodburning fireplace or when adding a gas insert to an existing fireplace. For gas piping to a fire pit, complete the \"Mechanical Permit\" application in lieu of this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Grading and Drainage Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "The Champaign City Council has enacted an ordinance (Municipal Code Section 29.5) requiring stormwater drainage to be accounted for on most development activities.  The City Engineer is to approve all grading and drainage work above certain thresholds. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Keg Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "A City keg permit is required for events involving the use and possession of alcoholic liquor with a total cumulative capacity exceeding sixteen gallons (i.e. more than one standard size keg). Applications must be submitted at least five working days in advance of the event.",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Sign Permit Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Apply for a sign permit: wall sign, freestanding sign, canopy or awning sign, projecting sign, or temporary sign. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Land Disturbance Erosion Control Permit  ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "The Champaign City Council has enacted an ordinance that requires construction sites to take steps to minimize soil erosion during and after construction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Complete this application for all electrical work, including new work, alterations and replacement projects. This application also encompasses electrical work for roof-mounted and ground-mounted solar projects. For temporary electrical service, complete the \"Temporary Electrical Service Permit\" application in lieu of this application. For fire alarm work, complete the \"Fire Alarm Permit\" application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Liquor License Rider Addition",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Application to add a Liquor License Rider to an existing, eligible liquor license. This includes the following Rider types: Catering, Package, BYOB1, Video Gaming, Grocery Cafe, and Outdoor Cafe.",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Class A - Presence of Minors Exemption",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This application is used to add a specific exemption to a Class A liquor license to allow for the presence of minors on site without a required parent or guardian. Class A licenses must follow specific requirements as listed in Sec 5-45(g)(3) of the Liquor Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Temporary Electrical Service Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Complete this application for temporary electrical service only. For all other electrical work, complete the \"Electrical Permit\" application. For fire alarm work, complete the \"Fire Alarm Permit\" application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Class III Land Disturbance/Erosion Control Permit  ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "The Champaign City Council has enacted an ordinance that requires construction sites to take steps to minimize soil erosion during and after construction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Fire Alarm Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Complete this application for all fire alarm work, including new work, alterations and replacement projects. For all other electrical work, complete the \"Electrical Permit\" application or the \"Temporary Service Electrical Permit\" application, as applicable.",
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "Music Venue Rider Addition",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This Rider permits eligible establishments to host All Ages Shows as described in Section 5-45.2 of the City's Liquor Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Complete this application for demolition of an entire building or structure or portion thereof. Selective demolition associated with a commercial building permit or residential building permit does not require a separate demolition permit. For commercial work, the selective demolition work shall be shown on the drawings. For commercial and residential projects, the selective demolition work shall not commence until the building permit application has been submitted for review. \n \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Sidewalk Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Permit required to construct, remove/replace, or alter City of Champaign sidewalk.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Music Venue - All Ages Show Registration",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Licensees with a Music Venue Rider can host \"All Ages Shows\" as outlined in Section 5-31.5 of the City's Liquor Ordinance. Licensed establishments must use this form to register each All Ages Show with the City at least 14 days prior to the event.",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Teen Event License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This form is used by a licensee to register an all-teen event, which allows licensed establishment to admit people under twenty-one years of age to enter and remain upon the premises, as outlined in Section 5-45.1 of the City's Liquor Ordinance. Every all-teen event must be registered with the City at least five business days in advance of the event.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Moving Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Complete this application for moving a building or structure to another lot or to another location on the same lot. Sheds and other accessory structures moved by flatbed truck or trailer do not require a moving permit.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Address Request Form",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial,Helvetica,sans-serif;\">This page is currently under construction. If you need to have an address assigned, contact Brandon Haist in Public Works at (217) 403-4700.</span></div><div><br></div><div><span style=\"font-family: Arial,Helvetica,sans-serif;\">A valid address is required to be assigned and available in our database before applying for a permit.</span></div>"
+    },
+    {
+      "id": "1082",
+      "name": "Contractor Registration",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-size: 30px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: -48px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial"
+    },
+    {
+      "id": "1071",
+      "name": "Building Safety",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 30px;\">Before you begin...</span></strong></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"color: rgb(0, 0, 0); font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: -48px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space"
+    },
+    {
+      "id": "1076",
+      "name": "Planning & Development",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial, Helvetica, sans-serif;\"><span style=\"font-size: 18px;\">The Planning and Development Department is dedicated to improving the quality of life of all Champaign residents, creating an environment that welcomes visitors and fosters new investment. &nbsp;The department collaborates with staff in other departments, other units of government, elected officials, board members and community members, to implement these goals. &nbsp;Through the creation of plans, progr"
+    },
+    {
+      "id": "1072",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 18px;\"><span style=\"box-sizing: border-box; color: rgb(51, 51, 51); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial;"
+    },
+    {
+      "id": "1080",
+      "name": "Neighborhood Services",
+      "isEnabled": 1,
+      "content": "<div>The Neighborhood Services Department responds to concerns about property conditions in the City of Champaign. &nbsp;If you have any questions we can be reached at <a href=\"mailto:neighborhoodservices@champaignil.gov\" rel=\"noopener noreferrer\" target=\"_blank\">neighborhoodservices@champaignil.gov</a>&nbsp;or by calling (217) 403-7070.</div><div><br></div><div><strong>Please note that concerns about noise should be directed to the City of Champaign Police Department at (217) 333-8911.</strong>"
+    },
+    {
+      "id": "1079",
+      "name": "Liquor Licensing",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-top:15.0pt;margin-right:0in;margin-bottom:  7.5pt;margin-left:0in;line-height:normal;mso-outline-level:2;background:white;\"><strong>Liquor Licensing</strong></p><p style=\"margin-bottom:.2in;line-height:normal;background:  white;vertical-align:baseline;\">The City of Champaign and the State of Illinois have enacted various rules to encourage the responsible sale of and consumption of alcohol. The sale and/or service of alcoholic beverages in the City of Champaign requires both a l"
+    },
+    {
+      "id": "1081",
+      "name": "Special Events",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(33, 37, 41); font-family: Montserrat, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: i"
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:55.440Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,663 @@
+{
+  "jurisdiction": "Goose Creek",
+  "state": "SC",
+  "tenant": "goosecreeksc",
+  "portalUrl": "https://goosecreeksc.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6849",
+      "name": "Water Availability Letter",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for a water availability letter for new construction",
+      "isEnabled": true
+    },
+    {
+      "id": "6860",
+      "name": "Traffic Calming Measures Request",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for traffic calming measures",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Special Event Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6876",
+      "name": "Residential Architects & Engineers Plan Review Application  ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for preliminary residential plan reviews to receive prior building department approval. This is optional and additional fees apply. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Annual Business License - Inside City",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Choose this if your office is located within the City of Goose Creek. Must be a permanent, fixed location. A trailer at a construction site or structure at a temporary site is not a permanent place of business.\n\nContractors working temporarily within the City of Goose Creek should choose the \"Per Job Contractors Business License\".\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6671",
+      "name": "Fire Alarm Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Application for the installation, repairs, or modifications to fire alarm systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6707",
+      "name": "Accessory Structure Zoning Permit ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Click here to apply for a permit for a residential accessory structure that is less than or equal to 200 sq ft in size or a commercial accessory structure that is less than or equal to 120 sq ft in size. Any residential accessory structure over 200 sq ft and any commercial accessory structure over 120 sq ft must apply for a permit through the City's building department. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6734",
+      "name": "Commercial Architects & Engineers Plan Review Application",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for preliminary commercial plan reviews to receive prior building department approval. This is optional and additional fees apply. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6557",
+      "name": "Fire Sprinkler Permit ",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Application for the installation, repairs, or modifications to fire sprinkler systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6607",
+      "name": "Residential Building Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for a new residential single-family dwelling, duplex, or townhome.",
+      "isEnabled": true
+    },
+    {
+      "id": "6615",
+      "name": "Residential Addition/Alteration/Remodel Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for residential additions, alterations, remodels, or repairs of an existing structure. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6674",
+      "name": "Emergency Responder Communication Enhancement Systems (ERCES) ",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Application for the installation, repairs, or modifications to the Emergency Responder Communication Enhancement Systems (ERCES).",
+      "isEnabled": true
+    },
+    {
+      "id": "6852",
+      "name": "Water Closeout",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Turnover water infrastructure to the City after project/phase completion",
+      "isEnabled": true
+    },
+    {
+      "id": "6560",
+      "name": "Commercial Building Permit",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for construction of a new commercial building or structure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6612",
+      "name": "Residential Accessory Structure Permit ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for a residential detached structure, including but not limited to garages, storage sheds, workshops, greenhouses, etcetera. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6752",
+      "name": "Address Request ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Click here to apply for an address assignment. Addresses are required prior to applying for building permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6624",
+      "name": "Commercial Addition/Alteration/Remodel/Tenant Upfits ",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for additions, alterations, remodels, tenant improvements, or repair of an existing commercial structure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Annual Business License - Outside City",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Choose this if your office is located outside the City of Goose Creek, but you are performing work (in whole or in part) inside the City of Goose Creek. Mobile Food Vendors, outside the city limits, will apply under this business license type.   \n\nContractors working temporarily within the City of Goose Creek should choose the \"Job per Job Business License.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6709",
+      "name": "Residential Mechanical Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for mechanical work associated with residential single-family dwellings, duplexes, or townhomes, including new construction, additions, alterations, furnace & air-conditioning replacement, water heater replacement, or repair of existing mechanical system elements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6622",
+      "name": "Commercial Accessory Structure Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Application for a commercial accessory structure on a parcel or lot with a completed principal structure. This may include storage buildings, warehouses, garages, arbors, decks, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Per Job Contractor Business License Registration  (Step 1)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Choose this if you are performing construction work within the City of Goose Creek, but your office is located outside of the City of Goose Creek.  You will pay the base business license tax thru this license beginning each license period.\n\n*Be aware that a construction permit may be required as well.",
+      "isEnabled": true
+    },
+    {
+      "id": "6637",
+      "name": "Residential Electrical Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for electrical work associated with residential single-family dwellings, duplexes, or townhomes, including new construction, additions, alterations, repairs, service panel replacements, electric vehicle chargers, energy storage systems, and electrical work associated with photovoltaic solar systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6853",
+      "name": "Roads Closeout",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Turnover roads infrastructure to the City after project/phase completion",
+      "isEnabled": true
+    },
+    {
+      "id": "6646",
+      "name": "Commercial Mechanical Permit",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for mechanical work associated with commercial buildings or structures, including but not limited to, new construction, additions, alterations, HVAC & RTU repair or replacement, water heater repair or replacement, new commercial exhaust hood installation, exhaust hood suppression system, or repair of an existing system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Commercial Electrical Permit",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for electrical work associated with commercial buildings or structures, including new construction, addition, alterations, service panel replacement, repairs of existing electrical systems or elements, electric vehicle chargers, energy storage systems, and electrical work associated with photovoltaic solar systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6725",
+      "name": "Architectural Design Approval ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Click here to have your architectural design, landscaping, lighting, or exterior color change approved.",
+      "isEnabled": true
+    },
+    {
+      "id": "6691",
+      "name": "Residential Electrical Reconnection Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for an electrical reconnection for residential single-family dwellings, duplexes, or townhomes when a meter release is required to restore power.",
+      "isEnabled": true
+    },
+    {
+      "id": "6710",
+      "name": "Residential Plumbing Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for plumbing work associated with residential single-family dwellings, duplexes, or townhomes, including new construction, additions, alterations, water heater repairs or replacement, or repair of existing plumbing system elements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6714",
+      "name": "Per Job Contractor Business License Update (Step 2)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Choose this if you are performing construction work within the City of Goose Creek, but your office is located outside of the City of Goose Creek and you have paid for and obtained a Job per Job Business License within this business license year (business license year is May 1 to April 30 of each year).  If this is your first business license in this business license year you must apply for the \"Per Job Contractor Business License Registration (Step 1)\", once this is done you can apply for this license type.\n\n*Be aware that a construction permit may be required as well.  If a permit is required, you will pay for your business license update thru the permit portal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6850",
+      "name": "Water Plan Approval Letter",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Submit a new development water plan for approval",
+      "isEnabled": true
+    },
+    {
+      "id": "6831",
+      "name": "Carnes Plan Review",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Please submit any plats or site plans for development within Carnes Crossroads here. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Commercial Plumbing Permit ",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for mechanical work associated with commercial buildings or structures, including new construction, additions, alterations, water heater repairs or replacement, or repair of existing plumbing system elements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Commercial Gas System Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Application for gas piping system work associated with commercial buildings or structures, including new construction, additions, alterations, gas piping repair, above ground LP storage, below ground LP storage, generators.",
+      "isEnabled": true
+    },
+    {
+      "id": "6828",
+      "name": "Fence Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Click here to apply for a zoning permit to construct a fence. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6640",
+      "name": "Residential Gas System Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for gas piping system work associated with residential single-family dwellings, duplexes, or townhomes, including new construction, additions/alterations, gas piping repair, gas grill outlet, outdoor fireplace outlet, above ground LP storage, below ground LP storage, or generators.",
+      "isEnabled": true
+    },
+    {
+      "id": "6726",
+      "name": "Construction/Sales Office Temp Trailer (Residential)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for the construction or placement of a temporary sales office/ construction trailer on a commercial property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6863",
+      "name": "Impervious Surface Zoning Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Click here to have any concrete or paving work permitted. This permit application should be used for all driveway and patio work when no other work is included in the scope. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6689",
+      "name": "Commercial Building Safety",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for a building safety permit is required when a tenant of a commercial structure requires an electrical or gas meter release to restore power. The inspection will include confirmation of accessibility, fire systems, and other life safety elements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6736",
+      "name": "Land Disturbance Permit ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Land Disturbance Permit is required prior to the removal of any trees and horizontal construction on a piece of land. As per Chapter 151 Section 5.1 of the City of Goose Creek Code of Ordinances, the clear-cutting of trees and vegetative cover on any lot, parcel, tract or acreage in any district is specifically prohibited. Please note, all Land Disturbance applications require a Pre-Application Conference with the City's Zoning Administrator. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6699",
+      "name": "Deck Permit (Residential)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for a new residential deck, or an alteration or repair of an existing deck, for single-family dwellings, duplexes, or townhomes. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6595",
+      "name": "Commercial Change of USE/Occupancy",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for a change of use or occupancy of an existing commercial building or tenant space.",
+      "isEnabled": true
+    },
+    {
+      "id": "6700",
+      "name": "Demolition Permit (Residential)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for complete or partial demolition of building structures and elements associated with renovations, alterations, and repairs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6840",
+      "name": "Land Disturbance - Tree Removal",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Please use this application if your land disturbance includes only the removal of trees. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6694",
+      "name": "Foundation Repair Permit (Residential)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for crawlspace encapsulation or structural foundation repairs for residential and commercial buildings or structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "6686",
+      "name": "Generator Permit (Residential)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for the installation of a backup power generator systems for residential and commercial projects. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6745",
+      "name": "Mobile Home Installation Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for new or existing mobile home placements, renovations, alterations, or repairs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6861",
+      "name": "Plat Review",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Click here to have a plat reviewed by the City's planning and zoning department. Please note, subdivision applications may require a Pre-Application Conference with the City's Zoning Administrator. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6747",
+      "name": "Roofing Permit (Residential)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for the installation and repairs of roofing materials associated with residential and commercial buildings or structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "6589",
+      "name": "Siding & Exterior Cladding Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for the installation and repairs of siding & cladding materials associated with residential buildings or structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "6886",
+      "name": "Final Development Plan (FRD Projects Only)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Click here to have a Final Development Plan reviewed by the City's planning and zoning department. Please note, applicant must have already completed the application process and preliminary development plan approval by City Council.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6868",
+      "name": "Construction/Sales Office Temp Trailer (Commercial)",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for the construction or placement of a temporary sales office/ construction trailer on a commercial property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6667",
+      "name": "Pre-Application Conference Request ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Click here to request a date for a pre-application conference. Pre-application conferences are required for all land development and rezoning. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6679",
+      "name": "Solar Permit ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for the installation of solar photovoltaic energy systems associated with commercial and residential structures. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6712",
+      "name": "Residential Swimming Pool Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for a swimming pool permit for residential single-family dwellings, duplexes, or townhomes; excluding swimming pools that are portable in construction, not more than 48 inches in depth, not more than 3500 gallons, and are completely above ground with no permanent attachments to water or electrical services. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6869",
+      "name": "Demolition Permit (Commercial)",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for complete or partial demolition of building structures and elements associated with renovations, alterations, and repairs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6848",
+      "name": "Preliminary Site Plan Review",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Review of a Concept Plan is required prior to submitting for site plan approval. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Window & Door Permit (Glass & Glazing)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for the installation, replacement of windows, doors, or storefront glazing associated with commercial and residential structures. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6867",
+      "name": "Elevator and Escalator Permit ",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for the installation or alterations and repairs chair lifts, escalators, passenger elevators, freight elevators, high speed lifts, and temporary construction elevators. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6711",
+      "name": "Residential Swimming Pool Zoning Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Click here to apply for residential swimming pools that are not required to be reviewed by the City of Goose Creek Building Department. Depending on the specifications of the proposed pool, you may need to apply for a permit from the building department. If you are unsure if your pool needs building department approval, this application will inform you based upon the information you provide. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6870",
+      "name": "Foundation Repair Permit (Commercial)",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for crawlspace encapsulation or structural foundation repairs for commercial buildings or structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "6871",
+      "name": "Generator Permit  (Commercial)",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for the installation of a backup power generator systems for commercial projects. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6872",
+      "name": "Roofing Permit (Commercial)",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for the installation and repairs of roofing materials associated with  commercial buildings or structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "6873",
+      "name": "Siding & Exterior Cladding Permit (Commercial)",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for the installation and repairs of siding & cladding materials associated with commercial buildings or structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "6827",
+      "name": "Sign Permit ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Click here to apply for a permit for any permanent signs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6641",
+      "name": "Site Plan ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Click here to have your commercial site plan reviewed by the City's planning and zoning department prior to applying for building permits.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6696",
+      "name": "Small Cell Tower Permit",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for the installation of a small cell tower communication systems on public or private property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6874",
+      "name": "Solar Permit  (Commercial)",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for the installation of solar photovoltaic energy systems associated with commercial structures. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6834",
+      "name": "Sketch Plan",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Sketch plan review is required prior to submitting for preliminary plat approval. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6716",
+      "name": "Commercial Swimming Pool Permit",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for Inground Swimming Pools, Inground Spa or Jacuzzis, Water Fountains, Splash Pads, for non-residential projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6875",
+      "name": "Window & Door Permit (Commercial Glass & Glazing) ",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for the installation, replacement of windows, doors, or storefront glazing associated with commercial  structures. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6751",
+      "name": "Street Name Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Click here if you need to apply to have the proposed street names in your development approved by planning commission. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6608",
+      "name": "Temporary Sign Permit ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Click here to apply for a permit for all temporary and/or special event signs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6822",
+      "name": "Temporary Use Permit ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Click here to apply for any temporary uses such as sales trailers, pumpkin patches, Christmas tree lots, fireworks stands, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6858",
+      "name": "Traffic Impact Analysis Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Traffic Impact Analysis is required for all developments which include subdivisions twenty five or more lots, subdivisions requiring new streets or roads, or the extension of new water and/or sewer infrastructure, more than 25,000 square feet of building coverage in existing and/or new buildings, or active developments wherein substantial changes have occurred in pertinent conditions existing at the time of approval of the development which would, if not addressed, pose a threat to the public health, safety, or welfare. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6744",
+      "name": "Zoning Application ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "All proposed land development must apply for a zoning application prior to meeting with members of staff.",
+      "isEnabled": true
+    },
+    {
+      "id": "6635",
+      "name": "Zoning Verification Letter ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Click here to request a zoning verification letter. Zoning verification letters can be used to confirm the zoning of a parcel, required lot dimensions, setbacks, and more. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1079",
+      "name": "Finance/Business Licensing",
+      "isEnabled": 1,
+      "content": "<p><br></p><p><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"color: rgb(26, 188, 156); font-size: 24px;\"><strong>Business License Department &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</strong></span></span></p><p><span style=\"color: rgb(0, 0, 0); font-family: Verdana, Geneva, sans-serif;\"><br></span><span style=\"font-family: Verdana,Geneva,sans-serif;\"><span style=\"color: rgb(0, 0, 0);\">The Business Licensing Department of"
+    },
+    {
+      "id": "1081",
+      "name": "Planning and Zoning Department",
+      "isEnabled": 1,
+      "content": "<div><span class=\"fr-video fr-deletable fr-fvc fr-dvb fr-draggable fr-active\" contenteditable=\"false\" draggable=\"true\"><iframe width=\"640\" height=\"360\" src=\"https://www.youtube.com/embed/6UV6Q65_7KY?&wmode=opaque\" frameborder=\"0\" allowfullscreen=\"\" class=\"fr-draggable\"></iframe></span><br></div><div><strong><span style=\"font-size: 30px; color: rgb(184, 115, 51); font-family: Arial, Helvetica, sans-serif;\">Planning and Zoning Department</span></strong></div><div><span style=\"font-family: Arial,He"
+    },
+    {
+      "id": "1072",
+      "name": "Public Works Department ",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1076",
+      "name": "Building Department (Residential Permits)",
+      "isEnabled": 1,
+      "content": "<p style=\"margin: 0in 30.25pt 0in 0in; line-height: 95%; text-align: center;\"><span style=\"font-size: 24px;\"><strong>Welcome to the City of Goose Creek&rsquo;s permit&nbsp;</strong></span></p><p style=\"margin: 0in 30.25pt 0in 0in; line-height: 95%; text-align: center;\"><br></p><p style=\"margin: 0in 30.25pt 0in 0in; line-height: 95%; text-align: center;\"><span style=\"font-size: 24px;\"><strong>application for&nbsp;</strong><strong>residential&nbsp;</strong><strong>and commercial projects.</strong>"
+    },
+    {
+      "id": "1088",
+      "name": "Building Department (Commercial Permits)",
+      "isEnabled": 1,
+      "content": "<div><span class=\"fr-video fr-dvb fr-draggable fr-active\" contenteditable=\"false\" draggable=\"true\"><video class=\"fr-draggable\" controls=\"\" src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Building_Department_Intro_FINAL_(2)_Fri_May_09_2025_10:02:17_GMT+0000_(Coordinated_Universal_Time).mp4\" style=\"width: 600px;\">Your browser does not support HTML5 video.</video></span></div>"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Protection Permits (Construction Permits)",
+      "isEnabled": 1,
+      "content": "<div><span class=\"fr-video fr-dvb fr-draggable fr-active\" contenteditable=\"false\" draggable=\"true\"><video class=\"fr-draggable\" controls=\"\" src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Building_Department_Intro_FINAL_(2)_Fri_May_09_2025_15:23:38_GMT+0000_(Coordinated_Universal_Time).mp4\" style=\"width: 600px;\">Your browser does not support HTML5 video.</video></span></div>"
+    },
+    {
+      "id": "1089",
+      "name": "Fire Department (Operational Permits)",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(184, 49, 47);\"><strong><span style=\"font-size: 30px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">(Fire Department Operational Permits)</span></span></strong></span></div><div><span style=\"font-family: Arial,Helvetica,sans-serif;\"><br></span></div><div><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"color: rgb(184, 49, 47);\"><strong><span style=\"font-size: 30px;\">This section is under construction!&nbsp;</span></strong></span></span></d"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:49.249Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

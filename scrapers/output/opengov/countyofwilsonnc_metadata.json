@@ -1,0 +1,112 @@
+{
+  "jurisdiction": "Wilson County",
+  "state": "NC",
+  "tenant": "countyofwilsonnc",
+  "portalUrl": "https://countyofwilsonnc.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6485",
+      "name": "Wilson County Fire Inspections",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Wilson County Addressing Permit - Incorporated Areas or Wilson Co. Special Circumstance",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This permit will be for officials in the Towns in Wilson County to complete to initiate addressing for people who do not fall in the Zoning jurisdiction of Wilson County Planning. Please complete this permit when approving a zoning permit for your respective Town. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "New Septic/Existing Septic Re-Connection",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Application for a lot evaluation for placement of a new septic system, expansion, or re-connection.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Wilson County Zoning Permit ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application is intended for Wilson County Zoning Permits only.  It may not be used to apply for or to upload zoning documents from the City of Wilson or the Towns of Black Creek, Elm City, Lucama, Saratoga, Sims, or Stantonsburg.  Please upload those items to the Building Permit Application. This permit, issued by the Wilson County Planning Staff, allows the applicant to use or occupy a tract of land or a building; or to erect, install or alter a structure, building or sign situated in the jurisdiction of the County that fully meets the requirements of the Wilson County Unified Development Ordinance (UDO). All applicants are required to provide planning staff with a site plan of the property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Septic Repair ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Application for a lot evaluation for placement of a new septic system, expansion, or re-connection.",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Private Drinking Water Well (New, Repair, Abandonment)",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Application for a re-check of existing septic tank, placement of new septic (perc test), and/or placement of well. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Wilson County Recombination/Exempt/Subdivision Plat Review",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Use the portal to apply and upload your Recombination, Exempt, and Minor Subdivision Plats for review.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Water Sample Request (Existing Wells)",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Access to a quality water source is vital to human development and maintaining a healthy lifestyle. Some water quality issues are easy to detect, while others are colorless, odorless and detectable only by lab analysis. To be sure your water is safe, it should be sampled and tested for contaminants periodically. Newly constructed wells are tested for bacteria and 17 inorganic parameters as a part of the well permit. Wilson County Environmental Health Services offers well water sampling and testing for existing wells to the citizens in the county. If you are experiencing water quality issues with your well water, or have safe drinking water concerns, contact Environmental Health Services to speak with a specialist.\n\nPlease allow two (2) business days for review of your sampling request.  You will be prompted for payment once the request has been approved.  Samples are sent to DHHS State Lab and can only be collected Monday through Wednesday before 4pm only.  Weeks that include a Holiday will vary. Bacteriological test results are generally returned within five (5) days. All other tests may take up to a minimum of four (4) weeks. Results are uploaded to this portal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Wilson County Building Permit ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Application for Commercial and Residential Building Permits including, but not limited to, Single Family Dwellings, Commercial Buildings, Accessory Buildings, Signs, Swimming Pools, Storage Tanks, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": " Electrical/HVAC/Plumbing Permit ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Application for Residential and/or Commercial Electrical/HVAC/Plumbing Trade Permits",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Zoning Verification Letter",
+      "categoryId": 1084,
+      "viewAccess": "private",
+      "description": "This application is to request a zoning verification letter that confirms the zoning jurisdiction and available uses on a certain specified property.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1086",
+      "name": "Environmental Health",
+      "isEnabled": 1
+    },
+    {
+      "id": "1084",
+      "name": "Development Services ",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 14px; font-family: Arial, Helvetica, sans-serif;\">Wilson County Zoning Permit, Wilson County Building Residential and Commercial Permit,&nbsp;</span><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:24.066Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

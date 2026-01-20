@@ -1,0 +1,101 @@
+{
+  "jurisdiction": "Lakeport",
+  "state": "CA",
+  "tenant": "lakeportca",
+  "portalUrl": "https://lakeportca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6445",
+      "name": "Building Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Encroachment Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Code Enforcement/Report a Problem",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Encountering a problem or facing a potential code enforcement matter within the City of Lakeport? Utilize our user-friendly online platform to submit a request for city staff to investigate. City Staff thoroughly investigates all submissions, prioritizing them based on the severity of health and safety risks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Land Use Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "The City of Lakeport Community Development Department Planning Division is responsible for implementing City policies that direct the physical development of the City.  This is accomplished through administration of the City’s Development Codes, including Zoning Ordinance, Subdivision Ordinance, environmental regulations, the Lakeport General Plan, and related Ordinances and Policies. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Annual Business License Inside City",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "One-Time Business License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Annual Business License Outside City",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Dog License",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1076",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<div>&nbsp;A building permit is required for almost any project that involves new construction, alterations and repairs to existing structures. &nbsp;All submitted plans must be done to the 2022 Building Code standards and some types of permits may require Fire Department approval as well. &nbsp; &nbsp;</div><div><br></div><div>A City of Lakeport Encroachment Permit is required any time a person or business wishes to do work in the city of Lakeport&#39;s right-of-way. &nbsp;Fees vary depending o"
+    },
+    {
+      "id": "1080",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1081",
+      "name": "Planning and Zoning",
+      "isEnabled": 1
+    },
+    {
+      "id": "1079",
+      "name": "Business Licensing",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">The City of Lakeport requires every business operating within the City limits to obtain a business license. &nbsp;General Business License classifications are found below.</span></div><div><span style=\"font-size: 18px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><br></span></span></div><div><span style=\"font-size: 18px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><strong>Annual Business License"
+    },
+    {
+      "id": "1072",
+      "name": "Lakeport Police Department",
+      "isEnabled": 1,
+      "content": "<p data-end=\"66\" data-start=\"0\" style='box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: \"Benton Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thick"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:32.946Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

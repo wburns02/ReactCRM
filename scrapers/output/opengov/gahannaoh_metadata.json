@@ -1,0 +1,408 @@
+{
+  "jurisdiction": "Gahanna",
+  "state": "OH",
+  "tenant": "gahannaoh",
+  "portalUrl": "https://gahannaoh.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6480",
+      "name": "Rental Registry",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Gahanna Code requires all residential rental properties to be registered with the City. Registration is due by March 15th biennially (every other year).",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Code Violation",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6571",
+      "name": "CORA Supply Order",
+      "categoryId": 1097,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6630",
+      "name": "Rotary Stage Rental Permit ",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "This permit is to reserve the Rotary Stage and surrounding stage area at Creekside Park. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6608",
+      "name": "Alarm Registration Permit",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "An alarm registration is required for residents and businesses installing and/or operating an alarm system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6613",
+      "name": "Certified Address Request",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "A certified address request is required to create or update addresses in the City of Gahanna. The request process will identify all information required for review including a site plan.",
+      "isEnabled": true
+    },
+    {
+      "id": "6614",
+      "name": "5K Event Permit",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "This permit is for 5K routes/run-walks taking place on the Big Walnut Trail.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Fence Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "A permit for the construction of a new fence or major modifications to an existing fence as defined in GCO Section 1109.05. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Conditional Use",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Uses identified in GCO Section 1105.01 as conditionally permitted in a specific zoning district. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Commercial Building Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A building permit for new construction, additions, alterations, tenant buildouts, swimming pools, accessory buildings, and other similar projects for commercial properties. The term commercial refers to the Ohio Building Code (OBC) categories which include Multi-family (4 or more units), Multi-family – Individual Condo Unit (in a building of 4 or more units), and Commercial. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Zoning Certificate Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "A permit for the construction of a shed, freestanding deck, or other structure not requiring a building permit as defined in GCO Section 1117.01.",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Site Civil Engineering Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "The site civil engineering permit facilitates review of commercial developments. The review considers stormwater management, utility installation, and environmental impacts.",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Block Party Permit",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "A Block Party Permit is required to use a public street for neighborhood gatherings to block the street temporarily.",
+      "isEnabled": true
+    },
+    {
+      "id": "6631",
+      "name": "Gahanna Market Vendor Application",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "This application is for vendors interested in participating in the Gahanna Market. The Gahanna Market is located on the Creekside Plaza and occurs on the fourth Wednesday of each month June through September. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6640",
+      "name": "House Watch Request",
+      "categoryId": 1095,
+      "viewAccess": null,
+      "description": "A House Watch Request is for the Division of Police to monitor a residential property while the resident is away for five days or more.",
+      "isEnabled": true
+    },
+    {
+      "id": "6561",
+      "name": "Permanent Sign Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "A permit for the installation of a ground or building-mounted sign as defined in GCO Section 1111.03. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Residential Building Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A building permit for new construction, additions, alterations, decks, garages, swimming pools, and other similar projects for residential properties. The term residential refers to the Residential Code of Ohio (RCO) categories which include Single-Family Detached, 2-Family Attached (Duplex), and 3-Family Attached (Triplex).",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Development Plan",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "A minor or major development as defined in GCO Section 1117.07 for new construction, redevelopment, addition, alteration, site improvement, or other similar projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Electrical Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A trade permit for new construction, additions, alterations, fire rehabs, temporary services, swimming pools, and other similar commercial or residential electrical projects. This permit is for both standalone electrical work and work associated with a building permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Temporary Sign Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "A permit to allow a ground or building-mounted sign for a limited time as defined in GCO Section 1111.04. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6624",
+      "name": "Vendor Application",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "This application is for vendors seeking to participate in Parks & Recreation Special Events, community special events, or within City of Gahanna park property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6632",
+      "name": "Traffic Study Permit (TIS/TAS/MOU)",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "The traffic study permit facilitates review of commercial developments and their impacts on traffic. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6645",
+      "name": "Noise Ordinance Special Provisions Permit",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "A Noise Ordinance Special Provisions Permit is required when a property owner or business operates outside of the designated quiet hours or exceeds the allowable noise levels set by the noise ordinance (Section 559.04 GCO). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6644",
+      "name": "Temporary Parking Permit",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "A temporary parking permit is required for on-street parking where signs otherwise prohibit it. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Floodplain Use Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "A permit for the construction, modification, or improvement of a property located in the floodplain as defined in GCO Chapter 1113. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6562",
+      "name": "Residence/Business Right-of-Way Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This permit is for work occurring typically on one parcel and covers items such as sidewalk and driveway work. Previously permitted private development work within the right-of-way will also fall under this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Fire Protection System Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A trade permit for fire alarms, sprinkler systems, underground piping, or other fire extinguishing systems for commercial or residential projects. This permit is for both standalone fire protection work and work associated with a building permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6605",
+      "name": "Utility Franchisee Right-of-Way Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This permit is for all work performed by franchised utility companies including gas, electric, or communication lines (phone, cable, and internet). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6612",
+      "name": "Right-of-Way Utility Franchisee Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This application is for private utility companies seeking franchise registration to occupy and perform work with the right-of-way per Gahanna Codified Ordinance Chapter 931. This is an application that must be renewed annually. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Home Occupation Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "A permit to allow the use of a portion of a home for a business as defined in GCO Section 1105.02(g).",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Final Plat",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "A subdivision of land as defined in GCO Section 1117.08(a) including six (6) or more lots or the dedication of public right-of-way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Subdivision Without Plat",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "A subdivision of a single property into five (5) or less lots, including the original lot, as defined in GCO Section 1117.08(b).  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Tree Removal Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "A permit to allow for the removal of protected trees on a property as defined in GCO Section 914.06. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6522",
+      "name": "Gas Piping Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A trade permit for commercial or residential gas piping projects. This permit is for both standalone gas work and work associated with a building permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Master Sign Plan",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "A comprehensive set of sign standards including size, location, height, color, and design of signs for a multi-tenant building or multi-building development as defined in GCO Section 1117.06.",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Zoning Verification Letter",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "A letter confirming the zoning requirements, active code violations, and other similar requested information for a specific property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Rezoning",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "An amendment or change to the official zoning map or text in the Zoning Ordinance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "HVAC/Mechanical Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A trade permit for new construction, additions, alterations, unit replacements, duct work, and other similar commercial or residential mechanical projects. This permit is for both standalone mechanical work and work associated with a building permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Variance",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "A de minimis, non-dimensional, or dimensional variance defined in GCO Section 1117.02 for a proposed use, building, or structure that does not conform to a requirement of the Zoning Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Plumbing Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A trade permit for new construction, additions, alterations, and other similar work defined by Franklin County Public Health for commercial or residential plumbing projects. This permit is for both standalone plumbing work and work associated with a building permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Wireless Service Facility ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "A new tower, co-location, antenna support structure, alternative tower structure, or other Wireless Communications Facility (WCF) as defined in GCO Chapter 1115.",
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "Certificate of Occupancy/Change of Use",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A permit to allow for the change of use or occupancy of a building where no additional work (building, electrical, fire, gas, etc.) is included. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1101",
+      "name": "Information",
+      "isEnabled": 1,
+      "content": "<p dir=\"ltr\" style=\"line-height: 1.295; margin-top: 0pt; margin-bottom: 8pt;\"><span style=\"font-size: 18px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"color: rgb(41, 105, 176); background-color: transparent; font-weight: 700; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;\">Resources</span></span></span></p><ul><li><span style=\"color: rgb(44, 130, 201);\"><a href=\"https://www.gahanna.gov/\" rel=\"noopener nore"
+    },
+    {
+      "id": "1085",
+      "name": "Building",
+      "isEnabled": 1,
+      "content": "<p dir=\"ltr\" style=\"line-height: 1.295; margin-top: 0pt; margin-bottom: 8pt;\"><span style=\"font-size: 18px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"color: rgb(41, 105, 176); background-color: transparent; font-weight: 700; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;\">Overview</span></span></span></p><div><span style=\"font-size: 14px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span data-gu"
+    },
+    {
+      "id": "1086",
+      "name": "Zoning",
+      "isEnabled": 1,
+      "content": "<p dir=\"ltr\" style=\"line-height: 1.295; margin-top: 0pt; margin-bottom: 8pt;\"><span style=\"font-size: 18px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"color: rgb(41, 105, 176); background-color: transparent; font-weight: 700; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;\">Overview</span></span></span></p><div><span style=\"font-size: 14px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span data-gu"
+    },
+    {
+      "id": "1087",
+      "name": "Engineering & Right-of-Way",
+      "isEnabled": 1,
+      "content": "<p dir=\"ltr\" style=\"line-height: 1.295; margin-top: 0pt; margin-bottom: 8pt;\"><span style=\"font-size: 18px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"color: rgb(41, 105, 176); background-color: transparent; font-weight: 700; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;\">Overview</span></span></span></p><p><span style=\"font-size: 14px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"co"
+    },
+    {
+      "id": "1089",
+      "name": "Planning",
+      "isEnabled": 1,
+      "content": "<p dir=\"ltr\" style=\"line-height: 1.295; margin-top: 0pt; margin-bottom: 8pt;\"><span style=\"font-size: 18px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"color: rgb(41, 105, 176); background-color: transparent; font-weight: 700; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;\">Overview</span></span></span></p><div><span style=\"font-size: 14px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span data-gu"
+    },
+    {
+      "id": "1100",
+      "name": "Parks & Recreation",
+      "isEnabled": 1,
+      "content": "<p dir=\"ltr\" style=\"line-height: 1.295; margin-top: 0pt; margin-bottom: 8pt;\"><span style=\"font-size: 18px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"color: rgb(41, 105, 176); background-color: transparent; font-weight: 700; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;\">Overview</span></span></span></p><div><span style=\"font-size: 14px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span data-gu"
+    },
+    {
+      "id": "1088",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Tahoma, Geneva, sans-serif; color: rgb(184, 49, 47);\"><strong><span style=\"font-size: 18px;\">If this is an Emergency, please CALL 911!</span></strong></span></p><p><span style=\"font-family: Tahoma, Geneva, sans-serif;\"><br></span></p><p><span style=\"font-family: Tahoma, Geneva, sans-serif; font-size: 18px;\"><strong><span style=\"color: rgb(41, 105, 176);\">Code Violations</span></strong></span></p><p><span style=\"font-family: Tahoma, Geneva, sans-serif; font-size: 14px"
+    },
+    {
+      "id": "1084",
+      "name": "Rental Registration",
+      "isEnabled": 1,
+      "content": "<p dir=\"ltr\" style=\"line-height: 1.295; margin-top: 0pt; margin-bottom: 8pt;\"><span style=\"font-size: 18px; font-family: Tahoma, Geneva, sans-serif; color: rgb(41, 105, 176); background-color: transparent; font-weight: 700; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;\">Rental Property Registration Requirement</span></p><p dir=\"ltr\" style=\"line-height: 1.295; margin-top: 0pt; margin-bottom: 8pt;\"><span style=\"font-size: 14px;\"><"
+    },
+    {
+      "id": "1097",
+      "name": "Economic Development",
+      "isEnabled": 1,
+      "content": "<p dir=\"ltr\" style=\"line-height: 1.295; margin-top: 0pt; margin-bottom: 8pt;\"><span style=\"font-size: 18px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"color: rgb(41, 105, 176); background-color: transparent; font-weight: 700; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;\">Grow in Gahanna!</span></span></span></p><div><span style=\"font-size: 14px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span"
+    },
+    {
+      "id": "1095",
+      "name": "Police & Public Safety",
+      "isEnabled": 1,
+      "content": "<p dir=\"ltr\" style=\"line-height: 1.295; margin-top: 0pt; margin-bottom: 8pt;\"><span style=\"font-size: 18px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"color: rgb(226, 80, 65); background-color: transparent; font-weight: 700; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;\">If this is an emergency, please CALL 911.</span></span></span></p><p dir=\"ltr\" style=\"line-height: 1.295; margin-top: 0pt; margin-bottom"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:31.494Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

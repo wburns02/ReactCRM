@@ -1,0 +1,733 @@
+{
+  "jurisdiction": "Jackson",
+  "state": "MS",
+  "tenant": "jacksonms",
+  "portalUrl": "https://jacksonms.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6450",
+      "name": "Site Plan Review",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Site Plan Review is a process where the construction of new buildings, new additions, and certain types developments are reviewed by the City Planning staff and the City Council. Site Plan Review shall be required, as stated by the provisions of this Ordinance, to ensure compliance with City zoning and other ordinances on large scale and other projects, to expedite procedures necessary for the obtaining of building permits, to provide the developer with a central review of a development proposal, to conserve the time and efforts of City employees in the various departments, and to provide for a speedy processing of applications for building permits on large scale and other projects.\n\nOwner authorization form must be uploaded with application. Form can be downloaded here: https://www.jacksonms.gov/documents/site-plan-review-owner-authorization-form/\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Mobile Food Vending Permit",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "description": "Apply for your Mobile Food Vending Permit to legally operate a food truck or mobile unit in the City. Required annually and includes health, fire, and location approvals.",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Zoning Verification",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "description": "The Zoning Verification Letter is a standard form letter depicting the zoning classification and whether the current or proposed use is permitted in that zone. Any additional information you need added to the letter should be approved by the Zoning Administrator prior to or at time of request. You may contact her at (601) 960-2001. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Zoning Violation ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Here you can report zoning violations - you can also communicate directly with a code enforcement officer that is assigned to the case. \n\nSome of the most common zoning code violations include illegal land use, improper signage, and excessive noise levels. Illegal land use occurs when a property is used for a purpose that is not allowed by the zoning code. This can include using a residential property for commercial purposes, or vice versa.",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Sign Permit",
+      "categoryId": 1079,
+      "viewAccess": "private",
+      "description": "Sign Permits are issued by the Signs and License Division of the Department of Planning and Development. This division is responsible for accepting, reviewing applications and the authorization of sign permits. Individuals or business owners who wish to place a sign on or off their premises must obtain a sign permit. All signs must meet proper height and setback requirements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Business License ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Anyone who conducts business in the City of Jackson must obtain a Business License, except for businesses that are specifically exempted by state or federal statute. Business License fees must be paid before the business opens and are renewable annually.\n\n***** Privilege Tax Application Form *****\nApplications for the Privilege Tax should be filled out, notarized, and uploaded to the Business License Application; or as an alternative, the applicant can submit a valid picture ID.\n\nApplicants can obtain a Privilege Tax Application Form at https://www.jacksonms.gov/license-information/\n\nThey must have the following information:\n\n             A) Name(s) of the person(s) associated with the business on the application.\n\n             B) Proper Fee Payment. Most fees are determined by either the number of employees or the amount of inventory.\n\n             C) A NAICS Code, the standard used in classifying business establishments.\n\n***** During the process, the Zoning Division must approve the application.\n***** The required inspections must be completed before the license is issued.\n***** Required Inspections include but are not limited to the following:\n\n1) Health Department Inspections - required for childcare providers and anyone preparing or serving food. The applicant is responsible for obtaining approval from the County and/or State Health Department, and inspection verification must accompany the Business License application.\n\n2) Fire Inspections\n\n3) Sign Permit - required before a license can be issued. The Signs and License Division will arrange for this inspection after applications are filed.\n\n4) Police Inspections - required for certain types of businesses including those serving beer and wine, pawn brokers, and others. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Right of Way Permit ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Right of Way permits are required for all work that is done in right of way.  This includes but is not limited to driveway and sidewalk work, utility boring and digging, etc. These permits are reviewed by Public Works. \n\nRequests for water taps and sanitary sewer taps are handled by JXN Water. Visit their website at http://jxnwater.com. Do not request a water tap or sanitary sewer tap as part of a ROW permit request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Small Cell Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Small Cell permits are required for the installation of any small cell sites constructed on City right of way.  This does not include small cell sites constructed on private property. These permits are reviewed by Public Works. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6688",
+      "name": "Real Estate Developer Academy",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Real Estate Developer Academy is a program dedicated to expanding economic opportunities for emerging developers by providing essential training, resources, and mentorship. Academy graduates will be equipped to take on transformative projects that address housing, commercial development, and community revitalization across Jackson.  This application will be open until April 15, 2025.\n\nIf you need assistance, please contact Angela Brown, afbrown@jacksonms.gov or 601-960-1615.",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Fire Inspection Application ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This application is used when a applicant is requesting an inspection with the Fire Marshal's Office. \nExamples include annual fire inspections, fire alarm, sprinkler and suppression test.",
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "Public Fireworks Display Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This application is used for public and private firework displays within the City of Jackson.",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Fire Report Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This application is used to request a report to provide to insurance companies that outline the scope of damage, cause and origin of fire incidents.",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Carnival and Exhibits Operational Permit Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This permit application is for the operation of a carnival or fair within the City of Jackson.",
+      "isEnabled": true
+    },
+    {
+      "id": "6668",
+      "name": "MSTAT",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "The MSTAT testing process will be utilized as a measurement tool to assess a firefighter trainee’s\nability to enter into the Basic Firefighter 1001 I-II at the Mississippi State Fire Academy in accordance\nwith NFPA 1001, 1.3.8, 2019 edition. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Surplus Property",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Any organization or individual looking to obtain property from the City of Jackson must obtain approval from the Surplus Property Committee after their application is submitted with the necessary documentations, no property will be sold, conveyed or disposed of until it is declared surplus property. Please be aware the Surplus Property Application might require development plans that include financial data, site plans, conceptual drawings and sketches relative to the proposed construction or infill development.",
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "Special Events Permit ",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "This application can be utilized for any and all events planning to be implemented in the City of Jackson. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6566",
+      "name": "Report Illegal Dumping",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "This application is used to report illegal dumping in thr city of jackson. The reporter must have photo documentation and be willing to testify to the accou ts reported in this complaint. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6585",
+      "name": "City of Jackson Homeless Data Collection",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "“Functional zero is a milestone, which must be sustained, that indicates a community has measurably solved homelessness for a population. When it’s achieved, homelessness is rare and brief for that population.” (Built for Zero). Functional Zero means that the same number of those entering homelessness exit homelessness that month.",
+      "isEnabled": true
+    },
+    {
+      "id": "6590",
+      "name": "Neighborhood Association Registration",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "Document is for Neighborhoods Associations and other Organizations to apply to the City to become Registered Neighborhood Associations and Organizations within the city.",
+      "isEnabled": true
+    },
+    {
+      "id": "6596",
+      "name": "GIS Map Request",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "description": "Neighborhood associations can request boundary maps, city maps, zoning maps and other maps via this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Land Disturbance Permit",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "description": "This permit is for clearing, grubbing, filling/grading, timber harvesting, and related activities. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6562",
+      "name": "Rental Registration Program",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "\nThe purpose of this application is to establish a Registration requirement for owners of Rental Housing Units to protect the health, safety and welfare of the public insofar as they are affected by the maintenance of said Units and the occupancy thereof. The purpose shall be accomplished by requiring rental housing units to be registered and inspected. This article shall be construed to secure this express intent.  \n\nThe Department of Planning and Development shall be responsible for the administration and enforcement of this article.\n\nDocuments that may be be needed to submit your application are below. Requested document requirements depend on the information submitted. \n\nDocumentation of State Incorporation/LLC State Authorization\nNotarized Local Agent Declaration Page\nOwner or Local Agent Picture ID Card\nHUD Inspection (if applicable)\nHUD Voucher (if applicable)\n\nCall 601.960.1671 for more information regarding this application or with any questions.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6705",
+      "name": "2026 Mayor’s Summer Youth Employment Program (MSYEP)",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "The Mayor’s Summer Youth Employment Program (MSYEP) is a unique and fun way for youth to develop an array of skills while earning money.  The Mayor’s Summer Youth Employment Program fosters an environment that teaches work ethics and life skills while also exposing teens to diverse careers. MSYEP is open to all City of Jackson residents between ages 16 through 24. \n\n\n\nNO PAPER APPLICATION(S) WILL BE ACCEPTED.\n\n\n\nFor more information, and if you have questions about completing this form or the required documents, please contact Monica Hobson at (601) 960-2429 or mhobson@jacksonms.gov and ask about MSYEP.",
+      "isEnabled": true
+    },
+    {
+      "id": "6600",
+      "name": "Business Retention CRM",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "The City of Jackson offers several programs and services that make locating and staying in Jackson a smart decision. Whether you’re an out-of-state company looking for a new home base for your manufacturing operations or corporate headquarters, or you’re an existing Jackson company looking to expand your footprint, we have a variety of programs that can be tailored to meet your needs.\n\nThe Economic Development office is dedicated to promoting initiatives and economic tools to business owners interested in relocating or expanding their companies in the City of Jackson. We seek to help qualified companies realized their expansion goals and retain jobs in our City.\n\nBusiness retention is very competitive, and as such, we partner with Hinds County Economic Development Authority, the Greater Jackson Chamber Partnership, and a multitude of other partners to ensure your company utilizes the appropriate incentives to help solidify your footprint and attract a qualified workforce.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Certificate of Appropriateness: Tree Removal",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This application is for removal of dying tree or a tree endangering a house. If you are applying for removal of a live tree larger than six inches in diameter and 5ft or more above the ground, please use the regular COA application for JHPC review and approval.",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Community Improvement: Clean-Up Assessment Repayment Plan",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Repayment plan for city abated property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Master Electrical License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The City of Jackson’s municipal ordinance requires all electrical, mechanical, and plumbing contractors hold City of Jackson licenses prior to performing work or pulling permits in the city limits. Only Master license holders can pull permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Address Request ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used to request a address to be assigned to a new parcel, plat, utility facility  or telecommunication facility, or to update or correct an existing address. For any work utility work in the right-of-way, apply for a Right-of-Way permit (ROW).",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Code Enforcement Violations",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The IPMC (International Property Maintenance Code) has been adopted by the City of Jackson and is used as the basis for the City's Property Maintenance Codes.\n\nThe City's goal is to encourage both property owners and tenants to voluntarily correct violations when a violation is reported or has occurred.  Potential violations are inspected through a process of inspection, notification, education, and notices with the owner or tenant ultimately being responsible for violation corrections.  Should violations occur, the owner/tenant is given the opportunity to resolve the issue before legal action is taken. \n\nThe Office of Code Enforcement ensures compliance to the City of Jackson Code of Ordinances. \n\nThe Code Enforcement Officer responds and investigates complaints and nuisances which may violate the City's Code of Ordinances. \n\nBelow you will find the most common complaints we receive from citizens and how to be in compliance with our code:\n\nWeeds, grass undergrowth and other such plants, except ornamental plants and trees \nVehicles not stored within an enclosed structure or screened from the public street serving the property.\nYards have accumulation of rubbish.\nExterior structure not secured - deteriorating  \nAbandoned building\nCondemnation\nUnsafe building, house or signage",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Master Mechanical License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The City of Jackson’s municipal ordinance requires all electrical, mechanical, and plumbing contractors hold City of Jackson licenses prior to performing work or pulling permits in the city limits. Only Master license holders can pull permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6700",
+      "name": "Street Closure Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "THIS PERMIT IS NOT FOR SPECIAL EVENTS.\n\nTHIS PERMIT IS NOT FOR WORK BEING PERFORMED IN THE RIGHT OF WAY\n\nThe contractor is responsible for providing, barricades, road closed and detour signs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6541",
+      "name": "DREAM Internship Application",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "DREAM is the City of Jackson's internship program where our mission is to provide professional development to scholars who are pursuing academics or foresee a career in communications, governance, or as a sole proprietor. DREAM encourages critical thinking, sound reasoning, and the formation of new ideas in the pursuit and acquisition of knowledge and proficiency. DREAM supports learning and developmental experiences to leverage academic tutelage in professional environments. We intend to transition scholars from study to practical application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Certificate of Appropriateness: New Construction, Addition, Alteration, Repair, Relocation and Demolition",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This application is for New Construction, Addition, Alteration, Repair, Relocation and Demolition of a historic structure in the City of Jackson.",
+      "isEnabled": true
+    },
+    {
+      "id": "6683",
+      "name": "Suppression / Vent Hood System Test Inspection ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This application is used when a applicant is requesting an inspection with the Fire Marshal's Office. \nExamples include annual fire inspections, fire alarm, sprinkler and suppression test.",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Certificate of Appropriateness: Fence Construction",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This application is for construction of side and/or back yard fence, the fence height is not exceed 6ft tall , and the fence type is wooden good neighbor fence, or simply designed wrought iron, steel, aluminum fence only.",
+      "isEnabled": true
+    },
+    {
+      "id": "6560",
+      "name": "Entertainment District (ED) Application ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "An income tax incentive in the form of a five (5) year accelerated depreciation period is provided for construction and renovation projects.  This designation is also needed to apply for Tourism Rebate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6685",
+      "name": "Cell Tower or Cell Tower Generator Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Before permit approvals TWO SETS OF PHYSICAL PLANS AND SPECIFICATION SHEET/BOOK must be delivered to the Building Permit Division located in the Warren Hood Building at 200 S. President St, 3rd floor, Jackson, MS 39201. \n\nThe commercial building permit is for all projects that are not governed under the International Residential Code. All new construction, substantial renovation, alteration, and additions are commercial except for construction on 1 and 2 family structures.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Master Plumber + Gas Fitter License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The City of Jackson’s municipal ordinance requires all electrical, mechanical, and plumbing contractors hold City of Jackson licenses prior to performing work or pulling permits in the city limits. Only Master license holders can pull permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6602",
+      "name": "Residential Electric Contractor Registry",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Sec. 26-24. - Registration required.\n\nAll commercial and residential construction general contractors and electrical contractors, plumbing contractors, gas fitting contractors, air conditioning contractors and refrigeration contractors doing business within the city shall register with the building official. It is hereby established that the city building official shall maintain an approved list of general contractors and subcontractors upon registration.",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Signs and License Violations",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Sign Permits\nSign Permits are issued by the Signs and License Division of the Department of Planning and Development. This division is responsible for accepting, reviewing applications and the authorization of sign permits. Individuals or business owners who wish to place a sign on or off their premises must obtain a sign permit. All signs must meet proper height and setback requirements.\n\nSign Ordinance\nThe sign ordinance was enacted by the Jackson City Council with the following goals:\n\nPromoting a pleasant environment while providing for a consistent regulation of commercial signs\nReducing the risk of distraction or confusion to drivers\nEliminating structural hazards\nProtecting and promoting the tourism industry by providing an unobstructed view of the city’s scenic areas\nThe Signs and License inspectors are responsible for locating illegal signs and notifying owners who must comply with the sign ordinance within a designed period or be fined.",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Commercial Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Before permit approvals TWO SETS OF PHYSICAL PLANS AND SPECIFICATION SHEET/BOOK must be delivered to the Building Permit Division located in the Warren Hood Building at 200 S. President St, 3rd floor, Jackson, MS 39201. \n\nThe commercial building permit is for all projects that are not governed under the International Residential Code. All new construction, substantial renovation, alteration, and additions are commercial except for construction on 1 and 2 family structures.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6578",
+      "name": "Jackson Collaborative Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "The Jackson Collaborative application is intended to connect you with services and organizations to assist you in your path to success whether you are interesting in becoming employed, starting a business, expanding your education, and growing your skills.\n\nFor more information about the Jackson Collaborative, visit https://www.jacksonms.gov/jackson-collaborative/",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "JHPC Compliance Agreement",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Routine maintenance and minor work may be approved by staff via Compliance Agreement if there is to be no change in the design, materials, or general appearance of the structure of grounds.  Replacement of roofs, fascia boards and a small amount of replacement siding with identical sizes and types of material is an example of routine maintenance.  A determination can be made at the time of the preliminary conference with staff.",
+      "isEnabled": true
+    },
+    {
+      "id": "6681",
+      "name": "Building Final ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This application is used when a applicant is requesting an inspection with the Fire Marshal's Office. \nExamples include annual fire inspections, fire alarm, sprinkler and suppression test.",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "Fire Alarm Plan Review",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This application is used when a applicant is requesting an inspection with the Fire Marshal's Office. \nExamples include annual fire inspections, fire alarm, sprinkler and suppression test.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Jackson Historic District Designation",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Application to designate an area within the City of Jackson as a Historic District.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Demolition or Moving Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The demolition and moving permit is for demolition of structures or moving of structures. This includes partial and interior demolitions also.",
+      "isEnabled": true
+    },
+    {
+      "id": "6703",
+      "name": "Residential Pluming Contractor Registry",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Sec. 26-24. - Registration required.\n\nAll commercial and residential construction general contractors and electrical contractors, plumbing contractors, gas fitting contractors, air conditioning contractors and refrigeration contractors doing business within the city shall register with the building official. It is hereby established that the city building official shall maintain an approved list of general contractors and subcontractors upon registration.",
+      "isEnabled": true
+    },
+    {
+      "id": "6702",
+      "name": "Residential Mechanical Contractor Registry",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Sec. 26-24. - Registration required.\n\nAll commercial and residential construction general contractors and electrical contractors, plumbing contractors, gas fitting contractors, air conditioning contractors and refrigeration contractors doing business within the city shall register with the building official. It is hereby established that the city building official shall maintain an approved list of general contractors and subcontractors upon registration.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The electrical permit is for electrical projects that are not associated with a Commercial or Residential Permit. If associated with a larger project, the general contractor or project lead will apply for all permits within the Commercial or Residential Permit application. These are single issue permits. Examples are meter change out, adding outlets/fixtures, panel repairs and temporary electric poles etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Vacant Property Registration",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Vacant Building/Property Registration and De-registration \n\nThe owner of any building that has been vacant shall within 30 days after the building becomes vacant or within 30 days after the effective date of this article, whichever is later, request an inspection of the vacant building from community improvement to verify that it is properly secured and file a registration statement with the City of Jackson, Community Improvement Division, Jackson Police Department, on forms provided by the division for such purposes. The registration statement shall remain valid for one year from the date of issuance. The owner shall be required annually to renew the registration as long as the building remain vacant and shall pay an annual registration fee as follows:\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Jackson Landmark Site Designation ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6542",
+      "name": "Leisure Recreational District (LRD) Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Authorize business entities that hold alcoholic beverage permits issued by the Department of Revenue, and that are located within the boundaries of the designated Leisure and Recreation District, to allow patrons to leave the licensed premises with an open container of alcohol and to carry and consume alcoholic beverages within the designated LRD.",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Food Truck Inspection",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This application is used when a applicant is requesting an inspection with the Fire Marshal's Office for a FOOD TRUCK only.  \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "Fire Inspection for Apartments",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This application is used when a applicant is requesting an inspection with the Fire Marshal's Office for apartment complexes. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6559",
+      "name": "Qualified Resort District (QRD) Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Being in a QRD allows a business to extend operations hours to sell beer, alcohol and waives the food-to-alcohol ratio.",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Jackson Landmark Designation",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6576",
+      "name": "General Contractor Registry",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Sec. 26-24. - Registration required.\n\nAll commercial and residential construction general contractors and electrical contractors, plumbing contractors, gas fitting contractors, air conditioning contractors and refrigeration contractors doing business within the city shall register with the building official. It is hereby established that the city building official shall maintain an approved list of general contractors and subcontractors upon registration.",
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "Gas Fitter License ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The City of Jackson’s municipal ordinance requires all electrical, mechanical, and plumbing contractors hold City of Jackson licenses prior to performing work or pulling permits in the city limits. Only Master license holders can pull permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Fence Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit application is for the construction of a new fence or alternation, rehab or addition to existing fence. Fence permits includes gates. THIS INCLUDES DUMPSTER ENCLOSURES.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Gas Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Gas permit is for gas projects that are not associated with a Commercial or Residential Building Permit. If associated with a larger project, the general contractor or project lead will apply for all permits within the Commercial or Residential Building Permit application. These are single issue permits. Examples are gas line repairs, gas lines relocation, gas fixture replacements, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Journeyman Electrical License ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The City of Jackson’s municipal ordinance requires all electrical, mechanical, and plumbing contractors hold City of Jackson licenses prior to performing work or pulling permits in the city limits. Only Master license holders can pull permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Flammable Combustible Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This application is used when a applicant is requesting an inspection with the Fire Marshal's Office. \nExamples include annual fire inspections, fire alarm, sprinkler and suppression test.",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Flow Test",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This application is used when a applicant is requesting an inspection with the Fire Marshal's Office. \nExamples include annual fire inspections, fire alarm, sprinkler and suppression test.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Journeyman Mechanical License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The City of Jackson’s municipal ordinance requires all electrical, mechanical, and plumbing contractors hold City of Jackson licenses prior to performing work or pulling permits in the city limits. Only Master license holders can pull permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Mechanical Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Mechanical permit is for mechanical projects that are not associated with a Commercial or Residential Building Permit. If associated with a larger project, the general contractor or project lead will apply for all permits within the Commercial or Residential Building Permit application. These are single issue permits. Examples are HVAC replacement, refrigeration repairs, vent hood installations,  fixture replacements, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Occupancy Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "An occupancy inspection is required before occupying a building or structure (excluding 1 and 2 family residential uses), or before changing the type or character of the occupancy of a building. New businesses and tenant changes not requiring a commercial building permit must get an occupancy inspection. A Certificate of Occupancy will be issued upon completion of inspection.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Journeyman Plumber and Gas Fitter License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The City of Jackson’s municipal ordinance requires all electrical, mechanical, and plumbing contractors hold City of Jackson licenses prior to performing work or pulling permits in the city limits. Only Master license holders can pull permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Plumbing Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Plumbing permit is for plumbing projects that are not associated with a Commercial or Residential Building Permit. If associated with a larger project, the general contractor or project lead will apply for all permits within the Commercial or Residential Building Permit application. These are single issue permits. Examples are sewer line replacement, plumbing fixture replacements, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "POD permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This building permit is for the use of a POD onsite. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Residential Building Permit - New construction, Renovation, Alteration, and Additions",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "\nBefore permit approvals TWO SETS OF PHYSICAL PLANS AND SPECIFICATION SHEET/BOOK must be delivered to the Building Permit Division located in the Warren Hood Building at 200 S. President St, 3rd floor, Jackson, MS 39201. \n\nThe residential building permit for all projects that are governed under the International Residential Code. All new construction, substantial renovation, alteration, and additions on 1 and 2 family structures are considered residential.",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Residential Generator Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is for residential generators being installed on property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Stop Work Order",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Stop Work Order",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Utility Service Request",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is for those needing power restoration not associated with electrical work being performed.  This application is not for electrical contractors.",
+      "isEnabled": true
+    },
+    {
+      "id": "6556",
+      "name": "Community Improvement Contractor",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Community Improvement Division  Qualifications:\n\n* BOARD-UP AND & OR GRASS AND WEED CONTRACTORS*\n\nAll contractors must be licensed, bonded, insured, and have a tire hauler certificate\nMust provide a copy of privilege license, contractor’s bond, and proof of insurance.\n \nDUNS & Bradstreet Number/ SAMS #\n SIN# EIN# or EFIN# \n Privilege License\nCity of Jackson Vendor Number\n\nGeneral Liability Insurance Coverage for injury to a person and/or property $100,000.00 per person $100,000.00 per occurrence.\n\n******The City of Jackson must be listed as the Insurance Certificate Holder******\n\nWorkman’s Compensation Insurance MAY be required for sickness, disability, or other injury of an employee arising out of and in the course of the employment\n Automobile Liability Insurance Coverage with minimum limits for injury to person or property or $25,000.00 per person and $50,000.00 per occurrence.\n MUST be able to provide dump receipts for all work performed ?\n Necessary equipment to perform work  Trailer, Bush Hog, Zero Turn Mower, Weed Eater, Chainsaw, etc. Equipment will be verified twice a year* \n\n\n DEMOLITION CONTRACTORS’ QUALIFICATIONS : \n\nAll contractors must be licensed, bonded, and insured. \nMust provide a copy of privilege license, contractor’s bond, and proof of insurance.\nDUNS & Bradstreet Number\nSIN# EIN# or EFIN#\nCAGE Code (if you plan to bid on CDBG projects)\nPrivilege License \nCertificate of Responsibility \nCity of Jackson Vendor Number \nState contractor License endorsing demolition\n\n $500,000.00 Pollution Liability Insurance ?\n General Liability Insurance with maximum bodily injury coverage of not less than $500,000.00 and $500.000.00 per occurrence.\n\n Workman’s Compensation Insurance MAY be required for sickness, disability, or other injury of an employee arising out of and in the course of the employment.\nAutomotive Public Liability Insurance with maximum limits of not less than $500,000.00 per one accident. Automotive Property Damage Insurance with maximum limits of not less than $500,000.00 per one accident? \n\nOwner’s Protective Liability Insurance with the City of Jackson as a named insured and their servants, agents and employees as additional insured in amount not less than $500,000.00 as well as property damage liability coverage in the amount of $500,000.00 per occurrence and $500,000.00 for all damages arising out of injury to or destruction of property during policy period. \n\n Certified Abatement Supervisor MUST be on site.\n MUST be able to provide dump receipts for all work performed.\nHave access to heavy equipment to perform demolition work necessary Track hoe, Dozer, etc.\n\n Equipment will be verified twice a year*\n******* The City of Jackson must be listed as the Insurance Certificate Holder*******\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6664",
+      "name": "Community Improvement Volunteer Application ",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Be a part of our referral program. Volunteer to help those in need, whether it's with grass cutting, hauling off debris, or helping out with exterior repair.  \n\n",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Permitting",
+      "isEnabled": 1,
+      "content": "<p><strong><strong style='font-weight: 700; color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'>Before permit approvals TW"
+    },
+    {
+      "id": "1084",
+      "name": "Business Development",
+      "isEnabled": 1,
+      "content": "<p>Located within the Office of Economic Development, the Business Development Division&rsquo;s mission is to foster job creation, support new and existing businesses and assist entrepreneurs and small businesses by providing capacity-building information, resources, and tools.&nbsp;</p><p>Business Development houses recruitment and retention programs such as the Business Entrepreneur Assistance Team (BEAT), the Small Business Development Center (SBDC), a Minority Business Enterprise (MBE) Certi"
+    },
+    {
+      "id": "1079",
+      "name": "Business Licenses",
+      "isEnabled": 1,
+      "content": "<div data-index=\"2\" style='box-sizing: border-box; zoom: 1; margin-bottom: 30px; color: rgb(33, 33, 33); font-family: \"Public Sans webfont\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: common-ligatures; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-de"
+    },
+    {
+      "id": "1080",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Tahoma,Geneva,sans-serif;\">The City of Jackson has adopted the CLEAR APPROACH to Code Enforcement and now utilizes CLEAR TOOLKIT for Code Enforcement activities. The CLEAR TOOLKIT identified four stages of code enforcement that a property may proceed through while the officer is working to resolve an identified issue. Not all cases will proceed through each stage. The officer determines the path based on the circumstances of the property. &nbsp;For more information o"
+    },
+    {
+      "id": "1081",
+      "name": "Contractor Licenses",
+      "isEnabled": 1,
+      "content": "<p>Coming Soon!</p>"
+    },
+    {
+      "id": "1087",
+      "name": "Fire Department ",
+      "isEnabled": 1,
+      "content": "<h2 style='box-sizing: border-box; font-family: \"Public Sans webfont\", sans-serif; font-weight: 700; line-height: 1.2; color: rgb(54, 104, 186); margin-top: 24px; margin-bottom: 12px; font-size: 30px; text-rendering: optimizelegibility; font-variant-ligatures: common-ligatures; font-feature-settings: \"kern\"; font-kerning: normal; font-style: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widow"
+    },
+    {
+      "id": "1098",
+      "name": "Functional Zero",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-top:0in;background:white;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">On behalf of the Mayor of Jackson, Mississippi:</span></p><p style=\"margin-top:0in;background:white;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">The City of Jackson is offering organizations throughout the region an unprecedented effort to mitigate and end homelessness. This project will play a vital role in our community reaching &ldquo;Functional Zero.&rdquo; &ldquo;Functional zero is"
+    },
+    {
+      "id": "1102",
+      "name": "GIS",
+      "isEnabled": 1,
+      "content": "<h2 style='box-sizing: border-box; font-family: \"Public Sans webfont\", sans-serif; font-weight: 700; line-height: 1.2; color: rgb(54, 104, 186); margin-top: 24px; margin-bottom: 12px; font-size: 30px; text-rendering: optimizelegibility; font-variant-ligatures: common-ligatures; font-feature-settings: \"kern\"; font-kerning: normal; font-style: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0"
+    },
+    {
+      "id": "1083",
+      "name": "Historic Preservation",
+      "isEnabled": 1,
+      "content": "<p><strong>Applications submitted online will automatically be routed through the review process.&nbsp;</strong></p><ul><li>A &nbsp;staff member will review the application for &quot;Intake Approval&quot;.&nbsp;<ul><li>They will verify the completeness of the application.&nbsp;</li><li>They will check for the required attachments.</li></ul></li><li>You will be notified when the &quot;Intake Approval&quot; is completed via email</li><li>The application will then automatically be routed through th"
+    },
+    {
+      "id": "1085",
+      "name": "Housing and Community Development",
+      "isEnabled": 1,
+      "content": "<div style='box-sizing: border-box; color: rgb(33, 33, 33); font-family: \"Public Sans webfont\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: common-ligatures; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-"
+    },
+    {
+      "id": "1093",
+      "name": "Human and Cultural Services",
+      "isEnabled": 1,
+      "content": "<h2 style='box-sizing: border-box; font-family: \"Public Sans webfont\", sans-serif; font-weight: 700; line-height: 1.2; color: rgb(54, 104, 186); margin-top: 24px; margin-bottom: 12px; font-size: 30px; text-rendering: optimizelegibility; font-variant-ligatures: common-ligatures; font-feature-settings: \"kern\"; font-kerning: normal; font-style: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0"
+    },
+    {
+      "id": "1099",
+      "name": "Neighborhood Services",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><strong><span style=\"font-family: Arial, "
+    },
+    {
+      "id": "1082",
+      "name": "Public Works",
+      "isEnabled": 1
+    },
+    {
+      "id": "1090",
+      "name": "Real Estate Development",
+      "isEnabled": 1,
+      "content": "<div data-index=\"0\" style='box-sizing: border-box; zoom: 1; margin-bottom: 30px; color: rgb(33, 33, 33); font-family: \"Public Sans webfont\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: common-ligatures; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-de"
+    },
+    {
+      "id": "1089",
+      "name": "Rental Registration",
+      "isEnabled": 1,
+      "content": "<ul style='box-sizing: border-box; margin-top: 0px; margin-bottom: 13px; padding: 0px; list-style: none; margin-left: 0px; color: rgb(49, 51, 53); font-family: \"Open Sans\", sans-serif, Helvetica, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width"
+    },
+    {
+      "id": "1095",
+      "name": "Solid Waste",
+      "isEnabled": 1,
+      "content": "<ul style='box-sizing: border-box; margin-top: 0px; margin-bottom: 13px; padding: 0px; list-style: none; margin-left: 0px; color: rgb(49, 51, 53); font-family: \"Open Sans\", sans-serif, Helvetica, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width"
+    },
+    {
+      "id": "1092",
+      "name": "Special Events",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Georgia,serif;\"><span style=\"font-size: 18px;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; The regulations for a special events permit are contained in the <a href=\"https://library.municode.com/ms/jackson/codes/code_of_ordinances?nodeId=COOR_CH14AMEN_ARTIVSPEV_S14-176TI\" rel=\"noopener noreferrer\" target=\"_blank\">City of Jackson Special Events Ordinance</a> and are required for the public health, safety, morals, good order, convenience, and general welfare of the community. Th"
+    },
+    {
+      "id": "1104",
+      "name": "Stormwater Management Program",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1076",
+      "name": "Zoning and Development Services",
+      "isEnabled": 1,
+      "content": "<div data-index=\"5\" style='box-sizing: border-box; zoom: 1; margin-bottom: 30px; color: rgb(33, 33, 33); font-family: \"Public Sans webfont\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: common-ligatures; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-de"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:14.386Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

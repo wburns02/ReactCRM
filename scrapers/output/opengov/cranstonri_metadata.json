@@ -1,0 +1,408 @@
+{
+  "jurisdiction": "Cranston",
+  "state": "RI",
+  "tenant": "cranstonri",
+  "portalUrl": "https://cranstonri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6332",
+      "name": "1) Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This application is for all combinations of work Residential & Commercial, which may include fire plan review.",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "3) Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit from the City of Cranston for work on heating, cooling and ventilation systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "2) Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit from the City of Cranston,  and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": "4) Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the City of Cranston, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6338",
+      "name": "6) Tent Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Plans MUST be APPROVED by the FIRE DEPT 301 Pontiac Ave before submitting to our office for review. This application must be submitted at least seven days in advance of the event.  If you have an urgent request, please call us directly at 401-780-6012.",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "5) Demolition Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This application is for the COMPLETE demolition of a structure ONLY. The Demolition of structures involves the complete removal of the structure, utilities, foundation, filling, compaction and stabilization of the site. For interior/selective demolition (removing walls, etc), please complete a Building Permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "7) Moving Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a moving permit from the City of Cranston.",
+      "isEnabled": true
+    },
+    {
+      "id": "6375",
+      "name": "8) Sign Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a sign permit from the City of Cranston.  Any freestanding sign requiring structural design (i.e footings) shall be accompanied by a separate building permit. All permit applications should include photos of any existing signage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6376",
+      "name": "9) Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the City of Cranston.",
+      "isEnabled": true
+    },
+    {
+      "id": "6384",
+      "name": "Residential Smoke & Carbon Monoxide",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6425",
+      "name": "Dog License ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Apply for a dog license from the City of Cranston.   Rabies Certificates MUST be submitted when applying for a license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6418",
+      "name": "Zoning Board of Review Application ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Planning Application ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Subdivision & Land Development Applications",
+      "isEnabled": true
+    },
+    {
+      "id": "6412",
+      "name": "Amusement Machine/ Game Room ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for an Amusement Machine or Game Room license ",
+      "isEnabled": true
+    },
+    {
+      "id": "6385",
+      "name": "NEW Life Safety Inspection",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Click here to submit your request for an inspection from the Cranston Fire Department (related to business licenses or construction rough/final).",
+      "isEnabled": true
+    },
+    {
+      "id": "6395",
+      "name": "Auto Repair/ Auto Body/ Used Auto Dealer License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for an Auto Repair, Auto Body or Used Auto Dealer License\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6404",
+      "name": "Billiards License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Billiards license",
+      "isEnabled": true
+    },
+    {
+      "id": "6405",
+      "name": "Body Works Establishment License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Body Works Establishment license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6393",
+      "name": "Fireworks/Pyrotechnics/Flame Effect Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6421",
+      "name": "Body Works Personnel License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Body Works Personnel license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6406",
+      "name": "Bowling Alley",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Bowling Alley license ",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Carnival License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a carnival license ",
+      "isEnabled": true
+    },
+    {
+      "id": "6414",
+      "name": "Door-to-Door Solicitation ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a door-to-door solicitation permit ",
+      "isEnabled": true
+    },
+    {
+      "id": "6407",
+      "name": "Employment Agency",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for an Employment Agency license ",
+      "isEnabled": true
+    },
+    {
+      "id": "6390",
+      "name": "Entertainment License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a yearly entertainment license",
+      "isEnabled": true
+    },
+    {
+      "id": "6391",
+      "name": "Entertainment License - Per Diem",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a per diem entertainment license ",
+      "isEnabled": true
+    },
+    {
+      "id": "6408",
+      "name": "Expansion of Hours Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for an expansion of hours ",
+      "isEnabled": true
+    },
+    {
+      "id": "6411",
+      "name": "Expansion of Premise License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for an expansion of Premise license",
+      "isEnabled": true
+    },
+    {
+      "id": "6409",
+      "name": "Extended Hours License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for an extended hours license ",
+      "isEnabled": true
+    },
+    {
+      "id": "6400",
+      "name": "Firearm Dealer License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Firearm Dealers license",
+      "isEnabled": true
+    },
+    {
+      "id": "6401",
+      "name": "Fireworks Vendor License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a fireworks vendor license ",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Hawker/Peddler License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Hawker/Peddler",
+      "isEnabled": true
+    },
+    {
+      "id": "6397",
+      "name": "Holiday Sales License  ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Holiday Sales license",
+      "isEnabled": true
+    },
+    {
+      "id": "6410",
+      "name": "Leasing of Motor Vehicle License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Leasing of Motor Vehicle license",
+      "isEnabled": true
+    },
+    {
+      "id": "6387",
+      "name": "Liquor License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a  Liquor License Class A, BV, BVL, C, J licenses from the City of Cranston. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6388",
+      "name": "Liquor License - Class D ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Class D liquor license ",
+      "isEnabled": true
+    },
+    {
+      "id": "6389",
+      "name": "Liquor License - Class F ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Class F liquor license \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6402",
+      "name": "Massage Therapy",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Massage Therapy license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6394",
+      "name": "Mobile Food Establishment ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Mobile Food Establishment license ",
+      "isEnabled": true
+    },
+    {
+      "id": "6413",
+      "name": "Parade License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a parade, procession, road race license ",
+      "isEnabled": true
+    },
+    {
+      "id": "6415",
+      "name": "Private Detective",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a private Detective ",
+      "isEnabled": true
+    },
+    {
+      "id": "6396",
+      "name": "Secondhand Dealers License  ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Secondhand Dealers license. Any business reselling metals (i.e., jewelry, home goods, scrap metal, etc.) will need a Secondhand Dealers License",
+      "isEnabled": true
+    },
+    {
+      "id": "6399",
+      "name": "Short Term Lender License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Short Term Lender license",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "Temporary Mass Gathering License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Temporary Mass Gathering Permit ",
+      "isEnabled": true
+    },
+    {
+      "id": "6392",
+      "name": "Victualing/ Additional Hours License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Victualing or Additional Hours Victualing license. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "2) Fire Department",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 36px;\">WELCOME</span></strong></p><p><br></p><p><strong>Who can take out a permit?</strong><br>A Rhode Island registered contractor with the appropriate license for the type of work being performed may take out a permit. A homeowner of a single-family residence, <em>owner-occupied</em>, may take out a permit if they perform the work without help.&sect; 23-27.3-113.3.2</p><p><br></p><p><strong><span style=\"font-size: 24px;\">Helpful Links: &nbsp;&nbsp;</span></st"
+    },
+    {
+      "id": "1072",
+      "name": "1) Building Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 36px;\">WELCOME</span></strong></p><p style='box-sizing: border-box; margin: 0px 0px 10px; color: rgb(0, 0, 0); font-family: \"Benton Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-co"
+    },
+    {
+      "id": "1079",
+      "name": "4) Community Development",
+      "isEnabled": 1,
+      "content": "<p><span style='color: rgb(10, 10, 10); font-family: \"Titillium Web\", Arial, Helvetica, sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(254, 254, 254); text-decoration-thickness: initial; text-decoration-style: initial; te"
+    },
+    {
+      "id": "1080",
+      "name": "5) Clerk Services Area",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><strong><span style=\"font-size: 24px;\"><em>City of Cranston Business License Information</em></span></strong><br>This page provides guidance for the business licenses issued through the City of Cranston City Clerk&rsquo;s Office.<br>All applications must be completed online using our Viewpoint application portal.<br>We will no longer be accepting paper applications.</div><div style=\"text-align: center;\"><strong>&nbsp;<br></strong><strong><span style=\"font-size: 2"
+    },
+    {
+      "id": "1081",
+      "name": "6) Dog Licenses ",
+      "isEnabled": 1,
+      "content": "<div><div><span style=\"font-size: 14px;\"><span style=\"color: rgb(0, 0, 0);\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb"
+    },
+    {
+      "id": "1082",
+      "name": "7) Planning & Zoning",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-size: 36px;\">WELCOME</span></div><div><br></div><div><br></div><div><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/ZONING_BOARD_OF_REVIEW_-_APPLICATION_REQUIREMENTS_Mon_Apr_07_2025_14:01:21_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\"><strong>ZONING BOARD OF REVIEW - APPLICATION REQUIREMENTS.pdf</strong></a><strong><br></strong></div><div><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pict"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:43.682Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

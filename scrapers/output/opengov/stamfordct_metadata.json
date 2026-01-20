@@ -1,0 +1,384 @@
+{
+  "jurisdiction": "Stamford",
+  "state": "CT",
+  "tenant": "stamfordct",
+  "portalUrl": "https://stamfordct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6551",
+      "name": "Building Department Customer Inquiries",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Record type for inquiries about properties, permit status, work that requires a building permit, FOIA requests, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6581",
+      "name": "Outdoor Dining Permit",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Use this form to obtain an Outdoor Dining Permit on private and public property.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6597",
+      "name": "Permitting Walk-In Comments",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Join us at our upcoming Permitting Walk-In Sessions for any questions regarding residential and minor commercial projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Building Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Use this form to obtain a building permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Excavation Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Zoning Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Use this form to obtain a zoning permit for accessory structures such as shed (less than 200 SQFT), play houses, patios (8 inches or greater above grade), fences (regardless of height), signs, change of use, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6599",
+      "name": "Zoning Enforcement Customer Inquiries",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Record type for inquiries about properties, Zoning Enforcement FOIA Requests, Zoning Compliance Letters, General Questions, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Contractors ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Obstruction Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6547",
+      "name": "Special Events & Film Applications/Permits",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This applications is for activities that are expected to take place on City/Public property including streets and sidewalks. In some cases events on private property that may impact public property or special services will requires a special event permit. To be safe, always check with the team to ensure you are thinking of everything that might impact your events success (203) 977-4979.",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Annual Food Establishment License",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Any fixed or mobile restaurant, industrial feeding establishment, catering kitchen, commissary, food vending machine location or similar place where food or drink is prepared for sale or service on the premises  shall apply for an Annual Food Establishment License. Please be advised, licenses are not transferable and a valid license shall be posted in every food service establishment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6593",
+      "name": "Annual Retail Food Store License",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Annual Retail Food Store license is a requirement of the Stamford Department of Health & Human Services. A retail food store establishment is a place that sells food products directly to consumers as its primary function. A retail food store establishment includes grocery stores, convenience stores, and vending machine locations. Please be advised, licenses are non-transferable and a valid license shall be posted in every retail food store establishment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Assisted Living License",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Please be advised, the name of applicant for this Assisted Living License will appear on this license once issued.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Plan Review Cosmetology & Massage",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Prior approval must be obtained from the City of Stamford, Department of Health & Human Services, for any changes or additions to the establishment and/or services.\n\nA Plan Review for Cosmetology services is required for all establishments prior to receiving a valid City of Stamford, Department of Health issued License.  \n\nPlan Review Submission Inventory Form/Guide is available at stamfordct.gov.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Demolition Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Use this form to obtain a demolition permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Cosmetology License ",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "No person shall maintain or operate any barbershop or hairdressing and/or cosmetology shop without having a valid license issued by the Director of Health. All licenses are valid for one (1) year or a portion thereof and are renewable each year on or before July 1 of each year. The chief corporation officer shall be designated for service in the event of a corporation. \nTransferring of licenses without going through the Change of Ownership process and prior approval from the Department of Health will be subject to Closure of Establishment. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Fire Alarm System Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Use this form to obtain a fire alarm system permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Certificate of Apartment Occupancy",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": " The City of Stamford requires that apartment buildings with 4 or more units secure individual Certificates of Apartment Occupancy per City of Stamford Code (Chapter 146 Section 33) states: No rent shall be recoverable by the owner or lessor of such apartment house for the occupation of any apartment for which a Certificate of Apartment for which a Certificate of Apartment Occupancy has not been obtained prior to the rental thereof in violation of Subsection (b) of this section. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Change or Dissolution of Business",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "The Department of Health & Human Services request that business owners complete a Change or Dissolution of Business application which may effect the department's licensing & permitting processes. This application shall be for persons changing ownership, business name, equipment and/or layout, as well as dissolution of business. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Plan Review Food Establishments",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "The Stamford Department of Health Environmental Inspections Division requires that a plan review application be completed for all new and remodeled food service establishments. This application will assist in determining the safety and compliance of all food service establishments. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Fire Suppression Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Use this form to obtain a fire suppression permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Electrical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Use this form to obtain an electrical permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "General Plan Request",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Request for Septic Plans, Well Completion reports and Maps must be submitted to the Stamford Department of Health Environmental Inspections Division. Request will be reviewed and completed within 3 - 5 business after submission. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Hotel/Motel License ",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "Chapter 146, Section 34 of the Stamford City Code requires all owners or operators of hotels and motels in the City of Stamford to apply for and receive an annual license from the Department of Health. Your license period runs from July 1, 2020 thru June 30, 2021.  Additionally, The Stamford Board of Representatives has mandated, by ordinance, a Hotel/Motel License fee of three hundred and fifty dollars ($350.00), plus eighty five ($85.00) per hotel/motel unit. For any hotel owned by any person, firm, corporation, joint venture, or other legal entity that is exempt from income tax liability, pursuant to Section 501 (c) (3) of the Internal Revenue Code, the applicable licensing fees shall be two hundred and fifty dollars ($250.00), plus thirty dollars ($30.00) per hotel/motel unit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Plumbing Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Use this form to obtain a plumbing permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Lead Abatement Plan for Residential Dwellings",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Massage Establishment License",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Annual license application is required per resolution No. 4019 of the City of Stamford BO\nperson, shall engage in the practice of massage or massage therapy unless he or she has obtained a license from the State Department of Public Health to practice massage therapy as provided in Chapter 844a, sections 20-206a et seq. of the Connecticut General Statutes, as amended, and is a Connecticut Licensed Massage Therapist. No person shall engage in, conduct or carry on, or permit to be engaged in, conducted or carried on, in or upon any premises in the City of Stamford, the operation of a massage establishment without first having obtained a permit from the Director of Health after screening by and approval from the City of Stamford Police Department. Each applicant for a permit to operate a massage establishment shall file an application with the Director of Health and pay a filing fee in an amount set by a Resolution of the Board of Representatives.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Mechanical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Use this form to obtain a mechanical/HVAC system permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "Mobile Food Establishment License ",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "See Stamford Municipal Code Regarding Mobile Food Establishments. This permit is required under State of CT Public Health Code AND City of Stamford local Ordinance for food sales.  The City of Stamford Local Ordinance also requires you to obtain a permit to vend from the Cashiering & Permitting Department (203) 977-4979.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Multiple Family Dwelling License ",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "Chapter 146, Section 34 of the Stamford City Code requires all owners or operators of Multiple Family Dwellings in the City of Stamford to apply for and receive an annual license from the Department of Health. Your license will expire on December 31st of each year.  A new License is required on January 1st annually.  Additionally, Chapter 146, Section 33 of the Stamford City Code mandates certification of all vacated apartments as fit for occupancy when the structure becomes fifteen years old and contains four or more apartments.  If your structure falls into this category, be sure to complete an application for Certification of Apartment Occupancy (CAO) each time one of the apartments is vacated.  Under Chapter 146, Section 33B of the Stamford City Code, it is illegal to rent an apartment without a CAO, if one is needed.  The fee for each CAO inspection is $75.00 which must  accompany any CAO Application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Noise Waiver",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Public Pool License",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Public pools. The following requirements shall apply to any public pool. (a) Definitions. (1) \"Public Pool\" means an artificial basin constructed of concrete, steel, fiberglass or other relatively impervious material intended for recreational bathing, swimming, diving, or therapeutic purposes which is located either indoors or outdoors and is provided with a controlled water supply and which is not used or intended to be used as a pool at a single family residence. The term also includes a pool located at a single family residence which is used or intended to be used for commercial or business purposes. The term \"public pool\" includes any related equipment, structures, areas, and enclosures that are intended for the use of the pool patrons or pool staff such as toilet, dressing, locker, shower, and pool equipment rooms. See link below for complete public health code on pools. https://portal.ct.gov/-/media/Departments-and-Agencies/DPH/dph/environmental_health/recreation/pdf/1913b33bpdf.pdf",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Refuse Trucks License",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "The Stamford Department of Health, Environmental Health and Inspections Division, regulates the installation of Subsurface Sewage Disposal Systems (SSDS), otherwise known as septic systems.  Providing plan review, site evaluation and final inspections on newly installed systems, the department permits only correctly installed SSDS's thus ensuring the Public Health. The regulations for SSDS installation are in the Public Health Code of the State of Connecticut, §19-13-B100a; §19-13-B103; the Technical Standards, (pursuant to §19-13-B103); and the Design Manual, Subsurface Sewage Disposal Systems for Households and Small Commercial Buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Rooming House License",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "Chapter 146, Section 33 of the Stamford City Code requires all owners or operators of rooming houses in the City of Stamford to apply for and receive an annual license from the Department of Health. Your license period runs from July 1, 2020 thru June 30, 2021. Additionally, Chapter 146, Section 33 of the Stamford City Code mandates certification of all vacated apartments as fit for occupancy when the structure becomes fifteen years old and contains four or more apartments.  If your structure falls into this category, be sure to complete an application for Certification of Apartment Occupancy (CAO) each time one of the apartments is vacated.  Under Chapter 146, Section 33B of the Stamford City Code, it is illegal to rent an apartment without a CAO, if one is needed.  The fee for each CAO inspection is $75.00 which must  accompany any CAO Application. Please note: Chapter 146-40 Bedding. The operator of every rooming house shall change supplied bed linen and towels therein at least once each week and prior to the letting of any room to any occupant.  The operator shall be responsible for the maintenance of all supplied bedding in a clean and sanitary manner. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Septic Permit (Subsurface Sewage Disposal System, Soil Testing)",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "Septic Truck License ",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "The Stamford Department of Health, Environmental Health and Inspections Division, regulates the installation of Subsurface Sewage Disposal Systems (SSDS), otherwise known as septic systems.  Providing plan review, site evaluation and final inspections on newly installed systems, the department permits only correctly installed SSDS's thus ensuring the Public Health. The regulations for SSDS installation are in the Public Health Code of the State of Connecticut, §19-13-B100a; §19-13-B103; the Technical Standards, (pursuant to §19-13-B103); and the Design Manual, Subsurface Sewage Disposal Systems for Households and Small Commercial Buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Daycare & School Facility Inspection Certificate",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Taximeter",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "The Sealer of Weights and Measures of the Stamford Department of Health annually inspects the devices used for commercial weighing and measuring. The devices are tested to ensure that they are appropriate for the intended use. The Environmental Inspections Division also enforces the regulations/laws pertaining to Weights & Measures and also responds to Consumer Complaints alleging short measure of weights or overcharges. Licenses for the devices inspected are issued and are valid for one year from January 1st to December 31st. Applications not received by December 31st are subject to a $90.00 fine for each day that it is late. An application must be completed in its entirety to ensure proper account credit. For questions regarding Weights and Measures activities, call (203) 977-4391.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Temporary Food Service Event License",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "Temporary Food Service Event Licenses must be obtained 2 - 3 weeks prior to the start date of events. Licenses for Temporary events are non-transferrable between persons nor locations.  Licensing terms are for the duration of 14 day increments. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Truck Meters",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "The Sealer of Weights and Measures of the Stamford Department of Health annually inspects the devices used for commercial weighing and measuring. The devices are tested to ensure that they are appropriate for the intended use. The Environmental Inspections Division also enforces the regulations/laws pertaining to Weights & Measures and also responds to Consumer Complaints alleging short measure of weights or overcharges. Licenses for the devices inspected are issued and are valid for one year from January 1st to December 31st. Applications not received by December 31st are subject to a $90.00 fine for each day that it is late. An application must be completed in its entirety to ensure proper account credit. For questions regarding Weights and Measures activities, call (203) 977-4391.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Weights & Measures",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "The Sealer of Weights and Measures of the Stamford Department of Health annually inspects the devices used for commercial weighing and measuring. The devices are tested to ensure that they are appropriate for the intended use. The Environmental Inspections Division also enforces the regulations/laws pertaining to Weights & Measures and also responds to Consumer Complaints alleging short measure of weights or overcharges. Licenses for the devices inspected are issued and are valid for one year from January 1st to December 31st. Applications not received by December 31st are subject to a $90.00 fine for each day that it is late. An application must be completed in its entirety to ensure proper account credit. For questions regarding Weights and Measures activities, call (203) 977-4976.",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Well Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Well permit is for abandonment, repair, or installation.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1093",
+      "name": "Permitting Walk-In",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; margin: 0px 0px 1em; color: rgb(68, 68, 68); font-family: \"Open Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-st"
+    },
+    {
+      "id": "1091",
+      "name": "Non-Construction Permits",
+      "isEnabled": 1
+    },
+    {
+      "id": "1083",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 24px;\">Welcome to the Building Department Permit Portal</span></strong></p><p>If you have any questions, please call <strong>203-977-4164</strong>, Monday - Friday, 8:00 am - 4:00 pm, or email us at <a data-fr-linked=\"true\" href=\"mailto:buildingdept@stamfordct.gov\" style=\"user-select: auto;\" target=\"_blank\"><strong>buildingdept@stamfordct.gov</strong></a>.</p><p style=\"margin-bottom:7.5pt;background:white;font-variant-ligatures: norm"
+    },
+    {
+      "id": "1085",
+      "name": "Department of Health",
+      "isEnabled": 1,
+      "content": "<section><p style=\"text-align: center;\"><br></p><p style=\"text-align: center;\"><br></p><p style=\"text-align: center;\"><br></p><p style=\"text-align: center;\">The responsibility of the Department of Environmental Inspections services is to protect the public health and environment of the City of Stamford through education, inspections, sampling and monitoring, issuance of licenses and permits and enforcing federal, state, and local codes as they pertain to public health issues.</p><p style=\"text-a"
+    },
+    {
+      "id": "1084",
+      "name": "Engineering",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 18px;\">Welcome to the Engineering Department Permit Portal</span></strong></p><p>Our online permitting system will allow you to apply for permits and make payments from your office or home. Please note that the application submission is not an approval to begin work.&nbsp;</p><p><br></p><p>Once your application has been submitted, it will be reviewed for completeness. &nbsp;If it is deemed complete, it will be reviewed by the Engineering Department as well as o"
+    },
+    {
+      "id": "1089",
+      "name": "Land Use Bureau",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style='color: rgb(61, 142, 185); font-family: \"Open Sans\", sans-serif; font-size: 23.04px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: i"
+    },
+    {
+      "id": "1088",
+      "name": "Contractor Registration",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Times New Roman,Times,serif,-webkit-standard;\">Apply to become a City of Stamford registered contractor for<strong>&nbsp;Building permits that do not require you to be registered with the State of CT</strong>. <span style=\"color: rgb(19, 21, 23); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: no"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:36.249Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

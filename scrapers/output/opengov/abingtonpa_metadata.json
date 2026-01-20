@@ -1,0 +1,395 @@
+{
+  "jurisdiction": "Abington Township",
+  "state": "PA",
+  "tenant": "abingtonpa",
+  "portalUrl": "https://abingtonpa.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6463",
+      "name": "CONTRACTOR REGISTRATION",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "All persons or firms performing construction, alteration, repair, maintenance, or related contracting work within the Township of Abington must be registered and licensed under Chapter 63 of the Township Code. Applicants must complete the township’s contractor registration form, provide proof of required insurance coverage (including general liability and property damage), and pay the applicable fee. Contractors are also required to report any change in ownership, business name, address, or management within ten (10) days. Contractors who are registered with the Pennsylvania Office of Attorney General as Home Improvement Contractors (HIC) are exempt from the township’s licensing fee but must still register, provide insurance, and comply with all other provisions of Chapter 63. No contractor may perform work within the Township without proper registration or a qualifying exemption.",
+      "isEnabled": true
+    },
+    {
+      "id": "6542",
+      "name": "EVENT/SPECIAL USE PERMIT",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "FOOD TRUCK LICENSE",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "License issued to authorize operation of a mobile food truck (PA Dep of Agriculture Type 3 & 4) within Abington Township in compliance with the Mobile Food Vendor Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "ACCESSORY STRUCTURE PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required to construct or install detached structures such as sheds, garages, carports, or similar non-habitable buildings on a property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "ADDITION PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required for expanding an existing structure by adding new square footage such as rooms, decks, 3 season rooms or attached garages.",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "PLUMBER REGISTRATION",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "All master and journeyman plumbers performing work within the Township of Abington are required to be registered annually with the Township. Registration must be completed prior to December 31 for the following calendar year and is valid only for that year. Applicants must already hold a valid plumbing license issued after examination and meet all Township requirements. No person may engage in or perform plumbing or house-drainage work within the Township without maintaining current registration.",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "HOST BUSINESS PERMIT",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Permit granted to a fixed-location business to host mobile food vendors on its property within Abington Township.",
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "SINGLE EVENT PERMIT",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Permit authorizing the operation of one or more mobile food vendors at a specific event within Abington Township on a temporary basis.",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "ALTERATION PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required for modifying, remodeling, or renovating existing interior or exterior spaces without expanding the structure’s footprint.\n\nThis permit is not intended for decks. Decks applications should be submitted as an Addition permit.\nThis permit is not intended for roofing/siding. Roofing/Siding should be submitted as a Roofing/Siding permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6355",
+      "name": "Blasting Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6533",
+      "name": "Emergency Responder Radio Coverage System",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "All  new Fire Alarm Systems and modification to existing systems must be designed/installed in accordance with NFPA 72 and the currently adopted editions of the International Building and Fire Codes, as well as Abington Township Ordinances.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "DEMOLITION PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required to partially or fully demolish any structure, including buildings, garages, or pools.",
+      "isEnabled": true
+    },
+    {
+      "id": "6537",
+      "name": "FOOD CART LICENSE",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "License issued to authorize operation of a mobile food cart (PA Dep of Agriculture Type 1 & 2) within Abington Township in compliance with the Mobile Food Vendor Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "EXEMPTION REQUEST: SINGLE-USE PLASTICS AND EXPANDED POLYSTYRENE FOAM PRODUCTS",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Abington Township adopted Ordinance 2226 on February 13, 2025, banning certain Single-Use Plastics and Expanded Polystyrene Foam Products.\n\nAn establishment may submit a request for a Temporary Exemption from the requirements of Ordinance No. 2226 because it would cause undue hardship. Ordinance No. 2226 goes into effect on August 12, 2025.\n\nTo request an exemption, please complete this form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "HIGHWAY PERMIT",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Fire Alarm System Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "All  new Fire Alarm Systems and modification to existing systems must be designed/installed in accordance with NFPA 72 and the currently adopted editions of the International Building and Fire Codes, as well as Abington Township Ordinances.",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "FENCE PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required to install or replace a fence on residential or commercial property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "ELECTRICAL PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required for installing, altering, or upgrading electrical systems, wiring, service panels, or devices.",
+      "isEnabled": true
+    },
+    {
+      "id": "6361",
+      "name": "Fire Sprinkler System Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "All new Fire Sprinkler Systems and modification to existing systems must be designed/installed in accordance with NFPA (13, 13D, 13R) Standards and the currently adopted editions of the International Building and Fire Codes, as well as Abington Township Ordinances.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "RAIN BARREL PERMIT",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Greater than 250 sq. ft. of impervious surface requires an \"Application for Seepage Pits/Dry Well/Rain Gardens\"",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "FIREPLACE/WOODSTOVE PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required to install or replace a fireplace, wood-burning stove, or similar heating appliance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Fire Suppression System Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "All new Fire Suppression Systems and modification to existing systems must be designed/installed in accordance with the appropriate NFPA standards and the currently adopted editions of the International Building and Fire Codes, as well as Abington Township Ordinances.",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "FOUNDATION PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required to construct the foundation of a building or structure before the full building permit is issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "6541",
+      "name": "FLAME EFFECT PERMIT",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Open flame used as part of a performance, event, or program requires a Flame Effect Permit. This includes, but is not limited to, shows, acts, candles, torches, flame-based special effects, or any other intentional use of open flame. Pyrotechnics require a separate permit and are not covered under this provision.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Storage Tank Removal Application",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "All removals will conform to the currently adopted editions of the International Building and Fire Codes and Local Ordinances, State, and Federal requirements. It is the applicant's responsibility to notify and apply to all applicable agencies including PA One Call. The applicant is responsible for the safety of the site and integrity of any spoil pile. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "MECHANICAL PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required to install or modify HVAC systems including furnaces, air conditioners, ductwork, and ventilation.\n\n**Electrical permit required to be submitted for any new or replacment units.",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "GENERATOR PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required to install a permanent standby generator, including associated fuel and electrical connections.\n\nNote: A separate electrical permit application is required to be submitted concurrently. Please separate the job costs between the Generator and Electrical applications. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "PAVING PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required for installing or replacing driveways, patios, or other impervious surfaces. This includes paving utilizing pervious materials.\n(Sidewalk, curbing & driveway apron replacement should be filed under SIDEWALK permit)",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "NEW CONSTRUCTION - BUILDING PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required to construct a brand-new structure such as a house, commercial building, or other primary facility.\n\nNote: This is only for new primary structures. Sheds, garages, etc. should be submitted as an Accessory Structure Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "SEEPAGE PIT / DRY WELL / RAIN GARDEN PERMIT",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Homeowner Storm Water Management ",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "PLUMBING PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required for installation, replacement, or modification of plumbing systems including pipes, fixtures, and drains.  \n\nNote: Only Registered Plumbers (Master Plumbers or Journeymen) may complete plumbing work in Abington Township. The only way in which someone who is not a Register Plumber may apply for a permit is with a letter from said Registered Plumer authorizing an individual to apply for a permit under their license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "RETAINING WALL PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required to construct or replace a retaining wall, particularly any of that meet any of the following parameters:\n- Walls over 4 feet in height measured from the lowest level of grade to the top of the wall\n- Walls that support a surcharge\n- Walls impounding Class I, II or III-A liquids",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "ROOFING AND SIDING PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required to install or replace roofing or siding on any building.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "SANITARY SEWER PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required for connection of new sanitary sewer line",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "SIDEWALK PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required for constructing, replacing, or repairing public or private sidewalks, curbing and driveway aprons.\n\nSidewalks are required to comply with the conditions and provisions of Abington Township Ordinance No. 1026 and No. 1336, all supplemental or amending ordinances added thereto and all rules and regulations of the Abington Township Engineering Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "SIGN PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required to install, modify, or replace permanent or temporary signs on a property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "SOLAR PANEL PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required for installing rooftop or ground-mounted solar photovoltaic systems.\n\nElectrical permit required to be submitted also.",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "SWIMMING POOL PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required for installing an in-ground or above-ground swimming pool, including associated barriers.",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "TANK INSTALLATION PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required to install above-ground or underground storage tanks for fuel, oil, or chemicals. This includes all new installs and replacements. \n\nIf replacing an existing tank, a Storage Tank Removal permit is required by the Fire Department (and is a separate application)",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "TEMPORARY DUMSPTER/PORTABLE STORAGE PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required to place a dumpster or temporary storage unit on private property or public right-of-way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Zoning Compliance Request",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Used to verify if a proposed use, structure, or change complies with the local zoning ordinance. Covers both Zoning Compliance Request applications and requests for Preliminary Opinions. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "WIRELESS COMMUNICATIONS FACILITIES PERMIT",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Required for the installation or modification of wireless communication infrastructure such as antennas or cell towers.\n\nElectrical permit required to be submitted also.",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "USE AND OCCUPANCY PERMIT",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Occupancy permits shall be required prior to any of the following:\n1. First occupancy of any building or other structure hereinafter erected, altered, or enlarged, for which a building permit is required;\n2. Change in use of any building or structure;\n3. Change in occupancy of any building or structure in any nonresidential, commercial or industrial district;\n4. Change in use or expansion of a nonconforming use.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<p data-end=\"232\" data-start=\"131\"><strong data-end=\"232\" data-start=\"131\">Welcome to the Code Enforcement Division&rsquo;s page of the Abington Online Permit &amp; Licensing Portal.</strong></p><p data-end=\"602\" data-start=\"234\">We&rsquo;ve transitioned to a digital system to provide a faster, more accessible way for you to apply for permits, request inspections, and monitor the status of your submissions. This online portal enhances transparency, improves efficiency, and promotes timely commun"
+    },
+    {
+      "id": "1084",
+      "name": "Engineering",
+      "isEnabled": 1
+    },
+    {
+      "id": "1092",
+      "name": "Events & Special Use Permits",
+      "isEnabled": 1
+    },
+    {
+      "id": "1074",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p data-end=\"232\" data-start=\"131\"><strong data-end=\"232\" data-start=\"131\">Welcome to the Abington Township Fire Marshal Office&rsquo;s page of the Abington Online Permit &amp; Licensing Portal.</strong></p><p data-end=\"602\" data-start=\"234\">We&rsquo;ve transitioned to a digital system to provide a faster, more accessible way for you to apply for permits, request inspections, and monitor the status of your submissions. This online portal enhances transparency, improves efficiency, and promotes t"
+    },
+    {
+      "id": "1090",
+      "name": "Mobile Food Vendors",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial,Helvetica,sans-serif;\">Welcome to Abington Township&rsquo;s Mobile Food Vendor Licensing Portal. In accordance with the Township&rsquo;s Mobile Food Vendor Ordinance (Ordinance #2230), all food trucks, food carts, host businesses, and single-event organizers must obtain the appropriate permit or license prior to operating or hosting a mobile food vendor within the Township. Please review the descriptions below and select the permit or license that best matche"
+    },
+    {
+      "id": "1085",
+      "name": "Zoning",
+      "isEnabled": 1,
+      "content": "<p>The Township of Abington current zoning ordinance was adopted in April 2017, and can be found on the township website at <a href=\"https://www.abingtonpa.gov/departments/fire-and-emergency-management-services/forms-and-permit-applications/zoning\" rel=\"noopener noreferrer\" target=\"_blank\">Abington PA Zoning</a></p><!---->"
+    },
+    {
+      "id": "1081",
+      "name": "Contractor Registrations",
+      "isEnabled": 1,
+      "content": "<p data-end=\"112\" data-start=\"0\">Contractors and plumbers intending to perform work within Abington Township must adhere to the Township&#39;s registration and licensing requirements to ensure compliance with local regulations and standards. This process is designed to uphold safety, quality, and accountability in construction and plumbing activities throughout the community.</p><div><br></div><div>Who must register?</div><div><br></div><div><strong>Contractors</strong>: All individuals or busin"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:41.736Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

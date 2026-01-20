@@ -1,0 +1,34 @@
+{
+  "jurisdiction": "Chamblee",
+  "state": "GA",
+  "tenant": "chambleega",
+  "portalUrl": "https://chambleega.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6426",
+      "name": "Commercial Occupational Tax Certificate",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Home Based Occupational Tax Certificate",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1082",
+      "name": "Licensing",
+      "isEnabled": 1,
+      "content": "<div><strong>Business License Renewal Season for a 2026 Chamblee Occupational Tax Certificate has begun. &nbsp;Please submit your renewal before April 15, 2026 to avoid late penalties and interest.</strong></div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:49.933Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

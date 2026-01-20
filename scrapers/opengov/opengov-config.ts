@@ -567,7 +567,103 @@ export const JURISDICTIONS: JurisdictionConfig[] = [
     state: 'WY',
     portalUrl: 'https://cheyennewy.portal.opengov.com',
     enabled: true
-  }
+  },
+
+  // ============================================
+  // BATCH 4 - AGENT DISCOVERED JURISDICTIONS
+  // ============================================
+
+  // Alabama
+  { id: 'vestaviahillsal', name: 'Vestavia Hills', state: 'AL', portalUrl: 'https://vestaviahillsal.portal.opengov.com', enabled: true },
+  { id: 'orangebeachal', name: 'Orange Beach', state: 'AL', portalUrl: 'https://orangebeachal.portal.opengov.com', enabled: true },
+
+  // California (additional)
+  { id: 'camarilloca', name: 'Camarillo', state: 'CA', portalUrl: 'https://camarilloca.portal.opengov.com', enabled: true },
+  { id: 'eurekaca', name: 'Eureka', state: 'CA', portalUrl: 'https://eurekaca.portal.opengov.com', enabled: true },
+  { id: 'scottsvalleyca', name: 'Scotts Valley', state: 'CA', portalUrl: 'https://scottsvalleyca.portal.opengov.com', enabled: true },
+  { id: 'cityofsanrafaelca', name: 'San Rafael', state: 'CA', portalUrl: 'https://cityofsanrafaelca.portal.opengov.com', enabled: true },
+  { id: 'elsegundoca', name: 'El Segundo', state: 'CA', portalUrl: 'https://elsegundoca.portal.opengov.com', enabled: true },
+  { id: 'americancanyonca', name: 'American Canyon', state: 'CA', portalUrl: 'https://americancanyonca.portal.opengov.com', enabled: true },
+  { id: 'millvalleyca', name: 'Mill Valley', state: 'CA', portalUrl: 'https://millvalleyca.portal.opengov.com', enabled: true },
+  { id: 'sonomaca', name: 'Sonoma', state: 'CA', portalUrl: 'https://sonomaca.portal.opengov.com', enabled: true },
+  { id: 'lakeportca', name: 'Lakeport', state: 'CA', portalUrl: 'https://lakeportca.portal.opengov.com', enabled: true },
+  { id: 'clearlakeca', name: 'Clearlake', state: 'CA', portalUrl: 'https://clearlakeca.portal.opengov.com', enabled: true },
+
+  // Connecticut (additional)
+  { id: 'stamfordct', name: 'Stamford', state: 'CT', portalUrl: 'https://stamfordct.portal.opengov.com', enabled: true },
+  { id: 'danburyct', name: 'Danbury', state: 'CT', portalUrl: 'https://danburyct.portal.opengov.com', enabled: true },
+  { id: 'norwichct', name: 'Norwich', state: 'CT', portalUrl: 'https://norwichct.portal.opengov.com', enabled: true },
+  { id: 'glastonburyct', name: 'Glastonbury', state: 'CT', portalUrl: 'https://glastonburyct.portal.opengov.com', enabled: true },
+  { id: 'ridgefieldct', name: 'Ridgefield', state: 'CT', portalUrl: 'https://ridgefieldct.portal.opengov.com', enabled: true },
+
+  // Georgia
+  { id: 'sandyspringsga', name: 'Sandy Springs', state: 'GA', portalUrl: 'https://sandyspringsga.portal.opengov.com', enabled: true },
+  { id: 'dekalbcountyga', name: 'DeKalb County', state: 'GA', portalUrl: 'https://dekalbcountyga.portal.opengov.com', enabled: true },
+  { id: 'chambleega', name: 'Chamblee', state: 'GA', portalUrl: 'https://chambleega.portal.opengov.com', enabled: true },
+  { id: 'smyrnaga', name: 'Smyrna', state: 'GA', portalUrl: 'https://smyrnaga.portal.opengov.com', enabled: true },
+  { id: 'glynncountyga', name: 'Glynn County', state: 'GA', portalUrl: 'https://glynncountyga.portal.opengov.com', enabled: true },
+
+  // Illinois
+  { id: 'champaignil', name: 'Champaign', state: 'IL', portalUrl: 'https://champaignil.portal.opengov.com', enabled: true },
+  { id: 'plainfieldil', name: 'Plainfield', state: 'IL', portalUrl: 'https://plainfieldil.portal.opengov.com', enabled: true },
+  { id: 'bolingbrookil', name: 'Bolingbrook', state: 'IL', portalUrl: 'https://bolingbrookil.portal.opengov.com', enabled: true },
+  { id: 'schaumburgil', name: 'Schaumburg', state: 'IL', portalUrl: 'https://schaumburgil.portal.opengov.com', enabled: true },
+
+  // Indiana (additional)
+  { id: 'fishersin', name: 'Fishers', state: 'IN', portalUrl: 'https://fishersin.portal.opengov.com', enabled: true },
+  { id: 'garyin', name: 'Gary', state: 'IN', portalUrl: 'https://garyin.portal.opengov.com', enabled: true },
+
+  // Iowa
+  { id: 'waukeeia', name: 'Waukee', state: 'IA', portalUrl: 'https://waukeeia.portal.opengov.com', enabled: true },
+  { id: 'polkcountyia', name: 'Polk County', state: 'IA', portalUrl: 'https://polkcountyia.portal.opengov.com', enabled: true },
+
+  // Minnesota
+  { id: 'burnsvillemn', name: 'Burnsville', state: 'MN', portalUrl: 'https://burnsvillemn.portal.opengov.com', enabled: true },
+  { id: 'oakdalemn', name: 'Oakdale', state: 'MN', portalUrl: 'https://oakdalemn.portal.opengov.com', enabled: true },
+
+  // Mississippi
+  { id: 'jacksonms', name: 'Jackson', state: 'MS', portalUrl: 'https://jacksonms.portal.opengov.com', enabled: true },
+
+  // New York (additional)
+  { id: 'hempsteadny', name: 'Town of Hempstead', state: 'NY', portalUrl: 'https://hempsteadny.portal.opengov.com', enabled: true },
+  { id: 'valleystreamny', name: 'Valley Stream', state: 'NY', portalUrl: 'https://valleystreamny.portal.opengov.com', enabled: true },
+  { id: 'mountvernonny', name: 'Mount Vernon', state: 'NY', portalUrl: 'https://mountvernonny.portal.opengov.com', enabled: true },
+
+  // North Carolina (additional)
+  { id: 'chathamcountync', name: 'Chatham County', state: 'NC', portalUrl: 'https://chathamcountync.portal.opengov.com', enabled: true },
+  { id: 'countyofwilsonnc', name: 'Wilson County', state: 'NC', portalUrl: 'https://countyofwilsonnc.portal.opengov.com', enabled: true },
+  { id: 'kingsmountainnc', name: 'Kings Mountain', state: 'NC', portalUrl: 'https://kingsmountainnc.portal.opengov.com', enabled: true },
+
+  // Ohio
+  { id: 'tallmadgeoh', name: 'Tallmadge', state: 'OH', portalUrl: 'https://tallmadgeoh.portal.opengov.com', enabled: true },
+  { id: 'fairfieldoh', name: 'Fairfield', state: 'OH', portalUrl: 'https://fairfieldoh.portal.opengov.com', enabled: true },
+  { id: 'gahannaoh', name: 'Gahanna', state: 'OH', portalUrl: 'https://gahannaoh.portal.opengov.com', enabled: true },
+  { id: 'northcantonoh', name: 'North Canton', state: 'OH', portalUrl: 'https://northcantonoh.portal.opengov.com', enabled: true },
+  { id: 'woosteroh', name: 'Wooster', state: 'OH', portalUrl: 'https://woosteroh.portal.opengov.com', enabled: true },
+
+  // Pennsylvania (additional)
+  { id: 'yorkpa', name: 'York', state: 'PA', portalUrl: 'https://yorkpa.portal.opengov.com', enabled: true },
+  { id: 'eastonpa', name: 'Easton', state: 'PA', portalUrl: 'https://eastonpa.portal.opengov.com', enabled: true },
+  { id: 'abingtonpa', name: 'Abington Township', state: 'PA', portalUrl: 'https://abingtonpa.portal.opengov.com', enabled: true },
+
+  // Rhode Island (additional)
+  { id: 'cranstonri', name: 'Cranston', state: 'RI', portalUrl: 'https://cranstonri.portal.opengov.com', enabled: true },
+  { id: 'newportri', name: 'Newport', state: 'RI', portalUrl: 'https://newportri.portal.opengov.com', enabled: true },
+  { id: 'westerlyri', name: 'Westerly', state: 'RI', portalUrl: 'https://westerlyri.portal.opengov.com', enabled: true },
+
+  // South Carolina (additional)
+  { id: 'goosecreeksc', name: 'Goose Creek', state: 'SC', portalUrl: 'https://goosecreeksc.portal.opengov.com', enabled: true },
+
+  // Tennessee (additional)
+  { id: 'metronashvilletn', name: 'Metro Nashville', state: 'TN', portalUrl: 'https://metronashvilletn.portal.opengov.com', enabled: true },
+
+  // Texas
+  { id: 'ennistx', name: 'City of Ennis', state: 'TX', portalUrl: 'https://ennistx.portal.opengov.com', enabled: true },
+  { id: 'bedfordtx', name: 'City of Bedford', state: 'TX', portalUrl: 'https://bedfordtx.portal.opengov.com', enabled: true },
+  { id: 'countyofbexartx', name: 'Bexar County', state: 'TX', portalUrl: 'https://countyofbexartx.portal.opengov.com', enabled: true },
+
+  // Wisconsin (additional)
+  { id: 'oconomowocwi', name: 'Oconomowoc', state: 'WI', portalUrl: 'https://oconomowocwi.portal.opengov.com', enabled: true }
 ];
 
 // Get enabled jurisdictions

@@ -1,0 +1,280 @@
+{
+  "jurisdiction": "American Canyon",
+  "state": "CA",
+  "tenant": "americancanyonca",
+  "portalUrl": "https://americancanyonca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6631",
+      "name": "Encroachment Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6632",
+      "name": "Water Will-Serve",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For development projects, an applicant is required to submit a Will-Serve Application to Public Works regarding their anticipated water demand and sewer generation rate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6638",
+      "name": "Temporary Water Meters",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For construction and Capital Improvement projects, an applicant may need temporary water service (recycled and/or potable).",
+      "isEnabled": true
+    },
+    {
+      "id": "6639",
+      "name": "Fire Flow",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Code Enforcement",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Report a Code Compliance Violation",
+      "isEnabled": true
+    },
+    {
+      "id": "6543",
+      "name": "Commercial Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Design Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A Design Permit ensures excellence in site planning, architectural design, and consistency with the general plan. A design permit allows for new development or changes in permitted uses in the perspective zoning district. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Conditional Use Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "As determined by the specific zoning district, some uses require a Conditional Use Permit (CUP). The CUP application requires public notice and is approved by the Planning Commission through a Public Hearing. Applicants interested in Minor Use Permits and Temporary Conditional Use Permits should also use this application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6660",
+      "name": "Oversize/Overweight Transportation Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For oversize/overweight loads coming into or through the City of American Canyon.",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Residential Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6640",
+      "name": "Residential Express Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This is for small, non-structural projects that don't require formal construction plans or a lengthy plan review, allowing for same-day or quick issuance. Examples include like-for-like replacements for re-roofing,  water heater, electrical work, window replacement and HVAC.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Preliminary Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A Preliminary Application (Pre-App) is a great way to solicit information from City Staff regarding a proposed project. The Pre-App can include an informational meeting with multiple City Departments for preliminary direction on a project. No formal action is taken.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Major Modification",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "The purpose of the Major Modification is to provide for major modifications to previously approved plans or permits, based on the degree of change from an approved plan or permit. A Major Modification requires public notice and is approved by the Planning Commission through a public hearing. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6635",
+      "name": "Fire District Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Fire Sprinkler, Fire Alarm and ",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Minor Modification",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "The purpose of the Minor Modification is to provide for minor modifications to previously approved plans or permits, based on the degree of change from a previously approved plan or permit. A Minor Modification is approved administratively by the Community Development Director. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6634",
+      "name": "Grading Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For certain development projects, an applicant is required to submit a Grading Permit Application to Public Works.",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Address Assignment Request",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this form to request the assignment of an address to your project. Note that addresses will only be assigned when new development or alteration work is proposed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Appeal Form",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Select this application to make an appeal to decisions made by the Community Development Director or the Planning Commission. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Conditional Fence Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A Conditional Fence Permit allows a maximum 2½-foot increase over the Zoning Ordinance fence height regulations in residential zoning districts. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6560",
+      "name": "General Plan / Specific Plan / Zoning Ordinance / Zoning Map Amendment",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application allows an applicant to propose a General Plan, Specific Plan, Zoning Ordinance, or Zoning Map amendment.  A preliminary application is highly recommended before beginning this application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6562",
+      "name": "Landscape Plan",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "The Landscape Plan is a planting and irrigation plan for a project site. \"Landscape area\" means all the planting areas, turf areas, and water features in a landscape design plan, subject to the maximum applied water allowance calculation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Lot Line Adjustment / Lot Merger",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A Lot Merger is required when two or more parcels of real property may be merged by the Planning Commission when specific conditions are met. A Lot Line Adjustment (LLA) is a transfer of land between two or more existing adjacent parcels, where the land taken from one parcel is added to an adjacent parcel, and where a greater number of parcels than originally existed is not thereby created.",
+      "isEnabled": true
+    },
+    {
+      "id": "6557",
+      "name": "Pre-Zoning / Rezoning",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "The pre-zoning/ rezoning application is required for the development of a new zone or to make amendments to an existing zone. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Seasonal Sales Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A seasonal sales permit is required for outdoor sales of seasonal agricultural products. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6558",
+      "name": "Sign Permit / Program",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A sign permit or sign program is required for new or modified signs in the City. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6561",
+      "name": "Temporary Mobile Structure Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A Temporary Trailer Permit (TTP) is required prior to placing any temporary trailer on private property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6547",
+      "name": "Temporary Outdoor Promotion",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A Temporary Outdoor Promotion (TOP) Permit is for an outdoor commercial event of limited duration, such as grand openings, outdoor sales, and seasonal promotions, occurring on nonresidential, private property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Tentative Parcel/ Subdivision Map",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": " A Tentative Parcel Map is filed for the division into four (4) or fewer residential lots or non-residential subdivisions. A Tentative Subdivision Map is filed for the division into five (5) or more lots.",
+      "isEnabled": true
+    },
+    {
+      "id": "6551",
+      "name": "Variance / Minor Variation",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Variances may be granted in order to prevent or to lessen practical difficulties and unnecessary physical hardships that would result from strict or literal interpretation and enforcement of certain regulations of Zoning Code. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6554",
+      "name": "Zoning Verification Letter",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Staff can provide a zoning verification letter for inquiries into a property’s zoning and development standards.  ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1076",
+      "name": "Planning and Zoning",
+      "isEnabled": 1,
+      "content": "<h3 style=\"box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; font-weight: normal; line-height: 1.25; color: rgb(51, 51, 51); margin: 0px; font-size: 18pt; text-transform: none; white-space: normal; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color:"
+    },
+    {
+      "id": "1071",
+      "name": "Building Permits",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(0, 0, 0);\"><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 500; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-d"
+    },
+    {
+      "id": "1072",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<h3 style=\"box-sizing: border-box; font-family: Arial, Helvetica, sans-serif; font-weight: normal; line-height: 1.25; color: rgb(51, 51, 51); margin: 0px; font-size: 18pt; text-transform: none; white-space: normal; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color:"
+    },
+    {
+      "id": "1074",
+      "name": "Fire District",
+      "isEnabled": 1,
+      "content": "<div>The American Canyon Fire Protection District issues fire permits as part of our commitment to public safety, property protection, and compliance with the California Fire Code (CFC). Under the CFC, a &ldquo;permit&rdquo; grants permission to maintain, store, use, or handle materials, or to conduct processes &mdash; that could pose a fire or life-safety hazard, or to install or modify fire protection systems.</div><div><br></div><div>Permits are required to ensure that any activity, construct"
+    },
+    {
+      "id": "1080",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(66, 66, 69); font-family: Arial, Helvetica, sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-c"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:02:27.562Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

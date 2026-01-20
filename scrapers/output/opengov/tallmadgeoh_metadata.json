@@ -1,0 +1,441 @@
+{
+  "jurisdiction": "Tallmadge",
+  "state": "OH",
+  "tenant": "tallmadgeoh",
+  "portalUrl": "https://tallmadgeoh.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6525",
+      "name": "Do Not Knock",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Contractor Registration",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Contractors working in the Public Right-of-Way must register with the City of Tallmadge. Registrations are valid to the end of the year. (TCO 721)\n\nThis includes, but is not limited to installing, constructing, improving, renovating, repairing or maintaining a construction project and/or system within a public street or utility right-of-way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Right of Way Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Use this form for projects involving sidewalks, driveway approaches, culverts and similar.",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Accessory Structure",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "When installing an accessory structure on a property, zoning approval is required.  Certificates are not required for small accessory structures such as doghouses, benches, garden decorations, barbeque equipment, etc. provided they do not have a footprint that exceeds 50 square feet.",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Utility Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Use this form for projects involving city water and/or city sewer tap-ins and similar.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Utility Construction Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Providers of Utility Systems in the Right-of-Way must use this form to construct in the right-of-way. Exceptions apply per TCO 961.04 (d).",
+      "isEnabled": true
+    },
+    {
+      "id": "6547",
+      "name": "Addition to Existing Accessory Structure",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "When building an addition on to an existing accessory structure, zoning approval is required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Application to File a Property Maintenance Concern",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Please use this form to submit a concern on Property Maintenance, which may include exterior building/property maintenance, lights, noise and similar.",
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "Certificate of Registration: Utility Provider",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This form is used for the Registration of Utility Providers who constructs, owns and/or maintains a System within the Public Right-of-Way (TCO 961.05). \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Renewable Energy Equipment",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "When installing renewable energy equipment on a property, zoning approval may be required. This includes solar panels (roof mounted and/or ground mounted), geothermal systems and wind energy equipment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Deck",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "When installing a deck on a property, zoning approval is required.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Demolition",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "When demolishing any structure larger than 500 square feet, a demolition permit is required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Application to File a High Grass Concern",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Please use this form to submit a concern on high grass, weeds, overgrown vegetation,  and similar.",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Application to File a Junk/Trash/Vehicle Concern",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Please use this form to submit a concern about junk, trash, abandoned vehicles, unlicensed vehicles and similar.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Fence/Wall",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "When installing a fence on a property, zoning approval is required.  Certificates\nare not required for repairs of existing fences, for replacement of a fence for which the original\ncertificate can be produced, or for invisible fences.",
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "Natural Landscape Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Native plantings will be allowed as landscaping. Native and Natural Landscape shall mean grasses and flowering broad-leaf plants that are native to, or adapted to, the State of Ohio, and that are commonly found in meadow and prairie plant communities, except weeds.\nA Natural Landscape Permit is required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Swimming Pools",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Swimming pools are a great addition to a backyard! As you make plans for the swimming pool, it is important to verify that the pool fits in your backyard and meets local, state and federal laws and regulations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Variance from the Zoning Code",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "When practical difficulties, unnecessary hardships or the regulations of the Zoning Code are inconsistent, applicants may request a variance before the Board of Zoning Appeals. Completed application packets must be submitted to the Planning and Zoning Office at least 36 days prior to the public hearing.",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Application to File a Roadway Concern",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Please use this form to submit a concern about our roadways and similar.",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Application to Report Water Concerns",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Please use this form to submit a concern about water main breaks, water pressure and similar.",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Addition - Residential",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "When building an addition on to an existing house, zoning approval is required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Addition - Non-Residential",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "When building an addition on to an existing building, zoning approval is required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "New Residential Dwelling",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "When building a new house on a property, zoning approval is required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "Certificate of Use & Compliance",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "When a business is planning to locate in the city, a Use & Compliance application with floor plan must be submitted to ensure that the business is in accordance with local regulations and zoning laws. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6533",
+      "name": "Certificate of Use & Compliance-Home Occupation",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "When a resident is planning to operate a home occupation, a Use & Compliance application must be submitted to ensure that the business is in accordance with the Home Occupation Regulations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": "Certificate of Use & Compliance-Poultry & Fowl",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "When a resident plans on keeping poultry and/or other fowl on their property, a Use & Compliance application must be submitted to ensure compliance with the Zoning Code.\nIf the poultry and/or fowl have been in existence prior to November 1, 2021, a Non-Conforming Use Registration will be issued.\nIn all circumstances, Roosters are PROHIBITED in the City of Tallmadge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Zoning Verification Letter",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Requested letter outlining zoning information for a property or properties, this may include official confirmation of a property's zoning status and compliance with local regulations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Site Plan Review",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "In the case where new construction or substantial expansion (an increase of 25% or more of the built footprint of the principal structure) to existing structures and/or expansion of parking lots is proposed, a Site Plan Review application is to be made and is reviewed and acted upon by the Planning & Zoning Commission (PZC). For more information, reference our Zoning Code",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Certificate of Use & Compliance-Roadside Stand",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "When a resident plans to operate a roadside stand, a Use & Compliance application must be submitted to ensure compliance with the Zoning Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Certificate of Use & Compliance-Ungulates",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "When a resident plans on keeping ungulates (any hooved animal) on their property, a Use & Compliance application must be submitted to ensure compliance with the Zoning Code.\nIf the ungulate has been in existence prior to November 1, 2021, a Non-Conforming Use Registration will be issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Certificate of Appropriateness",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "A Certificate of Appropriateness (COA) is required for any expansion and/or exterior appearance alteration of any existing structure in the Design Control Overlay District (O-DC) or of a structure designated as a Recognized Heritage Structure (RHS). Any new construction in the O-DC, will require a COA in addition to a Site Plan Review. Additionally, any signage proposed in the Overlay Districts requires a COA. A COA application will be reviewed by the Architectural Review Board.",
+      "isEnabled": true
+    },
+    {
+      "id": "6389",
+      "name": "Signage",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Zoning Compliance is required for all new and replacement of permanent signage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6522",
+      "name": "Engineering Review",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Engineering Review is required for Drainage Review, Site Plan Review, Storm Water Fee Calculations, Photometric Lighting Plans, and Retaining Walls over 4 ft in height. Generally, these are related to new construction. All fees will be collected prior to review and held in escrow by the City and disbursed as the City is billed for the services. Any unused fees will be returned to the applicant upon completion of the review.\n\nNOTE: This application is not for a Floodplain Development Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Certificate of Use & Compliance-Apiculture",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "When a resident plans on keeping bees on their property, a Use & Compliance application must be submitted to ensure compliance with the Zoning Code.\nIf the bee hives have been in existence prior to November 1, 2021, a Non-Conforming Use Registration will be issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "6541",
+      "name": "Application for Exclusion for Recognized Heritage Structures",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "The owner(s) of any structure(s) that has/have been previously designated as an RHS may apply to have such structure removed as an RHS",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Vacation of Streets, Alleys or Easements",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This following outlines the steps involved in the vacation of a street, alley, or easement. (TCO 1110.05)\n\n1. Vacation Plat Submission and Abutter Signatures:\n\nA Vacation Plat, prepared by a registered surveyor, must be submitted to the Planning & Zoning Department. This plat should clearly indicate the street, alley, or easement to be vacated and include legal descriptions.\nThe petition for vacation requires signatures from all property owners that abut the area proposed for vacation.\nIf all abutting property owner signatures are not obtained, a Public Notice of Consideration to Vacate must be advertised in a local newspaper for four consecutive weeks. The petitioner is responsible for the advertising costs.\n\n2. City Review and Council Approval:\n\nThe Planning & Zoning Commission (PZC) will review the vacation plat and make a recommendation to City Council.\nCity Council will then consider legislation regarding the vacation, which requires three separate readings.\nA public meeting will be scheduled to allow anyone to address the Council regarding the proposed vacation.\n\n3. Utility Easements:\n\nIf a street, alley, or public highway is vacated or narrowed, affected railroads or public utilities may retain permanent easements for their facilities if the City determines relocation is unnecessary. This ensures the continued maintenance, operation, and access to these utilities.\n\n4. Plat Recording:\n\nFollowing City Council approval, the original tracing/mylar of the plat, along with three signed prints, will be returned to the petitioner.\nThe petitioner is then responsible for filing the approved vacation plat with the Summit County Recorder within 60 days.\nFailure to record the plat within this timeframe will result in the approval being voided.\n\n5. Final Submission:\n\nWithin five working days of recording the plat, the petitioner must furnish the Department of Planning & Zoning with the original tracing/mylar of the plat and a digital copy in a format acceptable to the City.",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Request for Extension of Approval",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "If no construction is started or use changed within one year of date of permit, a new permit is required upon proper application unless the applicant applies for an extension by the approving body/bodies. One extension may be granted for up to twelve (12) months. Any application for extension must be made in writing to the approving body/bodies prior to the expiration of the initial Certificate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6537",
+      "name": "Minor Subdivision (Lot Splits/Consolidations)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "TCO 1110.02 A minor subdivision is a lot split, lot consolidation, or transfer of land between adjacent property owners that complies with all of the following requirements: \ni. The subdivision shall not result in or create more than five lots, including the remainder of the original parcel; \nii. The subdivision shall be in compliance with all applicable site development standards in this code or with any approved variance from such standards; \niii. All lots resulting from the minor subdivision shall have frontage and access on an existing street and shall not require the construction, expansion, or improvement of any street; \niv. The subdivision shall not require any public improvements or the dedication of rights-of-way; \nv. The property has been surveyed and a survey sheet or record plan, in the form provided for in this code, and a full legal description of the changes resulting from the split, are submitted with the application; and \nvi. No landlocking of parcels shall occur as a result of the minor subdivision. \n\nA minor subdivision also includes the recombination of land, consolidation of lots, transfer of property from one lot to an adjacent lot, and for the dedication of additional land for the widening of existing streets, where no new lots are created. \n\nIn the event a variance is required to meet the criteria, BZA must review and approve the variance prior to minor subdivision review.",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Non-Residential New Construction",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Based on the approval/approval with Conditions by the Planning & Zoning Commission, this application will be used to initiate review of improvement plans prior to submittal to the Building Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Conditional Use Certificate",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "To use or develop land in the City of Tallmadge, where the land use is listed as a Conditional Use in the Zoning Code Table of Uses, a Conditional Use Certificate Application must be submitted at least 45 days prior to the public hearing held before the Planning & Zoning Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Major Subdivision Development: Improvement Plans",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This is the 2nd Step to developing a Major Subdivision. To ensure all proper applications and approvals are submitted, start a PROJECT in the portal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Long-Term Storm Water Management Agreement",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "It is required to file a Long-Term Storm Water Management Agreement with the City of Tallmadge establishing mutual responsibilities for maintenance of the storm water management infrastructure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Major Subdivision Development: Preliminary Plat",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This is the 1st Step to developing a Major Subdivision. To ensure all proper applications and approvals are submitted, start a PROJECT in the portal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Floodplain Development Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "An application for a floodplain development permit shall be required for all development activities located wholly within, partially within, or in contact with an identified special flood hazard area. For more information, reference our Zoning Code. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Major Subdivision Development: Final Plat",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This is the 3rd Step to developing a Major Subdivision. To ensure all proper applications and approvals are submitted, start a PROJECT in the portal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Major Subdivision Development: RePlat",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "When a Lot Split/Consolidation does not meet the minor subdivision parameter and/or is located in Portage County, a Replat application must be filed for review and approval by the Planning & Zoning Commission and City Council",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Zoning Map Amendment",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "To change the zoning of a property or multiple properties, the application must be considered by the City of Tallmadge Planning & Zoning Commission and then the City Council for legislation and approval. Approval is granted in conjunction with an approved General Development Plan. For more information, reference our Zoning Code. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Variance from the Riparian Setback",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Requests for a variance from the Riparian Setback are heard by the Planning & Zoning Commission. For more information, reference our Zoning Code. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Appeal Application",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This application is used when an appeal is made from a decision by\na. the Zoning Inspector, \nb. the Planning & Zoning Commission (which is not a legislative decision), or \nc. a decision or action of Architectural Review Board",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Planning & Zoning - Applications",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 18px;\">Use this portal to apply for Zoning Approvals for new construction, additions and accessories structures</span><span style=\"font-size: 18px;\">.</span></p><div><br></div>"
+    },
+    {
+      "id": "1091",
+      "name": "Residential Use Registry",
+      "isEnabled": 1,
+      "content": "<div>Use this portal to register Home Occupations and back-yard agricultural uses that include Apiculture (bee-keeping), Poultry &amp; Fowl and Ungulates (any hooved animals). For more detailed information on this, reference 1104.07 B of the Zoning Code. (link: <a href=\"https://www.tallmadge-ohio.org/DocumentCenter/View/2295/Title-4--Use-Regulations\" rel=\"noopener noreferrer\" target=\"_blank\">Zoning Code-Use Regulations</a>)</div>"
+    },
+    {
+      "id": "1085",
+      "name": "Services",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Use this portal to apply for permits to work in the public right-of-way and connect to water and sewer utilities.</span></p><div><span style=\"font-family: Arial,Helvetica,sans-serif;\">To work in the right of way, Contractors <u>must</u> register using the <a href=\"https://tallmadgeoh.portal.opengov.com/categories/1085/record-types/6485\" rel=\"noopener noreferrer\" target=\"_blank\"><strong>Contractor Registration Application</strong></a> (lin"
+    },
+    {
+      "id": "1086",
+      "name": "Report a Concern",
+      "isEnabled": 1,
+      "content": "<p>Use this portal to file a concern about property maintenance, high grass, junk/trash, vehicles, roadway, water service and similar.</p>"
+    },
+    {
+      "id": "1089",
+      "name": "Zoning Boards & Commission Applications",
+      "isEnabled": 1,
+      "content": "<div>Use this Portal to make application to be reviewed by the Planning &amp; Zoning Commission, Board of Zoning Appeals and/or the Architectural Review Board.</div>"
+    },
+    {
+      "id": "1087",
+      "name": "Do Not Knock Registry",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(66, 60, 46); font-family: Arial; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: "
+    }
+  ],
+  "extractedAt": "2026-01-20T23:03:27.644Z",
+  "generalSettings": {
+    "id": 1
+  }
+}
