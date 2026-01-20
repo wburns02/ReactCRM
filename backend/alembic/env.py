@@ -38,6 +38,7 @@ from app.database.base_class import Base
 from app.models import ringcentral  # noqa
 from app.models import ai_assistant  # noqa
 from app.models import septic_permit  # noqa
+from app.models import property  # noqa
 
 target_metadata = Base.metadata
 

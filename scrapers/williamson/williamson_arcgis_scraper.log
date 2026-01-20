@@ -1,0 +1,14 @@
+2026-01-20 16:41:22,814 - INFO - Testing Williamson County ArcGIS API...
+2026-01-20 16:41:24,310 - ERROR - Count query error: 200, message='Attempt to decode JSON with unexpected mimetype: text/plain;charset=utf-8', url='http://arcgis2.williamson-tn.org/arcgis/rest/services/Williamson_Map_v10_LATEST2/MapServer/4/query?where=1%3D1&returnCountOnly=true&f=json'
+2026-01-20 16:41:24,310 - INFO - Total parcels: 0
+2026-01-20 16:41:26,443 - ERROR - Query error: 200, message='Attempt to decode JSON with unexpected mimetype: text/plain;charset=utf-8', url='http://arcgis2.williamson-tn.org/arcgis/rest/services/Williamson_Map_v10_LATEST2/MapServer/4/query?where=1%3D1&outFields=OBJECTID,GISLINK,parcel_id,county,CITY,ADDRESS,streetnumber,streetname,SUBDIVISION,owner1,owner2,own_street,own_city,own_state,own_zip,imp_assess,imp_val,land_asses,land_marke,total_asse,total_mark,AC,CALC_ACRE,SQFT_ASSES,pxfer_date,deed_book,deed_page,considerat,property_T,PARCEL_TYP&returnGeometry=true&outSR=4326&f=json&resultOffset=0&resultRecordCount=3'
+2026-01-20 16:41:26,449 - ERROR - No records returned
+2026-01-20 16:41:49,230 - INFO - Testing Williamson County ArcGIS API...
+2026-01-20 16:41:50,606 - INFO - Total parcels: 100,369
+2026-01-20 16:41:53,149 - INFO - Sample query returned 1000 records
+2026-01-20 16:41:53,157 - INFO - Sample property:
+2026-01-20 16:41:53,157 - INFO -   Address: 1026 HOLLY TREE GAP RD
+2026-01-20 16:41:53,157 - INFO -   Owner: PEREZ RICARDO
+2026-01-20 16:41:53,157 - INFO -   Parcel: 028    05301 00007028
+2026-01-20 16:41:53,158 - INFO -   Market Value: $1,359,900
+2026-01-20 16:41:53,158 - INFO -   Acres: 16.78

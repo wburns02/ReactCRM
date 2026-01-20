@@ -59,3 +59,101 @@
 - Frontend TypeError still happening (deployment not complete)
 - Backend 500 errors persist
 - Need to investigate Railway deployment logs
+
+---
+
+# Williamson County Property Data Enrichment - Progress Notes (2026-01-20)
+
+## Status: Core Implementation Complete
+
+## What Was Built
+
+### 1. Database Schema (Migration)
+- **File**: `backend/alembic/versions/2026_01_20_0800-b2c3d4e5f6a7_add_properties_table.py`
+- Creates `properties` table with 50+ fields for property data
+- Adds `property_id` FK to `septic_permits` table
+- Includes deduplication indexes on address hash
+
+### 2. Property Model
+- **File**: `backend/app/models/property.py`
+- SQLAlchemy model with address normalization methods
+- Quality score calculation
+- Relationships to State, County, and SepticPermit
+
+### 3. ArcGIS Scraper
+- **File**: `scrapers/williamson/arcgis_property_scraper.py`
+- Scrapes Williamson County ArcGIS REST API (100,369 parcels available)
+- Extracts: owner info, address, parcel ID, assessment values, lot size, sqft, transfer info
+- Test mode and single-address lookup supported
+- Rate-limited with checkpoint saving
+
+### 4. Property Enrichment Script
+- **File**: `scrapers/williamson/property_enrichment.py`
+- Loads ArcGIS data and ingests via API
+- Can run scraper or load from existing files
+- Batch processing with progress tracking
+
+### 5. API Endpoints
+- **File**: `backend/app/api/v2/endpoints/properties.py`
+- `GET /properties/search` - Search with filters
+- `GET /properties/{id}` - Single property
+- `GET /properties/{id}/permits` - Permits for property
+- `POST /properties/batch` - Batch ingestion
+- `GET /properties/stats/overview` - Statistics
+- `POST /properties/{id}/link-permits` - Link permits to property
+- `POST /properties/link-all` - Batch link all permits
+
+### 6. Property Service
+- **File**: `backend/app/services/property_service.py`
+- Ingestion with deduplication
+- Automatic permit linking by address hash
+- Search with filters
+- Statistics aggregation
+
+### 7. Pydantic Schemas
+- **File**: `backend/app/schemas/property.py`
+- PropertyCreate, PropertyResponse, PropertySummary
+- BatchPropertyRequest/Response
+- PropertySearchResponse, PropertyStatsResponse
+
+## Data Available from ArcGIS
+
+| Field | Available | Source |
+|-------|-----------|--------|
+| Address | ✅ | ADDRESS field |
+| Owner Name | ✅ | owner1, owner2 |
+| Owner Mailing | ✅ | own_street, own_city, own_state, own_zip |
+| Parcel ID | ✅ | parcel_id, GISLINK |
+| Coordinates | ✅ | Polygon centroid calculation |
+| Market Value | ✅ | total_mark |
+| Assessed Value | ✅ | total_asse |
+| Lot Size | ✅ | AC, CALC_ACRE |
+| Square Footage | ✅ | SQFT_ASSES |
+| Last Sale | ✅ | pxfer_date, considerat |
+| Deed Info | ✅ | deed_book, deed_page |
+| Year Built | ❌ | Not in ArcGIS |
+| Bedrooms | ❌ | Not in ArcGIS |
+| Bathrooms | ❌ | Not in ArcGIS |
+| Foundation Type | ❌ | Not in ArcGIS |
+
+## Test Results
+
+Single address lookup working:
+```
+Address: 1026 HOLLY TREE GAP RD
+Owner: PEREZ RICARDO
+Parcel: 028    05301 00007028
+Market Value: $1,359,900
+Assessed: $182,400
+Lot: 16.78 acres
+Sqft: 5,506
+Last Sale: 2019-08-12 for $1,000,000
+```
+
+## Next Steps for Property Enrichment
+
+1. Run full ArcGIS scrape (100K+ properties)
+2. Deploy migration to production
+3. Ingest property data via API
+4. Link permits to properties
+5. (Optional) Build INIGO scraper for building details (year_built, bedrooms)

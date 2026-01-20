@@ -165,6 +165,9 @@ class SepticPermit(Base):
     pdf_url = Column(Text, nullable=True)
     permit_url = Column(Text, nullable=True)
 
+    # ===== PROPERTY LINK =====
+    property_id = Column(UUID(as_uuid=True), ForeignKey("properties.id"), nullable=True, index=True)
+
     # ===== SOURCE TRACKING =====
     source_portal_id = Column(Integer, ForeignKey("source_portals.id"), nullable=True)
     source_portal_code = Column(String(100), nullable=True)  # Denormalized for fast access
@@ -202,6 +205,7 @@ class SepticPermit(Base):
     county = relationship("County", back_populates="permits")
     system_type = relationship("SepticSystemType")
     source_portal = relationship("SourcePortal")
+    property = relationship("Property", back_populates="permits")
     versions = relationship("PermitVersion", back_populates="permit", cascade="all, delete-orphan")
 
     # ===== INDEXES AND CONSTRAINTS =====

@@ -5,7 +5,7 @@ Main API router for v2 endpoints.
 from fastapi import APIRouter
 
 from app.api.v2.endpoints import ai_assistant, ringcentral, call_dispositions, webhooks, jobs, local_ai, admin_tools
-from app.api.v2.endpoints import deployment_test, permits
+from app.api.v2.endpoints import deployment_test, permits, properties
 
 # Create main API router
 api_router = APIRouter()
@@ -70,4 +70,11 @@ api_router.include_router(
     permits.router,
     prefix="/permits",
     tags=["permits"]
+)
+
+# Property data endpoints (assessment data, building details)
+api_router.include_router(
+    properties.router,
+    prefix="/properties",
+    tags=["properties"]
 )
