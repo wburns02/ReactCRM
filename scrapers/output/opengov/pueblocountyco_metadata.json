@@ -1,0 +1,650 @@
+{
+  "jurisdiction": "Pueblo County",
+  "state": "CO",
+  "tenant": "pueblocountyco",
+  "portalUrl": "https://pueblocountyco.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6817",
+      "name": "Illicit Discharge Report Form",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Illicit Discharge refers to the unauthorized or illegal release of pollutants, contaminants, or non-stormwater materials into stormwater systems, waterways, or the environment. These discharges bypass regulated treatment processes and often violate environmental laws or permits designed to protect water quality and public health. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "LIQUOR: New License Application, License Renewal Application, Transfer of Ownership Application, and Change of Location Application for Liquor licenses   ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Click here to apply for a new liquor license, or renew an existing liquor license, or change the location of a liquor license, or transfer ownership of a liquor license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6774",
+      "name": "Site Development Plan",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Development Plan Application consolidates the Lighting Plan, Parking Plan and the Screening/Buffering Plan into a unified application. This streamlined approach provides applicants with the flexibility to submit one application to cover all required information, as well as update individual components of the Development Plan as necessary.",
+      "isEnabled": true
+    },
+    {
+      "id": "6873",
+      "name": "Commercial Building Permit ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "To begin a construction project on a commercial property, you must first complete this application. Commercial building permits are required for projects such as: new commercial, industrial and institutional buildings. These project types include; multi-family structures, commercial additions/expansions, accessory commercial structures, tenant finishes/improvements, change of occupancy/use, structural alterations, demolition, accessibility improvements (ADA), solar installations, or fire protection work. Contact Pueblo County Planning & Development at (719) 583-6100 to confirm whether your specific project requires a Commercial Building Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6879",
+      "name": "No Fee Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "A no-fee permit is a trade permit pulled by a licensed subcontractor (such as electrical, plumbing, mechanical, or fire protection) for work associated with an active building permit. No additional fee is assessed because the permit fees for this scope of work were already paid under the primary building permit.\n\nThe no-fee permit is required for proper tracking, inspections, and code compliance for each trade involved in the project, but it does not result in duplicate permit fees. All work performed under this permit will comply with applicable codes and will be inspected as required by the Pueblo County Building Division.",
+      "isEnabled": true
+    },
+    {
+      "id": "6555",
+      "name": "Administrative Authorizations ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The administrative authorization for proceeding at one's own risk allows an applicant to initiate construction activities prior to obtaining all the requisite approvals. This authorization is designed to facilitate the progression of projects that do not meet certain preliminary criteria, enabling work to commence under the understanding that the applicant assumes all responsibility and risk associated with beginning construction early.",
+      "isEnabled": true
+    },
+    {
+      "id": "6800",
+      "name": "Administrative Subdivision ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Administrative Subdivision process is used to evaluate proposed subdivisions that will create up to two lots or involve minimal adjustments to approved final plats. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6857",
+      "name": "Residential Building Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "To begin a construction project on a residential property, you must first complete this application. Residential building permits are required for projects such as: new homes, additions, interior remodels, new garages or carports, demolition, new sheds or storage buildings, decks, patio covers, gazebos, fences (over 7 ft high), and any roofing, or solar service work. Contact Pueblo County Planning & Development at (719) 583-6100 to confirm whether your specific project requires a Residential Building Permit.\"",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Certificate of Conforming Use",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Conforming Use Certificate process is an administrative process followed to document a use was lawfully established as a use-by-right within a building or on land prior to the adoption of the Pueblo County Zoning Resolution (now referred to as the Pueblo County Code) or prior to the effective date of an amendment to the Zoning Resolution (County Code), which under the current use regulations would require the issuance of a special use permit by the Pueblo County Planning Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Certificate of Nonconformance",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Certificate of Nonconformance process is an administrative process followed to document a use, parcel and/or structure was lawfully established prior to the adoption of the Pueblo County Zoning Resolution (now referred to as the Pueblo County Code) or an amendment to the Zoning Resolution (Code) creating the nonconformity and further meets the standards setforth in Chapter 17.124 of the Pueblo County Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "LIQUOR: Tasting Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Click here to apply for a Tasting Permit in association with a Retail Store Liquor License. If approved, you will receive one permit per month requested. \n\nApplication must be submitted at least 30 days prior to the Liquor and Marijuana Licensing Board meeting that precedes the date of the earliest tasting. \n\nA calendar of the Liquor and Marijuana Licensing board can be found here. https://county.pueblo.org/liquor-and-marijuana-department/liquor-and-marijuana-licensing-board-meeting-calendar",
+      "isEnabled": true
+    },
+    {
+      "id": "6872",
+      "name": "Building Division Feedback / Complaint Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "If you have comments, concerns, or complaints regarding the Building Division, please submit them using this form. We also welcome positive feedback and suggestions on how we can improve our service to the public.\n\nIf you have a matter that requires private or direct attention from the Building Official, please email Arnold Montoya at Arnold.montoya@pueblocounty.us.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6849",
+      "name": "Contractor Complaint Form",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "This form is intended for reporting contractors who are performing work without required permits or who are not properly registered or licensed to work within the County. It may also be used by tenants to report potentially dangerous or hazardous structural conditions.\n\nPlease note that the Building Department does not provide legal advice, does not engage in civil or contractual disputes, and cannot guarantee whether a tenant will or will not face eviction as a result of any inspection findings.\n\nThis complaint form cannot be used for:\n•Contract or payment disputes\n•Poor workmanship that meets minimum code requirements but does not meet personal expectations\n•Requests for refunds, compensation, or damage recovery\n•Scheduling, communication, or customer service issues\n•Civil disagreements between a homeowner and a contractor\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "LIQUOR: Special Event Permit Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Click here to apply for a Special Event Permit. \nSpecial Event Permits allow non-profits to serve alcoholic beverages at fundraising events. \n\nApplication must be submitted at least 30 days prior to the Liquor and Marijuana Licensing Board meeting that precedes the date of the special event. \n\nA calendar of the Liquor and Marijuana Licensing board can be found here. https://county.pueblo.org/liquor-and-marijuana-department/liquor-and-marijuana-licensing-board-meeting-calendar",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Easement Vacation",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The easement vacation (dedication) process is the process followed to vacate (dedicate) any public easement or portion thereof.",
+      "isEnabled": true
+    },
+    {
+      "id": "6843",
+      "name": "Tobacco License -  New Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "The State of Colorado now requires all businesses selling any type of tobacco products, including cigarettes, be licensed with both the local authority and the state authority. Please apply for a new license here.",
+      "isEnabled": true
+    },
+    {
+      "id": "6698",
+      "name": "Extraterritorial Water ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This record type will be for staff only for the purpose of uploading documents and correspondence to a parcel for which research has been conducted by staff in response to development, meeting notes or land use questions prior to the submittal of an application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6852",
+      "name": "Contractor's License Registration",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Complete this application to register as a professional construction contractor with the Pueblo County Building Division and work in unincorporated Pueblo County.",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Final Plat",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The final plat process is the final application that is required for any major subdivision proposal.  This application is the second part of a Major Subdivision process, subsequent to a Preliminary Plan.",
+      "isEnabled": true
+    },
+    {
+      "id": "6870",
+      "name": "Contractor Remove/Change",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Flood Hazard Area Development Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A permit required before construction or development begins within any Special Flood Hazard Area (SFHA). The Floodplain Development Permit is the mechanism by which Pueblo County evaluates any and all impacts of activities proposed within regulated floodplains.",
+      "isEnabled": true
+    },
+    {
+      "id": "6646",
+      "name": "MARIJUANA: Renewal Application for a Pueblo County Marijuana Establishment License ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Click here to apply for any type of new marijuana License or to renew any type of marijuana license ",
+      "isEnabled": true
+    },
+    {
+      "id": "6854",
+      "name": "Over-the-Counter Building Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Over the counter permits include mechanical, electrical and plumbing for both residential and commercial properties. They also encompass small building projects for residential stucco, roofing, siding, windows, and doors. Service reconnects for both commercial and residential will be located in these permits as well.",
+      "isEnabled": true
+    },
+    {
+      "id": "6694",
+      "name": "MARIJUANA: New License Application for a Pueblo County Marijuana Establishment License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Click here to apply for any type of new marijuana License or to renew any type of marijuana license ",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Home Occupation",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The home occupation process is an administrative process followed to document a home business in Pueblo County.",
+      "isEnabled": true
+    },
+    {
+      "id": "6867",
+      "name": "Special Inspection",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "To request a special inspection there is a fee of $110.00 that will be due after the permit has been received and reviewed. The property owner may sign the documents provided electronically or in office, or a copy of the lease may be provided to give Pueblo County Building Division permission to do the inspections. For lodging renewals, a copy of the lease or owner signature is not necessary.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6844",
+      "name": "Location & Extent Review",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Development Plan Application consolidates the Lighting Plan, Parking Plan and the Screening/Buffering Plan into a unified application. This streamlined approach provides applicants with the flexibility to submit one application to cover all required information, as well as update individual components of the Development Plan as necessary.",
+      "isEnabled": true
+    },
+    {
+      "id": "6619",
+      "name": "***EMERGENCY ROW/ROWW NOTICE***",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "In the case of an emergency:\nYou need to notify us of the location and date of the emergency work.\nYou have 72 hrs after the notification has been made to submit  a ROW permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6883",
+      "name": "Request an Inspection",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "This record type is used for scheduling an inspection for an already existing building permit. Schedule inspections in advance or you can request a same day inspection as long as your request is submitted before 8:30 AM.",
+      "isEnabled": true
+    },
+    {
+      "id": "6811",
+      "name": "Lot Consolidation Vacation",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "To allow the vacation of any lot consolidation that has been  recorded.",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Lot Line Rearrangement (5 Lots or Less)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The lot line rearrangement process is an administrative subdivision process which allows land owners to modify/alter/rearrange the interior property lines between existing platted lots within a recorded subdivision. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6819",
+      "name": "Road Use Agreement",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "A road access agreement is a legal document that establishes the terms under which a party is granted access to a public or private road. It defines the rights and responsibilities of all involved parties, including road use, maintenance obligations, design requirements, and compliance with regulations. These agreements ensure proper access for landlocked properties, new developments, or shared commercial entrances while addressing liability, insurance, and potential modifications. By outlining clear terms, a road access agreement helps prevent disputes and ensures safe and efficient connectivity to road networks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "MARIJUANA: Modification of Premises for Marijuana Licensed Facility",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Click here to apply for modifications to an existing premises of a Marijuana Licensed Business.",
+      "isEnabled": true
+    },
+    {
+      "id": "6566",
+      "name": "Right of Way Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Used to permit any work/event which encroaches on any right of way within the Pueblo County road network. \nFrom physical work in a traffic lane, to worker presence in ROW, any work encroaching on Pueblo County ROW is required to have a proper permit.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Lot Line Vacation (5 Lots or Less)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The lot line vacation process is an administrative process which allows a land owner to combine properties under the exact same ownership into a single conforming building site by eliminating the common interior lot line(s).\n\nThis process can be reversed using the Lot Consolidation Vacation  process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "MARIJUANA: Transfer of Ownership for a Marijuana Licensed Facility",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Click here to apply to transfer ownership of a licensed marijuana establishment to another individual or entity. \n(If the entity or individual listed on the license as the owner is not changing but the structure of the ownership of the licensed business is changing you will need to file a change of ownership not a transfer of ownership)",
+      "isEnabled": true
+    },
+    {
+      "id": "6822",
+      "name": "Land-Use Decision Appeal",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Land Use Decision Appeal application allows a property owner or applicant to formally request relief from a zoning decision or regulation. The appeal is reviewed by the applicable authority to make the applicable decision based upon the facts of the case. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6640",
+      "name": "Right of Way Permit Pueblo West",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Used for any work/event in right of way on entire Pueblo County road network. \nStarting from physical work in traffic lane to worker presens in ROW,  any work in Pueblo County ROW is required to have proper permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Map Amendment",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The map amendment process changes the current zoning district to another district. A property owner may submit a map amendment application to change the zoning of a property to use a property differently from what the existing zoning allows or to apply a conforming zone district designation.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Merger by Contiguity Certificate",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "To be eligible for a Merger by Contiguity Certificate, parcels of land must have been in existence prior to the original 1963 or 1967 adoption of the Pueblo County Code or related zoning action pursuant to Chapter 17.10.060(c)of the Pueblo County Unified Development Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Road Access Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Access management is the planned and regulated interaction between the roadway network and property access. It is an intentional strategy that preserves a safe and efficient transportation system necessary for smart growth. Access management is the practice of limiting and separating conflicts points, and it is the collaboration between planners and developers about property access, and the interaction amongst different modes of travel.  Access management is vital to protect and maintain the public’s safety and welfare, maintain the functional roadway classifications, and meet the needs for the traveling public as well as the communities. Access management is a cost-effective approach to ensure the longevity of the public facilities with the likelihood of an increase of population growth and an increase in traffic volumes. Access management strategies must be made with care as these decisions will directly impact adjacent land use. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6664",
+      "name": "MARIJUANA: Change of Ownership for Marijuana Licensed Facility",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Click here to report changes made to the ownership shares of a marijuana licensed establishment. \n(If the entity or individual listed as the owner on the marijuana license will be changing you must apply for a Transfer of Ownership for a Marijuana Licensed Facility)",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "MARIJUANA: Change of Location for Marijuana Licensed Facility",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Click here to apply to change the physical location of a licensed marijuana establishment. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6637",
+      "name": "Road Access Permit Pueblo West",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Access management is the planned and regulated interaction between the roadway network and property access. It is an intentional strategy that preserves a safe and efficient transportation system necessary for smart growth. Access management is the practice of limiting and separating conflicts points, and it is the collaboration between planners and developers about property access, and the interaction amongst different modes of travel.  Access management is vital to protect and maintain the public’s safety and welfare, maintain the functional roadway classifications, and meet the needs for the traveling public as well as the communities. Access management is a cost-effective approach to ensure the longevity of the public facilities with the likelihood of an increase of population growth and an increase in traffic volumes. Access management strategies must be made with care as these decisions will directly impact adjacent land use. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6810",
+      "name": "Mining & Extraction Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Review of applications for the mining or extraction of sand, soil, or gravel by the Board of County Commissioners in a manner that does not duplicate or contradict applicable state or federal requirements. Pueblo County reserves the right to assume the functions of external agencies involved with sand, soil, or gravel mining if such agencies are eliminated or their operations are curtailed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6807",
+      "name": "Minor Subdivision",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Minor Subdivision process is used to evaluate proposed subdivisions that will create up to four lots or involve minimal adjustments to approved final plats.",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Parcel of Record Certificate",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Parcel of Record process is an administrative process followed to document a property was lawfully created prior to the enactment of the Pueblo County Subdivision Regulations on August 31, 1972 (referred to in the Pueblo County Code as Title 16).",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Stormwater Construction Discharge Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Any private or public construction site with construction activities disturbing one or more acres, or construction activities that are part of a larger common plan of development that disturb one or more acres is required to obtain a Pueblo County Stormwater Construction Discharge Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6642",
+      "name": "SCDP Contractor Information",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Any private or public construction site with construction activities disturbing one or more acres, or construction activities that are part of a larger common plan of development that disturb one or more acres is required to obtain a Pueblo County Stormwater Construction Discharge Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Planned Unit Development (PUD)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A planned unit development is a rezoning action that is a designed grouping of both varied and compatible land uses, such as housing, recreation, commercial centers, and industrial parks, all within one contained development or subdivision.",
+      "isEnabled": true
+    },
+    {
+      "id": "6559",
+      "name": "Plat Amendment",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The plat amendment process is the process to amend the boundaries of any plat or any part of an approved and recorded subdivision plat that has been approved by the Board of County Commissioners.",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Firm/Company Registration",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Used for purpose of Right of Way (ROW) and Road Access (RA)Permit.\nAs an registered  Firm/Company you will be able to eliminate repetitive processes from your applications. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6733",
+      "name": "CORA Request",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Pursuant to Colorado Open Records Act§ 24-72-201 et seq. and the Pueblo County Public Records Policy, Resolution No. 15-174, this application serves as a written request to obtain copies of public records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Plat Vacation",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The plat vacation process is the process followed to vacate any plat or any part of an approved and recorded subdivision plat that has been approved by the Board of County Commissioners.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Preliminary Plan",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The preliminary plan process is the initial application required for any major subdivision proposal which intends to create 5 or more parcels of land or as determined by the Director.",
+      "isEnabled": true
+    },
+    {
+      "id": "6818",
+      "name": "Pueblo County Sheriff's Office",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6824",
+      "name": "Traffic Counts",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This procedure is not open to the public at this time.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Road Alley Vacation",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The road/alley vacation process is the process followed to vacate any public street, alley or public way or portion thereof.",
+      "isEnabled": true
+    },
+    {
+      "id": "6670",
+      "name": "Road Name Change",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A road name change is the is the process followed to rename a public road as identified on a recorded subdivision plat.",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Rural Land Use Plan",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This is a process to provide an alternative method of land division that encourages the clustering of single-family residential dwellings and the preservation of open spaces in the rural portions of the County.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Sign (Advertising Devices) Plan",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Sign Plan permits signage by reviewing performance standards and Zoning requirements for signs placed on private property. Sign Plans are reviewed and approved administratively.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6797",
+      "name": "Sketch Plan Review",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this record to apply for, schedule, and document Sketch Plan Reviews (SPR). Offered by Pueblo Means Business, this service allows developers, builders, and property owners to have conceptual projects reviewed by relevant development agencies before investing significant time and money. By identifying all requirements early, this mandatory process for commercial projects and subdivisions streamlines the path to completion. Please note that most applicants will be required to attend an SPR meeting, held on the second and fourth Tuesdays of the month between 10 AM and Noon.",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Special Event Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Special Event is a temporary commercial, promotional, or festive activity, at a specific location that is open to the public and is planned for or expected to attract a large assembly of persons.",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Subdivision Exemption",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The subdivision exemption process is an abbreviated subdivision process which can be pursued to legally establish parcels of land that fall within the parameters of Part 1, Article 28 of Title 30, C.R.S. or Chapter 16.04.040 4., of the Pueblo County Code. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6806",
+      "name": "Special Use Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Special Use Permit allows a parcel of land or property to be used in a manner that deviates from normally accepted uses allowed by zoning. This process grants discretionary ability to the Planning Commission through specific findings to condition an approval to ensure that a special use does not disrupt the zoning scheme.",
+      "isEnabled": true
+    },
+    {
+      "id": "6695",
+      "name": "Wastewater Treatment Facility",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Department of Planning and Development performs staff support functions for both the County and the PACOG in their respective roles of lead management agency and lead planning agency as the designated 208 Water Quality Authority.  This application functions as the submittal portal for CDPHE Water Quality applications requiring approval by PACOG. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6805",
+      "name": "Temporary Use Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Temporary Use Permit procedure is intended to provide a mechanism for enforcement of the temporary use regulations in §17.03.050 in order to allow short-term and minor deviations for uses that are temporary in nature, that will not adversely impact surrounding properties, and that can be terminated and removed at will.  \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6882",
+      "name": "Zoning Authorization for Non-Permitted Structures",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Zoning Authorization for a non-permitted structure focuses on zoning requirements such as allowed use, setbacks, height, and lot coverage to ensure the structure fits within the property’s zoning district.\n\nThis authorization is often needed for record-keeping, property transactions, or to address questions about an existing structure. It does not replace a building permit and does not approve construction that otherwise requires one.\n\n**Common examples include:**\n\n* Fences under 7'\n* Agricultural or farm structures\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6704",
+      "name": "Zoning Compliance Complaint",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "A complaint form provides information from the public to the Pueblo County Land Use Inspector relating to potential zoning code violations.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6668",
+      "name": "Zoning Compliance Review",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Zoning Compliance Reviews are administrative written responses to requests regarding a specific proposed use of a property or structure.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Zoning Compliance Review - Hemp",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The zoning compliance review - hemp process is an administrative process followed to ensure all hemp establishments are in compliance with the applicable provisions of the Pueblo County Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6711",
+      "name": "Zoning Compliance Review - Marijuana ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The zoning compliance review - marijuana process is an administrative process followed to ensure all marijuana establishments are in compliance with the applicable provisions of the Pueblo County Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Zoning Variance",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Request to hear and decide appeals for a variance from the strict application of the of the Pueblo County Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "1041 Permit Areas and Activities of State and Local Interest",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Colorado General Assembly enacted measures to further define the authority of state and local governments in making planning decisions for matters of statewide interest. These powers are commonly referred to as \"1041 powers\". The general intention of these powers is to allow for local governments to maintain their control over certain development projects even where the development project has statewide impacts.",
+      "isEnabled": true
+    },
+    {
+      "id": "6856",
+      "name": "1041 Permit Areas and Activities of State and Local Interest - Amendment",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Colorado General Assembly enacted measures to further define the authority of state and local governments in making planning decisions for matters of statewide interest. These powers are commonly referred to as \"1041 powers\". The general intention of these powers is to allow for local governments to maintain their control over certain development projects even where the development project has statewide impacts.",
+      "isEnabled": true
+    },
+    {
+      "id": "6693",
+      "name": "1041 Permit FONSI Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The 1041 FONSI is established to provide an administrative approval process for those projects that require a 1041 permit with no mitigation. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1086",
+      "name": "Pueblo County Building Division",
+      "isEnabled": 1,
+      "content": "<div><strong data-end=\"286\" data-start=\"233\">Welcome to the Pueblo County Building Division.</strong></div><div><br data-start=\"286\" data-end=\"289\">Our mission is to support safe, responsible development throughout Pueblo County by providing clear guidance, timely reviews, and consistent inspections. We are committed to helping residents, contractors, and design professionals navigate the building permit process with confidence.</div><div><br data-start=\"573\" data-end=\"576\">Whether you are plann"
+    },
+    {
+      "id": "1072",
+      "name": "Department of Public Works",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><strong><u><span style=\"font-size: 24px;\">Useful links and documents:</span></u></strong></span></p><p style=\"text-align: center;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 30px;\"><strong>&nbsp;</strong></span><a href=\"https://county.pueblo.org/public-works/public-works-home\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"font-size: 30px;\"><strong>Back to Pueblo Coun"
+    },
+    {
+      "id": "1080",
+      "name": "Planning and Development",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><span style=\"color: rgb(184, 49, 47);\"><span style=\"font-size: 18px;\"><strong><u><span style=\"font-family: Tahoma,Geneva,sans-serif;\">!!! FRAUD ALERT !!!</span></u></strong></span></span></div><div>It has been brought to our attention that some of our applicants are receiving requests/invoices for funds relating recent applications via email. PLEASE DO NOT PAY THESE INVOICES. The Department of Planning and Development will never send you a request to pay any fees"
+    },
+    {
+      "id": "1079",
+      "name": "Liquor, Marijuana, and Tobacco Licensing",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1084",
+      "name": "Website Accessibility",
+      "isEnabled": 1,
+      "content": "<div><strong>Website Accessibility Statement Mission</strong></div><div><br></div><div>At Pueblo County Planning and Development, we are committed to ensuring our digital content is inclusive, accessible, and user-friendly for all members of the public. We believe everyone should have equal access to the information and services we provide, regardless of ability or technology.</div><div><br></div><div>Our mission is to continually review and enhance our website to meet or exceed current accessib"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:39.485Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,76 @@
+{
+  "jurisdiction": "Galveston County",
+  "state": "TX",
+  "tenant": "galvestoncountytx",
+  "portalUrl": "https://galvestoncountytx.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6429",
+      "name": "Floodplain Development Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A floodplain development permit is required to place and/or repair ANY structure(s) on property located in the unincorporated areas of Galveston County. Select this option to apply.",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "R.V. Permits and Renewals",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This is for R.V. permits and renewals only.\n\nR.V. permits are only good for 180 days and then must be renewed.  In order to renew, it must be the same R.V., on the same property as previously permitted.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Subdivision Platting and Replatting",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Select this option to submit applications for new subdivision plats or replats.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Application to Work Within A County Right of Way",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A permit is required for work within, along, or across Galveston County road rights-of-way in unincorporated areas of the county.  Select this option to apply.\n\nIf you are building on private property, please use \"Floodplain Development Permit\".",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Application for a Section 408 Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A permit is required for any work on or near the right-of-way of the Galveston Seawall, Texas City Hurricane Levee, or Highland Bayou Diversion Channel.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Application for a Sand Pit Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Only sand pits located on Bolivar Peninsula are required to be permitted.  Select this option to apply.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Road Opening Request",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Select this option if you are interested in having Galveston County maintain a currently unmaintained public right-of-way.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Engineering, Floodplain Permitting, & Right-of-Way",
+      "isEnabled": 1,
+      "content": "<p>Welcome to Galveston County&#39;s online permit portal. &nbsp;</p><p><br></p><p><br></p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:29.417Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

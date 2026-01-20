@@ -1,0 +1,267 @@
+{
+  "jurisdiction": "Sauk County",
+  "state": "WI",
+  "tenant": "countyofsaukwi",
+  "portalUrl": "https://countyofsaukwi.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6353",
+      "name": "Septic Pumping/Inspection  Report",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Can only be completed by a Certified Pumper, POWTS Maintainer, POWTS Inspector, Master Plumber or Journeyman Plumber. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Electronic Notifications - Sign up or opt-out for Septic Maintenance reminders",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Submit your email address here if you would like to receive annual septic maintenance reminders via e-mail.  Your email address will not be shared with any other parties. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "NMM Annual Reclamation Renewal",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Submit the annual renewal for the nonmetallic mine as required by Chapter 24 of the Sauk County Code of Ordinances and Wisconsin Administrative Code NR 135.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "NMM Request Reclamation Inspection",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Request either partial or complete reclamation. Please indicate if this is interim or permanent reclamation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "NMM Blast Report",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This is for nonmetallic mine operators or their blasting company to report blasts in their nonmetallic mine operations if required by Sauk County as a condition of their special permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "NMM Financial Assurance",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "This is a location to provide updated financial assurance for a nonmetallic mine. \nA PDF of the updated financial assurance will need to be provided.",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "How are we doing?  Feedback survey for users to provide input on new OpenGov permitting platform. ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Help us serve you better.  Provide constructive feedback to help us best serve you with permitting and records processes.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Land Use Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Fire Number Only Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for an account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "NMM Reclamation Plan Review",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Submit a reclamation plan or modification to a reclamation plan for staff review based on Chapter 24 of the Sauk County Code of Ordinances and Wisconsin Administrative Code NR 135.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Zoning Code Enforcement",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Use this form to report a concern or issue regarding zoning, shoreland, floodplain, or sanitation activities.",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Conservation Code Enforcement ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Use this form to report a concern or issue regarding conservation matters, such as inappropriate manure storage or handling. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Sanitary Permit Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Sanitary Permit Application",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Certified Survey Map Review",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Submit a Certified Survey Map (CSM)  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6341",
+      "name": "Planned Rural Develoment (PRD)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": "4. Links to Helpful Documents",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Links to Sauk County ordinances, town contacts, and other helpful information.",
+      "isEnabled": true
+    },
+    {
+      "id": "6375",
+      "name": "5. How to Reach Us! Contact Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Variance Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "A variance is a relaxation of a regulation within the zoning ordinance. Requests for variances are reviewed and decided by the Sauk County Board of Adjustment (BOA). The BOA is a quasi-judicial body that functions much like a court, applying rules and laws. It is the BOA's responsibility to ensure the ordinance provisions are not compromised for a property owner's personal convenience. The BOA applies legal criteria provided in state laws, court decisions, and local ordinance provisions to a specific situation. Variances are meant to be an infrequent remedy where an ordinance is found to impose a unique and substantial burden upon a property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Conditional Use Permit and/or Rezone Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Conditional Use Permit and/or Rezone",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Guest Access to Permit Applications",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Professional Registration (Pumper, Inspector)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Use this application to complete pumper/inspector registration. All pumpers or septic inspectors reporting required septic system maintenance activity in Sauk County must be registered.",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Viewing Personal Pump Records",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Special Exception Permit Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Manure Storage Closure Permit - A How-to Guide",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Soil Test Filing Only",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Soils test submission only, if ahead of, or separate from, the sanitary plans and permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Camping",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Camping permit required on properties where: Sauk County is the zoning authority, when no habitable dwelling exists on the property, and the zoning district is anything other than Single Family. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1076",
+      "name": "Planning and Zoning ",
+      "isEnabled": 1,
+      "content": "<div>If the applicant is anyone other than the property owner, an applicant accountability form will be required: <a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Owner_Accountability_Wed_Mar_26_2025_13_37_30_GMT+0000_(Coordinated_Universal_Time)_Thu_Mar_27_2025_17:37:51_GMT+0000_(Coordinated_Universal_Time).pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Owner Accountability</a>&nbsp; &nbsp;(except for CSM&#39;s).</div>"
+    },
+    {
+      "id": "1081",
+      "name": "Sanitary",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1082",
+      "name": "Nonmetallic Mine",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1083",
+      "name": "Code Enforcement",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:32.946Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

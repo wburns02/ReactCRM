@@ -1,0 +1,810 @@
+{
+  "jurisdiction": "Natick",
+  "state": "MA",
+  "tenant": "natickma",
+  "portalUrl": "https://natickma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006478",
+      "name": "Stormwater Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006486",
+      "name": "WPA Form 3 - Notice of Intent",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "WPA Form 3 - Notice of Intent",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "WPA Form 8A - Request for Certificate of Compliance",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Requests for Certificates of Compliance should be directed to the issuing authority that issued the final\nOrder of Conditions (OOC). If the project received an OOC from the Conservation Commission, submit\nthis request to that Commission. If the project was issued a Superseding Order of Conditions or was the\nsubject of an Adjudicatory Hearing Final Decision, submit this request to the appropriate DEP Regional\nOffice (see http://www.mass.gov/eea/agencies/massdep/about/contacts/find-the-massdep-regional-office-\nfor-your-city-or-town.html).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006501",
+      "name": "WPA Form 1 - Request for Determination of Applicability",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006507",
+      "name": "Planning Board - Site Plan Review Special Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Apply here for any of the following Permits: Approval Not Required (ANR), Subdivision, Site Plan Review, Special Permit, etc.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006508",
+      "name": "Junk Dealer/Collector License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": "Auto Dealer - Class I, II, III License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006514",
+      "name": "One-Day Alcohol License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "To ensure sufficient planning timeline, it is highly recommended to apply at least 30-days prior to an event.\n\nPlease note that the approving body, Select Board, meets on a bi-weekly basis.\n\nA nonprofit* organization may apply for either a one-day all-alcohol license or one-day beer and/or wine\nlicense. \n\nA for profit** organization may apply for a one-day beer and/or wine license ONLY. Special license holders CANNOT purchase alcoholic beverages from a package store; alcoholic beverages must be purchased\nfrom a State licensed supplier: https://www.mass.gov/service-details/apply-for-a-special-license-or-permitabcc",
+      "isEnabled": true
+    },
+    {
+      "id": "1006516",
+      "name": "Live/Theater Entertainment License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006517",
+      "name": "Alcohol License Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "New or Transfer of a License",
+      "isEnabled": true
+    },
+    {
+      "id": "1006610",
+      "name": "Adult Use Marijuana Establishment License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006616",
+      "name": "Occupy a Public Way ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006571",
+      "name": "Application for Certification",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006604",
+      "name": "Natick Center Business Parking Permit",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Parking Permits allow you to park in areas designated “Parking by Permit Only\" in the designated green areas.\n\nThe parking map and information can be found here:  https://www.natickma.gov/2154/Parking-Driving ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006613",
+      "name": "Meeting Room Request Application",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "The Morse Institute Library offers the use of its meeting rooms to further its roles as a place to meet and interact in meaningful ways, to learn and stay informed, and to celebrate and enjoy the diversity of the community. The Library's meeting rooms are a community asset, and use by community groups is encouraged when not in use for library purposes.\n\nYou can use this form to reserve the Lebowitz Meeting Hall and Community Room. \n\nPayment is due the FRIDAY before the meeting reservation. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006614",
+      "name": "Dog - Kennel License",
+      "categoryId": 1092,
+      "viewAccess": null,
+      "description": "The Town of Natick is pleased to offer residents, businesses, and the public an electronic kennel licensing process through the Natick OpenGov portal. \n\nNew Users: To use the Natick OpenGov Portal, new users must first register and create an account.\nReturning Users: Use your previously created username and password.\n*Note: If you have an existing OpenGov account with another community, your username and password are the same\n\nAbout Natick Dog Kennel Licensing\nAll commercial or residential dog kennels are required to have a current Dog Kennel License to operate.\n\nDog Kennel Licenses must be renewed annually; failure to do so may result in fines of $500, per Article 50, §16.7 of the Town of Natick Charter and Bylaws and MGL Ch. 140, §141.\n\nKennel Licenses are valid January 1 through December 31 of each year.\n\nThe deadline for purchasing existing Dog Kennels without penalty is March 1. New Dog Kennel Licenses shall be obtained before the opening of the Dog Kennel. \n\nPurchased Dog Kennel Licenses are non-refundable.\n\nDog Kennel Licenses are not transferable.\n\nIf there are any questions, please contact\n\nAnimal Control Officer, (508) 647-9500\n\nCity Clerk's Office, (508) 647-6430",
+      "isEnabled": true
+    },
+    {
+      "id": "1006626",
+      "name": "Community Preservation Act (CPA) - Letter of Interest (\"LOI\") ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "The Letter of Intent (LOI) serves as guidance for individuals or CPA Project Proposal Teams as they prepare a CPA Project Proposal for consideration of Community Preservation Funding. At this stage of development, CPA Project Proposals can range from initial concepts to more formalized, scoped projects. The LOI Review Team, made up of Town Staff, will assist CPA Project Proposal Teams in refining their proposals.\n\nAfter the LOI process, the next step is the CPA Funding Request Application. An LOI Letter is required before a CPA Funding Request Application may be submitted.\n\nLOI Filings are accepted on a rolling basis \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006505",
+      "name": "Contractor License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Licenses are required for contractors when doing any work including, paving, excavation or concrete. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006654",
+      "name": "Bathing Beach ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006360",
+      "name": "Flammable Storage",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Includes Black Powder Storage.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006608",
+      "name": "Building Permit - Change of Contractor",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006344",
+      "name": "Body Art Establishment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Body Art Establishment locations are allowed in specific zones of the town. Verify your proposed location with the Zoning Officer at 508-647-6450 prior to making application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006362",
+      "name": "Underground Tank Removal",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006578",
+      "name": "Driveway Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006645",
+      "name": "Community Preservation Act (CPA) - CPA Funding Request Application",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "The CPA Funding Request Application commences after the LOI process and is the submittal of a formalized CPA Project Proposal that is ready to receive Community Preservation Funds. Review of CPA Project Proposals at this phase of review is conducted by the CPC. The review includes evaluation, ranking, and a vote whether to recommend a CPA Project Proposal to Town Meeting for allocation of Community Preservation Funds.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006666",
+      "name": "Planning Board - Approval Not Required (ANR)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Apply here for an Approval Not Required (ANR) Application\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006528",
+      "name": "Zoning Board of Appeals Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Special permit, Variance, Section 6 Finding and Comprehensive Permit.\n\nThe CED staff will review your application for completeness shortly after the due date.  We will reach out to you through the portal if anything else is required or we need clarification. \n\nThe CED staff will obtain the Determination Letter/Denial Letter from the Building Commissioner and all the required Town Staff comment letters for the ZBA application. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006545",
+      "name": "Non-Live Entertainment License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006546",
+      "name": "One-Day Entertainment License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006665",
+      "name": "Planning Board - Dog Kennel Special Permit",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Dog Kennels (Home Occupation Dog Kennels, Personal Dog Kennels, Commercial Boarding and Training Dog Kennels, and Commercial Breeder Dog Kennels), which have five or more dogs are required to obtain a special permit from the Planning Board prior to opening/operating a Dog Kennel in Natick. \n\nPlease use this Special Permit Application for Dog Kennels with 5 or more dogs. \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006418",
+      "name": "Sanitary Sewer Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006364",
+      "name": "Propane Tank Installation/Storage",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006637",
+      "name": "Accessory Dwelling Unit (ADU) Application Review",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Natick and Accessory Dwelling Units (ADU)\n\nAs Natick prepares for the 2024 Fall Annual Town Meeting (2024 FATM), Governor Healey signed into law the Affordable Homes Act on August 6, 2024.  As part of the Affordable Homes Act, Communities are required to allow for the creation of Accessory Dwelling Units (ADU) As of Right (also referred to as By-right). The Town of Natick at the 2024 Fall Annual Town Meeting voted to adopt Section III-M Accessory Dwelling Units, which regulates how ADUs are created in Natick. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006385",
+      "name": "Body Art Practitioner",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Building Permit - Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, renovations, alterations, partial and interior demolition and major repairs to existing buildings including commercial, and one and two family buildings.\n\nTwo family dwellings require TWO building permits (one for each side).\n\nAll applications MUST be in the name of the CSL.\n\nAll uploaded documents MUST be in a PDF format. \n\nPlease call the main office (508-647-6450) between the hours of 8am-4:30pm Monday through Wednesday, 8am-6pm Thursdays, and 8am to 12:30pm Fridays to schedule your building inspection. \n\nThe applicant MUST be the CSL.   The job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006366",
+      "name": "Sprinkler Installation/Maintenance ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Permit to Install or Alter a Fire Sprinkler System.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006630",
+      "name": "Bodywork Establishment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Establishment for the business of Bodywork",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Street Opening and Trench Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006498",
+      "name": "WPA Form 4A- Abbreviated Notice of Resource Area Delineation (ANRAD)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006544",
+      "name": "Alcohol License - Change/Amendment to an Existing Current License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application must be submitted if there is an Alteration of Premise, a Change in Manager, a Change in DBA, a Change in Hours, a Change in License Type, a Change in Corporate Name/LLC, New Stockholders/Officers/Directors and/or Pledge of License/Stock.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006510",
+      "name": "Automatic Amusement Device License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006633",
+      "name": "Bodywork Practitioner",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Bodywork Individual Therapist",
+      "isEnabled": true
+    },
+    {
+      "id": "1006367",
+      "name": "Cutting and Welding (Commercial)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006368",
+      "name": "Blasting Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006635",
+      "name": "Bakery - Commercial",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006611",
+      "name": "Building Permit - Kiosk, Temporary Store, Tent and Job Site Construction Trailer ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is not a building permit that is processed faster, it is for projects such as:\nKiosk, Temporary Store, Tent and Job Site Construction Trailer.\n\nIt is NOT for decks.\n\nPlease call the main office (508-647-6450) between the hours of 8am-4:30pm Monday through Wednesday, 8am-6pm Thursdays, and 8am to 12:30pm Fridays to schedule your building inspection. \n\nThe job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006511",
+      "name": "Common Victualer License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006607",
+      "name": "Building Permit - Insulation/Weatherization",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is for Insulation/Weatherization ONLY.\n\nPlease call the main office (508-647-6450) between the hours of 8am-4:30pm Monday through Wednesday, 8am-6pm Thursdays, and 8am to 12:30pm Fridays to schedule your building inspection. \n\n\nThe job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006597",
+      "name": "Biological Safety Institution Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Information regarding the Board of Health Regulations can be found here: https://www.natickma.gov/DocumentCenter/View/14999/Chapter-30-Biological-Safety-Regulation-PDF ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006519",
+      "name": "Fire Alarm Installation/Maintenance",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006417",
+      "name": "Water Service Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006657",
+      "name": "Food - Catering Event Registration",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006520",
+      "name": "Propane Resale Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006606",
+      "name": "Building Permit - Wood Stove/Masonry/Windows/Doors/Siding",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is for Wood Stove, Masonry, Doors, Siding and Windows.\n\nPlease call the main office (508-647-6450) between the hours of 8am-4:30pm Monday through Wednesday, 8am-6pm Thursdays, and 8am to 12:30pm Fridays to schedule your building inspection. \n\nThe job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006605",
+      "name": "Building Permit - Roofing",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This is for residential and commercial roofing ONLY.\n \nPlease call the main office (508-647-6450) between the hours of 8am-4:30pm Monday through Wednesday, 8am-6pm Thursdays, and 8am to 12:30pm Fridays to schedule your building inspection. \n\nThe applicant MUST be the CSL.   The job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006523",
+      "name": "Oil Burner/Tank Installation or Removal",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006636",
+      "name": "Food - Cottage Operation/Residential Kitchen",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Massachusetts State Sanitary Code Chapter X - Minimum Sanitation Standards for Food Establishments 105 CMR 590.010 (E) requires a Food Establishment Permit must be obtained if food is prepared in or distributed or sold from a Cottage Food/Residential Kitchen Operation.\nOnly foods that DO NOT require refrigeration and/or a variance shall be prepared in or distributed from a Cottage Operation/Residential Kitchen can be for sale to the public.\nWholesale Operations (selling to retail stores, restaurants etc.) require a food processor license be obtained from the State of MA Food Protection Program (FPP). Contact the State FPP at 617- 983-6770 or visit: https://www.mass.gov/guides/starting-a-wholesale-food-business\nThe use of brokers, wholesalers and warehouse by cottage kitchen operators to store, sell and distribute foods prepared in cottage (residential) kitchens is prohibited. Food products made in cottage kitchens may not be sold-out-of state (FDA does not recognize these foods as originating from an approved source).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006642",
+      "name": "Food - MOBILE Food Service ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006584",
+      "name": "Fixed Fire Suppression",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Applicant must be a licensed professional. \n\nThis permit is required when installing any electrical wiring, electrical appliances, electrical services, etc.  Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. \n\nThe State requires that licensed electricians call the electrical inspector in order to schedule Inspections. Please call the main office (508-647-6450) between the hours of 8am-9am Monday through Friday and ask for the electrical inspector to schedule your inspections.   PLEASE HAVE YOUR PERMIT NUMBER HANDY! \n\nInspections are typically scheduled the same or the following day. \n\nThe job card MUST be on site at all times.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006479",
+      "name": "Gas Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Applicant must be a licensed professional. \n\nThis permit is required when gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances.\n\nState requires that licensed plumbers call the gas inspector in order to schedule Inspections. Please call the main office (508-647-6450) between the hours of 8am-9am Monday through Friday and ask for the gas inspector to schedule your inspections. Inspections are typically scheduled the same or the following day.  PLEASE HAVE YOUR PERMIT NUMBER HANDY! \n\nThe job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006579",
+      "name": "Food - Temporary Establishment Event (Not Mobile)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006587",
+      "name": "Permit to Process Hazardous Materials",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006586",
+      "name": "Ventless Heaters",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006425",
+      "name": "Food Establishment Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006480",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Applicant must be a licensed professional. \n\nA permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.\n\nState requires that licensed plumbers call the plumbing inspector in order to schedule Inspections. Please call the main office (508-647-6450) between the hours of 8am-9am Monday through Friday and ask for the plumbing inspector to schedule your inspections. Inspections are typically scheduled the same or the following day. PLEASE HAVE YOUR PERMIT NUMBER HANDY! \n\nThe job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006391",
+      "name": "Building Permit - Sheet Metal ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when a sheet metal worker is manufacturing, fabricating, assembling, handling, erecting, installing, dismantling, heat pumps,  alteration and/or repairing duct work, commercial hood vents and kitchen hoods.  \n\nThe job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006612",
+      "name": "Frozen Dessert (not mobile) Manufacturing Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for a Frozen Dessert Manufacturing Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "1006609",
+      "name": "Energy Storage System",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006526",
+      "name": "Commercial Plan Review",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Commercial Plan Review\nAny work requiring permitting from 780 CMR and/or the IBC that includes:\n\n1. New or substantially altered fire alarm systems\n  a. Relocation of devices that involve egress changes or the addition of walls that will require additional devices\n  b. Changes in the sequence of operation\n2. New or substantially modified (relocation of 20 or more sprinklers) sprinkler systems\n3. Overhead gas station suppression\n4. Custom-engineered hood suppression systems\n5. Or other complex fire protection systems\n6. If egresses are impacted in any manner, then a plan to overcome the impairment shall be submitted as part of the package and reviewed by a third party.\n\nThe Fire Department review and approval are for work involving any of the following:\n\n- 780 CMR Chapter 4 (Special Detailed Requirements Based on Use and Occupancy)\n- Chapter 9 (Fire Protection Systems) \n- Chapter 34 (Existing Structures). \n\nAn IEBC study shall be included in the submittal.\n\nShould the plans fit into any of the above categories, they shall be reviewed by an approved party firm from the list below. The cost for review will be borne by the submitting firm (per 527 CMR 1.00, Section 1.15.1.3). The cost is set by the reviewing firm.\n\nThird Party Reviewers\n\nThis list is in no particular order.\n\nCode Red Consultants, LLC\nCRCFIRE.com\nthirdparty@crcfire.com\nAll emailed inquires and documentation will receive a response within 24 hours\n\\t\nJensen Hughes\njensenhughes.com\nCarson Cook, PE\nEmail: carson.cook@jensenhughes.com\nOne Research Drive, Suite 305C,\nWestborough, MA 01581\nOffice: 508-273-8490\nCell: 617-966-0128\n\\t\nJS Consulting Engineers, PLLC\njsfirecode.com\nAlex Browning, PE\nEmail: abrowning@jsfirecode.com\n224 Main Street, Suite 2C,\nSalem, NH 03079\nCell: 401-965-1157\n\nSubmittal Requirements\n\nSubmittals must be in accordance with the language below and be found to be satisfactory to the reviewing party. Incomplete submittals are subject to rejection and delays in permitting.\n\nPrior to approval of a Building Permit by the Natick Building Department, Natick Fire Prevention requires Third Party Review and Recommendation for Approval of Tier One Construction Documents (including Engineering Plans, System Narratives, etc.) associated with new or modified fire protection/fire alarm systems. In addition to the life safety system approvals, a Construction Fire Safety Plan in accordance with NFPA 241 and 527 CMR 1.00 shall be reviewed.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006465",
+      "name": "Building Permit - Signs",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All sign work.\n\nThe job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006374",
+      "name": "Funeral Director",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Funeral Directors licenses are renewable annually on May 1st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006551",
+      "name": "Certificate of Occupancy Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A Certificate of Occupancy Permit is a permit that allows occupancy of a space such as: Sale of Food or Drink, Temporary Store, Permanent Store, Kiosk.\n\nPlease call the main office (508-647-6450) between the hours of 8am-4:30pm Monday through Wednesday, 8am-6pm Thursdays, and 8am to 12:30pm Fridays to schedule your building inspection. \n\nBuilding inspections are typically scheduled the following business day.\n\nThe job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006602",
+      "name": "Garbage/Rubbish/Dumpster Hauling Contractor",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006622",
+      "name": "Grease Trap Installation - External Grease Trap Septic Construction",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006563",
+      "name": "Certificate of Inspection",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This is an application for a Life Safety Inspection for Existing Buildings in accordance with Massachusetts amendments Section 110.7   ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006603",
+      "name": "Hotel/Motel Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006624",
+      "name": "Livestock and/or Beekeeping Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006646",
+      "name": "Marijuana:    Adult Use Board of Health",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006648",
+      "name": "Marijuana:  Medical Dispensary Agent",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006652",
+      "name": "Marijuana:  Medical Hardship Cultivation Permit/Personal Caregiver Cultivation",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006647",
+      "name": "Marijuana:  Medical Operating Dispensary Plan Review and Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006649",
+      "name": "Marijuana:  Medical Personal Caregiver",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006651",
+      "name": "Marijuana:  Medical Personal Caregiver Cultivation Facility",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006629",
+      "name": "Septic Abandonment private system",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006643",
+      "name": "Septic Construction Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006600",
+      "name": "Septic Disposal System Installer Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006601",
+      "name": "Septage Hauler Permit ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006561",
+      "name": "Swimming Pool Construction Residential Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "An enclosure permit, a building permit AND an electrical permit through the Building Dept. are also required. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006599",
+      "name": "Swimming Pool Construction Public or Semi-Public",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "You will also have to apply for a building, electric and pool permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006350",
+      "name": "Swim Pool Operator for Semi-Public or Public Swimming and/or Specialty Spa Pool(s)  ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006567",
+      "name": "Swimming Pool Installer's Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006379",
+      "name": "Tanning",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006378",
+      "name": "Tobacco & Nicotine Product Sales Vendor",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006659",
+      "name": "Underground Fuel Storage Tank Annual Registration (except propane)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Annual registration for underground fuel tanks (except propane)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006426",
+      "name": "Water Table Determination for Foundation and/or Stormwater Mgt. By-Law",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006639",
+      "name": "Percolation Test Observation for Private Septic System",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"color: rgb(226, 80, 65);\"><u><span style=\"font-size: 30px;\"><strong>Starting work prior to approval shall be subject to TRIPLE the original permit fee.</strong></span></u></span></p><p><a href=\"https://www.natickma.gov/DocumentCenter/View/19041/02012025-Building-Permit-Fees?bidId=\" rel=\"noopener noreferrer\" target=\"_blank\">Click here for Building Dept fees as of February 1, 2025</a></p><div style=\"text-align: center;\"><span style=\"font-size: 24px;\">For"
+    },
+    {
+      "id": "1089",
+      "name": "Community and Economic Development (CED)",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(30, 33, 38); font-family: Montserrat; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 500; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; disp"
+    },
+    {
+      "id": "1093",
+      "name": "Community Preservation Committee (CPC)",
+      "isEnabled": 1,
+      "content": "<div>Natick, a Community Preservation Act (&ldquo;CPA&rdquo;) community is committed to the use of Community Preservation Funds for Open Space Protection, Outdoor Recreation, Community (Affordable) Housing, and Historic Preservation (collectively &ldquo;CPA Category Areas&rdquo;).&nbsp;</div><div><br></div><div>Letters of Interest (&quot;LOI&quot;) and CPA Funding Request Applications are now being accepted&nbsp;</div>"
+    },
+    {
+      "id": "1081",
+      "name": "Conservation Commission",
+      "isEnabled": 1,
+      "content": "<p style='margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-s"
+    },
+    {
+      "id": "1079",
+      "name": "Department of Public Works (DPW)",
+      "isEnabled": 1,
+      "content": "<p>The <strong>last&nbsp;</strong>day for Street Openings and Driveways to be completed in the Town of Natick for this year will be on <strong>Thursday</strong> <strong>November 13, 2025</strong>. The <strong>last&nbsp;</strong>day to submit permits for the year will be by the end of the day on <strong>Monday N</strong><strong>ovember 3, 2025</strong>.&nbsp;</p><p>Any questions, contact the Engineering Division at 1-508-647-6551.</p>"
+    },
+    {
+      "id": "1076",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1073",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: "
+    },
+    {
+      "id": "1087",
+      "name": "Historic District Commission",
+      "isEnabled": 1,
+      "content": "<p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Natick_Historic_District_Commission_General_Guidelines_Tue_Feb_21_2023_21:20:29_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_blank\">Natick Historic District Commission General Guidelines.pdf</a></p><p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Historic_District_Commission_General_Information_Tue_Feb_21_2023_21:23:07_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_bla"
+    },
+    {
+      "id": "1090",
+      "name": "Morse Institute Library",
+      "isEnabled": 1
+    },
+    {
+      "id": "1084",
+      "name": "Select Board",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1082",
+      "name": "Planning Board",
+      "isEnabled": 1,
+      "content": "<p><strong>Apply Online to the Planning Board</strong></p><p>Community Economic Development (CED), invites Applicants to submit applications for review through the Town&rsquo;s online portal. The online portal intends to increase permitting efficiency, reduce paper, increase communication between Applicants and the Town while setting clear expectations for Application submittals.</p><p>At any time, if there are any questions, please get in touch with the Department of CED (508)647-6450.</p>"
+    },
+    {
+      "id": "1092",
+      "name": "Town Clerk/Licensing",
+      "isEnabled": 1
+    },
+    {
+      "id": "1083",
+      "name": "Zoning Board of Appeals",
+      "isEnabled": 1,
+      "content": "<p>The Zoning Board of Appeals, also known as the ZBA, is a quasi-judicial board comprised of five regular members and three associate members. Applications reviewed by the ZBA, found within this portal, include appeals of a Building Commissioner determination, special permits, and variance applications subject to MGL c 40A.<br><br><a href=\"https://www.natickma.gov/DocumentCenter/View/19143/ZBA-Meetings-2025-with-Deadlines---Updated\" rel=\"noopener noreferrer\" target=\"_blank\">2025 Meeting Schedul"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:25.002Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

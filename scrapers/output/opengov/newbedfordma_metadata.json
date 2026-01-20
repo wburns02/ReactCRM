@@ -1,0 +1,418 @@
+{
+  "jurisdiction": "New Bedford",
+  "state": "MA",
+  "tenant": "newbedfordma",
+  "portalUrl": "https://newbedfordma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006492",
+      "name": "Building Permit",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006594",
+      "name": "Administrative Site Plan Review",
+      "categoryId": 1113,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006568",
+      "name": "General Online Permitting and Licensing Help",
+      "categoryId": 1109,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006529",
+      "name": "Mobile Food",
+      "categoryId": 1105,
+      "viewAccess": null,
+      "description": "Annual Food Truck Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "1006531",
+      "name": "Farmers Market Permit ",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006572",
+      "name": "Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1109,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006574",
+      "name": "Link to Online Maps",
+      "categoryId": 1109,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006590",
+      "name": "Pay Online for a Violation - DFFM Trash",
+      "categoryId": 1111,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Food Establishment License",
+      "categoryId": 1105,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006564",
+      "name": "E-2 Form",
+      "categoryId": 1105,
+      "viewAccess": null,
+      "description": "Notice of rodent control / asbestos & lead abatement prior to demolition.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006596",
+      "name": "Pay Online for a Violation - Task Force",
+      "categoryId": 1111,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006573",
+      "name": "Receiving Your Permit or Other Document",
+      "categoryId": 1109,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006569",
+      "name": "How to Save and Resume a Draft of a Record",
+      "categoryId": 1109,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006575",
+      "name": "Housing Voucher Certificate",
+      "categoryId": 1105,
+      "viewAccess": null,
+      "description": "Owner or Organization requesting to have NBHD inspect a dwelling unit prior to occupancy and issue letter of approval for housing voucher or State funded locating looking to have annual inspection of a dwelling by the NBHD for meeting Minimum Housing Standards within a Group Home\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006579",
+      "name": "Vacant Property Registration",
+      "categoryId": 1103,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006589",
+      "name": "State Group Home Inspection",
+      "categoryId": 1105,
+      "viewAccess": null,
+      "description": "State funded locating looking to have annual inspection of a dwelling by the NBHD for meeting Minimum Housing Standards within a Group Home\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006543",
+      "name": "Guest Access to Permits",
+      "categoryId": 1109,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006567",
+      "name": "Service Fees",
+      "categoryId": 1109,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006580",
+      "name": "Vacant Property De-Registration",
+      "categoryId": 1103,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006501",
+      "name": "City of New Bedford Sewer Permit",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006578",
+      "name": "Pre-Rental Housing Certificate",
+      "categoryId": 1105,
+      "viewAccess": null,
+      "description": "Owner’s request to have a the NBHD inspect a unit prior to occupancy and issue certificate of compliance with Minimum Housing Standards",
+      "isEnabled": true
+    },
+    {
+      "id": "1006571",
+      "name": "Pay using your bank account - Payment method",
+      "categoryId": 1109,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006561",
+      "name": "City of New Bedford Driveway Permit",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006562",
+      "name": "City of New Bedford Trench Permit",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006559",
+      "name": "Body Art Establishment License ",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "description": "Health",
+      "isEnabled": true
+    },
+    {
+      "id": "1006558",
+      "name": "Body Art Practitioner",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "description": "Health",
+      "isEnabled": true
+    },
+    {
+      "id": "1006599",
+      "name": "City of New Bedford Obstruction Permit",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006600",
+      "name": "City of New Bedford Disturbance Permit",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006563",
+      "name": "Body Art Apprentice",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "description": "Health",
+      "isEnabled": true
+    },
+    {
+      "id": "1006557",
+      "name": "Body Art Guest Artist ",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "description": "Health",
+      "isEnabled": true
+    },
+    {
+      "id": "1006556",
+      "name": "City of New Bedford Stormwater Management Permit ",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Electrical Permit",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006541",
+      "name": "City of New Bedford Water Permit",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006544",
+      "name": "Lodging House License",
+      "categoryId": 1112,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006601",
+      "name": "Common Victualler License",
+      "categoryId": 1112,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": "Plumbing Permit",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006551",
+      "name": "Public/Semi-Public Swimming, Wading or Special Purpose Pool",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006598",
+      "name": "Auto Body License",
+      "categoryId": 1112,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006554",
+      "name": "Recreational Camp",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": "Mechanical Permit",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006545",
+      "name": "Garbage/Offal Hauler",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006539",
+      "name": "Motor Vehicle Special Permit",
+      "categoryId": 1107,
+      "viewAccess": "public",
+      "description": "Sales & Rentals - Body Repair - General Repair - Light Service ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006550",
+      "name": "Trailer Coach Park/Camp License",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006496",
+      "name": "Gas Permit",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006547",
+      "name": "Septage Hauler",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006533",
+      "name": "Temporary Food Event Permit Application",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "description": "Food Vendors that are attending outdoor events less than 14 days",
+      "isEnabled": true
+    },
+    {
+      "id": "1006537",
+      "name": "Tobacco License",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006552",
+      "name": "Disposal Works Installer",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006505",
+      "name": "Tanning Facility License",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Frozen Dessert License",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1111",
+      "name": "Code Enforcement",
+      "isEnabled": 1
+    },
+    {
+      "id": "1112",
+      "name": "Licensing",
+      "isEnabled": 1
+    },
+    {
+      "id": "1113",
+      "name": "Planning",
+      "isEnabled": 1
+    },
+    {
+      "id": "1103",
+      "name": "Inspectional Services",
+      "isEnabled": 1,
+      "content": "<p><b style=\"mso-bidi-font-weight:normal;\">What permits are issued by the Department of Inspectional Services?</b></p><p>The Department of Inspectional Services, or DIS, is the issuing body for building permits, as well as certificates of inspection and electrical, plumbing, gas and mechanical permits.</p><p>Driveway permits are reviewed/issued first by DIS then they go to the Department of Public Infrastructure (DPI). Driveway, water, sewage, storm water and storm drain permits are issued by th"
+    },
+    {
+      "id": "1104",
+      "name": "Department of Public Infrastructure (DPI)",
+      "isEnabled": 1
+    },
+    {
+      "id": "1105",
+      "name": "Health",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style='color: rgb(255, 0, 0); font-family: system-ui, -apple-system, BlinkMacSystemFont, \"Segoe UI\", Roboto, Oxygen-Sans, Ubuntu, Cantarell, \"Helvetica Neue\", Arial, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: n"
+    },
+    {
+      "id": "1107",
+      "name": "Clerk's Office",
+      "isEnabled": 1
+    },
+    {
+      "id": "1109",
+      "name": "Online Portal Guide",
+      "isEnabled": 1,
+      "content": "<p><span style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; color: rgb(51, 51, 51); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:17.289Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,64 @@
+{
+  "jurisdiction": "Baltimore DHCD",
+  "state": "MD",
+  "tenant": "baltimoremddhcd",
+  "portalUrl": "https://baltimoremddhcd.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6432",
+      "name": "Property Registration and Rental Licensing",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "For Vacant Lots, Vacant Properties, and Licensing",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "*Rental License Renewal Only*",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for a Rental License for actively registered properties.  ***You must have been issued a previous rental license to use this license renewal feature.***",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Short Term Rental Registration",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Registration for properties that are rented in 1-3 month intervals",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Have a Question?",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "All questions will be responded to within 48 Hours of the next business day",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1082",
+      "name": "Short-Term Rental Registration and Licensing",
+      "isEnabled": 1,
+      "content": "<h3 style=\"box-sizing: border-box; margin: 0px 0px 1.14286rem; padding: 0px; font-family: open-sans; font-weight: 700; font-style: normal; color: rgb(17, 17, 17); text-rendering: optimizelegibility; line-height: 1.4; font-size: 1.57143rem; text-align: center; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb("
+    },
+    {
+      "id": "1080",
+      "name": "Property Registration and  Rental Licensing",
+      "isEnabled": 1,
+      "content": "<h3 style=\"box-sizing: border-box; margin: 0px 0px 1.14286rem; padding: 0px; font-family: open-sans; font-weight: 700; font-style: normal; color: rgb(17, 17, 17); text-rendering: optimizelegibility; line-height: 1.4; font-size: 1.57143rem; text-align: center; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb("
+    },
+    {
+      "id": "1081",
+      "name": "Have a Question? / Need Help?",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style='color: rgb(119, 119, 119); font-family: \"Benton Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: i"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:35.360Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

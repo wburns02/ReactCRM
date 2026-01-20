@@ -1,0 +1,366 @@
+{
+  "jurisdiction": "South Hadley",
+  "state": "MA",
+  "tenant": "southhadleyma",
+  "portalUrl": "https://southhadleyma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6465",
+      "name": "Temporary Extension of Premises",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Temporary Extension of Premises: Outdoor Dining Area on Private Property/Parking Lot",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Flammable Storage Registration",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A Certificate of Registration is the vehicle used by the license holder or occupant of licensed land to notify the Town Clerk annually, before April 30th, that a license is in use and currently being exercised. If a registration is not applied for and issued, after three weeks, it may be viewed as cessation and cause for review of the license. A registration must be plainly posted on the premises. Please contact the Town Clerk's Office for more information.",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Rental Registry",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "The Rental Registry ensures safe and hygienic conditions in rental housing, and compliance with the State Sanitary Code, Chapter II (105 CMR 410.000). Dwelling units lasting longer than (28) consecutive days require this permit.  The permit should be renewed annually and is valid for a calendar year.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Short Term Rental License",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "A Short-Term Rental is defined as any rental of all or part of a residential dwelling unit for 28 consecutive days or less, including home-sharing and vacation rentals. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Curbside Pickup Fee Abatement",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Certified Abutters List",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Please note: Your Certified Abutters List will be available through this online portal after certification by the Assessor's Office.  If you require a South Hadley Abutters List for an out-of-town address, please contact the Assessor's Office directly at 413-538-5017 x6182.",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Sign Illumination",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6408",
+      "name": "Food Establishment License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This option to apply for a Temporary Food Permit or an Annual Food Establishment Permit based on your needs. Temporary permits are for short-term events, while annual permits cover year-round food operations.\n\nPlease contact the Health Department if clarification is needed.\n\n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6424",
+      "name": "Business Certificate",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "All fictitious name certificates for businesses (commonly known as \"doing business as\" or \"DBA\" certificates) are filed with the Town Clerk. Massachusetts requires anyone who is conducting business under an alias (i.e., any name other than his or her own), including corporations, to file a business certificate in the community where their business is principally headquartered.",
+      "isEnabled": true
+    },
+    {
+      "id": "6425",
+      "name": "Dog License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "All Dogs over 6 months old must be registered annually in South Hadley. The registration period runs from January 1 to March 31 each year. A late fee of $5.00 will be assessed if the dog license is not renewed by April 1.",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Sewer Fee Abatement",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6422",
+      "name": "Alcohol License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "New Applicants Only With Existing Approval from the ABCC and South Hadley Selectboard: Apply for a Restaurant All Alcohol License, Restaurant Beer and Wine License, Package Store All Alcohol License, Package Store Beer and Wine License, or a Club All Alcohol License. Do not click 'Select' if you are trying to renew your license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Demolition/Building Transport",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Disposal Works Installer",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Body Art Establishment License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Body Art Practitioner License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6402",
+      "name": "Obstruction Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Tag Sale",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Licenses are valid for three consecutive days. No more than four tag sales per residence per calendar year.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Lodging House Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Permit to Operate a Hotel/Motel Establishment / Bed & Breakfast / Dormitory / Lodging / Inns",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Funeral Director License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Mechanical/Sheet Metal Permit ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6401",
+      "name": "Road Opening & Sewer Connection Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Health Club/Spa License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Pasteurization of Milk License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6396",
+      "name": "Electrical Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6397",
+      "name": "Plumbing Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Mobile Food Establishment License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "** Only for Food Trucks**",
+      "isEnabled": true
+    },
+    {
+      "id": "6418",
+      "name": "Tobacco Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6399",
+      "name": "Gas Permit",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6414",
+      "name": "Hauler Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6415",
+      "name": "Portable Toilet License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6416",
+      "name": "Pool License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6411",
+      "name": "Dumpster Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Selectboard Annual License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Apply for an annual Automatic Amusement, Entertainment, Carry-In BYOB, Common Victualler, Juke Box, Livery, Sunday Entertainment, Hawker Peddler, or Used Car (Class 2 Motor Vehicle) license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Building Permit",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "1 Day Alcohol License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "One-day alcohol licenses are required for events at which alcohol will be sold. Please note that a person can only obtain a total of 30 one-day licenses per location in one calendar year. You may use this application to apply for a license during consecutive days in the same location.\n</p>\n *APPLICATIONS MUST BE SUBMITTED AT LEAST TWO WEEKS IN ADVANCE OF THE EVENT. APPLICATIONS SUBMITTED LESS THAN TWO WEEKS IN ADVANCE WILL NOT BE ACCEPTED FOR REVIEW BY THE SELECTBOARD.*\n</p>\nApplicants CANNOT purchase alcoholic beverages from a package store. Per the ABCC, please see the list of authorized sources from which to purchase alcohol here: https://www.mass.gov/info-details/apply-for-a-special-license-or-permit-abcc\n</p>\nEVENT REQUIREMENTS: Issuance of this license does not exempt license holders from additional licensing requirements. Food truck permits and entertainment licenses for live music are separate, additional licenses your event may need. Contact the Health Department and Administration Office respectively at 538-5030 for more information. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6409",
+      "name": "Animal Keeping License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Certificate of Inspection",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1093",
+      "name": "Abatements",
+      "isEnabled": 1,
+      "content": "<div>Any requests for abatement must be submitted through the OpenGov platform, within 30 days of the date of the billing.</div>"
+    },
+    {
+      "id": "1096",
+      "name": "Assessors",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: \"Benton Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoratio"
+    },
+    {
+      "id": "1092",
+      "name": "Rental Registration",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1091",
+      "name": "Building",
+      "isEnabled": 1,
+      "content": "<div>Building Permits are available online however we will be continuing to make adjustments (including fee calculations) and may need further information than what is included. &nbsp;We will reach out if necessary. &nbsp;Thank you for your understanding.</div>"
+    },
+    {
+      "id": "1086",
+      "name": "Conservation",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "DPW",
+      "isEnabled": 1
+    },
+    {
+      "id": "1088",
+      "name": "Electrical",
+      "isEnabled": 1
+    },
+    {
+      "id": "1090",
+      "name": "Gas",
+      "isEnabled": 1
+    },
+    {
+      "id": "1081",
+      "name": "Health",
+      "isEnabled": 1,
+      "content": "<p>South Hadley Health Department</p><p>Town of South Hadley</p><p>116 Main Street, Suite 102</p><p>(413) 538-5017, x 6184</p><p><br></p><p>Sharon D. Hart, Director of Public Health</p><p>Jennifer J. Jernigan, Assistant Director of Public Health</p><p><br></p><p>Hours: &nbsp;Monday - Friday 8:30 - 4:30</p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p>"
+    },
+    {
+      "id": "1087",
+      "name": "Planning",
+      "isEnabled": 1
+    },
+    {
+      "id": "1089",
+      "name": "Plumbing",
+      "isEnabled": 1
+    },
+    {
+      "id": "1085",
+      "name": "Selectboard",
+      "isEnabled": 1,
+      "content": "<p>The Selectboard is a five-member board responsible for issuing licenses and permits, and enforcing rules, regulations, local ordinances and state laws. &nbsp;Licenses and permits issued by the board include: alcohol (annual and one-days), amusement, common victuallers, entertainment, used car dealers, peddlers, and livery/limousine.</p><p>The Selectboard meets twice a month. <a href=\"https://www.southhadley.org/calendar.aspx\" rel=\"noopener noreferrer\" target=\"_blank\">Check the calendar</a> fo"
+    },
+    {
+      "id": "1084",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 18px;\">Hours of Operation:</span></strong><br><span style=\"font-size: 18px;\"><span style=\"font-size: 18px;\"><span style=\"font-size: 18px;\">Monday through Thursday 8:30 a.m. to 4:00 p.m.</span><br>Fridays 8:30 a.m. to noon</span><br></span></p><p><span style=\"font-size: 18px;\"><strong>Phone:</strong> (413) 538-5030 Ext. 6183</span></p><p><span style=\"font-size: 18px;\"><strong>Address:</strong><br>Room M11<br>116 Main Street<br>South Hadley, MA 01075</span></p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:43.220Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

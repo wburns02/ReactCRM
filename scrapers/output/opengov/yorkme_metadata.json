@@ -1,0 +1,160 @@
+{
+  "jurisdiction": "York",
+  "state": "ME",
+  "tenant": "yorkme",
+  "portalUrl": "https://yorkme.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6430",
+      "name": "Complaint ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Commercial Building Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is required for all commercial and non-residential construction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Condo Conversion Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Condominium Conversion Permit is required to convert traditional real estate to condominiums.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Demolition Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Demolition Permit is required remove existing structures, i.e. sheds, garages, houses, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Home Occupation Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is required to establish, expand or alter a home occupation (home-based business).",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Plumbing Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Plumbing permits are required in the Town of York for all residential and commercial internal plumbing work.",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Residential Building Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is required for the construction, alteration or expansion of any residential structure greater than 200 sq. ft., or includes any activity which requires inspection by the CEO.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Seasonal Conversion of Dwelling Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Seasonal Conversion Permit is required to convert a dwelling unit from a seasonal use to a year-round use.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Shoreland Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "You must have a shoreland permit for any activity on land or buildings within the Shoreland Overlay. This includes expanding or restarting a use that no longer meets current rules. A permit is also required for activities like removing vegetation, cutting trees, or filling and grading the land.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Sign Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is required for on-premise business advertising signs, and temporary off-premise advertising signs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Solar Energy System Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is required for all new, modified or expanded residential and non-residential solar energy systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Standby Generator Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is required for standby generators and associated equipment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Subsurface Wastewater Disposal System Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is required anytime a subsurface wastewater system is being modified or installed, or a septic tank is being replaced or added.",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Swimming Pool, Spa and Hot Tub Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is required for the installation or construction of residential and non-residentia,l in-ground or above-ground, swimming pools, spas, hot tubs, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Use Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Use permit or Route One Use permit (applicable to all Route One base zones) is required to establish a new use, or modify or expand an existing use.",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Wetland Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Wetland Permit is required for any use, fill or alteration of a wetland. However, property owners do not need a permit if they are only cutting trees for personal use, such as firewood.",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Wireless Communications Facilities Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is required for all commercial and non-residential construction.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Permitting and Inspections - Building Department",
+      "isEnabled": 1,
+      "content": "<div><p>Apply for permits, manage your applications, pay online, schedule inspections, and more.</p></div>"
+    },
+    {
+      "id": "1081",
+      "name": "Complaints and Violations - Code Enforcement",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:33.611Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,499 @@
+{
+  "jurisdiction": "Hudson",
+  "state": "OH",
+  "tenant": "hudsonoh",
+  "portalUrl": "https://hudsonoh.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6373",
+      "name": "Minor Subdivision-Lot Split-Lot Consolidation",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for the consolidation of parcels or the creation of three or fewer parcels that does not involve the creation of public right-of-way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Service Provider Registration",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "All service providers that offer or provide any service for a fee, either within the City or outside the City's corporate limits via facilities within the City, shall register each calendar year, on or before January 1, with the City, pursuant to Section 1016.02 of the Codified Ordinances, after filing an initial registration with the City prior to making application for a use permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Use Permit",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "Any service provider who desires to construct, reconstruct, install, operate, maintain or otherwise locate facilities or who is currently maintaining, operating, constructing, installing or otherwise locating facilities in, under, over or across any public way of the City will be required to obtain a Use Permit. \n\nA Use Permit is required for any service provider who desires to work within a Public Way, Public Easement, or Public property or other such location.",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "Right-of-Way",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Choose this application if you will be constructing, reconstructing, altering, repairing, removing or replacing the following within the City's right-of-way: any utility services, culvert pipes, sidewalks, driveway aprons, and ditch eliminations. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "Board of Zoning and Building Appeals (BZBA)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This is an application for a Public hearing to review BZBA matters of administering the Land Development Code for Variance, Appeals, Conditional Uses, Nonconforming Uses/Structures/Lots and Interpretation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6407",
+      "name": "Block Party",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "A resident or Homeowner's Association that plans to hold a block party must complete a Block Party Application and submit it to the City for approval no later than 30 days prior to the requested event date. Please review the regulations below before submitting a Block Party Application. Submission of application does not indicate or guarantee approval.",
+      "isEnabled": true
+    },
+    {
+      "id": "6418",
+      "name": "Accessory Structures ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for sheds, detached garages, firepits and outdoor fireplaces, pavilions, pergolas, seating and retaining walls, and gazebos, unless the project is within the Historic District, in which case use the \"Historic District\" application form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Accessory Structure - Commercial",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for pools, firepits and outdoor fireplaces, hot tubs, pavilions, pergolas, sheds, seating and retaining walls, and gazebos.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Addition - Commercial",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for Additions that are less than 2,000 square feet.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Fee Schedule",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6401",
+      "name": "Conditional Use",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Conditional uses are allowed when certain criteria are met (refer to Chapter 1206 of the Land Development Code for conditional uses and associated criteria). The result of the application will be decided upon at the Planning Commission Meeting.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6380",
+      "name": "Mobile Food Truck Permit",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "All food trucks operating in the City of Hudson must be licensed annually.",
+      "isEnabled": true
+    },
+    {
+      "id": "6384",
+      "name": "Garage Sale/Temporary Sign",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "All temporary signs, such as “garage” sales or other “event” signs, must be registered before installing or posting the sign. Section 1207.17 of the Land Development Code requires all temporary signs to be registered.  Register for temporary signs including:  Banners, For Sale signs, and Garage Sale signs. No permit fees apply.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Construction Permit",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "Any service provider who is constructing, reconstructing, altering, repairing, removing or replacing their facilities within the public ways is required to apply for a Construction Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Minor Subdivision-Lot Split-Lot Consolidation ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for the consolidation of parcels or the creation of three or fewer parcels that does not involve the creation of public right-of-way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Media Production",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A permit is necessary for any individual or company interested in media production (film, video, or large-scale photography) on City property within the city limits of Hudson. Please submit requests 30 days prior to production request, if possible. Permit is valid for the duration of the production request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6379",
+      "name": "Change of Use",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Use certificate is requested prior to the establishment of a business or change in occupancy. The application allows the Community Development Department to confirm the use is permitted in the applicable zoning district and allows the Fire Department to review and inspect the facility, as needed.  The zoning certificate will be issued within 7-10 business days after your application is accepted.",
+      "isEnabled": true
+    },
+    {
+      "id": "6405",
+      "name": "LDC Amendment/Map Change/Vacate Road or ROW",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Applications for amendments to the text of the Planning and Zoning Code, changes to the Official Zoning Map or to vacate a road or Right of Way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6419",
+      "name": "Additions",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for Additions, unless the project is within the Historic District, in which case use the \"Historic District\" application form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6424",
+      "name": "Submission of Right-of-Way Bond",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This application is for the submission of a new or renewed Right-of-Way Bond with the City.  Please make sure you are utilizing the new Right of Way bond form with the City's current address of 1140 Terex Road, Hudson, Ohio 44236.",
+      "isEnabled": true
+    },
+    {
+      "id": "6425",
+      "name": "Temporary Special Event",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "The City of Hudson requires all events hosted on public property or public events on private property with an expected attendance of 250+ to obtain a Temporary Special Events Permit and submit required documents to the Community Relations Manager prior to an event. Event hosts are expected to complete the Temporary Special Events Application sixty (60) days in advance and submit all required insurance and vendor information.",
+      "isEnabled": true
+    },
+    {
+      "id": "6417",
+      "name": "Alterations",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "The Solar application is no longer included within Alterations. For Solar, please select the application called \"Solar (Rooftop or Ground Array)\". This application is for exterior alterations including windows, siding, entry door replacement, and change of roofing materials (not including replacement of asphalt shingles). If the project location is within the Historic District, use the Historic District application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Demolition - Commercial",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for demolition of commercial structures throughout the city. If the structure is greater than 50 years old the application will be placed on an Architectural and Historic Board of Review meeting agenda.",
+      "isEnabled": true
+    },
+    {
+      "id": "6367",
+      "name": "Major Subdivision - Compatibility and/or Preliminary Review",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is for the Compatibility and/or Preliminary Review of the creation of four or more lots and/or the improvement of one (1) or more parcels of land for residential, commercial, or industrial structures or groups of structures involving the division or allocation of land for the opening, widening, or extension of any street or streets.  The result of the application will be decided upon at the Planning Commission Meeting.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6385",
+      "name": "Portable On-Demand Storage (POD)",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Registration required in a Residential District only.  No permit fees apply.",
+      "isEnabled": true
+    },
+    {
+      "id": "6416",
+      "name": "Deck",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for all decks, except in the Historic District in which case use the \"Historic District\" application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Major Subdivision - Final Review",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is for the Final Subdivision Review after approval of the Preliminary Subdivision for the creation of four or more lots and/or the improvement of one (1) or more parcels of land for residential, commercial, or industrial structures or groups of structures involving the division or allocation of land for the opening, widening, or extension of any street or streets.  The result of the application will be decided upon at the Planning Commission Meeting. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Exterior Alteration - Commercial",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Solar application is no longer included within Alterations. For Solar, please select the application called \"Solar (Rooftop or Ground Array)\". This application is for exterior alterations, i.e. windows, doors, siding, for all Districts. Districts 6 and 8 and Architectural and Historic Board of Review approval is not required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Pickleball/Tennis Court Reservation - Temporary Special Events",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "The City of Hudson requires pickleball/tennis court reservations to be approved for Temporary Special Events. Only two (2) event requests will be accepted annually. Events will not be allowed over any holiday weekend. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Town Hall Restroom Use Request",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The City of Hudson standardly does not allow use of the Town Hall restroom for Special Event use.  The organization requesting use of the restroom must assume responsibility for all clean up, trash removal, and paper items used through the event period.  Failure to clean up after the event, or any damages caused, may result in the denial of future Temporary Special Event Permits and may be subject to clean up or repair costs invoiced by the City to the responsible organization.  \n\nThis form shall be completed no later than 14 days prior to the schedule event.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Grading & Drainage Alteration - Commercial",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for grading and drainage alterations and tree clearing and/or site preparation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6423",
+      "name": "Demolition",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for demolition of structures throughout the city. If the structure is greater than 50 years old the application will be placed on an Architectural and Historic Board of Review meeting agenda.",
+      "isEnabled": true
+    },
+    {
+      "id": "6406",
+      "name": "Development Agreement",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is for a development agreement between a developer and the City that would provide certainty to a developer in exchange for high-quality development at an agreed-upon schedule. The result of the application will be decided upon at the Planning Commission Meeting.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Driveway Extensions and Patios",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for driveway extensions to an existing driveway and patios. Please note that a right-of-way permit is required to make changes to a driveway apron.  \n\nIf you are replacing the driveway in kind, no extension, complete the right-of-way application only.  The extension application is not needed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Temporary Use",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Temporary Use certificate is for a temporary use to be determined by the City Manager. The application allows the Community Development Department to confirm the use is permitted in the applicable zoning district and allows the Fire Department to review and inspect the facility, as needed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Historic District - Commercial",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for these types of projects located within the Historic District: Accessory Structures, Additions, Alterations, Decks, Demolitions, Fences, and any other exterior project located within the Historic District or at the site of a Historic Landmark. Please plan to have a representative for this application appear at the AHBR meeting. The zoning certificate will be issued within 1-2 business days after approval from the Architectural and Review Board.    ",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Vendor Application ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "All vendors participating in a public event on public property are required to submit a vendor application thirty (30) days prior to the event. \n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6415",
+      "name": "Fence",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for a fence unless being proposed in the Historic District or at the site of a Historic Landmark, in which case use the \"Historic District\" application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "Major Development",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for these types of projects: Accessory structures and additions greater than 2,000 square feet or 20% of the existing building area, and all new buildings.  The result of the application will be decided upon at the Planning Commission Meeting.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Temporary Use - Seasonal Sales",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Temporary Use - Seasonal Sales certificate is to permit seasonal art, craft, book sales and other similar uses (as determined by the City Manager) in Districts 4 (Historic Residential Neighborhood), 5 (Village Core District) or 8 (Industrial Office/Park). This certificate also allows for seasonal sales of farm produce and packaged agricultural products in Districts 2 (Rural Residential Conservation), 5 (Village Core/Historic District), 7 (Outer Village Commercial Corridor and Office Overlay Zone), 9 (Darrowville Commercial Corridor) and 10 (Ravenna Road Mixed-Use Corridor). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "New Commercial/Industrial Structure",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for all new commercial/industrial buildings that has had prior site approval from Planning Commission. Including additions greater than 2,000 sq. ft. with approval from Planning Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6422",
+      "name": "Grading & Drainage",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for grading and drainage projects, with the exception of ditch enclosures.  Ditch enclosures shall be applied for under City Right-of-Way Work.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Outdoor Dining on Public Sidewalk",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application to utilize a portion of the existing public sidewalk (right of way) for the establishment of outdoor dining.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Short Term Rental ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for an operation of a short-term rental (such as an Airbnb, VRBO). This application will allow for the Community Development Department to adequately review the regulations and requirements involved with operating a short-term rental.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Green Home Certification  Registry",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is to register your home as green-certified (you must obtain an acceptable third party certification of your home's sustainability improvements before you can register with the City). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Sign (Permanent) - Commercial/Business",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for permanent commercial/Business signs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6421",
+      "name": "Historic District",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for these types of projects: Accessory Structures, Additions, Alterations, Decks, Demolitions, Fences, roof shingle replacement, and any other exterior project located within the Historic District or at the site of a Historic Landmark. Please plan to have a representative for this application appear at the AHBR meeting. The zoning certificate will be issued within 1-2 business days after approval from the Architectural and Review Board.    ",
+      "isEnabled": true
+    },
+    {
+      "id": "6411",
+      "name": "Weddings and/or Photography",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Complete this application if you wish to hold a wedding or have photos taken on City property, such as the downtown Gazebo Green or First and Main Green. For weddings in the Hudson Parks, contact the Hudson Parks Department at (330) 653-5201.",
+      "isEnabled": true
+    },
+    {
+      "id": "6420",
+      "name": "Home Occupation",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for Home Occupation uses.",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Solar (Rooftop or Ground Array)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "For installation of solar (rooftop panels or ground array). This application includes all required City of Hudson reviews for solar, including Community Development and Hudson Public Power. A solar interconnection agreement will be generated upon completion of the application if the address is within the Hudson Public Power service area. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6409",
+      "name": "New House",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for a New House. The zoning certificate will be issued within 1-2 business days after approval from the Architectural and Review Board and all comments have been addressed.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Pools and Spas",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for above-ground pools, in-ground pools, and spas.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "RV/Boat Storage",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for when an RV, boat, utility trailer or any other recreational vehicle is parked on a residential property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Solar (Rooftop or Ground Array)",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "For installation of solar (rooftop panels or ground array). This application includes all required City of Hudson reviews for solar, including Community Development and Hudson Public Power. A solar interconnection agreement will be generated upon completion of the application if the address is within the Hudson Public Power service area. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1094",
+      "name": "Service Provider Registration and Permits",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: left;\"><span style=\"font-family: Tahoma, Geneva, sans-serif; font-size: 18px;\">Service Providers must obtain <strong><u>three separate permits</u></strong> before undertaking any activities involving the construction, reconstruction, installation, operation, maintenance, or placement of facilities in, under, over, or across public ways within the City. The process begins with annual registration with the City of Hudson. Following registration, providers are required to appl"
+    },
+    {
+      "id": "1092",
+      "name": "Interactive Zoning Map",
+      "isEnabled": 1,
+      "content": "<div><a href=\"https://hudsonoh.maps.arcgis.com/apps/instant/lookup/index.html?appid=c8805bc023d34b0090495a1389c82b56\" rel=\"noopener noreferrer\" target=\"_blank\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/zone_tool_banner_button_2_Fri_Dec_06_2024_14:44:02_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 825px;\" class=\"fr-fic fr-dib\"></a></div><div>Click image above to open interactive map.</div><div><br></div><div><br></div><div><br></div><div><br></div><div><b"
+    },
+    {
+      "id": "1089",
+      "name": "Fee Schedule",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1076",
+      "name": "Boards and Commissions Applications",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><span style=\"font-family: Tahoma, Geneva, sans-serif; font-size: 18px;\"><strong><u>BOARDS AND COMMISSIONS APPLICATIONS</u></strong></span></div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><a href=\"https://hudsonoh.maps.arcgis.com/apps/instant/lookup/index.html?appid=c8805bc023d34b0090495a1389c82b56\" rel=\"noopener noreferrer\" target=\"_blank\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/zone_tool_banner_but"
+    },
+    {
+      "id": "1080",
+      "name": "Commercial/Business Projects",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><strong><u><span style=\"font-family: Tahoma,Geneva,sans-serif;\">APPLY FOR A COMMERCIAL/BUSINESS ZONING CERTIFICATE</span></u></strong></div><p><a href=\"https://hudsonoh.maps.arcgis.com/apps/instant/lookup/index.html?appid=c8805bc023d34b0090495a1389c82b56\" rel=\"noopener noreferrer\" target=\"_blank\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/zone_tool_banner_button_2_Fri_Dec_06_2024_14:47:40_GMT+0000_(Coordinated_Universal_Time).png\" sty"
+    },
+    {
+      "id": "1081",
+      "name": "City Right-of-Way Work",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"color: rgb(0, 0, 0);\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><strong><u>RIGHT-OF-WAY WORK</u></strong></span></span></p><p><span style=\"color: rgb(0, 0, 0);\"><strong style=\"box-sizing: border-box; font-weight: 700;\"><span style=\"box-sizing: border-box; font-family: Tahoma, Geneva, sans-serif; font-size: 18px;\">Instructions</span></strong></span></p><ol style='box-sizing: border-box; margin-top: 0px; margin-bottom: 10px; list-style-positio"
+    },
+    {
+      "id": "1078",
+      "name": "Residential Projects ",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><strong><u><span style=\"font-family: Tahoma,Geneva,sans-serif;\">APPLY FOR A RESIDENTIAL ZONING CERTIFICATE</span></u></strong></div><p><a href=\"https://hudsonoh.maps.arcgis.com/apps/instant/lookup/index.html?appid=c8805bc023d34b0090495a1389c82b56\" rel=\"noopener noreferrer\" target=\"_blank\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/zone_tool_banner_button_2_Fri_Dec_06_2024_14:46:49_GMT+0000_(Coordinated_Universal_Time).png\" style=\"widt"
+    },
+    {
+      "id": "1082",
+      "name": "Special Events",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong>Please Review the Options Below to Select the Specific Application for Your Project.&nbsp;</strong></p>"
+    },
+    {
+      "id": "1084",
+      "name": "Property Maintenance Concerns or Code Violations",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><span style=\"font-size: 18px; font-family: Tahoma, Geneva, sans-serif;\"><strong><u>REPORTING A PROPERTY MAINTENANCE CONCERN OR CODE VIOLATION</u></strong></span></div><div style=\"text-align: center;\"><br></div><h2 style='box-sizing: border-box; margin-top: 0.167em; margin-bottom: 0px; font-family: \"Open Sans\"; font-style: normal; font-weight: 700; color: rgb(16, 30, 40); font-size: 1.3em; text-decoration: none; display: block; font-variant-ligatures: normal; font"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:54.591Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

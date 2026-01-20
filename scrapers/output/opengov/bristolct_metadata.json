@@ -1,0 +1,156 @@
+{
+  "jurisdiction": "Bristol",
+  "state": "CT",
+  "tenant": "bristolct",
+  "portalUrl": "https://bristolct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6334",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Dealer/Repair Facility Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Drop Box Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Fire Alarm Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Fence Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Fire Protection Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Gas Hearth Appliance",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Home Based Business Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "HVAC/Mechanical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "L-P Tank Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "LP Tank and Exterior Piping per NFPA 58",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Outdoor Dining Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Retaining Wall Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Shed Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit shall be utilized for structures 200 square feet or less. If over this square footage, please apply for a building permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Sign Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Solid Fuel Appliance Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Wood, Pellet, Stove etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Tenancy Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 24px; font-family: Arial, Helvetica, sans-serif;\"><u>Announcement from Office of the State Building Inspector</u></span></strong></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">The 2022 state building, fire safety and fire prevention codes obtained legislative approval on September 27th, 2022 and will go into effect on October 1st, 2022.</span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">More information about the adoption, code m"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:09.116Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

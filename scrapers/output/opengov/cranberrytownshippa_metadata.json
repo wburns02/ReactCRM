@@ -1,0 +1,249 @@
+{
+  "jurisdiction": "Cranberry Township",
+  "state": "PA",
+  "tenant": "cranberrytownshippa",
+  "portalUrl": "https://cranberrytownshippa.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6456",
+      "name": "Lien Letter Application",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Use this form when: You are about to refinance or sell your home. It requests the Township to produce a letter for your buyer or bank to certify that there are no municipal claims such as water, sewage, municipal debts, etc. against the property being sold, transferred, or refinanced. If there is a claim, the letter will provide the amount necessary to satisfy the claim(s).",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Road Occupancy Permit Application",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "A Road Occupancy Permit (ROP) is required when work is proposed within the Township’s road right of way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Conditional Use Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Fire Alarm License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Fire Suppression (Sprinkler) License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Residential Building Permit - New Construction",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Please use this record type for construction of new residential dwellings. I.E. Single Family Residence, Townhouses, and Quads.\n\nIf applying for townhouse or quad permits, you will need to apply for a permit for each unit within a row or cluster.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Land Development Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Grading Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Fire Kitchen Hood License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Fire Safety Premises Inspection",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Planned Residential Development Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Subdivision Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Timber Harvesting Permit Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Residential Building Permit - Modifications to Existing",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Please use this permit type for residential construction of additions, alterations, decks, accessory structures (garages greater than 1000 square feet or with habitable space), porch and deck roofs, generators, solar panels, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Residential Zoning Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this application for residential construction of decks (less than 30\" above grade), sheds (under 1000 square feet), and detached structures (garage under 1000 square feet, greenhouse, carport, coop).",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Pool/Hot Tub/Spa Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this application to apply for a pool, hot tub, or spa permit. This application should be used for both residential and non-residential applications.",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Residential Fire Sprinkler Installation Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this application to apply for a permit to install or alter a residential fire sprinkler system. *** This is for one/two family dwellings and townhouses only.  For multi-family apartment buildings/hotels please use the non-residential fire protection permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Non-Residential Building Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit should be used for all non-residential building permits except the installation or alterations of fire protection systems.\n\nPermits shall be combination permits and include: building, mechanical, electrical and plumbing work. Full construction drawings will be required for the review process to start.",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Non-Residential Zoning Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Choose this option to apply for Non-Residential Zoning approval",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Non-Residential Fire Protection System Installation/Alteration",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this application to apply for a permit for the installation or alteration of fire alarms, fire sprinklers, commercial kitchen hoods/suppression systems, and emergency responder radio signal boosting systems. This can be a deferred submittal and is typically applied for by the contractor completing the work.",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Manufactured Home Installation",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Please use this record type for the installation of a manufactured home or the replacement of a manufactured home within an existing park.",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this application for all demolition work.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Sign Permit Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this application to apply for installation of building mounted signs, freestanding monument signs, and panel replacements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Front Yard Fence Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this application for construction fences located with the front yard setback of a residential home.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Fire Prevention - Miscellaneous Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Wireless Communications Facility in Right of Way",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this application after construction of a Wireless Communication Facility that is located within a Road Right of Way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Zoning Verification Letter Request",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please use this application to request an official Zoning verification on a property within the Township.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building, Zoning, and Codes",
+      "isEnabled": 1,
+      "content": "<p><strong>Welcome to the Cranberry Township Online Portal!</strong></p><p>The purpose of requiring a Building Permit is to verify code compliance in construction through the use of established code standards that exist for safety reasons. &nbsp;In order to help you easily decide which permit process is correct for you, please read through the below application options. When you click on an application type, more information will be displayed about that particular application.</p><p>Cranberry To"
+    },
+    {
+      "id": "1079",
+      "name": "Fire Prevention Administration",
+      "isEnabled": 1,
+      "content": "<p><strong>This page is for Fire Prevention Licensing. If you need a permit for a new system or alterations you can apply here -&gt; <a href=\"https://cranberrytownshippa.viewpointcloud.com/categories/1071/record-types/6440\" target=\"_blank\">Non-Residential Fire Protection System Installation/Alteration</a> or <a href=\"https://cranberrytownshippa.viewpointcloud.com/categories/1071/record-types/6451\" target=\"_blank\">Residential Fire Sprinkler Installation Application</a>&nbsp;</strong></p><p><stron"
+    },
+    {
+      "id": "1082",
+      "name": "Land Development",
+      "isEnabled": 1,
+      "content": "<p>Our main purpose is to facilitate and manage sustainable development in Cranberry Township that meets the needs of individual property owners and the Township as a whole within the parameters of the comprehensive plan. &nbsp;</p><p>We accomplish this through dynamic land use regulations, thorough inspections, community involvement, and excellent internal and external communication. &nbsp;We strive to enhance the physical environment and improve the quality of life for all residents, commercia"
+    },
+    {
+      "id": "1083",
+      "name": "Customer Service",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1084",
+      "name": "Engineering ",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 18px;\">Paper applications and drawings are no longer accepted by the township. Applicants are now required to create an account and submit all relevant documentation through the online portal.</span><br><br></p><p style=\"margin-bottom:12.0pt;\"><br></p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:00.173Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

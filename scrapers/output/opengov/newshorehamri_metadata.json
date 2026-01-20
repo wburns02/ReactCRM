@@ -1,0 +1,258 @@
+{
+  "jurisdiction": "New Shoreham",
+  "state": "RI",
+  "tenant": "newshorehamri",
+  "portalUrl": "https://newshorehamri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6386",
+      "name": "Dog License",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6387",
+      "name": " Rooming House License",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6388",
+      "name": "Rental Room License",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6395",
+      "name": "Bicycle Rental License",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6396",
+      "name": "Commercial Shellfish License Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "Motor Vehicle for Hire License ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6399",
+      "name": "Chauffeur License  ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6370",
+      "name": "Special Events License",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Apply for a special events license through the City/Town of XXX.",
+      "isEnabled": true
+    },
+    {
+      "id": "6383",
+      "name": "Application for Liquor License",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6401",
+      "name": "Mobile Food Establishment License",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6402",
+      "name": " Gaming License ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": " ",
+      "isEnabled": true
+    },
+    {
+      "id": "6403",
+      "name": "Moped License",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6404",
+      "name": "F & F1 Liquor License",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6411",
+      "name": "Short-Term Rental Registration ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application for a Short-Term Rental Registration \n\nNew Shoreham General Ordinance, Chapter 8 Licenses, Article XII Residential Short-Term Rental, Sections 8-320-8-331\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6412",
+      "name": "Zoning Board of Review Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use Permit and Dimensional Variance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6414",
+      "name": "Planning Board Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Subdivision & Land Development Applications",
+      "isEnabled": true
+    },
+    {
+      "id": "6410",
+      "name": "Municipal Fire Alarm Registration/Renewal/Caretaker Form",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Town of New Shoreham Municipal Fire Alarm Registration Form\n\nThis form can be used to enter a new subscriber into the list of monitored businesses, to modify existing subscriber data in any way (e.g. contact ID list of responder contacts), or, for existing subscribers, to switch from a Digitize Radio Box to an AES RF Subscriber.",
+      "isEnabled": true
+    },
+    {
+      "id": "6400",
+      "name": "Hawkers, Peddlers Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6379",
+      "name": "Change of Use ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Change of Use from Town of New Shoreham\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6405",
+      "name": "Excavation Permit Application (Road Cuts)",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application for Excavation of Road Cut for Town or State roads located in Water and/or Sewer Districts.",
+      "isEnabled": true
+    },
+    {
+      "id": "6406",
+      "name": "Physical Alteration Permit (Driveway Cut on Town Road)",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This permit applies to Driveway Road Cuts on Town Roads only.\nYou must fill out an Excavation Permit Application if you are performing a road cut that is on a State Road.",
+      "isEnabled": true
+    },
+    {
+      "id": "6384",
+      "name": "Victualing License Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6385",
+      "name": "Outdoor Entertainment License Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6332",
+      "name": "Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a building permit from the Town of New Shoreham, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit from the Town of New Shoreham.",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit from the Town of New Shoreham, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the Town of New Shoreham, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a demolition permit from the Town of New Shoreham.",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Sign Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a sign permit from the Town of New Shoreham. All permit applications should include photos of any existing signage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6362",
+      "name": "Solar Permit (Photo-Voltaic only, pull building permit for solar hot-water)",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the Town of New Shoreham.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1079",
+      "name": "Short-Term Rental Registration. Zoning and Planning Departments",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1072",
+      "name": "Building Department ",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 14px;\"><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/2025.Fire_Alarm_Responder_Contact_List__Thu_Nov_06_2025_17:19:35_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\">2025.Fire_Alarm_Responder_Contact_List_.pdf</a>Submit one form to apply for permits</span></p>"
+    },
+    {
+      "id": "1078",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:07.537Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

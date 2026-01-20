@@ -1,0 +1,269 @@
+{
+  "jurisdiction": "Bristol",
+  "state": "RI",
+  "tenant": "bristolri",
+  "portalUrl": "https://bristolri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6361",
+      "name": "Sewer Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Sewer Permit through the Town of Bristol's Water Pollution Control Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6362",
+      "name": "Industrial Pretreatment Program General Survey",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to complete the Industrial Pretreatment Program General Survey through the Town of Bristol's Water Pollution Control Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6416",
+      "name": "Owner-Occupied Tax Exemption",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Application for Owner-Occupied Exemption for Property Taxes. Applications are open from January 1 to March 15 and must be applied for yearly. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6338",
+      "name": "Tent Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This application is required if your event is open to the public and the tent exceeds 350 square feet. Tents located on properties of one and two family homes do not require a Tent permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6346",
+      "name": "Licensed Business Fire Safety Complaint",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Residential Smoke & Carbon Monoxide Inspection",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "At the time of the transfer of title, the seller must provide the purchaser with a\ncertificate from the fire department for the community in which the dwelling is\nlocated stating that the smoke and carbon monoxide alarms have been inspected\nwithin one hundred twenty (120) days prior to the date of sale and has been\ndetermined to be in good working order. The fire department for the community in\nwhich the dwelling is located must inspect the smoke and carbon monoxide\nalarms of the dwelling within ten days of a request from the owner. The\ninspection may be conducted by qualified personnel of the department or the\nState Fire Marshal’s Office. Neither the fire department nor the State Fire\nMarshal shall be liable for any damage caused by the subsequent malfunction of\na smoke alarm or carbon monoxide alarm which it inspected.",
+      "isEnabled": true
+    },
+    {
+      "id": "6380",
+      "name": "Transfer Station Residential Day Pass (2025) Bristol ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The Day Pass permits households entry to the Bristol Transfer Station to dispose of waste/recycling. Day Passes are only available to residents of Bristol. Please Note: A separate fee is charged based on the total weight disposed of at the Bristol Transfer Station. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Planning Application ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "  Subdivision & Land DevelopmentApplications",
+      "isEnabled": true
+    },
+    {
+      "id": "6332",
+      "name": "Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a building permit from the Town of Bristol, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a demolition permit from the Town of Bristol. Demolition Permits are for partial or total demolition of a structure, interior demolition only requires a building permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6409",
+      "name": "Life Safety Inspection",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Click here to submit your request for an inspection from the Office of Bristol Fire Marshal. \nLife Safety Inspections are required on all license renewals (liquor, victualling, & holiday retail sales), commercial properties, and all apartment buildings containing four (4) or more individual living units, and mixed occupancies. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6382",
+      "name": "Transfer Station Residential Annual Permit (2025-2026) Bristol ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The Residential Annual Permit allows residents entry to the Bristol Transfer Station to dispose of waste/recycling. Permits are only available to residents of Bristol. Please Note: A fee is charged based on the total weight disposed of at the Bristol Transfer Station. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6384",
+      "name": "Road Cut Permit Bristol ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Road Cut Permits are administered by the Department of Public Works and allow the Town of Bristol to track and monitor utility work taking place on roadways. A base fee is charged per permit as well as an additional cost per every one 1 foot over 100 square feet.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit from the Town of Bristol, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6364",
+      "name": "Fence Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a fence permit from the Town of Bristol, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6385",
+      "name": "Dumpster Permit Bristol ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Dumpster Permits are administered by the Department of Public Works. Permits are required for temporary dumpster placements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6387",
+      "name": "Historic District Commission Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for approval by the Bristol Historic District Commission. This application is stand alone - if you wish to pull another permit at this time, the HDC application is a step in those permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6408",
+      "name": "Historic District Commission Concept Review Request ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application to complete prior to appearing before the Historic District Commission for a Concept Review. Concept Reviews are non-binding advisory applications for the purpose of giving applicants guidance for large or novel projects. Concept reviews do not require a fee. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit from the Town of Bristol, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "Moving Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a moving permit from the Town of Bristol.",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the Town of Bristol, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6363",
+      "name": "Property Maintenance Complaint",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Please use this form to submit property maintenance complaints to the Town of Bristol Building Department. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Sign Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a sign permit from the Town of Bristol. All permit applications should include photos of any existing signage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6411",
+      "name": "Soil Erosion, Runoff & Sediment Control Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application for projects subject to Soil Erosion, Runoff & Sediment Control Ordinance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6365",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the Town of Bristol.",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Zoning Board Appeal Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application for appeals to the Zoning Board of Review. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Zoning Board of Review Application ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Zoning Modification Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1072",
+      "name": "Building & Zoning Departments",
+      "isEnabled": 1,
+      "content": "<p>The Building Department requires that <strong>all</strong> permits, including plumbing, electrical, and mechanical, be inspected upon completion of the permitted project.</p>"
+    },
+    {
+      "id": "1076",
+      "name": "Water Pollution Control Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1080",
+      "name": "Tax Assessment & Collection",
+      "isEnabled": 1
+    },
+    {
+      "id": "1081",
+      "name": "Fire Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1082",
+      "name": "Public Works Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1084",
+      "name": "Planning Department",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:20.471Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

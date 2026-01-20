@@ -1,0 +1,299 @@
+{
+  "jurisdiction": "City of Anderson",
+  "state": "SC",
+  "tenant": "andersonsc",
+  "portalUrl": "https://andersonsc.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6491",
+      "name": "Right-of-Way Encroachment ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Utility Work: A permit is necessary for any contractor replacing and/or installing utilities (gas, electric, phone, fiber optic, etc.) within the City right-of-way. Non-Utility Work: A permit is necessary for driveway approaches, sidewalks, yard pipe, storm sewer connections or any other work within the City Right-of-Way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Subdivision Financial Security Request",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "If the developer opts to provide financial security in lieu of completing required infrastructure improvements prior to recording the final plat, a cost estimate prepared by the developer’s engineer must be submitted on the City’s Itemized Cost Estimate Form and approved by the City Engineer. The financial security amount shall be based on 125% of the cost estimate approved by the City.",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Alarm System Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Annexation Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Accommodations Tax Grant Application",
+      "categoryId": 1080,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "ATAX Grant Closeout Form",
+      "categoryId": 1080,
+      "viewAccess": "private",
+      "description": "Request for Accommodations Tax Grant Reimbursement",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Board of Architectural Review Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Business Assistance Grant Application",
+      "categoryId": 1080,
+      "viewAccess": "private",
+      "description": "Business Assistance grants are available to selected projects for new or expanding businesses which are located in and creating jobs in the City of Anderson.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Mobile Home Registration Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "BAILEY BILL - PART A (PRELIMINARY CERTIFICATION)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Business Development Loan Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The goal of the Business Development Loan Program is to provide businesses with financial assistance to support the retention and creation of jobs for low to moderate income City residents. The Business Development Loan Program is designed to fill the financing gap between private debt financing and private equity. Funds are provided to create economic benefit through increased revenues and the creation and the retention of jobs in the City.",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Chicken Keeping Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "No person shall maintain chickens or a chicken coop unless granted a permit by the City of Anderson.  The permit shall be subject to terms and conditions of Section 18-10 of the Code of the City of Anderson and any conditions deemed necessary by the City to limit the potential adverse impacts on the neighborhood surrounding the property on which the chickens are kept.  \n\nA permit to keep domesticated female chickens may be suspended or revoked by the City where there is a risk to public health or safety or for any violation of or failure to comply with any of the provisions of any other applicable ordinance or law.  Any denial, revocation, or suspension of a permit shall be in writing and shall include notification of the right to and procedure for appeal.  \n\nPermits shall be reissued annually and are subject to any ordinance revisions adopted by Council.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Conditional and Temporary Use Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Sidewalk Encroachment Permit Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Occupancy Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Home Occupation Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Demolition Permit (Complete Removal of Structure)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Demolition Permit (Commercial Renovation)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Rezoning Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Sign Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Subdivision Approval",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Tree Removal Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Zoning Variance",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Grading Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Mechanical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Plan Review - Commercial Construction - Site/Civil or Both Structural and Site ",
+      "categoryId": 1071,
+      "viewAccess": "private",
+      "description": "Mostly used for NEW commercial construction.  Also used when any type of site work is involved.  Workflow will route to Building Official/Plans Examiner Review, Planning & Zoning, Engineering, Storm Water, Water/Sewer Operations, Floodplain Review, E-911 Addressing.",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "ENG & STORM TESTING Permit",
+      "categoryId": 1072,
+      "viewAccess": "private",
+      "description": "Mostly used for NEW commercial construction.  Also used when any type of site work is involved.  Workflow will route to Building Official/Plans Examiner Review, Planning & Zoning, Engineering, Storm Water, Water/Sewer Operations, Floodplain Review, E-911 Addressing.",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Plan Review - Structural or Architectural (non site)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "The City of Anderson now requires plans to be submitted with specific tax map number and/or address of where the structure is being placed or the work is being performed.\n\nUsed for NEW residential construction, solar panel installs, and commercial tenant upfit for existing buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Miscellaneous Fees Receipt",
+      "categoryId": 1071,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Moving a Structure Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Setting Up a Structure Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Sprinkler System Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Yard Sale Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Economic Development",
+      "isEnabled": 1,
+      "content": "<p>For assistance with your requests, please contact:</p><div><strong>Riley Tucker</strong></div><div>Programming and Events Coordinator</div><div>Economic Development</div><div>City of Anderson, SC</div><div><br></div><div>Phone: 864-231-2601</div><div>Address: 102 N Murray Ave, Anderson, SC &nbsp;29625</div><p style=\"margin: 0in; font-size: medium; font-family: Calibri, sans-serif; caret-color: rgb(0, 0, 0); color: rgb(0, 0, 0);\"><br></p><p style=\"margin: 0in; font-size: medium; font-family: C"
+    },
+    {
+      "id": "1071",
+      "name": "Building and Codes",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"color: rgb(184, 49, 47);\">**New** 1/1/2023 -&nbsp;</span></strong><span style=\"color: rgb(184, 49, 47);\">The City of Anderson and the State of SC have moved into the 2021 Code Cycle. We also now utilize the 2020 NFPA 70 (Electrical Code) and we still recognize and enforce the 2009 Energy Code.</span></p><p>Code Modifications, refer to the LLR website at: <a href=\"https://llr.sc.gov/bcc/PDFfiles/2021-Modification-index.pdf\" target=\"_blank\">https://llr.sc.gov/bcc/PDFfiles/2"
+    },
+    {
+      "id": "1081",
+      "name": "Planning and Development",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1072",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:23.963Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

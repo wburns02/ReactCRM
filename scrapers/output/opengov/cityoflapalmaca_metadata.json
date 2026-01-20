@@ -1,0 +1,360 @@
+{
+  "jurisdiction": "La Palma",
+  "state": "CA",
+  "tenant": "cityoflapalmaca",
+  "portalUrl": "https://cityoflapalmaca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6518",
+      "name": "“Fronds of the City” Sponsorship Program",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "*Jump Start!* Pre-Application Consultation",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Instructions on signing up for a OpenGov Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Business License - Commercial & Industrial Application ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6376",
+      "name": "Engineering Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Business License - Professional Service Outside of La Palma ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Accessory Dwelling Unit Application",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Code Enforcement - Report a Complaint / Code Violation ",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Block Party Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Fats, Oils, and Grease Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Business License - Contractors ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "SolarAPP+ Solar Permit ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Expedited solar permitting for residential installations is available through the SolarAPP+ program. A SolarAPP+ Approval Document is required in order to obtain a permit of this type. If you don't hold one already, you can learn how to get one at solarapp.nrel.gov \n\nTypes include: Solar, Solar plus storage, Solar plus panel upgrade, Solar plus panel derates.",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Artificial Turf Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": "4. Links to Helpful Documents",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Links to Guides and other City/Town Information",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Business License - Home Occupation ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Community Event Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Construction Waste Management Plan",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Conditional Use Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Filming Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Address Assignment",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6375",
+      "name": "5. How to Reach Us! About Us & Contact Information",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "How to reach us!",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "One Day Permit Business License ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Landscape Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "General Plan Amendment",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Ribbon Cutting Event Request",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Lot Line Adjustment",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "NPDES Annual Inspection",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Self-Haul Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Special Business Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Master Sign Plan",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Short-Term Rental Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Minor Exception",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Outdoor Display and Seating Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Precise Plan ",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Yard Sale Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Preliminary Application",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Sign Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Temporary Use Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Variance",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building and Safety",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.4em; color: rgb(34, 34, 34); font-family: Poppins; font-size: 15.2px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; "
+    },
+    {
+      "id": "1074",
+      "name": "Planning",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.4em; color: rgb(34, 34, 34); font-family: Poppins; font-size: 15.2px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; "
+    },
+    {
+      "id": "1079",
+      "name": "Business License",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(34, 34, 34); font-family: Tahoma, Geneva, sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: justify; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-col"
+    },
+    {
+      "id": "1072",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(34, 34, 34); font-family: Tahoma, Geneva, sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: justify; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-c"
+    },
+    {
+      "id": "1080",
+      "name": "Public Works and Engineering",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Tahoma, Geneva, sans-serif; font-size: 18px; color: rgb(0, 0, 0);\">The City of La Palma Public Works Division is dedicated to providing effective and efficient public works services and maintaining La Palma&#39;s infrastructure to ensure the safety, health, and well-being of all who live, work, and visit our diverse City. The Division provides services to the community through its&nbsp;</span><span style=\"font-family: Tahoma, Geneva, sans-serif; font-size: 18px;\"><"
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1
+    },
+    {
+      "id": "1086",
+      "name": "Sponsorship & Donations",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1087",
+      "name": "Finance",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:27.634Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

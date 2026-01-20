@@ -1,0 +1,790 @@
+{
+  "jurisdiction": "Salem",
+  "state": "MA",
+  "tenant": "salemma",
+  "portalUrl": "https://salemma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6579",
+      "name": "Map or GIS Request ",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Form for Salem constituents and interested parties to request a GIS Product from the GIS division of the Engineering Department, for example a pdf map containing various layers available in GIS, or GIS data for an area of interest. Firms working on projects in the city can also use this application to request municipal utility mapping and related infrastructure plans to support surveying and/or design tasks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6627",
+      "name": "October Parking Overlay Application",
+      "categoryId": 1100,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6641",
+      "name": "Address Change Request Form for Engineering",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "When residents move and/or have to change the information on their water/sewer or trash account, they may fill out the following application.  This form is not to be used for a change of ownership.  If you have any questions, please call the office at 978-619-5673.",
+      "isEnabled": true
+    },
+    {
+      "id": "6644",
+      "name": "Accessory Dwelling Unit Attestation Form",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "This is an annual form for owners of ADUs to attest ongoing compliance with the City of Salem zoning ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6659",
+      "name": "Condominium Conversion Permit",
+      "categoryId": 1102,
+      "viewAccess": null,
+      "description": "The Housing Stability Coordinator, a member of the Mayor’s Office, administers the Condo Conversion Ordinance and is available by appointment. The Condo Conversion Ordinance aims to slow the rate at which naturally affordable rental housing, especially in multifamily buildings, is converted into condominiums or cooperatives. Its goals are to:\n\n· Reduce displacement of renter households by strengthening tenant rights during conversions\n\n· Preserve the supply and diversity of housing to meet the needs of changing demographics, such as smaller or older households\n\n· Allow building owners to convert rental units while protecting current tenants\n\nMany residents who seek help from the Housing Stability Coordinator are tenants at risk of eviction due to a pending conversion. This ordinance ensures there is time and support for these tenants to secure alternative housing, or, in some cases, purchase their unit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6640",
+      "name": "How to Create an Account",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6628",
+      "name": "Extension of Premises For Outdoor Dining",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "The City of Salem Outdoor Dining Policy applies to restaurant businesses that\nare seeking to extend their licensed premises to an outdoor public area including sidewalks,\nstreets and parking spaces, but shall not include a sidewalk in the city’s urban renewal\ndistricts for which a permit from the Salem Redevelopment Authority (“SRA”) shall be\nrequired. Occupancy of any outdoor dining area is prohibited until issuance of permit.\n\nExtension of Premises for the Outdoor Dining season starts on the 1st Friday of May, and lasts until the 1st Monday in November.",
+      "isEnabled": true
+    },
+    {
+      "id": "6619",
+      "name": "Municipal Utilities Mark Out Request",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "Please allow a minimum of 3 business days for the mark out to take place.",
+      "isEnabled": true
+    },
+    {
+      "id": "6597",
+      "name": "Application for Hydrant Use or Temporary Water Line Connection",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "Temporary hydrant use, with associated Back Flow Preventer Device, is only allowed for demolition or short construction periods (less than 1 month). Temporary water use for construction purposes longer than 1 month, will be required a temporary connection. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6576",
+      "name": "Temporary Food Establishment Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "This application is necessary for any individual or corporation who are looking to have a temporary food  establishment in the City of Salem. This application asks for general business information, staffing, goods and services for the hereby stated food establishment. \n\nA Temporary Food Establishment is a food establishment that operates for a period of no more than 14 consecutive days in conjunction with a single event or celebration.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Building Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "To perform new construction, renovation, addition, or change in use of or occupancy.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Electrical Permit ",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "This application form will collect information on the proposed electrical work to be done. Please fill out as completely as possible for expedient permitting.",
+      "isEnabled": true
+    },
+    {
+      "id": "6522",
+      "name": "Smoke & CO alarm inspection for the transfer of real estate",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Electrical Permit for Events",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Application for use of City electrical box for event purposes.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Life Safety Plan Review (Sprinkler/Fire Alarm/Hood Suppression/Etc)",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "description": "This application is for review of a site plan regarding Life Safety initiatives proposed.\n\nLife Safety Plan Review (LSPR) should only be selected for new construction. Any modification to an existing system requires a Fire Alarm System Shut Down or Sprinkler / Suppression Shut Down Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Food Establishment Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "This application is necessary for any individual or corporation who are looking to open (or renew) a food  establishment in the City of Salem. This application asks for general business information, staffing, goods and services, as well as the hours of operations for the hereby stated food establishment. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6582",
+      "name": "Extension of Premises For Outdoor Retail",
+      "categoryId": 1094,
+      "viewAccess": null,
+      "description": "This guidance is a step-by-step instruction manual if you would like to use sidewalk adjacent to your establishment to allow for outdoor vending to increase business activity and revenues in a safe and responsible way.\nIf you have any questions about this application please contact Melissa Pagliaro (MPagliaro@salem.com)",
+      "isEnabled": true
+    },
+    {
+      "id": "6603",
+      "name": "Public or Protected Tree Permit Application",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "Prior to filling out this application, please review City Ordinance Chapter 43:\nTREES, ARTICLE III. - PUBLIC TREE PRESERVATION found at:\nhttps://library.municode.com/ma/salem/codes/code_of_ordinances?nodeId=PTIIICOOR_CH43TR",
+      "isEnabled": true
+    },
+    {
+      "id": "6610",
+      "name": "How to Save and Resume a Draft of a Record on the Public Site",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6621",
+      "name": "Abatement of Water/Sewer Charges",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "Abatement requests for water/sewer charges must be submitted in writing (through the attached form)\nto the City of Salem Engineering/Water Department within 30 days of the last bill date. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6632",
+      "name": "Water Shut Off Request",
+      "categoryId": 1099,
+      "viewAccess": null,
+      "description": "Note that operation of all valves connected to the City water system are to be performed by DPS personnel ONLY, any violations could result in fines or suspension of the Drainlayer license.\n\nPlease allow up to one (1) week for this request to be processed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6602",
+      "name": "Accessory Dwelling Unit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "To perform new construction, renovation, addition for an Accessory Dwelling Unit",
+      "isEnabled": true
+    },
+    {
+      "id": "6613",
+      "name": "How to Reset Your Password",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6584",
+      "name": "Backflow Preventer Data Design ",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "To protect the potable water supply served by the Salem Department of Public Services\nfrom the possibility of contamination or pollution by isolating, within its customers' internal\ndistribution system, such contaminants or pollutants which could backflow or back-siphon\ninto the public water system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "Model Housing Code Inspection",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Conservation Commission - WPA Form 3 - Notice of Intent",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "To protect the Commonwealth's wetland resources, the Massachusetts Wetlands Protection Act prohibits the removal, dredging, filling, or altering of wetlands without a permit. To obtain a permit (called an Order of Conditions), you must submit a Notice of Intent to the local Conservation Commission and MassDEP. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Fire Alarm System Shut Down Permit",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "description": "Any alteration or addition to an existing fire alarm system requires a permit from the AHJ",
+      "isEnabled": true
+    },
+    {
+      "id": "6547",
+      "name": "Sprinkler / Suppression System Shut Down Permit",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "description": "Any alteration or addition to an existing sprinkler / suppression system requires a permit from the AHJ",
+      "isEnabled": true
+    },
+    {
+      "id": "6541",
+      "name": "Certificate of Fitness",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "Certificate of Fitness inspection for rental units.\n\nThe inspection checklist for the Certificate of Fitness can be found here: https://salemma.gov/DocumentCenter/View/8286/Certificate-of-Fitness-Inspection-Checklist",
+      "isEnabled": true
+    },
+    {
+      "id": "6573",
+      "name": "Building - Tent Permit ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for a proposed tent installation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6567",
+      "name": "Conservation Commission - WPA Form 8A - Request for Certificate of Compliance ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "A Request for a Certificate of Compliance should be submitted once a project is completed in accordance with the plans and requirements of the Order of Conditions.  The Commission will then issue a Certificate of Compliance after confirming that the project has been completed in substantial compliance with the original Order of Conditions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6595",
+      "name": "Curb Cut/Sidewalk Modification ",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "This application is to be applied for and performed ONLY by a Licensed Drainlayer in the City of Salem. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6617",
+      "name": "How to Search for a Location or Record",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6635",
+      "name": "Water Turn On Request",
+      "categoryId": 1099,
+      "viewAccess": null,
+      "description": "Note that operation of all valves connected to the City water system are to be performed by DPS personnel ONLY, any violations could result in fines or suspension of the Drainlayer license.\n\nPlease allow up to one (1) week for this request to be processed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6622",
+      "name": "Drainage Alteration",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "Please fill out this application if you are disturbing the existing grade of land by more than two feet.",
+      "isEnabled": true
+    },
+    {
+      "id": "6618",
+      "name": "Service Fees FAQ",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "Conservation Commission - WPA Form 4A - Abbreviated Notice of Resource Area Delineation",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "The Abbreviated Notice of Resource Area Delineation (ANRAD) provides a procedure for an applicant to confirm the delineation of a Bordering Vegetated Wetland (BVW).",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Building Department - Certificate of Inspection - 110 Form",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for inspection for Fire and Life safety to renew Occupancy certificates. Inspection Certificates for establishments serving Liquor are now a separate record.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Form 1 (Oil Burner Installation, Above Ground Storage Tank Install or Removal)",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Application for Permit, and Certificate of Completion for the installation or Alteration of Fuel Oil Burning Equipment and the Storage of Fuel Oil, Above Ground Storage Tank Installation or Above Ground Tank Removal",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Underground Storage Tank Removal Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Removal of underground storage tank",
+      "isEnabled": true
+    },
+    {
+      "id": "6543",
+      "name": "Exterior Paint Removal",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "This application is necessary for any work that requires exterior paint removal and a permit must be issued by the Board of Health prior to the paint removal process. Applicant, contractor, type of work, and clean up procedures will be assessed throughout the completion of this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6569",
+      "name": "Conservation Commission - WPA Form 7 - Extension Permit for Order of Conditions",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "The Extension Permit is used to extend the expiration date of the original Order of Conditions.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6614",
+      "name": "Email Notifications for Applicants",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6606",
+      "name": "Short Term Rental Registration with Certificate of Fitness ",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "Short-term rental(s) is defined as: The use of a residential unit for residential occupancy by a person or persons for a period of fewer than 30 consecutive calendar days for a fee. A short-term rental may or may not be facilitated through a booking agent.\n\nThe inspection checklist for the Certificate of Fitness can be found here: https://salemma.gov/DocumentCenter/View/8286/Certificate-of-Fitness-Inspection-Checklist",
+      "isEnabled": true
+    },
+    {
+      "id": "6601",
+      "name": "Final Water and Trash Computation Form",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "Final Water/Sewer and Trash calculation forms are to be submitted by the realtor/seller of a property to calculate the final balance on the water/sewer and trash accounts, including charges that have not yet been billed but belong to the current owners.  Each property will be required to have the City Water Meter Technician to inspect the water meter to confirm it is functioning correctly and there is nothing that needs to be updated. Appointments for these inspections are to be scheduled on Tuesdays and Thursdays between 8:30 AM and 10:00AM.  \n\nPlease allow for at least 5 business days for your request to be processed.\n\nIMPORTANT – TO AVOID DUPLICATE PAYMENT, CHECK WITH THE SELLER AND CITY IF THE PRIOR BALANCE WAS RECENTLY PAID. IT IS THE RESPONSIBILITY OF THE SELLER TO STOP AUTO PAY & ELECTRONIC PAYMENTS",
+      "isEnabled": true
+    },
+    {
+      "id": "6583",
+      "name": "Building Department - Certificate of Inspection - Form 304 (Liquor Licensing)",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for inspection for Fire and Life safety to renew Liquor Licenses ",
+      "isEnabled": true
+    },
+    {
+      "id": "6600",
+      "name": "Hydrant Flow Test Application",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "The tests must be conducted in the presence of a designated Department of Public Services (DPS) employee who will operate the public hydrants and witness the test. Those requesting the test must hire their own testing personnel at their expense to perform the test and interpret the results. Applicant will also be responsible to operate any private property hydrants. Those requesting the testing will be responsible for ANY AND ALL damages",
+      "isEnabled": true
+    },
+    {
+      "id": "6612",
+      "name": "Guest Portal Record Access",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Funeral Director License",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "The Funeral Services profession, specifically the funeral director, provides services for the deceased and their families. Members of this profession prepare the bodies of the deceased through embalming, arrange for crematory services and provide services of assistance for family members of the deceased. To apply for a funeral director license, the accompanying form must be completely filled out. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Service Station / Repair Garage Permitting",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "description": "Annual permits that are applicable to an automotive service or gas station or repair garage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Conservation Commission - WPA Form 1 - Request for Determination of Applicability",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "The Request for Determination of Applicability provides applicants with the option of seeking a determination  whether the Wetlands Protection Act applies to a proposed site or activity. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6533",
+      "name": "Hot Works Permit",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "description": "Permit for Hotwork, cutting and/or welding; this application is for both annual permitting and also temporary instances. This application is not for service station needs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Plaza Use Permit Application",
+      "categoryId": 1087,
+      "viewAccess": "private",
+      "description": "Application to use Derby Square at 0 Derby Sq. and/or Charlotte Forten Park at 289 Derby St.\n\nApplications MUST be submitted at least 60 days prior to the event date.  Applications submitted after this time may not be approved.",
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "Hotel/Motel Permit",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "This application is dedicated towards individuals who are applying for a hotel and or motel operating license. This application focuses on the owners general information, information on the hereby claimed establishment, as well as general questions regarding the establishment. To qualify for a hotel/motel operating license you must fill this out.",
+      "isEnabled": true
+    },
+    {
+      "id": "6585",
+      "name": "Licensed Drainlayer Application",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "Application to be a City of Salem Licensed Drainlayer.",
+      "isEnabled": true
+    },
+    {
+      "id": "6653",
+      "name": "Flood Hazard Overlay District Application",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "The City of Salem requires a Flood Hazard Overlay District (FHOD) Approval for all proposed construction or other development in the floodplain overlay district. The floodplain overlay district is based on FEMA’s Special Flood Hazard Areas with a 1% annual chance of flooding.",
+      "isEnabled": true
+    },
+    {
+      "id": "6626",
+      "name": "Street Opening & Trench Application",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "Refer to the Street Opening Rules & Regulations found on the salemma.gov \"Information for Licensed Drain Layers\" webpage.\n\nUse this permit for: Boring(s), Test Pits, City Utilities (water/sewer/drain), Private Utilities (telecommunication, gas, electric), as well as trenches on private property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Flammable & Combustible Materials Permit ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Annual storage of flammables & combustibles unless temporary storage is noted.   Expires annually on April 30th ",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Planning Board Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This application form is for anyone with a project needing one of the below listed Permits from the Planning Board:\n- Site Plan Review\n- Special Permit - Drive Through\n- Special Permit - Planned Unit Development\n- Special Permit - North River Canal Corridor\n- Special Permit - Land-Based Wind Energy\n- Special Permit - Municipal and Religious Reuse\n- Special Permit - Wireless Communications Facility\n\nThe included questions will guide you through which permits you need and assist you in filling out the forms.\n\nIf you need any assistance with the application process, please contact Planning Board staff in the City of Salem Department of Planning and Community Development.\n\n*Please note that the below Subdivision applications are separate and available from the list of Planning Department permits:\n- Form A - Approval Not Required\n- Form B - Preliminary Subdivision Plan\n- Form C - Definitive Subdivision Plan\n- Waiver from Frontage Request\n- Special Permit - Cluster Residential (only submitted with Subdivision applications)",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Explosives, Fireworks, Model Rocketry, Cannon Mortar, Storage of Ammunition and Arms",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Blasting Operations, Canon Mortar Firing, Model Rocketry, Fire Works",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Planning Board - ANR/Form A Application",
+      "categoryId": 1087,
+      "viewAccess": "private",
+      "description": "Application for Endorsement of Plan Believed Not to Require Approval\n\nIn accordance with provisions of Section II-B of the Salem Subdivision Regulations, the applicant must file, by delivery or registered mail, a notice with the City Clerk stating the date of submission for such determination. The notice shall be attached to this application form. Seven (7) hard copies of the notice and application shall be brought by the applicant to the City Clerk to be “date stamped”.  The City Clerk will retain the original; the remaining six (6) hard copies of the notice and application, as well as six (6) hard copies of the Plan, and one (1) electronic copy of the notice, application, and plan, shall be filed in .pdf format with the Planning Board by the applicant. All hard-copy notices and applications shall be typewritten or neatly printed in ink. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6633",
+      "name": "Water Meter Sizing Worksheet",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "The Water Meter Sizing Worksheet is to be completed by a licensed plumber/design engineer to request to install a water meter larger than 5/8\" at a property. This worksheet assists with the calculations to size the meter based on fixture demand. Water meters are not sized based on service pipe diameter. Once the worksheet is complete and submitted, the Engineering Department will review and confirm the meter size allowed for purchase.  5/8” Meters Do Not require a meter sizing worksheet to be completed. Meters and Meter Interface Units (MIUs) should be purchased from Ti-Sales directly.",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Pre-Demolition Permit",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "description": "This application is to request a permit for demolition activities. Please be aware that you will need to contact the Engineering Department regarding cut and cap of utilities and the use of hydrant water.  There may also be the need for paid fire watches during the demolition.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "Gas Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6551",
+      "name": "Catering License",
+      "categoryId": 1085,
+      "viewAccess": "private",
+      "description": "To operate any type of food establishment such as a restaurant, you will need to obtain a catering license. The application is based on the general information of the catering establishment, menu, and a health notice. There is a one time event fee for $25 or a yearly fee of $200. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Private Well Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "This permit assesses the type of well used, location, general contractor information, as well as insurance information. The word, \"well\", as used in these regulations, shall include any pit, pipe, excavation, casing, drill hole or other private source of water to be used for the purpose of supplying potable water in the City of Salem, Massachusetts. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Plumbing Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Truss Construction Placard",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "description": "This provides the ability for an owner to purchase the Truss Placard(s) to post on a building that has Truss construction. Please coordinate with Fire Prevention to pick up the requested Placards (978-745-7777).",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Sign Permit",
+      "categoryId": 1083,
+      "viewAccess": "private",
+      "description": "All exterior signs, awnings, and interior signs that can be seen from the exterior are required to have a City of Salem Sign Permit before a sign can be fabricated and installed. Department of Planning and Community Development are reviewers on all Sign Permit Applications and the Permit is issued by the Building Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Planning Board - Subdivision Waiver Request",
+      "categoryId": 1087,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6558",
+      "name": "Waste Hauler License",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6608",
+      "name": "Summer Camp Inspection",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Fire safety inspection for summer camps",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Tobacco License",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "This license is required for any individual or organization that sells the use of Tobacco and its bi-products in the City of Salem. This form must be completely filled out for consideration of the hereby license and the applicant with have to undergo the accompanying inspections for license approval.",
+      "isEnabled": true
+    },
+    {
+      "id": "6537",
+      "name": "21E Site Assessment Archive Request",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "description": "This application is to have an archive search requested for a known location in the City of Salem. Please identify all distinct locations in the address field.\n\nLife Safety Plan Review should only be selected for new construction. Any modification to an existing system requires a fire alarm or sprinkler shut down permit.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Street Permit/Sidewalk (Dumpster & Storage) Permit",
+      "categoryId": 1083,
+      "viewAccess": "private",
+      "description": "Application to place a dumpster or Storage POD on street or a dumpster off street. This is managed the Building Department or Fire Prevention based on proposed location of object.",
+      "isEnabled": true
+    },
+    {
+      "id": "6629",
+      "name": "Historical Commission - Certificate of Appropriateness or Non-Applicability",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "A Certificate of Appropriateness is required for changes visible from a public way. A representative from the commission will determine that which is visible or not visible. \n\nA Certificate of Non-Applicability is a way of ratifying that a Certificate of Appropriateness is not required for the work being performed. This certificate, along with the pictures to be taken, protects the property owner from questions about changes have been made without authorization.",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Historical Commission - Certificate of Hardship",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Septage Hauler License",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "This form establishes the standards for the servicing of private sewage systems and the disposal of wastewater from these sources while protecting the public health and protecting the surface and ground waters of the state from contamination.",
+      "isEnabled": true
+    },
+    {
+      "id": "6559",
+      "name": "Abandoned & Foreclosed Properties Registration",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "All owners, including banks and mortgage companies, must register abandoned and/or foreclosing residential and commercial properties with the Director of Inspectional Services. Once the property is no longer abandoned or is sold, the owner must provide proof of sale or written notice of occupancy to the Director of the Inspectional Services.",
+      "isEnabled": true
+    },
+    {
+      "id": "6560",
+      "name": "Abandoned & Foreclosed Properties De-Registration",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "All owners, including banks and mortgage companies, must register abandoned and/or foreclosing residential and commercial properties with the Director of Inspectional Services. Once the property is no longer abandoned or is sold, the owner must provide proof of sale or written notice of occupancy to the Director of the Inspectional Services.",
+      "isEnabled": true
+    },
+    {
+      "id": "6557",
+      "name": "Pool Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "This permit specifies the use and building of pools, wading pools, hot tubs, and saunas. Drainage, water treatment and supervision details are required for each type of pool or spa while filling out this permit form. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "Historical Commission - Waiver of the Demolition Delay Ordinance",
+      "categoryId": 1087,
+      "viewAccess": "private",
+      "description": "No permit for demolition of an existing building or structure that is listed or eligible for listing on the National Register of Historic Places or that is located in an established historic district, created pursuant to this Code, or that is 50 or more years old shall be granted unless it is first submitted to the Historical Commission for review and comment. \n\nNOTE: Under the ordinance, the definition of demolition includes the following actions: any act of pulling down, destroying, removing or razing any of the following: 50% of all exterior walls of a building including framing, windows, doors, exterior finishes and details; or 50% of exterior walls of a building that are visible from a public way, or 50% of all roof structures of a building; or 50% of roof assemblies of a building that are viewable from a public way; or enclosure or alteration of more than 50% of the exterior walls of a building so that they no longer function as exterior walls.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Body Art & Piercing License ",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "All persons who perform body art are required to register through the use of this application. Body art includes tattooing, permanent cosmetics, branding, and body piercing. The Salem Board of Health Body Art Regulations should be read and understood, prior to filling the permit application out.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Tanning Facility License",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "This license is relevant towards facilities that use any equipment used for tanning the skin that emits ultraviolet radiation, including, but not limited to, a tanning booth, tanning bed or sunlamp which includes high pressure tanning lamps. Tanning devices also include any accompanying equipment, including, but not limited to, protective eyewear, timers and handrails. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Zoning Board of Appeals Application",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "This application is for a project to be proposed to the Zoning Board for review and decision.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Day Camp License",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "This license is for the right to operate a children's recreational camp that operates at least four days a week while supervising school-age children. This application shall state the location and type of camp, the approximate maximum number of persons by whom it is used, the probable duration of occupancy, the proposed sources of water and food supply for the camp, and all members of staff accountable. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "SRA-Urban Renewal Area - Small Project Review",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "All development projects proposed in the Urban Renewal Area are required to undergo a review process by the Salem Redevelopment Authority (SRA) prior to any work being started.  Development projects begin and end the review process before the SRA.  The Small Project Review is intended for projects that do not include (1) a change to the existing structure's footprint, and/or (2) the addition of square footage to the structure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "SRA-Urban Renewal Area - Development Project, Final Design Review",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "All development projects in the Urban Renewal Area that include (1) a change to the existing structure's footprint and/or (2) the addition of square footage to the existing structure or lot, are required to undergo a two-step review process with the Salem Redevelopment Authority (SRA) and the Design Review Board (DRB) prior to any work being started. Final Design Review is intended to secure agreement on and approval of the final design and the complete proposal for redevelopment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6555",
+      "name": "Perc Test",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "A percolation test is a test to determine the water absorption rate of soil in preparation for the building of a septic drain field or infiltration basin. The results of a percolation test are required to properly design a septic system. Any applicant interested needs to thoroughly fill out the accompanying form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "SRA-Urban Renewal Area - Development Project, Schematic Design Review",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "All development projects in the Urban Renewal Area that include (1) a change to the existing structure's footprint and/or (2) the addition of square footage to the existing structure or lot, are required to undergo a two-step review process with the Salem Redevelopment Authority (SRA) and the Design Review Board (DRB) prior to any work being started.  Schematic Design Review is intended to secure agreement on and approval of the basic design concept prior to extensive work by the development team.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1098",
+      "name": "Frequently Asked Questions about Permitting & Licensing",
+      "isEnabled": 1
+    },
+    {
+      "id": "1099",
+      "name": "Department of Public Services",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-weight: 400; font-stretch: inherit; line-height: inherit; font-family: Roboto, sans-serif; font-size: 17px; vertical-align: baseline; color: rgb(68, 68, 68); letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: "
+    },
+    {
+      "id": "1090",
+      "name": "Electrical Department",
+      "isEnabled": 1,
+      "content": "<h3>Mission Statement</h3><p>The Mission of Salem Electrical Department, is the management, maintenance, repair, and &nbsp;security of the City&#39;s Street lights, decorative lights, park and public building lights. The aluminum cobra head pole &amp; lights are maintained by National Grid. The traffic signals and controllers, fire alarm street boxes and cables, are also the responsibility of the departments signal maintainers.</p><p>The Department receives and grants electrical permits, and sch"
+    },
+    {
+      "id": "1093",
+      "name": "Engineering Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: justify;\">The City of Salem&#39;s Engineering Department provides technical expertise, guidance and plan review to various city boards/commissions and other departments for public infrastructure improvements and private development projects. &nbsp;The Engineering Department provides technical expertise related to connections to, and extensions of, the municipal water distribution system, wastewater collection system and stormwater management system as well as coordination o"
+    },
+    {
+      "id": "1086",
+      "name": "Fire Prevention",
+      "isEnabled": 1,
+      "content": "<h3>Mission Statement</h3><p>The primary mission of the Salem Fire Department is to provide a range of programs designed to protect the lives and property of the citizens of the City of Salem from the adverse effects of fires, sudden medical emergencies or exposure to dangerous conditions created by either man or nature.</p>"
+    },
+    {
+      "id": "1096",
+      "name": "Geographic Information System (GIS) Team",
+      "isEnabled": 1,
+      "content": "<p>Please use the following application to request a GIS product from the city.&nbsp;</p>"
+    },
+    {
+      "id": "1085",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": "<h3>Mission Statement</h3><p>The mission of the Salem Health Department is to deliver public health services to residents, businesses and visitors to benefit the culturally diverse population of the City of Salem. Public health includes preventing and monitoring disease, providing health education and enforcing public health codes and regulations. This mission is accomplished through the core values of public health which are to prevent, promote, and protect.</p>"
+    },
+    {
+      "id": "1083",
+      "name": "Inspectional Services ",
+      "isEnabled": 1,
+      "content": "<h3>Mission Statement:</h3><p>Our Mission is to provide the residents of our community quality service in a timely manner, and to provide answers to questions regarding building and zoning issues. To conduct inspections and enforcement actions so as to protect and safeguard all residents and visitors to our city, and to evaluate, maintain, and repair those Public Properties within our charge.</p><h3>Responsibilities:</h3><p><strong>Public Properties</strong> - responsible for numerous buildings "
+    },
+    {
+      "id": "1094",
+      "name": "Licensing Board",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-weight: 400; font-stretch: inherit; line-height: inherit; font-family: Roboto, sans-serif; font-size: 16px; vertical-align: baseline; color: rgb(68, 68, 68); letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: "
+    },
+    {
+      "id": "1102",
+      "name": "Mayor's Office",
+      "isEnabled": 1,
+      "content": "<div><span data-olk-copy-source=\"MessageBody\" style=\"font-weight: 300;\">The Office of the Mayor is responsible for ensuring that visitors, businesses, and residents of Salem receive the highest quality of services and assistance available to them,&nbsp;within the jurisdiction of the Office. The Mayor&rsquo;s Office is accountable to all individuals and municipal employees within the City of Salem and provides constituent services in a concise and business-friendly manner.</span> </div>"
+    },
+    {
+      "id": "1087",
+      "name": "Planning & Community Development",
+      "isEnabled": 1,
+      "content": "<h3>DPCD General Information</h3><p><em><strong>Preserving our past, building our future</strong></em></p><p>The Department of Planning and Community Development (DPCD) is responsible for a wide range of activities and duties, including economic development, land use planning, housing policy, transportation projects, historic preservation, open space conservation programs, and neighborhood improvement efforts. DPCD administers several programs to promote homeownership and economic development, i"
+    },
+    {
+      "id": "1100",
+      "name": "Traffic and Parking",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(68, 68, 68); font-family: Roboto, sans-serif; font-size: 17px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initia"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:47.202Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

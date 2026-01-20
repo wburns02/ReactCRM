@@ -1,0 +1,853 @@
+{
+  "jurisdiction": "North Attleborough",
+  "state": "MA",
+  "tenant": "northattleboroughma",
+  "portalUrl": "https://northattleboroughma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006539",
+      "name": "ZBA Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Application for Variance, Special Permit, or Appeal from a Decision of the Building Inspector",
+      "isEnabled": true
+    },
+    {
+      "id": "1006542",
+      "name": "Request for Abutters List",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006551",
+      "name": "Public Records Request",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Request for publicly available information accordance with M.G.L. Chapter 66 Section 10.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006555",
+      "name": "Service Request Form",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Request NAED to allow the applicant to install a new electrical service or alter the existing electrical service to any residential, commercial, industrial or municipal property in the Town of North Attleborough.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006557",
+      "name": "Business Certificate Registration",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "A Business Certificate is required for :\nAny person, whether individually or as a partnership, conducting business under any title other than the complete real name of the owner(s) as well as any corporation doing business in a name other than its corporate name.\nUpon discontinuing, retiring or withdrawing from such business, or in the case of a change of location where the business is conducted, a form must be filed with the office of the Town Clerk.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006560",
+      "name": "Historical Building Demolition Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Demolition Permit Requests for properties 80 years or older.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006344",
+      "name": "Body Art Establishment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit to own and operate a Tattooing, Piercing, and/or Cosmetic Tattooing Establishment",
+      "isEnabled": true
+    },
+    {
+      "id": "1006448",
+      "name": "21 E Assessment Request ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006470",
+      "name": "Auto Dealer Class I & Class ll",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "description": "The North Attleborough Licensing Board as the Local Licensing Authority, issues Class I & Class II Auto Dealer Licenses in accordance with M.G.L. Chapter 140, Section 57, 58, and 59.  All auto dealers selling new, used/pre-owned vehicles, must have a license to operate in the Town of North Attleborough. New Class I & Class II Auto Dealer license applications and annual renewals are processed by the Licensing Board.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006487",
+      "name": "Farmer’s Market Organizer Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Farmer’s Market Vendor permit in accordance with the provisions of the most current MDPH Food Protection Program Policies, Procedures and/or Guideline RF-08 relating thereto, 105 CMR 590.000, and the standards of the North Attleborough Board of Health.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006497",
+      "name": "Licensed Utility Installer Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "License to perform work on water, sewer and drain infrastructure in the Town of North Attleborough.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "Drain Connection Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Permit to connect a private drain to the Town’s Drainage system.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006507",
+      "name": "Bi-Directional Amplifier - Survey Request ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": "Water and Sewer Service Cut & Cap Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Permit to cut & cap a water and/or sewer service connection. You must be a Utility Installer licensed by the Town of North Attleborough Board of Public Works to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006421",
+      "name": "Street/Sidewalk Occupancy Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Permit for the occupation and/or excavation of the streets and sidewalks within the streets and way under the jurisdiction of the Department of Public Works.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006385",
+      "name": "Body Art License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "License to perform Body Art, Body Piercing, or Cosmetic Tattooing in a permitted establishment. Please use this application for Practitioner and Apprentice Licenses.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006547",
+      "name": "Cannabis Dispensary License",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Application to License a Cannabis Dispensary with the Town of North Attleborough Licensing Board.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006548",
+      "name": "Outdoor Event Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Outdoor Event Permit for Carnivals, Road Races/Walks, Parades, Concert Series, and other Outdoor Events.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006550",
+      "name": "Farm Winery License to Sell at a Farmers Market & Agricultural Event",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "The North Attleborough Licensing Board as the Local Licensing Authority issues a Farm Winery License to Sell at a Farmers Market & Agricultural Event in accordance with M.G.L. Chapter 138, Section 15F and M.G.L. Chapter 138, Section 19B.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006564",
+      "name": "Bodywork Establishment Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit to operate a Bodywork establishment",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, renovations, alterations, and major repairs to existing buildings including commercial, and one and two family buildings. Please note: for demolition - use new, separate Demolition Permit. To apply for a Tent Permit, please use the Carnivals, Special Event, and Tent Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6337",
+      "name": "Trench Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This permit is required anytime a trench hole or other excavation is being done to a depth of 3 (three) feet or more.  If this application is in connection with a road opening permit, please attach copy of road opening permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": "Water Permit (excluding Cut & Cap)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Permit to install, extend, repair or replace a water main or water service connection.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006510",
+      "name": "Outdoor Dining Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Request inspections pursuant to reopening of outdoor dining.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006512",
+      "name": "Bi-Directional Amplifier - Permit to Install or Maintain",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006513",
+      "name": "Bi-Directional Amplifier - Waiver Request",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006565",
+      "name": "Bodywork Practitioner License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "License to practice bodywork in North Attleborough",
+      "isEnabled": true
+    },
+    {
+      "id": "1006567",
+      "name": "Congregate Living Registration",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Yearly registration for Boarding/Lodging/Rooming Homes, Group Homes, Sober Houses, and Halfway/Recovery Houses.\nPlease be aware that this facility registration does not replace the State required Periodic Inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006569",
+      "name": "Water Main Extension Plan Review",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Water Main Extension Plan Review ONLY",
+      "isEnabled": true
+    },
+    {
+      "id": "1006526",
+      "name": "Coin-Operated Amusement Device License (including game and photo devices)",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "A Coin-Operated Amusement Device license is required for each Coin-Operated Amusement Device (juke box, arcade game, etc.) offered for the use of the public in the Town of North Attleborough. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006523",
+      "name": "Common Victualler's License (no alcohol)",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "A Common Victualler's License is required for any establishment that serves food or drink to the public, under M.G.L. Chapter 140, Section 2. The Licensing Board processes all requests for new CV Licenses, amendments to existing licenses and annual renewal of CV Licenses. New CV License applications require 30-60 days lead time.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006492",
+      "name": "Sewer Permit (excluding Cut & Cap)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Permit to install, extend, repair or replace a sewer main or sewer service connection.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is to be used when you are razing / demolishing an existing building or structure larger than 25’ square feet, in its entirety.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006447",
+      "name": "Certificate of Occupancy Inspection ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Used to obtain a certificate of occupancy for a NEW residence, NEW commercial property, or for re-occupancy of a commercial property by a new occupant.  This inspection is not used for residential property being sold or transferred.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006453",
+      "name": "Catering",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit for an establishment that prepares food (at a permitted location outside of North Attleborough) and serves the food to the consumer at a specified location.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006462",
+      "name": "Food Establishment/Retail Food - Plan Review Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Review of plans for all new food service, new retail food or any/all renovations to current permit holders for Food or Retail establishments.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006485",
+      "name": "Commercial Inspection requests - Annual/Semi Annual/Quarterly",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "description": "Used for inspection of commercial properties.  Not used for new business, or residential inspections.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006521",
+      "name": "Sprinkler/Fire Suppression/Fire Alarm System Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Select this permit if you are proposing any new or any modifications to a firm alarm system, fire suppression system or sprinkler system within an residential or commercial structure.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006538",
+      "name": "Entertainment Equipment License (including pool tables, pinball machines, and bowling alleys)",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "An Entertainment Equipment License is required under M.G.L. Chapter 140, Section 177 to keep a pool table or a bowling alley to be used for amusement merely and not for the purpose of gaming for money or for property.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006568",
+      "name": "Sewer Main Extension Plan Review",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Plan review for Sewer Main Extension ONLY",
+      "isEnabled": true
+    },
+    {
+      "id": "1006537",
+      "name": "Fortune Teller, Card and Palm Reading License",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "A Fortune Teller, Card and Palm Reading License is required to tell fortunes for money under M.G.L. Chapter 140, Section 185I. Said license shall be granted only to applicants who have resided continuously in the city or town in which the license is sought for at least twelve months immediately preceding the date of the application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006491",
+      "name": "Hydrant Meter Assembly Rental Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Permit to access the public water supply by temporary hydrant meter assembly.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006391",
+      "name": "Sheet Metal Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when a sheet metal worker is manufacturing, fabricating, assembling, handling, erecting, installing, dismantling, altering and/or repairing duct work, commercial fans, kitchen hoods and vents, architectural sheet metal and metal roofing.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006450",
+      "name": "Food Service",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit for an establishment that prepares, packages, serves or vends food directly to the consumer, such as a restaurant, bar, club, church, school, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006445",
+      "name": "Form 1 - Fuel Oil Burning Equipment (FP-056)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for Permit, Permit, and Certificate of Completion for the Installation or Alteration of Fuel Oil Burning Equipment and the Storage of Fuel Oil",
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc.  Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006488",
+      "name": "Health/Fitness Establishment Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit to own and operate a fitness center or gym.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006474",
+      "name": "Junk Dealer's License",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "description": "A Junk Dealer's License is required under M.G.L. Chapter 140, Section 54, to solicit for, be a collector of, or be a dealer in antiques, second-hand goods and/or junk in the Town of North Attleborough.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006508",
+      "name": "Hydrant Flow Test Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Permit to use Town fire hydrants for the purpose of conducting a hydrant flow test.",
+      "isEnabled": true
+    },
+    {
+      "id": "6349",
+      "name": "Gas Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006359",
+      "name": "Open Burning Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Open Burning Permit Application",
+      "isEnabled": true
+    },
+    {
+      "id": "1006377",
+      "name": "Hotels & Motels",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit to own and operate a Motel, Hotel, or Inn.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006525",
+      "name": "Live Entertainment License",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "description": "A Live Entertainment License is required under M.G.L. Chapter 140, Section 183A.  The application for such a license shall state the type of entertainment to be licensed i.e., live music, performers, dancing by patrons etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006549",
+      "name": "Permit to Process Hazardous Materials (FP-300)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006536",
+      "name": "Lodging House License",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "A Lodging House License is required under M.G.L. Chapter 140, Section 22.  This license is granted for an establishment that is a house where lodgings are let to  four or more persons not within second degree of kindred to the person conducting/owning it.",
+      "isEnabled": true
+    },
+    {
+      "id": "6353",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006459",
+      "name": "Manufactured Housing Community (Mobile Home Park)  ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit to own and operate a Mobile Home Park",
+      "isEnabled": true
+    },
+    {
+      "id": "1006442",
+      "name": "Standard Permit (FP-006) ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Commonwealth of Massachusetts \"Application for Standard Permit\"  (Form FP-006).  A list of permit categories is provided during the application process.  This permit type is not used for residential real estate transfers. **For NEW Sprinkler, Fire Suppression, and Fire Alarm Permits, please use the \"Sprinkler/Fire Suppression/Fire Alarm System\" Permit under the Building Department. For Flammable Storage, please use the \"Storage of Flammables\" permit on this page.**",
+      "isEnabled": true
+    },
+    {
+      "id": "1006394",
+      "name": "Housing Inspection",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for a rental voucher program housing inspection in compliance with the provisions of the Minimum Standards of Fitness for Human Habitation of the State Sanitary Code, Chapter II (105 CMR 410.000), made under authority of M.G.L. c.111 §§ 3 & 127A.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006435",
+      "name": "Periodic Inspection Certification",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Periodic Inspections in accordance with the provisions of the Massachusetts State Building Code 780 CMR Section 110.7.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006530",
+      "name": "On Premises Alcoholic Beverage License - Section 12 & CV License",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "The Licensing Board  is the Local Licensing Authority (LLA) for granting alcohol licenses under Massachusetts General Laws, Chapter 138; Section 12 (On-Premise) and has sole authority for the issuance and regulation of all such alcoholic beverage licenses within the Town. The Licensing Division processes all requests for new On-Premise alcohol licenses, amendments to existing licenses and annual renewal of alcohol licenses. New Alcohol license applications require 30-60 days lead time to allow for legal advertising, abutters notification and a public hearing before the Licensing Board.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006561",
+      "name": "Construction Dumpster Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A Construction Dumpster Permit is required under the Massachusetts Fire Safety Code 527 CMR 1 chapter 19 for all dumpsters over 6 yards that are onsite for more than 24 hours at all Commercial and Multi-Family (3+ units) locations.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006406",
+      "name": "Sign Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A sign permit shall be required to attach, erect or otherwise install signage on any property. Note:  Temporary political signs shall be exempt from obtaining a sign permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006476",
+      "name": "Off Premises Alcoholic Beverage License - Section 15",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "description": "The Licensing Board  is the Local Licensing Authority (LLA) for granting alcohol licenses under Massachusetts General Laws, Chapter 138; Section 15 (Off-Premise) and has sole authority for the issuance and regulation of all such alcoholic beverage licenses within the Town. The Licensing Division processes all requests for new Off-Premise alcohol licenses, amendments to existing licenses and annual renewal of alcohol licenses.   New Alcohol license applications require 30-60 days lead time to allow for legal advertising, abutters notification and a public hearing before the Licensing Board.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006466",
+      "name": "Mobile Food Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit for an establishment that prepares and serves food to the consumer from a food truck (including Ice Cream trucks). This application is for yearly mobile food permits as well as temporary mobile food permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006477",
+      "name": "One Day Special Alcohol License - Chapter 138, Section 14",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "description": "The North Attleborough Licensing Board as the Local Licensing Authority, issues Special One Day Liquor Licenses in accordance with M.G.L. Chapter 138, Section 14.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006486",
+      "name": "Nail Salon",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "To own and operate a nail/manicuring salon.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006446",
+      "name": "Carnivals, Special Event, and Tent Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permit to hold Carnivals, Tents, and all other special events.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006373",
+      "name": "Smoke and Carbon Monoxide - Compliance Inspection Request (FP-007C)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for residential inspection of smoke and carbon monoxide detectors used for sale or transfer of real estate.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006360",
+      "name": "Storage of Flammables",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for Flammable and/or Combustible Storage Permit in accordance with M.G.L. Chapter 148, as provided in Section 10A, 527 CMR Chapter 1.00.\nFlammable storage includes flammable/combustible liquids, solids, and gasses.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006345",
+      "name": "Recreational Camps (summer camps)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Recreational Camps for Children licenses licenses are renewable annually on June 1st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006432",
+      "name": "Emerald Square Mall - Use & Occupancy Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permit to Occupy the premises located at: 999 South Washington Street; 26/250",
+      "isEnabled": true
+    },
+    {
+      "id": "1006535",
+      "name": "Theater License",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "A Theater License is required under M.G.L. Chapter 140, Section 181 for the exhibition of motion pictures seven days per week.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006440",
+      "name": "Certificate of Occupancy",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A separate Certificate of Occupancy application is *NOT* required for residential properties. *NOTE: For periodic Inspections in accordance with the provisions of the Massachusetts State Building Code 780 CMR Section 110.7, please use \"Periodic Inspection Certification\" application*",
+      "isEnabled": true
+    },
+    {
+      "id": "1006451",
+      "name": "Transfer Tank / Tank Truck (FP-006)  ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit for Tank Truck or Transfer Tank inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006362",
+      "name": "Underground Tank Removal",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Used for removal of steel underground storage tanks, and transportation of tank to a disposal yard in accordance with the provisions of M.G.L. Chapter 148, Section 38, 527 CMR 1.00 Section 1.12.8.40. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006461",
+      "name": "Residential Kitchen Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit for a home kitchen where food that is not time/temperature control for safety food, is prepared for the sale or service at a function.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006430",
+      "name": "Letter of Opinion",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Notice: This opinion may take up to thirty (30) days to complete. No legal determination is implied by this Letter of Opinion. It is strictly an opinion based on the information available at this time.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006449",
+      "name": "Retail Food",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit for an establishment that sells pre-packaged food to consumers. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6354",
+      "name": "Mechanical Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required to erect, install, enlarge, alter, do major repairs, remove, convert or replace a mechanical system.  The property owner or owner’s agent can apply for this permit.  This permit is issued by the Building Inspector.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006434",
+      "name": "Transfer of Permit",
+      "categoryId": 1071,
+      "viewAccess": "private",
+      "description": "Use this form to change the contractor associated with an existing permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006559",
+      "name": "Retail Marijuana Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Retail permit for use in Medical, Adult Use, Co-located marijuana establishments.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006386",
+      "name": "Septic - Disposal Works Installer License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "License to construct, repair, upgrade or abandon a new or existing septic system. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006454",
+      "name": "Septic - Engineering/PERC Testing License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "License to perform perc tests and submit stamped septic system design plans for the construction, repair or upgrade of a new or repair of an existing septic system.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006455",
+      "name": "Septic - Soil Site Evaluator License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "License to perform perc tests for the construction, repair or upgrade of a new or repair of an existing septic system.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006456",
+      "name": "Septic - Title 5 Inspector License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "License to inspector septic systems regulated by Title 5.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006457",
+      "name": "Percolation (PERC) Test Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "To perform a percolation test for a new septic system or for the repair of an existing septic system.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006458",
+      "name": "Septic System Construction Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Disposal System Construction permit, to construct, repair, upgrade or abandon a new or existing septic system.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006572",
+      "name": "Septic System Plan Review",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Disposal system plan review / peer review.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006383",
+      "name": "Septic Pumping & Hauling Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit for the pumping & hauling of septage, renewed annual on October 31st .",
+      "isEnabled": true
+    },
+    {
+      "id": "1006350",
+      "name": "Swimming Pool/Beach Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for permit to operate a public, semi-public swimming pool, or wading pool. Swimming Pool licenses are renewable annually on May 31st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006380",
+      "name": "Stable",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit to own and operate a Stable with horses (including ponies, colts, mules and other solid hoofed animals).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006379",
+      "name": "Tanning Salon",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "To own and operate a Tanning facility.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006465",
+      "name": "Temporary Food/Farmer’s Market Vendor Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit to temporarily serve/sell food to the consumer at a special event.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006378",
+      "name": "Tobacco & Nicotine Product Sales",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit to sell tobacco/nicotine products.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006376",
+      "name": "Waste (trash) Hauler",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit for the collection, transportation, disposal and disposition of solid waste and recyclables ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006464",
+      "name": "Well Site Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "MA state law and the Town of North Attleborough Board of Health Non-Public Well Regulation, adopted October 7, 1982, Amended March 11, 2025",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1086",
+      "name": "Licensing Board",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"margin-top:0in;margin-right:0in;margin-bottom:7.5pt;  margin-left:0in;text-align:center;background:white;\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Seal_4inch_Thu_Oct_14_2021_18:05:23_GMT+0000_(Greenwich_Mean_Time).jpg\" style=\"width: 300px;\" class=\"fr-fic fr-dib\"></p><p align=\"center\" style=\"margin-top:0in;margin-right:0in;margin-bottom:7.5pt;  margin-left:0in;text-align:center;background:white;\"><strong>NORTH ATTLEBOROUGH LICENSING BOARD</"
+    },
+    {
+      "id": "1087",
+      "name": "Zoning Board of Appeals",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-left: 0.25in; text-indent: 0in; text-align: center;\"><strong><span style=\"font-size: 30px; font-family: Tahoma, Geneva, sans-serif;\">Zoning Board of Appeals</span></strong></p><p style=\"text-indent: 0in;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\">The North Attleborough Zoning Board of Appeals policies and procedures as adopted by the Board and in accordance with the Massachusetts General Laws Chapter 40A and all amendments thereto.</span></p><p style=\"text-indent:0in;"
+    },
+    {
+      "id": "1089",
+      "name": "Assessors",
+      "isEnabled": 1
+    },
+    {
+      "id": "1091",
+      "name": "Historical Commission",
+      "isEnabled": 1,
+      "content": "<p>If your property is 80 years old or older, you must meet with the North Attleborough Historical Commission (NAHC) to ask permission to demolish your property. Your application is due at least two weeks prior to the monthly meeting for posting purposes.&nbsp;</p><p>Please read the Demo By-law on the Town of North Attleborough&rsquo;s website located on the Historical Commission page or ARTICLE XIX (nattleboro.com)</p>"
+    },
+    {
+      "id": "1082",
+      "name": "Electric Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1084",
+      "name": "Highway Department",
+      "isEnabled": 1,
+      "content": "<p>The North Attleborough Department of Public Works is pleased to offer public access to our new Viewpoint Cloud Online Permitting System.</p><p><br></p><ul><li>To use or new online permitting service, you must first <strong><u>register and create a user account</u></strong>.&nbsp;</li></ul><p><br></p><ul><li>Once you have established your user account, you will move through a series of steps to provide information for the permit in which you are applying.&nbsp;</li></ul><p><br></p><ul><li><str"
+    },
+    {
+      "id": "1081",
+      "name": "Town Manager",
+      "isEnabled": 1
+    },
+    {
+      "id": "1085",
+      "name": "Water/Sewer",
+      "isEnabled": 1,
+      "content": "<p>The North Attleborough Department of Public Works is pleased to offer public access to our new Viewpoint Cloud Online Permitting System.</p><p><br></p><ul><li>To use or new online permitting service, you must first <strong><u>register and create a user account</u></strong>.&nbsp;</li></ul><p><br></p><ul><li>Once you have established your user account, you will move through a series of steps to provide information for the permit in which you are applying.&nbsp;</li></ul><p><br></p><ul><li><str"
+    },
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p>The North Attleborough Building Department is pleased to offer public access to our new Viewpoint Cloud Online Permitting System.</p><p><br></p><ul><li>To use or new online permitting service, you must first <strong><u>register and create a user account</u></strong>.&nbsp;</li></ul><p><br></p><ul><li>Once you have established your user account, you will move through a series of steps to provide information for the permit in which you are applying.&nbsp;</li></ul><p><br></p><ul><li><strong>Bef"
+    },
+    {
+      "id": "1073",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 24px;\">BOARD OF HEALTH</span></strong></p><p style=\"text-align: center;\">Welcome to the Board of Health permit and license applications page.</p><p><br></p><p>Pay careful attention to which permit/license application you select. Permit fees are calculated differently depending on selections. &nbsp;NO REFUNDS will be issued. &nbsp;</p><p><strong>If you have any questions, please contact the Health Department prior to submission at 508"
+    },
+    {
+      "id": "1076",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p>The North Attleborough Fire Department is pleased to offer our residents, businesses, contractors, and members of the public access to online permitting through our new Viewpoint Cloud Online Permitting Services.</p><ul><li>To use or new online permitting service, you must first register and create a user account.&nbsp;</li><li>Once you have established your user account, you will be able to apply for inspections or permits.</li><li>To prevent delays in receiving permits, please ensure that a"
+    },
+    {
+      "id": "1074",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:52.713Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

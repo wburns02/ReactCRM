@@ -1,0 +1,161 @@
+{
+  "jurisdiction": "Winchester",
+  "state": "CT",
+  "tenant": "winchesterct",
+  "portalUrl": "https://winchesterct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6366",
+      "name": "Dog License",
+      "categoryId": 1075,
+      "viewAccess": "public",
+      "description": "This is for the annual Dog License. Call 860-738-6963 with questions. Dog Licenses expire on June 30th. Late renewals will have a penalty of $1 per month starting July 1st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Blasting Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Code Enforcement",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Demolition Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Building Permit (No Trades)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Please be aware that as of January 1, 2026 this permit is for construction only, NOT trade permits. Please apply separately for Electrical, Mechanical, and Plumbing Permits.  \n\nIf you are applying for Solar Installation, the following applications are required: Zoning Permit, Building Permit, and Electrical Permit. \n\nRefunds for cancelled permits will be give within 6 months, minus 25% plus State Fees. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Temporary Membrane Structures and Tents",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Driveway Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Underground Tank Removal",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Inland Wetlands and Watercourses Commission Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "ANY WETLANDS APPLICATION MUST INCLUDE 10 PAPER COPIES INCLUDING A FULL SIZE SITE PLAN OF ALL DOCUMENTATION, WHICH SHALL BE DELIVERED TO TOWN HALL NO LATER THAN THE THURSDAY AT NOON BEFORE THE NEXT UPCOMING MEETING IN ORDER TO PROCEED WITH THE APPLICATION. IF YOUR PROJECT REQUIRES A PUBLIC HEARING THERE WILL PROVIDED A SIGN PROVIDED FOR YOU TO LOCATE ON SITE. THERE WILL BE A $25.00 REFUNDABLE DEPOSIT.",
+      "isEnabled": true
+    },
+    {
+      "id": "6391",
+      "name": "Electrical Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Use this application for all electrical work including electrical work associated with new or re-construction.\n\nSolar installations require a Building Permit AND an Electrical Permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6392",
+      "name": "Mechanical Permit (HVAC & Associated work)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is for HVAC and associated work. If there is associated electrical Work, an Electrical permit is required. If there is associated plumbing work, a Plumbing Permit is required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Wetland As-of-Right Determination",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Use this application when requesting an as-of-right determination for maintenance or other permitted activities within a regulated area.",
+      "isEnabled": true
+    },
+    {
+      "id": "6393",
+      "name": "Plumbing Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Use this permit for al plumbing work. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Planning and Zoning Commission Application for Development",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "ANY APPLICATION FOR DEVELOPMENT MUST INCLUDE 9 PAPER COPIES OF ALL DOCUMENTATION, WHICH SHALL BE DELIVERED TO TOWN HALL NO LATER THAN THE THURSDAY AT NOON BEFORE THE NEXT UPCOMING MEETING IN ORDER TO PROCEED WITH THE APPLICATION. PLEASE NOTE ANY PUBLIC HEARINGS REQUIRE A SIGN TO BE POSTED ON SITE. A SIGN WILL BE PROVIDED TO YOU WITH A $25.00 DEPOSIT. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "ZBA Special Exception Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "ANY ZBA SPECIAL EXCEPTION APPLICATION MUST INCLUDE 8 PAPER COPIES OF ALL DOCUMENTATION, WHICH SHALL BE DELIVERED TO TOWN HALL NO LATER THAN 18 DAYS BEFORE THE NEXT UPCOMING MEETING IN ORDER TO PROCEED WITH THE APPLICATION. PLEASE NOTE ANY PUBLIC HEARINGS REQUIRE A SIGN TO BE POSTED ON SITE. A SIGN WILL BE PROVIDED TO YOU WITH A $25.00 DEPOSIT. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Zoning Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Please contact the Land Use Office 860-738-6593  with your proposed project to verify you are using the correct Zoning Application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "ZBA Variance Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "PLEASE BE ADVISED THAT ANY APPLICATION FOR A VARIANCE MUST INCLUDE 8 PAPER COPIES OF ALL DOCUMENTATION, WHICH SHALL BE DELIVERED TO TOWN HALL NO LATER THAN 18 DAYS PRIOR TO THE NEXT UPCOMING MEETING IN ORDER TO PROCEED WITH THE APPLICATION. PLEASE NOTE ANY PUBLIC HEARINGS REQUIRE A SIGN TO BE POSTED ON SITE. A SIGN WILL BE PROVIDED TO YOU WITH A $25.00 DEPOSIT. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1075",
+      "name": "Clerk / Licensing",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1084",
+      "name": "Code Enforcement ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Land Use Department",
+      "isEnabled": 1,
+      "content": "<p><br></p><p>&nbsp;</p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:03.506Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,91 @@
+{
+  "jurisdiction": "Cheshire",
+  "state": "CT",
+  "tenant": "cheshirect",
+  "portalUrl": "https://cheshirect.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6404",
+      "name": "DATA ORDER",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "The Freedom of Information Act allows access to building department records or reports that already exist upon request.  It does not give automatic access to answers to specified questions.  Some data sets are so large or the requestor has a specific set of parameters for data that they are looking for:  These types of requests are loaded onto a USB drive and mailed to the requestor.",
+      "isEnabled": true
+    },
+    {
+      "id": "6387",
+      "name": "Building Permit",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "This permit is required for all residential and commercial construction in accordance with the Connecticut State Building Code.    Including but not limited to:  roofing, siding, windows, wood burning stoves/inserts, additions, pools, decks, signs and accessory buildings as required by law.",
+      "isEnabled": true
+    },
+    {
+      "id": "6391",
+      "name": "Demolition Permit",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "CGS Chapter 541 State Demolition Code Sections 29-401 thru 415 ",
+      "isEnabled": true
+    },
+    {
+      "id": "6388",
+      "name": "Electrical Permit",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "An electrical permit is required for new, remodel, and maintenance electrical work.",
+      "isEnabled": true
+    },
+    {
+      "id": "6392",
+      "name": "Foundation Only Permit",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6395",
+      "name": "Fuel Tank(s)",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "A Fuel tank Permit is required for all work involving the installation, replacement and/or removal of fuel tanks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6394",
+      "name": "Mechanical permit",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "A Mechanical Permit is required for all working involving , heating, ventilating, air conditioning equipment installation, alteration, repair, and/or replacement.",
+      "isEnabled": true
+    },
+    {
+      "id": "6389",
+      "name": "Plumbing Permit",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "A Plumbing Permit is required for all work involving plumbing, gas or drainage piping, fixture or water heating equipment, water treatment equipment installation, alteration, repair, and/or replacement. Also included is work associated with the installation alteration and or repair to Fire Sprinkler Systems. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6396",
+      "name": "Sanitary Sewer Connection ",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "An inspection of sewer venting must be approved by a building inspector prior to connection to the lateral..  A Sanitary Sewer Connection permit is required for all work involving the installation, alteration, repair, and/or replacement of all connections made to town Sanitary Sewer Systems. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1077",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(184, 49, 47); font-size: 36px;\">*** DURING THIS BUSY SEASON, PLEASE PLAN AHEAD AND ALLOW A LEAD TIME OF <em><strong>10-14</strong></em><em><strong>&nbsp;<u>BUSINESS</u> DAYS</strong></em> FOR TOWN INSPECTIONS.&nbsp;</span></p><p><span style=\"font-size: 36px;\"><span style=\"color: rgb(65, 168, 95);\">***PLEASE FOLLOW GUIDELINES WITHIN CHAPTER 33 IBC (SAFEGUARDS DURING CONSTRUCTION) WHEN POTENTALY CREATING A HAZARD DURING CONSTRUCTION.</span></span></p><p><span style=\"font"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:53.750Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

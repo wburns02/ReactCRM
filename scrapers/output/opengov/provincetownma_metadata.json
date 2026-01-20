@@ -1,0 +1,1099 @@
+{
+  "jurisdiction": "Provincetown",
+  "state": "MA",
+  "tenant": "provincetownma",
+  "portalUrl": "https://provincetownma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006366",
+      "name": "Sprinkler System Repair",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit allows for sprinkler repair, installation etc.  If you are disabling a sprinkler system, for any reason, this permit and permission is required by law. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006394",
+      "name": "Rent Certificate Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006462",
+      "name": "Historic Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006491",
+      "name": "Growth Management Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "Economic Development",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006531",
+      "name": "Abutter's List - Special Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006532",
+      "name": "Address Change Request",
+      "categoryId": 1091,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006533",
+      "name": "Building Scale",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006553",
+      "name": "Certificate of Municipal Lien Request",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "Please allow up to 10 business days for processing.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006562",
+      "name": "Facilities Use Application",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This form is a request to use Recreation facilities, all applicants are required to review additional permits required through the Community Development Department at the Town Hall.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006570",
+      "name": "Outdoor Display License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006579",
+      "name": "Proclamations, Letters of Support or Appreciation",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006587",
+      "name": "Public Use of Town Hall ",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006595",
+      "name": "Special Parking Lot",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006622",
+      "name": "Resident Transfer Station Sticker 2026",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "Stickers for access to the Provincetown Transfer Station. \nStickers are good from January- December. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006646",
+      "name": "Rental Renewal Instructions",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006648",
+      "name": "Rescue Payments",
+      "categoryId": 1109,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006655",
+      "name": "Gift Fund Donations",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006677",
+      "name": "Public Use of MacMillan Pier",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006682",
+      "name": "Maintain Existing/New Storage Tank",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006687",
+      "name": "Apply for Inspection",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006694",
+      "name": "Grease Tank Inspection Report",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006699",
+      "name": "Street Occupancy Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006644",
+      "name": "ACO Septic Inspection",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Licensed Septic Inspectors: Use this application to report on properties already under a Provincetown Board of Health 'Administrative Consent Order' (ACO) as a status update, or for systems that fail Title 5 or local regulations, to request an ACO. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006558",
+      "name": "Zoning Board of Appeals",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Special Permits, Appeals, or Variances",
+      "isEnabled": true
+    },
+    {
+      "id": "1006488",
+      "name": "Special Permit/Site Plan Review by Special Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006492",
+      "name": "Administrative Review",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006521",
+      "name": "Real Estate Transfer",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006464",
+      "name": "General Business License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006416",
+      "name": "Curb Cut Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006423",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006373",
+      "name": "Certification of Compliance (Smoke)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "The Certification of Compliance verifies that the smoke/Carbon Monoxide alarms in a building or residence meet the requirements and is necessary during property sales or transfers to ensure the smoke alarms are properly installed and functioning. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6355",
+      "name": "Dog License",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006520",
+      "name": "New Water Meter",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006510",
+      "name": "Title 5 Official Inspection Report Filing",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Licensed Septic Inspectors: Use this application to report on properties that have a stamped, engineered sewage disposal system design plan of record only.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Common Victualer",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006489",
+      "name": "Site Plan Review ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006567",
+      "name": "Minor Modification - Zoning Board of Appeals",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006539",
+      "name": "Shellfish Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006549",
+      "name": "Abutter's List  - Conservation",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006590",
+      "name": "Traffic Hearing Application ",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "Now accepting applications for the 2025 Traffic Hearing. Please fill out the application and submit by September 29th, 2025. Please note that applicants must secure a certified abutter's list from the Assessor's Office for a fee of $25.00 (abutters to abutters within 300 feet). Feel free to reach out with any questions!  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006591",
+      "name": "Change of Contractor",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006607",
+      "name": "Fire Alarm Test Report",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A Fire Alarm Test Report is a report that ensures that all fire alarm systems are functioning as intended and any issues are addressed promptly.  Alarm Companies and Electricians can also submit a form via email directly to the Fire Department.   This form and application is only intended for personnel who perform tests but do not have access to the standard form we use or their own forms.  \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006576",
+      "name": "Boat Storage",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006670",
+      "name": "Fire & Medical Records Request ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "This is a request for records related to any Fire response and/or EMS response in the Town of Provincetown.  Only authorized individuals will be allowed to access these reports (ie: Applicant and Fire/Rescue Staff).  For medical report requests specifically, these are governed Federally (HIPAA) and the State and as such, there are strict parameters for which we need to oblige to protect the patient.  \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006698",
+      "name": "Italy Class Trip ",
+      "categoryId": 1106,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006638",
+      "name": "Septic Inspection Program",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006578",
+      "name": "New Water Service",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006594",
+      "name": "Public Use of Town Properties",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006540",
+      "name": "Business Certificates",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006490",
+      "name": "Approval Not Required - ANR",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006496",
+      "name": "Request for Determination of Applicability (RDA)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006477",
+      "name": "Entertainment Licenses",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Weekday and Sunday Entertainment Application",
+      "isEnabled": true
+    },
+    {
+      "id": "1006505",
+      "name": "Work in Public Way",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006526",
+      "name": "Parade Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006363",
+      "name": "Gas Storage Tank(s) Installation",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "The installation of gas storage tanks requires a permit from the Provincetown Fire Department for the inspection of the Tank Portion. Additionally, a Gas Permit from the building department is  also required.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006402",
+      "name": "Building Permit - Express",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Roofing, Siding,  Insulation or Sheds.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006425",
+      "name": "Food Service Establishment ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006530",
+      "name": "Minor Modification ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": "Building Permit - Tent",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Tents",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Special Entertainment Licenses",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Notice of Intent (NOI)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006550",
+      "name": "Public Records Requests",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006534",
+      "name": "Pole Hearing",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006588",
+      "name": "Hydrant Meter",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006609",
+      "name": "Oil Burner/Tank Installation/Removal Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A permit is required for the installation, maintenance, operation and/or removal of oil-burning equipment; including the burner and/or tank. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006624",
+      "name": "Employment-Tourism Department  ",
+      "categoryId": 1102,
+      "viewAccess": null,
+      "description": "Assistant Director of Tourism",
+      "isEnabled": true
+    },
+    {
+      "id": "1006693",
+      "name": "Grant Application - FY2027 Funding",
+      "categoryId": 1094,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006662",
+      "name": "Storage  of Flammable/Combustible Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Storage of Flammable/Combustible Permit is required for businesses and individuals managing the storage of flammable or combustible liquids. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006599",
+      "name": "Private Road Name Change",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Procedure for Re-naming a Private Road ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006551",
+      "name": "Vital Records Request",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Birth/Death/Marriage",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": "Local ByLaw Filing",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006522",
+      "name": "Abatement of Water Charges",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006507",
+      "name": "Temporary/Special Events Food Service Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006454",
+      "name": "Noise By-law Waiver",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6337",
+      "name": "Trench & Road Opening Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Pursuant to G.L. c. 82A §1 and 520 CMR 7.00 et seq. (as amended)",
+      "isEnabled": true
+    },
+    {
+      "id": "6349",
+      "name": "Gas Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Inspector will review and issue permits within 24-48 hours moving forward.",
+      "isEnabled": true
+    },
+    {
+      "id": "6353",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Inspector will review and issue permits within 24-48 hours moving forward.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006361",
+      "name": "Tank Truck Inspection",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A truck inspection permit is required for transport vehicles that are used in the transportation of combustible liquids.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006446",
+      "name": "Special Alcohol License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Abbreviated Notice of Resource Area Delineation - ANRAD",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006524",
+      "name": "Abatement of Sewer Charges",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006525",
+      "name": "Non-Profit/Institutional Food Service Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006552",
+      "name": "Board & Committee Member Applications",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Want to Serve on a Town Board?  If you'd like to see what vacancies are open – https://www.provincetown-ma.gov/259/General-Information.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006554",
+      "name": "Fuel Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006511",
+      "name": "Septic Tank Pumping",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006497",
+      "name": "Request for Certificate of Compliance",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006467",
+      "name": "Alcohol License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006367",
+      "name": "Hot Works Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A hot works permit is required when performing operations like welding, cutting, brazing, or other activities that produce heat, sparks, or flames which can potentially trigger a fire. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006475",
+      "name": "Pedicab Operator",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006390",
+      "name": "Sprinkler System",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when a sprinkler system is installed, altered, extended, dismantled or reconfigured.    Please allow up to 10 (ten) days for Fire Department review prior to issuance of the permit. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Emergency Certification",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006486",
+      "name": "Disposal System Construction Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006596",
+      "name": "Shellfish Grants",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006606",
+      "name": "FINES",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006623",
+      "name": "Propane Gas Cylinder Exchange ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A permit is required for propane gas cylinder exchange. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006515",
+      "name": "Vehicle Access",
+      "categoryId": 1081,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "1006476",
+      "name": "Pedicab Owner/Vehicle",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6354",
+      "name": "Mechanical Permit (Sheet Metal)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006362",
+      "name": "Underground Tank Removal",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "An underground tank removal permit is necessary when you plan to remove an underground storage tank (UST), particularly those storing flammable or combustible liquids.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006470",
+      "name": "Bicycle and Motor Scooters",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006406",
+      "name": "Sign Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006516",
+      "name": "B-Street Garden Application",
+      "categoryId": 1081,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "1006512",
+      "name": "Application to Appear Before Board of Health",
+      "categoryId": 1073,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "1006499",
+      "name": "Vehicle for Hire Operator",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006608",
+      "name": "Flammables/Explosives (FP-5) Registration",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "The Flammables/Explosives (FP-5) Registration is related to the oversight and control of the storage and handling of flammable or explosive materials.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006560",
+      "name": "Temp. Sign Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006498",
+      "name": "Vehicle For Hire Owner/Vehicle",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006459",
+      "name": "Request for Opinion",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006344",
+      "name": "Body Art Establishment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006385",
+      "name": "Body Art Practitioner",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006473",
+      "name": "Marijuana Establishment",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006506",
+      "name": "Parking Lot",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Year-round Parking Lot License",
+      "isEnabled": true
+    },
+    {
+      "id": "1006603",
+      "name": "Guest Body Art Practitioner",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006580",
+      "name": "Body Art Mentor/Apprentice",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006483",
+      "name": "Common Carrier",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006518",
+      "name": "Class I & II",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006386",
+      "name": "Wastewater Professionals: Septic Installer, Septage Hauler, Sewer Connector Permits",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006383",
+      "name": "Refuse Hauler License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006378",
+      "name": "Tobacco Products Sales",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006379",
+      "name": "Tanning Facility",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006350",
+      "name": "Swimming Pool Operations",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006426",
+      "name": "Soil Test Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006465",
+      "name": "Well Construction",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Per Board of Health policy for the sequence of private irrigation well permit application steps:\n•As a pre-requisite to any private well new permit applications, a plumbing permit to install a dual-check backflow preventer on the water service  must be completed. Upon the final plumbing permit inspection sign-off verifying the dual-check valve , an application an irrigation well may be issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006614",
+      "name": "Sewer Connection Request",
+      "categoryId": 1108,
+      "viewAccess": "public",
+      "description": "Application by Licensed  Professional Only",
+      "isEnabled": true
+    },
+    {
+      "id": "1006428",
+      "name": "Lodging ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006575",
+      "name": "Varianced Grease Management Plan Request for W&S Approval",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building ",
+      "isEnabled": 1,
+      "content": "<p>The primary function of the Building Department is to enforce <a aria-label=\"780 Code of Massachusetts Regulations (CMR), the Massachusetts State Building Code Opens in new window\" href=\"http://www.mass.gov/eopss/consumer-prot-and-bus-lic/license-type/csl/building-codebbrs.html\" rel=\"noopener noreferrer\" target=\"_blank\"><strong>780 Code of Massachusetts Regulations (CMR), the Massachusetts State Building Code, 9th Edition &amp; 10th Edition</strong></a>, and the various codes referenced there"
+    },
+    {
+      "id": "1080",
+      "name": "Licensing",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 24px; color: rgb(84, 172, 210);\">Licensing</span></p><p>The Provincetown Licensing Board is responsible for issuing licenses and for enforcing rules, regulations, and state laws. Licenses and permits issued by the Board include: alcohol (annual, seasonal, and one-days), common victualer, lodging, retail shop, parking lot, entertainment, pedicab, livery/taxi, and more. Lodging license applications are under the Health category, however. Please note that application fees"
+    },
+    {
+      "id": "1087",
+      "name": "Rental Certificates",
+      "isEnabled": 1,
+      "content": "<p><strong>VIEW:</strong> <a href=\"http://www.provincetown-ma.gov/DocumentCenter/View/940/PART-XII---ART-1-HABITATIONS-FOR-RENT?bidId=\" rel=\"noopener noreferrer\" target=\"_blank\">Health Regulation, Habitations for Rent</a></p><hr><p>The Provincetown Board of Health Habitations for Rent regulations apply to all forms of rental property which includes both short-term and long-term rentals. &nbsp;If you are renting your property, you are required to obtain a Renter&#39;s Certificate regardless of th"
+    },
+    {
+      "id": "1073",
+      "name": "Health",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Verdana,Geneva,sans-serif;\">The Provincetown Health Department, as agents of the Provincetown Board of Health, performs many important functions relative to the protection of public health, the promotion of sanitary living conditions, and the protection of the environment from damage and pollution.&nbsp;</span></p><p><span style=\"font-family: Verdana,Geneva,sans-serif;\">Health licenses and inspects food establishments, body art establishments, tobacco sales establish"
+    },
+    {
+      "id": "1081",
+      "name": "Conservation ",
+      "isEnabled": 1,
+      "content": "<div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"mainContentContainer\"><div data-containerid=\"14ddb08c-6b62-4f6a-8c84-9b5132d55084\"><div data-widgetcontainerid=\"021bca14-3ab2-47cd-9429-a070d4ffb58b\"><div data-widgetcontainerid=\"c158214c-59b9-4744-b985-e6ebaf215396\"><div data-elementqueryclasses='{\"wide-narrow\":\"min-width:25em\"}'><p><s"
+    },
+    {
+      "id": "1100",
+      "name": "Select Board",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(30, 31, 32); font-family: sans-serif; font-size: 14.4px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; disp"
+    },
+    {
+      "id": "1084",
+      "name": "Planning",
+      "isEnabled": 1,
+      "content": "<div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"mainContentContainer\"><div data-containerid=\"14ddb08c-6b62-4f6a-8c84-9b5132d55084\"><div data-widgetcontainerid=\"1fc851fd-a526-41ad-bb15-ac22985ecda0\"><div data-widgetcontainerid=\"6edbefcd-5788-4a80-bdfc-9e53f64f2f36\"><div data-elementqueryclasses='{\"wide-narrow\":\"min-width:25em\"}'><p>Th"
+    },
+    {
+      "id": "1086",
+      "name": "Historic",
+      "isEnabled": 1,
+      "content": "<div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"mainContentContainer\"><div data-containerid=\"14ddb08c-6b62-4f6a-8c84-9b5132d55084\"><div data-widgetcontainerid=\"40c4157c-e708-4b2a-b88a-33503869e529\"><div data-widgetcontainerid=\"421f5d69-40a8-41e8-8b8a-8db05a4b5e95\"><div data-elementqueryclasses='{\"wide-narrow\":\"min-width:25em\"}'><p>Th"
+    },
+    {
+      "id": "1085",
+      "name": "Zoning",
+      "isEnabled": 1,
+      "content": "<hr><hr><table style=\"width: 100%;\"><tbody><tr><td style=\"width: 100%; background-color: rgb(247, 218, 100); text-align: center;\"><br><div><strong>Public Warning: Spoofing and Scam Emails Falsely Using the &ldquo;Town of Provincetown&rdquo; Name</strong></div><div><br></div><div><br></div><div><strong>The Town of Provincetown will never request sensitive personal information, passwords, or financial payments, ESPECIALLY WIRE TRANSFERS, via unsolicited email. The only verified emails you should r"
+    },
+    {
+      "id": "1090",
+      "name": "Water Department",
+      "isEnabled": 1,
+      "content": "<p><em>The Water Department is responsible for providing its customers with safe, high quality drinking water adhering to U.S. Environmental Protection Agency (EPA) and Massachusetts Department of Environmental Protection (MassDEP) drinking water regulations.</em></p><p>Provincetown Water Department Rules and Regulations: Section 2.5- Availability of Municipal Water. Application will be accepted for review subject to there being an existing municipal water main in a Town-owned street or right-of"
+    },
+    {
+      "id": "1083",
+      "name": "Community Development",
+      "isEnabled": 1,
+      "content": "<p><strong>Growth Management Permit</strong> is required for all new construction, including new structures and enlargement, alteration or renovation of existing structures, to all new uses, and to all expansions, changes, or alterations of existing uses, which will result in an increase, no change, or a decrease in Title 5 Design Flow as determined by the Health Agent.</p><p><strong>Economic Development Permit</strong> allows you to apply for additional wastewater design flow gallons to grow yo"
+    },
+    {
+      "id": "1091",
+      "name": "Assessor",
+      "isEnabled": 1,
+      "content": "<div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"structuralContainer\"><div data-cprole=\"mainContentContainer\"><div data-containerid=\"14ddb08c-6b62-4f6a-8c84-9b5132d55084\"><div data-widgetcontainerid=\"804d65e3-de76-40a6-bf2e-b18bdfc0878f\"><div data-widgetcontainerid=\"8b4c4597-978f-4b7e-b17e-d5c3188848fa\"><div data-elementqueryclasses='{\"wide-narrow\":\"min-width:25em\"}'><p>Th"
+    },
+    {
+      "id": "1074",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": "<p>The Town Clerk acts as the Town&#39;s chief election official, registrar of vital statistics (births, marriages, and deaths), keeper of public records, recording officer, licensing officer and Burial Agent/Cemetery Lot Sales. </p>"
+    },
+    {
+      "id": "1079",
+      "name": "Public Way",
+      "isEnabled": 1,
+      "content": "<p><strong>GENERAL BYLAWS</strong></p><p>11-6. Public ways</p><p><strong>11-6-1. Excavation of public ways.</strong> No person shall break or dig up the ground or surface of a town or public way or sidewalk without express permission from the Commissioner of Public Safety or his delegate, who shall require a performance bond sufficient to guarantee restoration of the street following excavation by a private contractor. Upon neglect or violation of any duty imposed under this bylaw, such work may"
+    },
+    {
+      "id": "1076",
+      "name": "Fire Dept",
+      "isEnabled": 1,
+      "content": "<p><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Firelogo_Wed_Mar_29_2023_12:29:44_GMT+0000_(Coordinated_Universal_Time).PNG\" style=\"width: 122px;\" class=\"fr-fic fr-dib fr-fil\">The Provincetown Fire Department (PFD) is dedicated to serving the community with a proud tradition of volunteerism, Although the department has transitioned to a professional combination department, we strive to protect Provincetown with the same unwavering dedication: excellence in service and "
+    },
+    {
+      "id": "1094",
+      "name": "Human Services",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: justify; line-height: normal;\">The Town of Provincetown, Massachusetts is hereby requesting applications for funding for Fiscal Year 2027 (July 1, 2026 through June 30, 2027) from Human Services agencies serving the residents of the Town of Provincetown. Qualifying agencies are invited to submit funding applications, in response to needs identified herein, on or by Monday<em>, December 1</em><i style=\"mso-bidi-font-style:  normal;\">, 2025 at 12:00 p.m.</i> Applications sele"
+    },
+    {
+      "id": "1096",
+      "name": "Parking",
+      "isEnabled": 1,
+      "content": "<h3 data-pasted=\"true\" style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; font-family: Montserrat; font-style: normal; font-weight: 700; color: rgb(56, 56, 56); font-size: 1.25em; text-decoration: none; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255);\">Parki"
+    },
+    {
+      "id": "1095",
+      "name": "Finance",
+      "isEnabled": 1,
+      "content": "<p>Thank you for visiting the Finance Online Office.</p>"
+    },
+    {
+      "id": "1093",
+      "name": "Recreation",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><br></p><p><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Open_Gov_Image_Thu_Feb_24_2022_15:28:26_GMT+0000_(Greenwich_Mean_Time).jpg\" style=\"width: 828px;\" class=\"fr-fic fr-dib\"></p>"
+    },
+    {
+      "id": "1103",
+      "name": "Event Coordination",
+      "isEnabled": 1,
+      "content": "<div style='margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: \"Segoe UI\", \"Segoe UI Web\", Arial, Verdana, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: "
+    },
+    {
+      "id": "1108",
+      "name": "Sewer",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Tahoma, Geneva, sans-serif;\">Licensed Wastewater Professionals making sewer connections are required to apply at least 2 business days ahead of actual field work. Licensee must submit this application to document the proper abandonment of on-site disposal system and receive permission to proceed. <strong>Failure to make timely application or properly document abandonment work performed may be grounds for suspension or revocation of Provincetown Board of Health licens"
+    },
+    {
+      "id": "1102",
+      "name": "Employment/Human Resources",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.4em; border: 0px none; color: rgb(30, 31, 32); font-family: sans-serif; font-size: 14.4px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: in"
+    },
+    {
+      "id": "1097",
+      "name": "Harbor/Pier",
+      "isEnabled": 1,
+      "content": "<p><strong>The Town of Provincetown and the Harbormaster Office have setup an easy way for you to pay your Pier/Harbor Applications.&nbsp;</strong></p><p><br></p><p>First time applicants must register and create a user account to file an online application - <a href=\"http://r/View/13081/Welcome-OpenGov-LPC\" rel=\"noopener noreferrer\" target=\"_blank\">Instructions Here</a>.</p>"
+    },
+    {
+      "id": "1109",
+      "name": "Rescue",
+      "isEnabled": 1,
+      "content": "<div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/RescuePatch_Fri_Feb_23_2024_15:26:10_GMT+0000_(Coordinated_Universal_Time).jpg\" style=\"width: 121px;\" class=\"fr-fic fr-dii\"><span style=\"font-family: Verdana,Geneva,sans-serif;\">The Provincetown Rescue started in 1956 as a volunteer ambulance service. &nbsp;We have had several changes over the years, and now we operate with full-time EMT and Paramedics, with 5 municipally owned and operated ambulances. The ambulance ser"
+    },
+    {
+      "id": "1099",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<p>Transfer Station Stickers are available for 2026. Please call DPW with questions 508-487-7060</p>"
+    },
+    {
+      "id": "1106",
+      "name": "Provincetown Schools",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 18px; background-color: rgb(255, 255, 255); color: rgb(0, 0, 0); font-family: Verdana, Geneva, sans-serif;\">Vision /&nbsp;</span></strong><span style=\"font-family: Verdana,Geneva,sans-serif;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(0, 0, 0);\"><span style=\"font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; wh"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:45.137Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

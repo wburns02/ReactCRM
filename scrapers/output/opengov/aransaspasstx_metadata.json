@@ -1,0 +1,195 @@
+{
+  "jurisdiction": "Aransas Pass",
+  "state": "TX",
+  "tenant": "aransaspasstx",
+  "portalUrl": "https://aransaspasstx.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6473",
+      "name": "House/Structure Moving Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Separate demolition permits and building permits may be required prior to a structure being moved within the City of Aransas Pass or ETJ area. Please contact the Building Department to obtain paperwork that will need to be submitted at the time of application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Short Term Rental Registration(STR)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Contractor Registration",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6367",
+      "name": "Planning & Zoning Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Residential Building Permit  ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Commercial Building Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Recreational Vehicle License (Transfer)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Every person holding a license shall give notice in writing to the city within ten (10) days after having sold, transferred, given away or otherwise disposed of interest in, or control of, any RV park. Application for transfer of a license shall be made within ten (10) calendar days thereafter, the city shall act on the application for license transfer and it shall be approved if the RV park is in compliance with the provisions of the City of Aransas Pass ordinance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Code Compliance",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Water Well Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "PURPOSE: To provide a process for identifying locations of existing water wells (constructed before April 15, 2013) within the city limits in order to identify the landscaping irrigation needs of water well owners for proper monitoring and compliance during drought restrictions imposed by the City.",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Adding Guests to Your Application",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Recreational Vehicle License (Renewal)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "All RV park licenses expire on September 30th of every year. Application for renewal of a license shall be made on OpenGov on or before September 1st of each year. If application for renewal is not submitted within the specified time line then a late fee of twenty-five dollars ($25.00) shall be accrued for each week following the deadline. Such application shall contain any changes in the information occurring after the original license was issued or the latest renewal granted. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Recreational Vehicle License(Initial) ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "It shall be unlawful for any person to operate any RV park within the city limits unless he/she holds a valid license issued by the City of Aransas Pass in the name of the person for the specific RV park. The applicant shall make all applications for the license on OpenGov which shall issue a license upon compliance with the provisions of the Aransas Pass city ordinance. It shall further be unlawful for any person to place, or have placed, an individual RV, for the purpose of inhabiting said RV, on any lot, parcel, or tract of land, within the city limits or within the city's extraterritorial jurisdiction (ETJ) when the lot, tract or parcel is regulated by the city's ordinances and building codes through a signed water and/or sewer utility contract, that is connected to utilities (i.e. electrical, water, sewer).",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Mechanical Permit ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Electrical Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Plumbing Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Certificate of Occupancy",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Mobile Food Unit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Mobile food Units must obtain a permit in order to operate within the City limits. The City of Aransas Pass does not recognize stand-alone pop-up kiosks as a mobile food unit. Letter of authorization will be needed by property owners when operating on private property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6336",
+      "name": "Excavation Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Fire Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Garage Sale Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Garage Sale Permits shall be limited to 3 garage sales per year, and not exceeding 3 consecutive days each time. The time of operation for garage sales shall be during daylight hours, any day of the week.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Peddler's Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1084",
+      "name": "Planning Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1081",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<div><u><span style=\"font-family: Arial, Helvetica, sans-serif;\"><strong>Useful Permit Information</strong></span></u></div><div><br></div><div><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Residential_Building_Infomation_Mon_Dec_23_2024_16:09:26_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\">Residential Building Infomation.pdf</a></div><div><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Commercial_Build"
+    },
+    {
+      "id": "1083",
+      "name": "Contractor Registration",
+      "isEnabled": 1
+    },
+    {
+      "id": "1082",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><strong><span style=\"font-size: 30px; color: rgb(184, 49, 47);\">Have a concern? You can report violations by clicking below!</span></strong></div>"
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:27.631Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

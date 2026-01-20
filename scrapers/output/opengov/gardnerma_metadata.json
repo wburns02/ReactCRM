@@ -1,0 +1,488 @@
+{
+  "jurisdiction": "Gardner",
+  "state": "MA",
+  "tenant": "gardnerma",
+  "portalUrl": "https://gardnerma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6516",
+      "name": "Business Certificate Application",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Junk Dealers and Dealers in Second Hand Articles",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "Dog License",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6579",
+      "name": "Swimming Lesson Registration ",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "Spaces are limited and given on a first come first served basis.  Lessons are held rain or shine, except for thunderstorms.  No refunds are given if you cannot attend the scheduled day or the make-up session.   Children are encouraged to wear wetsuits for cooler days.",
+      "isEnabled": true
+    },
+    {
+      "id": "6581",
+      "name": "Swimming Passes - 2025",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "Purchase 20 visits for a discounted price.",
+      "isEnabled": true
+    },
+    {
+      "id": "6588",
+      "name": "Temporary Structures and Uses",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6635",
+      "name": "Zoning Board of Appeals Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6637",
+      "name": "Amendment to ABCC Liquor License ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Please note that that this application is for the Local Licensing Authority (LLA) aka City of Gardner License Commission when you are submitting a change of any kind to the ABCC.  This application was created to assist staff and applicants to track the progress of all amendment applications and to record the transaction. \n\nSee https://www.mass.gov/guides/amending-your-alcoholic-beverages-retail-license-abcc for all the paperwork that is required by the state.  \n\nPlease note that as of 1/1/2026 there is a $100 amendment application fee. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Request for Zoning Determination",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Liquor License - Local Application (Annual)",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "If you have any questions regarding your licensing procedure please feel free to contact The Board of Licensure at 978-630-4013.\n\nPlease be aware that this application is for the GARDNER LICENSE COMMISSION only.  The ABCC may have additional requirements not included here.     \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Food Establishment Plan Review",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Please complete this application prior to opening, renovating or relocating any food Food Establishment. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Food Establishment - Annual",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "To be filled out by any establishment/organization which deals in any form of food products including milk, cream and frozen desserts.  Use this application for ANNUAL restaurants, retail grocery stores, food trucks, and private clubs. \n\nAnnual Food Establishment permits expire yearly on December 31st.  The permit renewal deadline for all Food Establishment permits are due no later than November 30th to ensure that the renewal can be approved before the current permit expires.  Late applications will be charged a $50 Late Fee.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Percolation Test/Deep Hole Observation Application ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Liquor License - Local Application (Seasonal) ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "If you have any questions regarding your licensing procedure please feel free to contact The Board of Licensure at 978-630-4013.\n\nPlease be aware that this application is for the GARDNER LICENSE COMMISSION only.  The ABCC may have additional requirements not included here.     \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6636",
+      "name": "Zoning Board of Appeals Application-Testing Copy",
+      "categoryId": 1108,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "Food Vendor Permit - Waterford St. Farmer's Market 2025",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "Please contact the Farmer's Market (https://www.gardnerfarmersmarket.com/) to apply for vendor space prior to completing your Food Permit Application; approval of a Food Permit is not an agreement of participation in the Farmer's Market.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6583",
+      "name": "Food Vendor Permit - Perry Auditorium Farmer's Market 11/22/2025",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "Please contact the Farmer's Market (https://www.gardnerfarmersmarket.com/) to apply for vendor space prior to completing your Food Permit Application; approval of a Food Permit is not an agreement of participation in the Farmer's Market.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Food Establishment - Seasonal ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "To be filled out by any establishment/organization which deals in any form of food products including milk, cream and frozen desserts.  Use this application for SEASONAL restaurants, retail grocery stores, food trucks, and private clubs. \n\nSeasonal Food Establishment applications must be submitted 14 days prior to opening each season.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Liquor License - Local Application  (1-Day)",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "If you have any questions regarding your licensing procedure please feel free to contact The License Commission Clerk at 978-630-4013.\n\nPlease visit https://www.gardner-ma.gov/286/License-Commission for additional information about 1-Day Liquor Licenses. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Well Permit Application ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Permit for installation, alteration, repair or destruction of a well. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Food:  1-Day or 1-Event",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Food permit for PUBLIC events or sales held off-site of a permitted Food Service Establishment.  \n\nPrivate functions held on private property that are not open to public are not required to be permitted. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Auto Amusement Device & Poker Machines (with no Alcohol License)",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "If you have any questions regarding your licensing procedure please feel free to contact The Board of Licensure at 978-630-4013.\n\nPlease be aware that this application is for establishments that have AAD and do not hold an Alcohol license.  If you hold an Alcohol license, the AAD application is part of the Liquor License - Local Application \n\nThe term ''automatic amusement device'' shall be construed as meaning any mechanism whereby, upon the deposit therein of a coin or token, any apparatus is released or set in motion or put in a position where it may be set in motion for the purpose of playing any game involving, in whole or in part, the skill of the player, including, but not exclusively, such devices as are commonly known as pinball machines including free play pinball machines, but not including slot machines as defined in chapter 23K.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Building Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Class 1, 2, or 3 Motor Vehicle License",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Lodging House",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "  Septic/Disposal Works Construction Permit Application ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Please use this application for any construction or alterations of a. Septic disposal works system.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6578",
+      "name": "Temporary Certificate of Occupancy",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6560",
+      "name": "Certificate of Occupancy ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Certificate of Inspection",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Electrical Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Funeral Director ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Funeral Director licenses are issued to persons certified to the Board of Health before May 1st each year.  All such licenses shall expire April 30th of the following year, unless sooner suspended or revoked.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Gas Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Hotel/Motel ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Hotel/Motel permits expire annually on December 31st.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6622",
+      "name": "Building Permit - Commercial (TEST)",
+      "categoryId": 1108,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, renovations, alterations, partial and interior demolition and major repairs to all buildings other than one- and two-family buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Mechanical Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Manufactured Home Park",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Manufactured Home Park permits expire annually on December 31st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Plumbing Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Tanning ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Tanning permits are  expire annually on December 31st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Tobacco & Nicotine Products",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Tobacco Sales licenses are expire annually on December 31st.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Body Art Establishment",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Body Art Facility permits expire annually on December 31st.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Vacant Building Registration or Renewal",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Body Art Practitioner ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Body Art Licenses expire annually on December 31st.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6522",
+      "name": "Outdoor Dining Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "For dining establishments that wish to provide their customers with an outdoor dining experience. these permits do not expire, unless there is a change in seating plan or location.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Exhibition of Motion Pictures ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Exhibition of Motion Pictures Permits expire annually on December 31st.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Septic Hauler ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Septic Pumpers/Haulers permits expire annually on December 31st.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Septic System Installer",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Septic System Installer permits expire annually on December 31st.  Septic System Installers must have a permit prior to doing any septic install or repair work in Gardner. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Solid Waste Hauler ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Solid Waste Hauler permits  expire annually on December 31st.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Unattended Donation Box ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Unattended Donation Box permits  expire annually on December 31st.  \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Recreational Camps  - Seasonal",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Please submit NEW Recreational Camps applications at least 30 days prior to camp opening date. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Swimming Pool/Steam Bath - Annual ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Application for permit to operate an public, semi-public swimming pool,  Private residential pools are not subject to Health Department permitting under the state sanitary code.   \n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Swimming Pool - Seasonal",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Application for permit to operate a seasonal public or semi-public swimming pool.  Private residential pools are not subject to Health Department permitting under the state sanitary code.   \n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Bathing Beach - Seasonal",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Application for permit to operate an public or semi-public swimming bathing  beach.  \n\nSeasonal licenses are renewable annually by April 30th, are valid upon approval from May 15 to Sept 30th.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Inspection Request for Certificate of Fitness for Human Habitation ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Property Owners or housing assistance program providers can request an inspection prior to occupancy to certify that the unit is free of any Housing Code violations.  Please submit an inspection request to initiate the certification process.  There is a $75 fee for each unit to be inspected.  Please contact our office at 978-630-4013 if you have any questions.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6628",
+      "name": "Facilities & Maintenance Request",
+      "categoryId": 1106,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "10-Day Emergency Beaver or Muskrat Permit ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1107",
+      "name": "1 BOH CASH REGISTER ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1108",
+      "name": "TEST BLDG",
+      "isEnabled": 1
+    },
+    {
+      "id": "1083",
+      "name": "Building Department - Permits & Inspectional Services",
+      "isEnabled": 1,
+      "content": "<p>Please attach all required attachments in order for review and approval.&nbsp;</p><p>Our goal is to assist contractors and citizens alike in all matters associated with building and the Building Permit process. Call us any time at 978-630-4007 with questions on Electrical, Plumbing, or Building matters.</p><p><span style=\"font-size: 18px; color: rgb(184, 49, 47);\">&nbsp;</span></p><p><strong>**All permit applications must &nbsp;be accompanied by the Mandatory Worker&#39;s Compensation Affidav"
+    },
+    {
+      "id": "1094",
+      "name": "City Clerk's Office",
+      "isEnabled": 1
+    },
+    {
+      "id": "1092",
+      "name": "City Events!",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1100",
+      "name": "Greenwood Memorial Swimming Pool",
+      "isEnabled": 1
+    },
+    {
+      "id": "1088",
+      "name": "Health Department - Food & Establishment Permit Applications",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"margin-bottom: 7.5pt; text-align: center; line-height: normal; background: white;\"><span style=\"color: rgb(41, 105, 176);\"><strong><u><span style=\"font-size: 18px;\">Gardner Health Department Electronic Permitting</span></u></strong></span><span style=\"font-size: 18px;\"><span style=\"color: rgb(44, 130, 201);\"><strong><u>&nbsp;</u></strong></span></span></p><p style=\"margin-bottom: 7.5pt; line-height: normal; background: white;\"><span style=\"font-size: 18px;\"><span style=\""
+    },
+    {
+      "id": "1091",
+      "name": "Health Department - Septic & Well Permit Applications",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1093",
+      "name": "License Commission ",
+      "isEnabled": 1,
+      "content": "<p>Renewal applications that remain incomplete or that have not been submitted by the application deadline date will be required to pay an late filing fee of $50 and will be have to appear before the Board of Licensure for permission to apply for late re-licensure.</p><p>All renewal applications and required documents need to be submitted electronically. We no longer accept paper applications.</p><p>Any questions? Email or call our office, and we will be happy to assist you! Business hours are 8"
+    },
+    {
+      "id": "1106",
+      "name": "Facilities & Maintenance ",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:05.987Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

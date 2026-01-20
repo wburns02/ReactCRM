@@ -1,0 +1,319 @@
+{
+  "jurisdiction": "Cumberland",
+  "state": "RI",
+  "tenant": "cumberlandri",
+  "portalUrl": "https://cumberlandri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6332",
+      "name": "Building Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a building permit from the Town of Cumberland, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit from the Town of Cumberland, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit from the Town of Cumberland and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.\nElectrical Permit General Information - Please Note: The Electrical Inspector Will Contact You Within 48 Hours To Scheduled Any Inspections After An Inspection Email Has Been Sent.",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": " Plumbing Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the Town of Cumberland, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for a demolition permit from the Town of Cumberland.",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "Moving Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for a moving permit from the Town of Cumberland.",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Sign Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a sign permit from the Town of Cumberland. All permit applications should include photos of any existing signage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6362",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the Town of Cumberland.\nAll inspections shall be scheduled by calling 401-728-2400 Ext. 141\n Please note: The electrical inspector will contact you to schedule the inspection within 48 hours. Receiving an email does not mean that an inspection has been scheduled.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6361",
+      "name": "Sewer Permit",
+      "categoryId": 1077,
+      "viewAccess": null,
+      "description": "Use this application to apply for a Sewer Permit through the Town of Cumberland's Sewer Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6411",
+      "name": "Zoning Board of Review Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6417",
+      "name": " Planning Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Land Development & Subdivision Applications",
+      "isEnabled": true
+    },
+    {
+      "id": "6394",
+      "name": "Claims",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A petition for claim of property damage and/or vehicle damage.   \n\n  \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6407",
+      "name": "Life Safety Inspection",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Click here to submit your request for an inspection from the Cumberland Fire Department. If you are selling your house (1, 2, 3 families. 4+ use this record type), you need to submit a request for a smoke & carbon monoxide resale inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Residential Smoke & Carbon Monoxide",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Residential resale inspections for 1, 2, and 3 family dwellings. If this is not one of the previously listed dwellings, please request a Life Safety Inspection on the previous page.\n\n***Payment step will become active AFTER the application reviewed***",
+      "isEnabled": true
+    },
+    {
+      "id": "6421",
+      "name": "Accessory Dwelling  Permit  (ADU)",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Accessory Dwelling Unit (in-law) permit from the Town of Cumberland, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6365",
+      "name": "Dog License",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Apply for a dog license from the Town of Cumberland.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "General Business Licenses",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Apply for your Business licenses (i.e. 2nd, 3rd, 4th or 5th Class Victualler (Food Licenses) , Holiday Sales, Extended Hours, Entertainment, Kennel License, Private Detective, Peddler/Hawker and Junk & Secondhand Goods Dealer.    ",
+      "isEnabled": true
+    },
+    {
+      "id": "6403",
+      "name": "Land Disturbance Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Land Disturbance permit from the Town of Cumberland.",
+      "isEnabled": true
+    },
+    {
+      "id": "6346",
+      "name": "Fire/Life Safety Complaint",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This record is used to report an observed or perceived fire and/or life safety condition at a property in our town. Please be advised that we only have the authority to enforce code issues in buildings other than one- or two-family dwellings, and only in the common areas of a three-family dwelling unless the building is being sold. We can enforce any code deficiencies in all other buildings, either through our department or with the involvement of the RI State Fire Marshal's Office. If you suspect it is an immediate life safety hazard, please dial 401-658-0544 and speak to the duty officer. Complaints can be reported anonymously; however, if you wish to receive a follow-up notification of the issue, please include your contact information. Thank you for helping us keep Cumberland safe.",
+      "isEnabled": true
+    },
+    {
+      "id": "6412",
+      "name": "Hot Work Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A hot work permit is required for any operation involving open flames or producing heat and/or sparks. This includes, but is not limited to: Brazing, Cutting, Grinding, Soldering, Thawing Pipe, Torch-Applied Roofing, and Cadwelding as indicated by the Rhode Island Fire Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6375",
+      "name": "Mobile Food Establishment & Special Event Entertainment License ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Apply for a Municipal Mobile Food Establishment (MMFE) and Special Event Entertainment License with the Town of Cumberland. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6401",
+      "name": "Swimming Pool & Spa Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Swimming Pool permit from the Town of Cumberland.",
+      "isEnabled": true
+    },
+    {
+      "id": "6413",
+      "name": "Open Burning Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A burning permit must be applied for at least one week prior to the desired day of burning, with the understanding that weather and atmospheric conditions will be the major determining factors of whether the permit shall be issued on the day requested. If weather and atmospheric conditions are determined unsatisfactory, the permit request shall be allowed for another day without a fee required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6414",
+      "name": "Outdoor Fireworks Display",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "For public displays of outdoor fireworks. Notify your client they must contact the Cumberland Fire Department to schedule fire department detail personnel.",
+      "isEnabled": true
+    },
+    {
+      "id": "6381",
+      "name": "Liquor License Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Apply for any of the following liquor licenses from the Town of Cumberland.  Class A (Liquor Store), Class BV, (Full liquor service while serving food) Class BV Limited (Beer and Wine only while serving food), Class BV Non-Transferable (Full liquor service while serving food), Class C (Full liquor service without victualing services, prepackaged foods only), Class D (Full liquor service; granted to organizations that operate as an organized club), Class D Limited (Beer & Wine granted to organizations that operate as an organized club) Class F (One-Day Beer & Wine Only), Class F1 (One-Day Liquor License), Permanent Expansion of Liquor License, Temporary Outdoor Serving of Alcoholic Beverages.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6399",
+      "name": "Tent Permit  ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This application must be submitted at least seven days in advance of the event.  If you have an urgent request, please call us directly at 401-383-7717.",
+      "isEnabled": true
+    },
+    {
+      "id": "6404",
+      "name": "Door to Door Sales / Solicitation ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Door-to-Door Solicitation is the practice of engaging in or attempting to engage in conversation with any person at a residence, while making or seeking to make or facilitate a home solicitation sale, or attempting to further the sale of goods and or services.\n\nAny person seeking such a license shall submit an application to the Town Clerk’s Office electronically through the Town’s online permitting system.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6387",
+      "name": "Private Detective License ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Apply for your Private Detective License.    ",
+      "isEnabled": true
+    },
+    {
+      "id": "6388",
+      "name": "Window or Door Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Window and Door  permit from the Town of Cumberland.",
+      "isEnabled": true
+    },
+    {
+      "id": "6391",
+      "name": "Shed Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Shed permit from the Town of Cumberland.",
+      "isEnabled": true
+    },
+    {
+      "id": "6389",
+      "name": "Siding Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Siding  permit from the Town of Cumberland.",
+      "isEnabled": true
+    },
+    {
+      "id": "6390",
+      "name": "Roof Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Roofing  permit from the Town of Cumberland.",
+      "isEnabled": true
+    },
+    {
+      "id": "6393",
+      "name": "Soil and Erosion Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Soil and Erosion  permit from the Town of Cumberland.",
+      "isEnabled": true
+    },
+    {
+      "id": "6392",
+      "name": "Deck Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Deck  permit from the Town of Cumberland.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1079",
+      "name": "Zoning Board of Review",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Planning & Community Development",
+      "isEnabled": 1
+    },
+    {
+      "id": "1076",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><strong><u>APPLY FOR BUSINESS LICENSES, DOGL LICENSE OR &nbsp;FILE A CLAIM&nbsp;</u></strong></div><div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/images_Wed_Jun_04_2025_14:28:44_GMT+0000_(Coordinated_Universal_Time).jfif\" style=\"width: 436px;\" class=\"fr-fic fr-dib\"></div>"
+    },
+    {
+      "id": "1077",
+      "name": "Sewer Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1072",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p>Submit one form to apply for permits (including Fire Plan Review, if applicable).</p><div><strong><u>Cumberland Fire Department Plan Review Requirements:</u></strong></div><div><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/CFD_Plan_Review_Requirements_Tue_Aug_13_2024_20:14:09_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\">CFD Plan Review Requirements.pdf</a></div><div><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/pro"
+    },
+    {
+      "id": "1071",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><span style=\"font-size: 24px;\">Fire Prevention Office Hours are Monday-Thursday, 8a-3p.</span><span style=\"font-size: 30px;\">&nbsp;</span></div><div style=\"text-align: left;\"><br></div><div style=\"text-align: center;\"><span style=\"font-size: 18px;\"><strong>Inspection Types:</strong></span></div><div style=\"text-align: center;\"><span style=\"font-size: 18px;\">Life Safety Inspection --&gt; New Life Safety Application</span></div><div style=\"text-align: center;\"><spa"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:09.374Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

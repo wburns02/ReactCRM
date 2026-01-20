@@ -1,0 +1,334 @@
+{
+  "jurisdiction": "Watertown",
+  "state": "SD",
+  "tenant": "watertownsd",
+  "portalUrl": "https://watertownsd.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6458",
+      "name": "Concept Plan Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Step 1 of 4 in the Subdivision Process:\n\nThe purpose of a Concept Plan is for the developer to present the plan of development and receive comments from the City regarding general requirements, minimum design standards, and required improvements set forth in the City Ordinances. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Contractor License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "A Residential Contractor License is required for any residential work within Watertown city limits.  All commercial contractors must obtain a Commercial Contractor License to work within the City of Watertown. If you primarily do residential construction but occasionally have alteration projects for commercial structures, a residential contractor license will suffice.  With your application, upload a copy of your Excise Tax License and a Certificate of Liability Insurance with a minimum $500,000.00 per occurrence. City of Watertown must be named as certificate holder.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "New Commercial Building Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "New Commercial Buildings. This application shall also be used for New Mixed-Use projects that include both Residential and Commercial uses in the same structure. \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "New Commercial Building Permit FOOTING and FOUNDATION ONLY.",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "New Footing and foundation permit.  You will need to have a Grading Permit from the Engineering Department prior to applying for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Preliminary Plan Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Step 2 of 4 in the Subdivision Process: A Preliminary Plan for the specific phase of development as outlined by the approved Concept Plan shall be submitted to the Community Development Division to be reviewed and approved by the Design Review Team. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Construction Plans Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Step 3 of 4 of the Subdivision Process: Construction Plans shall conform to the approved Preliminary Plan and shall be submitted to the Community Development Division to be distributed for review and approval. Final consideration and issuance of a Permit to Construct shall be made by the City Engineer within sixty (60) days following submittal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Grading/Floodplain Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is used for grading activities and development in the floodplain. The permit expires on November 1st of Current Year and must be renewed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "New Multi-Family Residential Building Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "New Multi-Family Residential Structure/Apartment Building that include 4+ units. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "New Single Family Dwelling Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Not more than 4 dwelling units which are attached by common vertical walls.\nSingle family: Detached one- and two-family dwellings.\nDuplex: A building containing two (2) dwelling units totally separated from each other for occupancy of two (2) separate dwelling units location on a single lot. \nTriplex: Three (3) individual dwelling units combined into one (1) building located on a single lot, with the individual units sharing one or two common walls.\nFourplex: Four (4) individual dwelling units combined into one building located on a single lot, with the individual units sharing one or two common walls.\n\nInformation needed for application:\nSite plan including setbacks and elevation of curb and finished floor.\nFoundation, floor plan, and section (construction details) with all dimensions.\nElevation Certificate Based on Construction Documents from licensed surveyor, if property is located in a floodplain.",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Street Approach, Curb & Gutter, and Sidewalk Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Public sidewalks, approaches, curb cuts, driveways and sidewalk accessible ramps are regulated through the City Engineer’s Office. A permit is required before any work is initiated in the public right-of-way. Each property owner is responsible for the public sidewalk bordering their property. The sidewalk shall be repaired or replaced as necessary, and shall be kept cleared of snow in the wintertime. The permit expires after 90 days.\n\nCost-Participation Program\nThe City currently has a cost-participation program to assist property owners in paying for the replacement of a public sidewalk in residential areas. A permit is required before beginning any work, and the sidewalk must conform to ADA standards. For further information about this program, contact the City Engineer’s Office at 605-882-6202",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Plat Application ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Step 4 of 4 of the Subdivision Process: The plat shall conform substantially to the Construction Plans as approved.  OR a plat may be exempt to the subdivision process: Minor, Administrative, and Replats shall also utilize this application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Annexation and Zoning Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Annexation is the methodical extension of a city's boundaries into adjacent unincorporated areas and the corresponding extension of city services into those areas. Property currently not located within city limits must be formally annexed in and properly zoned before any construction can begin or connection to city utilities can take place. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Manufactured Home Placement Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Manufactured Home, 20 years old or newer.\n\nDocumentation needed for application:\nSite plan including setbacks and elevation of curb and finished floor.\nElevation Certificate Based on Construction Documents from licensed surveyor, if property is located in a floodplain.\nManufacturer's Installation Instructions",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Commercial Alteration Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Commercial interior remodel, addition, doors and/or windows.",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Vacation Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Used to vacate or eliminate dedicated public right-of-way as well as recorded utility easements, access easements, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Tax Increment Financing District Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Tax Increment Financing Districts (TIF) are a public financing method that is used as a subsidy for redevelopment, infrastructure, and other community-improvement projects allowed under SDCL 11-9",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Mobile Vendor Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is used for vending in the the public right-of-way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Rezoning Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A change of zoning district designation within the boundaries of the municipality.",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Residential Alteration Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Remodel, addition, basement finish, door/windows.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Accessory Structure Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Any detached or accessory structure.  Garage, garden shed, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Ordinance Text Amendment ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A request to change specific language in Title 21 or Title 24 of the Revised Ordinances of the City of Watertown. It is encouraged to meet with City Staff to discuss the ordinance amendment draft prior to submitting this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Deck Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Residential decks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Conditional Use Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A use that would not be appropriate generally or without restriction throughout the zoning district\nby which if controlled as to number, area, location, or relation to the neighborhood, would promote the public health, safety, morals, order, comfort, convenience, appearance, prosperity, or general welfare. Conditional Uses Applications are acted by the Board of Adjustment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Occupy Right-of-Way/Public Property",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is used to permit any occurrence in which the general public would be occupying any space within the City Right-of-Way or Public Park. (Ordinance 5.0307)",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Letter of Responsibility",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This Letter of Responsibility is to be filled out each year by Contractor acknowledging the responsibilities and requirements for doing work in the City of Watertown (i.e. utility work, grading activity, sidewalk or street approach, etc.)",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Variance Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Appeal to the zoning ordinance. This application shall be acted on by the Board of Adjustment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Fence Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Residential and Non-Residential Fences",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Sign Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Temporary and Permanent Signs",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Home Day Care Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit application is for Home Day Care within the City of Watertown. To ensure compliance with special use provisions, applicants must submit an application to the Community Development Division for administrative approval. If the provisions are not met, a conditional use application must be submitted and approved by the Board of Adjustment. Day Care Homes, whether registered or unregistered under SDCL 26-6-14.1 and 26-6-14.8, may not care for more than twelve children at a time, including those under six living in the home. The provider must reside at the dwelling, and employees may be present. Operating a Day Care Home without the necessary approval from the City or Board of Adjustment is a violation, subject to penalties under Chapter 21.99. Each day of violation is considered a separate offense.",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "LOMR/CLOMR",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Use this application to submit LOMR/CLOMR documentation for community acknowledgement signature.",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Home Occupation Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit application is for Home Occupations within the City of Watertown. To ensure compliance with the special use provisions, applicants must submit an application to the Community Development Division for administrative approval. If the provisions are not met, a conditional use application must be submitted and approved by the Board of Adjustment. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Microwave Antenna Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Antenna installation or modifications that are attached to or located on public property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Reroofing Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Residential and Commercial reroofing.",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Research Request",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Request research on the history of a property in relation to zoning, building permits, variances, and conditional use permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Swimming Pool Permit  ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Both inground and above ground pools.  \nA permit is required for pools that are permanently affixed to the ground or remains in the same location for more than 6 months (is not taken down over the winter).\nYou will be asked to upload a site plan at the end of the application.  The site plan should include property lines, existing structure locations, pool location, fence location on property, fence height and length, easements, any other relevant site information.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Demolition Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "All institutional, commercial, public, and industrial structures.\nResidential buildings, including condominiums or individual dwelling units operated as residential cooperatives, with more than four dwelling units.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Moving Permit ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Building means a structure designed, built or occupied as a shelter or roofed enclosure for persons, animals or property and used for residential, business, mercantile, storage, commercial, industrial, institutional, assembly, educational or recreational purposes.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1082",
+      "name": "Building Services/Building Permits",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: left;\"><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 24px; color: rgb(44, 130, 201);\">Scroll down to select the permit application based on your project type.</span></p><p style=\"text-align: left;\"><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">Building permits applied for through this portal are <strong><u><strong><u>only for projects</u></strong></u></strong> being completed <u><strong>within the City Limits of Watertown</st"
+    },
+    {
+      "id": "1076",
+      "name": "Planning & Zoning Applications",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1080",
+      "name": "Engineering",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1081",
+      "name": "Contractor Corner",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/1767384830052_Fri_Jan_02_2026_20:13:50_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 798px;\" class=\"fr-fic fr-dib\"></p><div><strong><span style=\"font-family: Georgia, serif; color: rgb(0, 0, 0); font-size: 24px;\"><u>Licensing Requirements:</u></span><span style=\"font-family: Georgia, serif; color: rgb(243, 121, 52);\"><u>&nbsp;</u></span></strong></div><ol><li><span style=\"font-family"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:25.744Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

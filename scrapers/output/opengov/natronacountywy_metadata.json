@@ -1,0 +1,432 @@
+{
+  "jurisdiction": "Natrona County",
+  "state": "WY",
+  "tenant": "natronacountywy",
+  "portalUrl": "https://natronacountywy.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6525",
+      "name": "Commercial Building Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "All commercial projects require a contractor licensed by the Natrona County Building Department to apply for the permit and perform the work in question. An exception may be granted by the building official depending on the scope of work and special circumstances. Appropriate building plans shall be submitted and reviewed as part of this building permit application process.  Commercial projects will likely require building and foundation plans to be stamped by a Wyoming structural engineer.",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Contractors General  Class I ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Building Contractor, Class I. To contract for the construction, alteration or repair of any type or size of structure permitted by the county resolutions to include any roofing on any structure. Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee. If you are a new contractor to Natrona County you must be licensed in another jurisdiction in the State of Wyoming to receive a Natrona County contractor license.  To renew your current contractors license you will need to make sure we have a current copy of your valid Certificate of Liability Insurance on file as well a current General Contractor I License from another Wyoming jurisdiction.  You must provide both in order to renew your license in Natrona County.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6602",
+      "name": "Residential Building Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Residential Building permits are for residential new construction, additions, alterations, garages/shops and home improvements.  At the end of this application process you will be prompted to upload the required documents for your project. All required documents must be submitted for review as part of this building permit application process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": "Deck Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Deck permits are for residential deck/porch and dock projects which include new construction, additions, and alterations.  At the end of this application process you will be prompted to upload detailed plans which may or maynot require a site plan and truss documents. All required documents must be submitted for review as part of this building permit application process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6607",
+      "name": "Dock Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Dock permits are for residential/commercial dock projects at lakes, ponds, rivers, or other waterways which include new construction, additions, and alterations.  At the end of this application process you will be prompted to upload detailed plans which may or maynot require a site plan. All required documents must be submitted for review as part of this dock permit application process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "Electrical Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Any Electrical  work (new construction, remodels, or repairs) must have this type of permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Mechanical Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Any mechanical work (new construction, remodels, or repairs) must have this type of permit.  Air conditioning, heating, venting, replacing ducting, pellet and wood stoves must have an approved permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6533",
+      "name": "Plumbing Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Any plumbing work (new construction, remodel or repairs) being done must have this type of permit.  Water heater replacement requires a permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Roof Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Any roof repair or replacement must have an approved permit of this type.  Any questions please call 307-235-9435",
+      "isEnabled": true
+    },
+    {
+      "id": "6576",
+      "name": "Mobile Home Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Use this application if you are going to be setting an older mobile home or a HUD home.  Block, set & tie.",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Mobile Home Compliance ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "A compliance inspection is only valid for 180 days.  If moving it takes longer then 180 days, a new permit must be applied for.\nCurrent zoning regulations require a compliance inspection on any mobile home that is 20 years or older.",
+      "isEnabled": true
+    },
+    {
+      "id": "6608",
+      "name": "Compliance/Consultation Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "A compliance/consultation permit is used to generate an inspection on a property, or structure in question, where there has not been a permit, a permit has expired, in an attempt to bring aspects of a property or structure up to code.  It is also used when a consultation is requested in reference to future building plans for a structure.   A compliance/consultation permit is only valid for 180 days.  A compliance/consultation permit does not release the need for any additional permits such as Electrical, Plumbing or Mechanical. Applicant is responsible for applying for these permits and the inspections",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Demolition  Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "If you are tearing down a commercial building or a residential shed you will be required to have a permit to do so.  Use this application for that purpose.  Remember that an asbestos study may be required from the DEQ prior to this permit being issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Sign Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Any signs being constructed replaced, or relocated in Natrona County must have a sign permit.  Use this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Temporary Dwelling Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "A temporary dwelling application is for the living in a RV, travel trailer, 5th wheel during the construction of your home.",
+      "isEnabled": true
+    },
+    {
+      "id": "6542",
+      "name": "Tower Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Construction of a new Communication Tower or a modification to an existing tower use this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6584",
+      "name": "Contractors  General Class II A",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Building Contractor, Class IIA. To contract for the construction, alteration or repair of all residential and commercial structures up to twelve thousand square feet of total area within the building footprint to include any roofing on any structure. Such license shall be issued to the applicant upon the successful review by the department, the successful completion of a written examination, and the payment of the license fee; If you are a new contractor to Natrona County you must be licensed in another jurisdiction in the State of Wyoming to receive a Natrona County contractor license.  To renew your current contractors license you will need to make sure we have a current copy of your valid Certificate of Liability Insurance on file as well a current General Contractor II License from another Wyoming jurisdiction.  You must provide both in order to renew your license in Natrona County.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6586",
+      "name": "Contractors  General Class II B",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Building Contractor Class IIB. To contract for construction, alteration, or repair of residential structures up to and including apartment buildings up to four dwelling units to include any roofing on any structure.  Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  If you are a new contractor to Natrona County you must be licensed in another jurisdiction in the State of Wyoming to receive a Natrona County contractor license.  To renew your current contractors license you will need to make sure we have a current copy of your valid Certificate of Liability Insurance on file as well a current General Contractor II License from another Wyoming jurisdiction.  You must provide both in order to renew your license in Natrona County.  You will be required to have a master of record also licensed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Contractors General  Class III",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Building Contractor, Class III. To contract for the repairing, remodeling, or altering of a single-family unit or structure in any amount not to exceed twenty-five percent of the total square footage of the structure when such repair, remodel, or alteration requires a permit as provided by county resolution to include any roofing on any structure. Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.   If you are a new contractor to Natrona County you must be licensed in another jurisdiction in the State of Wyoming to receive a Natrona County contractor license.  To renew your current contractors license you will need to make sure we have a current copy of your valid Certificate of Liability Insurance on file as well a current General Contractor III License from another Wyoming jurisdiction.  You must provide both in order to renew your license in Natrona County.  You will be required to have a master of record also licensed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Contractors General  Class IV",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Authorizes maintenance and repair of residential and commercial buildings consisting or the following:\n\nBuilding \nDrywall patch and repair not including the opening of entire wall sections.\nRoofing shingle repair not to exceed 1 percent of the existing roof area.\nWindow/Door removal and replacement that does not require structural alteration to the structure.\nDeck repair, excluding structural components.\nInterior finish work excluded from permit requirements identified in the IRC.\nRetaining walls six feet in height or less.\nFences 8 feet in height or less.\nAccessory building under 200 square feet of floor area.\n\nPlumbing\nRepair for p-traps and drain piping contained within the cabinet area of the fixture.\nRemoval/replacement of toilets and flanges.\nExterior sprinkler systems form the vacuum breaker to the rest of the system.\nDishwasher installation, removal and replacement.\n\nMechanical\nRemoval of grills, registers and diffusers that do not require alteration of existing ductwork.\n\nElectrical\nChanging of lighting elements within existing fixtures.  Installation of decorative lighting.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Demolition Contractor",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Demolition contractor - To contract for the demolition or removal of any structure or building. A demolition contractor license shall be issued upon the payment of the license fee. If you are a new contractor to Natrona County you must be licensed in another jurisdiction in the State of Wyoming to receive a Natrona County contractor license.  To renew your current contractors license you will need to make sure we have a current copy of your valid Certificate of Liability Insurance on file as well a current Demolition Contractor License from another Wyoming jurisdiction.  You must provide both in order to renew your license in Natrona County.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Electrical Contractor",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Electrical contractor's license - The right and privilege to contract for the installation of any electrical wiring within the county limits. An electrical contractor's license shall be granted upon presentation of a valid electrical contractor's license issued by the State Electrical Licensing Board, a copy of your current liability insurance, and upon payment of the licensing fee.  If you are a new electrical contractor to Natrona County you must be licensed with the State of Wyoming by the State Electrical Licensing Board and provide a copy such license. You must also provide a copy of your current liability insurance and a copy of your master of record to receive a Natrona County contractor license.  To renew your current electrical contractor license, you will need to make sure we have a current copy of your State Electrical License, a copy of your valid liability insurance and a copy of your master of record.",
+      "isEnabled": true
+    },
+    {
+      "id": "6590",
+      "name": "Limited Low Volt Electrical Contractor ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The right and privilege to contract for installation of limited electrical wiring withing the county.  Limited electrical wiring is defined in the State of Wyoming, Department of Fire Prevention and Electrical Safety Rules and Regulations, as amended, chapter VI.  A limited contractor’s license shall be granted upon presentation of a valid limited contractor’s license issued by the Wyoming State Electrical Licensing Board and the payment of fees.",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Contractors Limited Specialty",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "If you are a Limited Specialty Contractor - you should use this application  for Natrona County.  If you are a new contractor to Natrona County you must be licensed in another jurisdiction in the State of Wyoming to receive a new contractor license.  To renew your current contractors license you will need to make sure we have a current copy of your Certificate of Liability Insurance on file.",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Utility Contractor",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A person who may engage in the business of installing and repairing of water and sewer lines and the installation and repair of septic systems, and must have a licensed utility installer in full-time employment.  Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of another jurisdictions license, such as a license from the City of Casper, or any other comparable license from another Wyoming jurisdiction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6589",
+      "name": "Gas Utility Contractor",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Gas utility contractor - The right and privilege to conduct, carry on, or engage in the business of installation and service of gas appliances, except for water heaters and boilers, as defined by the International Mechanical Code and International Fuel Gas Code, latest editions. A license shall be issued to the applicant upon the payment of the license fee and proof of employment of a full-time gas utility installer;",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Mobile Home Contractor",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A person who may conduct, carry on or engage in the business of connecting, blocking, leveling, skirting and all other above ground requirements necessary to place a mobile home in authorized mobile home areas.  Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of another jurisdictions license, such as a license from the City of Casper, or any other comparable license from another Wyoming jurisdiction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Tower Erector Contractor",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "If you are a Tower Erector Contractor  - you should use this application  for Natrona County.  If you are a new contractor to Natrona County you must be licensed in another jurisdiction in the State of Wyoming to receive a Natrona County contractor license.  To renew your current contractors license you will need to make sure we have a current copy of your valid Certificate of Liability Insurance on file as well a current Tower Erector Contractor License from another Wyoming jurisdiction.  You must provide both in order to renew your license in Natrona County.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Roof Contractor",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A person who constructs, alters, repairs, or is engaged in the business of installation and repair of roofs for compensation, and for which a permit is required. Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of another jurisdictions license, such as a license from the City of Casper, or any other comparable license from another Wyoming jurisdiction. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Electrical Low Voltage Contractor ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Limited electrical contractor's license - The right and privilege to contract for installation of limited electrical wiring within the county limits.  A limited contractor's license shall be granted upon presentation of a valid limited contractor's license issued by the State Electrical Licensing Board, current liability insurance, a master of record and upon the payment of the licensing fee.  If you are a new limited electrical contractor to Natrona County you must be licensed with the State of Wyoming by the State Electrical Licensing Board and provide a copy such license. You must also provide a copy of your current liability insurance and a copy of your master of record to receive a Natrona County contractor license.  To renew your current electrical contractor license you will need to make sure we have a current copy of your State Electrical License, a copy of your valid liability insurance and a copy of your master of record. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "License Propane Gas Fitter",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Propane Gas Fitter - The right and privilege to conduct, carry on or engage in the business of the installation, alteration or repair of gas piping as an employee of a plumbing contractor or gas utility, or are a Propane supplier, or install propane freestanding tanks, installs outside yard lines to the regulator.  Absolutely no work beyond the regulator outside the structure, exterior work only. - you should use this application  for Natrona County.   To renew your current contractors license you will need to make sure we have a current copy of your Certificate of Liability Insurance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Mechanical Contractor",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A person who may conduct, carry on or engage in the business of heating, air conditioning, ventilation, refrigeration and associated sheet metal work, as identified by the Uniform Mechanical Code, latest edition, and must have a licensed master mechanical as a full-time employee.  Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of another jurisdictions license, such as a license from the City of Casper, or any other comparable license from another Wyoming jurisdiction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6583",
+      "name": "Sign Contractor",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "If you are a Sign Contractor - you should use this application  for Natrona County.  If you are a new contractor to Natrona County you must show 2 years work history  and /or qualifications, and a current Certificate of Liability Insurance to receive a new contractor license.  To renew your current contractors license you will need to make sure we have a current copy of your Certificate of Liability Insurance on file.\nThis license is restricted to the construction of signs, and does not in any way include any electrical scope of work.  Per the adopted 2021 IBC, including but not limited to 2021;IBC-3107  Signs shall be designed, constructed and maintained in accordance with this code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6593",
+      "name": "Limited Electrical Sign Contractor ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A person, licensed by the county to contract with another to plan, lay out and supervise the installation of signs or electrical signs and equipment associated with the type of limited electrical sign contractor license held. LM-S Electrical work for electric signs limited to electrical work on the load side of the equipment disconnect. Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of the State of Wyoming electrical license and current insurance.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6592",
+      "name": "Limited Mechanical Contractor",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "If you are a Limited Mechanical Contractor  - The right and privilege to conduct, carry on or engage in the business of the installation, alteration or repair of gas and/or solid fuel burning heating appliances. This license excludes any alterations to existing  electrical and gas piping.  A license shall be issued to the applicant upon the payment of the license fee, to Natrona County.   To renew your current contractor's license you will need to make sure we have a current copy of your valid Certificate of Liability Insurance on file with the Natrona County Building Department.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Plumbing Contractor",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A person who may conduct, carry on or engage in the business of plumbing, together with steam or hot water boiler installations, and must have a master plumber in full-time employment.  Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of another jurisdictions license, such as a license from the City of Casper, or any other comparable license from another Wyoming jurisdiction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "License Electrical Master  ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Electrician's license, master - The right and privilege to do any electrical wiring that may be required of a master electrician within the county limits and shall be a valid qualification for obtaining a contractor's license upon proper application and payment of fees. A master electrician's license shall be issued to the applicant upon presentation of a valid master electrician's license issued by the State Electrical Licensing Board and upon payment of the licensing fee. A master electrician shall be the master of record for only one contractor at a time. If you are a new master electrician to Natrona County you must be licensed with the State of Wyoming by the State Electrical Licensing Board and provide a copy such license to receive a Natrona County contractor license.  To renew your current electrical masters license you will need to make sure we have a current copy of your State Electrical License on file.    ",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "License Electrical Apprentice",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Electrician's license, apprentice - A licensed electrical contractor may employ registered apprentice electricians to assist master or journeyman electricians. Such apprentices shall be registered with the state and the county upon the payment of the licensing fee and shall work under the immediate supervision of a master or journeyman electrician. No contractor shall have more than two apprentices for each master or journeyman electrician. If you are a new apprentice electrician to Natrona County you must be licensed with the State of Wyoming by the State Electrical Licensing Board and provide a copy of such license to receive a Natrona County contractor license. To renew your current electrical apprentice license you will need to make sure we have a current copy of your State Electrical License on file.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Electrical Limited Tech ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Limited Technician is defined as a person licensed by the State who has 2 years (4,000 hours)\nexperience in the portion of the electrical wiring industry covered by his limited license and technical knowledge to install and supervise the installation of electrical equipment associated with the type of limited electrical license held in accordance with the National Electrical Code and city, county and state ordinances and regulations.  Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of the State of Wyoming electrical license.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "License Electrical Journeyman",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Electrician's license, journeyman - The right and privilege to do any electrical wiring that may be required of a journeyman electrician within the county limits. A journeyman's electrical license shall be issued to the applicant upon presentation of a valid journeyman electrician's license issued by the State Electrical Licensing Board and upon payment of the licensing fee. If you are a new journeyman electrician to Natrona County you must be licensed with the State of Wyoming by the State Electrical Licensing Board and provide a copy of such license to receive a Natrona County contractor license.  To renew your current electrical journeyman license you will need to make sure we have a current copy of your State Electrical License on file.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "License Plumbing Master ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The right and privilege to do any plumbing work that may be required of a master plumber within the county and shall be a valid qualification for obtaining a plumbing contractor's license. Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of another jurisdictions license, such as a license from the City of Casper, or any other comparable license from another Wyoming jurisdiction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "License Plumbing Journeyman",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The right and privilege to do any plumbing work that may be required of a journeyman plumber, as the employee of a plumbing contractor within the county. Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of another jurisdictions license, such as a license from the City of Casper, or any other comparable license from another Wyoming jurisdiction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "License Utility Installer",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The right and privilege to repair and install sewer and water lines from the building out. Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of another jurisdictions license, such as a license from the City of Casper, or any other comparable license from another Wyoming jurisdiction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "License Mechanical Master   ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The right and privilege to do any heating, venting, air conditioning and refrigeration work that may be required within the county and shall be a valid qualification for obtaining a mechanical contractor's license. Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of another jurisdictions license, such as a license from the City of Casper, or any other comparable license from another Wyoming jurisdiction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "License Mechanical Journeyman",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The right and privilege to do any heating, venting, refrigeration and air conditioning work that may be required of a mechanical journeyman within the county, as an employee of a mechanical contractor. Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of another jurisdictions license, such as a license from the City of Casper, or any other comparable license from another Wyoming jurisdiction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "License Mobile Home Installer",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The right and privilege to do plumbing, blocking, leveling and skirting work related to the outside of a mobile home. A mobile home installer's license will be issued upon the payment of license fees.  Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of another jurisdictions license, such as a license from the City of Casper, or any other comparable license from another Wyoming jurisdiction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "License Electrical Low Voltage Tech",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Low Voltage Technician is defined as a person licensed by the State who has 2 years (4,000 hours) experience in the portion of the electrical wiring industry covered by his/her low voltage license and technical knowledge to install and supervise the installation of electrical equipment associated with the type of low voltage electrical license held in accordance with the National Electrical Code and city, county and state ordinances and regulations. Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of the State of Wyoming electrical license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "License Electrical Low Voltage Apprentice",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Person hired as an apprentice to assist in the installation, repair, in the portion of the electrical wiring industry covered by his/her low voltage electrical license held in accordance with the National Electrical Code and city, county and state ordinances and regulations.  Such license shall be issued to the applicant upon the successful review by the department, and the payment of the license fee.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of the State of Wyoming electrical license.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "License Mechanical Apprentice",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The right and privilege to work as an apprentice for a mechanical contractor within the city; provided such work time is in the presence and under the instruction of a licensed master or journeyman. An apprentice license shall be issued to the mechanical contractor in the name of the applicant upon payment of the license fee. Such license shall be valid only for the term of their employment with that contractor. No mechanical contractor shall have more than one apprentice for each city licensed journeyman or master mechanical.  To apply for a new license or renew your current license you will need to make sure you provide a current copy of another jurisdictions license, such as a license from the City of Casper, or any other comparable license from another Wyoming jurisdiction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "License Plumbing Apprentice",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The right and privilege to work as an apprentice plumber for a plumbing contractor within the county. An apprentice plumber's license shall be issued, in the name of the applicant, to the plumbing contractor with whom they are employed. An apprentice license shall be issued to the plumbing contractor in the name of the applicant upon payment of the license fee. To apply for a new license or renew your current license you will need to make sure you provide a current copy of another jurisdictions license, such as a license from the City of Casper, or any other comparable license from another Wyoming jurisdiction.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong>Building and Inspection</strong></p><p style=\"text-align: center;\">&nbsp; &nbsp; <span style=\"color: rgb(41, 105, 176);\"><strong>What kind of permit are you looking for?</strong></span></p><p style=\"text-align: left;\"><span style=\"color: rgb(41, 105, 176);\"><strong><img class=\"fr-fic fr-dib\" style=\"width: 619px;\" src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/portal_1_Mon_Jan_06_2020_16:30:21_GMT+0000_(Coordinated_Universal_Time).png\"></"
+    },
+    {
+      "id": "1085",
+      "name": "Personnel",
+      "isEnabled": 1,
+      "content": "<p>Are you planning on doing any work in Natrona County as a contractor that requires a permit? If so you are required apply for a Natrona County Contractors license. All of your employees working in the field are required to be licensed with us also. If you are renewing an existing license, please reference your existing license number to avoid replacing your existing license number with a new number.</p><p><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Steps_to_Renew_C"
+    },
+    {
+      "id": "1091",
+      "name": "Fire Department - Fire Protection/Life Safety Permit Application",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Verdana, Geneva, sans-serif;\">Please apply for Fire Protection/Life Safety permits on the Natrona County Fire&#39;s Fire Protection/Life Safety Permit Website:</span></div><hr><div><a href=\"https://www.ncfpdpermits.com/\" style=\"display:inline-block; padding:10px 16px; background:#FF4621; color:#fff; text-decoration:none; border-radius:3px; font-weight:bold;border:0.5px solid #000;\" target=\"_blank\">&nbsp;Natrona County Fire Permits&nbsp;</a></div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:34.814Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

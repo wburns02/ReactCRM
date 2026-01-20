@@ -1,0 +1,112 @@
+{
+  "jurisdiction": "Northampton",
+  "state": "MA",
+  "tenant": "northamptonma",
+  "portalUrl": "https://northamptonma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006494",
+      "name": "Trench, Excavation and Markings Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "A Trench, Excavation and Markings (TEM) Permit is required for: (1) any excavation, in the City right-of-way or on private property, which meets the legal definition of a trench (see Code of Massachusetts Regulations Title 520); (2) any alteration to the City right-of-way, even if it does not meet the legal definition of a trench; or (3) City utility marks on either public or private property.\n\nIf an extension for an existing TEM permit is needed past the expiration date, please send an extension request to dpwinfo@northamptonma.gov\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006515",
+      "name": "Annual License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this application to apply for a new, or transfer of, a Common Victualler, Entertainment, Automatic Amusement Device, Lodging House, and/or Innholder license.  Please also use this application to renew your licenses during November and December.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006502",
+      "name": "ANR (Approval Not Required under the Subdivision Law)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This page contains the ANR (Approval Not Required under the Subdivision Law) application under the purview of the City of Northampton Planning Board.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006492",
+      "name": "Planning and Zoning Boards and Central Business Architecture Committee",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This page contains the applications for land use permit types under the purview of the City of Northampton Planning Board, Zoning Board of Appeals (Zoning Board for short), and Central Business Architecture Committee (CBAC).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006517",
+      "name": "Car Dealer License: Class I, II & III",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application should be used to apply for a new, or transfer of, a Class I, II, or III Car Dealer License. Please also use this application to renew your licenses during November and December.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006463",
+      "name": "Wetlands Permitting  ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This page contains the applications for wetlands permit types under the purview of the City of Northampton Conservation Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "Historic District Applications",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This page contains the applications for historic district permit types (Certificate of Appropriateness and Certificate of Non-Applicability) under the purview of the City of Northampton Historical Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006516",
+      "name": "License to sell at Farmers Markets & Agricultural Events",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Farmer winers (MGL c. 138, § 19B), farmer brewers (M.G.L. c. 138, § 19C), pub brewers (M.G.L. c. 138, § 19D), and farmer distillers (M.G.L. c. 138, § 19E) are allowed to apply for the issuance of a Farmer’s Market Permit for off-premise consumption at an indoor or outdoor agricultural event.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Liquor License: New, Transfer, or Amendment(s)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application should be used for applying for a new liquor license, transferring a liquor license, or making amendments to your current liquor license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006483",
+      "name": "Short-Term (1 day) Liquor License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application should be used to apply for a short-term (1 day) liquor license which is a temporary liquor license issued for the service of all alcohol or wine and malt and is required for any indoor or outdoor activity or enterprise.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1082",
+      "name": "Planning & Sustainability ",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Please use the application forms here for permits under the jurisdiction of the <strong>Planning Board, Zoning Board of Appeals, Central Business Architecture Committee, Conservation Commission (wetlands), and Historical Commission.</strong>&nbsp; The Office of Planning &amp; Sustainability support these public bodies and the applications.&nbsp;</span></p><div><span style=\"color: rgb(34, 34, 34); font-family: Arial, Helvetica, sans-serif;"
+    },
+    {
+      "id": "1079",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 24px; color: rgb(44, 130, 201); font-family: Arial, Helvetica, sans-serif;\">Public Works</span></p><div><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\">The Northampton Department of Public Works is charged with the oversight and administration of permits in the City of Northampton for all construction activities within the City&rsquo;s right-of-way and those associated with City utilities (drain, sewer and water) and for use of the City&rsquo;"
+    },
+    {
+      "id": "1080",
+      "name": "License Commission ",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 24px; color: rgb(44, 130, 201); font-family: Arial, Helvetica, sans-serif;\">License Commission</span></p><p dir=\"ltr\" style=\"line-height:1.38;margin-top:0pt;margin-bottom:0pt;\"><span style=\"font-size: 14px; font-family: Arial; color: rgb(0, 0, 0); background-color: transparent; font-weight: 400; font-style: normal; font-variant: normal; text-decoration: none; vertical-align: baseline; white-space: pre-wrap;\">The Northampton License Commission is a three-member advisory"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:02.289Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

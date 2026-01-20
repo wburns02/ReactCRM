@@ -1,0 +1,122 @@
+{
+  "jurisdiction": "Union County",
+  "state": "OH",
+  "tenant": "unioncountyoh",
+  "portalUrl": "https://unioncountyoh.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6508",
+      "name": "Residential Drive Access & Address Permit or Roadside Pipe Permit ",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "This permit is to obtain Residential Drive access and or an Address, or to replace or install a new Roadside Drive Pipe. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "Commercial Drive Access & Address Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Drive Access, Address & Civil Site Engineering Review for single lot Industrial Commercial projects. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Residential Building Permit Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Any residential project in the Union County jurisdiction which requires a permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Residential Express Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Residential projects in Union County that do not require plan review. This includes restoring electric power, replacing electric panels, installing whole house generators, replacing existing mechanical units (furnace, tankless hot water like-for-like replacements, HVAC), etc.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Residential Demolition Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Includes demolition for residential projects only. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Commercial and Multi-Family Plan Review Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Plan Review only for commercial & multi-family projects (excluding plumbing)",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Commercial Inspection Log",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "(Formally the CPA/ commercial permit application) Permit and inspection log application for Commercial and Multi-Family projects (excluding plumbing)",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Commercial Express Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Commercial projects in Union County which DO NOT require plan review. This includes restoring electric power, replacing electric panels, replacing existing mechanical units, shingle roof replacement, etc, and more. Call our office with questions 937-645-3018. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Certificate of Occupancy Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application for commercial certificate of occupancy (does not include any type of alteration to the building) ",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Commercial Demolition Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Includes demolition for commercial projects only. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": "Airport Hazard Zoning Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For projects located within a 2.5 mile radius of the Union County Airport ",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Sewer Tapper Registration",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Sewer tapper for work done within Union County but outside the City limits of Marysville ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1079",
+      "name": "Plan Approvals and Building Permits",
+      "isEnabled": 1,
+      "content": "<h3 style='box-sizing: border-box; color: rgb(51, 51, 51); font-family: \"Open Sans\", sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><span style=\"font-size: 30px;\"><u><span styl"
+    },
+    {
+      "id": "1072",
+      "name": "Engineering & Right-of-Way Permits ",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><br></div><h3 style='box-sizing: border-box; color: rgb(51, 51, 51); font-family: \"Open Sans\", sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:52.755Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

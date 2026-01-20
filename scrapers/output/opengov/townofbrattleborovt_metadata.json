@@ -1,0 +1,92 @@
+{
+  "jurisdiction": "Brattleboro",
+  "state": "VT",
+  "tenant": "townofbrattleborovt",
+  "portalUrl": "https://townofbrattleborovt.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6488",
+      "name": "Certified Birth or Death certificate",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Order and pay for certified copies of birth or death certificates.",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Business License/Entertainment License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This form should be filled out for businesses that are new to the Town of Brattleboro.  If you are renewing your license, please log in to your existing account by clicking on the \"Login\" link on the upper right.   Any questions about this form can be directed to assessors@brattleboro.gov or calling 802-251-8156",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Business Personal Property Fine",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "If you received a Notice of Fine for Failure to File Business Personal Property, please use this form to pay your fine online.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Non-Certified Birth or Death certificate Copy",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Order and pay for non-certified copies of birth or death certificates.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Marriage or Civil Union Certified copies",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Order and pay for certified of marriage or civil union licenses.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Marriage or Civil Union non-certified copies",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Order and pay for non-certified copies marriage or civil union licenses.   These copies are informational only and cannot be used for legal purposes.",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Dog License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Click here to license a new dog.  To renew a dog license, login to your OpenGov account: records up for renewal will appear in the actions needed section.  Call our office at 802-251-8157 for assistance using this portal.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Office of Assessment ",
+      "isEnabled": 1,
+      "content": "<p>Brattleboro requires all businesses doing business in Town to apply for a license. (See <a href=\"https://brattleboro.gov/code-of-ordinances\" rel=\"noopener noreferrer\" target=\"_blank\">Chapter 11</a> of the Code of Ordinances.) Businesses have 30 days from the date of opening to obtain a license. Licenses expire annually on March 15 and cost $100.</p><p>You may also apply for or renew your Entertainment license through this process. Entertainment licenses also renew annually on March 15. New or"
+    },
+    {
+      "id": "1081",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1086",
+      "name": "Town Manager's Office",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:31.207Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

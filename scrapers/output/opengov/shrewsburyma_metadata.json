@@ -1,0 +1,1191 @@
+{
+  "jurisdiction": "Shrewsbury",
+  "state": "MA",
+  "tenant": "shrewsburyma",
+  "portalUrl": "https://shrewsburyma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6828",
+      "name": "SELCO Underground Service Rebate",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "The SELCO Underground Service Rebate Program provides SELCO customers with an incentive for the conversion of aerial/overhead services to underground services. Please visit our webpage for more details, if you have not already. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6655",
+      "name": "Dog License Application",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "FOR NEW DOG LICENSE APPLICATIONS ONLY: Apply here for a Dog License from the Town of Shrewsbury. All dogs over 6 months old must be licensed each year. Licenses expire on December 31st of the calendar year.  Licenses that are not completed within 30 days of submittal will be discontinued and will need to be re-submitted.",
+      "isEnabled": true
+    },
+    {
+      "id": "6824",
+      "name": "DBA Business Certificate",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "Apply for a DBA Business Certificate. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6727",
+      "name": "Garage License Application",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This application is to be used for a Garage License. A Garage License is required for businesses seeking to repair vehicles on their premises. If you are also looking to sell vehicles, please complete also complete a Class I, II License Application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6789",
+      "name": "Pay As You Throw (PAYT) - Bag Quality Issues",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "This form is to record issues with your PAYT bag(s).",
+      "isEnabled": true
+    },
+    {
+      "id": "6838",
+      "name": "Food Waste Pilot Drop-Off Program Sign Up",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "This pilot program allows residents to compost around the clock and free of charge. The small scale of this pilot will allow DPW staff to closely monitor the bins and determine if program expansion is feasible. Due to the scale of this program, businesses and institutions are not able to participate.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6842",
+      "name": " New Age Composter Purchase",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Purchase request for New Age Composter.\nEach item is priced at $50 and the cost of the composters is partially subsidized by the Town of Shrewsbury's RDP Grant funds from MassDEP.  After the purchase the composters must be picked up at 100 Maple Ave, 2nd floor.",
+      "isEnabled": true
+    },
+    {
+      "id": "6672",
+      "name": "Trash & Recycling - Missed Pickup",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Please record your missed Trash pick up using this form. We will contact you within 24hr. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6700",
+      "name": "Plow Damage/Replacement",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "description": "File a request for any damage from Town plows pursuant to Select Board Operational Policy 24 – Mailbox Replacement.",
+      "isEnabled": true
+    },
+    {
+      "id": "6702",
+      "name": "Deceased Animals on Public Roads & Property",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "description": "Please provide as much information as possible. \n\nBefore/After hours and Holidays please contact the Town of Shrewsbury police dispatch line at (508)841-8577.",
+      "isEnabled": true
+    },
+    {
+      "id": "6801",
+      "name": "Public Buildings Work Request",
+      "categoryId": 1108,
+      "viewAccess": "public",
+      "description": "For INTERNAL USE ONLY! \nPlease use this form to submit Building Maintenance and Custodial support requests.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6676",
+      "name": "Abatement Request",
+      "categoryId": 1110,
+      "viewAccess": "public",
+      "description": "If you are submitting an abatement or credit request due to a detected leak or costs incurred for repair or replacement, proof of the issue and/or repair is required. Supporting documentation must be attached or will be requested as part of the review process.\n\nPlease allow up to 45 days for the department to review all abatement or credit requests. All accounts must be current and in good standing before an abatement or credit can be considered.\n\nBe advised that outstanding balances will continue to accrue interest daily if payment is not received by the bill due date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6685",
+      "name": "Signing Up, Creating a Profile & Accessing your Information",
+      "categoryId": 1111,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6337",
+      "name": "Street Opening/Trench Permit",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "description": "Use this record type for any excavation on private property, or in the Town's streets greater than 3-feet deep.",
+      "isEnabled": true
+    },
+    {
+      "id": "6574",
+      "name": "Stormwater Management Permit",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "Any construction activity (including clearing, grading, and excavation) that results in a land disturbance equal to or greater than 5,000 square feet must obtain a Stormwater Management Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6694",
+      "name": "Request a Mark Out / Dig Safe",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "description": "Please allow a minimum of 3 business days for the mark out to be completed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6683",
+      "name": "Conservation - Wetlands Application",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "description": "This application is for work adjacent to wetlands or riverfront areas.\nA Request for Determination of Applicability (RDA), Notice of Intent (NOI), or an Abbreviated Notice of Resource Area Delineation  (ANRAD) can be submitted to the Town of Shrewsbury using this application process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6812",
+      "name": "BODY ART: Establishment",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "A Body Art Establishment is a location, place, or business that has been granted a permit by the Board of Health where the practices of body art are performed such as but not limited to: tattooing, microblading, piercing, branding, or scarification.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6571",
+      "name": "Planning Board Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This is for the following application types: Site Plan, Site Plan Modification, Special Permits, Definitive Subdivision, ANR (Approval Not Required), De minimis change, and Field Change to a Site Plan.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Blasting Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Permit application for all controlled/construction blasting.",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "SELCO Work Request",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6557",
+      "name": "SELCO Residential EV Rebate",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6588",
+      "name": "Zoning Board of Appeals Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This is for the following application types through the Zoning Board of Appeals: Special Permits, Variances and Comprehensive Permits. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6808",
+      "name": "Address Change Request",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Request new or modified parcel, building, and/or unit address (NOT mailing address).\n\nApply under the existing PARCEL address. To find your parcel address, visit the GIS Map:\nhttps://gisportal-shrewsburyma.hub.arcgis.com/\n\nTo change your mailing address, visit the Assessors Department webpage, and click Resources then Forms and Applications.",
+      "isEnabled": true
+    },
+    {
+      "id": "6896",
+      "name": "DRAFT -  FOOD:  Departmental Temp Food Notification",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "For INTERNAL DEPARTMENT USE ONLY!\n\nIf any Town department will be hosting or organizing an event that involves food or food vendors, please complete this form. \n\nThis notification will assist the Health Department in identifying where the food is coming from, where it's being prepared and by whom. It will also be instrumental in vetting out any complaints that might arise and ensure proper food handling.\n\nPlease allow a minimum of two (2) weeks notice prior to any event.",
+      "isEnabled": true
+    },
+    {
+      "id": "6741",
+      "name": "Facilities Use Request",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "This form is a request to use Public School Buildings Facilities.",
+      "isEnabled": true
+    },
+    {
+      "id": "6844",
+      "name": "Food Scrap Countertop Bin",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Purchase request for Food Scrap Countertop Bin.\nEach item is priced at $10. After the purchase the Food Scrap Countertop Bin must be picked up at 100 Maple Ave, 2nd floor.",
+      "isEnabled": true
+    },
+    {
+      "id": "6891",
+      "name": "Request Tie Card / Service Connection / Mains Layout",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "description": "Request a tie card, day card drawing, or GIS layout of an existing water or sewer service connection to a building. (Not applicable to wells or septic systems)",
+      "isEnabled": true
+    },
+    {
+      "id": "6608",
+      "name": "Stormwater Utility - Petition for Adjustment",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "In the event that a property owner believes the Stormwater Utility Fee (STWF) is incorrect, the property owner may apply for an adjustment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6795",
+      "name": "300th Anniversary Celebration Donations",
+      "categoryId": 1112,
+      "viewAccess": "public",
+      "description": "This application form may be used to donate to support local celebrations in honor of the 300th Anniversary of the Town of Shrewsbury's incorporation in 2027. Your generous donations will help the Town create unforgettable events that honor our rich history, foster community spirit, and build connections among neighbors. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6803",
+      "name": "Final Read Request for Property Sale",
+      "categoryId": 1110,
+      "viewAccess": "public",
+      "description": "Please submit a request no less than five (5) business days prior to closing. \nTo be completed by Seller's Closing Attorney  or Listing Agent. \nThe Seller's Attorney or Listing Agent is obligated to notify the Town if the closing didn't go through or the closing date has been changed. All payments for final bills are due on the day of the closing. \n\nFor questions, please call the DPW Department at (508) 841-8502. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6701",
+      "name": "General Account Inquiry",
+      "categoryId": 1110,
+      "viewAccess": "public",
+      "description": "For general Account Inquiries such as bill reprints, Tax forms, Title 5 requests, balance requests and account concerns. Please allow 48 hours for requests to be received by staff and up to 7 business days depending on the ask for response. For any requests not listed please contact Department of Public Works  at 508-841-8502.",
+      "isEnabled": true
+    },
+    {
+      "id": "6893",
+      "name": "Senior Center Food Pantry Donations",
+      "categoryId": 1112,
+      "viewAccess": "public",
+      "description": "This application form may be used to donate to support the Shrewsbury Senior Center Food Pantry. Your generous donations will help feed seniors in need in our community.",
+      "isEnabled": true
+    },
+    {
+      "id": "6756",
+      "name": "Sanitary Sewer Overflow Workflow",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "INTERNAL USE ONLY. For reporting Sanitary Sewer Overflows during business hours, please call the Shrewsbury Department of Public Works at 508-841-8502 (Prompt #6). For weekends and after-hours, please call the Shrewsbury Fire Department at 508-841-8522 or Shrewsbury Police Department at 508-841-8577.",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Water - Permit Request",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "description": "A Highway - Street opening / Trench permit is required before applying for this permit!  You will be asked to provide this permit number within this application. \n\nUse this record type for any water service permit requests.  Examples are; New Service, Temp Service, Disconnect, Reconnect, Repair, Water Meter Etc.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6697",
+      "name": " Sidewalk Conditions",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "description": "Overgrown trees, shrubs, trip hazards or other obstructions to public ways.",
+      "isEnabled": true
+    },
+    {
+      "id": "6625",
+      "name": "Conservation - Request for Certificate of Compliance",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "description": "This application is to close out an Order of Conditions issued to a property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6673",
+      "name": "Yard Waste - Missed Pickup ",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Please record your missed yard waste collection by using this form. We will contact you within 24hr. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6835",
+      "name": "DBA Business Certificate Amendment or Discontinuance",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "Apply for an Amendment or Discontinuance of your DBA Business Certificate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6813",
+      "name": "BODY ART: Practitioner",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "In Massachusetts, a body art practitioner is a person who has a permit from the Board of Health to perform body art in a licensed establishment. Body art is defined as the practice of altering or adorning the body through tattooing, piercing, or other means. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6792",
+      "name": "Community Preservation Committee Eligibility Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Applicants must submit a Project Eligibility Form. This allows the CPC to provide initial feedback and guidance on whether the proposed project meets basic CPA requirements before the applicant is potentially invited to prepare the Project Funding Application. \n\nPlease coordinate your applications with the Planning and Economic Development Department - planning@shrewsburyma.gov or call 508-841-8512",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "SELCO Electrification & Efficiency Loan",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6559",
+      "name": "Dumpster Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Every dumpster, 6 yards or larger, is required to be registered with the Fire Department.  Open-top and plastic top containers are required to be placed a minimum of 10 feet from any portion of the building that is combustible construction. This includes the soffits of a block or brick building.",
+      "isEnabled": true
+    },
+    {
+      "id": "6578",
+      "name": "Building Permit - Residential",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, renovations, alterations, demolition and major repairs to existing one and two family buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6615",
+      "name": "SELCO Good Standing Letter",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6793",
+      "name": "Community Preservation Committee Funding Application ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "The CPC will be in contact with next steps including requests for more information and scheduling a public presentation meeting. If your project involves municipal property, state procurement laws apply. To learn more, visit the Community Preservation Coalition website at https://www.communitypreservation.org/procurement. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6735",
+      "name": "CAMPS: Recreational for Children",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Recreational camps have five (5) or more children and operate anytime between June 1 and September 30 and/or during school vacations.  The Department of Early Education and Care does not license these types of programs.\n\nIn Massachusetts, recreational camps for children must be inspected and licensed by the local board of health in the city or town where the camp is located; to be licensed, the camp must meet all regulatory standards established by the Massachusetts Department of Public Health (MDPH) and any additional local requirements.\n\nThe MDPH regulations establish minimum health, safety, sanitary, and housing standards to protect the well being of children who are in the care of recreational camps for children in Massachusetts.\n\nThe Town of Shrewsbury enforces 105 CMR 430.00: Minimum standards for recreational camps for children (State sanitary code, chapter IV) and can be found at the following link: https://www.mass.gov/regulations/105-CMR-43000-minimum-standards-for-recreational-camps-for-children-state-sanitary-code-chapter-iv\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6554",
+      "name": "Storm Drain Connection Request",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "A Street Opening/Trench Permit and Licensed Drain Layer is required before applying for this permit! You will be asked to provide this permit number within this application. \n\nUse this record type for any storm drain connection/repair to the Town drainage system.  Examples include tying in a foundation, yard drains, site drainage, or roof drains to a municipal catch basin.",
+      "isEnabled": true
+    },
+    {
+      "id": "6698",
+      "name": "Road Conditions",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "description": "Pot Holes, Snow and Ice hazards, manhole covers and other obstructions on public roadways.",
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "Sewer - Permit Request",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "description": "Use this record type for any Sewer service permit requests.  Examples are; New Service, Disconnect, Reconnect, Repair, Etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6776",
+      "name": "FOOD: Mobile Food Establishment (MFE) - ONLY",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This permit application type is for Mobile Food Vendors Only who are seeking either an annual permit (valid thru 12/31 of the year the permit was issued in) or a temporary permit (i.e. event that can be 1 to 14 consecutive days). \n\nPlease DO NOT use this permit application type if you are a food vendor that will be setting up a table. \n\nA Mobile Food Establishment (MFE) is a food service operation permitted under the Retail Food Code that is operated from a movable motor driven or propelled vehicle, portable structure that is able to change location. \n\nNote: If you wish to have your MFE in a permanent fixed location, please conact the Zoning Board of Appeals (ZBA), as you may be required to obtain a Variance or Special Permit. They can be reached at: 508-841-8512 or via email at: zbastaff@shrewsburyma.gov",
+      "isEnabled": true
+    },
+    {
+      "id": "6607",
+      "name": "Pre Application - Development Team Review",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Meeting Request Form to assist developers, residents and landowners in the pre-development stages of potential and proposed projects and those with questions relating to permitting processes, zoning compliance, engineering standards, and land use policy considerations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "SELCO Solar Interconnection Application & Work Request",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Fire Alarm System Repair",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Emergency repairs can be made without a permit, provided that oral notification is given to the Shrewsbury Fire Department *before* work begins and a permit application is submitted *within 24 hours* of beginning work. A commercial building permit is required for any installation or modification of existing systems. This permit can be obtained from the building inspection services department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Flammable Material Storage",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Permit application for annual or temporary storage of flammable and combustible materials *OR* for fuel tank trucks that will be parked in Shrewsbury overnight.",
+      "isEnabled": true
+    },
+    {
+      "id": "6562",
+      "name": "SELCO Commercial EV Charging Station Rebate",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6790",
+      "name": "FOOD: Temporary Food (ONLY for food vendors setting up a table)",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This permit application type is for Food Vendor participants who will be setting up at a table at a temporary food event (i.e. event that can be 1 to 14 consecutive days). \n\nPlease DO NOT use this permit application type if you are a Mobile Food Establishment (MFE). \n\nPlease be sure you have been accepted as a temporary food vendor table by the Event Organizer prior to applying for a temporary food permit with the Board of Health. \n\nDeadline to apply with the Board of Health is 2 weeks prior to your first vending date. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6871",
+      "name": "Hydrant Flow Test Request",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "description": "This is for the purpose of requesting a hydrant flow test.",
+      "isEnabled": true
+    },
+    {
+      "id": "6693",
+      "name": "Change of Mailing Address",
+      "categoryId": 1110,
+      "viewAccess": "public",
+      "description": "Please allow for 5 Business days for any changes to be reviewed by the department.\n\nProperty owners in the Town of Shrewsbury are responsible for their water and sewer utility bills and it is up to them to charge their tenants (if applicable) for usage as they deem necessary. Utility bills must remain in the property owner's name and cannot be transferred to a tenant. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6794",
+      "name": "FOOD: Brick and Mortar Establishments",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This application type is for all NEW brick & mortar establishments and EXISTING establishments that renew annually with the Town of Shrewsbury for:\n\nFOOD - retail, restaurants, catering, churches, schools (public and private)\n\nCONCESSION STANDS - seasonal \n\nBATHING BEACH SNACK SHACK - seasonal\n\nMILK and/or CREAM - retail and grocery stores\n\nFROZEN DESSERT and/or ICE CREAM MIX - retail and restaurants",
+      "isEnabled": true
+    },
+    {
+      "id": "6563",
+      "name": "SELCO Commercial Fleet EV Rebate",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6859",
+      "name": "Cryogenic Fluid Storage ",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Permit application for annual or temporary storage of cryogenic fluid.",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Hazardous Materials Processing",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Annual application for permit to process hazardous materials.",
+      "isEnabled": true
+    },
+    {
+      "id": "6833",
+      "name": "SELCO Commercial Heat Pump Rebate Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6775",
+      "name": "FOOD: Residential Kitchen / Cottage Food - ONLY",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Note: The Zoning Board of Appeals (ZBA) will determine if you reside in a zoning district that allows this use. If it's determined it is not an allowed use in your zoning district, you have the option of applying for a Special Permit to do so through the ZBA. Considerations include: providing supporting information: which section of the bylaw are you seeking relief from, what is the use of the structure, show a floor plan of the structure for each level of the property identifying the uses, hours of operation, number of employees customers coming to the home etc, show off street parking on site plan.\n\nMA Department of Public Health (MDPH) description: \nA Residential Kitchen is a kitchen in a private home. Most Residential Kitchens, including those in a private home where individuals are cooking for their family or for charitable purposes, like a bake sale, do not require a permit. Certain food-based activities in Residential Kitchens require a license or permit either as a Retail Residential Kitchen or as a Wholesale Residential Kitchen. If a Retail permit is required, the Residential Kitchen must comply with certain requirements in the Retail Food Code (105 CMR 590). If a wholesale license is required, the Residential Kitchen must comply with certain requirements in the regulations for Good Manufacturing Practices (105 CMR 500). \n\nhttps://www.mass.gov/regulations/105-CMR-59000-state-sanitary-code-chapter-x-minimum-sanitation-standards-for-food-establishments\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Driveway Permit",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "description": "Use this record type for any installation or replacement of a driveway that will involve work in the Public Way.  Driveways on private property only do not need a permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "Drain Layer's License & Water Service Installer",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "description": "Drain layers are registered plumbers, and competent contractors licensed by the Town of Shrewsbury, Massachusetts, and bonded to lay drains in the Town of Shrewsbury, Massachusetts.  You must be a State licensed contractor or plumber to apply. In addition to your application for a new license (or a renewal), you will also be required to submit a copy of a bond to cover water, sewer, or drainage work in the amount of $5,000.  You will also be required to provide a certificate of Insurance (no less than $1,000,000) for Public Liability and Property Damage.  New applicants must also provide three letters of recommendation.  The license, if issued, is good for one calendar year.  It is only valid within the confines of Shrewsbury Ma.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6862",
+      "name": "Road Conditions Copy",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Pot Holes, Snow and Ice hazards, manhole covers and other obstructions on public roadways.",
+      "isEnabled": true
+    },
+    {
+      "id": "6758",
+      "name": "FOOD:  Health Plan Review",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This application is to be completed for brand new food establishments coming into Shrewsbury, for existing food establishments that will be undergoing remodeling/renovations, or for a change of food service. Supporting documentation will be required as noted throughout the application process. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6551",
+      "name": "Hot Work",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Hot work is any activity or process that involves open flames or that generates sparks or heat and includes: Welding and allied processes; heat treating; grinding; thawing pipes; powder-driven fasteners; hot riveting; torch-applied roofing; and any similar applications producing or using sparks, flame or heat.",
+      "isEnabled": true
+    },
+    {
+      "id": "6579",
+      "name": "Building Permit - Commercial",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, renovations, alterations, partial and interior demolition and major repairs to all buildings other than one- and two-family buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6566",
+      "name": "SELCO Commercial Landscaping Equipment Rebate",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6605",
+      "name": "SELCO Streetlight Outage",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6732",
+      "name": "Funeral Director",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Morticians and funeral arrangers (also known as funeral directors or, historically, undertakers) plan the details of a funeral. They often prepare obituaries and arrange for pallbearers and clergy services. If a burial is chosen, they schedule the opening and closing of a grave with a representative of the cemetery.",
+      "isEnabled": true
+    },
+    {
+      "id": "6659",
+      "name": "Bulk Item Sticker Purchase ",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Only 'Pay As You Throw' residents qualify for Bulk pick up through this program.  \nIf you are not sure if you qualify call 508-841-8591. There is no refunds for unused stickers.\n\nOne sticker per item is required. \nEach Sticker is $12. \n\nPurchase can be made either In Store (with a physical Sticker) or here Online (with a digital sticker). \nIf purchased 'Online', please print the digital sticker and securely attach it to your item.\n\nAfter payment,  please call Casella  508-869-4077 to schedule curbside pick up.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6822",
+      "name": "Hotel / Motel",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This application type is for the purpose of permitting overnight cabins (hotels / motels). Renews January 1st of each year.",
+      "isEnabled": true
+    },
+    {
+      "id": "6731",
+      "name": "Alcohol License Application",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This application is to be used for all Retail Alcohol Licenses, including new applications, transfer applications, and amendments to existing licenses. \n\nIf your establishment has additional licenses such as a common victualler (service of food for seated consumption), entertainment, or billiards license, you can apply for those within this application as well. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6777",
+      "name": "Meter Installation/Replacement",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6766",
+      "name": "Residential Energy Storage System",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Required prior to the installation of an Energy Storage System (ESS) at any residential property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6845",
+      "name": "Commercial Energy Storage System",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Required prior to the installation of an Energy Storage System (ESS) at any commercial property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Test Copy - Zoning Board of Appeals Application ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This is a test application for internal use only. Please do not use.",
+      "isEnabled": true
+    },
+    {
+      "id": "6721",
+      "name": "Donation Bin Permit Application",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "Application for Donation Bin Permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6791",
+      "name": "MA Rental Voucher Program (MRVP): Housing Inspection & Certification of Fitness",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Massachusetts Rental Voucher Program (MRVP) application for housing inspection and certification of fitness for MA Rental Voucher Program in accordance with: 760 CMR 49.00",
+      "isEnabled": true
+    },
+    {
+      "id": "6814",
+      "name": "Mobile Home Park",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "In MA, a manufactured housing community, also known as a mobile home park, is a plot of land with at least three manufactured homes used for living:\n\nThe community includes any buildings, structures, fixtures, and equipment used with the manufactured homes.\n\nThe owner or occupant must have a license to use the land for a manufactured housing community.\n\nMobile home park tenants own their homes but rent the land underneath them. This gives them different rights and responsibilities than other tenants in a park.",
+      "isEnabled": true
+    },
+    {
+      "id": "6722",
+      "name": "Proclamation Request",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6744",
+      "name": "TEST Vacation Watch Request ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Inform the Shrewsbury Police Department of your vacation plans to request additional checks and to update your emergency contact information.",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Pool Permits - All (Residential and Commercial, for Above or In-ground)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "ABOVE/INGROUND POOL PERMIT APPLICATIONS ONLY.  Select this to apply for Above Ground or In-ground Pool Permit Applications.  Additional documents may be required (outlined in the process).  Review instructions before you start.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6561",
+      "name": "Miscellaneous Permit Application",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This application can be used for uncommon permit types, such as fireworks or black powder.",
+      "isEnabled": true
+    },
+    {
+      "id": "6719",
+      "name": "Class I, Class II License Application",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This application is to be used for Class I (New Car Dealer) and Class II (Used Car Dealer) Licenses.",
+      "isEnabled": true
+    },
+    {
+      "id": "6873",
+      "name": "POOL: Construction Plan Review",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This application type is for the construction of a new semi-public pool and/or SPA or a renovation. This is a comprehensive application that will include plans, and specifications, stamped and signed by a Massachusetts Registered Professional Engineer or Registered Architect, to the Shrewsbury Board of Health or its designated agent. The plans must demonstrate compliance with Massachusetts' State Sanitary Code, Chapter V: Minimum Standards for Swimming Pools (105 CMR 435.000). You will also need to follow local requirements, which may include but not limited to a certified plot plan, information on pools, and the associated plan review fee. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6752",
+      "name": "POOL: Semi-public Swimming Pool or SPA",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This application type is for a new Semi-public swimming pool, or SPA and for the renewal of existing Semi-public swimming pools and/or SPA located at apartments, condos, healthcare facilities, or recreation facilities only. The Town of Shrewsbury enforces the following: 105 CMR 435.00: MINIMUM STANDARDS FOR SWIMMING POOLS (STATE SANITARY CODE: CHAPTER V) \n\nAny waste water resulting from pool draining shall be dechlorinated prior to its discharging. No waste water resulting from draining or backwash water may be discharged into a storm drain. Waste water resulting from draining may be discharged to a subsurface disposal system if it is specifically designed for that purpose and approved by the appropriate agency. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6623",
+      "name": "rsNA: Recombinant or Synthetic Nucleic Acid molecules",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This license is required for any institution / facility performing rsNA work in the Town of Shrewsbury. \n\nrsNA refers to recombinant or synthetic nucleic acid molecules. These molecules are constructed outside of living cells by joining DNA or RNA segments to DNA or RNA molecules that can replicate within a living cell. They can also be chemically or otherwise synthesized.",
+      "isEnabled": true
+    },
+    {
+      "id": "6802",
+      "name": "Water - Permit Request Copy",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A Highway - Street opening / Trench permit is required before applying for this permit!  You will be asked to provide this permit number within this application. \n\nUse this record type for any water service permit requests.  Examples are; New Service, Temp Service, Disconnect, Reconnect, Repair, Water Meter Etc.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6695",
+      "name": "WATER - Service Work Order Request",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Use this request for water that is discolored, odorous, grainy in texture, low/no water pressure, and meter inquiries. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6707",
+      "name": "TEST: Public Records Requests",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6728",
+      "name": "BATHING BEACH: Sunset Beach",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Bathing beach means a beach or bathing area offered to the public for recreational bathing or swimming.\n\nBathing beach operator shall mean any person who. (a) alone or jointly or severally with others owns a bathing beach or. (b) has care, charge, or control of such bathing beach as agent or lessee of the owner or as an independent contractor.\n\nThis permit type renews when bathing beach season is open.",
+      "isEnabled": true
+    },
+    {
+      "id": "6586",
+      "name": "Tire Storage permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This application should be used for the storage of tires.",
+      "isEnabled": true
+    },
+    {
+      "id": "6580",
+      "name": "Certificate of Inspection ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "As part of the Town of Shrewsbury's Certificate of Inspection (COI) process, please be aware\nthat the 10th Edition of the Massachusetts State Building Code (780 CMR 110.7.1) includes\nupdated safety requirements. All commercial properties must now submit current\ndocumentation verifying compliance with applicable fire and life safety systems.\n\nRequired documentation includes (if applicable):\n- Fire Extinguishers: Latest inspection or invoice (NFPA 10)\n- Fire Sprinkler System: Latest test report (NFPA 25)\n- Standpipes: Latest test report (NFPA 14)\n- Fire Alarm & Life Safety System: Latest test report (NFPA 72)\n- Emergency Lighting: 90-minute battery backup test report (MA BC 1008.3.4)\n-Commercial Kitchen Suppression: Latest test report (NFPA 96)\n- Emergency Power Systems: Generator test report (NFPA 110)\n- Exterior Fire Escapes / Egress Components: 5-year certification (1001.2.2 Design\nprofessional or CSL holder)\n- Fire Doors & Dampers: Inspection report (NFPA 80)\nThese updates help ensure the safety of your employees, customers, and property. Please have\nall applicable reports ready when submitting your Certificate of Inspection application.\nFailure to comply with 780 CMR table 110 may result in a notice of violation and subsequent fines as follows:\n\nFirst Offense: $100 fine \nSecond Offense: $500 fine \nThird Offense: $1,000 fine \nSubsequent Violations: a $1,000 fine will be assessed per day until the violation is resolved.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "Oil burner and tank installation only, or installation plus removal ",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Permit Application for the Installation or Alteration of Fuel Oil Burning Equipment and the Storage of Fuel Oil",
+      "isEnabled": true
+    },
+    {
+      "id": "6729",
+      "name": "Tanning Salon ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "A tanning salon is an establishment that offers services for artificial tanning and skin beautification. Tanning salons offer artificial tanning services. Tanning salons usually specialize in one type of tanning; either UV-bed light tanning, or booth spray tan application.\n\nIMPORTANT: Please note that Massachusetts law prohibits anyone under the age of 18 from using or operating a tanning device as youths are more susceptible to skin damage. \n\nOnce a permit has been granted, it is valid until December 31st of the year it was issued in. This permit type renews each year for a January 1 effective date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6653",
+      "name": "Street Sign Request Form",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This is a request form for Street Signs in the Town of Shrewsbury pursuant to Select Board Operational Policy  6",
+      "isEnabled": true
+    },
+    {
+      "id": "6715",
+      "name": "License Application (Various License Types)",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This application may be used for various license types , including: Common Victualler, Dealer in Precious Metals, Annual Weekly Entertainment and Sunday Entertainment, Livery, Automatic Amusement, Billiards,  Bowling Alleys, Auctioneer, and Underground Fuel Storage Tank.",
+      "isEnabled": true
+    },
+    {
+      "id": "6736",
+      "name": "Street Light Request Form",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This is a request form for additional Street Lights in the Town of Shrewsbury",
+      "isEnabled": true
+    },
+    {
+      "id": "6800",
+      "name": "Edgemere Mobile Home Park - Monthly Invoice",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application is used for the purpose of generating a monthly invoice for the rental fee per unit from Edgeremere Mobile Home Park located on 151 Hartford Turnpike, Shrewsbury, MA 01545.\n\nManaged by PMI, Shrewsbury,  MA 01545\n\nRent rolls should be provided to the Town by the fifth day of each month as required by M.G.L. Chapter 140, Section 32G. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6724",
+      "name": "Title V: Abandonment / Decommissioning",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Abandonment or decommissioning is the process of closing down an on-site disposal system by making it inoperative (i.e. cesspool, septic system, etc.). You must be a licensed septic installer in the Town of Shrewsbury. Crush and backfill must be witnessed by the Town of Shrewsbury's Title V Agent. If pumping is required, the Health Department will require a copy of the pump record.",
+      "isEnabled": true
+    },
+    {
+      "id": "6723",
+      "name": "Title V: Inspection Report Filing",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "The State Title 5 Inspection Form  Filed with the Health Division.",
+      "isEnabled": true
+    },
+    {
+      "id": "6596",
+      "name": "Title V: Percolation Test",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "A percolation test is a procedure performed to review water drainage in different soils. It is important for many uses, such as when designing a leach field for a septic system, planning a building design, or considering agricultural use of the land. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6825",
+      "name": "Certificate of Inspection - Improvement",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application is used for Periodic Inspections of Existing Buildings per the Massachusetts State Building Code (Section 110.7 and Table 110)",
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Open Burn Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This permit is required before burning material outdoors. Before applying for a permit, please read the minimum requirements on the next screen. Burning is only allowed Jan 15th - May 1st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6711",
+      "name": "Vital Records Requests: Birth, Death, Marriage Certificates / Burial Permits",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Certified Copies of Marriage Certificates. Birth Certificates and Death Certificates. Funeral Homes may obtain Burial Permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6542",
+      "name": "Propane Tank (COMMERCIAL) Installation/Storage",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Permit Application for the Installation and/or Removal of Propane Tanks (both above ground and underground) or storage for use or sale. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6600",
+      "name": "Title V: Septic Hauler / Pumper ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Application to transport nightsoil waste in Shrewsbury and to discharge nightsoil waste at the treatment plant. This application can also be used to transport grease from both interior and exterior grease traps. \n\nOnce a permit has been granted, it is valid until December 31st of the year it was issued in. This permit type renews each year for a January 1 effective date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6598",
+      "name": "Title V: Septic Installer ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Septic installers put all the parts of the septic system in place, except for the plumbing inside of the dwelling. \n\nIf you are a new company applying or haven't renewed within the last two years with the Town of Shrewsbury, please upload three valid installer permits from other municipalities. \n\nOnce a permit has been granted, it is valid until December 31st of the year it was issued in. This permit type renews each year for a January 1 effective date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6565",
+      "name": "Propane Tank (RESIDENTIAL)  Installation/Storage",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Permit Application for the Installation and/or Removal of Propane Tanks (both above ground and underground)",
+      "isEnabled": true
+    },
+    {
+      "id": "6658",
+      "name": "Recycling Cart Purchase Request ",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "The Department of Public Works (DPW) offers 64-gallon size carts for recycling,  $75.00 per cart.\nCarts will be delivered to your property and you will be notified about the delivery date.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6691",
+      "name": "Kennel License Application",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Apply for a Kennel License (5+ dogs) from the Town of Shrewsbury. All dogs over 6 months old must be licensed. Licenses expire on December 31st each year. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6671",
+      "name": "One Day Alcohol License",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "Application for a One-Day Alcohol License. \n\nOne-day licenses are required for events that are advertised and/or open to the public.  Please note that a person can only obtain a total of 30 one-day licenses per location in one calendar year.  You may use this application to apply for a license during consecutive days in the same location.\n\nPlease note that if you plan to store alcohol before or after the event, a one-day license is needed for those days in addition to the day of the event. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6778",
+      "name": "TITLE V: System Pumping Record",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "A System Pumping Record must be submitted to the local Board of Health or other approving authority within fourteen (14) days from the pumping date in accordance with 310 CMR 15.351. Licensed septic pumpers can download the System Pumping Record (Form 4) by visiting the following link: https://www.mass.gov/doc/system-pumping-record-title-5/download",
+      "isEnabled": true
+    },
+    {
+      "id": "6675",
+      "name": "Mattress/Boxspring Drop Off  Request ",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Mattress/Boxspring must be dry and in reasonable shape. \nMust not be excessively dirty or rancid. \nUrine stains are recyclable, unless rancid.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6543",
+      "name": "Propane Tank: Temporary Usage",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Permit Application for the use of propane tanks that will NOT be 1) permanently installed or 2) removed from a permanent location.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Sign Permits ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "SIGN PERMITS ONLY.   Additional documents may be required (outlined in the process).  Review instructions before you start. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Real Estate Transfer (Smoke / CO Detector)",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Application for Certificate of Compliance for Smoke Detectors & Carbon Monoxide Alarms (M.G.L. Chapter 148, Sections 26F, 26F1/2",
+      "isEnabled": true
+    },
+    {
+      "id": "6757",
+      "name": "Title V: Septic Plan Review",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Whether you're building a new septic system or upgrading an existing one, there are Title 5 requirements that apply to new construction. \n\nPer the State's Title 5 Regulations, the Title 5 Agent has forty five (45) days to review from the receipt of a complete packet to include the fee.\n\n310 CMR 15.000: Title 5 of the State Environmental Code - https://www.mass.gov/doc/310-cmr-15000-title-5-of-the-state-environmental-code",
+      "isEnabled": true
+    },
+    {
+      "id": "6720",
+      "name": "One Day Common Victualler License",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "Application for a One Day Common Victualler License.  \n\nA common victualler license is required when an organization prepares food and sells it for on-site consumption to the public. If you are hosting a one-day event where food is being sold to the public and eaten at the same location (Ex. Barbeque, Annual Picnic, etc.) then you need to obtain a One Day Common Victualler License. You may also use this application to apply for a license during consecutive days in the same location.\n\nIf you are seeking to apply for a One Day Alcohol License, please use the One Day Alcohol License application. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6602",
+      "name": "Title V: Septic Repair/Replace Component(s) of an Existing On-site Sewage Disposal System",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This application is to repair/replace component(s) for an on-site sewage disposal system (example: distribution box)\n\nPlease complete and upload all applicable DEP forms: 1A / 2A / 3. DEP forms can be downloaded directly from their website at: https://www.mass.gov/lists/title-5-septic-system-forms\n\nAfter the repair/replacement has been made, please upload a copy of the sketch for the repair (if applicable) and a completed Certificate of Compliance.\n\nFee includes $125 for the inspection by Shrewsbury's Title V Agent and $100 for the Certificate of Compliance for a total of $225.",
+      "isEnabled": true
+    },
+    {
+      "id": "6353",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "PLUMBING PROJECTS ONLY. Select this to apply for a Plumbing permit for residential or commercial applications. Additional documents may be required (outlined in the process).  Failure to complete the request accurately may result in application denial and subsequent reapplication fees. We strongly encourage you to read all information on our website before you apply.",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Sprinkler System Repair",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Emergency repairs can be made without a permit, provided that oral notification is given to the Shrewsbury Fire Department *before* work begins and a permit application is submitted *within 24 hours* of beginning work. A commercial building permit is required for any installation or modification of existing systems. This permit can be obtained from the building inspection services department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6362",
+      "name": "Storage Tank Removal Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6734",
+      "name": "Tobacco Retailer",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Per the Shrewsbury Board of Health's Tobacco Retail Regulations, there is a cap of twenty (20) tobacco retailer permits. \n\nThere are no tobacco retailer permits at this time. If you wish to be placed on a waiting list, please contact the Health Department at 508-841-8384 and we can alert you if/when a license becomes available. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6889",
+      "name": "TESTING PURPOSES ONLY Kennel License Application Copy",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Apply for a Kennel License (5+ dogs) from the Town of Shrewsbury. All dogs over 6 months old must be licensed. Licenses expire on December 31st each year. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6349",
+      "name": "Gas Fitting Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "GAS FITTING PROJECTS ONLY. Select this to apply for a Gas Fitting permit for residential or commercial applications. Additional documents may be required (outlined in the process).  Failure to complete the request accurately may result in application denial, and subsequent reapplication fees. We strongly encourage you to read all information on our website before you apply.",
+      "isEnabled": true
+    },
+    {
+      "id": "6556",
+      "name": "BDA Installation Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This permit is required for the installation of any public safety radio enhancement system. At the conclusion of successful acceptance testing, an annually renewable permit shall be issued. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6560",
+      "name": "BDA Maintenance or Modification Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This annually renewable permit is required for the annual maintenance and testing of any public safety radio enhancement system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Town Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Town of Shrewsbury Building Inspector's Department will assume responsibility for all electrical permitting and inspections effective January 1, 2019. The online permitting portal and process will remain the same, but a revised fee schedule will apply (2019 permitting fees available at ShrewsburyMA.gov/electricpermits).",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1111",
+      "name": "How to...",
+      "isEnabled": 1,
+      "content": "<h2>&nbsp;</h2>"
+    },
+    {
+      "id": "1090",
+      "name": "Assessor",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important"
+    },
+    {
+      "id": "1071",
+      "name": " Building Inspection Services ",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\"><span style=\"color: rgb(0, 0, 0); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; d"
+    },
+    {
+      "id": "1102",
+      "name": "Conservation",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline"
+    },
+    {
+      "id": "1112",
+      "name": "Donations",
+      "isEnabled": 1,
+      "content": "<p dir=\"ltr\" style=\"line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt; text-align: justify;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">Donating money to support causes in your community is a powerful way to make a positive impact. Your financial contributions can help provide resources to those in need, support community initiatives,&nbsp;</span><span style=\"font-family: Arial,Helvetica,sans-serif;\">and create lasting change.</span></p><p dir=\"ltr\" style=\"line-height: 1.38; mar"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline"
+    },
+    {
+      "id": "1093",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: justify;\"><span style=\"color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;"
+    },
+    {
+      "id": "1105",
+      "name": "Highway",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\">This page lists all available online applications for the Highway Dept. eg: Driveway and Road Opening/Trench Permits. <br><br>If you do not find what you are looking for here, please feel free to call the Highway department on: <strong>(508) 841-8513</strong>, or visit us in person at the Town Hall 100 Maple Ave, Shrewsbury, MA.</span></p><p><span style=\"font-size: 14px;\"><span style=\"font-family: Arial,Helvetica,sans-s"
+    },
+    {
+      "id": "1091",
+      "name": "Planning and Economic Development",
+      "isEnabled": 1,
+      "content": "<p><u><em><strong><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\">It is strongly encouraged to contact the Planning Department prior to starting either application! Please call, 508-841-8512&nbsp;</span></strong></em></u></p><p style=\"line-height: normal;\"><span style=\"font-size: 14px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">Planning Board questions please email - &nbsp;<a href=\"mailto:planning@shrewsburyma.gov\" rel=\"noopener noreferrer\" target=\"_blank\">"
+    },
+    {
+      "id": "1108",
+      "name": "Public Buildings Division",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\">This is for <strong><span style=\"color: rgb(226, 80, 65);\"><u>internal</u></span> Town of Shrewsbury Use only</strong>.</span></div>"
+    },
+    {
+      "id": "1100",
+      "name": "Recreation",
+      "isEnabled": 1,
+      "content": "<div><strong><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\">Please Note:&nbsp;</span></strong><span style=\"font-size: 14px;\"><br><span style=\"font-family: Arial,Helvetica,sans-serif;\">Our online Boat Ramp Season Permits, Dean Park Pavilion Permits, Food Truck<br>Vendor Applications and Field Reservation Requests <strong>will be&nbsp;</strong><strong>moving to our new Recreation website in the New Year!</strong></span></span></div><div><span style=\"font-size: 14px;\"><sp"
+    },
+    {
+      "id": "1095",
+      "name": "Schools",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\">The following applications for Shrewsbury Public Schools are available online.</span></div>"
+    },
+    {
+      "id": "1083",
+      "name": " SELCO (Shrewsbury Electric & Cable Operations)",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"color: rgb(0, 0, 0); font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: n"
+    },
+    {
+      "id": "1098",
+      "name": "Select Board / Town Manager",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: justify;\"><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\">This page lists all available service requests for the Office of the Select Board and Town Manager. If you do not find the request type that you are looking for here, please call the <strong>Office of Select Board</strong> at <strong>508-841-8504</strong>, or the<strong>&nbsp;Office of the Town Manager</strong> at <strong>508-841-8508</strong>, or visit us in person at the Town Hall, 100 Map"
+    },
+    {
+      "id": "1103",
+      "name": "Stormwater",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: justify; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><span style=\"font-family: Arial, Helveti"
+    },
+    {
+      "id": "1096",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline"
+    },
+    {
+      "id": "1101",
+      "name": "Trash, Recycling, Yard & Bulk Waste",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline"
+    },
+    {
+      "id": "1110",
+      "name": "Utility Billing - ALL",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\">For general inquiries, please search our <a href=\"https://shrewsburymacitizens.munisselfservice.com/default.aspx\" rel=\"noopener noreferrer\" style=\"font-family: Arial, Helvetica, sans-serif;\" target=\"_blank\"><strong>Self Service Portal</strong></a> for Info on your current and historic billing information.<br><br>For Utility Billing requests, please select from the request options below: &nbsp;<br><em><span style=\"color:"
+    },
+    {
+      "id": "1104",
+      "name": "Water / Sewer",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 0); font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline"
+    },
+    {
+      "id": "1084",
+      "name": "TEST Department - Shrewsbury Use Only",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 36px; color: rgb(226, 80, 65);\">This department is for <u><strong>Shrewsbury Employees Only</strong></u> for Testing Purposes. Any applications submitted here will be deleted.</span></p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:04.083Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

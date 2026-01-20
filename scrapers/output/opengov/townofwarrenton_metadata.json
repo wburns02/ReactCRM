@@ -1,0 +1,296 @@
+{
+  "jurisdiction": "Town of Warrenton",
+  "state": "NC",
+  "tenant": "townofwarrenton",
+  "portalUrl": "https://townofwarrenton.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6525",
+      "name": "Local Board of Building Code Appeals ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "In accordance with § 36-105 of the Code of Virginia, there shall be established within each local building department a local board of building code appeals (LBBCA). Whenever a county or a municipality does not have such a LBBCA, the local governing body shall enter into an agreement with the local governing body of another county or municipality or with some other agency, or a state agency approved by DHCD for such appeals resulting therefrom. Fees may be levied by the local governing body in order to defray the cost of such appeals. In addition, as an authorization in this code, separate LBBCAs may be established to hear appeals of different enforcement areas such as electrical, plumbing or mechanical requirements. Each such LBBCA shall comply with the requirements of this section. The locality is responsible for maintaining a duly constituted LBBCA prepared to hear appeals within the time limits established in this section. The LBBCA shall meet as necessary to assure a duly constituted board, appoint officers as necessary, and receive such training on the code as may be appropriate or necessary from staff of the locality.",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Fire Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is for the display or sale of fireworks, open burn/blasting permits, mobile food preparation vehicles, canopies/tents requiring a fire permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Right-of-Way Use Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Any work within Town-owned property (roads, sidewalks, etc.) shall get prior approval with a Right-of-Way Use Permit prior to commencement. Please contact the Public Works Department at 540-347-1858 with any questions or concerns regarding Right-of-Way Permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Amusement Devices",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to apply for an amusement device permit. Permits are required for moon bounces, kiddie rides, roller coasters, etc. that are to be used on public property. These devices are required to be properly inspected once set-up by a Town inspector. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Bond Release, Reduction, or Extension Request",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is used to apply for a reduction, release, or extension of an approved bond held by the Town of Warrenton. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Building Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this permit application to apply for structural changes to your residence or commercial property. This includes sheds larger than 256 square feet, like for like change-outs of gas appliances, and remodeling basements or bathrooms. Please note: Like for like replacements of electrical appliances and cosmetic work (such as painting or replacing fixtures) do not require a permit. If you aren't sure if the work you are proposing requires a permit, please call the Community Development Department at 540-347-1101. We're happy to help!",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Certificate of Appropriateness",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A COA shall be obtained for any exterior alterations on a property located within the Warrenton Historic District.",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Land Disturbance Permit > 1 Acre",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to submit a Land Disturbance Permit (LDP) for projects with more than one (1) acre of disturbance (not a part of a common plan development) within the Town of Warrenton, except as exempted by Article IV - Site Conservation Manual of the Town of Warrenton Zoning Ordinance. For example, commercial and industrial uses, subdivisions, schools, and churches are included in this category. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Land Disturbance Permit < 1 Acre ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to submit a Land Disturbance Permit (LDP) for projects with more than two thousand (2,000) square feet and less than one (1) acre of disturbance (not a part of a common plan development) within the Town of Warrenton, except as exempted by Chapter 21 - Erosion and Stormwater Management Ordinance. For example, commercial and industrial uses, subdivisions, schools, and churches are included in this category.",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Land Disturbance Permit - Single Family Dwelling Agreement in Lieu",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to submit an “Agreement in Lieu” of an Erosion and Sediment Control (ESC) Plan for a detached single-family dwelling project with more than two thousand (2,000) square feet and less than ten thousand (10,000) square feet of disturbance within the Town of Warrenton, except as exempted by Chapter 21 - Erosion and Stormwater Management Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Legacy Land Disturbance Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Legacy Land Disturbance Permit Application for: Agreements in Lieu of an ESC Plan, Less than 1 Acre of Disturbance, and More than 1 Acre of Disturbance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Pre-Application Meeting Request",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This form can be submitted to provide guidance to applicants prior to the submission of a formal application. A pre-application meeting is required prior to submitting a Comprehensive Plan Amendment, Zoning Map Amendment (Rezoning), and a Special Use Permit application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Sign Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a sign permit, both permanent and temporary. Unless otherwise stated in the Zoning Ordinance (Article 6), all signs shall require a sign permit. Where applicable, signs in the Historic District shall receive approval by the Architectural Review Board (ARB) prior to issuance of a sign permit. A building permit may also be required in conjunction with a sign permit, depending on the sign type and installation method. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Special Use Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "No application shall be accepted and reviewed unless determined by the Planning Manager to be complete. Notification of acceptance or rejection of the application will be made within 15 calendar days of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Legislative Waiver or Variation/Exception",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for a legislative waiver to the Zoning Ordinance or a variation and exception to the Subdivision Ordinance.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Legacy Legislative Wavier or Variation/Exception Copy",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for a legislative waiver to the Zoning Ordinance or a variation and exception to the Subdivision Ordinance.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Preliminary Plat",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Any person proposing a subdivision of land under this Ordinance must submit to the\nPlanning Director a Preliminary Plat showing the general design and layout of the area\nproposed to be subdivided for plats involving more than fifty (50) lots. The landowner\nmay submit to the Planning Director a Preliminary Plat for fifty (50) or fewer lots for\ntentative approval, but this is not a requirement. The purpose of this is to enable the\nsubdivider to ascertain whether his plans are in accordance with the provisions of this\nOrdinance and to reduce deficiencies in final plat submissions and corresponding cost to\nreview those plats.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Board of Zoning Appeals Variance or Appeal",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for a variance or an appeal to the Board of Zoning Appeals per Articles 11-3.11 and 11-3.12 of the Zoning Ordinance \n\nThe Board of Zoning Appeals shall grant a variance if the applicant proves, by a preponderance of the evidence, that the strict application of the terms of the Ordinance would unreasonably restrict the utilization of the property or that the granting of the variance would alleviate a hardship due to the physical condition relating to the property or improvements thereon at the time of the effective date of the Ordinance.\n\nAn appeal to the Board of Zoning Appeals may be taken by any person aggrieved or by any officer, department, board, or bureau of the municipality affected by any decision of the Zoning Administrator or\nfrom any order, requirement, decision or determination made by any other administrative officer in the administration or enforcement of this article or any ordinance adopted pursuant thereto. Such appeal shall be made within thirty (30) days after the decision appealed from by filing with the Zoning Administrator, and with the Board, a notice of appeal specifying the grounds thereof.",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Legacy Board of Zoning Appeals Variance or Appeal",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for a variance or an appeal to the Board of Zoning Appeals per Articles 11-3.11 and 11-3.12 of the Zoning Ordinance \n\nThe Board of Zoning Appeals shall grant a variance if the applicant proves, by a preponderance of the evidence, that the strict application of the terms of the Ordinance would unreasonably restrict the utilization of the property or that the granting of the variance would alleviate a hardship due to the physical condition relating to the property or improvements thereon at the time of the effective date of the Ordinance.\n\nAn appeal to the Board of Zoning Appeals may be taken by any person aggrieved or by any officer, department, board, or bureau of the municipality affected by any decision of the Zoning Administrator or\nfrom any order, requirement, decision or determination made by any other administrative officer in the administration or enforcement of this article or any ordinance adopted pursuant thereto. Such appeal shall be made within thirty (30) days after the decision appealed from by filing with the Zoning Administrator, and with the Board, a notice of appeal specifying the grounds thereof.",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Site Development Plan",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to submit a site development plan or an amendment to an approved site development plan within the Town of Warrenton. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Boundary Line Adjustment",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This is for Boundary Line Adjustments to plats for recordation. Boundary adjustments are permitted under Article 2-14 of the Subdivision Ordinance as follows: \n\nThe sale and exchange of parcels between adjoining lot owners, and boundary\nadjustments, are permitted and can be approved by the Planning Director without review\nor approval by the Planning Commission or Town Council, subject to all of the following\nconditions:\na. The sale or exchange does not create an additional building lot, a public or private\nstreet, or any other public improvement.\nb. The sale or exchange does not leave a parcel that does not conform to the lot size\nrequirements of the zoning district in which the property is located.\nc. The applicant submits a duly executed survey of the property, in conformance with\nthe submission requirements for final plats set forth in this Ordinance and suitable\nfor recordation in the Circuit Court Clerk's office, with notation indicating the\namount of acreage exchanged and that no new building lot is created.\nd. The applicant submits a copy of the new deed for review and approval.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Administrative Plat",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application can be used to apply for a Recordation plat, Administrative plat, or Vacation plat. Any plat of record may be vacated in accordance with the provisions of § 15.2-2270, et\nseq., of the Code of Virginia, as amended.\n\nFor administrative Plats:\nThe Town Council authorizes the Subdivision Agent to permit the separation of one (1) parcel from a tract as it exists at the time of adoption of this Ordinance without complying with all requirements of this Ordinance if:\na. It is not in conflict with the general meaning and intent of this Ordinance.\nb. No new streets are required to serve the parcel or the residual tract,\nc. Neither the parcel nor the residual tract is less than provided in the Zoning Ordinance.\nd. Both lots meet the lot frontage and width requirements as provided in the Zoning ordinance",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Easement Plat",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Utilize the Easement Plat application for Town approval on any plat, prior to recordation, which is to grant one or more of the property rights (or easements) by the property owner to, or for the use by the public, a corporation, or another person or entity. Easements granted to the Town must utilize the Town's templated deed language, which is available upon request at LandDevelopment@WarrentonVA.gov.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Zoning Map Amendment",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "No application shall be accepted and reviewed unless determined by the Planning Manager to be complete. Notification of acceptance or rejection of the application will be made within 15 calendar days of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Commission Permit (§2232)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "No application shall be accepted and reviewed unless determined by the Planning Manager to be complete. Notification of acceptance or rejection of the application will be made within 15 calendar days of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Comprehensive Plan Amendment",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "No application shall be accepted and reviewed unless determined by the Planning Manager to be complete. Notification of acceptance or rejection of the application will be made within 15 calendar days of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6368",
+      "name": "Zoning Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Zoning Permits can be used to apply for Zoning Confirmation letters, Zoning Determination letters, Temporary Uses, New Addresses, Fences/Walls that are not for a pool, Sheds that are less than 256 Sq. ft, and other accessory structures that do not require a building permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Sketch/Concept Plan",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Zoning Ordinance Text Amendment",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application can be used to apply for a Text Amendment to the Town of Warrenton Zoning Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "As-Built",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Upon completion of all required improvements shown on the approved site development plan or subdivision construction plan, the owner or applicant shall submit to the Town of Warrenton completed as-built plans. As-built plans shall be reviewed and approved by the Public Utilities Director and Planning Director for conformity with the approved site plan and the ordinances and regulations of the Town of Warrenton and state agencies. Final approval of as-built plans shall be required before the final release of applicable bonds.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Subdivision Ordinance Text Amendment",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application can be used to apply for a Text Amendment to the Town of Warrenton Subdivision Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Administrative Waiver",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application can be used to apply for an Administrative Waiver to the Town of Warrenton Zoning and Subdivision Ordinance when permitted.",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Legacy Administrative Waiver",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application can be used to apply for an Administrative Waiver to the Town of Warrenton Zoning and Subdivision Ordinance when permitted.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Final Plat",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Final Plat applications are required as outlined under Articles 3-9 through 3-14 of the Subdivision Ordinance. Applications for a Final Plat must adhere to the regulations set forth within the Town of Warrenton Subdivision Ordinance. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1081",
+      "name": "Public Works & Public Utilities",
+      "isEnabled": 1
+    },
+    {
+      "id": "1076",
+      "name": "Community Development",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:50.886Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

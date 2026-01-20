@@ -1,0 +1,153 @@
+{
+  "jurisdiction": "Coventry",
+  "state": "RI",
+  "tenant": "coventryri",
+  "portalUrl": "https://coventryri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6395",
+      "name": "Dog License  ",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Apply for a dog license from the Town of Coventry",
+      "isEnabled": true
+    },
+    {
+      "id": "6332",
+      "name": "Building Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a building permit from the Town of Coventry, and (if applicable) apply for a related Fire Plan Review \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6388",
+      "name": "Residential Smoke & Carbon Monoxide",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6408",
+      "name": "Zoning Board of Review Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Dimensional Variance, Use Variance, Modification to be Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6409",
+      "name": "Planning Application V1.0",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Subdivision & Land Development Applications",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "NEW Life Safety Inspection",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Click here to submit your request for an inspection from the local Fire Marshal (related to business licenses or construction rough/final)",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit from the Town of Coventry, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit from the Town of Coventry, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6389",
+      "name": "Tent/Event Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the Town of Coventry, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6384",
+      "name": "Well Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Well  permit from the Town of Coventry.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6382",
+      "name": "Water Filtration Permit Residential",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Water Filtration permit from the Town of Coventry. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a demolition permit from the Town of Coventry.",
+      "isEnabled": true
+    },
+    {
+      "id": "6361",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the Town of Coventry.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": "<p>Apply for dog license here.</p><p>Additional services coming soon.</p>"
+    },
+    {
+      "id": "1072",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p>Submit one form to apply for permits (including Fire Plan Review, if applicable).</p>"
+    },
+    {
+      "id": "1071",
+      "name": "Fire Marshal",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 18px; color: rgb(184, 49, 47);\"><a href=\"https://data.nereval.com/SearchInfo.aspx?town=Coventry\" target=\"_blank\"></a></span></p><p><strong><span style=\"font-size: 18px;\">Fire Districts and Property Information</span></strong> - The fire district for each property is given on the property record card, along with the fire district collector&rsquo;s phone number. &nbsp;This district information is on the lower right with the land information. &nbsp;Property record cards c"
+    },
+    {
+      "id": "1083",
+      "name": "Zoning Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1089",
+      "name": "Planning & Development",
+      "isEnabled": 1,
+      "content": "<div style='box-sizing: border-box; font-family: \"DM Sans\"; font-style: normal; font-weight: 400; color: rgb(33, 37, 41); font-size: 16px; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-co"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:16.586Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

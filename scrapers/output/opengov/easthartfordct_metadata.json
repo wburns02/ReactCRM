@@ -1,0 +1,301 @@
+{
+  "jurisdiction": "East Hartford",
+  "state": "CT",
+  "tenant": "easthartfordct",
+  "portalUrl": "https://easthartfordct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006495",
+      "name": "Planning and Zoning Bond Submission ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This application is only for the purpose of submitting a Planning and Zoning bond or requesting release of a Planning and Zoning Bond.  All other bond submission or release requests should be directed to the appropriate department. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006511",
+      "name": "Social Services Donations",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "This form is to allow you to donate to different Social Services programs. With so many needy in the town every dollar counts. Thanks you.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006502",
+      "name": "Submittals",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "Submittal of shop drawings by contractor; review by CEI and Engineer with Town oversight; reporting to contractor of submittal status and, ultimately, approval.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Certified Payroll",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "Submission of monthly certified payroll records.  Does not generate an approval report.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Materials Certificate",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "To submit materials certificates.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006505",
+      "name": "Subcontractor Approval",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "The Town of East Hartford, Department of Public Works, Engineering Division is responsible for review and approval of requests to sublet work (also referred to as subcontracting approvals) for the Brewer Street Reconstruction Project. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006506",
+      "name": "Requests (RFI/RFC)",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "To submit requests for infomation or requests for changes.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006474",
+      "name": "License Application",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Licensing with the Department of Public Works, Engineering Division allows the licensed company to apply for a permit to work on Town property (any street, sidewalk or public place).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006475",
+      "name": "Permit Application",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Licensed contractors must submit a permit application for authorization to complete work on Town right-of-way or Town properties.  In addition, companies holding a written contract with the Town need to apply for a permit (license not required in this case).  For obstruction type activities, use this form.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006525",
+      "name": "Planning & Zoning Commission Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This form should be used for applicants seeking approval from the East Hartford Planning & Zoning Commission. Requests for Site Plan, Special Permit, Subdivision, Text Amendments or Zone Changes should all be submitted using this form. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006350",
+      "name": "EH Public Swimming Pool Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for permit to operate a public swimming pool. Swimming Pool licenses are renewable annually and expire on June 30th.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006425",
+      "name": "EH Food Establishment Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Use this form to apply for an annual foodservice permit for the following establishment types: Restaurant, Grocery/Convenience Store, Deli, and Caterer.  Please include as much information as possible including uploading menus, floor plans/diagrams, CFPM certificates, etc. as applicable.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006530",
+      "name": "Road Obstruction Application",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Individuals and companies can apply for obstructions of the Town right-of-way or Town properties.  This is typically a dumpster that has to be placed in the ROW for home improvement or cleanup.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Driveway Widening/Expansion Request",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "If a driveway replacement will expand (lengthen or widen) the driveway, review by the Engineering Division and the Zoning Enforcement Officer is required.  There is no fee for this review.  Owners can submit an application before they retain a contractor.  Alternately, contractors can submit on behalf of the owner.  This review is required even in cases where the expanded driveway will be entirely located on private property (not in the Town's right-of-way).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006489",
+      "name": "EH Itinerant Food Vendor Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Use this form to apply for Food Truck/Itinerant Food Vending Establishment (IFVE) permits.  This is an application for an Itinerant Food Service Permit ONLY and does not eliminate the need \nfor other approvals needed within the communities where you prepare and serve food.   Menus must be provided along with this application and fee.\n Arrangements for inspection of all vehicles must be made with the Health Department prior to the issuance of any License or Permit to serve food. Each vehicle must be inspected and must have its own Permit:  you must submit a separate application and fee for each vehicle.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006427",
+      "name": "Building Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Application to perform any construction such as new buildings, additions and alterations.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006490",
+      "name": "EH Temporary Food Vendor Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Use this form to apply for a Temporary Food Service Permit.  \n\nMenus must be provided along with this application and fee.\n\nCT Public Health Code Section 19-13-B42(a)(14) states: \"Temporary food service establishment\" means a food service establishment that operates at a fixed location for a temporary period of time, not to exceed two (2) weeks, in connection with a carnival, circus, public exhibition, festival, celebration, or similar transitory gathering.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006535",
+      "name": "Inland Wetlands Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This permit should be utilized for all activity requiring Inland Wetlands Commission approval and Inland Wetlands Agent approval. This application may also be utilized to apply for a Declaratory Ruling for 'By-Right' Activities.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "Sign Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This permit is for Permanent Sign Approval prior to a Building or Electrical Permit. Temporary Signs such as banners or A-Frame Signs should be applied for using the Temporary Sign Permit in the Building and Inspections Department. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006522",
+      "name": "Roofing, Windows, and Siding Permit - Residential 1&2 Family",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Application to perform roofing, windows and siding and facade work for one- and two-family dwellings or their accessory buildings (IRC structures). ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006488",
+      "name": "EH Itinerant Food Vendor Reciprocal License Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "To be filled out by itinerant food vending establishments wishing to participate in the reciprocity program. \n See this link for information regarding license reciprocity to determine if you are eligible: \n\nhttps://portal.ct.gov/DPH/Food-Protection-Program/Itinerant-Food-Vendors\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006528",
+      "name": "Demolition Permit ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Application to perform any demolition of structures.  Please submit your letter of intent to demolish as soon as possible as this will start the 60 day waiting period for structures older than 50 years of age.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006428",
+      "name": "Electrical Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006534",
+      "name": "Solar - Residential 1&2 Family (and SolarAPP+) ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This Permit should be utilized for all 1 & 2 Family Residential Solar Applications. Contractors may use this application for all solar applications including those made through SolarApp+ for any 1 &2 family residential (IRC) structures as well. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006429",
+      "name": "Plumbing Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006454",
+      "name": "EH Salon & Barbershop Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006430",
+      "name": "Mechanical Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006514",
+      "name": "Zoning Permit ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "A Zoning Permit for separate activities regulated by the Zoning Regulations which do not require a Building Permit such as construction of small accessory structures such as sheds, commercial tenant fit-ups or changes of use, work within the flood Hazard Zone and excavation or addition of earth, sand, stone, soil any other earth products onto a property. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006470",
+      "name": "Zoning Compliance Letter",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "A request for Zoning Compliance Letter may require the property owner to schedule a Zoning Compliance Inspection of the property. Requests will be processed in a timely manner, but may take 1-3 weeks to inspect and review. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006515",
+      "name": "Portable Sign and Temporary Signs",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Permit for Portable and Temporary Business Signs such as A-Frames Signs and Banners. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006517",
+      "name": "Zoning Board of Appeals (ZBA)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Applications for Zoning Board of Appeals including Variances of the Zoning Regulations and Appeals of the Zoning Enforcement Officer.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006486",
+      "name": "PM - Rental Dwelling Inspection",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Inspections of rental dwelling units as required by EH Property Maintenance Code section 104.7. These inspections must be requested by the owner when a tenant moves out and before a new tenant moves in.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1090",
+      "name": "Brewer Street Reconstruction Project",
+      "isEnabled": 1,
+      "content": "<p>Brewer Street Reconstruction</p><p>Projects 42-318/L042-0001</p><p>Main Street to Jefferson Lane</p>"
+    },
+    {
+      "id": "1081",
+      "name": "Department of Inspections & Permits",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(184, 49, 47);\"><u><strong><span style=\"font-size: 24px;\">Please be Aware:</span></strong></u></span></p><p><span style=\"font-size: 18px;\"><span style=\"color: rgb(184, 49, 47);\">1&amp;2 Family <strong>S</strong><strong>OLAR APPLICATIONS</strong> and <strong>SOLARAPP+ Applications</strong> should utilize the <strong><u>NEW Solar - Residential 1&amp;2 Family (and SolarAPP+) Permit</u></strong> below. &nbsp;All commercial and 3+ family residential solar permits should util"
+    },
+    {
+      "id": "1082",
+      "name": "Development & Planning",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 24px;\">Welcome to East Hartford&#39;s Development &amp; Planning Application Portal</span></strong></p><p style=\"text-align: left;\"><br></p><p style=\"text-align: left;\">It is recommended to consult the Town Planner prior to submitting an application for the Planning and Zoning Commission.<em>&nbsp;</em></p><p style=\"text-align: left;\"><strong><span style=\"font-size: 18px;\">Resources:&nbsp;</span></strong></p><ul><li style=\"font-size:"
+    },
+    {
+      "id": "1089",
+      "name": "Engineering",
+      "isEnabled": 1,
+      "content": "<header style='box-sizing: border-box; margin: 0px 0px 0.75rem; padding: 0px 1.5rem; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-weight: 400; font-stretch: inherit; line-height: inherit; font-family: \"Helvetica Neue\", Helvetica, Helvetica, Arial, sans-serif; font-size: 16px; vertical-align: baseline; display: block; color: rgb(68, 68, 68); letter-spacing: normal; orphans: 2; text"
+    },
+    {
+      "id": "1073",
+      "name": "Health  ",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1088",
+      "name": "Social Services",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:51.915Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

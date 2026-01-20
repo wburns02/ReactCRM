@@ -1,0 +1,406 @@
+{
+  "jurisdiction": "Stuart",
+  "state": "FL",
+  "tenant": "stuartfl",
+  "portalUrl": "https://stuartfl.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6436",
+      "name": "Business Tax Receipt",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This is the link for any NEW business applications. If you have an existing business you want to make changes to, or close your business, please select the appropriate link.",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Special Event Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Apply to hold a special event in the city limits of Stuart.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Banner Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Apply to place banners on City property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Police Golf Cart Registration",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "Police Off-Duty Detail",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Grease Discharge Certificate ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Annual grease trap/interceptor inspection",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Backflow Certificate of Completion",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Backflow inspections are done annually. This is the link to register for your annual inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "False Alarm Responses",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "Form for recording false alarm responses, to the point of excessive.",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Cemetery Contract",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Food Truck Registration",
+      "categoryId": 1099,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Alarm Registration",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Police Parking Citation",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Building Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6567",
+      "name": "Change of Use/Occupancy Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Change or Use or Occupancy Permit is necessary when a building's use or occupancy classification is altered. This can include various scenarios, such as converting a residential property into a commercial space or changing the type of business operating within a building. The Florida Building Code mandates that any change in occupancy must comply with the current edition of the Florida Building Code (FBC) and Zoning Regulations. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Business Tax Receipt - Out of State Insurance Companies",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This is the link for Out of State Insurance Companies ONLY. If you have an existing business you want to make changes to, or close your business, please select the appropriate link.",
+      "isEnabled": true
+    },
+    {
+      "id": "6542",
+      "name": "Administrative Variance",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6559",
+      "name": "Land Development Code Text Amendment (LDC) Applicaiton ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "A proposal to amend the text of the LDC, including changes to the actual list of permitted, conditional or prohibited uses within a zoning category may be initiated by the city of by the owner of land affected by the proposed amendment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Police Public Records ",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "Lien Search Request",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The lien search will be conducted with the specific owner(s) name and property address that you provided.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Stuart Fire Safety Inspection",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for Fire Inspections including, but not limited to, Foster Care, Group Home, Daycare, Assisted Living, Residential Care, and ABC Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6570",
+      "name": "Special Event Inspections",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Inspections related to special events such as tents, fire department access and lifesafety.",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Variance Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Minor Development Site Plan",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "A minor development plan is one which is:\n1. A single-family, multi-family or duplex residential project of between three and 35 units, inclusive.\n2. A non-residential development under 50,000 square feet in area.\n3. A mixed-use development under 50,000 square feet in area.\n4. A public or private institutional development less than one acre in land area.\n5. Commercial tenant finishes (i.e. interior/exterior tenant buildout improvements)\n6. Right-of-way dedication.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Contractor Registration",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "IMPORTANT LICENSING UPDATE - EFFECTIVE JULY 1, 2025\nEffective July 1, 2025, the City of Stuart will no longer accept Certificate of Competency as a valid form of licensure for contractors.  Under Florida Statute 489.117, all contractors (as defined in FS 489.105(3)(a)-(o) must be State Registered or State Certified to operate legally in Florida.\nIf you're currently using Certificate of Competency issued by Martin County to perform/contract work, you will need to take action to comply with state requirements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Business - Closing Request",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "This is the link to CLOSE an existing business.",
+      "isEnabled": true
+    },
+    {
+      "id": "6556",
+      "name": "Major Development Site Plan ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "A minor development plan is one which is:\n1. A single-family, multi-family or duplex residential project of between three and 35 units, inclusive.\n2. A non-residential development under 50,000 square feet in area.\n3. A mixed-use development under 50,000 square feet in area.\n4. A public or private institutional development less than one acre in land area.\n5. Commercial tenant finishes (i.e. interior/exterior tenant buildout improvements)\n6. Right-of-way dedication.",
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "Annexation Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Refer to the City's Land Development Code Section 11.01.12. and must be consistent with F.S. ch. 171",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Historical Building Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Owner/Builders & Contractors - please choose this option",
+      "isEnabled": true
+    },
+    {
+      "id": "6554",
+      "name": "Major Urban Code Conditional Use Application ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Major Urban Code conditional use shall be required for relief from the following regulations of the Urban Code; density, permitted uses, setbacks, location of parking, location of buildings and structures, conflicts with utilities, curb cuts, historic buildings, pitched roofs in the Old Downtown District, number of stories, building height not to exceed 45 feet, parking located within a building envelope, location of a formula business, and architectural requirements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6573",
+      "name": "East Stuart Code Conditional Use Application  ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "A major conditional use approval is a specific authorization granted by the city commission to permit certain uses of property, which are unique due to the nature of the use, size, location, or various characteristics particular to the zoning district. The issuance of a major conditional use approval is required for the use or occupancy of a structure specifically designated as a conditional use in the \"zone district\" chapter of this Code and is subject to the limitations and conditions specified therein. A major conditional use approval application may not be filed if the city commission has denied an application for a conditional use for the subject property within the previous two years. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6565",
+      "name": "Mural Minor Conditional Use Permit Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Major Urban Code conditional use shall be required for relief from the following regulations of the Urban Code; density, permitted uses, setbacks, location of parking, location of buildings and structures, conflicts with utilities, curb cuts, historic buildings, pitched roofs in the Old Downtown District, number of stories, building height not to exceed 45 feet, parking located within a building envelope, location of a formula business, and architectural requirements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6555",
+      "name": "Major Planned Unit Development Amendment Applicaiton ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Major Planned Unit Development Amendment - Any major amendment to a previously adopted planned unit development zoning ordinance, including conditions, agreements, covenants, maps, and illustrations shall be processed as if the proposed amendment is a new rezoning application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6557",
+      "name": "Rezone to Urban Planned Unit Development (UPUD) Application ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "LDC Section 11.01.09. Rezoning map change application including Planned Unit Development (PUD) ",
+      "isEnabled": true
+    },
+    {
+      "id": "6561",
+      "name": "Rezone to Commercial Planned Unit Development (CPUD) Application ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "LDC Section 11.01.09. Rezoning map change application including Planned Unit Development (PUD) ",
+      "isEnabled": true
+    },
+    {
+      "id": "6569",
+      "name": "Rezone to Industrial Planned Unit Development (IPUD) Application  ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "LDC Section 2.07.00.G. Industrial Planned Unit Development (IPUD) A IPUD may be located anywhere in the city where the area is defined and described \"industrial\" or \"marine/industrial\" by the future land use element of the City of Stuart's comprehensive plan and which is of suitable character and compatible with surrounding uses as determined by the city commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6560",
+      "name": "Small-Scale Comprehensive Plan Amendment Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "LDC Section 11.01.07. \"Small-scale\" Comprehensive Plan Amendment. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6551",
+      "name": "1-COP/2-COP Admin Conditional Zoning Application ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "A zoning approval for a 1-COP or 2-COP alcoholic beverage license in the Old Downtown District per Code of Ordinance, Section 4-3.",
+      "isEnabled": true
+    },
+    {
+      "id": "6541",
+      "name": "Plat Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Plat or Replat means a map or delineated representation of the subdivision of lands, being a complete exact representation of the subdivision and other information in compliance with the requirement of Chapter 177 of the Florida Statutes and of any local ordinances.",
+      "isEnabled": true
+    },
+    {
+      "id": "6537",
+      "name": "Zoning Determination Letter Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "A Zoning Determination Letter is a drafted by the Planning/Zoning Planning Department confirming the zoning designation within the city limits. This type of letter is useful when trying to ascertain what uses can be placed on a property as well as the property's setbacks, height limitations, density, minimum lot sizes and other related information.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Pre-Application Meeting Request",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "A pre-application meeting is mandatory for all applicants intending to submit a development proposal. It is a forum in which the applicant and the review staff can discuss issues related to the project concept.\n\nThe purpose of the application should be to communicate to the reviewing staff, the decision-makers, and the public what is being proposed and how the proposal meets and complies with the City’s Comprehensive Plan and the Land Development Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "Executive Development Order - State of Emergency",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "The declaration of a state of emergency issued by the Governor for a natural emergency tolls the period remaining to exercise the rights under a permit or other authorization for the duration of the emergency declaration. Further, the emergency declaration extends the period remaining to exercise the rights under a permit or other authorization for 24 months in addition to the tolled period. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1094",
+      "name": "Pay Your Utility Bill, Rent, Outdoor Seating, and Retiree Insurance",
+      "isEnabled": 1,
+      "content": "<p><a href=\"https://ipn2.paymentus.com/cp/stuf\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"font-size: 30px;\">Pay your Utility Bill (click this link) &quot;HERE&quot;</span></a>&nbsp;</p><div><a href=\"https://ipn2.paymentus.com/cp/stuf\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"font-size: 30px;\">Pay your Rent (click this link) &quot;HERE&quot;</span></a>&nbsp;</div><div><br></div><div><a href=\"https://ipn2.paymentus.com/cp/stuf\" rel=\"noopener noreferrer\" target=\"_blank\"><"
+    },
+    {
+      "id": "1081",
+      "name": "Business Tax",
+      "isEnabled": 1,
+      "content": "<p>This is where you apply for a Business Tax Receipt for a new business or make changes to your existing business information, and Out of State Insurance providers.</p>"
+    },
+    {
+      "id": "1080",
+      "name": "Building & Permitting",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1095",
+      "name": "Ambulance Billing",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.4em; border: 0px none; font-style: normal; font-weight: 400; color: rgb(65, 67, 70); font-family: Arial; font-size: 14.4px; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(247, 248, 252); text-decoration-thickness: initial"
+    },
+    {
+      "id": "1099",
+      "name": "Food Truck Registration",
+      "isEnabled": 1
+    },
+    {
+      "id": "1093",
+      "name": "City Clerk",
+      "isEnabled": 1
+    },
+    {
+      "id": "1083",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1087",
+      "name": "Police Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1085",
+      "name": "Community Services",
+      "isEnabled": 1,
+      "content": "<p>Welcome to the online services portal for the Community Services department. Prior to applying for a special event please review our detailed information page <a class=\"fr-strong\" href=\"http://cityofstuart.us/DocumentCenter/View/1933/Special-Events-Fees-and-Requirements\" rel=\"noopener noreferrer\" target=\"_blank\">HERE</a>.</p><p><a class=\"fr-strong\" href=\"http://cityofstuart.us/privacy\" rel=\"noopener noreferrer\" target=\"_blank\">Privacy Policy</a></p><!---->"
+    },
+    {
+      "id": "1090",
+      "name": "False Alarm Payments",
+      "isEnabled": 1,
+      "content": "<div>Pay your False Alarm bill here</div>"
+    },
+    {
+      "id": "1086",
+      "name": "Development - Planning & Zoning",
+      "isEnabled": 1,
+      "content": "<p>This is where the department will add something about their operations.</p>"
+    },
+    {
+      "id": "1082",
+      "name": "Code Enforcement",
+      "isEnabled": 1
+    },
+    {
+      "id": "1089",
+      "name": "Backflow Inspections & Grease Interceptor/Trap Inspections",
+      "isEnabled": 1,
+      "content": "<div>Backflow and Grease Interceptor/Trap inspections are done annually. This is the link to register for your annual inspections.</div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:16.456Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

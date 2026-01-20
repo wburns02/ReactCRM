@@ -663,7 +663,166 @@ export const JURISDICTIONS: JurisdictionConfig[] = [
   { id: 'countyofbexartx', name: 'Bexar County', state: 'TX', portalUrl: 'https://countyofbexartx.portal.opengov.com', enabled: true },
 
   // Wisconsin (additional)
-  { id: 'oconomowocwi', name: 'Oconomowoc', state: 'WI', portalUrl: 'https://oconomowocwi.portal.opengov.com', enabled: true }
+  { id: 'oconomowocwi', name: 'Oconomowoc', state: 'WI', portalUrl: 'https://oconomowocwi.portal.opengov.com', enabled: true },
+
+  // ============================================
+  // BATCH 5 - REMAINING AGENT DISCOVERIES (156 jurisdictions)
+  // ============================================
+
+  // Alaska
+  { id: 'sewardak', name: 'Seward', state: 'AK', portalUrl: 'https://sewardak.portal.opengov.com', enabled: true },
+
+  // California (additional)
+  { id: 'calimesaca', name: 'Calimesa', state: 'CA', portalUrl: 'https://calimesaca.portal.opengov.com', enabled: true },
+  { id: 'cityoflapalmaca', name: 'La Palma', state: 'CA', portalUrl: 'https://cityoflapalmaca.portal.opengov.com', enabled: true },
+  { id: 'colusacountyca', name: 'Colusa County', state: 'CA', portalUrl: 'https://colusacountyca.portal.opengov.com', enabled: true },
+  { id: 'arcataca', name: 'Arcata', state: 'CA', portalUrl: 'https://arcataca.portal.opengov.com', enabled: true },
+  { id: 'fortunaca', name: 'Fortuna', state: 'CA', portalUrl: 'https://fortunaca.portal.opengov.com', enabled: true },
+  { id: 'industryca', name: 'City of Industry', state: 'CA', portalUrl: 'https://industryca.portal.opengov.com', enabled: true },
+  { id: 'countyofinyoca', name: 'Inyo County', state: 'CA', portalUrl: 'https://countyofinyoca.portal.opengov.com', enabled: true },
+
+  // Colorado (additional)
+  { id: 'pueblocountyco', name: 'Pueblo County', state: 'CO', portalUrl: 'https://pueblocountyco.portal.opengov.com', enabled: true },
+  { id: 'durangoco', name: 'Durango', state: 'CO', portalUrl: 'https://durangoco.portal.opengov.com', enabled: true },
+
+  // Connecticut (additional)
+  { id: 'stoningtonct', name: 'Stonington', state: 'CT', portalUrl: 'https://stoningtonct.portal.opengov.com', enabled: true },
+  { id: 'newfairfieldct', name: 'New Fairfield', state: 'CT', portalUrl: 'https://newfairfieldct.portal.opengov.com', enabled: true },
+  { id: 'newmilfordct', name: 'New Milford', state: 'CT', portalUrl: 'https://newmilfordct.portal.opengov.com', enabled: true },
+  { id: 'woodburyct', name: 'Woodbury', state: 'CT', portalUrl: 'https://woodburyct.portal.opengov.com', enabled: true },
+  { id: 'farmingtonct', name: 'Farmington', state: 'CT', portalUrl: 'https://farmingtonct.portal.opengov.com', enabled: true },
+  { id: 'easthartfordct', name: 'East Hartford', state: 'CT', portalUrl: 'https://easthartfordct.portal.opengov.com', enabled: true },
+  { id: 'cheshirect', name: 'Cheshire', state: 'CT', portalUrl: 'https://cheshirect.portal.opengov.com', enabled: true },
+  { id: 'torringtonct', name: 'Torrington', state: 'CT', portalUrl: 'https://torringtonct.portal.opengov.com', enabled: true },
+  { id: 'newingtonct', name: 'Newington', state: 'CT', portalUrl: 'https://newingtonct.portal.opengov.com', enabled: true },
+  { id: 'branfordct', name: 'Branford', state: 'CT', portalUrl: 'https://branfordct.portal.opengov.com', enabled: true },
+  { id: 'madisonct', name: 'Madison', state: 'CT', portalUrl: 'https://madisonct.portal.opengov.com', enabled: true },
+  { id: 'winchesterct', name: 'Winchester', state: 'CT', portalUrl: 'https://winchesterct.portal.opengov.com', enabled: true },
+  { id: 'darienct', name: 'Darien', state: 'CT', portalUrl: 'https://darienct.portal.opengov.com', enabled: true },
+  { id: 'wiltonct', name: 'Wilton', state: 'CT', portalUrl: 'https://wiltonct.portal.opengov.com', enabled: true },
+  { id: 'bristolct', name: 'Bristol', state: 'CT', portalUrl: 'https://bristolct.portal.opengov.com', enabled: true },
+  { id: 'willingtonct', name: 'Willington', state: 'CT', portalUrl: 'https://willingtonct.portal.opengov.com', enabled: true },
+  { id: 'rockyhillct', name: 'Rocky Hill', state: 'CT', portalUrl: 'https://rockyhillct.portal.opengov.com', enabled: true },
+  { id: 'hamdenct', name: 'Hamden', state: 'CT', portalUrl: 'https://hamdenct.portal.opengov.com', enabled: true },
+
+  // Florida (additional)
+  { id: 'stuartfl', name: 'Stuart', state: 'FL', portalUrl: 'https://stuartfl.portal.opengov.com', enabled: true },
+  { id: 'marathonfl', name: 'Marathon', state: 'FL', portalUrl: 'https://marathonfl.portal.opengov.com', enabled: true },
+
+  // Idaho
+  { id: 'stateofidaho', name: 'State of Idaho', state: 'ID', portalUrl: 'https://stateofidaho.portal.opengov.com', enabled: true },
+  { id: 'postfallsid', name: 'Post Falls', state: 'ID', portalUrl: 'https://postfallsid.portal.opengov.com', enabled: true },
+
+  // Illinois (additional)
+  { id: 'decaturil', name: 'Decatur', state: 'IL', portalUrl: 'https://decaturil.portal.opengov.com', enabled: true },
+  { id: 'lemontil', name: 'Lemont', state: 'IL', portalUrl: 'https://lemontil.portal.opengov.com', enabled: true },
+
+  // Indiana (additional)
+  { id: 'monroecountyin', name: 'Monroe County', state: 'IN', portalUrl: 'https://monroecountyin.portal.opengov.com', enabled: true },
+
+  // Kansas
+  { id: 'springhillks', name: 'Spring Hill', state: 'KS', portalUrl: 'https://springhillks.portal.opengov.com', enabled: true },
+  { id: 'goddardks', name: 'Goddard', state: 'KS', portalUrl: 'https://goddardks.portal.opengov.com', enabled: true },
+
+  // Maine
+  { id: 'yorkme', name: 'York', state: 'ME', portalUrl: 'https://yorkme.portal.opengov.com', enabled: true },
+
+  // Maryland (additional)
+  { id: 'baltimoremddhcd', name: 'Baltimore DHCD', state: 'MD', portalUrl: 'https://baltimoremddhcd.portal.opengov.com', enabled: true },
+  { id: 'countyofdorchestermd', name: 'Dorchester County', state: 'MD', portalUrl: 'https://countyofdorchestermd.portal.opengov.com', enabled: true },
+  { id: 'cecilcountymd', name: 'Cecil County', state: 'MD', portalUrl: 'https://cecilcountymd.portal.opengov.com', enabled: true },
+
+  // Massachusetts (additional)
+  { id: 'westspringfieldma', name: 'West Springfield', state: 'MA', portalUrl: 'https://westspringfieldma.portal.opengov.com', enabled: true },
+  { id: 'southhadleyma', name: 'South Hadley', state: 'MA', portalUrl: 'https://southhadleyma.portal.opengov.com', enabled: true },
+  { id: 'provincetownma', name: 'Provincetown', state: 'MA', portalUrl: 'https://provincetownma.portal.opengov.com', enabled: true },
+  { id: 'salemma', name: 'Salem', state: 'MA', portalUrl: 'https://salemma.portal.opengov.com', enabled: true },
+  { id: 'worcesterma', name: 'Worcester', state: 'MA', portalUrl: 'https://worcesterma.portal.opengov.com', enabled: true },
+  { id: 'chathamma', name: 'Chatham', state: 'MA', portalUrl: 'https://chathamma.portal.opengov.com', enabled: true },
+  { id: 'northattleboroughma', name: 'North Attleborough', state: 'MA', portalUrl: 'https://northattleboroughma.portal.opengov.com', enabled: true },
+  { id: 'medfieldma', name: 'Medfield', state: 'MA', portalUrl: 'https://medfieldma.portal.opengov.com', enabled: true },
+  { id: 'newburyportma', name: 'Newburyport', state: 'MA', portalUrl: 'https://newburyportma.portal.opengov.com', enabled: true },
+  { id: 'tisburyma', name: 'Tisbury', state: 'MA', portalUrl: 'https://tisburyma.portal.opengov.com', enabled: true },
+  { id: 'warehamma', name: 'Wareham', state: 'MA', portalUrl: 'https://warehamma.portal.opengov.com', enabled: true },
+  { id: 'northamptonma', name: 'Northampton', state: 'MA', portalUrl: 'https://northamptonma.portal.opengov.com', enabled: true },
+  { id: 'shrewsburyma', name: 'Shrewsbury', state: 'MA', portalUrl: 'https://shrewsburyma.portal.opengov.com', enabled: true },
+  { id: 'gardnerma', name: 'Gardner', state: 'MA', portalUrl: 'https://gardnerma.portal.opengov.com', enabled: true },
+  { id: 'stonehamma', name: 'Stoneham', state: 'MA', portalUrl: 'https://stonehamma.portal.opengov.com', enabled: true },
+  { id: 'hudsonma', name: 'Hudson', state: 'MA', portalUrl: 'https://hudsonma.portal.opengov.com', enabled: true },
+  { id: 'northboroughma', name: 'Northborough', state: 'MA', portalUrl: 'https://northboroughma.portal.opengov.com', enabled: true },
+  { id: 'grotonma', name: 'Groton', state: 'MA', portalUrl: 'https://grotonma.portal.opengov.com', enabled: true },
+  { id: 'hanoverma', name: 'Hanover', state: 'MA', portalUrl: 'https://hanoverma.portal.opengov.com', enabled: true },
+  { id: 'newbedfordma', name: 'New Bedford', state: 'MA', portalUrl: 'https://newbedfordma.portal.opengov.com', enabled: true },
+  { id: 'edgartownma', name: 'Edgartown', state: 'MA', portalUrl: 'https://edgartownma.portal.opengov.com', enabled: true },
+  { id: 'dennisma', name: 'Dennis', state: 'MA', portalUrl: 'https://dennisma.portal.opengov.com', enabled: true },
+  { id: 'dudleyma', name: 'Dudley', state: 'MA', portalUrl: 'https://dudleyma.portal.opengov.com', enabled: true },
+  { id: 'natickma', name: 'Natick', state: 'MA', portalUrl: 'https://natickma.portal.opengov.com', enabled: true },
+  { id: 'cantonma', name: 'Canton', state: 'MA', portalUrl: 'https://cantonma.portal.opengov.com', enabled: true },
+
+  // Minnesota (additional)
+  { id: 'northstpaulmn', name: 'North St. Paul', state: 'MN', portalUrl: 'https://northstpaulmn.portal.opengov.com', enabled: true },
+  { id: 'winonacountymn', name: 'Winona County', state: 'MN', portalUrl: 'https://winonacountymn.portal.opengov.com', enabled: true },
+  { id: 'medinamn', name: 'Medina', state: 'MN', portalUrl: 'https://medinamn.portal.opengov.com', enabled: true },
+
+  // Nevada
+  { id: 'nyecountynv', name: 'Nye County', state: 'NV', portalUrl: 'https://nyecountynv.portal.opengov.com', enabled: true },
+
+  // New Hampshire (additional)
+  { id: 'claremontnh', name: 'Claremont', state: 'NH', portalUrl: 'https://claremontnh.portal.opengov.com', enabled: true },
+
+  // New York (additional)
+  { id: 'salinany', name: 'Town of Salina', state: 'NY', portalUrl: 'https://salinany.portal.opengov.com', enabled: true },
+  { id: 'countyofonondagany', name: 'Onondaga County', state: 'NY', portalUrl: 'https://countyofonondagany.portal.opengov.com', enabled: true },
+  { id: 'townofhuntingtonny', name: 'Town of Huntington', state: 'NY', portalUrl: 'https://townofhuntingtonny.portal.opengov.com', enabled: true },
+  { id: 'mountpleasantny', name: 'Mount Pleasant', state: 'NY', portalUrl: 'https://mountpleasantny.portal.opengov.com', enabled: true },
+  { id: 'cortlandtny', name: 'Cortlandt', state: 'NY', portalUrl: 'https://cortlandtny.portal.opengov.com', enabled: true },
+
+  // North Carolina (additional)
+  { id: 'davidsoncountync', name: 'Davidson County', state: 'NC', portalUrl: 'https://davidsoncountync.portal.opengov.com', enabled: true },
+  { id: 'southportnc', name: 'Southport', state: 'NC', portalUrl: 'https://southportnc.portal.opengov.com', enabled: true },
+  { id: 'townofwarrenton', name: 'Town of Warrenton', state: 'NC', portalUrl: 'https://townofwarrenton.portal.opengov.com', enabled: true },
+
+  // Ohio (additional)
+  { id: 'unioncountyoh', name: 'Union County', state: 'OH', portalUrl: 'https://unioncountyoh.portal.opengov.com', enabled: true },
+  { id: 'hudsonoh', name: 'Hudson', state: 'OH', portalUrl: 'https://hudsonoh.portal.opengov.com', enabled: true },
+  { id: 'portagecountyoh', name: 'Portage County', state: 'OH', portalUrl: 'https://portagecountyoh.portal.opengov.com', enabled: true },
+  { id: 'plaincityoh', name: 'Plain City', state: 'OH', portalUrl: 'https://plaincityoh.portal.opengov.com', enabled: true },
+
+  // Pennsylvania (additional)
+  { id: 'cranberrytownshippa', name: 'Cranberry Township', state: 'PA', portalUrl: 'https://cranberrytownshippa.portal.opengov.com', enabled: true },
+  { id: 'springfielddelco', name: 'Springfield Township (Delaware County)', state: 'PA', portalUrl: 'https://springfielddelco.portal.opengov.com', enabled: true },
+  { id: 'townshiplowermakefieldpa', name: 'Lower Makefield Township', state: 'PA', portalUrl: 'https://townshiplowermakefieldpa.portal.opengov.com', enabled: true },
+
+  // Rhode Island (additional)
+  { id: 'northkingstownri', name: 'North Kingstown', state: 'RI', portalUrl: 'https://northkingstownri.portal.opengov.com', enabled: true },
+  { id: 'newshorehamri', name: 'New Shoreham', state: 'RI', portalUrl: 'https://newshorehamri.portal.opengov.com', enabled: true },
+  { id: 'cumberlandri', name: 'Cumberland', state: 'RI', portalUrl: 'https://cumberlandri.portal.opengov.com', enabled: true },
+  { id: 'eastgreenwichri', name: 'East Greenwich', state: 'RI', portalUrl: 'https://eastgreenwichri.portal.opengov.com', enabled: true },
+  { id: 'northprovidenceri', name: 'North Providence', state: 'RI', portalUrl: 'https://northprovidenceri.portal.opengov.com', enabled: true },
+  { id: 'southkingstownri', name: 'South Kingstown', state: 'RI', portalUrl: 'https://southkingstownri.portal.opengov.com', enabled: true },
+  { id: 'coventryri', name: 'Coventry', state: 'RI', portalUrl: 'https://coventryri.portal.opengov.com', enabled: true },
+  { id: 'richmondri', name: 'Richmond', state: 'RI', portalUrl: 'https://richmondri.portal.opengov.com', enabled: true },
+  { id: 'bristolri', name: 'Bristol', state: 'RI', portalUrl: 'https://bristolri.portal.opengov.com', enabled: true },
+  { id: 'glocesterri', name: 'Glocester', state: 'RI', portalUrl: 'https://glocesterri.portal.opengov.com', enabled: true },
+
+  // South Carolina (additional)
+  { id: 'andersonsc', name: 'City of Anderson', state: 'SC', portalUrl: 'https://andersonsc.portal.opengov.com', enabled: true },
+
+  // South Dakota
+  { id: 'watertownsd', name: 'Watertown', state: 'SD', portalUrl: 'https://watertownsd.portal.opengov.com', enabled: true },
+
+  // Texas (additional)
+  { id: 'aransaspasstx', name: 'Aransas Pass', state: 'TX', portalUrl: 'https://aransaspasstx.portal.opengov.com', enabled: true },
+  { id: 'galvestoncountytx', name: 'Galveston County', state: 'TX', portalUrl: 'https://galvestoncountytx.portal.opengov.com', enabled: true },
+
+  // Vermont
+  { id: 'townofbrattleborovt', name: 'Brattleboro', state: 'VT', portalUrl: 'https://townofbrattleborovt.portal.opengov.com', enabled: true },
+
+  // Wisconsin (additional)
+  { id: 'countyofsaukwi', name: 'Sauk County', state: 'WI', portalUrl: 'https://countyofsaukwi.portal.opengov.com', enabled: true },
+
+  // Wyoming (additional)
+  { id: 'natronacountywy', name: 'Natrona County', state: 'WY', portalUrl: 'https://natronacountywy.portal.opengov.com', enabled: true }
 ];
 
 // Get enabled jurisdictions

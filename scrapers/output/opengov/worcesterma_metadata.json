@@ -1,0 +1,697 @@
+{
+  "jurisdiction": "Worcester",
+  "state": "MA",
+  "tenant": "worcesterma",
+  "portalUrl": "https://worcesterma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006862",
+      "name": "Lobbyist Registration",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006886",
+      "name": "Permanent Dumpster / Rubbish Container Permit (Renewable) ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "A Renewable Dumpster / Rubbish Container Permit is for continuous usage in excess of one (1) year. This permit is renewable annually. This is commonly referred to as a \"Permanent\" Dumpster Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006864",
+      "name": "Accessory Dwelling Unit (ADU) Building Permit Required Documents",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006890",
+      "name": "Application for Determination of Local Historical Significance",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "For applicants seeking Community Preservation Act Funds",
+      "isEnabled": true
+    },
+    {
+      "id": "1006717",
+      "name": "Lodging House License",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006887",
+      "name": "Constable License Application",
+      "categoryId": 1094,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006916",
+      "name": "Firearms Basic Safety Course Application",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "Apply here for the Worcester Police Department Firearms Basic Safety Course",
+      "isEnabled": true
+    },
+    {
+      "id": "1006599",
+      "name": "Body Art & Piercing Establishment License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Health",
+      "isEnabled": true
+    },
+    {
+      "id": "1006526",
+      "name": "Building Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006432",
+      "name": "New Contractor Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Become a New Contractor with the City of Worcester. Submit company and insurance information to be approved to apply for engineering permits with the City of Worcester.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006806",
+      "name": "Birth, Marriage & Death Certificates",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006676",
+      "name": "Building Demolition Delay Waiver",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Approved Contractors - Company & Contacts Information Update Requests",
+      "categoryId": 1079,
+      "viewAccess": "private",
+      "description": "Instructions on how to request updates to your Contractor information on file and for company contacts, including licensed excavators and competent persons. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006808",
+      "name": "Marriage Intentions",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006903",
+      "name": "Cryogenic Liquids / Compressed Gas Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "A Cryogenic & Compressed Gas Permit is required for individuals or companies storing non-flammable compressed gas and/or cryogenic fluid on-site. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006885",
+      "name": "Temporary Dumpster / Rubbish Container Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "The purpose of the Temporary Dumpster Permit is for one time clean-out(s), construction purposes or special events. This permit is non-renewable and expires after one (1) year.\n\nIn the event your Dumpster is placed on a public street or sidewalk, you will also be required to apply for a DPWP Engineering Permit (For Street Obstruction).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006739",
+      "name": "New Street Numbering-Change of Address Request",
+      "categoryId": 1092,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006407",
+      "name": "DPW Engineering Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply for multiple permits at the same location with one application, including permits for curb cut, street opening, street closing, drain mains, sewer connection or extension, trench, drinking water or fire pipe work.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006909",
+      "name": "Body Art & Piercing Apprenticeship License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Health",
+      "isEnabled": true
+    },
+    {
+      "id": "1006589",
+      "name": "Body Art & Piercing Practitioner License ",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Health",
+      "isEnabled": true
+    },
+    {
+      "id": "1006680",
+      "name": "Certificate of Non-Applicability",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006556",
+      "name": "Certificate of Occupancy Inspection Requirements",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006810",
+      "name": "Dog Licenses",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006897",
+      "name": "Cutting & Welding / Hot Works Permit (Project Based)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "For Project based Permits only - Conducting cutting and welding/hot work in the City of Worcester requires that this permit is issued for your work by the Worcester Fire Prevention Division.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006555",
+      "name": "Commercial Building Permit Application Required Documents",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006582",
+      "name": "Body Art & Piercing Temporary License - Event Based",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Health",
+      "isEnabled": true
+    },
+    {
+      "id": "1006554",
+      "name": "Residential Building Permit Application Required Documents",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006896",
+      "name": "Cutting & Welding / Hot Works Permit (Renewable)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Please select this application if you are applying for an Annual Cutting & Welding / Hot Works Permit (Renewable each year).\n\nConducting cutting and welding/hot work in the City of Worcester requires that this permit is issued for your work by the Worcester Fire Prevention Division. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006913",
+      "name": "Flammable & Combustible Material Storage Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "A Flammable & Combustible Material Permit is required for individuals or companies storing flammable and combustible material on-site.\nCommon example of a typical non-temporary permit use case is a commercial repair garage that stores gasoline, oils, solvents, or other flammable liquids as part of routine, year-round operations.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006545",
+      "name": "Tanning Facility License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Health",
+      "isEnabled": true
+    },
+    {
+      "id": "1006546",
+      "name": "Tobacco Permit",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006914",
+      "name": "Temporary Flammable & Combustible Material Storage Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "A Flammable & Combustible Material Permit is required for individuals or companies storing flammable and combustible material on-site.\n\nA Temporary Permit is appropriate when flammable or combustible materials are stored only for a short-term project or event. Common examples include:\n\nConstruction sites storing diesel or other flammable/combustible liquids for daily activity during construction, with all materials removed once the project is complete.\n\nSpecial events using a large generator with an integrated diesel tank that is removed after the event ends.\n\n\nBecause the materials are present only temporarily, a Temporary Permit is required.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006647",
+      "name": "Food Establishment License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Food Protection",
+      "isEnabled": true
+    },
+    {
+      "id": "1006677",
+      "name": "Certificate of Appropriateness & Building Demolition Delay Waiver",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006902",
+      "name": "Hazardous Materials Processing Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "For Hazardous Materials Processing Permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006696",
+      "name": "Small Wireless Facilities License and Permit Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006794",
+      "name": "Approval Not Required (ANR) Plan Application",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006901",
+      "name": "Hazardous Materials Storage Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "For Hazardous Materials Storage Permits. Not for Fuel Storage.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006912",
+      "name": "Laboratories Using Chemicals Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for: The handling or storage of chemicals in laboratory buildings, laboratory units, and laboratory work areas whether located above or below grade, per Massachusetts Comprehensive Fire Safety Code, 527 CMR 1.00: Ch.26 (Laboratories Using Chemicals), section(s) 26.2, 61.1.2, 61.5.3.3.1, 63.1.2, 66.1.5, & 69.1.2. The scope of 527 CMR 1.00 includes, but is not limited to, the following in accordance with M.G.L. c. 22D and M.G.L c. 148 and as prescribed by M.G.L. c. 143 § 96.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006446",
+      "name": "Flow Test Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Fire flow test.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006447",
+      "name": "General Hydrant Use Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006507",
+      "name": "Drainlayer License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply for a new drainlayer license. Issued licenses will be available for renewal prior to December 31st of each year.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006445",
+      "name": "Grant Plan Review",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006469",
+      "name": "Outdoor Dining on Public Sidewalk Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "A street obstruction permit will be issued for approved applications for public dining on the public sidewalk.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006906",
+      "name": "Oil Burner / Tank Removal / Tank Install Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Please select this application if you are applying for an Oil Burner Permit, a Storage Tank Removal Permit or an Above Ground Tank Installation Permit. Please note that installations for Underground Tanks are handled through Mass DEP.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006688",
+      "name": "Common Victualer License",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006637",
+      "name": "Farmers Market License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Food Protection",
+      "isEnabled": true
+    },
+    {
+      "id": "1006650",
+      "name": "Seasonal Concession License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Food Protection",
+      "isEnabled": true
+    },
+    {
+      "id": "1006635",
+      "name": "Mobile Food Vendor License ",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Food Protection",
+      "isEnabled": true
+    },
+    {
+      "id": "1006636",
+      "name": "Temporary Food License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Food Protection",
+      "isEnabled": true
+    },
+    {
+      "id": "1006892",
+      "name": "Smoke Detector and CO Inspection for Property Resale",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Massachusetts law requires working smoke and CO detectors in all residences. In accordance with MGL 148 Section 26 F l/2, The Massachusetts Fire Prevention Code 527 CMR 1.00 c 13.7.6 regulates the placement of CO detection in dwelling units.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006593",
+      "name": "Clothing Donation Bin License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Housing",
+      "isEnabled": true
+    },
+    {
+      "id": "1006541",
+      "name": "Hauler License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Housing",
+      "isEnabled": true
+    },
+    {
+      "id": "1006898",
+      "name": "Fire Sprinkler System Shutdown Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Please select this application if you are applying for a Sprinkler Shutdown for any of the following reasons: Repairs, Impairment or Additions/Modifications. Emergency Repairs can be made without a permit provided oral notification is given to the Worcester Fire Department *before* work begins and a permit is submitted within 24 hours of beginning of work.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006915",
+      "name": "Propane Storage & Installation Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Please select this application if you are applying for a Propane Storage Commercial Permit, Propane Storage Residential Permit, and/or a Installation of LP Gas Permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006470",
+      "name": "Stationary Vendor Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "A street obstruction permit will be issued for approved applications for stationary vendors.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Wastewater Discharge Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006627",
+      "name": "Certificate of Inspection",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006548",
+      "name": "Mobile Home Park License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Housing",
+      "isEnabled": true
+    },
+    {
+      "id": "1006543",
+      "name": "Portable Toilet License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Housing",
+      "isEnabled": true
+    },
+    {
+      "id": "1006505",
+      "name": "Move Overweight Loads on Local Streets",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "A street obstruction permit will be issued for approved applications.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006596",
+      "name": "Hotel License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Housing",
+      "isEnabled": true
+    },
+    {
+      "id": "1006544",
+      "name": "Public/Semi-Public Pool License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Air, Water & Hazmat - One Application per body of Water",
+      "isEnabled": true
+    },
+    {
+      "id": "1006539",
+      "name": "Camp License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Air, Water & Hazmat ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006594",
+      "name": "Bathing Beach License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Air, Water & Hazmat ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006527",
+      "name": "Electrical Permit",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006598",
+      "name": "rDNA License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Air, Water & Hazmat ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006597",
+      "name": "Ice Skating Rink License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Air, Water & Hazmat ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006547",
+      "name": "Well Permit",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Air, Water & Hazmat ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006530",
+      "name": "Gas Permit",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006529",
+      "name": "Mechanical Permit",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006542",
+      "name": "Hazardous Materials Application (21-E)",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Air, Water & Hazmat - Application for a 21E Records Search will provide any information that the Department has regarding Hazardous Waste/Oils at the property in question.  There is a $50.00 fee and only one street number is allowed per application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006535",
+      "name": "Perc Test",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Air, Water & Hazmat  - This Permit is NOT transferable without prior approval of the Department of Inspectional Services",
+      "isEnabled": true
+    },
+    {
+      "id": "1006528",
+      "name": "Plumbing Permit",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006698",
+      "name": "Welding Card",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006611",
+      "name": "Disposal System Construction Application",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Air, Water & Hazmat ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006610",
+      "name": "Plan Review for Septic Systems",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Air, Water & Hazmat ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006532",
+      "name": "Zoning Analysis",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006595",
+      "name": "Disposal Works Installer License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Air, Water & Hazmat  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006612",
+      "name": "Abandoned Septic System Application",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Air, Water & Hazmat ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1088",
+      "name": "Building & Zoning",
+      "isEnabled": 1,
+      "content": "<p><span style='color: rgb(84, 172, 210); font-family: \"Benton Sans\", sans-serif; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-colo"
+    },
+    {
+      "id": "1089",
+      "name": "Housing & Health",
+      "isEnabled": 1,
+      "content": "<p><strong style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; font-weight: 700;'><span style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; font-size: 24px;'><span style='color: rgb(84, 172, 210); font-family: \"Benton Sans\", sans-serif; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: nor"
+    },
+    {
+      "id": "1079",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; text-align: left;'><span style=\"color: rgb(84, 172, 210); font-family: Tahoma, Geneva, sans-serif; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-co"
+    },
+    {
+      "id": "1083",
+      "name": "Historical Commission",
+      "isEnabled": 1,
+      "content": "<p><span style='color: rgb(84, 172, 210); font-family: \"Benton Sans\", sans-serif; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-colo"
+    },
+    {
+      "id": "1084",
+      "name": "Planning Board",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 14px; text-align: left;'><strong style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; font-weight: 700;'><span style=\"box-sizing: border-box; font-family: Tahoma, Geneva, sans-serif; font-size: 24px;\"><span style=\"color: rgb(84, 172, 210); font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; te"
+    },
+    {
+      "id": "1087",
+      "name": "License Commission",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; text-align: left;'><strong style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; font-weight: 700;'><span style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; font-size: 24px;'><span style='color: rgb(84, 172, 210); font-family: \"Benton Sans\", sans-serif; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400;"
+    },
+    {
+      "id": "1086",
+      "name": "Public Health",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; text-align: left;'><strong style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; font-weight: 700;'><span style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; font-size: 24px;'><span style='color: rgb(84, 172, 210); font-family: \"Benton Sans\", sans-serif; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400;"
+    },
+    {
+      "id": "1092",
+      "name": "New/Change Street Numbering-Subdivision Numbering Address Request",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; text-align: left;'><span style=\"color: rgb(84, 172, 210); font-family: Tahoma, Geneva, sans-serif; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-co"
+    },
+    {
+      "id": "1078",
+      "name": "Additional Support Documentation",
+      "isEnabled": 1,
+      "content": "<p><br></p><hr><p><br></p>"
+    },
+    {
+      "id": "1076",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: left;\"><strong><span style='color: rgb(84, 172, 210); font-family: \"Benton Sans\", sans-serif; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-st"
+    },
+    {
+      "id": "1094",
+      "name": "Police Department",
+      "isEnabled": 1,
+      "content": "<p><strong style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; font-weight: 700;'><span style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; font-size: 24px;'><span style='color: rgb(84, 172, 210); font-family: \"Benton Sans\", sans-serif; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: nor"
+    },
+    {
+      "id": "1074",
+      "name": "City Clerk's Office",
+      "isEnabled": 1,
+      "content": "<p><span style='color: rgb(84, 172, 210); font-family: \"Benton Sans\", sans-serif; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-colo"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:49.058Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

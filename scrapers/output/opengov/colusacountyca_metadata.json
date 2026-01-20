@@ -1,0 +1,290 @@
+{
+  "jurisdiction": "Colusa County",
+  "state": "CA",
+  "tenant": "colusacountyca",
+  "portalUrl": "https://colusacountyca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6530",
+      "name": "Industrial Hemp Cultivation License Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6537",
+      "name": "Home Occupation Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Home occupations shall be permitted as appurtenant and accessory uses to any residential uses. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Code Compliance Complaint Form",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Airport Land Use Commission (ALUC) Referral Form",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Body Art Plan Check Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Safe Body Art Act regulates tattooing, permanent cosmetics, branding and piercing. This law requires all body art practitioners to annually register with the county and work from and approved and inspected facility. Temporary body art events and mechanical ear piercing business are also regulated by the Safe Body Art Act.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Universal Planning Application Form",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This application form is for use of all Planning Department applications.  For questions, please call the Department at (530) 458-0480 for assistance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "How to Create a User Account.          This is your first Step!",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Body Art Practitioner Registration",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "How to Submit an Application",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Community Event Coordinator Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application will need to be filled out if you are a coordinator for a community event where the vendors will be selling or sampling food. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Cottage Food Operation (CFO) Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application will need to be filled out and approved prior to selling food made from a residential property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Building Permit ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "How to Track the Progress of your Application",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "How to Make a Payment",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Food Facility Plan Review Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application will need to be filled out and approved prior to opening a new food facility or doing any remodels to an existing food facility.",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Medical Waste Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "How to Request an Inspection",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "How to Message your Reviewer",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Mobile Food Facility Plan Check Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application will need to be filled out if you are opening a New Mobile Food Facility or if you are doing any remodeling to an existing Mobile Food Facility.",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Account Overview (How to find stuff in your account)",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Public Swimming Pool Permit Minor Remodel",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application will need to be filled out if you are doing a Minor Remodel to a Public Swimming Pool or Spa.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "FAQ's",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Public Swimming Pool Plan Check",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application will need to be filled out if you are installing a New Public Swimming Pool or Spa & if you are doing a major repair to a Public Swimming Pool or Spa. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Seal Without Witness",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Prior to filling out this application, permission is required from Environmental Health Staff. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Septic Pumper Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Sewage Disposal System",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Non-Refundable Permit Expires 1 year from date issued, application will not be complete without payment and plan.",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Site Evaluation Application for  On-Site Sewage Disposal",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application will need to be submitted and the inspection will need to be performed before you apply for a septic permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "State Small Water System Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application will need to be filled out if you are putting in a well that will be used for 5 or more water connections for Human Consumption.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Temporary Food Facility Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application will need to be filled out if you are going to be a food vendor at a temporary event not exceeding 3 days, this includes sampling of food.\n\nPermits are non-refundable.\n\n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "UST Closure",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application will need to be filled out if you will be closing any permitted or unpermitted Underground Storage Tanks. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "UST Installation",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application will need to be filled out if you will be installing new Underground Storage Tanks or repairing/modifying/upgrading any existing Underground Storage Tanks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Water Well Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application will be filled out if you are drilling any residential, AG or various sampling wells. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1088",
+      "name": "Need HELP!",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(44, 130, 201);\"><em>In order to return to the Public Portal, use your browser&#39;s Back Button &nbsp;or click on this link:&nbsp;</em><a href=\"https://colusacountyca.viewpointcloud.com/\" rel=\"noopener noreferrer\" target=\"_blank\"><em>https://colusacountyca.viewpointcloud.com/</em></a></span></p><p><br></p><p>All &quot;How to&quot; video clips found below can also be found at: &nbsp;<a href=\"https://www.countyofcolusa.org/954/Online-Permit-Portal\" rel=\"noopener noreferr"
+    },
+    {
+      "id": "1076",
+      "name": "Building Division",
+      "isEnabled": 1,
+      "content": "<p>The Building Division assists in ensuring that all construction in the County is done in a safe manner. Obtaining a building permit ensures that minimum safety standards are met in the design, construction, quality of materials, use, and occupancy of all structures. &nbsp;In performing its functions, the Building staff strives to provide common-sense solutions to complicated issues in a timely and professional manner.</p><p><strong>PLEASE NOTE: &nbsp;BUILDING PERMITS WILL NOT BE ISSUED ON FRI"
+    },
+    {
+      "id": "1080",
+      "name": "Environmental Health Division",
+      "isEnabled": 1,
+      "content": "<p>The purpose of Environmental Health Division is to protect the public health and promote the well being of all Colusa County residents, workers, and visitors. The Environmental Health Division is responsible for enforcing numerous State and local regulations and relies heavily on education in fulfilling its legal responsibilities.</p><p>Should you have any questions regarding the on-line permitting system, please call our office at (530) 458-0888.</p>"
+    },
+    {
+      "id": "1072",
+      "name": "Planning Division",
+      "isEnabled": 1,
+      "content": "<p style=\"color:#0000FF;\"><span style=\"color: rgb(0, 0, 0);\">The Planning Division serves as Colusa County&#39;s land use information center and as the staff to the Board of Supervisors and the Planning Commission. &nbsp;Its staff provides information to the public and businesses regarding residential, commercial, industrial, agricultural, and resource land uses and development projects. &nbsp; These efforts are focused to facilitate the delivery of the highest level of customer service to the C"
+    },
+    {
+      "id": "1081",
+      "name": "Code Compliance Division ",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 255);\">The Code Compliance Division is responsible for assisting property owners in complying with the County Code and helping to resolve compliance issues.</span></p><p><span style=\"color: rgb(0, 0, 255);\">PRIVACY POLICY: Pursuant to Government Code Section 6254(f) Records of Complaint are not public record until the compliant has been finaled. It is the Department&#39;s policy to protect the identity of all complainants to the full extent allowed by law. <br></"
+    },
+    {
+      "id": "1085",
+      "name": "Airport Land Use Commission",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:29.867Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

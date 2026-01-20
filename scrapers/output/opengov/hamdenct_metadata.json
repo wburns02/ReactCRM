@@ -1,0 +1,246 @@
+{
+  "jurisdiction": "Hamden",
+  "state": "CT",
+  "tenant": "hamdenct",
+  "portalUrl": "https://hamdenct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6373",
+      "name": "FM UST-AST",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Underground / Aboveground Storage Tank Installation or Removal Permit - Use this application if you intend to alter, clean, repair, line with a protective coating, remove, abandon, place temporarily out of service, or otherwise dispose of a flammable or combustible liquid tank. Permit Fee: $50 per tank on residential property / $100 per tank on commercial property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6380",
+      "name": " Sidewalk, Curb and Driveway License",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Contractors need to obtain Hamden's Sidewalk, Curb and Driveway License, which is valid for one calendar year, in order to work in the Town's Right of Way (sidewalk, driveway apron and curb area)",
+      "isEnabled": true
+    },
+    {
+      "id": "6384",
+      "name": "RECORDS",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Use this application to request records from the Fire Department and/or Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6385",
+      "name": "FM Operations and Materials Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "to maintain, store, use, or handle materials; to conduct processes that could produce conditions hazardous to life or property; or to install equipment used in connection with such activities.",
+      "isEnabled": true
+    },
+    {
+      "id": "6386",
+      "name": "FM Operating Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Use this application to request inspections of buildings for licensing requirements. Permit Fees vary from $40-$80 depending on occupancy type.",
+      "isEnabled": true
+    },
+    {
+      "id": "6392",
+      "name": "Sidewalk/Driveway Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Sidewalk/Driveway Permits cover work associated with driveway aprons, sidewalks and curbs in the Town’s Right of Way area.",
+      "isEnabled": true
+    },
+    {
+      "id": "6405",
+      "name": "Engineering Records and Data Request",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "This application is to obtain any scans and/or photocopies of maps or plans within the Engineering Department. GIS Plots, Shapefiles, Geodatabase or any other Digital Data are also applicable to this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "*BLDG-PZ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Building Permits: Including but not limited to permits for new construction, additions, accessory dwelling units (ADUs), alterations, roofs, decks, siding, garages, gazebos, replacement doors/windows, pools, signs and tents. \n\nPlanning & Zoning Permits: the aforementioned Building Permits, Change of Use, Continuation of Use have been integrated  with P&Z processes to provide more efficient service and seamless communication between departments, contractors, and our residents.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Excavation Permit",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Excavation Permit allows contractors to work on the following within the Town's Right Of Way: Street Excavation, Storm Drainage Construction, Sanitary Sewer Construction and any construction or sawcut to the asphalt roadway or sidewalk area.",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Animal Shelter Building/Facility Donations",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "The Animal Shelter Building/Facility fund benefits a new shelter for use by the Town of Hamden.",
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "*ELEC",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Electrical Permits - including low voltage, fire alarm system work. (solar use Solar Permit ONLY)",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Hamden Food Bank Donations",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Hamden Food Bank Donations benefits the running of the Hamden Food Bank within our Keefe Community Center.   Your donation helps to alleviate food insecurity for Hamden families by providing shelf-stable non-perishable foods and fresh meal kits when available.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Veterans Commission Gift Fund",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Hamden Veterans Commission Donations benefits the running of the Veterans Commission within our Government Center.  Your donations help us provide Flags for our Veterans graves, Wreaths for our underprivileged at ceremonies, educational supplies for programs in our schools. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6353",
+      "name": "*PLMB",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Plumbing Permits - including Fire Sprinklers",
+      "isEnabled": true
+    },
+    {
+      "id": "6354",
+      "name": "*MECH",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Heating & Mechanical Permits - Including HVAC, Piping, Hoods/Ducts, Fire Suppression Systems",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Commission on Disabilities Gift Fund",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "The Commission on Disabilities Gift Fund benefits the sponsoring of events for adults over 18 and families with a person with a disability, which include:\n\nQuinnipiac University sporting events & Hartford Yard Goats games.\n\nThe commission also checks on and handles incidents of ADA compliance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Community Services Gift Fund",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "The Community Services Gift Fund benefits the Hamden Food Bank,  the Diaper Bank,  and other social services needs for members of our community.",
+      "isEnabled": true
+    },
+    {
+      "id": "6393",
+      "name": "DEMO",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Demolition Permit - to completely demolish a structure",
+      "isEnabled": true
+    },
+    {
+      "id": "6401",
+      "name": "Chimney Liner",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Building Permits",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Hamden Tree Fund",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "The Hamden Tree fund benefits to help purchase, plant, and maintain trees in our Town.",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Hamden Earth Day Gift Fund",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Your donation will enhance the quality of activities, refreshments, and performers that are provided, ensuring that Earth Day is shared with as many community members as possible.",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "*SOLAR",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "SOLAR PERMITS for residential and commercial properties.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": " Application For Right of Way Obstruction",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for Container/Dumpster to be placed within the Hamden Town Right of Way",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Non Resident Landlord Registration",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1086",
+      "name": "Code Enforcement",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 18px;\">(203) 287-7160 OR (<strong>203) 287-2647</strong></span></strong></p><p style=\"text-align: center;\"><strong><span style=\"font-size: 18px;\">Welcome to Hamden&#39;s Online Permitting System - scroll down to start an application&nbsp;</span></strong></p><p style=\"text-align: center;\"><strong><span style=\"font-size: 18px;\">In order to make a successful application</span></strong></p><p style=\"text-align: center;\"><strong><span sty"
+    },
+    {
+      "id": "1084",
+      "name": "Donations",
+      "isEnabled": 1,
+      "content": "<p><strong>Please select the fund below to donate:</strong></p>"
+    },
+    {
+      "id": "1085",
+      "name": "Traffic Department",
+      "isEnabled": 1,
+      "content": "<div>The Traffic Department is responsible for the safe and efficient operation of various transportation and safety systems operating throughout the Town of Hamden roadways. The Department personel maintains an estimated 9,000 traffic control signs, and an estimated 2,000 street name signs. The Traffic Department is also responsible for the painting of roadway center lines, arrows, stop bars, crosswalks and parking stalls. They are responsible for bus stops and shelters, and the maintenance of "
+    },
+    {
+      "id": "1078",
+      "name": "Engineering Department",
+      "isEnabled": 1,
+      "content": "<p><strong>The Engineering Department issues permits for the following work within the Town&rsquo;s Right of Way:</strong></p><ul><li>Street Excavation</li><li>Driveway Apron Construction</li><li>New Sidewalk Construction and Existing Sidewalk Replacement</li><li>Storm Facilities Construction</li><li>Sanitary Facilities Construction</li><li>Utility</li></ul><p><br></p><p><strong>All Contractors must have the following current documents filed in the Engineering Department before any permits are i"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Marshal / Fire Department",
+      "isEnabled": 1,
+      "content": "<p><strong>Fire Alarm Permits, Sprinkler Permits, Hoods/Ducts with Suppression Systems:</strong><strong>&nbsp;Go to <span style=\"color: rgb(0, 0, 0); font-size: 18px;\"><u>Building Department</u>&nbsp;</span>section and apply for the relevant permit there, Fire Marshal Review is integrated with those permit applications:</strong></p><ul><li><strong><span style=\"color: rgb(184, 49, 47);\">Fire Alarm System:&nbsp;</span><span style=\"color: rgb(0, 0, 0);\">Apply for an Electrical Permit and check Fire"
+    },
+    {
+      "id": "1080",
+      "name": "Planning & Zoning",
+      "isEnabled": 1,
+      "content": "<div>The Town of Hamden has adopted the &ldquo;<a href=\"https://codelibrary.amlegal.com/codes/hamden/latest/hamden_ct/0-0-0-10361\" target=\"_blank\">NONRESIDENT LANDLORD REGISTRATION</a>&rdquo; Ordinance which became effective January 1, 2025. &nbsp;The requirement for registration of nonresident rental properties has been delayed until February 1, 2026. The registration fee is $50 per building, plus $25 for each unit registered. The purpose of the ordinance is to better protect, preserve, and pro"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:14.510Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

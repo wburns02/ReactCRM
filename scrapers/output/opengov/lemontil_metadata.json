@@ -1,0 +1,405 @@
+{
+  "jurisdiction": "Lemont",
+  "state": "IL",
+  "tenant": "lemontil",
+  "portalUrl": "https://lemontil.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6485",
+      "name": "Site Development Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "If there is a question if your project would require a site development permit, please reach out to the Community Development Department 630-257-1595.",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Updating a Contractor's Insurance and Licenses",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Renewing Your Contractor License",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Contractor License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Why Can't I Find a Contractor in the Search Bar?",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Scavenger License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Commercial Construction Permit: Additions and Remodels",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Adding Guests to Your Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Commercial Construction Permit: New Construction",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Application for New Commercial Construction.  This review will include the interior and exterior of the structure.  Separate permits must be submitted for the building's Fire Protection System (if applicable) and the building's Fire Alarm System (if applicable).",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Lemont Business License/Registration",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Annual business license/registration for the Village of Lemont.",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Multistory Commercial Construction Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Application for New Residential Construction with multiple stories that require multiple rough inspections.  If a Fire Protection System is being installed, a separate permit must be submitted under \"Fire Sprinkler Permit\".  If a Fire Alarm System is being installed, a separate permit must be submitted under \"Fire Alarm Permit\".",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Home Occupation Business License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Liquor License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Annual Liquor License/registration for the Village of Lemont. \nNOTE: To complete your liquor registration, your business license must be paid prior to. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Commercial Occupancy (without construction work or remodeling)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Construction Trailer Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Raffle License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Deck Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Downtown Permit Parking Registration",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Overnight parking in the Village Parking Garage. Only residents living in the Downtown District are eligible.\n\nIF YOU ARE A RESIDENT OF THE FRONT STREET LOFTS, THIS HANG TAG WOULD BE FOR ANY ADDITIONAL VEHICLES. Your primary vehicle should be parked in the HOA-assigned parking stall.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Sidewalk and Outdoor Cafe License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Annual sidewalk cafe or outdoor dining license for the Village of Lemont.",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "To apply for a demolition permit in the Village of Lemont, you must first successfully apply for the Cook County Environmental and Sustainability Demolition Permit, or provide a waiver from their office that a permit from their office is not required.\n\nPer the Cook County, an interior demolition project that includes wrecking or removing/disturbing any load-supporting or load bearing structural members will require a permit from their agency.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Detached Garage Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Special Event License Application and/or Special Event Liquor License Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Special Events License and/or Special Events Liquor License.\n\nPlease use this form to request approval for your Special Event, and/or Special Events Liquor License.  All applications must be submitted 30 days prior to your event; to avoid a late fee of $250.00.  \n\nSpecial Event License $50.00\n\nSpecial Event Liquor License $25.00 per day\n\nOther fees may apply:  Police, Lema, Public Works Services, and Fire Department Inspections; depending on event set-up and requests.  (These fees if applicable will be billed separately.)\n\nIf you have any questions, please contact Julie Thomas at jthomas@lemont.il.us or 630.258.7822.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Driveway Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Electrical Permit - EV Charger",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is used for electrical upgrades to the building's existing electrical service, replacing existing electrical panels, or upgrading the electrical systems to accommodate car chargers. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Fence Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Fire Alarm Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Fire Sprinkler Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Hot Tub/Spa Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This Hot Tub Permit application is designed to be used with standard manufacturer made hot tubs, that sit above ground and sit on an existing patio/pad or a pad built as part of this application.  If the hot tub you are proposing is a custom built below ground or semi-recessed hot tub, please apply for this type of installation with the Pool Permit instead.  The in-ground pool permit option would generate the proper application document requirements as well as the proper inspections needed for an approved hot tub.\n\nPlease confirm you have all the information required for the hot tub permit.  Please provide details if the hot tub is sitting on an existing patio/pad, or if a new pad will be built as part of this permit.  Please provide clear direction on the electrical source for the hot tub, and how power is being provided, including from where, what depth of the conduit and if this is a hard piped connection or a plugged in connection.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": " HVAC Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Irrigation Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Landscape Installation Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Miscellaneous Permit: Solar Panels, Generators, Radon , Hot Water Tank, Ansul, Paving etc.",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Miscellaneous permit application for installations such as:\n-Solar Panels\n-Back-Up Generators\n-Radon Mitigation Systems\n-Fire Suppression Ansul System\n-Hot Water Tank Replacements\n-Parking Lot Paving and Re-surfacing\n-Drainage Installations",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": " Patio Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Pergola / Pavilion / Gazebo Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Permit Extension",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permit extension request to be submitted PRIOR to the expiration of your current permit.  Permit extensions are good for half the duration of the original permit.\n\nLonger permit extensions are reviewed only if specifically requested and included with a project schedule detailing the anticipated completion date of the project.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Pool Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please note this permit only applies to the pool structure.  If you are also installing a large patio around the pool, an outdoor kitchen, an outdoor fire pit, or a pergola/pavilion structure, these features will require a separate permit.  Please reach out to the Building Department if you have questions on these permit requirements - 630-257-1580",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Residential Construction Permit: Additions and Remodels",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Application for Additions or Modifications to an existing residential structure (additions, bathroom remodels, kitchen remodels, additional bedrooms, removal of load bearing walls, etc.).  Any structure that connects back to the existing home/house and expands the home's footprint should be classified as an \"Addition\" for the permit application option \"Type of Improvement\".  Covered Porches/Decks will be submitted and reviewed under this permit as well.\n\nApply for a Finished Basement Permit for any work regarding basements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Master Plan Reviews - NO WORK, REVIEW ONLY",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "STOP - This permit application is for master plan reviews only.  These would be projects that require a review with the Village of Lemont only, and will not be built.  Final plans for the actual houses that will be built on the actual addresses should be submitted separately.  Model Homes or Sales Office Homes should be submitted under a separate permit under the address the homes will be built.",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Finished Basement",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this for any projects involving renovation existing basements or finishing a previously un-finished basement.  Drawings showing the existing conditions and proposed conditions of the Plumbing, Electrical, HVAC and layout will be required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Residential Construction Permit: New Construction",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Application for New Residential Construction",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Retaining Wall Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Retaining walls greater than 24\" in height (measured from the base of the first stone) must apply for a building permit.  Retaining walls must be installed per the manufacturer's installation instructions.  For any walls that support a surcharge load (supporting decks, pools, driveways, etc.) OR any walls that are greater than 36\" in height, wall details must be designed and stamped by a Professional Engineer.",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Roofing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Sewer/Water Repair Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is for repair of an existing sewer connection or an existing water connection.  Any work associated with a NEW water connection to the Village supplied water system, should be applied for under the \"Water Connection Permit\".",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Shed Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Sidewalk Replacement, Service Walk, Front Porch Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this permit to submit documentation to replace an existing sidewalk, to replace or add a service walk or to replace a front porch.  A service walk can be between the driveway and the house, or between the driveway and the back patio/porch, as long as all easement requirements are met.  Please submit documentation to the Village for review, including if any of these conditions are existing and being replaced in kind.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": " Siding/Brick Veneer/EIFS/Exterior Cladding Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permit for any modification to the exterior or veneer of the building.",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Sign Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Temporary Structure / Tent Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Water Connection Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Window and Door Replacement Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Only required when changing the size, location, or frame for an exterior window or door. A permit is not required if you are replacing windows or doors with the same size and location of the existing ones.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Permit Applications",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1079",
+      "name": "Licensing",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1078",
+      "name": "Help Links, Guides, & Other Information",
+      "isEnabled": 1,
+      "content": "<p><br></p><p><br></p><p><br></p><p><br></p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:25.917Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

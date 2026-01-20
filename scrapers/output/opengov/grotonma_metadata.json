@@ -1,0 +1,122 @@
+{
+  "jurisdiction": "Groton",
+  "state": "MA",
+  "tenant": "grotonma",
+  "portalUrl": "https://grotonma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6377",
+      "name": "Trench Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Applications for all Trench Permits. NOTE: If you will be removing or installing an underground propane tank, you will also need to complete an Underground Propane application with the Fire Department after receiving the Trench Permit. If you are excavating in a public way then you will need a Road Opening permit from the D.P.W.\n\n\nIf you are doing excavation work for water or sewer or utilities, all construction workers must wear personal protective equipment at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "6388",
+      "name": "Main Street Banner Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Please choose this option to apply for a banner on Main Street.",
+      "isEnabled": true
+    },
+    {
+      "id": "6384",
+      "name": "Additions/Alterations",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this permit for residential/commercial additions and alterations. (Including Decks)",
+      "isEnabled": true
+    },
+    {
+      "id": "6387",
+      "name": "Energy Storage Systems (ESS)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "*RESIDENTIAL ONLY* Use this permit for Solar or ESS installations. \nPlease note you will need both this permit and an Electrical Permit. \nAlso, a Utility Authorization Number from Groton Electric is required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6380",
+      "name": "Demolition",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this permit for residential/commercial demolition applications.",
+      "isEnabled": true
+    },
+    {
+      "id": "6375",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "You can find the application for electrical permits here.\n\nIf you are installing a Car Charger, then a Utility Authorization Number from Groton Electric is required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6349",
+      "name": "Gas/LP Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "You can find applications for gasfitting permits here. Please note, the applicant can not be the homeowner.",
+      "isEnabled": true
+    },
+    {
+      "id": "6379",
+      "name": "New Construction",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this permit for residential/commercial New Construction projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6376",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "You can find applications for plumbing permits here. Please note, the applicant can not be the homeowner.",
+      "isEnabled": true
+    },
+    {
+      "id": "6382",
+      "name": "Sheds, Gazebos, Tents & Temporary Structures",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this permit for all Sheds, Gazebos, Tents & other temporary structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "6383",
+      "name": "Sheet Metal/Mechanical",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this permit for Sheet Metal or Mechanical work.",
+      "isEnabled": true
+    },
+    {
+      "id": "6381",
+      "name": "Swimming Pool",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "If you are installing a pool and are supplied by town water in Zip Code 01450, you will need to acquire a secondary, non-essential water meter per the TOG Water Dept.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p><strong>NOTE:</strong></p><p><span style=\"color: rgb(184, 49, 47);\"><strong><span style=\"font-size: 24px;\">INSPECTIONS CAN <u>ONLY</u> BE SCHEDULED BY CALLING (978)448-1109</span></strong></span></p><hr><p>For Large Scale Solar, Wind Energy &amp; Cell Towers, please contact the Land Use Department for additional requirements prior to submission of Building Permits</p><hr><div><strong>IN ADDITION</strong> to applying below, if it&#39;s for a <u>Food Service matter</u>, please go to <a href=\"ht"
+    },
+    {
+      "id": "1081",
+      "name": "Land Use",
+      "isEnabled": 1,
+      "content": "<p>Welcome to the Town of Groton&#39;s Land Use application page.</p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:13.825Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

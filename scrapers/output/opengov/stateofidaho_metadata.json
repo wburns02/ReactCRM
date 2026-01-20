@@ -1,0 +1,151 @@
+{
+  "jurisdiction": "State of Idaho",
+  "state": "ID",
+  "tenant": "stateofidaho",
+  "portalUrl": "https://stateofidaho.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6430",
+      "name": "Annual Road & Street Financial Report",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Annual Road & Street Report - fulfills statutory requirement for local jurisdictions to receive Highway User Revenue funds.",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "340b Program Report Portal",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "340b entities will complete this form annually to comply with  I.C. 41-351. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Statewide Agreement - Department of Health and Welfare ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "2025",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Due by December 1, 2025.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Statewide Agreement - <enter Department>",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Statewide Agreement - <enter department>  Checkbox",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "2024",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Due by December 1, 2024.",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "2023",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Due by December 1, 2023.",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Statewide Agreements - University of Idaho",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Statewide Agreements - Idaho Department of Education",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Statewide Agreements - Department of Education",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Statewide Agreements - Boise State University",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Statewide Agreements - Office of the State Controller",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Statewide Agreements - Division of Human Resources",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Statewide Agreements - Offices of Information Technology Services",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1084",
+      "name": "340b Program Reporting",
+      "isEnabled": 1,
+      "content": "<div>Use this portal for test submissions within the 340b program portal.&nbsp;</div>"
+    },
+    {
+      "id": "1085",
+      "name": "Statewide Agreements",
+      "isEnabled": 1
+    },
+    {
+      "id": "1086",
+      "name": "Statewide Agreements - Templates",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Local Government Registry",
+      "isEnabled": 1,
+      "content": "<div><strong><span style=\"font-size: 24px;\">The 2025 Reporting Year is currently open and accepting registry submissions.</span><span style=\"font-size: 18px;\">&nbsp;</span></strong></div><div><br></div><div><span style=\"font-size: 18px;\">Please select the reporting year you intend to complete for the registry.</span></div><div><span style=\"font-size: 14px;\"><em>Note: If you already started a submission, click the Login button, sign in, and select Account to complete the draft submission.</em></s"
+    },
+    {
+      "id": "1083",
+      "name": "Annual Road & Street Financial Report",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:20.258Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

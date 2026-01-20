@@ -1,0 +1,280 @@
+{
+  "jurisdiction": "Arcata",
+  "state": "CA",
+  "tenant": "arcataca",
+  "portalUrl": "https://arcataca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6507",
+      "name": "Commercial Cannabis Activity Permit (CCAP)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Sewer Lateral Questionnaire/Flowchart ",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Code Complaint",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "Select \"Apply Online\" to report a code complaint such as tall grass, trash, junk vehicles, etc.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Re-Roof Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Re-Roof permits can be applied for at any time, but approval is limited to city business hours 8 a.m. to 5 p.m. Monday - Friday. To schedule an inspection, call or leave a message at (707)-822-5956 at least 24 hours prior to your desired time.",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Water Heater Upgrade/Replacement Permit ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Water Heater Upgrade/Replacement permits can be applied for at any time, but approval is limited to city business hours 8 a.m. to 5 p.m. Monday - Friday. To schedule an inspection, call or leave a message at (707)-822-5956 at least 24 hours prior to your desired time. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "ACC Roofing and Solar Project ",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This Daily Observation Report include all potential observation sections which include - Traffic Control, Labor Compliance, ............",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Furnace Upgrade/Replacement Permit  ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Furnace Upgrade/Replacement permits can be applied for at any time, but approval is limited to city business hours 8 a.m. to 5 p.m. Monday - Friday. To schedule an inspection, call or leave a message at (707)-822-5956 at least 24 hours prior to your desired time. Keep in mind that it is the responsibility of the applicant to contact & coordinate with PG&E.",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Plunkett Phase II - DOR",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Seismic Retrofit/Earthquake Brace & Bolt (EBB) Permit   ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Seismic Retrofit/EBB Permits can be applied for at any time, but approval is limited to city business hours 8 a.m. to 5 p.m. Monday - Friday. For Multi-Family & Commercial foundation designs please use the Commercial Building Permit. To schedule an inspection, call or leave a message at (707)-822-5956 at least 24 hours prior to your desired time. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Complete Streets Policy Checklist",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "This document was developed to assist project sponsors in defining and developing projects and local plans using the City of Arcata's Complete Streets Policy. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "2024  LK Wood and California Drainage Improvements",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This Daily Observation Report include all potential observation sections which include - Traffic Control, Labor Compliance, ............",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "PV/EV/Battery Backup Permit ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Please note that although the Photovoltaic Permit can be applied for at any time, approval is limited to city business hours.",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Electrical Service Upgrade/Replacement Permit ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Electrical Service Upgrade/Replacement permits can be applied for at any time, but approval is limited to city business hours 8 a.m. to 5 p.m. Monday - Friday. To schedule an inspection, call or leave a message at (707)-822-5956 at least 24 hours prior to your desired time. Keep in mind that it is the responsibility of the applicant to contact & coordinate with PG&E.",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Steel Waterline Replacement Project - DOR",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Daily Observation Report for City of Arcata Steel Waterline Replacement Project (2025-2026)",
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "2025 Joint Slurry Project",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This Daily Observation Report include all potential observation sections which include - Traffic Control, Labor Compliance, ............",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Sewer Lateral  Permit/Certificate",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "If your sewer lateral project requires the use of a public right-of-way, you might also be required to apply for an Encroachment Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Encroachment Permit",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Please note that although the Encroachment Permit can be applied for at any time, approval is limited to city business hours.",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Sign Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Sign permits can be applied for at any time, but approval is limited to city business hours 8 a.m. to 5 p.m. Monday - Friday. To schedule an inspection, call or leave a message at (707)-822-5956 at least 24 hours prior to your desired time.",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Residential Building Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Use this permit is for work pertaining to 1-2 family residences (R3). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Short-Stay Vacation Rental Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Commercial Building Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Use this permit for work pertaining to commercial/industrial or multi-family buildings (R2).",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Demolition Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Demolition permits can be applied for at any time, but approval is limited to city business hours 8 a.m. to 5 p.m. Monday - Friday. Be aware, some projects may require notification of the North Coast Unified Air Quality Management District (NCUAQMD). To schedule an inspection, call or leave a message at (707)-822-5956 at least 24 hours prior to your desired time.",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Grading Permit ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "A grading permit is required to before any grading, ground disturbing, clearing of vegetation or any other land disturbing activity. Grading permits can be applied for at any time, but approval is limited to city business hours 8 a.m. to 5 p.m. Monday - Friday. To schedule an inspection, call or leave a message at (707)-822-5956 at least 24 hours prior to your desired time.",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "On-site Wastewater Treatment System (OWTS) Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "On-site Wastewater Treatment System (OWTS) permits can be applied for at any time, but approval is limited to city business hours 8 a.m. to 5 p.m. Monday - Friday. To schedule an inspection, call or leave a message at (707)-822-5956 at least 24 hours prior to your desired time. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Rental Inspection",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "A Rental Inspection application is required for each parcel location. There is a section on the application to note if your parcel has more than one unit. If you have questions about the application, please contact 707-822-5956 for support.",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "GHD Tank 1C - DOR",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This Daily Observation Report include all potential observation sections which include - Traffic Control, Labor Compliance, ............",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Carlson Park - DOR  ",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This Daily Observation Report include all potential observation sections which include - Traffic Control, Labor Compliance, ............",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Old Arcata Road - DOR ",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This Daily Observation Report include all potential observation sections which include - Traffic Control, Labor Compliance, ............",
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "Annie and Mary - DOR",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "This Daily Observation Report include all potential observation sections which include - Traffic Control, Labor Compliance, ............",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1076",
+      "name": "Community Development",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1089",
+      "name": "Building & Engineering",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1090",
+      "name": "Construction",
+      "isEnabled": 1
+    },
+    {
+      "id": "1094",
+      "name": "RRIP",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1097",
+      "name": "Engineering ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1098",
+      "name": "Construction - PAST PROJECTS",
+      "isEnabled": 1
+    },
+    {
+      "id": "1099",
+      "name": "Complaints",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:31.656Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

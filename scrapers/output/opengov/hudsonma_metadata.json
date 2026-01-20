@@ -1,0 +1,710 @@
+{
+  "jurisdiction": "Hudson",
+  "state": "MA",
+  "tenant": "hudsonma",
+  "portalUrl": "https://hudsonma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006655",
+      "name": "Building Permit Application (Residential & Commercial)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, renovations, alterations, partial and interior demolition and major repairs. Please carefully review the applicable checklist before submitting application.  Incomplete applications may delay efficiency of permit issuance.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006658",
+      "name": "Swimming Pool Permit Application (In-Ground & On-Ground)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006580",
+      "name": "Permit to Sell Tobacco Products",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006614",
+      "name": "26F Residential Smoke Detector Inspection",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006479",
+      "name": "Dog License Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for a Dog License (1-4 dogs) from the Town of Hudson. All dogs over 6 months old must be licensed. Licenses expire on December 31st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006483",
+      "name": "Business Certificate",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006484",
+      "name": "Birth Certificate Request",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006489",
+      "name": "Census Form",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006490",
+      "name": "Notice of Claim",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006491",
+      "name": "Flammable License & Certificate",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006539",
+      "name": "Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006576",
+      "name": "Extension of Site Plan Review Approval",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Request to extend an expiring approval of a Site Plan Review. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006577",
+      "name": "Minor Plan Modification for Subdivision or Site Plan",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Minor modifications do not require a new public hearing. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006578",
+      "name": "Major Plan Modification for Subdivision or Site Plan",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006498",
+      "name": "Water & Sewer Installer/Drainlayer's License Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All trench excavators / utility line installers need to be licensed with Hudson DPW to perform their work within the town limits. Please have your certificate of insurance / bonds / reference letters and letters of experience ready to upload for this application. Your license is valid for the current calendar year and will need to be renewed every year to stay active. Review DPW rules and regulations prior to submitting this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006571",
+      "name": "Abutter's List Request Form",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Please allow for up to 5 days from the date of payment and submission of the form for the Assessor's Office to complete the processing of your request.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006604",
+      "name": "Request for Determination of Applicability (RDA)",
+      "categoryId": 1091,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006611",
+      "name": "Notice of Intent (NOI)",
+      "categoryId": 1091,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006739",
+      "name": "Hudson Community Care Fund Donations",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Credit cards, electronic Checks, or in-person cash or check are all accepted. \nCredit Cards will incur a processing fee. \n\nDonations of gift cards, cash or checks can be brought to the \nHudson Health Department at Town Hall, 78 Main Street, 1st Floor.\nMon, Wed, Th: 8am - 4:30pm\nTue 8am - 6:30pm\nFri 8am - 12pm",
+      "isEnabled": true
+    },
+    {
+      "id": "1006734",
+      "name": "Flammable Storage Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006505",
+      "name": "Markout and Service Connection Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "For all digs including planting a tree, please call dig safe first. Have your dig safe ticket number ready prior to submitting this request. Dig safe does not have records of Hudson’s water / sewer lines and hence DPW does the mark out for those utilities. Be prepared to answer relevant questions for your project, DPW has the right to inspect the project if it impacts water / sewer utilities.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006488",
+      "name": "Marriage Certificate Request",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006551",
+      "name": "Application for Use of Town Property",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006610",
+      "name": "Hotworks (Welding and Cutting) Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Work involving, burning, welding, or a similar operation that is capable of initiating fires or explosions. Examples include, but are not limited to: welding, cutting, grinding, soldering, heat treating, hot riveting, torch-applied roofing, abrasive blasting, and powder-driven fasteners.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006616",
+      "name": "Abbreviated Notice of Resource Area Delineation (ANRAD)",
+      "categoryId": 1091,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006612",
+      "name": "Request for Certificate of Compliance (COC)",
+      "categoryId": 1091,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006487",
+      "name": "Death Certificate Request",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006514",
+      "name": "Mattress and Box Spring Recycling",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "As of November 1, 2022, mattresses, box springs, and textiles will no longer be allowed in the trash. New state rules require mattresses and textiles be kept out of the trash so they can be recycled or donated for reuse. In order to comply, Hudson has set up a mattress recycling bin at the Transfer Station. A textile recycling bin is also at the Transfer Station. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Kennel License Application ",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Apply for a Kennel License (5+ dogs) from the Town of Hudson. All dogs over 6 months old must be licensed. Licenses expire on December 31st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006556",
+      "name": "Special Permit Application",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006496",
+      "name": "Curbside Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "The Town of Hudson has contracted with B-P Trucking, Inc. for trash and recycling curbside pick-up. This program is fee-funded by subscription users. Tax dollars do not support the program.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006588",
+      "name": "Extension Request",
+      "categoryId": 1091,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006609",
+      "name": "Commercial Cooking Hood Suppression System Alteration, Repair, or Shutdown Permit Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "For any commercial cooking hood suppression system alterations, repairs, or shutdowns.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006659",
+      "name": "Zoning Complaint & Building Complaint  ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006608",
+      "name": "Sprinkler Alteration, Repair, or Shutdown Permit  Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "For any sprinkler alterations, repairs, or shutdowns.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Curbside Pick Up Cancellation Form",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006559",
+      "name": "Variance Application",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006607",
+      "name": "Liquified Petroleum Gas (LPG) Storage Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Commonwealth of Massachusetts \"Application for Standard Permit\" (Form FP-006). A list of permit categories is provided during the application process. This permit type is not used for residential real estate transfers. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006572",
+      "name": "Application for Annual Inspection",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Annual Inspections expire on December 31st besides Daycares & Schools which expire on August 31st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006558",
+      "name": "Administrative Appeal Application",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": "Driveway Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All Driveway resurfacing and new driveways connecting to the town road right of ways will need a permit. Review Subdivision rules and regulations prior to submitting this application. If this is a new Driveway, note that you / your contractor needs to measure elevations at the center of the roadway, gutter line and 20’ into the driveway. Other measurements will need to be filled out as required.\n\nPLEASE SUBMIT A MARKOUT APPLICATION PRIOR TO THE DRIVEWAY PERMIT APPLICATION. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006506",
+      "name": "Road Opening Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All Hudson DPW licensed excavators are eligible to apply for this permit. If the excavation is within the road right of way (roadway, sidewalk, grass strips and adjacent land to the roadways) this permit will need to be filled out and if the excavation is more than 3’ deep, an associated Trench permit from the Fire department is required. No street opening is allowed during the snow months (November 15th to April 1st) unless it is deemed an emergency.\n\nPLEASE SUBMIT A MARKOUT APPLICATION PRIOR TO THE ROAD OPENING PERMIT APPLICATION.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006563",
+      "name": "Subsurface Waste Water Disposal System Installer License Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006525",
+      "name": "Electrical Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc.  Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. \n\nPLEASE NOTE: ALL SERVICE'S REQUIRE AN AUTHORIZATION NUMBER FROM HUDSON LIGHT AND POWER (978-568-8736) BEFORE AN ELECTRICAL PERMIT CAN BE ISSUED",
+      "isEnabled": true
+    },
+    {
+      "id": "1006562",
+      "name": "Application for Septic System Construction Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006605",
+      "name": "Fire Alarm Alteration, Repair, or Shutdown Permit Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "For any fire alarm alterations, repairs, or shutdowns.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006510",
+      "name": "Fuel Oil Burning FP-056 Form 1",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for Permit, Permit, and Certificate of Completion for the Installation or Alteration of Fuel Oil Burning Equipment and the Storage of Fuel Oil",
+      "isEnabled": true
+    },
+    {
+      "id": "1006512",
+      "name": "Transfer Station Tag",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "2026 Tags (valid 7/1/2025-6/30/2026) are currently available.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006566",
+      "name": "Backflow Device Installation Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006622",
+      "name": "Keeping of Live Fowl License",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "This permit is required for anyone who keeps live fowl on their property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006560",
+      "name": "Food Establishment Permit/Plan Review",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006519",
+      "name": "Gas Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006518",
+      "name": "Mechanical and Sheet Metal Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A mechanical permit is required for boilers, furnaces, HVAC systems, new or replacements.\n\nA sheet metal permit is required when work includes, but not limited to, manufacturing, assembling, fabrication, installing, dismantling, altering and repairing of duct or air exchange systems. Testing, adjusting and air balancing of all air handling equipment and duct work installed during new or remodeling of construction, residential or commercial. Installation of kitchen hoods, kitchen vents, bathroom exhaust vents and fans",
+      "isEnabled": true
+    },
+    {
+      "id": "1006515",
+      "name": "Application for Permit to Process Hazardous Materials",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006569",
+      "name": "Hydrant Flow Test Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006561",
+      "name": "Temporary Food Establishment Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "This application is for 1-14 day Food Permits",
+      "isEnabled": true
+    },
+    {
+      "id": "1006524",
+      "name": "Plumbing Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006517",
+      "name": "Storage and Use - Blasting, Explosives, and Storage of Ammunition Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "A list of permit categories is provided during the application process.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006502",
+      "name": "Trench Opening Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Pursuant to M.G.L. Chapter 82A §1",
+      "isEnabled": true
+    },
+    {
+      "id": "1006564",
+      "name": "Application for Soil Evaluation (Perc Test)",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006533",
+      "name": "Commercial - Certificate of Occupancy Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All new businesses must obtain a Certificate of Occupancy prior to occupying the space. This is in accordance with the Massachusetts State building code 780 CMR 9th Ed.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006568",
+      "name": "Septic System Pumping Form / System Pumping Record",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "The System Pumping Record must be submitted to the Hudson Board of Health or other approving authority within 14 days from the pumping date in accordance with 310 CMR 15.351.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006521",
+      "name": "Sign Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A permit is required for all signs.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006541",
+      "name": "Application for Septage Pumping and Transporting License",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006543",
+      "name": "Request for Pre-Rental Inspection",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Must be filed by the rental owner or agent/property manager. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006523",
+      "name": "Solid Fuel Stove Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Wood, Pellets, Coal, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006545",
+      "name": "Application for Body Art Apprentice/Practitioner Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Raffles, Bazaar, or Poker Tournament Event",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Application for Permit to Conduct Raffles, Bazaar, or Poker Tournament Events (Chapter 810, ACTS of 1969)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006492",
+      "name": "General License Application",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "General License Applications are used for the following application types: Fortune Teller, Earth Removal, Roller Skating, 2nd Hand Dealer, Hawker Peddler, Pawn Broker, Christmas Tree, Lodging Houses, Transient Vendor, Underground Storage",
+      "isEnabled": true
+    },
+    {
+      "id": "1006629",
+      "name": "Common Victualler License Application",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006624",
+      "name": "Alcohol License Application - Annual",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006544",
+      "name": "Application for Body Art Establishment",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006628",
+      "name": "Alcohol License Application - Single Event",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006546",
+      "name": "Application for Preliminary Subdivision",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006555",
+      "name": "Application for Special Permit and Site Plan Review Downtown Business Zoning District (DB)",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006550",
+      "name": "Site Plan Review",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006662",
+      "name": "Special Permit for Open Space Residential Development",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Car Class I, II, III License Application",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006547",
+      "name": "Application for Definitive Subdivision",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006542",
+      "name": "Approval Not Required Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006627",
+      "name": "Entertainment License Application - Annual",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006626",
+      "name": "Entertainment License Application - Single Event",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006540",
+      "name": "Dumpster Permit Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": "Sidewalk Dining Permit Application",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Permit valid from April 15th – October 31st. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1085",
+      "name": "Frequently Asked Questions",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1088",
+      "name": "Hudson Community Care Fund Donations",
+      "isEnabled": 1,
+      "content": "<div>The <strong>Hudson Community Care Fund</strong> is a local initiative dedicated to supporting our neighbors in times of need. This fund provides financial assistance and essential resources to Hudson community members facing challenges with housing, food security, and other basic needs such as hygiene products and clothing.</div><p style=\"margin-top:12.0pt;margin-right:0in;margin-bottom:  12.0pt;margin-left:0in;\">Rooted in the spirit of compassion and togetherness, the Hudson Community Care"
+    },
+    {
+      "id": "1089",
+      "name": "Assessors",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1091",
+      "name": "Conservation Commission",
+      "isEnabled": 1,
+      "content": "<p style=\"vertical-align:baseline;\">Welcome to the online permitting process for Wetland Permits</p><p style=\"margin-top:0in;margin-right:0in;margin-bottom:7.5pt;margin-left:0in;\">The Town of Hudson Conservation Commission is responsible for protecting Hudson&rsquo;s valuable wetland resources by issuing permits for projects near wetlands and waterbodies. Permits are issued under the Massachusetts Wetlands Protection Act and the Town of Hudson Wetlands Protection Bylaw.</p><p style=\"margin:0in;m"
+    },
+    {
+      "id": "1079",
+      "name": "DPW",
+      "isEnabled": 1,
+      "content": "<p><a href=\"https://www.townofhudson.org/337/Public-Works\" rel=\"noopener noreferrer\" target=\"_blank\">Town of Hudson MA - Department of Public Works Website</a></p>"
+    },
+    {
+      "id": "1076",
+      "name": "Fire Dept",
+      "isEnabled": 1,
+      "content": "<p>The Hudson Fire Department is pleased to offer our residents, businesses, contractors, and members of the public access to online permitting through our new OpenGov Permitting &amp; Licensing.</p><ul><li>To use or new online permitting service, you must first register and create a user account.</li><li>Once you have established your user account, you will be able to apply for inspections or permits.</li><li>To prevent delays in receiving permits, please ensure that applications are complete.<"
+    },
+    {
+      "id": "1073",
+      "name": "Health",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1086",
+      "name": "Planning Board",
+      "isEnabled": 1,
+      "content": "<p>The Planning Board is responsible for reviewing and permitting development proposals in the Town. This five-member elected Board reviews permit applications for subdivisions and some special permits (in the Downtown Zoning District), and it is designated as the authority for Site Plan Review approvals.</p><p>Meetings on the 1st &amp; 3rd Tuesday of the Month</p><p>- Please check the <a href=\"https://www.townofhudson.org/calendar.aspx?Keywords=Planning%20Board&startDate=&enddate=&CID=14&showPa"
+    },
+    {
+      "id": "1083",
+      "name": "Select Board – Local Licensing Authority",
+      "isEnabled": 1,
+      "content": "<p>In the Town of Hudson, the Select Board serves as the Local Licensing Authority and is responsible for issuing licenses and for enforcing rules, regulations, and state laws. Licenses issued by the Board include: alcohol, common victualer, entertainment, class I, II &amp; III, Christmas tree, pawn broker, second-hand dealer, roller skating, and more.</p><p>The Licensing Agent is generally available during regular business hours to assist with questions or with the application procedures. <br><"
+    },
+    {
+      "id": "1082",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1087",
+      "name": "Zoning Board of Appeals",
+      "isEnabled": 1,
+      "content": "<p>- Powers and Duties. The Board of Appeals shall pursue its duties identified in the statute, charter, by-law, and the Zoning By-Law.</p><p>- Term of Office. There shall be a Board of Appeals composed of five (5) members and three (3) associate members appointed by the Select Board, pursuant to Section 3-7(a) of the Town Charter and pursuant to Chapter 40A of the General Laws, each for three (3) year terms so that the term of office of at least two members expires each year.</p><p style=\"margi"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:09.878Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,362 @@
+{
+  "jurisdiction": "Town of Salina",
+  "state": "NY",
+  "tenant": "salinany",
+  "portalUrl": "https://salinany.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6433",
+      "name": "Area Variance Application",
+      "categoryId": 1087,
+      "viewAccess": "private",
+      "description": "Apply for an Area Variance from the Zoning Board of Appeals to seek relief from a Town Zoning Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Accessible Parking Permit - Permanent",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Apply here for an Accessible Parking Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6542",
+      "name": "Tobacco / Smoking / Vape Products Retailer License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "All merchants in the Town of Salina wishing to sell tobacco products, vaporizer oils, paraphernalia, and other related materials and accessories must first obtain a Tobacco / Smoking / Vape Products Retailer License.  There is a limited number of licenses available and the license must be renewed each year.",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Accessible Parking Permit - Temporary",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Apply here for a temporary Accessible Parking Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Lot Line Adjustment Application",
+      "categoryId": 1087,
+      "viewAccess": "private",
+      "description": "Use this application to adjust or remove a parcel lot line.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Site Plan / Special Permit Application",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Accessory Structure / Garage / Shed Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "All garages, gazebos, cabanas, pool houses, sheds, outbuildings, accessory structures, etc, require a building permit regardless of size or materials.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Commercial Building Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Use this form to apply for a building permit for work being performed on any business or commercial property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Subdivision Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Excavation/Fill Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Excavation or fill activities involving 10 cubic yards or more.",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Dumpster Enclosure Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Use this form to apply for a building permit for construction of a dumpster enclosure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Communications / Cell Tower Work Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Use this form to apply for a building permit for work being performed on any cell/radio/antenna tower.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Zoning Compliance Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Use this record type to submit an application for a Zoning Compliance Letter.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "FOIL Request",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Apply here for a Freedom of Information Law (F.O.I.L.) Request.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Online Complaint",
+      "categoryId": 1080,
+      "viewAccess": "private",
+      "description": "Use this form to submit a complaint to Town of Salina Code Enforcement",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Floodplain Development Application",
+      "categoryId": 1081,
+      "viewAccess": "private",
+      "description": "This application must be completed for all construction and/or development within a floodplain.",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Deck Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "All decks require a building permit, whether attached to the dwelling, or free-standing.",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Stormwater Complaint",
+      "categoryId": 1080,
+      "viewAccess": "private",
+      "description": "Use this form to submit a complaint to Town of Salina Code Enforcement regarding water pollution, water management, storm and waste water run-off.",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Highway Work Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Apply here for a Salina Highway Work Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Operating Permit",
+      "categoryId": 1080,
+      "viewAccess": "private",
+      "description": "All buildings containing any area of public assembly need to apply for an annual operating permit.  In addition, pyrotechnic devices, and hazardous materials/processes also require operating permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Use Variance Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Apply for a Use Variance from the Zoning Board of Appeals.",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Demolition Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a permit to demolish a building/dwelling/structure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Mobile Food Vending Unit Application",
+      "categoryId": 1080,
+      "viewAccess": "private",
+      "description": "Food trucks, trailers, and other mobile food service vehicles require a permit to operate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Fence Permit ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Fence permits are required for all new fences and replacement of existing fences.",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Peddler's and Solicitor's License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "All persons peddling and/or soliciting in the Town of Salina must first be licensed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Revocable License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Revocable License Agreement Application to allow for an encumbrance within an easement under the jurisdiction of the Town of Salina.",
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Fire Protection Equipment Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Permit application for fire alarms/equipment and sprinklers/suppression systems ",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Fireplace / Wood Stove / Gas Appliance Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a permit to install a fireplace, wood stove, or other fuel-burning appliance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Temporary Road Closure Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Transient Merchant License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "All transient merchants in the Town of Salina shall obtain a license at least 5 days prior to the sale date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "Inground Pool Removal Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Apply here for a permit to remove/fill-in an existing inground pool.",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Tree/Shrub/Brush Removal License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "All persons performing any brush, tree, and/or shrub removal services in the Town shall first obtain a license.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Zone Change Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Apply for a zone change on a parcel.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "New York State Uniform Solar Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Apply here for your Solar Energy System Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Residential Building Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Apply here for a permit to build a new home; or to repair, renovate, modify or add onto an existing one.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Sign Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "All signage in the Town of Salina, whether permanent or temporary, requires a sign permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Swimming Pool / Hot Tub / SPA Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "All pools/spas/hot tubs capable of holding over 24 inches of water require a Swimming Pool Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Fire Inspection - 1 Year",
+      "categoryId": 1080,
+      "viewAccess": "private",
+      "description": "Annual fire inspection for all properties containing one or more areas of public assembly. (750 square feet or 50+ occupant load)",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Tank Removal Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Apply here for a permit to remove a fuel storage tank.",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Fire Drill Request",
+      "categoryId": 1080,
+      "viewAccess": "private",
+      "description": "Use this record type to log a required annual fire drill.",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Fire Inspection - 3 Year",
+      "categoryId": 1080,
+      "viewAccess": "private",
+      "description": "Fire inspections for all other occupancies which do not require annual inspections.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1081",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"font-family: Times New Roman,Times,serif,-webkit-standard;\"><strong><span style=\"font-size: 36px;\">Town of Salina</span></strong></span><br><em>Planning and Development</em><br>201 School Road<br>Liverpool, New York 13088<br>(315) 451-0492</p><div>Welcome to our virtual building department where you can apply for all of your building permits online. Please choose from one of the following permit types below to get started. If you have any questions we "
+    },
+    {
+      "id": "1080",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<p>The Town of Salina Code Enforcement Department is responsible for enforcing the Code of the Town of Salina, as well and the NYS Uniform Building/Fire/Fuel Gas/Mechanical/Property Maintenance/Residential Codes. &nbsp;In addition, Code Enforcement performs Fire Safety and Property Maintenance inspections, and issues Operating Permits.</p><p>If you have observed a code violation, please use the Complaint form below to submit your concern to the department.</p><p>If you would like to apply for yo"
+    },
+    {
+      "id": "1087",
+      "name": "Planning and Zoning",
+      "isEnabled": 1
+    },
+    {
+      "id": "1084",
+      "name": "Town Clerk - Licensing and Permits",
+      "isEnabled": 1,
+      "content": "<table style=\"width: 100%;\"><tbody><tr></tr></tbody></table><p style=\"text-align: left;\"><br></p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:38.094Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,444 @@
+{
+  "jurisdiction": "Wilton",
+  "state": "CT",
+  "tenant": "wiltonct",
+  "portalUrl": "https://wiltonct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6500",
+      "name": "Septic Plan Review Application (Includes B100a)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Home Occupation Application Wilton",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "New/Change in Tenant or Change of Use application - No Work",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for a stand alone change of tenant zoning permit where no work is being done\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Septic Permit  to Construct",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "For repairs, abandonments, new installs, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6377",
+      "name": "Water Treatment Wastewater Disposal System",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit to install a Water Treatment Wastewater Disposal System (water from a water softener, etc)",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Permanent Sign Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is for any signs installed on buildings or stand alone.",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Wetlands Intermediate Activity Permit Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6580",
+      "name": "Building Permit  Residential Additions/Alterations  ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6528",
+      "name": "Wetlands Significant Activity Permit Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6567",
+      "name": "Adding Guests to Your Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Soil Test Application (Includes B100a)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Well Permit ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Instructions on signing up for an account, how to access your profile and records, and how to change your profile information.",
+      "isEnabled": true
+    },
+    {
+      "id": "6586",
+      "name": "Commercial Building Permit Project Application (Existing Buildings -additions/alterations) and Cellular Antennas ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is designated for commercial projects and includes Cellular Antennas",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Commercial Building Permit Project Application New Construction ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is designated for commercial projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6569",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "Wetlands Declaratory Ruling Permit Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6554",
+      "name": "Cosmetology/ Salon License Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application process for hair, nail, barber, waxing, eyebrows and associated esthetician services as defined in CT General Statutes",
+      "isEnabled": true
+    },
+    {
+      "id": "6559",
+      "name": "Cosmetology/ Salon Plan Review ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Variance Application Residential",
+      "categoryId": 1075,
+      "viewAccess": "public",
+      "description": "Variance Application to be heard before the Zoning Board of Appeals",
+      "isEnabled": true
+    },
+    {
+      "id": "6424",
+      "name": "Demolition Permit ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This permit is for the demolition of any building or part thereof being removed from a property. Commercial or Residential.",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Wetlands Minor Activity Permit Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Generator Permit ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6541",
+      "name": "Variance Application Commercial",
+      "categoryId": 1075,
+      "viewAccess": "public",
+      "description": "Variance Application to be heard before the Zoning Board of Appeals",
+      "isEnabled": true
+    },
+    {
+      "id": "6343",
+      "name": "Food Service Establishment License Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "For annual licensure of public food service establishments",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Temporary Food Service Permit Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Maximum 14 Days",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Electrical Permit and Voice/Data  -NOT TO BE USED FOR GENERATORS ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Includes Misc Wiring, Service Upgrades/Repairs/Changes, Septic Pumps, Voice/Data, EV Charger, Battery Backups for Solar, Residential Alarms,  ETC.",
+      "isEnabled": true
+    },
+    {
+      "id": "6590",
+      "name": "Sitework/Mechanical Location Application New-Sheds/gazebos under 200 sq.ft, driveways, lot clearing, patios, ground mount signs,stone walls, outdoor equipment, retaining walls), pergolas,  ETC  ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6563",
+      "name": "Zoning Compliance Application - Use to request a Zoning Compliance Inspection where no work is being done",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6418",
+      "name": "Itinerant Food Vending Truck License (Food / Ice Cream Truck)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Mobile Food Vending Truck",
+      "isEnabled": true
+    },
+    {
+      "id": "6551",
+      "name": "Farmers Market Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Fire Protection  Permit - Sprinklers, Hoods, Fire Alarms",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Plumbing/Gas Permit  ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "Seasonal Food Service Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Special Permit Application",
+      "categoryId": 1075,
+      "viewAccess": "public",
+      "description": "Special Permit Application to be heard before the Planning and Zoning Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Food Establishment Plan Review",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": " Application needed prior to Food Establishment Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "HVAC, Geothermal, Chimney liners & Oil Tank Permit  WILTON ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Includes geothermal, chimney liners, oil tanks, HVAC systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6566",
+      "name": "Architectural Review Board",
+      "categoryId": 1075,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6579",
+      "name": "VDDAC Application",
+      "categoryId": 1075,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Minor Building Permit  ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "For roof replacements (no change in roof line), siding, windows, doors, pool fence, wood or gas stoves/inserts, and signs ",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Public Swimming Pool Registration Form",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6578",
+      "name": "Daycare Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6543",
+      "name": "Subdivision/Re-subdivision Application",
+      "categoryId": 1075,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6582",
+      "name": "Multi Unit Apartment Building (New Construction and Conversion of Existing Buildings) ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is designated for commercial projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6583",
+      "name": "New Home 1 & 2 Family Construction ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This Permit is for Residential Single Family Homes, two Family Homes or Townhouses as defined by the CT State Building code Renovations, Additions, Alterations etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Site Development Plan",
+      "categoryId": 1075,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "Amend Plan of Conservation and Development",
+      "categoryId": 1075,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Solar Permit  ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "For both roof mount and ground mount - Ground mount requires a sitework approval before submitting this application",
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Amend Zoning or Subdivision Regulations",
+      "categoryId": 1075,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6588",
+      "name": "SWIMMING POOL OR INGROUND SPA PERMIT ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6542",
+      "name": "Change of Zone Application",
+      "categoryId": 1075,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Tent Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Includes Misc Wiring, Service Upgrades/Repairs/Changes, Septic Pumps, Voice/Data, EV Charger, Battery Backups for Solar, Residential Alarms,  ETC.",
+      "isEnabled": true
+    },
+    {
+      "id": "6547",
+      "name": "Notice of Appeal",
+      "categoryId": 1075,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1078",
+      "name": "BUILDING DEPARTMENT",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><br></p><div style=\"text-align: center;\"><"
+    },
+    {
+      "id": "1073",
+      "name": "HEALTH DEPARTMENT",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><br></p><p style=\"text-align: left;\"><img "
+    },
+    {
+      "id": "1079",
+      "name": "INLAND WETLANDS",
+      "isEnabled": 1,
+      "content": "<h1 style='box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-weight: bold; font-stretch: inherit; line-height: 2.625rem; font-family: \"Open Sans\", Helvetica, Arial, sans-serif; font-optical-sizing: inherit; font-size-adjust: inherit; font-ker"
+    },
+    {
+      "id": "1075",
+      "name": "PLANNING AND ZONING (Not for regular Zoning Permits - See the Zoning Department Page)",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><a href=\"https://wiltonct.workflow.opengov"
+    },
+    {
+      "id": "1080",
+      "name": "ZONING DEPARTMENT (For all Zoning Permit Applications)",
+      "isEnabled": 1,
+      "content": "<div><div style=\"text-align: center;\"><br></div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Reminder_Tue_Mar_18_2025_14:53:23_GMT+0000_(Coordinated_Universal_Time).jpg\" style=\"width: 129px;\" class=\"fr-fic fr-fil fr-dii\"></div><div><br></div><div><br></div><div style=\"text-align: left;\"><span style=\"font-family: Impact, Charcoal, sans-serif; font-size: 30px;\">&nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;ZONING DEPARTMENT</span></di"
+    },
+    {
+      "id": "1086",
+      "name": "Help, Links, Guides, & Other Information",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:07.119Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

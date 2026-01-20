@@ -1,0 +1,158 @@
+{
+  "jurisdiction": "Farmington",
+  "state": "CT",
+  "tenant": "farmingtonct",
+  "portalUrl": "https://farmingtonct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6381",
+      "name": "Public Event Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6401",
+      "name": "New Construction Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is for NEW ground up construction of a full structure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6402",
+      "name": "Foundation ONLY Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is for a foundation to which the structure is still going through the approval process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6395",
+      "name": "Addition/Alteration Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Applications included but not limited to: Additions, remodeling, decks, porches, sunrooms, awnings, accessory structures over 200sq.ft. in area, Fireplace inserts, chimney liners, Etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6403",
+      "name": "Pool / Hot Tub Permit Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6390",
+      "name": "Electrical Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Electrical Permits include but are not limited to: General wiring, EV Chargers, Antenna, and Generators.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6396",
+      "name": "Plumbing Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Plumbing permits include but are not limited to: General plumbing, gas piping, and Water Heaters.",
+      "isEnabled": true
+    },
+    {
+      "id": "6397",
+      "name": "Mechanical Permit Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Mechanical Permits include but are not limited to: Boiler, Furnace, Air Conditioning, Geothermal, Tank Installation (LP or Oil) and Hoods/Exhaust Venting.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6392",
+      "name": "Solar Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is for Roof or Ground Mounted Solar Arrays.  Both HIC and E1 licenses must be input into the application for a permit to be issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "6393",
+      "name": "Roof Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Application for overlay or replacement Roofing.",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "Siding/Windows/Door Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Application for replacement of: Siding, Windows and Exterior Doors",
+      "isEnabled": true
+    },
+    {
+      "id": "6394",
+      "name": "Tent Permit Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Temporary erection of Tent.",
+      "isEnabled": true
+    },
+    {
+      "id": "6379",
+      "name": "Building Permit Applications - WestFarm Malls ONLY",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "WestFarms Mall Tenant Improvement Permits",
+      "isEnabled": true
+    },
+    {
+      "id": "6380",
+      "name": "Excavation/Obstruction Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "Sewer Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6400",
+      "name": "Demolition Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Applications included but not limited to: UST Removal, Full / Partial Structure Demolition, & In Ground Pool Demolition.",
+      "isEnabled": true
+    },
+    {
+      "id": "6399",
+      "name": "Fire Suppression/Sprinkler Permit Application  ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "On Line Permit Applications",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 18px; color: rgb(0, 168, 133);\">The Town of Farmington has, as of January 1, 2026, rolled out a newer permit process.</span></strong></p><div style=\"text-align: center;\"><strong><span style=\"font-size: 18px; color: rgb(0, 168, 133);\">Please select the permit application which best fits your portion of work to be performed.</span></strong></div><div style=\"text-align: center;\"><strong></strong><br></div><div style=\"text-align: center;"
+    },
+    {
+      "id": "1080",
+      "name": "Public Event Permit",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:50.211Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

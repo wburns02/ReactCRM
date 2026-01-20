@@ -1,0 +1,314 @@
+{
+  "jurisdiction": "Spring Hill",
+  "state": "KS",
+  "tenant": "springhillks",
+  "portalUrl": "https://springhillks.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6340",
+      "name": "Shed Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "One accessory building with a maximum size of 120 square feet by 12 feet maximum height may be allowed in the rear yard only.",
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "Electrical Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All electrical work requires a permit by a licensed contractor and must be performed to the current adopted edition of the National Electrical Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6353",
+      "name": "Plumbing Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All residential and commercial/industrial plumbing new and replacements require a permit.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6354",
+      "name": "Mechanical Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All residential, commercial and industrial mechanical miscellaneous require a permit.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6367",
+      "name": "Final Plat Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application will be used for final plats.",
+      "isEnabled": true
+    },
+    {
+      "id": "6368",
+      "name": "Rezoning Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application will be used for all re-zonings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6380",
+      "name": "Swimming Pool, Hot Tubs & Spas Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Application for swimming pool, hot tub or spa. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Residential  Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Building permits are required for the construction or alterations of a residential structures. This includes building a new structure, additions, basement finishes, and remodels. PLEASE DO NOT USE THIS APPLICATION FOR A ROOF; apply for a \"Reroof Permit\" instead. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Reroofing Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All residential and commercial/industrial roof replacements require a permit.   The City of Spring Hill does not require ice and water shield. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Sign Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Firework Sales Permit Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Consumer Fireworks Retail Sales Facility (CFRS) - Applications due by May 20, 2025.  No applications will be accepted after this date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Driveway Approach Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Bee Keeping Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Demolition Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Fence Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All residential, commercial and industrial fences require a permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Chicken Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Special Exception Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Special Exception application is used as a formal request for a proposed exception to Section 17.360.C.8 Screening and Fencing of the Spring Hill Municipal Code (SHMC) for residential zoned districts only.",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Variance to Board of Zoning Appeals",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Variances. The Board may grant a variance from the specific terms of the zoning title which will not be contrary to the public interest and where, owing to special conditions, a literal enforcement of the provisions of the title will result in unnecessary hardship for the applicant and provided that the spirit of this title shall be observed, the public safety and welfare secured, and substantial justice done for the applicant. Such variance shall not permit any use not permitted by said title in such district. An application for a variance may be granted upon a finding by the Board that all of the following conditions have been met: \n\n1.\\tThat the variance requested arises from such condition which is unique to the property in question and which is not ordinarily found in the same zone or district; and is not created by an action.\n2.\\tThat the granting of the permit for the variance will not adversely affect the right of adjacent property owners or residents. \n3. \\tThat the strict application of the provisions of this title of which the variance is requested will constitute unnecessary hardship upon the property owner represented in the application. \n4. \\tThat the variance desired will not adversely affect the public health, safety, morals, order, convenience, prosperity, or general welfare. \n5. \\tThat the granting of the variance desired will not be opposed to the general spirit and intent of the zoning title. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Code Enforcement",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Right of Way Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Public Improvement Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Multi-Family Residential Building Permit Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Building permits are required for the construction or alterations of a residential structures. This application is for multi-family new construction ONLY.   A separate application will need to be submitted for each unit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Preliminary Plat/Preliminary Development Plan Application ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application will be used for preliminary plats.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Site Plan Application  ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application will be used for site plans.",
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": "4. Links to Helpful Documents",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Links to Guides and other City/Town Information",
+      "isEnabled": true
+    },
+    {
+      "id": "6375",
+      "name": "5. How to Reach Us! About Us & Contact Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to reach us!",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Land Disturbance Application  ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "A land disturbance permit shall be obtained from the Chief Building Inspector prior to commencement of any of the following:   \n\n1.      Any activity that changes the physical conditions of landform, vegetation and hydrology, creates bare soil, or otherwise may cause erosion or sedimentation.  Such activities include, but are not limited to, clearing, removal of vegetation, stripping, grading, grubbing, excavating, filling, logging and storing of materials.  Exemptions permitted in Section 17.352 are not applicable to land disturbance activities in the floodway overlay and/or floodway fringe overlay district pursuant to Section 17.980.\n\n2.\\tUtility construction.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Temporary Use Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application is for a temporary use permit.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Conditional Use Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is for a conditional use permit and requires a public hearing\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Lot Split Application ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application is used for Lot Splits.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Vacation of Property Request Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application is used for property vacations.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Commercial/Industrial Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Construct, enlarge, alter, or repair any building not covered by a residential building permit.  ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Community Development ",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1086",
+      "name": "Engineering ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1082",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<div>Right-Of-Way Permits</div>"
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:29.824Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

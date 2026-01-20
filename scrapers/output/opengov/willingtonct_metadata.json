@@ -1,0 +1,229 @@
+{
+  "jurisdiction": "Willington",
+  "state": "CT",
+  "tenant": "willingtonct",
+  "portalUrl": "https://willingtonct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6430",
+      "name": "Building Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Volunteer Application",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Join the Town of Willingtown as a volunteer! Complete this application to help with community programs, events, and projects. All skill levels welcome!",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Town Offices Building Field - Rental Form",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Reserve the Town Offices Building Fields, home of the Kevin Legare Memorial Baseball and Softball Field, for practices, games, or events. The rental fee is $50 for every 2 hours, payable before use begins. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "River Road Athletic Complex Park - Rental Form",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "River Road Athletic Complex has a pavilion, fields, and courts available for rent for your next birthday party or family gathering! \n\nReminder: All activities at River Road Athletic Complex are now monitored under 24-hour video surveillance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Universal Registration Form - Individual",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "This is a universal registration form for Willington Parks & Recreation Department programs and events. Please only complete this form if the program or event you are registering for is not listed on this page. A separate form is required for each participant. Submission of this form does not guarantee placement until registration is confirmed by the department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": " Right of Way/Curb Cut Permit ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "THIS FORM SHOULD BE USED FOR WORK WITHIN THE TOWN RIGHT OF WAY INCLUDING DRIVEWAYS",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Food Pantry",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "For Online Food Pantry Donations",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Fuel Bank",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "For Online Fuel Bank Donations",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Administrative Zoning Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Please use this permit application if you are submitting a permit to staff for work related to a single family home, including but not limited to: new house, addition, accessory building, sheds, decks, pools, garages, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Planning & Zoning Commission Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Please use this form if you are applying for a Special Permit, Site plan or other approval type which is reviewed by the Willington Planning and Zoning Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Adult Basketball",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "The Willington Parks & Recreation Adult Co-Ed Basketball is NOW OPEN for 2025-2026! This year this program is open for individuals over 25 years old. The program will run Sunday nights 7-8:30 PM from November 30, 2025- June 28, 2026. Residents $65. Non-Residents $75.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Inland Wetlands and Watercourses Application (IWWC)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A permit from IWWC shall be required if the activity is proposed within a regulated area. Applications shall be submitted for the following: As of Right Activities, Agricultural Exemptions, Timber Harvest's and General approval from the IWWC                                                                                                                                                                                    ",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Timber Harvest",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Please use this application template to submit for approval to conduct a timber harvest in Willington                                                                                                                                                                               ",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Temporary Outdoor Dining or Display of Merchandise",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Temp permits allowed per the Governor's Executive Order",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Hydroponic Herb Garden Class",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "The Willington Parks & Recreation will host a 60-90 min. Home Hydroponics “Bokit” Building class. Participants will gain a general understanding of Hydroponic Farming, its benefits, and the science behind the “Kratky method,” a non-circulating, no-electricity approach ideal for beginners. Participants will create their own Bokit Herb Jar container, plant their seedlings, and leave with instructions on how to set-up and maintain their Bokit at home. All materials, including beginning seedlings and fertilizer will be supplied. February 25, 2026. 6:30-8 PM. $12 each jar",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Snow Shoe Reservation",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Reserve snow shoes. Must receive confirmation from Parks and Recreation Department to ensure availability. FREE",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Buildable Lot or Compliance Review ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "If you are seeking a review and certification of the compliance status of your use and/or property, you can complete this form to request this review by the Town's Land Use Department",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Complaint",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Electrical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Plumbing Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Zoning Board of Appeals",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Apply for a special exception, variance from zoning regulation location approval, or appeal from decision of zoning agent. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Mechanical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Gas Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Boys High School Basketball Registration",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "2025-2026 High School Basketball\n\nRecreational Basketball features basic skills, dribbling, passing, shooting, good sportsmanship, and fun! All home games and practices are at the Hall Memorial School Gym, or in Ashford (depending on the team). $140 each",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1085",
+      "name": "Land Use ",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"font-size: 24px;\"><strong>Welcome to the Willington Land Use Department&#39;s Online Portal</strong></span></p><p style=\"text-align: center;\"><span style=\"font-size: 18px;\"><strong>All Planning &amp; Zoning, Inland Wetlands, Zoning Board of Appeals and Administrative Zoning Permit applications are submitted via this portal. Paper applications are not accepted.</strong></span></p><p style=\"text-align: center;\"><strong><span style=\"font-size: 18px;\"><br>"
+    },
+    {
+      "id": "1083",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/pool_brochure_Fri_Mar_26_2021_16:44:25_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_blank\"></a><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Building_Brochure_Fri_Mar_26_2021_16:46:15_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_blank\">Building Brochure.pdf</a><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/pool_brochure_Mon_Apr"
+    },
+    {
+      "id": "1087",
+      "name": "Parks and Recreation",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><span style=\"font-family: Tahoma, Geneva, sans-serif; color: rgb(2, 45, 125);\">Welcome to our Parks &amp; Recreation online registration and payment platform. If you have any questions, please reach out to the Director of Parks &amp; Recreation for assistance. Enjoy!<div style=\"text-align: center;\"><br></div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/WRPD_Logo_Circle_Tue_Sep_16_2025_18:11:10_GMT+0000_(Coordinated_Universal_Time).png\" "
+    },
+    {
+      "id": "1088",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<p>Here you can submit an application to work within the Public Right of Way. Please note: Bonding is required.&nbsp;</p>"
+    },
+    {
+      "id": "1095",
+      "name": "Human Services",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:10.934Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

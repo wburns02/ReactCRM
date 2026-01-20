@@ -1,0 +1,261 @@
+{
+  "jurisdiction": "Goddard",
+  "state": "KS",
+  "tenant": "goddardks",
+  "portalUrl": "https://goddardks.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6469",
+      "name": "Fall Fest Parade Registration Form",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Lot Split",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Boundary Line Adjustment",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This application is used for adjusting the legal boundaries, or lot lines, of land.",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Accessory Structure Permit Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit is for any accessory building or shed. No permit is necessary for sheds under 120 square feet",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Conditional Use Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Rezoning Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Special Use Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Variance Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Main Street Market Vendor Registration Form - April 12, 2026",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Christmas on Main Street Vendor Registration Form - Dec 5, 2026",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Main Street Market Vendor Registration Form - September 14, 2026 ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Main Street Market Vendor Registration Form - June 14, 2026",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Main Street Market Vendor Registration Form - May 10, 2026 ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Backflow Test Form",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This form is for any inspections and work done on back flow devices",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Chicken Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit is for a Chicken coop and run and must be renewed annually. Prior to getting a permit you must check with your HOA if a chicken coop will be allowed",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Demolition permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Door to door vendor license",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Dumpster Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Electrical Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "For all electrical work requiring a contractor",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Fence Permit",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "description": "This is for a fence permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Mechanical Permit",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Plumbing Permit",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "description": "This permit is for all internal plumbing requirements",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Portable Storage Unit Permit",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Roofing Permit",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "description": "For roofing jobs",
+      "isEnabled": true
+    },
+    {
+      "id": "6336",
+      "name": "ROW Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "Sewer/Water Service Line Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit is for waste openings and repair/replacement at the main line",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Sewer & Water Tap",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Siding Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Sign Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit for requesting a sign",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Special Event Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6338",
+      "name": "Street/Curb Cut/Culvert Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit is for the removal of sidewalks, streets, or the placement of culverts in open ditches.",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Temporary Road Closure Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1076",
+      "name": "Permits",
+      "isEnabled": 1,
+      "content": "<p><br></p><p>The permits department handles the issuance of permits for construction, road closures, Right Of Way development, and any and all necessary permitting processes as defined by the city.</p>"
+    },
+    {
+      "id": "1081",
+      "name": "Planning & Zoning",
+      "isEnabled": 1,
+      "content": "<p>This department handles all Planning and Zoning related projects.</p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:31.613Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

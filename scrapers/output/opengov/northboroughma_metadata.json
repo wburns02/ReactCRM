@@ -1,0 +1,479 @@
+{
+  "jurisdiction": "Northborough",
+  "state": "MA",
+  "tenant": "northboroughma",
+  "portalUrl": "https://northboroughma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006658",
+      "name": "Application to Serve on a BCCC",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006667",
+      "name": "Fortune Teller License",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006669",
+      "name": "Select Board Licenses: New Licenses (Alcohol & General), Annual Renewals (Alcohol & General), or Alcohol License Transfers",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "Click \"SELECT\" to see full list of licenses",
+      "isEnabled": true
+    },
+    {
+      "id": "1006615",
+      "name": "Annual Building Inspection Request / Periodic Inspection Request",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The Massachusetts State Building Code (780 CMR, Chapter 1, § 110) requires that certain public use\nbuildings or spaces be annually and/or periodically inspected and certified by the local building official. \n\nPlease complete this application and once we have received it through our online permitting system we will contact you schedule the inspection. \n\nThese inspections usually take an hour or more, depending on the size of your building. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006606",
+      "name": "Soil Testing Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006608",
+      "name": "Septic Permit Application*",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "INCLUDES: \nNew System (New Construction) --- Upgraded System (Ex: 2 Bedroom to 3 Bedroom) --- Repaired System (Ex: Existing 3 Bedroom Failed, Install New 3 Bedroom - No change in bedroom count.) --- Single Component (Tank, D-Box, Sewer Line)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006594",
+      "name": "Northborough DPW -  Trench Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this record type for any excavation on private property, or in the Town's streets greater than 3-feet deep.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006590",
+      "name": "Northborough DPW - Street Opening / Roadway Access Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Street Opening / Roadway Access Permit Application",
+      "isEnabled": true
+    },
+    {
+      "id": "1006586",
+      "name": "Electrical Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006620",
+      "name": "Septic Installer License - New",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006625",
+      "name": "Septic Installer License - Renewal",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "PLEASE NOTE: Use this ONLY if you were licensed with the Town of Northborough the previous year.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006592",
+      "name": "Gas Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006591",
+      "name": "Plumbing Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006627",
+      "name": "Septage Hauler License",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "License to remove and transport septage and the content of privies and cesspools.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006635",
+      "name": "Septic Decommissioning Application - No Fee",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006638",
+      "name": "Plumbing Permit - UNDERGROUND IRRIGATION (TOWN WATER)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006584",
+      "name": "Northborough DPW - Drain Layer's Authorization",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Drain layers are registered plumbers, and competent contractors licensed by the Town of Northborough, Massachusetts, and bonded to lay drains in the Town of Northborough, Massachusetts.  You must be a State licensed contractor or plumber to apply. In addition to your application for a new license (or a renewal), you will also be required to submit a copy of a bond to cover water, sewer, or drainage work in the amount of $5,000.  You will also be required to provide a certificate of Insurance naming the Town of Northborough as Additional Insured (no less than $1,000,000) for Public Liability and Property Damage.  New applicants must also provide three letters of recommendation.  The license, if issued, is good for one calendar year (expires 12/31).   It is only valid within the confines of Northborough, MA.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006583",
+      "name": "Sign Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006634",
+      "name": "Solid Waste Hauler License",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006613",
+      "name": "Swimming Pool Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006564",
+      "name": "Residential Building Permit - Additions",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006657",
+      "name": "Residential Building Permit - Accessory Dwelling Unit (ADU) on single family lot",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This application is for Accessory Dwelling units ONLY, whether attached to an existing building or as a separate accessory structure.  Any other project belongs on another application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006610",
+      "name": "Well Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This application is for the Construction, Repair, and/or Destruction of a Private Well or Pump.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006612",
+      "name": "Recreational Camp ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006597",
+      "name": "Residential Building Permit - Mechanical",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006565",
+      "name": "Residential Building Permit - Minor MISC. Interior / Exterior (Solar not included) ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "INCLUDES: Siding, Roofing, Windows, Doors, Decks/Porches/Gazebos,  Insulation/Weatherization, Interior Demolition, Fence (7' Plus or Pool Barrier), Retaining Wall (4' Plus), Chimney, Tent (400 SF Plus and/or With Sides), Other ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006585",
+      "name": "Northborough DPW - Water Service Request ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this record type for any water service permit requests.  Examples are; New Service, Temp Service, Disconnect, Reconnect, Repair, Water Meter Etc.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006619",
+      "name": "Food Truck Annual Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006596",
+      "name": "Food Establishment - Renewal",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006640",
+      "name": "Residential Building Permit - PV Solar",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "INCLUDES: Roof-mounted Solar, Ground-mounted Solar, and ESS Installs",
+      "isEnabled": true
+    },
+    {
+      "id": "1006563",
+      "name": "Food Establishment - New (Change of Ownership or Use) ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006558",
+      "name": "Residential Building Permit - New Construction (Detached 1 & 2 Family or Townhouse)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006603",
+      "name": "Residential Building Permit - Renovation / Alteration",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "(Ex. Kitchen, Bathroom, Basement)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006569",
+      "name": "Food Establishment - Temporary",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Temporary food establishment is a food establishment that operates for a period of no more than 14 consecutive days in conjunction with a single event or celebration.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006587",
+      "name": "Northborough DPW - Sewer Service Request ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this record type for any Sewer service permit requests.  Examples are; New Service, Disconnect, Reconnect, Repair, Etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006568",
+      "name": "Residential Building Permit - Solid Fuel Burning Appliance",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006624",
+      "name": "Body Art Establishment License - Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006621",
+      "name": "Body Art Practitioner License - Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006636",
+      "name": "Residential Building Permit - Sprinkler / Fire Suppression",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006567",
+      "name": "Residential Building Permit - Swimming Pools and Spas",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Includes: Above Ground Pool, In Ground Pool, Decommissioning an Existing Pool,\n                   Above Ground Spa (Hot Tub), and In Ground Spa",
+      "isEnabled": true
+    },
+    {
+      "id": "1006633",
+      "name": "Body Art Practitioner License - Renewal",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006632",
+      "name": "Body Art Establishment License - Renewal",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006566",
+      "name": "Commercial Building Permit - Whole Structure DEMOLITION",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006670",
+      "name": "Residential Building Permit - Whole Structure DEMOLITION",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006623",
+      "name": "Tobacco Product Sales Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006628",
+      "name": "Hotel / Motel License to Operate",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006601",
+      "name": "Commercial Building Permit - Additions",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006611",
+      "name": "Commercial Building Permit - Mechanical",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006629",
+      "name": "Funeral Director Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006631",
+      "name": "Stable Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006602",
+      "name": "Commercial Building Permit - Minor MISC. Interior / Exterior",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "INCLUDES: Siding, Roofing, Windows, Doors, Decks/Porches/Gazebos,  Insulation/Weatherization, Interior Demolition, Fence (7' Plus), Retaining Wall (4' Plus), Chimney, Tent (400 SF Plus and/or With Sides), Temporary Structure (Trailer), Other",
+      "isEnabled": true
+    },
+    {
+      "id": "1006600",
+      "name": "Commercial Building Permit - New Construction ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006630",
+      "name": "Horse Registration License - No Fee",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006639",
+      "name": "Taste of Northborough Special Event",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This permit is ONLY for The Taste of Northborough Special Event on Sunday, September 22, 2024\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006647",
+      "name": "Special One-Day Alcohol License",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "One-Day Alcohol License \n\nOne-day licenses are required for events that are advertised and/or open to the public.  Please note that a person can only obtain a total of 30 one-day licenses per location in one calendar year.  You may use this application to apply for a license during consecutive days in the same location.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006605",
+      "name": "Commercial Building Permit - Renovation / Alteration",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "(Ex. Tenant Fit-Out, Racking, Breakroom, Kitchen, Bathroom)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006622",
+      "name": "Commercial Building Permit - Sprinkler / Fire Suppression / Fire Alarm",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006607",
+      "name": "Zoning Interpretation Request Form (No Fee)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A Zoning Interpretation Request is a written determination made by the Zoning Officer (Bob Frederico) that explains the zoning ordinances and by-laws for the Town of Northborough for a specific property based on the information presented in the request. These requests may include use determinations, questions on the placement or use of buildings or structures, and a variety of other zoning-related questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006614",
+      "name": "Zoning/Building  Complaint Form (No Fee)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1094",
+      "name": "Boards, Committees, Councils, and Commissions (BCCC)",
+      "isEnabled": 1,
+      "content": "<div><strong>Volunteer for a Board, Committee, Council, or Commission!</strong></div><div>The Town of Northborough greatly values the active involvement of its residents. Serving on a Board, Committee, Council, or Commission is a rewarding way to contribute to your community, shape local decisions, and make a positive impact. We encourage all interested residents to apply for available positions. Your time, skills, and perspective are appreciated and vital in helping to guide the town&rsquo;s gr"
+    },
+    {
+      "id": "1095",
+      "name": "Select Board – Licensing",
+      "isEnabled": 1,
+      "content": "<h2 style=\"box-sizing: border-box; margin-top: 0.167em; margin-bottom: 0px; font-family: Martel; font-style: normal; font-weight: 700; color: rgb(55, 154, 195); font-size: 1.3em; text-decoration: none; display: block; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255);\"><span s"
+    },
+    {
+      "id": "1085",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<div><br></div><p><span style='font-family: \"Times New Roman\", Times, serif, -webkit-standard;'><br></span></p><p><span style=\"font-family: Times New Roman,Times,serif,-webkit-standard;\"><span style=\"font-size: 24px;\"><span style=\"color: rgb(0, 0, 0);\"><strong>Lead Time:</strong></span></span></span></p><div style=\"text-align: center;\"><span style=\"font-family: Times New Roman,Times,serif,-webkit-standard;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(0, 0, 0);\">Building permits, despi"
+    },
+    {
+      "id": "1087",
+      "name": "Health & Human Services",
+      "isEnabled": 1,
+      "content": "<p><strong>PLEASE NOTE:</strong></p><p>Please contact the Administrative Staff at the Health Department with instructions on how to submit for a permit that you do not see listed below.</p><p>Phone (508) 393-5009</p><p>Email: <a data-fr-linked=\"true\" href=\"mailto:asowden@town.northborough.ma.us\" rel=\"noopener noreferrer noopener noreferrer noopener noreferrer\" target=\"_blank\">abassett@town.northborough.ma.us</a></p>"
+    },
+    {
+      "id": "1086",
+      "name": "Department of Public Works",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; t"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:11.873Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

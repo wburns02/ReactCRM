@@ -1,0 +1,392 @@
+{
+  "jurisdiction": "Post Falls",
+  "state": "ID",
+  "tenant": "postfallsid",
+  "portalUrl": "https://postfallsid.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6432",
+      "name": "Subdivision Construction Plan Review",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Construction Improvement Agreement",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Development Infrastructure Project",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "A Development Infrastructure Project pertains to those projects existing in the Right of Way (i.e., sewer main extensions/upgrades, roadway improvements, etc.).  NOT projects on private property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Plat",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Hydrant/Temporary Service Use Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Business License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "For New Licenses Only",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Temporary Use",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Temporary uses include, but are not limited to, erection of temporary structures such as fences, booths, tents, or parking of trailers for activities such as carnivals, circuses, fairs, religious meetings, temporary outdoor displays and/or sale of art objects or other items and other similar activities conducted either outdoors or within temporary structures. A temporary use is a land use established for a period of time not to exceed thirty (30) days in a calendar year and does not require permanent site improvements. The actual use embodied by a temporary use permit must be a permitted use in the zoning district in which it is proposed to be located. The temporary use permit may be allowed subject to conditions required by the Zoning Administrator so long as the Zoning Administrator determines that granting the temporary use permit will not harm the public interest if the required conditions are complied with. \n\nTEMPORARY USE PERMIT REVIEW PROCESS AND CRITERIA \nA temporary use may be approved, approved with modifications or denied by the administrator.  In consideration of the request, the administrator shall consider the following: \n1.  That the permit for the proposed temporary use would be consistent with the general intent of the zoning ordinance and comprehensive plan and would be permitted within the zoning district wherein located.\n2.  Granting the permit would not be detrimental to the surrounding neighborhood or to the community in general, would not create a traffic hazard and would not harm the functioning of community facilities or services.\n\nA notice of the administrative review will be provided to abutting property owners, who will have seven days from the date of the mailing to respond with written comments for consideration. \n\nWritten notice of the decision will be provided to the applicant.  A decision may be appealed to the Planning and Zoning Commission in accordance with City procedures. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Commercial Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Residential Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "PUD Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "A Planned Unit Development (PUD) is a development process, provided for by ordinance that allows for flexibility in the application of regulations and standards for consideration provided by a developer. (For additional information on this process and requirements please see PFMC 18.20.080) \nProcess of Completion and Public Hearing Schedule:\n1.  Applications will need to be deemed complete by the Planning Department prior to being scheduled for a public hearing. Once the applicant has been issued a completeness letter from the Planning Department verifying the application is complete, the application will be eligible to be scheduled at the next available Public Hearing.\n2.  Each Completeness Review Period, will be reviewed within a 2-week period\n3.  There is a 55-day cut-off window for a fully completed application (deemed complete) required, prior to being scheduled for the next available Public Hearing.\nOnce we have 4 Public Hearings the applicants will be moved to the next month’s Hearing Date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Mobile Vending License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "For New Licenses Only",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Annexation",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Annexing land and expanding public services is based on careful planning, adopted regulations and Comprehensive Plan policies. Annexation should provide a means for orderly, logical expansion of the city and increased efficiency, and economic provisions of public services. The City of Post Falls considers approval of annexing lands when such will lead to orderly future development that would result in benefit to the community. See the Comprehensive Plan 4.0 Future Land Use; Annexation Goals and Policies. \nProcess of Completion and Public Hearing Schedule:\n1.  Applications will need to be deemed complete by the Planning Department prior to being scheduled for a public hearing. Once the applicant has been issued a completeness letter from the Planning Department verifying the application is complete, the application will be eligible to be scheduled at the next available Public Hearing.\n2.  Each Completeness Review Period is 2 weeks.\n3.  There is a 55-day cut-off window for a fully completed application (deemed complete) required prior to being scheduled for the next available Public Hearing.\nOnce we have 4 Public Hearings the applicants will be moved to the next month’s Hearing Date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Mechanical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": "4. Links to Helpful Documents",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Links to Guides and other City/Town Information",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Subdivision Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "A subdivision is any division of a lot, tract or parcel into two or more lots and accompanied by proposed new streets or extension of existing streets, municipal sewer and water services.  (For additional information on this process and requirements please see PFMC 17.04)\nProcess of Completion and Public Hearing Schedule:\n1.  Applications will need to be deemed complete by the Planning Department prior to being scheduled for a public hearing. Once the applicant has been issued a completeness letter from the Planning Department verifying the application is complete, the application will be eligible to be scheduled at the next available Public Hearing.\n2.  Each Completeness Review Period, will be reviewed within a 2-week period.\n3.  There is a 55-day cut-off window for a fully completed application (deemed complete) required, prior to being scheduled for the next available Public Hearing.\nOnce we have 4 Public Hearings the applicants will be moved to the next month’s Hearing Date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "PUD Amendment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "A Planned Unit Development (PUD) is a development process, provided for by ordinance that allows for flexibility in the application of regulations and standards for consideration provided by a developer.  (For additional information on this process and requirements, please see PFMC 18.20.080)\n\nProcess of Completion and Public Hearing Schedule:\n1.  Applications will need to be deemed complete by the Planning Department prior to being scheduled for a public hearing. Once the applicant has been issued a completeness letter from the Planning Department verifying the application is complete, the application will be eligible to be scheduled at the next available Public Hearing.\n2.  Each Completeness Review Period is 2 weeks.\n3.  There is a 45-day cut-off window for a fully completed application (deemed complete) required prior to being scheduled for the next available Public Hearing.\nOnce we have 4 Public Hearings the applicants will be moved to the next month’s Hearing Date.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Sign Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Variance",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "The purpose of a variance is to grant an exception to the requirements of the Zoning Ordinance affecting the size of a structure or placement of a structure on a property. \nFor additional information on this process and requirements, please see PFMC 18.20.090.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Vacation",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This petition is provided to assist in preparation of a request to vacate a right-of-way or easement which provides certain rights to individual land-owners or to the public in general.  It is the petitioner's responsibility to comply with the provisions of law which govern the vacation of property interests encompassed by this application.\n\nProcess of Completion and Public Hearing Schedule:\n1.  Applications will need to be deemed complete by the Planning Department prior to being scheduled for a public hearing. Once the applicant has been issued a completeness letter from the Planning Department verifying the application is complete, the application will be eligible to be scheduled at the next available Public Hearing.\n2.  Each Completeness Review Period is 2 weeks.\n3.  There is a 45-day cut-off window for a fully completed application (deemed complete) required prior to being scheduled for the next available Public Hearing.\nOnce we have 4 Public Hearings the applicants will be moved to the next month’s Hearing Date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "For the demolition of an ENTIRE structure.  \n\nNOT for demo relating to remodels.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Mass Grading Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Right of Way Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Text Amendment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Process of Completion and Public Hearing Schedule:\n1.  Applications will need to be deemed complete by the Planning Department prior to being scheduled for a public hearing. Once the applicant has been issued a completeness letter from the Planning Department verifying the application is complete, the application will be eligible to be scheduled at the next available Public Hearing.\n2.  Each Completeness Review Period is 2 weeks.\n3.  There is a 45-day cut-off window for a fully completed application (deemed complete) required prior to being scheduled for the next available Public Hearing.\nOnce we have 4 Public Hearings the applicants will be moved to the next month’s Hearing Date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Flood Plain",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This is an application for a Floodplain Development Permit.  Certain sections will be completed by you, the applicant, and certain sections will be completed by the local Floodplain Administrator (FPA).\n\nThe National Flood Insurance Program (NFIP) provides flood insurance to individuals at much lower premiums than could otherwise be purchased through private insurers, and makes certain federal monies available to local communities.  In order for citizens to be eligible for the national flood insurance rates, or for communities to receive certain kinds of federal monies, the community must agree to meet minimum floodplain standards.  This application is a tool to ensure that the minimum standards are met.\n\nIn a participating NFIP community, flood insurance polies can be purchased from any local insurance agent at the national rate.  Even though the policy may be issued as if it were coming from the insurance company you deal with, it is actually a Federal NFIP policy printed on the insurance agency's letterhead.  The rates are determined by the flood risk zone in which you live and by the elevation of the lowest floor of your home, not by the insurance company, and should be the same regardless of which agent or agency sells you the insurance. \n\nYou may buy flood insurance for your own peace of mind, you may be required to buy it before a lending institution will make or refinance a loan, or you may not be buying flood insurance at all.  Whatever the case, if the property which you propose to develop is located within a \"Special Flood Hazard Area\" on a flood map issued by the Federal Emergency Management Agency (FEMA), you MUST obtain a Floodplain Development Permit prior to beginning the project.  This is a requirement of the local Flood Damage Prevention Ordinance of your community, and there are penalties for failing to do so.\n\nFloodplain Development Permits are ONLY required for developments in areas designated as \"Special Flood Hazard Areas\" of FEMA-issued flood maps.  Flood maps can be reviewed at the office of your local FPA, or online at the FEMA website: www.MSC.FEMA.gov.\n\nIf you are proposing a development of any kind (constructing a new building, adding on to an existing building, clearing land, placing fill, grading land, mining, dredging, drilling, etc...) in a floodplain, you must submit this application for a Floodplain Development Permit to your local FPA.  Depending upon the type of development you are proposing, additional forms may be required.  For example, all new buildings in a Special Flood Hazard Area require an Elevation Certificate to document that the lowest floor of the building is elevated to a certain height relative to the anticipated flood crest of the \"base flood\" event.  The Elevation Certificate and other forms are provided in the Attachments section of this application, but should only be completed if they are required by the FPA for the proposed development. \n\nTypically, the Applicant completes the application form and submits the information to the local FPA.  The FPA reviews the submission and determines whether or not additional information is needed.  If it is, the FPA will request the additional information from the Applicant.  Once all required materials have been submitted, the FPA will make a permitting decision and either issue or deny the requested Floodplain Development Permit.\n\nThe Applicant should understand that a Floodplain Development Permit is only a permit to complete the proposed development.  It is a permit to, for example, build a house, construct a baseball field, install a drainage ditch or septic system, or grade a parcel of land.  Before the house can actually be occupied, or the developed land used, a Compliance Certificate must be issued by the local FPA.  The FPA will perform an inspection after the project is completed, or perhaps several inspections throughout the progress of the project, to ensure the development is complaint with the requirements of the local Flood Damage Prevention Ordinance.  Once the Compliance Certificate has been issued, the process has been completed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "60-Day Shot Clock Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "90/150-Day Shot Clock Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Site Plan Review",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Administrative Exception",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Zone Change (Map Amendment)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "An Amendment of the Zoning Ordinance, including the Official Zoning Map, consists of amending, supplementing, changing or repealing of regulations, restrictions and/or boundaries.\n\nProcess of Completion and Public Hearing Schedule:\n1.  Applications will need to be deemed complete by the Planning Department prior to being scheduled for a public hearing. Once the applicant has been issued a completeness letter from the Planning Department verifying the application is complete, the application will be eligible to be scheduled at the next available Public Hearing.\n2.  Each Completeness Review Period is 2 weeks.\n3.  There is a 45-day cut-off window for a fully completed application (deemed complete) required prior to being scheduled for the next available Public Hearing.\nOnce we have 4 Public Hearings the applicants will be moved to the next month’s Hearing Date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Development Agreement Amendment (Major)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "**THE APPLICATION WILL NOT BE ACCEPTED IF THE REQUIRED MATERIALS ARE NOT PROVIDED**\nPrior to proceeding with infrastructure improvements, required as part of a Subdivision, Planned Unit Development, or other similar developments, a development agreement between the applicant the City is to be initiated If an applicant requests alterations to the resulting recorded agreement, this application must be submitted for consideration by the City. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Appeal",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Any affected party may appeal a quasi-judicial decision to the City Council by filing a written notice of appeal, along with the required fee, with the City Clerk no more than fourteen (14) days after the date of the written decision. The Clerk will coordinate with the City Attorney and relevant City departments to schedule a de novo hearing, following the same notice and hearing procedures, before the City Council to consider the matter as quickly as the City Council's schedule allows.",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Subdivision Amendment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "A Subdivision Amendment is a development process provided for by ordinance that allows for flexibility in the application of regulations and standards for consideration provided by a developer. (For additional information on this process and requirements please see PFMC 17.12.070)\n\nProcess of Completion and Public Hearing Schedule:\n1.  Applications will need to be deemed complete by the Planning Department prior to being scheduled for a public hearing. Once the applicant has been issued a completeness letter from the Planning Department verifying the application is complete, the application will be eligible to be scheduled at the next available Public Hearing.\n2.  Each Completeness Review Period, will be reviewed within a 2-week period.\n3.  There is a 45-day cut-off window for a fully completed application (deemed complete) required, prior to being scheduled for the next available Public Hearing.\nOnce we have 4 Public Hearings the applicants will be moved to the next month’s Hearing Date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Parking Lot Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Minor Subdivision Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "A Minor Subdivision is a division of a lot, tract or parcel into four or fewer lots, and proposing no new streets, extensions to existing streets, and where infrastructure is in place or available. \nFor additional information on this process and requirements, please see PFMC 17 & 17.12.050.",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Lot Line Adjustment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "A Minor Subdivision is a division of a lot, tract or parcel into four or fewer lots, and proposing no new streets, extensions to existing streets, and where infrastructure is in place or available. \nFor additional information on this process and requirements, please see PFMC 17 & 17.12.050.",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Seasonal Outdoor Market",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Seasonal outdoor markets are defined as seasonally operated outdoor markets located on publicly or privately owned property, where single or multiple vendors or merchants locate on a common site to sell their products to the general public for more than thirty (30) days but less than one hundred eighty (180) days annually. Outdoor markets wanting to operate less than thirty (30) days annually may be permitted under section 18.20.120 of this title. Outdoor markets wanting to operate more than one hundred eighty (180) days annually are required to meet the same performance standards as all other commercial retail businesses. Vendors allowed in seasonal outdoor markets may include farmers, crafters, fresh food merchants, vendors \n(trinkets, flea market vendors), and prepared food vendors. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "Seasonal Parking Lot Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Seasonal Parking in the Community Commercial Services Zone 18.24.070: Privately owned parcels of at least four (4) acres may be used to provide seasonal parking for recreational activities without complying with the parking standards contained in this Section if the property owner complies with the following requirements:\n      1.   The Parking Area must be open to the public without charge.\n      2.   The Parking Area may only be open from April 1 through October 31 annually.\n      3.   The Parking Area must be located at least twenty-five (25) feet from all property lines.\n      4.   Public restrooms and solid waste collection and disposal must be provided and must be located at least twenty-five (25) feet from all property lines.\n      5.   The Parking Area must be closed between the hours of ten (10) p.m. and seven (7) a.m.\n      6.   Dust abatement must be applied to the Parking Area.\n      7.   The site must be maintained in good condition and repair, free from garbage, paper, litter, tall grasses or weeds, and other debris to prevent the Parking Area from becoming unsightly or becoming a fire hazard.",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Pre-Application Request",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Special Event Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Temporary street or lane closures will require the applicant to obtain a road closure permit through the Engineering Department. (PFMC 10.28.040)\n\nAll Special Events must be received at least five (5) days prior to the event.   Parade request must be received at least thirty-five (35) days prior to the event.  Application for the Road/Lane Closure must be received by the Engineering Department a minimum of seventy-two (72) business hours prior to the event. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Special Use Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "The purpose of a special use permit is to establish procedures for the review and approval of uses that are not permitted by right in a particular zoning district.  A special use permit is not transferable from one parcel of land to another nor shall it be considered as establishing a binding precedent to grant other special use permits.  Special use permits require a public hearing before the Planning and Zoning Commisssion following appropriate procedures.\n\nProcess of Completion and Public Hearing Schedule:\n1.  Applications will need to be deemed complete by the Planning Department prior to being scheduled for a public hearing. Once the applicant has been issued a completeness letter from the Planning Department verifying the application is complete, the application will be eligible to be scheduled at the next available Public Hearing.\n2.  Each Completeness Review Period is 2 weeks.\n3.  There is a 45-day cut-off window for a fully completed application (deemed complete) required prior to being scheduled for the next available Public Hearing.\nOnce we have 4 Public Hearings the applicants will be moved to the next month’s Hearing Date.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 18px;\">Inspections occur M-F 9a-3:30p, except holidays.<br>Requests received before 11:59pm will be scheduled for the following business day.<br>Same-day inspections are not allowed.</span></strong></p><p style=\"text-align: center;\"><span style=\"font-size: 18px; color: rgb(184, 49, 47);\">ALERT!! The City of Post Falls is alerting residents and local businesses of phishing attempts involving fraudulent requests for fee payments. The C"
+    },
+    {
+      "id": "1080",
+      "name": "Hydrant Use",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"font-size: 18px; color: rgb(184, 49, 47);\">ALERT!! The City of Post Falls is alerting residents and local businesses of phishing attempts involving fraudulent requests for fee payments. The City of Post Falls will never request payment through wire transfers and only collects fees either in person or through approved City platforms. Official City of Post Falls email addresses will always end in @postfalls.gov or @opengov.com. You can verify the legitim"
+    },
+    {
+      "id": "1079",
+      "name": "Business Licensing",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"font-size: 18px; color: rgb(184, 49, 47);\">ALERT!! The City of Post Falls is alerting residents and local businesses of phishing attempts involving fraudulent requests for fee payments. The City of Post Falls will never request payment through wire transfers and only collects fees either in person or through approved City platforms. Official City of Post Falls email addresses will always end in @postfalls.gov or @opengov.com. You can verify the legitim"
+    },
+    {
+      "id": "1074",
+      "name": "Engineering Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 18px;\">Inspections occur M-F 9a-3:30p, except holidays.<br>Requests received before 11:59pm will be scheduled for the following business day.<br>Same-day inspections are not allowed.</span></strong></p><p style=\"text-align: center;\"><span style=\"font-size: 18px; color: rgb(184, 49, 47);\">ALERT!! The City of Post Falls is alerting residents and local businesses of phishing attempts involving fraudulent requests for fee payments. The C"
+    },
+    {
+      "id": "1073",
+      "name": "Planning Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 18px;\">Inspections occur M-F 9a-3:30p, except holidays.<br>Requests received before 11:59pm will be scheduled for the following business day.<br>Same-day inspections are not allowed.</span></strong></p><p style=\"text-align: center;\"><span style=\"font-size: 18px; color: rgb(184, 49, 47);\">ALERT!! The City of Post Falls is alerting residents and local businesses of phishing attempts involving fraudulent requests for fee payments. The C"
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-family: Georgia,serif;\">Please use this guide to walk you through the set-up and use of your portal account. &nbsp;More information will be uploaded soon!</span></strong></p><p><br></p><p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Citizen_Portal_Set-Up_Fri_Feb_25_2022_23:21:39_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_blank\">Citizen Portal Set-Up.pdf</a></p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:22.060Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

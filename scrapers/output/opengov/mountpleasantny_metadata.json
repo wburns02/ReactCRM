@@ -1,0 +1,237 @@
+{
+  "jurisdiction": "Mount Pleasant",
+  "state": "NY",
+  "tenant": "mountpleasantny",
+  "portalUrl": "https://mountpleasantny.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6448",
+      "name": "Change of Zoning / Text Amendment",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Architectural Review Board Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Planning Board: Accessory Apartment Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6551",
+      "name": "Building Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6558",
+      "name": "Renewing An Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Guide to renewing an application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Planning Board: Site Plan Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "Electrical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Planning Board: Subdivision Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Payment Options",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6353",
+      "name": "Plumbing Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Zoning Board of Appeals Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Blasting and Rock Chipping Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Per Town Code Chapter 104, Article IV Explosives and Blasting Agents",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Crane Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Fire Alarm Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Annual Commuter Parking Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Apply for an Annual Commuter Parking Permit for the Hawthorne and Valhalla Metro North stations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Title Search Request",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This application must be completed by a licensed Title Company. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Annual Merchant Parking Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Apply for Annual Merchant Parking Permits for employees of your local business.",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Request New Sticker (Commuter/Merchant Parking)",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Request a replacement sticker or change the permitted vehicle.",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Pre-Date Letter",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Dog License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Apply for a new dog license or renewal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Report Changes to Dog License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Request a replacement dog tag or Notify us that you have moved, transferred owners, or your dog has passed away.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Filming Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Apply for permission to film in the Town of Mount Pleasant on both Public and Private property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6554",
+      "name": "Fireworks Display Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Apply for permission to host a fireworks display.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Freedom of Information Request (FOIL)",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Request a record from the Town of Mount Pleasant.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">Need help getting started? Please select a topic below. We are also happy to answer any questions you have.</span></p><div style=\"text-align: center;\"><table style=\"width: 58%; margin-left: auto; margin-right: auto;\"><tbody><tr><td style=\"width: 60.272%; text-align: center;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 18px;\">Building Department</span></span></td><td style=\"width: 39.93"
+    },
+    {
+      "id": "1083",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1081",
+      "name": "Planning & Zoning  Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1084",
+      "name": "Supervisor/Town Board",
+      "isEnabled": 1
+    },
+    {
+      "id": "1079",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial,Helvetica,sans-serif;\">If you don&#39;t see the application you are looking for below, visit the&nbsp;</span><a href=\"https://www.mtpleasantny.gov/237/Town-Clerk\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">Town Clerk Department page</span></a><span style=\"font-family: Arial,Helvetica,sans-serif;\">&nbsp;on the Town of Mount Pleasant website</span><span style=\"font-family: Arial,Helvetica,sans-serif;\">.</spa"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:43.722Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

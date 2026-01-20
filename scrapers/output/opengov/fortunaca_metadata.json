@@ -1,0 +1,150 @@
+{
+  "jurisdiction": "Fortuna",
+  "state": "CA",
+  "tenant": "fortunaca",
+  "portalUrl": "https://fortunaca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6371",
+      "name": "Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued building permit other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6375",
+      "name": "How to Reach Us! About Us & Contact Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to reach us!",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Encroachment Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Daily License Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "NEW Business License Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Business License Application.\n\nPlease note if you are doing a home occupancy business then you will also need to fill out the Home Occupation Application as well.  https://fortunaca.portal.opengov.com/ ",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "M.E.P.R.S Permit (Over-the Counter Permits)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "OVER-THE-COUNTER (MEPRS) Mechanical, Electrical, Plumbing, Roofing, and Solar. \n\nMEPRS. Mechanical: FAU, Minisplit, wall heater, Gas Fireplace \nMEPRS Electrical: electrical panel upgrade. (MPU) Sub Panel \nMEPRS Plumbing: water heater(s), waterline, sewer line, Gas line. \nMEPRS ReRoof: Tear off, \nMEPRS Reroof: Final\nMEPRS Solar Final:\nMEPRS (MPU) Main panel upgrade (Solar only)",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Residential Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "New single-family residences, new ADUs, additions, interior/exterior remodels and accessory structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Encroachment Permit Application ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Commercial Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Commercial projects and multi-family dwellings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Master Planning Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "All planning permits shall begin with the Master Planning Application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "SolarAPP+ Solar Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "NEW! Expedited Solar Permitting is now available through the SolarAPP+ program, a collaboration between the NREL and local communities.\n\nNote: This application requires a SolarAPP+ Approval Document. If you don't already have one, you can learn how to get one at solarapp.nrel.gov ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Finance ",
+      "isEnabled": 1,
+      "content": "<div><strong><u>ONLINE APPLICATION IS FOR NEW BUSINESS LICENSES ONLY. </u></strong></div><div><br></div><div>Business license renewal forms were mailed out on June 30, 2025. Renewals are due by July 31, 2025 for the 25/26 fiscal year. Please remember to include ALL applicable mandatory fees listed on your renewal form. Online renewal is not available at this time. All business licenses will be considered delinquent if payment is not postmarked or received by July 31<sup>st</sup>. Please call Cit"
+    },
+    {
+      "id": "1084",
+      "name": "Public Works ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Building & Safety Division",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">The Building Department reviews and inspects buildings and associated construction activities to protect public health, safety, and welfare pursuant to uniform construction codes governing land use and code enforcement.<br style=\"box-sizing: border-box;\"><br style=\"box-sizing: border-box;\"><strong style=\"box-sizing: border-box; font-weight: bold;\">Responsibilities of the Building Division include:</strong></span></p><ul style='box-sizing:"
+    },
+    {
+      "id": "1082",
+      "name": "Community Development Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Verdana,Geneva,sans-serif;\"><strong>Planning Permit Applications</strong>&nbsp;</span></p><p><strong>Please be aware that our permit processing times are longer than usual due to staffing shortages.</strong></p><table style=\"width: 100%; margin-left: calc(0%); margin-right: calc(0%);\"><tbody><tr><td style=\"width: 50%; vertical-align: top;\"><div>Accessory Dwelling Unit Permit Application &nbsp;</div><div>Burn Down Letter Request Form &nbsp;</div><div>Certificate of Co"
+    },
+    {
+      "id": "1076",
+      "name": "Risk Management",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": "<p><br></p><p><br></p><p><br><br></p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:33.570Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

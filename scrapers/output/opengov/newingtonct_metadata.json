@@ -1,0 +1,88 @@
+{
+  "jurisdiction": "Newington",
+  "state": "CT",
+  "tenant": "newingtonct",
+  "portalUrl": "https://newingtonct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6444",
+      "name": "Certificate of Zoning Compliance",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Zoning Permit  ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Building Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Electrical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Town Event Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Plumbing Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Mechanical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Temporary Tent Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p><strong>WELCOME!</strong></p><p><br></p><p><strong>PERMITS</strong></p><p>Here you can apply for permits for construction work to be performed at your home or business with the Town of Newington. Please read the information below.&nbsp;</p><p><br></p><p><strong>Scroll to the&nbsp;</strong><strong><u>bottom of the page</u></strong><strong>&nbsp;for the LINKS to the permit application forms.</strong></p><p><br></p><p><strong>All permits REQUIRE:</strong></p><p><strong>&bull; A Valid Email Addre"
+    },
+    {
+      "id": "1084",
+      "name": "Land Use Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 24px; font-family: Arial, Helvetica, sans-serif;\">Welcome to the Town of Newington Planning Department</span></strong></p><hr><p style=\"text-align: left;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">This portion of the Town&#39;s online application portal should be used to submit land use applications in accordance with Newington&#39;s Land Use Regulations.&nbsp;</span></p><p style=\"text-align: left;\"><span style=\"font-fam"
+    },
+    {
+      "id": "1085",
+      "name": "Town Manager's Office",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 18px;\">Welcome!</span></p><p><span style=\"font-size: 18px;\"><br></span></p><p><span style=\"font-size: 18px;\">Plese use the application below to submit your Temporary Event application to the Town for review. If you have any questions, please contact the Town Manager&#39;s Office at 860-665-8510</span></p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:57.492Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,332 @@
+{
+  "jurisdiction": "South Kingstown",
+  "state": "RI",
+  "tenant": "southkingstownri",
+  "portalUrl": "https://southkingstownri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6433",
+      "name": "Request for Public Records",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Click \"Select\" to file a public records request online",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Concealed Carry Permit",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "VIN Checks",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Planning Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Please apply online for all Planning related applications such as Administrative Subdivisions, Minor or Major Land Development, Minor or Major Land Subdivisions and Development Plan Review.",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Rental Registration",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Town Council adopted an ordinance which requires the annual registration of every rental dwelling/unit within the Town of South Kingstown. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Residential Smoke & Carbon Monoxide ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Apply for a Residential Smoke and Carbon Monoxide inspection when the house is being sold.",
+      "isEnabled": true
+    },
+    {
+      "id": "6404",
+      "name": "Alcohol License - Class F",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply for a Class F (19 Hour Full Privilege or 19 Hour Beer & Wine) license.  You must be a qualified non-profit to apply for this type of Alcohol license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6405",
+      "name": "Alcohol & Ancillary Licenses",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply for an Alcohol license and your Ancillary licenses (i.e. Victualler,  Sunday/Holiday Sales, Dance/Entertainment, Pool Table, Bowling Alley, Theater (Stage or Screen), Commercial Wastewater and Tourist Accommodations license from the Town of South Kingstown. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6338",
+      "name": "Tent Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application must be submitted at least five (5) business days in advance of the event.  If you have an urgent request, please call Union Fire District at 401-789-8354 or Kingston Fire District at 401-783-6830.",
+      "isEnabled": true
+    },
+    {
+      "id": "6332",
+      "name": "Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a building permit from the Town of South Kingstown, and (if applicable) apply for a related Fire Plan Review from the FIre Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Right of Way Contractor License",
+      "categoryId": 1077,
+      "viewAccess": null,
+      "description": "All work in a Town Right of Way (ROW) must be performed by a contractor licensed by the Town.  Apply here for a ROW License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6347",
+      "name": "Life Safety Inspection - Union Fire District",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Click here to submit your request for an inspection from the Office of the State Fire Marshal (related to business licenses or construction rough/final)",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a demolition permit from the Town of South Kingstown.",
+      "isEnabled": true
+    },
+    {
+      "id": "6370",
+      "name": "Right-of-Way Physical Alteration Permit",
+      "categoryId": 1077,
+      "viewAccess": null,
+      "description": "Apply for a Right-of-Way Physical Alteration Permit through the Town. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6375",
+      "name": "Soil Erosion, Runoff & Sediment Control (SERSC) Permit",
+      "categoryId": 1077,
+      "viewAccess": null,
+      "description": "Use this application to apply for a SERSC Permit through the Town's Department of Public Services.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit from the Town of South Kingstown, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.  Examples of Electrical Permits are new service, modification to existing service, temporary service, pools, generators and utility pole work.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Life Safety Inspection - Kingston Fire District",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Click here to submit your request for an inspection from the Office of the State Fire Marshal (related to business licenses or construction rough/final)",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Tree Alteration Permit Application",
+      "categoryId": 1077,
+      "viewAccess": null,
+      "description": "A permit is required before any pruning, trimming or removal of trees is done within the Town's right of way, and all municipal tree work must be performed by a Rhode Island Licensed Arborist.",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit from the Town of South Kingstown, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6406",
+      "name": "General Business Licenses",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply for your Business licenses (i.e. Victualler,  Sunday/Holiday Sales, Dance/Entertainment, Junkyard, Peddler, Theater, Commercial Wastewater, Tourist Accommodations, Private Detective, etc. from the Town of South Kingstown. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "Moving Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a moving permit from the Town of South Kingstown.",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Mobile Food Establishment",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply for a Mobile Food Establishment (MFE) license with the Town of South Kingstown. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the Town of South Kingstown, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6410",
+      "name": "Private & Septage Haulers",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply for your Private Hauler or Septage Hauler license from the Town of South Kingstown. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6396",
+      "name": "Special Events License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply for a special events license through the Town of South Kingstown.",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Sign Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a sign permit from the Town of South Kingstown. All permit applications should include photos of any existing signage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6361",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the Town of South Kingstown. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Temporary Mass Gathering Event License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply for a Temporary Mass Gathering  (TMG) Event license on PRIVATE PROPERTY through the Town of South Kingstown.  If the event is on public property, please apply for a special events license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Zoning Board of Review Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6390",
+      "name": "Road Race",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply for a road race permit from the Town of South Kingstown. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6401",
+      "name": "Zoning Certificate ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for the Zoning Certificate with the Town of South Kingstown. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Application for an Appeal of the Zoning Enforcement Officer",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Applications for Appeal to the Zoning Board of Review",
+      "isEnabled": true
+    },
+    {
+      "id": "6425",
+      "name": "Appeal of the Building Code and/or Minimum Housing Code",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "The Building Code Board of Appeals is authorized to hear appeals from aggrieved parties regarding the interpretation, requirements, direction or failure to act under the State Code by the Building Official.  The Minimum Housing Code Board of Appeals is authorized to hear and decide appeals from compliance as noted in the Minimum Housing Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Zoning Text and/or Map Amendment Application",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Please use this application to file a Zoning Text and/or Map Amendment Application to the Town of South Kingstown.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1072",
+      "name": "Building, and related Permits & Inspections",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"color: rgb(184, 49, 47);\"><strong><span style=\"font-size: 18px;\">** PLEASE NOTE THERE IS A SCAM ALERT TARGETING APPLICANTS. **</span></strong></span><span style=\"font-size: 18px;\"><br><span style=\"color: rgb(184, 49, 47);\"><strong>**&nbsp;</strong></span><a href=\"https://www.southkingstownri.gov/CivicAlerts.aspx?AID=1612\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"color: rgb(184, 49, 47);\"><strong>PLEASE CLICK HERE TO READ MORE</strong></sp"
+    },
+    {
+      "id": "1077",
+      "name": "Department of Public Services",
+      "isEnabled": 1,
+      "content": "<p>The Department of Public Services, located at 509 Commodore Perry Highway (Rt 1), can be reached at (401) 789-9331 x2250 Monday through Friday from 8:30am to 4:30pm.</p><div style=\"text-align: center;\"><strong><span style=\"color: rgb(184, 49, 47);\"><br></span></strong></div><div style=\"text-align: center;\"><span style=\"color: rgb(184, 49, 47);\"><strong>ALL ATTACHMENTS MUST BE A PDF.&nbsp;</strong></span></div><div style=\"text-align: center;\"><strong><span style=\"color: rgb(184, 49, 47);\">OTHE"
+    },
+    {
+      "id": "1079",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": "<p><strong>Attention New Business Owners:</strong> If you are a new business to the Town of South Kingstown, we recommend you contact the Town Clerk&#39;s office at 401-789-9331 x1236 to assist you with the application process.</p><p>Important links:</p><p><a href=\"https://www.southkingstownri.com/DocumentCenter/View/2479/License-Fee-Schedule-PDF\" rel=\"noopener noreferrer\" target=\"_blank\">Town Schedule of Fees</a></p><p><a href=\"http://sos.ri.gov/divisions/business-portal\" rel=\"noopener noreferr"
+    },
+    {
+      "id": "1080",
+      "name": "Zoning Department",
+      "isEnabled": 1,
+      "content": "<p>The Zoning Officer can be reach at (401) 789-9331 x1225.</p><p>The Town&#39;s Zoning Ordinance can be found by clicking <a href=\"https://library.municode.com/ri/south_kingstown/codes/code_of_ordinances?nodeId=PTIIICOOR_APXAZOOR_ART1ESDIOFZOMA\" rel=\"noopener noreferrer\" target=\"_blank\">here.</a></p>"
+    },
+    {
+      "id": "1078",
+      "name": "Planning Department",
+      "isEnabled": 1,
+      "content": "<p>As staff to the Planning Board, the Planning Department assists property owners and developers through the subdivision and land development review process. &nbsp;All subdivisions and land development projects are governed by the Town of South Kingstown Zoning Ordinance and the Subdivision and Land Development Regulations.<br><br>The Planning Department is available to assist in determining the review process and requirements for your project. &nbsp;Please call us at (401) 789-9331 x1244 to se"
+    },
+    {
+      "id": "1083",
+      "name": "Request for Public Information",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 18px;\"><u>Thank you for visiting the South Kingstown Public Information Request Portal!</u></span></strong></p><p><strong><em><span style=\"font-size: 18px;\">Please note this portal cannot be used to request public records from the South Kingstown School Department. Please visit the&nbsp;</span></em></strong><span style=\"font-size: 18px;\"><a href=\"https://www.skschools.net/resources/communications/public_records\" rel=\"noopener norefer"
+    },
+    {
+      "id": "1084",
+      "name": "Police Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: left;\"><strong><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px; color: rgb(184, 49, 47);\">Effective immediately, the South Kingstown Police Department accepts online concealed carry permit applications for South Kingstown residents and South Kingstown business owners only.</span></strong></p><p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\"><br><strong>Non-resident applicants who do not reside in South Kingstown and do not "
+    },
+    {
+      "id": "1071",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p>The Town&#39;s Communication Department oversees connections to the Municipal Fire Alarm System (for local businesses) and enforce the RI Fire Safety Code as it pertains to the installation and maintenance of commercial fire alarm systems for all new and existing buildings. &nbsp;Fees for fire alarm connection can be found here: <a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net:443/profile-pictures/Fire_Alarm_Fee_Schedule_Tue_Jun_05_2018_18:40:03_GMT+0000_(Coordinated_Univ"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:14.972Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

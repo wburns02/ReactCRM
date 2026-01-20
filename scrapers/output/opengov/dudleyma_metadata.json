@@ -1,0 +1,704 @@
+{
+  "jurisdiction": "Dudley",
+  "state": "MA",
+  "tenant": "dudleyma",
+  "portalUrl": "https://dudleyma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006390",
+      "name": "Sprinkler System",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when a sprinkler system is installed.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006405",
+      "name": "Temporary Tent",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006416",
+      "name": "Driveway/Curb Cut Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": "Sheet Metal Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006498",
+      "name": "Certificate of Inspections",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new or renewal of Certificates of Inspections. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006499",
+      "name": "Wood, Pellet, Coal Stoves Installation",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for any solid burning fuel appliances. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006518",
+      "name": "Tree Removal Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Application must obtain prior approval from the Dudley Conservation Commission before work of any kind within areas of jurisdiction. Depending on the scope of the proposed tree cutting project and its possible impact on areas within our jurisdiction, the Conservation Commission may require additional permit (RDA or NOI)  be obtained by the applicant before work proceeds.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006519",
+      "name": "Application for Hearing",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006520",
+      "name": "Street Opening",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application for Opening of Streets\nREQUIREMENTS FOR ROAD OPENING \nWithin the limits of the pavement, the trench shall be backfilled ( if more than 24\" deep) with Excavatable Controlled Density Fill (AKA Flowable Fill) to an elevation of four (4) inches below the top of the paved surface. The adjacent material extending one (1) foot beyond each side of the trench shall be removed, to a depth of four (4) inches. The perimeter of the trench shall be saw cut to provide a clean vertical joint.The vertical faces of the adjoining pavement shall be coated with a rapid setting type 1 (RS-1) emulsion. 4\" of Bituminous Concrete shall then be laid in 2-inch lifts. The repair shall be neat, uniform and conform to the exisiting grade. \nThe permitee shall be responsible for all future maintenance of the trench due to improper repair, up to and\nincluding complete replacement of the patch, as deemed necessary by the superintendent of streets for a period of 2 years. Failure to comply within 24 hours will result in a $50.00 a day fine.\nIf the road opening is less than 24\" in depth, screened gravel shall be used for backfill and compacted in 2 lifts. The final 4\"will be bituminous concrete, laid in 2\" lifts. The responsibilities remain the same as above.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006526",
+      "name": "Volunteer Application",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Interested in filling a vacancy on one of Dudley's boards/committees? Please fill out this volunteer application to get started.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006528",
+      "name": "Tobacco Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006529",
+      "name": "Application for Drain Layers License",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "For Installation of Water and/or Sewer Lateral",
+      "isEnabled": true
+    },
+    {
+      "id": "1006530",
+      "name": "Sewage Disposal System Abandonment Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006531",
+      "name": "Application for Sewer Connection or Extension",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006532",
+      "name": "Application for Water Tie In",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006533",
+      "name": "Application for Water Repair",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006534",
+      "name": "Application for Sewer Repair",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006535",
+      "name": "Application for Water Disconnection",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006536",
+      "name": "Application for Sewer Disconnection",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006537",
+      "name": "Board of Health Variance Request",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006538",
+      "name": "Bodywork Establishment Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006539",
+      "name": "Report a Pothole",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Report a Pothole within Dudley",
+      "isEnabled": true
+    },
+    {
+      "id": "1006502",
+      "name": "All Departments Complaint Form ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006541",
+      "name": "Bodywork Practitioner (Individual) Permit Appilcation",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006484",
+      "name": "NEW Application for Class I, II, III Auto License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Please contact the Board of Selectmen's Office at 508-949-8001 prior to beginning the process to verify potential BOS meeting dates for the public hearing.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006424",
+      "name": "Food Establishment Plan Review Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "An incomplete application and missing documents may delay the review and permit process. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006359",
+      "name": "Residential Open Burning Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Open Burning Permit for Residential Open Burning.  Season Starts January 15th every year and ends May 1st.   Burning hours are between 10am-4pm after you contact Fire Headquarters to obtain permission to burn for the day.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006362",
+      "name": "Application/Permit for Underground Storage Tank Removal",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006425",
+      "name": "Permit Application to Operate a Food Establishment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "According to the 2013 FDA Food Code 8-301-11, a person may not operate a food establishment without a valid permit to operate issued by the Local Board of Health.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Residential short form-Roofing, Siding, Doors, Windows, Insulation",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Short Form Application for Roofing, Siding, Doors and Windows, Insulation - NO STRUCTURAL CHANGES",
+      "isEnabled": true
+    },
+    {
+      "id": "1006540",
+      "name": "Report a Street Light Outage",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Report a Street Light Outage within Dudley",
+      "isEnabled": true
+    },
+    {
+      "id": "1006564",
+      "name": "RENEWAL Class II Auto License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Annual renewal for existing licenses",
+      "isEnabled": true
+    },
+    {
+      "id": "1006513",
+      "name": "Cottage Food Operation Permit (Residential Kitchen) Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006485",
+      "name": "RENEWAL Application Liquor License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006479",
+      "name": "Building Permit - One and Two Family",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "***If applying for a pool project and not on town water/sewer, a plans review request to the board of health will need to be completed. The permit will not be approved until that step is done. ***",
+      "isEnabled": true
+    },
+    {
+      "id": "1006365",
+      "name": "Above Ground Tank Removal Permit ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006373",
+      "name": "Smoke and Carbon Monoxide Detector Compliance",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006514",
+      "name": "Mobile Food Establishment Permit to Operate",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006566",
+      "name": "NEW OR TRANSFER Application Liquor License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Do not use this form if you are completing your annual renewal. If you are applying for a new license, please contact the Selectmen's Office at 508-949-8001 before filling out this application to see if there is an available license.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006565",
+      "name": "RENEWAL Application Orchestra/Entertainment License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006408",
+      "name": "Application/Permit to Process Hazardous Materials",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": "Temporary Event Food Establishment Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Valid for no more than 14 Consecutive days in conjunction with a single event. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006488",
+      "name": "Oil Burning Equipment & Storage of Fuel Oil",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "**Installers please note that it is your responsibility to call Fire Headquarters at 508-949-8040 and schedule the inspection of the work performed.  Dudley Fire Department will not be making phone calls to schedule inspections**\n\nApplication for Permit and Certificate of Completion for the \nInstallation or Alteration of Fuel Oil Burning Equipment and the Storage of Fuel Oil\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006480",
+      "name": "Building Permit - Commercial",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006512",
+      "name": "Frozen Dessert License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006492",
+      "name": "NEW STREET NUMBER ASSIGNMENT SHEET",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006508",
+      "name": "Application for Standard Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006516",
+      "name": "Marijuana Operating Permit Application (Adult-use)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": "Nail Salon Permit & Plans Review Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Applies to all Salons within the town of Dudley, Massachusetts where any form of nail services are performed.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006427",
+      "name": "NEW OR RENEWAL Application for Common Victualler License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this for a new or renewal Common Vic application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006491",
+      "name": "21E Site Assessment Request",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "Agricultural Open Burning Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit is for Chapter 61 Farm Lands as registered with the Commonwealth of Massachusetts. Property that is not registered will be denied the permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Electrical Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc.  Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Residential Swimming Pools Plan Review Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application is used to make a plans review request by the board of health for swimming pools on properties with Private Septic and/or Well. This must be completed before the building permit will be approved by the board. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006510",
+      "name": "Swimming Pool Construction Plan Review Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006501",
+      "name": "Plan Review Request",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This form is used when review of plans are needed for any permit. Nothing will be approved until completed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006467",
+      "name": "Plumbing Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006350",
+      "name": "Swimming Pool Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for permit to operate a public, semi-public swimming pool, or wading pool. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006552",
+      "name": "Fire Records Request",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "After submission of records request it will be reviewed to ensure we have a record before payment is requested.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006345",
+      "name": "Application to Operate a Recreational Camp",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006469",
+      "name": "Gas Fitter Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006511",
+      "name": "Application for 10-Day Emergency Beaver or Muskrat Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Portable Toilet Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006465",
+      "name": "Sign Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Any sign that is re-lettered requires a new permit. A maximum of two are permitted. Only one self standing sign is permitted per required lot frontage. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006376",
+      "name": "Trash Haulers Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permits will expire December 31st. Renewals must be received a minimum of 30 days prior to expiration.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006383",
+      "name": "Septic Haulers",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Pumpers/Haulers (Night Soil) licenses are renewable annually. If you are temporarily replacing a permitted truck with another from your fleet, you must notify the Board of Health Office at 508-949-8012 in advance.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006559",
+      "name": "Trench Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006483",
+      "name": "Well Construction Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "A plan signed and stamped by a Massachusetts Registered “Professional Engineer” or “Registered Sanitarian”. The plan shall have a scale no smaller than one inch per forty feet. Well completion report and water quality test will need to be submitted to the Dudley Board of Health for approval before a building permit may be issued. See Board of Health private well regulations, submittals shall comply with Section IV. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006386",
+      "name": "Disposal System's Installers",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Disposal Works Installers licenses are renewable annually on January 1st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006551",
+      "name": "Application for Permit to Spray Combustible Materials",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006550",
+      "name": "Application for Waste Oil Storage",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Annual Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "1006496",
+      "name": "Application for Percolation & Deephole Testing",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application must be completed before any testing can be scheduled. All fees must be paid in advance. Any costs incurred for additional site testing will be billed and must be paid upon receipt. No further testing or permits will be issued until the balance is paid in full. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Disposal System Construction Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "One hard copy of both proposed plans and as-built is required to be sent to the Board of Health. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006549",
+      "name": "Application for Storage of Flammable/Combustible Liquids",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006562",
+      "name": "Complaint / Violation Form",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Complete this form for any complaints or violations the Fire Department needs to investigate.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006515",
+      "name": "MRVP/Section 8 Inspection Request",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006548",
+      "name": "Application for Ceremonial Bon-Fire",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "(Only 1 permit will be issued annually)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006547",
+      "name": "Application for Storage of Black Powder",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit is for 5 Years",
+      "isEnabled": true
+    },
+    {
+      "id": "1006546",
+      "name": "Application for Dumpster Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Required by NFPA 1 & 527 CMR 1.00 of The Massachusetts Comprehensive Fire Code for all dumpsters greater than 6 cubic yards in size.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006545",
+      "name": "Application for Hot Works Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006544",
+      "name": "Application for Supervised Display of Fireworks",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006489",
+      "name": "Application for Storage of Liquid Propane Gas",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006490",
+      "name": "Application for Sprinkler Installation or Modification",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1089",
+      "name": "Boards/Committees",
+      "isEnabled": 1
+    },
+    {
+      "id": "1090",
+      "name": "Water/Sewer Department",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"color: rgb(184, 49, 47); font-size: 24px;\"><u><span style=\"font-family: Arial, Helvetica, sans-serif;\">ALL FEES PAID ARE NON-REFUNDABLE. NO EXCEPTIONS.</span></u></span><span style=\"color: rgb(184, 49, 47); font-size: 18px;\"><u></u></span></strong></p>"
+    },
+    {
+      "id": "1084",
+      "name": "Assessors",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(184, 49, 47);\"><strong><u>ALL FEES PAID ARE NON-REFUNDABLE. NO EXCEPTIONS</u></strong></span></p>"
+    },
+    {
+      "id": "1080",
+      "name": "Board of Selectmen",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(184, 49, 47);\"><strong><u><span style=\"font-size: 24px;\">ALL FEES PAID ARE NON-REFUNDABLE. NO EXCEPTIONS</span></u></strong></span></p><p><strong><span style=\"color: rgb(124, 112, 107); font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">&nbsp;</span></strong></p>"
+    },
+    {
+      "id": "1076",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"color: rgb(184, 49, 47);\"><strong><u><span style=\"font-size: 30px;\">ALL FEES PAID ARE NON-REFUNDABLE. NO EXCEPTIONS</span></u></strong></span></p><p style=\"text-align: center;\"><br></p><p style=\"text-align: center;\"><span style=\"color: rgb(184, 49, 47);\"><strong><span style=\"font-size: 24px;\">For 21E Site Assessment requests please call Dudley Fire Department directly at 508-949-8040</span></strong></span></p>"
+    },
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(184, 49, 47);\"><strong><u><span style=\"font-size: 24px;\">ALL FEES PAID ARE NON-REFUNDABLE. NO EXCEPTIONS</span></u></strong></span></p><p><span style=\"color: rgb(184, 49, 47);\"><strong><u><span style=\"font-size: 24px;\">PERMITS MUST BE PRINTED AND PLACED ONSITE. IF IT IS NOT THERE WHEN THE INSPECTOR COMES THE INSPECTION WILL BE RESCHEDULED AND A RE-INSPECTION FEE WILL BE CHARGED</span></u></strong></span></p><p><span style=\"color: rgb(184, 49, 47);\"><strong><u><span sty"
+    },
+    {
+      "id": "1081",
+      "name": "Conservation Commission",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(184, 49, 47);\"><strong><u>ALL FEES PAID ARE NON-REFUNDABLE. NO EXCEPTIONS</u></strong></span></p>"
+    },
+    {
+      "id": "1079",
+      "name": "DPW",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(184, 49, 47);\"><strong><u>ALL FEES PAID ARE NON-REFUNDABLE. NO EXCEPTIONS</u></strong></span></p>"
+    },
+    {
+      "id": "1088",
+      "name": "Dudley Transfer Station & Recycling Center ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1073",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(184, 49, 47);\"><strong><u><span style=\"font-size: 30px;\">ALL FEES PAID ARE NON-REFUNDABLE. NO EXCEPTIONS</span></u></strong></span></p><div><u><span style=\"color: rgb(184, 49, 47); font-size: 30px;\"><strong>***Any Permit Application not filled out correctly, or missing documents and is rejected, will need to have a new application completed. An&nbsp;</strong></span><span style=\"color: rgb(184, 49, 47);\"><span style=\"font-size: 30px;\"><strong>additional</strong></span><"
+    },
+    {
+      "id": "1085",
+      "name": "Town Complaints/Concerns",
+      "isEnabled": 1
+    },
+    {
+      "id": "1086",
+      "name": "Zoning Board of Appeals",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:23.103Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

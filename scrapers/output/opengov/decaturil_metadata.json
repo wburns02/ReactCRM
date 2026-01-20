@@ -1,0 +1,487 @@
+{
+  "jurisdiction": "Decatur",
+  "state": "IL",
+  "tenant": "decaturil",
+  "portalUrl": "https://decaturil.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6507",
+      "name": "Certificate of Occupancy",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Certificate of Occupancy shall be required for any of the following:\n\n1. Occupancy and use of a building erected or structurally altered; \n2. Change in use of an existing building to a use of a different classification; \n3. Change in the use of land to a use of different classification; \n4. Any change in the use of a nonconforming use; and\n5. Any new business license application through the City of Decatur.",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Interest in City Property/Lot Purchase",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "****Submit Complaint DRAFT**",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Building Trade Contractors",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Local Tax Registration Form",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Local Food and Beverage Tax, Hotel/Motel Tax, Local Motor Fuel Tax",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Tax Return",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6555",
+      "name": "Property Owners",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Property Owners Registration for ease of communication with the City of Decatur regarding issues that arise with their properties.",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Amusement Device ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "An Amusement Device license is required to operate a device for hire or gain within the corporate city limits of the City of Decatur. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Water and Sewer Tapping",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application to tap the sewer or water main with a new service.  Legal Description for the property required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Land Disturbance Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application to disturb land greater than 1 acre; or less than 1 acre if part of a larger development, a borrow pit, or adjacent to a body of water.",
+      "isEnabled": true
+    },
+    {
+      "id": "6558",
+      "name": "****Submit Complaint (Rita's Test)",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "To Test Processing a Citizen Code or Weed Complaint",
+      "isEnabled": true
+    },
+    {
+      "id": "6528",
+      "name": "Garbage Hauler - Refuse Removal License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "License required to operate a Garbage Hauler Service within the corporate city limits of the City of Decatur.",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Hotel / Motel License",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "License required to operate a Hotel or Motel within the corporate city limits of the City of Decatur.",
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "****Housing Violation (Rita's Test)",
+      "categoryId": 1077,
+      "viewAccess": null,
+      "description": "Create a new Code Enforcement Case",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Right of Way Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "A Right of Way Permit must be obtained when work is to be performed on City property or in Right of Way.  Only those contractors who are licensed and bonded with the City of Decatur are allowed to pull a Right of Way Permit.  Some examples of this type of work include excavation in City owned streets, alleys, boulevards, or properties to make a sewer or water tap, cap, or repair; perform utility work or repair; install a culvert; install a drive approach; or install City sidewalk.",
+      "isEnabled": true
+    },
+    {
+      "id": "6522",
+      "name": "Commercial Site Plan Review",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Site Plans must be approved before obtaining construction permits for commercial projects. This application is for site plan review of commercial projects - New construction, alterations, additions and site improvements. Types of plans submitted for review with this application include: site plans, landscaping plans, lighting plans and others. This application is used for initial plan submittals, re-submittals or to request plan review/approval of responses to plan comments. Plan reviews may be submitted by owners, designers, contractors or other agents of the owner, however, plan review results/comments will only be shared with the applicant. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "Commercial Building Plan Review",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Commercial Building Plans must be approved before obtaining construction permits for commercial projects. This application is for building plan review of commercial projects - New construction, alterations, additions and site improvements. Types of plans submitted for review with this application include: Architectural, MEP, and others. This application is used for initial plan submittals, re-submittals or to request plan review/approval of responses to plan comments. Plan reviews may be submitted by owners, designers, contractors or other agents of the owner, however, plan review results/comments will only be shared with the applicant. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Water or Sewer Cap Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application to cap the sewer or water service on private property WITHOUT demolition of the structure being served.  If capping services in conjunction with a demolition, please apply for a Demolition Permit with Building Permits and Inspection Services.",
+      "isEnabled": true
+    },
+    {
+      "id": "6559",
+      "name": "****Nuisance Violation (Rita's Test) Copy",
+      "categoryId": 1077,
+      "viewAccess": null,
+      "description": "Create a new Code Enforcement Case",
+      "isEnabled": true
+    },
+    {
+      "id": "6533",
+      "name": "Massage Establishment",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "License required to operate a Place of Amusement within the corporate city limits of the City of Decatur.",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Mobile Home Park License",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "License required to operate a Mobile Home Park within the corporate city limits of the City of Decatur.",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Street Construction/Excavation Contractor (ROW)",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Zoning Lot Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Subdivision Plat",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Use of Parking Space",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application to reserve a parking stall.\n\nNote: Stalls are $10 per calendar day per stall reserved. Handicapped, Loading Zone, & 30 Minute stalls may only be reserved in special circumstances",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Mobile Food Unit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "License required to operate a Mobile Food Unit within the corporate city limits of the City of Decatur.",
+      "isEnabled": true
+    },
+    {
+      "id": "6542",
+      "name": "Sign Hanger License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Previously grouped with other contractor licenses referred to as LC-#",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Place of Amusement License",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "License required to operate a Place of Amusement within the corporate city limits of the City of Decatur.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Tree Grant Funding Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application for residential tree planting to share the cost of planting a tree on the street side of residential properties.  This application is to be approved for funding to participate in the program. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Utility Easement & ROW Vacation",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Tree Grant Reimbursement Request",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application to be reimbursement for planting a residential tree on the street side of a residential property.  Approved applicants will be reimbursed for 80% of the tree planting cost to a maximum reimbursement of $400.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Commercial Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this record type when work is being done on the physical structure of a commercial building.  Commercial buildings are any structure that is not a 1-4 unit residential structure. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Secondhand Stores, Auction Houses and Rummage Rooms - License ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "License required to operate a Secondhand Store, Auction House or Rummage Room as defined in City Code Chapter 58 within the corporate city limits of the City of Decatur.",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Short-Term Rental License",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "License required to operate a Short-Term Rental within the corporate city limits of the City of Decatur.",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Selective Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this record type when selective demolition is being done on a commercial or a residential building.  This permit is required for demolishing specific parts of a building, such as interior walls including mechanicals, while leaving the main structural components intact. Safeguards during construction must comply with Chapter 33 of the currently-adopted International Building Code. This permit does not allow new construction activities unless approved otherwise. If the entire structure is being demolished, then a Demolition Permit is required instead.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Boat Dock Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Video Gaming Establishment License ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "License required by an establishment to allow the operation of video gaming terminals within the corporate city limits of the City of Decatur.  The applying establishment must have a current State of Illinois Gaming License for the location to be licensed.  In addition, the terminal operator is also required to have a City of Decatur Video Gaming Terminal Operator License for the terminals to be in operation at the location to be licensed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Video Gaming Terminal Operators License",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Annual License for the Video Gaming Terminal Operator for any video gaming terminal located within the City of Decatur corporate city limits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Cellular Tower Review",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Residential Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "DO NOT use this application for SOLAR,  fence, swimming pool or a roof. \n\nThis permit type is selected when any type of residential structure is being built or altered.  This includes -- 1 to 4 residential dwellings, detached garages or sheds.",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Solar Photovoltaic System Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit type is selected when solar panels are being installed in a residential or commercial application.  Commercial applications require a Commercial Site Plan Review and Commercial Building Plan Review which can be submitted at https://decaturil.portal.opengov.com/categories/1071/record-types/6522 and https://decaturil.portal.opengov.com/categories/1071/record-types/6521, respectively.",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This type of permit is required when any commercial or residential structure is demolished, including sheds and detached garages.   A sewer cap and/or water cap must be permitted, completed, and inspected when demolishing a structure as part of this permit type unless approved by public works to remain. (previously requested separately from Public Works).   After the permit is submitted, city staff will verify that the water, sewer and electricity has been capped/removed, if necessary, prior to the permit being issued.  Work cannot begin until the applicant has received an email that permit has been issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit type is selected when the work being done is electrical in nature and is not part of another permit.  Such as -- replace/repair electrical service, electrical service upgrades, electrical wiring, add new electrical circuit, etc.  All electrical work must be done by a City of Decatur licensed electrician.  For residential structures, the property owner can do the work if they pass a written test.",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Fence Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit type is used for the construction of a fence on a residential or commercial property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Mechanical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit type is selected when repairing/replacing furnaces, air conditioners, commercial hoods, boilers or exhaust systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Fire Protection Systems Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit type is selected when repairing/replacing fire suppression or alarm systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit type is selected when plumbing work is being done, such as water service (repair/replace), water heater, water piping, lawn sprinkler, waste & vent systems.  All plumbing contractors must be licensed by the State of Illinois and registered with the City of Decatur.\nA Right of Way Permit must be obtained when work is to be performed on City property or in Right of Way.  Only those contractors who are licensed and bonded with the City of Decatur are allowed to pull a Right of Way Permit.  Some examples of this type of work include excavation in City owned streets, alleys, boulevards, or properties to so work on a sewer or water service.",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Roof Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This type of permit is required when any commercial or residential structure's roof is being repaired/replaced.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Swimming Pool Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit type is used when installing or repairing a swimming pool.  The following contractors can be listed on this permit -- pool installer, plumber and electrician.\n\nAny deck construction associated with the pool must be requested on a separate building permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Sign Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this record type when adding/modifying a sign.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Temporary Structure/Use Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this record type for tents, air supported structures or any other type of structure that is not permenant.",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Wheelchair Ramp Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit type is used for the construction of a wheelchair ramp on a residential or commercial property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Consultation Request",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1087",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<div>THIS SECTION IS CURRENTLY UNDER CONSTRUCTION</div>"
+    },
+    {
+      "id": "1078",
+      "name": "Additional Information",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1071",
+      "name": "Building Permits and Inspection Services",
+      "isEnabled": 1,
+      "content": "<p><strong>All Electrical, Mechanical and Sign contractors listed on a permit must be licensed by the City of Decatur. &nbsp;</strong><strong>If you, as a contractor, are not licensed with the City of Decatur, you must first submit a license application (see Contractor Licensing). &nbsp;If your license has expired, you must renew it to be requalified as an approved/licensed contractor. &nbsp;If your license is lapsed for more than 2 years, you will need to submit a new application and adhere to "
+    },
+    {
+      "id": "1072",
+      "name": "Public Works Permits and Inspection Services",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1076",
+      "name": "Planning and Zoning Services",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1079",
+      "name": "Contractor Licensing",
+      "isEnabled": 1,
+      "content": "<p><strong><u>All contractors</u></strong> listed on a permit must be licensed/approved by the City of Decatur.</p><p><strong><u>Electrical and Mechanical</u></strong> contractors must be licensed by the City of Decatur.</p><p><strong><u>Roofing and Plumbing</u></strong> contractors must be licensed by the State of Illinois and approved by the City of Decatur.</p><p><strong><u>Sign Hanger</u></strong> contractors must be licensed and insured with the City of Decatur.</p><p><strong><u>Street Cons"
+    },
+    {
+      "id": "1081",
+      "name": "General Business Licenses",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 18px;\">The following is a list of Licenses required to operate a business in the City of Decatur that can be applied for through this portal. &nbsp;Not all licenses that might be required are listed on this page. &nbsp;For a complete list of Business Licenses for the City of Decatur please go to <a href=\"https://decaturil.gov/204/License-Application-Forms\" target=\"_blank\">License &amp; Application Forms | Decatur, IL</a> &nbsp;</span></p><p><span style=\"font-size: 18px"
+    },
+    {
+      "id": "1084",
+      "name": "Local Tax Collection",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1086",
+      "name": "TESTING USE ONLY - DO NOT APPLY",
+      "isEnabled": 1,
+      "content": "<div style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; text-align: center;'><span style=\"font-size: 24px;\"><strong "
+    },
+    {
+      "id": "1077",
+      "name": "**Practice Category**",
+      "isEnabled": 1,
+      "content": "<h1 style=\"box-sizing: initial; font-family: Outfit; font-style: normal; font-weight: 700; color: rgb(148, 46, 60); font-size: 1.7em; text-decoration: none; line-height: 1.2; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255);\"><span style=\"color: rgb(147, 101, 184);\">City Cod"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:23.972Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

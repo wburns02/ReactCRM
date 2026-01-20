@@ -1,0 +1,248 @@
+{
+  "jurisdiction": "New Milford",
+  "state": "CT",
+  "tenant": "newmilfordct",
+  "portalUrl": "https://newmilfordct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6478",
+      "name": "Hot Work Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "For the use of welding, grinding, torching, open flame, braising, cutting, soldering, thawing pipe, chemical welding, or torch applied roofing. Hot work permits are only valid during business hours of the Fire Marshal's Office M-F 8:00AM to 4:30PM. They are valid from the date of issuance and until Friday at 4:30PM during the same week of issuance, unless special permission is given by the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Right of Way Use Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Department of Public Works permit for all Roadway Excavation and Curb Cuts for Sidewalks and Driveways.",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Tree Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Permit for Removal, Pruning or Planting Trees or Shrubs located within the limits of a Public Road or Grounds. After submission, please allow for 48-72 hours for determination.",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Special Event Notification",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "A completed Special Event Application is required for public events that are held on Town of New Milford property or buildings. The purpose of this permit is to:\n•Ensure the health and safety of the public.\n•Minimize the legal and financial risks of the event organizer and the Town.\n•Protect public property from misuse and potential damage.\n•Ensure that State and Local laws, ordinances, and Fire Safety and Prevention codes are enforced.\nFinal submission of this application must be given to the New Milford Fire Marshal’s Office. This form must be completed in its entirety.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Vendor Permit - Solicitation",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Zoning Site Plan Application/Site Plan Modification Application/Special Permit & Site Plan Application ",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "This application is to be used for projects that require Site Plan, Site Plan Modification or Special Permit & Site Plan approval by the Zoning Commission.  In order for an online application to be considered complete and formally accepted, the appropriate application fee must be paid and hard copies of any site plans/surveys/plan sets (4 FOLDED full sized & 8 reduced -11\" x 17\"), reports and any other supplemental information and materials that are required and/or attached to the online application must be submitted to the Zoning Office.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Schedule A Application",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "A Schedule A application will be required for any type of project that is within 100 feet of a wetlands/watercourse and/or within 200 feet of a river or Candlewood Lake.  This document is designed to assist in determining whether the activity proposed may have a significant impact on wetlands and/or watercourses in the Town of New Milford.  Please complete the entire form, as answers to these questions will be considered as part of the application for approval and may be subject to further verification and public review.  Provide any additional information you believe will be needed to complete the application.  In order for an online application to be considered complete and formally accepted, the appropriate application fee must be paid and twelve (12) full sized (1 original and 11 hard copies) of the site plan/maps and 1 copy of everything else that is required and attached to the online application must be submitted to the Inland Wetlands Office. Copies of the online Schedule A application do not need to be submitted. Please be advised that the Inland Wetlands Commission prefers plans to be 1”=40’ with 2 foot contours.  Plans must be folded. Official maps and application information are located in the Inland Wetlands office.***NOTE: Any information entered in and transferred from ViewPermit prior to 3/1/2020 can be located under the Conservation section of ViewCloud. ***",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Schedule B Application ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Any person proposing to carry out a permitted or non-regulated operation or use as listed in sections 4.2 and 4.3 of the Wetland Regulations, shall, prior to commencement of such operation or use, notify the Wetlands Commission about the pendency of the project, and provide the Wetlands Commission with sufficient information to enable it to properly determine whether the proposed operation and use is a permitted or non-regulated use of the wetlands or watercourse.  The Commission shall rule that the proposed operation or use is an “as of right” permitted use, a non-regulated use or operation, or that an individual wetlands permit is required. In order for an online application to be considered complete and formally accepted, the appropriate application fee must be paid and 1 Original hard copies, of all information that is required and/or attached to the online application must be submitted to the Inland Wetlands Office. Official maps and application information are located in the Inland Wetlands office. ***NOTE: Any information entered in and transferred from ViewPermit prior to 3/1/2020 can be located under the Conservation section of ViewCloud. ***",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Vendor Permit - Food Trucks",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Zoning Board of Appeals Variance Application  ",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Due to the timeframes for notice of public hearings, outlined in §8-7d of CTGS and referenced in the Zoning Board of Appeals (ZBA) Bylaws section IV, Notice of Hearing, COMPLETED applications must be received a minimum of Thirty (30) days PRIOR to a regular meeting date in order to be placed on that meeting agenda.",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Building Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Commercial Storage Tank Removal Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Construction of a Residential Dwelling or Multiple Residential Dwellings",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Zoning permit application for the new construction or complete rebuild of a residential dwelling.",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Decks, Pools (all types), Porches, Detached Accessory Structures Under 200 Square Feet and Solar (Ground Mount) Systems - Residential",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Zoning permit application for a residential detached accessory structure that is under 200 square feet (shed, gazebos,etc.), decks,  all pool types and solar ground mount systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Open Burn Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This form can be submitted to request a burn permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Additions and/or Detached Accessory Structures over 200 Square Feet - Residential",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Zoning permit application for residential additions and/or detached accessory structures over 200 square feet.",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Interior Alterations/New (Finished) Living Space - Residential",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Zoning permit application for residential interior alterations and/or new (finished) living space",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Home Occupation - Residential",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Zoning permit application for a residential home occupation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Business, Commercial or Mixed Use",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Zoning permit for Business/Commerical or Mixed Uses\nNOTE: The majority of projects located in a business/commercial zone requires either site plan, site plan modification or special permit & site plan approval from the Zoning Commission.  If you have not received approval from the Zoning Commission, please contact the Zoning office or complete the appropriate online application (site plan/site plan modification/special permit & site plan) for your project, BEFORE completing this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Sign Permit",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "A sign permit application is required for any wall hung, wall mounted or freestanding sign.",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Zoning Regulation Amendment (Change of Text) Application",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "This application is to be used to request an amendment to the Zoning Regulations",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Electrical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Zone Change (Map Amendment) Application",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "This application is to be used to request a zone change from the Zoning Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Plumbing Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Mechanical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Gas Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p>You may apply online for a building permit here. Please note if you have used our previous e-permitting solution ViewPermit, you will need to register at login for a new ViewPointCloud account.</p>"
+    },
+    {
+      "id": "1084",
+      "name": "DPW",
+      "isEnabled": 1
+    },
+    {
+      "id": "1086",
+      "name": "Fire",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1089",
+      "name": "Inland Wetlands",
+      "isEnabled": 1,
+      "content": "<p>Inland Wetlands permit information entered into the ViewPermit permitting system prior to 3/1/2020 was&nbsp; labeled as Conservation and had a reference/permit # that began with the prefix &quot;C&quot;. This information was transferred into the ViewCloud permitting system with the reference/permit # prefix&quot;C&quot;. &nbsp;Any Inland Wetlands information entered after 3/1/2020 will be located under the Inland Wetlands section in the ViewCloud permitting system and have a reference/permit "
+    },
+    {
+      "id": "1090",
+      "name": "Zoning",
+      "isEnabled": 1,
+      "content": "<p><strong>*ATTENTION*</strong>: Applications are reviewed in the order that they are received. New applications or new/revised information for pending applications will be reviewed by staff within 5-10 business days after receipt. &nbsp;Please note that the review time will vary depending on the completeness of an application or if additional information is required.</p>"
+    },
+    {
+      "id": "1093",
+      "name": "Mayor's Office",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:46.709Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

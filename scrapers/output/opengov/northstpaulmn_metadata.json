@@ -1,0 +1,809 @@
+{
+  "jurisdiction": "North St. Paul",
+  "state": "MN",
+  "tenant": "northstpaulmn",
+  "portalUrl": "https://northstpaulmn.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6502",
+      "name": "Employment Application",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "Business Information",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "description": "Welcome to the City of North St. Paul.  Thank you for registering your business with us.",
+      "isEnabled": true
+    },
+    {
+      "id": "6589",
+      "name": "Road Restriction Allowance",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "Moving heavy loads on City streets during posted road restrictions requires prior approval from the City of North St. Paul. If you need an allowance during this time, please complete this application for staff review.",
+      "isEnabled": true
+    },
+    {
+      "id": "6590",
+      "name": "Well Head Sealing Authorization",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "Cost-share program to encourage residents to seal abandoned wells to protect the City's groundwater.",
+      "isEnabled": true
+    },
+    {
+      "id": "6613",
+      "name": "Encroachment Agreement",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6642",
+      "name": "Cannabis and Low Potency Hemp Edibles Registration",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "All establishments selling cannabis or low potency hemp edibles must apply for an annual license from the City of North St. Paul.",
+      "isEnabled": true
+    },
+    {
+      "id": "6643",
+      "name": "Mobile Food Vendor License",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Mobile Food Vendors must apply for the annual Mobile Food Vendor License. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6645",
+      "name": "Façade Improvement Program ",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "description": "The Façade Improvement Grant Program aims to strengthen, revitalize and sustain Downtown North St. Paul by encouraging and assisting property owners to make improvements to buildings within the Downtown area. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6647",
+      "name": "Film Production Permit",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "As part of Minnesota Film’s Film Ready Community Program, North St. Paul actively supports film, television, and media productions by providing a streamlined permit process. This permit makes it easier for production teams to access local resources and film at our city’s unique locations, helping showcase what North St. Paul has to offer.",
+      "isEnabled": true
+    },
+    {
+      "id": "6605",
+      "name": "Ball Field Sign Agreement",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Advertise your business with a sign at one of our athletic facilities while helping the City support future park improvements. Banners are displayed from May through September. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6565",
+      "name": "Zoning Verification Letter",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Bank Draft Automatic Payment Authorization",
+      "categoryId": 1098,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6561",
+      "name": "Citywide Garage Sale",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "Register your North St. Paul Garage Sale for our Citywide Garage Sale event on May 1-3, 2025. Register your address and pay the $10 fee to receive a Garage Sale Yard Sign, be listed on the North St. Paul website.",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Beekeeping Registration",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Any resident interested in beekeeping on their property must complete an annual registration with the City of North St. Paul.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Backflow Preventer Test Report",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "If your property is heated by a boiler we need an annual backflow preventer test filed with the City of North St. Paul.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Liquor License ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "All establishments offering off-sale intoxicating liquors must apply for an annual license from the City of North St. Paul.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Dumpster or Temporary Storage Container Permit",
+      "categoryId": 1109,
+      "viewAccess": "public",
+      "description": "If your project requires you to place a dumpster on the street, you will need to apply for a Dumpster Permit from the City of North St. Paul. Permits will be granted only to City-licensed dumpster haulers.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Zoning Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "A zoning permit applies to driveway, fence, shed, patio, and retaining wall projects. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Right-of-Way Permit",
+      "categoryId": 1109,
+      "viewAccess": "public",
+      "description": "Right of Way permits are required for any work in the public right of way near streets, including street cuts and underground work that extends into the public right of way. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Lawn Fertilizer Applicator License",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "Commercial contractors applying fertilizer or other lawn treatment in the City of North St. Paul must obtain a license annually from the City. The Lawn Fertilizer Applicator License fee is $80.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Criminal Record/Background Consent",
+      "categoryId": 1104,
+      "viewAccess": null,
+      "description": "Applicants applying for certain licenses must authorize the North St. Paul Police Department to conduct a background check.",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Duplex /Twin Home Rental License ",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "To ensure the safety of our residents, the City of North St. Paul requires all duplex rental units be licensed and inspected annually.",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Chicken Registration",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Any resident interested in hosting a chicken coop on their property must apply for a license from the City of North St. Paul.",
+      "isEnabled": true
+    },
+    {
+      "id": "6542",
+      "name": "Buckthorn Puller/Weed Wrench",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "Residents can reserve a Buckthorn Puller/Weed Wrench from the City Office for 5 days. Complete your reservation online and pick it up at City Hall when one is available.",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Electrical Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Electrical permits are required for all electrical work. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "Cell Tower Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6577",
+      "name": "Body Art Enterprise",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "All Boy Art Enterprise businesses in the City of North St. Paul must be licensed annually.",
+      "isEnabled": true
+    },
+    {
+      "id": "6644",
+      "name": "Consumption and Display Liquor Permit",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "No business establishment or club which does not hold an on-sale intoxicating liquor license may directly or indirectly allow the consumption and display of alcoholic beverages or knowingly serve any liquid for the purpose of mixing with intoxicating liquor without first having obtained a permit from the City.",
+      "isEnabled": true
+    },
+    {
+      "id": "6638",
+      "name": "Water Efficiency Grant Application",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6607",
+      "name": "Foster Care, Day Care and Group Home Inspection",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "As required by Ramsey County, the City of North St. Paul inspects any home requesting foster care, day care or group home status.",
+      "isEnabled": true
+    },
+    {
+      "id": "6578",
+      "name": "Potentially Dangerous Dog / Dangerous Dog Registration",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "description": "Residents with dogs deemed dangerous or potentially dangerous by the City must file and complete an annual license registration.",
+      "isEnabled": true
+    },
+    {
+      "id": "6570",
+      "name": "National Night Out 2025",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "National Night Out is an annual celebration to encourage community-building that promotes police-community partnerships. National Night Out will take place on Tuesday, August 5th, 2025. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Fire Alarm Sprinkler Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Cigarette & Tobacco Sale License",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "License for the retail sales of cigarettes and/or tobacco sales in the City of North St. Paul.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Commission/Authority Application",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Right-of-Way Registration",
+      "categoryId": 1109,
+      "viewAccess": "public",
+      "description": "Any contractor performing work in the public right-of-way must be licensed annually by the City of North St. Paul. The Right of Way License fee is $220.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Refuse Collection License (Commercial)",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "All garbage haulers servicing commercial properties in the City of North St. Paul must be licensed. The Garbage Refuse Collection License for commercial haulers is $220.",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Right-of-Way Vacation",
+      "categoryId": 1109,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Data Disclosure Request: Minnesota Government Data Practices Act",
+      "categoryId": 1098,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Multi-Family Housing Rental License",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "To ensure the safety of our residents, the City of North St. Paul requires all multi-family rental units be licensed annually and inspected every two years. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Hydrant Meter Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "If your project requires temporary water service you will need a Hydrant Meter Permit from the City of North St. Paul. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6580",
+      "name": "Block Party Application",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "Plan a block party with your neighbors. Complete this application so the City of North St. Paul can assist with barricades and other needs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6583",
+      "name": "Charitable Gambling Permit",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "Organizations hosting charitable gambling in the City of North St. Paul must apply for a gambling permit for their scheduled acvitites.",
+      "isEnabled": true
+    },
+    {
+      "id": "6586",
+      "name": "Property Watch Request",
+      "categoryId": 1104,
+      "viewAccess": null,
+      "description": "Inform the North St. Paul Police Department of your vacation plans to request additional drivebys and to update your emergency contact information.",
+      "isEnabled": true
+    },
+    {
+      "id": "6528",
+      "name": "Electric/Water/Garbage & Recycling Utility Service",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "Establish, update or change your North St. Paul residential electric, water, and garbage and recycling services.",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Fireworks Retail Sales",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Tree Trimming License",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "Any contractor conducting tree trimming or tree care services in the City of North St. Paul must be licensed annually. The Tree Trimmer license fee is $80.",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Rental Property Change of Ownership or Management",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Notify the City of North St. Paul of any ownership or management changes in your  rental property so we can update your license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6608",
+      "name": "Sidewalk Encroachment Permit",
+      "categoryId": 1109,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6636",
+      "name": "Rain Garden Permit ",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "To ensure the initial construction and ongoing maintenance of a rain garden is performed satisfactorily, a permit shall be required for the operation of rain gardens located in the right-of-way and on private property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6631",
+      "name": "Native Vegetation Permit",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "Any resident interested in native landscaping on their property must apply for a permit from the City of North St. Paul.",
+      "isEnabled": true
+    },
+    {
+      "id": "6630",
+      "name": "Fire Certificate of Compliance",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Trenching Contractor License (Commercial Plumbing and Utility Permit)",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "Contractors conducting any kind of trenching in the City must be licensed annually. The fee for a Trenching Contractor License is $80.\n\nThe Trenching Contractor  License fee is waived for licensed plumbers.",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Kennel License",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Any resident in the City of North St. Paul with three or more dogs must apply for a no-cost Kennel License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Single Family Rental License",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "To ensure the safety of our residents, the City of North St. Paul requires all single family rental units be licensed and inspected annually.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Sign Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Signs in the City should be kept within reasonable boundaries consistent with the objectives and goals of the community to retain its special character and economic advantages. A sign permit ensures the quality of the sign's appearance and its compliance with the City's current ordinances.",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Temporary On-Sale Liquor License",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This license is for non-profits or clubs who need a short-term liquor license for a specific event.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Tenant Consent to Inspect",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Help us safely inspect your North St. Paul housing. Please complete a  consent to inspect form with us.",
+      "isEnabled": true
+    },
+    {
+      "id": "6541",
+      "name": "Variance",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6615",
+      "name": "SafeHaven Citizen Request",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6635",
+      "name": "MN School Inspections",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Storm Water Pollution Prevention Plan Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6601",
+      "name": "Student Commission Application",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6582",
+      "name": "Liquor Sales: Extension of Premises ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This license is for existing liquor license holders who wish to extend their liquor sales to an area outside of their permitted business for a limited time or special event.",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Fireworks Vendor Display Permit",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Conditional Use Permit ",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Courtesy Bench License",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "License to host a courtesy bench in the City of North St. Paul.",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Underground Tank  Removal Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Removing an underground tank to repair/replace or remove? Complete an Underground Tank Removal Permit from the City to ensure the safety of your project.",
+      "isEnabled": true
+    },
+    {
+      "id": "6575",
+      "name": "Property and Special Assessment Verification Request",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "Title companies, realtors, and potential residents interested in determining if there are any outstanding assessments on a property may request a Property and Special Assessment Verification Report from the City.",
+      "isEnabled": true
+    },
+    {
+      "id": "6537",
+      "name": "Zoning Conditional Use-Level 3 Home Occupation Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "Level 3 home occupations. Level 3 home occupations are those that have the potential to impact neighboring properties.  A Level 3 home occupation requires City Council approval of an interim use permit. Level 3 home occupations also shall be subject to the standards for home occupations listed in Section g below.  Level 3 home occupations may include, but are not strictly limited to:\n1. Small engine repair; \n2. Small equipment repair;\n3. Building trades; and\n4. Heating, plumbing, electrical or air-conditioning services.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Special Event Permit",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "A written application for a special event permit shall be completed and provided to the City not less than 30 days before the proposed event date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Underground Tank  Installation Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "All underground tank installations in the City of North St. Paul require a permit. Complete your permit online and easily upload your required documents.",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Report a Problem: Code Compliance Concerns",
+      "categoryId": 1098,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6566",
+      "name": "Waiver of Liability",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Gasoline Distribution License",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Any business dispensing gasoline in the City of North St. Paul must be licensed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6646",
+      "name": "Zoning Interim Use-Level 2 Home Occupation Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "Level 2 home occupations. Level 2 home occupations are those that have no potential neighborhood impacts except for signage, customer visits and parking areas in conformance with the standards listed in Section g below.  Level 2 home occupations are a permitted use that require the issuance of an administrative home occupation permit by the City. The City shall issue these permits subject to no more than two customers on site at any one time and the business operator following the standards in Section g below.  Level 2 home occupations may include, but are not strictly limited to:\n1. Dressmaking and tailoring;\n2. Barber shops;\n3. Beauty shops;\n4. Professional offices such as legal, accounting, insurance or computer technician; and\n5. Tutoring, musical, dance, voice and other instructions that consist of no more than two unrelated pupils at a time.\n6. Cottage food producers, subject to their registration with the Minnesota Department of Agriculture\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Pawn Shop License",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "All Pawn Shops located in the City of North St. Paul must be licensed annually and meet current state and city ordinances.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Interim Use Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Report a Problem: General City Questions/Communications Content",
+      "categoryId": 1098,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Report a Problem: Public Works/Electrical Concerns",
+      "categoryId": 1098,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Peddler Solicitor Sales License",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Any profit, or non-profit agency conducting sales in the City of North St. Paul must obtain a Merchant Solicitor Sales license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Therapeutic Massage Enterprise",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "All Massage Enterprise businesses in the City of North St. Paul must be licensed annually.",
+      "isEnabled": true
+    },
+    {
+      "id": "6564",
+      "name": "Volunteer Opportunities",
+      "categoryId": 1098,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "Preliminary Plat",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Therapeutic Massage Practitioner",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Massage practitioners in the City of North St Paul must apply for an annual license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6611",
+      "name": "Final Plat",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Trenching (Sewer/Water) Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Any contractor doing sewer or water work or repairs that impact the connection between the resident's and the City's sanitary sewer or water system, including new or repaired connections must have a Trenching Permit from the City of North St. Paul.",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "Tree Service Permit",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "Any planting, removal or treatment of trees in the public right-of-way require a Tree Service Permit from the City of North St. Paul, including any work that may impact power lines.",
+      "isEnabled": true
+    },
+    {
+      "id": "6610",
+      "name": "PUD Final Plan",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "Rezoning",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Site Plan Review",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "Site plan review is required for all new multifamily and nonresidential developments and any additions that result in the expansion of 1,000 square feet. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "Zoning Text Amendment",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1110",
+      "name": "Building, Mechanical and Plumbing Permits",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-bottom:7.5pt;line-height:normal;background:  white;\">As of October 1, 2024, the following permits are no longer available via OpenGov Citizen Services:</p><ul><li>Building Permit</li><li>Mechanical Permit</li><li>Plumbing Permit</li></ul><p style=\"margin-bottom:7.5pt;line-height:normal;background:  white;\">Please apply for Building, Mechanical, and Plumbing Permits here: <a href=\"https://rrc.baselinegov.com/\" target=\"_blank\">https://rrc.baselinegov.com/</a></p><p style=\"margin-b"
+    },
+    {
+      "id": "1086",
+      "name": "Permits",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-bottom:7.5pt;line-height:normal;background:  white;\"><span style=\"font-size: 18px;\">As of October 1, 2024, the following permits are no longer available via OpenGov Citizen Services:</span></p><ul><li style=\"font-size: 18px;\">Building Permit</li><li style=\"font-size: 18px;\">Mechanical Permit</li><li style=\"font-size: 18px;\">Plumbing Permit</li></ul><p style=\"margin-bottom:7.5pt;line-height:normal;background:  white;\"><span style=\"font-size: 18px;\">Please apply for <strong>Buildi"
+    },
+    {
+      "id": "1109",
+      "name": "Right-of-Way",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Verdana,Geneva,sans-serif;\">Any work in the public right-of-way requires a permit from the City of North St. Paul. This includes any excavation, placement of dumpsters or containers, as well as other public use of the City&#39;s right-of-way easements.</span></p>"
+    },
+    {
+      "id": "1096",
+      "name": "Zoning Permits",
+      "isEnabled": 1,
+      "content": "<p>The City of North St. Paul requires Zoning Permits for a variety of land use and development.&nbsp;</p>"
+    },
+    {
+      "id": "1100",
+      "name": "Specialty Permits",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 30px; font-family: Arial, Helvetica, sans-serif;\">Specialty Permits</span></strong></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">The City of North St. Paul offers several specialty permits including:</span></p><ul><li style=\"font-family: Arial, Helvetica, sans-serif;\">Special Event Permits</li><li style=\"font-family: Arial, Helvetica, sans-serif;\">Cell Tower Permits</li><li style=\"font-family: Arial, Helvetica, sans-serif;\">Charitable Gambling P"
+    },
+    {
+      "id": "1091",
+      "name": "Business Licenses",
+      "isEnabled": 1
+    },
+    {
+      "id": "1094",
+      "name": "Contractor Licenses",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Verdana, Geneva, sans-serif;\">The City of North St. Paul requires contractors to be licensed for various work in the City. Please review the list of required contractor licenses before beginning work on your project.</span></p>"
+    },
+    {
+      "id": "1103",
+      "name": "Community Events",
+      "isEnabled": 1
+    },
+    {
+      "id": "1093",
+      "name": "Liquor Licenses",
+      "isEnabled": 1,
+      "content": "<p>All Liquor License applicants in the City of North St. Paul &nbsp;must complete the appropriate application and provide all required documents. The North St. Paul City Council is the final authority on all Liquor License applications. All Liquor Licenses expire on June 30 each year.</p>"
+    },
+    {
+      "id": "1090",
+      "name": "Rental Housing Licenses & Reports",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(34, 34, 35); font-family: Verdana, Geneva, sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; float: none; display: inl"
+    },
+    {
+      "id": "1104",
+      "name": "Police",
+      "isEnabled": 1,
+      "content": "<p>The North St. Paul Police Department serves the safety needs of the City&#39;s residents, businesses, and visitors. Please review the following applications for service and/or information provided by the Department.</p>"
+    },
+    {
+      "id": "1105",
+      "name": "Business Resources",
+      "isEnabled": 1
+    },
+    {
+      "id": "1089",
+      "name": "Code Compliance",
+      "isEnabled": 1
+    },
+    {
+      "id": "1098",
+      "name": "Resident Resources",
+      "isEnabled": 1,
+      "content": "<p>The City of North St. Paul provides many ways for our residents to communicate with staff and participate in our commissions, authorities,&nbsp; employment and volunteer activities.</p>"
+    },
+    {
+      "id": "1102",
+      "name": "Employment",
+      "isEnabled": 1
+    },
+    {
+      "id": "1099",
+      "name": "Utility Rebates",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:28.797Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

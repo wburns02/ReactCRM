@@ -1,0 +1,584 @@
+{
+  "jurisdiction": "Nye County",
+  "state": "NV",
+  "tenant": "nyecountynv",
+  "portalUrl": "https://nyecountynv.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6576",
+      "name": "Short-Term Vacation Rental License Application Process ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Operation of a short-term vacation rental requires a registration with the Town that must be renewed on an annual basis as set forth in this Section. The Registrant shall conduct a self-inspection utilizing the Town’s Short-Term Vacation Rental Checklist and shall provide the Town a signed copy of the completed checklist as part of the registration process. The Town reserves the right to inspect the property during the registration period for the limited purpose of determining that all registration requirements for the property have been met, and the property meets all building code requirements prior to beginning operation as a short-term vacation rental. Any inspection shall occur upon prior notification to the property owner, at a reasonable time, and with the property owner or its designated agent present for the inspection. The Registrant is responsible for payment of any costs related to the inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "6555",
+      "name": "Special Event Permit ",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Nye County Special Event Permit for selling liquor at a special event by: A nonprofit organization or club which otherwise does not hold a liquor license; or A currently licensed for profit business or other for profit or nonprofit entity which desires to sell liquor outside of its licensed premises.",
+      "isEnabled": true
+    },
+    {
+      "id": "6578",
+      "name": "At-Risk Development Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "This application is ONLY for applications that have had a Site Development application submitted and would like to request an At Risk Grading Permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "Application Checklists - Planning Department",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Commercial Structures, Multi-Family Structures, and Non-Traditional Single Family Structures",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "All Commercial and Multi-Family Structures use this permit application. Non-prescriptive/engineered single family homes and Large Structures (Barndominiums, Aircraft Hangars, Private vehicle garages over 1,000 sq ft, and storage buildings with an interior or attached One or Two-family dwelling) also use this application. \n\n***Do NOT use this application for typical IRC Prescriptive One and Two-Family Dwellings (Type VB) and their associated structures. Please use the project type specific Residential Applications. Building and Safety staff cannot convert applications, and will unfortunately reject any traditional/prescriptive single family dwelling and duplex applications.***",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Encroachment Permit Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Please review the files below. Depending on your application, they may be required to attach. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6574",
+      "name": "Nye County Haulers License",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Use this application for Solid Waste Hauler or Sludge and Septic Haulers Licenses. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Commercial OSDS Onsite Sewage Disposal System",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Onsite Sewage Disposal System OSDS (Commercial)",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information Copy",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Instructions on signing up for a Citizen Services Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Adult Use/Medical Cannabis Establishment Business License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Annual renewals are due NO LATER than June 1st of each year. Any renewal not submitted by June 30th shall automatically expire. \n\nAny annual renewal submitted after June 1st shall be deemed a late submittal and be accessed a late fee of 25% of the annual renewal fee. \n\nPlease note your Nye County Property and Personal Taxes must be current at time of application or the application will be placed on hold until they are current. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Improvement, Maintenance & Warranty Agreement & Security Release",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Maintenance and warranty guarantees shall be required for all maps where dedication of public improvements are made to, and accepted by, Nye County.",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "FIRE PREVENTION -  Permits",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this FIRE PREVENTION permit application for NEW Construction, ADDITIONS,  ALTERATIONS, Changes in OCCUPANCY , Fire SPRINKLER Systems, Fire ALARM Systems, HOOD Suppression Systems, CO2 tanks; TEMPORARY Structures, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6528",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Contact the Nye County Tax Assessors office prior to applying for a permit to demolish a structure.\n\nUse this permit for the following: \nINTERIOR DEMOLITIONS where no exterior demolition work is being performed and a Tenant Improvement is not within the permitted scope of work, OR\nPARTIAL DEMOLITIONS where both interior and exterior work is within the scope of demolition work, and a Tenant Improvement is not within the permitted scope of work, OR\nCOMPLETE DEMOLITIONS where the entire structure is removed including all footings, slabs, foundations, and associated underground utilities and tanks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Subdivision Improvement Plan and Technical Study Review",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "This application is for the submittal of subdivision improvement plans, engineer's estimate data sheets, and technical studies to be reviewed by Nye County Public Works.",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Appeal Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "If you wish to have the RPC reconsider a condition of approval that was placed upon your application you will need to apply for the Conditional Use Permit / Reconsideration of Conditions of Approval application and NOT an Appeal. \n\nPlease note your Nye County Property and Personal Taxes must be current at time of application or the application will be placed on hold until they are current. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "4. Uploading Attachments",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "How to upload new attachments to your already-submitted application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Business License Review",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Use this application for a Short Term Vacation Rental business, Initial Business (License) Review, Business Name Change, or an Address Change for the business. \n\nPlease note your Nye County Property and Personal Taxes must be current at time of application or the application will be placed on hold until they are current. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Technical Study Review",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Application to review Technical Studies. (Drainage, Geotechnical, Traffic studies, and Traffic Scoping Checklists)",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Electrical Pedestal Only Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "For the installation of a new electrical pedestal or the replacement of an existing one.",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Road/Utility Construction Improvement Plan Review",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "This application is for the submittal of road/utility construction improvement plans, engineer's estimate data sheets, and technical studies to be reviewed by Nye County Public Works. This application is not for site development or subdivision submittals!",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Electrical Permit ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "*** PLEASE NOTE***\nThis permit application is NOT for an electrical pedestal only. Please use the Electrical Pedestal Only Permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6554",
+      "name": "Cannabis Quarterly Submittal",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Q1 is due April 25th\nQ2 is due July 25th\nQ3 is due October 25th\nQ4 is due January 25th\n\n\nPayment must be received within 10 days of the due date (25th of the month) to avoid late fees being accessed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "5. How to Reach Us! About Us & Contact Information",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "How to reach us!",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Certificate of Amendment",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "A Certificate of Amendment is used to correct or amend a recorded plat, survey or map.",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Field Investigation",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Field Inspection permits are issued to provide a mechanism to inspect for compliance when there is no active work being performed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Grading Permit ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this permit application for grading only permits when a building permit has not yet been approved or issued.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Conditional Use Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Mechanical Permit ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Development Agreement",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Pre-development meeting is required, contact the Planning Department at 775-751-4249 to schedule your meeting. \n\nAfter a complete application for a Development Agreement has been filed, the Planning Department shall\nschedule the agreement for a hearing before the BOCC within one hundred and twenty (120) days of filing, unless the time is extended by mutual agreement of the Planning Director and the applicant.",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Dust Control Plan",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Construction activities include but are not limited to: cut and fill, site cleanup, staging areas, stockpiles, surface grading, trenching, landscaping and construction. \n\nFor additional information please visit https://www.nyecounty.net/324/Air-Quality.",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Plumbing Permit ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Residential Carport / RV Storage Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "A permanent structure that is open on at least two sides and used for the storage and/or parking of personal vehicles, recreational vehicles, and/or equipment. The structure may either be attached or detached to the principal dwelling.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Extension of Time or Cannabis Special Use Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6565",
+      "name": "Solar / Above Ground Utility Special Use Permit and Development Plan ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6522",
+      "name": "Residential Casita permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this permit application for construction of a NEW DETACHED CASITA, or an ADDITION to or ALTERATION of an existing detached Casita. \n\nPlease Note: When a new home or duplex has a proposed DETACHED structure, such as a casita, garage, out building, pergola or patio cover, separate applications and permits are required for the home and the detached structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Residential DETACHED GARAGE/WORKSHOP/ACCESSORY STRUCTURE Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "NOTE: This permit record  may NOT be used for Aircraft Hangars or Personal Vehicle Garages/Workshops/ Storage Buildings greater than 1,000 square feet. Please use the Commercial/Multi-Family/Non-Traditional... permit type and choose the \"U\" occupancy classification.\n\nThis permit record may NOT be used for Greenhouses, Casitas, Patio covers, Covered Porches, and Decks.\n\nThis record MAY be used for Single Family Residential DETACHED Garages, Workshops, and Accessory Structures (Storage Sheds/Out-buildings) up to 1,000 square feet.\n\nIf you are adding or altering an ATTACHED garage, workshop or storage space < 1,000 s.f. to an existing single family home or duplex, please use the single family home or duplex permit and choose the correct type of work from the dropdown menu.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Flood Permit/Elevation Certificate Review",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Grandfathered Determination Letter or Zoning Administrator Determination Request",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "If you are wanting to see if a use is permissive please use the Zoning Verification application. \n\nUse this application to request a Zoning Administrators Determination or a Grandfathered determination on your property(s).  For a use that isn't permissive. \n\nYou will need to provide the burden of proof to the Zoning Administrator that your property is grandfathered.\n\nBe specific in your request and the current usage. Please attach additional letters if needed. \n ",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Residential FENCE and/or WALL Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this building permit application for Fences and/or Walls over 6 ' high that serve Single Family Homes and Duplexes, or a Retaining Wall that measures over 4' high from the bottom of the footing to the top of the wall",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Residential HVAC Replacement Permit ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Land Division",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "This application is for parcel maps, subdivision maps, and boundary line adjustments. \n\nPlease note your Nye County Property and Personal Taxes must be current at time of application or the application will be placed on hold until they are current. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Residential ISDS Individual Sewage Disposal System",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Individual Sewage Disposal System ISDS (residential) (add hyperlink to handout)",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Nye County Map Request",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6547",
+      "name": "Planned Unit of Development",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Manufactured Structure Set Down Permit (Pahrump Only)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is a requirement for NEW or REPLACED Manufactured Structures within PAHRUMP ONLY. This permit is in addition to the State Manufactured Housing Permits required for ALL of Nye County. \n\nPLEASE NOTE: As of July 7, 2021, all State Permits for Manufactured Housing are issued and inspected by  the Department of Business and Industry Nevada Housing Division - Manufactured Housing\n1830 E. College Pkwy. #120, Carson City, Nevada 89706; Phone 775-684-2940\n3300 W. Sahara Ave. #320, Las Vegas, Nevada 89102; Phone 702-486-4135\n\nElectrical Pedestals, Septic Tanks, Out Buildings and other Detached Structures are still permitted and inspected by the Nye County Building and Safety Staff.",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Residential NEW STOCK PLAN SUBMITTAL *** INITIAL REVIEWS and 1 YEAR RENEWALS ONLY***",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "***This is NOT an application for a building permit.***\n\nStock Plan Reviews are available for SINGLE FAMILY and TWO-FAMILY DWELLINGS (Duplexes), CARPORTS, SHADE STRUCTURES, and other COMMON DESIGN PROJECTS.\n\nApproved STOCK PLAN REVIEWS are effective for 1 year from the date of approval. Stock Plans may be renewed for a renewal fee equal to the original plan review fee provided the adopted code editions have not changed.\n\nSubsequent and separate applications for Planning and Zoning Approval, Septic Tanks, and Building Permits will be required each time you wish to construct a previously approved Stock Plan. \n\nSave the Stock Plan record number for entry into the application for a building permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Pre-Development / Pre-Application Meeting",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Use this application if you would like to meet with a Planner to discuss a property requirements for potential development or prior to submitting an application for development or set up a Pre-Development Meeting with all Nye County Staff for Site Development requirements. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Residential PATIO COVER/ COVERED PORCH/ SHADE STRUCTURE/GREENHOUSE Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Open at least two sides and either freestanding or attached to the residence.",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Residential POOL and/or SPA Permit ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Residential Single Family Residence or Duplex Permit  ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this building permit application for TYPE VB Single Family Homes and Duplexes with or without private vehicle garages that are no greater than 1,000 s.f. \n*Permit types include New Construction, Additions, and Alterations for the principal building only.\n**When a new home or duplex has a proposed DETACHED structure, such as a garage, Casita, out building, pergola or patio cover, separate applications and permits are required for the home and the detached structures.\n***Large structures > 1,000 s.f. with an interior or attached one or two-family home (Private vehicle garages, Barndominiums and Aircraft Hangars) use the Commercial Structures, Multi-Family Structures, and Non-Traditional Single Family Structures application. PLEASE CALL THE PERMIT OFFICE FOR GUIDANCE.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "Request for Air Quality Services (Dust Control Complaint)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Do not put your property address as the violation address. If  you do not know the address for the complaint please use the Nye County GIS  to locate the property to submit your complaint. \n\nPlease upload no less than 30 second clips that you have recorded showing the violation. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Request for Code Compliance Services",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Do not use this form for Air Quality (Dust Control) complaints.  \n\nPlease provide specific and detailed information, including the exact location address or Assessor's Parcel Number as well as a complete description of the violation. \n\nAll information provided is kept confidential. The department will not accept complaints from anonymous sources.",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Residential Solar Electric System Permit ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "For the installation of residential mounted solar electrical equipment, including any battery storage devices, main panel upgrades, and new sub-panels.\n\nGround mount systems will require Planning & Zoning approval under a separate application prior to your application submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Water Heater Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Road / Street Name Change/New Subdivision or New Street Name Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Sign Review",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Site Development  ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Refer to NCC 17.04. Article VI Development Standards for all requirements for commercial and industrial building. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Solid Waste Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Temporary Use Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Tenant Improvement - Commercial",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "This application is for COMMERCIAL INTERIOR work ONLY. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Vacation or Abandonment of Streets or Easements",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "This application requires a map to be submitted by a Nevada Licensed Surveyor.\nIt will be reviewed in accordance with NRS and Nye County Code.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Waiver Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Zoning Review - submit for total property development and/or accessory structures ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application Review can take 3 - 5 business days  based on work load. \n\nThe Zoning Review application is to submit for total property development. SFR, utilities, ground mount solar, accessory structures like garages, barns, etc. \n\nDO NOT USE this application if you are ONLY installing a well, septic, power or fencing/block walls, pools, carports or patio covers or all of these. Use the Zoning Review - Utilities, Fencing / Block Walls, Carport, Deck, Pool or Patios",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Zoning Review - Utilities, Fencing / Block Walls, Carport, Deck, Pool or Patios ONLY",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Zone Change/Master Plan Amendment ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Use this application to apply for a Zone Change on your property to a current zoning district, or to apply for a Master Plan Amendment. \n\nPre-Application Meetings are REQUIRED prior to application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "Zoning Ordinance Text Amendments ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "This application is NOT TO CHANGE your property zoning. This application is to initiate a TEXT AMENDMENT to current Nye County Code or propose a new section of code. \n\nIf you are unsure if this is the process you need please contact our Department or set up a Pre-Application Meeting in our online portal. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Zoning Verification Request",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "This application is for verifying whether a specific use is permissive on a property or multiple properties that may not be listed on current Nye County Code.\n\nThis is NOT to apply for adding buildings, fencing, well, septic etc on the property. \n\n",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": "<div><strong><span style=\"color: rgb(184, 49, 47);\">When uploading documents please do not include any special characters: example NO !@#$%^&amp;*/ \\\\\\\\\\\\\\\\or non-western characters. You can have dashes - or underscores _.</span></strong></div><div><span style=\"color: rgb(184, 49, 47);\"><br></span></div><div><span style=\"color: rgb(184, 49, 47);\"><strong>Make sure your pop-up blocker allows popups from the View Point site or pop up blocker turned off.</strong></span></div><div><br></div><div><st"
+    },
+    {
+      "id": "1071",
+      "name": "Building and Safety",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: justify;\"><strong><span style=\"font-size: 24px; color: rgb(184, 49, 47);\">REMINDER IMPACT FEES WILL INCREASING ON JANUARY 13, 2025 TO $8,915.97.&nbsp;</span></strong></p><div><strong><span style=\"font-size: 24px; color: rgb(184, 49, 47);\">Our phone # has changed to 775-751-6280.</span></strong></div><p>Please read the permit descriptions below each permit type carefully before choosing an application. Call the office if you have any questions.</p><div style=\"text-align: jus"
+    },
+    {
+      "id": "1072",
+      "name": "Department of Public Works",
+      "isEnabled": 1,
+      "content": "<p><strong>When uploading documents please do not include any special characters: example NO !@#$%^&amp;*/ \\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\ or non-western characters. You can have dashes - or underscores _</strong></p><p><strong>Make sure your pop-up blocker allows popups from the View Point site or pop up blocker turned off.</strong></p><p><strong>Also please ensure your attachments are under 100MB.&"
+    },
+    {
+      "id": "1089",
+      "name": "Nye County Licensing Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1076",
+      "name": "Planning Department",
+      "isEnabled": 1,
+      "content": "<h1 style=\"box-sizing: border-box; font-family: Poppins; font-style: normal; font-weight: 600; color: red; font-size: 1.9em; text-decoration: none; line-height: 1.2; text-transform: uppercase; display: block; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-align: justify;\"><a href=\"https://www.nyecountynv.go"
+    },
+    {
+      "id": "1081",
+      "name": "Town of Pahrump ",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-size: 18px;\">The Town of Pahrump issues special and general Town of Pahrump Business Licenses pursuant to .<a href=\"https://www.pahrumpnv.gov/DocumentCenter/View/1718/Pahrump-Town-Code-of-Ordinances-2021-pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Pahrump Town Code Chapter 8.</a> Town Administration works closely with Code Enforcement and the Planning Department on processes and requirements. This page is a portal to licensing application for the Short-Term Vacation Ren"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:34.542Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

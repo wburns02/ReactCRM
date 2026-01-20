@@ -1,0 +1,179 @@
+{
+  "jurisdiction": "Onondaga County",
+  "state": "NY",
+  "tenant": "countyofonondagany",
+  "portalUrl": "https://countyofonondagany.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6433",
+      "name": "Capacity Assurance Review",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Use this form to submit a Capacity Assurance Request to WEP to determine if the sewer system (both treatment plant and collection system) have the capacity to serve a proposed project.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Residential Water Heater Replacement Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Use this application for Water Heater Installation/Replacement Permits.   All applications MUST include a completed Water Heater Checklist and Photos of each water heater with the placard attached.   \n\nSubmit one application per address.",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "Signing Up For An Account",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "A detailed walkthrough on signing up for an account",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Signing Into Your Account",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Step-by-step instructions on signing into your account securely",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Sewer Unit Charge Inquiries",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Complete this form if you have questions or concerns regarding the \"County Sewer\" charge on your County tax bill. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Annual Plumbers License and Registration",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Use the application to submit the application for annual registration as a Master's (Master's Active, Master's Inactive, Master's Inactive - Journeyman), Journeyman, or Apprentice plumber.  This application is only for Master's and Journeyman who have already passed the corresponding competency exams.",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Account Overview",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Tour features of \"My Account\"",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "Applying for a Permit",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Walk through the process of completing an application",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Plumber Certification Exam Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Use this form to apply to take the competency exam to be licensed as a Master or Journeyman Plumber.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "A road map for the payment process",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Application Guests",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to easily add or remove a guest from your application",
+      "isEnabled": true
+    },
+    {
+      "id": "6411",
+      "name": "Waste Hauler Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Apply for a Disposal/Solid Waste Hauler License in the County of Onondaga, NY",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Update Current Waste Hauler Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Add or remove vehicles or waste types to your current Waste Hauler Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Application Management",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Effectively manage and track the status of drafts and applications, review submissions, and leave comments",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Changes Requested ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Updating your application when changes have been requested ",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Inspections",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to request an inspection or view scheduled and past inspections",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "Viewing and Printing Documents",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Guide to viewing and printing issued documents",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1078",
+      "name": "Help Guide",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Verdana, Geneva, sans-serif;\"><strong>Welcome to the Help Guide</strong></span></div><div><span style=\"font-family: Verdana,Geneva,sans-serif;\">Need assistance navigating WEP&#39;s new application portal? You&#39;re in the right place. The guides on this page are designed to provide clear, step-by-step instructions and answer common questions.&nbsp;</span></div>"
+    },
+    {
+      "id": "1081",
+      "name": "Plumbing Control ",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: windowtext; font-style: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; text-align: left; backgrou"
+    },
+    {
+      "id": "1083",
+      "name": "Wastewater Discharge Permits",
+      "isEnabled": 1
+    },
+    {
+      "id": "1082",
+      "name": "Contact Us",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style='color: rgb(0, 0, 0); font-family: \"Lucida Grande\", Tahoma, Arial, Verdana, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-deco"
+    },
+    {
+      "id": "1084",
+      "name": "UNDER CONSTRUCTION - DO NOT APPLY",
+      "isEnabled": 1,
+      "content": "<div><strong>-- DO NOT APPLY --</strong></div><div>These applications are currently under construction.</div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:39.990Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

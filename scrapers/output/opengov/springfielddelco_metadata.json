@@ -1,0 +1,398 @@
+{
+  "jurisdiction": "Springfield Township (Delaware County)",
+  "state": "PA",
+  "tenant": "springfielddelco",
+  "portalUrl": "https://springfielddelco.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6426",
+      "name": "Property Complaint Form",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Report property code violations effortlessly through our user-friendly platform. Pinpoint issues on the map, attach photos, and help us maintain the charm of our community.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Certificate of Use - Resale (Residential)",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Is required whenever there is a change in ownership of a residential property. An inspection must be performed to confirm that the proposed use complies with all ordinances, regulations and codes. NOTE: This permit is required prior to settlement.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Amusement Device Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Any automatic, mechanical,  or electronic machine designed to  operate as a game, or for entertainment and amusement, that requires some form of payment to use. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "Bulk Pick Up",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Special trash pickup for large items, large quantities of items, or appliances.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Contractor Registration",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Any persons or firms who engage in construction, repairs, remodeling, rehabilitation or demolition, and operating as general contractors or subcontractors are required to obtain a license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6533",
+      "name": "Memorial Bench Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "A memorial bench provides the residents of Springfield Township with the opportunity to honor a loved one, celebrate a special event or honor a person or organization that has made a difference in our community",
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": "Application for Employment",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "If you are interested in joining the team at Springfield Township this is the correct application to fill out. Click select to get started!",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Pole/Wire Complaint Form",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Report utility issues",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "Block Party",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This is a Block Party request form used to request the street to be closed and to request barricades.",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Annual Fire Prevention License",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "All Commercial properties require an annual inspection.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Building Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required to construct or alter any building in the Township or the use of any building or lot changed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Temporary Access",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "Commercial Certificate of Use/Occupancy",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required for any commercial property with a change in tenant or ownership, with or without construction",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Employment Application Summer/Seasonal/Temp",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "If you are looking for seasonal, summer or temporary employment with Springfield Township, this is the correct application to fill out. Click select to get started!",
+      "isEnabled": true
+    },
+    {
+      "id": "6537",
+      "name": "Country Club Pool Employment Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "If you are seeking employment at the Country Club pool this is the correct application to fill out. Click select to get started!",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Fire Prevention Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "New Commercial & Residential Fire Sprinkler Systems, renovations to existing sprinkler systems, removal of underground storage tanks (including residential oil tanks)",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Electrical Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "All electrical work performed in  Springfield Township requires a permit.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Ice Rink Employment Application ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "If you are seeking employment at the Ice Rink this is the correct application to fill out. Click Select to get started!",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "URZ Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "  Must be used for instances such as all new construction, detached garages and decks under 30 inches. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Right to Know Request",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Right to Know / Open Records Request Form",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Certificate of Use -  Rental",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Annual licenses to be issued after yearly inspections are performed by Code Enforcement to establish the obligations of both owners and tenants of rental units within the municipality to maintain the quality of rental units.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Street Opening Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required for any person, firm, association or corporation requesting to close or open any highway, road, street, avenue, etc. including curb and apron, replacement of sewer/gas/water lines in the street",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Sign Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required to erect, alter, relocate or maintain an advertising display. Permitted signs may only be ground, projecting, facial or window-type.",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Peddling/Soliciting License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This license application is required for individuals or businesses that engage in door-to-door selling or advertising of goods or services. It ensures that all peddlers and solicitors comply with local regulations and operate within the permitted guidelines.",
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "Ice Cream/Food Vendor License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This license application is required for individuals or businesses that operate food trucks, food carts, ice cream trucks, or ice cream carts. It ensures that all vendors comply with local regulations and operate within the permitted guidelines.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Pool Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required in order to construct, install, maintain, or alter a new pool/hot tub/spa and temporary pools that hold 24\" of water.",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Transient Retail Merchant License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This license application is required for individuals or businesses that plan to sell items from a table or cart on a temporary basis. It ensures that all transient retail merchants comply with local regulations and operate within the permitted guidelines.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Certificate of Use - Change of Tenant",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "For any residential change of tenants. When a new tenant replaces a tenant listed on an existing lease. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Grading Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Any work that involves adding impervious surface to a property or changing the building foot print includes new construction, patios, additions for footings & foundations, driveways, decks, walkways, etc.\n\n* A Storm Water Management Permit MUST accompany this form",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Hotel, Motel, & Inn Annual License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "To operate a hotel, motel or inn within the Township you must first obtain a license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Plumbing Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "When any new or existing plumbing system needs to be installed, altered, repaired or replaced.  This includes sewer connections, drainage piping work, excavation or water heating equipment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Fence Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required to erect, install, alter or relocate any new or existing fence.",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Mechanical Permit ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": " Required when any mechanical system is installed, altered, repaired, replaced or remodeled.",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Storm Water Management Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required for review of any Storm Water Management Site Plan and related data.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Demolition Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required to demolish an entire building or structure, partial demolition as well as interior demolition. \n**Note: If you remove more than two-thirds of existing framing and alter any outside wall, it is considered complete demolition.",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Wall Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required to erect, install, alter or relocate any wall or retaining wall.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "POD Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required when any portable storage unit or container is placed on any residential or commercial property. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "On-Street Dumpster Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required for any dumpster and/or open-top container placed on a public street.",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Shed Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required for any type of shed regardless of size. Only one shed is permitted per property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Shade Tree Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "A shade tree permit is  required ONLY for removal of tree(s) that over hang in the public right-of-way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Building Regulations Hearing",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1076",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<div>Please be aware that some residential permit applications may take up to 7 to 10 working days for approval</div><div><br></div><div><br></div><div><span data-olk-copy-source=\"MessageBody\" style=\"border: 0px; font-style: inherit; font-variant: inherit; font-weight: inherit; font-stretch: inherit; font-size: 11pt; line-height: inherit; font-family: inherit; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit; font-feature-settings: inherit; font-variation-settings: "
+    },
+    {
+      "id": "1080",
+      "name": "Code Enforcement",
+      "isEnabled": 1
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1
+    },
+    {
+      "id": "1072",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1074",
+      "name": "Fire Marshal's Office",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1079",
+      "name": "Administration",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:02.005Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

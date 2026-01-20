@@ -1,0 +1,348 @@
+{
+  "jurisdiction": "Chatham",
+  "state": "MA",
+  "tenant": "chathamma",
+  "portalUrl": "https://chathamma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006543",
+      "name": "Excavation & Trench - Chatham",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006546",
+      "name": "Water Service Application - Chatham",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006553",
+      "name": "Installation of Irrigation Meter - Chatham",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Town of Chatham Department of Public Works 221 Crowell Road Chatham, MA 02633 Tel: (508) 945-5155 (508) 945-5150 Fax: (508) 945-5152 www.chatham-ma.gov Pipe inside House House Meter Irrigation Meter Procedure for Installation of Irrigation Meter 1.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006514",
+      "name": "Short Term Rental Application - Chatham",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Regulations for Short Term Rentals (STR) were approved by the Board of Health, effective July 1, 2023. \n\nWe are now accepting registrations for short-term rentals occurring between March 1, 2026, and February 27, 2027. If you have previously registered your rental, please log in to your account and follow the steps to renew your registration.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006505",
+      "name": "Administrative Review",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Administrative Review applications are for small scale projects that will not cause impact to the resource area.\nApproval of these applications is at the discretion of the Conservation Agent. To discuss potentially approvable activities under an Administrative Review please contact the Conservation Agent. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006425",
+      "name": "Food Establishment Application - Chatham ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "To be filled out by any establishment/organization which deals in any form of food products including milk, cream and frozen desserts.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required for additions, alterations, renovations, new construction and swimming pools",
+      "isEnabled": true
+    },
+    {
+      "id": "1006490",
+      "name": "Building Permit Express",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for ONLY roofing, siding, windows, doors, weatherization, fire alarms and SOLAR installations. Please use the Building Permit Application for any alterations, additions or new construction of a structure.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006526",
+      "name": "Temporary Food Establishment Permit Application - Chatham",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "In accordance with the Federal Food Code and the Town of Chatham Minimum Sanitation Standards for Food Establishment,  a temporary food establishment shall comply with all applicable requirements of the Federal 2013 Food Code, and a permit must be obtained for such temporary operations.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006532",
+      "name": "Bathing Beach Application - Chatham",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "In accordance with 105 CMR 445.000:  DEPARTMENT OF PUBLIC HEALTH MINIMUM STANDARDS FOR BATHING BEACHES (STATE SANITARY CODE, CHAPTER VII): A permit is required to operate a public or semi pubic beach. No person shall commence the operation of, or continue to operate, a bathing beach unless the operator is the holder of a valid permit issued by the Board of Health or the Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006499",
+      "name": "Building Move Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required for the moving of a building over a public or private way. \nStructure being relocated within the same lot do NOT require a Building Move Permit\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006473",
+      "name": "Complaint Form",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This form is to be used to submit and track complaints.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006531",
+      "name": "Animal/Poultry Permit Application - Chatham",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006472",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for complete or substantial demolition of a building and/or accessory building. For partial and interior demolition use the Building Permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006540",
+      "name": "Bay Scallop Opening Facility Application- Chatham",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006484",
+      "name": "Electrical Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Applicant must be a licensed professional. This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc.  Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006527",
+      "name": "Farmers Market Vendor Permit Application- Chatham",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "In  accordance with the Federal Food Code and the Town of Chatham Minimum Sanitation Standards for Food Establishment All vendors at any Chatham Farmers Market must apply for a Food Service Permit. This is a retail only market, no food preparation allowed at the site. Please contact the Health Department directly if you have any questions.\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006468",
+      "name": "Exterior Mechanical System Appliance Registration",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This registration is required to install, enlarge or replace an exterior mechanical system appliance.  The property owner or owner’s agent can apply for this registration.  This registration is issued by the Building Commissioner.  Separate electrical, plumbing and or gas permits may be required to be submitted by a licensed contractor. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006377",
+      "name": "Hotels & Motels - Chatham",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "In accordance with MGL Chapter 140 all Inns/Hotels/Motels and Cottages must be licensed annually by the local authorities and  must be inspected annually for sanitation, fire and building code requirements.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Gas Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Applicant must be a licensed professional. This permit is required when gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006534",
+      "name": "Inn Holder/B&B Room Inspections - Chatham",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "In accordance with the Town of Chatham Rules and Regulations, and those of the Building and Fire Codes and Standards, all Inns, Bed and Breakfast establishments, rooming houses and workforce housing licensed within the Town must be inspected annually for sanitation, fire and building code requirements.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006510",
+      "name": "Outdoor Display or Sale of Goods",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is not for an outdoor display or sale of goods unless it specifically meeting the Bylaw Section below.\n\nUnder the Town of Chatham’s General Bylaw Section 208-24.D.1, a permit is required from the Director of Community Development for the display of a single item (or grouping of items) for placement on, upon or against the outer wall or door of the commercial establishment within the downtown business district.  The downtown business district is in the geographical area within an area of 250 feet on either side of Main Street from the western side of the rotary to Mulford Howes Lane.  The location of the proposed display must meet the provisions of Section III.D.3.e of the Protective Zoning Bylaw.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006542",
+      "name": "Swimming Pool - Chatham",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "In accordance with the State Sanitary Code, 105 CMR 435. 021 no person shall operate or maintain any swimming, wading or special purpose pool without obtaining a permit from the Board of Health.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006483",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Applicant must be a licensed professional. A permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006383",
+      "name": "Septic Haulers - Chatham ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "In accordance with M.G.L. C 111, Sections 31B, 310 CMR 15.502 (Title 5) and Board of Health Onsite Wastewater Regulations, the undersigned makes application to the Board of Health for permission to remove and transport septage and the content of privies and cesspools.\n\nPumpers/Haulers licenses expire on December 31st each year.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006529",
+      "name": "Refuse Haulers -Chatham ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Town of Chatham Board of Health regulations governing the solid waste disposal facility:\nSect. 8.1\nLICENSE  No person shall transport commercially collected household/residential refuse, non-household/commercial refuse, bulky waste, or any other garbage or rubbish materials on the streets of the Town of Chatham or into the Facility without a license from the Board of Health. Licenses shall be renewed annually in January and renewal shall be contingent on an inspec­tion of the vehicles used for transportation of refuse",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": "Shed Registration",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This registration is required for sheds 200 square feet or less",
+      "isEnabled": true
+    },
+    {
+      "id": "1006530",
+      "name": "Septic Installer - Chatham",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "DISPOSAL SYSTEM INSTALLER'S PERMIT -In accordance with the Town of Chatham Minimum Requirements for the Subsurface Disposal of Sanitary Sewage, no person or firm shall engage in the construction, expansion or upgrade of an on-site subsurface sewage disposal system without first obtaining a Disposal System Installers Permit from the Board of Health or its Agent.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006391",
+      "name": "Sheet Metal Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when a sheet metal worker is manufacturing, fabricating, assembling, handling, erecting, installing, dismantling, alteration and/or repairing duct work, commercial fans, kitchen hoods and vents, architectural sheet metal and metal roofing.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006465",
+      "name": "Sign Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required for temporary and permanent permit applications for signage.  Please note that if you are located within the Historic Business District additional approvals may be required.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006535",
+      "name": "Tobacco Sales Permit Application - Chatham",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "To monitor compliance of the sale of tobacco products, the Chatham Board of Health will issue a Tobacco Sales Permit in accordance with the Tobacco Control Regulation.  No person, firm, corporation, establishment or agency, shall sell tobacco products within the Town of Chatham without a valid tobacco sales permit issued by the Board of Health.  Permits must be posted in a manner conspicuous to the public. Tobacco sales permits must be renewed annually. A tobacco sales permit is non-transferable. Each applicant for a Tobacco Sales Permit is required to show proof of a current tobacco sales license issued by the Commonwealth of Massachusetts Department of Revenue.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006344",
+      "name": "Body Art Facility - Chatham",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Body Art Licenses are renewable annually on January 1st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006492",
+      "name": "Solid Fuel Burning Appliance (i.e. Woodstove, Pellet Stove, etc.)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for the installation of solid fuel burning appliances.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006385",
+      "name": "Body Art Practitioner - Chatham",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Body Art Licenses are renewable annually on January 1st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006512",
+      "name": "Temporary Storage Structure",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This registration is required for temporary storage structures 200 square feet or less",
+      "isEnabled": true
+    },
+    {
+      "id": "1006345",
+      "name": "Recreational Camps - Chatham",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "In accordance with the State Sanitary Code 105 CMR 430.000 an applicant for a Recreational Camp For Children shall file an application with the Board of Health prior to desired opening date. A plan review packet must be submitted with the application, and onsite inspection is required at the time of the camp operation.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Tent Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required for all tent 400 SF or greater",
+      "isEnabled": true
+    },
+    {
+      "id": "1006554",
+      "name": "Funeral Director License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "In accordance with MGL Title XVI, Chapter 114, Section 449:\n \nThe board of health of each town shall annually, on or before May first, license persons to act as funeral directors therein. All such licenses shall expire April thirtieth each year, unless sooner suspended or revoked. Such licenses shall be issued only to persons certified to the boards of health by said board of registration, before May first each year, as qualified to be licensed as funeral directors.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006508",
+      "name": "Title 5 Official Inspection  - Chatham",
+      "categoryId": 1073,
+      "viewAccess": "private",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1087",
+      "name": "Sewer Connections",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p>Each application will require a completed <a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Workers_Compensation_Affadavit_Tue_Mar_16_2021_13:44:16_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_blank\">Workers_Compensation_Affadavit.pdf</a></p><p>Complete the <a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Homeowners_License_Exemption_Tue_Aug_09_2022_18:22:46_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_blank\">Homeowner"
+    },
+    {
+      "id": "1081",
+      "name": "Conservation Commission",
+      "isEnabled": 1
+    },
+    {
+      "id": "1079",
+      "name": "DPW",
+      "isEnabled": 1
+    },
+    {
+      "id": "1073",
+      "name": "Health",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:50.935Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

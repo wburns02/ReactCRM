@@ -1,0 +1,441 @@
+{
+  "jurisdiction": "Town of Huntington",
+  "state": "NY",
+  "tenant": "townofhuntingtonny",
+  "portalUrl": "https://townofhuntingtonny.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6461",
+      "name": "Kayak Permit ",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Residential and Senior Kayak Application",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Temporary Permits Application",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Apply here for Firework, Tent, Propane, Hot Works, and Blasting permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Commercial Sign Permit Application & Renewals",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Film/Photography/Drone Permit",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "Use this permit type to apply for permission to film or photograph at Town properties or facilities.  Drone film/photography permits are also available here.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Construction Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Apply here for all Fire Protection Equipment installation and/or modification permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Rental Permits",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "This permit is intended for non-owner occupied rentals. This includes one and two family dwellings, multiple residencies, and mixed-use buildings. \nNote: Legal accessory apartments do not require this permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Accessory Dwelling Unit Permit",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Office Hours: Monday-Friday, 8:30a-4:30p. 631-351-3009.\n\nRENEWAL APPLICATIONS, PLEASE FOLLOW THE INSTRUCTIONS ON YOUR RENEWAL FORM. \nThe Town of Huntington requires Accessory Dwelling Unit (formerly Accessory Apartment/mother-daughter) permits in owner-occupied single-family dwellings. Regardless of the occupancy of the apartment, whether it is for family use, being rented, for owner use, or is vacant, a valid permit must be obtained for the second kitchen. This special-use permit requires Zoning Board of Appeals approval. All new applications are subjected to a public hearing, bi-yearly inspections, and bi-yearly fees. Under town code, a saturation report is conducted on the parcel location of the application to insure regulation in the number of apartments in the area. There shall be no more than 10% or more of the lots within a one-half-mile radius of the application for which an ADU is present. Permit holders are subjected to conditions under town code.  \nUnder town code, NEW ADU applications are not permitted in basements/cellars/attics/or detached structures. Only one ADU per parcel of land is permitted. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "Subdivision",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6562",
+      "name": "Affordable Housing Formal Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Please do not fill this out until you are notified to do so.",
+      "isEnabled": true
+    },
+    {
+      "id": "6563",
+      "name": "Zoning Board of Appeals",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Use this application type for: Variances - When building or site plans have been denied; Special Exceptions - When required by the Zoning Code for certain uses; and Code Interpretations - (Denial from other agency not required)\nPlease note all attachments must be submitted as PDFs\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6598",
+      "name": "Transfer of Density Flow Rights (TDFR)",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Establishment of sanitary rights sending sites or redemption of flow credits on receiving sites in accordance with Suffolk County Department of Health Services regulations. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6628",
+      "name": "Snow Vendor Application",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "Use this record type to apply for an manage your Snow Vendor Application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Solid Waste Collection License Application ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "This license is for businesses engaged in the collection, disposal and transport of solid waste within the Town of Huntington.  Deadline for submission is November 15th annually. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Tree Removal Permit Application",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "This permit type is used to receive and process tree removal permits.  Please refer to Town Code Chapter 186 for specific details.  Also, If an arborist or emergency personnel have deemed this an immediate hazard, please have them email planning@huntingtonny.gov for a possible expedited review and/or permit waiver.",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Residential Building Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "- New: Construction, Additions, Alterations; and  \nALL Existing/Built Without Permit Residential projects",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Residential Express Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "New Work Only: Demolition, Outdoor Kitchen/BBQ, Pools/Hot Tubs/Spas, Sheds (144-239 SF)/Chicken Coop(<240 SF), Solar, Mobile Home, and Letter of Denial - ONLY these permit types are 'Express'",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Mooring Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Mooring Permits are required and regulated under Chapter 137 of the Huntington Town Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6632",
+      "name": "Request Additional Solid Waste Permits ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "In order to request additional permit, you must first obtain your Solid Waste License. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6633",
+      "name": "Liquid Waste Collection License Application ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "This license is for businesses engaged in the collection, disposal and transport of liquid waste within the Town of Huntington.  Deadline for submission is November 15th annually. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6565",
+      "name": "Affordable Housing Rental Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Affordable Housing Rental Application.\nPlease do not fill this out until you are notified to do so.",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Signs - Temporary Event and Grand Opening Sign Application",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Use this record type to apply for temporary event signs including grand openings.  A temporary permit is required for any Commercial/Industrial utilized properties. Only (1) one Temporary permit can be issued per (2) two month period.  ONLY residential properties, real estate signs,  construction/development signs , and future business activity signs are EXEMPT.",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Residential Replacement Permit ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "- Direct replacement of expired permit ONLY",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Commercial Building Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "- New and Existing: Additions, Alterations, HVAC,  & New Construction on property zoned Commercial; New Tenant and Outdoor Seating",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "4. Uploading Attachments",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Links to Guides and other City Information",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Telecommunications Site Plan Pre-Application",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Use this application to apply for telecommunications antennas or facility pre-applications from the Planning Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Change of Zone Application ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Zone Change applications submitted to Town Clerk but reviewed through the Planning Department",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Affordable Housing Waitlist",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6634",
+      "name": "Request Additional Liquid Waste Permits  ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "In order to request additional permit, you must first obtain your Liquid Waste License. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Site Plan Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Use this application to apply for Site Plan Pre-Application and Site Plan Review approval from the Planning Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "5. How to Reach Us! About Us & Contact Information",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "How to reach us!",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Commercial Replacement Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "- Direct replacement of Commercial expired permit ONLY ",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Robert M. Kubecka Memorial Garden Permit ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "A community garden located on Dunlop Rd in Huntington. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Wireless Antennas within Town's Right-of-Way",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this permit type to apply for individual antennas located within the Town's street right-of-way only.  Antennas on private or public parcels should use the 'Commercial Building Permit' type.",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Clifford Soergel Memorial Outreach Garden Permit ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "A community garden dedicated to growing and donating food to the needy.",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Lot Line Change",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Use this application to apply for a Lot Line Change from the Planning Board.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Dental Amalgam Removal Reporting ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "This form is to be completed by dental offices within the Town of Huntington Sewer District ONLY.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Limited Plumbers License",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "New or Renewal of Limited Plumber Licensing",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "PLUMBING",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Selections below",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "- Wastewater, Irrigation/Sprinkler, Generator, Natural Gas/LPG",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Restaurant Grease and Oil Removal Reporting",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "This form is to be completed by restaurant owners within the Town of Huntington Sewer District ONLY.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Master & Reciprocal Plumbers License",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "- New or Renewal of either type of Plumber Licensing",
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "Peddler's/Solicitor's License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply now for a Peddler's/Solicitor's License pursuant to Town Code Chapter 149.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1101",
+      "name": "Information Technology",
+      "isEnabled": 1
+    },
+    {
+      "id": "1099",
+      "name": "Highway Department",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Tahoma,Geneva,sans-serif;\">Welcome to the Town of Huntington Highway Department. &nbsp;Apply for the following permits/approvals below:</span></div>"
+    },
+    {
+      "id": "1071",
+      "name": "Building and Housing",
+      "isEnabled": 1,
+      "content": "<p><br><strong>To submit an application for a permit online:</strong></p><p>1) Select the type of permit needed by clicking the blue SELECT button. PLEASE carefully select the appropriate permit type before paying the <strong>NON-REFUNDABLE</strong> Application Fee.</p><p>2) Set up a &quot;Citizen Service&quot; Account, which will allow you access to your property information, tracking permit progress and status, and password protected secure payments for permits. This is required.</p><p><br>If "
+    },
+    {
+      "id": "1086",
+      "name": "Environmental Waste Management",
+      "isEnabled": 1,
+      "content": "<p><strong>To submit an application for a <strong>permit online:</strong></strong></p><p>1) Select the type of permit needed by clicking the blue SELECT button.</p><p>2) Set up a &quot;Citizen Service&quot; Account, which will allow you access to your license/permit information, track its progress and status, and password protected secure payments for permits. This is required.</p><p><br></p>"
+    },
+    {
+      "id": "1093",
+      "name": "Film & Television",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Tahoma,Geneva,sans-serif;\">Use this permit type to apply for a film/photography permit.</span></div>"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Marshal Office",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1085",
+      "name": "Maritime Services",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Tahoma,Geneva,sans-serif;\">The Department of Maritime Services is responsible for the Town&#39;s kayak and mooring permitting process.</span></div><div>&nbsp;</div><div><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><strong style=\"mso-bidi-font-weight: normal;\"><u>Kayak Permits</u></strong>: &nbsp;<strong><span style=\"font-size: 24px;\">&nbsp; &nbsp;ONLINE APPLICATIONS FOR KAYAK PERMITS WILL REOPEN MID-JANUARY 2026.&nbsp;</span></strong> Residents ($100 for 59"
+    },
+    {
+      "id": "1084",
+      "name": "Planning Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Tahoma,Geneva,sans-serif;\">The Planning Department is happy to announce the availability of on-line Applications as shown below:</span></p>"
+    },
+    {
+      "id": "1088",
+      "name": "Public Safety",
+      "isEnabled": 1
+    },
+    {
+      "id": "1076",
+      "name": "Community Development Agency",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1
+    },
+    {
+      "id": "1079",
+      "name": "Town Clerk ",
+      "isEnabled": 1,
+      "content": "<p style=\"margin: 0in 0in 0.0001pt; font-size: 11pt; font-family: Calibri, sans-serif; color: rgb(36, 36, 36); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-dec"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:41.808Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

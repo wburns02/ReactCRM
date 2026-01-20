@@ -1,0 +1,802 @@
+{
+  "jurisdiction": "Monroe County",
+  "state": "IN",
+  "tenant": "monroecountyin",
+  "portalUrl": "https://monroecountyin.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6676",
+      "name": "Acceptance of Right of way Improvements or Roadway into Monroe County Inventory",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This form is used for the Acceptance of Right of way Improvements or New Roadways into Monroe County Inventory.",
+      "isEnabled": true
+    },
+    {
+      "id": "6697",
+      "name": "Freeze Thaw Period Waiver Request",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application is for a waiver from Chapter 480 regarding Vehicle Weight Limits on Monroe County Roadways starting February 3rd for a period of 90 days during the freeze/thaw period.  An application for each roadway is required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6702",
+      "name": "Appeal of Decision",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This form is used for the Applicant aggrieved by the denial of a permit or decision under Chapter 755 and the Manual for Construction Within and Adjacent to Monroe County Right-of-Way, or any other person whose property interests would be significantly harmed by any work permitted under this Chapter.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6716",
+      "name": "Special Event Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application is for approval from the Monroe County Traffic Commission for Special Events requiring the use of county roads or public rights-of-way owned by Monroe County. To assure timely approval by the Traffic Commission to your application we ask that you notify us not less than 60 days before the event.\n\nTo receive consideration by the Traffic Commission, all relevant portions of the application must be completed. Once a completed application has been submitted to the Highway Department, it will be reviewed by staff and forwarded to the Traffic Commission for consideration. You will receive an invite via email to attend the meeting.  You may attend in person or via zoom to answer any questions the Traffic Commission may have.  Once approved by the Traffic Commission, the County retains the right to revoke permission if safety issues concerning the Special Event arise.\n\nThe Traffic Commission has the sole discretion to approve or deny an application. If the Traffic Commission approves use of county roads or public rights-of-way for the Special Event, it may impose any reasonable conditions or requirements upon the approval deemed necessary to minimize the adverse impact of the Special Event upon the community, neighborhoods, or emergency service providers. The recipient of a Special Event approval is required to comply with all federal, state, and local laws during the event.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6754",
+      "name": "Famers Market Registration",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "It is the responsibility of the Market Manager to ensure that food vendors are properly licensed and that exempt food vendors follow state and local guidelines. The Market Manager must register a Farmers’ Market with the Environmental Health – Foods Division at least 30 days prior to the market. There is no fee for the registration. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6768",
+      "name": "100 Cooks Who Care Event Organizer",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Questionnaire for the Chef's of basic food safety knowledge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6778",
+      "name": "Soil Report Review for Subdivisions",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "The Soil Report Review for Minor and Sliding Scale Subdivisions is a Health Department review of a soil report received from an Indiana Registered Soil Scientist for the purposes of determining site suitability for a septic system during a minor subdivision where a septic system is not planned to be installed within the next 2 years of application.\n\nApplications are per subdivision not per lot.\n\nAs of 1/1/2026,  Indiana enacted legislation that made statutory changes to the use of Health First Indiana funds. Due to these changes, you may be required to fill out a questionnaire of citizenship before completion of the inspection.\n\nIC 16-46-10-3 addresses Health First Indiana “use of funds”. IC 16-46-10-3 (f) has been added to this statute and states that “Funds may only be used for Indiana residents who are lawfully present in the United States”.",
+      "isEnabled": true
+    },
+    {
+      "id": "6565",
+      "name": "Drainage Board Review",
+      "categoryId": 1094,
+      "viewAccess": null,
+      "description": "This record is meant to document the decisions of the Monroe County Drainage Board. The Drainage Board issues variances and waivers to the Stormwater Management Ordinance and Stormwater Technical Standards Manual requirements. The Drainage Board also hears issues related to drainage easements, karst conservancy areas, subdivisions, site plans, drainage complaints, etc. \n\nThose projects that do not meet the threshold for a Stormwater Grading Permit (CH 761-8(A)) but still require a stormwater quantity and post-construction stormwater quality management feature (CH 761-5(C)) must submit materials for Drainage Board review. Any land disturbing activities of sinkhole modifications within a Karst Conservancy Area (KCA) or the area that would be covered by a KCA must first secure Drainage Board approval (CH 761-7(C)). \n\nA Drainage Review Fee is assessed for all reviews of new detention and water quality treatment measures.",
+      "isEnabled": true
+    },
+    {
+      "id": "6622",
+      "name": "Petition to Vacate Right of way or Roadway from Monroe County Inventory",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This form is used to petition the Board of Commissioners of Monroe County, Indiana, to vacate Right of way or a County maintained road in the Monroe County Roadway Inventory. There is a non-refundable $100.00 fee for each petition to vacate. Please send or drop-off payment to the Monroe County Highway Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6591",
+      "name": "Address Request",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Utilize this application for new address requests or to verify an existing address. You are able to request more than one address per application. In order to locate the property that you are requesting an address for, please provide a description and site plan that will best communicate your proposed address location.",
+      "isEnabled": true
+    },
+    {
+      "id": "6798",
+      "name": "Residential Electrical Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit is for new installation of an electrical service, an upgrade or repair of an existing service, or the installation of a solar (photovoltaic) system which interconnects with either the power distribution grid or is connected to a structure’s wiring system. Call the Building Department if you have questions on which permit to apply for at 812-349-2580.",
+      "isEnabled": true
+    },
+    {
+      "id": "6649",
+      "name": "Administrative Subdivision",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A Final Plat is required for the subdivision and platting of land.  An administrative subdivision can include Type B, C, D, E or F. \n\nType B - A division of land for the transfer of a tract or tracts to correct errors in an existing legal description, provided that no additional building sites other than for accessory buildings are created by the division.\n\nType C - A division of land pursuant to an allocation of land in the settlement of a decedent's estate or a court decree for the distribution of property.\n\nType D - A division of land for federal, state or local government to acquire street right-of-way\n\nType E - A division of land for the transfer of a tract or tracts between adjoining lots provided that no additional principal use building sites are created by the division. The lots so created hereunder shall have only one principal use building site each. (See Principal Building)\n\nType F - A division of land into cemetery plots for the purpose of burial of corpses",
+      "isEnabled": true
+    },
+    {
+      "id": "6784",
+      "name": "Stormwater Grading Permit",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "Monroe County Stormwater Grading Permits are required for the following projects:\n\n1. Land disturbance of one (1) acre or more.\n2. Land disturbance less than one (1) acre that is part of a common plan of development.\n3. Projects meeting the applicability of the Indiana Department of Environmental Management's Construction Stormwater General Permit. \n\nAll projects are required to submit a certified site plan and site-specific stormwater pollution prevention plan (SWPPP) with their application. \n\nProjects requiring on-site detention should also submit a Preliminary Drainage Plan. \n\n\nContact the Monroe County Stormwater Program with any questions: (812) 349-2565, storm@co.monroe.in.us. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6724",
+      "name": " Electrical License Board Application ",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "All electricians must receive approval from the Licensing and Registration Board and obtain a license before performing electrical work in Monroe County. This application and the required attachments must be received before attending a meeting. Once received, the applicant must attend, either in-person or virtually, any upcoming board meetings to request board approval of a license.  The electrician requesting the license must be the applicant.\n\nOnce approved, the license may be obtained from the Monroe County Building Department. \n\nThe Monroe County Licensing and Registration Board meets monthly at 5:00 PM EST. The meeting dates and electronic communications link can be found on the upcoming events calendar on the Monroe County website https://www.co.monroe.in.us.\n\nPlease retain this document number, i.e. EA-XXX, for your records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6779",
+      "name": "Stormwater Inquiry",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "Prior to submitting a stormwater permit application, the petitioner can receive guidance on the stormwater requirements for their proposed project. The Stormwater Program shall aid and advise the petitioner in preparing the application and supportive documents as necessary.",
+      "isEnabled": true
+    },
+    {
+      "id": "6667",
+      "name": "License Renewal Application for Establishments",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Yearly renewal application for existing establishments. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Administrative Review/Appeal",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The Board of Zoning Appeals may consider an appeal of any decision, interpretation, or determination made by the Director, or any other administrative official or board charged with the duty of enforcing and interpreting the Monroe County Zoning Ordinance. The Board of Zoning Appeals may review requests as outlined in the Monroe County Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6586",
+      "name": "Conditional Use",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A conditional use application only applies when the use requested is considered 'Conditional' in the use table of the Monroe County Zoning Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Secondary Plat Filing (i.e. Final Plat)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A Final Plat is required for the subdivision and platting of land.  Final Plat types include administrative, minor, major, and sliding scale subdivisions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6790",
+      "name": "Septic Installer List Registration",
+      "categoryId": 1091,
+      "viewAccess": null,
+      "description": "This application is optional and has a $75 fee. \n\nThe application is intended for septic installers in Monroe County that would like to be included on the septic installer's list for the general public. Due to state law changes, Monroe County cannot certify septic installers until further notice. There is no septic installer certification process in Monroe County at this time.\n\nA test will be included in this application with a passing score of 70% or above. \n\nThis registration is valid for the calendar year.\n\nIf you have questions about this application, call the Health Department at 812-349-2543.",
+      "isEnabled": true
+    },
+    {
+      "id": "6675",
+      "name": "Financial Guaranty for Subdivisions",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This application is utilized when a Letter of Credit/Irrevocable Letter of Credit is required in order to proceed with a final plat or development plan.",
+      "isEnabled": true
+    },
+    {
+      "id": "6648",
+      "name": "Food Safety Complaint Form",
+      "categoryId": 1091,
+      "viewAccess": null,
+      "description": "This form is for complaints regarding food borne illnesses, food safety, pest control at a retail establishment, or another food-related complaint. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6593",
+      "name": "Floodplain Development Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Please contact the Planning Department before applying for this permit unless you have been directed to apply for this permit through direct communication with County staff. If calling in, please ask for the Floodplain Administrator at 812-349-2560.",
+      "isEnabled": true
+    },
+    {
+      "id": "6802",
+      "name": "Residential Building Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit allows for the construction of single-family, duplex, and modular residential structures, remodeling, as well as for additions of rooms, decks, and sunrooms, and for finishing unfinished spaces within a home. (Class two structures). This permit includes the construction of a new residence, an addition to a residence, remodel to a residence, etc.  Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6656",
+      "name": "Mobile Food Establishment Plan Review Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "A Mobile Unit means any Retail Food Establishment without a fixed location which is capable of being readily moved intact from location to location that is wheeled, on skids, mounted on a vehicle, a marine vessel, pushcart or trailer. Please allow 10-14 business days to review and process your application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6703",
+      "name": "Guaranty of Performance for PUDs",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This application is utilized when a Guarantee of Performance for Completion of Improvements is required in order to proceed with a PUD Development Plan. If the PUD includes a subdivision, do not utilize this application and instead utilize the \"Financial Guaranty for Subdivisions\".",
+      "isEnabled": true
+    },
+    {
+      "id": "6658",
+      "name": "Pre-Packaged Food Items Only - Retail Food Establishment Plan Review Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "A Pre-Packaged Retail Food Establishment is an operation that stores, packages, serves, vends, or otherwise provides food for human consumption. Please allow 10-14 business days to review and process your application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6797",
+      "name": "Residential Accessory Structure Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit is for DETACHED outbuildings on residential property (pole barns, agricultural, utility storage buildings, detached garages, pool houses, yard barns in excess of 200 square feet in size, etc.) This permit also covers additions made to existing detached outbuildings. Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6704",
+      "name": "HISTORICAL Planned Unit Development Plan Review ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6589",
+      "name": "Real Estate Septic Inspection",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This application is only for properties that have an existing septic system that requires an inspection for signs of failure. Call the Health Department at 812-349-2834 with questions. \n\nAs of 1/1/2026,  Indiana enacted legislation that made statutory changes to the use of Health First Indiana funds. Due to these changes, you may be required to fill out a questionnaire of citizenship before completion of the inspection.\n\nIC 16-46-10-3 addresses Health First Indiana “use of funds”. IC 16-46-10-3 (f) has been added to this statute and states that “Funds may only be used for Indiana residents who are lawfully present in the United States”.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6639",
+      "name": "Remote Catering Only - Retail Food Establishment Plan Review Application ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This application is for Remote Catering Food Establishments. Please allow 10-14 business days to review and process your application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6597",
+      "name": "Historic Preservation Certificate of Appropriateness",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A Certificate of Appropriateness is required prior to alteration of a locally designated historic property, structure, object, or feature. Each application must be accompanied by sketches, drawings, photographs, descriptions, or other information showing the proposed exterior alterations, additions, changes, or new construction.  The Board of Review shall prepare an application form, with instructions, for use by persons seeking a certificate of appropriateness ",
+      "isEnabled": true
+    },
+    {
+      "id": "6801",
+      "name": "Residential Repair Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This application is for a permit for repairing broken, degraded or failing existing systems such as replacing an existing foundation, replacing existing structural elements (posts/columns, broken joists/rafters/trusses) or similar. It is also for altering structural elements of a building without changing the size or use of the building space, such as opening a wall, installing doors or windows requiring header installation or modification, changing a staircase, etc. This permit is not for remodeling, additions, or converting use of area within a building. Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6596",
+      "name": "Historic Preservation National Register Nomination",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Applications for National Register Nominations can be made in the Planning Office and/or using this application. The application does not have a fee included. Prior to submitting, the applicant should attend the Historic Preservation Board of Review meeting to introduce the filing and make the Board aware of the filing.",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Retail Food Establishment Plan Review Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "A Permanent Retail Food Establishment is an operation that stores, prepares, packages, serves, vends, or otherwise provides food for human consumption. Please allow 10-14 business days to review and process your application.\n\nA change of ownership requirements only qualifies if there is no physical construction, movement or installation of equipment, no establishment name changes, and no significant change to the food menu as the previous ownership.\n\nRemodel requirements include plumbing, any significant changes to walls, storage, entry ways, general building changes, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6647",
+      "name": "Multi-Market Retail Food Establishment License Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "A Multi-Market license is one that operates for 1 year, per year,  beginning April 1st and expiring March 31st, including those participating at the Farmers Market. You may choose to operate at 1-3 markets or 4-6 markets under one license. Please allow 10-14 business days to review and process your application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Commercial Building Permit",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This Application covers projects for new construction, additions, remodeling, and tenant buildout of commercial structures (businesses, apartments, retail, industrial, educational buildings, etc. - Class one structures). This permit can also include the addition of fire suppression systems and/or hood system installation. Call the Building Department at 812-349-2580 with questions about this application. One structure per permit, please.",
+      "isEnabled": true
+    },
+    {
+      "id": "6592",
+      "name": "Home Business Permit ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A Home Based Business or Home Occupation permit (depending on which you qualify for) is for business based out of the home. If you are unsure whether you qualify for a home business, please first call the planning office at 812-349-2560 to speak with a Planner.",
+      "isEnabled": true
+    },
+    {
+      "id": "6641",
+      "name": "Seasonal Retail Food Establishment License Application ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "A Seasonal Food Service Establishment is one that operates for 9 months of the year, per year. Please allow 10-14 business days to review and process your application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Commercial Fire Suppression Sprinkler System",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This permit is for the installation, alteration, extension, or decommission of a Sprinkler System.  Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Commercial Plumbing Permit",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This permit is for changes made to an existing building when plumbing work is the full scope of the project, including work similar to installation of a grease or oil separator and the related waste and vent work to separate, install, and reconnect to the sanitary waste system of the building. Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6792",
+      "name": "Residential Demolition Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit allows for demolition and removal of houses and/or accessory buildings on residential property.   Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6767",
+      "name": "Septic Permit",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This permit is for those seeking a new septic permit, repair septic permit, renewal septic permit, commercial septic permit, or a campground septic permit.\nMembers of the Monroe County Health Department Wastewater Division advise, inspect and approve the installation of ALL Septic Systems in Monroe County.  \nFor questions, call 812-349-2543.",
+      "isEnabled": true
+    },
+    {
+      "id": "6787",
+      "name": "Residential Construction Planning Pre-Design (e.g. New Single Family Home, Accessory Structure, Demolition of a structure, etc)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This application should be your first step in any residential project. This pre-design will determine the checklist of documents/ approvals/ permits that will be needed for a complete Improvement Location Permit application, which is a pre-requisite for a building permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6646",
+      "name": "Commercial Alteration Repair Permit ",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This application is for repairing a single broken, degraded or failing existing structural element or system such as columns, joists, trusses, stairs, guards or similar components. It can also be for altering single elements of a building without changing the size or use of the building space, such as opening a wall, changing a staircase, installing doors or windows requiring header installation/modification, limited floorplan modification which diminishes exiting flow or capacity, etc. Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Commercial Demolition Permit ",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This permit allows for the demolition of Commercial or Multi-family structures. Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6788",
+      "name": "Improvement Location Permit - General",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This application is for all residential structures that meet the Improvement Location Permit requirements under the Monroe County Development Ordinance. This can include, but is not limited to a new home, manufactured home placement, accessory structure, pole barn, agricultural structure, pool & spa, accessory dwelling unit, tourist home or cabin, remodel, addition, structural repair, demolition of structure, ground mount solar array, farm roadside stand, or artificial lake or pond.\n\nThis permit is a pre-requisite for applying for a residential building permit. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6794",
+      "name": "Residential Manufactured Home Placement ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit is for the placement of a single or double-wide prefabricated home delivered to the site on axles. Information required for this application includes a Sewer/Septic Permit, Driveway Permit, a Site Plan and foundation information.  Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Right of Way Activity Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This form is used for all work or activity within Monroe County Right of Way including but not limited to aerial work, driveways, excavation work, new road construction, open cuts, over-size moves, road bores, road closures and road extensions. See Chapter 755 and the Manual for Construction Within and Adjacent to Monroe County Right of Way for all requirements. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6642",
+      "name": "Temporary Event Organizer",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Submit this form at least 14 business days before a temporary event.",
+      "isEnabled": true
+    },
+    {
+      "id": "6652",
+      "name": "Indiana Public Records Request",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Commercial Hood System Installation",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This permit allows for the installation of a hood with fire suppression (type one), ventilation hoods (type two) or the repair or alteration of either type of existing hood system. Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6522",
+      "name": "Temporary Retail Food Establishment License Application ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "A Temporary Food Service Establishment is one that operates at a fixed location for a period of time not to exceed fourteen (14) consecutive days in conjunction with a single event such as a fair, carnival, circus, public exhibition or similar transitory gathering. Please allow 10-14 business days to review and process your application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6672",
+      "name": "Land Use Certificate Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The Applicant applies to the Commission, in writing, for a Land Use Certificate, stating that all required improvements have been completed in the manner prescribed by these regulations, and complies with the Monroe County Code, the site plan/development plan approved and on file, and all other relevant regulations. No land shall be occupied or used and no building or other structure hereinafter erected, reconstructed or structurally altered shall be occupied or used, in whole or in part, for any purpose whatsoever, until a land use certificate has been issued stating that the structure and/or use comply with all the provisions of this ordinance applicable to the building, structure or premises of the use in the district in which it is to be located.",
+      "isEnabled": true
+    },
+    {
+      "id": "6793",
+      "name": "Residential Swimming Pool & Spa Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit is for In-ground pools, Spas and hot tubs, and Above-ground pools (capable of containing water to a depth exceeding 42 inches). Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6564",
+      "name": "Commercial Transmission Tower (Wireless Communications) Permit",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This permit is for the installation of new transmission towers, replacement of antennae,  co-locating equipment, or similar structures (communication towers, observation facilities, training facilities, etc.). If you have questions, call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6570",
+      "name": "Commercial Liquid Storage & Compressed Gas Storage Containment Units Permit",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This permit is required if the volume of the storage tanks exceeds these capacities: Liquid storage of flammable/combustible material in excess of 500 gallons, Compressed gas storage in fixed containers exceeding: 200 cubic ft. of flammable gas / 500 cubic ft. of oxidizing gas (including Oxygen) /  6,000 cubic ft. of inert gas. Call the Building Department at 812-349-2580 with questions about this application.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6594",
+      "name": "Logging Permit ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A logging permit is required prior to harvesting timber in the urban area as defined as \"All lands or Lots used for residential purposes where there are at least eight (8) residences within any quarter mile square area, and other lands or Lots that have been or are planned for residential areas contiguous to the municipality.\" Note that you will also be required to apply for a 'Right-of-Way Activity' permit through the Highway Department as part of the process to get a driveway permit to allow for logging.",
+      "isEnabled": true
+    },
+    {
+      "id": "6606",
+      "name": "Commercial Electrical Permit",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This permit is for new installation of an electrical service, an upgrade or repair of an existing service, or the installation of a solar (photovoltaic) system which interconnects with either the power distribution grid or is connected to a commercial building’s wiring system. Call the Building Department if you have questions on which permit to apply for at 812-349-2580.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Planned Unit Development District Plan (i.e. Outline Plan)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This is an application for amending the Planned Unit Development Ordinance. This request is granted or denied by the Monroe County Board of Commissioners Commissioners. All applicants must complete a pre-design prior to filing this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6611",
+      "name": "Right of way Surety",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "This form is used for all Sureties (Letter of Credit or Surety Bond) for work or activity within Monroe County Right of Way including but not limited to aerial work, driveways, excavation work, new road construction, open cuts, over-size moves, road bores, road closures and road extensions.  See Chapter 755 and the Manual for Construction Within and Adjacent to Monroe County Right of Way for all requirements.\n\nThe Original Surety must be submitted.  No copies will be accepted.  Please submit the Continuation Certificate, Letter of Credit or Surety Bond to our Office either by drop off at our Office or via mail.  Do not upload a copy into this system. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6760",
+      "name": "Historical Right of way Surety",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "This form is used for all Sureties (Letter of Credit or Surety Bond) pre-OpenGov for work or activity within Monroe County Right of Way including but not limited to aerial work, driveways, excavation work, new road construction, open cuts, over-size moves, road bores, road closures and road extensions. See Chapter 755 and the Manual for Construction Within and Adjacent to Monroe County Right of Way for all requirements.\n\nThe Original Surety must be submitted.  No copies will be accepted.  Please submit the Continuation Certificate, Letter of Credit or Surety Bond to our Office either by drop off at our Office or via mail.  Do not upload a copy into this system. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6796",
+      "name": "Residential Miscellaneous Structure Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit is for fences above 6', ramps, standalone decks (decks attached to residential structures should use the \"Residential Building Permit\"), and other miscellaneous structures. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6615",
+      "name": "Planned Unit Development Secondary Review (i.e. Development Plan)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Before submitting this application, you must setup a pre-design with a planner. This review is required for any  proposed construction for property zoned Planned Unit Development in the county. Call 812-349-2560 to speak with a planner if you have questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6668",
+      "name": "Commercial Miscellaneous Structure Permit ",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This permit is for commercial properties and can include work such as installing fences above 6', ramps, stairs, and other miscellaneous structures. . Decks & Accessory should use a Commercial  permit, ( attached to residential structures should use the \"Residential Building Permit\"), ",
+      "isEnabled": true
+    },
+    {
+      "id": "6610",
+      "name": "Commercial Swimming Pool & Spa Permit",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This permit is for Pools, Spas, Hot Tubs, and Water Attractions at public parks, schools, hotels, apartment buildings, etc. Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Pre-Design or Pre-Filing Meeting (for Subdivisions, Rezones, Commercial Development)",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Prior to submitting an application, the petitioner shall meet with the County to review the zoning district classification of the site, the regulatory ordinances, procedures and examine the proposed use and development of the property. The Planning Department shall aid and advise the petitioner in preparing the application and supportive documents as necessary.",
+      "isEnabled": true
+    },
+    {
+      "id": "6795",
+      "name": "Residential Plumbing Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Primary Major Subdivision",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A Preliminary Plat Major Subdivision is required for the subdivision and platting of 5 or more lots. A Preliminary Plat shall be prepared in conjunction with any proposal to subdivide or plat property within the jurisdictional area of the Plan Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6555",
+      "name": "Commercial Agricultural Structure Permit ",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This permit is for commercial agricultural buildings which store equipment, grains, or livestock in commercial farm operations. Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6691",
+      "name": " Plumbers  Sign-off ",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "Plumber Registered in Monroe County must provide Sign-off documentation for work being performed within Monroe County. \nPlumbers are required to hold a current Monroe County Registration. A plumber registration can be had with Monroe County with a current State License and application. If you have questions as to whether you are registered in Monroe County please phone 812-349-2580.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6690",
+      "name": " Electrician  Sign-off  ",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "Electricians licensed in Monroe County must provide Sign-off documentation for work being performed within Monroe County. \nElectricians are subject to approval by the Electrical Licensing Board and must hold a current Monroe County licensing. If you have questions as to whether you are licensed in Monroe County please phone 812-349-2580\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Primary Minor Subdivision",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A Preliminary Plat Minor Subdivision is required for the subdivision and platting of 4 or fewer lots. If a property is on sewer, lot sizes must meet or exceed minimum lot requirements. If the property is on septic, lot sizes are required to be at least 10 acres.",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Primary Sliding Scale Subdivision  ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A Primary Plat Sliding Scale Subdivision application is required for the subdivision and platting of 4 or fewer lots. This option creates one larger parcel (55% of total acreage) that cannot be further subdivided for 25 years (See Chapter 862) and smaller parcels at least 2.5 acres in size. A pre-design with a Planner is required before filing this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6560",
+      "name": "Registration - General Contractor ",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "We do not License General Contractors. Please self register through this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6692",
+      "name": "Registration - Design Professional",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "Please self-register as a Design Professional through this application. Once register your information will be within the software date base.",
+      "isEnabled": true
+    },
+    {
+      "id": "6598",
+      "name": "Property Complaint",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Utilize this form (free of charge) to log potential complaints for property located in the unincorporated areas of Monroe County, IN. Note that if you make a complaint with your individual account, your information is known and that it will not be an anonymous complaint. Visit the county website (https://www.in.gov/counties/monroe/) to find contact information for individual departments.",
+      "isEnabled": true
+    },
+    {
+      "id": "6595",
+      "name": "Road Name Change Request",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This application should be used to request a change to an existing road name in the Monroe County jurisdiction area. In combination with the Highway Department's recommendation, the Planning Department takes a road name change request through the Plan Commission for approval. If you request more than one road name to change, you will be required to fill out separate forms.",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Licensing & Registration - Plumbing Journeyman",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "Licensing for residential plumbing. Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6558",
+      "name": "Licensing & Registration - Plumbing Contractor",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "Licensing for Commercial and Residential plumbing. Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6590",
+      "name": "Use Determination ",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Utilize this form to determine the use and related permits required for a proposed activity. You must know details such as type of activity (auto, manufacturing, etc.), hours of operation, number of employees, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6557",
+      "name": "Licensing & Registration -  Electrician Master",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "Licensing for Commercial and Residential electrical contractor. Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6559",
+      "name": "Licensing & Registration -  Electrician  Residential",
+      "categoryId": 1099,
+      "viewAccess": "public",
+      "description": "Licensing for residential electrical contractor. Call the Building Department at 812-349-2580 with questions about this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Rezone Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A Rezone application is needed when seeking to change the zoning classification of a property. The final decision will be made by the County Commissioners. This application should not be used if you are seeking a rezone to Planned Unit Development (PUD); instead, use the PUD application for an Outline Plan.",
+      "isEnabled": true
+    },
+    {
+      "id": "6614",
+      "name": "Site Plan Review",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Before submitting this application, you must setup a pre-filing meeting with a planner. This review is required per Chapter 815. Call 812-349-2560 to speak with a planner if you have questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Temporary Seasonal Activity Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A Temporary Seasonal Activity Permit is intended to allow temporary uses in the County (i.e. seasonal sales).",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Variance",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A development standards variance or land use variance allows a deviation from the required use or design standards in the Monroe County Zoning Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6671",
+      "name": "Wireless Communication Facility (Planning Department)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This application is for co-locations, replacement of antennae, new accessory structures, new wireless towers, etc. This application can be standalone but most often is a requirement after the applicant applies for a Commercial Transmission Tower (Wireless Communications) Permit: https://monroecountyin.viewpointcloud.com/categories/1083/record-types/6564. Building Department number is 812-349-2580 and the County Planning Office is 812-349-2560.",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Sign Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Sign permits are required for all permanent and temporary signs.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Zoning Ordinance Amendment",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The Zoning Ordinance may be amended from time to time by ordinance\nduly enacted by the Board of County Commissioners in accordance with the procedures set\nout in Indiana Code Chapter 36-7-4-600 Series, Zoning Ordinance. A pre-design is required prior to applying for this application. Call 812-349-2560 to set up a pre-design. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Zoning Verification Letter Request ",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "A Zoning Verification Letter gives the applicant information regarding the zoning of the property, information regarding ",
+      "isEnabled": true
+    },
+    {
+      "id": "6696",
+      "name": "Property Complaint Building Dept",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Utilize this form (free of charge) to log potential complaints for property located in the unincorporated areas of Monroe County, IN. Note that if you make a complaint with your individual account, your information is known and that it will not be a anonymous complaint. Visit the county website (https://www.co.monroe.in.us/) to find contact information for individual departments.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1091",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1084",
+      "name": "Highway Department",
+      "isEnabled": 1,
+      "content": "<p style=\"color: rgb(51, 51, 51); font-family: Lato, sans-serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\"><s"
+    },
+    {
+      "id": "1085",
+      "name": "Planning Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">When you add a Location to your application/record, please note that any addresses with a directional prefix such as North, South, West, East should be searched for with the abbreviation of <strong>N, S, W</strong> or <strong>E</strong>.&nbsp;</span></p><p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">For example, 1000 West Oak Street should be searched by <strong>1000 W Oak St</strong>.</spa"
+    },
+    {
+      "id": "1094",
+      "name": "Stormwater Program",
+      "isEnabled": 1,
+      "content": "<p><strong>About Monroe County Stormwater Services</strong></p><p><span style=\"font-size: 14px;\">The mission of&nbsp;</span><a href=\"https://www.in.gov/counties/monroe/infrastructure/stormwater-program/\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"font-size: 14px;\">Monroe County Stormwater Services</span></a><span style=\"font-size: 14px;\">&nbsp;is to promote public health and safety as well as to improve water quality by implementing stormwater pollution prevention solutions. Our webs"
+    },
+    {
+      "id": "1083",
+      "name": "Building Department- Residential Permitting",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 0);\"><strong><span style=\"font-family: Arial,Helvetica,sans-serif;\">Welcome to the Online Portal.</span></strong></span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"color: rgb(184, 49, 47);\"><strong>Please note that, at this time, the online payment portion of this site is not active.</strong></span></span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"color: rgb(0, 0, 0);\">Once your permit is approved, pa"
+    },
+    {
+      "id": "1098",
+      "name": "Building Department- Commercial Permitting",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 0);\"><strong><span style=\"font-family: Arial,Helvetica,sans-serif;\">Welcome to the Online Portal.</span></strong></span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"color: rgb(184, 49, 47);\"><strong>Please note that, at this time, the online payment portion of this site is not active.</strong></span></span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"color: rgb(0, 0, 0);\">Once your permit is approved, pa"
+    },
+    {
+      "id": "1099",
+      "name": "Building Department- Licensing & Registration",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 0);\"><strong><span style=\"font-family: Arial,Helvetica,sans-serif;\">Welcome to the Online Portal.</span></strong></span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"color: rgb(184, 49, 47);\"><strong>Please note that, at this time, the online payment portion of this site is not active.</strong></span></span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"color: rgb(0, 0, 0);\">Once your permit is approved, pa"
+    },
+    {
+      "id": "1097",
+      "name": "Surveyor and Engineers",
+      "isEnabled": 1,
+      "content": "<p><span style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !important; float: no"
+    },
+    {
+      "id": "1103",
+      "name": "City of Bloomington-Right of Way Use Application",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"margin-bottom:0in;text-align:center;  line-height:normal;\"><span style=\"font-size: 24px;\">City of Bloomington-Right of Way Use Application</span></p><p align=\"center\" style=\"margin-bottom:0in;text-align:center;  line-height:normal;\"><span style=\"font-size: 24px;\">click here: <a href=\"https://energov.bloomington.in.gov/energov_prod/selfservice#/applicationAssistant?sectionName=Trending&showTemplates=false\" target=\"_blank\">Civic Access Permit Page</a></span></p><p align=\"c"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:27.850Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

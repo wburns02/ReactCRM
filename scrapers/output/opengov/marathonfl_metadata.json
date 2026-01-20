@@ -1,0 +1,333 @@
+{
+  "jurisdiction": "Marathon",
+  "state": "FL",
+  "tenant": "marathonfl",
+  "portalUrl": "https://marathonfl.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6454",
+      "name": "Code Complaint",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "The mission of the Code Compliance Division is to preserve and protect the health and safety of the City’s residents and visitors, and the livability of the community by assuring compliance with the City’s land use, environmental and minimum housing codes.  The City will assure code compliance by encouraging voluntary compliance and by resolving disputes concerning code violations to the mutual benefit of all parties and will pursue all appropriate enforcement options provided by law.",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Alcoholic Beverage License",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Alcoholic beverage use permits shall not be granted where such uses will have an adverse impact upon the health, safety and welfare of the citizens and residents of the city.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Owner/Builders & Contractors - please choose this option",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Right-of-Way Construction Permit",
+      "categoryId": 1071,
+      "viewAccess": "private",
+      "description": "Use this application when you are working entirely within the City Right-of-Way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Appeal Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "An action by any administrative official or body made pursuant to the provisions the LDRs may be appealed in accordance with the provisions of Article 17 of the LDRs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "BPAS Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is used to apply for a building permit allocation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Passenger Vehicles for Hire",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Before any person shall establish or maintain a business of renting, leasing or providing any vehicle for hire within the corporate boundaries of the City,such person shall, as applicable make application with, and receive from the City Manager a license, to operate such business.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Contractor Registration",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "If this is your first time doing work within the City of Marathon, then you need to use this application to register with us.",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Private Provider Registration",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Private providers must be registered with the City of Marathon prior to being added to permit applications.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "BPAS Early Evacuation ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is used to apply for an early evacuation building permit allocation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "City Funding of Nonprofits",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "All applications for grant funding shall be submitted in the particular year in which the grant funding is sought. The grant funding request shall be made using this application form. The grant application form must be accompanied by all of the required information as set forth in the application form. The City  shall review the grant funding application for completeness. If the application is determined to be incomplete, the City  shall reject the grant funding application and notify the applicant of such rejection, and the reasons therefore, within 15 working days. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Comprehensive Plan Text or Map Amendment",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is used to change the proposed future land use of a property or to change text within the Comprehensive Plan.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Existing Building Recertification",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All buildings, except single-family residences, duplexes and minor structures, shall be recertified where such buildings or structures have been in existence for seventeen (17) years or longer, as determined by the Building Official, who shall at such time issue a Notice of Required Inspection to the building owner.\n\nThe owner of a building or structure subject to recertification shall furnish, or cause to be furnished, within ninety (90) days of Notice of Required Inspection, a written report to the Building Official, prepared by a Professional Engineer or Architect registered in the State of Florida, certifying that each such building or structure is structurally and electrically safe, or has been made structurally and electrically safe for the specified use for continued occupancy.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Conditional Use",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Conditional uses are uses which, because of their character, size and potential impacts, may or may not be appropriate in particular zoning districts.  Review is based primarily on compatibility of the use with its proposed location and with surrounding land uses and on the basis of all zoning, subdivision and other ordinances applicable to the proposed location and zoning district. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Special Inspector Registration",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Special inspectors must be registered with the City of Marathon prior to performing inspections on permit applications that require specialty inspections, such as recertification inspections of existing buildings. \n\nRecertification inspections may only be performed by licensed, qualified professionals who have submitted written proof, accepted by the Building Official, of experience in the recertification of multiple story buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Contractor/Unlicensed Contractor Complaint",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please complete and submit this form in order to register a complaint regarding contractor activity for only:\n- Unlicensed Contractor.\n- Unpermitted work in progress.\n- Advertising construction services without proper name and license number(s).\n\nIf the complaint is against a State Licensed contractor, please file the complaint here: http://www.myfloridalicense.com/DBPR/file-a-complaint/",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Determination of Building Rights",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is used to document a building right that is recognized on a property.  This right can be potentially rebuilt on site, or may be transferred to another site in Marathon.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Development Agreement",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "The purpose of the development agreement is to assure a developer that, upon receipt of his permits under this chapter, he may proceed in accordance with existing ordinances and regulations subject to the conditions of the development agreement.",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Fireworks Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application shall be submitted to the City of Marathon Fire Rescue no less than 30 days prior to the event date per Florida State Law.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Home Occupation License",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "LDR Text or Map Amendment",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is used to rezone a property or to change text within the Land Development Regulations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Letter of Current Site Condition",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application can be used to determine what can be done to a site based upon current conditions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Marina Operating Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "The Marina Operating Permit (MOP) is intended to ensure that marinas within the City of Marathon are operated in an environmentally sound manner which is consistent with environmental permits, development approvals and applicable best management practices. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Occupational License Review",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Applications for occupational licenses must be approved by the City of Marathon prior to applying to the Monroe County Tax Collector.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Parking Meter Registration",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Vehicles not registered in Marathon or Key Colony that belong to residents of Marathon or Key Colony must be documented with this application to avoid paying for parking.  This application must be renewed annually to avoid paying the parking fees set forth in Resolution 2023-33.",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Pre-Application Concept Meeting",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application can be used to set up a meeting with the Technical Review Committee prior to submitting for development approvals.",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Public Right-of-Way Abandonment",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "The City Code of Marathon provides a method for the abandonment of public Right-of-Way. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Recreational Fire Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application shall be submitted to the City of Marathon Fire Rescue no less than 30 days prior to the event.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Simple Subdivision",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A legal lot of record may be divided into no more than two (2) separate lots,parcels, tracts or other subdivision of land through the minor plat review process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Site Plan Review",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application shall apply to all development, development activity or other use requiring site plan review of within the City of Marathon.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Special Event Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "All temporary uses, including motion picture production, seasonal sales, temporary sales and special events, shall obtain a Temporary Use Permit. An application for temporary use approval shall be submitted at least 30 days in advance of the event. The issuance of a temporary use permit shall not be deemed to amend the Official Zoning Map or the LDRs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Subdivision & Plats",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Any subdivision of land resulting in the creation of three (3) of more parcels shall require a plat or re-plat.",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Transfer of Building Rights",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is used to transfer of existing lawfully established dwelling units, transient units, and commercial floor area from their existing locations to other locations in the City.",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Transfer of Development Rights",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is used to transfer of density from an existing location to other locations in the City.",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Vacation Rental Agent/Local Contact Training License",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Any person authorized to act on behalf of a property owner with a vacation rental property license shall obtain and maintain a vacation rental agent license.   Also any person managing their own property shall obtain and maintain a vacation rental agent license.  \n\nATTENTION: Owner or local contact does not have to pay the $500.00 Agent fee if you are managing your own property.  It is going to say that a payment is due, but it will show a $0.00 balance, and we will manually waive it once we process the application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Vacation Rental License",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A vacation rental property license is required for any property owner renting a legally existing dwelling unit for not less than seven (7) nights and not more than 28 nights. The renting of any private residence for a period of less than seven (7) nights is prohibited.  License shall be renewed annually.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Variance",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "The purpose and intent of variance procedures is to provide a means of altering the requirements of  certain  sections  of  the  LDRs  in  specific  instances  where  the  strict  application  of  those requirements  would deprive  a  property  of  privileges  enjoyed  by  other  properties  with  the identical  regulatory  zone  because of  special  features  or  constraints  unique  to  the  property involved.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1085",
+      "name": "Frequently Asked Questions",
+      "isEnabled": 1,
+      "content": "<div style='margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; color: rgb(0, 0, 0); font-family: \"Segoe UI\", \"Segoe UI Web\", Arial, Verdana, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width"
+    },
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 24px;\">Welcome to the Building Department&nbsp;</span></strong></p><p><br></p><p>The Building Department is dedicated to enhancing the lives of people of the City of Marathon. &nbsp;We are committed to providing public service through all of the Community Development sectors, to our citizens, and co-workers in an economical, yet effective, efficient, and personable manner.</p><p><span style=\"color: rgb(243, 121, 52);\"><strong>CLICK H"
+    },
+    {
+      "id": "1076",
+      "name": "Planning & Zoning",
+      "isEnabled": 1,
+      "content": "<p>The Planning Department&rsquo;s mission is to improve the quality of life of the citizens of the City of Marathon as the City grows, while balancing economic development, the preservation/conservation of natural resources and sound City fiscal policy. </p>"
+    },
+    {
+      "id": "1084",
+      "name": "Code Compliance",
+      "isEnabled": 1,
+      "content": "<p>The mission of the Code Compliance Division is to preserve and protect the health and safety of the City&rsquo;s residents and visitors, and the livability of the community by assuring compliance with the City&rsquo;s land use, environmental and minimum housing codes. &nbsp;The City will assure code compliance by encouraging voluntary compliance and by resolving disputes concerning code violations to the mutual benefit of all parties and will pursue all appropriate enforcement options provide"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:18.375Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

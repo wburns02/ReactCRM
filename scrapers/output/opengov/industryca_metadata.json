@@ -1,0 +1,97 @@
+{
+  "jurisdiction": "City of Industry",
+  "state": "CA",
+  "tenant": "industryca",
+  "portalUrl": "https://industryca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6462",
+      "name": "City of Industry, CA - Grading Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "City of Industry Development Plan - Short Form",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "City of Industry - Re-Roof",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "City of Industry Development Plan - Temporary Banner",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "City of Industry, CA - Encroachment Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "City of Industry Development Plan - Special Event",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "City of Industry, CA - Domestic Waste Water Clearance",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "City of Industry Development Plan - Sign",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "City of Industry, CA - Construction Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Sidewalk Vendor Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Permit application for sidewalk vending in the City of Industry. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1072",
+      "name": "Department of Public Works and Engineering",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1081",
+      "name": "Planning Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><strong>City of Industry Planning Department Contact Information:</strong></span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">15625 Mayor Dave Way</span><br><span style=\"font-family: Arial,Helvetica,sans-serif;\">City of Industry, CA 91744&nbsp;</span><br><span style=\"font-family: Arial,Helvetica,sans-serif;\">Telephone: 626-333-2211</span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Counter Hours: &nbsp;Mo"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:35.407Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

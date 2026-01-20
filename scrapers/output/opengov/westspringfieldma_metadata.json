@@ -1,0 +1,655 @@
+{
+  "jurisdiction": "West Springfield",
+  "state": "MA",
+  "tenant": "westspringfieldma",
+  "portalUrl": "https://westspringfieldma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006484",
+      "name": "Business Certificate/DBA",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "The City of West Springfield requires each person listed as a principal filer, to sign the form in the presence of a Notary Public, or a member of the Town Clerk’s Staff.\nA photo ID will be required",
+      "isEnabled": true
+    },
+    {
+      "id": "1006529",
+      "name": "Vital Records Request",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Order form for Birth, Death, and Marriage records.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006530",
+      "name": "Tag Sale Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "The City of West Springfield requires a Tag Sale Permit for all residents planning on conducting a Tag Sale in Accordance with the Code Chapter 225 of the Town of West Springfield.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006560",
+      "name": "Public Records Request",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006373",
+      "name": "Smoke and Carbon Monoxide Alarms/Detector Inspection",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Applications are hereby made for inspection of smoke and carbon monoxide alarms/detectors as required by Massachusetts General Law (M.G.L.) Chapter 148, Section 26E, 26F and 26F ½; 527 CMR 1.00.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006543",
+      "name": "Standard Permit",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006571",
+      "name": "Process Hazardous Materials",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006527",
+      "name": "WSPL- Meeting Room Booking",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006556",
+      "name": "Donate",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006545",
+      "name": "Community Use of School Facilities Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006554",
+      "name": "Community Use of Clark Field/Other Fields Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006604",
+      "name": "TRANSITIONS Program (Donations and Marketplace order form)",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006535",
+      "name": "Request for Certified List of Abutters",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006536",
+      "name": "Change of Address Form",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006553",
+      "name": "Motor Vehicle Excise Abatement Application",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006542",
+      "name": "Tree Work Request",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Please use the following form to submit a concern to the Town regarding a town tree. If this is an emergency, please call 263-3000 ext 1016",
+      "isEnabled": true
+    },
+    {
+      "id": "1006610",
+      "name": "Street Number Issuance Application",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "To find your parcel number please visit this site: https://www.axisgis.com/West_SpringfieldMA/",
+      "isEnabled": true
+    },
+    {
+      "id": "1006559",
+      "name": "Property Complaint Form",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006608",
+      "name": "Temporary Event License Application",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006567",
+      "name": "Common Victualer, Alcohol, and Entertainment License",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006563",
+      "name": "Request for Replacement Cart(s)",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006564",
+      "name": "Request for Change in Trash/Recycling Capacity",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006429",
+      "name": "Motor Vehicle Dealer License ",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "Class I License: New Car Sales\nClass II License: Used Car Sales\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006590",
+      "name": "ACO Complaint Form",
+      "categoryId": 1095,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006607",
+      "name": "Community Preservation Act Project Application Cover Sheet",
+      "categoryId": 1097,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This building permit application is used to construct, repair, renovate any dwelling or structure.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006594",
+      "name": "ESE Events",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "This application is for the Eastern States Expo to fill out a temporary Common Victualer Application for each vendor participate in the ESE Events that are held throughout the year.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006575",
+      "name": "Water Connection Application",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "APPLICATION MUST BE COMPLETED BY CONTRACTOR COMPLETING THE WORK\nAPPLICATIONS WILL NOT BE ACCEPTED FROM A THIRD PARTY\nCONNECTIONS OF 2 INCHES IN DIAMETER OR GREATER REQUIRE A STAMPED ENGINEERING PLAN",
+      "isEnabled": true
+    },
+    {
+      "id": "1006577",
+      "name": "Water Disconnection Application",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "APPLICATION MUST BE COMPLETED BY CONTRACTOR COMPLETING THE WORK\nAPPLICATIONS WILL NOT BE ACCEPTED FROM A THIRD PARTY\nCONNECTIONS OF 2 INCHES IN DIAMETER OR GREATER REQUIRE A STAMPED ENGINEERING PLAN",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Dog License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "The City of West Springfield requires Dog Licenses to be renewed annually.\nA license year is, January, 01, to December, 31.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006472",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application is used for complete demolition of a building and/or accessory building. For partial and interior demolition use the Building Permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006471",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc.  Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006537",
+      "name": "Form 1 (Oil Burner Installation, Above Ground Storage Tank Install or Removal)",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Application for Permit, and Certificate of Completion for the installation or Alteration of Fuel Oil Burning Equipment and the Storage of Fuel Oil, Above Ground Storage Tank Installation or Above Ground Tank Removal",
+      "isEnabled": true
+    },
+    {
+      "id": "1006578",
+      "name": "Second Meter Installation",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006570",
+      "name": "Annual Mobile Food Truck",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "To be filled out by any Food truck vendor which deals in any form of food products including pre-packaged food products or prepared beverages. The application must be submitted  thirty (30) days in advance of the projected opening date. Food Establishment licenses are renewable annually by December 1st. For events at the Eastern States Exposition, use the Temporary Food Establishment form below. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006581",
+      "name": "Sewer & Storm Drain Layers License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006538",
+      "name": "Flammable & Combustible Materials Permit ",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Annual storage of flammables & combustibles unless temporary storage is noted.   Expires annually on April 30th ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006485",
+      "name": "Fence Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This is the application for a Permit to Erect a Fence. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006470",
+      "name": "Fire Protection Systems Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is required when a sprinkler system is installed, altered, extended, dismantled or reconfigured.    Please allow up to 10 (ten) days for Fire Department review prior to issuance of the permit. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006487",
+      "name": "Food Establishment Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "To be filled out by any establishment/organization which deals in any form of food products including pre-packaged food products or prepared beverages. The application must be submitted  thirty (30) days in advance of the projected opening date. Food Establishment licenses are renewable annually by December 1st. For events at the Eastern States Exposition, use the Temporary Food Establishment form below. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006603",
+      "name": "DPW General Occupancy",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Complete for driveway paving, irrigation, landscaping, temporary dumpster placement, block party, and all other non-trenching and non-construction occupancy of the public right of way ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006573",
+      "name": "FP-044A Cargo Tank Inspection",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Annual storage of flammables & combustibles unless temporary storage is noted.   Expires annually on April 30th ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006580",
+      "name": "Sanitary Sewer Connection",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006469",
+      "name": "Gas Fitter Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006374",
+      "name": "Funeral Director Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Funeral Directors permits are renewable annually by April 30th.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006377",
+      "name": "Hotels/Motels Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "All hotels, motels, trailer parks and rooming houses must obtain a Hotel/Motel permit from the Health Department. \nHotel/Motel permits are renewable annually by December 31st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006467",
+      "name": "Plumbing Permit ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006539",
+      "name": "Hot Works Permit ",
+      "categoryId": 1084,
+      "viewAccess": "private",
+      "description": "Permit for Hotwork, cutting and/or welding; this application is for both annual permitting and also temporary instances. This application is not for service station needs.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006597",
+      "name": "Storm Drain Connection Application",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006598",
+      "name": "DPW - Trenching - Electric Permit",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006579",
+      "name": "Indoor Ice Skating Rink Certification  Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006498",
+      "name": "Sheet Metal Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This Permit is Required for the Erection, Installation, or Dismantling of all Sheet Metal Work. Note: Minor Repairs, Testing, Adjustment, and Air-Balancing Shall Not Require a Permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006465",
+      "name": "Sign Permit ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Application for a Permit to Place or Maintain a Sign or Other Advertising Device.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006540",
+      "name": "Underground Storage Tank Removal Permit ",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Removal of underground storage tank",
+      "isEnabled": true
+    },
+    {
+      "id": "1006511",
+      "name": "Keeping of Hens Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "A permit from the Health Dept is required in order to keep hens (chickens) on a property in West Springfield. Note that roosters (male chicken) are not allowed. There is also a limit to the number of hens that can be housed on a property. Individuals are advised to read the Keeping of Hens regulations prior to obtaining a permit and any hens.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006602",
+      "name": "DPW - Trenching - Water Permit",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006601",
+      "name": "DPW - Trenching - Sewer and Drainage Permit",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006505",
+      "name": "Pasteurization of Milk Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006483",
+      "name": "Solid Fuel Appliance Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This is the application for a Solid Fuel Appliance Installation Permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": "Tent Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "The Commonwealth of Massachusetts\nBoard of Building Regulations and Standards\nMassachusetts State Building Code, 780 CMR.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006350",
+      "name": "Pool/Spa Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Application for permit to operate a public or semi-public, swimming pool, wading pool, or hot tub. Licenses are renewable annually by December 31st for indoor pools and thirty (30) days in advance of the projected opening date for outdoor summer pools. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006600",
+      "name": "DPW - Trenching - Telecom Permit",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006599",
+      "name": "DPW - Trenching - Gas Permit",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006345",
+      "name": "Recreational Camp Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Recreational Camps for Children applications and accompanying plans must be submitted a minimum of ninety (90) days in advance of the projected opening date. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006569",
+      "name": "Rental Voucher Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006383",
+      "name": "Septic Hauler Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Pumpers/Haulers licenses are renewable annually by December 31st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006525",
+      "name": "Septic System Installer Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Septic System Installer licenses are renewable annually by December 31st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006480",
+      "name": "Tanning Booth Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Tanning Permit licenses are renewable annually by December 31st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "Tattoo/Body Art Establishment Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Tattoo / Body Art Establishment licenses are renewable annually by December 31st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006479",
+      "name": "Tattoo/Body Art Practitioner Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Tattoo / Body Art Practitioner licenses are renewable annually by December 31st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006561",
+      "name": "TEMPORARY Tattoo/Body Art Establishment Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006562",
+      "name": "TEMPORARY Tattoo/Body Art Practitioner Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Temporary Food Establishment Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "This application is necessary for any individual or corporation who is looking to have a temporary food establishment in the Town of West Springfield. This is also the application that should be used for temporary or seasonal events at the Eastern States Exposition. The completed application must be submitted thirty (30) days in advance of the date of the event.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006497",
+      "name": "Tobacco Product Sales Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Tobacco Product Sales Permit licenses are renewable annually by December 31st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Trash Hauler Permit Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Each trash truck that operates within the boundaries of the Town of West Springfield must be licensed by the Health Department. These licenses are renewable annually by December 31st.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p><br></p><p><br></p>"
+    },
+    {
+      "id": "1073",
+      "name": "Health",
+      "isEnabled": 1,
+      "content": "<p>Please note that a permit application is NOT considered complete until all necessary associated documentation and applicable fees have been provided to the Health Department. &nbsp; The provision of all documents and fees does NOT constitute approval to operate. Operating without a permit is a violation and can result in a permit to operate not being issued as well as other potential adverse impacts.</p><p>Here is a link to the current Health Department <a href=\"https://www.townofwestspringfi"
+    },
+    {
+      "id": "1093",
+      "name": "License Commission",
+      "isEnabled": 1
+    },
+    {
+      "id": "1097",
+      "name": "Community Preservation Act",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(31, 31, 31); font-family: Poppins, sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 500; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: ini"
+    },
+    {
+      "id": "1084",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p dir=\"ltr\" style=\"line-height:1.38;text-align: center;margin-top:0pt;margin-bottom:0pt;\"><span style=\"font-size:12pt;font-family:Arial;color:#141414;background-color:#ffffff;font-weight:400;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">Initial Statement</span></p><p dir=\"ltr\" style=\"line-height: 1.38; margin-top: 0pt; margin-bottom: 0pt; text-align: justify;\"><span style=\"font-size:12pt;font-family:Arial;color:#141414;"
+    },
+    {
+      "id": "1087",
+      "name": "Assessors",
+      "isEnabled": 1
+    },
+    {
+      "id": "1089",
+      "name": "DPW",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin: 0px 0px 1em; color: rgb(47, 52, 57); font-family: Montserrat, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 500; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-"
+    },
+    {
+      "id": "1090",
+      "name": "Property Complaint Form",
+      "isEnabled": 1,
+      "content": "<div style='color: rgb(34, 34, 34); font-size: small; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; font-family: \"comic sans ms\", san"
+    },
+    {
+      "id": "1080",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin: 0px 0px 1em; color: rgb(47, 52, 57); font-family: Montserrat, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 500; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-sty"
+    },
+    {
+      "id": "1088",
+      "name": "Central Maintenance",
+      "isEnabled": 1
+    },
+    {
+      "id": "1086",
+      "name": "School Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1085",
+      "name": "WSPL",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><span style=\"font-size: 30px;\">West Springfield Public Library</span></strong></p><p style=\"text-align: center;\"><br></p><p style=\"text-align: center;\"><span style=\"color: rgb(44, 130, 201);\">Mission Statement:</span></p><p style=\"text-align: center;\"><span style=\"color: rgb(44, 130, 201);\">The West Springfield Public Library</span></p><p style=\"text-align: center;\"><span style=\"color: rgb(44, 130, 201);\">provides and promotes</span></p><p style=\"text-align"
+    },
+    {
+      "id": "1095",
+      "name": "ACO",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:41.301Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

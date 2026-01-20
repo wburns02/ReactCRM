@@ -1,0 +1,788 @@
+{
+  "jurisdiction": "Calimesa",
+  "state": "CA",
+  "tenant": "calimesaca",
+  "portalUrl": "https://calimesaca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6736",
+      "name": "Defensible Space Inspection Request",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Code Enforcement - Report a Problem",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6861",
+      "name": "Christmas Village Vendor Interest Form ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "The City of Calimesa is inviting crafters, makers, and food vendors to join us in bringing holiday cheer to our Christmas Village Fair! We are especially seeking vendors offering holiday themed goods, décor, gifts, treats, and festive foods that add to the magic of the season.\n\nPlease note: This is an interest form only and does not guarantee vendor placement. Selected vendors will be contacted.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Addressing (ADRS) ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Use this application to request a new address. For example, addressing for a new residential subdivision, a new commercial tenant space, or a new Accessory Dwelling Unit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Business License (BL)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply for or Renew a Business License. Any person conducting business within the City must have a valid business license issued by the City of Calimesa. \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Encroachment Permit (Minor)",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Accessory Dwelling Unit (ADU - New Construction)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "The construction of a completely new, standalone dwelling unit on the same property as the primary residence.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Annexation (ANNX) ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Annexation is a process that modifies jurisdictional boundaries to bring unincorporated Riverside County areas into the City of Calimesa.",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": " Accessory Dwelling Unit (ADU - Conversion) ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is required for converting an existing detached structure or existing spaces within a primary residence, such as a garage or basement, into a separate livable dwelling unit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6749",
+      "name": "Lot Line Adjustment (LLA)",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Conditional Use Permit (CUP) ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A conditional use permit (CUP) is a type of land use permit that requires discretionary approval at a public hearing of the Planning Commission. A CUP imposes specific conditions of approval on the permit to operate. Common examples of land uses that require a CUP include businesses that sell alcohol, gas stations, massage establishments, tattoo or body piercing parlors, churches, warehouses, drive through facilities, and mixed use developments. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6865",
+      "name": "Lot/Parcel Merger (LPM)",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6864",
+      "name": "Final Tract/Parcel Map (FMAP)",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Development Agreement (DA) ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "An applicant may propose that the city consider entering into a development agreement pursuant to Article 2.5, Title 7 of the California Government Code, commencing with Section 65864.",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Accessory Dwelling Unit - (JADU Junior)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is needed when converting a portion of an existing single-family home into a Junior Accessory Dwelling Unit (JADU). JADUs are smaller units with specific size and layout requirements, providing additional living space within a single-family dwelling.",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Business License Change Form / Cancellation Form (BLCF)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Apply for a Change to an Existing License.  Please complete this form when requesting any type of change to any existing Business License.  Example of changes: Cancel License, Business Name Change, Business location change, Ownership change, or Duplicate business license printed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Development Plan Review - Major (DPR)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "An architectural review application for the building design of new construction that requires discretionary approval at a public hearing of the Planning Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6642",
+      "name": "Oversized Load Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Development Plan Review - Minor (MDPR) ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "This application type applies to minor site plan or architectural changes related to new or existing buildings.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Cell Sites (New Tower or Modifications to an Existing Tower / Site)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "\nThis permit is used for any new cell tower or modifications, alterations, or additions to an existing cell tower structure / cell tower site.",
+      "isEnabled": true
+    },
+    {
+      "id": "6649",
+      "name": "Commercial - (Occupancy Types A-2 and B) New Structures and Tenant Improvements ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is used for the commercial Occupancy Types A-2 and B Only. Including construction of new commercial buildings and tenant improvements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Grading Permit and Plan Check",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Submit here for your grading plan &  to obtain your grading permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Mobile Sidewalk Vendor Permit (BLSW)",
+      "categoryId": 1079,
+      "viewAccess": "private",
+      "description": "Part 2 - Once you have obtained a business license for sidewalk vending please apply for a sidewalk vending permit here. A sidewalk vending permit issued by the City of Calimesa is required for any person who sells food or merchandise with or without a pushcart, stand, or other non-motorized conveyance in certain public areas. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Environmental Assessment (EA)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "The California Environmental Quality Act (CEQA) requires that state and local agencies disclose and evaluate the significant environmental impacts of proposed projects and adopt all feasible mitigation measures to reduce or eliminate those impacts. An Environmental Assessment (EA) application is required when any discretionary action is considered by the City of Calimesa. Examples of discretionary actions include General Plan Amendments, Specific Plans, Zone Changes, Tentative Tract/Parcel Maps, Development Plan Reviews, and Conditional Use Permits. \n\nPlease Note - All documents submitted should be provided in both Word and PDF versions. All filenames should be consistent with the names of the documents submitted, including appendices. All filenames and document cover pages should include a date, and all dates should be updated with each revised version. All revised documents submitted should include revisions clearly shown in track changes. Every peer review comment made, whether in the Comments Matrix or made directly in a document, requires a response.",
+      "isEnabled": true
+    },
+    {
+      "id": "6723",
+      "name": "Public Improvement / Major Encroachment Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Submit here for your public improvement project",
+      "isEnabled": true
+    },
+    {
+      "id": "6711",
+      "name": "Commercial - (Occupancy Types I-1, I-2, 1-3 and I-4) Institutional New Structures and Tenant Improvements",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is used for the Institutional Occupancy Types I-1, I-2, 1-3 and I-4 New Structures and Tenant Improvements",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Street Fair Attendee - Vendor License Application (BLVL)",
+      "categoryId": 1079,
+      "viewAccess": "private",
+      "description": "Vendor Licenses are required for all Farmers Markets or Street Fairs. Vendor Licenses are unique to each event and cost $15 unless you already hold a current City of Calimesa Business License, in which case the fee is waived. Applications must be submitted at least 10 days before the event.",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Extension of Time (EXT)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "An Extension of Time Request may be submitted for a previously approved Project. The Extension Request must be filed 30 days prior to expiration.",
+      "isEnabled": true
+    },
+    {
+      "id": "6712",
+      "name": "Commercial - (Occupancy Types S-1 and S-2) Storage New Structures and Tenant Improvements",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is used for the commercial Storage (Occupancy Types S-1 and S-2) New Structures and Tenant Improvements",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "General Plan Amendment (GPA)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A request to change the City’s  General Plan maps or text. State law provides that each mandatory General Plan element may be amended no more than four times per year.",
+      "isEnabled": true
+    },
+    {
+      "id": "6706",
+      "name": "Commercial - (Occupancy Type M / Mercantile) New Structures and Tenant Improvements",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is used for the commercial Occupancy Types M (Mercantile) only. Including construction of new commercial buildings and tenant improvements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6713",
+      "name": "Commercial - (Shell Buildings) New Structure with No Occupancy Type",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is used for the commercial shell buildings only. A new structure with no proposed Occupancy Type. A separate Tenant Improvement permit will determine the occupancy type prior to any business operations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Minor Modifications to Approved Entitlement (MM)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Use this application to request a minor modification to an existing, previously approved land use entitlement without any additional impact or expansion of use or structures. The proposed modification shall not exceed 10 percent of the standards being modified. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6707",
+      "name": "Commercial - Occupancy Type U (Accessory, Garage, Agriculture...) New Structures",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is used for the construction of new commercial buildings having an Occupancy Type U -such as Garages, Agriculture Building and unoccupied Accessory Structures, ",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Master Land Use Entitlement Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Please use this application for all planning department entitlement applications not contained herein such as Tentative Maps, Lot Line Adjustments, Temporary Event permits, etc. \nYou must include a completed Master Land Use Entitlement Application along with all the items/materials listed in the applicable requirements document, with your online submittal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6617",
+      "name": "Electrical - Back-Up Generators",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation or modification of residential, multi-family or commercial generators. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6613",
+      "name": "Electrical - Electric Vehicle (EV) Charging Systems",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of Residential EV Chargers / outlets or Multi-Family / Commercial EV Charging Stations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6747",
+      "name": "Developer Deposit Replenishment (DDR)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Developer deposit replenishment ",
+      "isEnabled": true
+    },
+    {
+      "id": "6720",
+      "name": "Landscape Permits (Multi-Family, Retail, Commercial, Parks, Trails and Open Spaces)",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "This permit is for plan review and installation of landscaping for Multi-Family, Retail, Commercial, Parks, Trails and Open Spaces.",
+      "isEnabled": true
+    },
+    {
+      "id": "6610",
+      "name": "Electrical - Main Service Panels, Switchgears, Meter Pedestals and Temporary Power Service",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of main service panels, sub-panels, switchgear and temporary power service.",
+      "isEnabled": true
+    },
+    {
+      "id": "6607",
+      "name": "Electrical - Systems, Rewiring, Outlets, Fixtures, Light Standards, Other Lighting",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of receptacles, switches, lighting fixtures, residential rewiring and new electrical systems when not a part of another permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6724",
+      "name": "Landscape Permits (Residential Single-Family Custom and Tracts)",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "This permit is for plan review and installation of landscaping for Residential Single-Family Dwellings both custom homes and tract homes. Along with tract Streetscape landscaping.",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Oak Tree Permit (OAK)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A permit is required to cut, prune, remove, relocate, or replace oak trees to ensure that no oak trees are removed unless:\n\nA. A reasonable and conforming use of property justifies the removal, cutting, pruning, and/or encroachment into the protected zone of an oak tree, heritage oak tree, or protected stand of oak trees; and\n\nB. Adequate mitigation, including the planting of replacement trees or acorns or the payment of replacement costs to the city for each tree removed, is provided at the discretion of the Community Development Director or the Planning Commission, as applicable.",
+      "isEnabled": true
+    },
+    {
+      "id": "6655",
+      "name": "Fire Sprinkler Systems and Private Underground Fire Lines",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation or modification of residential, multi-family and commercial fire sprinkler systems. Including underground fire lines installed on private property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6863",
+      "name": "Tree Removal Permit (Mature Non-Oak)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "In the event that more than five trees are to be cut down, uprooted, destroyed or removed within a 36-month period, a permit shall first be issued by the Community Development Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Preliminary Review (PR)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Preliminary Review Application is an optional procedure to applicants that seek project review prior to the submittal of a formal Planning Application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6729",
+      "name": "Fire Alarm Systems or Control Panels (New or Modifications)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of, or modifications to, fire alarm systems or fire alarm control panels. Fire alarm system types include ‘Water Flow Monitoring Systems’ or ‘Automatic Fire Alarm Systems’.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6730",
+      "name": "Fire Pre-Engineered Systems (CO2,  Hood & Duct Extinguishing  System, Vapor Recovery, Etc.)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of, or modifications to, Pre-Engineered Fire Systems and Equipment. Including Spray/Dipping/Powder Coating Booths, Vapor Recovery, Refrigeration, Dust Collection, Gas System (CO2 or Other Gases), Hood and Duct Extinguishing System, Smoke Control System, Special Extinguishing System, Emergency Responder Radio Coverage System and Plant Oil Extraction System.",
+      "isEnabled": true
+    },
+    {
+      "id": "6718",
+      "name": "Fire Pump - Commercial Pump to Increase Fire Line Pressure",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of a commercial fire water pump to increase water pressure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Planning Sign Review (PSR)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "This application type applies to all new and temporary signage for businesses within the City of Calimesa. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Garage / Accessory Structure (Residential)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is used for the construction of a new attached or detached garage. Including at detached (non-habitable) accessory structure such as a workshop.",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Manufactured / Modular Home on Private Property",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation or placement of a manufactured home or modular unit on private property. Per HSC Section 18551, a poured in place reinforced conrete perimeter foundation is required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Specific Plan - New (SP)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A specific plan is a comprehensive planning and zoning document that may be proposed when there is a desire to have special development and design standards for a particular planning area. A specific plan may be adopted by ordinance following a legislative action taken by the City Council. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6637",
+      "name": "Mechanical - Heater or Furnace (Forced Air or Gravity Type)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of a new forced air or gravity type heater, furnace or burner. Including new or relocated ducts and vents.",
+      "isEnabled": true
+    },
+    {
+      "id": "6639",
+      "name": "Mechanical - HVAC, Refrigeration Unit, Cooling Unit or Absorption Unit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of an HVAC unit, compressor, refrigeration unit, cooling unit, absorption unit, and controls (New, repair, alteration, or addition).",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Specific Plan - Amendment (SPA)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Specific Plan Amendment is a proposal to amend an existing Specific Plan by adding or modifying a Planning Area.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Tentative Tract Map (TTM)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A tentative tract map is a preliminary map submitted for a proposed subdivision of five or more lots. The tentative map shows the intended layout and existing conditions of the property and surrounding area.",
+      "isEnabled": true
+    },
+    {
+      "id": "6644",
+      "name": "Mechanical - Miscellaneous Permit Types - Evaporative Cooler, Commercial/Industrial Incinerator, Other Mechanical Appliances",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of evaporative coolers (other than portable type), commercial/industrial incinerators and other mechanical appliances regulated by ordinance but not listed in other mechanical permit types.",
+      "isEnabled": true
+    },
+    {
+      "id": "6751",
+      "name": "Tentative Parcel Map (TPM)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A tentative parcel map is a preliminary map submitted for a proposed subdivision between two to four (2-4) lots. The tentative map shows the intended layout and existing conditions of the property and surrounding area.",
+      "isEnabled": true
+    },
+    {
+      "id": "6646",
+      "name": "Mechanical - Type 1 Hood and Type 2 Hood Installations",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of Type 1 and Type 2 hood installations including ducts.",
+      "isEnabled": true
+    },
+    {
+      "id": "6641",
+      "name": "Mechanical - Whole House Fan, Exhaust Fans and Other Ventilation Systems",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of a whole house fan, exhaust fans and other ventilation systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Temporary Event Permit (TEP)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Temporary events are typically one-time events of no more than three days in length (including annual or recurring events). Examples include fairs, carnivals, rodeos, shows, walking/running and/or bicycling events and races, parades, and seasonal sale of agricultural products (e.g., farmer’s markets).",
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "Misc - Doors, Windows and Skylights",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is for the installation, modification or replacement of Windows / Doors / Skylights.",
+      "isEnabled": true
+    },
+    {
+      "id": "6551",
+      "name": "Misc - Pile Foundations",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is for the installation of a pile foundations (Concrete or Steel)",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Wall or Fence Permit (WFP)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "All new fences, walls, retaining walls, and any screening, including landscaped screening require review and approval by the planning department prior to installation or construction. A building permit issued by the building and safety division may also be required, depending on the scope of work. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Zone Change (ZC)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": " A Change of Zone is a proposal to change the zoning on a specific parcel of land from one Zone District to another. A change of zone application is a legislative item required to be heard by the City Council\nfollowing review and recommendation by the Planning Commission. A change of zone request also requires a General Plan Amendment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6622",
+      "name": "Miscellaneous Building Permit (Where Manual Descriptions and Fee Entries are Required)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is to be used only in instances where the City of Calimesa does not have a building permit type for the proposed project. Contact Building and Safety for assistance prior to proceeding with this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Miscellaneous Permit (Foundation Repair - Siding Repair and/or Replacement - Seismic Retrofit (Brace and Bolt) - Stucco Repair/Replacement - Chimney Repair - Fireplace)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is for listed repairs and replacements at Residential properties.\nFoundation Repair - Siding Repair and/or Replacement - Seismic Retrofit (Brace and Bolt) - Stucco Repair/Replacement - Chimney Repair - Fireplace",
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "Patios, Carports, Decks and Awnings (Residential and Multi-Family / Commercial up to 500 sq ft)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is for the installation of a Single-Family Residential Patio, Carport, Deck or Awnings and Multi-Family / Commercial Patio, Carport, Deck or Awnings that are 500 square feet or less in area.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Zone Text Amendment (ZTA)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Zone Text Amendment (ZTA) is a formal process to change the written rules (the text) of the City's zoning ordinance, modifying regulations for uses, densities, or development standards across a zone, rather than changing the zoning of a single property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6625",
+      "name": "Plumbing - Gas Piping System (New installation or alteration to an existing system)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for a new natural gas piping system or alteration to an existing system. Including adding fixtures or pressure regulators.",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Zoning Information Letter (ZIL)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A Zoning Information Letter (ZIL) is a formal letter from the Planning Department that verifies the zoning of a property, previous zoning entitlements, applicable rebuild clauses, and other information as requested. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6623",
+      "name": "Plumbing - Grease Interceptor or Other Commercial/Industrial Waste Pre-treatment System",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of grease interceptor or other commercial/industrial waste pre-treatment system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6633",
+      "name": "Plumbing - Lawn Sprinkler Systems (Residential)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of a residential lawn sprinkler system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6631",
+      "name": "Plumbing - Septic System Installation, Repair, Alteration, Replacement and Abandonment",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation, repair, alteration, replacement and abandonment of an Onsite Waste Treatment System (Septic System). Including a new lateral to an existing system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6629",
+      "name": "Plumbing - Sewer and Drain /Vent (Installation, Repair or Alteration)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation, repair or alteration to sewer system including sewer laterals and the drain/venting system. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6635",
+      "name": "Plumbing - Water Heaters",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of a water heater.",
+      "isEnabled": true
+    },
+    {
+      "id": "6627",
+      "name": "Plumbing - Water Service, Water Piping, Re-Pipe, Water Treatment Systems and Plumbing Fixtures/Traps",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of a new water service (not a part of a new building permit), water piping, re-pipe, water treatment systems, and/or plumbing fixtures and traps.",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Re-Roofs (One Structure per Permit)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is for the installation of roofing materials on Residential, Multi-Family and Commercial structures",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Remodels (Residential)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is used for the interior remodeling the interior of single-family residential homes, kitchens and bathrooms. If the project includes an addition of livable space, this permit may be used for both the remodel and addition under one permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6574",
+      "name": "Signs (Wall, Directional, Monument, Pole and Other Signs)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is for the installation, modification or replacement all signage types.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Single Family Residential - (New Custom SFR, Tract Homes or Additions to Existing Dwellings)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is used for the construction of single-family residential homes or the addition of additional square footage to an existing single-family residential home.",
+      "isEnabled": true
+    },
+    {
+      "id": "6582",
+      "name": "Solar (PV) and Energy Storage Systems (Residential and Commercial)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation or modification of photovoltaic (PV) solar systems of all types, including rooftop solar arrays, ground-mounted solar arrays, and/or Energy Storage Sytems (battery back-up).",
+      "isEnabled": true
+    },
+    {
+      "id": "6717",
+      "name": "SolarAPP+ Solar PV System (Used when a SolarApp+ Pre-Approval has been obtained).",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Expedited solar plan review for simple PV residential rooftop installations is available through the SolarAPP+ program. A SolarAPP+ approval document is required to apply for a permit of this type. To learn more about this program go to: SolarApp",
+      "isEnabled": true
+    },
+    {
+      "id": "6583",
+      "name": "Solar Thermal Water Heating System",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Permit for the installation of a solar thermal water heating system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6576",
+      "name": "Storage Racks",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit covers the installation or modification of storage racks within a structure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6579",
+      "name": "Storage Tanks (Above or Below Ground)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit covers the installation of above or below ground storage tanks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6570",
+      "name": "Swimming Pools and Spa - Hot Tubs",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is for the installation of  inground / above ground swimming pools, pre-fabricated spas and hot tubs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6581",
+      "name": "Trash Enclosures",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is for the installation of a trash enclosure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6569",
+      "name": "Wall - Fences (Non-Masonry)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is for the installation of non-masonry fences over 6 feet in height. Fences up to 6 feet high do not require a building permit and are allowed on rear/side property lines in the back yard only.  Pre-fabricated metal fencing over 4 feet in height requires this permit application. Projects considering front yard fencing should visit City of Calimesa Planning Division to ensure compliance with front fencing yard regulations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Walls (Freestanding - Masonry or Concrete) Includes Pilasters",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is for the installation of masonry or concrete walls and/or masonry pilasters",
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "Walls (Retaining - Masonry or Concrete) Includes Pilasters",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is for the installation of  retaining masonry or concrete walls and/or masonry pilasters. Calimesa City Standard retaining walls are for level backfill only. If holding a surcharge (slope) an engineered plan and supporting calculations will be required.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1081",
+      "name": "Planning and Zoning",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1072",
+      "name": "Public Works and Engineering",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1079",
+      "name": "Finance",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><span style=\"color: rgb(71, 130, 135);\"><strong><span style=\"font-size: 48px; font-family: Arial, Helvetica, sans-serif;\">Finance Department Home Page</span></strong></span></div><p><br></p><h1 style=\"box-sizing: content-box; font-family: Kanit; font-style: normal; font-weight: 700; color: rgb(220, 222, 163); font-size: 1.7em; text-decoration: none; line-height: 1.2; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; te"
+    },
+    {
+      "id": "1087",
+      "name": "Landscaping",
+      "isEnabled": 1
+    },
+    {
+      "id": "1086",
+      "name": "Community Services",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1074",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:25.769Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

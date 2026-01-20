@@ -1,0 +1,299 @@
+{
+  "jurisdiction": "Medfield",
+  "state": "MA",
+  "tenant": "medfieldma",
+  "portalUrl": "https://medfieldma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006510",
+      "name": "*Application and Permit for steel underground or aboveground tank removal and transportation to approved tank disposal yard",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006492",
+      "name": "Transfer Station Permit (July 1, 2025 to June 30, 2027)",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Access to the Transfer Station is limited to vehicles with a valid sticker issued by the Town. \n\nStickers must be permanently affixed on the lower driver-side windshield so as not to obstruct the view, please see the diagram here, which is not to scale. \n\nStickers must include the license plate # of the vehicle. \n\nStickers are non-transferable and must remain on the vehicle for which it was purchased.\n\nFor any questions, please contact the DPW Office at dpwoffice@medfield.net or (508)906-3003.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006489",
+      "name": "Commercial Building Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, renovations, alterations, partial and interior demolition and major repairs to existing non residential buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006551",
+      "name": "*General Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Definitive Subdivision",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "File a Definitive Subdivision application when you are dividing land into two or more lots and at least one lot will not have the required frontage on a qualifying way or you need to create/extend a street or municipal utilities. Massachusetts’ Subdivision Control Law (MGL c.41) defines “subdivision” and its frontage exceptions. If every new lot has required frontage on a qualifying way, submit an ANR (Approval Not Required) plan instead.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006555",
+      "name": "Temporary Structure/Tent Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006501",
+      "name": "Residential Building Permit  ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, renovations, alterations, partial and interior demolition and major repairs for residential buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006556",
+      "name": "*Food Truck",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006519",
+      "name": "Special Permit - ZBA (includes dual SP/variance application)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "ZBA Special Permit: Apply when the Medfield Zoning Bylaw—most often the Table of Use Regulations—shows “SP (ZBA)” for your proposed use or activity. Typical projects include altering or intensifying a lawful nonconforming use/structure, installing residential sports courts, operating certain home businesses, and—in limited cases—creating an Accessory Dwelling Unit (ADU). This is not a variance or a building permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006557",
+      "name": "Special Permit - Planning Board",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "In Medfield, apply for a Planning Board Special Permit when your project (a) converts a single-family home to a two-family or builds a new two-family in the RU district with lot coverage of 15% or more, or (b) proposes a multifamily dwelling in the RU district. Most other special permits in the bylaw are issued by the Zoning Board of Appeals, while many institutional and commercial uses require Planning Board site plan approval rather than a PB special permit. Applicants should check the Table of Use Regulations (300 – Attachment 1) for their use and zoning district to confirm whether their filing is PB Special Permit (SPPB), PB site plan (PB), or ZBA Special Permit (SP).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006554",
+      "name": "*Solar Permit ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006502",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, renovations, alterations, partial and interior demolition and major repairs to existing non residential buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006553",
+      "name": "*Truck Tank Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006559",
+      "name": "Approval Not Required Plan",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "An Approval Not Required (ANR) Plan is a type of subdivision plan under Massachusetts General Laws Chapter 41, Section 81P that does not require formal subdivision approval from the Planning Board. An ANR plan may be submitted when a property owner wishes to divide land into new lots that each have the required frontage on an existing public way, a way previously approved by the Planning Board, or a way determined by the Board to be adequate for access. Because the plan does not create a “subdivision” under state law, the Planning Board’s role is limited to confirming that the lots have sufficient frontage and access, and the plan is endorsed as “Approval Not Required.” Applicants will need to file an ANR plan when dividing land in a way that complies with frontage and access requirements, without creating new roads or infrastructure that would otherwise trigger a full subdivision review.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006561",
+      "name": "Scenic Road Application (Tree/Wall removal or modification)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006552",
+      "name": "*Non-Explosive Special Effects Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006467",
+      "name": "Plumbing Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006560",
+      "name": "Change of Use Determination",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Change of Use Determination must be requested when a property owner wants to alter a non-residential use — for example, introducing food trucks, outdoor vending, or a new commercial activity — that may affect zoning compliance. Under Section 300-14.12 of Medfield’s Zoning Bylaw, the Planning Board reviews such changes to determine whether Site Plan Approval is required. The Board evaluates various impacts including hours of operation, traffic, circulation, parking, noise, odors, trash, signage, and property owner authorization (especially for mobile food vendors). Based on that review, the Planning Board issues an official Change of Use Determination — either confirming that the proposed use may proceed as-of-right, or requiring formal Site Plan Approval if the change poses significant impacts per zoning standards.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006550",
+      "name": "*Oil Tank Removal/Install Permit ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006558",
+      "name": "Site Plan Approval",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Site Plan Approval is required for many new developments, expansions, or changes of use involving non-residential or multifamily properties in Medfield. Under the Zoning Bylaw, the Planning Board reviews site plans to ensure projects are designed and operated in a way that protects public health, safety, and neighborhood character. The Board considers factors such as traffic and circulation, parking, stormwater and drainage, landscaping, lighting, noise, building placement, and compatibility with surrounding uses.\nCertain educational and religious uses are protected by the Dover Amendment (M.G.L. Chapter 40A, §3), which limits how municipalities may regulate them. While zoning restrictions on these uses are narrower, projects proposed under the Dover Amendment are still subject to Planning Board Site Plan Approval to address site design and operational impacts.\nApplicants should file for Site Plan Approval when their project involves significant new construction, exterior expansion, or a change of use that could affect surrounding properties or town services.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006549",
+      "name": "*Oil Burner Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Gas Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to, or repaired, including the installation of gas-fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006518",
+      "name": "*Smoke and Carbon Monoxide 26F & 26F 1/2 Inspection",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this form to request a smoke and carbon monoxide inspection for the sale or transfer of a residential property.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006545",
+      "name": "Appeals to the Building Commissioner",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Appeal of Building Commissioner Decision (M.G.L. c. 40A, §§ 8 & 15): Use this when a person aggrieved wishes to challenge an order, requirement, decision, enforcement action, or denial/inability to obtain a permit issued by the Building Commissioner/Zoning Enforcement Officer. File a notice of appeal within 30 days with the Town Clerk (state your grounds); the ZBA hears and decides these appeals. Not a special permit or variance application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Sheet Metal Permit/Mechanical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is used to install Sheet Metal/Mechanical work. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006520",
+      "name": "Variance ONLY (No Special Permit)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Variance (M.G.L. c. 40A, §10): Apply only when strict application of the zoning bylaw (e.g., setbacks, lot area, frontage, height) would cause substantial hardship due to unique soil conditions, shape, or topography of your lot. Relief may be granted only if it can be given without substantial detriment to the public good and without nullifying or derogating from the bylaw’s intent. Variances are rare and not for personal preference or self-created hardship; this is not a Special Permit or a building permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006487",
+      "name": "Comprehensive Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Comprehensive Permit (commonly called a 40B Permit) is a single, streamlined approval issued by the Zoning Board of Appeals (ZBA) for housing developments that include affordable units under Massachusetts Chapter 40B. Instead of applying separately to multiple boards, applicants may use this process if at least 20–25% of the proposed units are restricted as affordable to households earning at or below 80% of the area median income. The ZBA reviews the project and may grant relief from local zoning or other requirements if needed to make the development feasible, while ensuring that health, safety, environmental, and design standards are met. A Comprehensive Permit is required when a developer seeks to build multifamily, mixed-income, or senior housing that does not fully comply with local zoning but qualifies under Chapter 40B. This process is intended to encourage the creation of affordable housing in communities where less than 10% of the housing stock is affordable.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006486",
+      "name": "Preliminary Subdivision",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "File a Preliminary Subdivision Plan to get early, non-binding feedback on your street and lot layout before preparing a Definitive Plan. It’s required for non-residential subdivisions and optional (but encouraged) for residential. Submit the plan to the Planning Board and Board of Health and give written notice to the Town Clerk at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006514",
+      "name": "*Flammable and/or Combustible Storage Permit ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Commonwealth of Massachusetts \"Application for Standard Permit\" (Form FP-006). This permit type is not used for residential real estate transfers. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006515",
+      "name": "*LP Gas Installation/Storage Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Commonwealth of Massachusetts \"Application for Standard Permit\" (Form FP-006). This permit type is not used for residential real estate transfers. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006517",
+      "name": "*Hot Works Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Commonwealth of Massachusetts \"Application for Standard Permit\" (Form FP-006). This permit type is not used for residential real estate transfers. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006546",
+      "name": "*Cooking Hood / Fire Suppression System",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Commonwealth of Massachusetts \"Application for Standard Permit\" (Form FP-006). This permit type is not used for residential real estate transfers. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006547",
+      "name": "*Fire Alarm Plan Review (New or Existing) (Does not include inspections)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Commonwealth of Massachusetts \"Application for Standard Permit\" (Form FP-006). This permit type is not used for residential real estate transfers. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006548",
+      "name": "*Commercial Fire Alarm Inspection Request",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Commonwealth of Massachusetts \"Application for Standard Permit\" (Form FP-006). This permit type is not used for residential real estate transfers. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1082",
+      "name": "Planning and Zoning",
+      "isEnabled": 1,
+      "content": "<div>Please contact Maria De La Fuente, Director of Land Use, at <a href=\"mailto:mdelafuente@medfield.net\" rel=\"noopener noreferrer\" target=\"_blank\">mdelafuente@medfield.net</a>&nbsp;with any questions.</div>"
+    },
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1079",
+      "name": "DPW",
+      "isEnabled": 1
+    },
+    {
+      "id": "1076",
+      "name": "Fire Dept",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:54.704Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

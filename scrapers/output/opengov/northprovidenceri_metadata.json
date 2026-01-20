@@ -1,0 +1,242 @@
+{
+  "jurisdiction": "North Providence",
+  "state": "RI",
+  "tenant": "northprovidenceri",
+  "portalUrl": "https://northprovidenceri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6332",
+      "name": "Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a building permit from the Town of North Providence, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit from the Town of North Providence, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit from the Town of North Providence, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the Town of North Providence, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Razed Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a demolition permit or a Razed building Permit from the Town of North Providence.",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "Moving Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for a moving permit from the Town of North Providence.",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the Town of North Providence.",
+      "isEnabled": true
+    },
+    {
+      "id": "6362",
+      "name": "Road Opening/ Physical Alteration Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Permit to open a road for constriction or utility work. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Residential Smoke & Carbon Monoxide ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6396",
+      "name": "Zoning Board of Review Application ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6399",
+      "name": "NP Application for Amendment to Zoning Map and Ordinance",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for an amendment to the Zoning Map and Ordinance per Article XII of the North Providence Zoning Ordinance - \"Enactment, Appeal, or Repeal to this Zoning Ordinance making a specific change in the Zoning Map.\"",
+      "isEnabled": true
+    },
+    {
+      "id": "6404",
+      "name": "Planning Application ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "  Subdivision & Land DevelopmentApplications",
+      "isEnabled": true
+    },
+    {
+      "id": "6406",
+      "name": "APPLICATION FOR DOOR-TO-DOOR SOLICTATION",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Individuals or organizations planning to solicit door-to-door in the town of North Providence must complete this application. Submit at least 10 business days before the requested start date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6385",
+      "name": "Application for Entertainment License",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Entertainment License includes Live Music, DJ, Karaoke, Etc. for an Individual, Corporation, Partnership.\n\nTypes of Entertainment: DJ and \"Other Types\". If a business would like to apply for both types,\nthen they need to submit separate applications.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "Application for Other Licenses",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Apply here for the following Licenses from the Town of North Providence.\n24 Hour,  Amusement Center, Amusement Device, Auto Wrecking and Salvage,\nCoin Operated Pool Table, Extended Hours, Firearms (Catalog ONLY), Holiday Sales, Laundry, Miniature Bowling, Non-Coin Operated Pool table, Outdoor Dining, Peddler/Vendor, Pawn Broker.",
+      "isEnabled": true
+    },
+    {
+      "id": "6403",
+      "name": "NP Accessory Dwelling Unit Registration",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Under the North Providence, Rhode Island Zoning Ordnance\nChapter 35 of the Town Code\nAs amended to December 2014\n\n\n\n210. Accessory dwelling units\n\nA. One accessory dwelling unit shall be permitted within, or on the same lot as, a single household residence in all R zones provided that it meets all of the following requirements:\n(1) The accessory dwelling unit is designed and constructed in such a way as to maintain\nthe appearance of the use of the lot as a single- household residence.\n(2) The accessory dwelling unit is at least 30 percent smaller in total living area than the\nsingle-household residence, or no more than 600 square feet, whichever is smaller. Where\nspecial circumstances exist that are peculiar to the site in question, relief from this\nrequirement shall be available by a special use permit provided that the conditions in\nArticle V of this Ordinance are satisfied.\n(3) The accessory dwelling unit is in the same ownership as the single-household\nresidence.\n(4) Either the single-household residence, or the accessory dwelling unit is occupied by the\nowner for at least six months of the year\n\nB. Any accessory dwelling unit in existence on the effective date of this Section, with the\nexception of legal nonconforming accessory dwelling unit, may be legally inhabited provided\nthat:\n(1) Application is made for a Certificate of Registration for the accessory dwelling unit no\nlater than one (1) year from the effective date of this Section; and\n(2) Within one (1) year of the date of such application, the Zoning Enforcement Officer\ndetermines, to the extent that he is able, that the accessory dwelling unit is in compliance\nwith this Ordinance and all other applicable laws. Application for a Certificate of\nRegistration for an existing accessory dwelling unit shall be accompanied by an inspection\nfee, which shall be in the amount of $50.00 and may be increased or decreased from time to\ntime by the Town Council.\nC. Relief from the requirement that an existing accessory dwelling unit must comply with this\nOrdinance may be granted by special use permit.\nD. The taking of boarders or the renting of rooms by a resident family is prohibited in both the\nsingle-household residence and the accessory dwelling unit. No rooming or boarding house shall\nbe permitted to have an accessory dwelling unit.\nE. An accessory dwelling unit that is part of a single-household dwelling shall comply with the\ndimensional regulations for a single-household use contained in Article II of this Ordinance.\nF. An accessory dwelling unit may be permitted with a special use permit in RS, RL, CL and\nCG zones.",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "NP Application for Zoning Certificate ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6383",
+      "name": "Application for Liquor License For Club ",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "BOARD OF LICENSING COMMISSIONERS\nAPPLICATION FOR CLUB LICENSE",
+      "isEnabled": true
+    },
+    {
+      "id": "6386",
+      "name": "Application for Liquor License by Corporation",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6382",
+      "name": "Application for Liquor License by Individual or Partnership",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": "Application for Liquor License Retailer- Class F  or Class F-1 ",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Apply for a Class F (19 Hour Full Privilege or 19 Hour Beer & Wine) license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6380",
+      "name": "Application for Pet License",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Apply for a pet license from the Town of North Providence (Town Clerk's Office)\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6384",
+      "name": "Application for Business License",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Application for Business License. \n\nIn accordance with RIGL 45-2-31, RI State Building Code and North Providence Ordinance 25-009:  All persons, corporations, partnerships or other business organizations operated for profit (hereafter in this chapter collectively referred to as \"entities\"), transacting or conducting business within the Town, shall obtain a registration certificate stating the name under which the entity is transacted or conducted, its business address, a specific description of the business activity and any other reasonable information deemed necessary by the Town Clerk.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6388",
+      "name": "Application for Victualling License ",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Town ordinance requires any business that will prepare food consumption Items, or sell food consumptions items within their establishment shall obtain a Victualling License in addition to their trade name License. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6387",
+      "name": "Application for Yard Sale",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6391",
+      "name": "Life Safety Inspection",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Click here to submit your request for an inspection from the Office of the State Fire Marshal (related to business licenses or construction rough/final)",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1072",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p>Submit one form to apply for permits (including Fire Plan Review, if applicable).</p>"
+    },
+    {
+      "id": "1071",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/npfd-0_Wed_Jul_10_2024_18:10:36_GMT+0000_(Coordinated_Universal_Time).jpg\" style=\"width: 407px;\" class=\"fr-fic fr-dib\"></div><div>Apply for a Residential Smoke &amp; Carbon Monoxide Detector Inspection</div>"
+    },
+    {
+      "id": "1077",
+      "name": "Town Clerk's Office",
+      "isEnabled": 1,
+      "content": "<div>The Town Clerks Office shall be called at 401-232-0900 for All questions regarding Business applications.</div><div>Those Licenses that require approval in front of the Town Council, The Applicant will be notified when to appear.&nbsp;</div>"
+    },
+    {
+      "id": "1076",
+      "name": "Planning and Zoning",
+      "isEnabled": 1,
+      "content": "<div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/plaining_and_zoning_Thu_May_16_2024_17:59:27_GMT+0000_(Coordinated_Universal_Time).jpg\" style=\"width: 300px;\" class=\"fr-fic fr-dib\"></div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:13.156Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

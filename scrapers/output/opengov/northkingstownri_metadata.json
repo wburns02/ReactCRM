@@ -1,0 +1,174 @@
+{
+  "jurisdiction": "North Kingstown",
+  "state": "RI",
+  "tenant": "northkingstownri",
+  "portalUrl": "https://northkingstownri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6359",
+      "name": "Residential Smoke & Carbon Monoxide ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply for a Residential Smoke and Carbon Monoxide inspection when the house is being sold.",
+      "isEnabled": true
+    },
+    {
+      "id": "6363",
+      "name": "Casual Sale Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit is required for all individuals having a yard sale on public or private property. The Town ordinance allows 2 permits within one year.",
+      "isEnabled": true
+    },
+    {
+      "id": "6387",
+      "name": "Short-Term Rental Registration",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "In North Kingstown, per Chapter 9 Article XVIII, all short-term rentals shall be registered with the Town of North Kingstown. This application will be the online renewal for short-term rentals for the Town of North Kingstown.\n\nShort-term rentals (STR) are generally defined as a rental of a residential dwelling unit or accessory building for periods less than 30 consecutive days. Short-term rentals can either be owner occupied or non-owner occupied. Short-term rentals may include entire homes, apartments, or individual rooms. Short-term rentals may be advertised using online hosting platforms. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6382",
+      "name": "Zoning Board of Review Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Use Variance, Modification, Extension Request and Appeals to the Zoning Board from either a Building Official Notice of Violation related to Zoning or a Planning Commission Decision.",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "Annual Certificate",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This certificate application is to keep a record of annual renewals, inspections and payments for Hotels/Motels, Bed & Breakfasts and Sand and Gravel Banks",
+      "isEnabled": true
+    },
+    {
+      "id": "6332",
+      "name": "Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Building Permit from the Town of North Kingstown, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Mechanical Permit from the Town of North Kingstown, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an Electrical Permit from the Town of North Kingstown, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Plumbing Permit from the Town of North Kingstown.",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Demolition Permit from the Town of North Kingstown. Please note this permit type is mostly for demolition of a structure, any interior demo work being performed in relation to remodeling can be noted on the building permit application that will need to be taken out for the actual work to be done.",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Sign Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Sign Permit from the Town of North Kingstown. All permit applications should include photos of any existing signage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6361",
+      "name": "Change of Tenancy / Occupancy",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Change of Tenancy. Anytime that a commercial occupancy changes hands this permit must be submitted.",
+      "isEnabled": true
+    },
+    {
+      "id": "6367",
+      "name": "Tent Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Tent Permit that will be used for an event for you and your guests.",
+      "isEnabled": true
+    },
+    {
+      "id": "6380",
+      "name": "Life Safety Inspection",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Click here to submit your request for an inspection from the North Kingstown Fire Marshal's Office (related to Liquor and Victualling Licenses)",
+      "isEnabled": true
+    },
+    {
+      "id": "6368",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Solar Permit from the Town of North Kingstown",
+      "isEnabled": true
+    },
+    {
+      "id": "6379",
+      "name": "Temporary Portable Storage Container - Residential ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Application for a Temporary Residential Storage Container Permit (Permit is not required if storage container will be on site for less than 30 days).",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "Moving Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Moving Permit from the Town of North Kingstown to move a structure from the current location to a new destination. Choose the location based on the current structure location.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1072",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p>Submit one form to apply for permits (including Fire Plan Review, if applicable).</p>"
+    },
+    {
+      "id": "1076",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1078",
+      "name": "Planning Department",
+      "isEnabled": 1,
+      "content": "<div><span style='color: rgb(255, 0, 0); font-family: \"Times New Roman\"; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !impor"
+    },
+    {
+      "id": "1071",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:05.734Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

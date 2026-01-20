@@ -1,0 +1,288 @@
+{
+  "jurisdiction": "Plain City",
+  "state": "OH",
+  "tenant": "plaincityoh",
+  "portalUrl": "https://plaincityoh.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6505",
+      "name": "Property or Zoning Complaint Form for Public Use",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "The purpose of this form is to allow residents, property owners, and business owner to file a complaint with the Village of Plain City Planning & Zoning Department. \n\nOnce a complaint has been filed, the zoning specialist conducts an inspection of the alleged violation. If a violation is found to exist, a case is opened and a written Notice of Violation is sent to the owner of the subject property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Conceptual Plan",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Extension Request for Final Development Plan",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Final Development Plan approval shall expire 12 months after the date of final approval unless substantial construction has been commenced and is continuing. An extension of up to twelve (12) additional months may be granted if approved by administration. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Signing Up, Creating a Profile and Accessing your Records",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "You must sign up to use ViewPoint the first time. You will create a profile that you can access later and see all of your records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Zoning Permit (New Construction, Additions, Attached Structures, etc.)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Please fill out the Village's standard Zoning Permit application when any of the following apply: Any new building construction (not including accessory structures); building addition to residential, commercial, or industrial; exterior alterations resulting in more or less square footage (i.e. change in building footprint); decks, porches, stoops; concrete/paver patio installations; driveway alterations/widening/replacement; residential solar panel installation (roof mounted).\nPlease see SEPARATE applications for Fence Permits, Accessory Structure Zoning Permits, and Sign Permits.\nAlterations to driveway aprons, sidewalks, curbs, or other property located in the public right-of-way will require a separate Right-of-Way permit from Village Administration.\nPlease note that some of these projects will require additional building permits through the Village of West Jefferson Building Department, following zoning permit approval from Village of Plain City.",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Accessory Structure Zoning Permit (sheds/storage buildings/detached garages/gazebos/pergolas, etc.) ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Permits are required for all new and replacement sheds, storage buildings, or other detached structures. The zoning code permits no more than two (2) accessory/detached structures on any property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Applying for a Permit and Paying Fees",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Once you've created a profile and signed on, you can purchase permits by selecting the appropriate application and then paying the fees.",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Receiving your Permit and other Documents",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "You will be able to view and print your permits, certificates, receipts, and any other documents.",
+      "isEnabled": true
+    },
+    {
+      "id": "6378",
+      "name": "Fence Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A fence permit is required for all new and replacement fences. Minor repairs (minimal board or post/support replacement) do not require a permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6389",
+      "name": "Sign Permit - PERMANENT - Wall/Building Mounted, Monument/Ground, Directional, Window vinyl/graphics",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Permits for all new and replacement permanent signage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Registering Licensed Contractors",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Must I register as a contractor in the Village of Plain City?",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "When is a Building Permit Required?",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Are you curious if your project requires a building permit?",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Sign Permit - TEMPORARY - Sandwich Board, Banner, Yard Frame, Window (Sales, Grand Opening, Coming Soon, Special Promotions)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This application is for a Temporary Sign Permit. Any non-residential temporary sign requires a permit, with the exception of the temporary window signage that are displayed less than 30 days. \nExamples of permitted temporary signs are banners, sandwich board, yard, construction, development, coming soon, grand opening, real estate (over 6 sq ft).",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Special Event Temporary Sign Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Special Events that are approved by the Village are required to submit a Special Event Temporary Sign Permit Application. This permit must be approved prior to the display of any sign.",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Interested in Opening a Business in Plain City?",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Before opening your doors, there are a few important steps that must be taken to ensure compliance with the Village’s Zoning Ordinances and other Building Regulations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "Contractor Registration/Work Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Contractor registration and renewal in order to perform work in the Village of Plain City.",
+      "isEnabled": true
+    },
+    {
+      "id": "6406",
+      "name": "Rezoning or Zoning Ordinance Amendment",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A rezoning application is needed when seeking to change the zoning classification of a property.  The Planning and Zoning Commission will provide a recommendation to City Council, who then determines the rezoning should be approved or denied. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Certificate of Zoning Compliance (Final)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A Certificate of Zoning Compliance is required before any building can be occupied per Codified Ordinances of the Village of Plain City Chapter 1135.03.",
+      "isEnabled": true
+    },
+    {
+      "id": "6383",
+      "name": "Certificate of Zoning Compliance (Temporary)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A Temporary Certificate of Zoning Compliance Permit is required for any temporary business that wishes to operate within the Village.",
+      "isEnabled": true
+    },
+    {
+      "id": "6385",
+      "name": "Area Variance ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A variance allows a deviation from the Village's Planning & Zoning Code. Only the Board of Zoning Appeals (BZA) and/or City Council can grant variances. A variance cannot be granted for a use that is not permitted within a zoning district. A variance cannot be granted for signage that does not meet the current sign code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6404",
+      "name": "(PUD) Development Plan Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A Development Plan application is needed for all projects proposing a Planned Development (Commercial or Residential). The application must be reviewed by Zoning and Planning Commission. There are options for a Preliminary or Final Plan, or an Amended Plan if one has previously been approved.",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Conditional Use ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Conditional uses are those uses that, because of special requirements or characteristics, may be allowed in a particular zoning district only after review and granting of conditional use approval imposing such conditions as necessary to make the use compatible with other uses permitted in the same zone or vicinity.",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Subdivision Plat Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Major Site Plan",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "\"Major Site Plan\" means a plan for a development which meets one of the following:\n( 1) A development involving any new construction other than one- or two-family residential structures.\n(2) A development involving an addition of more than 20 percent of the gross floor area of a structure, or no more than 5,000 square feet of impervious surface.\n(3) A development creating more than 10,000 square feet of impervious surface.\n(4) A development impacting or adjacent to a historic, archaeological, or environmentally sensitive feature.\n(5) A development impacting a non-residential site adjacent to a residential zoning district.\n(6) A development which conflicts with an adopted Village plan.\n(7) A development of a non-conforming site or site which does not meet the development standards of the zoning district in which it is located. \n(8) A development which generates sufficient volumes of traffic, unusual patterns, or types of traffic that result in lowering the level of service of affected streets or intersections. \n(9) Other unusual or unique impacts which, in the professional opinion of the Zoning Inspector, warrant public review. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Temporary Accessory Structure Zoning Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Temporary zoning permit for accessory structures. This includes temporary storage containers/pods on residential properties, temporary construction offices/trailers for construction sites, portable classrooms for non-residential properties, and other structures not on a permanent foundation. Temporary accessory structures shall not be located on a property for longer than thirty (30) consecutive days. This permit shall not be used for the temporary placement of boats, recreational vehicles, camping trailers, cargo trailers, or other types of trailers. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Minor Site Plan",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Prior to issuance of a zoning permit for all developments other than single family residential and two­family residential developments, a site plan as defined herein shall be submitted to the Village of Plain City Zoning Inspector for review and approval. \n\n\"Minor Site Plan\" means a plan for a development which does not qualify as a Major Site Plan by definition in 1140.03(c) or specific determination by the Zoning Inspector. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "Demolition Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Permit for the demolition of a single-family home, multi-family dwelling, commercial building or accessory structure/detached garage larger than 450 SF.",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Temporary Zoning Tent Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "A Temporary Zoning Permit for Tents are required for all tents greater than 400 square feet in size. Please contact the West Jefferson Building Department for any building/safety requirements at (614) 379-5250. A fire safety inspection is also required, please contact the Pleasant Valley Fire District at (614) 873-4067.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Special Use Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "*BZA Approval required\nDue to unique characteristics relative to location, design, size, operation, traffic circulation or need for public services, several specific uses have been identified which require supplemental criteria and review to substantiate that the use is appropriate for the proposed location. The following uses are subject to a special use permit: \n- Non-Residential Portable Structures and Temporary Uses\n- Construction Trailers\n- Portable Classrooms Temporary\nAdditional details can be found in Chapter 1184 of the Codified Ordinances.",
+      "isEnabled": true
+    },
+    {
+      "id": "6391",
+      "name": "Notice of Appeal",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Appeals to the Board of Zoning Appeals (BZA) may be taken by any person aggrieved, or by any officer of the Municipality affected by any decision of the Planning and Zoning Department. Appeals shall be taken within twenty (20) calendar days after the decision by filing with the Planning and Zoning Department a notice of appeal, specifying the grounds.  \n\nAppeals from a Board of Zoning Appeals Decision constitutes a Final Order within the meaning of R.C. 2505.02 and any party may appeal this decision within 30-days in accordance with those provisions of R.C. Chapter 2505.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1085",
+      "name": "Zoning",
+      "isEnabled": 1,
+      "content": "<div>Zoning Permit Applications. Most common applications: Fence, Shed, Signs, New Construction, Certificate of Zoning Compliance. Per the Village of Plain City Codified Ordinances, 1135.02(d), Zoning Staff have up to 30 days from the time of submittal to review &amp; approve or disapprove a zoning permit/certificate.&nbsp;</div>"
+    },
+    {
+      "id": "1080",
+      "name": "Planning and Development",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Please navigate to the following links for more information.</span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><a href=\"https://arcg.is/0OaSDq\">Zoning Map</a></span></p><p><a href=\"https://codelibrary.amlegal.com/codes/plaincity/latest/plaincity_oh/0-0-0-9760\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">Codified Ordinance</span></a></p><p><strong>________________________________________________________________"
+    },
+    {
+      "id": "1078",
+      "name": "Code Compliance",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(97, 99, 101); font-family: Tahoma, Geneva, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-col"
+    },
+    {
+      "id": "1072",
+      "name": "Right-of-Way",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1079",
+      "name": "Building Permits; Contractor Registration",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-co"
+    },
+    {
+      "id": "1084",
+      "name": "Information and FAQ's",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color: initial; text-"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:58.247Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

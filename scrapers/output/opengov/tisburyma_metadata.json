@@ -1,0 +1,532 @@
+{
+  "jurisdiction": "Tisbury",
+  "state": "MA",
+  "tenant": "tisburyma",
+  "portalUrl": "https://tisburyma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6355",
+      "name": "Dog License",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Dogs over the age of six months must be licensed. The license period is a calendar year (January 1- December 31). Proof of a current rabies shot is required. Late fines begin on March 1st. \nBefore you begin make sure you have your Rabies Certificate available. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006359",
+      "name": "Burn Permit FP-006",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Open Burn Permits are valid for single days only and are available from January 15th to May 1st; burn hours are from 10 a.m. to 4 p.m. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006367",
+      "name": "Hot Works Permit (Welding, Cutting & Other Hot Works)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006375",
+      "name": "Campground",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Campground licenses are renewable annually on July 1st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006484",
+      "name": "Smoke and Carbon Monoxide Compliance FP-007C",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Note that all inspections are good for sixty (60) days after issuance of permit; please schedule your inspections accordingly. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006485",
+      "name": "Fuel Oil Burning FP-056 Form 1",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006486",
+      "name": "Certificate of Compliance Oil Line Upgrades - Form 1A",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006527",
+      "name": "Dumpster Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A dumpster permit is required for a container size of  more than six (6) yards. Please note that permits are not required for containers which are delivered to a location and removed in the course of a single business day.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006528",
+      "name": "General Fire Safety Inspection",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006530",
+      "name": "Energy Storage System (One- and Two-Family Dwellings)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit is for both new and replacement energy storage systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Registration Sign Up Is January 1st 2026 Short Term Rental Application for Registration Sign Up Is January 1st 2026",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Sign Up Is JANUARY 1ST 2026!\nor after for the year you are renting in !!!!\nSign Up Is JANUARY 1ST 2026!\nSign Up Is JANUARY 1ST 2026!\nComplete this application to register your short term rental unit with the Town of Tisbury. Upon review of your application and a passing inspection, a Rental Certificate will be issued which shall be valid for that year.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006541",
+      "name": "Grease Trap Maintenance Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "For recording the maintenance of grease traps located inside food establishments.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006545",
+      "name": "Parking Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This Permit is for the Park and Ride Lot, High Point Lane for Yearly and Quarterly Parking Permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006475",
+      "name": "Building Permit - Minor Work Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for roofing, siding, windows, doors, solar panels, weatherization/insulation, retaining walls, ductless air source heat pumps, chimneys and chimney liners, and fences over 6 feet in height.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006480",
+      "name": "Common Victualler License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "All  common victuallers, as defined in Massachusetts General Laws (MGL) Chapter 140, as amended, conducting business in the Town of Tisbury must be licensed by the Select Board. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006425",
+      "name": "Food Establishment Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "To be filled out by any establishment/organization which deals in any form of food products including milk, cream and frozen desserts.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006476",
+      "name": "Building Permit - Residential ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, renovations, alterations, partial interior/exterior demolition and repairs to existing one and two family dwellings, and their accessory structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006497",
+      "name": "Aboveground Propane Tank Removal",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "FP-006 Permit for the Installation and Storage of Propane",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Temporary Food Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006510",
+      "name": "Lodging House License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "All Lodging Houses, as defined in Massachusetts General Laws, (MCL) Chapter 140, Sections 22 to 31, inclusive, located in the Town of Tisbury, shall be licensed by the Select Board.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006498",
+      "name": "Aboveground Propane Tank Installation",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "FP-006 Permit for the Installation and Storage of LP Gas",
+      "isEnabled": true
+    },
+    {
+      "id": "1006531",
+      "name": "Entertainment License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Select Board issues Entertainment Licenses to establishments that have theatrical exhibitions, public shows, public amusements and exhibitions of every description (including televisions). This application is only for entertainment Monday-Saturday.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006539",
+      "name": "Building Permit - Move a Building",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used to move a house or accessory structures from one location to another.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006501",
+      "name": "Special Event Catering ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "THIS FORM MUST BE RECEIVED BY THE BOARD OF HEALTH IN THE TOWN WHICH THE EVENT WILL OCCUR 48 HOURS PRIOR.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006477",
+      "name": "Building Permit - Commercial ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, renovations, alterations, partial and interior demolition, major repairs, and changes of occupancy classification for commercial buildings and residential structures regulated by the International Building Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006440",
+      "name": "Yard Sale",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Apply for a Yard, Garage, Tag or Estate Sale ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006344",
+      "name": "Body Art Establishment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Body Art Licenses are renewable annually on January 1st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006512",
+      "name": "Underground Propane Tank Installation",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "FP-006 Permit for the Installation and Storage of LP Gas",
+      "isEnabled": true
+    },
+    {
+      "id": "1006513",
+      "name": "Underground Propane Tank Removal  ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "FP-006 Permit for the Installation and Storage of LP Gas",
+      "isEnabled": true
+    },
+    {
+      "id": "1006521",
+      "name": "Planning Board Special Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Complete this application to apply for a Special Permit from the Tisbury Planning Board. After completing this online application, you must print out three copies of your completed application and bring it to the Tisbury Town Clerk to get it date and time stamped, and then bring two copies to the Planning Board before your application is considered accepted. You must also pay the required fee online or in person. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006439",
+      "name": "Food Truck License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "This License applies to mobile food vendors and food trucks which operate for more than 4 days per calendar year in the Town of Tisbury. You can find the Food Truck Regulations here:\n\nYou must have a hawkers/peddler’s state license prior to applying for the town license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006385",
+      "name": "Body Art Practitioner",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Body Art Licenses are renewable annually on January 1st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006437",
+      "name": "Auto Rental License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "You need to apply for a license if you plan to operate a retail rental car business within the Town of Tisbury. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006345",
+      "name": "Recreational Camps",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Recreational Camps for Children licenses licenses are renewable annually on January 1st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006350",
+      "name": "Swimming Pool Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for permit to operate a public, semi-public swimming pool, or wading pool. Swimming Pool licenses are renewable annually on December 31st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": "Zoning Board of Appeals Petition",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this Petition form to request a special permit, variance, or appeal of a decision by the Building/Zoning Inspector from the Zoning Board of Appeals.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006515",
+      "name": "Taxi License ",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "The Tisbury Select Board voted at a public meeting on April 10, 2024, as follows: A motion was duly made and seconded to set the limit of the taxi licenses at 7 licenses and no more than 8 taxicab permits per license.  The vote was unanimous. \nDue to this motion no new additional taxi license will be issued. You can still apply for renewals and transfers. \nPlease call the Select Board office for a status update.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006555",
+      "name": "Notice of Intent (NOI) ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Purpose of the Notice of Intent (NOI) \nTo protect the Commonwealth's wetland resources, the Massachusetts Wetlands Protection Act (General Law Chapter 131, Section 40) prohibits the removal, dredging, filling, or altering of wetlands without a permit. To obtain a permit (called an Order of Conditions), a project proponent must submit an application to the Conservation Commission and the Department of Environmental Protection",
+      "isEnabled": true
+    },
+    {
+      "id": "1006446",
+      "name": "One Day Alcohol License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for special one-day alcohol and/or a one-day entertainment license here.  One-day licenses are required for events that are advertised and/or open to the public.  Please note that a person can only obtain a total of 30 one-day licenses per location in one calendar year.  You may use this application to apply for a license during consecutive days in the same location.\\tThe license application must be submitted to the Select Board office at least Forty-Five (45) days prior to the date of the event.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006378",
+      "name": "Sale of Tobacco & Nicotine Delivery Products",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Tobacco & Nicotine Delivery Product Sales licenses are renewable annually on January 1st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006386",
+      "name": "Septic Installer License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Septic installer licenses are renewable annually on January 1st.\nProof of Insurance with the following coverages must be attached to your application:\nGeneral Liability Insurance with a minimum coverage of $100,000. \nWorkers' Compensation Insurance: Massachusetts General Law Chapter 152 requires all businesses with employees to carry workers' compensation insurance.\nIf you have employees, you must provide a current certificate of insurance naming the local Board of Health as a certificate holder.\nIf you are a sole proprietor, LLC member without employees, or LLP partner without employees, you may be exempt, but you must submit a sworn, notarized Workers' Compensation Insurance Affidavit stating that coverage is not required.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006442",
+      "name": " Junk Dealers",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "The Junk Dealer's License is issued by the Select Board to the collectors of junk, dealers in junk, or keepers of shops for the purchase, sale, or barter of junk, old metals, or second-hand articles.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006471",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc.  Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006429",
+      "name": "Class II License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "A person whose principal business is the buying or selling of second hand motor vehicles, a person who purchases and displays second hand motor vehicles for resale in retail transactions, and any other person who displays second hand motor vehicles not owned by him pursuant to an agreement in which he receives compensation, whether solely for displaying the vehicles, upon the sale of each vehicle, or otherwise must obtain Class II License from the Select Board. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006526",
+      "name": "Flammables & Combustibles Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit is required for storage of Class 1 or 2 flammable liquids, excluding LP gas storage (for LP gas see Propane Tank Installation Permits).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006502",
+      "name": "Fertilizer Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Septic Pumpout Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006467",
+      "name": "Plumbing Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime a building’s plumbing is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006469",
+      "name": "Gas Fitter Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "Septic Hauler License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Septic Hauler licenses are renewable annually on January 1st.\nProof of Insurance with the following coverages must be attached to your application:\nGeneral Liability Insurance with a minimum coverage of $100,000. \nWorkers' Compensation Insurance: Massachusetts General Law Chapter 152 requires all businesses with employees to carry workers' compensation insurance.\nIf you have employees, you must provide a current certificate of insurance naming the local Board of Health as a certificate holder.\nIf you are a sole proprietor, LLC member without employees, or LLP partner without employees, you may be exempt, but you must submit a sworn, notarized Workers' Compensation Insurance Affidavit stating that coverage is not required.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006554",
+      "name": "Request for Determination of Applicability (RDA) ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006391",
+      "name": "Sheet Metal Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when a sheet metal worker is manufacturing, fabricating, assembling, handling, erecting, installing, dismantling, alteration and/or repairing duct work, commercial fans, kitchen hoods and vents, architectural sheet metal and metal roofing.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006405",
+      "name": "Tents & Other Temporary Structures",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit application is for the erection of tents and other temporary structures that exceed 400 square feet (aggregate of all temporary structures on the lot) and that will be in place for less than 180 days. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Wood Stove Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is required for the installation of solid fuel burning appliances including wood, pellet, or coal burning stoves.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006553",
+      "name": "Conservation Request / Complaint Form",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "For general environmental concerns, including a broad range of issues and complaints, suspected violations of environmental laws or activities that may endanger public health or natural resources.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006465",
+      "name": "Sign Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Town of Tisbury requires a sign permit before any sign may be erected. See Tisbury Zoning Bylaw Section 07.06 for all sign requirements. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006464",
+      "name": "Trench Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime a trench hole or other excavation is being done to a depth of 3 (three) feet or more, that is not the excavation for a foundation.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006472",
+      "name": "Demolition of a Structure Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for complete demolition of a building and/or accessory building. For partial and interior demolition use the Building Permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006470",
+      "name": "Fire Detection, Fire Alarm & Sprinkler System Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Complete this permit for residential or commercial fire detection and notification systems, as well as sprinkler system. This permit is required when a sprinkler system is installed, altered, extended, dismantled or reconfigured.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006516",
+      "name": "MV Museum Special Event",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006517",
+      "name": "Other Special Events",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1084",
+      "name": "Assessor's Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Building, Zoning, & Planning",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong><em><span style=\"font-size: 30px; color: rgb(41, 105, 176);\">Welcome to the Tisbury Building &amp; Zoning Department!</span></em></strong></p><p><br></p><p style=\"text-align: justify;\"><em><span style=\"font-size: 18px;\"><strong>All applications for residential and commercial building permits, trade permits, and Zoning Board of Appeals petitions are now completed online. If you have questions or issues completing an application, please contact the Tisbury Bu"
+    },
+    {
+      "id": "1076",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Certificate_of_Completion_Thu_Feb_11_2021_14:36:39_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_blank\">Certificate of Completion.pdf</a></p>"
+    },
+    {
+      "id": "1073",
+      "name": "Board of Health",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1081",
+      "name": "Conservation Commission",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Select Board",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 36px;\"><strong><span style=\"color: rgb(30, 49, 48);\">Select Board</span></strong></span></p><p>The Select Board is a three-member elected Board responsible for issuance of &nbsp;alcohol licenses, &nbsp;common victuallers, innholders, lodging houses licenses, yard sale permits, parking permits, entertainment license, fortune tellers, used car dealers ( Class II) license, &nbsp;hawkers &amp; peddlers license, auctioneers, land livery/limousine, taxi permits, auto-rental "
+    },
+    {
+      "id": "1083",
+      "name": "Town Clerk",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:58.476Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,953 @@
+{
+  "jurisdiction": "Newburyport",
+  "state": "MA",
+  "tenant": "newburyportma",
+  "portalUrl": "https://newburyportma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006720",
+      "name": "RESIDENTIAL RETAIL KITCHEN APPLICATION",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006713",
+      "name": "Farmer's Market Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006699",
+      "name": "Dog License",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "For more information, please see Newburyport Code of Ordinances Ch. 3, Article II, Sec. 3-27.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006706",
+      "name": "License to Occupy Outdoor City Property/Outdoor Dining",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "For more information, please see Newburyport Code of Ordinances Ch. 12, Article I, Sec. 12-1.8 - Sec. 12-1.9.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006711",
+      "name": "Annual Flammable Certificate of Registration  ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "All materials must be stored in accordance with the provisions of Massachusetts General Law, Chapter 148, the Massachusetts Fire Code (527 CMR), and all other applicable laws and regulations, including the terms and conditions of the subject license. Quantities stored may not exceed the maximum quantity specified by the license. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006716",
+      "name": "Parks Reservations",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "Registration and Reservation Hub",
+      "isEnabled": true
+    },
+    {
+      "id": "1006703",
+      "name": "Capital Project Request",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This form is used for City departments to submit capital projects for potential inclusion in the five-year capital improvement plan. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006626",
+      "name": "How to Add or Update Documents to an Existing Permit",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006680",
+      "name": "HOME PORT",
+      "categoryId": 1103,
+      "viewAccess": null,
+      "description": "HOME PORT is offered through the Affordable Housing Trust and offers up to $20,000 for eligible buyers to be put towards purchasing a property in Newburyport.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006715",
+      "name": "Application for Public Art",
+      "categoryId": 1105,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006623",
+      "name": "How to Search for a Location or Record",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006546",
+      "name": "Accessory Structure Letter Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "One-story accessory structures used as sheds, playhouses, and similar uses 200 square feet or less must be reviewed by the Zoning Administrator for compliance with the Zoning Ordinance.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "Approval Not Required ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Applicants who wish to record a plan of land in the Registry of Deeds or the Land Court and who believe that the plan does not require approval under the Subdivision Control Law may apply here for a determination that the subject plan does not require subdivision approval.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006512",
+      "name": "WPA Form 1 - Request for Determination of Applicability",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "The Request for Determination of Applicability (RDA) provides applicants with the option of seeking a determination as to whether the Wetlands Protection Act applies to a proposed site or activity.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006497",
+      "name": "Appeal",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "Any person as defined by MGL Chapter 40A Section 8 that is aggrieved due to his inability to obtain a permit from the Inspector of Buildings under the provisions of this ordinance or by order or decision of the Zoning Administrator shall use this application to file an appeal to the Zoning Board of Appeals. Appeals must be submitted within thirty (30) days from the date of the order or decision that is being appealed.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006652",
+      "name": "ABCC Retail  License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "All alcohol Beverages",
+      "isEnabled": true
+    },
+    {
+      "id": "1006709",
+      "name": "Accessory Dwelling Unit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for to apply for a building permit for an attached, detached, or internal Accessory Dwelling Unit (ADU).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006566",
+      "name": "Annual Food Establishment Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "This application is used for new, existing (renewal), and seasonal food establishments. Please note -- temporary food events has a separate permit application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006669",
+      "name": "Accessory Structure Letter Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please use the Accessory Structure Letter Permit application here: https://newburyportma.portal.opengov.com/categories/1096/record-types/1006546",
+      "isEnabled": true
+    },
+    {
+      "id": "1006672",
+      "name": "Alcohol Beverage NEW  License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "All alcohol Beverages",
+      "isEnabled": true
+    },
+    {
+      "id": "1006551",
+      "name": "Comprehensive Permit",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "This application is used to request a Comprehensive Permit from the Zoning Board of Appeals.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006648",
+      "name": "Yard Sale Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "For more information, please see Newburyport Code of Ordinances Ch. 9, Article I, Sec. 9-2.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Definitive Subdivision",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This application is used to submit a Definitive Subdivision Plan or modification to a previously approved plan to the Planning Board for its approval.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006522",
+      "name": "WPA Form 3 - Notice of Intent",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "Notice of Intent (NOI) applications are required to obtain an Order of Conditions for removal, dredging, filling, or in any way altering of wetland resource areas or their 100-foot buffer zones.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006599",
+      "name": "Water Sheet Application",
+      "categoryId": 1100,
+      "viewAccess": "public",
+      "description": "This application is used to review the placement of moorings, floats, piers, and other docking mechanisms to ensure safe navigation and to designate areas that differentiate the water uses and navigation areas on the waterways within the City of Newburyport. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006620",
+      "name": "How to Save and Resume a Draft of a Record",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006723",
+      "name": "FOOD WASTE DISPOSAL PLAN  NEWBURYPORT ",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006621",
+      "name": "How to Reset Your Password",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006517",
+      "name": "WPA Form 4A - Abbreviated Notice of Resource Area Delineation",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "The Abbreviated Notice of Resource Area Delineation (ANRAD) application provides a procedure for an applicant to confirm the delineation of a jurisdictional Wetland Resource Area or Areas.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006563",
+      "name": "Minor Modification",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This application is used to request minor modifications of Planning Board decisions.  (A new permit application is required for material or significant changes.)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006659",
+      "name": "Alteration of Premises Outdoor Seating serving ALCOHOL  on PRIVATE PROPERTY",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "All alcohol Beverages",
+      "isEnabled": true
+    },
+    {
+      "id": "1006712",
+      "name": "Resiliency Checklist - DRAFT",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "FOR TESTING ONLY",
+      "isEnabled": true
+    },
+    {
+      "id": "1006700",
+      "name": "Bake Sale Notification Form",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for renovations, alterations, partial and interior demolition, and major repairs to existing buildings including commercial, and one and two family buildings.  Please note - Sheet Metal, Signs, Swimming Pools, and Wood Stoves have separate permits applications.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006582",
+      "name": "Building Permit (New Construction) ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for to apply for building permits for construction of new buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006568",
+      "name": "Bed & Breakfast Permit to Operate",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006658",
+      "name": "Alteration of Premises -Serving Alcohol",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "All alcohol Beverages",
+      "isEnabled": true
+    },
+    {
+      "id": "1006564",
+      "name": "Minor Modification (ZBA)",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "This application is used to request minor modifications of Zoning Board of Appeals decisions.  (A new permit application is required for material or significant changes.)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006501",
+      "name": "Preliminary Subdivision",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "A Preliminary Subdivision Plan (PSP) may be submitted by an applicant to the Board for discussion and approval, modification, or disapproval by the Board. The submission of such a PSP enables the applicant, the Board, other municipal agencies, officials, and the public to discuss any problems the proposed subdivision may present before a Definitive Subdivision Plan is prepared.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006622",
+      "name": "Service Fees FAQs",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006600",
+      "name": "WPA Form 7 - Extension Permit",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "The Extension Permit is used to extend the expiration date of an Order of Conditions.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006624",
+      "name": "Email Notification for Applicants",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006581",
+      "name": "Community Preservation Grant Application",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "This application is used to apply to the Community Preservation Committee for grant funding.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006514",
+      "name": "Repetitive Petition",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This application is used to request review of repetitive petitions by the Planning Board and Zoning Board of Appeals pursuant to Section X-I Repetitive Petitions and Withdrawal.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006515",
+      "name": "WPA Form 8A - Certificate of Compliance",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "This application is used to request a Certificate of Compliance for an Order of Conditions from the Newburyport Conservation Commission.  If the project was issued a Superseding Order of Conditions or was the subject of an Adjudicatory Hearing Final Decision, submit your request to the appropriate DEP Regional Office (see https://www.mass.gov/service-details/massdep-regional-offices-by-community).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": "Special Permit for Non-Conformities",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "This application is to request a Special Permit for Non-Conformities from the Zoning Board of Appeals.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006718",
+      "name": "Special Event Application (DRAFT - DO NOT USE)",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "This application is used to request the use of city streets and sidewalks for the purpose of road races, walkathons, bicycle, and other multidisciplined events.  \n\nApplications must be submitted no later than 60 days in advance of requested event date.  The application will be internally reviewed and approved by appropriate Departments before being presented to the City Council for final approval. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006427",
+      "name": "Common Victualler License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "If you are seeking an innholder with alcohol, please apply through the innholder link. Do not click Select if you are trying to renew your license.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006570",
+      "name": "Body Art Estalishment Permit to Operate Facility ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006556",
+      "name": "Certificate of Inspection",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Annual inspections for businesses & assembly buildings  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006619",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for complete demolition of a building and/or accessory building. For partial and interior demolition use the Building Permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006635",
+      "name": "Common Victuallers  License renewals",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Renewal Applicants Only: Apply for any or all of the above listed licenses.  If you are seeking an innholder with alcohol, please apply through the innholder link. Do not click Select if you are trying to renew your license.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006690",
+      "name": "Body Art Practitioner License ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006588",
+      "name": "Special Permit",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "This application is used to request a Special Permit from the Zoning Board of Appeals.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Site Plan Review",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This application is to apply for site plan approval from the Planning Board.  Please see the site plan checklist (https://www.cityofnewburyport.com/planning-board/files/site-plan-review-checklist) for plan requirements.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006485",
+      "name": "Demolition Delay",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "This application is used to apply to the Historical Commission pursuant to the City's Demolition Delay Ordinance.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006625",
+      "name": "Guest Portal Record Access",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006529",
+      "name": "Local Historic District Application",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "This application is used to request a Certificate of Appropriateness, a Certificate of Non-Applicability, or a Certificate of Hardship for projects located within the Fruit Street Historic District.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006590",
+      "name": "Special Permit",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This application is used to apply for Planning Board Special Permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006647",
+      "name": "Block Party",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Application must be submitted no later than 30 days in advance of requested block party date.\nThe application will be internally reviewed by the Office of the City Clerk, the Police Department, the Fire Department, and the Department of Public Services, before being presented to the City Council for final approval. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006492",
+      "name": "Variance",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "This application is used to request a variance from the zoning ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006656",
+      "name": "Entertainment License Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "All alcohol Beverages",
+      "isEnabled": true
+    },
+    {
+      "id": "1006603",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc.  Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006664",
+      "name": "Deep Hole Septic Test Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006469",
+      "name": "Gas Fitter Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006428",
+      "name": "Lodging License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "New Applicants Only: Apply for a Innholder/Lodging House License (includes dormitories, motels or hotels; excludes bed and breakfast and short term rentals, i.e. Airbnb), with or without alcohol.  Do not click Select if you are trying to renew your license.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006701",
+      "name": "Disposal System Construction Permit Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006611",
+      "name": "Conservation Enforcement Request",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "This form is used to request enforcement of the Wetlands Protection Act or the Newburyport Wetlands Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006502",
+      "name": "Special Permit for Non-Conformities",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This application is to request a Special Permit for Non-Conformities from the Planning Board for properties within the Downtown Overlay District (DOD).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006595",
+      "name": "Historical Advisory Report",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "Please use the required Zoning Board Special Permit application (https://newburyportma.viewpointcloud.com/categories/1092/record-types/1006588) or the Planning Board Special Permit application (https://newburyportma.viewpointcloud.com/categories/1093/record-types/1006590) cited in your Zoning Determination to request a Historical Report from the Historical Commission.  Your application will be reviewed by the Historical Commission prior to your public hearing being scheduled.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006539",
+      "name": "Minor Modification",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "This application is used to request minor modifications of Conservation Commission decisions.  Amended permit applications are required for material or significant changes.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006632",
+      "name": "One Day All Alcohol/Wine & Malt License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for one day alcohol license ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006467",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006594",
+      "name": "Demolition Checklist",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "The following checklist and/or documentation are required prior to a Health Department site inspection for sign off of a demolition building permit",
+      "isEnabled": true
+    },
+    {
+      "id": "1006576",
+      "name": "Disposal Works Installer Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "The undersigned hereby applies for a DISPOSAL WORKS INSTALLER’S PERMIT to construct, alter,\ninstall or repair subsurface sewage disposal systems as required by the provisions of the State Environmental\nCode, Title V, and the rules and regulations of the Newburyport Board of Health.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006584",
+      "name": "Roof Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new roof",
+      "isEnabled": true
+    },
+    {
+      "id": "1006686",
+      "name": "Short-Term Rental Enforcement Request",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is used to request enforcement of a Short-Term Rental Unit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006489",
+      "name": "Conservation Letter Permit",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "Letter permits are issued only for projects within the outer 75 feet of the 100 foot buffer zone to wetland resource areas that have no chance of adversely impacting those resource areas (i.e., stream, riverbanks, ocean, coastal dune such as Plum Island Barrier Beach, vegetated wetlands, floodplain, etc.) or the related functions of the buffer zone.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006714",
+      "name": "WPA Emergency Certification",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006683",
+      "name": "Short Term Rental Unit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is used to apply to the Licensing Commission for a Short-Term Rental Unit (STRU).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006391",
+      "name": "Sheet Metal Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when a sheet metal worker is manufacturing, fabricating, assembling, handling, erecting, installing, dismantling, alteration and/or repairing duct work, commercial fans, kitchen hoods and vents, architectural sheet metal and metal roofing.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006644",
+      "name": "Event Organizer Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "EVENT ORGANIZER APPLICATION FOR TEMPORARY FOOD SERVICE PERMIT: This permit is appropriate for organizers who will have multiple vendors participating at specific event.  Each Vendor Application will be included within this record -  \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006651",
+      "name": "Fats, Oils, Grease, Septage and Offal Substances Permit to Collect and Transport ",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "APPLICATION FOR SEPTAGE HAULER PERMIT\n\nPERMIT FEE: $200 APPLICATION FEE (Includes first vehicle)          $50 for each additional vehicle\n\nIn accordance with M.G.L. c.111, Section 31B and 310CMR 15.502 (Title V), the\nundersigned hereby makes application the Board of Health for permission to remove and\ntransport septage and fats, oils & grease (FOG) as set forth below.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006465",
+      "name": "Sign Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006354",
+      "name": "Transient Vendor/Hawker Peddler Permit Application ",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006631",
+      "name": "Solar  Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for renovations, alterations, partial and interior demolition, and major repairs to existing buildings including commercial, and one and two family buildings.  Please note - Sheet Metal, Signs, Swimming Pools, and Wood Stoves have separate permits applications.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006679",
+      "name": "Food Establishment Plan Review",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "New establishments: Operator must complete and summit to the Newburyport Health Department ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006577",
+      "name": "Ice Skating Rink Certification",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "The purpose of regulation 105 CMR 675.000 \"Requirements to Maintain Air Quality in Indoor Skating Rinks (State Sanitary Code, Chapter XI) is to ensure the public health and safety of patrons who use indoor skating rinks by limiting air concentrations of carbon monoxide and nitrogen dioxide produced by fossil fuel resurfacing equipment to acceptable levels. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006350",
+      "name": "Swimming Pool Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Application for permit to install, enlarge, or alter a swimming pool. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006405",
+      "name": "Tent, Awning, & Canopy Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Tent",
+      "isEnabled": true
+    },
+    {
+      "id": "1006704",
+      "name": "MOBILE FOOD KITCHEN APPLICATION FOR PLAN REVIEW (105 CMR 590.011",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006616",
+      "name": "Weatherization Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for weatherization and insulation only including commercial and one- and two-family buildings. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006663",
+      "name": "Mobile Food Establishment/ Kitchen - Application for Permit to Operate ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Mobile Food Vehicle:\nShall mean a food establishment that is located upon a vehicle, or which is pulled by a \nvehicle, where food or beverage is cooked, prepared and served for individual portion \nservice. Mobile Food Vehicle shall mean a Mobile Food Kitchen",
+      "isEnabled": true
+    },
+    {
+      "id": "1006615",
+      "name": "Window and Door Replacement Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for replacement and/or installation of windows and exterior doors.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006692",
+      "name": "Recreational Camps for Children License to Operate ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006490",
+      "name": "Zoning Enforcement Request",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This form is used to request enforcement of the Zoning Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006491",
+      "name": "Zoning Review",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is used to request zoning review.  The Zoning Administrator will review your project and issue a Zoning Determination that identifies which land use permits are needed to proceed.  This application is a prerequisite to filing ZBA or Planning Board applications.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006687",
+      "name": "Tanning Facility Permit ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "APPLICATION FOR TANNING FACILITY PERMIT 105 CMR 123.000\n\nThis permit is issued pursuant to the Massachusetts State Sanitary Code, 105CMR 123.000 and the City of Newburyport Board of Health Rules and Regulations: Chapter 3, Section 3.12.001 and subject to the provisions of the laws of the Commonwealth of Massachusetts relating thereto and the Rules and Regulations related thereto. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006511",
+      "name": "Wood/Pellet Stove Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A building permit is required for the installation of any solid fuel burning appliance.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006643",
+      "name": "Temporary Food Vendor Application - LINKED TO SPECIFIC  EVENT ORGANIZER * EVO #",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006670",
+      "name": "Zoning Review",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please use the Zoning Review application > Zoning Administration: https://newburyportma.portal.opengov.com/categories/1096/record-types/1006491",
+      "isEnabled": true
+    },
+    {
+      "id": "1006695",
+      "name": "Temporary Food Vendor Application - FARMERS MARKET SEASON /EVENT ORGANIZER * EVO #",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006694",
+      "name": "Temporary Food Vendor Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "VENDOR APPLICATION FOR TEMPORARY FOOD SERVICE PERMIT ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006666",
+      "name": "Sale of Tobacco Products Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006650",
+      "name": "Solid Waste & Recycling - Permit to Collect and Transport",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Application to the Health Department for a permit to remove, transport, and dispose of solid waste, and/or recycling material in the City of Newburyport in accordance with Chapter 111, Section 31, of the Massachusetts General Laws as amended and subject to Chapter 5 Section 5.5.002 of the Newburyport Board of Health Rules & Regulations and Section 8-83(g) of the Newburyport City Ordinance",
+      "isEnabled": true
+    },
+    {
+      "id": "1006685",
+      "name": "Swimming Pool Permit to Operate ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application is hereby made for a permit to operate a public, semi-public, wading, or special purpose pool. This pool is to be operated\naccording to the minimum standards for swimming pools set forth in Chapter V of the Sanitary Code of the Commonwealth of Massachusetts\nand the City Newburyport Board of Health Rules and Regulations",
+      "isEnabled": true
+    },
+    {
+      "id": "1006593",
+      "name": "Well - Plan Review & Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application is for new wells and replacement well work. If you have more than one well you intend to work on, this form must be filled out for EACH one.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1101",
+      "name": "Frequently Asked Questions",
+      "isEnabled": 1
+    },
+    {
+      "id": "1103",
+      "name": "Affordable Housing Trust",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"text-align:center;\"><span style=\"color: rgb(26, 188, 156);\"><strong><u><span style=\"font-size: 18px;\"><em>HOW TO SCHEDULE AN INSPECTION</em></span></u></strong></span></p><div><strong>New Construction Building, Building Alterations, Swimming Pools, Signs, Wood Stove, Tent, Roof, Weatherization, Door &amp; Windows, Solar and Sheet Metal Inspections:&nbsp;</strong></div><div><br></div><div>Call the Building Department (978-465-4405) &nbsp;<span style=\"color: rgb(184, 49, 4"
+    },
+    {
+      "id": "1089",
+      "name": "City Clerk",
+      "isEnabled": 1
+    },
+    {
+      "id": "1098",
+      "name": "Community Preservation Committee",
+      "isEnabled": 1,
+      "content": "<p>For more information, please visit the <a href=\"https://www.cityofnewburyport.com/community-preservation-committee\" rel=\"noopener noreferrer\" target=\"_blank\">Newburyport Community Preservation Committee webpage</a> or contact the CPC Administrator, Katelyn Sullivan at kesullivan@newburyportma.gov or (978) 465-4400.</p><!---->"
+    },
+    {
+      "id": "1094",
+      "name": "Conservation Commission",
+      "isEnabled": 1,
+      "content": "<p>For more information, please visit the <a href=\"https://www.cityofnewburyport.com/conservation-commission\" rel=\"noopener noreferrer\" target=\"_blank\">Newburyport Conservation Commission&#39;s webpage</a> or contact the Conservation Administrator at (978) 465-4400 or <a data-fr-linked=\"true\" href=\"mailto:conservation@newburyportma.gov\" rel=\"noopener noreferrer noopener noreferrer\" target=\"_blank\">conservation@newburyportma.gov</a>.</p><p>Requests for Amendments to Orders of Conditions and Exten"
+    },
+    {
+      "id": "1091",
+      "name": "Finance Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1097",
+      "name": "Fruit Street Historic District Commission",
+      "isEnabled": 1,
+      "content": "<div>Please visit the <a href=\"https://www.cityofnewburyport.com/fruit-street-historic-district-commission\" rel=\"noopener noreferrer\" target=\"_blank\">Local Historic District Commission&#39;s webpage</a> for more information.</div>"
+    },
+    {
+      "id": "1100",
+      "name": "Harbor Commission",
+      "isEnabled": 1
+    },
+    {
+      "id": "1073",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": "<p>For more information, please visit the Newburyport Health Department webpage by <a href=\"https://www.cityofnewburyport.com/health-department/pages/applicationspermits\" rel=\"noopener noreferrer\" target=\"_blank\">clicking here</a>, or call our office at (978) 465-4410.</p>"
+    },
+    {
+      "id": "1095",
+      "name": "Historical Commission",
+      "isEnabled": 1,
+      "content": "<p>For more information, please visit the <a href=\"https://www.cityofnewburyport.com/historical-commission\" rel=\"noopener noreferrer\" target=\"_blank\">Newburyport Historical Commission&#39;s webpage</a> or call Planning Department staff at (978) 465-4400.</p><div>Requests for minor modifications of approved Demolition Plans can be emailed to <a href=\"mailto:planning@newburyportma.gov\" rel=\"noopener noreferrer\" target=\"_blank\">planning@newburyportma.gov</a>.</div>"
+    },
+    {
+      "id": "1080",
+      "name": "Licensing Commission ",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1090",
+      "name": "Parks",
+      "isEnabled": 1
+    },
+    {
+      "id": "1093",
+      "name": "Planning Board",
+      "isEnabled": 1,
+      "content": "<p>See the <a href=\"https://www.cityofnewburyport.com/planning-board/files/subdivision-rules-and-regulations\" rel=\"noopener noreferrer\" target=\"_blank\">Rules and Regulations Governing the Subdivision of Land</a> and the City&#39;s <a href=\"https://www.google.com/url?sa=t&rct=j&q=&esrc=s&source=web&cd=&cad=rja&uact=8&ved=2ahUKEwiCyPTGx_-AAxU5nWoFHUiHCKkQFnoECBgQAQ&url=https%3A%2F%2Fwww.cityofnewburyport.com%2Fplanning-development%2Fpages%2Fzoning-ordinance&usg=AOvVaw1zG5TARmmdjsUntzxhQNKW&opi=899"
+    },
+    {
+      "id": "1105",
+      "name": "Public Art Committee",
+      "isEnabled": 1
+    },
+    {
+      "id": "1104",
+      "name": "Recycling, Energy & Sustainability",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1096",
+      "name": "Zoning Administration",
+      "isEnabled": 1,
+      "content": "<p>For more information, please visit the <a href=\"https://www.cityofnewburyport.com/planning-development/zoning-administration-and-enforcement\" rel=\"noopener noreferrer\" target=\"_blank\">Newburyport Zoning Administration webpage</a> or contact the Zoning Administrator, Jennifer Blanchet, at jblanchet@newburyportma.gov or (978) 465-4400.</p>"
+    },
+    {
+      "id": "1092",
+      "name": "Zoning Board of Appeals",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(184, 49, 47);\">IMPORTANT - <a href=\"https://newburyportma.viewpointcloud.com/categories/1096/record-types/1006491\" rel=\"noopener noreferrer\" target=\"_blank\">Zoning Review</a> is a prerequisite of all Special Permits, Special Permits for Non-Conformities, and Variances. Please complete the application prior to applying to the Planning Board, Zoning Board of Appeals, or Historical Commission.<br></span></p><div>If you have any questions, please call Katelyn Sullivan at ("
+    },
+    {
+      "id": "1084",
+      "name": "Test Portal",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 18px;\"><strong><span style=\"font-size: 18px;\"><strong>DO NOT USE. &nbsp;</strong></span>The applications listed below are used for staff testing purposes only. &nbsp;<br></strong></span></p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:56.509Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

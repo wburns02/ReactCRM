@@ -1,0 +1,162 @@
+{
+  "jurisdiction": "Seward",
+  "state": "AK",
+  "tenant": "sewardak",
+  "portalUrl": "https://sewardak.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6434",
+      "name": "Interment Reservation",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is for reserving an interment location, and should be for an individual who is still living.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Conditional Use Permit Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Preliminary Plat Review Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Sign Permit Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Variance Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Zoning Amendment Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Sign Variance Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Interment Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A permit is required for interment or disinterment from any cemetery, regardless of ownership, within the City of Seward. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Annual Business License Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Operating year-round",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Commercial Building Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Application for commercial building permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Commercial Fire Suppression/Alarm System Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Application for fire suppression or alarm system permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Residential Building Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Application for residential building permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Seasonal Business License Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Operating May through September",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Fire Inspection - AMCO",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Inspection Fee for Liquor/Marijuana License Renewal",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Demolition Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Application for demolition permit. Must show proof of water/sewer, electric, TelAlaska/Fastwyre & GCI have signed off. \n\nNo Fee. Cursory inspection when completed.\n\nCommercial DEMO requires further information. \n\nThis permit does NOT authorize the use of explosives for demolition. A separate permit must be issued for such use, per SCC §9.15.310.\n\nPlease contact the Environmental Protection Agency to ensure all state requirements are being met with regards to the handling and disposal of hazardous materials such as asbestos. You can call the EPA with your questions or concerns at 907-271-5083. For additional information about asbestos you may also log into: www.cicacenter.org/asbestos\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Explosive Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Application for explosive permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Temporary Membrane Structure Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Application for Membrane Structure Temporary Permit. Approval needed from Community Development, Public Works, electric Department, Fire & Building Department.\n\nPermits are valid for a maximum of 180 days.\n\nNo Fee.\n\nFire Marshal will inspect once erected.\n\nCaveat: Under 400 sqft does not require a permit",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1079",
+      "name": "City Clerk's Office",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 24px; color: rgb(84, 172, 210);\">City of Seward Business Licenses</span></p><p>Thank you for your interest in doing business in Seward!</p><p>Seward City Code requires that all businesses operating within city limits obtain a city business license. The City Clerk&#39;s Office will process your business license application as quickly as possible. Please call us at (907) 224-4046 or stop by City Hall and we&#39;ll be more than happy to help you!</p><p>The following is re"
+    },
+    {
+      "id": "1076",
+      "name": "Community Development",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 24px; color: rgb(41, 105, 176);\">CITY OF SEWARD: &nbsp;COMMUNITY DEVELOPMENT</span></p><p><span style=\"color: rgb(0, 0, 0);\">All of the major permits and applications processed by the Community Development department are currently online. If you need a permit that is not listed below, please contact the Planner at 907-224-4020 or <a href=\"mailto:planning@cityofseward.net\" rel=\"noopener noreferrer\" target=\"_blank\">planning@cityofseward.net</a>&nbsp;</span></p><p>*Approv"
+    },
+    {
+      "id": "1074",
+      "name": "Fire/Building Department",
+      "isEnabled": 1,
+      "content": "<p data-uw-styling-context=\"true\" style=\"box-sizing: border-box; margin: 0px 0px 1em; color: rgb(68, 68, 68); font-family: Roboto, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: i"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:23.892Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

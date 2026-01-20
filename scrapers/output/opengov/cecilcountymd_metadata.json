@@ -1,0 +1,480 @@
+{
+  "jurisdiction": "Cecil County",
+  "state": "MD",
+  "tenant": "cecilcountymd",
+  "portalUrl": "https://cecilcountymd.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6484",
+      "name": "County Master Plumber License Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All master plumbers doing work in Cecil County must be licensed by the County in accordance with the provisions of the law with respect thereto as set forth in Title 12, Plumbers, of the Business Occupations and Professions Article of the Annotated Code of Maryland. Prior to submitting an application for a County license, the applicant must present valid proof of his master plumber's certificate as issued by the Maryland State Board of Plumbing, and the applicant must also furnish copies of liability insurance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Electrical Inspection Agency Application Form",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Each Electrical Inspection Agency seeking approval to engage in the business of inspection of electrical construction in Cecil County. \n\nThe term of any agency will be for a period of one (1) year, renewable annually upon review of the Board of Electrical Examiners and at the discretion and appointment by Cecil County.\n\nEach Inspection Agency must be an entity in good standing with the State of Maryland and Cecil County.\n\nEach Inspection Agency must be familiar with Chapter 191 of the Cecil County Code and any addendums thereto.",
+      "isEnabled": true
+    },
+    {
+      "id": "6541",
+      "name": "Manufactured Home Park License",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Any plot of land which may be owned by a natural person, corporation, partnership, association, joint-stock company, society or any other entity of any kind, upon which space is provided and/or utility service supplied for two or more units.\nOWNER\nAny natural person, corporation, partnership, association, joint-stock company, society or any other entity of any kind.\n§ 244-2\nLicense required.\nThe owner of every manufactured home park in Cecil County shall obtain a license in order to operate such park in the County. The license shall be obtained from the Department of Permits and Inspections.",
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": "ROUTE 40 REVITALIZATION GRANT PROGRAM Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Customer Service Request",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Request A Service - Report A Problem - Direct A Question\n\nThis customer service portal offers residents of Cecil County the ability to request a service, report a problem or direct a question to the appropriate department.\n\nIf this is an EMERGENCY, Dial 911",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Development - Standard Stormwater Plans",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Bay Restoration Fund",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Addition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Addition(s) to Dwellings, Interior Renovations, Basement, Roof Mounted Solar, Masonry Chimneys, Breezways, Attached Garage, In-Law Suites, Lean-to, Carports, Seasonal Room, Exterior Renovations, Etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Consultation Meeting Request",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "Coin Operated Vendor Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Cecil County Code Chapter 136 : Amusement and Vending Machines of the Code of Cecil County. 136-1 Every person, firm, association, or corporation keeping, maintaining or operating for Public entertainment or amusement within Cecil County any pinball machine (console or other), electric game, shuffleboard, mechanical bowling game, jukebox or other mechanical music device, or any similar device whose operation requires the insertion of a coin or token, shall obtain a license from the County for each device. The fee for the license shall be set by resolution of the Council.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Request For Information - LUDS",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "The Department of Land Use and Development Services Request For Information (RFI) form is for approved permits, plans, or other completed projects only.  Request for records or documents for projects under review, enforcement actions, correspondence or other records determined not to meet the RFI criteria must be submitted as a Public Information Act (PIA). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Development - Modified Standard Stormwater Plans",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Development - Pre-Concept Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Development - Concept Stormwater Plans",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Agreement for Landscaping/Afforestation/Reforestation",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This application manages the following:\n\n1) Landscape Agreements for Site Plans, Subdivisions, or Critical Area projects.\n2) Declaration of Restrictions for Forest Conservation Plans, or Critical Area projects.\n3) Buffer Management Plans for Critical Area projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Site Evaluation Application (fka Percolation Test Application)",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Agricultural Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Agricultural buildings intended for the purpose to house farm implements, hay, grain, poultry, livestock, silos, manure pit, or other horticulture products. This structure shall not be a place of human habitation or a place used by the public. If intended use is other than this scope of work use the Commercial Application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Change of Use, Change of Occupant or a Tenant Fit Out Of Existing Building",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Septic Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Well Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Backyard Chicken License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "License to have Backyard Chickens on developed properties over 20,000 square feet.  Not required if parcel is 1 acre or greater.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Commercial, Industrial, Construction/Office Trailer/Event Tents/Modular Classroom Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Swimming Pools must be submitted on Swimming Pool Application. If multiple use building each tenant is required to acquire a separate permit & occupancy certificate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Development - Preliminary Stormwater Plans",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Development - Final Stormwater Plans",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Deck, Porch, Gazebo, Pergola, Pavillion, Etc Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Residential Accessory Structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Well/Septic Abandonment Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Water & Sewer Planning Variance/Deviance Request",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Tree Removal Authorization",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Authorization to remove a dead, diseased, dying or hazard tree as needed within the Critical Area or a Forest Conservation Area.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Multiple structures being demolished on same property require separate demolition permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Development - Road & Storm Drain Plans",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Development - Sanitary Sewer Plans",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Traffic Impact Study",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permits and Inspections are required for all Electrical Line & Low Voltage etc. in accordance to Chapter 191 including but not limited to all phone, cabling, tv, audio, signs, heating, re-introduction of service, and change of use, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6533",
+      "name": "Septage Hauler Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Footers/Foundation Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Forest Conservation Plan",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "For plans requiring new Forest Stand Delineation submissions. Projects with existing submissions to the Division of Planning & Zoning should not be resubmitted here.",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Development - Initial Stormwater Plans",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Permit - Grading & Access",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "HVACR Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "New Installations & Replacements require Permits & Inspections. A Maryland Statewide HVACR License is required for the installation of Heating/Ventilation/Air Conditioning/Forced Air /Hydronic/Refrigeration. License must be active/insured on the Maryland Statewide Website(s).",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Minor Subdivision & Resubdivision",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Includes Minor Subdivision, Add-On Subdivisions, Resubdivision (Modification of a Major Subdivision Record Plat), and Ag-Transfers.",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Purchase of Development Rights (PDR) Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "In-Water Projects",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Docks, Piers, Revetment, Rip Rap, Bulkheads, Boat Slips.",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Permit - Wastewater (Commercial)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Permit - Wastewater (Residential)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Salvage Yard License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "License to Operate a Salvage Yard in Cecil County.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Low Voltage Electrical County License Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All electrical work performed in the County, in about or in connection with any building must conform with Chapter 191 of the County Code and must be installed by those that are licensed in Cecil County as a Limited electrician depending on the installation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Permit - Access Only",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Site Plan (Major/Minor)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "For projects requiring new Commercial/Industrial Site Plan submissions. Projects with existing submissions to the Division of Planning & Zoning should not be resubmitted here.",
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Solar Decommissioning Plans & Agreement",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This application manages the review and approval of Solar Decommissioning Plans, and the creation of Decommissioning Plan Agreements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Mobile Home Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Mobile, Manufactured or RV Home A dwelling unit, including a mobile home, but excluding a camping trailer, travel trailer, truck camper and motor home, which is a movable or portable unit designed and constructed to be towed on its own frame and wheels or which is attached for transporting and designed to be connected to utilities for year-round occupancy.",
+      "isEnabled": true
+    },
+    {
+      "id": "6353",
+      "name": "Plumbing/Gas Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "New Installations & Replacements require Permits & Inspections. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6407",
+      "name": "Hawker/Peddler License",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Apply for a Hawker Peddler license here. Typical hawker/peddlers include food trucks, concession stands.\nPEDDLER: Any person, either principal or agent, who in/on any public street, road or highway or public place or from any vacant property, whether publicly or privately owned, or by going from place to place or house to house, delivers or distributes advertising material, literature, pamphlets, samples or handbills or sells or offers for sale, barter or exchange any goods, wares, merchandise, service or any other article or thing whatsoever, either in his possession or not in his possession, either for immediate or future delivery.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Pool Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Swimming Pools, Hot Tubs, Spas",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Residential Accessory Structures Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Detached Garage, Detached Structure w/ Living Space, Pole Barn, Shed, Storage Building, Porch, Slab, Carport, Fence over 7ft., Lean-to, Gazebo, Pergola, Pool House, Retaining Wall, Ground Mounted Solar, Pavilion, Etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Retaining Wall Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use for commercial or residential as single retaining wall or multiple retaining walls only .",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Signs, Tanks, Communication Towers Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Tower Permits: BUILDING PERMITS ARE NOT REQUIRED IF REPLACING OR INSTALLING NEW ANTENNA(S)/DISH(S) ON EXISTING TOWERS.\nBUILDING PERMITS ARE REQUIRED IF INSTALLING NEW TOWER, REPLACING A TOWER, EXTENDING OR ALTERATING TOWER.\nBUILDING PERMITS ARE REQUIRED FOR EQUIPMENT PADS 200 SQ. FT. AND LARGER.\nELECTRICAL PERMITS ARE NOT REQUIRED IF ELECTRICAL INSTALLATION IS CONTAINED TO THE TOWER\nELECTRICAL PERMITS ARE REQUIRED FOR ALL OTHER ELECTRICAL INSTALLATIONS INCLUDING LOW VOLTAGE.\nPLUMBING PERMITS ARE REQUIRED FOR GAS INSTALLATIONS.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Single Family Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Single Family, Townhome, Modular, Multifamily, Apartments, Condo, Duplex.\n*Sprinklers mandatory all new dwellings.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1082",
+      "name": "Economic Development",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1080",
+      "name": "Constituent Services",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1081",
+      "name": "Division of Development Plans Review",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 14px;\">The Division of Development Plans Review is a division of the Department of Land Use and Development Services. The Division is responsible for the review and approval of development projects within Cecil County.</span></span></p><p><span style=\"font-size: 14px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">All applications and permits submitted through Division of Develo"
+    },
+    {
+      "id": "1073",
+      "name": "Division of Water & Sewer Planning",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 14px;\">The Division of Water &amp; Sewer Planning is a division of the Department of Land Use and Development Services. <span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 14px;\">The Division is respon<span style=\"color: rgb(0, 0, 0);\">sible for effectuating the goals and objectives of the Cecil County Comprehensive Plan and achieve the recommendations of the Plan&#39;s water resources an"
+    },
+    {
+      "id": "1071",
+      "name": "Division of Permits & Inspections",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-top:0in;margin-right:0in;margin-bottom:7.5pt;margin-left:0in;  background:white;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">The Office of Permits and Inspections is responsible for the administration and enforcement of building codes in Cecil County. The purpose of the codes is to provide minimum requirements to safeguard life or limb, health and public welfare. The codes shall apply to the construction, alteration, movement, enlargement, replacement, repair, equipm"
+    },
+    {
+      "id": "1079",
+      "name": "Division of Planning & Zoning",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"color: rgb(41, 105, 176);\">Division of Planning &amp; Zoning</span></strong></p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:39.259Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

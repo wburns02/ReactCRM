@@ -1,0 +1,149 @@
+{
+  "jurisdiction": "Canton",
+  "state": "MA",
+  "tenant": "cantonma",
+  "portalUrl": "https://cantonma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6523",
+      "name": "Stormwater Management Permit",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Animal Keeping License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Licensing Period is from January 1st - December 31st",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Building Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Drainage Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Electrical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Gas Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Sewer Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Recreational Camp License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Licensing Period is from January 1st - December 31st",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Trench Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Food Establishment License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Permit options for Bakery, Food Service, Mobile, Out of Town Catering, Retail Food, Temporary 1 day Food Event, Temporary Food Event, Farmers Market Vendor.  Licensing Period is from January 1st - December 31st",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Plumbing Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Water Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "General Health License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": " Permit option for Body Art, Disposal Works Installers, Haul Offal, Funeral Home, Health Clubs, rDNA, Skating Rinks, or Tanning establishments    Licensing Period is from January 1st - December 31st       ",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Hazardous Materials License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Licensing Period is from February 1st - January 31st ",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Public Pool License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Licensing Period is until September.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1085",
+      "name": "Board of Health",
+      "isEnabled": 1,
+      "content": "<h1><div data-widgetcontainerid=\"2caba5f0-db68-428e-83f2-679736656bf6\"><div data-widgetcontainerid=\"27e4ec7e-20f1-40c1-88f5-9b7364c7cb39\"><div data-elementqueryclasses='{\"wide-narrow\":\"min-width:25em\"}'><span style=\"font-size: 18px; color: rgb(184, 49, 47); font-family: Arial, Helvetica, sans-serif;\">AT THE CURRENT TIME WE ARE NOT ACCEPTING ON-LINE PAYMENTS</span><table style=\"width: 100%; margin-left: calc(0%);\"><tbody><tr><td style=\"width: 100.0000%;\"><span style=\"font-size: 18px;\"><span style"
+    },
+    {
+      "id": "1083",
+      "name": "Building",
+      "isEnabled": 1,
+      "content": "<p><a href=\"https://town.canton.ma.us/186/Building-Division\" rel=\"noopener noreferrer\" target=\"_blank\"></a></p><h1 style=\"text-align: center;\"><!--[if !vml]--> <!--[endif]--><span style=\"color: rgb(184, 49, 47); font-size: 24px; font-family: Arial, Helvetica, sans-serif;\">AT THE CURRENT TIME WE ARE NOT ACCEPTING ON-LINE PAYMENTS</span></h1><p><span style=\"color: rgb(0, 0, 0); font-size: 18px; font-family: Arial, Helvetica, sans-serif;\"><strong>The Canton Building Department is a public safety of"
+    },
+    {
+      "id": "1091",
+      "name": "Conservation",
+      "isEnabled": 1,
+      "content": "<p style=\"mso-outline-level:1;\"><strong><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px; color: rgb(184, 49, 47);\">AT THE CURRENT TIME WE ARE NOT ACCEPTING ON-LINE PAYMENTS</span></strong></p><p style=\"mso-outline-level:1;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><strong><a href=\"https://www.town.canton.ma.us/479/Stormwater-Permitting\" target=\"_blank\"><span style=\"font-size: 18px;\">Stormwater Bylaw, Regulations, and Forms</span></a></strong></span></p><p st"
+    },
+    {
+      "id": "1084",
+      "name": "DPW",
+      "isEnabled": 1,
+      "content": "<h1><div data-widgetcontainerid=\"5921d282-b21f-4aa4-9a77-a3427f990896\"><div data-widgetcontainerid=\"7934cdb7-35cf-49e7-b897-fb3cbef707ae\"><div data-elementqueryclasses='{\"wide-narrow\":\"min-width:25em\"}'><p><strong><span style=\"font-size: 18px; font-family: Arial, Helvetica, sans-serif; color: rgb(184, 49, 47);\">AT THE CURRENT TIME WE ARE NOT ACCEPTING ON-LINE PAYMENTS</span></strong></p><p><strong><span style=\"font-size: 24px; font-family: Arial, Helvetica, sans-serif;\">The Engineering Division "
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:26.985Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

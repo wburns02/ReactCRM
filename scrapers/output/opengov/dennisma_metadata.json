@@ -1,0 +1,834 @@
+{
+  "jurisdiction": "Dennis",
+  "state": "MA",
+  "tenant": "dennisma",
+  "portalUrl": "https://dennisma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006544",
+      "name": "Business Certificates",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Please use this application to apply for a New or Renewed DBA Certificate. All fictitious name certificates for businesses (commonly known as \"doing business as\" or \"DBA\" certificates) are filed with the Town Clerk. Massachusetts requires any person or business entity who is conducting business under an alias (i.e. any other name than their own), including corporations, to file a business certificate in the community where their business is principally headquartered. The fee to file for a Business Certificate is $30. Additionally, a $50 Zoning Review may also be charged if the review is required. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006709",
+      "name": "Yard Sale",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Yard Sale Permit. These permits are limited to one per address, per year, and can be used to cover two consecutive days. Rain dates may also be noted. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006678",
+      "name": "Proclamations, Letters of Support or Appreciation ",
+      "categoryId": 1104,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006607",
+      "name": "Notice of Intent (NOI)",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006632",
+      "name": "PB - Special Permit by Planning Board",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Special Permit from the Planning Board is required for projects specified in the Zoning Bylaws identifying the Planning Board as the Special Permit Granting Authority (SPGA) such as under § 4 - Special Regulations which includes § 4.2 -Multiple Dwellings and § 4.9 – Affordable Housing among others; § 7 - Communication Facilities; § 8 – Dennisport Village Center; § 9 - West Dennis Village Zoning; § 10 – Hotel Resorts District; § 11 – Wind Energy; § 12 – Seasonal Resort Community District; § 13 – Medical Marijuana; and Changes of Use. You will need a Stamped Site Plan showing existing and proposed conditions which includes a zoning summary table, all relevant dimensions and the property setbacks, topography, and abutting property owners. You will also need stamped existing and proposed floor plans and elevations. You should provide a detailed narrative describing the project and how the proposal meets the Intent of the zoning district, the Special Permit Review Criteria (§ 1.4.1.2); the Design Objectives (§ 4.1.2.5); and the Project Approval Requirements of the relevant section of the zoning bylaw.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006556",
+      "name": "Open Burning Permit",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Open Burning is allowed January 15th to May 1st of each year. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006716",
+      "name": "Rental Occupancy Certificate",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Application for a Short-Term or Long-Term Rental Occupancy Certificate for a residential dwelling, or any bedroom within a dwelling, rented out using advance reservations, for a fee",
+      "isEnabled": true
+    },
+    {
+      "id": "1006763",
+      "name": "Special Event License ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Special Event Licenses are required for events that are advertised and/or open to the public and will take place on Town property. \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006491",
+      "name": "Express Building ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Roofing, Siding, Windows, Exterior Doors,  Insulation/Weatherization",
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Residential Building Single & Two Family",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please use this application to apply for all One and Two Family Homes. This application may be used for  new construction, additions, demolition, alterations, decks, foundation only, accessory dwelling units,  trailer, retaining wall, chimney. A separate permit is required for each structure.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006519",
+      "name": "Disposal Works Construction",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for a permit for a New or Upgrade of a septic system or Repair to a system.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006597",
+      "name": "One Day Entertainment License",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "One-day licenses are required for events that are advertised and/or open to the public. \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006831",
+      "name": "26F Certification of Compliance (Smoke & CO) Resale",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "This permit application is used upon sale of your home. It is the responsibility of the seller to acquire a Certificate of Completion from the Dennis Fire Department. Appointments are scheduled Monday though Thursday, excluding holidays.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006610",
+      "name": "Request for Determination of Applicability (RDA)",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006821",
+      "name": "PB - Planning Board Special Permit Modification",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Special Permit from the Planning Board is required for projects specified in the Zoning Bylaws identifying the Planning Board as the Special Permit Granting Authority (SPGA) such as under § 4 - Special Regulations which includes § 4.2 -Multiple Dwellings and § 4.9 – Affordable Housing among others; § 7 - Communication Facilities; § 8 – Dennisport Village Center; § 9 - West Dennis Village Zoning; § 10 – Hotel Resorts District; § 11 – Wind Energy; § 12 – Seasonal Resort Community District; § 13 – Medical Marijuana; and Changes of Use. You will need a Stamped Site Plan showing existing and proposed conditions which includes a zoning summary table, all relevant dimensions and the property setbacks, topography, and abutting property owners. You will also need stamped existing and proposed floor plans and elevations. You should provide a detailed narrative describing the project and how the proposal meets the Intent of the zoning district, the Special Permit Review Criteria (§ 1.4.1.2); the Design Objectives (§ 4.1.2.5); and the Project Approval Requirements of the relevant section of the zoning bylaw.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006747",
+      "name": "Historic Application",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "\nAre You Located in a Historic District?\nBefore submitting a Historic Application, please verify your property’s location using: \nDennis Historic District Map (https://www.mapsonline.net/dennisma/historic.html)\n\nApplication Guidelines:\nPlease use the appropriate application based on your project type and location:\n\nOld King's Highway Regional Historic District or South Dennis Historic District:\nUse this application for any project requiring approval within these designated historic areas.\n\nDemolition of Buildings/Structures 75 Years or Older (Demolition Delay):\nUse the Demolition Delay application. This will be reviewed by the Dennis Historic Commission.\nFor questions regarding structures 75 years or older within a historic district, please contact:\nDiane Rochelle – whiskeyboo@comcast.net\n\nPlease Note:\nSeparate applications are required for each of the following project types:\n\nDemolition\n\nDemolition Delay\n\nNew Construction\n\nAdditions\n\nAccessory Structures\n\nSolar Installations\n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006807",
+      "name": "Demo-Delay for Historic Commission",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "\nAre You Located in a Historic District?\nBefore submitting a Historic Application, please verify your property’s location using: \nDennis Historic District Map (https://www.mapsonline.net/dennisma/historic.html)\n\nApplication Guidelines:\n\nDemolition of Buildings/Structures 75 Years or Older (Demolition Delay):\nUse the Demolition Delay application. This will be reviewed by the Dennis Historic Commission.\nFor questions regarding structures 75 years or older within a Historic District, please contact: \n\nDiane Rochelle – whiskeyboo@comcast.net\n\n\n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006804",
+      "name": "PB - Public Shade Tree on Scenic Road - Tree Warden & PB",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "In accordance with MGL Chapter 87, §3 (Cutting of Public Shade Trees), The Tree Warden shall have the primary care and control of all public shade trees, shrubs and growths in the town. This includes public shade trees in the Right of Way of streets, except those within a state highway. The Tree Warden shall also have the primary care and control of town trees if so requested in writing by a town board or department with authority over that Town land. In accordance with MGL Chapter 40, §15C (Scenic Road Designation) and under the provisions of MGL Chapter 87, §3 (Cutting of Public Shade Trees), the Planning Board shall hold a joint public hearing with the Tree Warden, for the removal of a public shade tree on a designated Scenic Road.  The Tree Warden shall enforce all the provisions of law for the care and preservation of such trees, shrubs and growths.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006793",
+      "name": "Amended Order of Conditions Request",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006835",
+      "name": "REINSPECTION - 26F Certification of Compliance (Smoke & CO) Resale",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "This permit application is used only if your property did not pass the initial inspection for the sale of your home. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006588",
+      "name": "One Day Liquor License",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "One-day licenses are required for events that are advertised and/or open to the public. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006521",
+      "name": "Title 5 Inspection Report",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Submission of a Title 5 Inspection Report from a State licensed inspector.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006729",
+      "name": " Building Commercial",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "\nPlease use this application for all Commercial Buildings and Commercial Accessory Structures. Each unit will require a separate application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006516",
+      "name": "Soil Test",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Submission of a  complete and signed Trench Permit application to apply for a Soil Test.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006812",
+      "name": "Certificate of Inspection (Establishments that serve Alcoholic Beverages)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application is required for businesses and establishments that serve Alcohol.\n\nThese establishments, whether open year-round or seasonally, are required to undergo an annual inspection by the Building Department. \n\nThis inspection is in addition to any health department applications you may have submitted.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006757",
+      "name": "Annual Storage  of Flammable/Combustible Permit ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006596",
+      "name": "Annual Sunday Entertainment License",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This section is for Sunday Entertainment at a specific venue on a regular basis. For one-day or event specific licenses, go to One Day Entertainment Licenses.\n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006794",
+      "name": "Extension Permit Request",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006803",
+      "name": "PB - Site Plan Review by Planning Board ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Site Plan Review from the Planning Board is required for projects specified in the Zoning Bylaws Section 4.1.2, which applies to the construction of new buildings and changes of use or expansions of existing buildings which create a demand for a total of five or more parking spaces pursuant to Section 3.1 of the Dennis Zoning Bylaw. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006611",
+      "name": "Request for Certificate of Compliance ",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006762",
+      "name": "Annual Weekday Entertainment License",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This section is for Entertainment at a specific venue on a regular basis. For one day or event specific licenses, please apply for a One Day Entertainment License.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006711",
+      "name": "Board of Health Variance",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Submission of a complete variance application for an In-House OR Public Board of Health meeting request.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006750",
+      "name": "Hot Works Permit ",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Permit for Hotwork, cutting and/or welding; this application is for both annual permitting and also temporary instances.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006487",
+      "name": "Electrical  ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "\nPlease use this application for all electrical work for residential single and two family dwellings, commercial uses/buildings/structures or any electrical work associated with solar installations.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006827",
+      "name": " Electrical Solar Permit Only",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "\nPlease use this application for all solar electrical work for residential single and two family dwellings, commercial uses/buildings/structures or any electrical work associated with solar installations.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006717",
+      "name": "Modification of Previously Approved Variance Plan",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Submission of modified floor plans and/or septic plans for a previously approved variance application to obtain approval of the plans from the Board of Health.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006746",
+      "name": "Junk Dealer",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "The Junk Dealer's License is for those looking to be collectors of junk, dealers in junk, or keepers of shops for the purchase, sale, or barter of junk, old metals, or second-hand articles",
+      "isEnabled": true
+    },
+    {
+      "id": "1006798",
+      "name": "LP Gas Installation and Storage Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This permit application can be used for propane storage, above ground and underground.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006613",
+      "name": "Abbreviated Notice of Resource Area Delineation - ANRAD",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006769",
+      "name": "ZBA - Comprehensive Permit 40B",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006713",
+      "name": "Document Reissuance",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006612",
+      "name": "Emergency Certification ",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006591",
+      "name": "Annual Alcohol License RENEWAL - this application is for existing licensees renewing for 2026 only ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This application is only for existing license holders who would like to renew their license for 2026.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006751",
+      "name": "Oil Burner Installation Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Application for Permit, and Certificate of Completion for the installation or Alteration of Fuel Oil Burning Equipment.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006734",
+      "name": "Request for Reduction of Testing and Service Requirements",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Submission of a request to be heard before the Board of Health to obtain approval for a reduction in testing & service requirements for a wastewater treatment system.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006739",
+      "name": "Solar/Alternative Energy",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please use this application for all Building Permits associated with Single and Two Family and Commercial Solar projects and Wind Generators, Mills or Communication Towers.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006488",
+      "name": "Plumbing ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please use this application for all plumbing work associated with commercial buildings and structures or with single and two family residential dwellings.\n\nThis permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006720",
+      "name": "Nitrogen Aggregation Plan Approval",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Submission of a request to be heard before the Board of Health to obtain approval for a Nitrogen Aggregation Plan.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006833",
+      "name": "Repair/Shutdown - Sprinkler System",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Temporary sprinkler shutdowns for maintenance, alteration, or repair requires a sprinkler shutdown permit. Depending on the duration of the shutdown, a fire watch may be required in accordance with MGL 148 Ch.27A. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006830",
+      "name": "Annual Entertainment License RENEWAL - this application is for existing licensees renewing for 2026 only ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This application is only for existing Annual Entertainment license holders who would like to renew their license for 2026.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006795",
+      "name": "PB - Definitive Subdivision Review",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006766",
+      "name": "ZBA - Appeal Of Building Commissioner to ZBA",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Appeals of the Building Commissioners Decisions are to be filed withing the 20 Day Appeal period",
+      "isEnabled": true
+    },
+    {
+      "id": "1006599",
+      "name": "Livery / Taxi License",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006834",
+      "name": "Repair/Shutdown- Fire Alarm System",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Temporary fire alarm shutdowns for maintenance, alteration, or repair requires a fire alarm shutdown permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006718",
+      "name": "Request to Allow Water Discharge from Property",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Submission of a request to be heard before the Board of Health to obtain approval  to allow illicit discharge of water from property.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006486",
+      "name": "Gas ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please use this application for all work performed on gas piping and equipment associated with single and two family dwellings and commercial buildings and structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "Zoning Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please use this application when seeking Zoning related determinations for: Single and Two Family Dwellings, including New Buildings and Structures, Additions to Existing Buildings, Commercial Buildings including New Buildings and Structures or Additions to Existing Buildings. \nThis application is NOT to be used for buildable lot determinations, ZBA special permits or variances. \n\nTHIS IS NOT A BUILDING PERMIT APPLICATION",
+      "isEnabled": true
+    },
+    {
+      "id": "1006538",
+      "name": "Animal Keeping",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Application for a permit to allow poultry, equine & farm animals to be kept on a property.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006800",
+      "name": "Tank Installation Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006605",
+      "name": "Auto Dealers License (CLASS I, II, III)",
+      "categoryId": 1089,
+      "viewAccess": "private",
+      "description": "To buy and sell second hand motor vehicles. \nClass I - new vehicle dealers, Class II - used & pre-owned vehicle dealers, Class III- junk & salvage vehicles dealers",
+      "isEnabled": true
+    },
+    {
+      "id": "1006774",
+      "name": "Innkeeper License ",
+      "categoryId": 1089,
+      "viewAccess": "private",
+      "description": "Innkeeper License – Required for hotel/innholder establishments which prepare and serve food for strangers and travelers, and also has the rooms, beds and bedding required by law.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006824",
+      "name": "Tank Removal Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006719",
+      "name": "Animal Keeping Regulation Variance",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Submission of a request for a variance to to obtain permission from the Board of Health at a public hearing to keep animals on a lot that requires a variance due to size or wetlands location.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006738",
+      "name": "Shed (Zoning Compliance Certificate)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please use this application for a Detached Accessory Building (SHED) not exceeding 200 square feet:",
+      "isEnabled": true
+    },
+    {
+      "id": "1006730",
+      "name": "Fire Alarm",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please use this application for all Fire Alarm permitting associated with Commercial  and Residential Single and Two Family Dwellings and Structures. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006515",
+      "name": "Food Service",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for a license to prepare, serve, vend or otherwise provide food for human consumption at any location,  including mobile food trucks/trailers (excluding temporary food service).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006799",
+      "name": "Unvented/Vented Natural Gas or LP Gas Heaters Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006490",
+      "name": "Fire Sprinkler System",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please use this application for the installation or alterations to a fire sprinkler system associated with Single and Two Family Dwellings and Commercial Buildings and Structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006520",
+      "name": "Temporary Food Service",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for a temporary food license to prepare, serve, vend or otherwise provide food for human consumption at any location for a period less than four (4) consecutive days, including mobile food trucks/trailers.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006517",
+      "name": "Lodging  ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for an annual Health Department license to operate a Motel, Inn or Lodging House, as well as an annual Certificate of Inspection from the Building and Fire Departments. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Certificate of Inspection for Building Department (Condos, Pools, Churches, Recreation, Daycare)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "DO NOT APPLY FOR THIS APPLICATION IF YOU ARE A MOTEL, HOTEL OR INN \n\nThis application is required for ALL businesses and establishments including, but not limited to:\n\nCondominiums with common areas and pools\n\nOutdoor swimming pools\n\nChurches and other assembly uses\n\nDaycare Facility\n\nRecreation\n\nThese establishments, whether open year-round or seasonally, are required to undergo an annual inspection by the Building Department. \n\nThis inspection is in addition to any health-related applications you may have submitted.\n\nHotels, Motels, Inns are included in the Board of Health - Lodging Application. Do not apply for this BCOI.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "110:  5 Year Certificate of Inspection ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "5 Year Certificate of Inspection ( for Balcony-Stairs-Ladder/Fire Escape) ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": "Swimming Pool & Specialty Spa",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for a license to operate a public, semi-public or wading pool and/or specialty spa (hot tub).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006712",
+      "name": "Raffle Permit",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Non-profit/charitable organizations may hold raffles, bazaars, or other gaming events (i.e. Texas Hold'em or Casino Nights). The funds raised must be used for educational, charitable, religious, fraternal, or civil purposes or for veteran's benefits. Permits must be obtained prior to the raffle, bazaar, or gaming event.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006767",
+      "name": "ZBA - Variance by Zoning Board of Appeals",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Per MGL 40A, Section 10: The permit granting authority shall have the power after public hearing for which notice has been given by publication and posting as provided in section eleven and by mailing to all parties in interest to grant upon appeal or upon petition with respect to particular land or structures a variance from the terms of the applicable zoning ordinance or by-law where such permit granting authority specifically finds that owing to circumstances relating to the soil conditions, shape, or topography of such land or structures and especially affecting such land or structures but not affecting generally the zoning district in which it is located, a literal enforcement of the provisions of the ordinance or by-law would involve substantial hardship, financial or otherwise, to the petitioner or appellant, and that desirable relief may be granted without substantial detriment to the public good and without nullifying or substantially derogating from the intent or purpose of such ordinance or by-law.\n\nA Variance from the Zoning Board of Appeals is usually required for an addition or a reconstruction of a structure that crosses a setback line, exceeds lot coverage where it does not now, increases existing non-conforming area by more than 40%, exceeds 30 % Floor Area Ratio, or other proposals that are not allowed by the zoning bylaws.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006514",
+      "name": "Septic Installer",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for a license to install AND repair septic systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006489",
+      "name": "Sheet Metal",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please use this permit application for all Sheet Metal work associated with commercial/residential buildings or structures. \n\nLicensed Sheet Metal Contractors Only - This permit is required when: manufacturing, fabricating, assembling, handling, erecting, installing, dismantling, alteration and/or repairing duct work, commercial fans, kitchen hoods and vents, architectural sheet metal and metal roofing.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006492",
+      "name": "Sign ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please use this application for all Sign permitting.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006721",
+      "name": "Septic Hauler/Pumper",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for a license to remove & transport waste and sludge from septic systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006792",
+      "name": "ZBA - Special Permit by Zoning Board of Appeals",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "A Special Permit from the Zoning Board of Appeals is generally required for an addition or a reconstruction of a structure on a pre-existing non-conforming lot. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": "Business Zoning (Use Only)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "For a proposed Use Only, and not to be used in conjunction with any proposed construction.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006512",
+      "name": "Refuse Hauler",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for a license to transport solid waste, refuse and/or recycling.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006742",
+      "name": "Swimming Pool",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Please use this application for all In-ground and Above Ground Swimming Pools associated with Single and Two Family Dwellings and Commercial Building or Semi-public and Public Swimming Pools.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006537",
+      "name": "Recreational Camp",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for a license to operate a day or residential (overnight) program that offers recreational activities and instruction to campers.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006740",
+      "name": "Storm Water ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Storm Water Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "1006811",
+      "name": "PB - Special Review",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "A review conducted by the Planning Board of proposed improvements, alterations or development of land or buildings by public or private organizations (i.e. religious and municipal) not subject to Site Plan Approval requirements of the By-Law",
+      "isEnabled": true
+    },
+    {
+      "id": "1006805",
+      "name": "ZBA - Special Permit Modification Review",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "For determination of whether proposed amendments to plans or conditions of an approved Special Permit from the Zoning Board of Appeals or Planning Board are major modifications requiring a public hearing review or a minor modification that the Board can approve without a duly noticed public hearing. If the Board determines that the proposed change is a major modification, then a full Special Permit Application will be required. Modification Reviews shall notify abutters.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": "Tent ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application is used for all tents 400 square feet or more. \n\nEach tent requires a separate permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006714",
+      "name": "Mobile Trailer Park",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for a license to operate a temporary or permanent manufactured home community for mobile homes and travel trailers.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006497",
+      "name": "Change of Contractor ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Change of Contractor",
+      "isEnabled": true
+    },
+    {
+      "id": "1006531",
+      "name": "Funeral Director",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for a license for the management and arrangement of funerals.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006511",
+      "name": "Tanning Establishment",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for a license to operate a commercial business that offers sunless tanning, such as ultraviolet (UV) tanning devises.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006508",
+      "name": "Body Art Establishment",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for a license to operate a tattoo or body piercing establishment.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006728",
+      "name": "PB - Approval Not Required - ANR ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006768",
+      "name": "PB -  Preliminary Subdivision Plan Review",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Preliminary plan\" shall mean a plan of a proposed subdivision or re-subdivision of land drawn on tracing paper, or a print thereof, showing:\n(a) the subdivision name, boundaries, north point, date, scale, legend and title \"Preliminary Plan\";\n(b) the names of the record owner and the applicant and the name of the designer, engineer or surveyor;\n(c) the names of all abutters, as determined from the most recent local tax list;\n(d) the existing and proposed lines of streets, ways, easements and any public areas within the subdivision in a general manner;\n(e) the proposed system of drainage, including adjacent existing natural waterways, in a general manner;\n(f) the approximate boundary lines of proposed lots, with approximate areas and dimensions;\n(g) the names, approximate location and widths of adjacent streets;\n(h) and the topography of the land in a general manner",
+      "isEnabled": true
+    },
+    {
+      "id": "1006513",
+      "name": "Body Art Practitioner",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for a license to operate as a tattoo or body piercing practitioner at a licensed Body Art Establishment.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006723",
+      "name": "Comfort Station (Porta Potty)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for a permit to set-up a portable restroom on a property.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1084",
+      "name": "Building",
+      "isEnabled": 1,
+      "content": "<h2 style='box-sizing: border-box; margin-top: 0.167em; margin-bottom: 0px; font-family: \"Roboto Condensed\"; font-style: normal; font-weight: 400; color: rgb(19, 111, 99); font-size: 1.5em; text-decoration: none; display: block; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255"
+    },
+    {
+      "id": "1095",
+      "name": "Historic",
+      "isEnabled": 1,
+      "content": "<h1 style='box-sizing: content-box; font-family: \"Roboto Condensed\"; font-style: normal; font-weight: 700; color: rgb(14, 61, 109); font-size: 2.2em; text-decoration: none; line-height: 1.2; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255);'>Historic Districts</h1><div data-"
+    },
+    {
+      "id": "1115",
+      "name": "Engineering Department",
+      "isEnabled": 1,
+      "content": "<h2 style='box-sizing: border-box; margin-top: 0.167em; margin-bottom: 0px; font-family: \"Roboto Condensed\"; font-style: normal; font-weight: 400; color: rgb(19, 111, 99); font-size: 1.5em; text-decoration: none; display: block; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255"
+    },
+    {
+      "id": "1090",
+      "name": "Conservation",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-size: 18px; font-family: Tahoma, Geneva, sans-serif;\">Welcome to Town of Dennis Conservation</span></div><div><br></div><div><br></div>"
+    },
+    {
+      "id": "1085",
+      "name": "Health",
+      "isEnabled": 1,
+      "content": "<h2 style='box-sizing: border-box; margin-top: 0.167em; margin-bottom: 0px; font-family: \"Roboto Condensed\"; font-style: normal; font-weight: 400; color: rgb(19, 111, 99); font-size: 1.5em; text-decoration: none; display: block; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255"
+    },
+    {
+      "id": "1104",
+      "name": "Administration",
+      "isEnabled": 1,
+      "content": "<div><span style='color: rgb(40, 40, 40); font-family: \"Open Sans\"; font-size: 15.2px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; d"
+    },
+    {
+      "id": "1086",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; margin-bottom: 1.4em; margin-top: 0px; font-style: normal; font-weight: 400; color: rgb(40, 40, 40); font-family: \"Open Sans\"; font-size: 15.2px; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decor"
+    },
+    {
+      "id": "1093",
+      "name": "Planning and Zoning Appeals Office",
+      "isEnabled": 1,
+      "content": "<div>Welcome to Planning and Zoning.&nbsp;</div><div><br></div><div><em>Below this overview of Planning &amp; Zoning Appeals Department Permits, you will find more detailed information and instructions under each specific Permits listed following the overview.</em></div><div><br></div><p style=\"margin-bottom:0in;line-height:normal;\"><strong><u>OVERVIEW:</u></strong></p><ol><li><strong><u>STAFF REVIEW</u></strong>:&nbsp;<ol><li>Application for Staff Review. Staff Review provides an opportunity fo"
+    },
+    {
+      "id": "1089",
+      "name": "Licensing",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: \"Benton Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoratio"
+    },
+    {
+      "id": "1087",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><span style=\"font-size: 24px; color: rgb(184, 49, 47);\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/dennis_patch_Tue_Jan_14_2025_14:21:38_GMT+0000_(Coordinated_Universal_Time).jpg\" style=\"width: 163px;\" class=\"fr-fic fr-dib\">The Mission Statement of the Dennis Fire Department </span></div><div style=\"text-align: center;\"><span style=\"font-size: 24px; color: rgb(184, 49, 47);\">is to serve all of the community&#39;s citizens and visitors"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:21.066Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

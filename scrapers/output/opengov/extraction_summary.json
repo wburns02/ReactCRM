@@ -1,69 +1,69 @@
 {
-  "totalJurisdictions": 112,
-  "successful": 111,
+  "totalJurisdictions": 215,
+  "successful": 214,
   "failed": 1,
-  "totalRecordTypes": 4855,
-  "totalCategories": 775,
+  "totalRecordTypes": 8854,
+  "totalCategories": 1412,
   "byState": {
     "CA": {
-      "count": 13,
-      "recordTypes": 361
+      "count": 20,
+      "recordTypes": 612
     },
     "CT": {
-      "count": 8,
-      "recordTypes": 251
+      "count": 26,
+      "recordTypes": 656
     },
     "FL": {
-      "count": 4,
-      "recordTypes": 86
+      "count": 6,
+      "recordTypes": 164
     },
     "IN": {
-      "count": 3,
-      "recordTypes": 156
+      "count": 4,
+      "recordTypes": 248
     },
     "MD": {
-      "count": 1,
-      "recordTypes": 44
+      "count": 4,
+      "recordTypes": 139
     },
     "MA": {
-      "count": 18,
-      "recordTypes": 1284
+      "count": 43,
+      "recordTypes": 2878
     },
     "NY": {
-      "count": 4,
-      "recordTypes": 181
+      "count": 9,
+      "recordTypes": 324
     },
     "NC": {
-      "count": 7,
-      "recordTypes": 270
+      "count": 10,
+      "recordTypes": 370
     },
     "PA": {
-      "count": 4,
-      "recordTypes": 178
+      "count": 7,
+      "recordTypes": 279
     },
     "RI": {
-      "count": 10,
-      "recordTypes": 332
+      "count": 20,
+      "recordTypes": 567
     },
     "SC": {
-      "count": 3,
-      "recordTypes": 116
+      "count": 4,
+      "recordTypes": 152
     },
     "TN": {
       "count": 3,
       "recordTypes": 96
     },
     "CO": {
-      "count": 1,
-      "recordTypes": 52
+      "count": 3,
+      "recordTypes": 169
     },
     "KY": {
       "count": 1,
       "recordTypes": 38
     },
     "NH": {
-      "count": 1,
-      "recordTypes": 32
+      "count": 2,
+      "recordTypes": 54
     },
     "NJ": {
       "count": 1,
@@ -74,16 +74,16 @@
       "recordTypes": 19
     },
     "WI": {
-      "count": 2,
-      "recordTypes": 54
+      "count": 3,
+      "recordTypes": 83
     },
     "IL": {
-      "count": 5,
-      "recordTypes": 177
+      "count": 7,
+      "recordTypes": 280
     },
     "WY": {
-      "count": 1,
-      "recordTypes": 122
+      "count": 2,
+      "recordTypes": 172
     },
     "AL": {
       "count": 2,
@@ -98,21 +98,49 @@
       "recordTypes": 121
     },
     "MN": {
-      "count": 2,
-      "recordTypes": 131
+      "count": 5,
+      "recordTypes": 265
     },
     "MS": {
       "count": 1,
       "recordTypes": 76
     },
     "OH": {
-      "count": 5,
-      "recordTypes": 262
+      "count": 9,
+      "recordTypes": 374
     },
     "TX": {
-      "count": 3,
-      "recordTypes": 119
+      "count": 5,
+      "recordTypes": 147
+    },
+    "AK": {
+      "count": 1,
+      "recordTypes": 17
+    },
+    "ID": {
+      "count": 2,
+      "recordTypes": 60
+    },
+    "KS": {
+      "count": 2,
+      "recordTypes": 67
+    },
+    "ME": {
+      "count": 1,
+      "recordTypes": 17
+    },
+    "NV": {
+      "count": 1,
+      "recordTypes": 69
+    },
+    "SD": {
+      "count": 1,
+      "recordTypes": 37
+    },
+    "VT": {
+      "count": 1,
+      "recordTypes": 7
     }
   },
-  "extractedAt": "2026-01-20T23:00:23.667Z"
+  "extractedAt": "2026-01-20T23:06:47.466Z"
 }

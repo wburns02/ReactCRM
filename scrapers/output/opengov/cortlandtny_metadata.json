@@ -1,0 +1,165 @@
+{
+  "jurisdiction": "Cortlandt",
+  "state": "NY",
+  "tenant": "cortlandtny",
+  "portalUrl": "https://cortlandtny.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6435",
+      "name": "Planning Board Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Freedom of Information Request",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Operating Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Online portal to apply for Operating Permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Permit Application 2026",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Building, Plumbing, Generator, HVAC, Solar and Energy Systems, Signs, Alarms and Sprinkler Systems. This includes but is not necessarily limited to new construction, additions, alterations, renovations, roof replacement, accessory structures, pools, Oil Tank Removal and or Install, etc.  Also apply here for Prior to Zoning Letters and Certificates.",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Application for DES (Road Opening, Water Tap, Sewer Connection, Connect to Storm Drainage)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Online portal to apply for Water, Sewer, and Stormwater Connections as well as Road Opening Permits. Note: For new driveway or enlarged curb cut openings apply for a Road Opening Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Request for Dye Test",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Online portal to Request for Dye Test to check if connected to the Municipal Sewer System.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Peddling, Soliciting, Canvassing, Vendor Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Online portal to apply for Peddling, Soliciting, Canvassing, Vendor Permits",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Code Enforcement Complaints",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Submit a Complaint. This includes but is not limited to Property Maintenance issues, Work without a Permit, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Request Information for Title Search or Zoning Verification . Note: This shall not be used for standard FOIL requests.",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Online portal to request a search for records for Title Companies or Zoning verification. Note: This shall not be used for standard FOIL requests.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Periodic Inspections (Fire Inspections)",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Online portal to apply for required Periodic Inspections. This applies to all Commercial and Multifamily (3 or more units) Residential properties.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Miscellaneous Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Online portal to apply for Miscellaneous Permits which include standalone applications to remove trees, resurface driveways, import fill to grade property and work within a wetland and wetland buffer.\n\nDo not select this permit type if any of the above mentioned work will occur due to other construction activities.  In these instances, all work will be grouped together under a building permit application.  \n \nIf there is already a Permit or Application open please contact us first before starting a new application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Zoning Board of Appeals Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Please DO NOT start this application without speaking with the Codes, Building, & Zoning Division first.",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Plumbing Backflow Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Online portal to apply for an Plumbing only Permit for Backflow Prevention Devices. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Electrical Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Online portal to apply for Westchester County Licensed Electricians to apply for an Electrical Permit. This includes but is not necessarily limited to new construction, additions, alterations, renovations, accessory structures, pools, etc.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Building & Codes Division - Apply for Permits",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"text-align:center;\"><span style=\"font-family: Times New Roman,Times,serif,-webkit-standard;\"><span style=\"color: rgb(184, 49, 47);\"><b style=\"mso-bidi-font-weight: normal;\"><u>NOVEMBER 2025 UPDATE</u></b></span></span></p><p align=\"center\" style=\"text-align:center;\"><span style=\"font-family: Times New Roman,Times,serif,-webkit-standard;\"><span style=\"color: rgb(184, 49, 47);\"><b style=\"mso-bidi-font-weight: normal;\"><u>ATTENTION APPLICANTS</u></b></span></span></p><p sty"
+    },
+    {
+      "id": "1081",
+      "name": "Planning & Zoning",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align:justify;background:white;\"><b style=\"mso-bidi-font-weight:  normal;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">Planning Board Application</span></b></p><p style=\"text-align:justify;background:white;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">Welcome to our virtual planning department where you can file a Planning Board Application online. Prior to submitting an online Planning Board application, applicants are strongly encouraged to visit and read i"
+    },
+    {
+      "id": "1084",
+      "name": "Department of Environmental Services - Apply for Permits",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: inherit; position: relative; color: rgb(34, 34, 34); font-family: \"Crimson Text\", serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initia"
+    },
+    {
+      "id": "1086",
+      "name": "Operating Permits, Peddler/Solicitor/Canvassing/Vendor Permits, and Periodic Inspections ",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decorati"
+    },
+    {
+      "id": "1085",
+      "name": "Code Enforcement - Complaints",
+      "isEnabled": 1,
+      "content": "<p><span style='color: rgb(119, 119, 119); font-family: \"Benton Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-colo"
+    },
+    {
+      "id": "1088",
+      "name": "Town Clerk - Freedom of Information Requests",
+      "isEnabled": 1
+    },
+    {
+      "id": "1087",
+      "name": "Request Information",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decorati"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:45.588Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

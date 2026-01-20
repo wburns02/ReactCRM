@@ -1,0 +1,310 @@
+{
+  "jurisdiction": "Torrington",
+  "state": "CT",
+  "tenant": "torringtonct",
+  "portalUrl": "https://torringtonct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6432",
+      "name": "Right of Way Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Any excavation in the City Right of Way requires a permit. The contractor must have a current Acord Certificate of Insurance, current Permit Bond ($5000.00) and a $1000.00 security deposit on file with the Engineering office before a permit will be issued. NO PERMITS WILL BE PROCESSED WITHOUT A VALID CALL BEFORE YOU DIG",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Bulky Waste Request",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "ONLY USE THIS FORM FOR THE 3RD OR MORE REQUEST\nResidential Bulky Waste Pick Up Request",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "PRE-APPLICATION ENGINEERING REVIEW",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "SUBMISSION FOR ENGINEER PRE-APPLICATION APPROVAL FOR PROJECTS",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Sanitary Sewer Discharge Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "THIS IS NOT A PERMIT  \nApplications expire one year from the date of review decision.\n\nThis Application is for Sanitary Sewer Uses Only. Storm water is covered under a separate application.\n\n(Examples: New Building, new connection/going from septic to sewer, addition/renovation of building,\nchange of Use, repair, relocation, replacement, cap/demolish, reconnection, etc.)",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "FOG Permit Application Form",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Fats, Oils and Grease Discharge Permit Application Form",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Building Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Zoning Permit Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A zoning permit issued by the Zoning Enforcement Officer shall be required before commencing any of the following activities: \n(1) The erection, reconstruction, or structural alteration of any building or structure.\n(2) The movement of any building or structure upon or to any lot.\n(3) A change of use of land, building or structure.\n(4) The rearrangement or alteration of any area used for parking.\n(6) Any other uses, restrictions or requirements specified in Torrington Zoning Regulations, specifically but not exclusively section 8.6.3 of the Regulations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Demolition Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Zoning Enforcement Officer Decision Appeal",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A Zoning Enforcement Officer (ZEO) is the municipal official responsible for enforcing zoning regulations, and an appeal is filed when a property owner believes the ZEO has made an error in a decision, requirement, or order related to their property or a zoning matter. The Zoning Board of Appeals then holds a public hearing to review the evidence anew and can either uphold, reverse, or modify the ZEO's decision. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Right of Way Permit DRIVEWAY ONLY",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Any excavation in the City Right of Way requires a permit. The contractor must have a current Acord Certificate of Insurance, and a $1000.00 security deposit on file with the Engineering office before a driveway permit will be issued. NO PERMITS WILL BE PROCESSED WITHOUT A VALID CALL BEFORE YOU DIG",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Sewer Lateral Permit on Private Property",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "For sanitary sewer lateral repairs on private property ONLY\nA Right of Way permit is required for work in the Right of Way",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Complaint Form (Land Use Department)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "File a complaint regarding potential Blight, Zoning, or Inland Wetlands violations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Electrical Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Inland Wetlands - Permit Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "An inland wetlands permit shall be required before conducting a regulated activity within 100' of a watercourse and 75' of wetlands soils. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Mechanical Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Inland Wetlands - Jurisdictional Ruling",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application is to request the Inland Wetlands Commission rule that the proposed activity is 'as-of-right,' per Section 4 of the Torrington Inland Wetlands Regulations. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Utility Right of Way Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Any excavation in the City Right of Way requires a permit. The contractor must have a current Acord Certificate of Insurance, current Permit Bond ($5000.00) and a $1000.00 security deposit on file with the Engineering office before a permit will be issued. NO PERMITS WILL BE PROCESSED WITHOUT A VALID CALL BEFORE YOU DIG",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Contractor Registration ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Contractors should complete this registration to have your bond and insurance on file with the Engineering Department before filling out a Street Excavation Permit application.  Do it once and only upload bond and insurance again once your policy term expires!",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Plumbing Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Zoning Sign Permit Application ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A sign permit issued by the Zoning Enforcement Officer shall be required before the erection or alteration of any sign except as specified in Section 5.15 of the Torrington Zoning Regulations.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Pool Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Zoning Portable Sign Permit Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A sign permit issued by the Zoning Enforcement Officer shall be required before the erection or alteration of any sign except as specified in Section 5.15 of the Torrington Zoning Regulations.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Zoning Certificate of Compliance Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A certificate from the Land Use Office attesting to current zoning compliance on a subject property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Roof Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Sign Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Zoning Site Plan Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Site Plan approval shall be obtained for the construction, expansion, exterior alteration or change of use of any building or structure. Site plan approval shall also be obtained for the erection of any sign over 32 square feet in size, the alteration or expansion of a parking area, or any change of use of a lot.",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Dumpster Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Approval from City Engineer  and a permit is required to place a dumpster/container on a City street Right of Way",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Zoning Architectural Review Committee Application ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "The purpose of the Architectural Review Committee is to advise the Planning and Zoning Commission on the physical aspects of the City's environment. Within thirty-five days after being referred to the Committee, the Committee shall review and make written recommendations on:\n\nA.\\tall site plans;\nB.\\tall incentive housing development applications (Section 4.15)\nC.\\tall changes to facades of non-residential buildings; and\nD.\\tall signs except:\n\\t1. \\tthose on one, two and three family residential properties; and\n\\t2. \\tthose less than 32 square feet in area.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Zoning Subdivision/Resubdivision Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A subdivision approval is required when dividing a parcel of land into three or more lots made subsequent to the adoption of subdivision regulations on February 16, 1956. Subdivision requires a public hearing. Resubdivision is included in subdivision approvals and relates to any change in a map of an approved or recorded subdivision if the change affects any street layout, diminishes the size of a lot and creates a new lot. Please contact the City Planner at 860-489-2221 for a consultation regarding a potential subdivision or resubdivision.",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Zoning Special Exception Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "These Regulations are based upon the division of the City into zoning districts within which the use of land and structures are substantially uniform.  The Commission, however, recognizes that certain uses and situations have unique characteristics.  Because of their uniqueness, the Commission treats these uses and situations as Special Exceptions which allows the Commission to evaluate them on a case by case basis.",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Zoning Grading Permit Application ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "No person shall do any grading, stripping, clearcutting, or otherwise disturb an area unless a valid grading permit is received from the Zoning Enforcement Officer. The following are the only exceptions:\n\\ta. \\tagricultural use of land other than the creation of new pasture land;\n\\tb. \\tan approved development where the disturbed area is cumulatively less than one-half acre;\n\\tc. \\ta single family residence that is not part a subdivision.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Zoning Floodplain Permit Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A floodplain permit permit issued by the Zoning Enforcement Officer shall be required before commencing development activity in the Special Flood Hazard Area (SFHA). The SFHA includes land in the floodplain within a community subject to a one (1) percent or greater chance of flooding in any given year.  See Section 7.2 of the Zoning regulations for further detail. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Change of Zoning Map Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "The Zoning Map may be amended by the Commission on its own initiative or at the request of an applicant. In addition to the requirements of the Connecticut General Statutes, applicants shall adhere to the requirements of Section 8.7 in the Zoning Code. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Change of Zoning Regulations",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application is needed to make a request to the Planning & Zoning Commission to change the official Zoning Regulations. A public hearing will be required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Zoning Variance Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A variance is a request to vary the Zoning Regulations.   In other words, a variance lets you do something with your property that the Zoning Regulations do not allow. The Zoning Board of Appeals hears and decides upon all requests for variances from the zoning regulations. Variances are granted on the basis of “exceptional difficulty or unusual hardship.” A hardship must be related solely either to the property’s unusual shape or topography or to the condition or location of an existing structure.\n\n",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1078",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(0, 0, 0);\"><strong><em><u><span style=\"font-size: 24px;\">Inspection Requests:</span></u></em></strong></span></div><div><span style=\"color: rgb(0, 0, 0);\"><br></span></div><div><span style=\"color: rgb(0, 0, 0);\">Per Section 110.5 of the 2021 International Building Code Portion of the 2022 Connecticut State Building Code, it shall be the duty of the holder of a permit or their authorized agent to notify the building department when work is ready for inspection. It sha"
+    },
+    {
+      "id": "1084",
+      "name": "Planning & Zoning / Land Use Department",
+      "isEnabled": 1,
+      "content": "<div>Planning and Zoning Department</div>"
+    },
+    {
+      "id": "1085",
+      "name": "Engineering & Public Works Department",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-weight: 400; font-stretch: inherit; line-height: inherit; font-family: Montserrat, Helvetica, Helvetica, Arial, sans-serif; font-optical-sizing: inherit; font-kerning: inherit; font-feature-settings: "
+    },
+    {
+      "id": "1086",
+      "name": "Water Pollution Control Authority",
+      "isEnabled": 1,
+      "content": "<div><span style='color: rgb(68, 68, 68); font-family: \"Times New Roman\", Times, serif, -webkit-standard; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initi"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:55.599Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

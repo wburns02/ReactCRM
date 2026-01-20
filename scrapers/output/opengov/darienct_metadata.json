@@ -1,0 +1,378 @@
+{
+  "jurisdiction": "Darien",
+  "state": "CT",
+  "tenant": "darienct",
+  "portalUrl": "https://darienct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6458",
+      "name": "General Instructions for Obtaining a Zoning and Building Permit Electronically",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Find out how to submit an application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Adding an Attachment After Submission",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Cosmetology/Salon Plan Review ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This application is required for any new establishment seeking to operate as a salon, barbershop, nail salon, esthetics studio, or other personal services business. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6547",
+      "name": "Food Truck/Itinerant Vendor Permit ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This is where you apply if you have a food truck or other mobile food unit and are seeking a food license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Planning & Zoning Commission Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "FM Annual Operating Permit or License Inspection",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This License Inspection and/or Operating Permit is required as per Town Ordinance and is issued to facilities such as licensed; daycare, liquor permit establishments, rooming houses, and healthcare facilities, etc. as defined in the Ordinance.  Typically these Permits are issued and are valid for one year only, and may in some case be in addition to any required State of Connecticut permit that may apply to the business use.",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Annual Food Service Permit",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This application is for an annual food service permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "FM Blasting Permit ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Blaster must come to office to obtain a blasting permit. Please bring proof of insurance and explosives license. There is a fee of $60.00 set by C.G.S. \n\nPrior to issuance of Blasting Permit; Proof of notification of blasting to all property owners within 100 feet of the property where blasting will occur shall be provided in writing to the Fire Marshal's Office.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Building Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application is designated for residential and commercial projects. It includes both Building and Zoning applications.",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Accessory Dwelling Units",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Annual Cosmetology/Salon Permit",
+      "categoryId": 1091,
+      "viewAccess": null,
+      "description": "All cosmetology establishments operating in the Town of Darien are required to complete this application to obtain or renew their annual permit.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Planning & Zoning Commission Application: For Change of Zoning Regulations and/or Change of Zoning Map Only",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Addendum to Building Permit ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "FM Bonfire Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This Permit is required for any \"open campfire\" as defined by Town Ordinance.  These Permits are invalid if State Fire Danger Ratings reach \"HIGH\" or above, even after issuance of said Permit.   PLEASE NOTE for SINGLE USE PERMIT, do not apply for a permit more than five (5) days prior to the start date requested.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Environmental Protection Commission Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Electrical Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Use this permit for: Temporary Service, Generator, Electric Service new or upgrade, and all other electrical permit applications.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "FM Commercial Fireworks Vendor Permit ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This permit is required for any vendor, temporary or permanent, that will be selling consumer fireworks in the Town of Darien.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6543",
+      "name": "Addition, Reconstruction, Pool, or Detached Building",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This application is required for additions, reconstructions, detached buildings, and pools. Before any addition, pool, or new structure can be approved, the property must demonstrate a suitable area for the repair or replacement of the septic system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Food Service Plan Review ",
+      "categoryId": 1091,
+      "viewAccess": null,
+      "description": "This application is required for all new food service establishments as well as for renovations to existing food service facilities.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "FM Commercial Fuel Storage Tank Installation Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This Permit is required for the installation of any fuel storage tank(s) for all commercial and multi-family (3 or more units) properties in the Town of Darien.  FOR SINGLE FAMILY RESIDENTIAL PROPERTY INSTALLS USE BUILDING DEPARTMENT PERMIT APPLICATION.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Zoning Board of Appeals Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "HVAC Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Use this permit application for gas lines, propane and oil tanks as well as other HVAC work.",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Demolition Permit Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application is designated for residential and commercial demolition projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Architectural Review Board Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "FM Commercial Tank PIPING ONLY Installation Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This Permit is required for the PIPING INSTALLATION of any fuel storage tank(s) for all commercial and multi-family (3 or more units) properties in the Town of Darien.  FOR SINGLE FAMILY RESIDENTIAL PROPERTY INSTALLS USE BUILDING DEPARTMENT PERMIT APPLICATION.",
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "Demolition ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This application is required to be completed before the demolition of any structure. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "FM Fire & Police Alarm Registration Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This application is required for any fire and police alarm system located within the Town of Darien as defined by Town Ordinance.  The Town of Darien requires a one-time registration of alarm systems, however updated information or relocation to a new address also requires a new application for registration.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Plumbing Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Septic Tank Abandonment",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This form must to be completed prior to pumping and crushing/filling an existing tank and drywells. \nNote: only needed when connecting to public sewer!",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "FM Fire Alarm Installation/ Renovation/ Modification ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Review of plans for construction, renovation or changes of a fire alarm system in a commercial or multi-family occupancy.  You will be required to secure a separate Electrical Permit from the Building Department for this type of work.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Septic Plan Review ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Please select this option if you are submitting a plan for a new septic system, B100a, or for the repair of an existing system. Once your plan is approved, a separate Septic Permit to Install must be submitted.",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "FM Fire Sprinkler Installation/ Renovation",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Review of plans for construction, renovation or changes of fire sprinkler system in a commercial or multi-family 3 units or more occupancy.",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Septic Permit to Install ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This application is required to obtain a Permit to Construct a septic system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Soil Test Request Form",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Application for septic soil testing with the Darien Health Department. Fee is per lot tested. Minimum of 4 deep test holes greater than 5ft deep is required (2 in proposed area and 2 holes down gradient). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "FM Fuel Storage Tank Removal/Abandon ABOVEGROUND ONLY Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This Permit is required for the removal of an Aboveground Fuel Storage Tank(s) in the Town of Darien.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Well Water Treatment Wastewater (WTW) ",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Please complete this application when planning to install a water treatment wastewater system.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "FM Fuel Storage Tank Removal/Abandon UNDERGROUND ONLY Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This Permit is required for the removal or abandonment of any underground fuel storage tank(s) in the Town of Darien.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "FM Liquified Propane Gas Tank(s) Installation/ Exchange/ Refill Station Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This Permit is required for the installation of any Liquified Propane Gas fuel storage tank(s) for all commercial and multi-family (3 or more units) properties in the Town of Darien.  FOR SINGLE FAMILY RESIDENTIAL PROPERTY INSTALLS USE BUILDING DEPARTMENT PERMIT APPLICATION.",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "FM Specialty Fire Suppression System Installation/ Renovation - NOT a Type I Exhaust Hood Suppression System ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Review of plans for construction, renovation or changes to a specialty fire suppression system such as gas station, laboratory, and data room  extinguishing system(s), special hazard fire protection system, etc.  THIS IS NOT FOR REVIEW OF THE ACTUAL EXHAUST HOOD and any hood(s) will require a separate permit under the Type I Kitchen Exhaust Hood review section of this program.",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "FM Type I Kitchen Exhaust Hood Installation",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Review of plans for construction, renovation or changes of any Type I commercial exhaust hood(s).  NOTE:  Any required fire suppression system for said hood(s) will require a separate permit under the Cooking Fire Suppression System review section of this program.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "FM Type I Exhaust Hood Fire Suppression System",
+      "categoryId": 1086,
+      "viewAccess": "private",
+      "description": "This application is for submittal and review of drawings specifications for fire suppression systems to be installed in Type I kitchen exhaust systems for the protection of commercial cooking appliances.  When making application for review, please attach all pertinent documents, including but not limited to shop drawings and equipment specifications.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "FM Incident Report Documentation Request ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application to request copies of Fire Marshal's Office reports and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "FM Tank Closure Report Documentation Request(s) ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application to request copies of Fire Marshal's Office reports and records.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1091",
+      "name": "Health Department ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1083",
+      "name": "Land Use Boards",
+      "isEnabled": 1,
+      "content": "<div><strong style=\"box-sizing: border-box; font-weight: 700; color: rgb(226, 80, 65); font-family: Tahoma, Geneva, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: i"
+    },
+    {
+      "id": "1084",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Depending on the type of building permit you will be applying for, certain forms are required to be attached in addition to the application. A list of all forms are here for your reference:</span></p><div><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"color: rgb(226, 80, 65);\"><strong>WARNING - FEES: &nbsp;The Town does NOT have a wire transfer as a form of payment."
+    },
+    {
+      "id": "1086",
+      "name": "Fire Marshal",
+      "isEnabled": 1,
+      "content": "<p><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/patch_Thu_Aug_31_2023_18:06:54_GMT+0000_(Coordinated_Universal_Time).jpg\" style=\"width: 160px;\" class=\"fr-fic fr-dib fr-fil\"></p><p><span style=\"font-size: 24px;\">Applicants pay close attention to the type of application that you are filing. Practically every application requires attachments to be uploaded to your application. (e.g., occupational licenses, stamped construction plans, various forms). Those attachments will"
+    },
+    {
+      "id": "1085",
+      "name": "Information and FAQs",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"color: rgb(226, 80, 65);\"><strong>WARNING - FEES: &nbsp;The Town does NOT have a wire transfer as a form of payment. &nbsp;If you are contacted via email to wire money for permit fees, DO NOT engage. &nbsp;Please contact us immediately if you have any questions about permit fees and forms of payment. &nbsp;</strong></span></span></span></p><p><br></p><p><span style=\"font-fami"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:05.248Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,147 @@
+{
+  "jurisdiction": "Richmond",
+  "state": "RI",
+  "tenant": "richmondri",
+  "portalUrl": "https://richmondri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6338",
+      "name": "Tent/Event/Fireworks Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application must be submitted at least thirty days in advance of the event.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Residential Smoke & Carbon Monoxide ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "Sign Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a Sign Permit from The Town of Richmond.",
+      "isEnabled": true
+    },
+    {
+      "id": "6381",
+      "name": "Zoning Board of Review Application ",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6384",
+      "name": "Planning Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "  Subdivision & Land Development Applications",
+      "isEnabled": true
+    },
+    {
+      "id": "6385",
+      "name": "Zoning Certificate",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "A zoning certificate is a document issued by the zoning enforcement officer stating that a use, building, or lot complies with the zoning ordinance, is legally nonconforming, or is authorized by a variance or special use permit. (R.I. Gen. Laws § 45-24-31(65)). The fee for the certificate is $25. \nPlease note that if you are asking for a determination about whether a proposed use would be permitted, you must ask for a zoning determination. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Building Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a building permit from the Town of Richmond, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a demolition permit from the Town of Richmond.",
+      "isEnabled": true
+    },
+    {
+      "id": "6362",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit from the Town of Richmond and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6361",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit from the Town of Richmond and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6363",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the Town of Richmond, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6377",
+      "name": " Water Filtration Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a water filtration permit from the Town of Richmond, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6365",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the Town of Richmond.",
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": " Life Safety Inspection",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Click here to submit your request for an inspection from the Office of Fire Marshal (related to business licenses, general inspections)",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1077",
+      "name": "Zoning Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Planning Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1072",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p>******** <span style=\"font-size: 30px;\">ALL INSPECTIONS TO BE CALLED IN TO BPZ CLERK AT 401-539-9000 EXTENSION #3</span>*****</p><p><br></p><p style=\"text-align: center;\">Submit one form to apply for permits (including Fire Plan Review, if applicable)</p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:18.535Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,316 @@
+{
+  "jurisdiction": "Dorchester County",
+  "state": "MD",
+  "tenant": "countyofdorchestermd",
+  "portalUrl": "https://countyofdorchestermd.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6334",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Permits under this category: New Homes (Custom, Modular, Manufactured/Mobile) Additions, Renovations, Decks, Accessory Structures, Sheds, Solar, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.\n\nApplying for permits, please click on \"Building Department - Apply for Permits\" to begin the process. At the bottom of the next page, choose which permit type you are applying for. Next, login with your account information or sign-up if you do not have an existing account. Afterwards, the permit application process should resume. Once complete, click on \"Submit\" and await for any requested changes or additional information from the permit technician.\n\nPayment of Fees:\nAll payments can be processed via credit card, checks and/or cash. Friendly reminder, all issued checks must be payable to Dorchester County.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.\n\nBuilding Permits:\nOnce payment is processed, the building permit will be issued and available for immediate printing from the nearest accessible printer. All building plans approved by the Building Inspector must be displayed on the construction site for inspection purposes along with the permit card.",
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": "4. Links to Helpful Documents",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Links to Guides and other City/Town Information",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Contractors Registration",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Plumbing & Electrical License Registrations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Application for a Special Class \"C\" License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Liquor License Application - RENEWAL",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Property Complaint Submittal",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Submit complaint of potential violations within Dorchester County limits. This can include Building, Critical Area, Land Use, Flood Plain, Code, and Zoning Violations. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Violation Notice",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This is an internal report for departmental zoning violation notices.",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Wine Corkage and Growler Application ",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Amendment to Official Zoning Map, Text Amendment, Critical Area Map & Growth Allocation ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Text Amendments include amendments to the Dorchester County Zoning Code, the Critical Area Code, and other applicable codes.\n\nZoning Map Amendments include amendments to the Dorchester County Zoning Maps and the Critical Area Maps, amendments to the Critical Area Maps include: amendments to the boundaries of the Critical Area, land management designations, or Modified Buffer Areas. \n\nGrowth allocation is used when the designation of land in the Critical Area is changed from a less intense to a more intense Critical Area land management designation (ex: LDA to IDA) or to allow expanded lot coverage for certain land uses as specified in the Dorchester County Code. Growth allocation most often, but not always, will occur with a Zoning Map Amendment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Buffer Management Plan",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The policies of the Dorchester County Critical Area Protection Program and Maryland Critical Area Law provide that forested vegetation will be maintained and increased, forest and developed woodlands will be conserved, and tree removal associated with development activities will be mitigated. Impacts to the 100’ Tidewater and Expanded Buffer must be mitigated by the planting and maintenance of native vegetation according to COMAR 27.01.09.01-2. Depending on the amount and type of impact or establishment, this form may constitute a Simplified, Minor, or Major Buffer Management Plan.\n\nThis form is used for establishment of the Buffer, Buffer mitigation, and disturbances associated with providing access to a private pier or shoreline, manually removing invasive or noxious vegetation, filling to maintain an existing lawn, removing a tree which is likely to cause damage to structures, obstruct a stream or accelerate shoreline erosion, or removing a diseased or dying tree.",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Roofing Permit (Stand Alone)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All roofing/re-shingle permits for the removal and replacement of roofing materials such as shingles, tiles, or metal roofing of a structure",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Temporary Construction Trailer Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All permits are under this category; Building, Electrical, Plumbing, HVAC, Demolition, Roofing, pools, sheds etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Rental Unit Registration",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "\n§ 123-22Purpose.\nThe purposes of this article are to protect the public health, safety, and general welfare of the citizens of Dorchester County; assist the County government in monitoring the number of rental dwelling units in the County; ensure that owners of rental dwelling units are known to the County and other interested parties and can be reached if necessary; ensure that owners of rental dwelling units are aware of their obligations under relevant codes and regulations; and ensure that rental dwelling units meet minimum standards of maintenance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Liquor License Application ",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Demo Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is intended for demolition or removal of residential, commercial and agricultural structures.\n\nINSPECTIONS REQUESTED PRIOR TO 3:30 pm WILL BE SCHEDULED THE FOLLOWING BUSINESS DAY. ANY INSPECTION REQUESTED AFTER 3:30 PM WILL BE SCHEDULED THE 2ND BUSINESS DAY (EXCLUDING -SATURDAY, SUNDAYS AND HOLIDAYS).\n\nExample 1: You request a rough in online at 11:40 am on Wednesday the 12th; the inspection will be scheduled for Thursday the 13th.\nExample 2: You request a rough in online at 3:50pm on Wednesday; the inspection will be scheduled for Friday the 14th.",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Short-Term Rental",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "\n§ 123-10Purpose.\nThe purposes of this article are to protect the public health, safety, and general welfare of the citizens of Dorchester County; assist the County government in monitoring the number of short-term rentals in the County; ensure that owners and operators of short-term rentals are known to the County and other interested parties and can be reached if necessary; ensure that owners and operators of short-term rentals are aware of their obligations under relevant codes and regulations; and ensure that short-term rentals meet minimum standards of maintenance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Critical Area Property Maintenance Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This is an application for tree removal outside of the 100' Tidewater Buffer and/or Expanded Buffers but, within the Critical Area. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Temporary Overnight Lodging Unit (TOLU) Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All permits are under this category; Building, Electrical, Plumbing, HVAC, Demolition, Roofing, pools, sheds etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Vacant Building Registration",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "\n§ 123-1Purposes.\nThe purposes of this article are to protect the public health, safety, and general welfare of the citizens of Dorchester County; assist the County government in monitoring the number of vacant buildings in the County; ensure that owners of vacant buildings are known to the County and other interested parties and can be reached if necessary; ensure that owners of vacant buildings are aware of the obligations of ownership under relevant codes and regulations; and ensure that vacant buildings meet minimum standards of maintenance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Sign Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All permits are under this category; Building, Electrical, Plumbing, HVAC, Demolition, Roofing, pools, sheds etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "HVAC Permit (Stand Alone)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "HVAC work new or change out that is NOT associated with a building permit. \n\nINSPECTIONS REQUESTED PRIOR TO 3:30 pm WILL BE SCHEDULED THE FOLLOWING BUSINESS DAY.\nANY INSPECTION REQUESTED AFTER 3:30 PM WILL BE SCHEDULED THE 2ND BUSINESS DAY (EXCLUDING -SATURDAY, SUNDAYS AND HOLIDAYS).\n\nExample 1: You request a rough in online at 11:40 am on Wednesday the 12th; the inspection will be scheduled for Thursday the 13th.\nExample 2: You request a rough in online at 3:50pm on Wednesday; the inspection will be scheduled for Friday the 14th.",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Pool Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is applicable to all types of Swimming Pools, including inground concrete, vinyl, fiberglass, and 4ft high above ground pools, and portable and . On the site plan please include pool, patio and pool equipment locations. \n\nAn outdoor swimming pool, including an in-ground, above ground or on-ground pool, hot tub, or spa shall be provided with a barrier as described in the 2018 ICC International Swimming Pool and Spa Code Sections 305.2.1 through 305.7, as modified by local amendment to exempt properties greater than one (1) acre in size.\n\nINSPECTIONS REQUESTED PRIOR TO 3:30 pm WILL BE SCHEDULED THE FOLLOWING BUSINESS DAY.\nANY INSPECTION REQUESTED AFTER 3:30 PM WILL BE SCHEDULED THE 2ND BUSINESS DAY (EXCLUDING -SATURDAY, SUNDAYS AND HOLIDAYS).\n\nExample 1: You request a rough in online at 11:40 am on Wednesday the 12th; the inspection will be scheduled for Thursday the 13th.\n\nExample 2: You request a rough in online at 3:50pm on Wednesday; the inspection will be scheduled for Friday the 14th. Times requested are not guaranteed. If there is a 'last minute' change in your initial request (after 3:30pm) please call our office to let us know.",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Plumbing Permit (Stand Alone)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is for residential, commercial and agricultural plumbing work NOT associated with a Building Permit When requesting inspections please be aware that we take inspections for the NEXT business day until 3:30pm that day ONLY. Any inspections requested after 3:30pm on any day of the week will be scheduled for the FOLLOWING business day (not including Saturday, Sundays and holidays when our office is closed).\n\nExample 1: You requested a rough in online at 11:40 am on Wednesday the 12th; the inspection will be scheduled for Thursday the 13th.\n\nExample 2: You requested a rough in online at 3:50pm on Wednesday; the inspection will be scheduled for Friday the 14th.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Electrical Permit (Stand Alone)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is for residential, commercial and agricultural electrical work NOT associated with a Building Permit in OpenGov. If your work is in conjunction with a Building Permit in OpenGov, the applicant of that Building permit will need your email address so that they may grant you access to their Building Permit where your trade permit will be uploaded in attachments. You will log into your account, print the permit, complete it with the Contractors signature, and upload it into attachments once they have added you as a guest. You will also request your own inspections online.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Subdivision Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This is an application for any revision of lot lines, including minor and major subdivisions, adjoining of parcels, exchanges of land, agricultural purposes, transfer for public purposes, and SRA (Sewage Reserve Area). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Lot Line Revision Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This is an application for any revision of lot lines, including minor and major subdivisions, adjoining of parcels, exchanges of land, agricultural purposes, transfer for public purposes, and SRA (Sewage Reserve Area). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Site Plan Application - Preliminary & Final",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The purpose of site plan review is to ensure that certain uses and associated development conform to the requirements of this chapter. A site plan is required for the following:\n\nAny use in the following use categories identified on the Table of Permitted Uses: Aquaculture; Commercial retail; Commercial, business and personal services; Industrial; Institutional; Maritime; Recreational; Utilities.\nThe following specific uses: Grain processing, drying and storage (wholesale commercial); Manufactured home parks; Multifamily dwellings and townhouses; Planned unit developments.",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Forest Conservation Plan & Forest Stand Delineation",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The main purpose of the Maryland Forest Conservation Act (Natural Resources Article Section 5-1601 through 5-1613) enacted in 1991 was to minimize the loss of Maryland's forest resources during land development by making the identification and protection of forests and other sensitive areas an integral part of the site planning process. Identification of priority areas prior to development makes their retention possible. Of primary interest are areas adjacent to streams or wetlands, those on steep or erodible soils or those within or adjacent to large contiguous blocks of forest or wildlife corridors.",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Zoning Verification Use Certificate  ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This is an application for both temporary uses and certain land uses that require periodic approval or are permitted subject to compliance with conditions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Variance and Special Exception Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This Application is limited to variances of Critical Area requirements to include the following activities: a.) Lot Coverage, b.) Construction activities within the Shoreline Development Buffer, c.) Forestry.",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Administrative Variance - Critical Area  ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This application is limited to Administrative Variances for projects within the Critical Area.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department - Apply for Permits",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; margin: 0px; padding: 0px 0px 1em; border: 0px; outline: 0px; font-size: 34px; text-size-adjust: 100%; vertical-align: baseline; background: rgb(255, 255, 255); color: rgb(102, 102, 102); font-family: \"Open Sans\", Arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 500; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px"
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Board of License Commissioners - Apply For or Renew Your Liquor License",
+      "isEnabled": 1,
+      "content": "<h1 style='box-sizing: border-box; margin: 0px; padding: 0px 0px 10px; border: 0px; outline: 0px; font-size: 19px; text-size-adjust: 100%; vertical-align: baseline; background: rgb(255, 255, 255); color: gray; line-height: 1.4em; font-weight: bold; letter-spacing: -1px; font-family: \"Open Sans\", Arial, sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-wid"
+    },
+    {
+      "id": "1082",
+      "name": "Planning and Zoning - Land Use Forms & Applications",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: \"Benton Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoratio"
+    },
+    {
+      "id": "1083",
+      "name": "Submit a Complaint",
+      "isEnabled": 1
+    },
+    {
+      "id": "1079",
+      "name": "Licensing & Registration",
+      "isEnabled": 1,
+      "content": "<div>Here is where you can apply for Electrical registration and/or Plumbing license for Dorchester County, Maryland.</div><div><br></div><div>Current fee for Electrical registration is $150.00 bi-annually.</div><div>Current fee for Plumbing license is $150.00 annually.</div><div><br></div><div>Payment can be made online OR by cash, check, or money order in-person at:</div><div><br></div><div>Dorchester County Office Building</div><div>501 Court Lane, Room 111</div><div>Cambridge, MD 21613</div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:37.058Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

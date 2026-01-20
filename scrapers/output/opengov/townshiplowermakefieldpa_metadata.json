@@ -1,0 +1,297 @@
+{
+  "jurisdiction": "Lower Makefield Township",
+  "state": "PA",
+  "tenant": "townshiplowermakefieldpa",
+  "portalUrl": "https://townshiplowermakefieldpa.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6357",
+      "name": "Temporary Tent or Membrane Structure Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Any tent or membrane structure that is over 400 Square feet shall need this permit filled out prior to use.",
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Fire/Smoke/Detection System Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Application is for any modification or new installation of fire/smoke/detection systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6361",
+      "name": "Fire Suppression Systems Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This application is for any modification/install of fire sprinkler systems, fire pumps, commercial kitchen hood fire suppression systems, and special agent fire suppression systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6369",
+      "name": "Outdoor Fireworks Display Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Fire Safety Registration",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Fire Safety Registration to comply with Ordinance #434 adopted December 7, 2022.",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6356",
+      "name": "UST / AST Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for any Underground/Aboveground Oil Tank removal/Installs.  You only have to fill out one application if you are removing and replacing a tank.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "UCC Building Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Historical Architectural Review Board Application for Certificate of Appropriateness ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "No building located within the Historic District shall be erected, expanded, reconstructed, altered, restored, demolished or raised within the Historic District unless or until a Certificate of Appropriateness has been issued by the Lower Makefield Township Board of Supervisors.",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Right of Way/Roadway Occupancy Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This permit is used for all right of way/roadway occupancy and excavation.  This permit is also utilized for all sidewalk and curb installations and replacements.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Sewer Lateral Inspection Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A Sanitary Sewer Lateral Inspection is required prior to the sale/transfer of any property. The seller needs to engage a plumber to conduct a video inspection of the lateral to ensure that there are no breaks, clogs, or other obstructions that could affect the sewer line. Any repairs that may be necessary would be the responsibility of the property owner.  \n\nThe Township will review the video and note any corrective work that may be needed.  The seller is responsible to pay the $125 review fee.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Moving Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Anyone who moves into, within or from Lower Makefield Township must obtain a Moving Permit.  \n\nLandlords are responsible for reporting when tenants are moving into, within, or out of the Township.\n\nA Sewer Lateral Inspection Permit is also required prior to the sale/transfer of any property. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Code Violations / Complaints",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The IPMC (International Property Maintenance Code) has been adopted by Lower Makefield Township and is used as the basis for the Township’s Property Maintenance Codes. The Township’s goal is to encourage both property owners and tenants to voluntarily correct violations when a violation is reported or has occurred. \n\nPotential violations are inspected through a process of inspection, notification, education, and notices with the owner or tenant ultimately being responsible for violation corrections. Should violations occur, the owner/tenant is given the opportunity to resolve the issue before legal action is taken. \n\nThe Code Enforcement Officer ensures compliance to the Lower Makefield Township Code of Ordinances. The Code Enforcement Officer responds and investigates complaints and nuisances which may violate the Township’s Code of Ordinances.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Citizen Requests, Feedback, Questions, or Observations ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Submit any requests, feedback, questions, or observations on issues directly related to Lower Makefield Township.\n**THIS FORM IS NOT FOR APPLICATIONS FOR BUILDING PERMIT(S)**\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Right to Know/Request for Information Form",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Requests for public records to Lower Makefield Township will comply with Act 3 of 2008, Pennsylvania's Right-to-Know Law.\n\nFor more information regarding Pennsylvania's New Open Records Law, visit: openrecords.pa.gov.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Blasting Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This permit must be obtained before any person is authorized to conduct any blasting or to use any explosive for the purpose of demolishing of a structure or blasting out rock, gravel, earth, trees, or any other substance or material.",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Use and Occupancy (Non-Residential)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Application for Use and Occupancy before a commercial or nonresidential building is occupied.",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Fats, Oils, and Greases (FOG) ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit requirement shall apply to both new and existing facilities generating fats, oils, or greases, and all such facilities shall install, use, and maintain appropriate grease interceptors as required:\n\n(1) Every commercial food establishment such as restaurants, food courts, banquet facilities, etc.\n(2) Every facility that prepares or serves food such as day cares, schools, mini markets, etc.\n(3) All commercial, retail and industrial facilities that have the potential to discharge FOGs.\n(4) Manufacturing processes that utilize or generate FOGs including cleaning of material.\n(5) All vehicle repair facilities.\n(6) All areas of intensified dwelling, including, but not limited to, adult day-care facilities, assisted-living facilities, convalescent homes, day nursing and child-care facilities in which food preparation occurs, homes for the mentally challenged, hotels, maternity homes, motels in which there is a commercial food preparation service, nursing homes, retirement and life care communities and homes, and truck stops with commercial food service, shall be required to have grease interceptors.\n(7) All other generators discharging grease in amounts that, in the opinion of an authorized agent, will, alone or in concert with other substances from the discharges of other facilities, have a reasonable chance to impede or stop the flow of the sewer system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Small Wireless Communications Facilities Permit ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit is used for all small wireless communications facilities located or collocated on any property or within any right of way.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Hot Works / Welding Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This permit must be obtained before any person is authorized to conduct any operation that will produce hot embers being emitted in the surrounding area.  This permit also requires a fire marshal to be present while the operation is being conducted.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Zoning Hearing Board Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "ZHBs review applications for specific reasons as outlined in the MPC, including:\n•Applications for a variance or a use by special exception\n•Challenges to the validity of a land use ordinance, including those raising procedural questions or alleging defects in the enactment process\n•Appeals to a determination from a zoning officer, municipal engineer, or agency on preliminary opinions, floodplain determinations, transfers of development rights, or administration of sedimentation and erosion control or stormwater management",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Short-Term Lodging Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Before any dwelling unit is advertised for short-term lodging, the property owner shall obtain the required license from the Township by completing the Application for short-term (less than 30 days) rentals/lodging.\n(e.g.- Airbnb, Flipkey, Home Away, VRBO, Craigslist, etc.)",
+      "isEnabled": true
+    },
+    {
+      "id": "6367",
+      "name": "Subdivision and Land Development Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "All plans for the subdivision or development of land lying within Lower Makefield Township are required to be submitted for approval to the Lower Makefield Township Board of Supervisors. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Pyrotechnic Special Effects Materials Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Conditional Use Application ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Temporary Sign Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This is an application for temporary signs only (signs directing persons to temporary exhibits, shows, or events located in the Township).",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Garage/Yard Sale Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Garage sales can not be conducted more than two times per year. Please be advised that signs are not permitted in the township for garage/yard sales. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Block Party Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A block party is a party for which the street and sidewalks may be blocked.  No State Road, arterial or collector streets may be used for a block party.  Only local (development) residential streets may have block parties.",
+      "isEnabled": true
+    },
+    {
+      "id": "6416",
+      "name": "Special Event Application",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Apply for a One Day Temporary Amusement permit here. One Day Temporary Amusement permits are required if the event is open to the public or there is a fee to participate. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1084",
+      "name": "Moving / Sewer Lateral / Use & Occupancy (Non-Residential)",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-bottom:0in;line-height:normal;background:white;\"><span style=\"font-size: 18px;\">Q. What does the Township require when selling or buying a home?</span></p><div><br></div><p style=\"margin-bottom:0in;line-height:normal;background:white;\">Sewer Lateral Inspection by the seller to address any potential issues&nbsp;</p><p style=\"margin-bottom:0in;line-height:normal;background:white;\"><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Lateral_Inspec"
+    },
+    {
+      "id": "1080",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 24px;\">Welcome to the Lower Makefield Township Online Building Permit Portal!</span></strong></p><p>The purpose of requiring a Building Permit is to verify code compliance in construction through the use of established code standards that exist for safety reasons. Lower Makefield Township follows the building codes as adopted by the Pennsylvania Uniform Construction Code.&nbsp;</p><p>The currently adopted codes can be found on the website for the Pennsylvania D"
+    },
+    {
+      "id": "1071",
+      "name": "Citizen Requests & Feedback",
+      "isEnabled": 1,
+      "content": "<p><span style='color: rgb(97, 99, 101); font-family: \"Benton Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color:"
+    },
+    {
+      "id": "1081",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<div>Lower Makefield has partnered with Hera Property Registry, LLC to administer its Foreclosure and Vacant Property Registration program. In order to comply with the Ordinance, all Mortgagees/Trustees must register online via HERA Property Registry using the link below and pay a registration fee.</div><p style='box-sizing: inherit; margin: 0px; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-e"
+    },
+    {
+      "id": "1076",
+      "name": "Community Development",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 0); font-family: Lato; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inlin"
+    },
+    {
+      "id": "1082",
+      "name": "Public Works Department",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoratio"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Marshal",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:03.844Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

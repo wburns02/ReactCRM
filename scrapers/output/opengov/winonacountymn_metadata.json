@@ -1,0 +1,201 @@
+{
+  "jurisdiction": "Winona County",
+  "state": "MN",
+  "tenant": "winonacountymn",
+  "portalUrl": "https://winonacountymn.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6519",
+      "name": "Revolving Loan Fund Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This loan application is intended as gap financing for a commercial project; a bridge with the applicant's existing conventional lender. It is intended to help businesses and build a strong, diversified and sustainable economy in Winona County. As a public fund, financial information from applicants may be discussed in open meetings. Please review the Revolving Loan Checklist and guidelines on the County website, ",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Annual Solid Waste Collection and Transportation License",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This application is for new and existing solid waste haulers who collect and transport wastes in Winona County.  The Winona County Solid Waste Ordnance requires solid waste collection and hauling services operating in Winona County to be licensed annually by the Winona County Board of Commissioners and submit all requested information before final Board approval.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Feedlot Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "For an existing or a new feedlot.\nChange of Operation (switching animal types, increasing animal numbers, new manure storage, new/expanding facilities)",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Notification of Well Construction",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A notification of well construction is required before starting work on a private water supply well.  Homeowners wishing to install their own drivepoint well should contact this office before attempting to use the online application process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Address Request",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Request for new address",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Commercial Timber Harvesting Permit ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Commercial timber harvesting is defined as the gathering of timber on private lands for the purpose of realizing a profit. A permit is required if the harvest is occurring on one (1) or more acres within the Natural Features Overlay Districts or the harvest is occurring within or involves five (5) acres or more of land outside the Natural Features Overlay District.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Address Sign Replacement Request",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Request for address sign replacement",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Appeal to Board of Adjustment / Request for Variance",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A Request for Variance is to allow an exception to Winona County Zoning Ordinance, allowing a use that is otherwise forbidden in the ordinance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Notification of Well Sealing",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A notification of well sealing is required before sealing a water supply well, dewatering well, or environmental well .  Work must be performed by a licensed Minnesota Well Contractor for the well type to be sealed.  Do not submit this notification for temporary environmental borings. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Feedlot Conditional Use Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Chapter 5 of the Winona County Zoning Ordinance defines the procedure for obtaining a Conditional Use Permit (CUP) through the County Board of Commissioners.  \n\nAn application for a CUP is required when:\n1: A new animal feedlot is proposed to have in excess of three hundred (300) animal units.\n2 An existing animal feedlot is proposing a change in operation which results in the feedlot having in excess of three hundred (300) animal units. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Land Disturbance Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Land disturbance is defined as any changes or alterations of the land surface including, but not limited to, removing vegetative cover, excavating, grading and filling, and the construction of impervious surfaces and structures, excluding standard agricultural practices. A permit is required when any of the conditions under 6.13.2 of the WCZO are met. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Feedlot/Manure Storage Closure",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Within 60 days of closure, an owner of a feedlot must submit a certified letter to the County Feedlot Officer (or MPCA officer for your region) stating the feedlot or manure storage areas have been closed in accordance with MN Rules 7020.2025. The closure is required for feedlot components unused for one year. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6367",
+      "name": "Conditional Use/Interim Use Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A conditional use permit grants the property owner the right to use his property in a way that is expressly permitted by the Winona County Zoning Ordinance. A Conditional Use Permit may be allowed with appropriate restrictions upon a finding that:\n\n- Certain conditions as detailed in the Zoning Ordinance exist;\n- The use or development conforms to the Comprehensive Plan of the County; and\n- Is compatible with the existing neighborhood. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Development Certificate  ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "County authorization to conduct most construction activities. This includes but is not limited to building construction/alternation/removal,  rough grading, driveway construction, footing construction, or other physical changes to a site. Although Winona County does not have a building inspection program, this form is commonly referred to as a \"Building Permit\".",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Environmental Well Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "An Environmental Well Permit is required for the construction of a well used to sample or monitor groundwater as defined in MN Statutes 103I.005 Subd. 8a.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Septic System Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A SSTS permit must be obtained prior to the installation, construction, replacement, modification, alteration, repair or capacity expansion of a sub-surface sewage treatment system (SSTS).",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Septic Compliance Inspection Report",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6348",
+      "name": "Dewatering Well Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A Dewatering Well Permit is required for all wells greater than 25 feet in depth used to lower groundwater levels as defined in MN Statutes 103I.005 Subd. 4a.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6351",
+      "name": "Septic System Point of Sale Certification",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Winona County requires a point of sale certification form to be completed and approved any time a sale or transfer of property occurs, unless an exemption applies. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1076",
+      "name": "Land Use - Development - Septics",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 0);\"><span style=\"font-size: 18px;\"><span style=\"font-family: Tahoma, Geneva, sans-serif;\"><strong>Application Process</strong></span></span></span></p><p><span style=\"font-size: 14px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"color: rgb(0, 0, 0);\">1. All applications submitted through this portal require a Citizen Services account in order to apply and track progress. Account sign-up requires an email address and is free and easy to do. "
+    },
+    {
+      "id": "1087",
+      "name": "Feedlot Program - Manure Management",
+      "isEnabled": 1,
+      "content": "<p style='margin: 0px 0px 20px; padding: 0px; border: 0px; font: 400 12px / 22px \"Open Sans\", Arial, Helvetica, sans-serif; vertical-align: baseline; color: rgb(0, 0, 0); letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><span style="
+    },
+    {
+      "id": "1089",
+      "name": "Commercial Timber Harvest -  Land Disturbance",
+      "isEnabled": 1,
+      "content": "<p><br></p><p><br></p>"
+    },
+    {
+      "id": "1084",
+      "name": "Wells & Water Quality",
+      "isEnabled": 1,
+      "content": "<h1 style=\"box-sizing: border-box; margin: 0.67em 0px; line-height: 1.2em; orphans: 2; text-align: justify; text-indent: 0px; widows: 2; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\"><span style=\"font-size: 18px; font-weight: 500;\">Since February of 1989, Winona County has maintained a delegation agreement with the Minnesota Department of Health&#39;s Well Management Section to administer the provisions "
+    },
+    {
+      "id": "1086",
+      "name": "Solid Waste Abatement",
+      "isEnabled": 1,
+      "content": "<p>This portal is for <strong>renewals </strong>only.</p>"
+    },
+    {
+      "id": "1085",
+      "name": "Economic Development Authority",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 0); font-family: Verdana, Arial, Helvetica, sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decorat"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:30.743Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,48 @@
+{
+  "jurisdiction": "Woodbury",
+  "state": "CT",
+  "tenant": "woodburyct",
+  "portalUrl": "https://woodburyct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6391",
+      "name": "Special Events",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Completing the Special Events On-Line Application will walk those interested in having events through the required approval process and is designed to make it easier by making it a one stop process for the applicant.  The application will be reviewed by all departments required to sign off on the approvals.  A complete application with accurate description of the event, required site plans other required documentation will ensure a seamless process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6390",
+      "name": "Building, Zoning, Public Works Driveway and Fire Marshal Online Permits",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Permits included but not limited to: Additions, New Construction, Pools, Decks, Sheds, Garages, Electrical, Plumbing, HVAC, Solar, Tanks, Piping, Gas and more. \n",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1074",
+      "name": "Fire Marshal",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"font-family: Georgia,serif;\"><strong>Required Fire Marshal&#39;s Reviews</strong></span></p><p style=\"text-align: center;\"><br></p><p style=\"text-align: center;\"><span style=\"font-family: Georgia,serif;\"><strong><em><u>Building Plans</u> are required for:</em></strong></span></p><p style=\"text-align: center;\"><span style=\"font-family: Georgia,serif;\"><strong><em><u>New Construction - Renovations - Additions in all buildings</u></em></strong></span></p>"
+    },
+    {
+      "id": "1079",
+      "name": "Online Permits",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><img class=\"fr-fic fr-dii\" src=\"http://woodburyct.org/repository/designs/templates/GO_woodbury-ct/images/photos.jpg\"></p><p style=\"text-align: center;\">To <span style=\"color: rgb(184, 49, 47);\"><strong><u>VIEW</u></strong></span> your existing applications please click on your icon in the upper right corner and go to your profile.</p><p><br></p><p style=\"text-align: center;\">The <span style=\"color: rgb(44, 130, 201);\"><u><strong>SEARCH</strong></u></span> button at"
+    },
+    {
+      "id": "1081",
+      "name": "Special Events",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/1583251198884_Tue_Mar_03_2020_15:58:52_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 724px;\" class=\"fr-fic fr-dib\"></p><p style=\"text-align: center;\"><br></p><p style=\"text-align: center;\"><strong><span style=\"font-size: 30px;\">SPECIAL EVENT PERMITTING</span></strong></p><p style=\"text-align: center;\"><em><span style=\"color: rgb(44, 130, 201);\">Complete the on-line permitting applica"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:48.486Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

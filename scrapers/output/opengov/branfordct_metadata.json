@@ -1,0 +1,206 @@
+{
+  "jurisdiction": "Branford",
+  "state": "CT",
+  "tenant": "branfordct",
+  "portalUrl": "https://branfordct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6569",
+      "name": "Septic Pumpout Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6585",
+      "name": "Staff Level- Early Plan Review",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This Early Plan Review Process is for Special Exceptions, Subdivisions, or Resubdivisions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Inland Wetlands & Watercourses Agency (IWWA) Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Inland Wetlands and Watercourses permit application to conduct Regulated Activity",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "Sewer Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6589",
+      "name": "Staff Level- Land Use Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for Zoning Permits, Certificates of Zoning Compliance, Minor Site Plans, and Minor Site Plan Modifications.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6612",
+      "name": "PCD- Tenant Fit-Out",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "\nUse this permit type for ALL businesses operating in Commercial Spaces\nApplies to:\n1. Change of use \nAND/OR \n2. New owner/operator of business",
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "Excavation Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "IWWA Subdivision/Resubdivision Referral - NO Regulated Activity",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Subdivision/resubdivision of property containing wetlands where NO Regulated Activities will occur (8-26 referral)",
+      "isEnabled": true
+    },
+    {
+      "id": "6586",
+      "name": "Commission Level- Land Use Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for Site Plan Review, Coastal Site Plan Review, Special Exception Zoning Regulation Amendments and Zoning Map Amendments.",
+      "isEnabled": true
+    },
+    {
+      "id": "6570",
+      "name": "Flood Hazard Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6576",
+      "name": "WPCA Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6590",
+      "name": "Commission Level- Subdivision and Resubdivision Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is for Subdivision and Resubdivision.",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "IWWA Jurisdictional Ruling Request",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The Inland Wetlands and Watercourses Agency has the authority to determine whether an activity is “as of right” or a “permitted non-regulated use” as identified in Connecticut General Statute 22a-40",
+      "isEnabled": true
+    },
+    {
+      "id": "6591",
+      "name": "Zoning Board of Appeals Variance Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Variance Application in accordance with CGS Section 8-6 and Branford Zoning Regulations 9.13.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6613",
+      "name": "Zoning Compliance Letter Request",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "This is not a permit. This is a letter typically used to disclose the zoning status of a property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6595",
+      "name": "Demolition Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Demolition applications shall be submitted to the building department for approval for the removal or razing of any structure greater than 500 square feet. All demolition operations shall follow the requirements of Connecticut General States 29-401 through 29-415 inclusively including Chapter 129 of the general code of Branford. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6593",
+      "name": "Electrical Permit ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "A Electrical permit is selected for any owner or owner's authorized agent who intends to erect, install, enlarge, alter, repair, remove, convert or replace any electrical system, or installation of which is regulated by this code, or to cause any such work to be performed, shall first make application to the building official and obtain the required permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6597",
+      "name": "Plumbing Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "A Plumbing permit is selected for any owner or owner's authorized agent who intends to erect, install, enlarge, alter, repair, remove, convert or replace any gas, plumbing system, or installation of which is regulated by this code, or to cause any such work to be performed, shall first make application to the building official and obtain the required permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6600",
+      "name": "Mechanical Permit  ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "A Mechanical permit is selected for any owner or owner's authorized agent who intends to erect, install, enlarge, alter, repair, remove, convert or replace any gas, or mechanical system, or installation of which is regulated by this code, or to cause any such work to be performed, shall first make application to the building official and obtain the required permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6605",
+      "name": "Residential Building Permit ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "A Residential Building Permit shall apply to any owner or owner's authorized agent who intends to construct, enlarge, alter, repair, move, or change the occupancy of a building or structure, or to move a lot line that will affect any existing building or structure, or the installation of which is regulated by this code, or to cause any such work to be performed, shall first make application to the building official and obtain the required permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6611",
+      "name": "Commercial Building Permit ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "A Commercial Building Permit shall apply to any owner or owner's authorized agent who intends to construct, enlarge, alter, repair, move, demolish or change the occupancy of a building or structure, or to move a lot line that will affect any existing building or structure or installation of which is regulated by this code, or to cause any such work to be performed, shall first make application to the building official and obtain the required permit.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1085",
+      "name": "Inland Wetlands",
+      "isEnabled": 1,
+      "content": "<p style='font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; box-sizing: border-box; margin: 0px 0px 10.5px; letter-spacing: 0.05rem; line-height: 27px; color: rgb(0, 43, 87); font-family: \"Crimson Te"
+    },
+    {
+      "id": "1080",
+      "name": "Planning, Conservation, & Development (Zoning)",
+      "isEnabled": 1,
+      "content": "<p style='font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; box-sizing: border-box; margin: 0px 0px 10.5px; letter-spacing: 0.05rem; line-height: 27px; color: rgb(0, 43, 87); font-family: \"Crimson Te"
+    },
+    {
+      "id": "1078",
+      "name": "Building and Inspection ",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><img class=\"fr-dib fr-fir\" src=\"https://viewpointcloud.blob.core.windows.net:443/profile-pictures/emoji_for_vp_Fri_May_05_2017_14:16:39_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 166px; height: 116.2px;\"></p><div><span style=\"font-size: 18px; font-family: Arial, Helvetica, sans-serif;\"><span style=\"color: rgb(41, 105, 176);\"><br></span></span><strong><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px; color: rgb(41, 105, 176);\">Wh"
+    },
+    {
+      "id": "1072",
+      "name": "Engineering",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(41, 105, 176);\">For Questions on Engineering Permit call 203-315-0606</span></div>"
+    },
+    {
+      "id": "1084",
+      "name": "Historical",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:59.503Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,375 @@
+{
+  "jurisdiction": "Durango",
+  "state": "CO",
+  "tenant": "durangoco",
+  "portalUrl": "https://durangoco.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6336",
+      "name": "Right-of-Way Construction & Excavation Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "A permit is required for any & all construction or excavation activities occurring in the public right-of-way and/or city utility easements.  Permits must be submitted at least 48 hours prior to the start date of the permit.  Permits that are submitted with less than 48 hours notice may not be processed by the planned start date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Stormwater Quality Permit Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "A City Stormwater Quality Permit is required when construction activities disturb between 1 and 5 acres of land, in a sensitive area, in close proximity to a stream/river, or steep slopes.",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Onsite Grading and Excavation Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Onsite Excavation & Grading Permits are required for significant over-lot grading projects and for projects undertaking the installation of subdivision utility or infrastructure improvements which  excavates or imports 10 cubic-yards of material or more.",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Fence - TEST",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Signs - TEST",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "ADU Incentive Rebate Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Alteration Certificate",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "For alterations to structures that are located in the Historic Overlay Districts of Third Avenue and Downtown Main Avenue. This includes changes to paint color, reroofs, solar, window alterations, additions, remodels or new construction, or demolition.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Building Permit - General",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": " A building permit must be obtained prior to the start of any work or ground disturbance within City limits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Building Permit - General TEST",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": " A building permit must be obtained prior to the start of any work or ground disturbance within City limits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Pedlet Bistro Table Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Change of Use Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application for a change of use of a building or land to another use of a building or land. No vacant land shall be used or occupied and no building shall be occupied or used until a change of use (which includes, but is not limited to, a conditional use permit, a limited use permit, or special use permit), building permit or other appropriate permit has been issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Right-of-Way Construction & Excavation Permit TEST",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A permit is required for any & all construction or excavation activities occurring in the public right-of-way and/or city utility easements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Building Permit - Comm Events TESTING",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": " A building permit must be obtained prior to the start of any work or ground disturbance within City limits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Building Permit - Demolition ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": " A building permit must be obtained prior to the start of any work or ground disturbance within City limits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Conditional Use Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Conditional Use Permit (CUP). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Bistro Table Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Report a Concern",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Report a concern regarding the following: Signage, Lighting, Noise, Fence/Property line dispute, Storage, Land Use related, Building/Construction related, Engineering/Streets related",
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "Bistro Table Permit Renewal - Annual Fee Payment",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Design Review Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to request approval for any exterior modifications or site plan changes to a commercial. If applying for a building permit for a multi-family development, Design Review approval will be required. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Retaining Wall Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "A Retaining Wall Permit is required prior to construction of any retaining wall 30 inches in height or greater. If the wall design is submitted concurrently with a building permit or a site plan review, a separate permit is not needed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Easement Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to request dedication of an easement from the City of Durango, or to initiate an easement dedication to the City of Durango. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Building Permit - Manufactured/Mobile Home Final Inspection",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": " A final inspection must be obtained prior occupying any manufactured/mobile home structure within City limits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Building Permit - Mechanical only",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The addition, replacement, or repair of mechanical systems requires a mechanical permit.  \nFor Gas line or plumbing please seek a permit from the state at https://dpo.colorado.gov/Plumbing. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Revocable Permit for Use of the Public Right-of-Way, Short-term",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "A permit is required for any use or obstruction occurring in the public right-of-way and/or city utility easements.  Permits must be submitted at least 2 business days prior to the start date of the permit.  Permits that are submitted with less than 2 business days notice may not be processed by the planned start date.",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Fence/Wall Permit Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Report a Concern TEST",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Report a concern regarding the following: Signage, Lighting, Noise, Fence/Property line dispute, Storage, Land Use related, Building/Construction related, Engineering/Streets related",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Special Use Permit TEST",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Limited Use Permit (SUP). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Home Occupation Special Use Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Home Occupation is the use of a residence for a commercial use, aka Business Use of a Home per LUDC 2-3-2-4. The commercial use shall be accessory or secondary to the primary residential use of the property.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Land Use Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application for: Subdivisions/replat, Site Plan Review, EN Alternative Compliance, Annexation, Comprehensive Plan Amendment, Planned Development, Variance, Rezoning, Telecommunications.",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Building Permit - Roofing only",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The addition, replacement, or repair of roofing materials require roofing permit.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Building Permit - Solar only",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Limited Use Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a general Limited Use Permit (LUP), Vacation Rental LUP, and LUP for an ADU. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Building Permit - If located in the County (on City Services) ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "City approval is needed for County Building permits that use City water and/or sewer.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Pre-Application Meeting Request",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A Pre-Application meeting is an opportunity for an applicant to get preliminary feedback on a project proposal. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Service Area/ICA",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application for Implied Consent Agreements (ICA), Joint Planning Area (JPA) reviews, Intergovernmental reviews, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Sign Permit Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application type to apply for standard sign permits, alternative compliance sign permits, Master Sign Programs, and Master Sign Program amendments. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Signage or Minor Uses in Right-of-Way Revocable Permit Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Signs, awnings, or sculptures that are in street/road right of way that are not on private property. These are known as minor encroachments in the ROW. There is a separate permitting process for major encroachments such as structures.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Special Use Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Special Use Permit (SUP). \n\nPlease DO NOT use this application for a Home Occupation Special Use Permit. You can find the specific application form for the Home Occupation Special Use Permit above in this list. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Temporary Use Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application for temporary special events, temporary commercial sales, temporary buildings and construction uses, or temporary storage containers and dumpsters.",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Zoning Verification Letter",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to request a Zoning Verification letter. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Special Activities Permit Application DRAFT ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "The Special Activities Permit Request is for use by event organizers seeking the use of Public Right of Way on city streets, parks and open space. Permit Requests must be completed no less than 45 days from event.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1087",
+      "name": "ADU Rebate Program",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Code Compliance",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">Report any concern for the items below through the <strong><span style=\"color: rgb(41, 105, 176);\">Select</span></strong> button at the bottom</span></div><ul><li style=\"font-family: Arial, Helvetica, sans-serif;\">Signage</li><li style=\"font-family: Arial, Helvetica, sans-serif;\">Lighting</li><li style=\"font-family: Arial, Helvetica, sans-serif;\">Noise</li><li style=\"font-family: Arial, Helvetica, sans-serif;\">Storage"
+    },
+    {
+      "id": "1076",
+      "name": "Planning and Land Use Permits",
+      "isEnabled": 1,
+      "content": "<h2 style=\"box-sizing: border-box; margin-top: 0.167em; margin-bottom: 0px; border: 0px none; font-family: Mulish; font-style: normal; font-weight: 700; color: rgb(0, 106, 83); font-size: 1.5em; text-decoration: none; display: block; overflow: hidden; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255"
+    },
+    {
+      "id": "1082",
+      "name": "Building Permits",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><span style=\"color: rgb(0, 0, 0);\"><strong><span style=\"font-size: 18px; font-family: Arial, Helvetica, sans-serif;\">Welcome to the City of Durango&#39;s Building Division Permit Portal&nbsp;</span></strong></span></div><div><span style=\"font-family: Arial,Helvetica,sans-serif;\"><br></span></div><div><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"color: rgb(0, 0, 0);\">The information included below is intended to address questions specific to"
+    },
+    {
+      "id": "1072",
+      "name": "Engineering (Public Works)",
+      "isEnabled": 1,
+      "content": "<div><br></div><div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/City_logo_color_Fri_Oct_03_2025_17:27:56_GMT+0000_(Coordinated_Universal_Time).jpg\" style=\"width: 300px;\" class=\"fr-fic fr-dib\"></div>"
+    },
+    {
+      "id": "1081",
+      "name": "Bump-Out + Bistro Table Application",
+      "isEnabled": 1,
+      "content": "<div><div style=\"text-align: center;\"><br></div></div><div data-cypress-element-name=\"Learn_More\" data-element-id=\"010d7912-e6c6-4eb4-8d77-a404d3c8320a\" data-ob-name=\"Learn_More\" style=\"box-sizing: border-box; letter-spacing: 1px; color: rgb(56, 56, 56); font-family: Mulish; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-te"
+    },
+    {
+      "id": "1084",
+      "name": "Testing - Under Construction Applications (Internal City Employee Use Only)",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"color: rgb(226, 80, 65);\"><strong><u>PLEASE BE AWARE</u></strong></span>: <strong>This group of permit applications is for internal City staff testing and configuration use only. Applications submitted under these record types will NOT be reviewed by City staff.</strong>&nbsp;</span></div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:41.148Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

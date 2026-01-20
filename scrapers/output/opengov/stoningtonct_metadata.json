@@ -1,0 +1,174 @@
+{
+  "jurisdiction": "Stonington",
+  "state": "CT",
+  "tenant": "stoningtonct",
+  "portalUrl": "https://stoningtonct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6446",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a OpenGov Citizen Services Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Stonington Commercial Building Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This application is designated for commercial projects.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Sewer Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Sanitary Sewer Permits are required for all activities performed on the sanitary sewer system, whether located within Town-owned property or within private property on the exterior of the building. These activities include the installation or repair of a private sanitary sewer house connection, street sewer, sewer trunk line, or any other activity involving the sanitary sewer system. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Stonington Tent Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This application is designated for temporary tents",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Stonington Residential Building Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This Permit is for Residential Single Family Homes, two Family Homes or Townhouses as defined by the CT State Building code Renovations, Additions and Alterations. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Stonington Demolition Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit is for the demolition of any building being removed from a property. Commercial or Residential.",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Stonington Generator Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Used when installing a manual or automatic generator set.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Stonington Tank and/or Piping Installation Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Used when installing Gas Lines and/or Tanks that hold Liquid Propane, Natural Gas or Fuel Oil.",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Stonington Electrical Permit   ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "THIS APPLICATION IS NOT FOR SOLAR!!",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Stonington Plumbing Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Used when installing all types of plumbing and sprinkler systems. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Stonington Heating & Cooling Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": " This permit is for HVAC and associated work. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Stonington Roof/Window(s)/Door(s)/All types of Exterior Siding. Commercial and Residential.",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": " This permit is for installation of roof(s), window(s) and vinyl siding and associated work only.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Stonington Swimming Pool Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This application is for the installation of any structure intended for swimming or recreational bathing that contains water more than 24 inches deep. A swimming pool is defined as any pool 2' in height or more, blow up or metal does not matter. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Stonington Solar Permit  ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Solar installation. Used whether or not you have a Commercial or Residential Building Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Stonington Sign Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit is for any signs installed on buildings or stand alone.",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Stonington Fence Permit   ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit is for any fence(s) installed stand alone on or attached to a structure.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Building Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1085",
+      "name": "Help & Resources",
+      "isEnabled": 1,
+      "content": "<p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Short_Form_P&Z_Certificate_Wed_May_26_2021_19:20:02_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_blank\">Short Form P&amp;Z Certificate.pdf</a></p>"
+    },
+    {
+      "id": "1087",
+      "name": "WPCA",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:42.967Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

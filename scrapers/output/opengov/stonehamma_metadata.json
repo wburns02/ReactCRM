@@ -1,0 +1,96 @@
+{
+  "jurisdiction": "Stoneham",
+  "state": "MA",
+  "tenant": "stonehamma",
+  "portalUrl": "https://stonehamma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006487",
+      "name": "Building Permit - Residential (ONE AND TWO FAMILY DWELLINGS ONLY)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application is used for new construction, renovations, alterations, partial and interior demolition and major repairs ONLY FOR one and two family buildings.\n\n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006488",
+      "name": "Building Permit - Commercial and Other than One and Two Family Dwellings",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application is used for new construction, renovations, alterations, partial and interior demolition and major repairs to existing commercial and  OTHER than one and two family dwellings",
+      "isEnabled": true
+    },
+    {
+      "id": "1006505",
+      "name": "ACCESSORY DWELLING UNIT (ADU)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application is used for ACCESSORY DWELLING UNITS ONLY \n\n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006485",
+      "name": "Electrical Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Plumbing Permit Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Gas Fitter Permit Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006483",
+      "name": "Sheet Metal/Mechanical  Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when a sheet metal worker is manufacturing, fabricating, assembling, handling, erecting, installing, dismantling, alteration and/or repairing duct work, commercial fans, kitchen hoods and vents, architectural sheet metal and metal roofing.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006484",
+      "name": "Shed Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Certificate of Inspection ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006486",
+      "name": "Sign Permit Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "A permit is required for all signs.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<div style=\"box-sizing: border-box; margin-top: 0.25em; color: rgb(34, 34, 34); font-family: Arial; font-size: 14.4px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; t"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:08.134Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

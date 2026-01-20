@@ -1,0 +1,419 @@
+{
+  "jurisdiction": "Hanover",
+  "state": "MA",
+  "tenant": "hanoverma",
+  "portalUrl": "https://hanoverma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6441",
+      "name": "Food Establishment License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Use For: \nCatering  \nCommercial Kitchens \nFarmers Markets\nFood Trucks \nOne Day Events \nResidential Kitchen\nRestaurants  \nRetail Establishments \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Sign Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "(CRDA) Request for Determination of Applicability- (+50' from any resource area or 150' from RFA)",
+      "categoryId": 1090,
+      "viewAccess": "private",
+      "description": "Prior to completing this RDA form, contact the Conservation Agent at conservation@hanover-ma.gov to see if an RDA is the appropriate application.  There are 2 lesser permits for administrative approval that may be available to your project and can be issued from the Conservation Office without the necessity of a public hearing.  These are the RDA for Minor Acts, and a Minor Acts Permit.  You must get prior approval from the Agent to submit the latter 2 applications.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Building Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "26F Smoke & CO Alarms (Home Sales)",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This permit application is used upon sale of your home. It is the responsibility of the seller to acquire a Certificate of Completion from the Hanover Fire Department. \nAppointments are scheduled on Mondays, Wednesdays and Thursdays. All appoints have a 90 minute window between 9:30 am and 11 am.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "(CNOI) Notice of Intent ",
+      "categoryId": 1090,
+      "viewAccess": "private",
+      "description": "Use this form in conjunction with MA DEP form WPA Form 3- Notice of Intent.  Submit completed application packet to MA DEP SERO, 20 Riverside Dr., Lakeville  MA  02347.  Both this on-line application and DEP application must be completed.  Submit one completed original paper copy of the application packet including plans, documents, and payments to the Conservation Office at 550 Hanover St., Hanover MA 02339.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Smoke Detector Inspection New Residential Construction",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "New system must be installed by licensed contractor. \n(New Home  Build, Addition of a Bedroom or a Substantial Renovation >50% of the Home, Requires Upgrade to Current Code of a Hard Wired Interconnected System)",
+      "isEnabled": true
+    },
+    {
+      "id": "6541",
+      "name": "Food Trucks",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Mobile Food Truck or Trailer\nThe design, installation, operation and maintenance of all public and private commercial cooking equipment and mobile temporary cooking operations shall comply with 527 CMR 1.00 the Massachusetts Comprehensive Fire Safety Code, 2021 edition, Chapter 50, Chapter 69, NFPA 96 and NFPA 58 where applicable.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Tobacco License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Electrical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "(CANRAD) Abbreviated Notice of Resource Area Delineation Application",
+      "categoryId": 1090,
+      "viewAccess": "private",
+      "description": "Use this form for confirmation of protected resource area locations, types, size, and boundaries.  No other work will be permitted under this type of Order.  It requires work to be conducted by a licensed and certified wetland specialist, professionally engineered plan(s) of existing conditions, photos of site including main access, BVW Data Forms, ANRAD Plans Checklist available at https://www.hanover-ma.gov/node/2031/files, and appropriate fees.  It also requires submission of funds to establish a peer review account.  Contact the Conservation Agent at conservation@hanover-ma.gov to obtain the appropriate amount to submit.  ANRAD fees also apply and are paid to Comm. of MA as well as to the Town.  You are also responsible for the legal ad publication fee.  Further instructions are available within teh application.     ",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Fire Alarm System Shut Down Permit ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Any alteration or addition to an existing fire alarm system requires a permit from the AHJ",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "(CEvP) Conservation Parcel Event Request (10+ people for >4+ hours)",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Use this application for group events of 10+ people on Conservation Parcels that will last longer than 6 hours.    ",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Gas Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Septage Hauler License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6537",
+      "name": "Sprinkler / Suppression System Shut Down Permit",
+      "categoryId": 1089,
+      "viewAccess": "private",
+      "description": "Any alteration or addition to an existing sprinkler / suppression system requires a permit from the AHJ",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Plumbing Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Oil Burner Installation - Form 1 Required",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Application for Permit, and Certificate of Completion for the installation or Alteration of Fuel Oil Burning Equipment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Mechanical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Body Art & Piercing License for Practitioners ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Process Hazardous Materials",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This permit uses the FP-300 form from The Department of Fire Services\nApplication for Permit to Process Hazardous Materials",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Bodywork Practitioner ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Bodywork Practitioner Permits are renewable annually before December 31st \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6528",
+      "name": "Bodywork Establishment",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Bodywork Establishments are renewable annually before December 31st \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "(CHPDEvent) HPD Range- Scheduled Training Event (Applicants:  Hanover Police personnel ONLY)",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "This permit is used for Hanover Police Dept. Training Events only.   You must be HPD  personnel to use this application.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6533",
+      "name": "Body Art Establishment ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6542",
+      "name": "Service Station / Repair Garage Permitting",
+      "categoryId": 1089,
+      "viewAccess": "private",
+      "description": "Annual permits that are applicable to an automotive service or gas station or repair garage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Flammable & Combustible Materials Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Annual storage of flammables & combustibles unless temporary storage is noted.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Septic Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Hot Works Permit ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Permit for Hotwork, cutting and/or welding; this application is for both annual permitting and also temporary instances. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Underground Storage Tank Removal Permit ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Removal of underground storage tank",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Application for Public or Semi-Public Swimming Pool Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Explosives, Fireworks, Model Rocketry, Cannon Mortar, Storage of Ammunition and Arms ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Blasting Operations, Canon Mortar Firing, Model Rocketry, Fire Works",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Certificate of Inspection",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "General Health License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Misc./General Fire Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This permit application can be used for Fire Permits not otherwise listed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Certificate of Inspection NEW VERSION",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Fire Alarm Systems Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Commercial Fire Alarms",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Sprinkler System ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Commercial Sprinkler Systems: Installation or Repair",
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "21E Site Assessment Archive Request ",
+      "categoryId": 1089,
+      "viewAccess": "private",
+      "description": "This application is to have an archive search requested for a known location in the Town of Hanover. Please identify all distinct locations in the address field.\n\nLife Safety Plan Review should only be selected for new construction. Any modification to an existing system requires a fire alarm or sprinkler shut down permit.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Truck Tank Inspections",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Commercial Truck Tank",
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "Annual Sprinkler System Service",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Annual Fire Alarm System Service",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Animal Keeping Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Commercial Cooking Hood Suppression/Ventilation Systems Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Commercial Cooking Suppression Systems",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "(CRqCOC) Request for Certificate of Compliance ",
+      "categoryId": 1090,
+      "viewAccess": "private",
+      "description": "Use this form when work permitted under the Order of Conditions has been completed.  If you can not complete work in 3 years, submit a Request for Extension Permit.  The Order of Conditions must be recorded at the Plymouth County Registry of Deeds prior to submission of this form.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Propane Storage Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This permit application can be used for propane storage, above ground and underground.",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "(CRqCOC-EO) Request for Certificate of Completion for EO ",
+      "categoryId": 1090,
+      "viewAccess": "private",
+      "description": "Use this form when all work listed under an Enforcement Order, Restoration Order, Violation or Warning has been completed.  All completed work must meet the required deadline as per associated orders.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Perc Test",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Propane Cylinders for Exchange Storage Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Propane Cylinder for Exchange Storage",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Building Office",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1085",
+      "name": "Health",
+      "isEnabled": 1
+    },
+    {
+      "id": "1086",
+      "name": "Community Development",
+      "isEnabled": 1
+    },
+    {
+      "id": "1089",
+      "name": "Fire Department ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1090",
+      "name": "Conservation",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1091",
+      "name": " Assessors ",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:15.495Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

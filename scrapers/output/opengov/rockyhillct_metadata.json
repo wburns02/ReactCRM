@@ -1,0 +1,92 @@
+{
+  "jurisdiction": "Rocky Hill",
+  "state": "CT",
+  "tenant": "rockyhillct",
+  "portalUrl": "https://rockyhillct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6466",
+      "name": "Building Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Zoning Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "REQUIRED for all accessory structures less than 200 square feet IF AND ONLY IF the structures are detached from the primary residence AND if exempt from requiring a Building Permit per the Building Code in effect at the time of application.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Contractor Registration",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Contractors should complete this registration to have your bond and insurance on file with the Engineering Department before filling out a Street Excavation Permit application.  Do it once and only upload bond and insurance again once your policy term expires!",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Street Excavation Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "REQUIRED for any work within the Town of Rocky Hill’s right-of-way.  Not required for work in State or private rights-of-way.  See Street List for more information.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Electrical Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Mechanical Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Plumbing Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Demolition Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1078",
+      "name": "BUILDING DEPARTMENT",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"color: rgb(41, 105, 176);\"><strong><span style=\"font-size: 24px;\"><u>Welcome to the Town of Rocky Hill</u></span></strong></span></p><p style=\"text-align: center;\"><span style=\"color: rgb(41, 105, 176);\"><strong><span style=\"font-size: 24px;\"><u>Online Permitting System</u></span></strong></span></p><p style=\"text-align: center;\"><span style=\"color: rgb(0, 0, 0); font-family: Georgia, serif;\"><span style=\"font-size: 18px;\"><strong>To apply for a permit"
+    },
+    {
+      "id": "1080",
+      "name": "Engineering/Planning & Zoning Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1087",
+      "name": "PUBLIC MESSAGE - The Town of Rocky Hill Warns Residents of Scam Targeting Permit Applicants",
+      "isEnabled": 1,
+      "content": "<div><strong><span style=\"color: rgb(184, 49, 47); font-family: Verdana, Geneva, sans-serif;\">Click on link below to read Important Message:</span></strong></div><div><br></div><div><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/The_Town_of_Rocky_Hill_Warns_Residents_of_Scam_Targeting_Permit_Applicants_Mon_Aug_04_2025_19:19:26_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\"><span style=\"font-family: Verdana,Geneva,sans-serif;\"><strong>The Town o"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:12.786Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

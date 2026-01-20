@@ -1,0 +1,271 @@
+{
+  "jurisdiction": "Inyo County",
+  "state": "CA",
+  "tenant": "countyofinyoca",
+  "portalUrl": "https://countyofinyoca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6460",
+      "name": "Building Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Community Well Construction Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Select this permit for drilling activities associated with the construction of a Public Water System well. Construction of a new well can only be performed by a C-57 licensed driller. The California Contractors State License Board can be searched for that type of licensed driller at: https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Domestic Well Construction Permit Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Select this permit for drilling activities associated with the construction of a domestic water well. Construction of a new well can only be performed by a C-57 licensed driller. The California Contractors State License Board can be searched for that type of licensed driller at: https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Existing System Leach Line Repair, Replace or Modify",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application is for replacement septic systems or repairs to existing systems leach field. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Gas Line Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Monitoring Well Construction Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Select this permit for drilling activities associated with the construction of a monitoring well. Construction of a new well can only be performed by a C-57 licensed driller. The California Contractors State License Board can be searched for that type of licensed driller at: https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "New Alternative Design Septic System Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application is for a new alternative septic system installation. DO NOT DO A PERC TEST UNTIL YOUR SITE HAS BEEN APPROVED BY OUR DEPARTMENT. You will receive emails with each step of the process. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6351",
+      "name": "New Conventional Septic System Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application is for a new conventional septic system installation. DO NOT DO A PERC TEST UNTIL YOUR SITE HAS BEEN APPROVED BY OUR DEPARTMENT. You will receive emails with each step of the process. If your site is not approved for a conventional septic system an inspector will let you know. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Production Well Construction Permit Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Select this permit for drilling activities associated with the construction of a well used for industrial, agricultural, injection/recharge, non-potable fire suppression, or other type of production.\nConstruction of a new well can only be performed by a C-57 licensed driller. The California Contractors State License Board can be searched for that type of licensed driller at: https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Soil Boring and Exploratory Drilling Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Select this permit for non-permanent drilling activities such as soil boring, rock coring, or other exploratory and temporary activities. Construction can only be performed by a C-57 licensed driller. The California Contractors State License Board can be searched for that type of licensed driller at: https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Propane Line, and Tank Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Electrical Re-Wire Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Tank Abandonment Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application is for a septic tank abandonment either by filling the tank in with an approved product or removal of the tank. Septic tanks can not be left empty in the ground as they can be a danger for collapsing. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Tank Repair/Replacement Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application is for replacement septic systems or repairs to existing systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Plumbing Re-Pipe Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Storage Container Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Temporary Event Organizer Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application is for event organizers that are putting on an event more than 4 hours with more than one food vendor. APPLICATIONS ARE REQUIRED TO BE SUBMITTED 1 MONTH PRIOR TO THE EVENT. A 25% penalty will be added to organizers applications for late submission, this includes organizations with a 501C3 letter.\nPlease contact our department if your event is less than 4 hours and only one food vendor as it is not needed for you to fill out this application and submit it. \nOur department has a list of permitted food vendors that are available. Contact our department for that list 760-878-0238.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Temporary Food Vendor Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "This application is for a temporary food vendor to fill out. This application is due 2 weeks prior to the event. Annual permitted food vendors will only need to submit this form once in a calendar year. If the menu changes you will need to send an email to InyoEHD@inyocounty.us ",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Mobile Home Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Sign Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Well Destruction Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Select this permit for drilling activities associated with the destruction of an existing well. Construction can only be performed by a C-57 licensed driller. The California Contractors State License Board can be searched for that type of licensed driller at: https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Well Modification Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Select this permit for drilling activities associated with the modification of an existing well. Construction can only be performed by a C-57 licensed driller. The California Contractors State License Board can be searched for that type of licensed driller at: https://www.cslb.ca.gov/OnlineServices/CheckLicenseII/CheckLicense.aspx",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Cell Tower Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Main Electrical Panel Upgrade Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Patio Covers, Pergolas, Carports",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Deck and Patio Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Pool and Spa Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Energy Storage System Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Water Heater Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "HVAC Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Solar Panel",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Wood and Pellet Stoves Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Reroof Residential and Commercial Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building and Safety Department",
+      "isEnabled": 1,
+      "content": "<div>Our department is here to help when filling out these forms online. There is an in office computer that is available at our department if you would like help filling out these forms. Some attachments will be required per application. Be prepared to upload these forms to the system so that it does not hold up your application. <strong><u><em>Building&nbsp;</em></u></strong><strong><u><em>Plans and Structural Documents will be required to be in digital format.&nbsp;</em></u></strong></div><di"
+    },
+    {
+      "id": "1073",
+      "name": "Environmental Health Department",
+      "isEnabled": 1,
+      "content": "<div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Opengov6_Wed_Sep_04_2024_21:23:56_GMT+0000_(Coordinated_Universal_Time).jpg\" style=\"width: 826px;\" class=\"fr-fic fr-dib\"><div><br></div><span style=\"color: rgb(0, 0, 0); font-family: Georgia, serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; wo"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:37.302Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

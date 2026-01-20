@@ -1,0 +1,223 @@
+{
+  "jurisdiction": "Claremont",
+  "state": "NH",
+  "tenant": "claremontnh",
+  "portalUrl": "https://claremontnh.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6401",
+      "name": "Sidewalk Closure Permit Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6403",
+      "name": "Driveway Permit Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "All driveway permit applications shall comply with the State of New Hampshire's driveway statute, RSA 236:13 and the Claremont Planning Board's requirements. \nAll fees must be paid, appropriate signatures attained, and bonds (if required) posted prior to any permit being granted. All highway and right-of-way cuts require the posting of a minimum of $2500.00 bond which will be returned upon DPW approval of the completed activity. Other retainers may be higher, when in the opinion of a DPW superintendent, the activity has the potential of causing greater damage to any portion of the City's infrastructure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6355",
+      "name": "Fire Prevention - Explosives Application and Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "This permit is for activities involving explosives (e.g. blasting for site construction or mineral extraction).",
+      "isEnabled": true
+    },
+    {
+      "id": "6356",
+      "name": "Fuel Storage Tank Installation AND/OR Removal",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Installation and/or removal of a fuel storage tank.",
+      "isEnabled": true
+    },
+    {
+      "id": "6391",
+      "name": "Oil Burner Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Apply here for an Oil Burner Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "(Fire) Life Safety Non-PoA",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Any business that is not large enough to be a place of assembly, but wants to sell alcohol, is required by the State of NH to get a safety inspection. This will be an annual inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "6377",
+      "name": "Historic District Certificate of Appropriateness",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A Certificate of Appropriateness from the Historic District Commission is required prior to any exterior changes to any building in the Historic District.",
+      "isEnabled": true
+    },
+    {
+      "id": "6376",
+      "name": "Citizen Complaint",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "We want to hear your concerns. Initiate a housing, property maintenance, health, graffiti, blight or any other type of complaint here.",
+      "isEnabled": true
+    },
+    {
+      "id": "6343",
+      "name": "Annual Food Service License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "A Food Service License is required for the operation of any food service establishment, within the limits of the city.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for a building permit including construction, accessory structures, renovations, roofing, siding & new or replacement windows.",
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for an Electrical Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6425",
+      "name": "Mobile Food Vendor",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for a Plumbing Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6402",
+      "name": "Road Closure Permit Application ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6404",
+      "name": "Road closure, sidewalk obstruction and excavation permit application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply here for a road closure, a sidewalk obstruction, an excavation, or any combination of the three. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6354",
+      "name": "Mechanical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit here.",
+      "isEnabled": true
+    },
+    {
+      "id": "6375",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for a demolition permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6386",
+      "name": "Certificate of Occupancy",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for a certificate of occupancy",
+      "isEnabled": true
+    },
+    {
+      "id": "6395",
+      "name": "Solar Array Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for a Solar Array Permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6378",
+      "name": "Sign Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for a sign permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6381",
+      "name": "Pool Permit - Residential 1&2 Family",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for a Pool Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6394",
+      "name": "Residential Water Heater Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply here for residential 1 and 2 family water heater installs. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Permits",
+      "isEnabled": 1,
+      "content": "<div>Oil Burner Permitting and Fuel Storage Tank Install/Removal can be found under the Fire Department Section.&nbsp;</div><div><br></div>"
+    },
+    {
+      "id": "1073",
+      "name": "Business License",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1078",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<p>We strive to help make the City of Claremont a safe, healthy and beautiful place to live by actively enforcing the City Codes and Ordinances. We serve the citizens of The City of Claremont by ensuring compliance through &nbsp;effective public contact and education, building cooperative partnerships and rapport throughout our community, and enforcing the law in an equitable and impartial manner to the greater benefit of the entire City.</p><p><img class=\"fr-dib fr-draggable\" style=\"width: 748p"
+    },
+    {
+      "id": "1076",
+      "name": "Community Development",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1074",
+      "name": "Fire Dept. / Fire Code Enforcement",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1072",
+      "name": "Department of Public Works",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:36.290Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

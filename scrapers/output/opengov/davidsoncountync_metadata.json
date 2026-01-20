@@ -1,0 +1,389 @@
+{
+  "jurisdiction": "Davidson County",
+  "state": "NC",
+  "tenant": "davidsoncountync",
+  "portalUrl": "https://davidsoncountync.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6584",
+      "name": "911 Address Request ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Fill out this form to request a 911 Address online. Site plans indicating where the driveway will be located are essential to receive an accurate address. Please attach all documentation pertaining to the parcel or give a detailed explanation of where the driveway will be located. \n\n**Important** Once this form is submitted and an address is created, it can take 1-2 business days, in most cases, for new addresses to be recognized in this system.\n\nIf you experience problems while filling out the address request form, please call the 911 Addressing Coordinator in the Planning Department at 336-242-2228",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Complaints - Environmental Health",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Environmental Health Specialists enforce state and local laws, rules, and ordinances in variety of program areas.  Specialists also investigate complaints and provide science-based education about local environmental issues to residents who rely every day on safe food, land, water, and air.\nPlease call (336) 242-2310 if you have any questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6582",
+      "name": "Residential Building Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Construction of single family dwellings including but not limited to stick built homes, duplexes, townhomes, and also for manufactured housing such as mobile and modular homes.",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "Central Permitting Complaint Form",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Davidson County Planning Department provides investigation to properties that may feature illegal signage, solid waste (garbage, refuse, construction debris), junk vehicles, abandoned manufactured home(s), or business activity that are located within the County's planning & zoning jurisdiction. \n\nPlease contact the City of Lexington at (336) 248-3900, the City of Thomasville at (336) 475-4255, City of High Point at (336) 883-3328 or the Town of Denton (336) 859-4231 if the property is located in any of these jurisdictions. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6555",
+      "name": "Improvement Permit (IP) and Construction Authorization (CA) Onsite Wastewater Permit Application",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "This application is for an Improvement Permit (IP) and a Construction Authorization (CA). It should be submitted to the Davidson County Health Department for a site when public sewer is not available. This permit is needed prior to the construction, location, or relocation of a residence, place of business, or place of public assembly. However, if you do not plan to build within the next five years you should apply for an Improvement Permit (IP) Only.\n\nPlease call (336) 242-2310 if you have any questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "Step #1 Commercial Building Project Plan Review",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "All commercial projects are required to submit an online Plan Review Application to the Commercial Plan Review Office. A part of the application submittal process is to upload a COMPLETE set of construction documents, plans, and drawings.  Incomplete and/or partial submittals will not be accepted until all documents have been received.\n\nThe average review process takes three (3) to five (5) weeks for all approvals from time the submittal is received. If addendums, revisions, or corrections are required to be made at the request of\nany department, the process time will start over once corrected construction drawings are resubmitted to\nthe Plan Review Office or the department who made the request. Once all approvals have been given, an\nemail will be sent to the contact person/submitter with a permit number, fees due, and an uploaded set of the Approved Plan Set.",
+      "isEnabled": true
+    },
+    {
+      "id": "6547",
+      "name": "Step #2 Commercial Building Permit Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "All Commercial Building Permits are required to be applied for by the appropriate license holder, or responsible party. Once all approvals have been given through the plan review process, the responsible party can make an application for the appropriate permit. The commercial plan examiner will upload the approved plan set. The Approved Plan Set will be required to be on-site and available to the inspector(s).  Central Permitting can print the plans for a $3 charge per sheet, or the contractor can print it themselves. The plans must be legible and readable. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6593",
+      "name": "Zoning Complaint Form- Amended",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "description": "Davidson County's Planning Department investigates properties that may contain Zoning and/or Solid Waste Violations within the County's Planning & Zoning jurisdiction. \n\nPlease contact the City of Lexington at (336) 248-3900, the City of Thomasville at (336) 475-4255, City of High Point at (336) 883-3328 or the Town of Denton (336) 859-4231 if the property is located in any of these jurisdictions. \n\n**Attention: When submitting complaints online, you are creating a digital footprint; therefore, all content of this online form becomes public record. To report a violation anonymously, please send a detailed letter including the address of the violation and to the Planning Department with no name or return address via USPS, or visit us at 913 Greensboro St., Suite 305, Lexington, NC 27292**",
+      "isEnabled": true
+    },
+    {
+      "id": "6592",
+      "name": "Step #2 Commercial Sign Permit Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "All Commercial Building Permits are required to be applied for by the appropriate license holder, or responsible party. Once all approvals have been given through the plan review process, the responsible party can make an application for the appropriate permit. The commercial plan examiner will upload the approved plan set. The Approved Plan Set will be required to be on-site and available to the inspector(s).  Central Permitting can print the plans for a $3 charge per sheet, or the contractor can print it themselves. The plans must be legible and readable. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6559",
+      "name": "Improvement Permit (IP) Only Onsite Wastewater Permit Application ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "This application is for an Improvement Permit (IP) only. It should be submitted to the Davidson County Health Department for a site when public sewer is not available. This application is for a soil evaluation only and is not enough in order to obtain a building permit. This permit is needed prior to the construction, location, or relocation of a residence, place of business, or place of public assembly. However, if you plan to build within the next five years you should apply for an Improvement Permit (IP) and a Construction Authorization (CA) instead.\n\nPlease call (336) 242-2310 if you have any questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6563",
+      "name": "Construction Authorization (CA) Onsite Wastewater Permit Application",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "This Application is for a Construction Authorization (CA) Only. It cannot be applied for unless there is a current application on file for an Improvement Permit (IP) or a valid IP exists for your site. PLEASE HAVE YOUR CURRENT IP NUMBER AVAILABLE WHEN COMPLETING THIS APPLICATION.\n\nHowever, if you do not have a valid IP or a current application for an IP on file you must submit a different application. If you plan to build within the next five years you should apply for an Improvement Permit (IP) and a Construction Authorization (CA) instead.\n\nPlease call (336) 242-2310 if you have any questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6603",
+      "name": "Commercial Fast Track Permit Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "All Commercial Building Permits are required to be applied for by the appropriate license holder, or responsible party. Once all approvals have been given through the plan review process, the responsible party can make an application for the appropriate permit. The commercial plan examiner will upload the approved plan set. The Approved Plan Set will be required to be on-site and available to the inspector(s).  Central Permitting can print the plans for a $3 charge per sheet, or the contractor can print it themselves. The plans must be legible and readable. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6558",
+      "name": "Existing System Reuse Authorization Application-Building Authorization (BA) or Manufactured Home Connection (MH) ",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "Application for Existing System Reuse Authorization (Building Authorization or Manufactured Home Connection Authorization) is the first step in obtaining permits to set up a manufactured home, when a site modification is requested that requires a building permit (pool, deck, garage, room additions, etc.) or when a change of use occurs. The application is valid for one year from the date the application is accepted. The Existing System Reuse Authorization, once issued, is valid for one year. \nPlease call (336) 242-2310 if you have any questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6578",
+      "name": "Conditional Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Where Building Permits are required and upon the request of a permit applicant the Fire Code Official is authorized to issue a Conditional Permit to occupy the premises or portion thereof before the entire work or operations on the premises is completed, provided that such portion or portions will be occupied safely prior to full competition or installation of equipment and operations without endangering life or public welfare.",
+      "isEnabled": true
+    },
+    {
+      "id": "6565",
+      "name": "Repair Permit Application - Onsite Wastewater Construction Authorization (CA)  ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "This application is required to repair an Onsite Wastewater System.\n\nSeptic systems will adequately absorb and purify wastewater if they are properly maintained. However, sometimes due to damage, excessive water usage, or due to the systems age a failure occurs. To protect you and the health of others, it is important to obtain a repair permit from the health department and remedy the problem as soon as possible.\n\nThe North Carolina Cooperative Extension publication states that, \"Contrary to popular belief, septic systems are not maintenance free. Money that is saved by not paying a monthly sewer bill should be set aside for regular inspections and maintenance. A few precautions can save you anguish and money. Reducing water use, avoiding grease, cleaning the effluent filter, pumping the tank periodically, and properly landscaping the yard to keep surface water away from the tank and drainfield are inexpensive precautions that can help assure your system a long life. Go to this website to find out more information: https://content.ces.ncsu.edu/septic-systems-and-their-maintenance\n\n\nPlease call (336) 242-2310 if you have any questions.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6605",
+      "name": "Commercial Utilities Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Utilities Permit Application - For installation of Water or Sewer Lines to within 10' of an exterior wall or installation of Gas Lines or Subsurface Storm Drains when separate from interior plumbing work.",
+      "isEnabled": true
+    },
+    {
+      "id": "6571",
+      "name": "Tenant Up-fit Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "All Commercial Building Permits are required to be applied for by the appropriate license holder, or responsible party. Once all approvals have been given through the plan review process, the responsible party can make an application for the appropriate permit. The commercial plan examiner will upload the approved plan set. The Approved Plan Set will be required to be on-site and available to the inspector(s).  Central Permitting can print the plans for a $3 charge per sheet, or the contractor can print it themselves. The plans must be legible and readable. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Adult and Child Licensed Daycare Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "All commercial projects are required to submit an online Commercial Building Permit Application to the Commercial Plan Review Office. A part of the application submittal process is to upload a COMPLETE set of construction documents, plans, and drawings.  Incomplete and/or partial submittals will not be accepted until all documents have been received.\n\nThe average review process takes three (3) to five (5) weeks for all approvals from time the submittal is received. If addendums, revisions, or corrections are required to be made at the request of\nany department, the process time will start over once corrected construction drawings are resubmitted to\nthe Plan Review Office or the department who made the request. Once all approvals have been given, an\nemail will be sent to the contact person/submitter with a permit number, fees due, and an uploaded set of red line reviewed drawings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "Limited Food Service Permit Application",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "The Environmental Health Food, Lodging and Institutional program provides environmental health investigations of restaurants, lodging, and institutional facilities in order to prevent illnesses which can be transmitted through improper sanitation. This is done through routine inspections, educational sessions, and reviewing plans and issuing permits for new facilities.",
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": " Event Coordinator Application for Temporary Food Establishment - Environmental Health",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "The Environmental Health Food, Lodging and Institutional program provides environmental health investigations of restaurants, lodging, and institutional facilities in order to prevent illnesses which can be transmitted through improper sanitation. This is done through routine inspections, educational sessions, and reviewing plans and issuing permits for new facilities.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6606",
+      "name": "Licensed Residential Care Facility ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "All commercial projects are required to submit an online Commercial Building Permit Application to the Commercial Plan Review Office. A part of the application submittal process is to upload a COMPLETE set of construction documents, plans, and drawings.  Incomplete and/or partial submittals will not be accepted until all documents have been received.\n\nThe average review process takes three (3) to five (5) weeks for all approvals from time the submittal is received. If addendums, revisions, or corrections are required to be made at the request of\nany department, the process time will start over once corrected construction drawings are resubmitted to\nthe Plan Review Office or the department who made the request. Once all approvals have been given, an\nemail will be sent to the contact person/submitter with a permit number, fees due, and an uploaded set of red line reviewed drawings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6541",
+      "name": "Mobile Food Unit Plan Review Application",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "The Environmental Health Food, Lodging and Institutional program provides environmental health investigations of restaurants, lodging, and institutional facilities in order to prevent illnesses which can be transmitted through improper sanitation. This is done through routine inspections, educational sessions, and reviewing plans and issuing permits for new facilities.",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "ABC Alcohol Use Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Alcohol Beverage Control Commission Inspection/Zoning Compliance",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Fire Permit Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "The Davidson County Fire Marshal provides enforcement of fire codes in order to prevent injury and death caused by explosions and/or fires. This application is  available to applicants seeking a construction or operational fire permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6542",
+      "name": "Request for Food Service Re-Inspection",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Temporary Food Establishment Application",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "The Environmental Health Food, Lodging and Institutional program provides environmental health investigations of restaurants, lodging, and institutional facilities in order to prevent illnesses which can be transmitted through improper sanitation. This is done through routine inspections, educational sessions, and reviewing plans and issuing permits for new facilities.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Commercial or Residential Demolition Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Demolition of single family dwellings and commercial buildings including but not limited to stick built homes, duplexes, townhomes, commercial businesses/buildings, and also for manufactured housing such as mobile and modular homes.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Plan Review Application for Food, Lodging and Institutional Facilities",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "The Environmental Health Food, Lodging and Institutional program provides environmental health investigations of restaurants, lodging, and institutional facilities in order to prevent illnesses which can be transmitted through improper sanitation. This is done through routine inspections, educational sessions, and reviewing plans and issuing permits for new facilities.",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Commercial or Residential Grading Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Commercial or Residential Grading Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6569",
+      "name": "Public Swimming Pool Permit Application",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "This program issues operating permits and carries out routine water quality evaluations in order to prevent disease transmission and accidents in public pools and spas.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6608",
+      "name": "Residential Fire Sprinkler",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6585",
+      "name": "Water Flow Test",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Water Flow Test for Fire Protection System",
+      "isEnabled": true
+    },
+    {
+      "id": "6543",
+      "name": "Tattoo Artist Permit Application",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "To allow tattoo artists to apply for tattooing permits as required in General Statutes 130A-283 and 15A NCAC 18A .3202. A separate application must be completed for each permit.\n\nEach tattoo artist must complete and sign a separate application for each location where he or she will engage in tattooing within the State of North Carolina. The completed application must be submitted to the Davidson County Health Department at least 30 days before commencement of operation.  Please call (336) 242-2310 if you have any questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Electrical Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Electrical permits are required for Residential or Commercial Work related to the installation, extension, alteration or general repair of electrical systems as required by North Carolina General Statute 160D-1110. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6577",
+      "name": "Food, Lodging, Institution, Child Care, Swimming Pools, and Tattoo Applications",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "The Environmental Health Food, Lodging and Institutional program provides environmental health investigations of restaurants, lodging, and institutional facilities in order to prevent illnesses which can be transmitted through improper sanitation. This is done through routine inspections, educational sessions, and reviewing plans and issuing permits for new facilities.",
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "Water Sample(s) Request",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "After a water sample is collected from your water supply, the sample is shipped to the North Carolina State Laboratory of Public Health in Raleigh for analysis.\n\nBacteriological - This sample will show the presence or absence of total coliform and fecal coliform (E. coli). \n\nInorganic Chemical and Nitrates – Inorganic chemical sampling tests for things such as alkalinity, arsenic, calcium, chloride, copper, hardness, lead, iron, magnesium, manganese, pH, fluoride, and zinc. \n\nPesticides, Petroleum, and Volatile Organic Compounds (VOCs) – These tests all sample for organic chemicals. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Saw Service Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Temporary Saw Service Pole For Construction Purposes Only. Must Have An Active Building Permit To Apply. Call 336-242-2230 With Any Questions Regarding Eligibility. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Plumbing Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Plumbing permits are required for Residential or Commercial Work related to the installation, extension, alteration or general repair of plumbing systems as required by North Carolina General Statute 160D-1110. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Well Permit",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "This program ensures that the drinking water supplies are properly protected in order to avoid potential illness and death. This is done by permitting and inspecting for proper installation.\n\nApplication for Well Permits can be done through this application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Mechanical Permit ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Mechanical permits are required for Residential or Commercial Work related to the installation, extension, alteration or general repair of electrical systems as required by North Carolina General Statute 160D-1110. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Gas Log/Decorative Appliance Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Gas Log/Decorative Appliance permits are required for Residential or Commercial Work related to the installation of Gas Log/Decorative Appliances as required by North Carolina General Statute 160D-1110. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "Temporary Utilities Power or Gas Permit ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "This Temporary Power/Gas Application is for new construction projects ONLY. Temporary Power/Gas can only be applied for where 75% of the project has been finished and inspected. This means that all trade (electrical, plumbing, and mechanical) rough-ins inspections must have been approved and that the structural portion of the work must have an approved up to an insulation inspection. \n\nIf any trade (electrical, plumbing, and mechanical) work has not had a final inspection, you must have your subcontractors sign the temporary power form.  Please note: If you have not had an electrical final inspection, you will need to outline which circuits of the electrical system you want energized. \n\n                                                          ",
+      "isEnabled": true
+    },
+    {
+      "id": "6579",
+      "name": "Temporary Certificate of Occupancy",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Temporary Certificate of Occupancy - Must have all trade finals approved. All life safety systems must be completed and approved. Must have an approved temporary power permit and inspection for project.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6576",
+      "name": "Farm Building Exemption Affidavit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Farm Building Exemption Affidavit - You must have an approved Zoning Exemption from the Planning and Zoning Office prior to submitting.\n\nTo qualify for a Farm Exemption you must meet one of the following and may be asked to provide burden of proof:\n\nA. A farm sales tax exemption certificate issued by the Department of Revenue;\nB. A copy of the property tax listing showing that the property is eligible for participation in the present-use value program, pursuant to NCGS 105-277.3;\nC. A copy of the farm owner's or operator's most recent Schedule F federal income tax return; or\nD. A forest management plan",
+      "isEnabled": true
+    },
+    {
+      "id": "6611",
+      "name": "Pier Exemption Affidavit Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Construction of single family dwellings including but not limited to stick built homes, duplexes, townhomes, and also for manufactured housing such as mobile and modular homes.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1087",
+      "name": "Central Permitting Department",
+      "isEnabled": 1,
+      "content": "<div>The Davidson County Central Permitting and Inspections Department strives to ensure construction of safer buildings through building code enforcement. The Davidson County Inspections Department is authorized by the North Carolina General Statutes to enforce the North Carolina State Technical Codes.</div><p><br></p><p>Our primary function is to accept plans for review and issuance of building, electrical, plumbing and mechanical permits. We also issue permits for modular and manufactured hom"
+    },
+    {
+      "id": "1088",
+      "name": "Environmental Health Division",
+      "isEnabled": 1,
+      "content": "<p>The Mission of the Davidson County Environmental Health Division is to safeguard life, promote human health and protect the environment through the practice of modern environmental health science, the use of technology, rules, public education and above all, dedication to the public trust.</p><p>On-site water protection enforces state laws and rules pertaining to sewage treatment and disposal in order to prevent the spread of communicable diseases. This is done by evaluating soil and site con"
+    },
+    {
+      "id": "1089",
+      "name": "Planning and Zoning Department",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:47.374Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

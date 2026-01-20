@@ -1,0 +1,234 @@
+{
+  "jurisdiction": "East Greenwich",
+  "state": "RI",
+  "tenant": "eastgreenwichri",
+  "portalUrl": "https://eastgreenwichri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6365",
+      "name": "EG Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a building permit from the Town of East Greenwich, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6376",
+      "name": "EG Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit from the Town of East Greenwich, and (if applicable) apply for a related Fire Alarm Review from the Fire Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6377",
+      "name": "EG Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit from the Town of East Greenwich, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6378",
+      "name": "EG Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the Town of East Greenwich.",
+      "isEnabled": true
+    },
+    {
+      "id": "6382",
+      "name": "EG Moving or Demolition Permit Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6386",
+      "name": "EG Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the Town of East Greenwich",
+      "isEnabled": true
+    },
+    {
+      "id": "6381",
+      "name": "EG Soil Erosion (Phase II Stormwater)",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6424",
+      "name": "Recycle Bin Application",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Request a Recycle Bin",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "EG Dog Licenses",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Effective May 1 - April 30.\nRabies certificate MUST be submitted electronically when applying for a license.\nOnce approved, license and dog tag(s) will be mailed to owner.",
+      "isEnabled": true
+    },
+    {
+      "id": "6413",
+      "name": "EG Alcohol & Ancillary Licenses (Classes A, B, C, D, E or T)",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Effective December 1 - November 30.\nAncillary licenses include Victualing, Entertainment, Jukebox/Mechanical Device/Pool Table, Outdoor Sidewalk Liquor Service, Outdoor Amplified Sound, Extended Hours New Year's Eve",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Zoning Board of Review Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Planning Board Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Land Development & Subdivision Applications ",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "EG Class F Alcoholic Beverage License (Special Event One-Day Beer & Wine)",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Authorizes the sale of malt and vinous (beer and wine) beverages only, at retail for consumption on the premises where sold for a period of nineteen (19) hours, including Sunday. Sales may take place between the hours of 6:00am and 1:00am on the following day. Issued to religious organizations, state corporations, LLC's, sole proprietorships and political organizations. Class F licenses shall not be granted to any person or entity holding any other liquor license. License holders shall purchase alcohol for resale from Class A license holders only (liquor stores). Alcohol Server Training Certification required for ALL who sell and/or serve alcohol. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6338",
+      "name": "Tent/Event Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application must be submitted at least seven days in advance of the event.  If you have an urgent request, please call us directly at 401-383-7717.",
+      "isEnabled": true
+    },
+    {
+      "id": "6425",
+      "name": "EG Sewer Connection/Wastewater Discharge Application",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Apply for a sewer connection permit/wastewater discharge permit in the Town of East Greenwich.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "EG Class F1 Alcoholic Beverage License  (Special Event One-Day Full Bar)",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Authorizes the sale of alcoholic beverages at retail for consumption on the premises where sold for a period of nineteen (19) hours, including Sunday. Sales may take place between the hours of 6:00am and 1:00am on the following day. Issued to religious organizations, state corporations, LLC's, sole proprietorships and political organizations. Class F1 licenses shall not be granted to any person or entity holding any other liquor license. License holders shall purchase alcohol for resale from Class A license holders only (liquor stores). Alcohol Server Training Certification required for ALL who sell and/or serve alcohol. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Historic District Commission Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application to the Historic District Commission for consideration of request for exterior modifications to structures in the Historic District. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6417",
+      "name": "EG Victualing License",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Effective December 1 - November 30. \nA \"victualing house\" is a business where food is prepared and/or consumed on the premises.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "EG Residential Overnight Parking Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Effective May 1 - April 30 between the hours of 1:00 AM and 7:00 AM on designated residential streets ONLY. \nException: 3rd Friday of each month for street sweeping between 2:00AM and 7:00 AM.\nPermit shall not be in effect during a snowstorm parking restriction.\nMust be permanently affixed to driver's side, rear window, lower left corner (no tape/plastic).\nRefer to Town Code Section 248-27. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6422",
+      "name": "Zoning Certificate",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for the Zoning Certificate with the Town of East Greenwich. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "EG Right of Way Permit",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Apply for a Right of Way permit in the Town of East Greenwich.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Residential Smoke & Carbon Monoxide ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Smoke and carbon monoxide certificate for the sale or transfer of any 1,2 or 3 family dwelling. The certificate shall be valid for a period of 120 day per RIGL 23-28.1-10.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "EG Flea Market/Festival Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Any person owning, operating or controlling a flea market or festival shall be required to obtain a license from the Town upon payment of a license fee. A flea market or festival is an event when retail sales are conducted periodically and not daily, involving multiple vendors who are charged a fee to participate, and whether within an open area or enclosed structure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": " Life Safety Inspection",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Click here to submit your request for an inspection from the Office of the Fire Marshal (related to business licenses or construction rough/final)",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Planning & Zoning",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1072",
+      "name": "Construction Permits",
+      "isEnabled": 1,
+      "content": "<p><strong>Select the form below for the appropriate construction permit.</strong></p><hr><p>Fire Plan and Fire Alarm required permits will be included in a construction permit depending on the project type and scope.</p><hr>"
+    },
+    {
+      "id": "1078",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin-bottom: 1.4em; border: 0px none; font-style: normal; font-weight: 400; color: rgb(51, 51, 51); font-family: Arial; font-size: 14px; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: initial; text-decoration-color"
+    },
+    {
+      "id": "1077",
+      "name": "Engineering Permits",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"color: rgb(184, 49, 47); font-size: 24px;\">SITE PLAN REQUIREMENTS,&nbsp;</span></strong><strong><span style=\"color: rgb(184, 49, 47); font-size: 24px;\">READ THIS FIRST: </span></strong></p><p><strong><span style=\"color: rgb(184, 49, 47);\"><a href=\"https://www.eastgreenwichri.com/DocumentCenter/View/4168/Stormwater-Pollution-Prevention-Plan-Requirements\">https://www.eastgreenwichri.com/DocumentCenter/View/4168/Stormwater-Pollution-Prevention-Plan-Requirements</a></span></s"
+    },
+    {
+      "id": "1071",
+      "name": "Fire Safety Inspections",
+      "isEnabled": 1,
+      "content": "<p>For specific questions related to Fire Safety Inspections please email the <a href=\"mailto:mcarreiro@eastgreenwichri.com\">Fire Marshal</a>.</p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:13:11.243Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

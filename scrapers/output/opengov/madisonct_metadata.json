@@ -1,0 +1,231 @@
+{
+  "jurisdiction": "Madison",
+  "state": "CT",
+  "tenant": "madisonct",
+  "portalUrl": "https://madisonct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6473",
+      "name": "Incident Report",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Salon License Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Septic Abandonment",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Food Establishment Plan Review Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Temporary Event",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Food Service Establishment License Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Accessory Apartment Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Please use this application to obtain or renew an Accessory Apartment zoning certificate in accordance with Section 24 of the Madison Zoning Regulations. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Planning & Zoning Commission Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Please use this application for any submission to the Planning & Zoning Commission including Site Plan, Special Exception, Village District, Subdivision, Re-Subdivision, Text Amendment, and Zone Boundary Change. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Zoning Board of Appeals Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Please use this application for Variances, Substitution of non-conforming uses, Modifications of Variances, and Appeals of ZEO's Decision",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Inland Wetlands and Watercourses Agency Application (IWWA)",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Please use this application for any regulated activities within a wetland or watercourse and the 100ft upland review area. This includes as of right determinations, non-regulated determinations, timber harvests, and text and boundary amendments. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "19-13-B100a Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Septic Permit Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Incident Report Health Dept",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Sparkler / Fountains Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Open Burn Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Burn Permits can be filled out prior to coming to the office to obtain a signature. Once permit is completed and the fee paid an inspection of the burn site will be conducted, from that day the permit will be good for fourteen (14 days). Once a permit issued the home owner MUST call (203) 245-2772 option \"0\" to obtain approval to burn for the day. Burning hours are from 10 AM - 5 PM on a clear day with AQI below 75 and fire danger moderate or low. Burn permits are required to be requested at least 7 days before date of issue. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Soil Testing",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Septic Plan Review Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Administrative Zoning Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Please use this permit application for home occupations, temporary and permanent signage, and small accessory structures under 200 sq.ft.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Private Well ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Building Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Daycare License Application",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "General Fire Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Electrical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Plumbing Permit*",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Mechanical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Gas Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1092",
+      "name": "Public Works",
+      "isEnabled": 1
+    },
+    {
+      "id": "1083",
+      "name": "Inspectional Services",
+      "isEnabled": 1,
+      "content": "<p>Welcome to our Online Permitting System.</p><div><br></div><div>In an effort to streamline the Town of Madison&rsquo;s permitting process, the building permit has changed effective October 1, 2025. What&rsquo;s changed? The permit types have been changed to be less confusing. Depending on your choice of permit type, additional fields will appear requiring more information. Below is a list for your reference.</div><table border=\"1\" cellpadding=\"0\" cellspacing=\"0\" style=\"width: 97%; margin-left"
+    },
+    {
+      "id": "1085",
+      "name": "Fire Marshal",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1086",
+      "name": "Land Use",
+      "isEnabled": 1,
+      "content": "<p>Welcome to the Madison Land Use Department&#39;s Online Portal. All Planning &amp; Zoning, Inland Wetlands, Zoning Board of Appeals, Historic District Commission, and Administrative Zoning Permit applications can be found here.&nbsp;</p><div><br></div><div>If you have questions or need assistance using this system, please contact the Land Use Department at 203-245-5631 or <a data-fr-linked=\"true\" href=\"mailto:landuse@madisonct.org\" rel=\"noopener noreferrer noopener noreferrer\" target=\"_blank\""
+    },
+    {
+      "id": "1084",
+      "name": "Health",
+      "isEnabled": 1,
+      "content": "<p>&ldquo;In an effort to streamline the Town of Madison&rsquo;s permitting process, effective February 6, 2023 you will no longer need to fill out separate permit applications for each department unless it is specific to that department.</p><p>When applying for new construction, additions, renovations, etc. you only need to make one application for permit. The application will be routed to the necessary departments internally (i.e. Zoning, Health, Flood, Building, etc.). In special circumstance"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:11:01.511Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

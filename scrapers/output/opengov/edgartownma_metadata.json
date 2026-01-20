@@ -1,0 +1,262 @@
+{
+  "jurisdiction": "Edgartown",
+  "state": "MA",
+  "tenant": "edgartownma",
+  "portalUrl": "https://edgartownma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006681",
+      "name": "Change of Address Form",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006656",
+      "name": "Dinghy/Kayak Registration",
+      "categoryId": 1102,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006680",
+      "name": "Curb Cut 2025",
+      "categoryId": 1102,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006659",
+      "name": "Residential Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for all work on a residential structure requiring a building permit.  This includes new homes & guest houses (or ADUs), accessory structures, additions, alterations, repairs and demolition.  For installation of solid fuel-burning appliances (i.e. woodstoves) please use this application and select \"other\".",
+      "isEnabled": true
+    },
+    {
+      "id": "1006636",
+      "name": "Septage/Grease Pump-out Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit to have a septic system or grease trap pumped.  Permit must be obtained by a Edgartown licensed septage pumper/hauler.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006675",
+      "name": "ABOVE GROUND PROPANE - 2025 TEST - FOR JOSH",
+      "categoryId": 1102,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006582",
+      "name": "Dog Licensing",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006646",
+      "name": "Request for Certificate of Compliance (CoC)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006660",
+      "name": "Commercial Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for all commercial work requiring a building permit.  This includes new construction, accessory structures, additions, alterations, repairs and demolition.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006691",
+      "name": "Food Establishment Permit Application (New 2026)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for restaurants, grocery stores, caterers, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006614",
+      "name": "Liability Insurance Upload",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006657",
+      "name": "Workman's Comp Upload",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006655",
+      "name": "Pool Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for the installation or change to a swimming pool and/or spa.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006633",
+      "name": "Temporary Food Event Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Applications must be submitted no less than 72 hours before an event.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006654",
+      "name": "Solar Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for all solar arrays, roof or ground mounted.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006606",
+      "name": "Electrical Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc. Also includes low voltage wiring including cable TV, internet, phones, fire protection systems, security alarm systems, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006604",
+      "name": "Gas Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006668",
+      "name": "Notice of Intent (NOI)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006571",
+      "name": "Test by IT  Dept - YARD",
+      "categoryId": 1102,
+      "viewAccess": null,
+      "description": "Apply for a Yard, Garage, Tag or Estate Sale",
+      "isEnabled": true
+    },
+    {
+      "id": "1006603",
+      "name": "Plumbing Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when plumbing is being installed, altered, removed, replaced or repaired. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006644",
+      "name": "Request for Determination of Applicability (RDA) ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006631",
+      "name": "Septic Installer License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "A license to install septic systems is renewable annually on January 1st and expires on December 31st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006632",
+      "name": "Septic Pumper/Hauler License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Pumpers/Hauler licenses are renewable annually on January 1st and expire on December 31st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006508",
+      "name": "Tent Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit application is for the erection of tents and other temporary structures that exceed 400 square feet (aggregate of all temporary structures on the lot) and that will be in place for less than 180 days. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006629",
+      "name": "Tobacco Sales Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Tobacco sales permits are renewable annually on January 1st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006667",
+      "name": "Sign Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Town of Edgartown requires a sign permit before any sign may be erected. See Edgartown Zoning Bylaw Article XI, Section 11.4 for all sign requirements. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006519",
+      "name": "Trench Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Pursuant to G.L. c. 82A §1 and 520 CMR 7.00 et seq.(as amended) ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1102",
+      "name": "*TESTING - NOT FOR PUBLIC USE*",
+      "isEnabled": 1
+    },
+    {
+      "id": "1100",
+      "name": "Parks Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1088",
+      "name": "Assessor",
+      "isEnabled": 1
+    },
+    {
+      "id": "1083",
+      "name": "Shellfish",
+      "isEnabled": 1
+    },
+    {
+      "id": "1084",
+      "name": "Town Clerk",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Building Department ",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; margin: 0px 0px 7.5pt; color: rgb(51, 51, 51); font-family: \"Benton Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; "
+    },
+    {
+      "id": "1081",
+      "name": "Conservation Commission",
+      "isEnabled": 1
+    },
+    {
+      "id": "1073",
+      "name": "Health",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:19.210Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

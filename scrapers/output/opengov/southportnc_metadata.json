@@ -1,0 +1,198 @@
+{
+  "jurisdiction": "Southport",
+  "state": "NC",
+  "tenant": "southportnc",
+  "portalUrl": "https://southportnc.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6492",
+      "name": "Generator Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit includes the Mechanical, Electrical, and Gas trades all in one permit.  No need for separate permits.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Building Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for Commercial and Residential Building Permits including, but not limited to, Single Family Dwellings, Commercial Buildings, Upfits, Remodels, Residence Additions, Repairs.  BUILDING PERMIT APPLICATION DOES NOT INCLUDE TRADE PERMITS.  You will need to apply for each trade separately.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Accessory Structure Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for construction of accessory structures, such as sheds, decks, carports, and pergolas.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Electrical Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for Residential and/or Commercial\nElectrical Trade Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Plumbing Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for Residential and/or Commercial Plumbing Trade Permits",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Mechanical Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for Residential and/or Commercial HVAC/Mechanical Trade Permits",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Gas Piping",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for Residential and/or Commercial Gas Piping Trade Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Irrigation",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Pool",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Pool and Hot Tub/Jacuzzi Permit Application",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Fence Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Sign Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Zoning Change of Use/Owner",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "New businesses or businesses changing locations",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Tree Removal Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Permit application for existing homes.  Tree removal permit for new construction will need to be completed with Building Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Floodplain Development Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Demolition Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Fire Sprinkler Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Rights-of-Way Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for vegetation and parking in the rights-of-way",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Short-Term Vacation Rental Zoning Permit (STVR)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The City of Southport adopted a Short-Term Vacation Rental Ordinance on July 8th, 2021.  This ordinance prohibits short-term vacation rentals within the residential districts of the city of Southport but does allow short-term vacation rentals existing on the date of the adoption of the ordinance to continue as lawful nonconforming uses.  The City is no longer using a registration program to monitor the operation of shorter term vacation rentals or homestays, but the property must still comply with the zoning districts and standards of the Unified Development Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Homestay Zoning Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Itinerant Merchant / Peddler Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Food Vendor",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Permit Applications",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><span style=\"color: rgb(41, 105, 176);\"><span style=\"font-family: Verdana, Geneva, sans-serif;\"><span style=\"font-size: 18px;\">For permitting questions, general information, or to schedule a meeting&nbsp;please call</span></span></span><p style=\"text-align: center;\"><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px; color: rgb(41, 105, 176);\">910-457-7925</span></p><table class=\"fr-dashed-borders\" style=\"width: 100%; margin-left: calc(0%);\">"
+    },
+    {
+      "id": "1084",
+      "name": "Frequently Asked Questions",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 18px; font-family: Verdana, Geneva, sans-serif; color: rgb(41, 105, 176);\">Watch how to use the permit portal below</span></strong></p><p><span class=\"fr-video fr-dvb fr-draggable fr-fvl\" contenteditable=\"false\" draggable=\"true\"><video class=\"fr-draggable fr-fvc fr-dvi\" controls=\"\" src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/How_to_complete_a_permit_application_(2)_Tue_Mar_21_2023_17:19:08_GMT+0000_(Coordinated_Universal_Time).mp4\" style="
+    },
+    {
+      "id": "1082",
+      "name": "Forms and Documents to Upload in Applications",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(41, 105, 176);\"><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Address_Verification_Thu_Feb_23_2023_16:05:19_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\"><span style=\"font-family: Verdana, Geneva, sans-serif; font-size: 18px;\">Address Verification.pdf</span></a></span></p><p><span style=\"font-family: Verdana,Geneva,sans-serif;\"><span style=\"color: rgb(41, 105, 176);\"><a class=\"fr-file\" href=\"https://viewpointcloud.b"
+    },
+    {
+      "id": "1085",
+      "name": "Announcements",
+      "isEnabled": 1,
+      "content": "<div><strong>No Announcements at this time</strong></div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:49.183Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

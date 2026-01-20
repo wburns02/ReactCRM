@@ -1,0 +1,226 @@
+{
+  "jurisdiction": "New Fairfield",
+  "state": "CT",
+  "tenant": "newfairfieldct",
+  "portalUrl": "https://newfairfieldct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6343",
+      "name": "Food Service Establishment License Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "For annual licensure of food service establishments",
+      "isEnabled": true
+    },
+    {
+      "id": "6351",
+      "name": "Septic System Repair / Replacement Permit Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for permit to construct a new septic system or repair an existing septic system. Do not check off multiple types of permits. New construction is for new homes only. Please use repair for existing homes that need a new system. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6377",
+      "name": "Water Treatment Wastewater Disposal System",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit to install a Water Treatment Wastewater Disposal System (water from a water softener, etc)",
+      "isEnabled": true
+    },
+    {
+      "id": "6389",
+      "name": "Application for Septic Plan Review-Engineer & Installer ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Health Department review & approval of Engineer and CT licensed septic installer designed septic systems",
+      "isEnabled": true
+    },
+    {
+      "id": "6390",
+      "name": "Application for septic soil test",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Percolation and Test Pits for septic system design",
+      "isEnabled": true
+    },
+    {
+      "id": "6418",
+      "name": "Food Vending License (Food / Ice Cream Truck)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Mobile Food Vending (Requires approval by First Selectman's Office)",
+      "isEnabled": true
+    },
+    {
+      "id": "6386",
+      "name": "Open Burn Permit ",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6380",
+      "name": "Application for  Soil Erosion and Sediment Control Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6379",
+      "name": "Building Permit Project Application (Commercial) ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is designated for commercial projects ONLY.\n\nALL subcontractors need to be on the permit or their individual permits must be issued PRIOR to any Inspections being performed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "Building Permit Project Application (Residential)",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This Permit is for Residential Single Family Homes, two Family Homes or Townhouses as defined by the CT State Building code. Renovations, Additions, Alterations etc. \nALL subcontractors need to be on the permit or their individual permits must be issued PRIOR to any Inspections being performed.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Deck ONLY Permit Application ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This Permit is for decks ONLY, Attached or Detached from a building.",
+      "isEnabled": true
+    },
+    {
+      "id": "6424",
+      "name": "Demolition Permit Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This permit is for the demolition of any building being removed from a property. Commercial or Residential.",
+      "isEnabled": true
+    },
+    {
+      "id": "6391",
+      "name": "Electrical Permit Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Electrical work not on a building permit. THIS APPLICATION IS NOT FOR SOLAR!!",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Event Permit Application ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Regulate all outdoor events i.e. carnivals and fairs as it pertains to emergency vehicles; access to fire protection equipment; placement of stands, tents, concession booths, and exhibits; and the control of hazardous conditions to life and property, such as crowd controls, evacuation plans, risk & threat assessments, alcohol management etc. cooking, food safety, electrical, gas etc.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6394",
+      "name": "Generator Permit Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Used when installing a manual or automatic generator set.",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "LP Gas Tank / Lines Permit Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Used When Installing LP Gas or LP gas Lines",
+      "isEnabled": true
+    },
+    {
+      "id": "6392",
+      "name": "Mechanical Permit Application (HVAC, Heat, Ventilation, Air Conditioning)",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": " This permit is for HVAC and associated work. duct work, oil burner, furnace etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6401",
+      "name": "Miscellaneous Work Permit Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Tents, Hot tubs, Windows. Wood, Gas Inserts, replacements etc. OIL TANK REMOVAL / Install.\nELECTRICAL, PLUMBING, HEATING, HVAC, GENERATORS, DEMOLITION AND SOLAR ARE TO BE ON THEIR OWN INDIVIDUAL PERMIT APPLICATIONS!",
+      "isEnabled": true
+    },
+    {
+      "id": "6393",
+      "name": "Plumbing Permit Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "For any Plumbing Work not associated with a project",
+      "isEnabled": true
+    },
+    {
+      "id": "6399",
+      "name": "Roof Permit Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Used when re-roofing or roof repair. PLEASE BE AWARE OF 2015 IRC 905.1.1 REQUIRES SEALING OF ROOF SHEATHING JOINTS!!",
+      "isEnabled": true
+    },
+    {
+      "id": "6397",
+      "name": "Siding Permit Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Used when installing or replacing siding ",
+      "isEnabled": true
+    },
+    {
+      "id": "6388",
+      "name": "Solar Permit Application ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Solar installation. Used whether or not you have a Commercial or Residential Building Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6396",
+      "name": "Swimming Pool Permit Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is for the installation of a swimming pool. A swimming pool is defined as any pool 2' in height or more. blow up, metal does not matter. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1078",
+      "name": "BUILDING DEPARTMENT",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"color: rgb(184, 49, 47);\"><strong><span style=\"font-size: 36px;\">!!!! IMPORTANT !!!!</span></strong></span></p><p style=\"margin-bottom: 0.0001pt; line-height: normal; text-align: center;\"><span style=\"color: rgb(184, 49, 47); font-size: 36px;\"><strong><u>The next state building, fire safety and fire prevention codes will go into effect on October 1st, 2022.</u></strong></span><br><!--[if !supportLineBreakNewLine]--></p><p style=\"mso-margin-top-alt:auto"
+    },
+    {
+      "id": "1074",
+      "name": "FIRE MARSHAL",
+      "isEnabled": 1,
+      "content": "<p><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/NF_FIRE_MARSHAL_MALTESE_LOGO_Mon_Aug_12_2024_13:29:03_GMT+0000_(Coordinated_Universal_Time).jpg\" style=\"width: 300px;\" class=\"fr-fic fr-dib\"></p><p style=\"text-align: center;\"><br></p><p style=\"text-align: center;\">The Town of New Fairfield&rsquo;s Fire Marshal&#39;s Office warrants safety through education of the residents and businesses in town regarding fire safety and life safety code. &nbsp;The staff of the Marshal&r"
+    },
+    {
+      "id": "1073",
+      "name": "HEALTH DEPARTMENT",
+      "isEnabled": 1,
+      "content": "<p><br></p><p style=\"text-align: center;\"><span style=\"color: rgb(184, 49, 47);\"><span style=\"font-size: 18px;\"><strong><u><img class=\"fr-fic fr-dib\" style=\"width: 300px;\" src=\"https://viewpointcloud.blob.core.windows.net:443/profile-pictures/food_prep_Tue_May_16_2017_13:40:29_GMT+0000_(Coordinated_Universal_Time).jpg\">WHICH APPLICATION SHOULD I USE ?<img class=\"fr-fic fr-dib\" style=\"width: 300px;\" src=\"https://viewpointcloud.blob.core.windows.net:443/profile-pictures/Picture_002_Tue_May_16_2017"
+    },
+    {
+      "id": "1079",
+      "name": "WETLANDS AND EROSION",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1080",
+      "name": "ZONING DEPARTMENT",
+      "isEnabled": 1,
+      "content": "<p>PLEASE <u>READ</u> <span style=\"color: rgb(184, 49, 47);\">NEW FAIRFIELD ZONING REGULATIONS</span> FOR APPLICABILITY&nbsp;</p><p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net:443/profile-pictures/NFZoningRegs_Revised_8.28.14_Wed_May_09_2018_17:38:36_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\">NFZoningRegs_Revised_8.28.14.pdf</a></p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T23:10:44.845Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

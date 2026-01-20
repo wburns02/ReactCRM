@@ -1,0 +1,192 @@
+{
+  "jurisdiction": "Medina",
+  "state": "MN",
+  "tenant": "medinamn",
+  "portalUrl": "https://medinamn.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6426",
+      "name": "New Construction - Single Family Detached",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "New Construction - Single Family Attached",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please apply here for Twin Homes, Townhomes, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "New Construction-Commercial",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "New Construction-Multi Family",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Building Permit - Residential",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please apply here for Residential Building Permits.  Deck, Screen Porch, Remodel, Addition, Basement Finish, Accessory Structures, Swimming Pool, New Window/Door (altered opening), Draintile.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Residential Re-Roof, Re-Side, or Windows/Doors",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please apply here for Residential Re-Roofing, Re-Siding, Replacement of Window(s) and/or Door(s) (within existing openings).\n\n\nNOTE: If any window/door openings need to be altered, please apply for \"Building Permit - Residential\".",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Building Permit - Commercial",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please apply here for Commercial Building Permits. Tenant Finish, Remodel, Addition, Roofing, Accessory Structure, Window/Doors.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Plumbing - Residential",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please apply here for Residential Water Softener, Water Heater, Drinking Water System, Plumbing Fixture(s).",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Plumbing - Commercial",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Mechanical - Residential",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please apply here for Residential (New or Replacement) Air Conditioner, Furnace, Boiler, Fireplace, Gasline, Garage Heater.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Mechanical - Commercial",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Fire Suppression or Alarm System Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Solar Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please apply here for Solar Panels.",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Septic System Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please apply here for Type I, II, III, IV, V  Septic System (New or Replace), Drainfield Repair, Tank(s) (New or Replace).",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Sign Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please apply here for Sign Permits. Freestanding (Monument or Pylon), New Wall Sign, Sign Face Replacement.",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Grading Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Water Meter Installation",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Driveway Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Tree Removal Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Master Plan Review",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Contact Deb at 763-473-8847 for instructions on submitting for Master Plan Review.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Escrow",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Wetland Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please apply here for Wetland Permits.  \nWetland Delineation, No Loss / Exemption Request, Wetland Estimate.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Permits",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T23:12:32.740Z",
+  "generalSettings": {
+    "id": 1
+  }
+}
