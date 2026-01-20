@@ -1,0 +1,267 @@
+{
+  "jurisdiction": "Brownsburg",
+  "state": "IN",
+  "portalUrl": "https://brownsburgin.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6597",
+      "name": "Plot Plan Request ",
+      "categoryId": 1078,
+      "viewAccess": null
+    },
+    {
+      "id": "6638",
+      "name": "Event on Town Property Application",
+      "categoryId": 1097,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6640",
+      "name": "Residential Alarm Application",
+      "categoryId": 1098,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6642",
+      "name": "Business Alarm Application",
+      "categoryId": 1098,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6535",
+      "name": "Zoning Map Amendment (PCMA)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6648",
+      "name": "Infrastructure (INFR) Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6537",
+      "name": "Conditional Zoning Map Amendment (PCCZ)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6534",
+      "name": "Primary Plat (PCPP)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6543",
+      "name": "One & Two Family Residential (RESD) Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6542",
+      "name": "Commercial/Industrial (COMM) Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6529",
+      "name": "Secondary Plat (CPSP)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6541",
+      "name": "Development Plan Review (PSDP)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6606",
+      "name": "Report a Code Issue",
+      "categoryId": 1088,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6615",
+      "name": "Hood System (HOOD) Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6544",
+      "name": "Multi-Family Residential (MULT) Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6531",
+      "name": "Replat and Amendments (PCRP)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6538",
+      "name": "Plat Vacation (PCVA)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6590",
+      "name": "Utility Connection Request (UTCR)",
+      "categoryId": 1095,
+      "viewAccess": null
+    },
+    {
+      "id": "6548",
+      "name": "Accessory Structure (ASTR) Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6549",
+      "name": "Electrical (ELEC) Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6540",
+      "name": "Commitment Amendment (PCCA)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6595",
+      "name": "Administrative Property Line Adjustments (APLA)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6550",
+      "name": "Fence (FENC) Review",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6589",
+      "name": "Pool/Spa (SWIM) Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6539",
+      "name": "Zoning Text Amendment (PCZT)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6438",
+      "name": "Variance - Development Standards (BZDV)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6552",
+      "name": "Right-of-Way (RIOW) Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6553",
+      "name": "Sign (SIGN) Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6526",
+      "name": "Variance - Use (BZUV)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6527",
+      "name": "Special Exception Use (BZSE)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6554",
+      "name": "Utility (UTIL) Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6556",
+      "name": "Temporary Use (TEMP) Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6528",
+      "name": "Administrative Appeal (BZAA)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6557",
+      "name": "Demolition (DEMO) Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6532",
+      "name": "Zoning Certification Letter (PCZL)",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6612",
+      "name": "Erosion Control/Stormwater (ECSW)",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6651",
+      "name": "Bond (BOND) Record",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Permitting and Inspection Services",
+      "isEnabled": 1
+    },
+    {
+      "id": "1076",
+      "name": "Planning and Zoning Services",
+      "isEnabled": 1
+    },
+    {
+      "id": "1088",
+      "name": "Code Compliance Services",
+      "isEnabled": 1
+    },
+    {
+      "id": "1078",
+      "name": "Plot Plan Requests and Other Information",
+      "isEnabled": 1
+    },
+    {
+      "id": "1095",
+      "name": "Brownsburg Utilities",
+      "isEnabled": 1
+    },
+    {
+      "id": "1098",
+      "name": "Police Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1097",
+      "name": "Parks Department",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T21:27:45.520Z"
+}

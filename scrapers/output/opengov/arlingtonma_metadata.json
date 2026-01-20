@@ -1,0 +1,271 @@
+{
+  "jurisdiction": "Arlington",
+  "state": "MA",
+  "portalUrl": "https://arlingtonma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006573",
+      "name": "**One Day Alcohol License *DRAFT*",
+      "categoryId": 1088,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006482",
+      "name": "Building Permit - One or Two-Family Dwelling",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006537",
+      "name": "Accessory Dwelling Unit (ADU)",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006533",
+      "name": "Allowable Work Hours",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006484",
+      "name": "Building Permit - Other Than One or Two-Family Dwelling",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006483",
+      "name": "Dumpster/Pod Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006552",
+      "name": "Buildable Lot Information",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006540",
+      "name": "CO vs COA, Expired Permit Info, As Built Requirements",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006493",
+      "name": "Electrical Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006492",
+      "name": "Plumbing Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006538",
+      "name": "Demo Sign Off Sheet",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006539",
+      "name": "Fossil Fuel-Free ByLaw/Demonstration & Specialized Stretch Energy Code",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006494",
+      "name": "Gas Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006583",
+      "name": "Apply for a Dog License (1-4 dogs)",
+      "categoryId": 1088,
+      "viewAccess": null
+    },
+    {
+      "id": "1006495",
+      "name": "Mechanical Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006531",
+      "name": "Good Neighbor Agreement & Condo Notification, Request for Abutters List",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006530",
+      "name": "Guidelines for: Sheds, Fences, Decks, Garages, Retaining Walls ",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006498",
+      "name": "Sheet Metal Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006486",
+      "name": "Application for Certificate of Use/Occupancy",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006522",
+      "name": "Guest Portal Record Access",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006541",
+      "name": "Historic Districts Commission & Historical Commission",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006506",
+      "name": "Annual Certificate of Inspection",
+      "categoryId": 1071,
+      "viewAccess": null
+    },
+    {
+      "id": "1006554",
+      "name": "Homeowner Considering Construction",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006521",
+      "name": "How to Save and Resume a Draft of a Record/Application",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006465",
+      "name": "Sign Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006525",
+      "name": "Bylaw/Code Violation Complaint",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006551",
+      "name": "Location of Parking Spaces",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006572",
+      "name": "New Build (Energy Efficient Homes on Nonconforming Lots)",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006505",
+      "name": "Variance Permit Application (ZBA)",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006520",
+      "name": "Appeal from Decision of Building Inspector",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006532",
+      "name": "Open Space & Gross Floor Area",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006523",
+      "name": "Permit Fee Schedule and Service Fee FAQ",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006497",
+      "name": "Special Use Permit Application (ZBA)",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006518",
+      "name": "Waiver - Fossil Fuel Free Bylaw",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006555",
+      "name": "Plot Plan requirements",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006543",
+      "name": "Public Records Request",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006527",
+      "name": "Tent Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006529",
+      "name": "Tree Bylaws and Info",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006534",
+      "name": "Remodels: Additions, Basements",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006536",
+      "name": "Starting a Business in Arlington?",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "1006535",
+      "name": "Zoning Bylaws & Town Bylaws",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "ISD Permit Applications",
+      "isEnabled": 1
+    },
+    {
+      "id": "1086",
+      "name": "Building: FAQs and Useful Information/Documents",
+      "isEnabled": 1
+    },
+    {
+      "id": "1088",
+      "name": "Practice Dept",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T21:27:27.254Z"
+}

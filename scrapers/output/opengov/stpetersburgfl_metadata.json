@@ -1,0 +1,89 @@
+{
+  "jurisdiction": "St. Petersburg",
+  "state": "FL",
+  "portalUrl": "https://stpetersburgfl.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6495",
+      "name": "Affordable Housing Redevelopment Loan Program ",
+      "categoryId": 1092,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6510",
+      "name": "N-Team Application",
+      "categoryId": 1098,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6497",
+      "name": "2026 Community Food Grant Program",
+      "categoryId": 1094,
+      "viewAccess": "private"
+    },
+    {
+      "id": "6542",
+      "name": "Homeowner Retroactive Rebate Form",
+      "categoryId": 1100,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6513",
+      "name": "1. Homeowner Initial Intake Form",
+      "categoryId": 1100,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6546",
+      "name": "Legacy Business Program - Draft",
+      "categoryId": 1090,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6514",
+      "name": "2. Homeowner Verification of Inspection Results and Recommended Rehabilitation Method Form",
+      "categoryId": 1100,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6515",
+      "name": "3. Homeowner Closeout Form",
+      "categoryId": 1100,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6486",
+      "name": "Rebates for Affordable Residential Rehabilitation ",
+      "categoryId": 1092,
+      "viewAccess": "private"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1090",
+      "name": "Testing",
+      "isEnabled": 1
+    },
+    {
+      "id": "1092",
+      "name": "Housing",
+      "isEnabled": 1
+    },
+    {
+      "id": "1094",
+      "name": "Community Food Grant Program (HFAP)",
+      "isEnabled": 1
+    },
+    {
+      "id": "1098",
+      "name": "Code Compliance",
+      "isEnabled": 1
+    },
+    {
+      "id": "1100",
+      "name": "Private Lateral Line Rehabilitation",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T21:26:32.815Z"
+}

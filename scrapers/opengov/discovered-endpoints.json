@@ -1,0 +1,74 @@
+{
+  "discoveredAt": "2026-01-20T21:15:00Z",
+  "platform": "OpenGov/ViewPointCloud",
+  "summary": "OpenGov permit portals use ViewPointCloud as backend. Public REST API provides metadata only. Actual permit records require Auth0 authentication.",
+
+  "architecture": {
+    "frontend": "Ember.js SPA",
+    "portalUrlPattern": "https://{tenant}.portal.opengov.com",
+    "restApiBase": "https://api-east.viewpointcloud.com/v2/{tenant}",
+    "graphqlEndpoints": {
+      "search": "https://search.viewpointcloud.com/graphql",
+      "records": "https://records.viewpointcloud.com/graphql",
+      "inspections": "https://inspections.viewpointcloud.com/graphql"
+    },
+    "authentication": {
+      "provider": "Auth0",
+      "domain": "accounts.viewpointcloud.com",
+      "clientId": "Kne3XYPvChciFOG9DvQ01Ukm1wyBTdTQ",
+      "audience": "viewpointcloud.com/api/production"
+    }
+  },
+
+  "publicEndpoints": {
+    "categories": {
+      "method": "GET",
+      "url": "/v2/{tenant}/categories",
+      "auth": false,
+      "description": "List permit categories"
+    },
+    "record_types": {
+      "method": "GET",
+      "url": "/v2/{tenant}/record_types",
+      "auth": false,
+      "description": "List record/permit types"
+    },
+    "general_settings": {
+      "method": "GET",
+      "url": "/v2/{tenant}/general_settings/1",
+      "auth": false
+    },
+    "project_templates": {
+      "method": "GET",
+      "url": "/v2/{tenant}/project_templates",
+      "auth": false
+    }
+  },
+
+  "authenticatedEndpoints": {
+    "records": {
+      "method": "GET",
+      "url": "/v2/{tenant}/records",
+      "auth": true,
+      "note": "Returns empty without auth"
+    },
+    "graphql_search": {
+      "method": "POST",
+      "url": "https://search.viewpointcloud.com/graphql",
+      "auth": true
+    }
+  },
+
+  "discoveredJurisdictions": [
+    {"id": "seagovilletx", "name": "Seagoville", "state": "TX", "status": "migrated"},
+    {"id": "stpetersburgfl", "name": "St. Petersburg", "state": "FL", "status": "active"},
+    {"id": "apopkafl", "name": "Apopka", "state": "FL", "status": "active"},
+    {"id": "cocoabeachfl", "name": "Cocoa Beach", "state": "FL", "status": "active"},
+    {"id": "arlingtonma", "name": "Arlington", "state": "MA", "status": "active"},
+    {"id": "brownsburgin", "name": "Brownsburg", "state": "IN", "status": "active"},
+    {"id": "countyoflakeca", "name": "Lake County", "state": "CA", "status": "active"},
+    {"id": "providenceri", "name": "Providence", "state": "RI", "status": "active"}
+  ],
+
+  "extractionStrategy": "Use Playwright with Auth0 login to capture session token, then call REST/GraphQL APIs"
+}

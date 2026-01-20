@@ -1,0 +1,174 @@
+{
+  "jurisdiction": "Cocoa Beach",
+  "state": "FL",
+  "portalUrl": "https://cocoabeachfl.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6516",
+      "name": "LS - Special Events Application",
+      "categoryId": 1089,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6515",
+      "name": "Parking Permit Application",
+      "categoryId": 1091,
+      "viewAccess": null
+    },
+    {
+      "id": "6430",
+      "name": "BLDG - Building Permit",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6518",
+      "name": "LS - Beach Wedding Ceremony Permit",
+      "categoryId": 1089,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6464",
+      "name": "Vacation Rental Registration Application (Annual)",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6451",
+      "name": "BTR - Vacation Rental Business Tax Application",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6431",
+      "name": "BTR - Commercial Business Tax Receipt & Certificate of Use Application",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6452",
+      "name": "BTR - Home Based Business Tax Application ",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6434",
+      "name": "ROW - Right of Way Permit",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6435",
+      "name": "BLDG - Temporary Sign Permit",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6514",
+      "name": "DS - Foreclosed and Vacant Property Registration",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6503",
+      "name": "DS - Garage Sale Permit",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6470",
+      "name": "P&Z - Administrative Waiver",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6477",
+      "name": "P&Z - Change of Use Application",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6475",
+      "name": "P&Z - Painted Wall Sign Authorization",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6448",
+      "name": "P&Z - Planned Development (PD) Master Plan Review",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6492",
+      "name": "DUNE - Dune Permitting Authorization/Protocol",
+      "categoryId": 1086,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6483",
+      "name": "P&Z - Right of Way and Easement Vacation",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6446",
+      "name": "P&Z - Site Plan Review Application",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6445",
+      "name": "P&Z - Special Exception Request Application",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6474",
+      "name": "P&Z - Tree Removal Authorization",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6439",
+      "name": "P&Z - Variance Request Application",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6473",
+      "name": "P&Z - Variance (Density above 10/28 units per acre)",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6471",
+      "name": "P&Z - Variance (Building Height above 45 feet)",
+      "categoryId": 1083,
+      "viewAccess": "public"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Development Services",
+      "isEnabled": 1
+    },
+    {
+      "id": "1089",
+      "name": "Leisure Services",
+      "isEnabled": 1
+    },
+    {
+      "id": "1086",
+      "name": "Environmental / Dune Trimming & Restoration",
+      "isEnabled": 1
+    },
+    {
+      "id": "1091",
+      "name": "Parking Permits",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T21:27:08.981Z"
+}

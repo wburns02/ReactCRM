@@ -1,0 +1,335 @@
+{
+  "jurisdiction": "Apopka",
+  "state": "FL",
+  "portalUrl": "https://apopkafl.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6596",
+      "name": "Engineering: Right of Way Permit",
+      "categoryId": 1072,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6597",
+      "name": "Engineering Driveway/Sidewalk Permit",
+      "categoryId": 1072,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6591",
+      "name": "Individual Distributed Wastewater Treatment Unit (DWTU) Permit",
+      "categoryId": 1072,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6488",
+      "name": "Fire Prevention Permit  - Aerial Fireworks Display - (NFPA 1123)  ",
+      "categoryId": 1074,
+      "viewAccess": null
+    },
+    {
+      "id": "6431",
+      "name": "Building-Contractor Registration ",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6517",
+      "name": "Irrigation Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6569",
+      "name": "Addressing Request",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6481",
+      "name": "Annexation Application",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6544",
+      "name": " Building Permit (Window and Door Replacement/Retaining Walls/Foundation) NOT SFR'S",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6500",
+      "name": "Fire Prevention Permit - Consumer Sparkler - Retail Sales",
+      "categoryId": 1074,
+      "viewAccess": null
+    },
+    {
+      "id": "6585",
+      "name": "Oil and Grease Management Program",
+      "categoryId": 1072,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6487",
+      "name": "Fire Prevention Permit - Flame Effect - Before a proximate audience (NFPA 160) ",
+      "categoryId": 1074,
+      "viewAccess": null
+    },
+    {
+      "id": "6491",
+      "name": "Appeal Application",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6529",
+      "name": "Business Tax Receipt Application",
+      "categoryId": 1079,
+      "viewAccess": null
+    },
+    {
+      "id": "6469",
+      "name": "Arbor/Tree Removal Permit",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6495",
+      "name": "Mobile Food Service Permit and Inspection (Fire Prevention Permit)",
+      "categoryId": 1074,
+      "viewAccess": null
+    },
+    {
+      "id": "6506",
+      "name": "Building-Private Provider Notice to Building Official ",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6486",
+      "name": "Fire Prevention Permit - Open Flame Permit",
+      "categoryId": 1074,
+      "viewAccess": null
+    },
+    {
+      "id": "6568",
+      "name": "Change of Use",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6580",
+      "name": "CSP Application",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6574",
+      "name": "FLU (Future Land Use) Amendment",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6369",
+      "name": "Fire Prevention Permit - Pyrotechnics - Before a proximate audience (NFPA 1126) ",
+      "categoryId": 1074,
+      "viewAccess": null
+    },
+    {
+      "id": "6496",
+      "name": "Fire Prevention Permit- Restricted Access Gate/Fence Installation Review and Inspection",
+      "categoryId": 1074,
+      "viewAccess": null
+    },
+    {
+      "id": "6547",
+      "name": "Commercial Building  Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6550",
+      "name": " Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6359",
+      "name": "Fire Prevention Permit - Special Events Indoor/Outdoor Permit",
+      "categoryId": 1074,
+      "viewAccess": null
+    },
+    {
+      "id": "6474",
+      "name": "FLU Amendment/Rezoning Application",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6579",
+      "name": "MDP Application",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6540",
+      "name": "Fire  Permit",
+      "categoryId": 1074,
+      "viewAccess": null
+    },
+    {
+      "id": "6518",
+      "name": " Fence Permit - Residential/Commercial",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6538",
+      "name": "Roof Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6561",
+      "name": "Fire Training Event Permit",
+      "categoryId": 1074,
+      "viewAccess": null
+    },
+    {
+      "id": "6483",
+      "name": "Planned Development/Master Plan Application",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6581",
+      "name": "Plat Application",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6507",
+      "name": "Shed Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6492",
+      "name": "Sign Permit- Permanent/Temporary",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6573",
+      "name": "Rezoning Application",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6503",
+      "name": "Single Family Residence  Permit  (NEW HOUSE CONSTRUCTION ONLY)",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6452",
+      "name": "Special Exception Use Permit Application",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6457",
+      "name": "Transfer of Development Rights ",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6438",
+      "name": "Vacation of ROW or Easement Application",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6546",
+      "name": " Solar Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6485",
+      "name": "Variance Application",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6490",
+      "name": "Waiver of Fees for Not for Profit Organizations and Churches",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6542",
+      "name": "RSF Pre Final Plat Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6539",
+      "name": " Sub-Contractor Permits (ANY & ALL FIRE RELATED WORK WILL NEED TO APPLY USING A  FIRE PERMIT)",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6530",
+      "name": "Zoning Verification Letter ",
+      "categoryId": 1076,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6505",
+      "name": " Swimming Pool-Master File Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6548",
+      "name": " Swimming Pool Permit",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    },
+    {
+      "id": "6549",
+      "name": "Townhouse Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public"
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1079",
+      "name": "Business Tax Receipt",
+      "isEnabled": 1
+    },
+    {
+      "id": "1076",
+      "name": "Community Development",
+      "isEnabled": 1
+    },
+    {
+      "id": "1074",
+      "name": "Fire Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1072",
+      "name": "Public Services",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T21:26:50.956Z"
+}
