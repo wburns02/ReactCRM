@@ -1,0 +1,64 @@
+{
+  "jurisdiction": "Lauderdale Lakes",
+  "state": "FL",
+  "tenant": "lauderdalelakesfl",
+  "portalUrl": "https://lauderdalelakesfl.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6461",
+      "name": "P&Z - Special Events Application",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "A completed Special Event Permit application is required for all events with the City of Lauderdale Lake.  All events will be reviewed by the Planning, Building, Fire and BSO for approval.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6571",
+      "name": "Open/Expired Permit Research Request",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Use this form to request a search for any open or expired permits associated with a property in the City of Lauderdale Lakes. This search identifies permits that remain open, expired, or incomplete in the City’s records. \n\nResults reflect only information currently available to the City and are not a guarantee that all work on the property was properly permitted.\n\n\nA $40.00 fee applies to each property parcel number requested.\nAll Permit Search Requests must be submitted online through the City’s permitting portal.\n\nPlease allow seven to ten (7–10) business days for processing. Requests submitted after 2:00 p.m. will be processed on the next business day. Results will be delivered electronically through the online system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "BLDG – Contractor & Design Professional Registration",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "All contractors, private providers, special inspectors, engineers, and architects must register with the City of Lauderdale Lakes before performing any work or submitting documents. \n\nRegistration requires providing a copy of your state license, local Business Tax Receipt (BTR), general liability insurance, workers’ compensation or exemption, and a valid driver’s license. \n\nEngineers and architects are also required to register.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Engineering Permits",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Engineering Permits authorizes individuals or companies to perform construction, maintenance, or temporary activities within public streets, sidewalks, or easements. Theses permit types ensures that all work is conducted safely, with proper restoration and minimal disruption to the public.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1081",
+      "name": "Building Services",
+      "isEnabled": 1,
+      "content": "<div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/permit_banner_old_Tue_Dec_16_2025_18:16:58_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 826px;\" class=\"fr-fic fr-dib\"></div><div><br></div><h1 style='box-sizing: initial; font-family: \"Crimson Text\"; font-style: normal; font-weight: 700; color: rgb(0, 153, 206); font-size: 2.25em; text-decoration: none; line-height: 1.2; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orpha"
+    },
+    {
+      "id": "1083",
+      "name": "Planning and Zoning",
+      "isEnabled": 1,
+      "content": "<div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Planning_&_Zoning_Permits_Mon_Aug_11_2025_19:45:25_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 826px;\" class=\"fr-fic fr-dib\"></div><div><br></div><div><a href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Table_of_Permitted_Uses_Thu_Dec_11_2025_14:59:13_GMT+0000_(Coordinated_Universal_Time).xlsx\" target=\"_blank\">Table of Permitted Uses</a></div>"
+    },
+    {
+      "id": "1086",
+      "name": "Engineering",
+      "isEnabled": 1,
+      "content": "<div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Engineering_Permits_Mon_Aug_11_2025_20:06:48_GMT+0000_(Coordinated_Universal_Time).jpg\" style=\"width: 1200px;\" class=\"fr-fic fr-dib\"></div><div><br></div><div style=\"text-align: justify;\"><strong><span style=\"font-size: 18px; font-family: Arial, Helvetica, sans-serif;\">Engineering Permits</span></strong></div><div style=\"text-align: justify;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><br></span></div><div s"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:53.836Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

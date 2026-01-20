@@ -1,0 +1,151 @@
+{
+  "jurisdiction": "West Warwick",
+  "state": "RI",
+  "tenant": "westwarwickri",
+  "portalUrl": "https://westwarwickri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6378",
+      "name": "Nonresident Landlord",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "The owner of any dwelling, dwelling unit, rooming unit or structure who is a nonresident of the state of Rhode Island shall have and continuously maintain with the city or town clerk where the property is located a registered agent, which agent may be either an individual who resides in this state or corporation authorized to do business in this state.",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "Planning Application ",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "  Subdivision & Land Development Applications",
+      "isEnabled": true
+    },
+    {
+      "id": "6390",
+      "name": "Zoning Board of Review Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6395",
+      "name": "Liquor License ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Renew or Apply for a Liquor License from the Town of West Warwick and all additional licenses. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6381",
+      "name": "Deck / Roof / Shed /  Pool / Siding / Sign",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a permit for decks, roofing, sheds, siding, or signage only. These types of construction do not require any action on the part of the Fire or Sewer departments. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Smoke Alarm & Carbon Monoxide Alarm Application for Sale of 1,2 & 3 Family Homes",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Smoke Alarm & Carbon Monoxide Alarm Inspection request for the sale of a residential building.  Initial Inspection Fee is $30.  If a re-inspection is required, the fee is $60.  If choosing to pay by cash or check, inspection will not be scheduled until payment is received. Applications not received by 4 PM on Monday, are not eligible for inspection on the upcoming Wednesday. You will be notified by email of your assigned 1 hour time slot for inspection on Tuesday afternoon.  \n\nINSPECTION SHOULD BE SCHEDULED AT LEAST TEN BUSINESS DAYS PRIOR TO THE SCHEDULED CLOSING DATE.\n\nALL DEVICES are required to have a Nationally Recognized Testing Laboratory certification seal (ex. UL,ETL) on the rear of the device to ensure the device has been tested to meet all current standards.\n\nALL DEVICES must be installed prior to the inspector arriving. The Inspector cannot wait while devices are installed due to scheduling. When the inspector arrives if the devices are not mounted in place it will be a automatic failure and will have to be rescheduled for the following Wednesday, requiring a re-inspection fee.",
+      "isEnabled": true
+    },
+    {
+      "id": "6384",
+      "name": "Life Safety Inspection for Businesses, Liquor License, Commercial Buildings & Apartment Buildings (4 Units or Greater)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6332",
+      "name": "Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a building permit and (if applicable) apply for a related Fire Plan Review from the Fire Marshal. Do not use this permit type if your construction is limited to decks, roofs, sheds, and siding. Use the proper link above. Applying for the wrong permit may delay its issuance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit and (if applicable) apply for a related Fire Plan Review from the Fire Marshal. ****ALL MECHANICAL PERMITS MUST FOLLOW 2024 ENERGY CODE****",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for a demolition permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the Town of West Warwick.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "FIRE DEPARTMENT",
+      "isEnabled": 1,
+      "content": "<p>Apply for smoke and carbon monoxide alarm inspections for the sale of residential homes. &nbsp;All other plan review is done through the Building Officials page.</p>"
+    },
+    {
+      "id": "1072",
+      "name": "BUILDING DEPARTMENT",
+      "isEnabled": 1,
+      "content": "<p>Submit one form to apply for permits (including Fire Plan Review, if applicable).</p>"
+    },
+    {
+      "id": "1076",
+      "name": "MINIMUM HOUSING",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1077",
+      "name": "Planning Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1079",
+      "name": "Zoning Board of Review",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1081",
+      "name": "Town Clerk",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:57:16.881Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

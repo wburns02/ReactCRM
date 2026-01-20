@@ -1,0 +1,458 @@
+{
+  "jurisdiction": "Brighton",
+  "state": "CO",
+  "tenant": "brightonco",
+  "portalUrl": "https://brightonco.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6438",
+      "name": "Solar Installation Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "For solar installations a stamped engineered letter in regard to truss load capacity and a standard PV plan set is required.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Right of Way Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6563",
+      "name": "Goat Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Contractor's License Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Pool",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Master Plan Review",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Roof Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is for a reroof exceeding 1 square.",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "New Single Family Detached Residence",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "New Commercial/Industrial Construction",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Development Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "A  Development Permit is required for any site development constructing initial infrastructure construction including but not limited to; water, sewer, storm drainage, and/or public/private streets, sidewalks, parking areas, etc.  Fees on this permit are the permit fee, plan review fee, and use tax, based on job valuation estimated cost of materials and labor).  Additional drainage fees may also apply.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Temporary Use ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Temporary use refers but is not limited to temporary sales stand, temporary sales office, construction office, construction yard, etc.  Temp uses are allowed with approval of a temp use permit for a period of 90 days, with one extension of 90 days permitted on each application.  Extended uses may be permitted for a period of one year with renewals in subsequent years, to be determined by the Community Development Director.  The City of Brighton may impose conditions, bonding, and insurance necessary for the health, safety, and welfare of the inhabitants of the community.  Setback and other requirements of the district in which the temp use is located shall apply to buildings and structures connected with such temp use, and such buildings and structures shall be constructed so as to be structurally sound and attractive to the community.  Signs associated with this request will be reviewed to the adopted City of Brighton sign code regulations",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Conveyance Units",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Annual elevator Certificate of Operation",
+      "isEnabled": true
+    },
+    {
+      "id": "6565",
+      "name": "Window Replacement",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Kennel License ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "A Kennel License fee of $50 and an annual fee of  $50 is required for the first year, and $50 to renew. All Kennel licenses shall be renewed annually before the end of March.\n  Additional and/or adjusted fees may apply. All Kennel licenses must meet Colorado Division of Agriculture guidelines. For questions, please contact the One-Stop Customer Service Center. \n                                                     303-655-2017 or 1stop@brightonco.gov\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "New Single Family Attached Residence",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Accessory Dwelling Unit (ADU)",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "An ADU, either attached or detached is a separate living unit with its own independent means of egress.  \nPlease click on the following link for additional requirements. https://brightonco.gov/DocumentCenter/View/32861",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Parking Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Specific residents of the Brighton High School Neighborhood are now required to register for a permit that will allow the use of daily parking in the street along the curb in the \"NO PARKING, except by permit\" zone.\nResidents planning on parking in these locations are required to apply for a Parking permit. The cost is $25 with a maximum of 2 permits per household.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Accessory Structure (R)",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "ESC",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Erosion and Sediment Control is required for all land disturbance activities equal to or greater than one (1) acre, OR for land disturbance activities less than one (1) acre that are part of a larger common development one (1) acre or larger that is approved for future development. This permit is strictly for installation of BMPs and earthwork. No infrastructure may be installed under this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Hydrant Meter",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Addition (R)",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6561",
+      "name": "Temporary Sign",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The purpose of temporary signs is to display messages for a temporary duration. Temporary signs shall not be used as a subterfuge to circumvent the regulations that apply to permanent signs or to add permanent signage in addition to that which is permitted by Section 9.04. Temporary signs shall be removed on or before 90 days after first being placed, unless otherwise specified in this subsection. \nAll temporary signs must be located on private property and only with the consent of the property owner.\nTemporary Yard sings do not require a permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Remodel/Restoration",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "New Multi-Family Construction ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6555",
+      "name": "Change of Use",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This permit is utilized to change the use of an occupancy and receive a Certificate of Occupancy.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Manufactured Home",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "This application type is only for manufactured homes place in mobile home parks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Fence/Screen/Retaining wall (R)",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Dumpster ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "A permit is required to place a dumpster or POD in The City of Brighton's right of way. If you are placing either item on your private property (such as your driveway) a permit is not required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Siding",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Site Improvement Permit Application",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": " A site improvement permit is required for residential projects increasing imperviousness of the lot by 200 sf or more (i.e., concrete parking pads, basketball courts, etc.)  Driveway expansions of any size require this permit as well. Fees on this permit are the permit fee, plan review fee, and use tax, based on job valuation (estimated cost of materials and labor).  Additional drainage fees may also apply.",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Restoration/Alteration",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Tenant Improvement",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Plumbing",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "***Please note any fuel burning equiptmenet that produces condensation shall be required to have a limestone filter beginning Nov 1st 2025. ***",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Landscape Permit",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Conveyance Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Mechanical ",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "***Please note any fuel burning equiptmenet that produces condensation shall be required to have a limestone filter beginning Nov 1st 2025. ***",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Fence/Screen/Retaining Wall (C)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Addition (C)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Electrical ",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "EV Charger(s)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Deck/Patio (R)",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Demolition (R)",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Basement Finish",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "This Permit is used to finish a residential basement. Please see https://brightonco.gov/DocumentCenter/View/23117/2018-IRC-Basement-Guide-?bidId=  for additional information. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "MEP Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "***Please note any fuel burning equiptmenet that produces condensation shall be required to have a limestone filter beginning Nov 1st 2025. ***",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Accessory Structure (C)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Deck/Patio (C)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Demolition (C)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Floodplain Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Please  refer to Article 10.02 of the City of Brighton Land Use and Development Code. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Sign",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1084",
+      "name": "Code Enforcement (Building/Zoning)",
+      "isEnabled": 1
+    },
+    {
+      "id": "1081",
+      "name": "Specialty Permits",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1074",
+      "name": "Development",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1073",
+      "name": "Commercial",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-size: 18px;\">Contact Brighton Utilities to verify if an <span style=\"color: rgb(184, 49, 47);\">ESC permit</span> is required for ground up construction.</span></div><div><span style=\"font-size: 18px;\"><br></span></div><div><span style=\"font-size: 18px;\">All civil work is required to have a <span style=\"color: rgb(184, 49, 47);\">Development permit</span> that must be issued prior to New Commercial/Industrial construction.</span></div><div><span style=\"font-size: 18px;\"><br>"
+    },
+    {
+      "id": "1077",
+      "name": "Residential   ",
+      "isEnabled": 1,
+      "content": "<div><br></div><div><span style=\"font-size: 18px;\"><br></span></div><div><span style=\"font-size: 18px;\"><span style='box-sizing: border-box; margin: 0px; padding: 0px; border: 0px; font-weight: 400; font-style: normal; font-family: \"Open Sans\"; vertical-align: baseline; outline: 0px; color: rgb(0, 0, 0); font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-tex"
+    },
+    {
+      "id": "1072",
+      "name": "Department of Public Works",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1076",
+      "name": "Roofs",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1080",
+      "name": "Contractor's Licenses",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1071",
+      "name": "Solar/EV Installation",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:12.498Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

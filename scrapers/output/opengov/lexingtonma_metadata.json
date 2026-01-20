@@ -1,0 +1,1327 @@
+{
+  "jurisdiction": "Lexington",
+  "state": "MA",
+  "tenant": "lexingtonma",
+  "portalUrl": "https://lexingtonma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006581",
+      "name": "Alcohol License  Draft test - NO  RECORDS",
+      "categoryId": 1092,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "1006585",
+      "name": "Auctioneer License",
+      "categoryId": 1092,
+      "viewAccess": "private",
+      "description": "The application, a copy of your state Auctioneer License, and  $10.00 is required for a Town of Lexington Auctioneer License.",
+      "isEnabled": true
+    },
+    {
+      "id": "1007843",
+      "name": "Street Performers Application ",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "The Town Manager's Office will issue permits for Performers after an application process, and an annual fee of $25.00 is paid. Performances may take place Sundays through Saturdays 10:00am to 10:00pm with locations decided on first come first served basis. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1007844",
+      "name": "Block Party Permit Application ",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "Block Parties requests are made through the Town Manager's office with permission given by Department of Public Works when roads are to be blocked. Please note: no unsealed alcoholic beverages are allowed in any street which has a right of public access. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1007845",
+      "name": "Patriots' Day Vendor Permit ",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "Permits can be issued to charitable organizations within the Town such as religious, fraternal, civic, or student groups for vending locations on Patriots' Day each year in Lexington. Applications are due at least 3 weeks before Patriots' Day of the year requested and each Sponsor is allowed a maximum of 4 permits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006556",
+      "name": "Historic Districts Commission Application for Formal Hearing",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "description": "This is an application to attend a public meeting before the HDC to request a Certificate of Appropriateness for exterior alteration.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006565",
+      "name": "Historical Commission Application for Formal Hearing",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006612",
+      "name": "Outdoor Dining Permit",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "Local restaurants in Lexington may apply for an Outdoor Dining Permit for sidewalk and private parking lot areas adjacent to their businesses. Fees for these permits are included as well as approval from necessary departments in town. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006628",
+      "name": "Automatic Amusement Device License",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "The Select Board issues Automatic Amusement Device license for any type of device that you deposit a coin into and the game is put in motion to play.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006639",
+      "name": "Short Term Rental Certificate",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Short-term rental (STR) refers to the rental of any dwelling unit or bedroom as residential accommodation for a duration of less than 30 consecutive days. Short-term rentals are allowed within certain parameters, and there are rules and regulations you must follow to legally rent out your residence on a short-term basis. See Section 135-6.10 of the Code of Lexington Zoning Bylaws - Short-Term Rentals.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006544",
+      "name": "Certified Abutters List",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Please note: Your Certified Abutters List will be available through this online portal after certification by the Assessor's Office. You can then download the Certified Abutters List, map, and related materials. If you require a Lexington Abutters List for an out-of-town address, please contact the Assessor's Office directly (781-698-4578).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006510",
+      "name": "Abbreviated Notice of Resource Area Delineation (ANRAD)",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "For confirming wetland resource area boundaries with the Conservation Commission. Conservation filings will not be reviewed and accepted until the meeting date filing deadline. Applicants can submit a filing before the meeting deadline date but the filing will not be accepted until the meeting date filing deadline. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1007791",
+      "name": "Annual Fire Inspection and/or Drill - (includes Recreational Camp Programs) ",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "1006432",
+      "name": "Water Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This permit is required for any work on and existing or proposed water lines: services and/or mains. Only licensed drainlayers in Lexington may apply for this permit.   Fee=$100 for the first 50' plus .30/ft for longer lengths.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Accessory Apartment ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007890",
+      "name": "Commercial/Public Fire Drill Application",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "description": "Commercial/Public property Fire Drill only. Properties that are required to have an Annual Inspection have their Fire Drill included with that application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1007849",
+      "name": "Variance Request Letter ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006434",
+      "name": "Sewer Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This permit is required for any work on and existing or proposed sewer lines: services and/or mains.  Only Lexington licensed drainlayers may apply for this permit.  Fee=$100 for the first 50' plus .30/ft for longer lengths.  A sewer stub fee may be due for a new connection.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006567",
+      "name": "Battle Green Permit",
+      "categoryId": 1092,
+      "viewAccess": "private",
+      "description": "The Board of Selectmen issues permits for the use of the Battle Green. Please submit an application no less than two weeks prior to the requested date. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006534",
+      "name": "Amendment to Order of Conditions",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Apply to make an amendment to an existing Order of Conditions. This process is required for any project that must be reviewed by the Engineering Department. Discretion is up to the Conservation Commission as to whether an amendment will be allowed or a new application process is required. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006545",
+      "name": "Zoning Board of Appeals Application",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "This application must be completed, signed and submitted with the application fee by the applicant or representative in accordance with the Rules and Regulations of the Board. The applicant is advised to review the Lexington Zoning Bylaw and the Rules and Regulations of the Board of Appeals prior to filing this application. Petitioner or representative must attend the hearing.  Information provided on this page may constitute findings of fact. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1007852",
+      "name": "Amendment to a Preliminary Site Development & Use Plan ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Applications to amend an existing CD or RD districts adopted under previous versions of the zoning bylaw in effect on January 1, 2016.",
+      "isEnabled": true
+    },
+    {
+      "id": "1007879",
+      "name": "2025 Cultural District Grant Application ",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "The goal for these funds is to help nurture arts and cultural initiatives and bring positive economic benefits to cultural institutions and local businesses while supporting Lexington's creative community in its ongoing pursuit of partnerships and financial resources.   You must be part of the Lexington Cultural District to receive funds through this grant.  All applications are due by March 28th 2025.",
+      "isEnabled": true
+    },
+    {
+      "id": "1007711",
+      "name": "Special Event Application",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "The Town of Lexington is pleased to welcome a variety of special events, from community festivals to concerts and athletic competitions. It is the goal of the Town of Lexington to work with event managers and organizers to help ensure that the events taking place in our community are both safe and successful, while minimizing the impact on our residents and businesses. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006627",
+      "name": "Class I/II/III License",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "The Select Board issues licenses for Class I, II, and III dealers. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006619",
+      "name": "Approval Not Required (ANR)",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007806",
+      "name": "Public Records Request ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "If you cannot find the public records you want in the resources provided, or by searching our Records Repository, you may request public records from the Town by filling out this online request form.  \n\n\nPlease note if you are currently logged into your Viewpoint Cloud, your name associated with that account will be available to the public.\n \nIf you would like to send an anonymous request, you may:\n\n•Log out and create a new Viewpoint Cloud account adding only an email address. \n•Deliver to the records access officer by hand.\n•Deliver via first class mail at the record officer's business address.\n•Send by email\n\nALL requests for police related materials including Incident and Accident Reports, should ONLY be requested directly through the Police Department link and NOT through the OpenGov portal.  Requests pertaining to confidential and/or sensitive information should NOT be requested through OpenGov as this is a PUBLIC portal. \n\n\nIf you have any questions please contact the Town Clerk's office at 781-698-4558. \n\nPlease see our website for Department contact information: https://www.lexingtonma.gov.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006511",
+      "name": "Conservation Administrative Review",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Administrative review of a minor project located outside of the 100 ft. wetland buffer zone or that meet specified minor project per Conservation Commission policy.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006560",
+      "name": "Fire Inspection/Fire Drill Request QUARTERLY ",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "1006433",
+      "name": "Trench Permit per MGL c 82a, Jackie's Law",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Any work which creates a trench, as defined in 520 CMR 14.00 and MGL c. 82A, §§ 1 through 5,  requires a Trench Permit.  Fee=$50.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006438",
+      "name": "Drain Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This permit is required for any work on and existing or proposed storm drain lines: services and/or mains. Only Lexington licensed drainlayers may apply for this permit.  Fee=$100 for the first 50' plus .30/ft for longer lengths.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006486",
+      "name": "Accessory Structure",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007805",
+      "name": "Bi-Directional Amplifier Permit- Installation or Alteration ",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "description": "For Residential and Commercial  Fire Alarm permits. Please note you may be required to submit plans with your permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006572",
+      "name": "Common Victualler License",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "The Select Board issues Common Victualler Licenses to establishments that cook, prepare and serve food at tables.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006549",
+      "name": "Conservation Certificate of Compliance",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "To apply for compliance following an Order of Conditions. Use this application for a Partial or Full Certificate of Compliance request. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1007809",
+      "name": "Raffle & Bazaar Permit ",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "Application for permit to conduct raffles and bazaars. \n\nInitially when inputting an address (Step 2 of your application), please indicate the Location where the Raffle will be held. Later the application will ask for your business address. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1007880",
+      "name": "Recreation Special Event Application ",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007840",
+      "name": "Definitive Subdivision Plan ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "1007803",
+      "name": "Definitive Subdivision Plan (Modification)",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Application to modify previously approved Definitive Subdivision Plans or Approval\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "1007858",
+      "name": "Tree Removal and Mitigation Permit  Final ",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": " This bylaw is enacted for the purpose of preserving and protecting  trees pursuant to Chapter 120 Town of Lexington By-Laws certain in regard to trees on portions of private property. To achieve these purposes, this bylaw establishes a Tree Committee and empowers the Committee, in conjunction with the Tree Warden, to regulate the removal and replacement of trees in certain circumstances, and to promote the planting and protection of trees throughout the Town. It is desirable that the Town plant more trees than are removed to compensate for tree losses and the length of time to maturity. The provisions of this bylaw, when pertaining to private property, apply only when there is major construction or demolition as defined below and only within setback areas. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006507",
+      "name": "Conservation Hazardous Tree Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Apply to remove any dangerous tree on your property that is bordering conservation land or is within the buffer zone of a protected resource.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006436",
+      "name": "Right-of-Way Excavation Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "A Right-of-Way Excavation Permit is required for any digging in the public right of way: streets, sidewalks and shoulders.  Only Lexington licensed excavators and drainlayers can apply for Right-of-Way Excavation Permits. Fee=$60 for the first 50' plus .30/ft for longer lengths. Right of Way Excavation Permits are not issued for non emergency work during winter moratorium as no road work is allowed during that time. It is from 11/15 to the day after Patriot's Day",
+      "isEnabled": true
+    },
+    {
+      "id": "1007702",
+      "name": "Asbestos Removal Permit ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007819",
+      "name": "Blasting Permit ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006359",
+      "name": "Burn Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "*** PLEASE NOTE ***  On the day you wish to burn, call 781-698-4700, press #8 after 9AM.  A recording will inform you if burning is allowed that day.  Following the message you will be asked to record your permit number.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Additions (including Dormers)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006469",
+      "name": "Bathing Beach Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006512",
+      "name": "Conservation Land Use Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "To request the use of one of Lexington's Conservation areas for passive recreational events.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006631",
+      "name": "Entertainment License",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "The Select Board issues Entertainment Licenses to establishments that have theatrical exhibitions, public shows, public amusements and exhibitions of every description (including televisions).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006584",
+      "name": "Garage/Yard Sale Permit",
+      "categoryId": 1092,
+      "viewAccess": "private",
+      "description": "Permit for conducting private sales such as garage and yard sales. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006594",
+      "name": "Conservation Plan Modification/Insignificant Plan Change",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "To gain approval if possible for a plan change that deviates from the original approved plan as an insignificant plan change without any further legal posting or abutter notices. The Commission will generally discuss these requests during the 6:30 pm New Business/Pending Matters portion of the Conservation Commission Meeting Agenda.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006470",
+      "name": "Beaver Management Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006461",
+      "name": "Stormwater above Threshold",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "All construction disturbing greater than 1 ac requires to file a Stormwater permit with Engineering.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006531",
+      "name": "Building Certificate of Inspection (Annual)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007821",
+      "name": "Limited Site Plan Review",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Zoning Bylaw 135.9.5.6 Limited Review Standards for Dover Amendment Uses.",
+      "isEnabled": true
+    },
+    {
+      "id": "1007816",
+      "name": "Cannon / Mortar Firing Permit ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit for Supervised Display of Fireworks.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006540",
+      "name": "Determination of Applicability",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "For work that falls under the jurisdiction powers as described by the Town of Lexington bylaws. Applications will not be reviewed until the application deadline. Applicants can submit an application for a deadline before the deadline date but will not be accepted until the application deadline. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006632",
+      "name": "License for Common Carrier ",
+      "categoryId": 1092,
+      "viewAccess": null,
+      "description": "The Select Board issues Common Carrier Licenses for carrying of passengers for hire.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1007690",
+      "name": "Major Site Plan Review (General)",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007709",
+      "name": "Body Art Plan Review",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006435",
+      "name": "Right-of-Way Obstruction Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "A Right of Way Obstruction Permit is required to occupy the sidewalk or shoulder of a public right of way.  This permit is usually required for construction staging, dumpsters or pods, or placements of private overhanging signs. Fee=$50.",
+      "isEnabled": true
+    },
+    {
+      "id": "1007701",
+      "name": "Body Art  Establishment Permit ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1007691",
+      "name": "Minor Site Plan Review",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006598",
+      "name": "Limousine License",
+      "categoryId": 1092,
+      "viewAccess": null,
+      "description": "The Select Board issues Limousine Licenses for carrying of passengers for hire.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006605",
+      "name": "Emergency Certification Form",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Please first contact the Conservation Director if an emergency comes up then apply for an Emergency Certification form which will be ratified at the next Conservation Commission meeting.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006666",
+      "name": "Cryogenic & Compressed Gas Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "For storage of Cryogenics and Compressed Gases",
+      "isEnabled": true
+    },
+    {
+      "id": "1006608",
+      "name": "Street Restoration Fee Payment",
+      "categoryId": 1081,
+      "viewAccess": "private",
+      "description": "This is not a permit application.  This application is for payment of a street restoration fee related to a Right of Way Excavation permit.  This form should only be used for the non applicant to pay the fee online. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006644",
+      "name": "Energy Storage System Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006629",
+      "name": "Lodging / Innholder License",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "The Select Board issues Lodging/Innkeeper Licenses.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006517",
+      "name": "Bodywork Establishment or Practitioner Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007824",
+      "name": "Open Space Residential Developments (OSRD)",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Section 6.12 of Zoning Bylaw",
+      "isEnabled": true
+    },
+    {
+      "id": "1007839",
+      "name": "Preliminary Subdivision Plan ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "1007700",
+      "name": "Body Art  Practitioner Permit ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006634",
+      "name": "One-Day Liquor License",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "MGL, CHAPTER 138, SECTION 14:  A One-Day Liquor License can be issued for the sale of wine and malt beverages to a responsible manager of any indoor or outdoor activity for profit or non-profit. One Day license applications should be submitted three weeks in advance to allow enough time to be processed and then approved at a Select Board meeting.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006535",
+      "name": "Extension to Order of Conditions",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Request to extend the Order of Conditions beyond its expiration date",
+      "isEnabled": true
+    },
+    {
+      "id": "1006559",
+      "name": "Fireworks Permit ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit for Supervised Display of Fireworks.",
+      "isEnabled": true
+    },
+    {
+      "id": "1007668",
+      "name": " Fire Alarm (Residential/Commercial) Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "For Residential and Commercial  Fire Alarm permits. Please note you may be required to submit plans with your permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006601",
+      "name": "Change of Occupancy",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007875",
+      "name": "Extension of Order of Resource Area Delineation",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Request to extend the Order of Resource Area Delineation beyond its expiration date",
+      "isEnabled": true
+    },
+    {
+      "id": "1006641",
+      "name": "Certificate of Fitness",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007699",
+      "name": "Dumpster Permit ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": "Notice of Intent",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Any project within wetland resource areas, including the 100 foot wetland buffer zone, and/or the 200 foot riverfront area is required to file for a Conservation Permit for review and approval by the Conservation Commission. When filling out the filing, please refer to the Massachusetts Wetlands Protection Act (M.G.L. C. 131, S. 40) as well as the Town of Lexington Wetland Protection Code (C. 130). Due to regulatory time periods, conservation filings will not be reviewed and accepted until the posted meeting date application deadline. Applicants can submit a filing for a deadline before the deadline date but the filing will not be accepted until the application deadline. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006579",
+      "name": "Sunday Public Entertainment License ",
+      "categoryId": 1092,
+      "viewAccess": "private",
+      "description": " A Sunday license is a license required for entertainment occurring on a Sunday that the public must pay a fee to attend and is part of the so-called \"Blue laws.\". Historically, activities that require a Sunday license include dancing or any game, sport, fair, exposition, play, entertainment or public diversion. G.L. c. 136, §4.",
+      "isEnabled": true
+    },
+    {
+      "id": "1007714",
+      "name": "Modification to an Site Plan Review Approval",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "If you are requesting a modification to an exiting site plan review - use this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006657",
+      "name": "Fire Protection System Registration",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "PLEASE POST SIGNAGE STATING 24 HOUR CONTACT INFORMATION NEAR FIRE ALARM PANEL.\n\n IF YOU DON'T HAVE A KEY BOX LOCATED AT THE FRONT OF YOUR BUILDING (near front door). PLEASE CONTACT KNOX BOX SYSTSTEMS TO ORDER A BOX. \n\nPlease call 781-698-4705 if you have any questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006488",
+      "name": "Commercial Demolition - Interior",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Use INTERIOR ALTERATION permit application for Residential Interior Demolition.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006408",
+      "name": "Flammables & Combustible Materials Storage Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "For temporary or permanent storage of any Flammable and Combustible Liquids, Gases and Solids. Includes fuel storage in parking garages and Annual Permit to Maintain Storage of Flammables (Storage Tank Facility).",
+      "isEnabled": true
+    },
+    {
+      "id": "1007877",
+      "name": "Stormwater Control Measures Certification ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Submission form for commercial / industrial property owners for their annual Stormwater Control Measure (SCM) inspection and maintenance reports. This form is ONLY for non-residential property owners in Lexington, MA. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006440",
+      "name": "Farms/Residential Animal Keeping",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007715",
+      "name": "Modification to a Special Permit ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Please use this application for any modifications to existing special permits or special permit residential developments.  Please consult with Planning staff to determine if your modification will be considered minor or major. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006656",
+      "name": "Theater License",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "The Select Board issues Theater Licenses to establishments that show movies.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1007882",
+      "name": "Flammable Storage Licenses and Certifications of Registration ",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "A License from the Town of Lexington Select Board is required to be in good standing  in addition to an Annual Certficiate of Registration from the Town Clerk's Office as well as a Flammables Permit from the Lexington Fire Department when: Annual Permit to Maintain Storage of Flammable Liquids - Tank Storage Facility is requested. -OR-Annual Permit for Flammables: Parking Garage is requested.-OR-Annual Permit to Store Flammables is requested and the applicant is storing in excess of the following: ",
+      "isEnabled": true
+    },
+    {
+      "id": "1007696",
+      "name": "Special Residential Development (SRD Sec. 6.9 of Zoning Bylaw)",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007706",
+      "name": "Farmers' Market Location Permit ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006485",
+      "name": "Construction Trailer/Storage Pod",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006487",
+      "name": "Deck",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007679",
+      "name": "Fuel Oil Equipment - Above Ground FUEL BURNING  Permit Install or Alteration ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for all Fuel Oil Burner Modifications Installs and Removals",
+      "isEnabled": true
+    },
+    {
+      "id": "1007685",
+      "name": "Farmers' Market Vendor Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007697",
+      "name": "Street Adequacy Determination (SAD)",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Please note that the trigger for a street adequacy determination has changed. Existing homes that are either adding on or are being torn down and replaced will no longer trigger a street adequacy determination. A change in use, or additional dwellings/units being added to what is existing will now be the trigger for street adequacy determinations. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006665",
+      "name": "Food Establishment Plan Review  ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "The Board of Health has 30 days to provide feedback and approve, after  application is submitted.  Please return to your ViewPoint Cloud account to check the status and to ensure questions or comments are received. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1007796",
+      "name": "Fuel Oil Equipment ABOVE GROUND OIL TANK  Installation or Removal ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for all Oil Tank, Modifications, Installations or Removals",
+      "isEnabled": true
+    },
+    {
+      "id": "1006502",
+      "name": "Demolition - Full Building",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Only licensed Construction Supervisors can apply for a full building demolition permit. If you are a contractor who owns this property, please apply as a contractor, not as an owner.  The Tree Removal Permit Application can be submitted using ViewPoint Cloud: Tree Removal Permit Application. This Tree Permit permit must be issued by the Tree Warden before a building permit is issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "1007847",
+      "name": "Village & Multi-Family Site Plan Review (MFO, VHO, VO)",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Applications for multi-family developments within the VO, VHO, and MFO overlay districts under Section 7.5 of the Zoning Bylaw. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006428",
+      "name": "Electrical",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007823",
+      "name": "General Fire Permits",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "For any Fire Permit not listed above as a stand-alone permit application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006477",
+      "name": "Food Establishment Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006476",
+      "name": "Food Truck / Ice Cream Truck Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006489",
+      "name": "Fence",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006667",
+      "name": "Hazardous Materials Processing Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "For Hazardous Material Processing",
+      "isEnabled": true
+    },
+    {
+      "id": "1006653",
+      "name": "Inspection Reports",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this link to submit any Inspection Reports online.",
+      "isEnabled": true
+    },
+    {
+      "id": "1007870",
+      "name": "Fossil Fuel Free Waiver Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Town of Lexington may grant a waiver subject to the requirements of the bylaw, “Regulating Fossil Fuel Infrastructure in Buildings” (Fossil Fuel Free Bylaw), in the event that compliance with the provisions of the bylaw makes a project financially infeasible or impractical to implement. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006443",
+      "name": "Funeral Director Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007883",
+      "name": "DRAFT COPY EDIT - Parking and Transportation Demand Management Plan  Approval Application  Copy",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Development projects that elect to be in the Transportation Management Overlay Districts TMO-1 TMO-2 TMO-3 and those plans that have an MOU with the Select Board are required to submit Parking and Transportation Demand Management Plans for review and provide monitoring reports per the Zoning  Bylaw  §135-7.2 Transportation Management Overlay District and the Planning Board’s Regulations §176-10.2.  This application coincides but is separate from the Site Plan Approval Process.  This application is required if a Parking and Transportation  Demand Management Plan (large or small) is required.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006444",
+      "name": "Hauler or Septage/Grease Removal Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007672",
+      "name": "Kitchen Hood or Clean Agent System Permit",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "description": "For Kitchen Hood Suppression and Clean Agent System permits. Please note you will be required to submit plans with your permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006490",
+      "name": "Foundation Only",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007797",
+      "name": "PROPANE:  Install/Remove Propane Tank, Temporary Storage of Propane, Retail Sales, or Storage Tank Facility ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for PROPANE:\nInstall or Remove Propane Tank\nTemporary Storage of Propane\nRetail Sales \nStorage Tank Facility \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006431",
+      "name": "Gas ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007818",
+      "name": "Kennel License ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007703",
+      "name": "Lead Paint Removal/ Abrasive Sanding Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006472",
+      "name": "Lodging Places",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006491",
+      "name": "Insulation",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Insulation work requires final inspection.  Please call 781-698-4510 24 hours in advance.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006373",
+      "name": "Smoke and Carbon Monoxide Compliance (26F For Sale/Transfer of a Property)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "FOR TRANSFER OF REAL ESTATE: Homeowners are required to have the Fire Department perform a Compliance Inspection for Smoke Detectors and Carbon Monoxide Detectors within 60-days of transferring property as regulated by M.G.L. Chapter 148 Sections 26F, 26F 1/2, and 527 CMR 31.00.\nCall for a Re-Inspection, do not submit a new application.\nIF LOW VOLTAGE SYSTEM OR SYSTEM WITH KEYPAD, APPLICANT NEEDS TO HAVE ACCESS TO KEYPAD WITH PASSCODE AT TIME OF INSPECTION.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006445",
+      "name": "Public Pool Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006483",
+      "name": "Interior Alterations",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit type would not include any exterior additions or expansion",
+      "isEnabled": true
+    },
+    {
+      "id": "1006473",
+      "name": "rDNA Permit / Registration",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006430",
+      "name": "Mechanical",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007671",
+      "name": " Sprinkler (Residential/Commercial) Permit",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "description": "For Residential and Commercial  Sprinkler permits. Please note you may be required to submit plans with your permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006518",
+      "name": "New Construction",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1007860",
+      "name": "Lab Animal Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007794",
+      "name": "Perc/Deep Hole Test",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006442",
+      "name": "Recreational Camp Permit",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006429",
+      "name": "Plumbing",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007838",
+      "name": "Underground Tank Removal and/or  Installation ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is for installation or removal of an UNDERGROUND storage tank. PLEASE GIVE A 72 HOUR NOTICE FOR UNDERGROUND STORAGE TANK REMOVAL INSPECTION.\n\nFor ABOVE GROUND storage tanks, please use the Fuel Oil Equipment / Above Ground Fuel Oil & Propane Storage permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006562",
+      "name": " Welding & Cutting/Hot Work Permit ",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "1006606",
+      "name": "Pool Certificate of Inspection (Annual)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007716",
+      "name": "Recreational Camp Plan Review ",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006478",
+      "name": "Residential Kitchen",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006492",
+      "name": "Porch",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006497",
+      "name": "Replacement Windows and Doors",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007795",
+      "name": "Septic System Installers Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006514",
+      "name": "Septic Plan Review",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Retaining Wall",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006460",
+      "name": "Roofing",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007707",
+      "name": "Septic System Construction Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007705",
+      "name": "Septic System Repair ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006463",
+      "name": "Sheet Metal",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006522",
+      "name": "Siding",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007704",
+      "name": "Septic  Abandonment ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007891",
+      "name": "Tanning Establishment Permit ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": "Sign",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": "Solar Panels",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Solar Panels, be sure to include the structural engineering review and affidavit regarding, gravity and  wind loads and also include a dimensioned roof plan for Firefighter access routes.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1007788",
+      "name": "Title V Inspection Report",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006496",
+      "name": "Solid Fuel Appliance",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006474",
+      "name": "Skating Rink Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006528",
+      "name": "Swimming Pool ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006479",
+      "name": "Temporary Food Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1007712",
+      "name": "Temporary Food Truck / Ice Cream Truck Permit ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006499",
+      "name": "Tent",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "For temporary and outdoor dining tents.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006446",
+      "name": "Tobacco Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006564",
+      "name": "Wireless Communication Equipment Installation",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This includes wireless towers, antennas, and equipment repairs/replacement. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Well Construction",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style='font-size: 24px; font-family: \"Times New Roman\", Times, serif, -webkit-standard;'>As a governmental entity, the Massachusetts Public Records Law applies to records made or received by the Town. Any information received through use of this site is subject to the same provisions as information provided on paper. Otherwise, the Town does not share any personally identifying information with any third party.</span><strong style='font-weight: 700; color: rg"
+    },
+    {
+      "id": "1083",
+      "name": "Conservation",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><br></p><p style=\"background-color: #FF0000;\">PLEASE NOTE:<br>Once you open a permit, ALL communications from the Town of Lexington will be transmitted through this Opengov online application process. Requests for additional information, staff communications, requests for payment, change requests and document issuance will ONLY come from this portal. Payment for permits can only be made through this portal or by physical check presented to the appropriate Departmen"
+    },
+    {
+      "id": "1090",
+      "name": "Department of Public Works",
+      "isEnabled": 1,
+      "content": "<p style=\"background-color: #FF0000;\">PLEASE NOTE:<br>Once you open a permit, ALL communications from the Town of Lexington will be transmitted through this Opengov online application process. Requests for additional information, staff communications, requests for payment, change requests and document issuance will ONLY come from this portal. Payment for permits can only be made through this portal or by physical check presented to the appropriate Department. Individual staff or committee member"
+    },
+    {
+      "id": "1097",
+      "name": "Economic Development",
+      "isEnabled": 1,
+      "content": "<p style=\"background-color: #FF0000;\">PLEASE NOTE:<br>Once you open a permit, ALL communications from the Town of Lexington will be transmitted through this Opengov online application process. Requests for additional information, staff communications, requests for payment, change requests and document issuance will ONLY come from this portal. Payment for permits can only be made through this portal or by physical check presented to the appropriate Department. Individual staff or committee member"
+    },
+    {
+      "id": "1081",
+      "name": "Engineering",
+      "isEnabled": 1,
+      "content": "<p style=\"background-color: #FF0000;\">PLEASE NOTE:<br>Once you open a permit, ALL communications from the Town of Lexington will be transmitted through this Opengov online application process. Requests for additional information, staff communications, requests for payment, change requests and document issuance will ONLY come from this portal. Payment for permits can only be made through this portal or by physical check presented to the appropriate Department. Individual staff or committee member"
+    },
+    {
+      "id": "1076",
+      "name": "Fire Dept",
+      "isEnabled": 1,
+      "content": "<p style=\"background-color: #FF0000;\">PLEASE NOTE:<br>Once you open a permit, ALL communications from the Town of Lexington will be transmitted through this Opengov online application process. Requests for additional information, staff communications, requests for payment, change requests and document issuance will ONLY come from this portal. Payment for permits can only be made through this portal or by physical check presented to the appropriate Department. Individual staff or committee member"
+    },
+    {
+      "id": "1089",
+      "name": "General Applications",
+      "isEnabled": 1,
+      "content": "<p style=\"background-color: #FF0000;\">PLEASE NOTE:<br>Once you open a permit, ALL communications from the Town of Lexington will be transmitted through this Opengov online application process. Requests for additional information, staff communications, requests for payment, change requests and document issuance will ONLY come from this portal. Payment for permits can only be made through this portal or by physical check presented to the appropriate Department. Individual staff or committee member"
+    },
+    {
+      "id": "1082",
+      "name": "Health Department ",
+      "isEnabled": 1,
+      "content": "<p style=\"background-color: #FF0000;\">PLEASE NOTE:<br>Once you open a permit, ALL communications from the Town of Lexington will be transmitted through this Opengov online application process. Requests for additional information, staff communications, requests for payment, change requests and document issuance will ONLY come from this portal. Payment for permits can only be made through this portal or by physical check presented to the appropriate Department. Individual staff or committee member"
+    },
+    {
+      "id": "1102",
+      "name": "Historic Districts Commission / Historical Commission ",
+      "isEnabled": 1,
+      "content": "<p style=\"background-color: #FF0000;\">PLEASE NOTE:<br>Once you open a permit, ALL communications from the Town of Lexington will be transmitted through this Opengov online application process. Requests for additional information, staff communications, requests for payment, change requests and document issuance will ONLY come from this portal. Payment for permits can only be made through this portal or by physical check presented to the appropriate Department. Individual staff or committee member"
+    },
+    {
+      "id": "1093",
+      "name": "Planning",
+      "isEnabled": 1,
+      "content": "<p style=\"background-color: #FF0000;\">PLEASE NOTE:<br>Once you open a permit, ALL communications from the Town of Lexington will be transmitted through this Opengov online application process. Requests for additional information, staff communications, requests for payment, change requests and document issuance will ONLY come from this portal. Payment for permits can only be made through this portal or by physical check presented to the appropriate Department. Individual staff or committee member"
+    },
+    {
+      "id": "1103",
+      "name": "Recreation ",
+      "isEnabled": 1,
+      "content": "<p style=\"background-color: #FF0000;\">PLEASE NOTE:<br>Once you open a permit, ALL communications from the Town of Lexington will be transmitted through this Opengov online application process. Requests for additional information, staff communications, requests for payment, change requests and document issuance will ONLY come from this portal. Payment for permits can only be made through this portal or by physical check presented to the appropriate Department. Individual staff or committee member"
+    },
+    {
+      "id": "1092",
+      "name": "Select Board",
+      "isEnabled": 1,
+      "content": "<p style=\"background-color: #FF0000;\">PLEASE NOTE:<br>Once you open a permit, ALL communications from the Town of Lexington will be transmitted through this Opengov online application process. Requests for additional information, staff communications, requests for payment, change requests and document issuance will ONLY come from this portal. Payment for permits can only be made through this portal or by physical check presented to the appropriate Department. Individual staff or committee member"
+    },
+    {
+      "id": "1096",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": "<p style=\"background-color: #FF0000;\">PLEASE NOTE:<br>Once you open a permit, ALL communications from the Town of Lexington will be transmitted through this Opengov online application process. Requests for additional information, staff communications, requests for payment, change requests and document issuance will ONLY come from this portal. Payment for permits can only be made through this portal or by physical check presented to the appropriate Department. Individual staff or committee member"
+    },
+    {
+      "id": "1098",
+      "name": "Town Manager",
+      "isEnabled": 1,
+      "content": "<p style=\"background-color: #FF0000;\">PLEASE NOTE:<br>Once you open a permit, ALL communications from the Town of Lexington will be transmitted through this Opengov online application process. Requests for additional information, staff communications, requests for payment, change requests and document issuance will ONLY come from this portal. Payment for permits can only be made through this portal or by physical check presented to the appropriate Department. Individual staff or committee member"
+    },
+    {
+      "id": "1088",
+      "name": "Zoning",
+      "isEnabled": 1,
+      "content": "<p style=\"background-color: #FF0000;\">PLEASE NOTE:<br>Once you open a permit, ALL communications from the Town of Lexington will be transmitted through this Opengov online application process. Requests for additional information, staff communications, requests for payment, change requests and document issuance will ONLY come from this portal. Payment for permits can only be made through this portal or by physical check presented to the appropriate Department. Individual staff or committee member"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:20.002Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

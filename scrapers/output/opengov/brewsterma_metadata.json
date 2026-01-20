@@ -1,0 +1,289 @@
+{
+  "jurisdiction": "Brewster",
+  "state": "MA",
+  "tenant": "brewsterma",
+  "portalUrl": "https://brewsterma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006574",
+      "name": "Open Burning Permit",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006544",
+      "name": "Building Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application is used for Express Permits, New Construction, Additions, Renovations, Alterations, Partial and Interior Demolition, Demolition of Structures, Major Repairs to existing buildings including one and two-family buildings and commercial buildings, Decks, Porches, Pools/Spas, Solar Projects, Alarm Systems, Sheet Metal, Mechanical and Change of Use.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Application for a Sand & Gravel Mining Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006467",
+      "name": "Application for Board of Health Variances",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006586",
+      "name": "Amend a Building Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application is used for making amendments to the scope of work of an existing Building Permit.  Please be certain to reference the existing permit number in the application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006566",
+      "name": "Wiring Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc. Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006469",
+      "name": "Mobile Food Service Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006470",
+      "name": "Septic System Reports",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006519",
+      "name": "Gas Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006531",
+      "name": "Plumbing Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This permit is required for the installation, alteration, replacement, construction or repair of plumbing systems.\nYou must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Well Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006549",
+      "name": "Shed Registration ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "FOR SHEDS UP TO 120 SQUARE FEET.      \n\nZONING SETBACKS:   A shed of up to 120 square feet may be located as close as 10 feet from any side or rear property lot line and shall be not less than 40 feet from any street lot line in R-R and R-L Districts or 30 feet in an R-M District.\n\n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006591",
+      "name": "Accessory Structure Registration ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "FOR ACCESSORY STRUCTURES BETWEEN 121 AND 200 SQUARE FEET INCLUDING BUT NOT LIMITED TO SHEDS, POOL HOUSES, DETACHED GARAGES, PAVILLIONS AND PERGOLAS.     \n\nZONING SETBACKS:  Structure shall be not less than 25 feet from any side or rear property lot line in any R-R or R-L District, or 20 feet in the R-M District and shall be not less than 40 feet from any street lot line for R-R and R-L Districts or 30 feet for an R-M District.   It shall not exceed 30 feet in height.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006497",
+      "name": "Farmers' Market Retail Food Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006521",
+      "name": "Stove/Fireplace Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "For Wood Stoves or Fireplace Inserts",
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": "Temporary Food Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006525",
+      "name": "Sign Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Applicant Instructions:\n\n-One application form is required for each sign. Each sign will be assigned its own permit number.\n-Applicant shall attach separate 8 ½”x 11” sheets including the following diagrams:\n                A) Design, dimensions and colors of the proposed sign\n                B) Freestanding Signs: provide certified plan by a professional land surveyor that describes how the \n                 proposed sign meets the zoning requirements included in Zoning Bylaw § 179-18 through § 179-27(as \n                 applicable). A stamped and sealed “as-built” will be required before the permit will be issued.\n                C) Attached Signs: show length of portion of building frontage that is occupied by applicant.\n                D) Temporary Signs: show location for sign ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006522",
+      "name": "Tent Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Temporary tents in excess of 400 square feet shall not be erected, operated, or maintained for any purpose without first obtaining a permit from the Building Department. \n\nA site visit will be performed by Public Safety Officials to ensure that the erected tent appears safe and that all applicable fabrics have a permanently affixed label indicating appropriate flame retardancy. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006523",
+      "name": "Trench Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This permit is required anytime a trench hole or other excavation is being done to a depth of 3 (three) feet or more.  If this application is in connection with a road opening permit, please attach copy of road opening permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006462",
+      "name": "Barn Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006484",
+      "name": "Building Waiver Sign Off Sheet",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006345",
+      "name": "Camp Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Recreational Camps for Children licenses licenses are renewable annually on June 1st. (This permit is NOT for a family campground.)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006590",
+      "name": "Family Campground",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Family campground licenses are renewable annually on June 1st. (This permit is NOT for recreational camps for children.)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006464",
+      "name": "Disposal Works Construction Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006463",
+      "name": "Farmers' Market Registration Form",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006476",
+      "name": "Food Establishment Plan Review ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "To be filled in later -  Application needed prior to Food Establishment Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "1006475",
+      "name": "Food Establishment Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "To be filled out by any establishment/organization which deals in any form of food products including milk, cream and frozen desserts.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006376",
+      "name": "Garbage Removal",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006383",
+      "name": "Septic Haulers License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Pumpers/Haulers licenses are renewable annually on January 1st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006386",
+      "name": "Septic System Installer License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Septic System Installer Licenses are renewable annually on January 1st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006350",
+      "name": "Indoor Swimming Pool Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for permit to operate a public, semi-public swimming pool, or wading pool. Swimming Pool licenses are renewable annually on May 1st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006516",
+      "name": "Outdoor Swimming Pool Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for permit to operate a public, semi-public swimming pool, or wading pool.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006378",
+      "name": "Tobacco Products",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006379",
+      "name": "Tanning Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1073",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": "<p><em>Please Note that per Massachusetts General Law Part I, Title XV, Chapter 110G, Section 7 : Section 7: Electronic signature; enforceability; satisfaction of legal requirements Section 7. (a) A record or signature may not be denied legal effect or enforceability solely because it is in electronic form. &nbsp;(b) A contract may not be denied legal effect or enforceability solely because an electronic record was used in its formation. &nbsp;(c) If a law requires a record to be in writing, an "
+    },
+    {
+      "id": "1084",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; font-weight: 700; color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial;"
+    },
+    {
+      "id": "1090",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p>Open Burning Season is January 15 through May 1st.&nbsp;</p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:57:09.259Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

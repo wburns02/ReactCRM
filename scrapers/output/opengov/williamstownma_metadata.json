@@ -1,0 +1,464 @@
+{
+  "jurisdiction": "Williamstown",
+  "state": "MA",
+  "tenant": "williamstownma",
+  "portalUrl": "https://williamstownma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6349",
+      "name": "Gas Fitter Permit",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "Electrical Permit",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc.  Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6353",
+      "name": "Plumbing Permit",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "This permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006406",
+      "name": "Temporary Sign Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006428",
+      "name": "Permanent Sign Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006459",
+      "name": "Application for Hearing with Zoning Board of Appeals",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006469",
+      "name": "Loud Speaker License",
+      "categoryId": 1083,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "1006473",
+      "name": "Annual Dog License Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006474",
+      "name": "Conservation Commisson Submittals",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This form is to be used for submittals of MassDEP forms. Please note: if using eDEP online, please print the form and upload it to this application.\n\nNOTE: The Massachusetts Wetlands Protection Act (WPA) requires a paper copy in order to comply with  10.05(3)(a) for Requests for Determination of Applicability and 10.05(4)(a) for Notices of Intent and for Abbreviated Notice of Resource Area Delineation which instructs applicants to submit these applications by certified mail or hand delivery to the conservation commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006458",
+      "name": "Annual Common Victualer/Food Establishment Permits ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This form contains the Common Victualer and Food Establishment permits all on one form.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006454",
+      "name": "Application for License to Operate a Recreational Camp for Children",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006457",
+      "name": "Annual Liquor License Establishment Permits",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This form contains the Liquor License, Food Establishment and Annual Certificate of Inspection permits all on one form.   Please note: If you have a Sunday License, You will still need to send in an additional separate $100.00 check for the state.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006451",
+      "name": "Application to Operate an Indoor Ice Rink",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006402",
+      "name": "1-2 Family - Doors/Roofing/Siding/Windows and Insulation Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is intended for minor repairs and the replacement of roofing, siding, windows, doors, insulation, steps, and similar components for 1-2 family buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006407",
+      "name": "Annual Certificate of Inspection",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This is only for annual commercial building inspections. For rental dwelling unit inspections, please see the Board of Health permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006446",
+      "name": "Bathing Beach Operation Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006464",
+      "name": "Liquor License/Food Establishment Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This form contains the Liquor License and Food Establishment permits all on one form.   Please note: If you have a Sunday License, You will still need to send in an additional separate $100.00 check for the state.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006462",
+      "name": "Application for a Disposal System Construction Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "For construction, repair, upgrade and abandonment of Septic Systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006460",
+      "name": "Package Store Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This form is for a package store ONLY. No other licenses are included on this form.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006467",
+      "name": "Seasonal Liquor License Establishment Permits ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This form contains the Seasonal Liquor License  Annual Certificate of Inspection permits all on one form.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006476",
+      "name": "Application for Title 5 Inspection or Soil Evaluation",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This application is to request a Title 5 inspection or Soil Evaluation inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006420",
+      "name": "Commercial Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, additions and alterations to commercial properties. Note: Please allow up to 10 (ten) days for Fire Department review prior to issuance of the permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006447",
+      "name": "Body Art Technician Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This permit is needed for both body art technicians and/or body art establishments.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006422",
+      "name": "Commercial Change of Use and/or Occupancy",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is to be used whenever a change of use and/or occupancy is going to be requested. Note: Please allow up to 10 (ten) days for Fire Department review prior to issuance of the permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006468",
+      "name": "Seasonal Liquor License Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This form is for the liquor license, common victualer and live music permits only.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006423",
+      "name": "Chapter 2 Dwelling Unit or Rooming Unit Certification",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Any apartment or house being rented requires a Certificate of Compliance by the Board of Health. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006445",
+      "name": "Farmer's Market Prepared Food Permit Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "This permit is for processed foods, meat and poultry only. No permit is needed for fresh (uncut) produce, unprocessed honey Raw honey as defined by the National Honey Board: Honey as it exists in the beehive or as obtained by extraction, settling or straining without added heat.), maple syrup, and farm fresh eggs (must be stored and maintained at 45°F (7.2°C)).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006452",
+      "name": "Frozen Dessert License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006408",
+      "name": "Deck/Porch Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new, replacement or alteration of a deck or porch.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006403",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for complete demolition of a building and/or accessory building. For partial and interior demolition, use the Interior Demo/Renovation application for 1-2 family buildings or the Commercial Building Permit for any commercial project.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006444",
+      "name": "Motel Establishment License Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006443",
+      "name": "Operation of a Manufactured Housing Community Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006449",
+      "name": "Demolition Delay Bylaw - Application for Hearing",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006448",
+      "name": "Permit to Operate a Food Establishment",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Permits for Retail Food, Foodservice/Caterer, Residential Kitchen, Bed and Breakfast, Non-profit Organizations, and temporary permits. For a Farmer's Market permit, please see the Farmer's Market Prepared Food Permit Application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006415",
+      "name": "Fence Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for installing a perimeter fence 7 feet or greater in height. This application is not for pool fences. To put up a residential pool fence please use the 1 & 2 Family Building Permit - Short Form.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006413",
+      "name": "1-2 Family - Interior Demolition/Renovation Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for interior demolition or renovation of a 1-2 family residence only.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006450",
+      "name": "Permit to Operate a Swimming Pool, Hot Tub, or Spa Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006440",
+      "name": "Refuse & Recyclables Hauler Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6354",
+      "name": "Mechanical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required to erect, install, enlarge, alter, do major repairs, remove, convert or replace a mechanical system.  The property owner or owner’s agent can apply for this permit.  This permit is issued by the Building Inspector. Note: Certain permits will require Fire Department review. Please allow up to 10 (ten) days for the Fire Department review prior to issuance of the permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006427",
+      "name": "Septage Transport Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006418",
+      "name": "New 1-2 Family Accessory Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction of an accessory building 200 square feet and over. This is for tool/garden sheds ONLY. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006453",
+      "name": "Septic System Installer Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "New 1-2 Family Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction and additions to a 1-2 Family home. Note: Please allow up to 10 (ten) days for Fire Department review prior to issuance of the permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006414",
+      "name": "Pool Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for installing an above-ground or in-ground pool.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006470",
+      "name": "Tobacco Product Sales Permit Application",
+      "categoryId": 1079,
+      "viewAccess": "private",
+      "description": "Tobacco Product Sales Permits are limited by the Board of Health and all allowed permits are currently issued. NO ADDITIONAL NEW PERMITS ARE AVAILABLE.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006391",
+      "name": "Sheet Metal Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when a sheet metal worker is manufacturing, fabricating, assembling, handling, erecting, installing, dismantling, alteration and/or repairing duct work, commercial fans, kitchen hoods and vents, architectural sheet metal and metal roofing.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006416",
+      "name": "Solar Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for the building portion of a solar permit. An electrical permit will still be required.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006421",
+      "name": "Solid Fuel Appliance Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for installation of wood, pellet or coal stoves.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006405",
+      "name": "Tent Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006461",
+      "name": "Well Construction Permit Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6337",
+      "name": "Trench Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime a trench hole or other excavation is being done to a depth of 4 (four) feet or more.  If this application is in connection with a road opening permit, please attach copy of road opening permit.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1079",
+      "name": "Board of Health Permits",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 18px; color: rgb(226, 80, 65);\">PLEASE DO NOT PUT THROUGH TEST PERMIT APPLICATIONS. YOU ARE MORE THAN WELCOME TO CHECK OUT OUR FORMS BUT ONCE AN APPLICATION IS SUBMITTED, YOU WILL BE CHARGED A PERMIT FEE.</span></strong></p><div><span style=\"font-size: 18px;\"><hr></span></div><p style=\"text-align: center;\"><span style=\"font-size: 18px;\">All inspections are made by calling our office at 413-597-8074. Online inspection scheduling is <strong><u>NOT</u></strong> av"
+    },
+    {
+      "id": "1071",
+      "name": "Building Permits",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 14px; color: rgb(226, 80, 65);\">PLEASE DO NOT PUT THROUGH TEST PERMIT APPLICATIONS. YOU ARE MORE THAN WELCOME TO CHECK OUT OUR FORMS BUT ONCE AN APPLICATION IS SUBMITTED, YOU WILL BE CHARGED A PERMIT FEE.</span></strong></p><hr><p style=\"text-align: center;\"><strong><span style=\"color: rgb(0, 0, 0); font-size: 18px;\">ALL INSPECTIONS ARE MADE BY EMAILING OUR OFFICE, PLEASE CONTACT BOTH&nbsp;</span><span style=\"color: rgb(44, 130, 201); font-size: 18px;\">RCONTENT"
+    },
+    {
+      "id": "1081",
+      "name": "Combined License Renewals (Common Victualer & Liquor License Holders)",
+      "isEnabled": 1,
+      "content": "<p>This page has the combined <strong><em>renewal&nbsp;</em></strong>forms for liquor licenses, common victualer, food establishment and annual building inspections. For new liquor licenses please call Linda at 413-458-3500.</p><hr><p style=\"text-align: center;\"><strong><span style=\"color: rgb(209, 72, 65);\">Please see the 2025 and 2026 holiday calendars from the ABCC below:</span></strong></p><p style=\"text-align: center;\"><span style=\"color: rgb(41, 105, 176);\"><strong><a href=\"https://www.mas"
+    },
+    {
+      "id": "1086",
+      "name": "Conservation Commission",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\">Fee Schedule:</p><p style=\"text-align: center;\"><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/LandUseFees_Wed_Dec_27_2017_16_09_21_GMT+0000_(Coordinated_Universal_Time)_Thu_Feb_18_2021_11:20:25_GMT+0000_(Greenwich_Mean_Time).pdf\" rel=\"noopener noreferrer\" target=\"_blank\">LandUseFees - PDF</a></p><p><br></p><p><strong>Please note: </strong>State forms still need to be used, this is strictly to upload the completed forms and d"
+    },
+    {
+      "id": "1080",
+      "name": "DPW Permits",
+      "isEnabled": 1,
+      "content": "<p>Please click the DPW permit below you wish to apply for:</p><ul><li><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Street_Opening_Permit_Thu_May_06_2021_17:48:48_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_blank\">Street Opening Permit.pdf</a></li><li><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Water-Sewer_Permits_Thu_May_06_2021_17:43:29_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_blank\">Water-Sewer Permits.p"
+    },
+    {
+      "id": "1077",
+      "name": "Electrical, Gas & Plumbing Permits",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 18px; color: rgb(226, 80, 65);\">PLEASE DO NOT PUT THROUGH TEST PERMIT APPLICATIONS. YOU ARE MORE THAN WELCOME TO CHECK OUT OUR FORMS BUT ONCE AN APPLICATION IS SUBMITTED, YOU WILL BE CHARGED A PERMIT FEE.</span></strong></p><hr><p style=\"text-align: center;\">Inspections can be scheduled by calling the Community Development department at 413-597-8287.</p><hr><p style=\"text-align: center;\"><strong><u><span style=\"font-size: 18px;\">FEE SCHEDULE</span></u></strong>"
+    },
+    {
+      "id": "1083",
+      "name": "Selectboard Permitting",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1078",
+      "name": "Sign Permits",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 18px; color: rgb(226, 80, 65);\">PLEASE DO NOT PUT THROUGH TEST PERMIT APPLICATIONS. YOU ARE MORE THAN WELCOME TO CHECK OUT OUR FORMS BUT ONCE AN APPLICATION IS SUBMITTED, YOU WILL BE CHARGED A PERMIT FEE.</span></strong></p><hr><p>To access the sign bylaw click the link below:</p><p><br></p><p><span style=\"font-family: Georgia,serif; color: rgb(226, 80, 65);\"><a data-saferedirecturl=\"https://www.google.com/url?hl=en&q=http://www.ecode360.com/10632697&source=gma"
+    },
+    {
+      "id": "1085",
+      "name": "Town Clerk Licenses",
+      "isEnabled": 1,
+      "content": "<p>Licenses are due by April 1st. Any application received after June 15th will be subject to a $10.00 late fee.</p><p><br></p><p><strong>Please note you will need the following to license your dog:</strong></p><ul><li style=\"font-weight: bold;\"><strong>Up-to-date rabies certificate</strong></li><li style=\"font-weight: bold;\"><strong>Proof of spay/neuter if your dog is being newly licensed with the Town or if your dog is newly spayed/neutered</strong></li></ul><hr><p>For detailed instructions on"
+    },
+    {
+      "id": "1082",
+      "name": "Zoning Board of Appeals",
+      "isEnabled": 1,
+      "content": "<p>To access the Town Codes please click the following link: <a href=\"https://www.ecode360.com/WI1660\">https://www.ecode360.com/WI1660</a></p><hr><p>If someone <em>other than&nbsp;</em>the property owner is applying for a hearing, the following form will need to be completed and uploaded:</p><p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/ZBA_Owner_Auth_Tue_Aug_07_2018_18:52:59_GMT+0000_(Coordinated_Universal_Time).docx\" target=\"_blank\">ZBA Owner Auth.do"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:57:13.194Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

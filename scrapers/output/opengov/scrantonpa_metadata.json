@@ -1,0 +1,565 @@
+{
+  "jurisdiction": "Scranton",
+  "state": "PA",
+  "tenant": "scrantonpa",
+  "portalUrl": "https://scrantonpa.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6437",
+      "name": "Banner Hanging Request Form",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Interested in hanging a banner to promote your event? Please complete this request form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Showmobile Rental Request",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "To request the City of Scranton Showmobile for an event, please fill out this form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Scranton 3-1-1: Request City Services",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "To ensure Scranton's 3-1-1 staff can direct your concern to the right place, please select the correct category, identify the right address, and be as concise and accurate as possible in describing your concern.",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Request for Smoke Alarm",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "The Scranton Fire Department is currently running a smoke detector installation program for city residences. If you are in need of smoke detectors and would like to participate in the program please complete this application. This program is free of charge to residents of the City of Scranton.",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Park Pavilion or Open Space Reservation Form",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "To start the process for reserving a park pavilion or open space other than Nay Aug Park, please complete this form.\n\nFor Nay Aug, please use this link instead: https://nayaugpark.org/product-category/rentals/",
+      "isEnabled": true
+    },
+    {
+      "id": "6543",
+      "name": "Field Usage Agreement",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "To be considered for a licensing agreement to use a City-owned field/facility, please complete this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6547",
+      "name": "Legacy Application",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "DPW Concerns ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6551",
+      "name": "Illicit Stormwater Discharge",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The Environmental Protection Agency (EPA) defines an illicit (or illegal) discharge as any discharge into a storm sewer system that is not composed entirely of rainwater.  To prevent pollutants from being dumped or spilled into its storm drain system City of Scranton employees and citizens can report pollution or questionable discharges to storm drains or waterways through this tool.",
+      "isEnabled": true
+    },
+    {
+      "id": "6560",
+      "name": "Pole Attachment License Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "NOTE: In order to process your request, all necessary dimensions, weight, method of attachment, guying details, drawings of equipment, electrical connections (if any), etc., as required by Licensor, for each attachment and its associated equipment must be attached. Please attach a separate drawing for each attachment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6561",
+      "name": "Apprenticeship Grant",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Building Trades/ Carpentry Apprenticeship Readiness Programs \n \nFunding will be provided to prepare a highly skilled workforce to meet the demands in the City of Scranton. This program will provide funds for pre-apprenticeship programs in the Building Trades and Carpentry crafts. \nScranton citizens deserve an opportunity to have a family sustaining career and the completion of an apprenticeship readiness program and, ultimately, their enrolling in a State Certified Apprenticeship training program can lead them to one in the construction industry. The Building Trades State Certified Apprenticeship Programs are the gold standard of workforce development programs for those wanting a career in construction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "Floodplain Development Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Permit Requirements: As required by the Federal Emergency Management Agency (FEMA) Code of Federal Regulations, National Flood Insurance Program (NFIP), 44 CFR PART 60.3 (a) (1), no work of any kind may begin in the special flood hazard area (SFHA) as designated on the City’s Flood Insurance Rate Map (FIRM) until a Floodplain Development Permit has been issued by the Floodplain Manager. The permit shall be for all “development” as written in the City’s floodplain ordinance. File of Council No. 16, 2020.\n\nThe Ordinance defines \"Development\" as:\n\nAny man-made change to improved or unimproved real estate including, but not limited to, the construction, reconstruction, renovation, repair, expansion, or alteration of buildings or other structures; the placement of manufactured homes; streets and other paving; utilities; filling, grading and excavation; mining, dredging, and drilling operations; storage of equipment or materials; and the subdivision of land.\n\nThe Floodplain Development Permit is the mechanism by which our community evaluates any and all impacts of activities proposed within our regulated floodplains. All activities must comply with City of Scranton Floodplain Management Ordinance, File of Council No. 16, 2020. The National Flood Insurance Program provides flood insurance to individuals at much lower premiums than could otherwise be purchased through private insurers, and makes certain federal funds are available to communities. In order for citizens to be eligible for the national flood insurance rates, or for communities to receive certain kinds of federal funds, the community must agree to meet minimum floodplain standards.",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Special Event/Street Closure Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Please submit your application at least 60 days prior to the Event Date. Please keep in mind that submitting an application is in no way to be construed as approval or confirmation of your event. Please contact Kelly Kraycer, kkraycer@scrantonpa.gov, with any questions regarding this process.\n\nIf you are interested in seeing a list of upcoming events, please visit the City of Scranton's events calendar at https://scrantonpa.gov/events/",
+      "isEnabled": true
+    },
+    {
+      "id": "6368",
+      "name": "Zoning Hearing Board Application",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "All applicants wishing to appear before the Zoning Hearing Board (to request an interpretation, special exception, variance, or appeal) must complete this form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6570",
+      "name": "2024 COS Home Program Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The City of Scranton’s Office of Economic and Community Development currently has an open application for it’s 2024 HOME PROGRAM FUNDING.  The total amount of HOME funds to obligate is $436,730.65. \n\n  HOME is authorized under  Title II of the Cranston-Gonzalez National Affordable Housing Act,  as amended. Program regulations are at  24 CFR Part 92. Additional information about the HOME program can be found by visiting the HOME program web pages.\n\nOrganizations Eligible to Apply\n\nPublic or private entities who are housing developers, sponsors or owners and that have project management control capacity are eligible to apply for HOME funds. Examples of eligible entities are:\n\n•\\tNot-for-profit organizations\n•\\tHousing authorities\n•\\tMunicipalities\n•\\tFor-profit organizations, private individuals are not eligible to submit project applications directly  benefiting themselves.   For example:   A homebuyer is not eligible to request funds to rehabilitate a property that is used as his or her principal residence.  Projects must benefit a group of people and be administered by an agency or organization (i.e., a legal entity).   The administrative capacity of the agency or organization is one of the factors considered in the selection of the application\n\\t\nThe intent of the HOME Program is to:\n1.\\tProvide decent affordable housing to lower income households\n2.\\tExpand the capacity of non-profit housing providers\n3.\\tStrengthen the ability of state and local governments to provide housing, and\n4.\\tLeverage private-section participation\n\nEligible Uses of HOME funds\n\nHOME funds may be used for:\n•\\tRehabilitation\n•\\tReconstruction\n•\\tNew construction\n•\\tConversion of an existing structure from another use to affordable residential housing, Conversion of a structure to commercial use is prohibited.\n•\\tSite improvements\n•\\tAcquisition of property in need of rehabilitation is eligible as part of either a homebuyer program or a rental housing project\n•\\tAcquisition of vacant land only if construction will begin on a HOME project within 12 months of purchase\n•\\tDemolition of an existing structure may be funded by HOME only if construction will begin on the HOME project within 12 months\n\n\nTotal Amount of 2024 HOME Program Funding Available:  $436,730.65",
+      "isEnabled": true
+    },
+    {
+      "id": "6563",
+      "name": "Public Safety Form",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This form is for non-emergency police requests. If this is an emergency, please dial 911. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Illicit Stormwater Discharge",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "The Environmental Protection Agency (EPA) defines an illicit (or illegal) discharge as any discharge into a storm sewer system that is not composed entirely of rainwater.  To prevent pollutants from being dumped or spilled into its storm drain system City of Scranton employees and citizens can report pollution or questionable discharges to storm drains or waterways through this tool.",
+      "isEnabled": true
+    },
+    {
+      "id": "6573",
+      "name": "2024 COS CDBG Funding Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The City of Scranton’s Office of Economic and Community Development currently has an open application for it’s 2024 CDBG FUNDING. The total amount of CDBG funds to obligate is $2,122,778.\n\n\nThe Community Development Block Grant (CDBG) Program provides annual grants on a formula basis to states, cities, and counties to develop viable urban communities by providing decent housing and a suitable living environment, and by expanding economic opportunities, principally for low- and moderate-income persons. The program is authorized under Title 1 of the Housing and Community Development Act of 1974, Public Law 93-383, as amended 42 U.S.C. 5301 et seq. The program was designed to reinforce several important values and principles of community development:\n\n· CDBG's flexibility empowers people and communities to design and implement strategies tailored to their own needs and priorities.\n\n· CDBG's emphasis on consolidated planning expands and strengthens partnerships among all levels of government and the private sector in enhancing community development.\n\n· CDBG's technical assistance activities and set-aside for grantees builds the capacity of these partners.\n\n\nCDBG Proposed Rule On January 10, 2024, HUD published a Proposed Rule in the Federal Register which would enable much needed revisions and updates to the requirements governing the Community Development Block Grant (CDBG) program · Visit the CDBG Proposed Rule page\n\n\n\nEligible Actvities\n\nCDBG funds may be used for activities which include, but are not limited to:\n\n· Acquisition of real property\n\n· Relocation and demolition\n\n· Rehabilitation of residential and non-residential structures\n\n· Construction of public facilities and improvements, such as water and sewer facilities, streets, neighborhood centers, and the conversion of school buildings for eligible purposes\n\n· Public services, within certain limits\n\n· Activities relating to energy conservation and renewable energy resources\n\n· Provision of assistance to profit-motivated businesses to carry out economic development and job creation/retention activities\n\nEach activity must meet one of the following national objectives for the program: benefit low- and moderate-income persons, prevention or elimination of slums or blight, or address community development needs having a particular urgency because existing conditions pose a serious and immediate threat to the health or welfare of the community for which other funding is not available.\n\nGenerally, the following types of activities are ineligible:\n\n· Acquisition, construction, or reconstruction of buildings for the general conduct of government\n\n· Political activities\n\n· Certain income payments\n\n· Construction of new housing (with some exceptions)\n\n\nApplication Period: Tuesday, December 17th through Friday, January 3rd, 2025. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Contractors License",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "In order to perform work within the City of Scranton, all contractors must be registered. To apply for a General, Home Improvement, or another field-specific Contractors License, please complete this form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Certificate of Appropriateness (HARB)",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "All work done within a Historic District within the City of Scranton that can be visibly seen from the street level and involves alteration to the exterior of a structure must have a Certificate of Appropriateness, issued from the Historic Architecture Review Board.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Right-to-Know  Request ",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Good communication is vital in the RTKL process. Complete this form thoroughly and retain a copy; it may be required if an appeal is filed. You have 15 business days to appeal after a request is denied or deemed denied.",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Tree Removal Assistance",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Low-income homeowners can apply for assistance to cover the costs of removing a dangerous tree/branches when Code Enforcement requires removal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6578",
+      "name": "Street Openings and Excavation Permit ",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Any street excavation within the City of Scranton must be authorized with a Street Openings and Excavation Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6554",
+      "name": "Firework Display Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "LERTA Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "The Local Economic Revitalization Tax Assistance Program (LERTA) offers incentives to residents, investors, developers and business owners considering investing in new construction or building improvements located within the City of Scranton and surrounding areas.",
+      "isEnabled": true
+    },
+    {
+      "id": "6367",
+      "name": "Subdivision and Land Development Application",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "All applicants wishing to submit a plan review for subdivision and land development must complete this form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Application for a Home-Based Business",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "To apply for an operate a home business (and you are considered No-Impact by the PA Municipal Planning Code), please fill out this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6555",
+      "name": "Pyrotechnic Stage Effects Permit ",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "Zoning Verification Letter Request",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "If you would like to request a Zoning Verification Letter, please complete this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Flood and Stormwater Issue",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "If you are experiencing any issues regarding flooding, due to rain or river overflow, or are noticing a backup of stormwater due to clogged storm drains, please report here.",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Illicit Stormwater Discharge",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "The Environmental Protection Agency (EPA) defines an illicit (or illegal) discharge as any discharge into a storm sewer system that is not composed entirely of rainwater.  To prevent pollutants from being dumped or spilled into its storm drain system City of Scranton employees and citizens can report pollution or questionable discharges to storm drains or waterways through this tool.",
+      "isEnabled": true
+    },
+    {
+      "id": "6579",
+      "name": "2025 Community Center Grants ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "The City of Scranton has made available $25,000 in funding for grants to nonprofit community centers located within the city. These grants are available for community centers to seek assistance, build greater capacity, and upgrade their facilities.  Applicants must be a 501(c)(3) or 501(2)(23).  Groups will also need to demonstrate financial management and programmatic expertise, along with documenting all service or program expenses.  Programs may be funded in part or in full based on available funds.  Applications are due April 29, 2025 and must be spent by December 31, 2025",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Certificate of Non-Conformance",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "To register an existing non-conforming use",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Building Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All new construction, additions, and alterations must have a Building Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "Electrical Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All work being done on a structure involving electrical work or modification must have an Electrical Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6580",
+      "name": "2025 Veterans Organization Grant ",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "The City of Scranton has made available $100,000 in funding for grants to nonprofit organization located within the city serving veterans and their families. Available to apply from April 2, 2025, through April 29, 2025. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "Flag Raising Recommendation",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Submit your recommendation for a flag to be flown at City Hall. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6353",
+      "name": "Plumbing Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All work being done on a structure involving plumbing work, including new piping, re-piping, and installation of fixtures, must have a Plumbing Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Sidewalk Café and Parklet Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Any business or restaurant wishing to have outside dining or parklet space outside of their business must fill out this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6354",
+      "name": "Mechanical Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All work being done on a structure involving mechanical work, including HVAC and Fire Suppression, must have a Mechanical Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Dumpster Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All residential or commercial work requiring a dumpster to be temporarily located on a street must have a Dumpster Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Sign Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All installations of new signs must have a Sign Permit. \n\n(Please note, if you have an existing sign and are not altering it, please fill out the Sign License)",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Demolition Permit ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "In order to demolish an existing structure within the City, a Demolition Permit must be obtained.",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Certificate of Occupancy",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All residential and commercial structures that will be inhabited or occupied must obtain a Certificate of Occupancy before use.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Peddler License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All businesses wishing to sell merchandise within the City of Scranton, not at an established location of business or for a temporary event, must obtain a Peddlers License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Pop-Up Mobile Vendor License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Any business or organization wishing to temporary operate pop-up vendors and peddlers for a single event must apply for a Pop-Up Mobile Vendor License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Mobile Food Truck/Cart Vending License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All mobile food trucks or food carts operating within the City of Scranton must obtain a Mobile Food Truck/Cart Vending License.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Health License - Restaurant",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All business operating as a restaurant, serving and handling food/drink ",
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "Skill Game License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All businesses operating skill games must apply for a Skill Game License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Rooming House License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All businesses operating as a rooming or boarding house must obtain a Rooming House License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Scrapyard License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All businesses operating as a scrapyard, junkyard, or used motor parts yard must obtain a Scrapyard License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Parking Lot License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Application process for business and property owners to obtain annual license. Any property owner who charges any fees to park vehicles. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Hotel License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All businesses operating as a hotel, motel, or similar facility must obtain a Hotel License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Personal Care Facility License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All businesses operating as a personal care facility or nursing home must obtain a Personal Care Facility License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Assisted Living Facility License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All businesses operating as an Assisted Living Facility must register for an Assisted Living Facility License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Child Daycare License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All businesses operating a Child or Adult Daycare must obtain a Daycare License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6562",
+      "name": "Towing License ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "The City of Scranton 2024 Towing License ",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Secondhand Dealer License  ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "All businesses dealing with secondhand goods, including thrift shops and pawn stores, must obtain a Secondhand Dealer License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Board of Appeals (UCC)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "If you have a property before the Board of Appeals, and you believe the UCC has been incorrectly interpreted, or the provisions of the act or UCC do not fully apply or an equivalent form of construction is to be used, please fill out this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Board of Appeals (Licenses)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "If you have a property before the Board of Appeals, and you believe your license or permit was wrongly denied or revoked, please fill out this application.\n\n(AKA Housing Board of Appeals, or HAB)",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Board of Appeals (Rental Registration)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "If you have a property before the Board of Appeals, and you believe your rental registration was wrongly denied or revoked, please fill out this application.\n\n(AKA Housing Board of Appeals, or HAB)",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Board of Appeals (IPMC)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "If you have a property before the Board of Appeals, and you believe the IPMC has been incorrectly interpreted, or the provisions of the act or IPCM do not fully apply or an equivalent form of construction is to be used, please fill out this application.\n\n(AKA Housing Appeals Board, or HAB)",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1089",
+      "name": "Scranton 311",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Scranton 311 is the City&rsquo;s customer service center for non-emergency inquiries. Requests for service can be submitted via telephone, online form, or email. We will get your request to the right department and update you as the situation changes. Together, we develop valuable insights that help improve our city.</span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><br></span></p><p><span style=\"font-family: Arial,Helve"
+    },
+    {
+      "id": "1079",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"color: rgb(209, 72, 65);\"><br></span></strong></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Code Enforcement enforces building and property codes to support a healthy, safe, and vibrant community for Scranton residents. The department investigates complaints about possible violations and takes action to mitigate quality of life concerns. This department also distributes permits and conducts inspections for homes, rental properties, and businesses.</span></"
+    },
+    {
+      "id": "1085",
+      "name": "City Planning and Zoning",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoratio"
+    },
+    {
+      "id": "1080",
+      "name": "Business Administration",
+      "isEnabled": 1,
+      "content": "<p>The Department of Business Administration&rsquo;s primary responsibilities include recording the City&rsquo;s financial activity, maintaining the computerized accounting system, processing payments to vendors, procurement of goods and services, and issuing required financial reports. This office also prepares and monitors the City&rsquo;s Annual Operating and Capital Budgets. The Department oversees the following bureaus: Administration, Treasury, Human Resources, Information Technology, and "
+    },
+    {
+      "id": "1071",
+      "name": "Economic and Community Development",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\">Community Development manages the U.S. Department of Housing and Urban Development (&ldquo;HUD&rdquo;) entitlement grants as well as funding for housing and neighborhood development initiatives. The Department leverages public and private funds to provide affordable housing, promote safe and livable neighborhoods, and stimulate economic development in Scranton.</span></p><p><span style=\"font-family: Arial,Helvetica,sans"
+    },
+    {
+      "id": "1072",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; border: 0px; margin: 5px 0px 20px; padding: 0px; line-height: 2em; color: rgb(68, 68, 68); font-family: \"Open Sans\"; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thi"
+    },
+    {
+      "id": "1074",
+      "name": "Fire",
+      "isEnabled": 1,
+      "content": "<p><font face=\"Arial, Helvetica, sans-serif\">The mission of the Bureau of Fire is to provide efficient and effective fire protection and emergency services to the citizens of the City of Scranton. The department is dedicated to this mission and has initiated fire prevention programs throughout the community and local schools, through the use of a fire safe house.</font></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><br></span></p><p><span style=\"font-family: Arial,Helvetica,sans-s"
+    },
+    {
+      "id": "1083",
+      "name": "Parks and Recreation",
+      "isEnabled": 1,
+      "content": "<div style='box-sizing: border-box; border: 0px; margin: 0px; padding: 0px; color: rgb(68, 68, 68); font-family: \"Open Sans\"; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-dec"
+    },
+    {
+      "id": "1082",
+      "name": "Police",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Thomas Carroll - Chief of Police</span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">100 S. Washington Ave.<br style=\"box-sizing: border-box; color: rgb(68, 68, 68); font-family: &quot;Open Sans&quot;; font-size: 15px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: no"
+    },
+    {
+      "id": "1097",
+      "name": "Legacy",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:55:56.212Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

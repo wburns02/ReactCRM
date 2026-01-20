@@ -1,0 +1,236 @@
+{
+  "jurisdiction": "Bloomfield",
+  "state": "CT",
+  "tenant": "bloomfieldct",
+  "portalUrl": "https://bloomfieldct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6381",
+      "name": "E1_License",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Obtain a contractor's license for authorization to perform permitted work within a Town right-of-way or property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6410",
+      "name": "E2_Right of Way Permit",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Permit for excavation and other work within Town right-of-way. (This is the base permit application that will be used for most permits.)",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "QOL Violation Ticket Review Meeting Application (copied from boroughofbathpa)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Pay Tickets Online (Parking or Quality of Life) (copied from boroughofbathpa)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "IC/Housing Citation ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this type of record for Citations",
+      "isEnabled": true
+    },
+    {
+      "id": "6407",
+      "name": "Building Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Use this type of permit for residential or commercial construction. Please use proper trade permit for respective work",
+      "isEnabled": true
+    },
+    {
+      "id": "6424",
+      "name": "Administrative Zoning Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Administrative Zoning Permit for work that does not require Building Department approval ",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "IC/Housing Citation  Copy",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this type of record for Citations",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "IC/Housing Citation  Copy #2",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this type of record for Citations",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Zoning Compliance Review",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "This application is for those who wish to obtain a written compliance review of a property",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "IC/Housing Citation  Copy #3 ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this type of record for Citations",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Building Permit Copy_1",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this type of permit for residential or commercial construction. Please use proper trade permit for respective work.",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Complaint/Incident/Fire Calls",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Use this form to file a complaint with the Building Division over building safety or welfare.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Building Permit Rev_1",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Use this form to obtain a building permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Complaint/Incident/Fire Calls TESTING COPY",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Use this form to file a complaint with the Building Division over building safety or welfare.",
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "Electrical Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This type of permit is for work involving electricity such as new wiring or changing devices.",
+      "isEnabled": true
+    },
+    {
+      "id": "6353",
+      "name": "Plumbing Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Use this type of permit for piping work (water, drain, waste, and vent; or gas)\n**Please NOTE: Town Ordinance does not allow for Residential Properties to install/replace underground fuel tanks of any type. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6386",
+      "name": "HVAC Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Use this permit type for heating, air conditioning, gas piping, propane tanks, or similar work.\n\n**Please NOTE: Town Ordinance does not allow for Residential Properties to install/replace underground fuel tanks of any type. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Electrical Permit Copy_1",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This type of permit is for work involving electricity such as new wiring or changing devices.",
+      "isEnabled": true
+    },
+    {
+      "id": "6409",
+      "name": "Photovoltaic Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This permit is used for photovoltaic (solar electrical) installations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Demolition Permit ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Use this for completely demolishing a building or structure.  NOT FOR INTERIOR DEMOLITIONS.",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Plumbing Permit Copy_1",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this type of permit for piping work (water, drain, waste, and vent; or gas)\n**Please NOTE: Town Ordinance does not allow for Residential Properties to install/replace underground fuel tanks of any type. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Fire Sprinkler Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Use this type of permit for new sprinkler system installations or modifications to NFPA 13, 13D, & 13R systems.\n\nAlso to include Standpipes NFPA 14, Pumps, Tanks & Fire Mains NFPA 20, 22 & 24.",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Fire Suppression Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Use this type of permit for Hood systems NFPA 17 & 17A, Clean Agent Systems ie, FM-200, etc. NFPA 2001, Water Spray & Foam Water Spray NFPA 15 & 16.",
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Fire Alarm System Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Use this type of permit for new fire alarm systems or changes to existing installations NFPA 72.  Fire Alarm shop drawings separate from the Electrical drawings are required.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1089",
+      "name": "Building Division",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: start;color: rgb(51, 51, 51);background-color: rgb(255, 255, 255);font-size: 16px;\"><p style=\"text-align: center;\"><strong><span style=\"font-size: 24px;\">Welcome to the Building Department Permit Portal</span></strong></p><div><br></div><div style=\"text-align: center;\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/1712016047191_Tue_Apr_02_2024_00:00:48_GMT+0000_(Coordinated_Universal_Time).png\" width=\"132\" height=\"132\" style=\"max-width: calc(100%"
+    },
+    {
+      "id": "1088",
+      "name": "Planning & Zoning",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1078",
+      "name": "Engineering",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"color: rgb(226, 80, 65);\">July 2023: New Rights of Way Ordinance, Rights of Way Manual, and Fees! Please read both before applying for any license or permit.</span></strong></p><p>A new <span style=\"color: rgb(41, 105, 176);\"><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Rights_of_Way_Ordinance_Adopted_26_Jun_2023_Tue_Jun_27_2023_19:17:20_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\">Rights of Way Ordinance</a></span>("
+    },
+    {
+      "id": "1079",
+      "name": "TEST Department - Town Employees Use Only",
+      "isEnabled": 1,
+      "content": "<p><span style='color: rgb(0, 0, 0); font-family: \"Benton Sans\", sans-serif; font-size: 36px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: in"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:51.924Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

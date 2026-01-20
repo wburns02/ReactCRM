@@ -1,0 +1,713 @@
+{
+  "jurisdiction": "Methuen",
+  "state": "MA",
+  "tenant": "methuenma",
+  "portalUrl": "https://methuenma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006747",
+      "name": "Kennel License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This license is for Kennel owners or boarders. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006616",
+      "name": "Additional Trash Barrel Request",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Use this application to request an additional 64-gallon trash barrel. Must be a registered (census) property owner or tenant in the City of Methuen. The cost is $100 per year.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006642",
+      "name": "How To Create an Applicant Log-In from the Public Portal",
+      "categoryId": 1099,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006793",
+      "name": "Solar Panel Install Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Solar Panel Installation permit application.  Solar design and installation must be compliant with Massachusetts Laws and recognized Codes and City Ordinances.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006527",
+      "name": "Incident Report (NFIRS) Request",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Use this application to request a copy of a Methuen Fire Department Incident Report (NFIRS Form).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006580",
+      "name": "Vital Records Certified Request (Birth; Death; Marriage)",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Birth records for people born in Methuen or whose parents were living in Methuen at the time of their birth. ID IS REQUIRED FOR THIS REQUEST.  APPLICATIONS SHOULD BE COMPLETED ONLINE ALONG WITH PAYMENT, AND A PHOTOGRAPH OF IDENTIFICATION TO COMPLETE THE PROCESS.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006615",
+      "name": "Ambulance Patient Care Report Request",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Use this application to request a copy of a Methuen Fire Department Ambulance Patient Care Report. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006672",
+      "name": "Certified Abutters List",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "This application is for obtaining a certified abutters list the the City of Methuen Assessor's Office.  Select the parcel / address for which you are requesting abutter list.\n\nLocation selected must include MBL number.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006641",
+      "name": "Guest Portal Record Access",
+      "categoryId": 1099,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006638",
+      "name": "How to Save and Resume a Draft of a Record on the Public Site",
+      "categoryId": 1099,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006674",
+      "name": "Dumpster/Donation/Storage Bin Permit - ANNUAL",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application may be used for all ANNUAL dumpster, food establishment dumpsters, and storage or donation bin installations.  Once issued the permit will be good for one year and may be renewed subject to the rules / discretion of the issuing authority.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006647",
+      "name": "Additional Recycle Barrel Request",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Use this application to request an additional FREE 95-gallon Recycle barrel.  Must be a registered (census) property owner or tenant in the City of Methuen",
+      "isEnabled": true
+    },
+    {
+      "id": "1006480",
+      "name": "Smoke CO Cert (1 or 2 Family)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This is the application for a Smoke / CO Certificate of Compliance for a 1 or 2 Family Home.  Can be used in limited applications for a single unit of a Townhouse or Condo Multifamily providing that all other required elements (e.g. Fire Alarm / Sprinkler) are in compliance",
+      "isEnabled": true
+    },
+    {
+      "id": "1006761",
+      "name": "Storage Shed Construction / Installation Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is for the construction or installation of a Storage Shed.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Building permit for the construction, alteration, addition, demolition, or modification of any structure in the City of Methuen.  (not for fences)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006502",
+      "name": "Fire Alarm Annual Inspection &Testing Permit",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "This permit is for annual inspection testing and minor maintenance of NFPA 72 Fire Alarm Systems.  Permit is issued to company qualified by Massachusetts Board of State Examiners of Electricians (and covers all qualified employees) for general inspection testing and maintenance of NFPA 72 systems at all properties in the City of Methuen for the duration of the calendar year of issue.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006654",
+      "name": "Trash \\ Recycle Barrel Exchange",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Use this application to Exchange your Trash \\ Recycle barrel for a smaller 35-gallon barrel.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006673",
+      "name": "Dumpster/Donation/Storage Bin Permit - TEMPORARY (30 Days)",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application may be used for all temporary dumpster (usually related to renovations and construction) and storage or donation bin installations.  Once issued the permit will be good for 30 days and may be renewed subject to the rules / discretion of the issuing authority.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006639",
+      "name": "How to Reset Your Password",
+      "categoryId": 1099,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006640",
+      "name": "Email Notifications for Applicants",
+      "categoryId": 1099,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006578",
+      "name": "Dog License",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "New and renewal licenses for dogs occur between March 1 - May 31 yearly. NB: Payment of Fees is required, but does not guarantee that a permit will be issued. The Application must pass all required approvals first.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006623",
+      "name": "Occupancy Permit (for rentals)",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This permit is for all residential rental units and must be obtained (for each unit) by the owner / management company prior to renting the unit.  \n\nThis Occupancy Permit requires you to be compliant with the \n\nMINIMUM STANDARDS OF FITNESS FOR HUMAN HABITATION (STATE SANITARY CODE, CHAPTER II) 105 CMR 410 (mass.gov) \n\nYou should review the code and the conditions of your property prior to requesting the Methuen Board of Health inspection.  Failure to do so may result in a delay in getting an Occupancy Permit issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006602",
+      "name": "Sprinkler System Annual Inspection &Testing Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This permit is for annual inspection testing and maintenance of NFPA 13 based Sprinkler Systems (and systems covered by NFPA 25).  Permit is issued to company qualified by the State of Massachusetts (and all of its qualified employees) for general inspection testing and maintenance at all properties in the City of Methuen for the duration of the calendar year of issue.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006801",
+      "name": "Accessory Dwelling Unit Permit (ADU)",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This Permit is for the construction of an Accessory Dwelling Unit (ADU) per 760 CMR or the conversion of an already permitted Accessory Use Apartment into an Accessory Dwelling Unit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006584",
+      "name": "Amusement License (Events)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "THIS APPLICATION MUST BE SUBMITTED AT LEAST 30 DAYS PRIOR TO THE PLANNED EVENT. Permit for a public event including Amusements, Concerts, Shows and Exhibitions.  The Application must pass all required approvals first. Religious Societies conducting events on property owned by them; Events given in school buildings by or for the benefit of pupils or Events on public property permitted and approved by the appropriate permit granting authority, ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Fuel Oil Burning FP-056 (Form 1)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "For new / replacement residential or commercial oil burner installation and related above ground oil tank removal / install.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006724",
+      "name": "Food Establishment Permit (for Annual or Temporary food service)",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "Food Establishment Permits are required for all entities that serve, sell, handle, or distribute packaged and non packaged foods to the public.  Is required for both temporary and permanent locations.  This permit is good for a maximum of one year from the date of issue and subject to inspections by Methuen Board of Health inspectors.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006736",
+      "name": "Spa (Hot Tub) Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is for a public, semi-public Spa (a.k.a Hot-tub) Permit.  Application should be made at least one month prior to the planned opening date of the Spa.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006643",
+      "name": "Why is applicant seeing an icon for \"Plaid\" when paying fee by E-check?",
+      "categoryId": 1099,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006653",
+      "name": "Staff Request for Internal Support (NOT FOR PULIC USE)",
+      "categoryId": 1099,
+      "viewAccess": null,
+      "description": "This application / record is for City of Methuen STAFF to request help from our internal OpenGov administrators  (NOT FOR PUBLIC USE)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006735",
+      "name": "Tanning Establishment Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is for establishing a tanning salon as a stand alone business or as part of another business.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006496",
+      "name": "Hot Work - Welding, Cutting, and Other Hot Work Permit",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Permit for activities relating to 527 CMR 1.00 Chapter 41 Welding, Cutting, and Other Hot Work (NFPA 51B, Standard for Fire Prevention During Welding, Cutting, and Other Hot Work)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006660",
+      "name": "Alcohol License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for all types of alcohol licensing (on-premise, off-premise, one-day)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006762",
+      "name": "Swimming Pool / Hot Tub (INSTALLATION) Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is for the installation of a swimming pool or hot tub. POOL INSTALLATION MUST COMPLY WITH 2015 International Swimming Pool and Spa Code (ISPSC)   \n\nhttps://codes.iccsafe.org/content/ISPSC2015",
+      "isEnabled": true
+    },
+    {
+      "id": "1006763",
+      "name": "Tent, Awning, & Canopy Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This form is used whenever a tent, awning or canopy is installed.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Propane Tank Installation (AG/UG)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Permit for installation of new or replacement Propane Tanks (above ground or under ground).  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006726",
+      "name": "Beaver / Muskrat Management Application",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "Application for emergency permit to manage a health threat caused by beaver or muskrat.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006742",
+      "name": "Municipal Lien Certificate",
+      "categoryId": 1095,
+      "viewAccess": null,
+      "description": "Use this form to request a Municipal Lien Certificate online",
+      "isEnabled": true
+    },
+    {
+      "id": "1006683",
+      "name": "Automatic Amusement License (Gaming Machines)",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Licenses for Automatic Amusement or Entertainment machine(s) such as Pinball / Video Games / Prize Machines / etc..., which require form payment or credits to be used.   Failure to License machine may result in seizure per Methuen Municipal Ordinances.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006689",
+      "name": "     TEST *** DO NOT USE ****   (ZONING) Zoning Appeals",
+      "categoryId": 1100,
+      "viewAccess": null,
+      "description": "This application is for Zoning Board of Appeals.  It is used in the event that you need to appeal a decision made by Zoning review in which a denial was issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006695",
+      "name": "Entertainment License (Live/Recorded/Broadcast/Amplified) ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Licenses for Live or Recorded Music / Jukeboxes / TVs / Karaoke,  etc..., and performances by hired entertainers, staff, or customers.  This is an annual licensed issued to the named business at the recorded location.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006733",
+      "name": "Public or Semi-Public Pool Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is for all swimming pools used in commercial or semi-public applications (such as condo developments).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006491",
+      "name": "Steel Underground Tank Removal (FP-292) with Documented Disposal",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006515",
+      "name": "Certificate of Inspection",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Certificate of Inspection, as required by various licensing authorities and Table 110 of the MA State Building Code",
+      "isEnabled": true
+    },
+    {
+      "id": "1006471",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc.  Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006489",
+      "name": "Storage of Flammable - Combustible (Liquids, Gases, and Solids)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Use this application to obtain a permit for the storage of flammables and combustibles in accordance with 527 CMR 1.00, the Massachusetts Comprehensive Fire Safety Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006669",
+      "name": "Auto Dealer License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Apply for a new or used car dealership license (Class 1, Class 2, Class 3).  Before you submit this application you will need to have a current Business Certificate issued by the City of Methuen.  If you are renting the premisis you will need to attach a copy of the lease in this application.  You will need to attach a drawing showing lot dimentions and layout with maximum number of cars you are allowed to be licensed for.  (must show vehicle placement and emergency egress routes that will be maintained).  Lastly you will need to attach a copy of your current insurance policy.  Application cannot be submitted without the required information attached.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006688",
+      "name": "Livestock Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is for Livestock Permit.  Note:  This permit may be subject to Zoning review and will need a drawing with location of livestock, buildings, waterways, and more (see instructions within)  before the application can be submitted. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006710",
+      "name": "Soil Testing",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "Use this applicaiton for Soil Testing.  Locus map and plot plan must be included with application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006737",
+      "name": "Tobacco and Nicotine Delivery Product Sales Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is for all tobacco and nicotine delivery product sales",
+      "isEnabled": true
+    },
+    {
+      "id": "1006464",
+      "name": "     TEST *** DO NOT USE ****   (ENGINEERING) Petition to Excavate",
+      "categoryId": 1100,
+      "viewAccess": null,
+      "description": "This permit is required anytime excavation is occuring",
+      "isEnabled": true
+    },
+    {
+      "id": "1006581",
+      "name": "Business Certificate",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Business registration with the City of Methuen - not required for businesses registered with the MA Secretary of State and doing business in the same name.   Payment of Fees is required, but does not guarantee that a permit will be issued. The Application must pass all required approvals first including review by Zoning.  \n\nIf you require your application to be notarized you will be required to appear at City Hall with the appropriate identification.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006512",
+      "name": "Smoke CO Cert (3 to 5 Family)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This is the application for a Smoke / CO Certificate of Compliance for 3 to 5 family dwellings (OR other buildings occupied in whole or in part for residential purposes and not regulated by MGL CH 148 sections 26A, 26B, or 26C)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006715",
+      "name": "Fence Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Fence Installation permit application.  Fence design and installation must be compliant with City of Methuen Municipal Code / Fence Ordinance.  Current version may be found at CityofMethuen.net in the Solicitor's Office page.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006524",
+      "name": "Fire Alarm Installation, Modification, or Alteration ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Application for Fire Alarm installation, modification, or alteration.  Use this application for all new systems or changes to existing systems including FACP replacement or Communication Method changes.  \n\nApplication must be approved by Fire Department to satisfy MGL Ch.148 Sec 27A. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006513",
+      "name": "Smoke CO Cert (6+ units)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This is the application for a Smoke / CO Certificate of Compliance for apartment houses containing six or more dwelling units, hotels, boarding or lodging houses, or family hotels which are not regulated by section twenty-six A or twenty-six B of MGL Ch 148 Sec 26A or 26B.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006756",
+      "name": "Local Upgrade Approval - Form 9A (Septic System)",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is to be submitted to the Local Board of Health for the upgrade of a failed or nonconforming septic system with a design flow of less than 10,000 gpd, where full compliance, as defined in 310 CMR 15.404(1), is not feasible.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006622",
+      "name": "Disposal System Construction Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "(Formerly called Disposal Works (Septic) Construction )",
+      "isEnabled": true
+    },
+    {
+      "id": "1006684",
+      "name": "Common Victualler License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The Licensing Board issues Common Victualler Licenses to establishments that cook, prepare and serve food at tables.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006750",
+      "name": "     TEST *** DO NOT USE ****   (ENGINEERING) Trench Permit",
+      "categoryId": 1100,
+      "viewAccess": null,
+      "description": "This permit is required anytime excavation is occuring",
+      "isEnabled": true
+    },
+    {
+      "id": "1006728",
+      "name": "Drain Layers Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This permit is issued to qualified applicant to conduct business as a drain layer in the City of Methuen.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006646",
+      "name": "Fire Watch Detail",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Payment and scheduling for Fire Watch relating to 527 CMR 1.00 (Massachusetts Comprehensive Fire Safety Code)  (May be used for Amusement Event License fire watch requirements)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006625",
+      "name": "Fire Sprinkler / Suppression System Installation, Modification, or Alteration ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Application for NFPA based Sprinkler (or extinguishing system) installation, modification, or alteration.  Use this application for all new systems or changes to existing systems including kitchen suppression or similar systems.\n\nApplication must be approved by Fire Department to satisfy MGL Ch.148 Sec 27A. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006514",
+      "name": "Gas Fitting Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime the building’s gas is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006485",
+      "name": "Standard Permit (FP-006)",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "The application is to be used for any required permit or application not specifically addressed on this platform.  Examples of usage include:\n\nTemporary Heating Equipment for Special Event or Project, Vent-Free Gas Appliance Installation, Blasting, Magazine and Powder Storage, Hazardous Materials Storage/Processing, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006757",
+      "name": "Well Application",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is for permitting the installation of a well on parcel of land located within the City of Methuen MA.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006752",
+      "name": "Body Art Practitioner Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is for obtaining a permit to work (at a Methuen Body Art Establishment) as a Body Art Practitioner in the City of Methuen MA. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006686",
+      "name": "Self-Service Storage License",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for Self-Service Storage License required by Chapter 9 Section 9-42, Methuen Municipal Code.  NOTE:  This application shall be made by the Owner of the Business.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006621",
+      "name": "Septic Installer Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "(Formerly called Disposal Works Installer)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006711",
+      "name": "Septage Hauler Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "Application for Septage Hauler Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "1006751",
+      "name": "Body Art Establishment Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is for establishing a body art establishment (Tattoo / Piercing).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006467",
+      "name": "Plumbing Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006734",
+      "name": "Pre-Sewer Entry Application",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Pre-Sewer Entry Applicaiton.  Application may be made by property owner or contractor.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006582",
+      "name": "Flea Market, Garage & Yard Sale Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Flea Market, Garage & Yard Sales. Only 2 special sales per year per address (not per resident).  Churches are exempt as are city sponsored flea markets. NB: Payment of Fees is required, but does not guarantee that a permit will be issued. The Application must pass all required approvals first.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006716",
+      "name": "Solid Waste Hauler Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "Application for Solid Waste Hauler Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "1006741",
+      "name": "Residential or Day Camp Health Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is for a Residential or Day Camp Heatlh Permit in accordance with 105 CMR 430.00: Minimum standards for recreational camps for children: State sanitary code chapter IV.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006516",
+      "name": "Sheet Metal Permit / Mechanical Permit (use for mini-splits)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Sheet Metal Work means the manufacturing, fabrication, assembling, handling, erection, installation, dismantling, alteration and repairing of all commercial duct or air exhaust systems, except for refrigeration and combustion units; installation of commercial fans, sheaves, belt guards, dampers, louvers, screens, registers, grilles, diffusers, sound traps, attenuators, mixing boxes and access doors in connection with duct or air exhaust systems, commercial and industrial architectural sheet metal watershed roof systems, except for roof coverings and associated metal flashing; the testing, adjusting and air-balancing of all air-handling equipment and ductwork installed during new or remodeling construction, the installation of commercial and industrial kitchen hoods, kitchen vents, bathroom exhaust vents and fans; provided, however, that sheet metal work shall not include the work conducted by a licensed pipe fitter, oil burning technician, refrigeration technician, plumber or gasfitter as determined by the laws and regulations relating to those professions. NOTE: Function and purpose shall determine \"sheet metal\" work, not the materials employed.  For example, PVC (Polyvinyl Chloride) and CPVC (Chlorinated Polyvinyl Chloride) duct work systems are included in 271 CMR 2.01:  Sheet Metal Work. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006620",
+      "name": "Sign Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006700",
+      "name": "Weights & Measures Inspection",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "City of Methuen Inspectional Services Sealer of Weights and Measurers inspection record.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006753",
+      "name": "Permit to Operate a Bathing Beach",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is for operating a bathing beach in accordance with 105 CMR 445: State sanitary code chapter VII.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006701",
+      "name": "Zoning Determination",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This Zoning Determination form will help you get answers to questions regarding ability to split a lot / placement of a business / size, types, and placements of buildings (structures) allowed on a given property and more...  \n\nThe Zoning Determination response will tell you if your project will be Approved or Denied based on the City of Methuen Zoning Ordinances.\n\nA $25 Fee is required to process this application regardless of outcome.  Approvals may require additional permitting from various departments.  Denials will include the reason for denial and instructions on how to appeal.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006755",
+      "name": "Hotel / Motel Health Permit",
+      "categoryId": 1096,
+      "viewAccess": "public",
+      "description": "This application is for Hotel / Motel Health permit.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1099",
+      "name": "F.A.Q. - Help ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1090",
+      "name": "Assessing",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Building/Zoning, Electrical, Gas, Plumbing",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 18px; font-family: Arial, Helvetica, sans-serif;\">Permit types include: building, plumbing, gas, electrical, sheet metal, and requests for Certificate of Inspections.</span></p><p><span style=\"font-size: 24px;\"><strong><span style=\"font-family: Arial, Helvetica, sans-serif; color: rgb(184, 49, 47);\">IMPORTANT</span></strong></span></p><ul start=\"1\" style='margin-bottom: 0in; color: rgb(32, 31, 30); font-family: \"Segoe UI\", \"Segoe UI Web (West European)\", \"Segoe UI\", -a"
+    },
+    {
+      "id": "1085",
+      "name": "City Clerk (Licensing / Vital Records / Elections)",
+      "isEnabled": 1,
+      "content": "<table style=\"width: 100%;\"><tbody><tr><td style=\"width: 35.0242%; vertical-align: top;\"><p><strong>Hours of Operation</strong></p><p>Monday - Thursday: 8:00 am to 4:30 pm</p><p>Friday: 8:00 am to Noon</p><br></td><td style=\"width: 5.9519%; vertical-align: top;\"><br></td><td style=\"width: 30.7084%; vertical-align: top;\"><p><strong>Address</strong></p><p>Searles Building, Room 112<br>41 Pleasant St<br>Methuen, MA 01844</p><br></td><td style=\"width: 3.8421%; vertical-align: top;\"><br></td><td styl"
+    },
+    {
+      "id": "1084",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p><strong>Methuen Fire Department</strong></p><p>Dispatch (24 hr.) 978-983-8940<br>Fire Prevention &nbsp; 978-983-8919<br>Deputy on Duty &nbsp;978-983-8955</p>"
+    },
+    {
+      "id": "1096",
+      "name": "Health",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 24px;\"><strong>Please use this system for the permit applications shown below:</strong></span><span style=\"font-size: 18px; color: rgb(184, 49, 47);\">&nbsp;</span></p>"
+    },
+    {
+      "id": "1087",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 18px;\">Step-by-step instructions on how to order additional or exchange Recycle or Trash barrels can be found in the following&nbsp;</span></strong><a href=\"https://youtu.be/d3n6yGNuT3M\" rel=\"noopener noreferrer\" target=\"_blank\"><strong><span style=\"font-size: 18px;\">Video Tutorial</span></strong></a></p>"
+    },
+    {
+      "id": "1095",
+      "name": "Treasurer",
+      "isEnabled": 1
+    },
+    {
+      "id": "1100",
+      "name": "Internal Development Team - NOT FOR PUBLIC USE",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"font-size: 24px; font-family: Arial, Helvetica, sans-serif;\"><strong>THIS SECTION IS FOR INTERNAL DEVELOPMENT</strong></span></p><p style=\"text-align: center;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 24px;\"><strong style=\"color: rgb(184, 49, 47);\">NOT FOR PUBLIC USE</strong></span></span></p><p style=\"text-align: center;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 24px;\">Applica"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:57:01.278Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

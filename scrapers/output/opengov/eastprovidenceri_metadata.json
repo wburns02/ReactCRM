@@ -1,0 +1,283 @@
+{
+  "jurisdiction": "East Providence",
+  "state": "RI",
+  "tenant": "eastprovidenceri",
+  "portalUrl": "https://eastprovidenceri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6346",
+      "name": "Licensed Business Fire Safety Complaint",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this link to report possible fire and/or life-safety concerns that may exist at any licensed business establishment within the City of East Providence.  If you feel as if this complaint is immediately dangerous or poses a life-threatening situation, please call 401-537-7331, or dial 9-1-1 for emergency situations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6422",
+      "name": "Hot Work Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This Hot Work Permit is required for any operation involving open flames or producing heat and/or sparks.  This includes, but is not limited to: Brazing, Cutting, Grinding, Soldering, Thawing Pipe, Torch-Applied Roofing, and Cad Welding.\nWhen filling out this form, please be sure to read each individual safety point and check to affirm you agree to adhere to these points.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Zoning Board of Review Application ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Planning Board Applications",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Land Development & Subdivision Applications",
+      "isEnabled": true
+    },
+    {
+      "id": "6362",
+      "name": "Sewer Permit ",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Sewer Permit through the City of East Providence's Department of Public Works. \n\n\n**ANY WORK IN THE CITY RIGHT OF WAY SHALL BE PERFORMED BY THE CITY.  CONTACT \n401-435-7703 IF WORK IS REQUIRED IN CITY RIGHT OF WAY. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6411",
+      "name": "  Temporary Use Permit / Short Term Rental",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Apply for a Short Term Rental permit from the City of East Providence",
+      "isEnabled": true
+    },
+    {
+      "id": "6424",
+      "name": "Zoning Verification for Detached Accessory Structures Less Than 64sf in Size",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is for those wishing to build a detached accessory structure that is less than 64sf in size.  This application is for, but not limited to, sheds, pergolas, gazebos and detached decks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6395",
+      "name": "Block Party Application/ Food Truck Event",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6421",
+      "name": "Dog License",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "DOG LICENSE\nThe dog license year runs annually from April 30th. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Business Registration Application ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "New Business Registration \nYou will need this form filled out if your going to have a storefront in the City Of East Providence. \n* If a Business Renewal Registration, Please use the same one you have when you first applied for the registration  via your account. Do not create a new one for each year. If you have question please reach the licensing Clerk Stephanie Melo.  \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Zoning Certificate*",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Apply here for a Zoning Certificate through the City of East Providence. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "NEW Life Safety Inspection",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Click here to submit your request for an inspection from the Office of the State Fire Marshal (related to business licenses or construction rough/final) \n\nPlease call 401-431-4614 to schedule residential smoke inspections. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6408",
+      "name": "Special Event Alcoholic License - Class F",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Apply for a beer & wine only Class F license.  You must be a qualified non-profit to apply for this type of Alcohol license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6409",
+      "name": "Special Event Alcoholic License - Class F 1",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Apply for a special events full liquor license,  Class F1 .  You must be a qualified non-profit to apply for this type of Alcohol license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6393",
+      "name": " Licenses For The City Of East Providence",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Apply for your Business licenses (i.e. Victualler,  Sunday/Holiday Sales, Dance/Entertainment, Junkyard, Peddler, Theater, Bowling, Pool Table, Solicitor, Private Detective, etc. from the City of East Providence. \n\n*Please be advised that all licenses expire annually on November 30th. It is the responsibility of the licensee to submit  for renewal on time. Failure to receive a renewal notice does not excuse the licensee from this obligation- it is the responsibility of the business owner to maintain a current business license at all time. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6397",
+      "name": " APPLICATION FOR LIQUOR LICENSE ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Apply for a  Liquor license Class A,B, BV, BVL, C, OR D licenses from the City of East Providence. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6389",
+      "name": "Special Events One Day Entertainment License",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Apply for a special events license through the City of East Providence.",
+      "isEnabled": true
+    },
+    {
+      "id": "6420",
+      "name": "  Donation Drop Box",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Donation Drop Box in the City of East Providence",
+      "isEnabled": true
+    },
+    {
+      "id": "6390",
+      "name": "Road Race ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Apply for a road race permit from the City of East Providence.",
+      "isEnabled": true
+    },
+    {
+      "id": "6332",
+      "name": "Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a building permit from the City of East Providence, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.\n\n*Please allow up to 15 business days for permit approval and issuance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Accessory Dwelling Unit (ADU)",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an Accessory Dwelling Unit (ADU) permit from the City of East Providence. \n\n*Please be aware that ADUs CANNOT be used for Short Term Rental purposes.",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a demolition permit from the City of East Providence.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit from the City of East Providence, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.\n\n*Please allow up to 15 business days for permit approval and issuance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the City of East Providence, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.\n\n*Please allow up to 15 business days for permit approval and issuance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6338",
+      "name": "Tent/Event Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This application must be submitted at least seven days in advance of the event.",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit from the City of East Providence, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.\n\n*Please allow up to 15 business days for permit approval and issuance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "Moving Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for a moving permit from the City of East Providence. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Sign Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a sign permit from the City of East Providence. All permit applications should include photos of any existing signage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6364",
+      "name": "Dumpster Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "A Dumpster permit is ONLY REQUIRED if the dumpster is being install in the STREETS of the City of East Providence.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6366",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the City of East Providence.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1072",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; t"
+    },
+    {
+      "id": "1078",
+      "name": "City Clerk's Office",
+      "isEnabled": 1,
+      "content": "<p><span style='font-family: \"Times New Roman\", Times, serif, -webkit-standard;'><strong><span style=\"font-size: 18px;\">We welcome your new business to the City of East Providence! </span></strong></span></p>"
+    },
+    {
+      "id": "1077",
+      "name": "Department of Public Works",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1071",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p>Here is a brief description of each link provided:</p><p><strong>Licensed Business Fire Safety Complaint</strong> - Use this link to report any issues of concern pertaining to fire or life safety at a commercial or business in the City of East Providence. &nbsp;<strong>**Note</strong> - if the item of concern is an immediately dangerous or life-threatening please call 9-1-1. &nbsp;Otherwise, fill out this on-line complaint form and the item of concern will be investigated.</p><p><strong>Hot W"
+    },
+    {
+      "id": "1076",
+      "name": "Planning & Zoning",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:00.097Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,838 @@
+{
+  "jurisdiction": "Bourne",
+  "state": "MA",
+  "tenant": "bournema",
+  "portalUrl": "https://bournema.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006652",
+      "name": "Catering Notification Form",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Use this form to notify the Town of upcoming catering events",
+      "isEnabled": true
+    },
+    {
+      "id": "1006640",
+      "name": "Opioid Settlement Funds Mini Grants",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Apply for the Town of Bourne's Opioid Settlement Funds Mini-Grant program here. The application period is December 1, 2025 to January 10, 2026 at 11:59 PM. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006589",
+      "name": "Annual Entertainment License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "New applicants only. Do not click Select if you are trying to renew your license. \n\nApply for an Annual Entertainment License here. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006602",
+      "name": "Master Drainlayer License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "New Applicants Only: Apply for a Master Drainlayer License here. \n\nDo not click Select if you are trying to renew your license.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006639",
+      "name": "Mooring Inspector Application ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Application for the Town of Bourne, Department of Natural Resources list of Approved Mooring Inspectors. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006567",
+      "name": "Change of Address Request",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Request to update your mailing address for real estate, personal property, boat excise tax, sewer billing, marina/mooring billing. You must call your water district directly to update your address for water billing.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006583",
+      "name": "General Online Permitting and Licensing Help",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Signing Up, Creating a Profile & Accessing your Information",
+      "isEnabled": true
+    },
+    {
+      "id": "1006619",
+      "name": "Event Inquiry/Reservation Form",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Use this form to inquire about hosting an event or to reserve the date and location for your event. Note: This form does not constitute official event approval",
+      "isEnabled": true
+    },
+    {
+      "id": "1006536",
+      "name": "Annual Common Victualler/Food Vendor License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "New Applicants Only: Apply for a Common Victualler or a Food Vendor license here. \n\nDo not click Select if you are trying to renew your license.\n\nCommon Victualler: any establishment that has on its premises the ability to assemble, prepare, or cook food and has seating for the purpose of consuming that food on the premises.\nFood Vendor: Any eating or drinking establishment or place where food or drink is prepared for sale or for service to the public on the premises or elsewhere, that is not licensed as a Common Victualler or Innholder.\n\nThese licenses do not include liquor. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006477",
+      "name": "Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is ONLY used for new construction, renovations (including deck, kitchen and bathroom), alterations, partial and interior demolition and major repairs to existing buildings including commercial, and one and two family buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006459",
+      "name": "Bed and Breakfast Establishment Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Licenses to operate Bed & Breakfast Establishments expire annually on December 31st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006471",
+      "name": "Body Art Establishment License Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Effective November 1, 2019, there are amended local regulations in effect applicable to all existing and new Body Art Establishments. Licenses for Body Art Establishments expire annually on December 31st.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Building- Express Permit RESIDENTIAL ONLY( Roof, siding, windows/doors, shed over 200sf, solar, insulation/weatherization, temp storage, fence, stove)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for smaller projects: roof, siding, roof mounted solar, windows/doors, fence, and sheds over 200 square feet.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006576",
+      "name": "Public Records Requests",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006577",
+      "name": "Business Certificates",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "New Applicants Only. Do not click Select if you are trying to renew your license. \n\nBusiness Certificates are required for any person conducting a business at an address within the borders of the Town of Bourne and are valid for four years. Applications for a Business Certificate must be notarized if not signed in person at our office.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006359",
+      "name": "Open Burning Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Open Burning Permit - Valid for the entire Open Burning Season (January 15 through May 1).\n\n310 CMR 7.07, The Air Pollution Control Regulations, prohibits commercial and institutional open burning.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006531",
+      "name": "Administrative Review of Minor Project",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006617",
+      "name": "General Use of Town Property Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Use this application when an event specific application is not available. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006553",
+      "name": "Car Wash on Town Property",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Apply to hold a car wash on town property here. Applications must be submitted no later than 30 days prior to the event. Car washes are only permitted at the following locations:\n1. Fire Station #3 (Sagamore Beach)\n2. Fire Station #2 (Barlows Landing, Pocasset)\n3. Town Hall\n4. Jonathan Bourne Public Library\n5. Veterans Memorial Community Center",
+      "isEnabled": true
+    },
+    {
+      "id": "1006373",
+      "name": "Residential Resale Inspection  - Smoke and CO Compliance (26F & 26 F1/2)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "This form is the application for an inspection to meet the requirements of Massachusetts General Law Chapter 148, Section 26F and 26F1/2 for residential properties. The inspection will confirm that smoke and carbon monoxide alarms meet the requirements for the sale or transfer of property.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006385",
+      "name": "Body Art Practitioner Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Body Art Practitioner Permits expire annually on December 31st or are available for Temporary Technicians who perform body art services for less than 14 days.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006496",
+      "name": "Installation or Alteration of Oil Burning Equipment & Storage of Oil",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for a permit and certificate of completion for the installation or alteration of fuel oil burning equipment and the storage of fuel oil.\n\nAt this time, there are no Bourne Fire/Rescue or Town of Bourne requirements related to oil storage tanks that are above and beyond the requirements of the Massachusetts Comprehensive Fire Code - 527 CMR.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006633",
+      "name": "Body Art Practitioner Apprentice Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Body Art Practitioner Apprentice Permits expire annually on December 31st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006594",
+      "name": "Block Party",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "A block party is a social gathering or party for all the residents of a block or neighborhood, typically held on a closed-off private or public way. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006649",
+      "name": "Alcohol License - New or Transfer ",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Annual or Seasonal Alcohol Licenses",
+      "isEnabled": true
+    },
+    {
+      "id": "1006595",
+      "name": "Parade/Procession ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Apply to have a parade or procession here",
+      "isEnabled": true
+    },
+    {
+      "id": "1006364",
+      "name": "Propane Installation, Storage, and Use",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Permit for the installation, storage, and use of 42 pounds of propane or more. The includes aboveground and underground installations, LP tank exchange, and LP filling stations.\n\nA new permit is required upon the expiration of any tank, or upon the change of propane delivery company.\n\nAn additional permit may be required from the Plumbing Inspector. Please contact the Building and Inspection Department at 508-759-0600, and follow the voice prompts for the Inspection Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006467",
+      "name": "Body Works Establishment Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Body Works establishment permits expire on December 31st and can be renewed annually. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006476",
+      "name": "Certificate of Inspection",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006475",
+      "name": "Body Works Therapist Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006623",
+      "name": "Energy Storage System Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "For battery and energy storage systems as regulated by 527 CMR, and NFPA 855.\n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006611",
+      "name": "One Day Vendor License",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Use this form to apply for a one-day hawker/peddler vendor license. No hawker/peddler vendor activity shall be permitted in the Town of Bourne without a valid license issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006375",
+      "name": "Campground/Manufactured Housing Community Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Campground and manufactured housing community licenses expire annually on December 31st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006389",
+      "name": "Complaint Form",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This form is to be used to submit and track complaints.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006549",
+      "name": "Unvented Fuel-Fired Heater Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Fire Department permit for the installation of an unvented propane or natural gas-fired space heater. You will need a separate gas fitter permit and inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006618",
+      "name": "One Day Entertainment License ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Apply for a One Day Entertainment License here. Do not click \"Select\" if you are trying to apply for an Annual Entertainment License. You may apply for multiple one-day licenses within a single application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006442",
+      "name": "Antique, Second-Hand Goods, Junk Dealer License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "NEW LICENSES ONLY! Do not click \"Apply\" if you are looking to renew your license. Apply for an Antique, Second-Hand Goods, Junk Dealer License in the Town of Bourne. You need to apply for a license if you plan to solicit for, be a collector of, or a dealer in antiques, secondhand goods and/or junk within the Town of Bourne. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006552",
+      "name": "Notice of Intent (NOI) ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006615",
+      "name": "One Day Liquor License ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Apply for special one-day liquor license here.  An individual or entity may only be issued a maximum of thirty (30) special one day licenses in a calendar year.  All Massachusetts alcoholic laws must be observed.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006367",
+      "name": "Hot Works Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for a permit to conduct hot works, including welding and allied processes; heat treating; grinding; thawing pipe; powder-driven fasteners; hot riveting; torch-applied roofing; and similar applications producing a spark, flame, or heat.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006645",
+      "name": "Farmers Market Food Vendor Permit ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Farmers Market means a public market or public marketplace located in a city or town that operates or occurs more than once per year for the primary purpose for Massachusetts farmers, from more than one farm, to vend food, crops and other farm related items that they have produced directly to the public, or a public market or public marketplace used by farmers that is established by a municipality under M.G.L. c. 40, § 10, or operates on Department of Conservation and Recreation land by special permit under M.G.L. c. 132A, § 2F.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006516",
+      "name": "Hazardous Materials Processing Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for a permit to process hazardous materials, for the responsible official at a facility with hazardous materials processing.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006470",
+      "name": "Food Establishment Permit ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "To be filled out by any establishment/organization which deals in any form of food products including milk, cream and frozen desserts.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006609",
+      "name": "Road Race - Use of Town Roads",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Any entity who wishes to utilize the streets and ways of the Town of Bourne for competitive or non-competitive purposes, including but not limited to running, walking, cycling, or the operation of motorized vehicles such as motorcycles must complete the Road Race Permit\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006579",
+      "name": "Beach Clean-ups",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Apply for a beach clean-up event here. Beach clean-up events are only allowed between 8 a.m. and 2 hours prior to sunset from October to May and may not occur on federal and state-recognized holidays.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006570",
+      "name": "Class I, II & III Motor Vehicle Dealer License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "New Applicants Only: Application for a Class I (new), Class II (used), or Class III (junkyard) license in the Town of Bourne. \n\nDo not click Select if you are trying to renew your license.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006424",
+      "name": "Food Establishment Plan Review",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "For new, remodeled, renovated, or changes to food operations or ownership.  For new establishments, this review is required  prior to applying for a Food Establishment Permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006535",
+      "name": "Waste Oil Storage",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit application for the storage of waste oil.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006522",
+      "name": "Propane Removal Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for a permit to remove propane storage tanks, in accordance with the Massachusetts Comprehensive Fire Code, 527 CMR Table 1.12.8.43 and Section 69.1.2.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006374",
+      "name": "Funeral Director",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Funeral Directors licenses are renewable annually on May 1st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006657",
+      "name": "Temporary Open-Air Parking Lot License",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Apply for a temporary open-air parking lot license here. An individual or entity may only be issued a maximum of thirty (30) temporary open-air parking lot licenses in a calendar year.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006651",
+      "name": "Farmer's Market Permit (Alcohol Sales)",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "A Farmer's Market Permit allows wineries, breweries, and distilleries to provide samples of their produced alcoholic beverages and sell by the bottle/case their product for off-premises consumption. These special licenses are issued in accordance with MGL Chap 138 Section 15F",
+      "isEnabled": true
+    },
+    {
+      "id": "1006528",
+      "name": "Request for Determination of Applicability (RDA) ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006403",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for complete demolition of a building and/or accessory building. For partial and interior demolition use the Building Permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006377",
+      "name": "Hotel & Motel",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Licenses to operate a hotel, motel, inn, or guest/ efficiency units expire annually on December 31st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006365",
+      "name": "Underground Tank Removal",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for the removal and transportation of an underground storage tank for underground storage tank owners.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": "Industrial Waste Hauler",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application fee of $200.00 is non-refundable.  Cash or check payable to the Town of Bourne required.  Permits may not be prorated or transferred and expire on December 31st. Incomplete applications will be returned for corrections/ completion and delay the issuance of a permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006542",
+      "name": "Temporary Heat Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application to provide temporary heat.",
+      "isEnabled": true
+    },
+    {
+      "id": "6352",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services. \n Also includes low voltage wiring. \nAlso including cable TV, internet, phones, security alarm systems, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006572",
+      "name": "Road Opening/Utility Work Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is to be used by the utility companies (or private contractors thereof) for requests to cut into/opening a road for the:\nrelocation, retirement, repair, renewal or installation of a gas line(s) or mains\nrelocation, retirement, repair or installation of a line/pipe/mains to carry water\nrelocation, retirement, repair or installation of cables for internet or telephone use\n\nAdequate plan must be submitted with permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6349",
+      "name": "Gas Fitter Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when natural gas gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006508",
+      "name": "Quarterly Innkeeper Inspection",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for a quarterly fire inspection for all innholder licenses.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006492",
+      "name": "Public Health Complaint Form",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": "Quarterly Institutions Inspection",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for a quarterly inspection of institutions as defined by the state building code, licensed by and under the supervision of the department of public health, or licensed by the department of public welfare.",
+      "isEnabled": true
+    },
+    {
+      "id": "6354",
+      "name": "Mechanical/Sheet Metal Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required to erect, install, enlarge, alter, do major repairs, remove, convert or replace a mechanical system.  The property owner or owner’s agent can apply for this permit.  This permit is issued by the Building Inspector.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006345",
+      "name": "Recreational Camps",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Licenses to operate a Recreational Camp for Children is renewable no less than 90 days before the camp commences.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006525",
+      "name": "Yard Sale",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a permit to have a yard, garage, and/or barn sale here. Application must be submitted at least three days before date of proposed sale. Off premises signs are not allowed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006521",
+      "name": "Conservation Request / Complaint Form ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6353",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006376",
+      "name": "Rubbish Hauler",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Garbage Removal licenses expire annually on December 31st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006571",
+      "name": "Day Care/Preschool Annual Inspection",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This is the application for day care and preschool facilities to request an annual fire department inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006520",
+      "name": "Application/Permit for Supervised Display of Fireworks",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application for a permit for a supervised display of fireworks for a licensed fireworks shooter or company.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006383",
+      "name": "Septage Haulers",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Septage Haulers/ Pumpers license’s are expire annually on December 31st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006489",
+      "name": "Plumbing & Gas Water Heater or Boiler Combo Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime the building’s Water Heater or Boiler is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006465",
+      "name": "Septic Installer Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permits may not be prorated or transferred and expire on December 31st each calendar year.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006532",
+      "name": "Self Service Fueling Plans Review",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This is the application to start the plan review process for new or modifications to existing self-service gas stations in Bourne. This process does not replace sending five hard copies of the plans to the fire department for review. Please submit the hard copies to Bourne Fire/Rescue, 51 Meetinghouse Lane, Sagamore Beach, MA 02562.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006380",
+      "name": "Stable License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Horse stable licenses expire annually on June 30th",
+      "isEnabled": true
+    },
+    {
+      "id": "1006491",
+      "name": "Shed Registration Form: under 200sf",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for sheds under 200 square feet.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006368",
+      "name": "Blasting Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application to conduct blasting operations. A fire department detail will be required in addition to the permit application fee.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006360",
+      "name": "Storage of Combustible or Flammable Materials",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application for a permit to store flammable or combustible solids, liquids, or gases.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006350",
+      "name": "Swimming Pool Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for permit to operate a public, semi-public swimming pool, or wading pool. Swimming Pool licenses expire annually on December 31st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006406",
+      "name": "Sign Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6337",
+      "name": "Trench Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime a trench hole or other excavation is being done to a depth of 3 (three) feet or more.  If this application is in connection with a road opening permit, please attach copy of road opening permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006379",
+      "name": "Tanning Facility License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Tanning licenses expire on June 30th and may be renewed annually",
+      "isEnabled": true
+    },
+    {
+      "id": "1006366",
+      "name": "Disconnection of Fire Protection System",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "THIS PERMIT IS NOT FOR THE INSTALLATION OF NEW FIRE & LIFE SAFETY SYSTEMS OR FOR MODIFICATIONS TO EXISTING SYSTEMS.\n\nPermits for new fire and life safety systems are applied for and granted through the building department, including, but not limited to fire alarms, fire suppression systems, and sprinkler systems.\n\nPermits are required for the disconnection of fire protection systems outside of routine maintenance.\n\nIn accordance with Massachusetts General Law, Chapter 148, Section 27A, and Section 13.7.2.2 of the Massachusetts Fire Code, 527 CMR, a permit from the fire department is required for shutting off, disconnecting, obstructing, removing, or destroying any part of any sprinkler system, water main, hydrant, or other device used for fire protection, or carbon monoxide detection and alarm in any building.\n\nDepending on the nature and scope of work, this department may require a fire watch, which may incur an additional cost to the applicant or property owner.\n\nIn addition, a permit may be required from the Bourne Inspector of Buildings for work on fire protection systems that are required in accordance with the Building Code. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006501",
+      "name": "Dumpster Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "In accordance with section 19.1.1 of the Massachusetts Fire Code, 527 CMR, a permit is required for any rubbish container of greater than six cubic yards.  Permits are not required for dumpsters which are delivered to a location and removed in the course of a single business day.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006474",
+      "name": "Temporary Food Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Temporary Food Establishment permits can be used up to 14 days. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006405",
+      "name": "Tent, Awning, & Canopy Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006378",
+      "name": "Tobacco & Nicotine Products Sales Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Tobacco Sales licenses expire annually on December 31st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006524",
+      "name": "Dispensing Motor Fuel from a Tank Vehicle",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This is the application for a permit to refuel vehicles located at commercial, industrial, governmental, or manufacturing establishments from tank vehicles.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006361",
+      "name": "Tank Truck and Fuel Transfer Truck Storage",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "This is an application for one permit per company or corporation for the storage of all tank truck and fuel transfer tank vehicles parked in the Town of Bourne during non-business hours. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006460",
+      "name": "Well Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit to install private water supplies.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006544",
+      "name": "Fire, EMS or Community Outreach/Public Education Detail Request",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This is the form for requesting fire or EMS details from Bourne Fire/Rescue. We require at least 48 hours notice (2 business days) to set up the detail. Additional dates can be requested at the same time. When a detail needs to be canceled, notify the duty officer at least 24 hours prior to the scheduled detail by calling 508-759-4412, and via a message on this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006505",
+      "name": "21E Research",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A request for research into the history of a property under Massachusetts General Law, Chapter 21E -  Massachusetts Oil and Hazardous Material Release Prevention and Response Act. All requests are processed following receipt of payment and are completed within ten (10) business days.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006523",
+      "name": "Agricultural Burning Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit is for agricultural open burning in accordance with Massachusetts General Law, Chapter 111, Section 142L. Permission to allow burning shall be based solely on whether appropriate meteorological conditions exist to ensure safe burning. THIS IS NOT AN OPEN BURNING PERMIT FOR BURNING BETWEEN JANUARY 15 AND MAY 1.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006541",
+      "name": "TEST",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "DO NOT APPLY FOR ANY PERMIT OR INSPECTION USING THIS APPLICATION.\n\nThis is an internal application for fine-tuning the permitting application and inspection process for Bourne Fire/Rescue.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006473",
+      "name": "Marijuana Establishment Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "private",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1088",
+      "name": "How To...",
+      "isEnabled": 1,
+      "content": "<h4 style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; font-weight: 600; line-height: 1.25; color: rgb(51, 51, 51); margin-top: 0px; margin-bottom: 5px; font-size: 16px; text-transform: none; white-space: normal; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-"
+    },
+    {
+      "id": "1071",
+      "name": "Building Dept",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\">Apply for building, electrical, plumbing, and other permits related to construction. See below for applications. If you have any questions, contact the Town of Bourne Building Department at (508) 759-0600 Ext.1512.</p><p style=\"text-align: center;\"><strong><span style=\"color: rgb(184, 49, 47);\">UNIT 1 &nbsp;on the address means there is one dwelling unit on the property.</span></strong></p><p><strong><u>Pocasset Mobile Home Park</u></strong> is filed under 141 Barl"
+    },
+    {
+      "id": "1073",
+      "name": "Health Dept",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1080",
+      "name": "Select Board/ Administration",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 18px;\"><em>We are currently working on adding more online permits/licenses, as well as improving our current applications. Please have patience while we work on this process.</em></span></p><p><span style=\"font-size: 18px;\">If you have any questions, contact the Town Administrator&#39;s Office at (508) 759-0600 x1503</span></p>"
+    },
+    {
+      "id": "1076",
+      "name": "Fire/Rescue & Emergency Services",
+      "isEnabled": 1,
+      "content": "<p>This is the portal for applying for fire department permits. Choose the appropriate application below.</p><p>Bourne Fire/Rescue does not issue permits for new fire alarms, kitchen fire suppression systems, sprinkler systems, or modifications to existing fire and life safety systems. Permitting for new fire and life safety systems is addressed in the Building Code and under the authority of the Building Commissioner. Please check with the Building Department for the permit requirements for tho"
+    },
+    {
+      "id": "1082",
+      "name": "Conservation",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style=\"mso-margin-bottom-alt:auto;text-align:  center;mso-outline-level:2;background:white;\"><strong><span style=\"font-size: 18px; font-family: Arial, Helvetica, sans-serif;\">Application Timeline and Process</span></strong></p><p style=\"mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;  line-height:normal;\"><span style=\"font-size: 14px;\"><span style=\"font-family: Tahoma, Geneva, sans-serif;\">1. We are now accepting e-permits for RDA (Request for Determination of Applicability"
+    },
+    {
+      "id": "1081",
+      "name": "Natural Resources",
+      "isEnabled": 1
+    },
+    {
+      "id": "1074",
+      "name": "Clerk's Office",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1087",
+      "name": "Special Events",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-size: 18px;\">Full information regarding Special Events can be found here : <a href=\"https://www.townofbourne.com/special-events\" target=\"_blank\">Special Events | bournema (townofbourne.com)</a></span></div><hr><div><span style=\"font-size: 30px;\"><strong>Attention Applicants!</strong></span></div><ul><li style=\"font-size: 18px;\"><strong>Select Board Approval Required</strong>: All events must be approved by the Select Board, which only meets twice a month</li><li style=\"fon"
+    },
+    {
+      "id": "1086",
+      "name": "Assessor's Department",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:23.857Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

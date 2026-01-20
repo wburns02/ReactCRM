@@ -1,0 +1,219 @@
+{
+  "jurisdiction": "Marion",
+  "state": "NC",
+  "tenant": "marionnc",
+  "portalUrl": "https://marionnc.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6464",
+      "name": "*Building Permit Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Zoning Compliance Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This permit application would be applied for prior to obtaining a building permit for new development, redevelopment that includes the expansion of a building or structure, or the change of use, additional of a use, or the expansion of the use of property.  This is an administrative-level approval that does not require board of ",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Floodplain Development Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "*Alcohol Beverage (ABC) Zoning Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "*Sign Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "*Pre-Application Development Consultation",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "*Temporary Event On Private Property Permit Application ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Driveway Permit Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Application for driveway approach in public right of way",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Zoning District Map Amendment Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Annexation Request",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "This is an application to review annexation requests.",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Water and Sewer Connection Application",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "*Creating a Portal Account",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "*Applying and Making Payments Through Portal Account",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "*Receiving and Printing Documents",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "*Guest Portal Access",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "*Report Code Violation",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Demolition Permit Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "*Fire Inspection Request",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "UDO Text Amendment Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "*Trade Permit Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Mobile Food Vendor Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "*Pool Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "*Zoning Verification Letter",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1091",
+      "name": "Help & Resources",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Verdana, Geneva, sans-serif; font-size: 14px;\">Welcome to the <strong>Help and Resources</strong> page for the City of Marion Permitting and Licensing Portal. Here, you&rsquo;ll find everything you need to navigate the permit application process with ease. Whether you&#39;re a first-time applicant or a seasoned professional, our guides, FAQs, and support tools are designed to help you understand requirements, submit applications, and track your progress seamlessly."
+    },
+    {
+      "id": "1086",
+      "name": "Planning & Development Services",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Verdana, Geneva, sans-serif; font-size: 14px;\">Our Planning and Development Department is here to help shape the future of our community while ensuring that growth aligns with local priorities, safeguards public health and safety, and enhances economic and community development while protecting the environment.&nbsp;</span></div><div><span style=\"font-size: 14px;\"><span style=\"font-family: Verdana,Geneva,sans-serif;\"><br></span></span></div><div><span style=\"font-s"
+    },
+    {
+      "id": "1079",
+      "name": "Building Permitting and Inspections",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Verdana, Geneva, sans-serif; font-size: 14px;\">The City of Marion Building Department is dedicated to ensuring that all construction within our community meets safety standards, building codes, and local regulations. We play a vital role in safeguarding the health, safety, and welfare of people within our community by reviewing construction plans, conducting inspections, and providing guidance throughout the building process.</span></div><div><span style=\"font-size"
+    },
+    {
+      "id": "1082",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Verdana, Geneva, sans-serif; font-size: 14px;\">Our Code Enforcement Department is committed to maintaining the safety, cleanliness, and aesthetic appeal of our community. By enforcing health, sanitation, nuisance, and property maintenance ordinances, we work to ensure that our neighborhoods remain vibrant, safe, and compliant with city standards.</span></div><div><br></div><div><span style=\"font-size: 14px;\"><span style=\"font-family: Verdana,Geneva,sans-serif;\">Our"
+    },
+    {
+      "id": "1089",
+      "name": "Utilities",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; margin-top: 0px; margin-bottom: 1.4em; font-style: normal; font-weight: 400; color: rgb(68, 68, 68); font-family: \"Open Sans\"; font-size: 14.4px; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decor"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Inspections",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Verdana, Geneva, sans-serif; font-size: 14px;\">Within the City of Marion, fire inspections are the responsibility of the Planning and Development Department. Our department maintains a list of all properties that require regular fire inspections, including annual ones such as foster care homes, daycare facilities, schools, and hospitals. All business, however, require an inspection at least every three years. For more information, you may contact the Planning and Dev"
+    },
+    {
+      "id": "1088",
+      "name": "Administrative Services",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:31.636Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

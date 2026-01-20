@@ -1,0 +1,328 @@
+{
+  "jurisdiction": "Sun Prairie",
+  "state": "WI",
+  "tenant": "sunprairiewi",
+  "portalUrl": "https://sunprairiewi.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6533",
+      "name": "Street Opening Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "A Street Opening Permit is required to create any opening or excavation within the City of Sun Prairie right-of-way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6611",
+      "name": "Fireworks Permit",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6589",
+      "name": "Recycle Center Permit",
+      "categoryId": 1088,
+      "viewAccess": null,
+      "description": "The City Recycle Center is located at 1798 South Bird Street. Materials accepted at the Recycle Center include mixed recycling (single stream), brush and yard waste, appliances without Freon, oil absorbents, oil filters, waste motor oil, antifreeze, scrap metal, cardboard (flattened).\n\nA recycle center permit is required to enter the Recycle Center. This is a sticker that should be displayed on your windshield when entering the facility.\n\nQuestions? Please call the Public Works Department at 608-837-3050",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Alcohol License (Establishment)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Amusement / Vending / Entertainment Machine License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6644",
+      "name": "Natural Lawn Registration",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "A Natural Lawn Registration is required for the growth of grasses and flowers purposely cultivated to exceed of 8-inches in height from the ground, excluding noxious weeds and grasses identified in Section 8.36.010 of the City's Ordinance and in WI Admin Code NR 40. A Natural Lawn Management Plan is required with registration that includes a written plan relating to the management and maintenance of a lawn upon which the planted grasses and flowers may exceed 8-inches in height. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6585",
+      "name": "Driveway Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Driveway permits must be obtained through the Engineering Department when a driveway is being replaced, modified, or a new driveway is installed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6628",
+      "name": "Report a Concern",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6583",
+      "name": "Development Agreement Application (Public Improvements)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Applications for the preparation and approval of a Development Agreement in the City of Sun Prairie will not be processed until the required filing fee ($500) is submitted. No partial applications will be accepted. All required information shall be submitted at least one (1) month prior to the Common Council meeting at which the applicant desires to have the agreement considered. An agreement will not be scheduled for review by the Committee until the City Attorney deems it ready for consideration. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "MWOT - One and two-family homes Minor Work permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application should be used for minor work to one or two-family homes.  This would include any project that does not require plans to be submitted and approved such as roofing or siding, water heaters or softeners, or furnace or air conditioning replacements; or other miscellaneous construction, electrical, plumbing or HVAC work.",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "MWMC - Multi-family buildings (3+ dwelling units) or commercial buildings Minor Work permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application should be used for minor work to multi-family dwelling (3+ units) or commercial buildings.  This would include any project that does not require plans to be submitted and approved such as roofing or siding, water heaters or softeners, or furnace or air conditioning replacements; or other miscellaneous construction, electrical, plumbing or HVAC work.",
+      "isEnabled": true
+    },
+    {
+      "id": "6355",
+      "name": "Blasting Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "No person within the city shall operate a rock crusher or do blasting in such a manner so that any dust, dirt or vibration from such operation shall, in any way, damage or injure any person or property within the city.  All blasting within the city shall be performed according to the requirements of Chapter Comm 7, Explosive Materials, Wisconsin Administrative Code, and all subsequent amendments thereto.",
+      "isEnabled": true
+    },
+    {
+      "id": "6645",
+      "name": "Burn Permit Application (Controlled Burns Only)",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "A burn permit is required for controlled burns associated with natural lawns, prairie restoration, and the maintenance of conservation areas.  A burn permit is not required for cooking fires in manufactured grills, fires in manufactured fire pits, ground level fire rings with a spark arrestor cover and approved fixed outdoor fire features.  Controlled burns shall be planned and conducted in accordance with Chapter 19 of the Sun Prairie General Ordinances.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6556",
+      "name": "Erosion Control and Stormwater Management Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Erosion Control and Stormwater Management Permit may be required for commercial, industrial and residential dwelling projects. Dane County Land Conservation Department permitting may also be required. See requirements on City of Sun Prairie website. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6625",
+      "name": "Retaliation Complaint Intake Form",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "As a tenant in Sun Prairie, you have the right to contact the City of Sun Prairie and request that your housing provider address maintenance or safety concerns. Under Sun Prairie Municipal Code Section 9.18, housing providers are prohibited from retaliating against tenants for exercising these rights.",
+      "isEnabled": true
+    },
+    {
+      "id": "6609",
+      "name": "Chicken Keeping License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "OTFD - One or two-family homes  new construction, additions, alterations permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application should be used for the new construction of, additions to, or alterations of one or two-family homes.  This would include any project involving the home itself and requires plans to be submitted and approved  Examples including but not limited to:\n\n- New Construction\n\n- Additions (including sunrooms, porches, decks)\n\n- Finishing and remodeling of space (such as kitchens, bathrooms, and basements).",
+      "isEnabled": true
+    },
+    {
+      "id": "6528",
+      "name": "MFCB - Multi-family buildings (3+ dwelling units) or commercial buildings new construction, additions, alterations permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application should be used for the new construction of, additions to, or alterations of multi-family dwellings and commercial buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Cigarette, Tobacco, and Electronic Vaping Device License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Dog Registration",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "FSBS - Accessory buildings, structures, fences, pools permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application form is for work such as fences, private swimming pools, gazebos, pergolas, yard sheds or detached garages.",
+      "isEnabled": true
+    },
+    {
+      "id": "6614",
+      "name": "Mobile Food Cart Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Food trucks must have a permit from the city of Sun Prairie prior to engaging in sales within the City. Permits will be issued on a calendar year basis. Vendors will be required to display their permit in a conspicuous location. Food trucks participating in a private event not open to the general public are not required to obtain a permit. Food trucks participating in an event hosted by the city of Sun Prairie are not required to obtain a permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Nightclub License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6619",
+      "name": "SAPL - SolarAPP+ New Residential Roof Mount Solar permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application form is only for new roof mount solar photovoltaic (PV) systems with or without battery storage.  These submittals have been pre-approved by the Solar App+ platform.  \nFor alterations to existing systems, or ground mount systems serving one or two-family homes please select the appropriate permit type from the list.",
+      "isEnabled": true
+    },
+    {
+      "id": "6558",
+      "name": "PV -  Non-SolarAPP+ solar photovoltaic systems permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application should only be used for the installation of ground mount solar photovoltaic (PV) systems serving one or two-family homes, alterations to existing systems, or all commercial installations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Operator's License (Bartender License)",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Sometimes referred to as a Bartender's License.",
+      "isEnabled": true
+    },
+    {
+      "id": "6541",
+      "name": "Secondhand Licenses",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6590",
+      "name": "FSPR - Commercial Fire Suppression System Plan Review Application",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "This application form is for fire suppression system plan review submittals involving buildings within the scope of the Wisconsin Commercial Building Code.  This does not include Kitchen Hood Suppression Systems.  For those systems, please see Kitchen Hood Suppression System Plan Review.",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "SIGN - Sign permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application form is for signs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6557",
+      "name": "DEMO - Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application form is for work involving the complete demolition or razing  of a building or structure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6591",
+      "name": "FAPR - Commercial Fire Alarm System Plan Review Application",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "This application form is for fire alarm system plan review submittals involving buildings within the scope of the Wisconsin Commercial Building Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Solicitor's Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Required for anyone wishing to sell items door-to-door in the City of Sun Prairie.  Persons who have owned or operated a business in Sun Prairie for at least one year, are working for a registered charitable organization, or who are  selling home grown produce do not need a Direct Seller's, Peddler's & Solicitor Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6599",
+      "name": "KSPR - Commercial Kitchen Hood Suppression System Plan Review Application",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "This application form is for kitchen hood suppression system plan review submittals involving buildings within the scope of the Wisconsin Commercial Building Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Special Assessment Request",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1084",
+      "name": "Building Inspection Commercial Plan Review",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial,Helvetica,sans-serif;\">New construction or additions to commercial, industrial, and certain multifamily residential buildings must first be reviewed by the City of Sun Prairie Planning Division for site plan approval and any necessary conditional use allowances / permits. This also applies to any change of occupancy or use of existing commercial and industrial buildings. &nbsp;</span><a href=\"https://cityofsunprairie.com/375/Planning\" rel=\"noopener noreferrer"
+    },
+    {
+      "id": "1071",
+      "name": "Building Inspection Permits",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-bottom:7.5pt;line-height:normal;background:  white;\"><a href=\"https://stories.opengov.com/sunprairiewi/published/HsFNF0Lj1\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"font-size: 18px;\"><u><span style=\"font-family: Arial, Helvetica, sans-serif;\">Get Help: How do I use this system?</span></u></span></a></p><p style=\"margin-bottom:7.5pt;line-height:normal;background:  white;\"><br></p><p style=\"margin-bottom: 7.5pt; line-height: normal; background: white;\"><span style=\"f"
+    },
+    {
+      "id": "1079",
+      "name": "Clerk / Licensing",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1076",
+      "name": "Community Development",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1072",
+      "name": "Engineering Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1074",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1090",
+      "name": "Parks, Recreation & Forestry Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1088",
+      "name": "Public Works Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Report a Concern",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">Select this form to report concerns or observations within the City of Sun Prairie.</span></p><div><span style=\"color: rgb(184, 49, 47);\"><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\"><strong><u>Your account information is subject to Open Records Law and may be released upon request</u></strong></span></span></div><div><br></div><div><span style=\"font-family: Arial, Helvetica, sans-serif; fon"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:48.317Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

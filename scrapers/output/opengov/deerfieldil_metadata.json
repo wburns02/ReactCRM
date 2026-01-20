@@ -1,0 +1,457 @@
+{
+  "jurisdiction": "Deerfield",
+  "state": "IL",
+  "tenant": "deerfieldil",
+  "portalUrl": "https://deerfieldil.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6483",
+      "name": "Tree Removal Permit Application (Residential Only)",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6541",
+      "name": "Business License",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "Utility Billing Final Bill Pay",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Use this application to make a final utility bill payment, ONLY IF DIRECTED BY VILLAGE STAFF.",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Block Party Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this application to apply for a permit to hold a block party.",
+      "isEnabled": true
+    },
+    {
+      "id": "6547",
+      "name": "Massage Establishment License",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Family Days Arts & Crafts Vendor Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this application to apply to be a vendor at Deerfield Family Days.",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Building Demolition Permit ",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "This permit is for complete demolition of a structure. (Residential or Commercial)\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "Adding Guests to Your Application",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "Family Days Food Truck Vendors",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this application to apply to be a Food Truck Wednesday vendor.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Change of Contractor",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to request change of contractors from original permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Family Days Parade Participant Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this application to apply to participate in the Deerfield Family Days Parade.",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Food Truck Wednesday Vendor Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this application to apply to be a Food Truck Wednesday vendor.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Commercial Build-Out Permit (Interior Remodel / Tenant Build-Out Only)",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form for submittals of commercial interior remodel or tenant build-out projects.  NO NEW CONSTRUCTION OR ADDITIONS ACCEPTED VIA THIS FORM.",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Food Truck Permit Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Village of Deerfield Food Truck Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Commercial/Multi-family Construction Permit (New Construction/Addition)",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "New Construction or addition for multi-family residential, commercial, industrial, and institutional buildings. \n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Family Days Corporate Booth/Sponsor Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a corporate booth and/or to be a Sponsor at Deerfield Family Days.",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Contractor Registration",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Contractors, register to work within the Village using this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Harvest Fest Food Vendor Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this application to apply to be a food vendor at the Deerfield Harvest Fest.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Ice Cream Truck Permit Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Village of Deerfield Ice Cream Truck Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Deck Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a deck permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Harvest Fest Sponsor",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Use this application to apply to be a Sponsor of Deerfield Harvest Fest.",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Detached Accessory Structure Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Work on detached accessory structures like garages, sheds, pergolas or gazebos.",
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Winter Market Civic Organization Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this application to apply to be a vendor at the Deerfield Winter Market.",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Winter Market Food Vendor Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this application to apply to be a food vendor at the Deerfield Winter Market.",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Driveways, Patios, and Hardscape Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a permit relating to driveways, patios, or other hardscape installations.  Do NOT use this application for sport courts; use the Sport Court Permit Application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Electrical-Only Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for an electrical-only permit.  This application is only for the following types of work:  electrical service repair/upgrade, residential vehicle charging station, generators.",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Winter Market Vendor Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this application to apply to be a vendor at the Deerfield Winter Market.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Zoning Certificate of Compliance Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Use this form to apply for a Zoning Certificate of Compliance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Elevator or Conveyance Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a permit for residential or commercial elevator and conveyance projects (installation, modernization, or repair).",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Fence Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a fence permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "Winter Market Sponsor",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Use this application to apply to be a Sponsor of the Deerfield Winter Market.",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Garage/Estate Sale Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this application to apply for a permit to hold a garage or estate sale.",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Grading, Drainage, and Foundation Work Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a Grading, Drainage, and Foundation Work permit, including work such as stormwater detention, stormwater discharge (including burying downspouts), drain tile, change of grading on property, window wells, foundation stabilization, foundation membranes, etc...",
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Annual Village Events Sponsor",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Use this application to apply to be a Annual Village Events Sponsor.",
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Hazel Ave Lead Service Replacement Project Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a Hazel Avenue Lead Service Program Project permit ONLY.",
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Hen Keeping License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Irrigation and/or RPZ (Backflow) Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for an irrigation permit.  This includes replacement of RPZ device and/or installation or replacement of deduct meter.",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "Pool (above and in-ground) and Hot Tub/Spa Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a Pool and/or Spa(Hot Tub) permit for the installation of a new pool or spa.  If additional deck or patio work is to be included in this project a separate permit is required under either deck or patio permit. Please note all permits as part of this project will be held until all reviews are completed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Residential Construction Permit (One and Two Family New Construction or Addition)",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "New Construction or addition for one- or two-family homes. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Residential Interior Remodel",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a Residential Interior Remodel Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Pavement Sealant Professional License Application",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Application for Pavement Sealant Professional License for the Village of Deerfield.  Any professional person or company applying pavement sealants within the Village of Deerfield must be licensed, including agreement to not use any coal tar products.  Reference Village Ordinance O-18-07.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Re-Roof Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a roofing permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Sewer Repair Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a sewer repair permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Sign Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a permit for permanent signage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Solar Panels Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a solar panels permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Special Event / Temporary Use Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Special Event / Temporary Use Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Sport Court Permit Application",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a permit for a sport court ONLY.",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Telecommunications/Public Utility Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a public utility installation permit, i.e. fiber optics or utility lines, Comcast, North Shore Gas, AT&T, Verizon, ComEd, etc.  \nThe term \"public utility\" includes private companies serving the public, but not municipal utilities that are, in a sense, owned by the public\nThis does NOT include physical small-cell cellular installations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Temporary Sign Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Use this form to apply for a temporary sign permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Uncategorized Project (Permit Required)",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Permit application for work that requires a permit but does not fit into other permit application record types.",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Water Service Repair/Replacement Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Use this form to apply for a water service repair/replacement permit.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Building Division",
+      "isEnabled": 1,
+      "content": "<p style=\"tab-stops:188.4pt;\"><strong><span style=\"color: rgb(184, 49, 47);\">To add or replace document attachments on <em>existing&nbsp;</em>registrations or permits or if requested by Village staff to update other information, please LOG IN to your account using the login link in the top right corner of this page. &nbsp;Do not re-register or re-apply to make corrections to previous submissions. &nbsp;</span></strong></p><div><strong><span style=\"color: rgb(184, 49, 47);\">**Please note: We will"
+    },
+    {
+      "id": "1072",
+      "name": "Department of Public Works and Engineering",
+      "isEnabled": 1,
+      "content": "<p>The Department of Public Works and Engineering can be reached at 847.317.7245 and is open M-F 7:00AM - 3:30PM (closed for lunch 12:00PM - 1:00PM).</p><p>465 Elm St<br>Deerfield, IL 60015</p>"
+    },
+    {
+      "id": "1074",
+      "name": "Finance Department",
+      "isEnabled": 1,
+      "content": "<p>The Finance Department may be reached at 847.945.5000 between 8:00AM and 4:30PM Monday through Friday.</p>"
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1
+    },
+    {
+      "id": "1076",
+      "name": "Planning Division",
+      "isEnabled": 1,
+      "content": "<p>The planning division can be reached at 847.719.7484 or online at&nbsp;<a href=\"https://www.deerfield.il.us/161/Planning-Division\" rel=\"noopener noreferrer\" target=\"_blank\">https://www.deerfield.il.us/161/Planning-Division</a></p>"
+    },
+    {
+      "id": "1082",
+      "name": "Sponsorships",
+      "isEnabled": 1
+    },
+    {
+      "id": "1079",
+      "name": "Special Events / Village Clerk",
+      "isEnabled": 1,
+      "content": "<p>The Administration Department may be reached at 847.719.7400 between 8:00AM and 4:30PM Monday through Friday.</p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:55.586Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,590 @@
+{
+  "jurisdiction": "Princeton",
+  "state": "NJ",
+  "tenant": "princetonnj",
+  "portalUrl": "https://princetonnj.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6482",
+      "name": "Vitals Statistics Request(s)",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Use this form to request a birth, marriage, or death certificate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6674",
+      "name": "Westminster Parking Lot Application",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Use this application to apply for employee permit parking in the Westminster Choir College Parking Lot A. Employers may apply & pay online for up to ten (10) permits.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Ticket Investigation Report Request",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Parking Meter Bag Request",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "All requests must be submitted at least 48 hours prior to the date meter bag(s) are needed, Monday-Friday (holidays included). \n\nEFFECTIVE 3/31/25 Meter Bags cannot be reserved for weekend or evening usage.  All meter bags must be removed by 5PM Monday-Friday. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Spring Street Garage Permit Renewal ONLY",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "For current permit holders ONLY. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Princeton Fire Department Volunteer Interest Form",
+      "categoryId": 1092,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Initial Application to Volunteer for the Princeton Fire Department",
+      "categoryId": 1092,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Affordable Housing Sales Application",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Affordable Housing Rental Application",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Thank you for your interest in the Affordable Housing Rental Program in Princeton. Your first step toward renting an affordable unit is to complete and electronically submit this Preliminary Application.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Princeton Prepares Registry ",
+      "categoryId": 1109,
+      "viewAccess": null,
+      "description": "The Princeton Prepares - Extra Assistance Registry is a voluntary program to help emergency responders better serve residents who find it difficult to help themselves in the event of a major disaster or extreme weather events, such as a hurricane or heatwave.",
+      "isEnabled": true
+    },
+    {
+      "id": "6627",
+      "name": "Tax Sale Bidder Information Application",
+      "categoryId": 1111,
+      "viewAccess": null,
+      "description": "Instructions: Complete the following information to assist the tax office in the preparation and redemption of tax sale certificate(s). Submit it online or with the payment of the certificates purchased. One form must be prepared for each person in whose name a certificate is issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "6673",
+      "name": "Backyard Chicken Registration / Renewal",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "Annual registration for backyard chickens is required. Failure to register every year will result in a $50.00-$500.00 fine. Registration fee is $20.00. Application requires photo or sketch of coop.",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Alarm Registration",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "All residential and commercial alarms must be registered with the Princeton Police Department. Alarms are to be registered within 30 days of installation and re-registered during the town-wide biennial January alarm re-registration period.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6677",
+      "name": "Residential Rental Property Registration and Inspection",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "To be completed by the owner to register a rental property and schedule the inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "PRD Facility Request Form",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Picnic pavilions/areas are available to be reserved at the following parks: Community Park South (covered pavilion), Greenway Meadows, Grover Park, Marquand Park, Smoyer Park and Turning Basin(covered pavilion). Picnic areas at all other locations are available first come first served and may not be reserved. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Sewer Permit Application",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "A sewer permit is required for any new sewer connection or reconnection; temporary disconnection or\npermanent disconnection of any sewer lateral; alteration, replacement, or repair of any sewer lateral within\nany portion of the public right-of-way or any municipal sewer easement; or an addition, alteration, or change\nin use to any property which will increase the daily volume of sewage from the property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "1. How to Sign Up and Create an Account",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Application for Outdoor Dining License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "An Outdoor Dining License is required for businesses to operate an outdoor dining use within the public right of way to adjacent buildings. A detailed plan must be submitted for approval, along with the appropriate application fee and annual license fee. \n\nOnly owners or registered agents of retail food establishments may apply for Outdoor Dining Licenses.",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Additional Trash Cart Request",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Please submit your request here for one additional 32-gallon or 64-gallon trash cart.",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Application for Tree Removal from Private/Public Property",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Property owners are required to apply for a permit before the removal of a tree. Please contact a licensed tree expert if you need an evaluation of the health of a tree on private property. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6668",
+      "name": "Fire Prevention - Certificate of Smoke Alarm & Carbon Monoxide Alarm Compliance Application",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "A Certificate of Smoke Alarm & Carbon Monoxide Alarm Compliance is required whenever there is a change of ownership or occupancy in a one- or two-family structure or attached single-family structure. ONLY FOR PROPERTIES WITHIN THE MUNICIPALITY OF PRINCETON. Not required if the building will be demolished or renovated (to the extent it cannot be occupied during renovation). Call the Fire Marshal’s Office at (609) 497-7646 for a waiver letter.",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "2. Accessing Your Profile and Records",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6611",
+      "name": "Bicycle Registration",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Residents are encouraged to register their bicycles with the Princeton Police Department to assist in identifying their bicycle in the event that it was lost or stolen. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6683",
+      "name": "Short Term Rental Property Registration",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "To be completed by the owner or long-term lessee to register a short-term rental property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6629",
+      "name": "CP Pool Community Room Facility Request Form",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "To make a reservation for the CP Pool Meeting Room, you MUST be a Princeton Resident or a current CP Pool Member.  Reservations can also be made in person at the Princeton Recreation Department Office at 380 Witherspoon Street, Monday through Friday from 9 am to 5 pm.  \n\nReservation days and times are as follow: \nWeekends & Holidays: Noon to 2:00 pm & 3:00 pm to 5:00 pm* \n*Unless otherwise noted",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Boards, Committees, and Commissions Application",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6679",
+      "name": "Lead Paint Hazards Inspection",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "To be completed by municipal staff to add a lead inspection to a rental inspection",
+      "isEnabled": true
+    },
+    {
+      "id": "6681",
+      "name": "Application to Donate to Microforest Project",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Princeton’s first Microforest Project at Quarry Park will turn 5,000 square feet of underutilized lawn-covered parkland into a natural ecosystem. The planting of 1,500 trees and shrubs will improve carbon sequestration and water absorption and enhance the biodiversity of the park. Donations to support this project may be made in memory of or to honor a special person or event, or as an undesignated donation. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6638",
+      "name": "Application to Request a Street Tree",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Princeton engages in a bi-annual tree planting contract to plant street trees in an effort to restore and maintain the tree canopy throughout the municipality. To request a street tree be planted adjacent to your property or in another public location, please submit an application to determine the eligibility and feasibility for an upcoming tree planting contract. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Fire Safety Business Registration Form",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "This is a registration form to register your business with the Princeton Bureau of Fire Safety. It is critical that all of the information is up to date and correct. We will use this information for both Fire Safety Inspections and Fire Department Response.\nIf you have any questions regarding the form please call us at 609-497-7646.",
+      "isEnabled": true
+    },
+    {
+      "id": "6661",
+      "name": "Fire Prevention - Bonfire Permit Application",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Cart Swaps, Missing/Damaged Carts, and Leased Cart Returns",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Please use this application to request a swap to a smaller cart, report a missing/damaged cart, or return a trash cart.",
+      "isEnabled": true
+    },
+    {
+      "id": "6617",
+      "name": "Engineering Site Plan Review Application",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Any improvement to one and two-family homes which creates more than 400 square feet of net new impervious area or disturbs 5,000 square feet of land is required to include an on-site stormwater management facility, subject to Engineering approval of the site plan.  This Engineering review of a site plan must be completed before Zoning Department and Building Department permit submittals.",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "3. Completing/Updating an Application Form",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6533",
+      "name": "Agent Certification",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "To be completed by the designated agent",
+      "isEnabled": true
+    },
+    {
+      "id": "6620",
+      "name": "Princeton Recreation Youth Basketball Clinic Supervisor",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Firearms Fee Payment",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "In order to streamline the payment of the firearms fees we have set up this document for online payment option for applicants. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6562",
+      "name": "Lost Property Report",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Lost property is property that is lost or missing and is not believed to be a theft.  Examples would be leaving an item unattended and not remembering exactly where you left it.  If you blieeve the item was stolen, please call (609) 921-2100 to report the incident.",
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": "Application for Extension of Time to Correct Housing Code Violations",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "To be completed by the owner if violation repairs require additional time",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "4. Paying Application Fees",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6573",
+      "name": "Municipal Board and Governing Body Stormwater Training",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "In accordance with the Tier A Municipal Stormwater General Permit, Municipal Board and Governing Body members who review and approve applications for development and redevelopment projects must complete stormwater training within six months of commencing duties and once per term of service thereafter.",
+      "isEnabled": true
+    },
+    {
+      "id": "6645",
+      "name": "Fire Prevention Permit Application - FOOD TRUCK",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "ONLY FOR TRUCKS OR CARTS WITH A FIXED HOOD FIRE SUPPRESSION SYSTEM.  (Other types of vehicles may require an Open Flame Fire Safety Permit.)  Issued per vehicle, per event/day for events located within the Municipality of Princeton.  PLEASE NOTE:  FOOD TRUCKS ARE NOT PERMITTED ON PUBLIC STREETS OR PROPERTY.    ",
+      "isEnabled": true
+    },
+    {
+      "id": "6644",
+      "name": "Fire Prevention Permit Application - TENT/CANOPY",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "Required for tents/canopies greater than 30 linear feet in any direction.  For tents/canopies to be used between April 1st and November 30th only.  A separate permit is required for each tent/canopy located more than 5 feet from another tent/canopy.  Tents/canopies less than 5 feet apart are considered one.",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Permit to Excavate/Occupy the Public Right of Way",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "The permit to excavate and/or occupy the public right of way permisses contractors, utility providers, and the general public to excavate and/or occupy any roads, streets, alleys, highways, sidewalks, shared use paths, curbs or gutters under the jurisdiction of the municipality (paved or unpaved). A detailed plan must be submitted for review prior to beginning work, along with the appropriate permit fee and bond. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6572",
+      "name": "Vacant House Request",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Notify the Princeton Police Department that you will be out of town for a period of time.",
+      "isEnabled": true
+    },
+    {
+      "id": "6671",
+      "name": "Notice of Change of Status ",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "To be completed by the owner when the property ceases to be rented",
+      "isEnabled": true
+    },
+    {
+      "id": "6622",
+      "name": "Youth Basketball League Volunteer Coach",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6585",
+      "name": "Voluntary Community Camera Program Registration",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "In furtherance of the concept of community partnerships, the Princeton Police Department is requesting residents, businesses, and organizations that have security cameras in place on their property to complete a short registration form. The registration is voluntary and does not give the Princeton Police Department access to your camera system.  It allows our agency to maintain a database of active cameras in the event a crime occurs in the area.  As crimes occur nearby, residents and business owners are not always aware that their system may have captured information that could help solve the crime, thus keeping our community safer.\n\nIf you would like to partner with the Princeton Police Department in deterring criminal activity and capturing violators, we encourage you to register your surveillance cameras with us. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6561",
+      "name": "Residential Food Scraps Drop-Off Program Registration ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Register here for the food scraps drop off program by answering the following questions. Once completed, you will be notified by email that you may participate. Only one application may be submitted per dwelling. Additional applications will be removed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6567",
+      "name": "Princeton University Lead-Safe and Lead-Free Certificate Upload Portal",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Upload your lead-free or lead-safe certificate here. For use by Princeton University only.",
+      "isEnabled": true
+    },
+    {
+      "id": "6640",
+      "name": "Fire Prevention Permit Application - OPEN FLAME",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "This permit is required for the use of firepits and grills (regardless of fuel type), for gas or propane-powered tent heaters, for the use of open flame devices in a theatrical performance, or for candles or sterno being used in a non LHU assembly area.  A separate permit is required for each individual grill that is separated by more than 5 feet horizontally.  Except for tent heaters and theatrical performances, open flame permits are issued per event per day.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Landscape Registration Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Landscape contractors will be required to register and provide a Certificate of Insurance showing that said applicant has purchased and maintains workers' compensation insurance from an insurance company licensed in the State of New Jersey as may be required by law.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Reservation for Bulk Waste",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Bulk items are collected every Wednesday. Please submit your request for bulk waste pick up by 11:59 p.m. the Sunday prior. Residents will be notified of the collection date once scheduled. Do not place bulk items curbside until you receive the assigned pickup date.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6653",
+      "name": "Fire Prevention Permit Application - CUTTING/WELDING ",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "This permit is required for the use of hot work performed within Princeton. Hot work includes any cutting or welding operations. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Stormwater Facility Inspection and Maintenance Report",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Property owners, Homeowners Associations, and business owners responsible for inspections and maintenance of stormwater facilities must submit the following form annually to the Engineering Department. Please complete one form per contiguous stormwater system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6612",
+      "name": "Youth Academy Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Application to participate in the Princeton Police Department's Youth Academy which is scheduled for July 29, 2025 - July31, 2025 from 8:30AM to 12:30PM.",
+      "isEnabled": true
+    },
+    {
+      "id": "6669",
+      "name": "Fire Prevention - Type 4 Permit for Flammable/Combustible Materials",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "The Uniform Fire Code states:  “It shall be unlawful to engage in any business activity involving the handling, storage or use of hazardous substances, materials or devices; or to maintain, store or handle materials; to conduct processes which produce conditions hazardous to life or property; to install equipment used in connection with such activities; or to establish a place of assembly without first obtaining a permit from the fire official.” [N.J.A.C. 5:70-2.7(a)] ",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Sump Pump Certification Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Application for Certification for Proper Connection of Sump Pumps/Roof Drains and Other Surface and Ground Water Drains",
+      "isEnabled": true
+    },
+    {
+      "id": "6639",
+      "name": "Fire Prevention - PRINCETON UNIVERSITY  TYPE 1 PERMIT APPLICATION (PRINCETON UNIVERSITY ONLY)",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "This permit is required for the use of firepits and grills (regardless of fuel type), for gas or propane -powered tent heaters, for the use of open flame devices in a theatrical performance, or for candles or sterno being used in a non LHU assembly area.  A separate permit is required for each individual grill that is separated by more than 5 feet horizontally.  Except for tent heaters and theatrical performances, open flame permits are issued per event per day.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6680",
+      "name": "Fire Prevention - PRINCETON UNIVERSITY  ANNUAL PERMIT APPLICATION (PRINCETON UNIVERSITY ONLY) Copy",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6667",
+      "name": "PRINCETON UNIVERSITY TYPE 4 PERMIT APPLICATION (PRINCETON UNIVERSITY ONLY)",
+      "categoryId": 1074,
+      "viewAccess": null,
+      "description": "The Uniform Fire Code states:  “It shall be unlawful to engage in any business activity involving the handling, storage or use of hazardous substances, materials or devices; or to maintain, store or handle materials; to conduct processes which produce conditions hazardous to life or property; to install equipment used in connection with such activities; or to establish a place of assembly without first obtaining a permit from the fire official.” [N.J.A.C. 5:70-2.7(a)] ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1078",
+      "name": "Help & Other Resources",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 18px;\">To view this website in another language, please go to: <a href=\"https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Ftranslate.google.com%2F&data=05%7C01%7Cciliff%40princetonnj.gov%7Cb2622a6f0c9643e6e8b208db6ddc3aef%7Cf0008b2992284d558c312db39334d77f%7C0%7C0%7C638224564982498965%7CUnknown%7CTWFpbGZsb3d8eyJWIjoiMC4wLjAwMDAiLCJQIjoiV2luMzIiLCJBTiI6Ik1haWwiLCJXVCI6Mn0%3D%7C3000%7C%7C%7C&sdata=NQHWBiyi4466kfBRy9KoT6h0FnzBK6VXJ066YCXqSNg%3D&reserved=0\" "
+    },
+    {
+      "id": "1090",
+      "name": "Animal Control",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\">The Animal Control Office provides a service to the town that includes timely responses to calls and complaints from the public concerning suspected rabid wild or domestic animals, stray, ill, or injured cats and dogs, reports of animal neglect or abuse, public education, and more. Please&nbsp;</span><a href=\"https://www.princetonnj.gov/168/Animal-Control\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"font-fami"
+    },
+    {
+      "id": "1096",
+      "name": "Affordable Housing",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\">All of Princeton&rsquo;s affordable sales are resales of existing units. &nbsp;Princeton&rsquo;s Third Round Plan does not include any new sales units. In order for an affordable unit to be listed for sale, the owner must send a letter or email to the Municipal Housing Liaison indicating their desire to sell. The owner is required to market the unit on their own by hiring a real estate agent or publishing a &ldquo;for s"
+    },
+    {
+      "id": "1093",
+      "name": "Boards, Committees, and Commissions Application ",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 14px;\">Apply here for one of our Boards, Commissions, or Committees. Applicants must be residents of Princeton and willing to attend regularly scheduled meetings.&nbsp;</span></span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 14px;\"><a href=\"https://princetonnj.gov/722/Boards-Commissions-Committees\" rel=\"noopener noreferrer\" target=\"_blank\">Click here</a> to view descriptio"
+    },
+    {
+      "id": "1079",
+      "name": "Clerk ",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-size: 14px; font-family: Arial, Helvetica, sans-serif;\">To view this website in another language, please go to:&nbsp;</span><span style=\"font-size: 14px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><a href=\"https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Ftranslate.google.com%2F&data=05%7C01%7Cciliff%40princetonnj.gov%7Cb2622a6f0c9643e6e8b208db6ddc3aef%7Cf0008b2992284d558c312db39334d77f%7C0%7C0%7C638224564982498965%7CUnknown%7CTWFpbGZsb3d8eyJWI"
+    },
+    {
+      "id": "1072",
+      "name": "Department of Public Works (Trash Collection, Sump Pump Cert.)",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 14px; font-family: Arial, Helvetica, sans-serif;\">To view this website in another language, please go to:&nbsp;</span><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 14px;\"><a href=\"https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Ftranslate.google.com%2F&data=05%7C01%7Cciliff%40princetonnj.gov%7Cb2622a6f0c9643e6e8b208db6ddc3aef%7Cf0008b2992284d558c312db39334d77f%7C0%7C0%7C638224564982498965%7CUnknown%7CTWFpbGZsb3d8eyJWIjo"
+    },
+    {
+      "id": "1109",
+      "name": "Emergency Management",
+      "isEnabled": 1
+    },
+    {
+      "id": "1076",
+      "name": "Engineering",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.4em; border: 0px none; color: rgb(34, 34, 35); font-family: Arial; font-size: 15.2px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial"
+    },
+    {
+      "id": "1092",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 14px; font-family: Arial, Helvetica, sans-serif;\">To view this website in another language, please go to:&nbsp;</span><span style=\"font-size: 14px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><a href=\"https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Ftranslate.google.com%2F&data=05%7C01%7Cciliff%40princetonnj.gov%7Cb2622a6f0c9643e6e8b208db6ddc3aef%7Cf0008b2992284d558c312db39334d77f%7C0%7C0%7C638224564982498965%7CUnknown%7CTWFpbGZsb3d8eyJWIjo"
+    },
+    {
+      "id": "1074",
+      "name": "Fire Marshal's Office",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 14px; font-family: Arial, Helvetica, sans-serif;\">If you are unsure about which form or type of permit you need,&nbsp;</span><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 14px;\">call the Fire Marshal&#39;s office at (609) 497-7646 for assistance before applying.</span></span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 14px;\">Please note submittals on this website will be processed during normal "
+    },
+    {
+      "id": "1073",
+      "name": "Health Department (Vital Records)",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1085",
+      "name": "Parking Operations",
+      "isEnabled": 1,
+      "content": "<h2 style='box-sizing: border-box; margin-top: 0.167em; margin-bottom: 0px; border: 0px none; font-family: \"Open Sans\"; font-style: normal; font-weight: 700; color: rgb(77, 131, 45); font-size: 1.4em; text-decoration: none; display: block; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(25"
+    },
+    {
+      "id": "1086",
+      "name": "Police",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 14px; font-family: Arial, Helvetica, sans-serif;\">To view this website in another language, please go to:&nbsp;</span><span style=\"font-size: 14px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><a href=\"https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Ftranslate.google.com%2F&data=05%7C01%7Cciliff%40princetonnj.gov%7Cb2622a6f0c9643e6e8b208db6ddc3aef%7Cf0008b2992284d558c312db39334d77f%7C0%7C0%7C638224564982498965%7CUnknown%7CTWFpbGZsb3d8eyJWIjo"
+    },
+    {
+      "id": "1087",
+      "name": "Recreation",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 14px; font-family: Arial, Helvetica, sans-serif;\">To view this website in another language, please go to:&nbsp;</span><span style=\"font-size: 14px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><a href=\"https://nam11.safelinks.protection.outlook.com/?url=https%3A%2F%2Ftranslate.google.com%2F&data=05%7C01%7Cciliff%40princetonnj.gov%7Cb2622a6f0c9643e6e8b208db6ddc3aef%7Cf0008b2992284d558c312db39334d77f%7C0%7C0%7C638224564982498965%7CUnknown%7CTWFpbGZsb3d8eyJWIjo"
+    },
+    {
+      "id": "1084",
+      "name": "Rental Housing",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-bottom: 0in; line-height: normal; background: white; vertical-align: baseline;\"><span style=\"color: rgb(34, 34, 35); font-family: Arial, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, "
+    },
+    {
+      "id": "1080",
+      "name": "Sewer Operations",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\">More information can be found on the <a href=\"http://www.princetonnj.gov/sewer\" rel=\"noopener noreferrer\" target=\"_blank\">Sewer Department webpage</a>.</span></p>"
+    },
+    {
+      "id": "1111",
+      "name": "Tax Collection",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:27.562Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

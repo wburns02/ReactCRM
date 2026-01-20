@@ -1,0 +1,90 @@
+{
+  "totalJurisdictions": 56,
+  "successful": 55,
+  "failed": 1,
+  "totalRecordTypes": 2630,
+  "totalCategories": 383,
+  "byState": {
+    "CA": {
+      "count": 3,
+      "recordTypes": 80
+    },
+    "CT": {
+      "count": 3,
+      "recordTypes": 89
+    },
+    "FL": {
+      "count": 4,
+      "recordTypes": 86
+    },
+    "IN": {
+      "count": 1,
+      "recordTypes": 37
+    },
+    "MD": {
+      "count": 1,
+      "recordTypes": 44
+    },
+    "MA": {
+      "count": 18,
+      "recordTypes": 1284
+    },
+    "NY": {
+      "count": 1,
+      "recordTypes": 58
+    },
+    "NC": {
+      "count": 4,
+      "recordTypes": 114
+    },
+    "PA": {
+      "count": 1,
+      "recordTypes": 62
+    },
+    "RI": {
+      "count": 7,
+      "recordTypes": 244
+    },
+    "SC": {
+      "count": 2,
+      "recordTypes": 40
+    },
+    "TN": {
+      "count": 2,
+      "recordTypes": 83
+    },
+    "CO": {
+      "count": 1,
+      "recordTypes": 52
+    },
+    "KY": {
+      "count": 1,
+      "recordTypes": 38
+    },
+    "NH": {
+      "count": 1,
+      "recordTypes": 32
+    },
+    "NJ": {
+      "count": 1,
+      "recordTypes": 61
+    },
+    "WA": {
+      "count": 1,
+      "recordTypes": 19
+    },
+    "WI": {
+      "count": 1,
+      "recordTypes": 34
+    },
+    "IL": {
+      "count": 1,
+      "recordTypes": 51
+    },
+    "WY": {
+      "count": 1,
+      "recordTypes": 122
+    }
+  },
+  "extractedAt": "2026-01-20T22:55:30.214Z"
+}

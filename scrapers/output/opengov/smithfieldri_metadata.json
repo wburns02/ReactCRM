@@ -1,0 +1,220 @@
+{
+  "jurisdiction": "Smithfield",
+  "state": "RI",
+  "tenant": "smithfieldri",
+  "portalUrl": "https://smithfieldri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6418",
+      "name": "Zoning Board of Review Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6411",
+      "name": "Soil Erosion Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "THE SOIL EROSION PERMIT IS INCLUDED WITH THE BUILDING PERMIT. IF YOU INTEND TO FILL OUT A BUILDING PERMIT THEN DO NOT FILL THIS INDIVIDUAL SOIL EROSION PERMIT OUT.\n\nThis permit is required for any individual, corporation, or organization proposing a development project that involves the disturbance of natural terrain, in accordance with the soil erosion ordinance. The permit ensures that all necessary precautions are taken to minimize soil erosion, protect water quality, and prevent environmental degradation during construction or land development activities.\n\nApplicants must provide details of the proposed project, including the site location, scope of work, and any measures planned to control soil erosion. The permit is essential for compliance with local environmental regulations and must be obtained prior to beginning any land disturbance activities.",
+      "isEnabled": true
+    },
+    {
+      "id": "6412",
+      "name": "Sewer Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "A Sewer Service Connection Permit is required for any connections to the Town’s sewer system. This  includes the connection of a new sewer line to an existing line, modifications, repairs, and disconnections, even if it is on private property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6421",
+      "name": "Planning Application ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "  Subdivision & Land DevelopmentApplications",
+      "isEnabled": true
+    },
+    {
+      "id": "6390",
+      "name": "NEW Business Registration Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6332",
+      "name": "Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "NOTICE: Combination Sign permits and combination Swimming Pool permits are now available - so separate building and wire permits are no longer necessary.\n\nApply here for a building permit from the Town of Smithfield, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal. Tent only projects are applied for under the Fire Marshall page. These permits may be for all structures including pools, decks, houses, commercial buildings, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6347",
+      "name": "NEW Life Safety Inspection",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Click here to submit your request for an inspection from the Office of the State Fire Marshal (related to business licenses or construction rough/final)",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply here for an electrical permit from the Town of Smithfield, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal. Energy storage systems unrelated to photovoltaic systems may be applied for here as well.\nNOTICE: All applications, designs, and wire work, as of May 1, 2022, shall be in accordance with NFPA 70, 70E 2020 edition; NFPA 72 2019 edition.\nNOTICE: There is a Sign Permit available - so separate wire and building permits are no longer necessary.",
+      "isEnabled": true
+    },
+    {
+      "id": "6396",
+      "name": "Business Registration Renewal (Annual)",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6393",
+      "name": "Dog Park Membership",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Please fill out this form to apply for a Smithfield Dog Park Membership Card.",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply here for a mechanical permit from the Town of Smithfield, and (if applicable) also apply here for a related Fire Plan Review from the Fire Marshal. This permit is for all HVAC, similar mechanical systems and automatic fire suppression systems. This permit is also for air movement systems, boiler, pressure vessel, refrigeration, and fossil fuel fired appliances and storage tanks. Water based heating systems including solar systems and radiant flooring area also under this permit. \nNOTICE: All applications, designs, and mechanical work, as of May 1, 2022, shall be in accordance with SBC-4  International Mechanical Code, amended 2018 edition; SBC-19 International Fuel Gas Code, amended 2018 edition; NFPA 13, 13R, and 13D amended 2016 edition.",
+      "isEnabled": true
+    },
+    {
+      "id": "6338",
+      "name": "Tent/Event Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply for an Tent/Event Permit\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply here for a plumbing permit from the Town of Smithfield, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.\nNOTICE: All applications, designs, and plumbing work, as of May 1, 2022, shall be in accordance with SBC-3  International Plumbing Code, amended 2018 edition.",
+      "isEnabled": true
+    },
+    {
+      "id": "6385",
+      "name": "Swimming Pool and Spa Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This is a combination permit that allows for NEW INSTALLATIONS of in-ground and above ground pools, public and privately owned. This combination permit is for pools without and with electrical connections so your electrician doesn't have to pull a separate wire permit.  \nPools with heating sources other than electric shall require a separate fuel gas or mechanical permit. Existing pools needing new wiring shall require individual (separate) wire permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Sign Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a sign permit from the Town of Smithfield. This permit allows a single application for both electrified and non-electrified signs. All permit applications should include photos of any existing signage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6361",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the Town of Smithfield.",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit (Complete demolition/raze of structure).",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a demolition permit from the Town of Smithfield.\nPartial demolition and exploratory demolition can be done through building permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6386",
+      "name": "School or Nursery Inspection - Annual",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Annual inspection report for public and private places of education (k-12), also public and private nurseries. See RISBC-13; 510-RICR-00-00-13.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6389",
+      "name": "Compliance Inspection - Annual ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply to request Compliance Inspection to satisfy licensing requirements. Please note this application will need to be made annually to request inspection and required letter of compliance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": "Temporary Outside Dining",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Temporary outside dining permit only. This permit is not for permanent rededication of outdoor space to patron seating or occupancy changes. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1086",
+      "name": "Police Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1084",
+      "name": "Engineering Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1079",
+      "name": "Town Clerk - RENEWAL Business Registration",
+      "isEnabled": 1
+    },
+    {
+      "id": "1082",
+      "name": "Town Clerk - NEW Business Registration",
+      "isEnabled": 1
+    },
+    {
+      "id": "1072",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><br></p><p style=\"text-align: center;\">&nbsp;</p>"
+    },
+    {
+      "id": "1081",
+      "name": "Dog Park",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><u>Please Note:</u><em>&nbsp;&nbsp;</em>This is an APPLICATION for Residential Plan Review and/or required permitting through the Smithfield Fire Department.</p><p style=\"text-align: center;\"><br></p><p style=\"text-align: center;\">All<strong><em>&nbsp;</em></strong><u><strong>Commercial Plan Reviews</strong></u> are processed in conjunction with required Building, Electrical, and Mechanical permitting requirements and can be accessed through the <a href=\"https://sm"
+    },
+    {
+      "id": "1085",
+      "name": "Planning Department",
+      "isEnabled": 1,
+      "content": "<section style=\"box-sizing: border-box; margin: 1.5rem 0px 0px; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-variant-alternates: inherit; font-variant-position: inherit; font-variant-emoji: inherit; font-weight: 400; font-stretch: inherit; line-height: inherit; font-family: Georgia, serif; font-optical-sizing: inherit; font-size-adjust: inherit; font-kerning: inherit"
+    },
+    {
+      "id": "1076",
+      "name": "Zoning Department",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:01.944Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

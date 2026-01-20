@@ -1,0 +1,1197 @@
+{
+  "jurisdiction": "Cambridge",
+  "state": "MA",
+  "tenant": "cambridgema",
+  "portalUrl": "https://cambridgema.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6871",
+      "name": "Across Sidewalk Electric Vehicle Charging (EV) Permit",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "description": "Residents of residential properties in a “Designated Zone” who do not have available off-street parking will be deemed “Eligible Residents” and may apply for an annual Permit. A Permit may be granted to Eligible Residents for Level 1 (110-120V) charging only in a Sidewalk Area that is contiguous with the Eligible Resident’s residential property. A Permit will not be granted for Level 2 (240V) charging in any portions of public ways.",
+      "isEnabled": true
+    },
+    {
+      "id": "6878",
+      "name": "Flood Resilience Compliance Confirmation",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Flood Resilience Compliance Confirmation from the DPW is required to confirm a developments conformance with the Flood Resilience Standards outline in Cambridge Zoning Ordinance Section 22.80.   Confirmation should be received prior to application for permits with ISD and Planning, as noted in the Zoning.",
+      "isEnabled": true
+    },
+    {
+      "id": "6828",
+      "name": "Guest Portal Record Access",
+      "categoryId": 1119,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6845",
+      "name": "How to Save and Resume a Draft of a Record in the Storefront",
+      "categoryId": 1119,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6760",
+      "name": "Claiming & Renewing a Dog License",
+      "categoryId": 1119,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6731",
+      "name": "Renewing a Dog License",
+      "categoryId": 1119,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6711",
+      "name": "Pay using your bank account - Payment method",
+      "categoryId": 1119,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6591",
+      "name": "General Online Permitting and Licensing Help",
+      "categoryId": 1119,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6592",
+      "name": "Service Fee FAQ",
+      "categoryId": 1119,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6594",
+      "name": "Additional Permits, License and Certificates",
+      "categoryId": 1119,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6866",
+      "name": "Helen K. Holland Animal Care Trust Fund",
+      "categoryId": 1123,
+      "viewAccess": null,
+      "description": "Make a donation to the Helen K. Holland Animal Care Trust Fund.",
+      "isEnabled": true
+    },
+    {
+      "id": "6728",
+      "name": "Dog License",
+      "categoryId": 1123,
+      "viewAccess": null,
+      "description": "State law requires that all dogs over 6 months have a current dog license. The dog license period in Cambridge runs from April 1 of the current year to March 31 of following year. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6783",
+      "name": "Business Certificate",
+      "categoryId": 1129,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6874",
+      "name": "HomeBridge Application",
+      "categoryId": 1132,
+      "viewAccess": "public",
+      "description": "The City of Cambridge Community Development Department’s Housing Division administers HomeBridge, a program that provides funding for income-eligible first-time homebuyers to purchase a home on the open market. Within price limits set by the Housing Division, eligible buyers can receive up to 65% of the purchase price for a three-bedroom unit, 60% for a two-bedroom, and 50% for a one bedroom unit from the City. For more information please see our website at www.cambridgema.gov/HomeBridge. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6864",
+      "name": "Fire Pump Test",
+      "categoryId": 1134,
+      "viewAccess": null,
+      "description": "This application is used to collect the $350 per fire pump test location. After payment is processed, open the document to review instructions to schedule the test with the Water Department. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6841",
+      "name": "Backflow/Cross Connection Permit",
+      "categoryId": 1134,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6855",
+      "name": "Street Performers Permit",
+      "categoryId": 1135,
+      "viewAccess": null,
+      "description": "Performers interested in obtaining a free permit to perform in public in the City of Cambridge should submit this application.\n\nThe permit is free. Individual performers as well as those playing in groups must obtain permits.\n\nNo auditions required. All are welcome and encouraged to apply. A performer does not have to be a Cambridge resident in order to obtain a performance permit. We look forward to serving you and having your creativity enliven public spaces of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "7009",
+      "name": "Pre-Fabrication Review",
+      "categoryId": 1135,
+      "viewAccess": "public",
+      "description": "The form is designed to obtain as much information as possible about your artwork in order to best care for it.  Please take the time to fill out each section with as much detail as possible.\n\nYou may not be able to fill out the whole form in one sitting; simply scroll down to the bottom of the form and click \"Save Draft and Exit\" to work on it later.  To access the form again, click \"My Account\" on the top right of OpenGov and click your \"Pre-Fabrication Review\" in the application section.",
+      "isEnabled": true
+    },
+    {
+      "id": "7002",
+      "name": "Cambridge Resident Bike Lottery Program",
+      "categoryId": 1136,
+      "viewAccess": "public",
+      "description": "Through this program, low and moderate-income Cambridge, Massachusetts residents can apply for a voucher (certificate) to get a new bicycle. They need to choose the type of bicycle: a pedal bike an e-bike, or an e-cargo bike. People with disabilities can apply for an adaptive bike.",
+      "isEnabled": true
+    },
+    {
+      "id": "6975",
+      "name": "Emergency Contact Information",
+      "categoryId": 1141,
+      "viewAccess": "public",
+      "description": "The following form is used by the Cambridge Emergency Communications Department in the event of an emergency during and after businesses hours for use by Fire, Police, and/or EMS personnel. This information will be kept confidential. Completion of this form does not constitute completion of the business certificate process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6865",
+      "name": "Annual Exempt Organization Forms (3ABC)",
+      "categoryId": 1127,
+      "viewAccess": null,
+      "description": "Annual Exempt Organization Forms (State Tax Form 3ABC) should be filed annually by charitable, benevolent, educational, literary, religious, scientific, or temperance organizations and trusts owning real or personal property on January 1, for which they claim exemption for the fiscal year that begins the next July 1. Veteran organizations seeking exemption of real or personal property under M.G.L. c. 59, § 5 Clauses 5, 5A, 5B or 5C must also file this return. The State Tax Form 3ABC must be filed on or before March 1 with the Board of Assessors of each city or town in which the organization owns real estate or personal property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6763",
+      "name": "Bi-Directional Amplifier Permit",
+      "categoryId": 1125,
+      "viewAccess": "private",
+      "description": "Bi-directional amplifiers (BDAs) are crucial systems that boost in-building radio RF signals that are used for emergency communication. Buildings shall have radio coverage for first responders within the building at least equal to the signal strength of the City of Cambridge Public Safety radio system at the exterior, without requiring modification to the City’s existing radio system. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6691",
+      "name": "Block Party Permit",
+      "categoryId": 1122,
+      "viewAccess": null,
+      "description": "A block party is a community event hosted on a City street by a group of neighbors, a non-profit organization, or an association. During a block party, the City closes a block or a portion of a single street to through traffic. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6658",
+      "name": "Application to Modify Building Plans, Including Change of Contractor, etc.",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when modifying the scope of work or personnel (contractor, architect, etc.) for an existing Building Permit application with the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6604",
+      "name": "Asbestos Permit",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when applying for an Asbestos Removal Permit in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6831",
+      "name": "Acoustical Music with No Amplification Except One Microphone Application",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Acoustical Music with no Amplification Except One Microphone is for businesses who do not have a place to congregate for sole purposes of entertainment and are not usually licensed as a common victualler, alcohol establishment, innholder or lodging house license or any other type of license under M.G.L. c.138 or 140. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6749",
+      "name": "Dumpster Permit",
+      "categoryId": 1122,
+      "viewAccess": null,
+      "description": "A Dumpster Permit allows you to reserve curb space for the purpose of temporarily placing a dumpster on a City street for moving debris or garbage from a construction site. Dumpster permits are issued for a maximum of two spaces.",
+      "isEnabled": true
+    },
+    {
+      "id": "6795",
+      "name": "Carbon Monoxide Technical Option Permit",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "The Board of Fire Prevention Regulations states that technical compliance options may be more practical for larger residential and institutional buildings that contain minimal or no sources of CO inside the individual units. The option allows owners to target the CO alarm protection in only those areas (i.e., rooms that contain boilers, hot water heaters, central laundry areas, in addition to enclosed parking areas) that could be potential sources of the CO. This CO protection option requires hard-wiring or low-voltage wiring, monitoring (i.e., by an alarm company) and certain signal transmission requirements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6846",
+      "name": "Personal Exemption ",
+      "categoryId": 1127,
+      "viewAccess": "private",
+      "description": "Homeowners may reduce their tax bill by qualifying for a personal exemption for taxpayers who are: Elderly, Blind, Surviving Spouses or minor children of Deceased Parents or Veterans.  Each exemption has eligibility requirements such as age and income limits.  While you may not receive more than one personal exemption, you will receive the exemption that most reduces your tax bill should you qualify for more than one personal exemption.\nIf you were granted an exemption last year, we will send you a reminder for the renewal, but it is still your responsibility to make sure that you file a renewal each year.",
+      "isEnabled": true
+    },
+    {
+      "id": "6856",
+      "name": "Lab Tests for Distribution Work",
+      "categoryId": 1134,
+      "viewAccess": null,
+      "description": "This involves Cambridge Water Department conducting bacteriological testing for permitted water work in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6796",
+      "name": "Cryogenic & Compressed Gas Permit",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "A Cryogenic & Compressed Gas Permit is required for individuals or companies storing non-flammable compressed gas and/or cryogenic fluid on-site. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6748",
+      "name": "Residential Exemption",
+      "categoryId": 1127,
+      "viewAccess": "private",
+      "description": "The application for the Residential Exemption must be filed no later than April 1st of the fiscal year. If you recently purchased a Cambridge property and inherited a Residential Exemption from the previous owner, you must qualify as the new owner to continue to receive the exemption in the next fiscal year. Please complete the Residential Exemption form to apply. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6625",
+      "name": "Auctioneer Permit (Annual)",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "The Annual Auctioneer Permit is for those who intend to conduct auctions in the City of Cambridge. A condition precedent to obtaining this Permit, is to have an Auctioneers License from the Commonwealth of Massachusetts, please refer to Consumer Affairs and Business Regulation. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6606",
+      "name": "Board of Appeal (BZA) Special Permit/Variance",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit for special permits, appeals and petitions for variances from the terms of the Cambridge Zoning Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6659",
+      "name": "Building Permit - Addition / Alteration",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Construction that changes the structure, the footprint, or the volume of the building. Including decks, porches, and additions. Any reconstruction, renovation or repair to an existing structure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6555",
+      "name": "Annual Common Victualler, Alcohol and/or Entertainment License",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "New Applicants Only: Apply for any or all of the above listed licenses.  If you are seeking an innholder with alcohol, please apply through the innholder link.    Do not click Select if you are trying to renew your license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6797",
+      "name": "Cutting & Welding/Hot Work Permit",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "Conducting cutting and welding/hot work in Cambridge requires that this permit is issued for your work by the Cambridge Fire Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "7008",
+      "name": "Sales Verification Form",
+      "categoryId": 1127,
+      "viewAccess": "private",
+      "description": "In order to help us fully analyze the market and more fairly determine fair market value for all of the properties in the city we request that you fill out the form and schedule an inspection of your property.  \n\nOur sales analysis process requires that we inspect your property to verify the accuracy of our data.  These inspections are made by appointment at your convenience and take only a few minutes to complete.  \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6851",
+      "name": "Food Truck Program",
+      "categoryId": 1122,
+      "viewAccess": "private",
+      "description": "The City of Cambridge Food Truck Program is a business incubator initiative, designed to grow food truck and trailer businesses with an emphasis on first-time operators as well as historically excluded operators who may have limited vending options in Cambridge or the surrounding area.",
+      "isEnabled": true
+    },
+    {
+      "id": "6753",
+      "name": "Funeral/Wake Parking Permit",
+      "categoryId": 1122,
+      "viewAccess": "private",
+      "description": "A Funeral/Wake Parking Permit is for funeral homes to reserve parking spaces to provide on-street parking for wake and funeral service attendees.",
+      "isEnabled": true
+    },
+    {
+      "id": "6875",
+      "name": "Change Mailing Address Request Form",
+      "categoryId": 1127,
+      "viewAccess": "private",
+      "description": "This change of address form will change the mailing address used for the real estate parcel for the Assessor’s office database and the real estate tax bill. \nAddress changes will not appear on the City’s Property Database until the First half bill is mailed in the fall. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6798",
+      "name": "Fire Alarm System Modification Permit",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "NOTE: This is NOT for BRAND NEW Fire alarm systems. New fire alarm system permits are handled by the Inspectional Services Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6687",
+      "name": "Change to an Existing License Application",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Apply for a Change to an Existing License.  Please complete this form when requesting any type of change to any existing license issued by this Commission.  Example of changes: hours of operation, D/B/A, capacity, or adding or removing entertainment. If the change requested is on an annual license with alcoholic beverages, please note that depending of the type of change you may also have to fill out an Alcoholic Beverages Control Commission form. Any questions, contact us at License@cambridgema.gov or 617-349-6140.  Fees: Some changes require a Hearing Fee ($100), Advertisement Fee ($75), and/or Administrative Fee ($10.00/per person CORI check). All changed that require ABCC approval have an additional $25 processing fee.  Additional fees may apply if the request is granted and the change generates a fee. Any questions, please review our fee schedules on our website or contact us at License@cambridgema.gov or 617-349-6140.",
+      "isEnabled": true
+    },
+    {
+      "id": "6668",
+      "name": "Building Permit - New Construction",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when applying for a permit to build an entirely new structure in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6808",
+      "name": "Flammable & Combustible Material Permit",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "A Flammable & Combustible Material Permit is required for individuals or companies storing flammable and combustible material on-site.",
+      "isEnabled": true
+    },
+    {
+      "id": "6743",
+      "name": "Cannabis Business Permit",
+      "categoryId": 1118,
+      "viewAccess": "private",
+      "description": "Application to submit a Cannabis Business Permit in the City of Cambridge",
+      "isEnabled": true
+    },
+    {
+      "id": "6700",
+      "name": "Moving Container or Crate Permit",
+      "categoryId": 1122,
+      "viewAccess": null,
+      "description": "A Moving Container/Crate Permit allows you to reserve curb space for the purpose of placing a crate or container on a City street while moving goods in or out of a building. These permits are issued for three consecutive days.",
+      "isEnabled": true
+    },
+    {
+      "id": "6810",
+      "name": "Fuel Oil Burner & Storage Permit",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "Installing or modifying Fuel Oil Burner or Storage equipment in Cambridge requires a Fuel Oil Burner & Storage permit issued by the Cambridge Fire Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6747",
+      "name": "Dispatch Service Application",
+      "categoryId": 1096,
+      "viewAccess": "private",
+      "description": "Apply here to obtain a dispatch service license.  This includes radio, wire, cable and mobile application dispatch services.  These licenses must be renewed every year on May 1.",
+      "isEnabled": true
+    },
+    {
+      "id": "6636",
+      "name": "Disposal/Solid Waste Hauler License",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Apply for a Disposal/Solid Waste Hauler License in the City of Cambridge. You need to apply for a license if you plan to be located in or provide services within the City of Cambridge. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6619",
+      "name": "Catering Registration",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit to apply for a One-Day Catering Permit or an Annual Catering License in the City of Cambridge",
+      "isEnabled": true
+    },
+    {
+      "id": "6612",
+      "name": "Appliance/Large Items",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "description": "An Appliance/Large Item disposal permit is required for the pickup of most appliances and large items. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6812",
+      "name": "Hazardous Material Processing Permit",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "A Hazardous Material Processing Permit is required for companies processing hazardous material. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6705",
+      "name": "Moving Van",
+      "categoryId": 1122,
+      "viewAccess": null,
+      "description": "A Moving Van Permit allows you to reserve curb space for the purpose of parking a vehicle on a City street while moving goods in or out of a building. Moving Van Permits can be issued for a maximum of two consecutive days.",
+      "isEnabled": true
+    },
+    {
+      "id": "6825",
+      "name": "Non-Resident Parking Permit",
+      "categoryId": 1122,
+      "viewAccess": null,
+      "description": "Non-Resident Parking Permits are available in limited circumstances to people who provide services to residents and property owners.",
+      "isEnabled": true
+    },
+    {
+      "id": "6807",
+      "name": "Non-water Based Fire Protection System Permit",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "This permit is for the new installation of, or modification of, non-water based fire protection systems. This permit is necessary whenever a non-water based fire protection system will be installed or impaired for modification.",
+      "isEnabled": true
+    },
+    {
+      "id": "6632",
+      "name": "Certificate of Occupancy",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit to request a Certificate of Use & Occupancy.",
+      "isEnabled": true
+    },
+    {
+      "id": "6626",
+      "name": "Fortune Teller License",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Fortune Teller Licenses are issued to an individual for a particular location and only allow that individual to operate under the License for that particular location. If the person is telling fortunes at multiple locations within the City of Cambridge, that person must obtain a License for each location. If other persons are telling fortunes at the same location, those persons must obtain their own License. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6727",
+      "name": "Banner Permit",
+      "categoryId": 1101,
+      "viewAccess": "private",
+      "description": "A banner permit from the Department of Public Works is required for organizations that wish to hang banners from City light poles or across the street on JFK Street at Mount Auburn Street and/or Massachusetts Avenue in front of City Hall.",
+      "isEnabled": true
+    },
+    {
+      "id": "6729",
+      "name": "Contractor Registration",
+      "categoryId": 1101,
+      "viewAccess": "private",
+      "description": "Registering your company is required in order to submit Department of Public Works construction permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6633",
+      "name": "Garage and/or Flammables License ",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Apply for a Garage and/or Flammable License in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6774",
+      "name": "Sale and Transfer Smoke/CO Certificate (26F-26F 1/2)",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "This application is for an inspection to acquire a Smoke/CO Certificate for the sale and transfer of a property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6778",
+      "name": "Certificate of Inspection",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit to request a Certificate of Inspection",
+      "isEnabled": true
+    },
+    {
+      "id": "6827",
+      "name": "Cottage Food Operation Permit",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "A Retail Residential Kitchen permitted to produce Cottage Food Products, as regulated by 105 CMR 590.001(C).",
+      "isEnabled": true
+    },
+    {
+      "id": "6754",
+      "name": "Other Street Occupancy Parking Permit",
+      "categoryId": 1122,
+      "viewAccess": "private",
+      "description": "The Other Street Occupancy Parking Permit type allows companies/organizations to reserve curb space for the purpose of parking their service vehicle on a City street.",
+      "isEnabled": true
+    },
+    {
+      "id": "6813",
+      "name": "State Mandated Fire Inspection Registration",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "The State Mandated Fire Inspection program is conducted by fire suppression personnel for public and private schools, hospitals, hotels, clinics, day care centers, theaters, nursing homes, adult education centers, elderly housing, and group homes.",
+      "isEnabled": true
+    },
+    {
+      "id": "6726",
+      "name": "Hackney Driver Application",
+      "categoryId": 1096,
+      "viewAccess": "private",
+      "description": "To drive a hackney carriage vehicle (taxi cab) in Cambridge you must hold a valid hackney driver license issued by the Cambridge License Commission.  At a minimum, you must be 18 years old, have a valid Massachusetts Driver’s License, submit to checks for Criminal Offender Record Information and Driving History, and be able to read, write and speak English (or understand spoken English sufficiently to discharge the duties of a hackney driver). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6630",
+      "name": "Hawker/Peddler License",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Apply for a Hawker Peddler license here. Typical hawker/peddlers include food trucks, concession stands, or merchandising tables. You must have a state transient vendor license or if a mobile truck, a hawkers/peddler’s state license prior to applying for the city license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6814",
+      "name": "Tank Installation Permit UST/AST",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "Cambridge Fire Department permits the installation of tanks and the piping system with this permit. You will be required to provide us detailed information about the tank, and the system of piping (leak protection, and pipe containment) associated with tank installation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6724",
+      "name": "Parking Consideration",
+      "categoryId": 1122,
+      "viewAccess": "private",
+      "description": "Parking Consideration is a way for residents to request that multiple vehicles be allowed to park at a residents house without being ticketed for a single day event. Parking consideration is provided only in Resident Permit Parking areas, where spaces are signed “Parking by Permit Only”. All other restrictions, including payment at meters, will continue to be enforced.",
+      "isEnabled": true
+    },
+    {
+      "id": "7018",
+      "name": "2025-2026 DHSP Afterschool Programs Lottery",
+      "categoryId": 1131,
+      "viewAccess": null,
+      "description": "The Department of Human Service Programs (DHSP) offers four afterschool program models. Childcare Afterschool, Community Schools, and King Open Extended Day (KOED) afterschool programs are open to Cambridge residents in Kindergarten – 5th grade.  Cambridge Youth Programs (CYP), based at Youth Centers, are open to pre-teens and middle schoolers in 4th – 8th grade. All DHSP afterschool programs are designed to foster social and emotional growth and build healthy relationships. \n\nCambridge families apply to all DHSP afterschool programs through a single application, the DHSP Afterschool Programs Lottery Application. Open seats in DHSP afterschool programs are filled through a lottery system.\n\nRe-Enrollments \nChildren who are currently enrolled in a DHSP afterschool program have the option to re-enroll in the same program for the next academic year.  To re-enroll, complete and submit an application for your child, selecting their current afterschool program. Re-enrollment applications must be submitted by the application deadline.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6815",
+      "name": "Tank Removal Permit",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "Cambridge Fire Department permits the removal of storage tanks with this permit. You will be required to provide us detailed information about the tank, the containment assessment information, whether the tank(s) will be removed or secured in place, and the tank removal company information associated with tank(s) removal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6770",
+      "name": "Parking Permit",
+      "categoryId": 1122,
+      "viewAccess": null,
+      "description": "Parking Permits allow you to park in areas designated “Parking by Permit Only.” Do not use this application if you are looking to apply for or renew a Resident or Visitor Parking Permit. If you have questions about the types of permits that we offer, please refer to our Parking Permit page: cambridgema.gov/parking-permits",
+      "isEnabled": true
+    },
+    {
+      "id": "6565",
+      "name": "Innholder - Lodging House",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "New Applicants Only: Apply for a Innholder/Lodging House License (includes dormitories, motels or hotels; excludes bed and breakfast and short term rentals, i.e. Airbnb), with or without alcohol.  Do no click Select if you are trying to renew your license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6601",
+      "name": "Curb Cut",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application submit to install, remove, or modify a curb cut to allow for vehicular access from the public right of way onto private property in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6710",
+      "name": "Crane, Boom, Pump Truck (CBP) Permit",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "description": "A Crane, Boom and Pump Truck permit is required if you are using a crane, boom truck, boom lift, man lift, lull, scissor lift, pump truck, or similar aerial/mobile vehicle on a City of Cambridge right-of way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6615",
+      "name": "Demolition Permit",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when demolishing 25% or more of a building in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6715",
+      "name": "Dewatering Permit",
+      "categoryId": 1101,
+      "viewAccess": "private",
+      "description": "A dewatering permit is required for projects or businesses that plan to discharge to the municipal stormwater or wastewater system from dewatering or pumping activities or want to make changes in discharges from existing connections.",
+      "isEnabled": true
+    },
+    {
+      "id": "6750",
+      "name": "Jitney",
+      "categoryId": 1096,
+      "viewAccess": "private",
+      "description": "You need to apply for a Jitney if you plan to be located in, provide services in, or have a fixed route within the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6725",
+      "name": "Medallion Holder Application",
+      "categoryId": 1096,
+      "viewAccess": "private",
+      "description": "Apply here to obtain a new medallion, renew a medallion or transfer a medallion.  Medallion Owners must renew the medallion each March and be inspected twice a year in April and October.  Medallion Owners must hold a valid hackney driver license issued by the License Commission.  [insert link of driver license application] ",
+      "isEnabled": true
+    },
+    {
+      "id": "6713",
+      "name": "Excavation Permit",
+      "categoryId": 1101,
+      "viewAccess": "private",
+      "description": "An Excavation and Trench Permit is required if you are excavating or trenching on private property or in a public right-of-way in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6584",
+      "name": "Dumpster License",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "This application is for a stand alone temporary or permanent dumpster permit only.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6844",
+      "name": "Special Events Committee Application",
+      "categoryId": 1122,
+      "viewAccess": null,
+      "description": "A Special Event is a large event such as a festival, road race, parade, film shoot or walkathon. Such events may feature entertainment, amusement rides and food and beverages. Special events may require a number of permits from various City departments depending on the size and nature of the event. The City's Traffic, Parking, + Transportation Department manages the City's Special Event program.",
+      "isEnabled": true
+    },
+    {
+      "id": "6817",
+      "name": "Temporary Fuel Storage Permit",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "A Temporary Fuel Storage Permit is required for the storage of temporary fuels in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6698",
+      "name": "Tool Truck",
+      "categoryId": 1122,
+      "viewAccess": null,
+      "description": "A Tool Truck Permit reserves space for a specified length of time to park contractor’s vehicles while doing construction in Cambridge.  Permits can only be posted in front of your work area and cannot be posted in front of neighboring residences, in spaces reserved for persons with disabilities, across driveways, within ten feet of a fire hydrant or locations posted no parking or no stopping.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6820",
+      "name": "Temporary Heat Permit",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "Temporary Heat Permits are required for the operation of temporary heating devices. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6721",
+      "name": "Newsrack Permit",
+      "categoryId": 1101,
+      "viewAccess": "private",
+      "description": "No person shall place, affix, erect, constitute or maintain a news rack in or on any part of a public way without first obtaining a Certificate of Compliance from the Department of Public Works.",
+      "isEnabled": true
+    },
+    {
+      "id": "6718",
+      "name": "Electrical Maintenance Agreement",
+      "categoryId": 1118,
+      "viewAccess": "private",
+      "description": "Application to submit to request an Electrical Maintenance Agreement for a large institution. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6638",
+      "name": "Open Air Parking License",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Apply for an Open Air Parking License in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6832",
+      "name": "Raffle and/or Bazaar Application",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Apply here for a Raffle and/or Bazaar License. You need to apply for a license if you plan to host a raffle drawing or bazaar within the City of Cambridge. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Electrical Permit",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when applying for a permit to perform electrical work in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6708",
+      "name": "Park Permit",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "description": "A park permit is required for any non-athletic events in City parks or public areas and must be obtained through The Department Public Works. If you are looking to reserve an athletic field or use of Danehy Park please call the Recreation Department at (617) 349-6238.",
+      "isEnabled": true
+    },
+    {
+      "id": "6818",
+      "name": "Unvented Propane or Natural Gas Fired Space Heater Permit",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "An Unvented Propane or Natural Gas Fired Space Heater Permit shall be obtained from the City of Cambridge Fire Department for the installation of all unvented propane or natural gas-fired space heaters. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6697",
+      "name": "Traffic Clearance Permit",
+      "categoryId": 1122,
+      "viewAccess": null,
+      "description": "A Traffic Clearance Permit temporarily restricts parking for a specified length of time to provide the proper space needed for the turning radius of construction vehicles accessing a job site.  This permit is also issued to provide space for re-routing traffic from a travel lane and into a parking lane associated with large construction jobs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6801",
+      "name": "Water Based Fire Protection System Modification Permit",
+      "categoryId": 1125,
+      "viewAccess": null,
+      "description": "NOTE: This is NOT for BRAND NEW water based fire protection systems. This permit is for modification of existing water based fire protection systems. This permit is necessary whenever an existing water based fire protection system will be impaired in order to perform work.",
+      "isEnabled": true
+    },
+    {
+      "id": "6870",
+      "name": "Sewer Use Abatement Application",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "description": "In accordance with the City Ordinance section 13.16.080C. An applicant may apply for an abatement of sewer charge if water supplied, derived or received is used in manner that does not enter the wastewater system of the city. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6573",
+      "name": "Leaf Blower Permit",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "New Applicants Only: Apply for an annual Leaf Blower permit here. All commercial leaf blower operators (anyone who employs two or more people to operate leaf blowers) wishing to operate leaf blowers in the City of Cambridge must obtain a permit prior to operating in Cambridge. Leaf blowers can only be used March 15 – June 15 and September 15 – December 31, and on certain days and times of the week.  Do not click Select if you are trying to renew your license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6627",
+      "name": "Letting of Motor Vehicles License",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "You need to apply for a license if you plan to operate a retail rental car business within the City of Cambridge. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6722",
+      "name": "Sidewalk and Street Business Use Permit (Annual)",
+      "categoryId": 1101,
+      "viewAccess": "private",
+      "description": "A business use sidewalk and street obstruction permit is required if you are a business in the City of Cambridge and want to use an “A” framed sign, sandwich board, display merchandise, temporary banner or use tables and chairs on a sidewalk or street in the public way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6655",
+      "name": "Farmers Market",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when applying for a Farmers Market Permit in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6752",
+      "name": "Traffic Special Event Permit",
+      "categoryId": 1122,
+      "viewAccess": null,
+      "description": "The Traffic Special Event Permit is reserved for the following events: Parking for a Festival, Parade, Processional, Public Safety Events, Road Race, University Events including Move-in/move-out, Walkathons, and other large events. Special events may require a number of permits from various City departments depending on the size and nature of the event. The Traffic Special Event permit only covers the use of the street. Cambridge residents, non-profit organizations, and businesses may apply.",
+      "isEnabled": true
+    },
+    {
+      "id": "6688",
+      "name": "Gas Permit",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when applying for a Gas Permit in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6719",
+      "name": "Sidewalk Obstruction Permit (Construction)",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "description": "A Sidewalk Obstruction permit is required if you are blocking any portion of a City of Cambridge sidewalk whether it be through full closure, partial closure, or walkthrough-staging.",
+      "isEnabled": true
+    },
+    {
+      "id": "6759",
+      "name": "Livery Application",
+      "categoryId": 1096,
+      "viewAccess": "private",
+      "description": "Apply for a Livery or Limousine License in the City of Cambridge. You need to apply for a license if you plan to operate and/or garage your Livery or Limousine business(s) within the City of Cambridge.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6661",
+      "name": "One Day Alcoholic and/or Entertainment License",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Apply for special one-day alcohol and/or a one-day entertainment license here.  One-day licenses are required for events that are advertised and/or open to the public.  Please note that a person can only obtain a total of 30 one-day licenses per location in one calendar year.  You may use this application to apply for a license during consecutive days in the same location.",
+      "isEnabled": true
+    },
+    {
+      "id": "6720",
+      "name": "Special Events Committee Application",
+      "categoryId": 1101,
+      "viewAccess": "private",
+      "description": "A Special Event is a large event such as a festival, road race, parade, film shoot or walkathon. Such events may feature entertainment, amusement rides and food and beverages.  Special events may require a number of permits from various City departments depending on the size and nature of the event. The City's Public Works Department manages the City's Special Event program.",
+      "isEnabled": true
+    },
+    {
+      "id": "6607",
+      "name": "Food Establishment",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit to apply for a Food Establishment Permit in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6712",
+      "name": "Stormwater Control Permit",
+      "categoryId": 1101,
+      "viewAccess": "private",
+      "description": "A stormwater control permit is required for construction, development and redevelopment projects in the City of Cambridge to ensure that measures are taken throughout the project to address erosion, nonpoint source pollution, and flood control.",
+      "isEnabled": true
+    },
+    {
+      "id": "6643",
+      "name": "Mechanical Permit",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when applying for a mechanical permit in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6662",
+      "name": "One Day Amendment to an Existing License",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Please complete this form when requesting a one day change to an existing license issued by this Commission, i.e. changes in hours of operation, capacity or entertainment. Please note that if you have an annual alcohol license and are seeking to extend to an area that is not presently covered by your alcohol license, you cannot complete this form.  You must complete a One Day Alcohol License Application.  Any questions, contact us: License@cambridgema.gov.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6663",
+      "name": "One Day Temporary Amusement Application",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Apply for a One Day Temporary Amusement permit here. One Day Temporary Amusement permits are required if the event is open to the public or there is a fee to participate. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6732",
+      "name": "Short Term / Special Event Sidewalk Business Use Permit",
+      "categoryId": 1101,
+      "viewAccess": "private",
+      "description": "A temporary business use sidewalk obstruction permit is required if you are a plan to temporally obstruct a City of Cambridge sidewalk. Please apply for an Annual Sidewalk Obstruction Permit if you plan to use an “A” framed sign, sandwich board, display merchandise, temporary banner or use tables and chairs on a sidewalk in the public way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6622",
+      "name": "Mobile Food Truck",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit to apply for a Mobile Food Truck Permit in the City of Cambridge",
+      "isEnabled": true
+    },
+    {
+      "id": "6686",
+      "name": "Plumbing Permit",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when applying for a Plumbing Permit in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6714",
+      "name": "Temporary Construction Access",
+      "categoryId": 1101,
+      "viewAccess": "private",
+      "description": "A Temporary Construction Access permit is required for temporary access across a public right-of-way to any construction site.",
+      "isEnabled": true
+    },
+    {
+      "id": "6664",
+      "name": "One Day Temporary Auctioneer Application",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Apply for a One-Day Auctioneer Permit if conducting an auction in Cambridge.  Applicants must first be licensed as Auctioneers through the Commonwealth of Massachusetts, see Consumer Affairs and Business Regulation. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6665",
+      "name": "One Day Hawker/Peddler License Application",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Apply for a One Day Hawker Peddler license here. One-day licenses can be issued for up to 30 consecutive days. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6723",
+      "name": "Tree Removal Permit",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "description": "In accordance with City Ordinance Section 8.66.055, a tree removal permit must be procured from the City Arborist to remove a significant tree on private property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6834",
+      "name": "Private Property Rodent Control",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to request Rodent Control Services from the City for properties with four or fewer units.",
+      "isEnabled": true
+    },
+    {
+      "id": "6666",
+      "name": "Roof Permit",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to replace a roof covering on a building in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6629",
+      "name": "Pawnbroker License",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Apply for a Pawnbroker License in the City of Cambridge. You need to apply for a license if you plan to conduct a retail Pawnbroker operation within the City of Cambridge..",
+      "isEnabled": true
+    },
+    {
+      "id": "6689",
+      "name": "Pole and Conduit",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "The City of Cambridge’s Pole and Conduit Commission is the entity responsible for providing grants to allow utilities, companies or persons to attach to poles, install conduit aerially or underground, and install equipment within the public way pursuant to Massachusetts General Law Chapter 166, the Special Acts of 1922, Chapter 213, and Cambridge Municipal Code Chapter 15.16. The Commission is comprised of three (3) members – the Chair of the License Commission, the Superintendent of Streets, and the City Electrician. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6617",
+      "name": "Sheet Metal",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when applying for a permit to perform sheet metal work in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6571",
+      "name": "Short-Term Rentals",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Short-term rental (STR) refers to the rental of any dwelling unit or bedroom as residential accommodation for a duration of less than 30 consecutive days. Short-term rentals are allowed within certain parameters, and there are rules and regulations you must follow to legally rent out your residence on a short-term basis. See section 4.60 of the Cambridge Zoning Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6745",
+      "name": "Small Cell Wireless Installation",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "This application should be completed only if seeking a grant to attach/upgrade a small cell wireless installation, inclusive of the conduit necessary to make it operational.  Please review the Pole and Conduit Commission’s Small Cell Policy and the Commission’s Siting Policy.",
+      "isEnabled": true
+    },
+    {
+      "id": "6635",
+      "name": "Second Hand Goods, Junk Dealers and/or Antiques",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Apply for a Second Hand Goods, Junk Dealers and/or Antiques License in the City of Cambridge. You need to apply for a license if you plan to solicit for, be a collector of, or a dealer in antiques, secondhand goods and/or junk within the City of Cambridge. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6667",
+      "name": "Siding Permit",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when applying to replace or repair siding on a building in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6628",
+      "name": "Sign/Awning Permit",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit to install or modify a sign in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6829",
+      "name": "Special Licenses Application (Charity Wine or Farmer's Market)",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "Use this link to apply for:\n1.) Charity Wine Fundraising License (approved by Board and ABCC); or\n2.) Farmer’s Market License (approved by Board only).   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6690",
+      "name": "Special Noise Variance",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "(Cambridge Municipal Code Chapter 8.16.090)   This application allows you to request a variance for those activities that are regulated by the Noise Control Ordinance which include limitations on measured and non-measured noise disturbances, hours of construction, and use of certain equipment.  Special Variances may be granted if the applicant shows “that bringing the source of sound or activity for which the special variance is sought into compliance with [Chapter 8.16] would constitute an unreasonable hardship on the applicant, on the community, or on other persons.”",
+      "isEnabled": true
+    },
+    {
+      "id": "6651",
+      "name": "Solar Panel Permit",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when applying for a permit to install a thermal or photovoltaic solar energy system in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "Sprinkler/Standpipe Permit",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when applying for a Sprinkler/Standpipe Permit in the City of Cambridge.",
+      "isEnabled": true
+    },
+    {
+      "id": "6572",
+      "name": "Used Car Dealer License",
+      "categoryId": 1096,
+      "viewAccess": null,
+      "description": "New Applicants Only: Apply for a Used Car Dealer License in the City of Cambridge. Do no click Select if you are trying to renew your license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6646",
+      "name": "Swimming Pool Permit",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when applying for a Swimming Pool, Wading, Hot Tub or Whirlpool Permit in the City of Cambridge. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6654",
+      "name": "Temporary Food Service",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application for a Temporary Food Service Permit to operate for no longer than 14 consecutive days in conjunction with a single event or celebration.",
+      "isEnabled": true
+    },
+    {
+      "id": "6649",
+      "name": "Tent Permit",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Anyone wishing to erect a tent covering an area greater than 120 square feet or with more than ten occupants must obtain a permit per the Massachusetts State Building Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6623",
+      "name": "Tobacco License Without Food Establishment License",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application for a license to sell tobacco products without a Food Establishment License. Do not use this application if you sell tobacco products along with prepacked food.",
+      "isEnabled": true
+    },
+    {
+      "id": "6616",
+      "name": "Recreational Camp License",
+      "categoryId": 1118,
+      "viewAccess": null,
+      "description": "Application to submit when applying for a Recreation Camp License in the City of Cambridge. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1135",
+      "name": "Cambridge Arts",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(49, 44, 40); font-family: aktiv-grotesk, sans-serif; font-size: 18.6667px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !import"
+    },
+    {
+      "id": "1132",
+      "name": "CDD Affordable Housing",
+      "isEnabled": 1,
+      "content": "<div style='margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: \"Segoe UI\", \"Segoe UI Web\", Arial, Verdana, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: "
+    },
+    {
+      "id": "1123",
+      "name": "Animal Care and Control",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-bottom:7.5pt;line-height:normal;background:  white;\"><span style=\"font-family: Arial, Helvetica, sans-serif;\">The apply online button is for <strong><span style=\"color: rgb(184, 49, 47);\"><u>NEW APPLICATIONS ONLY</u>.</span></strong></span></p><p style=\"margin-bottom:7.5pt;line-height:normal;background:  white;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">If you are an existing dog owner trying to <strong><span style=\"color: rgb(184, 49, 47);\">RENEW</span></strong> yo"
+    },
+    {
+      "id": "1127",
+      "name": "Assessing",
+      "isEnabled": 1,
+      "content": "<p>The Assessing Department manages commercial/industrial and residential property values and maintains an extensive database of property information. Some of this information is available <a href=\"https://www.cambridgema.gov/propertydatabase\">online in the Property Database.</a></p><p>In addition, the Assessing Department manages personal property (business) values and Motor Vehicle Excise Tax.</p>"
+    },
+    {
+      "id": "1129",
+      "name": "City Clerk's Office",
+      "isEnabled": 1,
+      "content": "<p>The City Clerk is the official record keeper for the City of Cambridge. Records kept by the Office of the City Clerk include vital statistics (including birth, marriage, domestic partnerships and death) and business and professional certificates.</p><p><br></p>"
+    },
+    {
+      "id": "1136",
+      "name": "Community Development Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1131",
+      "name": "Department of Human Service Programs",
+      "isEnabled": 1,
+      "content": "<hr><div style='box-sizing: border-box; font-family: \"Segoe UI\", system-ui, \"Apple Color Emoji\", \"Segoe UI Emoji\", sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px;'><span style=\"color: rgb(49, 44, 40); font-family: aktiv-grotesk, sans-serif; font-size: 18.6667px; font-style: n"
+    },
+    {
+      "id": "1141",
+      "name": "Emergency Communications",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial,Helvetica,sans-serif;\">The Emergency Communications Department serves as the communications and technological link between Fire, Police, Emergency Medical Services (EMS), and mental health support resources for those who live, work, study and visit the City of Cambridge. The department operates the City&rsquo;s Combined Emergency Communications and 911 Center (ECC) located at the Robert W. Healy Public Safety Facility. The Center receives over 50,000 911 and "
+    },
+    {
+      "id": "1125",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<p>The Bureau of Fire Prevention within the Cambridge Fire Department is responsible for providing fire and life safety protection to the public by ensuring fire code compliance and enforcement of the Fire Prevention Laws and Codes. Two major functions of the Bureau are the review of building plans for all life safety systems and the inspection and testing of any installation, alteration, modification, or repair to any fire alarm, sprinkler or suppression system.</p><p>Below you will find a list"
+    },
+    {
+      "id": "1119",
+      "name": "Frequently Asked Questions and Useful Documents",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 20px;\">Welcome to the&nbsp;</span><a href=\"http://www.cambridgema.gov\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"font-size: 20px;\">City of Cambridge</span></a><span style=\"font-size: 20px;\">&nbsp;Online Permitting and Licensing Help section.</span></p>"
+    },
+    {
+      "id": "1118",
+      "name": "Inspectional Services",
+      "isEnabled": 1,
+      "content": "<h2><span style=\"font-size: 24px; color: rgb(84, 172, 210);\">Inspectional Services</span></h2><p>The City of Cambridge Inspectional Services Department is updating its counter hours to serve you better and improve your overall experience. These changes aim to provide more efficient and convenient service.&nbsp;</p><p><strong>Effective Monday, February 5, 2024,&nbsp;</strong>please see the new Cambridge Inspectional Services New Counter Hours:</p><p><strong>Morning Sessions</strong>:<br>Monday - "
+    },
+    {
+      "id": "1096",
+      "name": "License Commission",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 24px; color: rgb(84, 172, 210);\">License Commission</span></p><p>The Board of License Commissioners is a three-member Board comprised of the Chairperson, Fire Chief, and Police Commissioner. &nbsp;It is responsible for issuing licenses and permits, and enforcing rules, regulations, local ordinances and state laws. &nbsp;Licenses and permits issued by the Board include: alcohol (annual and one-days), package stores, clubs, common victuallers, innholders, lodging houses "
+    },
+    {
+      "id": "1101",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 24px; color: rgb(84, 172, 210); font-family: Arial, Helvetica, sans-serif;\">Public Works</span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">The Cambridge Department of Public Works provides dependable, high quality and accessible service--maintaining, improving and expanding a safe, healthy, attractive and inviting physical environment. The department supports the infrastructure of a vibrant community through comprehensive planning, scheduled maintenan"
+    },
+    {
+      "id": "1122",
+      "name": "Traffic, Parking, and Transportation",
+      "isEnabled": 1,
+      "content": "<p>The Traffic, Parking, and Transportation Department (TP+T) oversees public parking and traffic operations, including pavement markings, crosswalks and bicycle lanes, operation of traffic signals, traffic study reviews, and permitting street obstructions and street closings. The department also oversees the Resident Permit Program. Additionally, TP+T works closely with other City departments in planning, reviewing, and developing proposals to improve the City&rsquo;s infrastructure and encoura"
+    },
+    {
+      "id": "1134",
+      "name": "Water Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(64, 64, 64); font-family: Arial, Helvetica, sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-col"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:59.285Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

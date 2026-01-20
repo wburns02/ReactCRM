@@ -1,0 +1,237 @@
+{
+  "jurisdiction": "Scituate",
+  "state": "RI",
+  "tenant": "scituateri",
+  "portalUrl": "https://scituateri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6367",
+      "name": "Fire - Commercial Fire Plan Review Application",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "This application should be completed for all commercial building and anything other than a 1, 2 or 3 family dwelling.",
+      "isEnabled": true
+    },
+    {
+      "id": "6384",
+      "name": "Fire - Life Safety Inspection",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6401",
+      "name": "Zoning Board of Review Application ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6403",
+      "name": "Planning Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "  Subdivision & Land DevelopmentApplications",
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Fire - Residential Plan Review Application",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "To be completed for all 1, 2 or 3 family residences.",
+      "isEnabled": true
+    },
+    {
+      "id": "6392",
+      "name": "Shed Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a permit to build a shed from the Town of Scituate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6391",
+      "name": "Deck Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a deck permit from the Town of Scituate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6390",
+      "name": "Finish Basement Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a permit to finish a basement from the Town of Scituate, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6395",
+      "name": "New Home Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a permit to build a new home from the Town of Scituate, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6378",
+      "name": "Fire - Food Vendor Registration",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "This application must be completed by all food vendors",
+      "isEnabled": true
+    },
+    {
+      "id": "6408",
+      "name": "New Commercial Building Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a permit to build a new commercial structure from the Town of Scituate, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6394",
+      "name": "General Building - Addition, Renovation, Remodel,  Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a permit for rehabilitation work, expanding an existing structures footprint and building alterations from the Town of Scituate, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6406",
+      "name": "Foundation Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a permit for rehabilitation work, expanding an existing structures footprint and building alterations from the Town of Scituate, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6389",
+      "name": "Siding Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a permit to install siding from the Town of Scituate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6388",
+      "name": "Barn/Garage Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a  permit to construct a garage or barn from the Town of Scituate, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6387",
+      "name": "Window/Door Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a permit to replace windows/doors from the Town of Scituate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6386",
+      "name": "Pool Installation Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a permit to install a pool (above or inground) from the Town of Scituate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6385",
+      "name": "Roofing Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a roofing permit from the Town of Scituate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit from the Town of Scituate, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit from the Town of Scituate, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the Town of Scituate, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for a demolition permit from the Town of Scituate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "Moving Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for a moving permit from the Town of Scituate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Sign Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for a sign permit from the Town of Scituate. All permit applications should include photos of any existing signage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6361",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for a solar permit from the Town of Scituate.",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "Tent Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for a temporary tent ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1072",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p>Submit one form to apply for permits.</p><p><br></p>"
+    },
+    {
+      "id": "1079",
+      "name": "Planning & Zoning",
+      "isEnabled": 1
+    },
+    {
+      "id": "1077",
+      "name": "Fire Department (Fire Marshal)",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:05.464Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

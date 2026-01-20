@@ -1,0 +1,162 @@
+{
+  "jurisdiction": "Hamilton County",
+  "state": "TN",
+  "tenant": "hamiltontn",
+  "portalUrl": "https://hamiltontn.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006499",
+      "name": "Final Recording and Roadway Acceptance Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This application is submitted to facilitate the incorporation of an existing private roadway and right-of-way (ROW) into the public roadway network, ensuring compliance with the current Hamilton County Highway Department Standards and Subdivision Regulations.\n\nFor newly constructed roadways that will remain private, an inspection will be conducted to confirm adherence to the Hamilton County Subdivision Regulations, including any approved variances. In such cases, the resolution phase of the process will be omitted.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006480",
+      "name": "Right of Way (R.O.W.) & Road Cut Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Application for Annual Right of Way (R.O.W.) Work Certification",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This annual certification will certify contractors to work with in the county ROW. This certification will be $500.00 and will need to be paid prior to any work permits being issued to work with in Hamilton County ROW.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Illicit Discharge/Illicit Connection Report Form",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "If you see water pollution, witness any material spilled or dumped into a waterway, or observe conditions in a storm drain or stream that indicate a polluting activity has occurred, please report immediately! If the situation is an imminent threat to life or health, please call 911.\n\n\nIllicit Discharge- Any discharge to an MS4 that is not entirely composed of stormwater. Illicit Connections- Illegal and/or unauthorized connections to the municipal separate stormwater system whether or not such connections result in discharges into that system.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Septic Permit Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006488",
+      "name": "Septic System Complaints",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Complaints on an existing Septic System",
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Major/Minor Subdivision Plat Review (RPA)",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Application to submit when applying to subdivide land for Minor (6-10 lots without infrastructure improvements) and Major (11+ lots or lots with infrastructure improvements) Plats in unincorporated Hamilton County.\n\nPLEASE NOTE: Staff level plats (5 or less lots with NO infrastructure improvements) are not submitted here. They are still submitted to Hamilton County GIS. \n\nPLEASE NOTE:  Plats that are on Septic will need to submit through \"Septic Permits\" for a lot review.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": "Subdivision Plat Variance (RPA)",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Application for a variance to a subdivision regulation.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006490",
+      "name": "Development Services - Certificate of Occupancy (CO) Inspection",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Verifying lots are stabilized for  CO..ADA is met, curbs are in good condition",
+      "isEnabled": true
+    },
+    {
+      "id": "1006501",
+      "name": "Septic Installers",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006486",
+      "name": "Short Term Vacation Rental (STVR)",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006487",
+      "name": "Short Term Vacation Rental - Complaints",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Short Term Vacation Rental Complaints.  Please allow 7-10 days for response.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006479",
+      "name": "Land Disturbing Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A Land Disturbing Permit is required for the construction of all residential single family homes, additions and out-buildings (garages, sheds, etc.), if the land is disturbed.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1082",
+      "name": "Development - Commercial/Subdivisions",
+      "isEnabled": 1,
+      "content": "<p>Welcome!!!! Please call 423-209-7810 with any questions.</p><p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Driveway_Tile_Specs_Fri_Jan_27_2023_19:52:56_GMT+0000_(Greenwich_Mean_Time).docx\" target=\"_blank\">Driveway Tile Specs.docx</a></p><p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Hamilton_County_Standard_Details-Issued_Tue_Oct_25_2022_17:19:59_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_blank\">Hamilton C"
+    },
+    {
+      "id": "1083",
+      "name": "Highway Department",
+      "isEnabled": 1,
+      "content": "<div><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Driveway_Tile_Specs_4_Mon_Apr_08_2024_12:38:12_GMT+0000_(Coordinated_Universal_Time).docx\" target=\"_blank\"></a><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Sidewalk_and_Curb_Ramp_regulations_1_Thu_Sep_12_2024_10:46:15_GMT+0000_(Coordinated_Universal_Time).docx\" target=\"_blank\">Sidewalk and Curb Ramp regulations 1.docx</a><a class=\"fr-file\" href=\"https://viewpointc"
+    },
+    {
+      "id": "1084",
+      "name": "Water Quality Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1085",
+      "name": "Groundwater/Septic Permits",
+      "isEnabled": 1
+    },
+    {
+      "id": "1086",
+      "name": "Short Term Vacation Rentals (STVR) and Complaints",
+      "isEnabled": 1,
+      "content": "<p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/STVR_Checklist_Wed_Jul_31_2024_17:21:57_GMT+0000_(Coordinated_Universal_Time).docx\" target=\"_blank\">STVR Checklist.docx</a></p>"
+    },
+    {
+      "id": "1088",
+      "name": "Septic/Groundwater Complaints",
+      "isEnabled": 1
+    },
+    {
+      "id": "1089",
+      "name": "Regional Planning Agency - (RPA)",
+      "isEnabled": 1
+    },
+    {
+      "id": "1091",
+      "name": "Development Services",
+      "isEnabled": 1
+    },
+    {
+      "id": "1092",
+      "name": "Septic Installer Application",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:10.752Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

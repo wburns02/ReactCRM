@@ -1,0 +1,118 @@
+{
+  "jurisdiction": "North Myrtle Beach",
+  "state": "SC",
+  "tenant": "northmyrtlebeachsc",
+  "portalUrl": "https://northmyrtlebeachsc.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6439",
+      "name": "Small Wireless Communications Facilities Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "This application is only to be used for small cell facilities located within the right of way. All facilities located on private property should use the Building Permit application under the Building Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6397",
+      "name": "Site Specific Development Plan Submittal",
+      "categoryId": 1081,
+      "viewAccess": "private",
+      "description": "A site-specific development plan is the first step towards the issuance of a building permit. All proposed new development, redevelopment, additions, changes of use that necessitates a change in parking area, or residential dwellings with six or more sleeping areas must go through this process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6407",
+      "name": "Application for Variance or Special Exception",
+      "categoryId": 1080,
+      "viewAccess": "private",
+      "description": "The Board of Zoning Appeals is the body in the City authorized to grant variances and decide special exceptions. A variance is a variance from the requirements of the zoning ordinance when strict application of the ordinance would result in unnecessary hardship. A special exception seeks permission to do something that the zoning ordinance permits only under certain  circumstances.",
+      "isEnabled": true
+    },
+    {
+      "id": "6421",
+      "name": "Courtesy Review Request",
+      "categoryId": 1081,
+      "viewAccess": "private",
+      "description": "If you are seeking departmental review and comment about a proposed, conceptual development within the City of North Myrtle Beach, we encourage you to utilize our courtesy review system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6403",
+      "name": "Permit Application (ALL PERMIT TYPES -- Building & Tree)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this link to apply for a building permit online!",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "Plat Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "A plat is a type of plan that is drawn to scale and shows the divisions of a piece of land. Generally, the City of North Myrtle Beach needs to approve and stamp these plans prior to them being recorded at the county office. If you are submitting a survey, as-built, unit exhibit, or plat, please use this form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Cost Estimate Approval, Plat Completeness Certification or Financial Guarantee Reduction",
+      "categoryId": 1081,
+      "viewAccess": "private",
+      "description": "Please use this application to certify a plat or plat's infrastructure as complete, apply for the release of any financial guarantee held by the city, or to to have a cost estimate approved prior to submittal as part of a final plat. Additionally, this application can be used to apply for a reduction in the financial guarantee amount (allowed twice during construction per §20-36).",
+      "isEnabled": true
+    },
+    {
+      "id": "6424",
+      "name": "Major Plat Formatting Review",
+      "categoryId": 1081,
+      "viewAccess": "private",
+      "description": "We offer a courtesy review for major plats (preliminary & final) to allow a surveyor to correct any formatting errors on a plat document prior to submitting the complete major plat application. These plats are reviewed by staff, but they will also be reviewed again though the Technical Review Committee when the complete major plat submittal is made.",
+      "isEnabled": true
+    },
+    {
+      "id": "6425",
+      "name": "Zoning Map and PDD Amendment",
+      "categoryId": 1081,
+      "viewAccess": "private",
+      "description": "A zoning map amendment is an official change to the City's Zoning Map that changes the zoning district of a property. This change may allow different land uses or densities. A Planned District Development (PDD) amendment is a change to an existing PDD. If you are submitting for a rezoning, pre-annexation, annexation, PDD zoning, or PDD amendment, please use this form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6400",
+      "name": "Addressing Verification",
+      "categoryId": 1081,
+      "viewAccess": "private",
+      "description": "An address verification letter confirms the E-911 address for a certain piece of property or business.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p>The <em><strong>Building</strong></em><em><strong>&nbsp;Division</strong></em> of the <em>Planning &amp; Development Department</em> issues all permits and inspects new construction for compliance with building codes and standard technical codes.<br><br><span style=\"font-size: 24px;\"><strong>Our new permitting system is active as of September 25, 2019.&nbsp;</strong></span></p><p><span style=\"font-size: 24px;\"><strong><strong><span style=\"color: rgb(184, 49, 47);\">***Use the Building &amp; Tr"
+    },
+    {
+      "id": "1081",
+      "name": "Planning",
+      "isEnabled": 1,
+      "content": "<p>To provide for the orderly development of the <strong>City of North Myrtle Beach</strong>, the <em>Planning Division</em> of the <em>Planning &amp; Development Department</em> administers the City&#39;s Land Development Regulations and Zoning Ordinance through the <strong>Site-Specific Development Plan</strong> process, <strong>Plat</strong> review and approval, and through <strong>Annexation&nbsp;</strong>and <strong>Z</strong><strong>oning</strong> requests, including <strong>Planned Develo"
+    },
+    {
+      "id": "1080",
+      "name": "Zoning",
+      "isEnabled": 1,
+      "content": "<p>The <em>Zoning Division</em> of the <em>Planning &amp; Development Department</em> approves building permits and inspects new construction for compliance with the city&#39;s zoning regulations. Here, you can apply for a <strong>Variance or Special Exception</strong> from the City&#39;s <em>Board of Zoning Appeals.</em></p>"
+    },
+    {
+      "id": "1072",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<p>The <em>Public Works Department</em> coordinates issuance permits for small wireless communications facilities.</p>"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:44.708Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

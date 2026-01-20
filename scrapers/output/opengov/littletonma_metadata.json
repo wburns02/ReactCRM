@@ -1,0 +1,501 @@
+{
+  "jurisdiction": "Littleton",
+  "state": "MA",
+  "tenant": "littletonma",
+  "portalUrl": "https://littletonma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006374",
+      "name": "Funeral Director",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006377",
+      "name": "Hotels & Motels",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006380",
+      "name": "Stable",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006385",
+      "name": "Body Art Practitioner",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006409",
+      "name": " Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006439",
+      "name": "Title 5 Inspection Report",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006483",
+      "name": "Public Health Complaint and Request Form",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006484",
+      "name": "Temporary Food Establishment/Mobile Food Event Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006485",
+      "name": "Mobile Food/ Ice Cream Truck Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006487",
+      "name": "Certificate of Fitness",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006489",
+      "name": "Hauler Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Bathing Beach",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": "Body Art Establishment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006506",
+      "name": "Emergency Beaver or Muskrat Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006507",
+      "name": "Caterer Notification Form",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006511",
+      "name": "Property Records",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006513",
+      "name": "Food Establishment Plan Review Application- New Construction or Remodel",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006516",
+      "name": "Pumping Report",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006519",
+      "name": "Well Construction/Deconstruction",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006521",
+      "name": "Public/Semi Public Swimming Pool",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006458",
+      "name": "Conservation Determination",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006459",
+      "name": "Conservation Notice of Intent",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006460",
+      "name": "Conservation Abbreviated Notice of Resource Area Delineation",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006461",
+      "name": "Conservation Enforcement/Violation",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006462",
+      "name": "Conservation Minor Project Approval",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006463",
+      "name": "Conservation Site Walks",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006464",
+      "name": "Conservation Stormwater Prevention",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006465",
+      "name": "Conservation NHESP",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006466",
+      "name": "Conservation Property Records/Documents/Drawings",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006474",
+      "name": "Portable Toilets Temporary Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006540",
+      "name": "Farmers Market",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006542",
+      "name": "Sewage Disposal Works Construction Permit - New/Repair",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006543",
+      "name": "Sewage Disposal Installers Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006545",
+      "name": "Soil Evaluation",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006547",
+      "name": "Sewage Disposal Works Plan Review Submission",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006551",
+      "name": "Manufacturer of carbonated non-alcoholic beverages or bottled water",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006537",
+      "name": "Smoke/CO Detector Inspection",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Smoke and CO Detector Compliance Certificate for A Sale of a dwelling\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006425",
+      "name": "Building Permit - Residential Contractor-RP ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Use this application for all residential project types.  \n\nPool / Additions / Roofing / Siding / Kitchen / Bath / Temp Portable Toilet / Tents / Trenches / Accessory Structures/Sheds",
+      "isEnabled": true
+    },
+    {
+      "id": "1006359",
+      "name": ".BURN PERMIT.",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A BURN PERMIT authorizes residences to burn in the town of Littleton between January 15 - May 1.  \na Daily Burn Authorization Permit is required each day you plan to burn. see permit below.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006437",
+      "name": "Building Permit - Commercial-CP",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Use this application for all commercial projects.  \n\nPool / Additions / Roofing / Siding / Kitchen / Bath / Temp Portable Toilet / Tents / Trenches",
+      "isEnabled": true
+    },
+    {
+      "id": "1006362",
+      "name": "Tank Removal",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006367",
+      "name": "Welding/Cutting Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006442",
+      "name": "Annual Building Inspection",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006372",
+      "name": "Fuel Transfer / Auxiliary Tank Truck Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Fuel Transfer / Auxiliary Tank Truck Permit Checklist\n(527 CMR 1.00 – Flammable & Combustible Liquids; M.G.L. Ch. 148)\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006426",
+      "name": "Electrical Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006448",
+      "name": "Tobacco Sales Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006429",
+      "name": "Gas Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006529",
+      "name": "Fire Detail Request ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Detail Request and Special Effects Permits, Fire watch, EMS.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Dog License (1-3 dogs) ",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Dog License (1-3 dogs).  If you have more than 3 dogs, please use the Kennel Application.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006428",
+      "name": "Mechanical Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006541",
+      "name": "Quarterly Fire Inspection Innholder Licenses",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006549",
+      "name": "Propane Tank",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006478",
+      "name": "Dog License Kennel (4-10 Dogs)",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "Application for Kennel 4-10 Dog License",
+      "isEnabled": true
+    },
+    {
+      "id": "1006427",
+      "name": "Plumbing Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006527",
+      "name": "Oil Burners & Tanks Permit ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006528",
+      "name": "Fire Suppression System Permit ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006531",
+      "name": "FA-2 Installation or Renovation of Existing Fire Alarms ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This form is used for plan review for the installation or renovation of existing fire alarm systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006451",
+      "name": "Dumpster Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Pursuant to MGL Chapter 148, Section 10A a permit is required for any dumpster 6 yards of larger, ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006536",
+      "name": "Blasting Permit ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006475",
+      "name": "Food Establishment Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006546",
+      "name": "Quarry Blasting Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006534",
+      "name": "Flammables & Combustibles Permit ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006538",
+      "name": ".Daily Authorization to Burn. ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A Daily Authorization to Burn IS REQUIRED each day you wish to burn. Prior to starting your burn or 12pm at the latest. Burns after 12pm will not be authorized. All burns must be extinguished and cold to the touch by 4pm.  There is no fee for this permit. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1084",
+      "name": "Town Clerk",
+      "isEnabled": 1
+    },
+    {
+      "id": "1086",
+      "name": "Conservation",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p><strong>How to Begin?</strong></p><p>Begin by selecting the category of permit you are applying for from the list below. &nbsp; &nbsp;Before starting the application each category lists standard documentation required and informational checklists. &nbsp;Once you have completed the form, you will be prompted to upload any supporting documentation required for that category. &nbsp;Upon review of the application additional documentation may be required.</p><p><strong>Supporting Documents</strong"
+    },
+    {
+      "id": "1073",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1076",
+      "name": "Fire Dept",
+      "isEnabled": 1,
+      "content": "<div>Select a permit below.</div>"
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links and Guides & Other Information",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T22:57:07.283Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

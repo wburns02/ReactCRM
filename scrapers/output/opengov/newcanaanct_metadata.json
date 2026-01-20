@@ -1,0 +1,445 @@
+{
+  "jurisdiction": "New Canaan",
+  "state": "CT",
+  "tenant": "newcanaanct",
+  "portalUrl": "https://newcanaanct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6500",
+      "name": "Sidewalk Café Permit Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Yearly Sidewalk Café Permit Application  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Storm Connection Permit Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "No direct connection for surface runoff permitted. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Sewer Connection Permit Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Upon PW/Engineering review and approval, application fee of $300/residential unit will be required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Street Opening Permit Application (Right of Way)",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Filling, Excavation and/or Grading Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is required for any soil disturbance or filling",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Driveway Permit Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Inland Wetlands Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Application for Food Service Plan Review",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "For NEW applications of New Canaan food service establishments or for renovations of existing food service establishments. No food service establishment can remodel without health department approval and then building permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Building Permit Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": " Building Permit Project Application is for when you intend to construct, enlarge, or alter a residential property including but not limited to finishing a basement, attic, adding a bathroom, converting a room to a bedroom, installing a pool, adding or converting a garage. adding an accessory building, or enlarging a deck.",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Floodplain Management Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Floodplain Management Application-required for activities within a FEMA floodplain",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Application for Septic Plan Review ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for septic plan review. Plan must be prepared by a CT licensed septic installer or a CT licensed professional engineer. Submit a copy of the installer or engineers license in addition to the approved proposed plan. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Building Application Revision Form",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Application for revision to existing Open Building Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6423",
+      "name": "Sign and/or Awning Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This permit is required for any signs or awning installed as stand alone or mounted to buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Electrical Permit ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Use this permit for: Temporary Service, Generator, Electric Service new or upgrade, and all other electrical permit applications.   \n\nUse this permit when tagging on building project",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Application for Soil Testing ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for septic soil testing with the New Canaan Health Department. Fee is per lot tested. Minimum of 4 deep test holes greater than 5ft deep is required (2 in proposed area and 2 holes down gradient). This is NOT for Wetlands soil testing. Please contact Inland Wetlands for Wetlands soil testing. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Tag Sale Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6586",
+      "name": "Wetland Permit Modification Request",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Commercial Pool permit for condo & club public pools",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Annual commercial pool application for public pools. This annual permit with the health department pertains to only commercial pools such as private clubs, town owned pools, and condo pools. This annual pool permit application is NOT for residential pools. To apply for a residential pool permit please contact the Building department. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Fire Protection Permit ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Fire Protection permit for any of the following:  Hood system, Fire Alarm and Smoke Detection System, or Automatic Sprinkler or Fire Extinguishing System ",
+      "isEnabled": true
+    },
+    {
+      "id": "6376",
+      "name": "Zoning Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for a stand alone zoning permit. THIS IS NOT REQUIRED IN ADDITION TO A BUILDING PERMIT APPLICATION\n\nYOUR PERMIT CAN BE FOUND IN THE ATTACHMENT SECTION AFTER APPROVAL",
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Cosmetology Salon License for Hair, Nail and Esthetician services",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application process for hair, nail, barber, waxing, eyebrows and associated esthetician services as defined in CT General Statutes and New Canaan town ordinance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6505",
+      "name": "Appeal Form",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Appeal to be heard before the Zoning Board of Appeals",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Fuel Tank/Lines Permit   (Oil or Propane)",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Use this permit for all tank and piping installations.\nTank LOCATION must be approved BEFORE this permit is issued.\n\nPlease use Generator and Tank Location permit for approval.\n\nUse this permit when tagging on Building Permit  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6581",
+      "name": "COSMETOLOGY/SALON NEW PLAN REVIEW APPLICATION",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Proposed floor plan Health Department application submission for a new cosmetology/salon or to renovate an existing salon. Please complete the application and provide floor plans, licenses, & equipment specification sheets in the attachments. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Generator and/or Fuel Tank LOCATION Form",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": " Use this permit for the location of GENERATOR AND/OR TANK LOCATION only.\n\nOnce the location has been approved you will be notified.  You then can proceed with the other necessary permits.\n\n\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Variance Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Variance Application to be heard before the Zoning Board of Appeals",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "Sewer Disconnection Permit Application",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Permit application form to request sewer lateral disconnection. Note that minimum 24-hrs notification needed for Sewer Department scheduling.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6343",
+      "name": "Food Service Establishment License Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "For annual licensure of New Canaan food service establishments",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "General Building Permit ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This Permit will be used for small projects consisting of bathrooms, kitchens and other interior non structural projects that do not require extensive review. No change in room designation or room count Structural changes are limited to one beam with accompanying posts and Engineered stamped drawings. Exterior work is limited to siding, direct window replacement and deck replacement of EXACT SIZE AND STAIR LOCATION.\n\n GENERATORS, FUEL TANKS AND SOLAR ARE TO BE ON THEIR OWN INDIVIDUAL PERMIT APPLICATIONS!\n\nNo Basements and Attics. Please use Building Permit Project",
+      "isEnabled": true
+    },
+    {
+      "id": "6576",
+      "name": "Petition for Change in Zoning Boundary",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "HVAC Permit ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Use this permit application for all HVAC work.\n\nUse this permit when tagging on building project",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Sign Site Plan Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Any proposed sign(s) not meeting the specifications of New Canaan's Planning and Zoning Regulations may be approved by the Commission by Site Plan Approval.",
+      "isEnabled": true
+    },
+    {
+      "id": "6385",
+      "name": "Site Plan Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Site Plan Application to be heard before the Planning and Zoning Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Temporary Food Service Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "All vendors serving food and beverages to the public on a temporary basis are required to have a food service approval.  The fee for a food service booth at a Temporary Event (including at a Farmer’s Market) is $75.  There is no fee for food service establishments already licensed and inspected by the New Canaan Health Department. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "Low Voltage Electrical Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Use this permit for all low voltage wiring including alarm systems and audio visual \n\nUse this permit when tagging on building project",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Itinerant Food Service Establishment License Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application is for Itinerant Food Establishment Vendors.  This application is only meant for mobile food establishments that can be moved.  This application only allows you to operate on private property with the owner's permission or on public property with written permission from the Town of New Canaan.  This permit does not allow you to vend on public streets.",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Plumbing Permit ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "For any and all Plumbing work.\n\nUse this permit when tagging on building project",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Special Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Special Permit Application to be heard before the Planning and Zoning Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "TRUCK LICENSE (SEPTIC & REFUSE)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "All septic pump trucks and refuse hauler trucks that operate in the town of New Canaan MUST obtain a yearly truck license from the New Canaan Health Department. The fee is $100 PER TRUCK",
+      "isEnabled": true
+    },
+    {
+      "id": "6399",
+      "name": "Roof Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Used when re-roofing or roof repair",
+      "isEnabled": true
+    },
+    {
+      "id": "6577",
+      "name": "Subdivision Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Subdivision or Resubdivision Application submitted to the Planning & Zoning Commission",
+      "isEnabled": true
+    },
+    {
+      "id": "6575",
+      "name": "Text Amendment Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Text Amendment Application to be heard before the Planning and Zoning Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6388",
+      "name": "Solar Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Solar installation. Used whether Commercial or Residential ",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Septic System Permit Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for permit to construct a new septic system or repair an existing septic system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Tent Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6583",
+      "name": "Septic Tank and/or Septic System Abandonment Permit Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for permit to construct abandon a septic tank or septic system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6537",
+      "name": "Dumpster Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "For on public street parking ONLY. \n\nNot needed if located on private property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6377",
+      "name": "Water Treatment Wastewater Disposal System",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit to install a Water Treatment Wastewater Disposal System (water from a water softener, etc). Proposed plan must be submitted with the permit application which includes soil test data and calculations of the amount of GPD of discharge from the water treatment device.",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Well Abandonment Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for well abandonment permit. Fee is $100 per well to be abandoned. State Verification of abandonment is required in order to close the open permit. Please submit the state form to the New Canaan Health Department upon completion of abandonment so we can close the open permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Well Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for permit to locate and drill a new well. Please note it is $150 fee PER WELL-this includes Geothermal wells. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6579",
+      "name": "Demolition Permit Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "This application is designated for residential and commercial demolition projects.\nInterior Demo is also included in this permit.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1078",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><strong>WATER POLLUTION CONTROL&nbsp;</strong></p><p style=\"text-align: center;\"><strong>AUTHORITY WPCA APPROVES NEW SEWER IMPACT FEE&nbsp;</strong></p><div><br></div><p style=\"text-align: center;\">TOWN OF NEW CANAAN</p><p style=\"text-align: center;\">WATER POLLUTION CONTROL AUTHORITY&nbsp;</p><p style=\"text-align: center;\">NOTICE OF PASSAGE&nbsp;</p><p style=\"text-align: center;\">NEW SEWER IMPACT FEE&nbsp;</p><div><br></div><p style=\"text-align: left; margin-left: "
+    },
+    {
+      "id": "1073",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": "<p><br></p><p style=\"text-align: center;\"><span style=\"color: rgb(184, 49, 47);\"><span style=\"font-size: 18px;\"><strong><u><img class=\"fr-fic fr-dib\" style=\"width: 300px;\" src=\"https://viewpointcloud.blob.core.windows.net:443/profile-pictures/food_prep_Tue_May_16_2017_13:40:29_GMT+0000_(Coordinated_Universal_Time).jpg\">WHICH APPLICATION SHOULD I USE ?<img class=\"fr-fic fr-dib\" style=\"width: 300px;\" src=\"https://viewpointcloud.blob.core.windows.net:443/profile-pictures/Picture_002_Tue_May_16_2017"
+    },
+    {
+      "id": "1080",
+      "name": "Planning and Zoning",
+      "isEnabled": 1,
+      "content": "<p>For any questions, please contact the Planning &amp; Zoning Department at 203-594-3042. Click below for important links.</p><p><span style=\"color: rgb(44, 130, 201);\"><a href=\"https://www.newcanaan.info/departments/land_use/planning___zoning/zoning_regulations.php\" rel=\"noopener noreferrer\" target=\"_blank\">Zoning Regulations</a></span></p><p><span style=\"color: rgb(44, 130, 201);\"><a href=\"https://cms3.revize.com/revize/canaan/Departments/Land%20Use/Subdivision%20Regulations.pdf\" rel=\"noopene"
+    },
+    {
+      "id": "1079",
+      "name": "Inland Wetlands ",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: left;\"><strong>Prior to filing online for a wetland application, contact Wetland Agent at 203-594-3036 to schedule pre-application meeting to obtain wetland application checklist.&nbsp;</strong></p><p>For preliminary review by staff, email available maps, site plans, and other descriptive property information of the proposal. Staff will review and provide a Checklist determining application type and requirements for the specific project and send to applicant.</p>"
+    },
+    {
+      "id": "1072",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<p>DPW Engineering is responsible for the sewer connections, sewer disconnections, street opening permits (ROW), driveway permits and storm water system permits. If you are changing the design or adding impervious material to your driveway please complete a driveway permit application. If you are simply resurfacing an existing paved driveway with no increase in impervious area then a driveway permit is NOT required. If you are building a new single-family home or commercial apartments a driveway"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:55:34.065Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

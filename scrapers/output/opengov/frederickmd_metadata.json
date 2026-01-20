@@ -1,0 +1,412 @@
+{
+  "jurisdiction": "Frederick",
+  "state": "MD",
+  "tenant": "frederickmd",
+  "portalUrl": "https://frederickmd.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6561",
+      "name": "Water and/or Sanitary Sewer Service Connection Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Water and Sewer connections that are not associated with a Building permit.  \n New Water Meter required not associated with a Building permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6571",
+      "name": "Life Safety Inspection",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "The Life Safety Code and Inspection addresses the construction, protection, and occupancy features necessary to minimize the danger to life from the effects of fire, including smoke, heat and toxic gases created during fire.",
+      "isEnabled": true
+    },
+    {
+      "id": "6599",
+      "name": "Residential Model Request for Production Number ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Building Permit Application - New Residential Dwelling ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for single family homes, townhouses, duplexes, condominium units, and apartment units.",
+      "isEnabled": true
+    },
+    {
+      "id": "6573",
+      "name": "Historic Preservation Commission Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Exterior rehabilitation work, additions, new constructions, and site modifications require HPC approval\nand a building/zoning permit before starting work. The first step in this process is to submit an HPC\napplication to the Planning Department. Once HPC approval has been granted an applicant can obtain a building/zoning permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6559",
+      "name": "Code Violations",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "To report a  code complaint such as tall grass, trash, snow on sidewalks, etc. click select.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6572",
+      "name": "Accessory Dwelling Unit Permit Application  ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for Accessory Dwelling Units.  See Section 802 of the City Charter and Code for the ADU Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6564",
+      "name": "Pre-application/Sketch plan",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The pre-application/sketch plan review process outlined in Section 301 of the Land Management Code is required for certain types of development applications.  Please consult Section 301 prior to applying.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Dry Utility Work in City Row",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "This application requires an existing franchise agreement with the City of Frederick.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Building Permit Application- Residential Alteration ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for residential projects including, but not limited to: Garages, Pools, Hot Tubs, Additions, Interior and Exterior Renovations, Misc Renov like Re-roofing (when sheathing and/or framing is involved) and Solar Panels.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Commercial New Building Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is intended for the construction of New Commercial Buildings.    ",
+      "isEnabled": true
+    },
+    {
+      "id": "6598",
+      "name": "Dry Utility Work in City ROW Permit Revision / Extension Request",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": " Extend expired Dry Utility Permit 60 days",
+      "isEnabled": true
+    },
+    {
+      "id": "6583",
+      "name": "Easement/Agreement/Document Submittal Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Commercial Alteration Building Permit Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This application is intended for the following projects on commercial properties, but not limited to: Additions, Remodels, Renovations. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6575",
+      "name": "Historic Preservation Commission Follow-Up Request (after Initial certificate issued)",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "This form is only to be used to request a Minor Modification, Extension, or Reconsideration. If you have any questions, please reach out to your case planner prior to making the request. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6588",
+      "name": "Historic Preservation Property Tax Credit Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Tax Credits applications are due April 1st of each year. Submissions are encouraged before the due date; however, staff does not begin reviewing applications till January 1st. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6574",
+      "name": "Archeology Assessment Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "The Archeological Assessment process is required when subdividing property (except resubdivision of a residential lot into two) or when conducting ground disturbance on parcels containing known archeological sites, within a recognized historic district, or when the disturbance is 5,000 square feet or greater. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Commercial Accessory Building Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "For the installation of Solar Panels on an existing structure, Retaining Walls, Temp Trailers, Modifications to Existing Antennas/Telecommunication, Re-roofing (when sheathing and/or framing is involved), Gazebos, Pergolas, Pavilions etc. on commercial properties.",
+      "isEnabled": true
+    },
+    {
+      "id": "6563",
+      "name": "Archeology Assessment Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The Archeological Assessment process is required when subdividing property (except resubdivision of a residential lot into two) or when conducting ground disturbance on parcels containing known archeological sites, within a recognized historic district, or when the disturbance is 5,000 square feet or greater. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Deck/Shed/Fence Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "For Commercial construction of and repairs to Sheds and Fences, and Residential construction of and repairs to Decks/Porches, Sheds (Gazebos & Pergolas), and Fences.",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Sign Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for the Installation or Replacement of Permanent or Temporary Signage.  Please note:  A separate Electrical permit must be submitted by the Electrical subcontractor for all Illuminated Signs.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Zoning Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application to Establish a Place of Business, Change of Business's Name, and Change of Ownership (if required by an outside agency).  No work is allowed under a Zoning permit.  If renovations are going to take place, a Commercial Alteration permit will be required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Temporary Street / Lane / Sidewalk Closure Permit",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6551",
+      "name": "HPC Zoning Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This record type is intended for properties within the Historic Overlay District that are applying for a Zoning Permit in regards to an HPC approval that doesn't require a Building permit.  Zoning permit examples include but are not limited to the following: window replacement, installation of new roofing material, mortar repair, etc.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Temporary Street / Lane / Sidewalk Closure Permit Extension Request",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": " If your lane closure has been expired for more than 10 business days from the ending date, it is essential to submit a \"NEW\" lane closure",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Electrical Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "For Commercial and Residential Electrical permits",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Plumbing/Gas Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application made for Commercial or Residential Plumbing and/or Gas permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Block Party Application",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Residential Rental Licensing",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "A separate registration is required for each rental building.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6600",
+      "name": "Request Changes to an Existing License - Removal, Transfer or Update Information",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Utility/Irrigation Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for the installation of Irrigation systems, and Water, Sewer, or Storm mains on private property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Fire Protection Systems Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for but not limited to: Sprinkler Systems, Fire Alarms, Kitchen Hoods, and Smoke Control Devices.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Demolition Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for the removal of Underground Tanks, Interior Demo or Full or Partial Building Demolition.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6595",
+      "name": "Handicap Parking Space Request",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6579",
+      "name": "Zoning Board of Appeals Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This application will allow you to file the following requests to the Zoning Board of Appeals: Variance, Conditional Use, Changes to Nonconforming Uses, Temporary Uses, and to establish a Home Occupation/Home Based Business.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Invoice ",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Vacant Property Registration",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "A separate registration application is required for each location. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "Paving Permit Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for Residential paving only. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Vendor/Peddler License Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application to obtain a license to be a Vendor, Peddler, or Promoter/Sponsor of an event containing multiple vendors.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6557",
+      "name": "Appeals to Zoning Board of Appeals",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "The Zoning Board of Appeals may consider appeals of certain administrative decisions. * It is recommended that you discuss your application with staff from the Planning Department prior to filling. *                                                           \n\n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Sidewalk Cafe Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Application for New and Renewals of Sidewalk Cafe's.   When a business wants to operate a Sidewalk Café with a surrounding enclosure within the City limits. Permit shall be issued on an annual basis expiring on 4/30.",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Backyard Chicken License Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Large/Non-Large Event On Private Property Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Large and Non-Large Event Applications are for Events held on Private Property, outside in a parking lot, field, lawn, driveway, or like area which is not contained within a permanent improvement having a roof supported by enclosing walls, lattices, or other upright structural configuration.",
+      "isEnabled": true
+    },
+    {
+      "id": "6556",
+      "name": "Zoning Determination & Registration of Nonconforming Use",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Use this application to request a written determination from the Zoning Administrator regarding a property's zoning, use, and development approvals or for a formal interpretation on the applicability of a provision of the Land Management Code (LMC).   This application may also be used to register a property with a Nonconforming Use. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1093",
+      "name": "Arts and Culture",
+      "isEnabled": 1,
+      "content": "<div contenteditable=\"false\" spellcheck=\"false\" style=\"overflow: hidden; visibility: visible; direction: ltr;\" tabindex=\"0\"><div style=\"direction: ltr;\"><p style=\"font-weight: normal; font-style: normal; vertical-align: baseline; background-color: transparent; color: windowtext; text-align: left; margin: 0px; padding-left: 0px; padding-right: 0px; text-indent: 0px;\"><span data-contrast=\"none\" lang=\"EN-US\" style='color: rgb(0, 0, 0); background-color: transparent; font-size: 11pt; font-style: nor"
+    },
+    {
+      "id": "1080",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Times New Roman,Times,serif,-webkit-standard;\"><span style=\"font-size: 24px; color: rgb(41, 105, 176);\">About</span></span></p><p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\">The City of Frederick is pleased to offer online permitting. &nbsp;If you have any issues applying for a permit online please contact 301-600-3808. &nbsp;Please contact us if you are unable to find the location you are applying for.</span></p><div><br></div><div><spa"
+    },
+    {
+      "id": "1076",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<div><span style='font-family: \"Times New Roman\", Times, serif, -webkit-standard;'><span style=\"font-size: 24px; color: rgb(41, 105, 176);\">Submitting Code Complaints</span></span></div><div><br></div><div>To <strong>report a complaint</strong>, click &quot;Select&quot;.</div><div><br></div><div><br></div><div>To <strong>view an existing record</strong>, click <a href=\"https://frederickmd.portal.opengov.com/search\" rel=\"noopener noreferrer\" target=\"_blank\">here</a> and use &quot;Locations&quot; "
+    },
+    {
+      "id": "1081",
+      "name": "Development Review - Planning Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px; color: rgb(0, 0, 0);\">The Development Review division of Planning is responsible for reviewing development applications as listed below for compliance with applicable provisions of the City Code. &nbsp;In addition, the Development Review division coordinates reviews of these plans with other internal and external departments. &nbsp; Some of the below applications require approval by the City&#39;s Planning Commission whi"
+    },
+    {
+      "id": "1082",
+      "name": "Engineering Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1091",
+      "name": "Historic Preservation - Planning Department",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><span style=\"font-family: Arial, Helvetica"
+    },
+    {
+      "id": "1087",
+      "name": "Residential Rental Licensing",
+      "isEnabled": 1,
+      "content": "<div><span style='font-family: \"Times New Roman\", Times, serif, -webkit-standard;'><span style=\"font-size: 24px; color: rgb(41, 105, 176);\">Questions about the Residential Rental Licensing Program</span></span></div><h3><strong style=\"font-weight: 700;\"><span style='font-family: \"Times New Roman\", Times, serif, -webkit-standard;'><span style=\"color: rgb(0, 0, 0); font-size: 18px;\">When do I need to register</span><strong style=\"font-weight: 700;\"><span style=\"color: rgb(0, 0, 0); font-size: 18px"
+    },
+    {
+      "id": "1090",
+      "name": "Vacant Property Registration",
+      "isEnabled": 1,
+      "content": "<p>Beginning on December 1, 2021, in accordance with the passing of the Vacant Property Registration Ordinance (<a aria-label=\"City Code section 12.5-54 Opens in new window\" href=\"https://library.municode.com/md/frederick/codes/code_of_ordinances?nodeId=PTIITHCO_CH12.5REPRMASA_ARTIVVAPR\" rel=\"noopener\" target=\"_blank\">City Code section 12.5-54</a>), the owner of any property vacant for at least one year must register that property with The City of Frederick. <span style=\"font-size: 14.4px;\"><br>"
+    },
+    {
+      "id": "1083",
+      "name": "Zoning - Planning Department",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px; color: rgb(0, 0, 0);\">A property&#39;s zoning determines what types of land uses are allowed as well as the density and intensity of the development that is allowed. &nbsp;The City provides several services related to the zoning of property, including written determinations about a specific property or land use activity. &nbsp;In addition, the City&#39;s Zoning Board of Appeals (ZBA), which is made up of members appointe"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:55:43.379Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,189 @@
+{
+  "jurisdiction": "Springfield",
+  "state": "MA",
+  "tenant": "springfieldma",
+  "portalUrl": "https://springfieldma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006593",
+      "name": "MRVP - Massachusetts Rental Voucher Program",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006525",
+      "name": "Application to the Zoning Board of Appeals",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006531",
+      "name": "Building Permit Application - One & Two Family",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006532",
+      "name": "Building Permit Application - Other than a One & Two Family",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006534",
+      "name": "Demolition Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006543",
+      "name": "Pay Online for a Violation - Housing Enforcement",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006537",
+      "name": "Building Temporary Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "For office trailers, tents, and temporary mobile homes",
+      "isEnabled": true
+    },
+    {
+      "id": "1006539",
+      "name": "Building Fires Sprinkler",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006598",
+      "name": "Pay Online for a Violation - Snow Violations",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006530",
+      "name": "Sheet Metal/Mechanical  Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit is required when a sheet metal worker is manufacturing, fabricating, assembling, handling, erecting, installing, dismantling, alteration and/or repairing duct work, commercial fans, kitchen hoods and vents, architectural sheet metal and metal roofing.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006588",
+      "name": "Pay Online for a Violation - Zoning Enforcement",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006526",
+      "name": "Plumbing Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit is required for all new, renovations, or repairs to plumbing work/fixtures. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006591",
+      "name": "Pay Online for a Violation - Electrical Enforcement",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006590",
+      "name": "Pay Online for a Violation - Police Ordinance",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006527",
+      "name": "Gas Fitting Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit is required for all new, renovations, or repairs to gas work/fixtures. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006529",
+      "name": "Electrical Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006589",
+      "name": "Pay Online for a Violation - Plumbing and Gas Enforcement",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006587",
+      "name": "Pay Online for a Violation - Building Enforcement",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006538",
+      "name": "Electrical Power Change",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006535",
+      "name": "Certificate of Inspection",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Periodic Annual Inspections",
+      "isEnabled": true
+    },
+    {
+      "id": "1006524",
+      "name": "Short Term Rental Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006528",
+      "name": "Sign Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Application for a Permit to Place or Maintain a Sign or other Advertising Device, or Marquee, that does not extend into or over a public way more than twelve (12) inches.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Building & Inspections",
+      "isEnabled": 1
+    },
+    {
+      "id": "1084",
+      "name": "Code Enforcement",
+      "isEnabled": 1
+    },
+    {
+      "id": "1090",
+      "name": "Zoning Department",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:55:49.040Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

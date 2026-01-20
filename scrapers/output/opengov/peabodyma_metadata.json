@@ -1,0 +1,148 @@
+{
+  "jurisdiction": "Peabody",
+  "state": "MA",
+  "tenant": "peabodyma",
+  "portalUrl": "https://peabodyma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6483",
+      "name": "ZBA Variance Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "Variance Application/Administrative Appeal",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "304 Liquor License Certificate of Inspection - ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Building Permit Application: Commerical",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Commercial applications include residential cluster development over two homes, three-family homes or above, townhouses, and condos. \n\nAll work associated with commercial use, including roofing, windows, siding, and pools must use this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Building Permit Application: One or Two Family ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This application is used for, New Construction, Additions, Alterations, Repairs, and Demolition of One or Two-family homes only. \n\nCommercial applications are used for residential cluster development over two homes, three-family homes or above, townhouses, and condos.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Building Permit Application: Residential Roofing - Windows - Siding",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Building Permit Application: One or Two Family: Pool",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Building Permit Application: Sign",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Electrical Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Gas Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Plumbing Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Mechanical / Sheet Metal Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "110 Certificate of Inspection",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Building Department: Business Certificate Qualification Form",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This request is for businesses / companies leasing or renting commercial space.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Home Occupation Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Home occupation: An owner occupied business use conducted within a dwelling that is incidental and secondary to the primary residential use, carried on by the inhabitants of the dwelling, and does not alter the residential character of the property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "FALA Annual Certificate",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Family accessory living areas are required to be inspected yearly. Failure to comply with zoning requirements could result in the removal of the unit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Kiosk Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1092",
+      "name": "Electrical",
+      "isEnabled": 1
+    },
+    {
+      "id": "1083",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1091",
+      "name": "Zoning Board of Appeals",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:57.556Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

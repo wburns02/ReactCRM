@@ -1,0 +1,288 @@
+{
+  "jurisdiction": "Rochester",
+  "state": "NH",
+  "tenant": "rochesternh",
+  "portalUrl": "https://rochesternh.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6497",
+      "name": "Water/Sewer Connection Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Bulk Water Hauling Station Access Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Permit application for private water hauling companies, utility companies and construction contractors.",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Stormwater Inspection and Maintenance Reporting",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Annual maintenance report for stormwater infrastructure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Backflow Prevention Device Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Testable backflow prevention devices are required to protect the City's Public Water System for potentially harmful reverse flows from various private development projects. These devices are required for ALL commercial, industrial, multi-use and multi-family greater than 4-units type developments.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Food Establishment License",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Hawkers and Peddlers License ",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "Any hawker, peddler, itinerant vendor, trader, farmer, merchant, or other person who sells, offers to sell, or takes orders for merchandise from temporary or transient sales locations within the City or who goes from town to town or place to place within the City for such purposes requires a Hawkers and Peddlers License. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Express Building Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "For Fences, Roofing (Re-Shingle only), Sheds (200 sq ft or less), Siding and Windows ONLY",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Sewer System Development Fee",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Applies to new residential, commercial or industrial construction with sewer connection permit applications submitted on or after September 6, 2022.",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Water System Development Fee",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Applies to new residential, commercial or industrial construction with water connection permit applications submitted on or after September 6, 2022.",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Building Permit (Minor)",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "For Residential alterations to include Additions, Renovations, Decks, Garages, Pools, Solar, Accessory Apartments, In-Law Apartments etc",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Major Building Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "A major building permit application is used for any project that is new construction, such as a new home, new apartment building, new condo(s), new manufactured home or new non-residential building, as well as any commercial construction or alterations/additions. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Drainage Permit ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Drainage permit is for stormwater management and erosion control.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Obstruction Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Sidewalk Obstruction Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Electrical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "All electrical work. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Excavation Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Plumbing Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "All plumbing work requires a plumbing permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Utility Company Excavation Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Excavation permit for utility companies only. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Mechanical Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "All mechanical work such as heating, ventilation, air conditioning, tank installation, furnaces, boilers, gas line / piping work. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Curb Cut Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Special Event License",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "Banners, Parade/Race, Raffles, Solicitation, Wrestling/Boxing, Fundraisers, Other",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Taxi License",
+      "categoryId": 1098,
+      "viewAccess": null,
+      "description": "Taxi Operator, Taxi Driver, Taxi Vehicle, Taxi Vehicle Transfer",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Demolition Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit is for demolition only of a building or a portion of a building. Please note that a third party hazardous material report is required for demolition either with and abatement plan or showing that there are no hazardous materials.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Sign Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This application is for any signs requiring a sign permit per Article 29 of the City's Zoning Ordinance.  https://www.ecode360.com/32219511 ",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Outdoor Dining License",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Outdoor Dining Licenses are required when a licensed food establishment wishes to use City property for outdoor dinning.",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "General License",
+      "categoryId": 1098,
+      "viewAccess": "public",
+      "description": "Includes - Second Hand Dealers, Pawnbrokers, Junk Dealer, Motor Vehicle Junk Yard, Mobile Home Park licenses and Drop Off Bins",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Sprinkler System Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Fire Alarm System Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Hood Suppression Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Underground Tank Removal Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Place of Assembly",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Blasting Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Pyrotechnics Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Fireworks permit",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Building",
+      "isEnabled": 1,
+      "content": "<p style=\"line-height:normal;\"><strong><span style=\"font-size: 24px; color: rgb(184, 49, 47);\">&nbsp;Effective January 1, 2025 we are following NH adopted 2021 ICC codes.</span></strong></p><p style=\"line-height:normal;\"><strong><span style=\"font-size: 24px; color: rgb(184, 49, 47);\">&nbsp;Effective July 1, 2025 we are following NH adopted 2023 NEC codes.</span></strong></p><p style=\"line-height:normal;\"><br></p><p style=\"line-height:normal;\"><span style=\"font-size: 18px;\"><strong><span style=\"c"
+    },
+    {
+      "id": "1098",
+      "name": "Licensing ",
+      "isEnabled": 1,
+      "content": "<p style=\"line-height: normal; vertical-align: baseline; text-align: center;\"><br></p><p style=\"margin-bottom:0in;margin-bottom:.0001pt;line-height:  normal;vertical-align:baseline;\"><span style=\"color: rgb(184, 49, 47);\"><!--[if !supportLineBreakNewLine]--></span><br></p><p style=\"margin-bottom: 0.0001pt; line-height: normal; vertical-align: baseline; text-align: center;\"><br></p><p><br></p>"
+    },
+    {
+      "id": "1086",
+      "name": "Fire Protection",
+      "isEnabled": 1
+    },
+    {
+      "id": "1084",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1090",
+      "name": "City Manager ",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:25.768Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

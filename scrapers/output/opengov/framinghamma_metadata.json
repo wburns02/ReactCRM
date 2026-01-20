@@ -1,0 +1,801 @@
+{
+  "jurisdiction": "Framingham",
+  "state": "MA",
+  "tenant": "framinghamma",
+  "portalUrl": "https://framinghamma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6355",
+      "name": "Dog License",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006517",
+      "name": "Host Community Agreement Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "The City of Framingham’s Marijuana Advisory Team (MAT) is a multi-departmental group that reviews applications from marijuana establishments seeking Host Community Agreements. The team evaluates each proposal for compliance with local regulations and community standards before making a recommendation to the Mayor.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006427",
+      "name": "Alcohol License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006499",
+      "name": "Building Permit - Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006565",
+      "name": "After School, Daycare and Drop-in Program Food Permit Waiver Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006505",
+      "name": "Bulky Item Disposal",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Due to the Veterans Day holiday on November 11th Soft good collection will be delayed one day, Metal will still be collected Wednesday.\n\n\nComplete the form to submit a request for curbside collection or drop-off of Bulky Items at the Recycling Drop-off Center at 255 Mt. Wayte Ave. Hours of Operation: Thursday, Friday, Saturday 8:00 AM to 3:00 PM; Sunday 11:00 AM to 3:00 PM.\n\nAt the end of the application and payment process, you will have an opportunity to print the tag that must be affixed to the item(s). A copy of the tag will also be e-mailed to you.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006344",
+      "name": "Body Art Establishment Permit and Plan Review Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Body Art Establishment Permits expire on May 31st annually. Permits are non-transferable.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006435",
+      "name": "Annual Auctioneer Permit ",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "The Annual Auctioneer Permit is for those who intend to conduct auctions in the Town/City of XXX. A condition precedent to obtaining this Permit, is to have an Auctioneers License from the Commonwealth of Massachusetts, please refer to Consumer Affairs and Business Regulation. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006514",
+      "name": "Auto Dealer - Class I, II, III License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006385",
+      "name": "Body Art Practitioner (Individual) Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Body Art Practitioner (Individual) Permits expire on May 31st annually. Permits are non-transferable. \n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006603",
+      "name": "Street Opening  Permit - Obstructions",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "IMPORTANT NOTE: This application is for any construction related projects. If you are looking to obstruct the public right of way for an event (Road Race, Parade/Procession, Block Party, etc.) you must reach out to the Framingham Police Department. \n\nAll applicants are responsible for notifying the Framingham Police Department of any street/sidewalk obstructions regardless if a detail is required for your project. You can contact the police detail line at:  (508) 532-5907.\n\nA street obstruction permit is required if you are obstructing in the public right-of-way, including the street, sidewalk, curb, driveway apron, and/or grass berm area. \n\nAn Access Permit from the Massachusetts Department of Transportation is required when conducting work on a State-owned road. \n\nObstructions conducted on a private road do not require a street opening permit from the Department of Public Works.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": "Contractor License Registration ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "The Contractor License Registration form should be submitted for anyone who is looking to apply for a Street Opening Permit (utility/driveways) or a Trench Opening Permit. \n\nThis registration should be filled out once to set your company up with a DPW Contractor License profile. Once this registration is reviewed and approved, you will be able to submit Street (utility/driveway) /Trench Opening Permits. \n\nPlease note, this registration should only be applied for once.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006365",
+      "name": "Above Ground StorageTank Removal",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Permit for removal of above ground storage tanks",
+      "isEnabled": true
+    },
+    {
+      "id": "1006475",
+      "name": "Building Permit - Residential Short Form",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This form is to be used with Doors, Roofing, Windows, Insulation and Siding. Please note that this permit is  NOT for Solar, Decks, Sheds, Pools or Floor Plan Changes.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006522",
+      "name": "Bodywork Establishment Permit Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Bodywork Permits expire on December 31st annually. Permits are non-transferable.\nInspections will be conducted randomly at least twice a year.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006530",
+      "name": "Automatic Amusement",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "This form is for  Billiard Tables, Automatic Amustment devices",
+      "isEnabled": true
+    },
+    {
+      "id": "1006557",
+      "name": "Carnival",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006551",
+      "name": "Bodywork Practitioner (Individual) Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Bodywork Permits expire on December 31st annually. Permits are non-transferable.\nInspections will be conducted randomly at least twice a year.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Street Opening  Permit - Utilities and Borings ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "A street opening permit is required if you are excavating in the public right-of-way, including the street, sidewalk, curb, driveway apron, and/or grass berm area. \n\nAn Access Permit from the Massachusetts Department of Transportation is required when conducting work on a State-owned road. \n\nExcavation conducted on a private road does not require a street opening permit from the Department of Public Works.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006519",
+      "name": "Ansul / Dry Chemical System Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006538",
+      "name": "Black Powder",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit application for the storage and use of black powder and ammunition for individuals",
+      "isEnabled": true
+    },
+    {
+      "id": "1006580",
+      "name": "Street Opening  Permit - Driveway ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "A street opening permit is required if you are excavating in the public right-of-way, including the street, sidewalk, curb, driveway apron, and/or grass berm area. \n\nAn Access Permit from the Massachusetts Department of Transportation is required when conducting work on a State-owned road. \n\nExcavation conducted on a private road does not require a street opening permit from the Department of Public Works.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006560",
+      "name": "Catering Event Notification ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006472",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Demolition permit applications are ONLY for demolishing a COMPLETE STRUCTURE.\n\nCITY OF FRAMINGHAM\nDEMOLITION PERMIT APPLICATION REQUIREMENTS COMMERCIAL & RESIDENTIAL\nPlease note that your demolition permit application cannot be submitted without the following:\n\n1) Completed demolition permit application\n2) Permit fee ($15 per $1,000 of job cost)\n3) Debris Affidavit\n4) Workers compensation insurance affidavit\n5) Workers compensation insurance certificate\n6) CSL & HIC if Applicable\n7) Disconnect/Approval letters are required if applicable from:\nWater & Sewer Dept., Gas Company, Electric Company, Telephone Company and Board of Health\n\nPlease note: All buildings 75 years or older needs to be notified and reviewed by the Framingham \nHistorical Commission under the Demolition Delay By-law\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006452",
+      "name": "Change to an Existing Alcohol License Application ",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006555",
+      "name": "Common Victualer",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006516",
+      "name": "Foreclosed Property Registration",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006510",
+      "name": "Trench Opening Permit ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "A trench opening permit is required for excavations greater than 3 feet in depth with less than 15 feet in width on both public and private property.  \n\nTypical permit include but are not limited to the following:\n- Water, sewer, drainage connections, disconnections, and/or repairs on private property\n- Private utility installations and repairs by the electric, telephone, gas, or cable companies\n- Large test pits \n\nPlease note: \n- Work within the City's public roadways will also require a Street Opening Permit. \n- If you are conducting any water, sewer, or drainage work, you must be a Licensed Drainlayer. \n- The turn around time for all permits is within 5 business days. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006368",
+      "name": "Blasting Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Permit application for the use, handling, transportation and storage of explosive materials to be performed only by individuals/organizations possessing a certificate issued by the Office of the State Fire Marshal",
+      "isEnabled": true
+    },
+    {
+      "id": "1006559",
+      "name": "Catering Operation Plan Review Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006360",
+      "name": "Combustible Goods",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Permit application for storage and use of combustible material in above ground storage tanks (AST) \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006602",
+      "name": "Certified Pool Operator (CPO) Form",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006607",
+      "name": "Common Victualer Amendment",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006558",
+      "name": "Entertainment",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006520",
+      "name": "Energy Storage System (ESS)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit application for the installation and use of an Energy Storage System (ESS)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006512",
+      "name": "Fire Alarm",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit application for service or installation of a fire alarm system ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006561",
+      "name": "Demolition Project Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Prior to the demolition of a building, house or structure and prior to obtaining a demolition permit from Framingham Inspectional Services Department, the Framingham Public Health Department must sign-off. \n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006563",
+      "name": "Entertainment  on Sunday",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006591",
+      "name": "Flammables, Combustibles, Explosives Storage License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006386",
+      "name": "Disposal System Installer Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Disposal Works Installers licenses are renewable annually on January 1st.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006529",
+      "name": "Flammable Fluids",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit application for individuals or organizations storing and/or installing flammable material in above ground storage tank (AST) on site",
+      "isEnabled": true
+    },
+    {
+      "id": "1006408",
+      "name": "Hazardous Materials",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit application to process hazardous materials for responsible official at facility",
+      "isEnabled": true
+    },
+    {
+      "id": "1006606",
+      "name": "Establishment Permit Waiver Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "According to the 2013 FDA Food Code 8-301.11 & the Framingham Board of Health Regulations, a person may not offer food/drinks without a valid permit issued by the Regulatory Authority. This waiver request is specifically for Framingham establishments/businesses that provide coffee with non-dairy creamer or cream which does not require refrigeration.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006436",
+      "name": "Fortune Teller License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006439",
+      "name": "Hawker/Peddler License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Hawker Peddler Yearly/Seasonal/By Day license here.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006526",
+      "name": "Liquid Propane Gas (LPG)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit application for permanent or temporary storage and use of Liquid Propane Gas (LPG) in above ground or underground tanks",
+      "isEnabled": true
+    },
+    {
+      "id": "1006471",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Applicant must be a licensed professional. This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc. Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. The State requires that licensed electricians call the electrical inspector  to schedule Inspections. Please call (508-532-6179) between the regular office hours   Monday through Friday to schedule your inspections. PLEASE HAVE YOUR PERMIT NUMBER HANDY! Inspections are typically scheduled the same or the following day. The job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006425",
+      "name": "Food Establishment Permit to Operate Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Food Establishment permits expire on December 31st annually.\nPermits are non-transferable. \nUse this form if you are changing the name of the Establishment.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006485",
+      "name": "Food Establishment Plan Review Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Plans will be approved or denied within thirty (30) calendar days after submittal. After six (6) months, if the work has not started or an extension has not been granted by the FPHD, the submitted plan will be considered null and void. All fees are non-refundable.\n\nImportant Payment Notice\nTo ensure faster processing of your application, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your application without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006525",
+      "name": "Mulch Storage",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit application for storage of mulch in excess of 300 yards",
+      "isEnabled": true
+    },
+    {
+      "id": "1006576",
+      "name": "Innholder",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006442",
+      "name": "Junk Dealers and/or Antiques,Second Hand Goods",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Second Hand Goods, Junk Dealers and/or Antiques License in the City of Framingham. You need to apply for a license if you plan to solicit for, be a collector of, or a dealer in antiques, secondhand goods and/or junk within the City of Framingham. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006531",
+      "name": "Oil Burner and Above Ground Tank Installation or Alteration",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit application for the installation, removal, or replacement of gasoline, diesel, or oil tanks and oil burner installations",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "Frozen Dessert License Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Frozen Dessert Licenses expire on February 29th annually.\nLicenses are non-transferable.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your license without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006469",
+      "name": "Gas  Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Applicant must be a licensed professional. This permit is required when gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. State requires that licensed plumbers call the  Gas Inspector to schedule Inspections. Please call (508-532-6177) between the regular office hours   Monday through Friday .  PLEASE HAVE YOUR PERMIT NUMBER HANDY! Inspections are typically scheduled the same or the following day. The job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006540",
+      "name": "PyroTechnics - Special Effects",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit application for licensed firework shooters or special effects companies",
+      "isEnabled": true
+    },
+    {
+      "id": "1006595",
+      "name": "Keeping of Animals Registration Form",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006556",
+      "name": "Livery License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006575",
+      "name": "Lodging House License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006373",
+      "name": "Smoke and Carbon Monoxide Detector Certificate (26F) ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Application to acquire a Smoke and Carbon Monoxide Certificate (26F) for the sale or transfer of a property",
+      "isEnabled": true
+    },
+    {
+      "id": "1006524",
+      "name": "Keeping of Animals Permit Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "PLEASE READ CAREFULLY -  The keeping of a total of not more than six (6) hens and/or rabbits per parcel of land DOES NOT require a permit, however the Animals must be Registered with the department and there must be continuous compliance with the Keeping of Animals Regulation. Please use the Keeping of Animals Registration Form.\n\nKeeping of Animals Permits expire on December 31st annually. Permits are non-transferable.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006552",
+      "name": "Marijuana Operating Plan Review and Permit Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Marijuana Operating Permit expires on December 31st annually. Permits are non-transferable.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006467",
+      "name": "Plumbing Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Applicant must be a licensed professional. A permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired. State requires that licensed plumbers call the plumbing inspector in order to schedule Inspections. Please call (508-532-6177) between the regular office hours   Monday through Friday .  PLEASE HAVE YOUR PERMIT NUMBER HANDY! Inspections are typically scheduled the same or the following day. The job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006521",
+      "name": "Sprinkler System",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit application for service or installation of a sprinkler system",
+      "isEnabled": true
+    },
+    {
+      "id": "1006446",
+      "name": "One Day Alcoholic and/or Entertainment License ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for special one-day alcohol and/or a one-day entertainment license here.  One-day licenses are required for events that are advertised and/or open to the public.  Please note that a person can only obtain a total of 30 one-day licenses per location in one calendar year.  You may use this application to apply for a license during consecutive days in the same location.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006448",
+      "name": "One Day Temporary Amusement Application",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a One Day Temporary Amusement permit here. One Day Temporary Amusement permits are required if the event is open to the public or there is a fee to participate. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006361",
+      "name": "Tank Truck",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Permit application for any vehicle that has a mounted transfer tank and is parked overnight in Framingham",
+      "isEnabled": true
+    },
+    {
+      "id": "1006363",
+      "name": "Underground Storage Tank Installation",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006508",
+      "name": "Shed Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please make sure you have a site plan document to attach and size of shed.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006487",
+      "name": "Mobile Food Establishment Permit to Operate and Plan Review Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Mobile Food Establishment Permits expire on May 31st annually. Permits are non-transferable.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006449",
+      "name": "One Day Temporary Auctioneer Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a One-Day Auctioneer Permit if conducting an auction in the Town/City of XXX.  Applicants must first be licensed as Auctioneers through the Commonwealth of Massachusetts, see Consumer Affairs and Business Regulation. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006450",
+      "name": "One Day Hawker/Peddler License Application ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a One Day Hawker Peddler license here. One-day licenses can be issued for up to 30 consecutive days. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006362",
+      "name": "Underground Storage Tank Removal",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Permit application for underground storage tank removal and transportation to approved tank disposal yard ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006541",
+      "name": "Waste Oil",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit application for storage and use of above ground waste oil tanks",
+      "isEnabled": true
+    },
+    {
+      "id": "1006391",
+      "name": "Sheet Metal Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when a sheet metal worker is manufacturing, fabricating, assembling, handling, erecting, installing, dismantling, heat pumps, alteration and/or repairing duct work, commercial hood vents and kitchen hoods. The job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006376",
+      "name": "Permit to Transport Garbage, Offal or Other Offensive Substances",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Permit to Transport Garbage, Offal or Other Offensive Substances.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006596",
+      "name": "Solicitor",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Hawker Peddler Yearly/Seasonal/By Day license here.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006567",
+      "name": "Taxi Cab Company",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006394",
+      "name": "Rental Unit Certification Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Important Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•\\tCredit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•\\tPayments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006367",
+      "name": "Welding/Cutting Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Permit application to operate welding, cutting or other hot work activity in accordance with 527 CMR 41",
+      "isEnabled": true
+    },
+    {
+      "id": "1006497",
+      "name": "Signs",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All sign work. The job card MUST be on site at all times.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006554",
+      "name": "Residential (Cottage) Kitchen Food Operation Permit Application and Review",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Residential (Cottage) Kitchen Food Operation Permits expire on December 31st annually. Permits are non-transferable. \n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006537",
+      "name": "Septic Disposal System Construction Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": " Important Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006571",
+      "name": "Septic Plan Review Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": " Important Payment Notice\nTo ensure faster processing of your application, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your application without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006572",
+      "name": "Sewage Disposal System Abandonment Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Important Payment Notice\nTo ensure faster processing of your application, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your application without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006569",
+      "name": "Soil and Percolation Testing Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Important Payment Notice\nTo ensure faster processing of your application, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your application without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006610",
+      "name": "Special Purpose Pool Permit to Operate Application ONLY",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006479",
+      "name": "Swimming Pool Construction Plan Review Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "No person shall construct or install a swimming, wading or special purpose pool, or expand, remodel or otherwise make any change which may affect the compliance of an existing swimming, wading or special purpose pool with the requirements of 105 CMR 435.00 until the plans and specifications for the construction or change, under the stamp and signature of a Massachusetts Registered Professional Engineer or Registered Architect, have been approved in writing by the Board of Health. \n\nAll work shall conform to approved plans and specifications. Any revision or change in the approved plans and specifications which may affect the capacity or the health or safety features of the swimming, wading or special purpose pool, shall be submitted to the Board of Health for review. Approval of said change or revision of plans shall be obtained in writing before the work affected by the change is undertaken.\n\nIn addition to this Swimming Pool Construction Plan Review Application, a Swimming Pool Permit to Operate Application must be submitted. \n\nImportant Payment Notice\nTo ensure faster processing of your application, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your application without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006350",
+      "name": "Swimming Pool Permit to Operate Application ONLY",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "According to 105 CMR 435.00 No person shall operate or maintain any swimming, wading or special purpose pool without obtaining a permit from the Board of Health. \n\nAn application must be submitted for each swimming pool.\n\nThe application must be submitted to the Framingham Public Health Department at least fifteen (15) days before the expiration of a permit, or otherwise at least fifteen (15) days before the opening of the pool swimming, wading and special purpose pool (whirlpool).\n\nPool Permits expire on May 31st annually.  Permits are non-transferable.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006601",
+      "name": "Swimming Pool - Lifeguard Agreement Form",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006379",
+      "name": "Tanning Facility License Application and Plan Review",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Tanning Facility License expire on  May 31st annually. Licenses are non-transferable.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006523",
+      "name": "Temporary or Seasonal Event Food Establishment Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Temporary Food Permits are valid for fourteen (14) days. \nSeasonal Food Permits are valid for six (6) months.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006605",
+      "name": "Time as a Public Health Control (TPHC) Request Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006378",
+      "name": "Tobacco Product Sales Permit Application ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Tobacco Product Sales Permits expire on December 31st annually. Permits are non-transferable.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006609",
+      "name": "Wading Pool Permit to Operate Application ONLY",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006574",
+      "name": "Well - Application for Permit to Construct, Alter or Repair a Well",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "The well construction permit shall be on-site at all times that work is taking place. Each permit expires one (1) year from the date of issuance unless revoked for cause. Permits may be extended for one additional six-month period, provided that the Board of Health receives a written request at least one (1) month prior to the one-year expiration date. There is no additional fee for a permit extension, provided there is no change in the plans for the proposed private well. Private well construction permits are not transferable.\n\nImportant Payment Notice\nTo ensure faster processing of your permit, we strongly recommend making your payment by Credit Card or ACH.\n\nPlease note:\n•Credit card payments are processed immediately, allowing us to begin work on your permit without delay.\n•Payments made by cash or check will not be processed until funds are received and verified, which can result in significant delays.\n\nIf timely processing is important to you, we urge you to use a credit card at the time of submission.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1088",
+      "name": "Police",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(51, 51, 51); font-family: Tahoma, Geneva, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-col"
+    },
+    {
+      "id": "1083",
+      "name": "City Clerk",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(56, 56, 56); font-family: Georgia, serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; "
+    },
+    {
+      "id": "1085",
+      "name": "City Solicitor ",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(51, 51, 51); font-family: Tahoma, Geneva, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-col"
+    },
+    {
+      "id": "1079",
+      "name": "DPW",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(51, 51, 51); font-family: Tahoma, Geneva, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-col"
+    },
+    {
+      "id": "1076",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Tahoma, Geneva, sans-serif;\">Welcome to the Framingham Fire Department&#39;s updated online permitting portal. To use this new portal, you must first register and create a user account. Once your account is established, you will be able to proceed with your online application.&nbsp;</span><span style=\"color: rgb(51, 51, 51); font-family: Tahoma, Geneva, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-"
+    },
+    {
+      "id": "1080",
+      "name": "License Commission ",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(51, 51, 51); font-family: Tahoma, Geneva, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-col"
+    },
+    {
+      "id": "1073",
+      "name": "Public Health",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Tahoma, Geneva, sans-serif;\">Welcome to the Framingham Public Health Department&#39;s updated online permitting portal. To use this new portal, you must first register and create a user account. Once your account is established, you will be able to proceed with your online application.&nbsp;</span><span style=\"color: rgb(51, 51, 51); font-family: Tahoma, Geneva, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: norm"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:17.954Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,256 +1,329 @@
 {
   "jurisdiction": "Brownsburg",
   "state": "IN",
+  "tenant": "brownsburgin",
   "portalUrl": "https://brownsburgin.portal.opengov.com",
   "recordTypes": [
     {
       "id": "6597",
       "name": "Plot Plan Request ",
       "categoryId": 1078,
-      "viewAccess": null
+      "viewAccess": null,
+      "description": "Request a plot plan for a property located within Town Limits ",
+      "isEnabled": true
     },
     {
       "id": "6638",
       "name": "Event on Town Property Application",
       "categoryId": 1097,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "The Events on Town Property Application Form is required for any special event held on Town property. A special event is defined as a group activity which may require additional Town resources and/or staff, as well as a designated facility, space or other amenities requested of the Town.\n\nTypically, this would be a large-scale event open to the public and located on Town property such as a park or Town Hall. It does not include casual park use by visitors or individual rentals of park shelters, Bundy Lodge or Eaton Hall. ",
+      "isEnabled": true
     },
     {
       "id": "6640",
       "name": "Residential Alarm Application",
       "categoryId": 1098,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6642",
       "name": "Business Alarm Application",
       "categoryId": 1098,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6535",
       "name": "Zoning Map Amendment (PCMA)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "A Rezone application is needed when seeking to change the zoning classification of a property. The Advisory Plan Commission (APC) will provide a recommendation to Town Council, who then determines if the rezoning should be approved or denied. A Letter of Intent should be provided that details how the project meets the criteria considered for a rezone, as noted in Article 9 of the Unified Development Ordinance.",
+      "isEnabled": true
     },
     {
       "id": "6648",
       "name": "Infrastructure (INFR) Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6537",
       "name": "Conditional Zoning Map Amendment (PCCZ)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "A Conditional Rezone application is needed when seeking to change the zoning classification of a property that is currently outside the corporate limits of the Town of Brownsburg and is filed with a petition for annexation. The zoning, if approved, goes in to effect upon completion of the annexation. ",
+      "isEnabled": true
     },
     {
       "id": "6534",
       "name": "Primary Plat (PCPP)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "A Primary Plat is required for the subdivision and platting of land. A Primary Plat shall be prepared in conjunction with any proposal to subdivide or plat property within the jurisdictional area of the Plan Commission. This record type is also used for Planned Development Detailed Site Plans.",
+      "isEnabled": true
     },
     {
       "id": "6543",
       "name": "One & Two Family Residential (RESD) Permit ",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Residential new structures, additions, remodel.",
+      "isEnabled": true
     },
     {
       "id": "6542",
       "name": "Commercial/Industrial (COMM) Permit ",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Commercial new structures, additions, remodels.",
+      "isEnabled": true
     },
     {
       "id": "6529",
       "name": "Secondary Plat (CPSP)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "A Secondary Plat is required for the subdivision and platting of land.  Secondary Plats need to be recorded at the Hendricks County Recorder’s Office.  Residential subdivisions should submit construction plans with the Secondary Plat. This record type is also used for Planned District Final Site Plans. ",
+      "isEnabled": true
     },
     {
       "id": "6541",
       "name": "Development Plan Review (PSDP)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "A Development Plan Review is required for the development of structures other than single-family dwellings. Please be prepared to submit the landscape plan, lighting plan, and architectural details as separate documents for review. ",
+      "isEnabled": true
     },
     {
       "id": "6606",
       "name": "Report a Code Issue",
       "categoryId": 1088,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Use this form to submit suspected code violations for Development Services Staff to document and review for compliance with Town Codes and Ordinances.",
+      "isEnabled": true
     },
     {
       "id": "6615",
       "name": "Hood System (HOOD) Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Installation or modification of exhaust hood systems.  ",
+      "isEnabled": true
     },
     {
       "id": "6544",
       "name": "Multi-Family Residential (MULT) Permit ",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "New structure",
+      "isEnabled": true
     },
     {
       "id": "6531",
       "name": "Replat and Amendments (PCRP)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "This case type is utilized for replats of recorded Final Plats and Primary Plat Amendments (major and minor). ",
+      "isEnabled": true
     },
     {
       "id": "6538",
       "name": "Plat Vacation (PCVA)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "A Plat Vacation is required to remove parts or all of approved and recorded plats.",
+      "isEnabled": true
     },
     {
       "id": "6590",
       "name": "Utility Connection Request (UTCR)",
       "categoryId": 1095,
-      "viewAccess": null
+      "viewAccess": null,
+      "description": "This utility connection request is for properties wishing to connect to Town of Brownsburg utilities that are outside of town limits. ",
+      "isEnabled": true
     },
     {
       "id": "6548",
       "name": "Accessory Structure (ASTR) Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Sheds, pergolas, patios, decks, driveway, detached structures, etc.",
+      "isEnabled": true
     },
     {
       "id": "6549",
       "name": "Electrical (ELEC) Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Panel and service replacement, sub-panel, solar panels, stationary generators, electric vehicle supply equipment, etc.",
+      "isEnabled": true
     },
     {
       "id": "6540",
       "name": "Commitment Amendment (PCCA)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "A Commitment Amendment application is needed when seeking to change either the developer or rezone commitments. If the commitments were recorded as part of a rezone, the APC will make a positive, negative, or no recommendation to the Town Council for final determination. Commitments related to all other types of cases are approved or denied at the Advisory Plan Commission. ",
+      "isEnabled": true
     },
     {
       "id": "6595",
       "name": "Administrative Property Line Adjustments (APLA)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "This case type is utilized for simple administrative property line adjustments such as the merging of commonly owned lots, splitting lots and merging the pieces with adjacent lots, adjusting lot lines between properties, and creating non-developable land for utilities and infrastructure. ",
+      "isEnabled": true
     },
     {
       "id": "6550",
       "name": "Fence (FENC) Review",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6589",
       "name": "Pool/Spa (SWIM) Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6539",
       "name": "Zoning Text Amendment (PCZT)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "A Zoning Text Amendment application is needed when seeking to change the underlying zoning text of either the UDO or other Zoning Document. The Advisory Plan Commission (APC) will provide a recommendation to Town Council, who then determines if the Text Amendment should be approved or denied. ",
+      "isEnabled": true
     },
     {
       "id": "6438",
       "name": "Variance - Development Standards (BZDV)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "The Board of Zoning Appeals hears requests for relief from the Development Standards of the Unified Development Ordinance. These are generally standards found in Article 2 or Article 5 of the UDO. ",
+      "isEnabled": true
     },
     {
       "id": "6552",
       "name": "Right-of-Way (RIOW) Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Permit required for work in right-of-way. ",
+      "isEnabled": true
     },
     {
       "id": "6553",
       "name": "Sign (SIGN) Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6526",
       "name": "Variance - Use (BZUV)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "The Board of Zoning Appeals hears requests to establish a use on a property that is not allowed under Permitted or Special Exception Uses in Article 2 for the property's zone. ",
+      "isEnabled": true
     },
     {
       "id": "6527",
       "name": "Special Exception Use (BZSE)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "The Board of Zoning Appeals may consider an appeal of any decision, interpretation, or determination made by the Director, or any other administrative official or board charged with the duty of enforcing and interpreting the UDO.",
+      "isEnabled": true
     },
     {
       "id": "6554",
       "name": "Utility (UTIL) Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Sewer laterals, water meters, sump pump drainage line, etc.",
+      "isEnabled": true
     },
     {
       "id": "6556",
       "name": "Temporary Use (TEMP) Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Temporary structures such as construction trailers, model homes, tents, etc.",
+      "isEnabled": true
     },
     {
       "id": "6528",
       "name": "Administrative Appeal (BZAA)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "The Board of Zoning Appeals may consider an appeal of any decision, interpretation, or determination made by the Director, or any other administrative official or board charged with the duty of enforcing and interpreting the UDO.",
+      "isEnabled": true
     },
     {
       "id": "6557",
       "name": "Demolition (DEMO) Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6532",
       "name": "Zoning Certification Letter (PCZL)",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "A Zoning Certification Letter is researched, reviewed and authored by one of the Town Planners.  All information contained in a Zoning Certification Letter shall be used as an official record of Zoning Status as of the date of the letter.",
+      "isEnabled": true
     },
     {
       "id": "6612",
       "name": "Erosion Control/Stormwater (ECSW)",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "This record type is used for projects such as stockpiling dirt or other site alterations that only require stormwater review. Projects completing this permit process may store dirt on future development sites but may not begin work on building pads, ponds, or the like until the project has been reviewed under its proper route (Development Plan, for example). ",
+      "isEnabled": true
     },
     {
       "id": "6651",
       "name": "Bond (BOND) Record",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Subdivision Bonds and Blanket Bonds are submitted through this record type.",
+      "isEnabled": true
     }
   ],
   "categories": [
     {
       "id": "1071",
       "name": "Permitting and Inspection Services",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 30px; font-family: Tahoma, Geneva, sans-serif;\">Permitting &amp; Inspections</span></strong></p><hr><p><span style=\"font-family: Tahoma,Geneva,sans-serif;\">Permits are an important part of every project to make sure that the work completed is safe and compliant with local zoning regulations and building codes. Make sure that you or your contractor have the appropriate permits in place before you begin your project.</span></p><p style=\"text-align: center;\"><span"
     },
     {
       "id": "1076",
       "name": "Planning and Zoning Services",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 30px;\">Planning and Zoning Services</span></strong></p><div>The following applications may be submitted using the online portal. In addition to the digital application, applicants should have completed property owner signature and authorization forms to upload as attachments. Applicants can find copies of these forms on the <a href=\"https://in-brownsburg.civicplus.com/165/Forms-Applications\" rel=\"noopener noreferrer\" target=\"_blank\">Development Services APC/BZA"
     },
     {
       "id": "1088",
       "name": "Code Compliance Services",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: justify;\"><strong><span style=\"font-size: 30px;\">Code Compliance</span></strong></p><p style=\"text-align: justify;\">Development Service&#39;s Code Compliance division administers the investigation, documentation, and enforcement of the<a href=\"https://www.brownsburg.org/DocumentCenter/View/108/Unified-Development-Ordinance-UDO-PDF\" rel=\"noopener noreferrer\" target=\"_blank\">&nbsp;Unified Development Ordinance (UDO) (PDF)</a> and the <a href=\"https://codelibrary.amlegal.com/c"
     },
     {
       "id": "1078",
       "name": "Plot Plan Requests and Other Information",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(184, 49, 47);\"><strong>NOTE: The Town of Brownsburg is working through an update to the Unified Development Ordinance. Find out more here: <a href=\"https://www.brownsburg.org/587/Brownsburg-UDO-Review-Process\" rel=\"noopener noreferrer\" target=\"_blank\">https://www.brownsburg.org/587/Brownsburg-UDO-Review-Process</a></strong></span></div><p><span style=\"font-family: Verdana, Geneva, sans-serif; font-size: 18px;\">Plot Plan Requests</span></p><hr><p><span style=\"font-fam"
     },
     {
       "id": "1095",
       "name": "Brownsburg Utilities",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(0, 0, 0); font-family: Tahoma, Geneva, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; float: none; display: inline !"
     },
     {
       "id": "1098",
@@ -263,5 +336,8 @@
       "isEnabled": 1
     }
   ],
-  "extractedAt": "2026-01-20T21:27:45.520Z"
+  "extractedAt": "2026-01-20T22:55:41.494Z",
+  "generalSettings": {
+    "id": 1
+  }
 }

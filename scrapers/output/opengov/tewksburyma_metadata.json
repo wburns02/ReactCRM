@@ -1,0 +1,573 @@
+{
+  "jurisdiction": "Tewksbury",
+  "state": "MA",
+  "tenant": "tewksburyma",
+  "portalUrl": "https://tewksburyma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006594",
+      "name": "Common Victualler License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "An person who engages in the business of cooking, preparing and/or providing food for seated patrons on the premises must obtain this license from the Select Board.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006591",
+      "name": "Business Certificate",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "In accordance with MGL Chap. 110 Sec. 5, any person conducting business in the Town of Tewksbury under a name other than their own name is required to file a Business Certificate (commonly known as \"Doing Business As\" or \"DBA\") with the Town Clerk's Office.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006579",
+      "name": "RDA",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Request for Determination of Applicability (RDA)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006501",
+      "name": "Public Works Permits",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Please use this application to apply for Water Connection, Trench, Sewer Connection, Street & Sidewalk Opening, and Physical Alteration permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006489",
+      "name": "Animal Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Keeping of Animals and Piggeries. This permit will expire annually on April 30th.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006490",
+      "name": "Animal Registration",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Registration for the keeping of 12 Hens OR 2-4 Rabbits",
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": "Building Permit Residential Short Form ( Roofing, insulation, doors and windows)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is to apply for RESIDENTIAL ROOFING/WINDOWS/DOORS/WEATHERIZATION ONLY.\n\n*** BUILDING PERMIT MUST BE PICKED UP AT THE BUILDING DEPARTMENT",
+      "isEnabled": true
+    },
+    {
+      "id": "1006585",
+      "name": "DPW Public Service Request Form",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Please use this form to submit Service Requests to the Department of Public Works.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006616",
+      "name": " Open Air Burning Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Open Air Burning Permit\n\nBurning may only be conducted from January 15th to May 1st of the year issued.\n\nYou are required to call the Open Burning Information Line 978-640-4419 each day you intend to burn, prior to burning. The information Line will advise you if open air burning is allowed for that day.  If burning is allowed, you will be prompted to record your street address and permit number for our daily record.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006618",
+      "name": "Residential Smoke Alarm/Carbon Monoxide Alarm Inspection  Application",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "We conduct residential smoke alarm inspections on Tuesday/Thursday/Saturday mornings in a 9:00 am to 12:00 pm window. \n\nAll smoke alarms must be under 10 years old.\n\nAll alarms need to be properly located and tested prior to the inspection. You will fail the inspection and be charged a $25.00 re-inspection fee if any smoke or CO alarm does not work due to a mechanical defect, has missing or dead batteries, or if your house numbers are missing or not visible from the street side of the house.\n\nHouse numbers must be permanently affixed to the house by either nails or screws and they must be clearly visible from the street. House numbers affixed to doors or a mailbox alone do not meet this requirement.\n\nFor additional info and PDF guides please visit: \nhttps://www.tewksbury-ma.gov/225/Smoke-Carbon-Monoxide-Inspections\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006602",
+      "name": "SYSTEM PERMIT- TESTING AND INSPECTION ONLY",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "SYSTEM PERMIT- TESTING AND INSPECTION ONLY\nThis permit is required for TESTING AND INSPECTIONS\n\nYou must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006615",
+      "name": "Water - Lead Service Inventory",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use this application to schedule a water service line identification appointment with a Town of Tewksbury Water Division. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006581",
+      "name": "NOI",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Notice of Intent (NOI)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006613",
+      "name": "Entertainment License ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Required if hosting a public show which includes dancing, whether by  performers or patrons, recorded or live music, television, an indoor and/or outdoor amplification system, theatrical play or a film screening, a floor show or light show, and any other audio or visual show.  And you are hosting a public show and plan to charge an admission fee.  Please refer to detailed requirements on application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006589",
+      "name": "Certificate of Inspections",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006559",
+      "name": "BeaverTrap/Breach Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006482",
+      "name": "Body Art Practitioner/Apprentice",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006612",
+      "name": "Class Auto License ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application pertains to a Class I, II or III Class Auto License.  Please check with Zoning/Building Department before applying to confirm you are in the correct zoning area for this type of business.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006627",
+      "name": "Land Disturbance Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Land Disturbance Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "1006623",
+      "name": "FIRE ALARM AND SPRINKLER WORK PERMIT ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "FIRE ALARM AND SPRINKLER WORK PERMIT       ( THIS IS NOT TO BE USED FOR TESTING)\n\nYou must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006609",
+      "name": "Water - Meter Concerns",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Residents with concerns regarding their water meter(s) should fill out this form to initiate a review and investigation by the Department of Public Works.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006614",
+      "name": "Body Art Establishment Permit (for establishments only)",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006580",
+      "name": "ANRAD",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Abbreviated Notice of Resource Area Delineation (ANRAD)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006628",
+      "name": "Hackney License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "This application pertains to a Hackney License issued by the town to a person authorizing them to operate a for-hire vehicle, such as a taxi or livery vehicle, for the transportation of passengers.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006476",
+      "name": "Building Permit Residential  ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is to apply for RESIDENTIAL building permits.\n* NOTE: Please use SHORT FORM for Roofing/Windows/Doors/Weatherization\nThis application is used for new construction, renovations, alterations, siding, partial and interior demolition and major repairs to residential properties.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006569",
+      "name": "Building Permit Residential SWIMMING  POOL  ( INGROUND OR ABOVE GROUND)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is to apply for RESIDENTIAL building permits for SWIMMING POOL (INGROUND AND ABOVE GROUND POOLS)\n\n*** BUILDING PERMIT MUST BE PICKED UP AT THE BUILDING DEPARTMENT",
+      "isEnabled": true
+    },
+    {
+      "id": "1006608",
+      "name": "Road Race Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Required for all Road Race approvals.  Applicant must contact the Tewksbury Police Department for their initial review and approval.  Once approved, please either upload their approval letter or Police Dept. will contact our office directly with approval and guideline recommendations.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006582",
+      "name": "RCOC",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Request for Certificate of Compliance (RCOC)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006619",
+      "name": "BOH Variance Request",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006578",
+      "name": "Request to Amend an OOC",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Request to Amend an Order of Conditions (OOC)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006491",
+      "name": "COMMERCIAL Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application should be completed to apply for  COMMERCIAL building permits.\n\n*** BUILDING PERMIT MUST BE PICKED UP AT THE BUILDING DEPARTMENT",
+      "isEnabled": true
+    },
+    {
+      "id": "1006505",
+      "name": "Disposal System Repair",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006471",
+      "name": "Electrical Permit-TEWKSBURY",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Only Licensed Electricians can apply for this permit.\n This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc.  Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. \n\n\nPlease refer to advisory regarding electrical installations completed without permit/inspections:\n\nhttps://www.mass.gov/lists/board-policies-and-guidelines-examiners-of-electricians#advisory-regarding-how-to-rectify-electrical-installations-completed-without-required-permits-and-inspections-\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": "Dumpster Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006584",
+      "name": "Request to Extend an OOC",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Request to Extend an Order of Conditions (OOC)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006599",
+      "name": "One-Day Entertainment License  ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "One-Day Entertainment License ONLY \n\nEntertainment Licenses approved subject to:\n\n1.  Completed application \n2.  Scheduled Public Hearing with the Select Board\n3.  Legal Notice published in the paper 7 days prior to Select Board Public Hearing\n4.  Certified Abutter’s List from the Assessor’s Office and Abutter Notification \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006508",
+      "name": "Plumbing Permit- TEWKSBURY",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Only Licensed Journeyman and Master Plumbers may file for this permit. Electric Hot Water Heater(s) require a Plumbing Permit. Gas Hot Water Heater require a Plumbing and Gas Permit. This permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006560",
+      "name": "External Grease Tank",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006488",
+      "name": "Food Establishment Plan Review for New Construction or Major renovations",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006572",
+      "name": "Gas Permit-TEWKSBURY ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  Only Licensed Plumbers, Gasfitters and LP Installers can apply for this permit. Gas Hot Water Heater(s) requires a Gas Permit and Plumbing Permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006597",
+      "name": "Automatic Amusement License ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Any individual or business that is seeking to keep or operate Automatic Amusement Devices must have an approved license from the Select Board.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006595",
+      "name": "Liquor License",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Applications for all liquor licenses are available on the Alcoholic Beverage Control Commission (ABCC) website at the URL below. Applications must be filled out electronically and uploaded onto your application with the Select Board and all of the required attachments and fees.\n \nhttps://www.mass.gov/apply-for-an-alcoholic-beverages-license-abcc \n \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006507",
+      "name": "Sheet Metal Permit -TEWKSBURY",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when a sheet metal worker is manufacturing, fabricating, assembling, handling, erecting, installing, dismantling, alteration and/or repairing duct work, commercial fans, kitchen hoods and vents, architectural sheet metal and metal roofing.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006592",
+      "name": "Food Establishment Plan Review - Minor Renovations/new ownership for Existing Food Establishments",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006487",
+      "name": "Food Establishment Permit (for new food establishments and residential kitchens) (notifications will be sent when it is time to renew your food permit)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "The Permit to Operate a Food Establishment expires annually on December 31st\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006603",
+      "name": "ZBA Variance",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Zoning Board of Appeals Application for Variance",
+      "isEnabled": true
+    },
+    {
+      "id": "1006621",
+      "name": "Marijuana Annual Renewal (ONLY) License ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Applications for all liquor licenses are available on the Alcoholic Beverage Control Commission (ABCC) website at the URL below. Applications must be filled out electronically and uploaded onto your application with the Select Board and all of the required attachments and fees.\n \nhttps://www.mass.gov/apply-for-an-alcoholic-beverages-license-abcc \n \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006617",
+      "name": "Farmer's Market Liquor License ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": " \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006571",
+      "name": "Temporary Food Permit (if you are applying for a permit for a mobile food truck, whether it is yearly or temporary, OR if you are applying for a YEARLY mobile vendor permit, please use the Mobile Food permit application.)",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Temporary food permit applications must be submitted and approved by the Health Department within 7 days prior to the event.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006605",
+      "name": "ZBA Party Aggrieved",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Zoning Board of Appeals Application as a Party Aggrieved",
+      "isEnabled": true
+    },
+    {
+      "id": "1006604",
+      "name": "ZBA Special Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Zoning Board of Appeals Application for Special Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "1006565",
+      "name": "Frozen Dessert Permits",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Frozen Dessert permits expire annually on March 1st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006600",
+      "name": "One Day Liquor License  ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "One-Day liquor license ONLY in accordance with Chapter 138, Section 14",
+      "isEnabled": true
+    },
+    {
+      "id": "1006374",
+      "name": "Funeral Director",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Funeral Director permits expire annually on April 30th",
+      "isEnabled": true
+    },
+    {
+      "id": "1006596",
+      "name": "Health & Wellness Fair Registration",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Registration form for Health & Wellness fair vendors.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "Hotel, Motel, Lodging and Rooming House Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Hotel, Motel, Lodging and Rooming House permits expire annually on April 30th",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": "Indoor Ice Skating Rink",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Indoor Ice Skating Rink permits expire annually on December 31st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006498",
+      "name": "Installer's License (for grease tank installs and D-box repairs ONLY)",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Installer permits expire annually on Jan. 31st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006567",
+      "name": "Mobile Food Permit (this permit is for a YEARLY mobile food truck/cart, YEARLY mobile vendors or those applying for a TEMPORARY mobile food truck/cart permit. If you are not a mobile truck/cart and want to apply for a temporary food permit, please use the temporary food permit application)",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Yearly Mobile food permits expire annually on December 31st. \nYearly Mobile food permit fee is $150.00.\nTemporary mobile food permit is $50 per event",
+      "isEnabled": true
+    },
+    {
+      "id": "1006484",
+      "name": "Offal, Solid Waste, Medical Waste Collection, Transport & Disposal Permit (anything other than septage)",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Offal, Solid Waste, Medical Waste Collection, Transport & Disposal Permit expire annually on Jan. 31st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Recreational Camp License Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "The Recreational Camp License is required to operate a Recreational Camp in the Town of Tewksbury.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006497",
+      "name": "Septage Hauler Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Septage Hauler permits expire annually on Jan. 31st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Swimming Pool: Public, Semi-public, Wading pool and special purpose Operation Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Pool permits expire annually on April 30th",
+      "isEnabled": true
+    },
+    {
+      "id": "1006566",
+      "name": "Swimming Pools/Spas: Plan Review",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006502",
+      "name": "Tanning Facility License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Tanning Facility permits expire annually on April 30th",
+      "isEnabled": true
+    },
+    {
+      "id": "1006499",
+      "name": "Tobacco Sales Permit (notifications will be sent when it is time to renew your tobacco permit)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Retail Tobacco sales permits expire annually on Dec. 31st ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<div><br></div><p style=\"text-align: center;\"><span style=\"color: rgb(31, 31, 31); font-family: Georgia, serif; font-size: 24px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 500; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: "
+    },
+    {
+      "id": "1081",
+      "name": "Conservation Commission",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 24px;\">Welcome to the Tewksbury Conservation Commission Online Permitting Page!</span></strong></p><p><br></p><p>Below, you will be able to complete various different applications and pay applicable fees online. Supplemental information pertaining to the Tewksbury Conservation Commission, including (but not limited to) filing deadlines, the Tewksbury Wetland Protection Bylaw, policies, and guidance documents can be found at:</p><p><br><a href=\"https://www.tewks"
+    },
+    {
+      "id": "1073",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/1671042464503_Wed_Dec_14_2022_18:27:44_GMT+0000_(Greenwich_Mean_Time).png\" style=\"width: 300px;\" class=\"fr-fic fr-dib\"><span style=\"font-family: Arial, Helvetica, sans-serif;\"><strong><span style=\"color: rgb(41, 105, 176); font-size: 24px;\">Health Department</span></strong></span></p><p style=\"text-align: center;\"><span style=\"font-family: Arial, Helvetica, sans-serif;\"><strong><span style=\"col"
+    },
+    {
+      "id": "1079",
+      "name": "Department of Public Works",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1084",
+      "name": "Select Board",
+      "isEnabled": 1
+    },
+    {
+      "id": "1085",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": "<h3 style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; border: 0px none; font-family: Montserrat; font-style: normal; font-weight: 600; color: rgb(107, 118, 104); font-size: 1.25em; text-decoration: none; display: block; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255,"
+    },
+    {
+      "id": "1076",
+      "name": "Fire Dept",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(184, 49, 47);\"><span style=\"font-size: 24px;\"><span style=\"font-family: Georgia, serif;\"><strong>ONLINE PERMITTING CURRENTLY AVAILABLE FOR:</strong></span></span></span></div><div><span style=\"color: rgb(184, 49, 47);\"><span style=\"font-size: 24px;\"><strong><span style=\"font-family: Georgia,serif;\"><br></span></strong></span></span></div><div><span style=\"color: rgb(184, 49, 47);\"><span style=\"font-size: 24px;\"><span style=\"font-family: Georgia,serif;\"><br></span><st"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:21.845Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

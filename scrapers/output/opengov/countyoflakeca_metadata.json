@@ -1,0 +1,186 @@
+{
+  "jurisdiction": "Lake County",
+  "state": "CA",
+  "tenant": "countyoflakeca",
+  "portalUrl": "https://countyoflakeca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6495",
+      "name": "Public Record Act Request",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Planning Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Apply for all Planning permits here. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Solar Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Solar permits for commercial, ground mount system, solar integrated roofs, homeowner projects without the use of a contractor, systems exceeding 38.4 kilowatts, energy storage system only projects, or any other solar system project that does not meet the SolarApp+ Requirements. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Re-Roofing - Express Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Express permits for all re-roof projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Surplus Property Purchase",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Residential Building Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Use this permit for all Residential Permits, including but not limited to New Construction and Additions of Single Family Dwellings, Manufactured Homes, ADU’s, JADU’s Duplexes, Townhouses three stories or less. Converting Structures to Habitable Space and other Accessory Structures related to residential properties.\nSheds, Metal Buildings and Garages need to be applied for under Accessory Structure permit unless you are combining the permit with a Residential House or Manufactured Home permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Code Complaint Form",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Encountering a problem or facing a potential code enforcement matter within the unincorporated areas of the County? Utilize our user-friendly online platform to submit a request for Code Enforcement staff to investigate. Code Enforcement staff thoroughly investigates all submissions, prioritizing them based on the severity of health and safety risks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Alteration - Residential and Commercial Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Use this permit for all Residential and Commercial Alterations for Siding, Windows, Home Hardening, Exclusive Remodels, Deck Repairs (not deck replacements), Foundation Installations , Retrofit Foundations (433A), Kitchen and Bathroom Remodels.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Electrical - Express Permit ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Residential only Express Permit for Electrical main service replacement (200 amp max), sub-panel replacement, or whole home rewire.",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Plumbing - Express Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Residential and Commercial Express permits for plumbing repairs, fire sprinkler systems and water heater installations/replacements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Commercial Building Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Use this permit for all Commercial and Multi-Family Structures, including but not limited to, cannabis facilities temporary shipping containers, greenhouses, businesses, offices and cell towers (and cell tower modifications).",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Accessory Structure Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Permits are required for construction of uninhabitable accessory structures including but not limited to accessory storage units (over 120 square feet), awnings, carports, decks, equipment buildings, outdoor kitchens, greenhouses (not for cannabis), patio covers, pool cabanas, retaining walls, storage sheds (over 120 square feet), storage tanks, swim spas, swimming pools and spas, portable spas, swimming pool repairs, docks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Demolition Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Building permits for the demolition of a building, structure or portion of a structure, including pools.",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Electrical Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Electrical permits for stand alone electrical work including but not limited to relocations, outlets, lighting, receptacles, new home runs (circuits), switches, fire alarm systems, smoke alarm systems, security alarm systems, electric services (over 200amps) and EV charging stations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Generator Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Mechanical permits for stand-alone mechanical work including but not limited to relocations and new installations. Minor electrical and plumbing work supporting the equipment only is permitted and will be reviewed on a case-by-case basis.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Mechanical - Express Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Express permits for HVAC, Mini-Splits, Fireplaces, Water Heaters, Furnaces and Wall Heaters. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Mechanical Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Mechanical permits for Commercial Vent Hoods and Residential Gas and Electric Vent Hoods with and without Stoves and Propone Tanks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "SolarAPP+ Solar Permit",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Expedited solar permitting for residential installations is available through the SolarAPP+ program. A SolarAPP+ Approval Document is required in order to obtain a permit of this type. If you don't hold one already, you can learn how to get one at solarapp.nrel.gov ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1084",
+      "name": "Building Division",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-bottom:0in;line-height:normal;background:white;\"><strong><span style=\"font-size: 18px; font-family: Arial, Helvetica, sans-serif;\">Welcome to the County of Lake&rsquo;s Building Division</span></strong></p><p style=\"margin-bottom:0in;line-height:normal;background:white;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 18px;\">The Building Division is responsible for ensuring building quality and standards in the County. As part of the building proce"
+    },
+    {
+      "id": "1082",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-bottom:0in;line-height:normal;background:white;\"><strong><span style=\"font-size: 18px; font-family: Arial, Helvetica, sans-serif;\">Welcome to the Lake County Code Enforcement Homepage&nbsp;</span></strong></p><div><br></div><p style=\"margin-bottom:0in;line-height:normal;background:white;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 18px;\">The County of Lake Code Enforcement Division works to ensure the unincorporated areas of the County are con"
+    },
+    {
+      "id": "1083",
+      "name": "Planning Division",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px; color: rgb(44, 130, 201);\">Welcome to the County of Lake&#39;s Planning Division!&nbsp;</span></div><div><span style=\"color: rgb(0, 0, 0);\"><span style=\"font-size: 18px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><br></span></span></span></div><div><span style=\"color: rgb(0, 0, 0);\"><span style=\"font-size: 18px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">The Planning Division is responsible fo"
+    },
+    {
+      "id": "1087",
+      "name": "Public Records Request",
+      "isEnabled": 1,
+      "content": "<div><br style=\"color: rgb(0, 0, 0); font-family: &quot;Times New Roman&quot;; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;\"><span style=\"color: rgb(0,"
+    },
+    {
+      "id": "1088",
+      "name": "Surplus Property",
+      "isEnabled": 1,
+      "content": "<div><strong><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">Welcome to the County of Lake Community Development Departments Surplus Property page.</span></strong></div><div><span style=\"font-size: 18px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><br></span></span></div><div><span style=\"font-size: 18px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">The Community Development Department offers surplus property for sale to the public, providing an o"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:55:30.214Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

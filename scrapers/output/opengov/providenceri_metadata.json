@@ -1,0 +1,775 @@
+{
+  "jurisdiction": "Providence",
+  "state": "RI",
+  "tenant": "providenceri",
+  "portalUrl": "https://providenceri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6423",
+      "name": "Park Use Form and Permit Application",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Monthly ARPA Report",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Sub-Recipient Invoice Submissions",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6557",
+      "name": "Donate to the Recreation Department",
+      "categoryId": 1089,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "Animal License",
+      "categoryId": 1091,
+      "viewAccess": null,
+      "description": "Rhode Island state law requires that all dogs over the age of four months be vaccinated against rabies, and be licensed through the local city and town. Failure to license your pet may result in fines, penalties, and/or citations. The City employs enforcement officers to ensure licensing compliance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6570",
+      "name": "CPR Class Registration",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6576",
+      "name": "Land Development & Subdivision Applications",
+      "categoryId": 1095,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6548",
+      "name": "Questions (Engineering)",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Application for Tax Stabilization",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "The City of Providence intends to increase the pace of economic development, and thereby increase the city’s tax base, it is vital that city provide property developers, entrepreneurs and investors with a predictable tax phase-in plan that will encourage investment in Providence. It is therefore in the public interest to develop a set of clear criteria for eligibility for tax stabilization, as well as a defined long-term plan to bring a project to full taxation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Cart Requests",
+      "categoryId": 1090,
+      "viewAccess": "private",
+      "description": "Repair & Replacement of City Trash & Recycling Carts",
+      "isEnabled": true
+    },
+    {
+      "id": "6384",
+      "name": "Apply for a Liquor License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "For any establishments intending to serve liquor. Please read the grid that follows for an understanding of each license. The applicant is responsible for providing the Board of Licenses all required fields and must upload all relevant documents for the application to be processed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6415",
+      "name": "Special Event Permit",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "For events with 500 or fewer attendees, submit applications at least 60 days before the event. For events with 500 or more attendees, submit applications at least 90 days before the event. Do not promote the event until the permit is fully approved. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Temporary Dumpster or Pod Permit",
+      "categoryId": 1090,
+      "viewAccess": "private",
+      "description": " ",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Film Registration",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "MUST be completed a minimum of 3 (three) weeks \nprior to the first day of shooting.",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "BX or CX (Current B or C license holders only)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "One additional hour for current BV or C License holders on Friday, Saturday, and the night before a legal state holiday.",
+      "isEnabled": true
+    },
+    {
+      "id": "6528",
+      "name": "PTID Payment",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "description": "Monthly payments for Providence Tourism Improvement District",
+      "isEnabled": true
+    },
+    {
+      "id": "6547",
+      "name": "Traffic Permit",
+      "categoryId": 1075,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "Sidewalk Contractor License",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6575",
+      "name": "Yearly Dumpster Permit",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "Class 1 Dumpster Permit for Yearly Installations",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "3:00 AM Soft Closing License (FOR BX AND N LICENSES ONLY!)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Public Art Registration",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "The City of Providence Department of Art, Culture + Tourism welcomes independent artists who are interested in temporarily exhibiting or permanently installing public art within the city. \nWe ask that artists register their projects regardless of whether they are installing on private or public property. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6365",
+      "name": "Overnight Parking Permit",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Trash Hauling License",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "Overnight Parking for Multi-Family Buildings  (Six or More Units)",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6561",
+      "name": "Life Safety Inspection",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Click here to submit your request for an inspection from the Providence Fire Prevention Division (related to business licenses or construction rough/final)",
+      "isEnabled": true
+    },
+    {
+      "id": "6551",
+      "name": "Road Opening/Physical Alteration Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "ROW Encroachment Request",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Temporary Overnight Parking Permit",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Permit for residents of Providence who have temporary circumstances that require them to park on the street overnight",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Food Establishment License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "With or without a Holiday License",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Rodent Baiting Form",
+      "categoryId": 1090,
+      "viewAccess": "private",
+      "isEnabled": true
+    },
+    {
+      "id": "6414",
+      "name": "Tent Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Must be completed for all tents larger than 350 square feet. Final approval is subject to on-site inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "Temporary Parking Privileges Permit",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Permit to allow Temporary Parking Privileges for metered and/or time restricted parking spaces.",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Holiday Only License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Sewer Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6558",
+      "name": "Residential Handicap Parking Signs Request",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "description": "Residential Handicap Parking signs are signs that designate a parking space as accessible only for people who hold a disabled parking placard. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Petroleum (Gas Station)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "For any person or legal entity storing petroleum products.",
+      "isEnabled": true
+    },
+    {
+      "id": "6402",
+      "name": "Apply for an Entertainment/Raffle/Class F Liquor Licenses (with entertainment)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "As you should be aware, Section(s) 14-193-201 of the Providence Municipal Ordinances provide the governing law for entertainment licenses in the city. \nIn this regard, Section 14-199 provides that said licenses expire on the last day of the month.  Further, the renewal application for entertainment licenses “must be submitted no later than seven (7) days following expiration of the licensee’s current entertainment license”. (Section 14-195.)\nIn order to ensure enough time for processing, all renewal applications for entertainment must be submitted on or before the fifteenth (15th) day of the month for entertainment to be held in the next succeeding month. Any late applications will likely require an in person hearing before the Board.\n In the event that your application for entertainment (or renewal thereof) is not received in a timely fashion as required by ordinance, your application may not be approved by the Board of Licenses.\nIf your application is not approved prior to the 1st of the month, you are NOT permitted to have ANY entertainment events until approved by the Board.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6586",
+      "name": "Business Employee Permit Parking: Federal Hill, Thayer & Vicinity, & Wayland Square",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6559",
+      "name": "Media/Press Parking Permit",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Class F LIQUOR LICENSE ONLY",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Laundry License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "City Employee Parking Permit",
+      "categoryId": 1078,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Second Hand Store",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "No person shall engage in the business of purchasing, selling, bartering or dealing in junk, old metals or secondhand articles, antiques, or of receiving the same for the purpose of melting the same or of converting the same into castings, unless such person shall be duly licensed by the board of licenses.",
+      "isEnabled": true
+    },
+    {
+      "id": "6409",
+      "name": "Roofing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For commercial and residential roofing",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Door Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For installation and replacement of doors",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Seasonal Expansion of Premises",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "No licensee may make use of an expansion of premises unless it receives an expansion of premises permit from the Board of Licenses. An expansion of premises is defined as the service or consumption of food or alcohol or hookah or the provision of any entertainment, which shall be subject to the conditions imposed by the entertainment license, or sound outside of the four walls of the premises of the licensee as set forth in the licensing record maintained by the Board of Licenses.",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Permanent Expansion of Premises",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "For indoor expansion only. For expanding the building, use of an additional floor, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Window Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For installation and replacement of windows",
+      "isEnabled": true
+    },
+    {
+      "id": "6420",
+      "name": "Siding Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For exterior siding work such as vinyl, wood, clapboard, shingle etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Pawnbrokers License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Business of lending money on personal property or goods pledged as security for the loan on the condition that if the loan is not repaid within the specified period of time, the goods used as security may be sold to compensate for non-payment. It shall be unlawful for any person to engage in business as a pawnbroker in the city, unless he first shall have procured a license therefor from the bureau of licenses.",
+      "isEnabled": true
+    },
+    {
+      "id": "6563",
+      "name": "Parent Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6378",
+      "name": "Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "The general building permit also includes the Commercial Fire Plan Review process when necessary",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "1-4AM License (New licenses only)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required for any business operating between the hours of 1AM - 4AM pursuant to providence code section 14-1",
+      "isEnabled": true
+    },
+    {
+      "id": "6565",
+      "name": "Certificate of Occupancy",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Pool Table/Mechanical Device/Amusement License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "No person shall engage in the business of an amusement center or the keeping of bagatelle, billiards, pool or sippio tables or any mechanical amusement device as defined in section 14-202.1 for public hire, or in the business of keeping such persons shall be duly licensed by the bureau of licenses.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Annual Vendor License (NO FOOD TRUCKS)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "THE SALE OF FOOD IS STRICTLY PROHIBITED UNDER THIS LICENSE. \nIf you intend to sell food, you must apply for a Food Truck/Mobile Food Establishment Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6379",
+      "name": "Raze Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For COMPLETE demolition of a structure ONLY. For interior/selective demolition (removing walls, etc.), please complete a Building Permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6380",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For work related to electrical devices or electrical wiring",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Motor Vehicle Repair",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Motor vehicle repair business shall be any place, establishment, garage, outdoor work area or work area enclosed within a building, including a used automobile dealership, where repairs are made or caused to be made to motor vehicles, including engines, carburetors, brakes, transmissions, muffler systems, electrical systems and general running gear of motor vehicles including auto body repairs. Motor vehicle repair business shall not include a new automobile dealership.",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Junk License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": " Required for any business selling, purchasing, bartering or dealing in junk, old metals and secondhand articles. Pursuant to Providence Code Section 14-127 and RIGL 5-21-1.'",
+      "isEnabled": true
+    },
+    {
+      "id": "6407",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For installation of solar photovoltaic systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "6417",
+      "name": "Fire Alarm Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For work related to installation and modification of Fire Alarms. This application will trigger a Commercial Fire Plan Review and generate an Electrical Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Second Hand Auto",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Business of buying, selling, purchasing, bartering, or dealing in used or second-hand motor vehicles. Including retail and whole sale.",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Employment Agency",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6418",
+      "name": "Install Residential Smoke Alarm and CO Alarms",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For review of the layout and installation of smoke and CO alarms in residential occupancies including 3-family apartments, apartments, lodging & rooming, hotel/dormitory, and new 1 & 2 family dwellings",
+      "isEnabled": true
+    },
+    {
+      "id": "6425",
+      "name": "Electrical Maintenance Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For ongoing upkeep of electrical systems",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Fireworks Vendor Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "A vendor shall apply for a Providence Fireworks Vendor Permit pursuant to this section. The fee to obtain a Providence Fireworks Vendor Permit shall be fifty dollars ($50.00). An application for a Providence Fireworks Vendor Permit shall be submitted in writing to the office of the board of licenses and shall include the name of the applicant, the name of the applicant's business, and the location of where the fireworks will be sold. A vendor must submit a separate application for each location where fireworks will be sold. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Private Detective License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required for any person hired to conduct investigations involving inquires to unsolved crime, clandestine surveillance, missing person search or search for lost/stolen property. Pursuant to Rhode Island General Law 5-5-2. No license is required for the following: investigators employed by any federal, state or city/town; persons employed to research genealogical work or family history compilation; insurance investigators; credit reporting agencies; or certified computer examiners. Pursuant to Rhode Island General Law 5-5-20. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6421",
+      "name": "Utility Pole Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6416",
+      "name": "Sprinkler and Other Suppression Systems Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For sprinkler system and other fire suppression systems related work. This application will trigger a Plan Review and generate a Mechanical Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Promoters License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Yard/Garage Sale License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "The owner and/or tenant of any zoned residential (R-1 through R-5 inclusive) property within the City of Providence shall not conduct nor allow to be conducted any sale of the type commonly referred to as \"yard sale,\" \"garage sale,\" or any similar type sale at that dwelling or property unless prior thereto a license to be known as a yard sale license for the same is obtained from the board of licenses.",
+      "isEnabled": true
+    },
+    {
+      "id": "6413",
+      "name": "Commercial Cooking Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This application will trigger a Hood and Duct Fire Suppression System Review and generate a Mechanical Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6381",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For work on heating, cooling, and ventilation systems",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Floor Host/Bouncer License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Required for any person working as security personnel at an establishment licensed to serve alcohol including nightclubs and bars; includes watchmen, guards, bouncers, security guards, door keeper, crowd controller or any person responsible for protecting people and property. Pursuant to Providence Code Section 14-14.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Valet License (New License Only)",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Any business operating in the city which determines that \"valet\" style parking is in its interest, may petition to the board of licenses for valet parking.  Upon receipt of said application, the traffic engineer shall review the available curbside parking adjacent to and in the general vicinity of the applicant's premises and shall, based upon that review, forward a recommendation to the board. City Ordinance 14-285.",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Parking Garage/Lots",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "No person shall maintain or operate a commercial parking garage or parking lot within the limits of the city unless such person shall be duly licensed by the board of licenses. A separate commercial parking license is required for each parking garage or parking lot. The said license shall be issued after due application, as described in this article, and payment of the prescribed fee. An application for license renewal must be submitted annually.",
+      "isEnabled": true
+    },
+    {
+      "id": "6383",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For work related to systems of pipes, tanks, fittings, and other apparatus required for the water supply, heating, and sanitation in a building.",
+      "isEnabled": true
+    },
+    {
+      "id": "6424",
+      "name": "Short Term Rental - Temporary Use Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For short term rentals",
+      "isEnabled": true
+    },
+    {
+      "id": "6539",
+      "name": "Temporary Use Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "For  temporary mobile food sales, outdoor entertainment, outdoor storage containers, and temporary emergency housing",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Hackney (Taxi) Driver and Carriage License",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6405",
+      "name": "Zoning Certificate",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "A  zoning  certificate  is  defined  by  R.I.G.L.  §  45-24-31(65) as “a document signed by the zoning enforcement  officer,  as  required  in  the  zoning  ordinance,  which acknowledges  that  a  use, structure, building or lot either complies with or is legally nonconforming to the provisions of the municipal zoning ordinance or is an authorized variance or modification therefrom.”",
+      "isEnabled": true
+    },
+    {
+      "id": "6406",
+      "name": "Zoning Certificate for Compliance",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "A zoning certificate is required for any action undertaken for which conformance to this Ordinance is required, but that does not require a building permit under the provisions of the Rhode Island Building Code. For example, when new areas of pavement do not require a building permit, a zoning certificate indicating conformance to all provisions of this Ordinance is required",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Food Truck/Mobile Food Establishment Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Food trucks and carts wanting to sell within the city of Providence.  Please be aware that mobile food vendors are NOT permitted to sell or serve alcohol. Pursuant to The RI Department of Business Regulation (DBR).\nRegulation 230-RICR-30-35-1 subsection 4.C prohibits the sale and/or service of alcoholic beverages.",
+      "isEnabled": true
+    },
+    {
+      "id": "6572",
+      "name": "Zoning Board of Review Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, and Extension Request for previously issued zoning resolution.",
+      "isEnabled": true
+    },
+    {
+      "id": "6584",
+      "name": "Zoning Administrative Modification Application",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Application to the Zoning Officer for a request of relief of 15% or less from any dimensional standard of the zoning ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": "Stationary Engineer and Boiler Operators License",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Application for License as one of the following: Stationary Engineer, Boiler Operator, Apprentice Boiler Operator, Refrigeration Machine Operator, Apprentice Fire Person ",
+      "isEnabled": true
+    },
+    {
+      "id": "6571",
+      "name": "Multi-unit Dwelling Property Management Registration",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Multi-unit Dwelling shall mean a building containing six (6) or more self-contained suites or apartments, or multiple buildings on adjacent lots held by the same owner.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1072",
+      "name": "Department of Inspections and Standards",
+      "isEnabled": 1,
+      "content": "<h2 style=\"text-align: center;\"><a href=\"http://cityof.providenceri.com/efile/107\"><span style=\"color: rgb(0, 0, 0);\">D</span></a><span style=\"color: rgb(0, 0, 0);\">epartment of Inspections and Standards</span></h2><p style=\"text-align: center;\"><span style=\"color: rgb(41, 105, 176);\"><a href=\"https://providenceri.portal.opengov.com/search\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"font-size: 18px;\"><strong>Search for Permits by Address</strong></span></a></span></p><p>Trouble findi"
+    },
+    {
+      "id": "1080",
+      "name": "Fire Prevention Bureau",
+      "isEnabled": 1,
+      "content": "<p>For a <strong>Commercial Fire Plan Review&nbsp;</strong>apply for a Building Permit and fill out the fire review portion of the application <a href=\"https://providenceri.viewpointcloud.com/categories/1072/record-types/6378\">here</a>.</p><p>For review of <strong>Fire Alarm</strong> work apply for a combination Fire Plan Review/Electrical Permit here: <a href=\"https://providenceri.viewpointcloud.com/categories/1072/record-types/6417\" rel=\"noopener noreferrer\" target=\"_blank\">Fire Alarm Permit</"
+    },
+    {
+      "id": "1076",
+      "name": "Board of Licenses",
+      "isEnabled": 1,
+      "content": "<h1>Welcome to the Board of Licenses!</h1><p>The Board of Licenses office is responsible for processing a broad range of license applications for the City of Providence as well as regulating licenses. Over 8,000 licenses are issued per year in over 30 different categories, including hackney food dispensing, peddlers motor vehicle repair, nightlife operations and over 400 liquor licenses.</p><p>All licenses are renewed annually with the renewal licenses staggered by the type of license. The offic"
+    },
+    {
+      "id": "1078",
+      "name": "Curbside/Parking Administration Division (DPW)",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"font-size: 18px;\"><strong>Welcome to the Online Application Portal for the Department of Public Works</strong></span></p><p style=\"text-align: center;\"><br></p><p style=\"text-align: justify;\">The Department of Public Works provides efficient, cost-effective, high-quality services relative to the operations, maintenance, planning, construction and engineering of public works infrastructure and waste management for the City of Providence.</p><p style=\"te"
+    },
+    {
+      "id": "1090",
+      "name": "Environmental Division (DPW)",
+      "isEnabled": 1
+    },
+    {
+      "id": "1088",
+      "name": "Engineering Division (DPW)",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'>The Department of Public Works - Engineeri"
+    },
+    {
+      "id": "1075",
+      "name": "Traffic Engineering (DPW)",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><span style=\"font-size: 14px;\">The Departm"
+    },
+    {
+      "id": "1082",
+      "name": "Art, Culture, and Tourism",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-bottom:0in;margin-bottom:.0001pt;line-height:  normal;\"><span style=\"font-size: 24px;\"><strong>Welcome to Art, Culture, and Tourism Registration Site</strong></span></p><p style=\"margin-bottom:0in;margin-bottom:.0001pt;line-height:  normal;\"><br></p><p>This is where you can:</p><ul><li>Apply to have an event on public property</li><li>Register Public artwork</li><li>Register film shoots large or small</li></ul><p><br></p><p style=\"margin-bottom:0in;line-height:normal;background:"
+    },
+    {
+      "id": "1079",
+      "name": "Tax Assessor",
+      "isEnabled": 1,
+      "content": "<p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/City_of_Providence_Tax_Stabilization_Agreement_(TSA)_Reference_Guide_Wed_Sep_18_2024_13:47:52_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\">City of Providence Tax Stabilization Agreement (TSA) Reference Guide.pdf</a></p><p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Ordinance_2021-21_No._251_Thu_Jun_30_2022_15:27:11_GMT+0000_(Greenwich_Mean_Time).pdf\" "
+    },
+    {
+      "id": "1083",
+      "name": "Providence Parks Small Event Permit ",
+      "isEnabled": 1,
+      "content": "<p><strong><em>The following permit is for small events only.&nbsp;</em></strong></p><p><br></p><p><strong><u>REGULATIONS OF THE PROVIDENCE BOARD OF PARK COMMISSIONERS</u></strong></p><p><strong>1.0</strong> These regulations are promulgated pursuant to Section. 1003 (a) (2) of the Providence Home Rule Charter.</p><p><strong>2.0</strong> Hours Roger Williams Park to be Open Roger Williams Park shall be open to the public from 7:00 A.M. to 9:00 P.M. No person shall enter or be within the limits o"
+    },
+    {
+      "id": "1087",
+      "name": "Providence Rescue Plan",
+      "isEnabled": 1
+    },
+    {
+      "id": "1089",
+      "name": "Recreation",
+      "isEnabled": 1,
+      "content": "<div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/PvdRecLogo_Tue_Jun_04_2024_13:47:27_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 95px;\" class=\"fr-fic fr-dib\"></div>"
+    },
+    {
+      "id": "1091",
+      "name": "Animal Control",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1093",
+      "name": "Providence Emergency Management Agency",
+      "isEnabled": 1
+    },
+    {
+      "id": "1095",
+      "name": "Planning and Development",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:55:58.149Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

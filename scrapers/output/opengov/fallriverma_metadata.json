@@ -1,0 +1,327 @@
+{
+  "jurisdiction": "Fall River",
+  "state": "MA",
+  "tenant": "fallriverma",
+  "portalUrl": "https://fallriverma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006484",
+      "name": "Class I, II, or III",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Class I - New Car Dealer\nClass II - Used Car Deals\nClass III - Motor Vehicle Junk Dealer",
+      "isEnabled": true
+    },
+    {
+      "id": "1006485",
+      "name": "Common Victualler License",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "License for seating within a restaurant. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006491",
+      "name": "Alcoholic Beverages Retail License ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Application for retail alcoholic beverage licenses must begin the application process at mass.gov/abcc and return to this site once you have completed your application with the State. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "One-Day Alcohol Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "License required to sell and serve alcoholic beverages for a single day at special events.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006506",
+      "name": "Fortune Teller License",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "License required to provide fortune-telling services.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006507",
+      "name": "Lodging License",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "License required to operate a lodging establishment, such as a hotel or bed-and-breakfast.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": "Entertainment License",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "License to provide entertainment at a CV or Liquor License Establishment. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006580",
+      "name": "Structure Over Public Way",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006531",
+      "name": "Site and Sales of Tobacco and Nicotine Delivery Products Permit",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006534",
+      "name": "Food / Retail Establishments / Mobile Services Permit",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006588",
+      "name": "Keeping of Animals",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": "Commercial Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A commercial building permit for the construction or significant alteration of commercial property in adherence to safety standards, building codes, and zoning laws.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006524",
+      "name": "Sale and Transfer Smoke/CO Certificate (26F-26F 1/2)",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "This application is for an inspection to acquire a Smoke/CO Certificate for the sale and transfer of a property.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006565",
+      "name": "Facility Hot Work Permit (2 Years)",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "Conducting cutting and welding/hot work in Fall River requires that this permit is issued for your work by the Fall River Fire Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006541",
+      "name": "Residential Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A residential building permit for the construction, renovation, or extension of residential properties, ensuring compliance with local zoning, safety, and building codes. Includes tents.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006519",
+      "name": "Cutting & Welding/Hot Work Permit",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "Conducting cutting and welding/hot work in Fall River requires that this permit is issued for your work by the Fall River Fire Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A plumbing permit for modifications, installations, or repairs of plumbing systems, ensuring the work is inspected for compliance with health and safety standards set by local building codes.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006502",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "An electrical permit is an official document to install, alter, or repair electrical systems, ensuring the work complies with electrical codes and safety regulations to prevent hazards.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006554",
+      "name": "Event Detail Request",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Request a Fire detail for events in the city needing Fire Department supervision, including events with alcohol, blasting and firework details.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006555",
+      "name": "Annual Fire Alarm Permit (Box Alarm and Monitoring)",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Sheet Metal Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A sheet metal permit for the installation, alteration, or repair of sheet metal systems, ensuring compliance with local building codes and standards for safety and performance.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006501",
+      "name": "Gas Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A gas permit is a mandatory authorization issued by local authorities that allows individuals or entities to install, modify, or operate gas lines or appliances, ensuring compliance with safety and building codes.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006525",
+      "name": "State Mandated Fire Inspection Registration",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "The State Mandated Fire Inspection program is conducted by fire suppression personnel for public and private schools, hospitals, hotels, clinics, day care centers, theaters, nursing homes, adult education centers, elderly housing, and group homes.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006559",
+      "name": "21E Request - Site Assessment Research (M.G.L. c.21-E)",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "21E - M.G.L. c. 21E Massachusetts Oil and Hazardous Material Release Prevention Act also known as the State Superfund Law is the statute encompassing issues related to the identification and cleanup of property contaminated by releases of oil and/or hazardous material to the environment. Widely referenced as merely “21E”.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006567",
+      "name": "Water/Sewer Utility Markoff",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Request water/sewer utility mark-off for excavation. The City of Fall River will mark underground utilities in compliance with Massachusetts DigSafe regulations.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006568",
+      "name": "Copy of Fire Incident Report",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006522",
+      "name": "Fuel Oil Burner & Storage Permit",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "Installing or modifying Fuel Oil Burner or Storage equipment in Fall River requires a Fuel Oil Burner & Storage permit issued by the Fall River Fire Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006569",
+      "name": "Tank Removal Permit",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "Fall River Fire Department permits the removal of storage tanks with this permit. You will be required to provide us detailed information about the tank, the containment assessment information, whether the tank(s) will be removed or secured in place, and the tank removal company information associated with tank(s) removal.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006571",
+      "name": "Waste Oil Storage Permit",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "A waste oil storage permit authorizes the safe storage of used oil on a property in compliance with fire safety regulations.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006510",
+      "name": "Amusement License",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Application for coin operated amusement machines license.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006521",
+      "name": "Flammable & Combustible Material Permit (Facilities)",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "A Flammable & Combustible Material Permit is required for individuals or companies storing flammable and combustible material on-site.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006523",
+      "name": "Hazardous Material Processing Permit",
+      "categoryId": 1090,
+      "viewAccess": null,
+      "description": "A Hazardous Material Processing Permit is required for companies processing hazardous material. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006556",
+      "name": "Propane Cylinder Storage/Use for Forklift Truck Operations",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006557",
+      "name": "Propane Cylinder Storage for Resale/Exchange",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006558",
+      "name": "Temporary Storage of Propane Tank",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Application for Temporary Storage of Propane Tanks. Examples could include tents, temporary construction, temporary events, etc.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006563",
+      "name": "Cannon / Mortar Permit",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Permit for the use of cannons/mortars issued under MGL Chapter 148, Section 10A, with restrictions as outlined in 527 CMR 1.00 Chapter 65.11, ensuring compliance with safety and fire code regulations.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006562",
+      "name": "Propane Tank Storage",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Store/use of a propane tank at a fixed location. Includes tank size, placement, and compliance with safety and fire prevention regulations.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1083",
+      "name": "Business and Civic Services",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 24px; color: rgb(184, 49, 47);\"><u>Renewal Information:</u></span></p><div><span style=\"color: rgb(184, 49, 47); font-size: 18px;\">If you are renewing your license, please check your account to see if your license is available for renewal. Do not submit a new application. See below for renewal instructions.</span></div><div><br></div><div><a href=\"https://cms2.revize.com/revize/fallriver/Document%20Center/Goverment/Boards%20&%20Commissions/Licensing%20Board/Renewal%20G"
+    },
+    {
+      "id": "1090",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-size: 18px;\">The Division of Fire Prevention within the Fall River Fire Department is dedicated to protecting the public by ensuring compliance with fire codes and enforcing Fire Prevention Laws and Codes. The Division&#39;s responsibilities include review of building plans for all life safety systems and inspecting/testing any installations, alterations, modifications, or repairs to fire alarms, sprinkler systems, or suppression systems.</span></div><div><span style=\"font"
+    },
+    {
+      "id": "1091",
+      "name": "Health & Human Services Department",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:55:50.833Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

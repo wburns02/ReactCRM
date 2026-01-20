@@ -1,0 +1,253 @@
+{
+  "jurisdiction": "Narragansett",
+  "state": "RI",
+  "tenant": "narragansettri",
+  "portalUrl": "https://narragansettri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6393",
+      "name": "Fireworks Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6403",
+      "name": "Public Works - Tree Permit",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6407",
+      "name": "TEST - Public Safety - Alarm Registration",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6408",
+      "name": "Residential Parking Permits",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6409",
+      "name": "Business Parking Permits",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6332",
+      "name": "Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a building permit from the Town of Narragansett, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for a demolition permit from the Town of Narragansett.",
+      "isEnabled": true
+    },
+    {
+      "id": "6400",
+      "name": "Hot Work Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "This Hot Work Permit is required for any operation involving open flame or producing heat and/or sparks. This work includes, but is not limited to, welding, brazing, cutting, grinding, soldering, thawing pipe, torch-applied roofing, or chemical welding.  \n\nSeek an alternative/safer method if possible!\n\nTHIS PERMIT IS GOOD FOR ONE DAY ONLY!",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit from the Town of Narragansett, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6394",
+      "name": "Mobile Food Establishment",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Apply for a Mobile Food Establishment (MFE) license with the Town of Narragansett. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6390",
+      "name": "Alcohol License",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Renew or Apply for an Alcohol license from the Town of Narragansett, RI. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit from the Town of Narragansett, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6377",
+      "name": "Residential Smoke & Carbon Monoxide",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Apply for a Residential Smoke and Carbon Monoxide inspection when the house is being sold.",
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": "Tent Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "This application must be submitted at least 7 days in advance of the event.  If you have an urgent request, please call ",
+      "isEnabled": true
+    },
+    {
+      "id": "6396",
+      "name": "Permanent expansion of COVID-19 \"Take it Outside\" Seating/Dining",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Application for Permanent expansion of the COVID-19 \"Take it Outside\" Seating/Dining.",
+      "isEnabled": true
+    },
+    {
+      "id": "6405",
+      "name": "1 Day Licenses",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Apply for a 1 Day licenses from the Town of Narragansett",
+      "isEnabled": true
+    },
+    {
+      "id": "6413",
+      "name": "Private Haulers",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Apply for your Private Hauler or Septage Hauler license. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the Town of Narragansett, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6404",
+      "name": "Rental Registration",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Complete the Rental Registration Application for your rental properties.",
+      "isEnabled": true
+    },
+    {
+      "id": "6388",
+      "name": "General Business Licenses",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Apply for your Business licenses from the Town of Narragansett. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6410",
+      "name": "NEW Life Safety Inspection",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Click here to submit your request for an inspection from the Narragansett Fire Prevention Bureau (related to business licenses or alcohol licenses)",
+      "isEnabled": true
+    },
+    {
+      "id": "6362",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the Town of Narragansett.",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "Zoning Certificate",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for the Zoning Certificate with the Town of Narragansett. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6401",
+      "name": "Public Works - Right of Way Contractors License Application",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Apply for a Right of Way Contractors License with the Town of Narragansett. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6402",
+      "name": "Public Works - General Permit Application",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Apply for a Right of Way Construction Permit with the Town of Narragansett. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6383",
+      "name": "Special Events License",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Apply for a special events license through the Town of Narragansett.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1072",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p>Submit one form to apply for permits (including Fire Plan Review, if applicable).</p><p>For questions, please contact the Narragansett Building Inspectors Office at 401-782-0619</p>"
+    },
+    {
+      "id": "1081",
+      "name": "Clerks Office",
+      "isEnabled": 1
+    },
+    {
+      "id": "1080",
+      "name": "Fire Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1087",
+      "name": "Municipal Court",
+      "isEnabled": 1
+    },
+    {
+      "id": "1086",
+      "name": "Public Safety",
+      "isEnabled": 1
+    },
+    {
+      "id": "1085",
+      "name": "Public Works",
+      "isEnabled": 1
+    },
+    {
+      "id": "1088",
+      "name": "Zoning Board of Review",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:03.612Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

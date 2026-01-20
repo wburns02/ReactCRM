@@ -1,271 +1,329 @@
 {
   "jurisdiction": "Arlington",
   "state": "MA",
+  "tenant": "arlingtonma",
   "portalUrl": "https://arlingtonma.portal.opengov.com",
   "recordTypes": [
     {
       "id": "1006573",
       "name": "**One Day Alcohol License *DRAFT*",
       "categoryId": 1088,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006482",
       "name": "Building Permit - One or Two-Family Dwelling",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Building Permit Application To Construct, Repair, Renovate Or Demolish a One- or Two-Family Dwelling.",
+      "isEnabled": true
     },
     {
       "id": "1006537",
       "name": "Accessory Dwelling Unit (ADU)",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006533",
       "name": "Allowable Work Hours",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006484",
       "name": "Building Permit - Other Than One or Two-Family Dwelling",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "This permit application is used for COMMERCIAL projects. ",
+      "isEnabled": true
     },
     {
       "id": "1006483",
       "name": "Dumpster/Pod Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "All DUMPSTERS/PODS  placed in the Town of Arlington require a permit regardless of their location.",
+      "isEnabled": true
     },
     {
       "id": "1006552",
       "name": "Buildable Lot Information",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006540",
       "name": "CO vs COA, Expired Permit Info, As Built Requirements",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006493",
       "name": "Electrical Permit Application",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006492",
       "name": "Plumbing Permit Application",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006538",
       "name": "Demo Sign Off Sheet",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006539",
       "name": "Fossil Fuel-Free ByLaw/Demonstration & Specialized Stretch Energy Code",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006494",
       "name": "Gas Permit Application",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006583",
       "name": "Apply for a Dog License (1-4 dogs)",
       "categoryId": 1088,
-      "viewAccess": null
+      "viewAccess": null,
+      "description": "Please create an OpenGov account and submit your application through the portal. Licenses expire on December 31st.",
+      "isEnabled": true
     },
     {
       "id": "1006495",
       "name": "Mechanical Permit Application",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006531",
       "name": "Good Neighbor Agreement & Condo Notification, Request for Abutters List",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006530",
       "name": "Guidelines for: Sheds, Fences, Decks, Garages, Retaining Walls ",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006498",
       "name": "Sheet Metal Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006486",
       "name": "Application for Certificate of Use/Occupancy",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006522",
       "name": "Guest Portal Record Access",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006541",
       "name": "Historic Districts Commission & Historical Commission",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006506",
       "name": "Annual Certificate of Inspection",
       "categoryId": 1071,
-      "viewAccess": null
+      "viewAccess": null,
+      "isEnabled": true
     },
     {
       "id": "1006554",
       "name": "Homeowner Considering Construction",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006521",
       "name": "How to Save and Resume a Draft of a Record/Application",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006465",
       "name": "Sign Permit ",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Apply for a permit to erect a sign. Signage regulations are located in Section 6.2 in the Town of Arlington Zoning Bylaw.",
+      "isEnabled": true
     },
     {
       "id": "1006525",
       "name": "Bylaw/Code Violation Complaint",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Inspectional Services (ISD) enforces the State Building Codes and Town Bylaws.",
+      "isEnabled": true
     },
     {
       "id": "1006551",
       "name": "Location of Parking Spaces",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006572",
       "name": "New Build (Energy Efficient Homes on Nonconforming Lots)",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006505",
       "name": "Variance Permit Application (ZBA)",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "This application should only be completed when requested by the Town of Arlington building officials.",
+      "isEnabled": true
     },
     {
       "id": "1006520",
       "name": "Appeal from Decision of Building Inspector",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006532",
       "name": "Open Space & Gross Floor Area",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006523",
       "name": "Permit Fee Schedule and Service Fee FAQ",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006497",
       "name": "Special Use Permit Application (ZBA)",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "This application should only be completed when requested by the Town of Arlington building officials.",
+      "isEnabled": true
     },
     {
       "id": "1006518",
       "name": "Waiver - Fossil Fuel Free Bylaw",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "The Town of Arlington may grant a waiver subject to the requirements of the bylaw. Waiver application for Fossil Free Bylaw for projects that are deemed financially infeasible or impractical to implement.\n\nPlease see Select Board guidance: https://www.arlingtonma.gov/home/showpublisheddocument/70169\n\n\n",
+      "isEnabled": true
     },
     {
       "id": "1006555",
       "name": "Plot Plan requirements",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006543",
       "name": "Public Records Request",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006527",
       "name": "Tent Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "The Building Permit - Tent application is for residential and commercial projects.  \n\nIf you have questions when completing the application please contact the office at 781-316-3390.",
+      "isEnabled": true
     },
     {
       "id": "1006529",
       "name": "Tree Bylaws and Info",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006534",
       "name": "Remodels: Additions, Basements",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006536",
       "name": "Starting a Business in Arlington?",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "1006535",
       "name": "Zoning Bylaws & Town Bylaws",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     }
   ],
   "categories": [
     {
       "id": "1071",
       "name": "ISD Permit Applications",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<h2 style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; font-weight: 700; line-height: 1.25; color: rgb(51, 51, 51); margin-top: 20px; margin-bottom: 10px; font-size: 1.75rem; text-transform: none; white-space: normal; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: center; text-indent: 0px; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-deco"
     },
     {
       "id": "1086",
       "name": "Building: FAQs and Useful Information/Documents",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><span style=\"color: rgb(226, 80, 65);\"><strong><u><span style=\"font-size: 24px; font-family: Tahoma, Geneva, sans-serif;\">NEW UPDATES</span></u></strong></span></div><div style=\"text-align: center;\"><br></div><div style=\"text-align: center;\"><span style=\"color: rgb(0, 0, 0); font-size: 18px;\"><u><span style=\"font-family: Tahoma, Geneva, sans-serif;\"><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/811_Dig_Safe_Wed_Sep_17_2025"
     },
     {
       "id": "1088",
       "name": "Practice Dept",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><span style=\"font-size: 24px;\"><strong><u>this is a testing page</u></strong></span></div><div><br></div><div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/sadness_from_inside_out_Wed_Jun_04_2025_13:11:06_GMT+0000_(Coordinated_Universal_Time).jpg\" style=\"width: 114px;\" class=\"fr-fic fr-dib\"></div><div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/1764950952312_Fri_Dec_05_2025_16:09:12_GMT+0000_(Coordinated_Unive"
     }
   ],
-  "extractedAt": "2026-01-20T21:27:27.254Z"
+  "extractedAt": "2026-01-20T22:55:45.411Z",
+  "generalSettings": {
+    "id": 1
+  }
 }

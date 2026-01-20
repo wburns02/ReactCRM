@@ -1,0 +1,621 @@
+{
+  "jurisdiction": "Watertown",
+  "state": "MA",
+  "tenant": "watertownma",
+  "portalUrl": "https://watertownma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006598",
+      "name": "CPR / AED Training",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006661",
+      "name": "Variance Application for Allowance of Dogs in Outdoor Dining Areas",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006704",
+      "name": "Dumpster Registration",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "All dumpster within the City of Watertown must be registered with the Health Department",
+      "isEnabled": true
+    },
+    {
+      "id": "1006725",
+      "name": "Bodywork  Application (Therapist Licensure)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006727",
+      "name": "Bodywork Application (Establishment Licensure)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Any proprietor wishing to operate a bodywork establishment must complete the additional licensure requirements below and obtain a valid Bodywork Establishment License from the Department.\n\nThe applicant shall answer every question truthfully and completely and supply all information requested in the application form. The applicant shall submit the application along with all required documentation and fees to the Department. All required documents must be received by the Department within sixty (60) days for an active application. False statements shall constitute grounds for suspension or denial of an issued license.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006367",
+      "name": "Cutting & Welding/Hot Work Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006620",
+      "name": "26F & 26F 1/2 Home Sale Inspection",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006688",
+      "name": "Flammable and Combustible Materials",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006730",
+      "name": "12C Catered Events",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006638",
+      "name": "Notice of Intent (NOI)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "WPA Form 3 - Notice of Intent  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006664",
+      "name": "Community Preservation Project Eligibility Form",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006571",
+      "name": "Public Records Request",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "All Public Records Requests are fulfilled in compliance with Massachusetts Public Records Laws, MGL, Chapter 66, Section 10 and the Acts of 2016, Chapter 121.\n\nhttps://malegislature.gov/Laws/SessionLaws/Acts/2016/Chapter121",
+      "isEnabled": true
+    },
+    {
+      "id": "1006731",
+      "name": "Election Worker",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Happy Fall!\n\nWe are looking to confirm poll workers for the upcoming election:\n\nLocal Election on Tuesday, November 4, 2025\n\nIf you are interested in working on Election Day.  Please complete the Dropdown box below with your availability. \n\nWe will be offering training/refresher classes in two sessions.   In these sessions we will go over everything from start to finish on election night.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006663",
+      "name": "Petition to Appeal Determination of the ZEO/Building Commissioner",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006654",
+      "name": "Planning Board and Zoning Board Application",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006712",
+      "name": "Community Meeting and Developer's Conference Pre-Application",
+      "categoryId": 1092,
+      "viewAccess": null,
+      "description": "For projects requiring Site Plan Review (Developer's Conference) and/or a Community Meeting. Complete this form prior to submitting the \"Planning Board and Zoning Board Application\". \n\nUpload here all required documents according to the Site Plan Review/Developer's Conference Checklist available on the city's website.\n\nNOTE: ALL FILES AND INFORMATION WILL BE PUBLICLY VISIBLE UPON SUBMISSION.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006578",
+      "name": "Farmers' Market Vendor Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Farmers' Market Vendor Application",
+      "isEnabled": true
+    },
+    {
+      "id": "1006632",
+      "name": "Block Party / Street Closing Permit",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "A block party is a community event hosted on a City street by a group of neighbors, a non-profit organization, or an association. During a block party, the City closes a block or a portion of a single street to through traffic. You must get a minimum of 5 signatures from residents supporting your event. (signature page included is included in application) \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006635",
+      "name": "Request for Determination of Applicability (RDA)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The Request for Determination of Applicability permit is to know whether or not a proposed activity or an area applies to WPA or Ordinance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006484",
+      "name": "Building Permit Application - One & Two Family",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "THE CSL HOLDER MUST BE PRESENT FOR THE INSPECTIONS",
+      "isEnabled": true
+    },
+    {
+      "id": "1006506",
+      "name": "Annual Permit to Operate an Indoor Swimming Pool",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This is an Application for a permit to operate an indoor pool, public, semi-public, whirlpool or wading pool. All pools must be operated according to the Minimum Standards for Swimming Pools (Article V of the Sanitary Code) 105 CMR 435.00. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006665",
+      "name": "Community Preservation Funding Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006602",
+      "name": "Film Permit",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Application for film productions on public property in Watertown. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006508",
+      "name": "Seasonal Permit to Operate a Swimming Pool",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This is an Application for a permit to operate a seasonal public, semi-public, whirlpool or wading pool. All pools must be operated according to the Minimum Standards for Swimming Pools (Article V of the Sanitary Code) 105 CMR 435.00. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006491",
+      "name": "Biotechnology Permit Annual Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This is for WBSC regulated work",
+      "isEnabled": true
+    },
+    {
+      "id": "1006487",
+      "name": "Building Permit Application - Other than a One & Two Family",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "THE CSL HOLDER MUST BE PRESENT FOR ALL INSPECTIONS",
+      "isEnabled": true
+    },
+    {
+      "id": "1006666",
+      "name": "Comprehensive Permit Application",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "Chapter 40B is a state statute that encourages the development of low- and moderate-income housing by providing a streamlined permitting process and relief from local zoning requirements. Also known as the Comprehensive Permit Law, Chapter 40B was enacted in 1969 to help address the shortage of affordable housing in Massachusetts. The law requires that at least 20%-25% of units in a development have long-term affordability restrictions. Under Chapter 40B, the local Zoning Board of Appeals (ZBA) is the permit granting authority. The ZBA must review and make decisions (approve, approve with conditions, or deny comprehensive permits) in a public hearing setting.\n\nA prerequisite to filing with the ZBA for a comprehensive permit is the issuance of a Project Eligibility Letter from a subsidizing agency.  The Sponsor has submitted an application for project eligibility to the Massachusetts Department of Housing and Community Development (the Subsidizing agency).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006637",
+      "name": "Abbreviated Notice of Resource Area Delineation (ANRAD) ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "WPA Form 4A - Abbreviated Notice of Resource Area Delineation ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006742",
+      "name": "Renewals - Used Auto Dealers",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Class I for new car dealers\nClass II for used car dealers, and \nClass III for junk/salvage car dealers\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006488",
+      "name": "Biotechnology Registration Annual Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This is for Low Risk (BSL-1 and BSL-2)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006600",
+      "name": "Certificate of Inspection Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006743",
+      "name": "Renewals - Sale of Food Retail",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "(A) No person shall sell any food at retail between the hours of 1:00 a.m. and 5:00 a.m.\n(B) No store or place of business engaged in the retail sale of food shall be open for transaction of retail business between the hours of 1:00 a.m. and 5:00 a.m.\n\nThe Licensing Board may issue a special permit allowing a store to remain open for the transaction of business to an hour, specified in the permit, later than 1:00 a.m., or to remain open 24 hours a day. Special permits shall remain in effect for a period of one year.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006625",
+      "name": "Laboratory Registration",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006572",
+      "name": "Recreational Camps",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Recreational Camps for Children licenses are renewable annually on January 1st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006660",
+      "name": "Extension Permit for Order of Conditions (Ext OOC)",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "The Extension Permit is used to extend the expiration date of the original Order of Conditions.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006653",
+      "name": "Request for Certificate of Compliance (COC)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Request for Certificate of Compliance is used to close out the Order of Conditions ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006670",
+      "name": "Certificate of Inspection Application  Multi-Family",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Building Official shall inspect periodically existing buildings and structures and parts thereof in accordance with Table 110 entitled Schedule for Periodic Inspections of Existing Buildings. Such buildings shall not be occupied or continue to be occupied without a valid certificate of inspection. Periodic inspections required by this section do not apply to residences operated or licensed by the Massachusetts Department of Developmental Services and subject to 780 CMR 51.00: Massachusetts Residential Code. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006489",
+      "name": "Body Art Establishment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Body Art Establishment Permit expires on May 31st each year.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "Certificate of Occupancy Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006507",
+      "name": "Body Art Practitioner",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Use this application to make changes to a current Body Art Practitioner License during the licensing year. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Body Art Practitioner Amendment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Use this application for changes to an active practitioner license between renewals. This includes working at a new establishment and adding additional license types such as (micropigmentation or tattooing).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006511",
+      "name": "Demolition Permit Application - FULL STRUCTURE ONLY",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "In accordance with §110.0, Massachusetts State Building Code, “Application for Permit” the undersigned\nhereby applies for a permit to: DEMOLISH/REMOVE/RAZE",
+      "isEnabled": true
+    },
+    {
+      "id": "1006580",
+      "name": "Electrical Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc.  Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006502",
+      "name": "Change of Equipment/Minor Renovations to a Body Art Establishment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This approval is valid for 1 year after issuance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Fire Alarm/Detection Application (not  needed for 1 & 2 family)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006540",
+      "name": "Complaints",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006689",
+      "name": "Cryogenic Fluids and Compressed Gases",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006497",
+      "name": "Fire Sprinkler/Suppression Application (not  needed for 1 & 2 family)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006539",
+      "name": "Exterior Paint Removal Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Gas Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006490",
+      "name": "Farmer's Market Food Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006480",
+      "name": "Plumbing Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006568",
+      "name": "Food Establishment Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Please note in 2024, the Watertown Health Department approved dumpster regulations. All establishment's dumpsters must be registered. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Sheet Metal & Mechanical Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006424",
+      "name": "Food Establishment Plan Review",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application needed prior to Food Establishment Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "1006510",
+      "name": "Sign Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006601",
+      "name": "Food Establishment Plan Review- Change of Menu or Equipment",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application needed prior to Food Establishment Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "1006405",
+      "name": "Tent Permit",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006512",
+      "name": "Temporary Food Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006505",
+      "name": "Trench Permit Application - Private Property Only",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This is for Private Property only. Public Right of Way Trench Permits can be obtained from the Department of Public Works. Pursuant to G.L. c. 82A §1 and 520 CMR 7.00 et seq.(as amended).",
+      "isEnabled": true
+    },
+    {
+      "id": "1006516",
+      "name": "Mobile Food Vehicle Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": "Residential Kitchen",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006690",
+      "name": "Hazardous Materials Processing",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "A Hazardous Material Processing Permit is required for processes Category 2 and above.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006720",
+      "name": "Systems Adjustment",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Required for repairs and maintenance of fire suppression and detection systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006517",
+      "name": "Funeral Director Permit Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": "Hens & Honey Bees Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006496",
+      "name": "Keeping of Animals Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006722",
+      "name": "Acetylene Torch",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Required for repairs and maintenance of fire suppression and detection systems.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006499",
+      "name": "Temporary Keeping of Animals Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006513",
+      "name": "Permit to Operate a Hotel/Motel",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006515",
+      "name": "Tanning Establishment Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006514",
+      "name": "Tobacco Products Sales Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1095",
+      "name": "Historical ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1071",
+      "name": "Building Department ",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><span style=\"font-family: Verdana, Geneva, sans-serif; font-size: 18px; color: rgb(40, 50, 78);\">We&#39;ve moved!&nbsp;</span><span style=\"font-size: 18px;\"><span style=\"font-family: Verdana, Geneva, sans-serif; color: rgb(40, 50, 78);\">Our new address is:</span></span></div><div style=\"text-align: center;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(226, 80, 65);\"><span style=\"font-family: Verdana, Geneva, sans-serif;\">124 Watertown St, 3rd Floor, Sui"
+    },
+    {
+      "id": "1084",
+      "name": "City Clerk",
+      "isEnabled": 1
+    },
+    {
+      "id": "1085",
+      "name": "Community Development and Planning",
+      "isEnabled": 1,
+      "content": "<div><a href=\"https://www.livewellwatertown.org/farmers-market\" rel=\"noopener noreferrer\" target=\"_blank\"><span style=\"color: rgb(44, 130, 201); font-size: 18px;\"><span style=\"font-family: Verdana, Geneva, sans-serif;\"><strong><u>Farmers&#39; Market</u></strong></span></span></a></div><div><br></div><div><span style=\"font-family: Verdana, Geneva, sans-serif;\"><strong><span style=\"color: rgb(0, 0, 0);\"><u>Forms:</u></span></strong></span></div><div><a class=\"fr-file\" href=\"https://viewpointcloud."
+    },
+    {
+      "id": "1083",
+      "name": "Community Preservation",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\"><span style=\"color: rgb(41, 105, 176);\"><strong>Before applying for Community Preservation Act (CPA) funds</strong></span><strong>:</strong></span></div><div><br></div><div><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 14px;\">1. &nbsp;Please read the entire CPA application package, which includes the following: &nbsp;</span></div><ul><li style=\"font-family: Arial, Helvetica, sans-serif; font-size:"
+    },
+    {
+      "id": "1081",
+      "name": "Conservation Commission ",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: left;\"><strong><span style=\"font-size: 18px;\">Welcome to the Watertown Conservation Commission Online Permitting!</span></strong></p><p>Below, you will be able to complete appropriate applications. Supplemental information pertaining to the Watertown Conservation Commission, including (but not limited to) filing deadlines, the Watertown Wetland Ordinance, rules &amp; regs, and guidance documents can be found at:</p><p><a href=\"https://www.watertown-ma.gov/1196/Wetland-Permi"
+    },
+    {
+      "id": "1076",
+      "name": "Fire Dept",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: center;\"><span style=\"font-size: 36px; color: rgb(0, 0, 0);\"><strong>Watertown Fire Department</strong></span></p><p style=\"text-align: center;\"><span style=\"font-size: 36px; color: rgb(0, 0, 0);\"><strong>Online Permitting</strong></span></p><div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/1723564921290_Tue_Aug_13_2024_16:02:01_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 300px;\" class=\"fr-fic fr-dib\"></div><div><br></div><div><br></d"
+    },
+    {
+      "id": "1073",
+      "name": "Health",
+      "isEnabled": 1,
+      "content": "<p><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Workers_Compensation_Insurance_Affidavit_Wed_Feb_01_2023_15:59:48_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_blank\">Workers Compensation Insurance Affidavit.pdf</a></p>"
+    },
+    {
+      "id": "1080",
+      "name": "License Commission ",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 24px; color: rgb(84, 172, 210);\">License Commission</span></p><p>The Board of License Commissioners is a three-member Board. &nbsp;It is responsible for issuing licenses and permits, and enforcing rules, regulations, local ordinances and state laws. &nbsp;Licenses and permits issued by the Board include: alcohol (annual and one-days), package stores, clubs, common victuallers, innholders, garage and gasoline storage permits, hackney carriages and drivers, open air park"
+    },
+    {
+      "id": "1092",
+      "name": "Planning and Zoning Division",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1082",
+      "name": "More Coming Soon!",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:57:03.206Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

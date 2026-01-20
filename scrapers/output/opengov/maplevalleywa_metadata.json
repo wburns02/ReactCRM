@@ -1,0 +1,186 @@
+{
+  "jurisdiction": "Maple Valley",
+  "state": "WA",
+  "tenant": "maplevalleywa",
+  "portalUrl": "https://maplevalleywa.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6431",
+      "name": "Pre-Application Conference Request ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Master Land Use Application - Process 1 ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Right of Way Permit ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Adding Others to Your Application - Guest Portal Access",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Click here to learn more about adding people to your application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Code Enforcement",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "For code enforcement cases, report any properties that may have violations from the zoning code,, or nuisance violations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Building Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Fire Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Express Solar Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This is the equivalent of an over-the-counter application for simple solar panel installations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Master Land Use Application - Process 2",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Master Land Use Application - Process 3",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "How to Schedule an Inspection",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "description": "Click here for more information on how to schedule an inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Express Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This is the equivalent of an over-the-counter application for simple mechanical projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Express Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This is the equivalent of an over-the-counter application for simple plumbing projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Sign Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Damage Asessment",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Please note, this damage assessment form should only be used for project types/structures that require a building permit. Fences under 8' in height, sheds/accessory structures under 200 square feet, and cosmetic only damage do not require a damage assessment inspection and will not require a permit to repair unless special circumstances exist such as proximity to a steep slope hazard, wetland, or shoreline.",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "ICC Building Valuation Data",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Click here for detail on ICC Types of Construction and Occupancy Groups.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1072",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1080",
+      "name": "Planning Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1081",
+      "name": "Public Works Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1082",
+      "name": "Fire Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1084",
+      "name": "Information | FAQs | Help",
+      "isEnabled": 1
+    },
+    {
+      "id": "1085",
+      "name": "Code Enforcement",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:46.482Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

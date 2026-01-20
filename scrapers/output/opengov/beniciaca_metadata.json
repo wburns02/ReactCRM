@@ -1,0 +1,401 @@
+{
+  "jurisdiction": "Benicia",
+  "state": "CA",
+  "tenant": "beniciaca",
+  "portalUrl": "https://beniciaca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6529",
+      "name": "Open Flame Cooking Permit - Annual",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "The Open Flame Cooking Permit is required for any exterior cooking operation or event booth with an open flame or cooking utilizing flammable gas. The permit applies to private and public events that serve food to the general public. This permit is valid for 365 days.",
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "Tent Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "The Tent Permit is required for any tent or canopy in excess of 400 square feet. The permit applies to private and public events that serve the general public. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Fire Construction Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "A property owner or owner’s representative who intends to conduct an operation or business, installing or modifying systems and equipment regulated by the California Fire Code shall first submit plans for review and approval to obtain the required permit. The goal of Fire Construction Permits is to protect people and their environments from the destructive effects of fire and smoke.",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Submit Help Ticket To Administrator",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6847",
+      "name": "Annual Industrial Health and Safety Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "The Benicia City Council adopted the Industrial Health and Safety Ordinance (Benicia Municipal Code Chapter 8.55) on April 1, 2025 with the intention to strengthen industrial safety, air quality monitoring, public awareness, emergency response coordination, regulatory enforcement, and interagency collaboration including timely communication and incident reporting.\n\nA Benicia facility that uses or houses hazardous material in excess of maximum allowable quantities defined by California Fire Code Tables 307.1(1) and 307.1(2) must apply for this permit annually by July 1 of each year. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6570",
+      "name": "Express Permit - Building",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Residential only express permits for non-structural bathroom & kitchen remodel, siding & stucco replacement (no overlays allowed), retrofit window replacement with no framing changes",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Addressing Request",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Apply here for address assignments for new structures including ADU's, vacant lots, newly created lots, stand-alone utility meters, and address modification requests.",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Encroachment Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This application is for requesting an encroachment permit that authorizes the permittee to perform work, construct approved facilities, conducts specified activities, Parklet/Streetery/Sidewalk Table Dining  or temporary storage within the public right of way, public easements, or City property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Universal Planning Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Applications for design review, use permits, variances, and tentative subdivisions maps. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Fire Flow Test Request",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "This application is for requesting a fire flow test for the purposes of determining water availability for the design of fire sprinkler systems, domestic water systems, or other construction needs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6575",
+      "name": "Express Permit - Electric",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Residential only Express permits for electrical main service or sub-panel replacement (same location only)",
+      "isEnabled": true
+    },
+    {
+      "id": "6574",
+      "name": "Express Permit - Mechanical",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Residential only Express permits for furnace & heat pump replacements in the same location only; new installation of air conditioning units/condensers only; and duct replacements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6708",
+      "name": "Historical Design Review Exemption ",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Some projects in the historic districts may be eligible for exemptions to design review. Please contact planning staff at planning@ci.benicia.ca.us to confirm if your project qualifies.",
+      "isEnabled": true
+    },
+    {
+      "id": "6653",
+      "name": "Open Flame Cooking Permit - Single Day",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "The Open Flame Cooking Permit is required for any exterior cooking operation or event booth with an open flame or cooking utilizing flammable gas. The permit applies to private and public events that serve food to the general public. This permit is for one day.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6768",
+      "name": "Sidewalk Table Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This application is required for the use of sidewalk tables, where appropriate, at eating and drinking establishments in the downtown area. (Sidewalk Table Policy, Res. No. 19-32)\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6572",
+      "name": "Express Permit - Plumbing",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Residential Only Express Permits:  Sewer lateral & water line replacements, water heater replacement (same location only)",
+      "isEnabled": true
+    },
+    {
+      "id": "6652",
+      "name": "Express Permit - Roofing",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Residential only Express permits for re-roof projects (multiple layers of torch down or shingles do not qualify for an express roofing permit)",
+      "isEnabled": true
+    },
+    {
+      "id": "6557",
+      "name": "Subdivision Map Submission",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Submit a parcel map or final map to the Engineering division following submittal of an application to Planning and approval at a public hearing.",
+      "isEnabled": true
+    },
+    {
+      "id": "6760",
+      "name": "Pre-Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Informational meeting with multiple City departments for preliminary direction on a project. No formal action is taken.",
+      "isEnabled": true
+    },
+    {
+      "id": "6837",
+      "name": "Temporary Construction Hydrant Meter Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This application is for requesting a temporary construction hydrant meter.  \n\nFor all other requests related to existing services, please contact Utility Billing at (707) 746-4225.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Sign Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Required for businesses prior to installing or modifying signs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6537",
+      "name": "SolarAPP+ Solar Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Expedited solar permitting for residential installations is available through the SolarAPP+ program. A SolarAPP+ Approval Document is required in order to obtain a permit of this type. If you don't hold one already, you can learn how to get one at solarapp.nrel.gov ",
+      "isEnabled": true
+    },
+    {
+      "id": "6605",
+      "name": "Building Permit - Accessory Structures",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Permits are required for construction of uninhabitable accessory structures including but not limited to accessory storage units, awnings, carports, cell site modifications, cell site (new construction), decks, equipment buildings, garages, outdoor kitchens, patio covers, pool cabanas, retaining walls, storage sheds, storage tanks, swim spas, swimming pools and spas, portable spas, swimming pool repairs.",
+      "isEnabled": true
+    },
+    {
+      "id": "6717",
+      "name": "Tree Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "As described in the Tree & Street Trees Ordinance, Section 12.24 of the Benicia Municipal Code, a permit is\nrequired when altering or trimming a tree that is classified as a street tree, heritage tree or designated\nprotected tree. A permit is not required to trim branches on said trees that are less than 3 inches in\ndiameter. Tree Trimming Permits are valid for 6-months from the date issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "6558",
+      "name": "Temporary Use Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Short-term Use Permit for activities which may be seasonal in nature, or which are tied to specific events in the community. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6439",
+      "name": "Transportation Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This application is for requesting a transportation permit for \"extralegal\" loads as defined by the California Vehicle Code.",
+      "isEnabled": true
+    },
+    {
+      "id": "6748",
+      "name": "Short-Term Rental License Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Application for a license to operate a Short-Term rental from a host’s primary residence.",
+      "isEnabled": true
+    },
+    {
+      "id": "6606",
+      "name": "Building Permit - Alteration and Repairs",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Building permits for alterations including but not limited to equipment installation, facade improvements, fire damage repairs, maintenance repairs, non-residential re-roofs, residential reroofs w/overlay, storage racks, tenant improvements, water damage, window replacements.  JUNIOR ACCESSORY DWELLING UNITS ARE NOT PERMITTED UNDER THIS TYPE, PLEASE USE ‘NEW CONSTRUCTION’.  \n\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6641",
+      "name": "Building Permit - Demolition",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Building permits for the demolition of a building, structure or portion of a structure, including pools.",
+      "isEnabled": true
+    },
+    {
+      "id": "6554",
+      "name": "Exception to Zoning Criteria",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Select zoning criteria may be modified with an application to the Community Development Director.",
+      "isEnabled": true
+    },
+    {
+      "id": "6543",
+      "name": "Zoning Verification Letter Request",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Formal inquiry into a property’s zoning and development standards, on a form provided by the applicant.",
+      "isEnabled": true
+    },
+    {
+      "id": "6634",
+      "name": "Building Permit - New Construction",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Building permits for all types of new construction for residential, commercial, and industrial buildings including but not limited to, accessory dwelling units (ADU), junior accessory dwelling units (JADU), apartment buildings, single family homes, additions and mezzanine additions, mixed uses, and multi-family. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6610",
+      "name": "Building Permit - Energy Improvements",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Building permits for energy improvement permits for electric vehicle (EV) charging outlets, EV charging stations, energy storage systems, commercial/industrial photovoltaic systems, and thermal systems.  This category does not include residential photovoltaic rooftop systems.  Those are required to be permitted via the SolarAPP+ Solar Permit type, until deemed unqualified by SolarAPP+. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6441",
+      "name": "Report a Code Compliance Violation",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "For code enforcement cases, report any properties that may have violations from the zoning code, home rule regulations, or nuisance violations.",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Preliminary Housing Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Application for an expedited review of new housing developments pursuant to SB330. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": "SB-35 Development Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Streamlined application for qualifying multi-family housing developments. Projects must comply with objective planning standards and specific affordability requirements. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6607",
+      "name": "Mechanical Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Mechanical permits for stand-alone mechanical work including but not limited to relocations and new installations. Minor electrical and plumbing work supporting the equipment only is permitted and will be reviewed on a case-by-case basis.",
+      "isEnabled": true
+    },
+    {
+      "id": "6608",
+      "name": "Electrical Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Electrical permits for stand alone electrical work including but not limited to relocations, service and subpanels, outlets, lighting, receptacles, new home runs (circuits), and switches.",
+      "isEnabled": true
+    },
+    {
+      "id": "6609",
+      "name": "Plumbing Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Plumbing permits for stand-alone plumbing work including but not limited to relocations, new installations. Minor electrical work supporting the equipment only is permitted and will be reviewed on a case-by-case basis. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6753",
+      "name": "Pre-Approved ADU Program (PADU)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Design professionals submit your plans for pre-approved accessory dwelling units (ADU) per Assembly Bill 1332.",
+      "isEnabled": true
+    },
+    {
+      "id": "6568",
+      "name": "Special Inspection and Testing Agencies Recognized List",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "To enroll in the City of Benicia's Recognized Special Inspection and Testing Agencies list and to renew enrollment eligiblity ",
+      "isEnabled": true
+    },
+    {
+      "id": "6766",
+      "name": "Grading Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "GRADING FOR PRIVATE DEVELOPMENT ONLY:  \n\nThis application is required for any grading/construction project that will cause erosion or sediment onto adjacent property or on public streets, obstruct or otherwise interfere with drainage, deposit sediment in natural or artificial drainage facilities, or alter drainage facilities or courses.\n\nGrading projects in the public right-of-way will be handled under a Public Works permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6712",
+      "name": "Building Permit - Reactivation Request",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Reactivation request for expired building permits",
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Request for Copies of Official Plans",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "California law provides certain limited protections for building owners and for the certified, licensed, or registered professionals who prepared the official plans for those buildings regarding duplication of official plans on file with the City of Benicia Community Development Department. In this application you will find attached forms that must be completed before the City can duplicate protected official plans that are on file. Also attached is the applicable state law regarding duplication of official plans.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Building Safety",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: left;\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/New_Codes_Banner_Fri_Dec_12_2025_22:20:40_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 685px;\" class=\"fr-fic fr-dib\"></div><div style=\"text-align: left;\"><span style=\"color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; t"
+    },
+    {
+      "id": "1076",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<p style=\"margin: 0.5em 0px; box-sizing: border-box; padding: 0px; color: rgb(51, 51, 51); font-family: Arial, Helvetica, sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; t"
+    },
+    {
+      "id": "1081",
+      "name": "Planning",
+      "isEnabled": 1,
+      "content": "<p style=\"mso-margin-top-alt:auto;mso-margin-bottom-alt:auto;\"><span style=\"font-family: Arial, Helvetica, sans-serif; font-size: 16px;\">The Planning Division coordinates development review and ensures compliance with State law, the Benicia General Plan and the city&#39;s adopted land use regulations. The work of the Planning Division also includes:</span></p><ol><li style=\"font-family: Arial, Helvetica, sans-serif; font-size: 16px;\">&nbsp;Helping the community with land use questions, including"
+    },
+    {
+      "id": "1082",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><span style=\"font-size: 24px;\"><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/December_Closure_2025_Wed_Dec_17_2025_01:40:22_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 825px;\" class=\"fr-fic fr-dib\"></span></div><div><span style=\"font-size: 24px;\">The Engineering Division, part of the Public Works Department, is dedicated to delivering high-quality engineering services and maintaining Benicia&rsquo;s infrastructure. We review"
+    },
+    {
+      "id": "1083",
+      "name": "Fire",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><span style=\"font-family: Arial,Helvetica,"
+    },
+    {
+      "id": "1084",
+      "name": "Help",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 18px;\">New to the Online Permit Center?&nbsp;</span></strong><span style=\"font-size: 18px;\">No problem! Learn how to setup a new account, submit your first application, and successfully&nbsp;navigate the permitting process by checking out our tutorial videos:</span></p><p><br></p><p><span class=\"fr-video fr-deletable fr-fvc fr-dvb fr-draggable\" contenteditable=\"false\" draggable=\"true\"><iframe src=\"https://www.youtube.com/embed/joAaAAwO4Lc\" title=\"Tutorial Video"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:55:32.101Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,1295 @@
+{
+  "jurisdiction": "Newton",
+  "state": "MA",
+  "tenant": "newtonma",
+  "portalUrl": "https://newtonma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006818",
+      "name": "Address Modification Request",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Please use this application to change the address of a property in Newton. This application must be filled out by the property owner; another party or individual cannot submit this application on the property owner's behalf.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006717",
+      "name": "Tree Permit Application - Construction",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "All exterior work requires a Tree Permit be in place first. Use this application to apply for a Tree Permit where exterior work is planned or underway on a lot.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006794",
+      "name": "OA Parking Sticker",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "The Department of Older Adult Services offers a parking sticker to Newton residents, age 65 or older, free parking in the City’s municipal parking lots, with some restrictions.  The applicant must attach a copy of their valid driver's license and vehicle registration.  The program does not apply to vehicles that have a commercial registration.   For more detailed information please visit our website at www.newtonma.gov/seniorparking.\n\nPlease note that the payment processing vendor for NewGov charges a 2.99% + $.99 per credit card transaction and $2.25 flat rate per transaction for electronic checks.  If you prefer to pay in person without a fee, please visit our website at www.newtonma.gov/seniorparking for detailed instructions for Options 2 or 3. \n\nThere are three steps in the process.  1. Review of your application; 2. Processing your payment; 3. Advising when your sticker is ready for pick up.  You will receive an email from NewGov as you are approved in each step.\n\nIf you would like to submit more than one parking sticker request for the same household, you can create one NewGov log-in (or use one you have already created) and submit two separate requests.  The driver's license and vehicle information can be different in each request.  \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006757",
+      "name": "Film/Photo Shoot Application",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "A Film Permit is required for an individual or group requesting to film a photo or video production/project on City property. City property may include sidewalks, streets, parks or buildings. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006756",
+      "name": "Outdoor Special Event Application ",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "This Special Event Permit Application is a guide for individuals, groups, organizations, and businesses who are looking to host an outdoor event on City of Newton property. \n\nDuring the application process, the applicant will receive a list of tasks to be completed for other approvals or permits required for the special event. Other fees may apply for additional permits and approvals. \n\n\n\n***All Road Race/5K's/Runs and Walk applications must be submitted by January 15 for events scheduled March - May, April 1 for events scheduled June - December ***\n\n\n\n\\\\\\Applications for 2026 Events will not be reviewed until January 2026.\\\\\\",
+      "isEnabled": true
+    },
+    {
+      "id": "1006733",
+      "name": "Auto Dealer License",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Apply for or renew a Used Car Dealer License. If you have any questions throughout the process, please reach out to Katie Holden at kholden@newtonma.gov or 617-796-1218.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006631",
+      "name": "Wetlands Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006821",
+      "name": "Department Contact",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006652",
+      "name": "ANR Plan Submittal",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Please use this application when submitting an ANR (Approval Not Required) Plan to the Engineering Department for review.   \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006617",
+      "name": "Building Permit - Accessory Apartment Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Building permit for accessory dwelling units are for one and two family homes or two unit condos for internal or detached units.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006598",
+      "name": "Body Art Establishment Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "All establishments who provide body art services are required to complete this application. Body art includes tattooing, permanent cosmetics, branding, and body piercing. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006659",
+      "name": "Form - Business Listing/Emergency Contact Information/Owner's Authorization ",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "This form is to be used by building and business owners only in order to notify the fire department of changes of emergency contacts, business information, building information, etc.  This form is not to be used by alarm companies to report change of alarm services to properties in Newton.  Unless specifically directed by Fire Prevention this form is not for residential property owners unless they have three (3) or more residential units, have a sprinkler system, or otherwise instructed to complete this by Fire Prevention.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006716",
+      "name": "Plan Review - COMMERCIAL (includes residential buildings with 7 or more Dwelling Units)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to request a commercial plan review for a building permit (Tier 1 review).  This application includes plan reviews for residential buildings with 7 dwelling units or more. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006596",
+      "name": "Body Art Practitioner (Individual) Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "All persons who perform body art are required to complete this application. Body art includes tattooing, permanent cosmetics, branding, and body piercing. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006776",
+      "name": "Building Permit - Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The building permit application is for residential and commercial projects.  All Additions, Renovations, Remodels, Repairs, Replacements, New Construction, and Garages are issued on this application.\n\nPlease be sure to check the other building permit record types before selecting this one as some are separated from the full building permit.  \n\nEach contractor submittal will require your license and insurance certificate to be attached.  If you have questions when completing the application please contact the office at 617-796-1060.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006427",
+      "name": "Annual Common Victualler, Alcohol and/or Entertainment License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "New Applicants Only: Apply for any or all of the above-listed licenses. Do not click Select if you are trying to renew your license.\n\nA Common Victualler's License is required for any establishment that has seating for the public for the consumption of food and/or drinks on premises.\nAn Alcohol License is required for the sale of alcohol to the public.\nAn Entertainment License is required for any common victualler license holder to have a radio, television,     juke box, internet radio or broadcast at their establishment.\nA Coin-Operated Automatic Amusement Device(s) License is required for any establishment that         provides a coin-operated machine for use.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006804",
+      "name": "Farmer's Market Permit ",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Farmer's Market Permit for the sale of wines, malt beverages, and/or distilled spirits manufactured by a licensed Farmer Winery, Farmer Brewery, Pub Brewery, or Farmer Distillery at approved agricultural events in Massachusetts. This permit allows a winery, brewery, or distillery to provide samples of their produced alcoholic beverages to consumers and sell by the bottle/case their product for off-premises consumption at indoor or outdoor agricultural event. Any questions, contact us at licensing@newtonma.gov or 617-796-1420.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006633",
+      "name": "Administrative Site Plan Review Application–Religious, Nonprofit Educational Use, & Daycare Use ONLY",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "In accordance with Section 7.5 Administrative Site Plan Review of the City's Zoning Ordinance (Chapter 30), the Planning and Development Department is responsible for overseeing the administrative site plan review process for the construction, alteration, enlargement, reconstruction, or change of use of buildings for religious or non-profit educational purposes.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006679",
+      "name": "Certificate of Compliance Request",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006662",
+      "name": "General Online Permitting and Licensing Help",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006787",
+      "name": "Business Certificate Application",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Business registration with the City of Newton - not required for businesses registered with the MA Secretary of State and doing business in the same name. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006734",
+      "name": "Noise Ordinance Waiver Request",
+      "categoryId": 1091,
+      "viewAccess": "public",
+      "description": "A Noise Ordinance Waiver is required to do work or to host an event in Newton that is not compliant with the City of Newton Noise Ordinance. The Noise Ordinance allows you to request an exemption to specific provisions of the ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006748",
+      "name": "Tree Permit Application - Non-Construction (non-exempt)",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This permit application is for any instance where no construction is to take place and trees are to be removed from a lot that is not an occupied single- or two-family residential lot. This permit is also to be used when the removal of trees from a single- or two-family residential occupied lot is to occur where a trunk diameter of the tree(s) is 40 inches or greater.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006653",
+      "name": "Application for Reserving Parking Meter Spaces",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "description": "Public metered parking spaces may be reserved by individual or contractors for short durations.  Typical needs include minor construction work or on-street spaces needed for a moving van. Once the application is submitted to the Transportation Division, the City of Newton Parking Manager will review and if approved, a cost will be generated and the applicant will be notified via email. Upon payment, the parking spaces can be reserved.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006783",
+      "name": "War Memorial Rental",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "The City Hall War Memorial auditorium is a beautiful historic space. It is used regularly for meetings, performances, and events.  It has tall columns lining the center of the room, large windows, high ceilings, and a raised stage. \n\nThe room can fit 375 people with chairs only. We provide 195 chairs; if you need additional ones you are welcome to bring them. The room's capacity is 175 if your setup includes tables. Included in your rental are 10 6' x 30\" tables; if you need additional tables, you are free to bring them. There is additional seating in the balcony. You will see detailed specs once you proceed with your application. Pricing ranges from $50-$100/hr depending on the day/time of your rental; for evening and weekend rentals there is a 4-hour minimum. Additional fees apply for use of the piano and/or AV equipment.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006788",
+      "name": "Change to an Existing Business Certificate",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "Business registration with the City of Newton - not required for businesses registered with the MA Secretary of State and doing business in the same name. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006747",
+      "name": "Tree Permit Application - Exemption Tree Permit Form ",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This application is for a Exempt Tree Permit. Use this application for non construction related tree removal that meet the following requirements. Applies ONLY to trees being removed that are located on a single- or two-family residential occupied lot where no exterior construction is presently underway or planned to take place during the 24 months from the date of the permit application and the tree(s) is between 6 inches and 39 inches in trunk diameter. All other tree removal activity or exterior construction require a different tree permit. See https://newtonma.portal.opengov.com/categories/1089",
+      "isEnabled": true
+    },
+    {
+      "id": "1006661",
+      "name": "Guest Portal Record Access",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006595",
+      "name": "Change to an Existing License Application (current alcohol license holders)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Change to an Existing License. Please complete this form when requesting any type of change to existing alcohol licenses issued by this Commission. Example of changes: alteration of premises. change of manager, change of officers, change of ownership interest, change of hours, or adding or removing entertainment. If the change requested is on an annual license with alcoholic beverages, please note that depending on the type of change you may also have to fill out an Alcoholic Beverages Control Commission form. Any questions, contact us at licensing@newtonma.gov or 617-796-1420.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006634",
+      "name": "Comprehensive Permit Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Chapter 40B is a state statute that encourages the development of low- and moderate-income housing by providing a streamlined permitting process and relief from local zoning requirements. Also known as the Comprehensive Permit Law, Chapter 40B was enacted in 1969 to help address the shortage of affordable housing in Massachusetts. The law requires that at least 20%-25% of units in a development have long-term affordability restrictions. Under Chapter 40B, the local Zoning Board of Appeals (ZBA) is the permit granting authority. The ZBA must review and make decisions (approve, approve with conditions, or deny comprehensive permits) in a public hearing setting.\n\nA prerequisite to filing with the ZBA for a comprehensive permit is the issuance of a Project Eligibility Letter from a subsidizing agency.  The Sponsor has submitted an application for project eligibility to the Massachusetts Department of Housing and Community Development (the Subsidizing agency). A Zoning Review Memorandum is also required prior to submittal of a Comprehensive Permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006654",
+      "name": "Curb Betterment Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This application is to request granite curbing along the frontage of private property.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006680",
+      "name": "Building Permit - Change of Contractor Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this application when the Contractor is changing on an existing building permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006601",
+      "name": "Bodywork Establishment License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This license is relevant for facilities that perform bodywork including but not limited to acupressure, Thai massage, shiatsu, and reflexology are required to complete this application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006730",
+      "name": "Plan Review - RESIDENTIAL (1 - 6 Dwelling Units)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to request a residential plan review for a building permit (Tier 1 review).  This application includes residential properties with 1 to 6 dwelling units. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006602",
+      "name": "Bodywork Practitioner (Individual) License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "All persons that perform bodywork including but not limited to acupressure, Thai massage, shiatsu, and reflexology are required to complete this application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006759",
+      "name": "Building Permit - Commercial Change of Tenant Only (No work being performed) ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is only for change of Commercial Tenant.  No other work allowed under this application.  Use the Building Permit Application for all other work.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006819",
+      "name": "Plan Review - Accessory Dwelling Unit (ADU) ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to request a residential plan review for Accessory Dwelling Units in 1 or 2 family buildings and 2 unit condos.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006594",
+      "name": "Change to an Existing License Application (If you do NOT hold an alcohol license)",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a Change to an Existing License. Please complete this form when requesting any type of change to an existing license that does NOT have alcohol issued by this Commission. Example of changes: adding sidewalk seating, adding parking space , change of hours or adding entertainment. Any questions, contact us at licensing@newtonma.gov or 617-796-1420.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006700",
+      "name": "Comprehensive Sign Package Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Comprehensive Sign Plans for Properties with Multiple Establishments. \n\nProperties with multiple commercial or institutional establishments may, depending on the site plan, architecture, and signage layout, be more difficult for a visitor to navigate to their destination, and as such, have additional sign standards intended to make it easy to navigate to the property and then to the ultimate destination.\n\nThe Planning Department recommends any property with 5 or more commercial or institutional establishments and any property seeking approval of the signs listed in section 5.2 of the zoning ordinance apply for a comprehensive sign plan.\n\nPlease contact Shubee Sikka at ssikka@newtonma.gov prior to submitting a comprehensive sign package application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006697",
+      "name": "Petition for Grant of Location ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Petitioners must apply for a grant of location to install or maintain gas or electric infrastructure. MGL 164 - Sec. 70 requires that each petition for grant of location be submitted to the City Council before it is sent to the Public Works Department for a preliminary review.   \n\n \n\nThe comments of the Public Works Commissioner will be part of the record submitted to the City Council.  Upon filing with the City Council, the petition will be scheduled for a public hearing before the Public Facilities Committee of City Council.  \n\n \n\nThe petitioner is responsible for ensuring that the petition is complete and all required materials are in order for review.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006820",
+      "name": "How to Save and Resume a Draft of a Record in the Storefront",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006830",
+      "name": "Newton Community Stage Rental",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "Newton Community Stage is a state-of-the-art auditorium housed at the newly renovated Lincoln-Eliot School. Included in your rental is use of the auditorium entry area; a video screen and projector in the auditorium; and music stands, chairs, and a baby grand piano on the stage. In addition we have six-foot tables available should you need them. You will see detailed specs once you proceed with your application.  \n\nPricing ranges from $75-$100/hr depending on the day/time of your rental for Newton residents, or $100-$125/hr for non-residents. There is a 2-hour minimum for weekday rentals and a 4-hour minimum for weekend rentals. Additional fees apply for use of the piano and/or audio/video equipment.\n\nIf you are interested in a long-term rental, please email culture@newtonma.gov with your requested day, time, and rental period.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006732",
+      "name": "Petition for Water, Drain and/or Sewer Extension",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Extensions of main pipes shall only be made when authorized by the city council.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006822",
+      "name": "Pay using your bank account - Payment method",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006687",
+      "name": "Design Review",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "\nPlease do not use this application if you are just looking to install a sign. Use the \"Sign Review\" application.\n\nDesign Review is one of the tools we use to create a better city. Design Review by the Urban Design Commission (UDC) is encouraged for most new multifamily and commercial buildings that require a Special Permit. UDC reviews multiple aspects of a building and its site, including some of the following:\n•The overall appearance of the building \n•Relationship to adjacent sites and the overall street frontage\n•How the proposal relates to unusual aspects of the site, like views or slopes\n•Pedestrian and vehicular access to the site\n•Quality of materials, open space, and landscaping\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006490",
+      "name": "Engineering Construction Permit Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This is an Application for required Permits when the Engineering Division of Public Works is involved with construction projects, public and private.  Required Permits include but are not limited to:\n\n• Water Service Install/Repair\n• Sewer Service Install/Repair\n• Onsite Drainage Install\n• Disconnect Existing Water Service\n• Disconnect Existing Sewer Service\n• Disconnect Existing Drain Overflow\n• Test Pits\n• Curb/Sidewalk Install\n• Driveway Resurfacing\n• Roadway Resurfacing\n• Sidewalk Crossing/Occupancy\n• Electric/Telecommunications Service Install \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006792",
+      "name": "Inspection - COMMERCIAL Acceptance Test",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is for acceptance testing of a commercial project that has a building permit.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006721",
+      "name": "Building Permit - Demo Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Building Permit - Demo application is for residential and commercial projects.  This application is for full and interior only demolitions.  \n\nEach contractor submittal will require your license and insurance certificate to be attached.  If you have questions when completing the application please contact the office at 617-796-1060.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006695",
+      "name": "Disposal System Construction Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This permit is required for the construction, repair, upgrade, or abandonment of a disposal or subsurface disposal system. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006672",
+      "name": "Inspection - RESIDENTIAL Smoke/CO Detector (26F & 26F 1/2)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application is for an inspection to acquire a Smoke/CO Certificate. You may also apply for a waiver using this form.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006613",
+      "name": "Disposal Works Installer's Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This permit is required for the individual performing the construction, repair, or upgrade of a disposal or subsurface disposal system.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006722",
+      "name": "Building Permit - Insulation Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Building Permit - Insulation application is for residential and commercial projects.  \n\nPlease be sure to check the other building permit record types before selecting this one as some are separated from the full building permit. \n\nThis permit is for Insulation work only, no other work is permitted under this permit.  If you have questions when completing the application please contact the office at 617-796-1060.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006671",
+      "name": "Engineering Site Plan Submittal",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This record type is used to input and track site plans submitted to the Engineering Department for approval on private development projects.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006635",
+      "name": "Fence Appeal Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "If a Fence Permit Application is denied by Inspectional Services, a petitioner may appeal the denial decision to the Urban Design Commission (UDC). \n\nAn application for a Fence Appeal MUST be rooted in specific conditions affecting the property which cause a hardship that warrants the granting of the proposed fence and/or fence exception. \n\nAll fences altered, constructed, changed or erected in the City of Newton must comply with the requirements of the City’s Fence Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006590",
+      "name": "Fortune Teller's License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "A fortune Teller license is required if telling fortunes for money. The Fortune Teller Licenses are issued to an individual for a particular location and only allow that individual to operate under the License for that particular location. If the person is telling fortunes at multiple locations within the City of Newton, that person must obtain a License for each location. If other individuals are telling fortunes at the same location, each individual must obtain their own License. Fortune Teller Licenses are not transferable.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006790",
+      "name": "Service Fee FAQ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006834",
+      "name": "Display Panels & Lights rentals",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "The City has 40 art display panels available to rent. The panels are 37\"w x 68\"h (except three that are 30\" x 68\"). They can either lean against something singly, or stand on their own if rented as a pair. They have a black cloth surface that art or other materials can easily be pinned to. They are lightweight and can easily be transported in a large vehicle. Provided with the panels are strenghthener bars and velcro strips for attaching panels to each other. \n\nAlso available for rental are 38 clip-on lights for mounting on the panels to light up the work being displayed.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006777",
+      "name": "Resident Extra Trash Cart Application ",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "The purpose of this application is to apply for or renew a permit for an additional city-issued blue trash cart. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006593",
+      "name": "One Day Alcoholic Beverages and/or Entertainment License",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a one-day alcohol and/or a one-day entertainment license here.  One-day alcohol licenses are required for the sale, delivery, and/or consumption of alcohol.  Please note that a person can only obtain a total of 30 one-day alcohol licenses per location in one calendar year.  You may use this application to apply for a license during consecutive days in the same location.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006636",
+      "name": "Historic District Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The City of Newton’s Historic District Ordinance governs the all the local historic districts including the Newton Upper Falls Local Historic District, Chestnut Hill Local Historic District, Newtonville Local Historic District, and Auburndale Local Historic District. Each district has its own commission and application deadlines, but all subscribe to the same review process. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006797",
+      "name": "Inspection - Licensing of Health, Education, or Child Care Facilities",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This Application is for Department of Public Heath Inspections for: Initial Licensure/ Licensure Renewal, Facility/Program Renovations, Nursing Home or Rest Home Quarterly Inspection (105 CMR 150.015(D))\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006723",
+      "name": "Building Permit - Roof & Siding Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Building Permit - Roof & Siding is for residential and commercial projects. \n\nPlease be sure to check the other building permit record types before selecting this one as some are separated from the full building permit. \n\nEach contractor submittal will require your license and insurance certificate to be attached.  If you have questions when completing the application please contact the office at 617-796-1060.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006683",
+      "name": "Facility License for Recombinant Deoxyribonucleic Acid (rDNA) ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This license is required for any facility performing recombinant deoxyribonucleic acid (rDNA) work in the City of Newton. Institutional biosafety information, officers, training records, and insurance information is required for this application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006539",
+      "name": "Food Establishment Plan Review and Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application is necessary for any individual or corporation who is looking to open a food establishment in the City of Newton. This application asks for plans, general business information, staffing, equipment information, goods & services, food safety certifications, as well as the hours of operation. This includes restaurants, milk permits, as well as any special processes and variances.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006786",
+      "name": "Building Permit - Sheet Metal Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is only for sheet metal work.  No other work allowed on this application.  Please use the Building Permit Application for all other work.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006740",
+      "name": "Permit - Fire Alarm Install or Modification [COMMERCIAL]",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit is to be used to apply for the installation or modification of a fire alarm system in commercial buildings or residential buildings with seven (7) or more units.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006708",
+      "name": "Roadway Event Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Please use this application to apply for a permit from the Department of Public Works (DPW) to do an event on the public way (i.e., public streets, public sidewalks, and municipal parking lots). The most common types of events requiring this permit are road races, walks, bicycle rides, and street closure events. Before applying for this permit, you must first apply for an Outdoor Special Event Application with the Parks, Recreation & Culture Department (PRC). Please note that applicants may have to pay for a Police Detail and/or for DPW Transportation Division labor costs for street barricades, depending on the specifics of your event. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006655",
+      "name": "Sandwich Board / Sign Permit Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "An organization can place Sandwich Boards (aka A-Frame Signs) or Yard Signs in up to 5 specified locations, to notify the public of a community event, service, or announcement.\n\nYou must receive a permit from DPW for posting the Sandwich Boards/Signs, before they can be placed. Boards/Signs can be placed for up to 2 weeks. Applicants may apply for 2-week renewals, as needed.\n\nYou are responsible for the proper placement at the proper times, and for ensuring that the boards/signs remain intact after inclement weather. Boards/Signs must be removed within 48 hours of the approved end time or (if applicable) the community event being advertised.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006638",
+      "name": "Local Landmark Review Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This application is required for any exterior alterations on properties that are designated Newton City Landmarks. Each individual Landmark has specific review guidelines, but approval from the Newton Historical Commission is required before any exterior work can begin. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006724",
+      "name": "Building Permit - Sign Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Building Permit - Sign application is for residential and commercial projects.  \n\nPlease be sure to check the other building permit record types before selecting this one as some are separated from the full building permit.  \n\nEach contractor submittal will require your license and insurance certificate to be attached.  If you have questions when completing the application please contact the office at 617-796-1060.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006667",
+      "name": "Food Permit Waiver for Afterschool Programs & Daycares",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This food permit waiver is for any afterschool or daycare program not preparing or assembling food.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006737",
+      "name": "Permit - Fire Alarm Install or Modification [RESIDENTIAL]",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit is to be used to apply for the installation or modification of a Fire Alarm system in a residence with 1-2 or 3-6 units.  If you are applying for a residential building with seven (7) or more units do not use this permit type. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006484",
+      "name": "Funeral Director License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This permit is for funeral directors who provide services for the deceased and their families. Members of this profession prepare the bodies of the deceased through embalming, arrange for crematory services, and provide services of assistance for family members of the deceased. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006729",
+      "name": "Building Permit - Swimming Pool Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Building Permit - Swimming Pool application is for residential and commercial projects.  \n\nPlease be sure to check the other building permit record types before selecting this one as some are separated from the full building permit.  \n\nEach contractor submittal will require your license and insurance certificate to be attached.  If you have questions when completing the application please contact the office at 617-796-1060.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006639",
+      "name": "Preservation Restriction Review Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This application is required for any exterior alterations on properties in the City that have Preservation Restriction. The restriction for each property is different, and specifies what work may or may not be allowed, but approval from the Newton Historical Commission is required before any exterior work can begin. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006739",
+      "name": "Permit - Fire Alarm Repair / Replace [COMMERCIAL/RESIDENTIAL]",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to repair or replace an existing fire alarm component without modifying its approved location or purpose. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006709",
+      "name": "Stormwater Inspection Submittal or Abatement Credit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application Portal to allow Newton Residents to submit Annual Inspection Forms and apply for Stormwater Fee Abatement Credit for their property.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006663",
+      "name": "(SMCC) Stormwater Management Certificate of Compliance",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application process for obtaining a Stormwater Management Certificate of Compliance for the respective property. Applicants are required to submit a final as-built survey of the property, letter from the engineer, and an annual O&M plan for the on-site drainage systems. The Applicant must obtain proof of record at the Registry of Deeds for both the O&M plan and Certificate of Compliance before issuance of a Certificate of Occupancy.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006637",
+      "name": "Historical Review Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The City of Newton's Demolition Delay Ordinance requires a Historical Review Application to be submitted for any project that proposes a total demolition, or a partial demolition that alters >50% of any one elevation. These projects will be reviewed by the Newton Historical Commission, and may be subject to a demolition delay. This application is also used for Waiver of Demolition Delay applications. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006810",
+      "name": "Permit - Blasting",
+      "categoryId": 1076,
+      "viewAccess": "private",
+      "description": "To perform blasting at the address listed on the permit application. All applicable 527 CMR 1.00 Ch. 65 code, NFPA 495,  and the Newton. A Newton fire watch detail shall be required. Please use the Fire Watch Detail Request form to set up detail. Other requirements must meet with your application.  (See inside the application for details). ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006725",
+      "name": "Building Permit - Tent Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Building Permit - Tent application is for residential and commercial projects.  \n\nIf you have questions when completing the application please contact the office at 617-796-1060.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006607",
+      "name": "Garbage & Offal Transport Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "All corporations who remove or transport garbage, offal, or other offensive substances through the City of Newton. This includes garbage, grease, sewage, and recycling. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006738",
+      "name": "Permit - Fire Alarm Make Safe / Temporary / Demo [COMMERCIAL/RESIDENTIAL]",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This form is to be used to apply for a temporary fire alarm, a make safe for construction, or demolition of an existing fire alarm system.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006608",
+      "name": "Keeping of Animals and Live Fowl License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This permit is required for anyone who keeps animals and/or live fowl on their property, including chickens and other livestock. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006726",
+      "name": "Building Permit - Windows/Doors Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Building Permit  - Windows/Door application is for residential and commercial projects.  \n\nPlease be sure to check the other building permit record types before selecting this one as some are separated from the full building permit.  \n\nEach contractor submittal will require your license and insurance certificate to be attached.  If you have questions when completing the application please contact the office at 617-796-1060.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006806",
+      "name": "Permit - Master Box Installation",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit application to install a mechanical or digitized master box.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006678",
+      "name": "Subdivision Plan Submittal ",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Please use this application when submitting a Subdivision Plan to the Engineering Department for review and approval by the Board of Survey. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006640",
+      "name": "Rezoning Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006641",
+      "name": "Sign Review Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This is the initial review for a sign application. The Urban Design Commission must first issue a recommendation regarding the proposed sign before submitting to the Inspectional Services Department for a sign permit to do the installation.\n\nAll signs altered, constructed, changed or erected in the City of Newton must comply with the requirements of the Sign section of the City’s Zoning Ordinance. \n\nFor the Sign Review Application to be accepted they must be complete. \n\nThe Sign Permit must be signed by the Owner (or the Owner's legal representative) of the property on which the sign is to be erected. \n\nInaccurate information may delay the review and issuance of a Sign Permit.\n\nPlease do not submit multiples of the same attachment. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006765",
+      "name": "Permit - Sprinkler COMMERCIAL Install / Modify ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit is for Tier 2 Sprinkler installations or modifications of sprinkler systems in commercial buildings or residential buildings with more than seven (7) units. This permit application does not cover make safe or temporary sprinkler system installations or modifications. You will need to have your sprinkler license number in order to pull this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006656",
+      "name": "Vendor Box Permit Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Request a permit to place Vendor Boxes (also known as Newspaper Boxes) in the city on sidewalks in the City of Newton. The fee is $50 per box. Permit stickers must be placed on all of your permitted Vendor Boxes within the city. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006727",
+      "name": "Building Permit - Wireless Communications Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Building Permit - Wireless Communications application is for residential and commercial projects.  \n\nPlease be sure to check the other building permit record types before selecting this one as some are separated from the full building permit.  \n\nEach contractor submittal will require your license and insurance certificate to be attached.  If you have questions when completing the application please contact the office at 617-796-1060.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006583",
+      "name": "License to Manufacture Frozen Desserts and/or Ice Cream Mix",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application is necessary for any individual or corporation who is looking to manufacture frozen desserts and/or ice cream mix. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006603",
+      "name": "License to Operate a Tanning Facility",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This license is relevant towards facilities that use any equipment used for tanning the skin that emits ultraviolet radiation, including, but not limited to, a tanning booth, tanning bed, or sunlamp which includes high pressure tanning lamps. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006785",
+      "name": "Building Temporary Certificate of Occupancy",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Temporary Certificate of Occupancy is used when a Final Certificate of Occupancy cannot be issued do to items not being completed on the project.  TCO's are issued at the rate of $50 per month or fraction there of per Unit.  Payment for TCO's are due when the Final Certificate of Occupancy is ready for issuance.\n\nApplicant should speak with your Building Inspector to confirm a TCO is needed.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006768",
+      "name": "Permit - Sprinkler RESIDENTIAL (1-6 Unit) Install / Modify ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This permit is for Tier 2 Sprinkler installations or modifications of sprinkler systems in residential buildings with less than seven (7) units. This permit application does not cover make safe or temporary sprinkler system installations or modifications. You will need to have your sprinkler license number in order to pull this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006642",
+      "name": "Special Permit Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Special Permit applications for Major Projects are not accepted from May 20th to July 20th annually and after November 1st in odd years.  \n\nA Special Permit isn’t actually a permit in the familiar sense, but permission to construct a building or establish a use that is not allowed by right. It usually consists of a set of plans that are accompanied by a list of findings and conditions for their approval. Special permits are generally  required for most multi-family housing and larger commercial projects. They often are required when special site characteristics or design features warrant a deviation from the zoning standards for a typical lot. Common requests for exceptions to these standards include variations in building height, setbacks, floor area ratios (FARs), and the number of parking spaces provided. Sometimes a proposed use has unique characteristics that warrant special review to make sure it will be compatible with other uses nearby.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006767",
+      "name": "Permit - Sprinkler Repair/Replace [COMMERCIAL / RESIDENTIAL]",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Fire Department permit for repairing or replacing an existing system without changing the system design in a Residential / Commercial property. You will need to have your sprinkler license number in order to pull this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006760",
+      "name": "Zoning Permit Application ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Zoning permit application is used for Driveways, Fences, and Sheds (up to 200sq ft - anything bigger is a regular building permit) and other accessory structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006605",
+      "name": "Mobile Food Unit Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This permit is necessary for any individual or corporation who is seeking to operate a mobile food unit in the City of Newton. This includes ice cream trucks and food trucks. \n\nFOR TEMPORARY EVENTS: If your mobile food unit is permitted in another town and/or city, and you are interested in attending temporary events in Newton, please apply for Temporary Food Establishment (TFE) permits only. If you do not have a mobile food unit permit in any town, and are looking to operate in Newton, please apply for this mobile food unit permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006688",
+      "name": "Plumbing Code Petition for Variance Request",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "A property owner must obtain a variance from the State Board of Plumbers and Gas Fitters prior to the commencement of any work that falls outside the plumbing code. In order to apply for a variance, you must provide documentation that you have petitioned the local Health Department. \nTo obtain this documentation, you will need to submit:\n•Contact information\n•Location of the project\n•Copy of the variance application from the State Department of Consumer Affairs and Business Regulation Division of Occupational Licensure",
+      "isEnabled": true
+    },
+    {
+      "id": "1006618",
+      "name": "Accessory Apartment Annual Affidavit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Accessory apartment annual affidavit must be completed each year you offer the accessory apartment for rent.  Please be sure to complete the document, sign and have it notarized.  Any questions please contact our office at 617-796-1060.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006766",
+      "name": "Permit - Sprinkler Make Safe or Demolition [COMMERCIAL / RESIDENTIAL] ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Fire Department Sprinkler Make Safe / Demolition at Commercial/Residential properties permit application.  You will need to have your sprinkler license number in order to pull this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006736",
+      "name": "Site Plan Review (Village Center Overlay District)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Site Plan Review is required for any property opting into the Village Center Overlay District (VCOD) and developing a parcel that is between 15,000 and 30,000 square feet. Site Plan Review is also required for the construction of multiple buildings on a parcel utilizing adaptive reuse in the Multi Residence Transit (MRT) zone. \n\nSite Plan Review is conducted by the Planning and Development Board. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006816",
+      "name": "Permit - Ansul/Commercial Cooking/Gas Stations",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Required for installation, modification, or removal from service of a commercial cooking fire suppression system and gas stations.   Follow all appropriate provisions of NFPA 17 (or NFPA 17A) and NFPA 96 (& UL-300).   Gas stations must follow all appropriate provisions of NFPA 30A. A set of diagram plans must be submitted with the permit application.   THE FINAL ACCEPTANCE TEST SHALL BE SCHEDULED AT THE END OF INSTALLATION.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006781",
+      "name": "Building Permit - Amendment Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Building Permit Amendment application is used when the original issued building permit description has changed.  This application can only be used when no inspections have taken place.  The Amendment is approved or denied by the District Inspector.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006676",
+      "name": "Residential Kitchen Plan Review and Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application is necessary for any individual or corporation who is looking to operate a food establishment within a residential property in the City of Newton. This application asks for plans, general business information, staffing, equipment information, goods & services, food safety certifications, and more.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006604",
+      "name": "Sale of Tobacco & Nicotine Delivery Products Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This license is required for any individual or organization that sells any tobacco, tobacco biproducts, or nicotine delivery products in the City of Newton. This form must be completely filled out for consideration of the hereby license and the applicant must undergo the accompanying inspections for license approval.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006686",
+      "name": "Permit - Hot Work (Welding, Cutting, and Brazing) ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application for a fire permit addresses 527 CMR 1.00 - 29 CFR 1910.252 Subpart Q, NFPA 51B, NFPA 241, and ANSI Z49.  This form requires a property owners authorization letter before submission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006778",
+      "name": "Building Permit - Cancelation and Refund Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used to cancel a permit when no work has begun.  You may also request a refund using this application.  This application is not for removing a contractor and replacing with a new.\n\nAny questions please contact Inspectional Services Department at 617-796-1060.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006752",
+      "name": "Inclusionary Zoning Review",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Application for building permit review and approval of inclusionary housing plan and unit mix. This application can be submitted concurrently with the engineering site plan or building permit application. Plans submitted must match building permit plans. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006751",
+      "name": "Parking Waiver (Village Center Overlay District)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Parking waiver for any property opting into (or which has already opted into) the Village Center Overlay District (VCOD) and seeking a Special Permit for exceptions to the parking requirements in 9.2.6.C.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006621",
+      "name": "Request for Zoning Enforcement",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Request for Zoning Enforcement - Enter a  brief complaint regarding the following issues: abandoned properties, building code issues, business use of home, construction site nuisance, fences, illegal rentals (apartments/short term), light trespass, noise, overgrown properties, unsafe structures, water runoff, work without permits, zoning issues.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006689",
+      "name": "Submetering of Water and Sewer Certification",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This certification must be obtained from the local health department in order to install submeters for the purpose of charging tenants for water usage and/or sewer service.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006681",
+      "name": "Permit - Open Flame, Candles, and Outdoor Fireplaces ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Fire Permit for 527 CMR Section 10.10 (Open Flame, Candles and Outdoor Fires)\nPlease make sure that you have read the instructional PDF located here: https://www.newtonma.gov/home/showdocument?id=89701&t=637962074311409886",
+      "isEnabled": true
+    },
+    {
+      "id": "1006600",
+      "name": "Summer Recreational Camp for Children License",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This license is for the right to operate a children's recreational camp that operates at least four days a week while supervising school-age children. This application shall state the location and type of camp, the approximate maximum number of persons by whom it is used, the probable occupancy, the proposed sources of water and food supply for the camp, safety plans, and staff information.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006533",
+      "name": "Certificate of Inspection",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Many business types require a Certificate of Inspection that must be issued periodically for your premises to operate. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006698",
+      "name": "Zoning Board of Appeals 40B Insubstantial Change Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The Chapter 40B Regulations provide for two types of modifications the developer may request after\nthe ZBA has granted a comprehensive permit: an insubstantial change and a substantial change.(760 CMR 56.05(11)). Under DHCD’s Chapter 40B Regulations, changes such as an increase of 10 percent or more in building height or number of units generally qualify as substantial modifications (760 CMR 56.07(4)). The ZBA has the responsibility to determine if the proposed modifications are insubstantial or substantial. If they are deemed substantial, a public hearing must be held. If changes are determined to be substantial a new Comprehensive Permit application must be submitted. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006643",
+      "name": "Zoning Board of Appeals Application for Appeals",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Appeals are for when a person is appealing a decision to deny a building permit, issuance of a building permit, a zoning order and/or decision of the Commissioner of Inspectional Services, or a zoning violation.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006789",
+      "name": "Permit - Fuel Tank/Oil Burner Installation/Removal (Excluding Propane)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Installation, removal, or replacement of gasoline, diesel, or oil tanks and oil burner installation.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006623",
+      "name": "Consistency Ruling Request",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Request for a Consistency ruling from the Commissioner of Inspectional Services.  Sign letter and all plans must be attached to application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006610",
+      "name": "Swimming Pool Permit Plan Review and Application",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This permit specifies the use and building of semi-public or public indoor and outdoor pools, wading pools, hot tubs, and whirlpools. Drainage, water treatment, and operator details are required for each type of pool while filling out this permit form.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006612",
+      "name": "Temporary / Seasonal Farmer's Market Food Establishment Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application is necessary for any individual or corporation who wants to serve food in the City of Newton for up to fourteen (14) days (temporary) or at the Newton Farmer’s Market for up to six (6) months (seasonal). Temporary food permit applications must be submitted at least 14 days prior to the event. This application asks for plans, general business information, staffing, menu, equipment information, goods & services, food safety certifications, as well as the hours of operation.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006718",
+      "name": "Permit - Residential Propane Tank Installation, Renewal, and Storage ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This form is for the permanent installation and renewal of residential propane storage tanks, inspection, and permitting. This form is NOT to be used for single-day or temporary propane storage/use.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006624",
+      "name": "Zoning Determination/Dover Waiver",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Request for a Determination from the Commissioner of Inspectional Services must be made on-line.  A signed letter must be attached with other supported documents for your request to be reviewed.\n\nUse this application to request a Dover Waiver if applicable.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006644",
+      "name": "Zoning Board of Appeals Variance Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "After a Development Review Team (DRT) meeting with Planning Staff, if you chose to go forward with your variance and have received a Zoning Review Memo, you may submit a variance application. Variance applications will not be accepted without a Zoning Review Memo. \n\nPetitioners should contact the Clerk to schedule a preliminary review prior to your intended filing date to ensure your Variance Petition is complete.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006645",
+      "name": "Zoning Review Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "After a Development Review Team (DRT) meeting with Planning Staff, if you chose to go forward with your special permit, variance, or comprehensive permit, you must submit a Zoning Review Application. \n\nThe Chief Zoning Code Official (CZCO) will review the proposal for compliance with the Newton Zoning Ordinance and will prepare a written report (Zoning Review Memo). Provided that all necessary information is provided by the applicant to describe the project, the CZCO will complete this review within 45 days. When the review is complete, you'll be informed of the next steps in the permitting process. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006492",
+      "name": "Electrical Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc.  Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006707",
+      "name": "Permit - Flammable Storage Permits, Licensing & Certificates of Registration (excluding Labs)",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This application covers a number of fire department permits which renew yearly, including certificates of registration which expire on April 30th each year.  This permit application should not be used for labs.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006684",
+      "name": "Well Permit ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This permit assesses the type of well used, location, general contractor information, as well as insurance information. The word, \"well\", as used in these regulations, shall include any pit, pipe, excavation, casing, drill hole or other private source of water to be used for the purpose of supplying potable water in the City of Newton. Includes irrigation wells.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006745",
+      "name": "Electrical Cancellation  and Refund Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Electric cancellation form should be completed when you want to remove yourself as the Electrician of record or if you are the property owner/agent or General Contractor and want the Electrician removed.\n\nBefore the form can be accepted, an inspection will be required to confirm any work performed is done to Code.\n\nAny questions please contact the Electrical Inspector.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006763",
+      "name": "Section 558 Planning Review (Public Buildings Only)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006807",
+      "name": "Permit - Flammable Storage - Temporary",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "This for is for temporary fuel storage, temporary propane, food trucks/event and generators not for permanent fuel storage.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006831",
+      "name": "Permit - Laboratory Registration/Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "For the storage of flammables and hazardous materials in a Laboratory.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006483",
+      "name": "Gas Permit - Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006744",
+      "name": "Gas Cancellation and Refund Request Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Gas cancellation form should be completed when you want to remove yourself as the Contractor of record or if you are the property owner/agent or General Contractor and want the Contractor removed.\n\nBefore the form can be accepted, an inspection will be required to confirm any work performed is done to Code.\n\nAny questions please contact the Plumbing/Gas Inspectors.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006682",
+      "name": "Permit - Fumigation / Insecticidal Fogging ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Per Massachusetts Comprehensive Fire Safety Code Table 1.12.8.1 a permit is required for fumigation and insecticidal fogging. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006668",
+      "name": "Home Business/Office Affidavit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Home Business/Office Affidavit is used for commercial activity conducted in a dwelling unit by the resident as an accessory use to the residential use of the dwelling.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006691",
+      "name": "Leaf Blower Complaint",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Please complete this form for anyone violating the leaf blower ordinance.  All information is kept confidential from the alleged violator.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006835",
+      "name": "Permit - Seasonal Christmas Tree Sales",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Fire Permit for the sale and storage of Christmas Trees.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006754",
+      "name": "Leaf Blower Registration ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All users of Leaf Blowers need to register each calendar year.  Any questions please contact Inspectional Services Department 617-796-1060.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006467",
+      "name": "Plumbing Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please do not use this permit application to request an irrigation meter.  We are currently in the process of updating our requirements for pickup and permitting.  More information to come.\n\nThis permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006741",
+      "name": "Plumbing Cancellation and Refund Request Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Plumbing cancellation form should be completed when you want to remove yourself as the Plumber of record or if you are the property owner/agent or General Contractor and want the Plumber removed.\n\nBefore the form can be accepted, an inspection will be required to confirm any work performed is done to Code.\n\nAny questions please contact the Plumbing Inspectors.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006528",
+      "name": "Plumbing Irrigation Meter Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This Plumbing permit application is only for requesting an irrigation meter.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006771",
+      "name": "Short Term Rental Annual Certification",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Short Term Rental Annual Certification is required to be submitted by the first business day of January each year you intend to continue operating the Short Term Rental.  Owner/Operator should review the City Ordinance for any updates.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006772",
+      "name": "Short Term Rental Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "BEFORE YOU REGISTER\n\nFire Inspections\n\nAll short-term rental operators must schedule an inspection with the Fire Department and receive a Certificate of Compliance indicating that the property meets the smoke detector and carbon monoxide requirements for residential units.\n\nFire inspections must be completed prior to registration with the City. Please note that operators are responsible for paying the fire inspection fees.\n\nState Registration\n\nAll short-term rental operators must register with the State prior to registering with the City.  Additional information on how to register with the State can be found here: \nhttps://www.mass.gov/info-details/room-occupancy-frequently-asked-questions.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006802",
+      "name": "Building Permit - Energy Storage System",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this application to request the installation of an energy storage system.  This application includes the Fire Department review of the plans.  This application is separate from a solar installation.  If you have any questions please contact Inspectional Services Department at 617-796-1060.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006803",
+      "name": "Electrical Energy Storage System",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Use this application for the installation of the energy storage system.  This is separate from any solar installation.  Any questions please contact Inspectional Services Department at 617-796-1060.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006620",
+      "name": "Building Permit - Solar Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This Building permit application is only for Solar permit jobs.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006529",
+      "name": "Electrical Permit - Solar Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This Electrical permit application is only for Solar jobs.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1086",
+      "name": "Help and FAQs",
+      "isEnabled": 1,
+      "content": "<div><span style='box-sizing: border-box; color: rgb(51, 51, 51); font-family: \"DM Sans\", sans-serif; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-c"
+    },
+    {
+      "id": "1080",
+      "name": "Board of License Commissioners",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: justify;\"><span style=\"font-family: Verdana,Geneva,sans-serif;\">The City of Newton Board of License Commissioners is a three-member Board, with one of its Commissioners as Chairperson. It is responsible for issuing licenses and permits, and enforcing rules and regulations established by the Board and the Alcoholic Beverages Control Commission. Licenses and permits issued by the Board include:</span></p><p style=\"margin-bottom:0in;line-height:normal;background:white;\"><span "
+    },
+    {
+      "id": "1087",
+      "name": "City Clerk",
+      "isEnabled": 1
+    },
+    {
+      "id": "1085",
+      "name": "Conservation",
+      "isEnabled": 1,
+      "content": "<div style=\"color: black; font-size: 12pt; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; margin: 0px; padding: 0px; border: 0px; font-variant-numeric: inherit; font-varian"
+    },
+    {
+      "id": "1095",
+      "name": "Cultural Development",
+      "isEnabled": 1,
+      "content": "<div><span style=\"color: rgb(0, 0, 0); font-family: Verdana, Geneva, sans-serif; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial; display: inline !importan"
+    },
+    {
+      "id": "1079",
+      "name": "DPW - Engineering",
+      "isEnabled": 1
+    },
+    {
+      "id": "1093",
+      "name": "DPW - SMM (Recycling & Trash)",
+      "isEnabled": 1
+    },
+    {
+      "id": "1094",
+      "name": "DPW - Transportation ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1076",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": "<hr><div><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 18px;\">Now available for completion</span></span></div><div><br></div><div style=\"text-align: center;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 24px; color: rgb(226, 80, 65);\">Update as of December 2025:</span></span></div><ul><li style=\"font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">New permit for <u>Seasonal Christmas Tree Sales</u></li><li style=\"font-fam"
+    },
+    {
+      "id": "1073",
+      "name": "Health & Human Services",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-bottom:7.5pt;line-height:normal;background:  white;\"><span style=\"font-size: 24px; color: rgb(84, 172, 210); font-family: Verdana, Geneva, sans-serif;\">Health &amp; Human Services</span></p><p style=\"margin-top:0in;margin-right:0in;margin-bottom:12.0pt;margin-left:  0in;text-align:justify;background:white;\"><span style=\"font-family: Verdana,Geneva,sans-serif;\">The mission of the department is to protect, promote, and sustain the health, harmony, and well-being of all Newton resi"
+    },
+    {
+      "id": "1071",
+      "name": "Inspectional Services Department",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: left;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 18px;\">Construction activity must comply with the city&#39;s noise ordinance. In general, construction noise may be generated only during the hours listed below. Refer to Newton revised ordinances 2012, <a data-uw-styling-context=\"true\" href=\"https://www.newtonma.gov/home/showpublisheddocument/29687/637268547154830000\" style=\"user-select: auto; box-sizing: border-box; background-color: tra"
+    },
+    {
+      "id": "1091",
+      "name": "Mayor's Office",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Verdana,Geneva,sans-serif;\">A <strong style=\"font-weight: 700;\">Film Permit</strong> is required for an individual or group requesting to film a photo or video production/project on City property. City property may include sidewalks, streets, parks or buildings.&nbsp;</span></div><div style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-"
+    },
+    {
+      "id": "1092",
+      "name": "Parks, Recreation & Culture",
+      "isEnabled": 1
+    },
+    {
+      "id": "1081",
+      "name": "Planning & Development Department",
+      "isEnabled": 1,
+      "content": "<p style=\"mso-margin-top-alt:auto;margin-right:0in;margin-bottom:  7.5pt;margin-left:0in;text-indent:0in;background:white;\"><span style=\"color: rgb(84, 172, 210); font-size: 24px;\"><u>Planning &amp; Development Services</u></span></p><p><span style=\"font-size: 18px;\">Welcome to the Planning &amp; Development Electronic Application Portal.</span></p><p style=\"margin-top:0in;margin-right:0in;margin-bottom:12.0pt;  margin-left:0in;text-align:justify;text-indent:0in;background:white;\"><span style=\"f"
+    },
+    {
+      "id": "1090",
+      "name": "Older Adult Services",
+      "isEnabled": 1,
+      "content": "<div style=\"box-sizing: border-box;\"><span style=\"box-sizing: border-box; font-size: 18px; font-family: Arial, Helvetica, sans-serif;\">The mission of the Department of Older Adult Services is to optimize quality of life for older adults and those who support them through welcoming, respectful, and meaningful opportunities that engage and value older people and empower them to remain independent and to be important assets in our community.</span></div><div style=\"box-sizing: border-box;\"><br styl"
+    },
+    {
+      "id": "1089",
+      "name": "Tree Warden",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:57:11.141Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

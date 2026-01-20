@@ -1,0 +1,625 @@
+{
+  "jurisdiction": "Chattanooga",
+  "state": "TN",
+  "tenant": "chattanoogatn",
+  "portalUrl": "https://chattanoogatn.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6533",
+      "name": "Registered License Contractor ",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Internal Database for Contractors. Records created here will allow you to auto-fill various permits and application in future without manually retyping a form.",
+      "isEnabled": true
+    },
+    {
+      "id": "6561",
+      "name": "Certificate Of Occupancy",
+      "categoryId": 1106,
+      "viewAccess": "public",
+      "description": "This permit is for:\n\nBeverage Certificate of Occupancy, Restaurant Certificate of Occupancy, or Conditional Certificate of Occupancy",
+      "isEnabled": true
+    },
+    {
+      "id": "6621",
+      "name": "Administrative Modifications",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6624",
+      "name": "Floodplain Management",
+      "categoryId": 1110,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6625",
+      "name": "Temporary Use of the Right-Of-Way",
+      "categoryId": 1106,
+      "viewAccess": "public",
+      "description": "This permit is required for any encroachment into the right-of-way or for non-standard alley improvements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6618",
+      "name": "Major and Minor Subdivision Plat Review (RPA)",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "description": "Application to submit when applying to subdivide land for Minor (6-10 lots without infrastructure improvements) and Major (11+ lots or lots with infrastructure improvements) Plats in unicorporated Hamilton County.\n\nPLEASE NOTE: Staff level plats (5 or less lots with NO infrastructure improvements) are not submitted here. They are still submitted to Hamilton County GIS. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6619",
+      "name": "Subdivision Plat Variance (RPA)",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "description": "Application for a variance to a subdivision regulation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6654",
+      "name": "Notice of Interest ",
+      "categoryId": 1106,
+      "viewAccess": "public",
+      "description": "Please complete the following form to submit your Notice of Interest in the Voluntary Incentives Program",
+      "isEnabled": true
+    },
+    {
+      "id": "6652",
+      "name": "Sign up",
+      "categoryId": 1111,
+      "viewAccess": "public",
+      "description": "Create an OpenGov account",
+      "isEnabled": true
+    },
+    {
+      "id": "6629",
+      "name": "Board of Zoning Appeals (BZA)",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "description": "If your project does not meet the zoning requirements, you may request a variance from the Board of Zoning Appeals. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Stormwater Variance (SWV)",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "description": "Stormwater Variance (required for land disturbing activity within the water quality, riparian buffer zone(s)). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "Building Code Compliance Letter ",
+      "categoryId": 1106,
+      "viewAccess": "public",
+      "description": "A request for a letter Building Code Compliance information for a property or properties.",
+      "isEnabled": true
+    },
+    {
+      "id": "6579",
+      "name": "Presubmittal & FBC Consulting Meeting Scheduler",
+      "categoryId": 1108,
+      "viewAccess": "public",
+      "description": "Meetings are available in one or two formats.\n\nVirtual with Google Meet \n\nIn-person at Development Resource Center 1250 Market Street Suite 1000\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6588",
+      "name": "Infeasibility Request (SOV)",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "description": "Stay on Volume",
+      "isEnabled": true
+    },
+    {
+      "id": "6642",
+      "name": "Temporary Sign Permit",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Application to have a temporary sign in the City of Chattanooga. This includes banners (over 40 square feet), special events, and relocation signs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6650",
+      "name": "Residential Building Permit",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "This application is for New Construction single-unit (detached or attached), ADUs, or work altering the existing footprint.\n( single-unit (detached or attached) are formerly known as Single Family Home and Duplexes )\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Board of Construction Appeals (BOCA)",
+      "categoryId": 1104,
+      "viewAccess": "public",
+      "description": "The Board of Construction Appeals hears requests and renders decisions for variances with respect to the City's adopted construction codes. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6480",
+      "name": "Land Disturbing Permit",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "description": "A Land Disturbing Permit is required for the construction of all residential single-family homes, additions and out-buildings (garages, sheds, etc.), if the land is disturbed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6634",
+      "name": "Residential Modification Permit",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "Residential Repair Replace / Alteration permit. For modifications to existing structures that don't alter the footprint. This applies to single-family units, both attached and detached, where there is a total remodel of the interior, or portions of the interior, replacing an existing deck, repairing a porch, re-roofing, windows, exterior doors, or siding replacement.",
+      "isEnabled": true
+    },
+    {
+      "id": "6655",
+      "name": "Edit your profile",
+      "categoryId": 1111,
+      "viewAccess": "public",
+      "description": "Update your profile name and contact information.",
+      "isEnabled": true
+    },
+    {
+      "id": "6653",
+      "name": "How to apply for a permit, How to scedule an inspection ",
+      "categoryId": 1111,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6643",
+      "name": "On-Premise Permanent Sign Permit",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Application submit to install or modify permanent on-premise sign in the City of Chattanooga.",
+      "isEnabled": true
+    },
+    {
+      "id": "6615",
+      "name": "Retaining Walls or Reinforced Slopes",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "This permit is for retaining walls and/or earth-retaining structures. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6572",
+      "name": "Temporary Tent Permit",
+      "categoryId": 1106,
+      "viewAccess": "public",
+      "description": "A structure erected for special events or activities and used for a maximum of thirty (30) days or less upon approval by the Director of Codes Administration, to include tents or other code complying prefabricated structures.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Lot Subdivision (SBD)",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "description": "Subdivision proposal and subdivision road construction",
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "Timber Removal Permit",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "description": "Permit for Commercial Timber Harvest",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Tire Haulers",
+      "categoryId": 1106,
+      "viewAccess": "public",
+      "description": "Ordinance # 13047 Chapter 11-Article XIX Sec. 11-493",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Help Guides",
+      "categoryId": 1111,
+      "viewAccess": "public",
+      "description": "Accessing Your Information",
+      "isEnabled": true
+    },
+    {
+      "id": "6640",
+      "name": "Off-Premise Sign Permit",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Application for the demolition, installation, or modification an off-premise sign in the City of Chattanooga",
+      "isEnabled": true
+    },
+    {
+      "id": "6620",
+      "name": "Revision Request",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "If your project needs revisions submitted, fill out this form\nPlease provide a full set of drawings, divided by Architectural, Structural, Mechanical,  Electrical, Plumbing, Fire, for all revisions.",
+      "isEnabled": true
+    },
+    {
+      "id": "6607",
+      "name": "Tree Ordinance Permit ",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "description": "Impact to trees on city right-way or city properties.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "FAQ's ",
+      "categoryId": 1111,
+      "viewAccess": "public",
+      "description": "Frequently Asked Questions",
+      "isEnabled": true
+    },
+    {
+      "id": "6504",
+      "name": "Short-Term Vacation Rental (STVR)",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Short-Term Vacation Rental (STVR) refers to the rental of any dwelling unit or bedroom as residential accommodation for a duration of less than 30 consecutive days. Short-term rentals are allowed within certain parameters, and there are rules and regulations you must follow to legally rent out your residence on a short-term basis. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Street Cut Permit ",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "description": "Street cut application for general contractors. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Mechanical License Master ",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the mechanical business in the city must be licensed by the city of Chattanooga. This includes installations as well as any associated repairs or alterations to mechanical equipment. (see city code 22.5-1—22.5-20).",
+      "isEnabled": true
+    },
+    {
+      "id": "6540",
+      "name": "Zoning Verification Letter  ",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "A request for one of the following letters: Zoning Verification Letter, Non-Conforming Letter, Beverage Verification Letter, or Floodplain Verification Letter.",
+      "isEnabled": true
+    },
+    {
+      "id": "6649",
+      "name": "Commercial Building Permit ",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "This permit application applies to new construction, additions and/or alterations. For buildings or structures that are classified as industrial, institutional, educational, or commercial (including townhomes).",
+      "isEnabled": true
+    },
+    {
+      "id": "6509",
+      "name": "Plumbing License Master",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the plumbing business in the city must be licensed by the city of Chattanooga. This includes the installation of plumbing as well as any associated repairs or alterations. (see city code 27-1—27-20).",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Utility Street Cut Permit",
+      "categoryId": 1102,
+      "viewAccess": "public",
+      "description": "Street cut application for utility companies only.",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Historic Zoning Certificate of Appropriateness (COA) Application",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Certificates of Appropriateness (COA): \nSet up a meeting with Cassie Cline, Historic Preservation Planner to review what is needed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Gas License Master",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the gas piping business in the city must be licensed by the city of Chattanooga. This includes the installation of gas piping as well as any associated repairs or alterations. (see city code 19-1—19-122)",
+      "isEnabled": true
+    },
+    {
+      "id": "6639",
+      "name": "Commercial Repair Replace",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "For repairs to existing structures if minor alterations to the floor plan, footprint, or structural elements. Minor, like-in-kind replacement of any part of an existing building for its maintenance or to correct unforeseen damage. Repairs may not alter the size or location of doors, windows, or openings or alter the building's appearance, layout, or function. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6566",
+      "name": "Commercial Demolition Permit",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "This permit is for the demolition of Commercial buildings being removed from a property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6630",
+      "name": "Historic Zoning Demolition Certificate of Appropriateness (COA)  Application  ",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Certificates of Appropriateness (COA): \nSet up a meeting with Cassie Cline, Historic Preservation Planner to review what is needed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Mechanical License Journeyman (LMJ)",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the mechanical business in the city must be licensed by the city of Chattanooga. This includes installations as well as any associated repairs or alterations to mechanical equipment. (see city code 22.5-1—22.5-20).",
+      "isEnabled": true
+    },
+    {
+      "id": "6515",
+      "name": "Electrical License Journeyman - Chattanooga (LEJ)",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the electrical business in the city must be licensed by the city of Chattanooga. This includes installations of electrical wiring as well as any associated repairs or alterations. (see city code 1986, sec. 14-31 ).",
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Amplified Noise Permit",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "A request for a temporary event that will exceed the requirements of the Noise Ordinance.",
+      "isEnabled": true
+    },
+    {
+      "id": "6586",
+      "name": "Residential Demolition Permit",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "This permit is for the demolition of Residential buildings (up to 4 units). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Electrical License Journeyman - State Certified",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the electrical business in the city must be licensed by the city of Chattanooga. This includes installations of electrical wiring as well as any associated repairs or alterations. (see city code 1986, sec. 14-31 ).",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Form Based Code Major Modification Application",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Set up a meeting with a Land Development employee to review what variances are needed.\n\nIf your modification request must be heard before the Committee",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Gas Permit ",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "Application to submit when applying for a permit to perform gas work in the City of Chattanooga.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Electrical Permit",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "Application to submit when applying for a permit to perform electrical work in the City of Chattanooga.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Form Based Code Minor Modification Application",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Set up a meeting with a Land Development employee to review what variances are needed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Electrical Plant Electrician",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Renewals Only",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Electrical License Journeyman - Sign",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the electrical business in the city must be licensed by the city of Chattanooga. This includes installations of electrical wiring as well as any associated repairs or alterations. (see city code 1986, sec. 14-31 ).",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Mechanical Permit ",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "Application to submit when applying for a permit to perform Mechanical work in the City of Chattanooga.",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Plumbing Permit",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "Application to submit when applying for a permit to perform plumbing work in the City of Chattanooga.",
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "Electrical License Journeyman - Residential ",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the electrical business in the city must be licensed by the city of Chattanooga",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Meter Inspection / Tenant Change Application",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "Application to submit when applying for a permit to get a Meter Inspection in the City of Chattanooga.",
+      "isEnabled": true
+    },
+    {
+      "id": "6507",
+      "name": "Gas License Journeyman (LGJ)",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the gas piping business in the city must be licensed by the city of Chattanooga. This includes the installation of gas piping as well as any associated repairs or alterations. (see city code 19-1—19-122)",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Plumbing License Journeyman (LPJ)",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the plumbing business in the city must be licensed by the city of Chattanooga. This includes the installation of plumbing as well as any associated repairs or alterations. (see city code 27-1—27-20).",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Local Historic Landmark Application",
+      "categoryId": 1101,
+      "viewAccess": "public",
+      "description": "Set up a meeting with Cassie Cline, Historic Preservation Planner to review what is needed.\n\nPlease Note: Applications for Local Historic Landmarks and/or Districts will impose a moratorium on the granting of permits to demolish, construct, reconstruct, renovate, grade, or in any way alter any structures or land recommended for designation.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Low Voltage Permit",
+      "categoryId": 1103,
+      "viewAccess": "public",
+      "description": "Application to submit when applying for a permit to perform Low Voltage work in the City of Chattanooga.",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Electrical License - Plant Master",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the electrical business in the city must be licensed by the city of Chattanooga. This includes installations of electrical wiring as well as any associated repairs or alterations. (see city code 1986, sec. 14-31 ).",
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Electrical License - Class III (Sign)",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the electrical business in the city must be licensed by the city of Chattanooga. This includes installations of electrical wiring as well as any associated repairs or alterations. (see city code 1986, sec. 14-31 ).",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Electrical License - Class II (Res)",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the electrical business in the city must be licensed by the city of Chattanooga. This includes installations of electrical wiring as well as any associated repairs or alterations. (see city code 1986, sec. 14-31 ).",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Electrical License - Class I (Comm/Res)",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the electrical business in the city must be licensed by the city of Chattanooga. This includes installations of electrical wiring as well as any associated repairs or alterations. (see city code 1986, sec. 14-31 ).",
+      "isEnabled": true
+    },
+    {
+      "id": "6603",
+      "name": "Electrical License Special Restrictions ",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the electrical business in the city must be licensed by the city of Chattanooga. This includes installations of electrical wiring as well as any associated repairs or alterations. (see city code 1986, sec. 14-31 ).",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Electrical License - Low Voltage ",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the electrical business in the city must be licensed by the city of Chattanooga. This includes installations of electrical wiring as well as any associated repairs or alterations. (see city code 1986, sec. 14-31 ).",
+      "isEnabled": true
+    },
+    {
+      "id": "6521",
+      "name": "Electrical License - Plant License",
+      "categoryId": 1097,
+      "viewAccess": "public",
+      "description": "Anyone wishing to engage in the electrical business in the city must be licensed by the city of Chattanooga. This includes installations of electrical wiring as well as any associated repairs or alterations. (see city code 1986, sec. 14-31 ).",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1111",
+      "name": "News and Updates",
+      "isEnabled": 1,
+      "content": "<p dir=\"ltr\" style=\"line-height:1.38;margin-left: 36pt;text-align: center;margin-top:0pt;margin-bottom:0pt;\"><span style=\"font-size:15pt;font-family:Arial,sans-serif;color:#2a4f7e;background-color:transparent;font-weight:700;font-style:normal;font-variant:normal;text-decoration:none;vertical-align:baseline;white-space:pre;white-space:pre-wrap;\">City of Chattanooga</span></p><p dir=\"ltr\" style=\"line-height:1.38;margin-left: 36pt;text-align: center;margin-top:0pt;margin-bottom:0pt;\"><span style=\"f"
+    },
+    {
+      "id": "1106",
+      "name": "Standalone Permits",
+      "isEnabled": 1,
+      "content": "<p>The following permits are single application permits. &nbsp; &nbsp;</p><p><br></p>"
+    },
+    {
+      "id": "1108",
+      "name": "Pre-Submittal Meeting",
+      "isEnabled": 1,
+      "content": "<h2 style='box-sizing: inherit; font-family: \"Brauer Neue\", -apple-system, BlinkMacSystemFont, \"Segoe UI\", Helvetica, Arial, sans-serif, \"Apple Color Emoji\", \"Segoe UI Emoji\", \"Segoe UI Symbol\"; font-weight: 400; line-height: 1.333; color: rgb(51, 89, 121); margin: 1.7rem 0px 0.35rem; font-size: 2rem; text-transform: none; white-space: normal; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; wi"
+    },
+    {
+      "id": "1103",
+      "name": "Building & Trades Permits",
+      "isEnabled": 1,
+      "content": "<p style='margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-s"
+    },
+    {
+      "id": "1097",
+      "name": "Trade Licensing",
+      "isEnabled": 1,
+      "content": "<p style='margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-s"
+    },
+    {
+      "id": "1102",
+      "name": "Site Development & Subdivision",
+      "isEnabled": 1,
+      "content": "<p><br></p><p style='margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-d"
+    },
+    {
+      "id": "1104",
+      "name": "Boards ",
+      "isEnabled": 1,
+      "content": "<p style='margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-s"
+    },
+    {
+      "id": "1101",
+      "name": "Zoning & Signs",
+      "isEnabled": 1,
+      "content": "<p style='margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-s"
+    },
+    {
+      "id": "1110",
+      "name": "Floodplain Management",
+      "isEnabled": 1,
+      "content": "<div><a href=\"https://www.fema.gov/flood-maps/change-your-flood-zone/paper-application-forms/mt-2\" rel=\"noopener noreferrer\" target=\"_blank\">Flood Maps</a></div><div><br></div><div><a href=\"https://drive.google.com/file/d/1zRM-1h7cYFecfC7xbscUV8LQMilqTV4R/view?usp=drive_link\" rel=\"noopener noreferrer\" target=\"_blank\">FEMA Application</a></div><div><br></div>"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:09.128Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

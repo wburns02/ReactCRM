@@ -1,174 +1,221 @@
 {
   "jurisdiction": "Cocoa Beach",
   "state": "FL",
+  "tenant": "cocoabeachfl",
   "portalUrl": "https://cocoabeachfl.portal.opengov.com",
   "recordTypes": [
     {
       "id": "6516",
       "name": "LS - Special Events Application",
       "categoryId": 1089,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6515",
       "name": "Parking Permit Application",
       "categoryId": 1091,
-      "viewAccess": null
+      "viewAccess": null,
+      "isEnabled": true
     },
     {
       "id": "6430",
       "name": "BLDG - Building Permit",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6518",
       "name": "LS - Beach Wedding Ceremony Permit",
       "categoryId": 1089,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6464",
       "name": "Vacation Rental Registration Application (Annual)",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Vacation rental registration is required for all zones in the City of Cocoa Beach.",
+      "isEnabled": true
     },
     {
       "id": "6451",
       "name": "BTR - Vacation Rental Business Tax Application",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6431",
       "name": "BTR - Commercial Business Tax Receipt & Certificate of Use Application",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Please upload any State Business Licenses and/or Articles of Incorporation. Florida law requires all business which are State Regulated to provide a current copy of the State license before the Local Business Tax Receipt will be issued or renewed. This includes the Florida Department of Business and Professional Regulations, Department of Health, Department of Hotels & Restaurants, Department of Finance, Professional Engineers, Brevard County Certificate of Competency, and the Division of Real Estate.",
+      "isEnabled": true
     },
     {
       "id": "6452",
       "name": "BTR - Home Based Business Tax Application ",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6434",
       "name": "ROW - Right of Way Permit",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6435",
       "name": "BLDG - Temporary Sign Permit",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6514",
       "name": "DS - Foreclosed and Vacant Property Registration",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "REGISTRATION OF FORECLOSED AND VACANT PROPERTIES",
+      "isEnabled": true
     },
     {
       "id": "6503",
       "name": "DS - Garage Sale Permit",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6470",
       "name": "P&Z - Administrative Waiver",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Application for an Administrative Waiver review",
+      "isEnabled": true
     },
     {
       "id": "6477",
       "name": "P&Z - Change of Use Application",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Application for Change of Use",
+      "isEnabled": true
     },
     {
       "id": "6475",
       "name": "P&Z - Painted Wall Sign Authorization",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "The Painted Sign Authorization is only available for painted wall signs, and is subject to zoning approval for size and location.  A standard sign permit may be required after review.",
+      "isEnabled": true
     },
     {
       "id": "6448",
       "name": "P&Z - Planned Development (PD) Master Plan Review",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Application for consideration of a PD Master Plan for a large scale project.",
+      "isEnabled": true
     },
     {
       "id": "6492",
       "name": "DUNE - Dune Permitting Authorization/Protocol",
       "categoryId": 1086,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Application for Dune Trimming/Restoration",
+      "isEnabled": true
     },
     {
       "id": "6483",
       "name": "P&Z - Right of Way and Easement Vacation",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "A right of way vacation application is required for any request for the city to vacate or dispose of public property, which includes any public road, public street, public alley, or other public right of way.  Approval shall be by ordinance and a unanimous vote of the city commission is required for approval of such action.",
+      "isEnabled": true
     },
     {
       "id": "6446",
       "name": "P&Z - Site Plan Review Application",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Site plan submittal is required for all commercial and residential development or redevelopment and all site improvements or building additions which impact the site infrastructure, parking, stormwater, and landscaping see details.",
+      "isEnabled": true
     },
     {
       "id": "6445",
       "name": "P&Z - Special Exception Request Application",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Application for a Special Exception from the Board of Adjustment",
+      "isEnabled": true
     },
     {
       "id": "6474",
       "name": "P&Z - Tree Removal Authorization",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Application to remove trees when not part of a site plan review process",
+      "isEnabled": true
     },
     {
       "id": "6439",
       "name": "P&Z - Variance Request Application",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Application for a Variance from the Board of Adjustment",
+      "isEnabled": true
     },
     {
       "id": "6473",
       "name": "P&Z - Variance (Density above 10/28 units per acre)",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Application for a Variance from the City Commission ",
+      "isEnabled": true
     },
     {
       "id": "6471",
       "name": "P&Z - Variance (Building Height above 45 feet)",
       "categoryId": 1083,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Application for a Variance from the City Commission",
+      "isEnabled": true
     }
   ],
   "categories": [
     {
       "id": "1083",
       "name": "Development Services",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<div class=\"content\"><h1><span style=\"font-family: Arial, Helvetica, sans-serif; color: rgb(37, 94, 124);\">Development Services Application Portal</span></h1><h3><span style=\"font-family: Arial,Helvetica,sans-serif;\">Welcome to the City of Cocoa Beach Development Services Application Portal</span></h3><p><span style=\"font-family: Arial, Helvetica, sans-serif;\">Within this portal are applications for a Building Permit, Planning and Zoning requests, Business Tax Receipts, and Vacation Rental Regis"
     },
     {
       "id": "1089",
       "name": "Leisure Services",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<div class=\"content\"><h1><span style=\"font-family: Arial, Helvetica, sans-serif; color: rgb(37, 94, 124);\">Beach Weddings and Special Events</span></h1><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Cocoa Beach Leisure Services provides several locations for rental for your special event. We strive to provide excellent customer service by overseeing the outdoor special event permitting process and assisting you through your planning process.</span></p><h2><span style=\"font-family: Ari"
     },
     {
       "id": "1086",
       "name": "Environmental / Dune Trimming & Restoration",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<h3><span style=\"font-family: Arial,Helvetica,sans-serif;\">Welcome to the City of Cocoa Beach Dune Trimming and Restoration Application Portal</span></h3><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/DuneVegetationMaintenanceGuidelines_2022_Thu_Jan_26_2023_19:20:55_GMT+0000_(Greenwich_Mean_Time).pdf\" target=\"_blank\">DuneVegetationMaintenanceGuidelines_2022.pdf</a></span></p><p><span style=\"font-fam"
     },
     {
       "id": "1091",
       "name": "Parking Permits",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<div class=\"content\"><h1><span style=\"font-family: Arial, Helvetica, sans-serif; color: rgb(37, 94, 124);\">Parking Permits</span></h1><h2><span style=\"font-family: Arial, Helvetica, sans-serif; color: rgb(194, 98, 41);\">2026 Parking Permits</span></h2><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Parking permits for 2026 will be available for purchase starting Monday<strong>, December 1, 2025</strong>.</span></p><h3><span style=\"font-family: Arial, Helvetica, sans-serif; color: rgb(5"
     }
   ],
-  "extractedAt": "2026-01-20T21:27:08.981Z"
+  "extractedAt": "2026-01-20T22:55:39.688Z",
+  "generalSettings": {
+    "id": 1
+  }
 }

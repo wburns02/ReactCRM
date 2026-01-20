@@ -1,0 +1,100 @@
+{
+  "jurisdiction": "Boxford",
+  "state": "MA",
+  "tenant": "boxfordma",
+  "portalUrl": "https://boxfordma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006481",
+      "name": " Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, renovations, alterations, partial and interior demolition and major repairs to existing buildings including commercial, residential, industrial, and agricultural.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006484",
+      "name": " Building Permit - Short Form",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for minor repairs and replacement of roofing, siding, windows and doors, fences, solar panels, wood and pellet stove, and weatherization. For sign, tent and demolition permits, please scroll down.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": " Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for complete demolition of a building and/or accessory building. For partial and interior demolition, use the Building Permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006498",
+      "name": " Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, security system, etc.  An electrical permit is NOT REQUIRED for low voltage wiring including cable TV, internet, phones, etc. You must be a licensed professional to apply for this permit.\n\n***24 HOUR NOTICE IS REQUIRED TO SCHEDULE INSPECTIONS*** \n(Please request all inspections on the portal)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006492",
+      "name": " Sign Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for minor repairs and replacement of roofing, siding, windows and doors, solar panels, wood and pellet stove, and weatherization. For sign, tent and demolition permits, please scroll down.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006491",
+      "name": " Gas Fitter Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.\n\n***24 HOUR NOTICE IS REQUIRED TO SCHEDULE INSPECTIONS***",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": " Mechanical / Sheet Metal Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required to erect, install, enlarge, alter, do major repairs, remove, convert or replace a mechanical system.  The property owner or owner’s agent can apply for this permit.  This permit is issued by the Building Inspector.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006496",
+      "name": " Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.\n\n***24 HOUR NOTICE IS REQUIRED TO SCHEDULE INSPECTIONS***",
+      "isEnabled": true
+    },
+    {
+      "id": "1006489",
+      "name": " Tent | Awning | Canopy Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Any tent, awning, or canopy 400 square feet or more MUST have a permit & can only be in place for up to 6 months.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Trailer Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Any trailer MUST have a permit & can only be in place for up to 6 months.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": ""
+    }
+  ],
+  "extractedAt": "2026-01-20T22:57:15.115Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

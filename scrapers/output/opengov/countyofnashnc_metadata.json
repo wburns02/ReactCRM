@@ -1,0 +1,157 @@
+{
+  "jurisdiction": "Nash County",
+  "state": "NC",
+  "tenant": "countyofnashnc",
+  "portalUrl": "https://countyofnashnc.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6465",
+      "name": "Building Permit: Residential",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application for Residential Building Permits including, but not limited to, Single Family Dwellings, Detached Accessory Buildings, Residential Swimming Pools, Decks, etc. Trade permits (plumbing/electrical/mechanical) must be applied for separately.",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Zoning Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Application for Nash County Zoning Permits ONLY. It may not be used to apply for or to upload zoning documents from the Towns of Bailey, Castalia, Dortches, Middlesex, Momeyer, Nashville, Red Oak, Sharpsburg, Spring Hope, or Whitakers. Please upload those items to the Building Permit Application. This permit allows the applicant to use or occupy a tract of land or a building; or to erect, install or alter a structure, building or sign situated in the jurisdiction of the County that fully meets the requirements of the Nash County Unified Development Ordinance (UDO). All applicants are required to submit a site plan for the project. ***Please note that this zoning permit is not a building permit.***",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Wastewater Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Application for Wastewater Permit. Use this application for: a new septic system, a revision to an existing permit, upgrade/expansion/relocation of existing system, system repair, Engineered Option Permit (EOP), or Authorized On-site Wastewater Evaluator (AOWE a1 or AOWE a2).",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Compliance Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Application for a well and wastewater Compliance Permit. This permit is required for any project on a property with an existing septic system and/or well, including connecting to an existing system, construction of a new accessory building, additions to an existing building, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Building Permit: Commercial",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application for Commercial Building Permits including, but not limited to, Commercial Buildings, Additions, Signs, Multi-Family Dwellings (3 or More), Telecommunication Towers, etc. Trade permits (plumbing/electrical/mechanical) must be applied for separately.",
+      "isEnabled": true
+    },
+    {
+      "id": "6471",
+      "name": "Manufactured Home Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application for the setup of manufactured homes (singlewide or doublewide) and modular homes. Trade permits (plumbing/electrical/mechanical) must be applied for separately.",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Well Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Application for a Well Permit, including well construction, repair, or abandonment.",
+      "isEnabled": true
+    },
+    {
+      "id": "6421",
+      "name": "Electrical Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application for Residential and/or Commercial Electrical Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Water Sample Request",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Application for a Water Sample Request for existing wells.",
+      "isEnabled": true
+    },
+    {
+      "id": "6420",
+      "name": "Plumbing Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application for Residential and/or Commercial Plumbing Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6442",
+      "name": "Mechanical Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application for Residential and/or Commercial Mechanical Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Combination Trade Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application for Residential and/or Commercial Combination Trade Permit. This permit is used for change out projects (units, water heaters, etc.) with no electrical service upgrade.",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Demolition Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Application for the Demolition of a structure. This permit allows for the disposal of waste generated from demolition activities occurring in Nash County at the Construction and Demolition (C&D) Landfill.",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Change of Commercial Tenant",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Certificate of Occupancy (Existing Bldg)",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Licensing Inspection",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "This application and inspection are required if you are seeking the following State licenses: ABC, Child Daycare, Pre-K, Adult Daycare, Group Home, etc.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1079",
+      "name": "Building Permits & Inspections",
+      "isEnabled": 1,
+      "content": "<p><span style=\"color: rgb(44, 130, 201); font-size: 24px; font-family: Arial, Helvetica, sans-serif;\"><strong>Projects That Require <u>Building Plans</u>:</strong></span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 18px;\"><span style=\"color: rgb(19, 21, 23); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows:"
+    },
+    {
+      "id": "1087",
+      "name": "Planning & Zoning",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1088",
+      "name": "Environmental Health: Well/On-Site Wastewater",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:55:54.588Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

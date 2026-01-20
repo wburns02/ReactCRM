@@ -1,335 +1,428 @@
 {
   "jurisdiction": "Apopka",
   "state": "FL",
+  "tenant": "apopkafl",
   "portalUrl": "https://apopkafl.portal.opengov.com",
   "recordTypes": [
     {
       "id": "6596",
       "name": "Engineering: Right of Way Permit",
       "categoryId": 1072,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6597",
       "name": "Engineering Driveway/Sidewalk Permit",
       "categoryId": 1072,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6591",
       "name": "Individual Distributed Wastewater Treatment Unit (DWTU) Permit",
       "categoryId": 1072,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6488",
       "name": "Fire Prevention Permit  - Aerial Fireworks Display - (NFPA 1123)  ",
       "categoryId": 1074,
-      "viewAccess": null
+      "viewAccess": null,
+      "description": "Required permit for flame effect display and/or show. Subject to NFPA 1123 - Includes permit, permit review, and inspection when set-up. If necessary hourly fire-watch and stand-by fees are in addition and are charged 1 hour prior to shoot time, until 1 hour after shoot ends, with a four hour minimum. Applications must be submitted 30 days prior to the shoot or an after-hour plans review fee will be charged. ",
+      "isEnabled": true
     },
     {
       "id": "6431",
       "name": "Building-Contractor Registration ",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "If this is your first-time doing work within the City of Apopka, then you need to use this application to register with us.",
+      "isEnabled": true
     },
     {
       "id": "6517",
       "name": "Irrigation Permit ",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Irrigation Inspection's are only to be done on Friday.",
+      "isEnabled": true
     },
     {
       "id": "6569",
       "name": "Addressing Request",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Application of new subdivisions/development projects that need addresses ",
+      "isEnabled": true
     },
     {
       "id": "6481",
       "name": "Annexation Application",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Annexation Definition: Annexation is the adding of land to the boundaries of the City of Apopka. Such a land addition makes the land in every way a part of the City.",
+      "isEnabled": true
     },
     {
       "id": "6544",
       "name": " Building Permit (Window and Door Replacement/Retaining Walls/Foundation) NOT SFR'S",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6500",
       "name": "Fire Prevention Permit - Consumer Sparkler - Retail Sales",
       "categoryId": 1074,
-      "viewAccess": null
+      "viewAccess": null,
+      "description": "Required permit for any person , persons, or businesses who wish to sell sparklers within the City of Apopka either at a temporary seasonal location, or a fixed retail store. Applications must be submitted 21 days prior to the sales starting date or an\nExpedited Plans Review fee of $227.00 will be charged.",
+      "isEnabled": true
     },
     {
       "id": "6585",
       "name": "Oil and Grease Management Program",
       "categoryId": 1072,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Visit our Grease Management Page at www.Apopka.gov/Grease to view Ordinance 2933 in Municode or by visiting www.Apopka.gov/Code",
+      "isEnabled": true
     },
     {
       "id": "6487",
       "name": "Fire Prevention Permit - Flame Effect - Before a proximate audience (NFPA 160) ",
       "categoryId": 1074,
-      "viewAccess": null
+      "viewAccess": null,
+      "description": "Required permit for flame effect display and/or show. Subject to NFPA 160 - Includes permit, permit review, and inspection when set-up. If necessary hourly fire-watch and stand-by fees are in addition and are charged 1 hour prior to display time, until 1 hour after display ends, with a four hour minimum. Applications must be submitted 30 days prior to the shoot or an after-hour plans review fee will be charged. ",
+      "isEnabled": true
     },
     {
       "id": "6491",
       "name": "Appeal Application",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6529",
       "name": "Business Tax Receipt Application",
       "categoryId": 1079,
-      "viewAccess": null
+      "viewAccess": null,
+      "description": "Welcome to OpenGov! Please complete this application to apply for a Business Tax Receipt with the City of Apopka. If you have any questions, you can send us a message directly through your OpenGov account or email us at btreceipts@apopka.net. We're here to help!   ",
+      "isEnabled": true
     },
     {
       "id": "6469",
       "name": "Arbor/Tree Removal Permit",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6495",
       "name": "Mobile Food Service Permit and Inspection (Fire Prevention Permit)",
       "categoryId": 1074,
-      "viewAccess": null
+      "viewAccess": null,
+      "description": "This permit is needed for food establishments that are self-propelled or otherwise moveable from\nplace to place such as a truck, trailer, or similar self-propelled conveyance or non-permanent kiosk or table\nwhere pre-packaged food products are sold.\n",
+      "isEnabled": true
     },
     {
       "id": "6506",
       "name": "Building-Private Provider Notice to Building Official ",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Private providers must be registered with the City of Apopka prior to being added to permit applications. 35% reduction if both services are used. 20% reduction for either Plan Review or Inspections.",
+      "isEnabled": true
     },
     {
       "id": "6486",
       "name": "Fire Prevention Permit - Open Flame Permit",
       "categoryId": 1074,
-      "viewAccess": null
+      "viewAccess": null,
+      "description": "This permit is needed for open fires to include, camp fires, bonfire, and ceremonial fires.\n",
+      "isEnabled": true
     },
     {
       "id": "6568",
       "name": "Change of Use",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6580",
       "name": "CSP Application",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Minor Development Plan Definition:\n\nAll development that is not subject to major development plan approval shall receive approval of a minor development plan prior to the issuance of building permit.\n\nDevelopments of below 25 residential dwelling units;\nDevelopment of below 25,000 square feet of nonresidential floor area; and\nDevelopment of a mixed-use project with less than 25 residential dwelling units and/or less than 25,000 square feet of floor area.",
+      "isEnabled": true
     },
     {
       "id": "6574",
       "name": "FLU (Future Land Use) Amendment",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "This is the Comprehensive Plan Amendment application (Future Land Use Amendment) to change the land use of a property or multiple properties.",
+      "isEnabled": true
     },
     {
       "id": "6369",
       "name": "Fire Prevention Permit - Pyrotechnics - Before a proximate audience (NFPA 1126) ",
       "categoryId": 1074,
-      "viewAccess": null
+      "viewAccess": null,
+      "description": "Required permit for pyrotechnic display and/or show. Subject to NFPA 1126 - Includes permit, permit review, and inspection when set-up. If necessary hourly fire-watch and stand-by fees are in addition and are charged 1 hour prior to display time, until 1 hour after display ends, with a four hour minimum. Applications must be submitted 30 days prior to the shoot or an after-hour plans review fee will be charged. ",
+      "isEnabled": true
     },
     {
       "id": "6496",
       "name": "Fire Prevention Permit- Restricted Access Gate/Fence Installation Review and Inspection",
       "categoryId": 1074,
-      "viewAccess": null
+      "viewAccess": null,
+      "description": "This permit is needed for a location with restricted access with a Gate/Fence. This is for the review and inspection. There is a separate permit for annual renewals.  \n",
+      "isEnabled": true
     },
     {
       "id": "6547",
       "name": "Commercial Building  Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Apartments/Tenant Improvements/Warehouses/Hangars/ Grease Traps",
+      "isEnabled": true
     },
     {
       "id": "6550",
       "name": " Demolition Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6359",
       "name": "Fire Prevention Permit - Special Events Indoor/Outdoor Permit",
       "categoryId": 1074,
-      "viewAccess": null
+      "viewAccess": null,
+      "description": "If it is a large event expecting 1,000 or more attendees per day, regardless of location in the City of Apopka (public or private property), a \"Special Event Permit\" is required. \nExamples: Festivals, Concerts, Fairs, Circuses, Large Community Events",
+      "isEnabled": true
     },
     {
       "id": "6474",
       "name": "FLU Amendment/Rezoning Application",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "This is an application if an applicant wants a Future Land Use application and Rezoning Application running concurrently for the same property/properties.",
+      "isEnabled": true
     },
     {
       "id": "6579",
       "name": "MDP Application",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Major Development Plan Definition: \n\nThe following developments listed below shall receive major development plan approval prior to the issuance of a building permit:\n\nDevelopments of 25 or more residential dwelling units;\nDevelopment of 25,000 square feet or more of nonresidential floor area; and\nDevelopment of a mixed-use project with more than 25 residential dwelling units and/or more than 25,000 square feet of floor area.\nDevelopments determined by the Director to have a potentially significant impact on the need for public facilities, or on environmentally sensitive lands.\n\n",
+      "isEnabled": true
     },
     {
       "id": "6540",
       "name": "Fire  Permit",
       "categoryId": 1074,
-      "viewAccess": null
+      "viewAccess": null,
+      "description": "This form is for the Apopka Fire Department. ",
+      "isEnabled": true
     },
     {
       "id": "6518",
       "name": " Fence Permit - Residential/Commercial",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Land Development Code Section 5.5 establishes standards for the location, height, and appearance of fences and walls in the City, and ensure the safety, security, and privacy of properties.\n\nPool fences are subject to the standards of the Florida Building Code.",
+      "isEnabled": true
     },
     {
       "id": "6538",
       "name": "Roof Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "On Residential re-roofs by a licensed contractor we will only do a final inspection with affidavits. Owner-Builder will need a dry-in inspection and a final inspection. ",
+      "isEnabled": true
     },
     {
       "id": "6561",
       "name": "Fire Training Event Permit",
       "categoryId": 1074,
-      "viewAccess": null
+      "viewAccess": null,
+      "description": "A completed Apopka Fire Department Fire Training Event Permit application is required for all events being hosted with the City of Apopka Fire Department. All events may be subject to review by our Development Review Committee for approval. The City of Apopka has the exclusive right to permit or deny an individual or organization facility use. \n\nOnce we have the completed application, we will schedule for review and approval. Please note this may take time, as we suggest that all applications submitted at least 60 to 90 prior to the event. ",
+      "isEnabled": true
     },
     {
       "id": "6483",
       "name": "Planned Development/Master Plan Application",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Planned Development Definition: \n\nA type of zoning district map amendment involving the classification of land to special type of zoning district designed to accommodate generally larger-scale development that is planned and developed as an integral unit in accordance with a PD Plan and PD Agreement, with flexible development standards that illustrate and address land uses, circulation, utilities, parking, setbacks, densities and intensities, land coverage, landscaping and buffers, open space, building form and design, and similar features of the project.",
+      "isEnabled": true
     },
     {
       "id": "6581",
       "name": "Plat Application",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Plat Definition:\n\nA map or delineated representation of the subdivision of lands, being a complete exact representation of the subdivision and of other information in compliance with the requirement of all applicable provisions in the LDC and the City Code of Ordinances.\n\nImportant Notice: Note the $5,000 Pass Through Fee should be characterized as a deposit. $1600 fee for initial plat review, hourly rate for subsequent re-reviews.",
+      "isEnabled": true
     },
     {
       "id": "6507",
       "name": "Shed Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6492",
       "name": "Sign Permit- Permanent/Temporary",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6573",
       "name": "Rezoning Application",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "This is an application for rezoning a property or multiple properties.",
+      "isEnabled": true
     },
     {
       "id": "6503",
       "name": "Single Family Residence  Permit  (NEW HOUSE CONSTRUCTION ONLY)",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "ONLY for Single Family Homes",
+      "isEnabled": true
     },
     {
       "id": "6452",
       "name": "Special Exception Use Permit Application",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Special Exception Permit Definition:  \n\nA use, designated as a special exception in Table 4.2.2.C: Principal Use Table, that may be appropriate in a particular zoning district, but because of its nature, extent, and external effects, requires special standards and special consideration of its location, design, and methods of operation before it is allowed in the district.",
+      "isEnabled": true
     },
     {
       "id": "6457",
       "name": "Transfer of Development Rights ",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6438",
       "name": "Vacation of ROW or Easement Application",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Vacation Definition:\n\nThe complete or partial abandonment or termination of the public right to use a street, highway, or public service easement.",
+      "isEnabled": true
     },
     {
       "id": "6546",
       "name": " Solar Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6485",
       "name": "Variance Application",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Variances Definition: \n\nVariances allow Applicants to have their proposals considered in a different light than what would be prescribed by zoning ordinances. ",
+      "isEnabled": true
     },
     {
       "id": "6490",
       "name": "Waiver of Fees for Not for Profit Organizations and Churches",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6542",
       "name": "RSF Pre Final Plat Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6539",
       "name": " Sub-Contractor Permits (ANY & ALL FIRE RELATED WORK WILL NEED TO APPLY USING A  FIRE PERMIT)",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "All sub-subcontractors associated with new homes, townhouses, commercial jobs. Plus mechanical change-outs, plumbing re-pipes, electrical panel change-outs.\nANY FIRE RELATED WORK TO APPLY USING THE FIRE PERMIT",
+      "isEnabled": true
     },
     {
       "id": "6530",
       "name": "Zoning Verification Letter ",
       "categoryId": 1076,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "A Zoning Verification Letter is a document provided by the City to verify the current zoning of a particular piece of property, and the types of uses that are allowed in that zoning district.",
+      "isEnabled": true
     },
     {
       "id": "6505",
       "name": " Swimming Pool-Master File Permit ",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "To be used by pool companies who would like to have their plans master filed. ",
+      "isEnabled": true
     },
     {
       "id": "6548",
       "name": " Swimming Pool Permit",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     },
     {
       "id": "6549",
       "name": "Townhouse Permit ",
       "categoryId": 1071,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "isEnabled": true
     }
   ],
   "categories": [
     {
       "id": "1071",
       "name": "Building Department",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<dt style=\"box-sizing: content-box; margin: 0px; padding: 0px 5px 0px 27px; border: 0px; outline: 0px; font-weight: bold; font-style: normal; font-size: 15.2px; font-family: Montserrat; vertical-align: baseline; position: relative; text-decoration: none; color: rgb(22, 27, 36); font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white"
     },
     {
       "id": "1079",
       "name": "Business Tax Receipt",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: justify;\"><span style='color: rgb(97, 99, 101); font-family: \"Benton Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: in"
     },
     {
       "id": "1076",
       "name": "Community Development",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<p>Welcome to the Community Development Department&#39;s online submittal portal! For any questions you may have, please email <a data-fr-linked=\"true\" href=\"mailto:planning@apopka.net,\" rel=\"noopener noreferrer noopener noreferrer noopener noreferrer\" target=\"_blank\">planning@apopka.net,</a> or call 407-703-1684 for more information.&nbsp;</p><div><strong>Please note for resubmittals, you will need to contact your project manager via email and message on OpenGov about resubmittal being complete"
     },
     {
       "id": "1074",
       "name": "Fire Department",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": ""
     },
     {
       "id": "1072",
       "name": "Public Services",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": ""
     }
   ],
-  "extractedAt": "2026-01-20T21:26:50.956Z"
+  "extractedAt": "2026-01-20T22:55:37.769Z",
+  "generalSettings": {
+    "id": 1
+  }
 }

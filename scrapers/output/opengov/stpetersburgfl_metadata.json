@@ -1,89 +1,102 @@
 {
   "jurisdiction": "St. Petersburg",
   "state": "FL",
+  "tenant": "stpetersburgfl",
   "portalUrl": "https://stpetersburgfl.portal.opengov.com",
   "recordTypes": [
     {
       "id": "6495",
       "name": "Affordable Housing Redevelopment Loan Program ",
       "categoryId": 1092,
-      "viewAccess": "public"
-    },
-    {
-      "id": "6510",
-      "name": "N-Team Application",
-      "categoryId": 1098,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "The Affordable Housing Redevelopment Loan Program provides funding through a variety of loan products such as bridge loans, loan guarantees, and low-interest or forgivable loans to support affordable housing development in the South St. Petersburg CRA.",
+      "isEnabled": true
     },
     {
       "id": "6497",
       "name": "2026 Community Food Grant Program",
       "categoryId": 1094,
-      "viewAccess": "private"
+      "viewAccess": "private",
+      "description": "The Community Food Grant Program is a competitive grant program that aims improve health equity for all residents in St. Petersburg by funding local non-profit agencies who will implement projects that align with the Healthy Food Action Plan (HFAP) Areas of Focus and strategies.",
+      "isEnabled": true
     },
     {
       "id": "6542",
       "name": "Homeowner Retroactive Rebate Form",
       "categoryId": 1100,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "This form for the Private Lateral Rehabilitation Rebate Program is for those property owners who may be eligible for a retroactive rebate.",
+      "isEnabled": true
     },
     {
       "id": "6513",
       "name": "1. Homeowner Initial Intake Form",
       "categoryId": 1100,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "First form of the Private Lateral Rehabilitation Rebate Program for property owners to sign-up for the Program and determine eligibility.",
+      "isEnabled": true
     },
     {
       "id": "6546",
       "name": "Legacy Business Program - Draft",
       "categoryId": 1090,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "THIS IS A TEST APPLICATION",
+      "isEnabled": true
     },
     {
       "id": "6514",
       "name": "2. Homeowner Verification of Inspection Results and Recommended Rehabilitation Method Form",
       "categoryId": 1100,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Please do not submit until you receive an approval letter from the City. This is the second form of the Private Lateral Rehabilitation Rebate Program for property owners to submit inspection results.",
+      "isEnabled": true
     },
     {
       "id": "6515",
       "name": "3. Homeowner Closeout Form",
       "categoryId": 1100,
-      "viewAccess": "public"
+      "viewAccess": "public",
+      "description": "Please do not submit until you receive an approval letter from the City. This is the third and last form of the Private Lateral Rehabilitation Rebate Program.",
+      "isEnabled": true
     },
     {
       "id": "6486",
       "name": "Rebates for Affordable Residential Rehabilitation ",
       "categoryId": 1092,
-      "viewAccess": "private"
+      "viewAccess": "private",
+      "description": "Eligible homeowners in St. Pete can apply for funding to make specific building improvements to their residential properties, including:\n•Structural repairs\n•Roof replacement\n•Electric/plumbing upgrades\n•Window/door replacement\n•HVAC replacement\n•Insulation upgrades\n•Kitchen/bath upgrades\n•Constructing an accessory dwelling unit (ADU) \n\nFunding is provided in the form of a rebate of up to 40% for the pre-approved construction value. Funds can be used to cover part of the actual cost of materials, labor, and reasonable profit and overhead. Funding may be provided for single-family or multi-family residential properties and must meet qualifications for affordable housing.",
+      "isEnabled": true
     }
   ],
   "categories": [
     {
       "id": "1090",
       "name": "Testing",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<div>This is a testing portal. Any applications submitted through this portal are not valid and will not be reviewed.&nbsp;</div><div><br></div><div><br></div><div><br></div><div><br></div>"
     },
     {
       "id": "1092",
       "name": "Housing",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": ""
     },
     {
       "id": "1094",
       "name": "Community Food Grant Program (HFAP)",
-      "isEnabled": 1
-    },
-    {
-      "id": "1098",
-      "name": "Code Compliance",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: justify;\"><span style=\"font-size: 14px; font-family: Tahoma, Geneva, sans-serif;\">&nbsp;<div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/HealthyStPeteRoundYellow_Thu_Jun_13_2024_18:04:35_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 118px;\" class=\"fr-fic fr-fil fr-dii\"></div><div style=\"text-align: left;\"><br></div></span><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Park-and-Rec-Lockup-Stacked_COLOR_Fri_Jan"
     },
     {
       "id": "1100",
       "name": "Private Lateral Line Rehabilitation",
-      "isEnabled": 1
+      "isEnabled": 1,
+      "content": "<div><span data-teams=\"true\"><div><strong><u>Program Update: High Demand and Limited Funding &ndash; Intake Open, Approval Required</u></strong></div><div><br></div><div>Thank you for your interest in the City of St. Petersburg&rsquo;s Private Lateral Rehabilitation Rebate Program. The application portal is currently open and accepting Homeowner Initial Intake Forms to verify eligibility.</div><div><br></div><div>Please note that submission of an Homeowner Initial Intake Form does not constitute"
     }
   ],
-  "extractedAt": "2026-01-20T21:26:32.815Z"
+  "extractedAt": "2026-01-20T22:55:36.006Z",
+  "generalSettings": {
+    "id": 1
+  }
 }

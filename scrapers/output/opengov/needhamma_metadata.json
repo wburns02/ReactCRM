@@ -1,0 +1,613 @@
+{
+  "jurisdiction": "Needham",
+  "state": "MA",
+  "tenant": "needhamma",
+  "portalUrl": "https://needhamma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006580",
+      "name": "Outdoor Space Use Permit",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Host a community event in outdoor spaces under the jurisdiction of the Select Board: Town Common, Needham Heights Common (Avery Square), Amity Path, Eaton Plaza",
+      "isEnabled": true
+    },
+    {
+      "id": "1006530",
+      "name": "How To Clear Web Browser Cookies and Cache",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006527",
+      "name": "Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006562",
+      "name": " Alcohol License - Amendment (Change to an Existing License)",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "For example: Change of Manager, Alteration of Premises, etc. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006359",
+      "name": "Burning Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "Application to have an annual burn permit must be requested and approved by the Fire Chief before you can burn on your property. Failure to abide by this could result in the denial of a burning permit for the season.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006459",
+      "name": " Needham Contractor Registration",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006535",
+      "name": " Overnight Parking Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006502",
+      "name": " Building Permit - Commercial Projects",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Welcome to the Town of Needham Building Permit (Commercial). This application is used for new construction, renovations, alterations, partial and interior demolition and major repairs to all buildings other than one- and two-family buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": " Animal Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Renewable annually on July 1st\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006513",
+      "name": " Biosafety Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Renewable annually by May 30st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006486",
+      "name": " Building Permit - Residential (Single, 2-Family or Townhouses) Projects",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Welcome to the Town of Needham Building Permit (Residential) [excluding SOLAR - See Solar Permit - Residential]. This permit is required for Residential new construction, additions, renovations or repairs to One or Two Family and Townhouse structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006367",
+      "name": "Welding/Cutting Permit",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "All hot work in the Town of Needham requires a permit. In accordance with the Fire Code, plumbers and gas fitters do not need an additional hot work permit, but may require a detail. Hot work is defined as any activity that involves heat, spark, or flame that is capable of starting fires or explosions. Examples include, but are not limited to, welding, cutting, grinding, soldering, heat treating, hot riveting, torch applied roofing, abrasive blasting, and powder driven fasteners. When applying for a hot work permit, please ensure all operators working under the permit have completed the NFPA Hot Work Safety program or an equivalent found at the Massachusetts DFS website. Copies of all operators’ certificates are to be attached to the submittal. In addition, please attach a letter from the building owner giving permission to perform hot work at the location. Most hot work will require a fire detail.  Please note we require a minimum of 48 hours notice to secure a detail.  There is a 4 hour minimum for all details.  The fee is $55 an hour plus a 10% administrative fee.\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006525",
+      "name": "Reset Applicant's Password",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006526",
+      "name": "Email Notifications for Applicants",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006561",
+      "name": " Alcohol License - New or Transfer",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "If you are trying to renew your existing license, please stop and refer to the instructions that were emailed to you.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006560",
+      "name": "Smoke and Carbon Monoxide Compliance",
+      "categoryId": 1076,
+      "viewAccess": null,
+      "description": "This application is for an inspection to acquire a Smoke/CO Certificate for the sale and transfer of a property.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006421",
+      "name": " Street Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006403",
+      "name": " Demolition Permit  (EXCLUDES INTERIOR RENOVATIONS)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Application to submit when demolishing all or part of a building in the Town of Needham.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006522",
+      "name": " Bodywork Establishment",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Bodywork Permits are renewable annually.\n\nPermit fees can be found here: https://needhamma.gov/DocumentCenter/View/28247/PERMIT-FEES-2022PDF?bidId=\n\nPlease remember that all information on applications must be complete and accurate before you submit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006492",
+      "name": " Electrical Permit - Residential & Commercial Projects",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, etc.  Also includes low voltage wiring including cable TV, internet, phones, security alarm systems, etc. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006521",
+      "name": " Bodywork Practitioner",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Bodywork Practitioner Permits are renewable annually.\n\nPermit fees can be found here: https://needhamma.gov/DocumentCenter/View/28247/PERMIT-FEES-2022PDF?bidId=",
+      "isEnabled": true
+    },
+    {
+      "id": "1006567",
+      "name": " Block Party Request",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Completed Block Party Permission Applications should be submitted at least three (3) weeks prior to the scheduled event.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006529",
+      "name": "Applying for a Permit & Paying Fees",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006528",
+      "name": "Receiving & Printing Your Permit or License",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006538",
+      "name": " Bowling License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Spring License - Renewable annually by May 1 ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": " Fire Alarm Permit (Commercial Only)",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Commercial Only Fire Alarm Permits.  For residential, please contact the Needham Fire Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006514",
+      "name": " Dispensary Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Dispensary Permits are renewable annually on July 1st and expire on June 30th ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006508",
+      "name": " Demolition Health Review",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "You may apply for the Building Department Demolition Permit and Health Demolition Review Permit at the same time.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006479",
+      "name": " Gas Fitting Permit - Residential & Commercial Projects",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Gas Fitting Permit for All Work in the Town; Commercial and Residential.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006463",
+      "name": " Water Service Permit (not for 2nd meter installations)",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": " This permit is not to be used for 2nd meter installations; that would require a Building Dept. Plumbing permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006551",
+      "name": " Class I Auto Dealer's License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Fall License - Renewable annually by January 1.\n\nPrincipal business is the sale of new motor vehicles and secondary business is the sale of used motor vehicles.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006552",
+      "name": " Class II Auto Dealer's License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Fall License - Renewable annually by January 1. \n  \nBuy and sell secondhand motor vehicles.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006487",
+      "name": " Plumbing Permit - Residential & Commercial Projects",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Water meters are installed by the Water Department ONLY.  Please call the Water Department for installation.  Tampering with the Town of Needham's Water Supply will result in a fine.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006511",
+      "name": " Disposal of Sharps Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Renewable annually on January 1st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006488",
+      "name": " Sheet Metal Permit - Residential & Commercial Projects",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Residential and Commercial Sheet Metal Work.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006346",
+      "name": "Dumpster Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Permits must be acquired by March 31st starting this year and must be renewed by this date in future years to stay in compliance with Article 8. \n\nWe recommend that the applicant who creates an account on this permitting website provides a general purpose email that is unlikely to change, is monitored frequently and is accessible by the applicant and any other personnel responsible for permitting perpetually into the future. This will ensure that you receive consistent receipt of renewal reminders, communications and notifications even if personnel changes and reduces the chances of you being fined for allowing this permit to lapse. \n\nIf you are unsure if you particular waste hauler is permitted with our office and/or do not know the permit number, you may contact our office for the current list of haulers along with their permit #'s or you can find a list of haulers permitted as of May 15, 2025 on our website: https://www.needhamma.gov/5645/Licensed-septic-installers-and-waste-hau.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006553",
+      "name": " Common Victualler License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Fall License - Renewable annually by January 1",
+      "isEnabled": true
+    },
+    {
+      "id": "1006465",
+      "name": " Sewer Service Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006466",
+      "name": "Drain Connection Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": " Sign Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006533",
+      "name": " Farmers' Market Permit (Seasonal)",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Please submit applications at least 30 days prior to the opening of the Farmers' Market.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006516",
+      "name": " Food Establishment Permit & Plan Review",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "This application is for new food establishments including permanent retail, mobile and temporary food permits. \n\nOn renewals, if form is autofilled from from your last submission, please review all inputted information and you must update with current accurate information prior to submitting the application to our office. \n\nAs a reminder, the 2022 FDA Food Code will start being effective April 1, 2026.\n\nIf you have any questions about your renewal, please contact Sai Palani, at spalani@needhamma.gov. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006556",
+      "name": " Solar Permit - Commercial",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Welcome to the Town of Needham Solar Permit (Commercial). ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006543",
+      "name": " Entertainment License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Fall License - Renewable annually by January 1",
+      "isEnabled": true
+    },
+    {
+      "id": "1006558",
+      "name": " Innkeeper License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Fall License - Renewable annually by January 1",
+      "isEnabled": true
+    },
+    {
+      "id": "1006566",
+      "name": "Frozen Dessert & Frozen Dessert Mix Manufacturer ",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "This application is for existing and/or new manufacturers of frozen desserts and/or frozen dessert mixes. \n\nThis permits will expire annually at the end of every February. \n\nWe recommend that the applicant who creates an account on this permitting website provides a general purpose email that is unlikely to change, is monitored frequently and is accessible by the applicant and any other personnel responsible for permitting perpetually into the future. This will ensure that you receive consistent receipt of renewal reminders, communications and notifications even if personnel changes and reduces the chances of you being fined for allowing this permit to lapse. \n\nPlease have send or have your testing laboratory send testing results to frozendesserts@needhamma.gov. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006550",
+      "name": " Solar Permit - Residential (Single, 2-Family or Townhouses) Projects",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Welcome to the Town of Needham Solar Permit (Residential). ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006374",
+      "name": "Funeral Director Registration",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Per Massachusetts General Laws Ch. 114 Section 49, the Local Board of Health of each Town shall issue a permits for Funeral Directors. Funeral Directors licenses are renewable annually on May 1st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006496",
+      "name": " Sprinkler System Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Residential and Commercial Sprinkler work.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006557",
+      "name": " Lodging License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Fall License - Renewable annually by January 1",
+      "isEnabled": true
+    },
+    {
+      "id": "1006568",
+      "name": " Mobile Food Vendor in Public Way",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a seasonal/annual Mobile Food Vendor License to serve in a public way",
+      "isEnabled": true
+    },
+    {
+      "id": "1006510",
+      "name": " Hotel Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Renewable annually on January 1st\\nThis permit is used for Hotels and Motels.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006570",
+      "name": "Periodic Certificate of Inspection",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "This application is used to obtain a Massachusetts-required Certificate of Inspection, typically applicable to property owners, facility managers, building operators, or other responsible parties overseeing the maintenance and safety of buildings or equipment.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006574",
+      "name": "Temporary Mobile Food Vendor in Public Way/Public Property",
+      "categoryId": 1080,
+      "viewAccess": "public",
+      "description": "Apply for a one-day or multi-day temporary Mobile Food Vendor Permit to serve in a public way or on public property, including special events",
+      "isEnabled": true
+    },
+    {
+      "id": "1006549",
+      "name": " Public Health Complaint Form",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006541",
+      "name": " One-Day Special Alcohol License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Required for events that are advertised and/or open to the public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006505",
+      "name": " Tent Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit application applies to any temporary structures and temporary uses (Tents) requiring a permit filed through the Building Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006507",
+      "name": " Septage/Grease/Medical Waste Hauler Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Renewable annually on January 1st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006534",
+      "name": " Septic Installer Trench Permit",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006537",
+      "name": " Pool Table License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Spring License - Renewable annually by May 1 ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006555",
+      "name": " Road Event Permit",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Not-For-Profit Road Events (walking/running, bicycling, and motorcycling) to be held in and/or through Needham in a public way",
+      "isEnabled": true
+    },
+    {
+      "id": "1006546",
+      "name": " Septic Review for House additions on septic",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006515",
+      "name": " Septic System Installer",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Septic Installers permits must be renewed annnually before December 31st. Installers exams must be taken by all new applicants and renewing septic installers every other year.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006548",
+      "name": " Septic System Construction",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006539",
+      "name": " Sale of Secondhand Articles License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Spring License - Renewable annually by May 1 ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006563",
+      "name": " Special Permit: Retail Sale of Food Between 12:00 AM - 6:00 AM ",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Fall License - Renewable annually by January 1",
+      "isEnabled": true
+    },
+    {
+      "id": "1006544",
+      "name": " Soil Test Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006506",
+      "name": " Swimming Pool Permit (not for residential pools)",
+      "categoryId": 1073,
+      "viewAccess": "public",
+      "description": "Application for permit to operate a public, semi-public swimming pool, wading pool or special purpose pool. Seasonal Swimming Pool licenses are renewable annually on May 1st.\n\nPlease review all information on you applications to confirm that it is still current. It is your responsibility to make sure all information listed on your submitted application is complete and accurate. Please remember to get your pool water tested for bacteria and submit test results annually. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006540",
+      "name": " Taxi/Livery License",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Spring License - Renewable annually by May 1 ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006512",
+      "name": " Sale of Tobacco Products",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Renewable annually on January 1st",
+      "isEnabled": true
+    },
+    {
+      "id": "1006532",
+      "name": " Waste Hauler Permit",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "description": "Waste Hauler permits are renewable annually on April 1st.\nA separate RTS sticker is required for each vehicle that will enter the RTS. Stickers can be purchased at the Treasurer's Office, located in the Needham Town Hall, at 1471 Highland Avenue.  \nPrior to receiving your sticker, you must present your valid, current year permit issued by Needham Public Health Division.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006545",
+      "name": " Well Application",
+      "categoryId": 1073,
+      "viewAccess": null,
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": " Frequently Asked Questions and Useful Documents",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p><br></p><p>The Building Department is responsible for issuing building, electrical, plumbing, gas, sprinkler and mechanical permits for new construction, repairs, renovations and demolition, reviewing plans for compliance with the State Building Code and the <a href=\"https://www.needhamma.gov/DocumentCenter/View/16644/Zoning-By-Law-2018---FINAL-By-Law-Printed-May-2018?bidId=\" rel=\"noopener noreferrer\" target=\"_blank\">Zoning Bylaw of the Town of Needham</a>, as well as issuing Certificates of "
+    },
+    {
+      "id": "1079",
+      "name": "(DPW) Public Works Department",
+      "isEnabled": 1,
+      "content": "<p><strong>Important Information from the Public Works Department:</strong></p><ul><li>Please contact the DPW Water &amp; Sewer Inspectors via phone at (781) 389-6117 or (781) 983-2632 to schedule inspections.</li><li>Once you have been notified that the Permit is ready for payment, please come to the Public Works Department M-F 8:30am to 5:00 pm with a check, or you can mail a check to Public Works Department, 500 Dedham Avenue, Needham, MA 02492.&nbsp;</li><li>Please put the property address l"
+    },
+    {
+      "id": "1073",
+      "name": "Health Division",
+      "isEnabled": 1,
+      "content": "<p><br></p><p><strong><span style=\"color: rgb(184, 49, 47);\">NOTE: &nbsp;Credit card service fees will apply. No service fees for e-check.</span></strong></p>"
+    },
+    {
+      "id": "1080",
+      "name": "Licensing - (Permits Issued by Needham Select Board)",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; margin: 0px 0px 10px; color: rgb(0, 0, 0); font-family: \"Benton Sans\", sans-serif; font-size: 18px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-s"
+    },
+    {
+      "id": "1082",
+      "name": "Planning & Community Development (permits under development)",
+      "isEnabled": 1
+    },
+    {
+      "id": "1076",
+      "name": "Fire Dept",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoratio"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:55:47.340Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

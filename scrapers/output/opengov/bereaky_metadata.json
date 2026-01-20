@@ -1,0 +1,352 @@
+{
+  "jurisdiction": "Berea",
+  "state": "KY",
+  "tenant": "bereaky",
+  "portalUrl": "https://bereaky.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6467",
+      "name": "Complaints and Violations",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "File complaints/concerns regarding possible code or nuisance violations occurring INSIDE Berea City Limits only.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6469",
+      "name": "Conditional Use or Dimensional Variance Request Application / Notice of Appeal",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Apply to the Berea Board of Adjustment for Conditional Use Permits or Dimensional Variances as required by the City's Land Management & Development Ordinance or file a Notice of Appeal to the City's Codes & Planning determination regarding a zoning regulation.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Contractor Registration Application ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Register as a contractor for construction projects, utility connections and business licensing prior to beginning a construction project.",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Plan Review Building ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Commercial Plan Review of architectural plans for new construction buildings, additions to existing buildings, change in use, high piled combustible storage, or alterations and repairs.  Applicable building permits must be obtained once plan review is approved.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Residential Building Permit ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "New single-family homes, duplexes, additions, renovations, storage buildings, decks, above & in-ground pools or any other accessory structure.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6374",
+      "name": "Links to Helpful Documents",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Links to:  Land Management & Development Ordinance ; Comprehensive Plan ; Planning Commission & Board of Adjustments Agendas ; Development and Zoning information such as Zone Change Process Information ; Zone Lookup Map ; Future Land Use Map ; Vacant Property Registration Ordinance ; Fee Schedules ; Guides for Swimming Pool & Hot Tub Installation ; Other External Links",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Land Disturbance Permit Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "Receiving Your Permit or Other Document",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Commercial Building Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "New commercial and industrial buildings, additions or renovations to existing commercial or industrial buildings, multi-family residential with 3 or more units, and commercial accessory structures.",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Plan Review Fire Alarm",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Shop drawing submittals for Fire Alarm/Detection System.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Floodplain Permit Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Business License Application",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Pursuant to City Ordinance, firms or organizations engaged in any trade or profession operating in the City of Berea for profit or gain, must first apply for and obtain an occupational/business license.",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Zone Change Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Requests for Zone Map Amendments pursuant to KRS 100.212.  The complete application deadline is the first Tuesday of each month, for a Public Hearing before the Berea Planning Commission on the fourth Tuesday of the same month, unless otherwise noted. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Plan Review Fire Suppression System",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Shop drawing submittals for fire suppression systems including NFPA 13, standpipe, carbon dioxide, clean agent, foam, and dry chemical systems. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Stormwater Complaint Form",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Electrical Permit ",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Note: Effective January 6, 2025, applications and permits for electrical work shall comply with applicable provisions of 2023 NEC, Reference letter from KY DHBC Electrical Division attached on the previous page.\n\nElectrical permit for new residential, commercial, and industrial installations; alterations, additions, accessory structures, and swimming pool bonding; service changes, solar panels, generators; and low voltage electrical work not to include residential installations less than 25 volts and 50 watts.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6375",
+      "name": "How to Reach Us",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to reach us",
+      "isEnabled": true
+    },
+    {
+      "id": "6426",
+      "name": "Applying for a Permit & Paying Fees",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Mechanical Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "HVAC construction permit application for Commercial projects, One- and Two-family dwellings, Multi-family dwellings, and Mini-split/ductless systems.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "Address Request / Verification Form",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Plan Review Range Hood & Range Hood Suppression System ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Shop drawing submittal of Range Hood & Suppression system plans\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Berea Municipal Utilities Application for Service ",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "The following information requested is for the purpose of opening an account to provide and bill for utility services.\nPlease allow BMU up to two (2) business days for your application for utility service to be processed. We ask that you complete the entire form. All fields marked with an asterisk (*) must be filled in.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Plat Review",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Preliminary Plat, Construction Plans, Minor Plat, or Final Plat for review.  Plats will be reviewed in accordance with the Land Management and Development Ordinance.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Plan Review Bleacher Seating ",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Shop drawing submittals for bleachers/spectator seating.  Applicable building permits must be obtained once plan review is approved.",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Sign Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit required for permanent & temporary signage.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6427",
+      "name": "Signing Up, Creating a Profile & Accessing Your Information ",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Map / Data Request Form",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6451",
+      "name": "Demolition Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit for demolition of residential or commercial structures within Berea City Limits.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Vacant Property Registration",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Register a vacant or abandoned property as required by the City of Berea, KY Code of Ordinances, Chapter 71 found at https://bereaky.gov.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6491",
+      "name": "Development Plan Review",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Development Plans including civil and construction plans. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Why do I need a permit?",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Street Cutting Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Required any time a city maintained street, sidewalk, or curb will be cut.   Requires approval and inspection by the Public Works Department.",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Chicken Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit application for the harboring of chickens inside Berea City Limits. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Why Can't I Find a Contractor in the Search Bar?",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Copies and Regulations Request",
+      "categoryId": 1085,
+      "viewAccess": null,
+      "description": "Request copies of documents such as Comprehensive Plan & Land Management and Development Ordinance; Plats or Development Plans;  etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Adding Guests to Your Application",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Tents & Temporary Structures",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Permit for tents or membrane structures in excess of 120 sf or tents or temporary structures in excess of 400 sf that will be set up for 180 days or less. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Fireworks Retailer Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Apply for a seasonal or permanent fireworks retailer permit, or renew your permanent permit annually as required by the City of Berea's Fireworks ordinance.  Other permits regarding tents/temporary structures, signage, etc. may be required prior to booth setup.  ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1076",
+      "name": "Permits & Inspections",
+      "isEnabled": 1,
+      "content": "<p><span style='font-size: 18px; font-family: \"Times New Roman\", Times, serif, -webkit-standard;'><strong>Contractors must submit a Contractor Registration prior to applying for permits and have an active business license.</strong></span></p><p style=\"font-variant-ligatures: normal;font-variant-caps: normal;orphans: 2;  text-align:start;widows: 2;-webkit-text-stroke-width: 0px;text-decoration-thickness: initial;  text-decoration-style: initial;text-decoration-color: initial;word-spacing:  0px;\">"
+    },
+    {
+      "id": "1086",
+      "name": "Contractor Registration, Utility Billing & Business Licensing",
+      "isEnabled": 1,
+      "content": "<p><a href=\"https://bereaky.viewpointcloud.com/categories/1086/record-types/6456\" rel=\"noopener noreferrer\" target=\"_blank\"></a></p>"
+    },
+    {
+      "id": "1085",
+      "name": "Planning, Zoning & Community Development",
+      "isEnabled": 1,
+      "content": "<p><a href=\"https://bereaky.gov/wp-content/uploads/2025/09/DRT-Contact-List-UPDATED-SEPT-2025.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Development Review Team Contacts</a></p>"
+    },
+    {
+      "id": "1082",
+      "name": "Commercial Plan Review",
+      "isEnabled": 1,
+      "content": "<div><a href=\"https://bereaky.gov/wp-content/uploads/2024/02/Plan-Review-Fee-Schedule.pdf\" rel=\"noopener noreferrer\" target=\"_blank\">Commercial Plan Review Fee Schedule</a></div>"
+    },
+    {
+      "id": "1083",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<p><strong><strong><strong><strong>&gt;&gt; File Vacant Property Registration</strong></strong></strong></strong></p><p><strong>&gt;&gt; File complaints/concerns regarding possible code or nuisance violations occurring INSIDE Berea City Limits ONLY.</strong></p><ul><li>Trash/Rubbish Accumulation</li><li>Grass/Noxious Weed Overgrowth</li><li>Dilapidated or Abandoned Vehicles or Property</li><li>Condition of Rental Property or Failure to Meet Minimum Housing Standards</li><li>Animals</li><li>Other"
+    },
+    {
+      "id": "1081",
+      "name": "GIS / MS4 / Floodplain",
+      "isEnabled": 1,
+      "content": "<p style=\"text-align: left;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><strong><span style=\"font-size: 14px;\"><u>Contact Information</u></span></strong></span></p><table style=\"width: 100%;\"><tbody><tr><td style=\"width: 50.0000%;\"><p style=\"margin:0in;\"><span style=\"font-size: 14px;\"><strong><span style=\"font-family: Arial, Helvetica, sans-serif;\">Matthew Thomas, CFM</span></strong></span></p><p style=\"margin:0in;\"><span style=\"font-size: 14px;\"><span style=\"font-family: Arial,Helve"
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": "<p><strong><span style=\"font-size: 18px;\"><u>About Us</u></span></strong></p><p style=\"box-sizing: border-box; margin: 0px 0px 20px; color: rgb(116, 116, 116); font-family: Raleway, Arial, Helvetica, sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 500; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: norm"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:16.026Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

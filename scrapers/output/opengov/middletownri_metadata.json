@@ -1,0 +1,391 @@
+{
+  "jurisdiction": "Middletown",
+  "state": "RI",
+  "tenant": "middletownri",
+  "portalUrl": "https://middletownri.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6447",
+      "name": "Temporary Storage Units",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "TSU = Temporary Storage Unit\n\nA. Definition: \"Temporary Storage Unit\" means any container used for the storage of personal property that is typically rented to owners or occupants of real property, but may be owned by such, for their temporary use and which customarily is delivered and removed by truck.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6363",
+      "name": "Sewer Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Sewer Permit through the Town of Middletown's Department of Public Works. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6368",
+      "name": "Excavation Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Sewer Permit through the Town of Middletown's Department of Public Works. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6369",
+      "name": "Sidewalk Obstruction Permit",
+      "categoryId": 1076,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Sidewalk Obstruction Permit through the Town of Middletown's Department of Public Works. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6359",
+      "name": "Residential Smoke & Carbon Monoxide ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Apply for a Residential Smoke & Carbon Monoxide detector permit and inspection. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6371",
+      "name": "Burn Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please complete this application for the Town of Middletown's Burn Permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6408",
+      "name": "Pay As You Throw: User Fee (trash & recycling)",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "$185 user fee, billing cycle is Nov 1 through Oct 31, user fee reduced on May 1 to $95.",
+      "isEnabled": true
+    },
+    {
+      "id": "6410",
+      "name": "Middletown Resident: Beach Seasonal Parking Pass Application",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "All passes purchased online will be available for pick up no sooner than 48 hours AFTER PURCHASE at the gazebo at the intersection of Hanging Rocks Rd & Sachuest Point Rd, as long as all the needed documentation is uploaded and approved.  This allows our team time to review and process your application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6436",
+      "name": "Zoning Board of Review Application",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Application to the Zoning Board of Review for consideration of request for Special Use, Dimensional Variance, Modification Granted by Zoning Officer, and Extension Request.",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Zoning Certificate (Zoning Compliance Letter)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A zoning certificate, also known as a zoning compliance certificate or zoning certificate of occupancy, is a legal document that confirms a property complies with current zoning regulations and can be used for its intended purpose. It ensures that a property's use aligns with local zoning laws, which are designed to protect the public from potential nuisances or hazards. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6420",
+      "name": "Complaints and Observations",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Select to make any complaints or observations about anything in the Town of Middletown.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6332",
+      "name": "Building Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a building permit from the Town of Middletown, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Victualling and Additional Operating Hours",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Apply for a license for Victualling House License and Additional Operating Hours from the Town of Middletown.",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "NEW Life Safety Inspection",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Click here to submit your request for an inspection from the Office of the State Fire Marshal (related to business licenses or construction rough/final)",
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Planning Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "  Subdivision & Land Development Applications",
+      "isEnabled": true
+    },
+    {
+      "id": "6411",
+      "name": "Middletown Non-Resident: Beach Seasonal Parking Pass Application",
+      "categoryId": 1080,
+      "viewAccess": null,
+      "description": "Passes purchased online will be available for pick up no sooner than 48 hours AFTER PURCHASE. You can pick passes up at the gazebo located at the intersection of Hanging Rocks Rd & Sachuest Point Rd.  This period of time allows our team time to review and process your application",
+      "isEnabled": true
+    },
+    {
+      "id": "6409",
+      "name": "Bulky Waste Sticker Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6433",
+      "name": "Liquor License",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Apply for a Liquor License from the Town of Middletown.",
+      "isEnabled": true
+    },
+    {
+      "id": "6422",
+      "name": "Appeal a Violation",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6333",
+      "name": "Mechanical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a mechanical permit from the Town of Middletown, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6334",
+      "name": "Electrical Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for an electrical permit from the Town of Middletown, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6393",
+      "name": "One Day Liquor License (Class F)",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Apply for a one day liquor license.  (19 Hour Full Privilege or 19 Hour Beer & Wine)",
+      "isEnabled": true
+    },
+    {
+      "id": "6385",
+      "name": "Closing Sales Permit",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Application for a closing sales permit from the Town of Middletown.  Must apply 14 days prior to the start of the sale.  The license is valid for 60 days and may be extended for 30 additional days.",
+      "isEnabled": true
+    },
+    {
+      "id": "6335",
+      "name": "Plumbing Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a plumbing permit from the Town of Middletown, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6338",
+      "name": "Tent  Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "This application must be submitted at least seven days in advance of the event.  If you have an urgent request, please call us directly.",
+      "isEnabled": true
+    },
+    {
+      "id": "6416",
+      "name": "Bingo",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Apply for a Bingo License from the Town of Middletown.",
+      "isEnabled": true
+    },
+    {
+      "id": "6415",
+      "name": "Junk Yard",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Apply for a Junk Yard License from the Town of Middletown.",
+      "isEnabled": true
+    },
+    {
+      "id": "6339",
+      "name": "Demolition Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a demolition permit from the Town of Middletown.",
+      "isEnabled": true
+    },
+    {
+      "id": "6340",
+      "name": "Moving Permit",
+      "categoryId": 1072,
+      "viewAccess": null,
+      "description": "Apply for a moving permit from the Town of Middletown.",
+      "isEnabled": true
+    },
+    {
+      "id": "6414",
+      "name": "Holiday Sales/Sunday Selling License ",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Apply for a license Sunday/Holiday Sales from the Town of Middletown. Sunday Sales applies to Class A Liquor License holders only, allowing the sale of liquor on Sundays. Holiday Sales License (RIGL 5-23-1) is for those business' selling retail items on legal holidays including New Year's Day, Memorial Day, Fourth of July, Victory Day, Labor Day, Columbus Day, Veteran's Day, Thanksgiving Day and/or Christmas or any other enumerated holiday officially celebrated. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6418",
+      "name": "Tattoo",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Tattoo license from the Town of Middletown.",
+      "isEnabled": true
+    },
+    {
+      "id": "6417",
+      "name": "Firearms Permit",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Apply for a license Firearms from the Town of Middletown.",
+      "isEnabled": true
+    },
+    {
+      "id": "6413",
+      "name": "Amusement",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Dance/Entertainment/Movie Theatre/DJ/Bands/Karaoke ",
+      "isEnabled": true
+    },
+    {
+      "id": "6360",
+      "name": "Sign Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a sign permit from the Town of Middletown. All permit applications should include photos of any existing signage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6404",
+      "name": "Special Event Permit",
+      "categoryId": 1077,
+      "viewAccess": null,
+      "description": "Apply for a  Special Event Permit  -  A SPECIAL EVENT within the meaning of this chapter is any event that requires the partial or full closure of a road or street or other public property, such as a section of a beach or park or public parking lot, or that the applicant or sponsor knows or should know by promotion, public announcements, or past experience.  To view the Special Event Ordinance in its entirety, within the Town Code, click select to proceed to the next page.",
+      "isEnabled": true
+    },
+    {
+      "id": "6370",
+      "name": "Fence Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a fence permit from the Town of Middletown, and (if applicable) apply for a related Fire Plan Review from the Fire Marshal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6372",
+      "name": "Construction Site Runoff Control/ Storm Water Runoff and Water Quality",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Construction Site Runoff Control Application to the Town of Middletown  for construction work on a property",
+      "isEnabled": true
+    },
+    {
+      "id": "6373",
+      "name": "Solar Permit",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a solar permit from the Town of Middletown.",
+      "isEnabled": true
+    },
+    {
+      "id": "6412",
+      "name": "Fortune Tellers License",
+      "categoryId": 1077,
+      "viewAccess": "public",
+      "description": "Apply for a Fortune Teller License from the Town of Middletown.",
+      "isEnabled": true
+    },
+    {
+      "id": "6402",
+      "name": "Collection Box Permit",
+      "categoryId": 1072,
+      "viewAccess": "private",
+      "description": "This is an annual permit for placement of a Collection Box pursuant to Section 726 of the Town of Middletown Zoning Ordinance.  The permit year shall begin on July 1 in each year and shall terminate on June 30 of the following calendar year.  A collection box permit shall be renewed annually. The application for renewal must be filed not later than 30 days before the permit expires, otherwise a new permit application must be submitted. The application for renewal shall be upon a form provided by the Building Official.",
+      "isEnabled": true
+    },
+    {
+      "id": "6400",
+      "name": "Registration for Short Term Residential Permit ",
+      "categoryId": 1072,
+      "viewAccess": "public",
+      "description": "Apply for a short term rental registration from the Town of Middletown.  Permit December 1, 2025 - November 30, 2026.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1080",
+      "name": "Parks & Beaches",
+      "isEnabled": 1
+    },
+    {
+      "id": "1072",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": "<p>Submit one form to apply for permits (including Fire Plan Review, if applicable).</p>"
+    },
+    {
+      "id": "1076",
+      "name": "Department of Public Works",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1071",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1079",
+      "name": "Refuse and Recycling Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1077",
+      "name": "Town Clerk",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1082",
+      "name": "Zoning Board of Review",
+      "isEnabled": 1,
+      "content": "<p align=\"right\" style=\"margin-top:0in;margin-right:1.5pt;  margin-bottom:0in;margin-left:0in;text-align:right;vertical-align:baseline;\"><!--[if !vml]--><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Town_Letterhead_Logo_2022_Wed_Apr_02_2025_14:29:30_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 447px;\" class=\"fr-fic fr-dib\"></p><p align=\"center\" style=\"margin:0in;text-align:center;line-height:115%;\"><strong>Location of Middletown in Newport County, Rhode Isla"
+    },
+    {
+      "id": "1086",
+      "name": "Planning Board",
+      "isEnabled": 1,
+      "content": "<div><img src=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/1761309121077_Fri_Oct_24_2025_12:32:02_GMT+0000_(Coordinated_Universal_Time).png\" style=\"width: 454px;\" class=\"fr-fic fr-dib\"></div><h1><span style=\"font-family: Tahoma,Geneva,sans-serif;\">Planning Department</span></h1><div><div><div><div><div><div><div><p><span style=\"font-family: Tahoma,Geneva,sans-serif;\">The Department serves as an informational office for residents, developers, and business owners providing access"
+    },
+    {
+      "id": "1081",
+      "name": "Code Enforcement",
+      "isEnabled": 1
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:42.724Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

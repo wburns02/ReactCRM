@@ -1,0 +1,293 @@
+{
+  "jurisdiction": "Anderson County",
+  "state": "SC",
+  "tenant": "countyofandersonsc",
+  "portalUrl": "https://countyofandersonsc.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6469",
+      "name": "Complaint Form",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Encroachment Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Any utility, business, entity or individual desiring to excavate within, encroach upon, or in any other way alter a County-maintained road right-of-way. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6428",
+      "name": "Subdivision Plat ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Anderson County Development Moratorium Information.\n\nAnderson County Ordinance 2025-036 hereby declares and places a moratorium suspending the acceptance and or issuance of any new permits for development for a period of 90 Days for properties located within the unincorporated areas of Anderson County. \nPlease Note: The Council, by subsequent ordinance, may extend the temporary suspension and temporary moratorium for a further time- period.\n\nThis includes the following residential uses.   \n\nResidential subdivisions of more than 4 lots and any residential living unit, townhomes, apartments, duplexes, or any other multi- developments.\n\nThe exceptions are: \n1. Any project(s) reviewed and approved by the Planning Commission.\n\n2. Existing lots of records that have been recorded in the Register of Deeds Office.\n3. Pending litigation cases involving residential subdivisions and developments.\n\n4. Towns and cities within Anderson County are not affected by this moratorium because they are separate jurisdictions and a separate form of government and council.\n\n5. Creation of lots that are 5 acres in size that are located along an existing street or road where no new street or road is created as per state law.\n\n6. Commercial and Industrial Development.\nThis moratorium takes effect on September 2, 2025, due to the pending doctrine under state law that recognizes effective adoption of ordinance upon first reading which was September 2, 2025.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Commercial Building Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "If you are pulling a Building Permit along with any trade permit STOP!! You need to use the Start a Project Tab..... Use this for work associated with Commercial Projects:  New Construction,  Additions, Alterations/Remodel, Tenant Up-Fit, Commercial Swimming Pools, Solar, Fire Alarm, Fire Sprinkler System, Signs, Demolition.",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Residential Building Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "If you are pulling a Building Permit along with any trade permit STOP!! You need to use the Start a Project Tab.... Use this to apply for a Residential Building Permit only.  For example: Storage Building or Detached Garage with no power, etc..",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Rezoning Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Zoning regulates the allowable uses of land in certain areas of Anderson County. “Rezoning” involves changes to the official zoning designation of a property. Property owners can request rezoning of their property at any time. The rezoning process does not apply to unzoned properties in the County. Rezoning is not a formality; it is a change to the County’s law governing the use of private property. Members of the public, including the applicant, have the opportunity to comment on the request at the Planning Commission meeting, and at the 1st Council reading. Postcards are sent to property owners within 2000 feet of the subject parcel, notifying them of the proposed change and the meeting schedule. Notice of the proposed change will also appear in a newspaper of general circulation. A sign(s) will be posted on the property, identifying the property as under consideration for rezoning. The sign will be removed upon completion of the rezoning process.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Driveway Acquisition",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "County installed and maintained driveway access.  County Roads Only.",
+      "isEnabled": true
+    },
+    {
+      "id": "6503",
+      "name": "Commercial Roads & Bridges Plan Review",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Commercial, Subdivision, Industrial Development.",
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Land Use Review",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Land Use Review projects can substantially impact environmental features, surrounding land use, traffic conditions and facilities, and public utilities. The purposes of this application, therefore, are to ensure the proper siting of such projects in relation to its surroundings, and to avoid any negative fallout from improper planning and design. All Land Use Review projects shall be submitted for approval and reviewed by the planning commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Commercial Electrical Permit ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Use this for applying for an electrical permit if you are doing any electrical work associated with a commercial project.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Commercial Mechanical Permit ",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Use this for applying for an mechanical permit if you are doing any mechanical work associated with a commercial project.",
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Commercial Land Use Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "A use of land that may result in an earth change, including but not limited to commercial, industrial, recreational, agricultural practices, or other development, private and public highway, road, and stream construction, and drainage construction.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Summary Plat Approval",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "All Summary Plats are now required to be submitted via our Permitting Portal for approval. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Commercial Plumbing Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Use this for applying for an plumbing permit if you are doing any plumbing work associated with a Commercial project.",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Mobile Home Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Use this to apply for a Mobile Home Permit if you are moving, purchasing, demoing or changing ownership of a Mobile Home. \n\n\nElectrical Service Upgrades, Renovations and Additions to a Mobile Home will be permitted through the \"Residential Building Permitting\" tab.  \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Floodplain Development Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "This application is required for the development of the following in A, AE, AH, AO, AR, &A99 Zones. Temporary buildings and accessory structures; altering stream channels; fill,\ngrading, excavation, mining & dredging; roads, bridges & culverts, storing materials including gas/liquid tanks; parking and storage of recreational vehicles; detached garage.",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Sign Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "A Sign Permit is required for any Free Standing Sign, On-Building Sign, Changes or Up-Fits to Existing Signs and Temporary Signs. This sign permit is in addition to any permits that are issued by Building & Codes. You must also contact their office for additional permitting requirements @ (864)-260-4158.",
+      "isEnabled": true
+    },
+    {
+      "id": "6489",
+      "name": "Commercial Demolition Permit",
+      "categoryId": 1088,
+      "viewAccess": "public",
+      "description": "Demolition permit for a Commercial Building/Structure.",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "Up-Fit to Existing Building Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "An Up-Fit to an Existing Building Permit is required to be issued by Planning/Development Standards. This permit is in addition to any additional permits that may be required by the Anderson County Building & Codes Office. For additional permitting requirements please contact their office @ (864)-260-4158.",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Grading Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "A grading permit is required prior to any Land Disturbance greater than one (1) acre or is part of a larger common plan that disturb less than one (1) acre. You must also upload a signed Grading Permit - Design Professional Certification prior to submitting application. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Land Disturbing Activity Application",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "A land disturbing activity is any activity that involves the clearing, grading, transportation, filling or other action which causes the land to be exposed to the danger of erosion.\n\nIf the project is less than one (1) acre, visit https://des.sc.gov/\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Special Exception Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "All special exception applications are required to go before the Anderson County Board of Zoning Appeals. All applicants are strongly encouraged to attend the Board of Zoning Appeals public hearing in which their application is to be reviewed.\n\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Residential Electrical Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Use this for applying for an electrical permit if you are doing any electrical work associated with a residential property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Variance Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "All variance applicants are required to go before the Anderson County Board of Zoning Appeals and must attend the live scheduled Board of Zoning appeals meeting when their request is to be heard. Applicants may be exempt from attending the scheduled meeting for the following reasons only: an unexpected illness or passing of oneself or a loved one or if an applicant is on active military duty or deployed.\n\n\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Home Occupation Application",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "Home business means any business within a dwelling, and secondary to the use of the building as a dwelling, carried on by a person residing on the premises. Additional permits may be required by the Anderson County Building & Codes Office. Their office number is (864) 260-4158.\n\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Medical Exception Application ",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "What is a medical exception?\n\nPer Anderson County Ordinance, for residential areas, only one dwelling is allowed and permitted per a parcel. A medical exception is a special exception and permit that can potentially be granted to allow a temporary mobile home to be placed on a property where a dwelling may already exist. A medical exception is a temporary use until the applicant no longer wishes to utilize it or if the medical exception is no longer needed. Medical exceptions are required to be renewed every year and are accompanied by an annual renewal fee. Medical exceptions are usually sought after to take care of a loved one who may need assistance in day to day living.\n\nAll medical exception requests for zoned areas are required to be reviewed by the Anderson County Board of Zoning Appeals at a regularly scheduled public hearing. Is is strongly encouraged for all applicants to attend the public hearing in which their medical exception application is reviewed. This is highly suggested to applicants in case the board may have questions about an application or if those that live in the surrounding vicinity may not be in favor of the medical exception request.\n\n\n\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Residential Mechanical Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Use this for applying for an mechanical permit if you are doing any mechanical work associated with a residential property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6368",
+      "name": "Zoning Letter Request",
+      "categoryId": 1081,
+      "viewAccess": null,
+      "description": "This application is for a Zoning Verification Letter only. Please note for Certificate of Occupancy contact the Anderson County Building Codes office at (864) 260-4158.",
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Residential Plumbing Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Use this for applying for an plumbing permit if you are doing any plumbing work associated with a residential property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Residential Demolition Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Demolition permit for a Residential Home/Structure.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1087",
+      "name": "Residential Building Permitting",
+      "isEnabled": 1,
+      "content": "<div><span style='color: rgb(97, 99, 101); font-family: \"Benton Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-colo"
+    },
+    {
+      "id": "1088",
+      "name": "Commercial Building Permitting ",
+      "isEnabled": 1
+    },
+    {
+      "id": "1089",
+      "name": "Mobile Home Permitting",
+      "isEnabled": 1,
+      "content": "<div><span style=\"font-family: Arial,Helvetica,sans-serif;\">It shall be unlawful for any person, firm, or legal entity to bring into the county or move to another county a mobile home manufactured prior to 1976.&nbsp;</span></div>"
+    },
+    {
+      "id": "1081",
+      "name": "Planning & Development",
+      "isEnabled": 1
+    },
+    {
+      "id": "1082",
+      "name": "Environmental & Code Enforcement",
+      "isEnabled": 1,
+      "content": "<div>Illegal Dumping, Trash and Debris, Tall Grass, Substandard Housing,&nbsp;</div>"
+    },
+    {
+      "id": "1083",
+      "name": "Roads & Bridges",
+      "isEnabled": 1,
+      "content": "<div>Roads &amp; Bridges Encroachment Permit, Driveway Acquisition</div><div><br></div><div><u>Driveway Acquisition</u><u>. $1500.00, we install the driveway access:</u></div><ul><li>24 feet of concrete pipe, if needed.</li><li>Asphalt apron that extends 15 feet from the edge of the road.</li><li>Driveway access becomes an asset of Anderson County, and our responsibility for maintenance/repairs/replacement indefinitely. &nbsp;&nbsp;</li></ul><div><u>Encroachment Permit</u><u>. $100.00, you or a "
+    },
+    {
+      "id": "1078",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": "<div>These documents have been developed that will assist in using our permitting portal.</div><div><br></div><div>Creating an Account with OpenGov: &nbsp;<a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.windows.net/profile-pictures/Anderson_County_Permitting_Portal_Handout_2-18-25_Wed_Feb_19_2025_18:14:53_GMT+0000_(Coordinated_Universal_Time).pdf\" target=\"_blank\">Anderson County Permitting Portal Handout 2-18-25.pdf</a></div><div><br></div><div>What Permits Do I Need?&nbsp;<a class=\"fr"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:07.305Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

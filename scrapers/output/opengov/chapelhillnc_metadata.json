@@ -1,0 +1,353 @@
+{
+  "jurisdiction": "Chapel Hill",
+  "state": "NC",
+  "tenant": "chapelhillnc",
+  "portalUrl": "https://chapelhillnc.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6470",
+      "name": "Trade Work Only Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Application for projects consisting only of a trade: \nHVAC, Water Heater, Generator, Electrical Fixture, Gas Line, Electric Vehicle Charging Station, Duct Work, Plumbing Fixture, and/or Water or Sewer Line",
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Report a Minimum Housing Code Violation ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Minimum Housing Code Violations include abandoned structures, unsafe equipment or systems, pest infestations, open storage/trash, overgrown yard/weeds, plumbing leaks and ventilation issues.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6598",
+      "name": "Annual Stormwater Control Measure (SCM) Inspection Payment Form",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this form to pay the annual inspection fee for stormwater control measures. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Report a Zoning Code Violation",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Zoning Code Violations include building without permits, illegal signage, land disturbance, over occupancy, front yard parking, improper /unapproved use of structures, lighting problems, and short-term rental violations.\n\n",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Residential Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Use this application only for new construction, additions, alterations, repairs of One & Two-Family dwellings, Duplexes and Townhouses (less than 4 stories) covered by the NC Residential Code.  \n ",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Blue Hill Form District Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Form District Permit for properties in Blue Hill. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Board of Adjustment (BOA) Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application for appeals and variances. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Commercial Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Use this application for new construction, additions, alterations, and/or repairs of:  commercial, educational, office, institutional, apartment, condominium and/or multifamily-residential buildings.\n ",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "Community Design Commission (CDC) Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application for Community Design Commission review of building elevations, lighting plans, alternative buffers, and applications for Blue Hill Certificates of Appropriateness (COA). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Pre-Application Questions ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This is a form that allows anyone with questions to enter the address and question and get a response from a staff member about their questions.  It also serves to keep questions attached to addresses so there is a record of what information has been discussed about a property.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Concept Plan Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application to apply for concept plan review. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6611",
+      "name": "Fire Permit Application ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Use this application for new construction, additions, alterations, and/or repairs of:  commercial, educational, office, institutional, apartment, condominium and/or multifamily-residential buildings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Conditional Zoning Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Conditional Zoning District. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "Report a Private Property Code Violation",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "Private Property Code Violations include dumping trash, a hazard or a nuisance, junk/dilapidated vehicles, and other unsanitary conditions. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Sign Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6457",
+      "name": "Business Occupancy Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "Development Agreement Compliance Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application to apply for a Development Agreement Compliance Permit for Glen Lennox. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Sidewalk Dining Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Engineering Construction Permit (ECP) Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6554",
+      "name": "ARPA Quarterly Reporting",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Historic District Certificate of Appropriateness",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Childcare Inspection Request",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Home Occupation Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6493",
+      "name": "Wireless Communication Facility Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Permit Modification Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application to apply for modifications to Final Plan Zoning Compliance Permits and minor modifications to entitlements (Conditional Zoning, Special Use Permit). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6602",
+      "name": "Townhouse Building Type Plan Review",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Use this application for review of Townhouse buildings.  Please use one permit per Townhouse building type.  There is no permit issued with this application.  For review only.  \n ",
+      "isEnabled": true
+    },
+    {
+      "id": "6606",
+      "name": "Human Services/Outside Agencies Funding Application Fiscal Year 2027   ",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6502",
+      "name": "Plat Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application for exempt plats, recombinations, easements, right-of-way dedications, boundary surveys, condominiums. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6514",
+      "name": "Short Term Rental Zoning Compliance Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "A Short Term Rental (STR) Zoning Compliance Permit is required for the rental of all or part of a residential dwelling unit for a period of less than 30 days for compensation. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6600",
+      "name": "Core and Shell Commercial",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This is a permit for the core and shell of a commercial project that will be administratively divided into separate permits for different areas of the building structure.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6601",
+      "name": "Parking Deck Commercial",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This is a permit application for a parking deck that is part of a commercial project that will be administratively divided into separate permits for different areas of the building structure.  \n ",
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": "Site Plan Review Application ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application to apply for Planning Commission review and approval of a project as required in Section 4.7 of the Land Use Management Ordinance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6533",
+      "name": "Special Use Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application to apply for Council review of a Special Use Permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6542",
+      "name": "Supplemental Forms",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This section contains forms that may be required for permits based on the scope of the project. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Subdivision Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application for major subdivisions, minor subdivisions, and final plats. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "UNC Site Development Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6574",
+      "name": "Unified Sign Plan Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Zoning Atlas Amendment Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Zoning Compliance Permit Application ",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Use this application to apply for an administrative (staff review only) Zoning Compliance Permit or a Final Plans Zoning Compliance (post-entitlement projects). ",
+      "isEnabled": true
+    },
+    {
+      "id": "6580",
+      "name": "Zoning Closeout (Staff Only)",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "This application is for staff only. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Zoning Letter",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "A Zoning Verification Letter will state a property's zoning district. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Chapel Hill Online Permit Center",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 18px; color: rgb(65, 168, 95);\"><strong>Welcome to the Town of Chapel Hill Online Permit Center!&nbsp;</strong></span><span style=\"color: rgb(65, 168, 95);\"><strong>&nbsp;</strong></span></span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Please select the desired permit type below. You may<span style=\"color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font"
+    },
+    {
+      "id": "1086",
+      "name": "Planning Department ",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-family: Arial,Helvetica,sans-serif;\">Please select the desired permit type below. You may<span style=\"color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-style: "
+    },
+    {
+      "id": "1087",
+      "name": "Form Application Center",
+      "isEnabled": 1,
+      "content": "<p>Welcome to the form application center for the Town of Chapel Hill. &nbsp;</p>"
+    },
+    {
+      "id": "1085",
+      "name": "Code Enforcement",
+      "isEnabled": 1,
+      "content": "<header><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 18px; color: rgb(0, 0, 0);\"><strong>Welcome to Code Enforcement</strong></span><span style=\"color: rgb(0, 0, 0);\"><strong>&nbsp;</strong></span></span></p><p><span style=\"font-family: Arial,Helvetica,sans-serif;\"><em><b style=\"color: rgb(209, 72, 65); font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">Call 911 if you&#39;re having an&nbsp;</b><span style=\"font-size: 18px;\"><strong><span style=\"col"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:29.578Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

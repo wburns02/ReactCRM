@@ -1,0 +1,137 @@
+{
+  "jurisdiction": "Avon",
+  "state": "CT",
+  "tenant": "avonct",
+  "portalUrl": "https://avonct.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6462",
+      "name": "Blasting Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Blaster must come to office to obtain a blasting permit. Please bring proof of insurance and explosives license. There is a fee of $60.00 set by C.G.S. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Open Burning Permit",
+      "categoryId": 1074,
+      "viewAccess": "public",
+      "description": "Use this application to apply for an outdoor open burning permit that is typically issued for a three-week period and requires a $10 permit fee.",
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Driveway Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "* Please note: no inspections will be scheduled after 11:00 am on Friday's during Town of Avon summer hours from June 20, 2022 - August 26, 2022. \n\nDriveway permits are required for renovation / reconstruction of existing driveways and for new driveways prior to Engineering Department sign-off on Certificates of Occupancy for new home construction. Before Engineering sign-off on new home building permits, the Developer must take out an Excavation Permit which will allow for work in the Town right-of-way.  When the Developer is ready to pave the driveway apron, he or his contractor must take out a separate driveway permit.  The Town has standard requirements for driveways, and are particularly concerned about the driveway apron.",
+      "isEnabled": true
+    },
+    {
+      "id": "6447",
+      "name": "Sewer Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "* Please note: no inspections will be scheduled after 11:00 am on Friday's during Town of Avon summer hours from June 23, 2025 - August 22, 2025. \n\nSewer Permits are required for all sanitary sewer-related work being performed outside of a building and must be inspected by Town staff.  This includes repairs, renovations, new connections, and disconnects.  For new connections, sewer billing begins at the date of the approved connection.  All fees and charges must be paid prior to issuance of a sewer permit.  For new connections, this includes the Connection Charge, Benefit Assessments (if applicable), and the permit fee. \n\nNOTE: Annual Sewer Use Charges begin at the date of connection to the sewer, regardless of the status of the construction project. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6448",
+      "name": "Residential Building Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Application for building permit one or two family dwelling",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Commercial Building Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Excavation Permit for Individual Lots",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "* Please note: no inspections will be scheduled after 11:00 am on Friday's during Town of Avon summer hours from June 20, 2022 - August 26, 2022. \n\nExcavation permits are required for all non-driveway related work within the Town's right-of-way,  Excavation Permits for Individual Lots are intended for work to be done for the benefit of a single property,  Excavation Permits for Linear Projects are intended for work done by utility companies where the project abuts multiple properties.  Prior to Engineering signing-off on new home building permits, the Developer must take out an Excavation Permit which will allow for work in the Town right-of-way.  When the Developer is ready to pave the driveway apron, he or his contractor must take out a separate driveway permit.  The Town has standard requirements for work within the right-of-way, and developers and contractors are urged to contact the Engineering department for information concerning Town requirements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Excavation Permit for Linear Projects - (Utility or other work involving multiple, continuous locations) - Call to verify",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "* Please note: no inspections will be scheduled after 11:00 am on Friday's during Town of Avon summer hours from June 20, 2022 - August 26, 2022. \n\nExcavation permits are required for all non-driveway related work within the Town's right-of-way, Excavation Permits for Linear Projects are intended for work done by utility companies where the project abuts multiple properties. The Town has standard requirements for work within the right-of-way, and developers and contractors are urged to contact the Engineering department for information concerning Town requirements.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Fire Protection System Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Mechanical Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6456",
+      "name": "Demolition Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Electrical Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Plumbing Permit",
+      "categoryId": 1078,
+      "viewAccess": "public",
+      "description": "Use this for water supply and drain, waste, and vent piping and fixtures. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1083",
+      "name": "Engineering Department",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; margin: 0px 0px 1.5rem; padding: 0px; border: 0px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-variant-numeric: inherit; font-variant-east-asian: inherit; font-weight: 400; font-stretch: inherit; line-height: inherit; font-family: \"Helvetica Neue\", Helvetica, Arial, sans-serif; font-size: 16px; vertical-align: baseline; color: rgb(68, 68, 68); letter-spacing: normal; orphans: 2; text-align: justify; text-indent: 0px; text-"
+    },
+    {
+      "id": "1078",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1074",
+      "name": "Fire Marshal",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1084",
+      "name": "For New Users and FAQs",
+      "isEnabled": 1,
+      "content": "<p>The information below provides an overview of the Town&#39;s online permitting center OpenGov. &nbsp;Additional information and guidance can be found at the OpenGov online <a href=\"https://viewpointcloud.zendesk.com/hc/en-us\" rel=\"noopener noreferrer\" target=\"_blank\">Help Center</a>.</p><hr><p><strong>What is OpenGov?</strong></p><p>OpenGov is the software that powers the Town of Avon&#39;s online Building, Fire Marshal, and Engineering permitting center. Through OpenGov you can apply for a v"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:14.247Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

@@ -1,0 +1,155 @@
+{
+  "jurisdiction": "Western Riverside COG",
+  "state": "CA",
+  "tenant": "westernriversidecogca",
+  "portalUrl": "https://westernriversidecogca.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6468",
+      "name": "Process 1:  Direct Capital Provider (DCP) Application Process",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "This application is to authorize new providers in the WRCOG C-PACE Direct Capital Provider Program. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Process 2:  Direct Capital Provider (DCP) Project Process ",
+      "categoryId": 1087,
+      "viewAccess": null,
+      "description": "This application is for Approved Direct Capital Providers to submit project information for review and approval.  At this time, please be prepared to provide specific project details regarding your C-PACE project (e.g. site location and eligible improvements).",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "City of Banning Worksheet 2025",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "City of Beaumont Worksheet 2025",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "City of Calimesa Worksheet 2025",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "City of Canyon Lake Worksheet 2025 ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "City of Corona Worksheet 2025 ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "City of Eastvale Worksheet 2025",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "City of Hemet Worksheet 2025",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "City of Lake Elsinore Worksheet 2025 ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "City of Menifee Worksheet 2025 ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6494",
+      "name": "City of Murrieta Worksheet 2025",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "City of Perris Worksheet 2025 ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6496",
+      "name": "City of Riverside Worksheet 2025",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "City of Temecula Worksheet 2025",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "City of Wildomar Worksheet 2025",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6508",
+      "name": "County of Riverside Worksheet 2025 ",
+      "categoryId": 1084,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "RIVCOM Model",
+      "categoryId": 1084,
+      "viewAccess": null,
+      "description": "For payment of fees associated with the use of the RIVCOM Transportation Model.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1084",
+      "name": "Transportation Uniform Mitigation Fee (TUMF)",
+      "isEnabled": 1,
+      "content": "<div><strong style=\"box-sizing: border-box; font-weight: 700; color: rgb(65, 65, 65); font-family: sans-serif; font-size: 14px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decor"
+    },
+    {
+      "id": "1087",
+      "name": "Commercial Property Assessed Clean Energy      (C-PACE)",
+      "isEnabled": 1,
+      "content": "<p style='color: rgb(0, 0, 0); font-family: \"Times New Roman\"; font-size: medium; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: initial;'><span style=\"font-family: Arial,Helvetica,"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:50.152Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

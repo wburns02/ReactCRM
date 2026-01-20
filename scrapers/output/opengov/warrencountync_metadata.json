@@ -1,0 +1,301 @@
+{
+  "jurisdiction": "Warren County",
+  "state": "NC",
+  "tenant": "warrencountync",
+  "portalUrl": "https://warrencountync.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6536",
+      "name": "Operation Permit Revision",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6499",
+      "name": "Signing Up, Creating a Profile and Accessing Your Information",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "E-911 Address Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Application for obtaining an Emergency 911/mailing address. Required prior to applying for Planning/Zoning/Code Enforcement permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "Commercial Building Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "New Construction, Remodels, Renovations, Structural Repairs, Cosmetic Work etc. for Commercial Projects. Any question that does not have an (*) next to it is not required to be answer, you may skip and move to the next question or step. Please also bring or send 2 sets of hard copies of plans to: Planning/Zoning/Code Enforcement Department, 542 W Ridgeway St, Warrenton, NC 27589.",
+      "isEnabled": true
+    },
+    {
+      "id": "6500",
+      "name": "Applying for a Permit & Paying Fees",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "Instructions on applying for a permit and paying for fees on your ViewPoint Cloud Account.",
+      "isEnabled": true
+    },
+    {
+      "id": "6501",
+      "name": "Receiving Your Permit or Other Document",
+      "categoryId": 1092,
+      "viewAccess": "public",
+      "description": "Instructions for receiving/printing your permit or other documents on your ViewPoint Cloud Account.",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "Existing System Affadavit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Demolition Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Application for Demolition: Please be prepared to provide copies of Asbestos Surveys, Contractor Information, and Abatement Tickets. An NC State Demolition permit may be required based on the project scope. Any question that does not have an (*) next to it is not required to be answered, you may skip and move to the next question or step.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Zoning Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "No building, sign, structure or any part thereof, designed or intended to be used shall be erected or repaired until a Zoning Permit has been issued by the Zoning Administrator or his/her authorized representative. A fee shall be charged for the issuance of a zoning permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6529",
+      "name": "Septic Permit/Improvement Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this application for all new septic system evaluations or upgrades (adding additional flow to the system)",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Manufactured Home Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Application for Mobile Home Permit. Please be sure to have a site plan ready to upload with your submission. Trade Permits (electrical, mechanical, plumbing, etc.) related to the set-up of the mobile home are automatically included with a Mobile Home Permit. Any question that does not have an (*) next to it is not required to be answered, you may skip and move to the next question or step. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6530",
+      "name": "Septic Permit/Construction Authorization",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this application for all new septic system evaluations, upgrades, revisions, repairs, or connection to an existing septic system. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Septic Permit/Existing System Approval",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this application for approval to use an existing septic system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Building Permit Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Building Permit application, including options for included trade permits.\n\nANY structure over 144 square feet (12’ x 12’) in size requires a building permit through the Planning/Zoning and Code Enforcement Department – the only exceptions are farm buildings as part of bona fide farms. Additional plan review may be required depending on the extent of the new construction. Sheds/accessory buildings under the noted 144 square feet (12’ x 12’) size do not require a building permit, but may require a zoning permit or electric permit if electric service is to be added.\n\nALL NEW STRUCTURES (with exception to mobile homes, boathouses, non-covered decks, and those in the size range listed above) REQUIRE SUBMITTAL OF TWO SETS OF HARD COPY (PAPER) PLANS TO BE MAILED OR BROUGHT TO THE CODE ENFORCEMENT OFFICE(MINIMUM 11\"x17\" PRINT) FOR PLAN REVIEW. ANY PLANS SMALLER THAN MINIMUM WILL NOT BE CONSIDERED.",
+      "isEnabled": true
+    },
+    {
+      "id": "6490",
+      "name": "LSS/AOWE/Engineer Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this application when submitting plans from a NC Licensed Soil Scientist, an AOWE, or Engineer.",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Well Permit Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this application when applying for a new private drinking water well, well abandonment, and well repair.",
+      "isEnabled": true
+    },
+    {
+      "id": "6421",
+      "name": "Electrical Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "General Electrical Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6477",
+      "name": "Copy of Existing Septic Permit Request",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this when requesting a copy of an existing septic permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Water Sample Request",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this application when requesting water samples. Typical water samples consist of microbiology (coliform/e-coli), inorganics (pH, iron, manganese, hardness, etc.), and nitrates/nitrites. Fees: Microbiology-$75.00; Inorganics only-$100.00; Full Panel (microbiology, inorganics, & nitrate/nitrite)-$150.00. Expect 1-2 weeks for results. Other samples are available upon request. Please contact Environmental Health for all available options.",
+      "isEnabled": true
+    },
+    {
+      "id": "6518",
+      "name": "Residential Building Permit - Renovations",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Construction of Additions/Remodels & Repairs for Residential Projects. Any question that does not have an (*) next to it is not required to be answered, you may skip and move to the next question or step. For Additions and structural Renovations, please also bring or send 2 sets of hard copies of plans to: Planning/Zoning/Code Enforcement Department, 542 W Ridgeway St, Warrenton, NC 27589. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Mobile Food Unit Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this application for mobile food unit or push cart permitting.",
+      "isEnabled": true
+    },
+    {
+      "id": "6398",
+      "name": "Pool Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Both in-ground and above-ground pools. A separate zoning permit will also need to be applied for.",
+      "isEnabled": true
+    },
+    {
+      "id": "6481",
+      "name": "Mechanical Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Mechanical Permits, including new systems/upgrades and change-outs (Electrical Permit included for change-outs)",
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Complaint Form",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this for any complaint submittal to the Warren County Environmental Health",
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Temporary Food Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this permit when requesting a temporary food permit for festivals, public events, etc.",
+      "isEnabled": true
+    },
+    {
+      "id": "6520",
+      "name": "Residential Building Permit - Accessory Building",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Construction, Alteration, Renovation or Repair of Accessory Building Structure for Residential Projects. Any question that does not have an (*) next to it is not required to be answered, you may skip and move to the next question or step. For structural work, please also bring or send 2 sets of hard copies of plans to: Planning/Zoning/Code Enforcement Department, 542 W Ridgeway St, Warrenton, NC 27589. Building Permit not required for structures smaller than 12ft x 12ft.",
+      "isEnabled": true
+    },
+    {
+      "id": "6475",
+      "name": "Public Swimming Pool Permit",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this application when applying for annual permits for public swimming pools, wading pools, or spas.",
+      "isEnabled": true
+    },
+    {
+      "id": "6474",
+      "name": "Tattoo Permit Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this application for annual or temporary tattoo permits. The completed application must be submitted to the local health department in the county where the tattoo establishment is located at least 30 days before commencement of operation.",
+      "isEnabled": true
+    },
+    {
+      "id": "6482",
+      "name": "Plumbing Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "General Plumbing Permit",
+      "isEnabled": true
+    },
+    {
+      "id": "6478",
+      "name": "Food Service Establishment Plan Review Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this application for any new or remodel of food service establishments.",
+      "isEnabled": true
+    },
+    {
+      "id": "6484",
+      "name": "Request for final septic inspection",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "CONTRACTORS ONLY!!!!\nPlease use this application to request a final inspection for a septic installation. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6466",
+      "name": "Special Use Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Migrant Housing Inspection Request",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this application for requesting a migrant housing inspection",
+      "isEnabled": true
+    },
+    {
+      "id": "6479",
+      "name": "Shared Kitchen/Commissary Application",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Please use this application for shared use kitchens or commissarys.",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1086",
+      "name": "Planning, Zoning, & Code Enforcement",
+      "isEnabled": 1,
+      "content": "<p>Welcome to the Warren County Planning, Zoning, and Code Enforcement Department page on OpenGov. <strong>Please use the links below to select the appropriate application for the work/project you need permitted.</strong></p><p><strong>Note:&nbsp;</strong> The forms on this page are applications ONLY. The process for permit applications may vary depending on the type of permit. Trade permits are usually reviewed and approved within 24-48 hours of receiving them on the portal. Such permits as - E"
+    },
+    {
+      "id": "1087",
+      "name": "Environmental Health",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 30px; color: rgb(41, 105, 176);\">Welcome to the Warren County Environmental Health Department.</span></p><div><br></div><div><br></div><div><br></div>"
+    },
+    {
+      "id": "1092",
+      "name": "Help, Links, Guides & Other Information",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; font-family: \"Benton Sans\", sans-serif; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoratio"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:56:33.543Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

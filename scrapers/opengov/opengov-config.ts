@@ -52,7 +52,40 @@ export const OUTPUT_CONFIG = {
 
 // Discovered Jurisdictions
 export const JURISDICTIONS: JurisdictionConfig[] = [
-  // Florida
+  // ============================================
+  // CALIFORNIA
+  // ============================================
+  {
+    id: 'countyoflakeca',
+    name: 'Lake County',
+    state: 'CA',
+    portalUrl: 'https://countyoflakeca.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'beniciaca',
+    name: 'Benicia',
+    state: 'CA',
+    county: 'Solano',
+    portalUrl: 'https://beniciaca.portal.opengov.com',
+    enabled: true
+  },
+
+  // ============================================
+  // CONNECTICUT
+  // ============================================
+  {
+    id: 'newcanaanct',
+    name: 'New Canaan',
+    state: 'CT',
+    county: 'Fairfield',
+    portalUrl: 'https://newcanaanct.portal.opengov.com',
+    enabled: true
+  },
+
+  // ============================================
+  // FLORIDA
+  // ============================================
   {
     id: 'stpetersburgfl',
     name: 'St. Petersburg',
@@ -78,27 +111,9 @@ export const JURISDICTIONS: JurisdictionConfig[] = [
     enabled: true
   },
 
-  // Texas (many migrated to govoutreach)
-  {
-    id: 'seagovilletx',
-    name: 'Seagoville',
-    state: 'TX',
-    county: 'Dallas',
-    portalUrl: 'https://seagovilletx.portal.opengov.com',
-    enabled: false // Migrated to govoutreach
-  },
-
-  // Massachusetts
-  {
-    id: 'arlingtonma',
-    name: 'Arlington',
-    state: 'MA',
-    county: 'Middlesex',
-    portalUrl: 'https://arlingtonma.portal.opengov.com',
-    enabled: true
-  },
-
-  // Indiana
+  // ============================================
+  // INDIANA
+  // ============================================
   {
     id: 'brownsburgin',
     name: 'Brownsburg',
@@ -108,22 +123,449 @@ export const JURISDICTIONS: JurisdictionConfig[] = [
     enabled: true
   },
 
-  // California
+  // ============================================
+  // MARYLAND
+  // ============================================
   {
-    id: 'countyoflakeca',
-    name: 'Lake County',
-    state: 'CA',
-    portalUrl: 'https://countyoflakeca.portal.opengov.com',
+    id: 'frederickmd',
+    name: 'Frederick',
+    state: 'MD',
+    county: 'Frederick',
+    portalUrl: 'https://frederickmd.portal.opengov.com',
     enabled: true
   },
 
-  // Rhode Island
+  // ============================================
+  // MASSACHUSETTS
+  // ============================================
+  {
+    id: 'arlingtonma',
+    name: 'Arlington',
+    state: 'MA',
+    county: 'Middlesex',
+    portalUrl: 'https://arlingtonma.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'needhamma',
+    name: 'Needham',
+    state: 'MA',
+    county: 'Norfolk',
+    portalUrl: 'https://needhamma.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'springfieldma',
+    name: 'Springfield',
+    state: 'MA',
+    county: 'Hampden',
+    portalUrl: 'https://springfieldma.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'fallriverma',
+    name: 'Fall River',
+    state: 'MA',
+    county: 'Bristol',
+    portalUrl: 'https://fallriverma.portal.opengov.com',
+    enabled: true
+  },
+
+  // ============================================
+  // NEW YORK
+  // ============================================
+  {
+    id: 'ithacacityny',
+    name: 'Ithaca',
+    state: 'NY',
+    county: 'Tompkins',
+    portalUrl: 'https://ithacacityny.portal.opengov.com',
+    enabled: true
+  },
+
+  // ============================================
+  // NORTH CAROLINA
+  // ============================================
+  {
+    id: 'countyofnashnc',
+    name: 'Nash County',
+    state: 'NC',
+    portalUrl: 'https://countyofnashnc.portal.opengov.com',
+    enabled: true
+  },
+
+  // ============================================
+  // PENNSYLVANIA
+  // ============================================
+  {
+    id: 'scrantonpa',
+    name: 'Scranton',
+    state: 'PA',
+    county: 'Lackawanna',
+    portalUrl: 'https://scrantonpa.portal.opengov.com',
+    enabled: true
+  },
+
+  // ============================================
+  // RHODE ISLAND
+  // ============================================
   {
     id: 'providenceri',
     name: 'Providence',
     state: 'RI',
     county: 'Providence',
     portalUrl: 'https://providenceri.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'eastprovidenceri',
+    name: 'East Providence',
+    state: 'RI',
+    county: 'Providence',
+    portalUrl: 'https://eastprovidenceri.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'smithfieldri',
+    name: 'Smithfield',
+    state: 'RI',
+    county: 'Providence',
+    portalUrl: 'https://smithfieldri.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'narragansettri',
+    name: 'Narragansett',
+    state: 'RI',
+    county: 'Washington',
+    portalUrl: 'https://narragansettri.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'scituateri',
+    name: 'Scituate',
+    state: 'RI',
+    county: 'Providence',
+    portalUrl: 'https://scituateri.portal.opengov.com',
+    enabled: true
+  },
+
+  // ============================================
+  // SOUTH CAROLINA
+  // ============================================
+  {
+    id: 'countyofandersonsc',
+    name: 'Anderson County',
+    state: 'SC',
+    portalUrl: 'https://countyofandersonsc.portal.opengov.com',
+    enabled: true
+  },
+
+  // ============================================
+  // TENNESSEE
+  // ============================================
+  {
+    id: 'chattanoogatn',
+    name: 'Chattanooga',
+    state: 'TN',
+    county: 'Hamilton',
+    portalUrl: 'https://chattanoogatn.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'hamiltontn',
+    name: 'Hamilton County',
+    state: 'TN',
+    portalUrl: 'https://hamiltontn.portal.opengov.com',
+    enabled: true
+  },
+
+  // ============================================
+  // TEXAS (many migrated to govoutreach)
+  // ============================================
+  {
+    id: 'seagovilletx',
+    name: 'Seagoville',
+    state: 'TX',
+    county: 'Dallas',
+    portalUrl: 'https://seagovilletx.portal.opengov.com',
+    enabled: false // Migrated to govoutreach
+  },
+
+  // ============================================
+  // ADDITIONAL DISCOVERED JURISDICTIONS
+  // ============================================
+
+  // Colorado
+  {
+    id: 'brightonco',
+    name: 'Brighton',
+    state: 'CO',
+    portalUrl: 'https://brightonco.portal.opengov.com',
+    enabled: true
+  },
+
+  // Connecticut (additional)
+  {
+    id: 'avonct',
+    name: 'Avon',
+    state: 'CT',
+    portalUrl: 'https://avonct.portal.opengov.com',
+    enabled: true
+  },
+
+  // Kentucky
+  {
+    id: 'bereaky',
+    name: 'Berea',
+    state: 'KY',
+    portalUrl: 'https://bereaky.portal.opengov.com',
+    enabled: true
+  },
+
+  // Massachusetts (additional)
+  {
+    id: 'framinghamma',
+    name: 'Framingham',
+    state: 'MA',
+    portalUrl: 'https://framinghamma.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'lexingtonma',
+    name: 'Lexington',
+    state: 'MA',
+    portalUrl: 'https://lexingtonma.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'tewksburyma',
+    name: 'Tewksbury',
+    state: 'MA',
+    portalUrl: 'https://tewksburyma.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'bournema',
+    name: 'Bourne',
+    state: 'MA',
+    portalUrl: 'https://bournema.portal.opengov.com',
+    enabled: true
+  },
+
+  // New Hampshire
+  {
+    id: 'rochesternh',
+    name: 'Rochester',
+    state: 'NH',
+    portalUrl: 'https://rochesternh.portal.opengov.com',
+    enabled: true
+  },
+
+  // New Jersey
+  {
+    id: 'princetonnj',
+    name: 'Princeton',
+    state: 'NJ',
+    portalUrl: 'https://princetonnj.portal.opengov.com',
+    enabled: true
+  },
+
+  // North Carolina (additional)
+  {
+    id: 'chapelhillnc',
+    name: 'Chapel Hill',
+    state: 'NC',
+    portalUrl: 'https://chapelhillnc.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'marionnc',
+    name: 'Marion',
+    state: 'NC',
+    portalUrl: 'https://marionnc.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'warrencountync',
+    name: 'Warren County',
+    state: 'NC',
+    portalUrl: 'https://warrencountync.portal.opengov.com',
+    enabled: true
+  },
+
+  // Pennsylvania (additional)
+  {
+    id: 'cheltenhampa',
+    name: 'Cheltenham Township',
+    state: 'PA',
+    portalUrl: 'https://cheltenhampa.portal.opengov.com',
+    enabled: true
+  },
+
+  // Rhode Island (additional)
+  {
+    id: 'middletownri',
+    name: 'Middletown',
+    state: 'RI',
+    portalUrl: 'https://middletownri.portal.opengov.com',
+    enabled: true
+  },
+
+  // South Carolina (additional)
+  {
+    id: 'northmyrtlebeachsc',
+    name: 'North Myrtle Beach',
+    state: 'SC',
+    portalUrl: 'https://northmyrtlebeachsc.portal.opengov.com',
+    enabled: true
+  },
+
+  // Washington
+  {
+    id: 'maplevalleywa',
+    name: 'Maple Valley',
+    state: 'WA',
+    portalUrl: 'https://maplevalleywa.portal.opengov.com',
+    enabled: true
+  },
+
+  // Wisconsin
+  {
+    id: 'sunprairiewi',
+    name: 'Sun Prairie',
+    state: 'WI',
+    portalUrl: 'https://sunprairiewi.portal.opengov.com',
+    enabled: true
+  },
+
+  // ============================================
+  // BATCH 3 - MORE DISCOVERED JURISDICTIONS
+  // ============================================
+
+  // California (additional)
+  {
+    id: 'westernriversidecogca',
+    name: 'Western Riverside COG',
+    state: 'CA',
+    portalUrl: 'https://westernriversidecogca.portal.opengov.com',
+    enabled: true
+  },
+
+  // Connecticut (additional)
+  {
+    id: 'bloomfieldct',
+    name: 'Bloomfield',
+    state: 'CT',
+    portalUrl: 'https://bloomfieldct.portal.opengov.com',
+    enabled: true
+  },
+
+  // Florida (additional)
+  {
+    id: 'lauderdalelakesfl',
+    name: 'Lauderdale Lakes',
+    state: 'FL',
+    portalUrl: 'https://lauderdalelakesfl.portal.opengov.com',
+    enabled: true
+  },
+
+  // Illinois
+  {
+    id: 'deerfieldil',
+    name: 'Deerfield',
+    state: 'IL',
+    portalUrl: 'https://deerfieldil.portal.opengov.com',
+    enabled: true
+  },
+
+  // Massachusetts (additional batch)
+  {
+    id: 'peabodyma',
+    name: 'Peabody',
+    state: 'MA',
+    portalUrl: 'https://peabodyma.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'cambridgema',
+    name: 'Cambridge',
+    state: 'MA',
+    portalUrl: 'https://cambridgema.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'methuenma',
+    name: 'Methuen',
+    state: 'MA',
+    portalUrl: 'https://methuenma.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'watertownma',
+    name: 'Watertown',
+    state: 'MA',
+    portalUrl: 'https://watertownma.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'beverlyma',
+    name: 'Beverly',
+    state: 'MA',
+    portalUrl: 'https://beverlyma.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'littletonma',
+    name: 'Littleton',
+    state: 'MA',
+    portalUrl: 'https://littletonma.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'brewsterma',
+    name: 'Brewster',
+    state: 'MA',
+    portalUrl: 'https://brewsterma.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'newtonma',
+    name: 'Newton',
+    state: 'MA',
+    portalUrl: 'https://newtonma.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'williamstownma',
+    name: 'Williamstown',
+    state: 'MA',
+    portalUrl: 'https://williamstownma.portal.opengov.com',
+    enabled: true
+  },
+  {
+    id: 'boxfordma',
+    name: 'Boxford',
+    state: 'MA',
+    portalUrl: 'https://boxfordma.portal.opengov.com',
+    enabled: true
+  },
+
+  // Rhode Island (additional)
+  {
+    id: 'westwarwickri',
+    name: 'West Warwick',
+    state: 'RI',
+    portalUrl: 'https://westwarwickri.portal.opengov.com',
+    enabled: true
+  },
+
+  // Wyoming
+  {
+    id: 'cheyennewy',
+    name: 'Cheyenne',
+    state: 'WY',
+    portalUrl: 'https://cheyennewy.portal.opengov.com',
     enabled: true
   }
 ];

@@ -1,0 +1,633 @@
+{
+  "jurisdiction": "Beverly",
+  "state": "MA",
+  "tenant": "beverlyma",
+  "portalUrl": "https://beverlyma.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006509",
+      "name": "Residential Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, additions, renovations, alterations, partial and interior demolition, and major repairs to existing One and Two-family buildings. (Three+ Family residences are Commercial)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006585",
+      "name": "10-Day Emergency Beaver or Muskrat Trapping Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006692",
+      "name": "Definitive Subdivision Plan Application or Modification of a Definitive Subdivision Plan Application",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Planning Board - Form C",
+      "isEnabled": true
+    },
+    {
+      "id": "1006690",
+      "name": "Inclusionary Housing Application",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006739",
+      "name": "Order for Interment (Sample)",
+      "categoryId": 1101,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006607",
+      "name": "Bathing Beaches Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Required for any public and semi-public beaches.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006499",
+      "name": "Commercial Building Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for new construction, renovations, alterations, partial and interior demolition and major repairs to existing nonresidential buildings and any property over 2 family. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006672",
+      "name": "Abbreviated Notice of Resource Area Delineation (ANRAD)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "For confirming wetland resource area boundaries with the Conservation Commission.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006680",
+      "name": "Amendment to Order of Conditions",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Apply to make an amendment to an existing Order of Conditions. The Conservation Commission considers an Amendment to be necessary when a change in a permitted project is proposed that may require additional conditions to ensure adequate protection of wetland resource areas and/or the interests covered under the Wetlands Protection Act and Beverly's Wetlands Protection Ordinance. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006481",
+      "name": "Building Permit - Short Form",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for minor repairs and replacement of roofing, siding, windows and doors, solar panels, energy storage systems, wood and pellet stove, and weatherization. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006713",
+      "name": "Demolition Delay Ordinance",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "In accordance with the City of Beverly Revised Ordinances, Chapter 168, Article II, \"Demolition of Historic Buildings.\"",
+      "isEnabled": true
+    },
+    {
+      "id": "1006612",
+      "name": "Open Space Residential Design Initial Review Application",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006583",
+      "name": "Biological Safety Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006647",
+      "name": "Open Space Residential Design Site Plan",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006714",
+      "name": "Historic District Commission Certificate of Appropriateness/Non-Applicability/Hardship (Fish Flake Hill)",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Pursuant to the Historic Districts Act (M.G.L. Ch. 40C) and the Beverly Historic Districts Ordinance, and regarding buildings located in the Fish Flake Hill Historic District, this Application is for issuance of a Certificate of Appropriateness/Non-Applicability/Hardship. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006694",
+      "name": "Body Art Apprentice Permit",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "1006729",
+      "name": "ZBA Determination Application - Accessory Structures",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is to assist in determining if Zoning Board of Appeals approval is required for your project.  Use this application for Residential Accessory Structures under 200sqft and Commercial Structures under 120sqft.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006649",
+      "name": "Notice of Intent (NOI)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "To protect the Commonwealth's wetland resources, the Massachusetts Wetlands Protection Act prohibits the removal, dredging, filling, or altering of wetlands without a permit. To obtain a permit (called an Order of Conditions), you must submit a Notice of Intent application to the Beverly Conservation Commission and MassDEP. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006344",
+      "name": "Body Art Establishment Application ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "For both renewal and initial body art establishment permits.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006602",
+      "name": "Zoning Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This is a brief application that will require you to fill out a few fields and you will then be directed to a link where you will be able to access the zoning application forms and checklist. Please submit one copy of the application to the Building Commissioner so he can  review it before you fill out the other nine copies. Do not upload zoning applications to this application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006691",
+      "name": "Preliminary Subdivision Plan Application or Modification of a Preliminary Subdivision Plan Application",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Planning Board - Form B",
+      "isEnabled": true
+    },
+    {
+      "id": "1006478",
+      "name": "Periodic Safety Inspection",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is for annual and biannual inspections of existing buildings such as  schools, churches,  nursing homes, day care, and lodging houses, ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006677",
+      "name": "Hazard Tree Removal Request",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The Commission recognizes the potential hazards that dead, dying, and compromised trees can pose to safety and property. The Commission has established a protocol to address instances where four or fewer trees are located outside of the wetland resource area but within the buffer zone and may pose a hazard to safety and/or property. A letter from a Certified Arborist may be required to verify the condition of said trees as compromised or hazardous.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006648",
+      "name": "Request for Certificate of Compliance (COC)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "A Request for a Certificate of Compliance should be submitted once a project is completed in accordance with the plans and requirements of the Order of Conditions.  The Commission will then issue a Certificate of Compliance after confirming that the project has been completed in substantial compliance with the original Order of Conditions.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006688",
+      "name": "Site Plan Review Application or Modification of Site Plan Review Application",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006689",
+      "name": "Special Permit Application or Modification of Special Permit Application",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006572",
+      "name": "Body Art Establishment Plan Review Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Required for any first-time establishment permit holders or when there is a remodel or new construction being completed. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006669",
+      "name": "Periodic Safety Inspection - Annual Liquor License",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is for the annual safety inspection for establishments that serve alcohol for the issuance of the facility ABC license.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006671",
+      "name": "Periodic Safety Inspection - 5 Year Multi Family",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is for the five year periodic safety inspections for multi-family properties with  3+ units.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006679",
+      "name": "Minor Modification to Order of Conditions",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The Conservation Commission considers a Minor Modification to be a minor project change, that will not result in an additional adverse impact on the wetland resource area(s) and/or interests protected under the Act or the Ordinance. No public hearing or legal advertisement is required for a Modification to an Order of Conditions, but the applicant must submit a written request and revised plan fully explaining the proposed change and appear before the Conservation Commission at a regularly scheduled public meeting.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006687",
+      "name": "Subdivision Approval Not Required (ANR)",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Planning Board - Form A",
+      "isEnabled": true
+    },
+    {
+      "id": "1006608",
+      "name": "Body Art Practitioner (Individual) Permit ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "All persons who perform body art are required to complete this application, except apprentices (see \" Body Art Apprentice Permit\").",
+      "isEnabled": true
+    },
+    {
+      "id": "1006684",
+      "name": "Minor Project Permit",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Some projects are simple, routine and involve very little activity or alteration within the buffer zone and pose no significant potential adverse impact on the resource area. The Commission may consider such projects to be minor in nature and is of the opinion that requiring an RDA or NOI would be unnecessary as long as certain conditions are adhered to.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006498",
+      "name": "Certificate of Occupancy - New Tenancy with No Construction",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Please note: You will be required to upload a stamped floor plan from a registered design professional with the Construction type of the building, the use group, and the occupant load listed.  Applications will not be accepted without this information, and a Certificate of Occupancy will not be able to be issued.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006711",
+      "name": "Waiver of Frontage",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "Planning Board - Form A-1 - To be accompanied with a Definitive Subdivision Plan (separate application)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006668",
+      "name": "Request for Enforcement",
+      "categoryId": 1071,
+      "viewAccess": null,
+      "description": "Use this form to file a complaint regarding a possible building code or zoning ordinance violation.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006346",
+      "name": "Dumpster Permit",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "For both temporary and year-round dumpsters.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006483",
+      "name": "Demolition Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is used for complete demolition of a building and/or accessory building. For partial and interior demolition, use the Building Permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006565",
+      "name": "Farmers Market Permit - Individual Vendor ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Permit for Farmer's Market - for Individual Vendors.  \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006573",
+      "name": "Food Establishment Application  ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "To be filled out by any establishment/organization which deals in any form of food products including milk, cream and frozen desserts (annual permits).  \n\nMobile food vendors must complete the \"Mobile Food Establishment\" application. \nTemporary Food Events/Establishments must complete the \"Temporary Food Event\" application.\nFarmers Market vendors must complete the \"Farmers Market - Individual Vendor\" application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006484",
+      "name": "Electrical Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing any electrical wiring, electrical appliances, electrical services, security system, etc.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006486",
+      "name": "Gas Fitter Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when natural gas/propane gas piping is installed, altered, added to or repaired, including the installation of gas fired appliances. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006683",
+      "name": "Emergency Certification",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Please first contact the Conservation Agent if an emergency comes up, then apply for an Emergency Certification which will be ratified at the next Conservation Commission meeting.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006650",
+      "name": "Request for Determination of Applicability (RDA)",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "The Request for Determination of Applicability provides applicants with the option of seeking a determination  whether the Wetlands Protection Act applies to a proposed site or activity. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006588",
+      "name": "Food Establishment Limited Plan Review Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This application is only for food establishments for the following scenarios: change of ownership or minor remodel (e.g., changing some the finish schedule, adding a small bar, equipment replacement)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006551",
+      "name": "Food Establishment Plan Review Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006490",
+      "name": "Plumbing Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required anytime the building’s plumbing is being installed, altered, removed, replaced or repaired.  You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006611",
+      "name": "HVAC/Sheet Metal Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when HVAC work (install, enlarge, alter, repairs, remove, convert of replace a mechanical system) is being performed, or a sheet metal worker is manufacturing, fabricating, assembling, handling, erecting, installing, dismantling, alteration and/or repairing duct work, fans, kitchen hoods and vents, architectural sheet metal and metal roofing. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006682",
+      "name": "Extension to Order of Conditions",
+      "categoryId": 1081,
+      "viewAccess": "public",
+      "description": "Request to extend the Order of Conditions beyond its expiration date. Orders of Conditions can be extended by one (1) year up to two (2) times total.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006493",
+      "name": "Sign Permit ",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit application is for all signs. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006575",
+      "name": "Mobile Food Establishment",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Mobile trucks, pushcarts, trailers. All mobiles use this application even if coming to Beverly for a temporary food event. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006494",
+      "name": "Sprinkler System",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when a sprinkler system is installed, altered, repaired, extended, dismantled or reconfigured.    Please allow up to 10 (ten) days for Fire Department review prior to issuance of the permit. You must be a licensed professional to apply for this permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006606",
+      "name": "PTO Food Events at Schools Registration Form",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006495",
+      "name": "Tent, Awning, & Canopy Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is for tents over 120 Square feet and having an occupant load of more than ten.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006601",
+      "name": "Temporary Food Establishment/Event",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Applicants who wish to serve free samples of food or sell any food at a fixed location for a period of time of not more than 14 consecutive days in conjunction with a single event or celebration shall apply for a temporary food permit from the Board of Health.  All mobile food establishments applying for a temporary food event will apply under the \"Mobile Food Establishment\" permit application. \n\nApplications need to be submitted AT LEAST  10 BUSINESS DAYS prior to the event. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006698",
+      "name": "Time as a Public Health Control (TPHC) Request Form",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Food Establishments must fill out this form if requesting to use Time as a Public Health Control (TPHC) for certain food products.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006485",
+      "name": "Fire Detection & Notification Equipment and/or BDA",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This permit is required when installing, repairing and/or adding to a fire detection system.  The application must also be reviewed by the Beverly Fire Department and may take up to 10 (ten) days to be approved.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006571",
+      "name": "Floodplain Development Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "This application is for performing work in a flood zone. The applicant should understand that this application is a separate process from the building permit process. You will be directed to a link on this application which will bring you to other forms that may or may not be required to fill out. There will also be instructions on this link.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006374",
+      "name": "Funeral Director",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "The board of health of each town shall annually, on or before May first, license persons to act as funeral directors therein upon such terms and conditions as the board of registration in embalming and funeral directing, established by section twenty-nine of chapter thirteen, shall prescribe. All such licenses shall expire April thirtieth each year, unless sooner suspended or revoked. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006586",
+      "name": "Health Complaint Form",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006377",
+      "name": "Hotels & Motels",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006569",
+      "name": "Keeping of Animals Permit Application",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "This permit is required for anyone who keeps livestock and/or live fowl on their property.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006613",
+      "name": "Public Records Request",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006394",
+      "name": "Occupancy Permit for Rental Units",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Required for every rental within the City of Beverly when the occupant changes. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006580",
+      "name": "Recreational Camps ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006383",
+      "name": "Septage/Offal Haulers",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006561",
+      "name": "Swimming Pool Permit Application",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "Application for permit to operate a public, semi-public swimming pool, wading pool or special purpose pool (e.g., hot tubs). Swimming Pool permits are renewable annually on May 1st.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006379",
+      "name": "Tanning Facility Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006584",
+      "name": "Title 5: Disposal System Abandonment Form",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006604",
+      "name": "Title 5: Disposal System Construction Permit Application ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006386",
+      "name": "Title 5: Disposal System's Installer",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006605",
+      "name": "Title 5: Septic System Plan Review",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006426",
+      "name": "Title 5: Soil Test Application ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006557",
+      "name": "Tobacco  Retail Sales Permit Application",
+      "categoryId": 1083,
+      "viewAccess": "private",
+      "description": "Tobacco Product Sales Permits are limited by the Board of Health and all allowed permits are currently issued. NO ADDITIONAL NEW PERMITS ARE AVAILABLE.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006554",
+      "name": "Refuse & Recyclables Hauler Application ",
+      "categoryId": 1083,
+      "viewAccess": null,
+      "description": "For refuse and recycling hauler companies which service the City of Beverly (both public and private properties).",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1071",
+      "name": "Building Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1081",
+      "name": "Conservation Commission",
+      "isEnabled": 1,
+      "content": "<p align=\"center\" style='box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: \"Benton Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-color: i"
+    },
+    {
+      "id": "1101",
+      "name": "[COMING SOON] Cemetery Department",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: \"DM Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-st"
+    },
+    {
+      "id": "1083",
+      "name": "Health Department",
+      "isEnabled": 1,
+      "content": "<div style=\"text-align: center;\"><strong><span style=\"color: rgb(184, 49, 47); font-family: Arial, Helvetica, sans-serif; font-size: 18px;\">ALL FEES ARE NON REFUNDABLE</span></strong></div><div style=\"text-align: center;\"><br></div><h3 data-end=\"161\" data-start=\"127\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><u>Board of Health Fee Schedule</u></span></h3><p data-end=\"347\" data-start=\"162\"><span style=\"font-family: Arial,Helvetica,sans-serif;\">View the current fee schedule here: <a h"
+    },
+    {
+      "id": "1093",
+      "name": "Planning Board",
+      "isEnabled": 1
+    },
+    {
+      "id": "1087",
+      "name": "Planning Department",
+      "isEnabled": 1
+    },
+    {
+      "id": "1099",
+      "name": "[COMING SOON] Engineering Department",
+      "isEnabled": 1,
+      "content": "<p style='box-sizing: border-box; margin: 0px 0px 10px; color: rgb(51, 51, 51); font-family: \"DM Sans\", sans-serif; font-size: 16px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-st"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:57:05.241Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

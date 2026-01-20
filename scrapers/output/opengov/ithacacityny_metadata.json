@@ -1,0 +1,516 @@
+{
+  "jurisdiction": "Ithaca",
+  "state": "NY",
+  "tenant": "ithacacityny",
+  "portalUrl": "https://ithacacityny.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "1006544",
+      "name": "Street Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Use of streets, sidewalks, parking, tree lawns or other public property for construction or utility work, material storage or exclusive occupancy during a project. For construction or occupancy of public property including stormwater, streets and sidewalks.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006558",
+      "name": "Use of City Property Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Request to encroach upon or use City-owned land, structures or air space in an ongoing manner. See §170 of the City Code for additional requirements, restrictions, and procedures.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006586",
+      "name": "Reserved Parking Application",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "description": "Exclusive use of on-street parking for one week or less for moving trucks, storage pods or other vehicles. Longer periods require a Street Permit and insurance. (Not for special event parking.)",
+      "isEnabled": true
+    },
+    {
+      "id": "1006507",
+      "name": "1. Signing Up, Creating a Profile & Accessing Your Information",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Instructions on signing up for a ViewPoint Cloud Account and how to access your profile and records.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006530",
+      "name": "Commons Use Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Any festival, fundraiser, vehicle access or other event taking place on the Commons (and that is open to the public) requires a permit. For events, A certificate of liability insurance naming the City as \"additionally insured\" must be provided for events when over 50 people are expected to attend. This can all be uploaded as part of this application. There is a no application fee, however additional fees may also be charged depending on the request (i.e. electrical outlet usage, pavilion usage, vehicle access, etc.). \n\n\nFor more information on Commons Permitting, please refer to: \n    http://www.cityofithaca.org/Commons.\n\n\n\nFor a map of Commons Amenities (including Electrical Bollards), please refer to:\n    http://www.cityofithaca.org/DocumentCenter/View/4234\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006602",
+      "name": "Short-Term Rentals",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "A short-term rental operating permit will be required to advertise a short-term rental located within the city.  Short-term rentals are permitted in single-family homes, two-family homes, and any owner-occupied unit.  A short-term rental operating permit will only be issued for a property that is the primary residence of the host.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006560",
+      "name": "Mobile Vending Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Food trucks, food trailers, and push carts operating on public property require a Mobile Vending Permit. A limited number of mobile vending locations are available on city streets and the Ithaca Commons. Mobile Vending Permits may be granted for any of the approved vending sites shown on the Mobile Vending Map and Ithaca Commons Amenities Map.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006543",
+      "name": "Zoning Compliance Letter Request",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Zoning Compliance Letters detail a property’s compliance with current zoning and its history of variances. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006508",
+      "name": "2. Applying for a Permit & Paying Fees",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "How to apply for a permit and pay any fees that are due.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006601",
+      "name": "Charitable Gaming",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "The Division of Charitable Gaming investigates, audits and monitors the sale of millions of bell jar tickets annually; verifies the lawful disbursement of bingo, bell jar, casino night, and raffle proceeds by authorized charitable organizations across New York State; licenses the manufacturers and distributors of bingo and games of chance equipment; and issues bingo and games of chance identification numbers to applicant organizations as a prerequisite to their licensing by municipalities.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006606",
+      "name": "Certificate of Compliance - Commercial Inspection",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "These inspections will be for business owners that have a commercial space that require a tri-annual inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006631",
+      "name": "Underground Flush Request",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "These inspections will be for business owners that have a commercial space that require a tri-annual inspection.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006540",
+      "name": "City Board/Commission Application",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Local government boards and committees serve as advisory bodies that assist in the decision-making process. They are usually composed of experts, community representatives, or individuals with specific knowledge and experience related to the committee's focus area.  A local government may have boards dedicated to finance, planning and zoning, health, or public works.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006509",
+      "name": "3. Receiving Your Permit or Other Document",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "How to view and print your issued permit, license, or other issued document.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006588",
+      "name": "Zoning Review Application",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "A Zoning Review Application should be submitted for all new construction, building alterations, or subdivisions that do not meet zoning requirements.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006561",
+      "name": "Outdoor Dining Permit",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "An Outdoor Dining agreement is required for all food establishments that wish to sell food and/or alcohol on City property adjacent to the establishment. Outdoor dining agreements will be issued based upon the operational guidelines detailed in the City of Ithaca Municipal Code §157.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006567",
+      "name": "4. I do not see email from OpenGov",
+      "categoryId": 1087,
+      "viewAccess": "public",
+      "description": "Instructions on how to check your SPAM filter and allow email through.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006506",
+      "name": "Noise Ordinance Permit Application",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "The City of Ithaca Noise Ordinance requires that a Noise Permit be issued for the following conditions:\n\nA: Where a sound source is planned, installed, or intended to be installed, or modified by any person in a manner that such source will create or is likely to create unreasonable noise or otherwise fail to comply with the provisions of the Ordinance.\n\nB: Where any person uses or plans to use sound amplifying equipment in such a way that equipment is or will be heard outside of any building between 10:00 p.m. of any day and 7:30 a.m. of the next day.\n\nC: Where any person uses or plans to use a public address system that will make sound outside of a building.\n\nD: Noise Permit Applications shall be submitted at least 72 hours in advance of an event.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006629",
+      "name": "Certificate of Appropriateness Review",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Applications must be accompanied by thorough documentation of existing conditions and proposed changes, including (if applicable) photographs, site plans, sketches, material samples, historic photographs, etc. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006585",
+      "name": "Elevator Operating Permit - Ithaca Fire Department",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "An operating permit issued by the Chief of the Fire Department, or the Fire Marshal shall constitute permission to maintain, store or handle materials or to conduct processes and activities which produce conditions hazardous to life or property or to install equipment used in connection with such activities. Any person who proposes to undertake any new activity or to operate any type of new building listed in the City of Ithaca Municipal Code §181-9 shall be required to obtain an operating permit prior to commencing such activity or operation. Such permit shall not take the place of any license otherwise required by law. It is not transferable, and any change in the use or occupancy of premises shall require a new permit. The Fire Chief or the Fire Marshal shall, in his/her discretion, determine the appropriate duration of an issued permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006582",
+      "name": "Community Police Board - Compliment and Complaint Form",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Pursuant to the City Charter the Community Police Board (CPB) is charged by the City\nof Ithaca to “act as a community liaison to the Police Department and . . . actively foster\npositive communications between the police and all segments of the community. \n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006499",
+      "name": "Dog License",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Pursuant to New York State Agriculture and Markets Law, all dogs in New York State are required to be licensed in the municipality in which the dog resides. Dog licenses are valid for 1 year.  However, dogs under 4 months of age do not need to be licensed until they are old enough to receive a rabies vaccination. Note: this form is for NEW dog licenses only. If you are trying to renew a license, please go to the current record (under \"Completed\" in your profile) and click the RENEW button.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006518",
+      "name": "Fire Protection System Installation/ Alteration Operating Permit Application ",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006516",
+      "name": "Public Assembly, Parade, or Motorcade Permit Application",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Any parade, motorcade, or public gathering at any location within the City, in such numbers which, if not controlled or regulated, can reasonably be expected to interfere with the use of public property by others. A public gathering or assemblage of 50 or more persons shall constitute a presumption that such meeting will or can be expected to interfere with the use of public property by others. Applications must be submitted at least five business days before the assembly/parade/motorcade is scheduled to be held. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006599",
+      "name": "Request to Film on City Property",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Applications can be made to the Department of Public Works to obtain permission for film shoots on city property. Permission will be granted based upon the following requirements:\n- Requests must be received at least 2 weeks in advance of the shoot date.\n- A certificate of insurance naming the City of Ithaca must be submitted.\n- Other requirements depending on the situation.\n\nFinal approval must be obtained at least 24 hours in advance of the film shoot!",
+      "isEnabled": true
+    },
+    {
+      "id": "1006608",
+      "name": "Fireworks Operating Permit - Ithaca Fire Department",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "An operating permit issued by the Chief of the Fire Department, or the Fire Marshal shall constitute permission to maintain, store or handle materials or to conduct processes and activities which produce conditions hazardous to life or property or to install equipment used in connection with such activities. Any person who proposes to undertake any new activity or to operate any type of new building listed in the City of Ithaca Municipal Code §181-9 shall be required to obtain an operating permit prior to commencing such activity or operation. Such permit shall not take the place of any license otherwise required by law. It is not transferable, and any change in the use or occupancy of premises shall require a new permit. The Fire Chief or the Fire Marshal shall, in his/her discretion, determine the appropriate duration of an issued permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006504",
+      "name": "Dog Tag Replacement",
+      "categoryId": 1086,
+      "viewAccess": null,
+      "description": "Please use this form to replace a lost/stolen dog tag only. If you are also renewing your annual dog license, you may replace the tag as part of the renewal process.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006525",
+      "name": "Marriage One-Day Officiant License",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "New York now allows for people over the age of 18 to apply for 'one-day designation,' authorizing them to solemnize a single marriage on a specified day in the State of New York.   For more information, refer to https://www.nysenate.gov/legislation/laws/DOM/11-D.   Please note: We cannot guarantee that your application will be processed in less than 3 business days.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006609",
+      "name": "Hot Works Operating Permit - Ithaca Fire Department",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "An operating permit issued by the Chief of the Fire Department, or the Fire Marshal shall constitute permission to maintain, store or handle materials or to conduct processes and activities which produce conditions hazardous to life or property or to install equipment used in connection with such activities. Any person who proposes to undertake any new activity or to operate any type of new building listed in the City of Ithaca Municipal Code §181-9 shall be required to obtain an operating permit prior to commencing such activity or operation. Such permit shall not take the place of any license otherwise required by law. It is not transferable, and any change in the use or occupancy of premises shall require a new permit. The Fire Chief or the Fire Marshal shall, in his/her discretion, determine the appropriate duration of an issued permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006603",
+      "name": "Request to Use City Park",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Applications can be made to the Department of Public Works to Request the Use of a City Park other than Cass Park or Stewart Park. Permission will be granted based upon the following requirements:\n- DeWitt Park is considered a \"Quiet Use Park\" and use of this park is based on separate criteria (i.e. whether there is a need for a noise permit or the size of the assembly, etc.).\n- A certificate of insurance naming the City of Ithaca must be submitted.\n- Other requirements depending on the situation.\n\nFinal approval must be obtained at least 24 hours in advance of event!",
+      "isEnabled": true
+    },
+    {
+      "id": "1006502",
+      "name": "Special Event Permit Application - Phase 1",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Any festival, parade, race, fundraiser, or other event taking place on public property and that is open to the public requires an Event Permit. There are up to three phases to the application process. Phase 1 requires you to provide basic information about your event. Certain events are eligible for approval after the successful submission of Phase 1 information. Other events will be invited to move on to Phase 2 where more detailed information is required. Large scale events and/or new events will be invited to Phase 3 which includes a meeting with the Special Event Team.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006515",
+      "name": "Mobile Food Vehicle Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006500",
+      "name": "Parking Permits for People with Disabilities",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "The City Clerk's Office / Department of Public Information & Technology, issues New York State Parking Permits for People with Disabilities to City of Ithaca residents only. If you live outside of the city, you can obtain this permit from the clerk of the municipality you reside in.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006607",
+      "name": "Operating Permit - Ithaca Fire Department",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "An operating permit issued by the Chief of the Fire Department, or the Fire Marshal shall constitute permission to maintain, store or handle materials or to conduct processes and activities which produce conditions hazardous to life or property or to install equipment used in connection with such activities. Any person who proposes to undertake any new activity or to operate any type of new building listed in the City of Ithaca Municipal Code §181-9 shall be required to obtain an operating permit prior to commencing such activity or operation. Such permit shall not take the place of any license otherwise required by law. It is not transferable, and any change in the use or occupancy of premises shall require a new permit. The Fire Chief or the Fire Marshal shall, in his/her discretion, determine the appropriate duration of an issued permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006503",
+      "name": "Special Event Permit Application - Phase 2",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "This application is by Invitation Only.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006627",
+      "name": "Residential Parking Permit (RPP)",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Your residential parking permit will be valid from the date it is issued until July 31. Permits for the following year are available for purchase on July 1. Permit fees are not pro-rated no matter when the permit is obtained. You are required to provide proof of residency in the form of a valid NYS driver's license, rental lease, utility bill or similar documentation that provides proof of address. A copy of your current vehicle registration is also required. Once we review your documentation, we will check permit availability for your residence. Permits are issued on a first-come first-served basis. You will be contacted if there are no permits available.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006581",
+      "name": "Use of Parks, Docks and Concessions",
+      "categoryId": 1089,
+      "viewAccess": "public",
+      "description": "Annual licensing for Cass Park docks, Stewart Park boat rentals, and golf course concessions.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006517",
+      "name": "Outdoor Assembly Event Operating Permit Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "This application is for any event with 1000+ attendees.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006557",
+      "name": "Agent Registration Form",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The City of Ithaca has recently transitioned to a new permitting and recordkeeping platform and is requesting that property owners verify their contact information to ensure accuracy as we transfer records to the new system. Please complete this voluntary survey to ensure that you AND your designated Property Agent are promptly notified of any issues relating to your property. Refer to Ithaca City Code § 210-81 for more information.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006583",
+      "name": "Air/Ground Source Heat Pump Permit",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Select this procedure involving heat pump systems only, to apply for a permit to perform alterations on existing mechanical heating and/or cooling systems, including removal and replacement of an appliance, reconfiguration or extension of a system, or installation of an additional appliance, in both commercial and residential properties. Heat pump installations that are incorporated into larger projects shall be included in a Building Permit Application.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006610",
+      "name": "Outdoor Fireplace Operating Permit - Ithaca Fire Department",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "An operating permit issued by the Chief of the Fire Department, or the Fire Marshal shall constitute permission to maintain, store or handle materials or to conduct processes and activities which produce conditions hazardous to life or property or to install equipment used in connection with such activities. Any person who proposes to undertake any new activity or to operate any type of new building listed in the City of Ithaca Municipal Code §181-9 shall be required to obtain an operating permit prior to commencing such activity or operation. Such permit shall not take the place of any license otherwise required by law. It is not transferable, and any change in the use or occupancy of premises shall require a new permit. The Fire Chief or the Fire Marshal shall, in his/her discretion, determine the appropriate duration of an issued permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006630",
+      "name": "Residential Parking Visitor Pass",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "Residents in blocks participating in the Residential Parking Permit System may purchase up to 4 Visitor Passes per year with a limit of 8 passes per property in an R1 zone and 16 passes per property in an R2 zone. Visitor Passes shall be valid for a period of 2 consecutive weeks, and will be issued to a specific vehicle.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006611",
+      "name": "Recreational Bonfire Operating Permit - Ithaca Fire Department",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "An operating permit issued by the Chief of the Fire Department, or the Fire Marshal shall constitute permission to maintain, store or handle materials or to conduct processes and activities which produce conditions hazardous to life or property or to install equipment used in connection with such activities. Any person who proposes to undertake any new activity or to operate any type of new building listed in the City of Ithaca Municipal Code §181-9 shall be required to obtain an operating permit prior to commencing such activity or operation. Such permit shall not take the place of any license otherwise required by law. It is not transferable, and any change in the use or occupancy of premises shall require a new permit. The Fire Chief or the Fire Marshal shall, in his/her discretion, determine the appropriate duration of an issued permit. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006519",
+      "name": "Building Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Select this procedure to apply for a building permit for work being performed on all properties – commercial, industrial, or residential. A building permit is required for new construction, additions, enlargements, alterations, change of use or occupancy, relocation, hazardous materials abatement, site work, retaining walls, fences, fill/stockpiling (50 cubic yards or more), installation of a solid-fuel-burning heating appliance, chimney or flue in a dwelling, or for any exterior work on a building or structure designated as a landmark structure or located within a historic district. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006590",
+      "name": "Certificate of Compliance Inspection Request",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All rental dwellings shall be required to hold a valid certificate of compliance. It shall be the responsibility of the owner of a rental property to schedule inspections and to obtain a certificate of compliance from the Building Division. Select this procedure to request an inspection for a certificate of compliance.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006584",
+      "name": "Temporary Propane Use Permit  Application",
+      "categoryId": 1085,
+      "viewAccess": "public",
+      "description": "REQUIREMENTS FOR THE USE OF LIQUID PROPANE GAS (LPG) ARE REGULATED UNDER, BUT NOT LIMITED TO, CHAPTERS 24, 30, AND 38 OF THE FIRE CODE OF NEW YORK STATE AND THE CODE OF THE CITY OF ITHACA. GENERAL REQUIREMENTS ARE LISTED BELOW AND SUBJECT TO THE APPROVAL OF THE CODE ENFORCEMENT OFFICALS OF THE CITY OF ITHACA.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006533",
+      "name": "Demolition Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Select this procedure to apply for a permit to demolish entire structures, major portions of a structure such as entire wings or additions, or for deconstruction of buildings or structures in accordance with the Code of the City of Ithaca Chapter 146. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006621",
+      "name": "Electric License Registration/Renewal",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Registration and renewal for electricians licensed in the City of Ithaca.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006520",
+      "name": "Electrical Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Application for permit to perform electrical work on new or existing buildings or structures within the City of Ithaca.  Only City-licensed electricians and those licensed in other jurisdictions seeking a reciprocal application for work may apply for electrical permits.\n",
+      "isEnabled": true
+    },
+    {
+      "id": "1006620",
+      "name": "HVAC Registration/Renewal",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006597",
+      "name": "Ithaca Electrical Examination Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "In compliance with the terms of Article II, Section 146-35 (and amendments thereto) of the Building Code of the City of Ithaca, you must apply to take the examination for a Certificate of Competency and registration as a licensed electrician in the City of Ithaca, New York for the purpose of doing electrical work within the jurisdiction of the Building Code of the City of Ithaca.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006622",
+      "name": "Plumbing License Renewal",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "1006527",
+      "name": "Plumbing Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "All plumbing work, except for minor repairs, requires a plumbing permit. Select this procedure to apply for a permit to perform plumbing work on new and existing buildings within the City of Ithaca. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006625",
+      "name": "Request - Official Street Address",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "In accordance with Chapter 342 of the Code of the City of Ithaca, the City Engineer is the authority who assigns official street addresses within the City of Ithaca. Once we make such a designation, we notify several other departments and agencies.",
+      "isEnabled": true
+    },
+    {
+      "id": "1006521",
+      "name": "Sign Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "The Sign Ordinance of the City of Ithaca regulates existing and proposed outdoor advertising, outdoor advertising signs and outdoor signs of all types. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006541",
+      "name": "Temporary Structure Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Temporary structures are defined as stages, platforms, band shells, sheds, or other structures erected for a period of less than 180 days. Select this procedure to apply for a permit to erect a temporary structure. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006538",
+      "name": "Tent or Membrane Structure Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "A tent is a structure, enclosure, umbrella structure or shelter, with or without sidewalls or drops, constructed of fabric or pliable material supported in any manner except by air or the contents it protects. A membrane structure is an air-inflated, air-supported, cable or frame-covered structure as defined by the Building Code of New York State and not otherwise defined as a tent. \n\nTents, umbrella structures, and other membrane structures erected for a period of less than 180 days shall comply with the Fire Code of New York State. Select this procedure to apply for a permit to erect a tent or membrane structure for less than 180 days. ",
+      "isEnabled": true
+    },
+    {
+      "id": "1006531",
+      "name": "Water Heater Permit Application",
+      "categoryId": 1071,
+      "viewAccess": "public",
+      "description": "Select this procedure to apply for a permit to perform alterations on existing water heaters, including removal and replacement of an appliance, reconfiguration or extension of a system, or installation of an additional appliance, in both commercial and residential properties. ",
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1089",
+      "name": "City Events",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1086",
+      "name": "City Clerk / Information & Community Engagement",
+      "isEnabled": 1,
+      "content": "<h3 style='box-sizing: border-box; margin-top: 0px; margin-bottom: 0px; border: 0px none; font-family: \"Maven Pro\"; font-style: normal; font-weight: 700; color: rgb(23, 62, 67); font-size: 1.1em; text-decoration: none; display: block; font-variant-ligatures: normal; font-variant-caps: normal; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 25"
+    },
+    {
+      "id": "1071",
+      "name": "Building Division",
+      "isEnabled": 1,
+      "content": "<div style='margin: 0px; padding: 0px; user-select: text; -webkit-user-drag: none; -webkit-tap-highlight-color: transparent; overflow: visible; cursor: text; clear: both; position: relative; direction: ltr; color: rgb(0, 0, 0); font-family: \"Segoe UI\", \"Segoe UI Web\", Arial, Verdana, sans-serif; font-size: 12px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: start; text-indent: 0px; text-transform: "
+    },
+    {
+      "id": "1085",
+      "name": "Fire Department",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1090",
+      "name": "Planning",
+      "isEnabled": 1,
+      "content": ""
+    },
+    {
+      "id": "1079",
+      "name": "Public Works",
+      "isEnabled": 1,
+      "content": "<p><span style='font-size: 18px; font-family: \"Times New Roman\", Times, serif, -webkit-standard;'>The Department of Public Works is the largest department within the City of Ithaca and is overseen by the Superintendent of Public Works. Within this department there are 3 main divisions, which are broken into smaller areas to provide the city with a vast array of services: Engineering, Water and Sewer, Streets and Facilities.</span></p>"
+    },
+    {
+      "id": "1087",
+      "name": "FAQs",
+      "isEnabled": 1,
+      "content": "<p style=\"box-sizing: border-box; margin-top: 0px; margin-bottom: 1.4em; border: 0px none; color: rgb(23, 62, 67); font-family: sans-serif; font-size: 15.2px; font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; orphans: 2; text-align: left; text-indent: 0px; text-transform: none; widows: 2; word-spacing: 0px; -webkit-text-stroke-width: 0px; white-space: normal; background-color: rgb(255, 255, 255); text-decoration-thickness: in"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:55:52.704Z",
+  "generalSettings": {
+    "id": 1
+  }
+}

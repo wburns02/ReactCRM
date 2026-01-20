@@ -1,0 +1,974 @@
+{
+  "jurisdiction": "Cheyenne",
+  "state": "WY",
+  "tenant": "cheyennewy",
+  "portalUrl": "https://cheyennewy.portal.opengov.com",
+  "recordTypes": [
+    {
+      "id": "6804",
+      "name": "DDA Downtown Event Sponsorship Application",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "All sponsorships must be approved by the DDA Board. Please note that approval is not guaranteed and subject to availability of funds. Approved sponsorships will require a post-event report.",
+      "isEnabled": true
+    },
+    {
+      "id": "6816",
+      "name": "DDA 50/50 Sidewalk Improvement Application ",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "The Downtown Development Authority’s (DDA) 50/50 Sidewalk Improvement Program helps property owners repair sidewalks (public right-of-way) by covering 50% of eligible costs and managing construction. The program improves accessibility and pedestrian safety, as well as the overall appearance and economic vitality of downtown. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6574",
+      "name": "Right-of-Way Tree Permit",
+      "categoryId": 1086,
+      "viewAccess": "public",
+      "description": "As per Cheyenne City Code, a permit is required for any tree work in public places, including the public right-of-way",
+      "isEnabled": true
+    },
+    {
+      "id": "6709",
+      "name": "Capital Improvement Grant",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "This program is dedicated to improvements in the public-right-of way and limited improvements on private property that maintain a public element and enhance the right-of-way. Improvements funded under this program should should have a direct and lasting experience. The following are examples of improvements eligible for funding under this program. \n\n• Signage \n• Awnings \n• Ornamental pedestrian lights \n• Benches and trash containers \n• Sidewalks\n• Street curb and gutter \n• Plazas / gathering areas\n• Building facade elements\n• Other projects as the DDA Board deems appropriate, provided the amenity is guaranteed to remain a benefit to the public for a specified time period as determined by the board.",
+      "isEnabled": true
+    },
+    {
+      "id": "6784",
+      "name": "Commercial Building Permit",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "This permit application is to be used for all commercial projects for new construction, additions, remodels, core & shell, tenant finish, and foundation only submittals.",
+      "isEnabled": true
+    },
+    {
+      "id": "6762",
+      "name": "Individual License Application",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6403",
+      "name": "Auctions",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6459",
+      "name": "Barber/Beauty Shop",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6763",
+      "name": "Contracting Company License",
+      "categoryId": 1094,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6783",
+      "name": "Commercial Building Plan Review Only Permit",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "This permit application is to be used for PLAN REVIEW ONLY on all commercial projects for new construction, additions, remodels, core & shell, tenant finish, and foundation only submittals. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6449",
+      "name": "Engineering Plan Review",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "For full review and approval of construction drawings. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6785",
+      "name": "Commercial Building Change of Use Permit",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This permit is for CHANGE OF USE in COMMERCIAL STRUCTURES ONLY. This permit is only to be used when NO CONSTRUCTION WORK is to be accomplished in a new tenant space where the OCCUPANCY CLASSIFICATION and/or USE is changing from what the prior OCCUPANCY CLASSIFICATION and/ or USE was.",
+      "isEnabled": true
+    },
+    {
+      "id": "6462",
+      "name": "Bed and Breakfast Inn or Facility",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6485",
+      "name": "Pre-Application Meeting/Office Hours Meeting Request",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Request a meeting with City Staff to discuss a project. This can be for projects not yet submitted or for comment resolution on an existing project.",
+      "isEnabled": true
+    },
+    {
+      "id": "6465",
+      "name": "Billiards/Pool Tables",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6731",
+      "name": "DDA Pre-Application Meeting",
+      "categoryId": 1090,
+      "viewAccess": "public",
+      "description": "Request a meeting with DDA Staff to discuss a project. This can be for projects not yet submitted or for comment resolution.",
+      "isEnabled": true
+    },
+    {
+      "id": "6776",
+      "name": "Commercial Sign Building Permit",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6628",
+      "name": "Grading Permit ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "A Grading Permit is required for all Commercial Projects.  A Grading Permit is required for Residential Projects that will be moving over 50 Cubic Yards of dirt. The review period for the application is one week. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6808",
+      "name": "UDC Annual Review/Code Amendments",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Once a year the City formally reviews and considers code and policy changes to the Unified Development Code (UDC) initiated by members in the community. This formal review is known as the UDC Annual Review.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6729",
+      "name": "Right-of-Way Permit   ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Any work to be performed in the City of Cheyenne Right of Way, including traffic control for street and sidewalk closures, requires a Right of Way Permit.",
+      "isEnabled": true
+    },
+    {
+      "id": "6483",
+      "name": "Body Artist",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6468",
+      "name": "Body Art Establishment and Operations",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6578",
+      "name": "Body Art Special Event License",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6724",
+      "name": " Right-of-Way Permit- Franchise Utility ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit is only to be used by entities who have a Franchise Agreement with the City of Cheyenne, i.e. BOPU, Black Hills Energy, and Century Link. Use Agreements are not the same as Franchise Agreements. Permits for private utility companies must use the standard Right of Way Permit application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6773",
+      "name": "Residential Deck/Porch (with/without patio cover)",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "This permit type is intended to be applied for when a deck or porch is constructed, replaced, modified, or removed.",
+      "isEnabled": true
+    },
+    {
+      "id": "6745",
+      "name": "Right-of-Way Permit- Pod/Storage Container",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "An encroachment permit shall be required for any mobile storage container that will occupy any part of the street or will otherwise be placed in the public right-of-way.",
+      "isEnabled": true
+    },
+    {
+      "id": "6467",
+      "name": "Bowling Alley",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6495",
+      "name": "Burglar Alarm",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6723",
+      "name": "100 Year Floodplain Development Permit  ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "Any party undertaking development within a designated 100 Year FEMA floodplain must obtain a floodplain development permit prior to the work commencing. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6637",
+      "name": "Pre-submittal Conference/ Office Hours Meeting Request Form  ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "If needed, you can apply for a time slot to discuss Engineering items on a submittal.",
+      "isEnabled": true
+    },
+    {
+      "id": "6527",
+      "name": "Carnival/Circus/Amusement Rides",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6510",
+      "name": "201 Exception",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "For exceptions to the 201 agreement - allowing sewage systems which do not connect to a sanitary sewer system.",
+      "isEnabled": true
+    },
+    {
+      "id": "6437",
+      "name": "Accessory Dwelling Unit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "To request a second dwelling unit to an owner-occupied single-family home.",
+      "isEnabled": true
+    },
+    {
+      "id": "6461",
+      "name": "Catering",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6737",
+      "name": "Critical Traffic Control Program Complaint",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This Form is in reference to Section 10.24.190 Critical traffic control areas, creation and administration; enhanced penalties. Ordinance No. 4579",
+      "isEnabled": true
+    },
+    {
+      "id": "6722",
+      "name": "Access Application  ",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "An access application is needed for a stand alone request to widen an existing approach or to construct a new drive approach where none existed before. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6744",
+      "name": "Address Change / Second Address Request",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This application is for requesting an additional address for a legally approved additional dwelling unit or for a address change to a property that already has an address. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6497",
+      "name": "Comprehensive Merchant",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6431",
+      "name": "Consumption Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6434",
+      "name": "Administrative Adjustment",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "For relief from code requirements (for relief which is not substantive in nature).",
+      "isEnabled": true
+    },
+    {
+      "id": "6538",
+      "name": "Residential Accessible Parking  Application",
+      "categoryId": 1083,
+      "viewAccess": "public",
+      "description": "This permit services the need for an ADA Accessible Parking Spot in front of your home.",
+      "isEnabled": true
+    },
+    {
+      "id": "6435",
+      "name": "Administrative Use",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "For uses requiring 'administrative approval' on Table 5-1 of the UDC.",
+      "isEnabled": true
+    },
+    {
+      "id": "6506",
+      "name": "Detective, Patrol or Guard Business/Agency",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6438",
+      "name": "Annexation",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "To add land to the City's jurisdiction. City zoning is assigned as the City zone most analogous to the current County zone. If a different zone is desired, a zoning map amendment is also required.",
+      "isEnabled": true
+    },
+    {
+      "id": "6440",
+      "name": "Appeal of Administrative Decision",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "To provide an opportunity to be heard and grant relief when a final decision by an administrative official made in interpreting and applying the zoning provisions in the UDC was in error.",
+      "isEnabled": true
+    },
+    {
+      "id": "6766",
+      "name": "Residential Roofing Permit",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6796",
+      "name": "Residential Siding & Window Permit",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6777",
+      "name": "Commercial Roofing Permit",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6516",
+      "name": "Brownfield Revolving Loan Fund",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6488",
+      "name": "Certificate of Appropriateness",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6432",
+      "name": "Door-to-Door Solicitors",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6487",
+      "name": "Evergreen/Christmas Tree Sales",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6443",
+      "name": "Child Care",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "To request approval of a child care use.",
+      "isEnabled": true
+    },
+    {
+      "id": "6775",
+      "name": "Residential Alternative Energy Building Permit",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6768",
+      "name": "Residential Plumbing Only Permit",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "This permit is for the installation, repair or modification of PLUMBING SYSTEMS ONLY  on one-family, two-family, and townhome residential structures and their accessory structures. **NOT TO BE USED FOR INTERIOR REMODELS**",
+      "isEnabled": true
+    },
+    {
+      "id": "6552",
+      "name": "Comprehensive Plan Amendment",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "To request amendments to the Comprehensive Plan or associated guiding maps",
+      "isEnabled": true
+    },
+    {
+      "id": "6531",
+      "name": "Firearms Dealer ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6444",
+      "name": "Conditional Use",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "For uses requiring 'conditional discretionary review' on Table 5-1 of the UDC.",
+      "isEnabled": true
+    },
+    {
+      "id": "6781",
+      "name": "Commercial Electrical Only Permit",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "This permit is for the installation, repair or modification of ELECTRICAL SYSTEMS ONLY on commercial structures and properties.   **NOT TO BE USED FOR INTERIOR REMODELS**",
+      "isEnabled": true
+    },
+    {
+      "id": "6771",
+      "name": "Residential Electrical Only Permit",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "This permit is for the installation, repair or modification of ELECTRICAL  SYSTEMS ONLY on one-family, two-family, and townhome residential structures and their accessory structures. **NOT TO BE USED FOR INTERIOR REMODELS**",
+      "isEnabled": true
+    },
+    {
+      "id": "6782",
+      "name": "Commercial Demo Only Permit",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "description": "This permit is for the demolition of commercial structures only.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6446",
+      "name": "Fee Waiver Reimbursement",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6526",
+      "name": "Fireworks Display",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6523",
+      "name": "Fuel Dispensing (Retail/Private/Wholesale)",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6602",
+      "name": "Development Financial Surety ",
+      "categoryId": 1082,
+      "viewAccess": null,
+      "description": "Any project that requires a Site Plan and a final inspection from the Planning and Development Department will require a financial surety bond for any unfinished exterior work on the site prior to issuance of a TCO or a CO from the Building Department. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6780",
+      "name": "Commercial Fire Alarm, Suppression, Pumps, Hoods, Etc. Permit",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "This permit is for the installation, repair or modification of FIRE ALARM, SUPRESSION, PUMPS OR HOOD SYSTEMS ONLY on commercial structures and properties.   **NOT TO BE USED FOR INTERIOR REMODELS**",
+      "isEnabled": true
+    },
+    {
+      "id": "6772",
+      "name": "Residential Demo Only Permit",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "This permit is for demolition of or within residential structures only.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6445",
+      "name": "Home Occupation Registration",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Home occupations are intended to allow limited business activity from the home and are clearly incidental and secondary to the use of the premises as a dwelling. This is required to run a business out of a residence. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6779",
+      "name": "Commercial Mechanical Only Permit",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "This permit is for the installation, repair or modification of  MECHANICAL SYSTEMS ONLY on commercial structures and properties.   **NOT TO BE USED FOR INTERIOR REMODELS**",
+      "isEnabled": true
+    },
+    {
+      "id": "6792",
+      "name": "Infrastructure Reimbursement",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This record type is for reimbursement agreements that are tied to individual properties or groups of properties.   ",
+      "isEnabled": true
+    },
+    {
+      "id": "6547",
+      "name": "Outside User's Agreement",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Agreement for BOPU water or sewer service outside City limits.",
+      "isEnabled": true
+    },
+    {
+      "id": "6778",
+      "name": "Commercial Plumbing Only Permit",
+      "categoryId": 1093,
+      "viewAccess": null,
+      "description": "This permit is for the installation, repair or modification of PLUMBING SYSTEMS ONLY on commercial structures and properties.  **NOT TO BE USED FOR INTERIOR REMODELS**",
+      "isEnabled": true
+    },
+    {
+      "id": "6453",
+      "name": "Garage/Auto Dealer",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6549",
+      "name": "Planned Unit Development (PUD)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6769",
+      "name": "Residential Mechanical Only Permit",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "This permit is for the installation, repair or modification of MECHANICAL SYSTEMS ONLY on one-family, two-family, and townhome residential structures and their accessory structures. **NOT TO BE USED FOR INTERIOR REMODELS**",
+      "isEnabled": true
+    },
+    {
+      "id": "6774",
+      "name": "Residential Building Permit NEW Construction Only",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "This permit is for NEW construction of single-family, two-family, and townhome dwellings and their detached accessory structures only. The information you provide below is specific to residential NEW construction.  ",
+      "isEnabled": true
+    },
+    {
+      "id": "6532",
+      "name": "Horse Drawn Carriages",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6492",
+      "name": "Plat - Administrative",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6486",
+      "name": "Malt Beverage",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6770",
+      "name": "Residential Master Plan Only Permit",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6767",
+      "name": "Residential Remodel Building Permit",
+      "categoryId": 1095,
+      "viewAccess": "public",
+      "description": "This permit is for remodeling of a residential structure only. The information you provide below is specific to residential remodels.  If your project consists of an addition to the existing building footprint this is the incorrect permit application.  Please fill out the \"Residential Building Permit NEW Construction Only\" application.",
+      "isEnabled": true
+    },
+    {
+      "id": "6786",
+      "name": "Temporary Certificate of Occupancy Request",
+      "categoryId": 1093,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6544",
+      "name": "Plat - Expedited",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "A combined Preliminary and Final Plat.",
+      "isEnabled": true
+    },
+    {
+      "id": "6587",
+      "name": "Malt Beverage Permit for Events at Rodeo Arenas",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6525",
+      "name": "Manufacturer's/Winery Off-Premises",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6546",
+      "name": "Plat - Preliminary",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6536",
+      "name": "Massage Business Establishment",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6545",
+      "name": "Plat - Final",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6429",
+      "name": "Massage Therapist",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6430",
+      "name": "Mobile Food Wagon/Stand/Pushcart ",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6553",
+      "name": "Mobile Home (Trailer) Parks",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6749",
+      "name": "Site and Engineering Plan",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Site Plan application. For sites requiring Construction Drawings, the Site Plan and Engineering Plan are reviewed and approved with this application. Not all Site Plans will require Construction Drawings.",
+      "isEnabled": true
+    },
+    {
+      "id": "6588",
+      "name": "Site Plan (Minor)",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Site Plan application for minor site adjustments or change-of-use documentation only.",
+      "isEnabled": true
+    },
+    {
+      "id": "6519",
+      "name": "Nicotine Products Retailer",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6452",
+      "name": "Noise Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6550",
+      "name": "Special Use",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6601",
+      "name": "Noise Permit - Residential Block Party",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6517",
+      "name": "Tax Increment Financing",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6455",
+      "name": "Temporary Sign Permit",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "Permit for off-premises temporary signage - including in City parks.",
+      "isEnabled": true
+    },
+    {
+      "id": "6450",
+      "name": "Temporary Use",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "This application is for a use or activity that is intended to occupy a site on a non-continuous basis for more than 14 days. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6752",
+      "name": "Overnight Camping Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6803",
+      "name": "Oversized Vehicle Permit",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6511",
+      "name": "Vacation of Right-of-Way",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6512",
+      "name": "Variance",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "For relief from code requirements that would create an unnecessary hardship or practical difficulties on all reasonable use of the property.",
+      "isEnabled": true
+    },
+    {
+      "id": "6533",
+      "name": "Parade Permit",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6513",
+      "name": "Wireless Telecommunication Facility",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6406",
+      "name": "Pawnbroker",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6476",
+      "name": "Public Transport (Taxicab/Pedicab) Business",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6473",
+      "name": "Zoning Map Amendment",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6543",
+      "name": "Zoning Verification Letter",
+      "categoryId": 1082,
+      "viewAccess": "public",
+      "description": "To request the verification of zoning, uses and approvals for a property or parcel of land. ",
+      "isEnabled": true
+    },
+    {
+      "id": "6472",
+      "name": "Public Transport Driver",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6458",
+      "name": "Recycling Business",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6524",
+      "name": "Restaurant",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6535",
+      "name": "Salvage Yard",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6498",
+      "name": "Second Hand Dealer",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6534",
+      "name": "Sidewalk Cafe",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6622",
+      "name": "Skating Rink",
+      "categoryId": 1079,
+      "viewAccess": "public",
+      "isEnabled": true
+    },
+    {
+      "id": "6470",
+      "name": "Temporary or Transient Merchant",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6454",
+      "name": "Theater",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6464",
+      "name": "Towing and Wrecker Recovery Operations",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6463",
+      "name": "Tree Maintenance Business",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    },
+    {
+      "id": "6460",
+      "name": "Vending Machines",
+      "categoryId": 1079,
+      "viewAccess": null,
+      "isEnabled": true
+    }
+  ],
+  "categories": [
+    {
+      "id": "1093",
+      "name": "Building Safety Division - Commercial Permit Applications",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-bottom:12.0pt;line-height:115%;\"><span style=\"font-family: Arial, Helvetica, sans-serif; color: rgb(184, 49, 47);\"><strong><u><span style=\"font-size: 18px;\">City offices will be closed Monday January 19th in observance of Martin Luther King Jr. Day.</span></u></strong></span></p><div><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 14px;\"><a href=\"https://www.cheyennecity.org/files/sharedassets/public/v/1/departments/compliance-division/bldg-fee-sch"
+    },
+    {
+      "id": "1094",
+      "name": "Building Safety Division - Contractor & Individual Licensing",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-bottom:12.0pt;line-height:115%;\"><span style=\"font-family: Arial, Helvetica, sans-serif; color: rgb(184, 49, 47);\"><strong><u><span style=\"font-size: 18px;\">City offices will be closed Monday January 19th in observance of Martin Luther King Jr. Day.</span></u></strong></span></p><div><span style=\"font-size: 18px;\"><span style=\"font-family: Arial,Helvetica,sans-serif;\"><em>Y</em><em>our Office personnel <strong><u>CANNOT</u>&nbsp;</strong>submit an application for an individual l"
+    },
+    {
+      "id": "1095",
+      "name": "Building Safety Division - Residential Permit Applications",
+      "isEnabled": 1,
+      "content": "<p style=\"margin-bottom:12.0pt;line-height:115%;\"><span style=\"font-family: Arial, Helvetica, sans-serif; color: rgb(184, 49, 47);\"><strong><u><span style=\"font-size: 18px;\">City offices will be closed Monday January 19th in observance of Martin Luther King Jr. Day.</span></u></strong></span></p><div><span style=\"font-family: Arial,Helvetica,sans-serif;\"><span style=\"font-size: 14px;\"><a href=\"https://www.cheyennecity.org/files/sharedassets/public/v/1/departments/compliance-division/bldg-fee-sch"
+    },
+    {
+      "id": "1079",
+      "name": "Clerk / Licensing",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 18px;\">Credit Card transactions incur a 2.99% + $0.99 processing fee. E-Check transactions incur a $2.25 flat fee. Cash and check payments incur no additional fee but must be done in-person.<br></span></p><p><span style=\"font-size: 18px;\"><a href=\"https://www.cheyennecity.org/Home/Tabs/Featured-Links/OpenGov-Help-Center\" rel=\"noopener noreferrer\" target=\"_blank\"></a></span></p><p><span style=\"font-size: 18px;\"><a class=\"fr-file\" href=\"https://viewpointcloud.blob.core.w"
+    },
+    {
+      "id": "1090",
+      "name": "Downtown Development Authority (DDA)",
+      "isEnabled": 1
+    },
+    {
+      "id": "1083",
+      "name": "Engineering Department",
+      "isEnabled": 1,
+      "content": "<p><a href=\"https://www.cheyennecity.org/Home/Tabs/Featured-Links/OpenGov-Help-Center\" rel=\"noopener noreferrer\" target=\"_blank\">OpenGov Help Center</a></p><p><a href=\"https://www.cheyennecity.org/Home/Tabs/Featured-Links/FAQ-Building-City-Clerk-Planning-Development-and-Engineering\" rel=\"noopener noreferrer\" target=\"_blank\">City Department FAQ page</a></p><p><span style=\"font-size: 24px;\">The Engineering Department provides construction plan review, engineering services for City projects, traffi"
+    },
+    {
+      "id": "1086",
+      "name": "Urban Forestry ",
+      "isEnabled": 1,
+      "content": "<p><a href=\"https://www.cheyennecity.org/Home/Tabs/Featured-Links/OpenGov-Help-Center\" rel=\"noopener noreferrer\" target=\"_blank\">OpenGov Help Center</a></p><p><a href=\"https://www.cheyennecity.org/Home/Tabs/Featured-Links/FAQ-Building-City-Clerk-Planning-Development-and-Engineering\" rel=\"noopener noreferrer\" target=\"_blank\">City Department FAQ page</a></p><p>Please complete a <a href=\"https://cheyennewy.viewpointcloud.com/categories/1082/record-types/6433\" rel=\"noopener noreferrer\" target=\"_blan"
+    },
+    {
+      "id": "1085",
+      "name": "Helpful Guides and Links",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 24px;\">Below are helpful links to get you started on the OpenGov platform!&nbsp;</span></p><p><span style=\"font-size: 24px;\">The links include step-by-step guides to create an OpenGov profile, make an online payment, and how to view an active application. The FAQ page is available to answer common questions constituents may have when working with the City&#39;s Building, City Clerk, Engineering, or Planning &amp; Development Department.</span></p><p><span style=\"font-s"
+    },
+    {
+      "id": "1082",
+      "name": "Planning and Development",
+      "isEnabled": 1,
+      "content": "<p><span style=\"font-size: 18px;\"><span style=\"font-family: Tahoma,Geneva,sans-serif;\"><span style=\"color: rgb(29, 29, 40); font-style: normal; font-variant-ligatures: normal; font-variant-caps: normal; font-weight: 400; letter-spacing: normal; text-align: start; text-indent: 0px; text-transform: none; white-space: normal; word-spacing: 0px; -webkit-text-stroke-width: 0px; background-color: rgb(255, 255, 255); text-decoration-thickness: initial; text-decoration-style: initial; text-decoration-co"
+    }
+  ],
+  "extractedAt": "2026-01-20T22:57:18.792Z",
+  "generalSettings": {
+    "id": 1
+  }
+}
