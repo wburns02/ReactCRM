@@ -1,9 +1,30 @@
 # National Septic OCR - Master Portal Tracker
 
-> **Last Updated:** 2026-01-20 20:54 UTC
+> **Last Updated:** 2026-01-20 21:00 UTC
 > **Phase:** 1 - Bulk Data Extraction (ACTIVE)
 > **Total Portals:** 533+
 > **Server:** 147.79.115.168 (scraping server) + 100.85.99.69 (GPU processing)
+
+---
+
+## Data Architecture
+
+**Single Source of Truth:** `root@100.85.99.69:~/scrapers/output/`
+
+| Location | Path | Size | Files | Purpose |
+|----------|------|------|-------|---------|
+| **Server (Primary)** | `100.85.99.69:~/scrapers/output/` | 20GB | 629 | Production data |
+| **Local Backup** | `H:\scraper_backup\` | 20GB | 629 | Backup copy |
+| **Working Copy** | `scrapers/output/` | 20GB | 555 | Dev/testing |
+
+**Sync Commands:**
+```bash
+# Upload local to server
+scp -r scrapers/output/* root@100.85.99.69:~/scrapers/output/
+
+# Download server to local backup
+scp -r root@100.85.99.69:~/scrapers/output/* /h/scraper_backup/
+```
 
 ---
 
@@ -12,11 +33,11 @@
 | Metric | Count |
 |--------|-------|
 | Portals Identified | 533+ |
-| Portals Processed | 12 |
+| Portals Processed | 15 |
 | Portals In Progress | 8 |
-| **Total Records Captured** | **4,711,783+** |
+| **Total Records Captured** | **4,730,857+** |
 | Records in CRM | 0 (pending ingest) |
-| Progress to 7M Goal | 67.3% |
+| Progress to 7M Goal | 67.6% |
 
 ### Captured Data Summary
 - **Florida DEP: 1,900,000 records** ✅ CAPTURED (local: scrapers/output/florida/ - 433MB)
@@ -26,6 +47,7 @@
 - **Williamson County TX: 3,095 records** ✅ CAPTURED (local: scrapers/output/mgo/williamson_county_*.ndjson)
 - **eBridge FL Counties: 5,089 records** ✅ CAPTURED (server: ~/scrapers/output/ebridge/ - 7 NDJSON files)
 - **Sonoma County CA: ~13,000 records** ✅ CAPTURED (local: scrapers/output/sonoma_county_ca_septic.json)
+- **EnerGov Portals: 19,074 records** ✅ CAPTURED (local: scrapers/output/energov/ - Wake NC 4,839 + Doral FL 4,887 + New Smyrna FL 9,348)
 
 ### Key Challenges
 - **Tennessee TDEC:** Server timing out
@@ -97,12 +119,12 @@
 
 | State | County/City | Portal URL | Platform | Username | Password | Login Tested | Scraper Exists | Est. Records | Phase 1 Status | Phase 2 Status | Sample Permit IDs | Notes |
 |-------|-------------|------------|----------|----------|----------|--------------|----------------|--------------|----------------|----------------|-------------------|-------|
-| NC | Wake County | https://wakecountync-energovpub.tylerhost.net/apps/SelfService | EnerGov | PUBLIC | N/A | YES | YES | **501,299** | **TESTED** | PENDING | VIO-005416-2025 | **CONFIRMED 501K permits via API!** |
+| NC | Wake County | https://wakecountync-energovpub.tylerhost.net/apps/SelfService | EnerGov | PUBLIC | N/A | YES | YES | **501,299** | **4,839 CAPTURED** | PENDING | VIO-005416-2025 | **501K total, 4,839 extracted** |
 | GA | Atlanta | https://atlantaga-energov.tylerhost.net/Apps/SelfService | EnerGov | PUBLIC | N/A | YES | YES | 100,000+ | **BLOCKED** | PENDING | - | Access Denied - CDN blocked, needs proxy |
 | NM | Albuquerque | https://cityofalbuquerquenm-energovweb.tylerhost.net/apps/selfservice | EnerGov | PUBLIC | N/A | YES | YES | 50,000+ | READY | PENDING | - | NM largest city |
 | FL | Doral | https://doralfl-energovweb.tylerhost.net/apps/SelfService | EnerGov | PUBLIC | N/A | YES | YES | **162,820** | **4,887 CAPTURED** | PENDING | CCSR-001592-2022 | **162K total permits! 4,887 extracted** |
 | CT | Hartford | https://hartfordct-energov.tylerhost.net/Apps/SelfService | EnerGov | PUBLIC | N/A | YES | YES | 40,000+ | READY | PENDING | - | CT capital |
-| FL | New Smyrna Beach | https://newsmyrnabeachfl-energovweb.tylerhost.net/apps/SelfService | EnerGov | PUBLIC | N/A | - | YES | 15,000+ | READY | PENDING | - | FL coastal |
+| FL | New Smyrna Beach | https://newsmyrnabeachfl-energovweb.tylerhost.net/apps/SelfService | EnerGov | PUBLIC | N/A | YES | YES | **35,232** | **9,348 CAPTURED** | PENDING | - | **35K total, 9,348 extracted** |
 | CA | Hayward | https://haywardca-energovpub.tylerhost.net/Apps/SelfService | EnerGov | PUBLIC | N/A | - | YES | 30,000+ | READY | PENDING | - | Bay Area |
 | CA | Yuba County | https://yubacountyca-energovweb.tylerhost.net/apps/SelfService | EnerGov | PUBLIC | N/A | - | YES | 20,000+ | READY | PENDING | - | CA county |
 | CA | Carson | https://cityofcarsonca-energovweb.tylerhost.net/apps/selfservice | EnerGov | PUBLIC | N/A | - | YES | 15,000+ | READY | PENDING | - | LA area |
@@ -252,6 +274,9 @@ npx tsx scrapers/energov/energov-playwright-scraper.ts --proxy
 | 2026-01-20 14:39 | Comal County TX | API DISCOVERY | SUCCESS | 119,000+ | **Found 4 JSON typeahead endpoints! PermitNumSearch.php, AddressSearch.php, NameSearch.php, SubnameSearch.php. Highest permit: 119291** |
 | 2026-01-20 15:02 | Comal County TX | LOCAL EXTRACTION | SUCCESS | 12,919 | Local extraction: 12,919 permits, 497 addresses, 275 owners |
 | 2026-01-20 15:05 | Comal County TX | SERVER EXTRACTION | IN_PROGRESS | - | Running on 100.85.99.69: ~/scrapers/output/texas/comal_county/ |
+| 2026-01-20 20:00 | Wake County NC | ENERGOV EXTRACTION | SUCCESS | 4,839 | Playwright scraper, 501K total available |
+| 2026-01-20 20:30 | Doral FL | ENERGOV EXTRACTION | SUCCESS | 4,887 | Playwright scraper, 162K total available |
+| 2026-01-20 21:00 | New Smyrna Beach FL | ENERGOV EXTRACTION | SUCCESS | 9,348 | Playwright scraper, 35K total available |
 
 ---
 
