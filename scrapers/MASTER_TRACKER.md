@@ -10,12 +10,19 @@
 ## Data Architecture
 
 **Single Source of Truth:** `root@100.85.99.69:~/scrapers/output/`
+**Last Full Sync:** 2026-01-21 11:45 UTC
 
 | Location | Path | Size | Files | Purpose |
 |----------|------|------|-------|---------|
-| **Server (Primary)** | `100.85.99.69:~/scrapers/output/` | 20GB | 629 | Production data |
-| **Local Backup** | `H:\scraper_backup\` | 20GB | 629 | Backup copy |
-| **Working Copy** | `scrapers/output/` | 20GB | 555 | Dev/testing |
+| **Server (Primary)** | `100.85.99.69:~/scrapers/output/` | 25GB | 1,124 | Production data |
+| **H: Backup** | `H:\scraper_backup\` | 25GB | 1,124 | Verified backup |
+| **Working Copy** | `scrapers/output/` | 26GB | 656 | Dev/testing |
+
+**Data Flow:**
+```
+LOCAL (26GB) ──scp──▶ SERVER (25GB) ──scp──▶ H: BACKUP (25GB)
+   656 files           1,124 files            1,124 files
+```
 
 **Sync Commands:**
 ```bash
@@ -25,6 +32,13 @@ scp -r scrapers/output/* root@100.85.99.69:~/scrapers/output/
 # Download server to local backup
 scp -r root@100.85.99.69:~/scrapers/output/* /h/scraper_backup/
 ```
+
+**Top Data Directories (Server):**
+- florida/ - 7.5 GB (1.9M records)
+- arizona/ - 4.5 GB (GIS parcel data)
+- williamson_county/ - 3.2 GB (property enrichment)
+- unified/ - 2.3 GB (SQLite databases)
+- multi_state/ - 2.2 GB (FL Health wastewater)
 
 ---
 
