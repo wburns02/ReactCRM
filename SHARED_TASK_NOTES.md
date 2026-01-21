@@ -211,12 +211,67 @@ curl -X POST \
 ```
 
 ### Notes
-- 6,627 permits (50.4%) could not be matched to properties
+- 6,279 permits (62.6%) could not be matched to properties
   - Many are for new construction (property may not exist in assessor records yet)
-  - Some have incomplete address information
+  - Some have incomplete or malformed address information
+  - Some are not real addresses (business names, permit descriptions, lot numbers only)
   - Some may be for adjacent vacant lots
-- The 3,908 matched properties represent properties with documented septic permits
-- Average ~1.66 permits per matched property (some properties have multiple permits)
+- The linked properties represent properties with documented septic permits
+- Average ~2.68 permits per matched property (some properties have multiple permits)
+
+---
+
+# Permit Linking Investigation - Session 4 (2026-01-21)
+
+## Question: Why were only 2,296 permits linked initially?
+
+### Root Causes Identified:
+
+1. **Limited Property Data**: Only 3,908 pre-matched properties were imported initially (from `matched_properties.ndjson`)
+
+2. **Address Format Mismatch**: Permit addresses contain extra text not in property data:
+   - Parenthetical prefixes: `(stck 401) 7243 Murrel Drive`
+   - Parenthetical suffixes: `7277 Murrel Drive (stck 312)`
+   - Lot/tract info: `Starnes Creek lot 101 at 7200 Murrel Drive`
+   - District/map info: `1000 Barrel Springs Hollow Rd District 06 Map No 051A`
+
+3. **Non-Address Permits**: Many permit "addresses" are not real addresses:
+   - Business names: `BLOSSOM AESTHETICS`
+   - Permit descriptions: `BUDS FARM LN SEPTIC LID REPLACEMENT`
+   - Telecom projects: `CROWN 817444_546491_VERIZON WIRELESS_ANTENNA ADD`
+   - Lot-only references: `(LOT 5 BURWOOD PL MIN REV-ALEX HALL)`
+
+### Actions Taken:
+
+1. **Created improved address cleaning** (`improved_permit_linking.py`):
+   - Strips parenthetical content
+   - Extracts street address after "at" keyword
+   - Removes LOT/TRACT/PHASE/UNIT patterns
+   - Standard abbreviation normalization
+
+2. **Imported full ArcGIS property dataset** (`ingest_all_properties.py`):
+   - Expanded from 3,908 to 32,323 properties
+
+3. **Re-ran permit linking** with improved matching
+
+### Results:
+
+| Metric | Before | After | Change |
+|--------|--------|-------|--------|
+| Properties in DB | 3,908 | 32,323 | +28,415 |
+| Permits linked | 2,296 | 3,750 | +1,454 |
+| Link rate | 22.9% | 37.4% | +14.5% |
+
+### Why ~63% Still Unlinked:
+
+1. **New construction**: Permits for properties not yet in assessor database
+2. **Invalid addresses**: Non-standard permit descriptions used as addresses
+3. **Vacant land**: Lot-only references without street addresses
+4. **Commercial/industrial**: Business names instead of street addresses
+
+### Scripts Created:
+- `scrapers/williamson/improved_permit_linking.py` - Address cleaning and matching
+- `scrapers/williamson/ingest_all_properties.py` - Full property ingestion
 
 ---
 
