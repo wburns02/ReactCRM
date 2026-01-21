@@ -159,6 +159,96 @@ export function usePermitHistory(id: string | undefined) {
 }
 
 /**
+ * Property data linked to a permit
+ */
+export interface PermitProperty {
+  permit_id: string;
+  property: {
+    id: string;
+    address: string | null;
+    address_normalized: string | null;
+    street_number: string | null;
+    street_name: string | null;
+    city: string | null;
+    zip_code: string | null;
+    subdivision: string | null;
+    parcel_id: string | null;
+    gis_link: string | null;
+    latitude: number | null;
+    longitude: number | null;
+    year_built: number | null;
+    square_footage: number | null;
+    bedrooms: number | null;
+    bathrooms: number | null;
+    stories: number | null;
+    foundation_type: string | null;
+    construction_type: string | null;
+    lot_size_acres: number | null;
+    lot_size_sqft: number | null;
+    calculated_acres: number | null;
+    assessed_value: number | null;
+    assessed_land: number | null;
+    assessed_improvement: number | null;
+    market_value: number | null;
+    market_land: number | null;
+    market_improvement: number | null;
+    last_assessed_date: string | null;
+    owner_name: string | null;
+    owner_name_2: string | null;
+    owner_mailing_address: string | null;
+    owner_city: string | null;
+    owner_state: string | null;
+    owner_zip: string | null;
+    last_sale_date: string | null;
+    last_sale_price: number | null;
+    deed_book: string | null;
+    deed_page: string | null;
+    property_type: string | null;
+    property_type_code: string | null;
+    parcel_type: string | null;
+    zoning: string | null;
+    data_quality_score: number | null;
+    has_building_details: boolean;
+    source_portal_code: string | null;
+    scraped_at: string | null;
+  } | null;
+  all_permits: Array<{
+    id: string;
+    permit_number: string | null;
+    address: string | null;
+    city: string | null;
+    state_code: string | null;
+    county_name: string | null;
+    owner_name: string | null;
+    permit_date: string | null;
+    install_date: string | null;
+    system_type: string | null;
+    tank_size_gallons: number | null;
+    drainfield_size_sqft: number | null;
+    permit_url: string | null;
+    pdf_url: string | null;
+    is_current: boolean;
+  }>;
+  total_permits: number;
+  message?: string;
+}
+
+/**
+ * Fetch linked property for a permit
+ */
+export function usePermitProperty(id: string | undefined) {
+  return useQuery({
+    queryKey: [...permitKeys.detail(id!), "property"],
+    queryFn: async (): Promise<PermitProperty> => {
+      const { data } = await apiClient.get(`/permits/${id}/property`);
+      return data;
+    },
+    enabled: !!id,
+    staleTime: 60_000, // 1 minute
+  });
+}
+
+/**
  * Fetch dashboard statistics
  */
 export function usePermitStats() {

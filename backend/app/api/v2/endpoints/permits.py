@@ -215,6 +215,159 @@ async def get_permit_history(
         )
 
 
+@router.get("/{permit_id}/property")
+async def get_permit_property(
+    permit_id: UUID,
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_active_user)
+):
+    """
+    Get the linked property for a permit.
+
+    Returns full property details plus all permits linked to that property.
+    Returns null for property if permit has no linked property.
+    """
+    from app.models.property import Property
+
+    try:
+        # Get permit
+        permit = db.query(SepticPermit).filter(SepticPermit.id == permit_id).first()
+        if not permit:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"Permit {permit_id} not found"
+            )
+
+        # Check if permit has linked property
+        if not permit.property_id:
+            return {
+                "permit_id": str(permit_id),
+                "property": None,
+                "all_permits": [],
+                "message": "No property linked to this permit"
+            }
+
+        # Get property
+        prop = db.query(Property).filter(
+            Property.id == permit.property_id,
+            Property.is_active == True
+        ).first()
+
+        if not prop:
+            return {
+                "permit_id": str(permit_id),
+                "property": None,
+                "all_permits": [],
+                "message": "Linked property not found"
+            }
+
+        # Get all permits for this property
+        all_permits = db.query(SepticPermit).filter(
+            SepticPermit.property_id == prop.id,
+            SepticPermit.is_active == True
+        ).order_by(SepticPermit.permit_date.desc()).all()
+
+        permit_list = []
+        for p in all_permits:
+            state = db.query(State).filter(State.id == p.state_id).first()
+            county = db.query(County).filter(County.id == p.county_id).first() if p.county_id else None
+
+            permit_list.append({
+                "id": str(p.id),
+                "permit_number": p.permit_number,
+                "address": p.address,
+                "city": p.city,
+                "state_code": state.code if state else None,
+                "county_name": county.name if county else None,
+                "owner_name": p.owner_name,
+                "permit_date": p.permit_date.isoformat() if p.permit_date else None,
+                "install_date": p.install_date.isoformat() if p.install_date else None,
+                "system_type": p.system_type_raw,
+                "tank_size_gallons": p.tank_size_gallons,
+                "drainfield_size_sqft": p.drainfield_size_sqft,
+                "permit_url": p.permit_url,
+                "pdf_url": p.pdf_url,
+                "is_current": str(p.id) == str(permit_id)
+            })
+
+        # Build property response
+        property_data = {
+            "id": str(prop.id),
+            # Address info
+            "address": prop.address,
+            "address_normalized": prop.address_normalized,
+            "street_number": prop.street_number,
+            "street_name": prop.street_name,
+            "city": prop.city,
+            "zip_code": prop.zip_code,
+            "subdivision": prop.subdivision,
+            # Parcel info
+            "parcel_id": prop.parcel_id,
+            "gis_link": prop.gis_link,
+            # Coordinates
+            "latitude": prop.latitude or prop.centroid_lat,
+            "longitude": prop.longitude or prop.centroid_lon,
+            # Building details
+            "year_built": prop.year_built,
+            "square_footage": prop.square_footage,
+            "bedrooms": prop.bedrooms,
+            "bathrooms": prop.bathrooms,
+            "stories": prop.stories,
+            "foundation_type": prop.foundation_type,
+            "construction_type": prop.construction_type,
+            # Lot details
+            "lot_size_acres": prop.lot_size_acres,
+            "lot_size_sqft": prop.lot_size_sqft,
+            "calculated_acres": prop.calculated_acres,
+            # Assessment
+            "assessed_value": prop.assessed_value,
+            "assessed_land": prop.assessed_land,
+            "assessed_improvement": prop.assessed_improvement,
+            "market_value": prop.market_value,
+            "market_land": prop.market_land,
+            "market_improvement": prop.market_improvement,
+            "last_assessed_date": prop.last_assessed_date.isoformat() if prop.last_assessed_date else None,
+            # Owner info
+            "owner_name": prop.owner_name,
+            "owner_name_2": prop.owner_name_2,
+            "owner_mailing_address": prop.owner_mailing_address,
+            "owner_city": prop.owner_city,
+            "owner_state": prop.owner_state,
+            "owner_zip": prop.owner_zip,
+            # Transfer info
+            "last_sale_date": prop.last_sale_date.isoformat() if prop.last_sale_date else None,
+            "last_sale_price": prop.last_sale_price,
+            "deed_book": prop.deed_book,
+            "deed_page": prop.deed_page,
+            # Property type
+            "property_type": prop.property_type,
+            "property_type_code": prop.property_type_code,
+            "parcel_type": prop.parcel_type,
+            "zoning": prop.zoning,
+            # Data quality
+            "data_quality_score": prop.data_quality_score,
+            "has_building_details": prop.has_building_details,
+            "source_portal_code": prop.source_portal_code,
+            "scraped_at": prop.scraped_at.isoformat() if prop.scraped_at else None
+        }
+
+        return {
+            "permit_id": str(permit_id),
+            "property": property_data,
+            "all_permits": permit_list,
+            "total_permits": len(permit_list)
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Failed to get property for permit {permit_id}: {e}")
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail="Failed to retrieve property"
+        )
+
+
 # ===== STATISTICS =====
 
 @router.get("/stats/overview", response_model=PermitStatsOverview)

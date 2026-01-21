@@ -1,7 +1,8 @@
 import { useParams, Link } from "react-router-dom";
-import { usePermit, usePermitHistory } from "@/api/hooks/usePermits";
+import { usePermit, usePermitHistory, usePermitProperty } from "@/api/hooks/usePermits";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { PropertyDetailPanel } from "./components/PropertyDetailPanel";
 
 /**
  * Permit detail page - shows full permit information
@@ -10,10 +11,11 @@ export function PermitDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { data: permit, isLoading, error } = usePermit(id);
   const { data: history } = usePermitHistory(id);
+  const { data: propertyData, isLoading: propertyLoading } = usePermitProperty(id);
 
   if (isLoading) {
     return (
-      <div className="p-6 max-w-4xl mx-auto">
+      <div className="p-6 max-w-6xl mx-auto">
         <Card className="p-8 text-center">
           <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-blue-600 mx-auto mb-4"></div>
           <p className="text-gray-500">Loading permit details...</p>
@@ -24,7 +26,7 @@ export function PermitDetailPage() {
 
   if (error || !permit) {
     return (
-      <div className="p-6 max-w-4xl mx-auto">
+      <div className="p-6 max-w-6xl mx-auto">
         <Card className="p-8 text-center">
           <p className="text-red-500 mb-4">Failed to load permit</p>
           <Link to="/permits">
@@ -36,7 +38,7 @@ export function PermitDetailPage() {
   }
 
   return (
-    <div className="p-6 max-w-4xl mx-auto">
+    <div className="p-6 max-w-6xl mx-auto">
       {/* Breadcrumb */}
       <div className="mb-4">
         <Link to="/permits" className="text-blue-600 hover:text-blue-800">
@@ -321,6 +323,9 @@ export function PermitDetailPage() {
           </div>
         </Card>
       )}
+
+      {/* Linked Property Details */}
+      <PropertyDetailPanel data={propertyData} isLoading={propertyLoading} />
     </div>
   );
 }
