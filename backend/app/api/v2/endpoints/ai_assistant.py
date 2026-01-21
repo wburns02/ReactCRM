@@ -356,8 +356,8 @@ async def create_action(
 @router.post("/actions/{action_id}/execute", response_model=ActionResponse)
 async def execute_action(
     action_id: UUID,
-    execution_context: Optional[Dict[str, Any]] = None,
     background_tasks: BackgroundTasks,
+    execution_context: Optional[Dict[str, Any]] = None,
     current_user: User = Depends(get_current_active_user),
     db: Session = Depends(get_db)
 ):
