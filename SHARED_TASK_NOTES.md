@@ -733,3 +733,73 @@ ssh will@100.85.99.69 "cd ~/mgo_extraction/mgo && python3 generate-report.py"
 
 *Report generated: 2026-01-21*
 *Data source: Live server check + local file analysis*
+
+---
+
+## MGO Scraper Investigation & Fix - Session (2026-01-21 14:00 UTC)
+
+### Root Cause Analysis
+
+**Why the scrapers stopped:**
+
+1. **Error handling stopped extraction prematurely**: When 500/503/504 server errors occurred after exhausting retries, the catch block set `hasMore = false`, which stopped extraction for the entire project type instead of skipping the problematic offset.
+
+2. **No retry for server errors**: The `fetchWithRetry` function only handled 403 (proxy blocked) and 429 (rate limit) with automatic retries. For 500/503/504 errors (MGO server issues), it threw immediately after max retries.
+
+3. **Logs showed repeated server errors**:
+   ```
+   Error: Search failed: 500
+   Error: Search failed: 503
+   Error: Search failed: 504
+   ```
+
+### Fixes Applied
+
+1. **Added 500+ error handling in `fetchWithRetry`**:
+   - Now retries on 500/503/504 with exponential backoff (5s, 10s, 20s...)
+   - Uses same retry loop as 403/429 handling
+
+2. **Improved extraction loop error handling**:
+   - Track consecutive errors per project type
+   - Skip problematic offset and continue to next offset
+   - Only abandon project type after 3 consecutive errors
+   - Reset error count on any successful request
+
+### Files Modified
+
+- `scrapers/mgo/mgo-priority-scraper.ts`
+- `scrapers/mgo/mgo-full-scraper.ts`
+
+### Deployment
+
+Both fixed scrapers deployed to server and restarted:
+
+```bash
+# Priority scraper (TX + TN) - using ports 10006-10010
+ssh will@100.85.99.69 "cd ~/mgo_extraction/mgo && nohup npx tsx mgo-priority-scraper.ts > priority_extraction.log 2>&1 &"
+
+# Full scraper (all 432 jurisdictions) - using ports 10001-10010
+ssh will@100.85.99.69 "cd ~/mgo_extraction/mgo && nohup npx tsx mgo-full-scraper.ts > scraper.log 2>&1 &"
+```
+
+### Verification
+
+Both scrapers confirmed running and extracting data:
+- Priority: Extracting "City of West Lake Hills (TX)" at 42/116
+- Full: Extracting "Juno Beach (FL)" at 29/433
+
+### Monitoring Commands
+
+```bash
+# Check both processes
+ssh will@100.85.99.69 "ps aux | grep -E 'mgo-(priority|full)' | grep -v grep"
+
+# Watch priority log
+ssh will@100.85.99.69 "tail -f ~/mgo_extraction/mgo/priority_extraction.log"
+
+# Watch full log
+ssh will@100.85.99.69 "tail -f ~/mgo_extraction/mgo/scraper.log"
+
+# Count extracted records
+ssh will@100.85.99.69 "wc -l ~/mgo_extraction/mgo/scrapers/output/mgo/priority_extraction/*.ndjson | tail -1"
+```
