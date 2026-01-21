@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import type { PermitSearchResponse, PermitSearchResult } from "@/api/types/permit";
@@ -13,6 +13,8 @@ interface PermitResultsProps {
  * Display search results in a table with pagination
  */
 export function PermitResults({ data, isLoading, onPageChange }: PermitResultsProps) {
+  const navigate = useNavigate();
+
   if (isLoading) {
     return (
       <Card className="p-8 text-center">
@@ -78,14 +80,15 @@ export function PermitResults({ data, isLoading, onPageChange }: PermitResultsPr
           </thead>
           <tbody className="bg-white divide-y divide-gray-200">
             {data.results.map((result: PermitSearchResult) => (
-              <tr key={result.permit.id} className="hover:bg-gray-50">
+              <tr
+                key={result.permit.id}
+                className="hover:bg-blue-50 cursor-pointer transition-colors"
+                onClick={() => navigate(`/permits/${result.permit.id}`)}
+              >
                 <td className="px-4 py-3 whitespace-nowrap">
-                  <Link
-                    to={`/permits/${result.permit.id}`}
-                    className="text-blue-600 hover:text-blue-800 font-medium"
-                  >
+                  <span className="text-blue-600 font-medium">
                     {result.permit.permit_number || "N/A"}
-                  </Link>
+                  </span>
                 </td>
                 <td className="px-4 py-3">
                   <div className="text-sm text-gray-900 max-w-xs truncate">
