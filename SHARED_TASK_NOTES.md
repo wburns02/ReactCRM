@@ -275,6 +275,87 @@ curl -X POST \
 
 ---
 
+# Enhanced Permit Linking - Session 5 (2026-01-21)
+
+## Challenge: "63% New Construction" Claim Debunked
+
+The claim that 63% of unlinked permits were "new construction" was **FALSE**. Deep analysis revealed:
+
+1. **Broken `clean_address()` function** - didn't strip:
+   - Subdivision names after street suffix (e.g., "MAYBERRY LN Mayberry Station")
+   - City/state/zip (e.g., "Franklin, TN 37067")
+   - Underscore/dash descriptions
+   - Owner names appended to addresses
+
+2. **No fuzzy matching** - minor variations caused misses
+
+3. **Incomplete property data** - Only 32,323 properties vs expected ~150,000
+
+## Solution: Enhanced Permit Linking Script
+
+Created `enhanced_permit_linking.py` with:
+- Fixed address cleaning (15+ new regex patterns)
+- RapidFuzz for high-performance fuzzy matching
+- Street key matching as fallback
+- Proper classification of unmatchable permits
+
+## Results
+
+| Metric | Before | After | Improvement |
+|--------|--------|-------|-------------|
+| Raw Link Rate | 37.4% | **64.8%** | +27.4pp |
+| Effective Link Rate | ~40% | **73.1%** | +33.1pp |
+| Total Linked | 3,750 | **6,495** | +2,745 |
+
+### Matching Breakdown
+
+| Method | Count |
+|--------|-------|
+| Already linked | 3,750 |
+| Exact matches | 515 |
+| Fuzzy high (≥95%) | 336 |
+| Fuzzy medium (85-94%) | 1,114 |
+| Street key unique | 780 |
+| Unmatched | 3,534 |
+
+### Unmatchable Categories
+
+| Category | Count | Description |
+|----------|-------|-------------|
+| Infrastructure | 91 | Cell towers, utilities |
+| Person only | 794 | Just names, no address |
+| Lot only | 138 | Lot reference without street |
+| Non-permit | 132 | Inquiries, requirements |
+| Development | 125 | Plats, phases, subdivisions |
+| New construction | 828 | Valid address, no property match |
+| Addressable | 1,426 | Should be linkable with more data |
+
+### Key Findings
+
+1. **Only ~8% are true new construction** (828/10,029), not 63%
+2. **11.4% are legitimately unmatchable** (1,142 infrastructure/person/non-permit/development)
+3. **Property database incomplete**: 32,323 vs expected ~150,000 parcels
+4. **Remaining addressable permits** (1,426) require fuller property dataset
+
+### Realistic Benchmarks
+
+- Annual new single-family permits in Williamson County TN: ~1,500-3,000/year
+- Over 3-5 years = ~8-12k new units MAX
+- 63% new construction was never realistic
+
+### Scripts
+
+- `scrapers/williamson/enhanced_permit_linking.py` - Complete rewrite with fixes
+- Used RapidFuzz for 5-20x faster fuzzy matching
+
+### Next Steps to Reach 85%+
+
+1. Pull complete property dataset from Williamson County Property Assessor
+2. Current ArcGIS data has only 32k of ~150k expected parcels
+3. With full property data, effective rate should reach 85-92%
+
+---
+
 # Property Data Ingestion - Session 3 (2026-01-20)
 
 ## Summary
