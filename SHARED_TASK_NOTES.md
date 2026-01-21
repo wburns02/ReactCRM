@@ -396,3 +396,57 @@ property_address    | property_owner               | permit_address
 - Fix Railway deployment failures so API endpoints work
 - Build frontend components to display property data
 - Add more counties with property data enrichment
+
+---
+
+# EnerGov Scraper Deployment - Session 6 (2026-01-21)
+
+## Status: RUNNING ✅
+
+**Server:** 100.85.99.69 (Tailscale)
+**Started:** 2026-01-21 ~14:16 UTC
+**Working Dir:** ~/energov_scraper
+
+## Discovered Data Volumes
+
+| Portal | Permits Found | Total Pages |
+|--------|--------------|-------------|
+| Wake County NC | 501,363 | 292,145 |
+| Doral FL | 162,834 | 109,048 |
+| Atlanta GA | ~100,000 (estimated) | TBD |
+| + 22 more portals | TBD | TBD |
+
+**Total estimated: 1M+ permits across all 25 portals**
+
+## Monitoring Commands
+
+```bash
+# Check if scraper is running
+ssh will@100.85.99.69 "ps aux | grep energov | grep -v grep"
+
+# View recent log output
+ssh will@100.85.99.69 "tail -100 ~/energov_scraper/energov_extraction.log"
+
+# Count extracted records
+ssh will@100.85.99.69 "wc -l ~/energov_scraper/scrapers/output/energov/*.ndjson"
+
+# Check disk space
+ssh will@100.85.99.69 "df -h ~"
+```
+
+## Other Running Scrapers on Server
+
+1. **MGO Scraper** (mgo-full-scraper.ts) - Running since Jan 20
+2. **MGO Priority Scraper** (mgo-priority-scraper.ts) - Running since Jan 20
+3. **Hamilton TN Scraper** (hamilton-tn-scraper.ts) - Running since Jan 21
+
+## Files Deployed
+
+- ~/energov_scraper/energov-config.ts (25 portal configurations)
+- ~/energov_scraper/energov-playwright-scraper.ts (Playwright extraction)
+
+## Issues Log
+
+_No issues yet - scraper started successfully_
+
+## Next Check: 30 mins from start (~14:45 UTC)
