@@ -54,8 +54,8 @@ export const ENERGOV_PORTALS: EnerGovPortalConfig[] = [
     pageSize: 100,
     paginationStyle: 'page',
     estimatedRecords: 100000,
-    enabled: true,
-    notes: 'Major metro - business services'
+    enabled: false,
+    notes: 'DISABLED - Uses Accela system, not EnerGov'
   },
   {
     id: 'albuquerque_nm',
@@ -158,8 +158,8 @@ export const ENERGOV_PORTALS: EnerGovPortalConfig[] = [
     pageSize: 100,
     paginationStyle: 'page',
     estimatedRecords: 60000,
-    enabled: true,
-    notes: 'NC state capital'
+    enabled: false,
+    notes: 'DISABLED - Portal returns 403 Forbidden'
   },
 
   // TIER 2: Self-Hosted Portals
@@ -195,14 +195,14 @@ export const ENERGOV_PORTALS: EnerGovPortalConfig[] = [
     id: 'cape_coral_fl',
     name: 'Cape Coral',
     state: 'FL',
-    baseUrl: 'https://capepermits.capecoral.gov',
-    apiBase: '/SelfService/api',
+    baseUrl: 'https://energovweb.capecoral.gov',
+    apiBase: '/EnerGovProd/selfservice/api',
     authRequired: false,
     pageSize: 100,
     paginationStyle: 'page',
     estimatedRecords: 40000,
     enabled: true,
-    notes: 'Large FL city'
+    notes: 'Large FL city - corrected URL'
   },
   {
     id: 'boulder_co',
@@ -221,14 +221,14 @@ export const ENERGOV_PORTALS: EnerGovPortalConfig[] = [
     id: 'st_lucie_county_fl',
     name: 'St. Lucie County',
     state: 'FL',
-    baseUrl: 'https://stlucieco-energovweb.tylerhost.net',
-    apiBase: '/apps/SelfService/api',
+    baseUrl: 'https://stluciecountyfl-energovpub.tylerhost.net',
+    apiBase: '/Apps/SelfService/api',
     authRequired: false,
     pageSize: 100,
     paginationStyle: 'page',
     estimatedRecords: 50000,
     enabled: true,
-    notes: 'FL county'
+    notes: 'FL county - corrected URL'
   },
   {
     id: 'columbia_mo',
@@ -240,8 +240,8 @@ export const ENERGOV_PORTALS: EnerGovPortalConfig[] = [
     pageSize: 100,
     paginationStyle: 'page',
     estimatedRecords: 25000,
-    enabled: true,
-    notes: 'MO university city'
+    enabled: false,
+    notes: 'DISABLED - DNS resolution failure'
   },
   {
     id: 'hialeah_fl',
@@ -253,8 +253,8 @@ export const ENERGOV_PORTALS: EnerGovPortalConfig[] = [
     pageSize: 100,
     paginationStyle: 'page',
     estimatedRecords: 45000,
-    enabled: true,
-    notes: 'Major FL city'
+    enabled: false,
+    notes: 'DISABLED - Uses custom portal, not EnerGov'
   },
   {
     id: 'elmhurst_il',

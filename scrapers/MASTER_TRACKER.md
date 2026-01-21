@@ -1,6 +1,6 @@
 # National Septic OCR - Master Portal Tracker
 
-> **Last Updated:** 2026-01-20 21:00 UTC
+> **Last Updated:** 2026-01-21 16:30 UTC
 > **Phase:** 1 - Bulk Data Extraction (ACTIVE)
 > **Total Portals:** 533+
 > **Server:** 147.79.115.168 (scraping server) + 100.85.99.69 (GPU processing)
@@ -35,9 +35,9 @@ scp -r root@100.85.99.69:~/scrapers/output/* /h/scraper_backup/
 | Portals Identified | 533+ |
 | Portals Processed | 15 |
 | Portals In Progress | 8 |
-| **Total Records Captured** | **4,745,005+** |
+| **Total Records Captured** | **4,897,806+** |
 | Records in CRM | 0 (pending ingest) |
-| Progress to 7M Goal | 67.8% |
+| Progress to 7M Goal | 70.0% |
 
 ### Captured Data Summary
 - **Florida DEP: 1,900,000 records** ✅ CAPTURED (local: scrapers/output/florida/ - 433MB)
@@ -47,7 +47,7 @@ scp -r root@100.85.99.69:~/scrapers/output/* /h/scraper_backup/
 - **Williamson County TX: 3,095 records** ✅ CAPTURED (local: scrapers/output/mgo/williamson_county_*.ndjson)
 - **eBridge FL Counties: 5,089 records** ✅ CAPTURED (server: ~/scrapers/output/ebridge/ - 7 NDJSON files)
 - **Sonoma County CA: ~13,000 records** ✅ CAPTURED (local: scrapers/output/sonoma_county_ca_septic.json)
-- **EnerGov Portals: 33,222 records** ✅ CAPTURED (local: scrapers/output/energov/ - Wake NC 4,839 + Doral FL 4,887 + New Smyrna FL 9,348 + Carson CA 9,178 + Albuquerque NM 4,970)
+- **EnerGov Portals: 186,000+ records** 🔄 EXTRACTING (server: ~/scrapers/output/energov/ + ~/energov_scraper/ - 14 portals active, running on GPU server)
 
 ### Key Challenges
 - **Tennessee TDEC:** Server timing out
