@@ -35,9 +35,9 @@ scp -r root@100.85.99.69:~/scrapers/output/* /h/scraper_backup/
 | Portals Identified | 533+ |
 | Portals Processed | 15 |
 | Portals In Progress | 8 |
-| **Total Records Captured** | **4,730,857+** |
+| **Total Records Captured** | **4,745,005+** |
 | Records in CRM | 0 (pending ingest) |
-| Progress to 7M Goal | 67.6% |
+| Progress to 7M Goal | 67.8% |
 
 ### Captured Data Summary
 - **Florida DEP: 1,900,000 records** ✅ CAPTURED (local: scrapers/output/florida/ - 433MB)
@@ -47,7 +47,7 @@ scp -r root@100.85.99.69:~/scrapers/output/* /h/scraper_backup/
 - **Williamson County TX: 3,095 records** ✅ CAPTURED (local: scrapers/output/mgo/williamson_county_*.ndjson)
 - **eBridge FL Counties: 5,089 records** ✅ CAPTURED (server: ~/scrapers/output/ebridge/ - 7 NDJSON files)
 - **Sonoma County CA: ~13,000 records** ✅ CAPTURED (local: scrapers/output/sonoma_county_ca_septic.json)
-- **EnerGov Portals: 19,074 records** ✅ CAPTURED (local: scrapers/output/energov/ - Wake NC 4,839 + Doral FL 4,887 + New Smyrna FL 9,348)
+- **EnerGov Portals: 33,222 records** ✅ CAPTURED (local: scrapers/output/energov/ - Wake NC 4,839 + Doral FL 4,887 + New Smyrna FL 9,348 + Carson CA 9,178 + Albuquerque NM 4,970)
 
 ### Key Challenges
 - **Tennessee TDEC:** Server timing out
@@ -121,13 +121,13 @@ scp -r root@100.85.99.69:~/scrapers/output/* /h/scraper_backup/
 |-------|-------------|------------|----------|----------|----------|--------------|----------------|--------------|----------------|----------------|-------------------|-------|
 | NC | Wake County | https://wakecountync-energovpub.tylerhost.net/apps/SelfService | EnerGov | PUBLIC | N/A | YES | YES | **501,299** | **4,839 CAPTURED** | PENDING | VIO-005416-2025 | **501K total, 4,839 extracted** |
 | GA | Atlanta | https://atlantaga-energov.tylerhost.net/Apps/SelfService | EnerGov | PUBLIC | N/A | YES | YES | 100,000+ | **BLOCKED** | PENDING | - | Access Denied - CDN blocked, needs proxy |
-| NM | Albuquerque | https://cityofalbuquerquenm-energovweb.tylerhost.net/apps/selfservice | EnerGov | PUBLIC | N/A | YES | YES | 50,000+ | READY | PENDING | - | NM largest city |
+| NM | Albuquerque | https://cityofalbuquerquenm-energovweb.tylerhost.net/apps/selfservice | EnerGov | PUBLIC | N/A | YES | YES | **467,549** | **4,970 CAPTURED** | PENDING | - | **467K total permits! 4,970 extracted** |
 | FL | Doral | https://doralfl-energovweb.tylerhost.net/apps/SelfService | EnerGov | PUBLIC | N/A | YES | YES | **162,820** | **4,887 CAPTURED** | PENDING | CCSR-001592-2022 | **162K total permits! 4,887 extracted** |
-| CT | Hartford | https://hartfordct-energov.tylerhost.net/Apps/SelfService | EnerGov | PUBLIC | N/A | YES | YES | 40,000+ | READY | PENDING | - | CT capital |
+| CT | Hartford | https://hartfordct-energov.tylerhost.net/Apps/SelfService | EnerGov | PUBLIC | N/A | YES | YES | 40,000+ | **FAILED** | PENDING | - | DNS not resolving - portal may be down |
 | FL | New Smyrna Beach | https://newsmyrnabeachfl-energovweb.tylerhost.net/apps/SelfService | EnerGov | PUBLIC | N/A | YES | YES | **35,232** | **9,348 CAPTURED** | PENDING | - | **35K total, 9,348 extracted** |
-| CA | Hayward | https://haywardca-energovpub.tylerhost.net/Apps/SelfService | EnerGov | PUBLIC | N/A | - | YES | 30,000+ | READY | PENDING | - | Bay Area |
-| CA | Yuba County | https://yubacountyca-energovweb.tylerhost.net/apps/SelfService | EnerGov | PUBLIC | N/A | - | YES | 20,000+ | READY | PENDING | - | CA county |
-| CA | Carson | https://cityofcarsonca-energovweb.tylerhost.net/apps/selfservice | EnerGov | PUBLIC | N/A | - | YES | 15,000+ | READY | PENDING | - | LA area |
+| CA | Hayward | https://haywardca-energovpub.tylerhost.net/Apps/SelfService | EnerGov | PUBLIC | N/A | YES | YES | 30,000+ | **FAILED** | PENDING | - | Different UI structure - no search input found |
+| CA | Yuba County | https://yubacountyca-energovweb.tylerhost.net/apps/SelfService | EnerGov | PUBLIC | N/A | YES | YES | 20,000+ | **FAILED** | PENDING | - | Different UI structure - no search input found |
+| CA | Carson | https://cityofcarsonca-energovweb.tylerhost.net/apps/selfservice | EnerGov | PUBLIC | N/A | YES | YES | **7,590** | **9,178 CAPTURED** | PENDING | - | **7.6K total permits, 9,178 extracted** |
 | NC | Raleigh | https://raleighnc-energov.tylerhost.net/apps/SelfService | EnerGov | PUBLIC | N/A | - | YES | 60,000+ | READY | PENDING | - | NC capital |
 
 ### Self-Hosted EnerGov Portals
@@ -277,6 +277,11 @@ npx tsx scrapers/energov/energov-playwright-scraper.ts --proxy
 | 2026-01-20 20:00 | Wake County NC | ENERGOV EXTRACTION | SUCCESS | 4,839 | Playwright scraper, 501K total available |
 | 2026-01-20 20:30 | Doral FL | ENERGOV EXTRACTION | SUCCESS | 4,887 | Playwright scraper, 162K total available |
 | 2026-01-20 21:00 | New Smyrna Beach FL | ENERGOV EXTRACTION | SUCCESS | 9,348 | Playwright scraper, 35K total available |
+| 2026-01-20 22:00 | Hartford CT | ENERGOV TEST | FAILED | 0 | DNS not resolving - portal may be down |
+| 2026-01-20 22:00 | Hayward CA | ENERGOV TEST | FAILED | 0 | Different UI structure - no search input |
+| 2026-01-20 22:00 | Yuba County CA | ENERGOV TEST | FAILED | 0 | Different UI structure - no search input |
+| 2026-01-20 22:33 | Carson CA | ENERGOV EXTRACTION | SUCCESS | 9,178 | Playwright scraper, 7.6K total available |
+| 2026-01-20 22:26 | Albuquerque NM | ENERGOV EXTRACTION | SUCCESS | 4,970 | Playwright scraper, **467K total available!** |
 
 ---
 
