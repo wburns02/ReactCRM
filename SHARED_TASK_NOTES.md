@@ -217,3 +217,46 @@ curl -X POST \
   - Some may be for adjacent vacant lots
 - The 3,908 matched properties represent properties with documented septic permits
 - Average ~1.66 permits per matched property (some properties have multiple permits)
+
+---
+
+# Property Data Ingestion - Session 3 (2026-01-20)
+
+## Summary
+
+Successfully ingested matched properties directly into the production database and linked permits.
+
+### Database Migration
+- Created `properties` table with 50+ fields via SQL migration
+- Added `property_id` FK to `septic_permits` table
+- Created deduplication and search indexes
+
+### Direct Ingestion Results
+
+| Metric | Count |
+|--------|-------|
+| Properties inserted | 3,908 |
+| Permits linked | 2,296 |
+| Total Williamson permits | 10,029 |
+
+### Scripts Created
+- `scrapers/williamson/direct_ingestion.py` - Direct database ingestion script
+- `backend/alembic/versions/b2c3d4e5f6a7_properties_table.sql` - SQL migration
+
+### Why Direct Ingestion?
+The Railway API deployments were failing, preventing the `/properties/batch` endpoint from being deployed. Direct database insertion bypassed this issue.
+
+### Verification
+Sample linked records:
+```
+property_address    | property_owner               | permit_address
+--------------------+------------------------------+-----------------------
+2221 OAKBRANCH CIR  | BRYANT DIANE                 | 2221 oakbranch circle
+1116 SETTLERS CT    | DORRIS MICHAEL W             | 1116 settlers court
+1607 ROSEBROOKE DR  | SIPPLE HOMES RB LLC          | 1607 Rosebrooke Dr
+```
+
+### Future Work
+- Fix Railway deployment failures so API endpoints work
+- Build frontend components to display property data
+- Add more counties with property data enrichment
