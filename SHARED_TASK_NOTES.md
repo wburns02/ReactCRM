@@ -450,3 +450,286 @@ ssh will@100.85.99.69 "df -h ~"
 _No issues yet - scraper started successfully_
 
 ## Next Check: 30 mins from start (~14:45 UTC)
+
+---
+
+# Property Detail View Implementation - Session (2026-01-21)
+
+## Status: CODE COMPLETE, AWAITING DEPLOYMENT
+
+### What Was Built
+
+1. **Backend Endpoint** (`backend/app/api/v2/endpoints/permits.py`)
+   - `GET /permits/{permit_id}/property` - Returns linked property + all permits on that property
+   - Full property data: owner, parcel, assessment values, lot details, building info
+   - All permits array with `is_current` flag for the viewed permit
+
+2. **Frontend API Hook** (`src/api/hooks/usePermits.ts`)
+   - `usePermitProperty(permitId)` - React Query hook for property data
+   - Full TypeScript types for `PermitProperty` response
+
+3. **PropertyDetailPanel Component** (`src/features/permits/components/PropertyDetailPanel.tsx`)
+   - Property Overview section (address, parcel ID, subdivision, lot size, sqft)
+   - Owner Information section (name, mailing address)
+   - Valuation section (market/assessed values, last sale info)
+   - Building Details section (year built, bedrooms, bathrooms)
+   - All Permits table with complete permit history
+   - Documents stub for future integration
+   - Graceful handling for unlinked permits
+
+4. **PermitDetailPage Integration** (`src/features/permits/PermitDetailPage.tsx`)
+   - Integrated PropertyDetailPanel below existing permit sections
+   - Widened page container from max-w-4xl to max-w-6xl
+
+### Git Status
+- Committed: `feat(permits): Add property detail view to permit detail page`
+- Pushed to GitHub
+- Railway auto-deploy should be triggered
+
+### Verification Steps (After Deployment)
+1. Navigate to https://react.ecbtx.com/permits
+2. Login with will@macseptic.com / #Espn2025
+3. Search for "Williamson" to find linked permits
+4. Click on a permit to view details
+5. Verify PropertyDetailPanel appears below permit info
+6. Check all sections display correctly
+
+### Known Issues
+- Playwright tests ran before deployment completed, so property panel wasn't found
+- Need to re-run tests after Railway deployment completes
+
+---
+
+# MGO Connect Scrapers - Deep Dive Report (2026-01-21)
+
+## Executive Summary
+
+**MGO Connect** (MyGovernmentOnline) is a multi-state permit management portal serving **432 jurisdictions** across 30+ states. This codebase contains extensive scraper infrastructure for extracting permit records, particularly OSSF (On-Site Sewage Facility/Septic) permits.
+
+### Current Extraction Status
+
+| Metric | Value |
+|--------|-------|
+| **Total Records Extracted** | **1,070,603+** |
+| **Priority Extraction Files** | 82 jurisdictions |
+| **Full Extraction Files** | 4 jurisdictions |
+| **Server** | 100.85.99.69 (Tailscale) |
+| **Status** | 🔄 ACTIVELY RUNNING |
+
+---
+
+## Server Status (Live Check)
+
+**Active Processes:**
+- `process-mgo-data.py` - Running at 94.2% CPU (processing data pipeline)
+- Priority extraction completed through jurisdiction 97/116
+- Currently processing: Tarrant Regional Water District (TX)
+
+**Log Sample (scraper.log):**
+```
+Offset 7700: 100 records (Total: 9449)
+[Proxy] Using port 10007
+```
+
+**Proxy Status:** Using Decodo datacenter proxies on ports 10001-10010 with automatic rotation on 403 errors.
+
+---
+
+## Completed Extractions
+
+### Priority Extraction (TX + TN)
+
+| State | Jurisdiction | Records | File Size |
+|-------|--------------|---------|-----------|
+| TN | Anderson County | ~1 | 996 B |
+| TN | Chester County | ~1 | 1 KB |
+| TN | Crossville | ~2,901 | 2.9 MB |
+| TN | Farragut | ~10,108 | 10 MB |
+| TN | Gatlinburg | ~9,432 | 9.4 MB |
+| TN | Pigeon Forge | ~1,555 | 1.5 MB |
+| TN | Sevier County | ~7,277 | 7.3 MB |
+| TN | Sevierville | ~22,261 | 22 MB |
+| TN | Wilson County | ~148 | 148 KB |
+| TX | Alamo Heights | ~6,084 | 6 MB |
+| TX | Amarillo | **~81,444** | 81 MB |
+| TX | Bastrop County | **~85,323** | 85 MB |
+| TX | Cedar Park | **~220,186** | 220 MB |
+| TX | Cibolo | ~53,089 | 53 MB |
+| TX | Ellis County | ~50,813 | 51 MB |
+| TX | City of Rosenberg | ~61,819 | 62 MB |
+| TX | San Marcos | **114,113** | (Large) |
+| ... | *78 more jurisdictions* | ... | ... |
+
+**TOTAL: 1,070,603 records across 82 jurisdictions**
+
+### Full Extraction (Completed Earlier)
+
+| Jurisdiction | Records |
+|--------------|---------|
+| AL - Enterprise | 0 |
+| AL - Vance | 109 |
+| AR - Arkadelphia | 348 |
+| AZ - Apache Junction | 11,945 |
+
+---
+
+## Scraper Architecture
+
+### Core Files (TypeScript)
+
+Located in `scrapers/mgo/`:
+
+| File | Purpose |
+|------|---------|
+| `mgo-types.ts` | TypeScript interfaces for API contracts |
+| `mgo-config.ts` | Credentials, proxy config, Texas county targets |
+| `mgo-full-scraper.ts` | Full 432-jurisdiction extraction with checkpoints |
+| `mgo-priority-scraper.ts` | Priority TX (107) + TN (9) extraction |
+| `mgo-api-scraper.ts` | API-first approach bypassing Angular UI |
+| `mgo-api-discovery.ts` | Network traffic interception for endpoint discovery |
+
+### Data Processing (Python)
+
+| File | Purpose |
+|------|---------|
+| `process-mgo-data.py` | NDJSON → SQLite/CSV pipeline |
+| `generate-report.py` | Markdown progress reports |
+| `export-by-trade.py` | Export by contractor type |
+
+### Texas-Specific Scrapers
+
+Located in `scrapers/states/texas/`:
+- `mgo_texas_scraper.py` - Slow, deliberate Playwright scraper
+- `mgo_recursive_scraper.py` - Recursive address search
+- `mgo_travis_v2.py` through `mgo_travis_v14.py` - 13 iterative versions
+- `mgo_v2_scraper.py` through `mgo_v5_scraper.py` - Generic versions
+
+---
+
+## API Endpoints Discovered
+
+```
+POST  https://www.mygovernmentonline.org/api/user/login/
+GET   https://www.mygovernmentonline.org/api/helper/getstates/{token}
+GET   https://api.mgoconnect.org/api/v3/cp/public/jurisdictions
+GET   https://api.mgoconnect.org/api/v3/cp/filter-items/jurisdiction-project-types/{jurisdictionId}
+POST  https://api.mgoconnect.org/api/v3/cp/project/search-projects
+```
+
+**Key Bug Discovered:** 35-day search limit bypass exploit documented in `mgo-config.ts`.
+
+---
+
+## Authentication
+
+| Field | Value |
+|-------|-------|
+| Email | willwalterburns@gmail.com |
+| Password | #Espn202512 |
+| Login URL | https://www.mgoconnect.org/cp/search |
+
+---
+
+## Proxy Configuration (Decodo Datacenter)
+
+| Setting | Value |
+|---------|-------|
+| Host | dc.decodo.com |
+| Ports | 10001-10010 (10 parallel) |
+| Username | OpusCLI |
+| Password | (env: DECODO_PASS) |
+
+---
+
+## Project Types Supported
+
+- OSSF (On-Site Sewage Facility)
+- Permit (General)
+- Building Permits
+- Code Enforcement
+- Planning and Zoning
+- Contractor Registration
+- Health Permit
+- Fire Code
+- Solution Center
+- Transportation Assessment
+
+---
+
+## Output Data Structure
+
+**Record Fields:**
+```
+permit_number, project_number, address, city, county, state,
+owner_name, applicant_name, contractor_name, install_date,
+permit_date, expiration_date, system_type, project_type,
+status, source, scraped_at, raw_data
+```
+
+**Output Locations:**
+- Server: `~/mgo_extraction/mgo/scrapers/output/mgo/priority_extraction/`
+- Local: `scrapers/output/mgo/`
+- Format: NDJSON (newline-delimited JSON)
+
+---
+
+## Monitoring Commands
+
+```bash
+# Check scraper progress
+ssh will@100.85.99.69 "tail -50 ~/mgo_extraction/mgo/scraper.log"
+
+# Check priority extraction
+ssh will@100.85.99.69 "tail -50 ~/mgo_extraction/mgo/priority_extraction.log"
+
+# Count total records
+ssh will@100.85.99.69 "wc -l ~/mgo_extraction/mgo/scrapers/output/mgo/priority_extraction/*.ndjson | tail -1"
+
+# List extracted files
+ssh will@100.85.99.69 "ls -la ~/mgo_extraction/mgo/scrapers/output/mgo/priority_extraction/ | head -30"
+
+# Check processes
+ssh will@100.85.99.69 "ps aux | grep -E 'mgo|playwright' | grep -v grep"
+
+# Generate report
+ssh will@100.85.99.69 "cd ~/mgo_extraction/mgo && python3 generate-report.py"
+```
+
+---
+
+## Jurisdiction Coverage
+
+| State | Count | Notes |
+|-------|-------|-------|
+| Texas | 107 | **35% of total** - Priority target |
+| Louisiana | 119 | Large coverage |
+| Illinois | 106 | Large coverage |
+| Florida | 35 | Medium coverage |
+| Tennessee | 9 | Completed |
+| Other (25 states) | 56 | 2-7 each |
+| **TOTAL** | **432** | |
+
+---
+
+## Key Findings
+
+1. **Massive Data Volume**: 1M+ records already extracted, with 350+ jurisdictions remaining
+2. **API-First Approach Works**: Bypassing Angular UI is more reliable than Playwright scraping
+3. **Proxy Rotation Essential**: 403 errors frequent, Decodo 10-port rotation handles gracefully
+4. **Texas is Gold Mine**: 107 jurisdictions with OSSF permit data
+5. **Processing Pipeline Active**: `process-mgo-data.py` running continuously on server
+
+---
+
+## Next Steps
+
+1. ⏳ Wait for priority extraction to complete (97/116 done)
+2. 🔄 Run full extraction for remaining 316 jurisdictions
+3. 📊 Process all data through pipeline
+4. 🗃️ Import to CRM database
+5. 🔗 Link to property records where available
+
+---
+
+*Report generated: 2026-01-21*
+*Data source: Live server check + local file analysis*
