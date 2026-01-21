@@ -251,6 +251,10 @@ export class OpenGovAuth {
         console.log('[Auth] Attempting automated login...');
 
         try {
+          // Take screenshot to see the login page
+          await page.screenshot({ path: './scrapers/opengov/login_page.png' });
+          console.log('[Auth] Screenshot saved to login_page.png');
+
           // Wait for email input
           await page.waitForSelector('input[type="email"], input[name="email"], input[name="username"]', {
             timeout: 10000
@@ -263,10 +267,12 @@ export class OpenGovAuth {
             console.log('[Auth] Email entered');
 
             // Find and click continue/submit button
-            const continueBtn = await page.$('button[type="submit"], button:has-text("Continue"), button:has-text("Log In")');
+            const continueBtn = await page.$('button[type="submit"], button:has-text("Continue"), button:has-text("Log In"), button:has-text("Sign In")');
             if (continueBtn) {
               await continueBtn.click();
-              await page.waitForTimeout(2000);
+              console.log('[Auth] Continue button clicked');
+              await page.waitForTimeout(3000);
+              await page.screenshot({ path: './scrapers/opengov/after_email.png' });
             }
           }
 
@@ -276,19 +282,47 @@ export class OpenGovAuth {
             await passwordInput.fill(password);
             console.log('[Auth] Password entered');
 
-            // Click login button
-            const loginBtn = await page.$('button[type="submit"], button:has-text("Log In"), button:has-text("Continue")');
+            // Click login button - look for more button types
+            await page.screenshot({ path: './scrapers/opengov/before_login.png' });
+            const loginBtn = await page.$('button[type="submit"], button:has-text("Log In"), button:has-text("Continue"), button:has-text("Sign In")');
             if (loginBtn) {
+              console.log('[Auth] Clicking login button...');
               await loginBtn.click();
+              console.log('[Auth] Login button clicked');
+              await page.waitForTimeout(5000);
+              await page.screenshot({ path: './scrapers/opengov/after_login.png' });
+              console.log(`[Auth] Current URL after login: ${page.url()}`);
+            } else {
+              console.log('[Auth] No login button found');
             }
           }
 
           // Wait for redirect with token
           console.log('[Auth] Waiting for authentication redirect...');
-          await page.waitForFunction(
-            () => window.location.href.includes('access_token=') || window.location.href.includes('error='),
-            { timeout: AUTH_CONFIG.loginTimeout }
-          );
+
+          // Debug: Log URL changes
+          let lastUrl = page.url();
+          const urlCheckInterval = setInterval(async () => {
+            try {
+              const currentUrl = page.url();
+              if (currentUrl !== lastUrl) {
+                console.log(`[Auth] URL changed to: ${currentUrl.substring(0, 100)}...`);
+                lastUrl = currentUrl;
+                if (currentUrl.includes('access_token=')) {
+                  console.log('[Auth] TOKEN FOUND IN URL!');
+                }
+              }
+            } catch {}
+          }, 1000);
+
+          try {
+            await page.waitForFunction(
+              () => window.location.href.includes('access_token=') || window.location.href.includes('error='),
+              { timeout: AUTH_CONFIG.loginTimeout }
+            );
+          } finally {
+            clearInterval(urlCheckInterval);
+          }
 
           // Parse token from final URL
           const finalUrl = page.url();

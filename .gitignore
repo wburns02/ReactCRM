@@ -51,3 +51,7 @@ claude-mesh-logs/
 claude-mesh-response.json
 *.pyc
 __pycache__/
+
+# OpenGov auth tokens (sensitive)
+scrapers/opengov/auth_token.json
+scrapers/opengov/storage_state.json
