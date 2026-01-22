@@ -803,3 +803,53 @@ ssh will@100.85.99.69 "tail -f ~/mgo_extraction/mgo/scraper.log"
 # Count extracted records
 ssh will@100.85.99.69 "wc -l ~/mgo_extraction/mgo/scrapers/output/mgo/priority_extraction/*.ndjson | tail -1"
 ```
+
+---
+
+# Property Linked-Data Feature - Session (2026-01-22)
+
+## Status: BLOCKED ON RAILWAY DEPLOYMENT
+
+### What's Done
+1. ✅ Phase 1: Investigation complete - identified backend deployment as the issue
+2. ✅ Backend code updated in react-crm-api repo with has_property field
+3. ✅ Frontend already has the code to display linked/unlinked property icons
+4. ✅ Playwright tests written and passing (8/8)
+
+### What's Blocking
+**Railway is NOT auto-deploying from GitHub pushes**
+
+The backend repo react-crm-api has been updated with commits:
+- 0f90d46 feat(permits): Add has_property field to search results
+- c35d333 chore: bump version to 2.5.4 for has_property feature
+
+But production API is still running version 2.5.3.
+
+### Action Required
+**Manually trigger Railway deployment from the Railway dashboard**
+
+1. Go to Railway dashboard
+2. Find the react-crm-api service
+3. Trigger a manual deploy/redeploy
+
+### Verification After Deployment
+# Check version
+curl https://react-crm-api-production.up.railway.app/health
+# Expected: {"version": "2.5.4", ...}
+
+# Run tests
+cd C:/Users/Will/crm-work/ReactCRM
+npx playwright test e2e/tests/permits-linked-data.spec.ts
+# Expected: All 8 tests pass with Linked property icons > 0
+
+### Files Changed
+**react-crm-api repo:**
+- app/schemas/septic_permit.py - Added has_property: bool = False
+- app/services/permit_search_service.py - Added has_property=permit.property_id is not None
+- app/main.py - Bumped version to 2.5.4
+
+**ReactCRM repo:**
+- e2e/tests/permits-linked-data.spec.ts - Comprehensive linked-data tests
+- PROPERTY_LINKED_DATA_DIAGNOSIS.md - Investigation findings
+- PROPERTY_LINKED_DATA_PLAN.md - Implementation plan
+
