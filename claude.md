@@ -141,7 +141,7 @@ When user activates this mode:
 |--------|--------|
 | Commit | Create commits after completing features/fixes |
 | Push | ALWAYS push to GitHub immediately after committing |
-| Deploy | Railway auto-deploys on push — verify deployment works |
+| Deploy | Railway auto-deploys on push — **VERIFY deployment succeeds** |
 | Troubleshoot | If deployment fails, immediately fix and re-push |
 
 **Workflow:**
@@ -149,8 +149,9 @@ When user activates this mode:
 2. Run build to verify no errors
 3. Commit with descriptive message
 4. Push to GitHub (triggers Railway deployment)
-5. Run Playwright against production to verify
-6. If issues found, fix immediately and repeat
+5. **VERIFY DEPLOYMENT SUCCESS** (see Railway Verification below)
+6. Run Playwright against production to verify
+7. If issues found, fix immediately and repeat
 
 **Do NOT:**
 - Ask "should I commit this?"
@@ -158,6 +159,66 @@ When user activates this mode:
 - Leave working code uncommitted
 - Stop after local success without deploying
 - Use `railway up` or `railway redeploy` — these commands do not work
+- **Assume deployment succeeded without verification**
+
+---
+
+## Railway Deployment Verification (MANDATORY)
+
+**CRITICAL: After EVERY push, verify Railway deployment succeeded.**
+
+### Two Separate Services
+
+| Service | Repo | Railway Service | Health Check |
+|---------|------|-----------------|--------------|
+| **Frontend** | `ReactCRM` | react.ecbtx.com | N/A (static) |
+| **Backend API** | `react-crm-api` | react-crm-api-production | `/health` endpoint |
+
+### Backend Deployment Verification
+
+After pushing to `react-crm-api`, ALWAYS run:
+```bash
+curl -s "https://react-crm-api-production.up.railway.app/health"
+```
+
+Check:
+1. **Version number** matches expected (e.g., "2.5.4")
+2. **Status** is "healthy"
+
+If version is old, deployment may have **FAILED SILENTLY**.
+
+### Common Deployment Failures
+
+| Error | Cause | Fix |
+|-------|-------|-----|
+| "Deployment failed during network process" | Railway networking issue | Wait 5 min, push empty commit to retry |
+| Version unchanged after push | Build failed or webhook broken | Check Railway dashboard logs |
+| 500 errors after deploy | Code bug or missing migration | Check logs, rollback if needed |
+
+### Verification Workflow
+
+```bash
+# 1. Push changes
+git push origin master
+
+# 2. Wait 2-3 minutes for deploy
+
+# 3. Check backend version
+curl -s "https://react-crm-api-production.up.railway.app/health" | grep version
+
+# 4. If version unchanged, CHECK RAILWAY DASHBOARD for failures
+
+# 5. Run Playwright tests to verify functionality
+npx playwright test [relevant-test-file]
+```
+
+### If Deployment Keeps Failing
+
+1. Check Railway dashboard for error logs
+2. Verify no syntax errors: `cd backend && python -c "from app.main import app"`
+3. Check for missing dependencies in requirements.txt
+4. Try pushing an empty commit: `git commit --allow-empty -m "chore: retry deploy"`
+5. If still failing, investigate Railway service health/networking
 
 ---
 
