@@ -5,7 +5,15 @@ Main API router for v2 endpoints.
 from fastapi import APIRouter
 
 from app.api.v2.endpoints import ai_assistant, ringcentral, call_dispositions, webhooks, jobs, local_ai, admin_tools
-from app.api.v2.endpoints import deployment_test, permits, properties, geocivix
+from app.api.v2.endpoints import deployment_test, permits, properties
+try:
+    from app.api.v2.endpoints import geocivix
+    GEOCIVIX_AVAILABLE = True
+except ImportError as e:
+    import logging
+    logging.getLogger(__name__).warning(f"Geocivix module not available: {e}")
+    geocivix = None
+    GEOCIVIX_AVAILABLE = False
 
 # Create main API router
 api_router = APIRouter()
@@ -80,8 +88,9 @@ api_router.include_router(
 )
 
 # Geocivix portal integration (Williamson County, TN)
-api_router.include_router(
-    geocivix.router,
-    prefix="",  # Endpoints already have /geocivix prefix
-    tags=["geocivix"]
-)
+if GEOCIVIX_AVAILABLE and geocivix:
+    api_router.include_router(
+        geocivix.router,
+        prefix="",  # Endpoints already have /geocivix prefix
+        tags=["geocivix"]
+    )
