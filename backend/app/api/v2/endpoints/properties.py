@@ -377,3 +377,132 @@ async def link_all_permits(
             status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
             detail="Batch linking failed"
         )
+
+
+@router.post("/relink-enhanced")
+async def relink_permits_enhanced(
+    state_code: str = Query(..., description="State code to process"),
+    county_name: Optional[str] = Query(None, description="County name (optional)"),
+    dry_run: bool = Query(True, description="If true, only report what would be linked"),
+    db: Session = Depends(get_db),
+    current_user = Depends(get_current_active_user)
+):
+    """
+    Re-link permits using enhanced address normalization.
+
+    This handles permit addresses that include city/state/zip info that
+    prevents matching with the standard normalization:
+    - "1000 Mabel DR, Franklin, TN, 37064" -> matches "1000 MABEL DR"
+    - "9001 Haggard Ln, College Grove, TN 37046" -> matches "9001 HAGGARD LN"
+
+    Use dry_run=true first to see what would be linked without making changes.
+    """
+    from app.models.property import Property
+    from app.models.septic_permit import SepticPermit, State, County
+    from app.services.property_service import PropertyService
+
+    try:
+        # Get state
+        state = db.query(State).filter(State.code == state_code.upper()).first()
+        if not state:
+            raise HTTPException(
+                status_code=status.HTTP_404_NOT_FOUND,
+                detail=f"State {state_code} not found"
+            )
+
+        # Get county if specified
+        county_id = None
+        if county_name:
+            county = db.query(County).filter(
+                County.state_id == state.id,
+                County.name.ilike(f"%{county_name}%")
+            ).first()
+            if county:
+                county_id = county.id
+
+        # Get county for hash computation
+        county_obj = db.query(County).filter(County.id == county_id).first() if county_id else None
+        county_name_for_hash = county_obj.name if county_obj else ""
+
+        # Build property address lookup (enhanced normalized -> property_id)
+        prop_query = db.query(Property).filter(
+            Property.state_id == state.id,
+            Property.address_normalized != None,
+            Property.is_active == True
+        )
+        if county_id:
+            prop_query = prop_query.filter(Property.county_id == county_id)
+
+        properties = prop_query.all()
+        logger.info(f"Found {len(properties)} properties to index")
+
+        # Build lookup with BOTH standard and enhanced normalized addresses
+        address_to_property = {}
+        for p in properties:
+            # Standard normalized (already in DB)
+            if p.address_normalized:
+                address_to_property[p.address_normalized] = p.id
+
+        logger.info(f"Built lookup with {len(address_to_property)} address entries")
+
+        # Find unlinked permits
+        permit_query = db.query(SepticPermit).filter(
+            SepticPermit.state_id == state.id,
+            SepticPermit.property_id == None,
+            SepticPermit.is_active == True
+        )
+        if county_id:
+            permit_query = permit_query.filter(SepticPermit.county_id == county_id)
+
+        unlinked_permits = permit_query.all()
+        logger.info(f"Found {len(unlinked_permits)} unlinked permits")
+
+        # Try to match using enhanced normalization
+        would_link = []
+        linked_count = 0
+
+        for permit in unlinked_permits:
+            if not permit.address:
+                continue
+
+            # Apply enhanced normalization to permit address
+            enhanced_addr = PropertyService.normalize_address_enhanced(permit.address)
+
+            if enhanced_addr and enhanced_addr in address_to_property:
+                property_id = address_to_property[enhanced_addr]
+
+                would_link.append({
+                    "permit_id": str(permit.id),
+                    "original_address": permit.address,
+                    "normalized_address": enhanced_addr,
+                    "property_id": str(property_id)
+                })
+
+                if not dry_run:
+                    permit.property_id = property_id
+                    linked_count += 1
+
+        if not dry_run:
+            db.commit()
+            logger.info(f"Linked {linked_count} permits with enhanced normalization")
+
+        return {
+            "state_code": state_code,
+            "county_name": county_name,
+            "dry_run": dry_run,
+            "properties_indexed": len(properties),
+            "unlinked_permits_checked": len(unlinked_permits),
+            "would_link": len(would_link),
+            "actually_linked": linked_count if not dry_run else 0,
+            "sample_matches": would_link[:20] if would_link else []
+        }
+
+    except HTTPException:
+        raise
+    except Exception as e:
+        logger.error(f"Enhanced relinking failed: {e}")
+        db.rollback()
+        raise HTTPException(
+            status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+            detail=f"Enhanced relinking failed: {str(e)}"
+        )

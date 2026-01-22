@@ -75,6 +75,7 @@ export const permitSummarySchema = z.object({
   owner_name: z.string().nullable(),
   permit_date: z.string().nullable(),
   system_type: z.string().nullable(),
+  has_property: z.boolean().default(false),
 });
 export type PermitSummary = z.infer<typeof permitSummarySchema>;
 

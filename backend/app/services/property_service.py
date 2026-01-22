@@ -110,6 +110,91 @@ class PropertyService:
         return normalized
 
     @staticmethod
+    def normalize_address_enhanced(address: Optional[str]) -> Optional[str]:
+        """
+        Enhanced address normalization that strips city/state/zip suffixes.
+
+        This handles permit addresses that include location info like:
+        - "1000 Mabel DR, Franklin, TN, 37064" -> "1000 MABEL DR"
+        - "9001 Haggard Ln, College Grove, TN 37046" -> "9001 HAGGARD LN"
+        - "2034 Riley Park Drive, Thompsons Station, TN 37179" -> "2034 RILEY PARK DR"
+        """
+        if not address:
+            return None
+
+        normalized = address.upper().strip()
+
+        # Common Tennessee cities to strip (add more as needed)
+        tn_cities = [
+            'FRANKLIN', 'NASHVILLE', 'BRENTWOOD', 'NOLENSVILLE', 'SPRING HILL',
+            'COLLEGE GROVE', 'THOMPSONS STATION', 'FAIRVIEW', 'ARRINGTON',
+            'LEIPER\'S FORK', 'LEIPERS FORK', 'BETHESDA', 'EAGLEVILLE'
+        ]
+
+        # Remove state codes and zip codes
+        # Pattern: ", TN 37XXX" or ", TN, 37XXX" or "TN 37XXX"
+        normalized = re.sub(r',?\s*TN\s*,?\s*3[0-9]{4}\s*$', '', normalized)
+
+        # Remove standalone state code at end
+        normalized = re.sub(r',?\s*TN\s*$', '', normalized)
+
+        # Remove city names (with optional preceding comma)
+        for city in tn_cities:
+            normalized = re.sub(rf',?\s*{city}\s*$', '', normalized, flags=re.IGNORECASE)
+
+        # Remove trailing commas
+        normalized = re.sub(r',\s*$', '', normalized)
+
+        # Remove parenthetical notes like (Lot 123), (Westhaven Jewell Lot 2504)
+        # But keep the main address
+        normalized = re.sub(r'\s*\([^)]*\)\s*$', '', normalized)
+
+        # Remove pipe-separated suffixes like "| Franklin, TN 37064"
+        normalized = re.sub(r'\s*\|.*$', '', normalized)
+
+        # Now apply standard normalization
+        normalized = re.sub(r'\s+', ' ', normalized).strip()
+
+        replacements = {
+            r'\bSTREET\b': 'ST',
+            r'\bROAD\b': 'RD',
+            r'\bDRIVE\b': 'DR',
+            r'\bAVENUE\b': 'AVE',
+            r'\bBOULEVARD\b': 'BLVD',
+            r'\bLANE\b': 'LN',
+            r'\bCOURT\b': 'CT',
+            r'\bCIRCLE\b': 'CIR',
+            r'\bPLACE\b': 'PL',
+            r'\bTERRACE\b': 'TER',
+            r'\bNORTH\b': 'N',
+            r'\bSOUTH\b': 'S',
+            r'\bEAST\b': 'E',
+            r'\bWEST\b': 'W',
+            r'\bHOLLOW\b': 'HOLW',
+            r'\bCOVE\b': 'CV',
+            r'\bHILLS?\b': 'HL',
+            r'\bCREEK\b': 'CRK',
+            r'\bSPRINGS?\b': 'SPG',
+            r'\bMOUNTAIN\b': 'MTN',
+            r'\bVALLEY\b': 'VLY',
+            r'\bRIDGE\b': 'RDG',
+            r'\bHAVEN\b': 'HVN',
+            r'\bVIEW\b': 'VW',
+            r'\bPARKWAY\b': 'PKWY',
+            r'\bHIGHWAY\b': 'HWY',
+            r'\bPINE\b': 'PNE',
+            r'\bLAKE\b': 'LK',
+            r'\bGROVE\b': 'GRV',
+            r'\bSTATION\b': 'STA',
+            r'\bTRACE\b': 'TRCE',
+        }
+
+        for pattern, replacement in replacements.items():
+            normalized = re.sub(pattern, replacement, normalized)
+
+        return normalized.strip()
+
+    @staticmethod
     def compute_address_hash(address_normalized: str, county_name: str, state_code: str) -> str:
         """Compute SHA256 hash for deduplication."""
         composite = f"{address_normalized or ''}|{county_name.upper()}|{state_code.upper()}"
