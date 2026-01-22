@@ -1,5 +1,6 @@
 import { Card } from "@/components/ui/Card";
 import type { PermitProperty } from "@/api/hooks/usePermits";
+import { getPermitDocumentUrl, getPermitViewUrl } from "@/utils/geocivixProxy";
 
 interface PropertyDetailPanelProps {
   data: PermitProperty | undefined;
@@ -322,7 +323,7 @@ export function PropertyDetailPanel({ data, isLoading }: PropertyDetailPanelProp
                       <div className="flex gap-2">
                         {permit.pdf_url && (
                           <a
-                            href={permit.pdf_url}
+                            href={getPermitDocumentUrl(permit.pdf_url) || '#'}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800"
@@ -333,7 +334,7 @@ export function PropertyDetailPanel({ data, isLoading }: PropertyDetailPanelProp
                         )}
                         {permit.permit_url && (
                           <a
-                            href={permit.permit_url}
+                            href={getPermitViewUrl(permit.permit_url) || '#'}
                             target="_blank"
                             rel="noopener noreferrer"
                             className="text-blue-600 hover:text-blue-800"

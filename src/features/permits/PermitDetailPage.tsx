@@ -3,6 +3,7 @@ import { usePermit, usePermitHistory, usePermitProperty } from "@/api/hooks/useP
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { PropertyDetailPanel } from "./components/PropertyDetailPanel";
+import { getPermitDocumentUrl, getPermitViewUrl } from "@/utils/geocivixProxy";
 
 /**
  * Permit detail page - shows full permit information
@@ -230,7 +231,7 @@ export function PermitDetailPage() {
             <div className="space-y-2">
               {permit.pdf_url && (
                 <a
-                  href={permit.pdf_url}
+                  href={getPermitDocumentUrl(permit.pdf_url) || '#'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
@@ -241,7 +242,7 @@ export function PermitDetailPage() {
               )}
               {permit.permit_url && (
                 <a
-                  href={permit.permit_url}
+                  href={getPermitViewUrl(permit.permit_url) || '#'}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
