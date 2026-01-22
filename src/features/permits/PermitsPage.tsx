@@ -38,6 +38,11 @@ export function PermitsPage() {
     setFilters((prev) => ({ ...prev, page }));
   }, []);
 
+  // Page size change handler
+  const handlePageSizeChange = useCallback((pageSize: number) => {
+    setFilters((prev) => ({ ...prev, page_size: pageSize, page: 1 }));
+  }, []);
+
   return (
     <div className="p-6 max-w-7xl mx-auto">
       {/* Page header */}
@@ -68,6 +73,7 @@ export function PermitsPage() {
         data={searchData}
         isLoading={isSearching}
         onPageChange={handlePageChange}
+        onPageSizeChange={handlePageSizeChange}
       />
     </div>
   );
