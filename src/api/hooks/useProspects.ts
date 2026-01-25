@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 import {
   prospectListResponseSchema,
   prospectSchema,
@@ -157,6 +158,14 @@ export function useDeleteProspect() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: prospectKeys.lists() });
+      toastSuccess("Prospect deleted", "The prospect has been removed.");
+    },
+    onError: (error) => {
+      console.error("[Prospect Delete] Failed:", error);
+      toastError(
+        "Failed to delete prospect",
+        "Please try again or contact support."
+      );
     },
   });
 }

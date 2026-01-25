@@ -105,8 +105,14 @@ export function ProspectsPage() {
 
   const handleDeleteConfirm = async () => {
     if (deletingProspect) {
-      await deleteMutation.mutateAsync(deletingProspect.id);
-      setDeletingProspect(null);
+      try {
+        await deleteMutation.mutateAsync(deletingProspect.id);
+        setDeletingProspect(null);
+      } catch {
+        // Error toast handled by mutation's onError
+        // Close dialog so user can retry
+        setDeletingProspect(null);
+      }
     }
   };
 
