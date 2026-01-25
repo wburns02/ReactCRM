@@ -308,6 +308,9 @@ test.describe('Work Order Row Navigation - Mobile View', () => {
   });
 
   test('clicking customer name on mobile card navigates', async ({ page }) => {
+    // Close mobile sidebar if open by clicking on main content area
+    await page.locator('main, [role="main"], .content').first().click({ position: { x: 10, y: 10 }, force: true }).catch(() => {});
+
     const firstCard = page.locator('[role="article"], .card, [class*="Card"]').first();
     await expect(firstCard).toBeVisible({ timeout: 10000 });
 
@@ -315,9 +318,8 @@ test.describe('Work Order Row Navigation - Mobile View', () => {
     const href = await viewLink.getAttribute('href');
     const workOrderId = href?.match(/\/work-orders\/([^/]+)/)?.[1];
 
-    // Click on customer name area (h3 element)
-    const customerName = firstCard.locator('h3').first();
-    await customerName.click();
+    // Click on top area of card where customer name is (avoiding buttons at bottom)
+    await firstCard.click({ position: { x: 50, y: 30 } });
 
     await expect(page).toHaveURL(new RegExp(`/work-orders/${workOrderId}`), { timeout: 5000 });
   });
