@@ -40,7 +40,7 @@ test.describe('Technician Row Navigation', () => {
     // Get technician ID from the View link href
     const viewLink = firstRow.locator('a[href*="/technicians/"]').first();
     const href = await viewLink.getAttribute('href');
-    const technicianId = href?.match(/\/technicians\/(\d+)/)?.[1];
+    const technicianId = href?.match(/\/technicians\/([a-f0-9-]+)/)?.[1];
 
     // Click on technician name (first column content)
     const nameCell = firstRow.locator('td').first();
@@ -56,7 +56,7 @@ test.describe('Technician Row Navigation', () => {
 
     const viewLink = firstRow.locator('a[href*="/technicians/"]').first();
     const href = await viewLink.getAttribute('href');
-    const technicianId = href?.match(/\/technicians\/(\d+)/)?.[1];
+    const technicianId = href?.match(/\/technicians\/([a-f0-9-]+)/)?.[1];
 
     // Click on phone number (in the second cell)
     const contactCell = firstRow.locator('td').nth(1);
@@ -78,7 +78,7 @@ test.describe('Technician Row Navigation', () => {
 
     const viewLink = firstRow.locator('a[href*="/technicians/"]').first();
     const href = await viewLink.getAttribute('href');
-    const technicianId = href?.match(/\/technicians\/(\d+)/)?.[1];
+    const technicianId = href?.match(/\/technicians\/([a-f0-9-]+)/)?.[1];
 
     // Click on skills cell (third column)
     const skillsCell = firstRow.locator('td').nth(2);
@@ -93,7 +93,7 @@ test.describe('Technician Row Navigation', () => {
 
     const viewLink = firstRow.locator('a[href*="/technicians/"]').first();
     const href = await viewLink.getAttribute('href');
-    const technicianId = href?.match(/\/technicians\/(\d+)/)?.[1];
+    const technicianId = href?.match(/\/technicians\/([a-f0-9-]+)/)?.[1];
 
     // Click on status cell (fifth column)
     const statusCell = firstRow.locator('td').nth(4);
@@ -108,7 +108,7 @@ test.describe('Technician Row Navigation', () => {
 
     const viewLink = firstRow.locator('a[href*="/technicians/"]').first();
     const href = await viewLink.getAttribute('href');
-    const technicianId = href?.match(/\/technicians\/(\d+)/)?.[1];
+    const technicianId = href?.match(/\/technicians\/([a-f0-9-]+)/)?.[1];
 
     // Click directly on the row element
     await firstRow.click({ position: { x: 10, y: 10 } });
@@ -122,7 +122,7 @@ test.describe('Technician Row Navigation', () => {
 
     const viewLink = firstRow.locator('a[href*="/technicians/"]').first();
     const href = await viewLink.getAttribute('href');
-    const technicianId = href?.match(/\/technicians\/(\d+)/)?.[1];
+    const technicianId = href?.match(/\/technicians\/([a-f0-9-]+)/)?.[1];
 
     // Click View button
     const viewButton = firstRow.getByRole('button', { name: /view/i });
@@ -179,7 +179,7 @@ test.describe('Technician Row Navigation', () => {
     const secondRow = rows.nth(2);
     const viewLink = secondRow.locator('a[href*="/technicians/"]').first();
     const href = await viewLink.getAttribute('href');
-    const technicianId = href?.match(/\/technicians\/(\d+)/)?.[1];
+    const technicianId = href?.match(/\/technicians\/([a-f0-9-]+)/)?.[1];
 
     // Click on second row
     await secondRow.click({ position: { x: 10, y: 10 } });
@@ -193,7 +193,7 @@ test.describe('Technician Row Navigation', () => {
 
     const viewLink = firstRow.locator('a[href*="/technicians/"]').first();
     const href = await viewLink.getAttribute('href');
-    const technicianId = href?.match(/\/technicians\/(\d+)/)?.[1];
+    const technicianId = href?.match(/\/technicians\/([a-f0-9-]+)/)?.[1];
 
     // Focus the row and press Enter
     await firstRow.focus();
@@ -208,7 +208,7 @@ test.describe('Technician Row Navigation', () => {
 
     const viewLink = firstRow.locator('a[href*="/technicians/"]').first();
     const href = await viewLink.getAttribute('href');
-    const technicianId = href?.match(/\/technicians\/(\d+)/)?.[1];
+    const technicianId = href?.match(/\/technicians\/([a-f0-9-]+)/)?.[1];
 
     // Focus the row and press Space
     await firstRow.focus();
@@ -279,7 +279,7 @@ test.describe('Technician Row Navigation - Mobile View', () => {
       // Get technician ID from the View link
       const viewLink = firstCard.locator('a[href*="/technicians/"]').first();
       const href = await viewLink.getAttribute('href');
-      const technicianId = href?.match(/\/technicians\/(\d+)/)?.[1];
+      const technicianId = href?.match(/\/technicians\/([a-f0-9-]+)/)?.[1];
 
       // Click on card (not on buttons)
       await firstCard.click({ position: { x: 10, y: 10 } });
@@ -292,7 +292,7 @@ test.describe('Technician Row Navigation - Mobile View', () => {
 
       const viewLink = firstRow.locator('a[href*="/technicians/"]').first();
       const href = await viewLink.getAttribute('href');
-      const technicianId = href?.match(/\/technicians\/(\d+)/)?.[1];
+      const technicianId = href?.match(/\/technicians\/([a-f0-9-]+)/)?.[1];
 
       await firstRow.click({ position: { x: 10, y: 10 } });
       await expect(page).toHaveURL(new RegExp(`/technicians/${technicianId}`), { timeout: 5000 });
@@ -305,7 +305,7 @@ test.describe('Technician Row Navigation - Mobile View', () => {
     if (await firstCard.isVisible({ timeout: 5000 })) {
       const viewLink = firstCard.locator('a[href*="/technicians/"]').first();
       const href = await viewLink.getAttribute('href');
-      const technicianId = href?.match(/\/technicians\/(\d+)/)?.[1];
+      const technicianId = href?.match(/\/technicians\/([a-f0-9-]+)/)?.[1];
 
       const viewButton = firstCard.getByRole('button', { name: /view/i });
       await viewButton.click();
@@ -317,7 +317,7 @@ test.describe('Technician Row Navigation - Mobile View', () => {
 
       const viewLink = firstRow.locator('a[href*="/technicians/"]').first();
       const href = await viewLink.getAttribute('href');
-      const technicianId = href?.match(/\/technicians\/(\d+)/)?.[1];
+      const technicianId = href?.match(/\/technicians\/([a-f0-9-]+)/)?.[1];
 
       const viewButton = firstRow.getByRole('button', { name: /view/i });
       await viewButton.click();
