@@ -1,7 +1,10 @@
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import type { PermitSearchResponse, PermitSearchResult } from "@/api/types/permit";
+import type {
+  PermitSearchResponse,
+  PermitSearchResult,
+} from "@/api/types/permit";
 
 interface PermitResultsProps {
   data: PermitSearchResponse | undefined;
@@ -14,7 +17,10 @@ interface PermitResultsProps {
  * Calculate which page numbers to show in pagination
  * Shows: 1 ... 4 5 6 ... 100 pattern
  */
-function getPageNumbers(currentPage: number, totalPages: number): (number | "...")[] {
+function getPageNumbers(
+  currentPage: number,
+  totalPages: number,
+): (number | "...")[] {
   const pages: (number | "...")[] = [];
 
   if (totalPages <= 7) {
@@ -59,11 +65,26 @@ function TableSkeleton() {
         <div className="h-4 bg-gray-200 rounded w-48 animate-pulse" />
       </div>
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200" data-testid="permits-table-skeleton">
+        <table
+          className="min-w-full divide-y divide-gray-200"
+          data-testid="permits-table-skeleton"
+        >
           <thead className="bg-gray-50">
             <tr>
-              {["Permit #", "Address", "Location", "Owner", "Date", "Type", "", "Score"].map((h, i) => (
-                <th key={i} className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase">
+              {[
+                "Permit #",
+                "Address",
+                "Location",
+                "Owner",
+                "Date",
+                "Type",
+                "",
+                "Score",
+              ].map((h, i) => (
+                <th
+                  key={i}
+                  className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase"
+                >
                   {h}
                 </th>
               ))}
@@ -72,14 +93,30 @@ function TableSkeleton() {
           <tbody className="bg-white divide-y divide-gray-200">
             {[...Array(10)].map((_, rowIdx) => (
               <tr key={rowIdx} className="animate-pulse">
-                <td className="px-4 py-3"><div className="h-4 bg-gray-200 rounded w-16" /></td>
-                <td className="px-4 py-3"><div className="h-4 bg-gray-200 rounded w-40" /></td>
-                <td className="px-4 py-3"><div className="h-4 bg-gray-200 rounded w-24" /></td>
-                <td className="px-4 py-3"><div className="h-4 bg-gray-200 rounded w-28" /></td>
-                <td className="px-4 py-3"><div className="h-4 bg-gray-200 rounded w-20" /></td>
-                <td className="px-4 py-3"><div className="h-4 bg-gray-200 rounded w-24" /></td>
-                <td className="px-2 py-3"><div className="h-5 w-5 bg-gray-200 rounded mx-auto" /></td>
-                <td className="px-4 py-3"><div className="h-2 bg-gray-200 rounded w-16" /></td>
+                <td className="px-4 py-3">
+                  <div className="h-4 bg-gray-200 rounded w-16" />
+                </td>
+                <td className="px-4 py-3">
+                  <div className="h-4 bg-gray-200 rounded w-40" />
+                </td>
+                <td className="px-4 py-3">
+                  <div className="h-4 bg-gray-200 rounded w-24" />
+                </td>
+                <td className="px-4 py-3">
+                  <div className="h-4 bg-gray-200 rounded w-28" />
+                </td>
+                <td className="px-4 py-3">
+                  <div className="h-4 bg-gray-200 rounded w-20" />
+                </td>
+                <td className="px-4 py-3">
+                  <div className="h-4 bg-gray-200 rounded w-24" />
+                </td>
+                <td className="px-2 py-3">
+                  <div className="h-5 w-5 bg-gray-200 rounded mx-auto" />
+                </td>
+                <td className="px-4 py-3">
+                  <div className="h-2 bg-gray-200 rounded w-16" />
+                </td>
               </tr>
             ))}
           </tbody>
@@ -92,7 +129,12 @@ function TableSkeleton() {
 /**
  * Display search results in a table with pagination
  */
-export function PermitResults({ data, isLoading, onPageChange, onPageSizeChange }: PermitResultsProps) {
+export function PermitResults({
+  data,
+  isLoading,
+  onPageChange,
+  onPageSizeChange,
+}: PermitResultsProps) {
   const navigate = useNavigate();
 
   if (isLoading) {
@@ -102,10 +144,22 @@ export function PermitResults({ data, isLoading, onPageChange, onPageSizeChange 
   if (!data || data.results.length === 0) {
     return (
       <Card className="p-8 text-center" data-testid="permits-empty">
-        <svg className="w-12 h-12 text-gray-300 mx-auto mb-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+        <svg
+          className="w-12 h-12 text-gray-300 mx-auto mb-4"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={1.5}
+            d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
         </svg>
-        <p className="text-gray-500">No permits found. Try adjusting your search criteria.</p>
+        <p className="text-gray-500">
+          No permits found. Try adjusting your search criteria.
+        </p>
       </Card>
     );
   }
@@ -117,8 +171,10 @@ export function PermitResults({ data, isLoading, onPageChange, onPageSizeChange 
       {/* Results header */}
       <div className="px-4 py-3 bg-gray-50 border-b border-gray-200 flex justify-between items-center">
         <div className="text-sm text-gray-600">
-          Showing {((data.page - 1) * data.page_size) + 1} - {Math.min(data.page * data.page_size, data.total)} of{" "}
-          <span className="font-semibold">{data.total.toLocaleString()}</span> permits
+          Showing {(data.page - 1) * data.page_size + 1} -{" "}
+          {Math.min(data.page * data.page_size, data.total)} of{" "}
+          <span className="font-semibold">{data.total.toLocaleString()}</span>{" "}
+          permits
           {data.query && (
             <span className="ml-2">
               for "<span className="font-medium">{data.query}</span>"
@@ -132,7 +188,10 @@ export function PermitResults({ data, isLoading, onPageChange, onPageSizeChange 
 
       {/* Results table */}
       <div className="overflow-x-auto">
-        <table className="min-w-full divide-y divide-gray-200" data-testid="permits-table">
+        <table
+          className="min-w-full divide-y divide-gray-200"
+          data-testid="permits-table"
+        >
           <thead className="bg-gray-50">
             <tr>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -157,8 +216,19 @@ export function PermitResults({ data, isLoading, onPageChange, onPageSizeChange 
                 className="px-2 py-3 text-center text-xs font-medium text-gray-500 uppercase tracking-wider"
                 title="Linked to Property"
               >
-                <svg className="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                <svg
+                  className="w-4 h-4 mx-auto"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                  aria-hidden="true"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                  />
                 </svg>
               </th>
               <th className="px-4 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">
@@ -190,10 +260,11 @@ export function PermitResults({ data, isLoading, onPageChange, onPageSizeChange 
                           <span className="font-medium">{h.field}:</span>{" "}
                           <span
                             dangerouslySetInnerHTML={{
-                              __html: h.fragments[0]?.replace(
-                                new RegExp(`(${data.query || ""})`, "gi"),
-                                "<mark>$1</mark>"
-                              ) || "",
+                              __html:
+                                h.fragments[0]?.replace(
+                                  new RegExp(`(${data.query || ""})`, "gi"),
+                                  "<mark>$1</mark>",
+                                ) || "",
                             }}
                           />
                         </span>
@@ -206,7 +277,8 @@ export function PermitResults({ data, isLoading, onPageChange, onPageSizeChange 
                     {result.permit.city || "Unknown"}
                   </div>
                   <div className="text-xs text-gray-500">
-                    {result.permit.county_name && `${result.permit.county_name}, `}
+                    {result.permit.county_name &&
+                      `${result.permit.county_name}, `}
                     {result.permit.state_code}
                   </div>
                 </td>
@@ -232,7 +304,11 @@ export function PermitResults({ data, isLoading, onPageChange, onPageSizeChange 
                       title="Linked to property - click to view details"
                       aria-label="Linked to property"
                     >
-                      <svg className="w-5 h-5 text-green-600 mx-auto" fill="currentColor" viewBox="0 0 24 24">
+                      <svg
+                        className="w-5 h-5 text-green-600 mx-auto"
+                        fill="currentColor"
+                        viewBox="0 0 24 24"
+                      >
                         <path d="M10.707 2.293a1 1 0 00-1.414 0l-7 7a1 1 0 001.414 1.414L4 10.414V17a1 1 0 001 1h2a1 1 0 001-1v-2a1 1 0 011-1h2a1 1 0 011 1v2a1 1 0 001 1h2a1 1 0 001-1v-6.586l.293.293a1 1 0 001.414-1.414l-7-7z" />
                       </svg>
                     </span>
@@ -242,8 +318,18 @@ export function PermitResults({ data, isLoading, onPageChange, onPageSizeChange 
                       title="No linked property"
                       aria-label="No linked property"
                     >
-                      <svg className="w-5 h-5 text-gray-300 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6" />
+                      <svg
+                        className="w-5 h-5 text-gray-300 mx-auto"
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={1.5}
+                          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                        />
                       </svg>
                     </span>
                   )}
@@ -255,10 +341,13 @@ export function PermitResults({ data, isLoading, onPageChange, onPageSizeChange 
                         result.score > 0.7
                           ? "bg-green-500"
                           : result.score > 0.4
-                          ? "bg-yellow-500"
-                          : "bg-gray-300"
+                            ? "bg-yellow-500"
+                            : "bg-gray-300"
                       }`}
-                      style={{ width: `${Math.min(result.score * 100, 100)}%`, maxWidth: "60px" }}
+                      style={{
+                        width: `${Math.min(result.score * 100, 100)}%`,
+                        maxWidth: "60px",
+                      }}
                     />
                     <span className="ml-2 text-xs text-gray-500">
                       {(result.score * 100).toFixed(0)}%
@@ -284,8 +373,18 @@ export function PermitResults({ data, isLoading, onPageChange, onPageSizeChange 
               disabled={data.page <= 1}
               aria-label="Previous page"
             >
-              <svg className="w-4 h-4 mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+              <svg
+                className="w-4 h-4 mr-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M15 19l-7-7 7-7"
+                />
               </svg>
               <span className="hidden sm:inline">Previous</span>
             </Button>
@@ -312,7 +411,7 @@ export function PermitResults({ data, isLoading, onPageChange, onPageSizeChange 
                   >
                     {pageNum}
                   </button>
-                )
+                ),
               )}
             </div>
 
@@ -325,15 +424,27 @@ export function PermitResults({ data, isLoading, onPageChange, onPageSizeChange 
               aria-label="Next page"
             >
               <span className="hidden sm:inline">Next</span>
-              <svg className="w-4 h-4 ml-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+              <svg
+                className="w-4 h-4 ml-1"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M9 5l7 7-7 7"
+                />
               </svg>
             </Button>
           </div>
 
           {/* Page size selector */}
           <div className="flex items-center gap-2">
-            <span className="text-sm text-gray-600 hidden sm:inline">Rows per page:</span>
+            <span className="text-sm text-gray-600 hidden sm:inline">
+              Rows per page:
+            </span>
             <div className="flex items-center gap-1">
               {[10, 25, 50, 100].map((size) => (
                 <button

@@ -33,11 +33,36 @@ import { BatchOCRProcessor } from "@/components/ai/BatchOCRProcessor";
 
 type AITab = "chat" | "voice" | "support" | "ocr";
 
-const AI_TABS: { id: AITab; label: string; icon: React.ElementType; description: string }[] = [
-  { id: "chat", label: "AI Chat", icon: Bot, description: "General AI assistant" },
-  { id: "voice", label: "Voice Memo", icon: Mic, description: "Record & transcribe" },
-  { id: "support", label: "Support Chat", icon: HelpCircle, description: "RAG-powered Q&A" },
-  { id: "ocr", label: "Batch OCR", icon: FileStack, description: "Document processing" },
+const AI_TABS: {
+  id: AITab;
+  label: string;
+  icon: React.ElementType;
+  description: string;
+}[] = [
+  {
+    id: "chat",
+    label: "AI Chat",
+    icon: Bot,
+    description: "General AI assistant",
+  },
+  {
+    id: "voice",
+    label: "Voice Memo",
+    icon: Mic,
+    description: "Record & transcribe",
+  },
+  {
+    id: "support",
+    label: "Support Chat",
+    icon: HelpCircle,
+    description: "RAG-powered Q&A",
+  },
+  {
+    id: "ocr",
+    label: "Batch OCR",
+    icon: FileStack,
+    description: "Document processing",
+  },
 ];
 
 /**
@@ -86,7 +111,8 @@ export function AIAssistantPage() {
 
   const { data: chatHistory } = useAIChatHistory();
   const { data: aiHealth } = useLocalAIHealth();
-  const isR730Available = aiHealth?.status === "healthy" || aiHealth?.status === "degraded";
+  const isR730Available =
+    aiHealth?.status === "healthy" || aiHealth?.status === "degraded";
 
   // Auto-resize textarea
   useEffect(() => {
@@ -212,108 +238,109 @@ export function AIAssistantPage() {
           {/* Chat Tab (default) */}
           {activeTab === "chat" && (
             <div className="p-6 space-y-6">
-          {messages.length === 1 && (
-            <div className="max-w-2xl mx-auto">
-              {/* Welcome Section */}
-              <div className="text-center mb-8">
-                <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 mb-4">
-                  <Sparkles className="w-8 h-8 text-primary" />
-                </div>
-                <h2 className="text-xl font-semibold text-text-primary mb-2">
-                  How can I help you today?
-                </h2>
-                <p className="text-text-muted">
-                  I can assist with customers, scheduling, analytics, and more.
-                </p>
-              </div>
-
-              {/* Quick Actions */}
-              <div className="grid grid-cols-2 gap-3">
-                {QUICK_ACTIONS.map((action) => (
-                  <button
-                    key={action.label}
-                    onClick={() => handleQuickAction(action.prompt)}
-                    className="flex items-center gap-3 p-4 bg-bg-card border border-border rounded-lg hover:border-primary/50 hover:shadow-sm transition-all text-left"
-                  >
-                    <div className={`p-2 rounded-lg ${action.color}`}>
-                      <action.icon className="w-5 h-5" />
+              {messages.length === 1 && (
+                <div className="max-w-2xl mx-auto">
+                  {/* Welcome Section */}
+                  <div className="text-center mb-8">
+                    <div className="inline-flex items-center justify-center w-16 h-16 rounded-full bg-gradient-to-br from-primary/20 to-primary/10 mb-4">
+                      <Sparkles className="w-8 h-8 text-primary" />
                     </div>
-                    <span className="text-sm font-medium text-text-primary">
-                      {action.label}
-                    </span>
-                  </button>
-                ))}
-              </div>
-            </div>
-          )}
-
-          {/* Chat Messages */}
-          <div className="max-w-3xl mx-auto space-y-4">
-            {messages.slice(1).map((message) => (
-              <ChatMessage key={message.id} message={message} />
-            ))}
-
-            {isTyping && (
-              <div className="flex items-start gap-3">
-                <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
-                  <Sparkles className="w-4 h-4 text-primary" />
-                </div>
-                <div className="flex items-center gap-2 text-text-muted bg-bg-card rounded-lg px-4 py-3 border border-border">
-                  <div className="flex gap-1">
-                    <span className="w-2 h-2 bg-primary rounded-full animate-bounce" />
-                    <span
-                      className="w-2 h-2 bg-primary rounded-full animate-bounce"
-                      style={{ animationDelay: "0.1s" }}
-                    />
-                    <span
-                      className="w-2 h-2 bg-primary rounded-full animate-bounce"
-                      style={{ animationDelay: "0.2s" }}
-                    />
+                    <h2 className="text-xl font-semibold text-text-primary mb-2">
+                      How can I help you today?
+                    </h2>
+                    <p className="text-text-muted">
+                      I can assist with customers, scheduling, analytics, and
+                      more.
+                    </p>
                   </div>
-                  <span className="text-sm">Thinking...</span>
+
+                  {/* Quick Actions */}
+                  <div className="grid grid-cols-2 gap-3">
+                    {QUICK_ACTIONS.map((action) => (
+                      <button
+                        key={action.label}
+                        onClick={() => handleQuickAction(action.prompt)}
+                        className="flex items-center gap-3 p-4 bg-bg-card border border-border rounded-lg hover:border-primary/50 hover:shadow-sm transition-all text-left"
+                      >
+                        <div className={`p-2 rounded-lg ${action.color}`}>
+                          <action.icon className="w-5 h-5" />
+                        </div>
+                        <span className="text-sm font-medium text-text-primary">
+                          {action.label}
+                        </span>
+                      </button>
+                    ))}
+                  </div>
                 </div>
+              )}
+
+              {/* Chat Messages */}
+              <div className="max-w-3xl mx-auto space-y-4">
+                {messages.slice(1).map((message) => (
+                  <ChatMessage key={message.id} message={message} />
+                ))}
+
+                {isTyping && (
+                  <div className="flex items-start gap-3">
+                    <div className="w-8 h-8 rounded-full bg-primary/10 flex items-center justify-center">
+                      <Sparkles className="w-4 h-4 text-primary" />
+                    </div>
+                    <div className="flex items-center gap-2 text-text-muted bg-bg-card rounded-lg px-4 py-3 border border-border">
+                      <div className="flex gap-1">
+                        <span className="w-2 h-2 bg-primary rounded-full animate-bounce" />
+                        <span
+                          className="w-2 h-2 bg-primary rounded-full animate-bounce"
+                          style={{ animationDelay: "0.1s" }}
+                        />
+                        <span
+                          className="w-2 h-2 bg-primary rounded-full animate-bounce"
+                          style={{ animationDelay: "0.2s" }}
+                        />
+                      </div>
+                      <span className="text-sm">Thinking...</span>
+                    </div>
+                  </div>
+                )}
+                <div ref={messagesEndRef} />
               </div>
-            )}
-            <div ref={messagesEndRef} />
-          </div>
             </div>
           )}
         </div>
 
         {/* Input Area - Only show for chat tab */}
         {activeTab === "chat" && (
-        <div className="border-t border-border bg-bg-card p-4">
-          <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
-            <div className="flex gap-3 items-end">
-              <div className="flex-1 relative">
-                <textarea
-                  ref={inputRef}
-                  value={input}
-                  onChange={(e) => setInput(e.target.value)}
-                  onKeyDown={handleKeyDown}
-                  placeholder="Ask me anything about your CRM..."
-                  className="w-full px-4 py-3 pr-12 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 bg-bg-body resize-none min-h-[48px] max-h-[150px]"
-                  disabled={isLoading}
-                  rows={1}
-                />
-                <div className="absolute right-2 bottom-2">
-                  <Button
-                    type="submit"
-                    variant="primary"
-                    size="sm"
-                    disabled={!input.trim() || isLoading}
-                    className="rounded-lg"
-                  >
-                    <Send className="w-4 h-4" />
-                  </Button>
+          <div className="border-t border-border bg-bg-card p-4">
+            <form onSubmit={handleSubmit} className="max-w-3xl mx-auto">
+              <div className="flex gap-3 items-end">
+                <div className="flex-1 relative">
+                  <textarea
+                    ref={inputRef}
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={handleKeyDown}
+                    placeholder="Ask me anything about your CRM..."
+                    className="w-full px-4 py-3 pr-12 border border-border rounded-lg text-sm focus:outline-none focus:ring-2 focus:ring-primary/50 bg-bg-body resize-none min-h-[48px] max-h-[150px]"
+                    disabled={isLoading}
+                    rows={1}
+                  />
+                  <div className="absolute right-2 bottom-2">
+                    <Button
+                      type="submit"
+                      variant="primary"
+                      size="sm"
+                      disabled={!input.trim() || isLoading}
+                      className="rounded-lg"
+                    >
+                      <Send className="w-4 h-4" />
+                    </Button>
+                  </div>
                 </div>
               </div>
-            </div>
-            <p className="text-xs text-text-muted mt-2 text-center">
-              Press Enter to send, Shift+Enter for new line
-            </p>
-          </form>
-        </div>
+              <p className="text-xs text-text-muted mt-2 text-center">
+                Press Enter to send, Shift+Enter for new line
+              </p>
+            </form>
+          </div>
         )}
       </div>
 

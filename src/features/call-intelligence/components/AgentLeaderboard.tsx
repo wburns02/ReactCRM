@@ -5,22 +5,42 @@
  */
 
 import { memo, useState, useMemo, useCallback } from "react";
-import { TrendingUp, TrendingDown, Minus, ChevronUp, ChevronDown } from "lucide-react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card.tsx";
+import {
+  TrendingUp,
+  TrendingDown,
+  Minus,
+  ChevronUp,
+  ChevronDown,
+} from "lucide-react";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Skeleton, SkeletonAvatar } from "@/components/ui/Skeleton.tsx";
 import { cn } from "@/lib/utils.ts";
 import type { AgentPerformance } from "../types.ts";
 
 // Medal icons for top 3 rankings
-const RANK_MEDALS: Record<number, { icon: string; bgClass: string; textClass: string }> = {
+const RANK_MEDALS: Record<
+  number,
+  { icon: string; bgClass: string; textClass: string }
+> = {
   1: { icon: "🥇", bgClass: "bg-yellow-100", textClass: "text-yellow-700" },
   2: { icon: "🥈", bgClass: "bg-gray-100", textClass: "text-gray-600" },
   3: { icon: "🥉", bgClass: "bg-orange-100", textClass: "text-orange-700" },
 };
 
 // Sort configuration
-type SortField = "rank" | "agent_name" | "avg_quality_score" | "avg_sentiment_score" | "total_calls" | "quality_trend";
+type SortField =
+  | "rank"
+  | "agent_name"
+  | "avg_quality_score"
+  | "avg_sentiment_score"
+  | "total_calls"
+  | "quality_trend";
 type SortDirection = "asc" | "desc";
 
 interface AgentLeaderboardProps {
@@ -56,7 +76,7 @@ function SortableHeader({
     <th
       className={cn(
         "px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider cursor-pointer select-none hover:bg-bg-muted/50 transition-colors",
-        className
+        className,
       )}
       onClick={() => onSort(field)}
     >
@@ -68,7 +88,7 @@ function SortableHeader({
               "h-3 w-3 -mb-1",
               isActive && currentSort.direction === "asc"
                 ? "text-primary"
-                : "text-text-muted"
+                : "text-text-muted",
             )}
           />
           <ChevronDown
@@ -76,7 +96,7 @@ function SortableHeader({
               "h-3 w-3",
               isActive && currentSort.direction === "desc"
                 ? "text-primary"
-                : "text-text-muted"
+                : "text-text-muted",
             )}
           />
         </span>
@@ -102,7 +122,10 @@ function QualityProgressBar({ value }: { value: number }) {
     <div className="flex items-center gap-2">
       <div className="flex-1 h-2 bg-bg-muted rounded-full overflow-hidden min-w-[60px]">
         <div
-          className={cn("h-full rounded-full transition-all duration-300", getColorClass())}
+          className={cn(
+            "h-full rounded-full transition-all duration-300",
+            getColorClass(),
+          )}
           style={{ width: `${percentage}%` }}
         />
       </div>
@@ -155,7 +178,9 @@ function TrendIndicator({
     return (
       <div className="flex items-center gap-1 text-green-600">
         <TrendingUp className="h-4 w-4" />
-        <span className="text-sm font-medium">+{absPercentage.toFixed(1)}%</span>
+        <span className="text-sm font-medium">
+          +{absPercentage.toFixed(1)}%
+        </span>
       </div>
     );
   }
@@ -164,7 +189,9 @@ function TrendIndicator({
     return (
       <div className="flex items-center gap-1 text-red-600">
         <TrendingDown className="h-4 w-4" />
-        <span className="text-sm font-medium">-{absPercentage.toFixed(1)}%</span>
+        <span className="text-sm font-medium">
+          -{absPercentage.toFixed(1)}%
+        </span>
       </div>
     );
   }
@@ -222,7 +249,7 @@ function RankDisplay({ rank }: { rank: number }) {
       <div
         className={cn(
           "w-8 h-8 rounded-full flex items-center justify-center text-lg",
-          medal.bgClass
+          medal.bgClass,
         )}
       >
         {medal.icon}
@@ -456,7 +483,7 @@ export const AgentLeaderboard = memo(function AgentLeaderboard({
                     className={cn(
                       "border-b border-border transition-colors cursor-pointer",
                       "hover:bg-bg-muted/50",
-                      isTopThree && medal && `${medal.bgClass}/30`
+                      isTopThree && medal && `${medal.bgClass}/30`,
                     )}
                     onClick={() => onAgentClick?.(agent.agent_id)}
                     data-testid={`agent-row-${agent.agent_id}`}
@@ -483,7 +510,7 @@ export const AgentLeaderboard = memo(function AgentLeaderboard({
                                 "text-xs",
                                 agent.rank_change > 0
                                   ? "text-green-600"
-                                  : "text-red-600"
+                                  : "text-red-600",
                               )}
                             >
                               {agent.rank_change > 0 ? "+" : ""}

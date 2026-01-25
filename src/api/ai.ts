@@ -244,7 +244,15 @@ export const aiApi = {
    * Analyze data with AI
    */
   async analyze(params: {
-    type: "revenue" | "performance" | "trends" | "anomalies" | "billing" | "payment_prediction" | "equipment" | "maintenance";
+    type:
+      | "revenue"
+      | "performance"
+      | "trends"
+      | "anomalies"
+      | "billing"
+      | "payment_prediction"
+      | "equipment"
+      | "maintenance";
     data?: Record<string, unknown>;
     question?: string;
     date_range?: { start: string; end: string };

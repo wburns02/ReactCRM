@@ -106,7 +106,9 @@ export function usePaymentPattern(customerId: string | undefined) {
       if (!customerId) throw new Error("Customer ID required");
 
       try {
-        const response = await apiClient.get(`/ai/payments/pattern/${customerId}`);
+        const response = await apiClient.get(
+          `/ai/payments/pattern/${customerId}`,
+        );
         return response.data;
       } catch {
         return generateDemoPaymentPattern(customerId);
@@ -125,7 +127,9 @@ export function useCollectionInsights() {
     queryKey: ["collection-insights"],
     queryFn: async (): Promise<CollectionInsights> => {
       try {
-        const response = await apiClient.get("/ai/payments/collection-insights");
+        const response = await apiClient.get(
+          "/ai/payments/collection-insights",
+        );
         return response.data;
       } catch {
         return generateDemoCollectionInsights();
@@ -152,16 +156,19 @@ export function usePredictPayment() {
       } catch {
         const daysToPay = 15 + Math.floor(Math.random() * 20);
         const dueDate = new Date(params.dueDate);
-        const predictedDate = new Date(dueDate.getTime() + daysToPay * 24 * 60 * 60 * 1000);
+        const predictedDate = new Date(
+          dueDate.getTime() + daysToPay * 24 * 60 * 60 * 1000,
+        );
 
         return {
           invoice_id: params.invoiceId,
           predicted_payment_date: predictedDate.toISOString().split("T")[0],
           confidence: 70 + Math.floor(Math.random() * 25),
           will_pay_on_time: daysToPay <= 0,
-          recommended_action: daysToPay > 7
-            ? "Send reminder 5 days before due date"
-            : "Monitor - likely to pay on time",
+          recommended_action:
+            daysToPay > 7
+              ? "Send reminder 5 days before due date"
+              : "Monitor - likely to pay on time",
         };
       }
     },
@@ -179,7 +186,10 @@ export function useCollectionStrategy() {
       daysOverdue: number;
     }) => {
       try {
-        const response = await apiClient.post("/ai/payments/collection-strategy", params);
+        const response = await apiClient.post(
+          "/ai/payments/collection-strategy",
+          params,
+        );
         return response.data;
       } catch {
         let strategy = "standard";
@@ -189,11 +199,19 @@ export function useCollectionStrategy() {
         if (params.daysOverdue > 60) {
           strategy = "escalated";
           urgency = "high";
-          actions.push("Call immediately", "Send final notice email", "Consider payment plan");
+          actions.push(
+            "Call immediately",
+            "Send final notice email",
+            "Consider payment plan",
+          );
         } else if (params.daysOverdue > 30) {
           strategy = "intensified";
           urgency = "medium";
-          actions.push("Phone follow-up", "Send second reminder", "Offer online payment link");
+          actions.push(
+            "Phone follow-up",
+            "Send second reminder",
+            "Offer online payment link",
+          );
         } else if (params.daysOverdue > 0) {
           strategy = "reminder";
           urgency = "low";
@@ -219,12 +237,22 @@ export function useCollectionStrategy() {
  * Generate demo payment pattern
  */
 function generateDemoPaymentPattern(customerId: string): PaymentPatternResult {
-  const behaviors: Array<"early" | "on_time" | "late" | "very_late"> = ["early", "on_time", "late", "very_late"];
+  const behaviors: Array<"early" | "on_time" | "late" | "very_late"> = [
+    "early",
+    "on_time",
+    "late",
+    "very_late",
+  ];
   const behavior = behaviors[Math.floor(Math.random() * 4)];
 
-  const avgDays = behavior === "early" ? -5 :
-    behavior === "on_time" ? 0 :
-    behavior === "late" ? 15 : 35;
+  const avgDays =
+    behavior === "early"
+      ? -5
+      : behavior === "on_time"
+        ? 0
+        : behavior === "late"
+          ? 15
+          : 35;
 
   let riskLevel: "low" | "medium" | "high" | "critical" = "low";
   let riskScore = 20;
@@ -274,36 +302,54 @@ function generateDemoPaymentPattern(customerId: string): PaymentPatternResult {
     payment_behavior: {
       typical_payment_timing: behavior,
       average_days_to_pay: 30 + avgDays,
-      payment_consistency: behavior === "on_time" || behavior === "early" ? "consistent" : "variable",
+      payment_consistency:
+        behavior === "on_time" || behavior === "early"
+          ? "consistent"
+          : "variable",
       preferred_method: "Credit Card",
       seasonal_patterns: "Slower payments in Q4",
     },
     risk_assessment: {
       risk_level: riskLevel,
       risk_score: riskScore,
-      risk_factors: riskLevel !== "low" ? ["Late payment history", "High outstanding balance"] : [],
+      risk_factors:
+        riskLevel !== "low"
+          ? ["Late payment history", "High outstanding balance"]
+          : [],
       mitigating_factors: ["Long-term customer", "Regular service schedule"],
       default_probability: riskScore * 0.01,
     },
     recommendations,
     historical_stats: {
       total_invoices: 15 + Math.floor(Math.random() * 20),
-      paid_on_time_rate: behavior === "early" ? 100 :
-        behavior === "on_time" ? 95 :
-        behavior === "late" ? 65 : 40,
+      paid_on_time_rate:
+        behavior === "early"
+          ? 100
+          : behavior === "on_time"
+            ? 95
+            : behavior === "late"
+              ? 65
+              : 40,
       average_days_to_pay: 30 + avgDays,
-      total_late_fees: riskLevel === "low" ? 0 : 50 + Math.floor(Math.random() * 150),
-      outstanding_balance: riskLevel === "low" ? 0 : 200 + Math.floor(Math.random() * 800),
+      total_late_fees:
+        riskLevel === "low" ? 0 : 50 + Math.floor(Math.random() * 150),
+      outstanding_balance:
+        riskLevel === "low" ? 0 : 200 + Math.floor(Math.random() * 800),
       lifetime_value: 2500 + Math.floor(Math.random() * 5000),
     },
     predicted_actions: [
       {
         invoice_id: "INV-001",
-        predicted_payment_date: new Date(Date.now() + (30 + avgDays) * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+        predicted_payment_date: new Date(
+          Date.now() + (30 + avgDays) * 24 * 60 * 60 * 1000,
+        )
+          .toISOString()
+          .split("T")[0],
         confidence: 75 + Math.floor(Math.random() * 20),
-        suggested_follow_up: behavior === "late" || behavior === "very_late"
-          ? "Send reminder 5 days before due date"
-          : "No action needed",
+        suggested_follow_up:
+          behavior === "late" || behavior === "very_late"
+            ? "Send reminder 5 days before due date"
+            : "No action needed",
       },
     ],
   };

@@ -23,15 +23,17 @@ export function InvoiceCreatePage() {
     customer_id: "",
     due_date: "",
     notes: "",
-    line_items: [{ service: "", description: "", quantity: 1, rate: 0 }] as LineItem[],
+    line_items: [
+      { service: "", description: "", quantity: 1, rate: 0 },
+    ] as LineItem[],
   });
 
   const createMutation = useMutation({
     mutationFn: async () => {
       // Prepare line items with calculated amount
       const preparedLineItems = invoice.line_items
-        .filter(item => item.service.trim() !== "") // Filter out empty items
-        .map(item => ({
+        .filter((item) => item.service.trim() !== "") // Filter out empty items
+        .map((item) => ({
           service: item.service,
           description: item.description || "",
           quantity: item.quantity,
@@ -41,7 +43,9 @@ export function InvoiceCreatePage() {
 
       // Validate we have at least one line item
       if (preparedLineItems.length === 0) {
-        throw new Error("At least one line item with a service name is required");
+        throw new Error(
+          "At least one line item with a service name is required",
+        );
       }
 
       // Prepare payload - convert empty strings to undefined
@@ -58,7 +62,10 @@ export function InvoiceCreatePage() {
       return response.data;
     },
     onSuccess: (data) => {
-      toastSuccess("Invoice created", `Invoice #${data.invoice_number || data.id} created successfully`);
+      toastSuccess(
+        "Invoice created",
+        `Invoice #${data.invoice_number || data.id} created successfully`,
+      );
       queryClient.invalidateQueries({ queryKey: ["invoices"] });
       navigate(`/invoices/${data.id}`);
     },
@@ -66,12 +73,17 @@ export function InvoiceCreatePage() {
       console.error("Invoice creation failed:", error);
 
       // Extract error details
-      const err = error as { response?: { data?: { detail?: unknown } }; message?: string };
+      const err = error as {
+        response?: { data?: { detail?: unknown } };
+        message?: string;
+      };
 
       if (err.response?.data?.detail) {
         const details = err.response.data.detail;
         if (Array.isArray(details)) {
-          const messages = details.map((d: { msg?: string }) => d.msg || "Unknown error").join(", ");
+          const messages = details
+            .map((d: { msg?: string }) => d.msg || "Unknown error")
+            .join(", ");
           toastError("Validation Error", messages);
         } else if (typeof details === "string") {
           toastError("Error", details);
@@ -124,14 +136,19 @@ export function InvoiceCreatePage() {
     }
 
     // Validate line items
-    const validItems = invoice.line_items.filter(item => item.service.trim() !== "");
+    const validItems = invoice.line_items.filter(
+      (item) => item.service.trim() !== "",
+    );
     if (validItems.length === 0) {
-      toastError("Validation Error", "Add at least one line item with a service name");
+      toastError(
+        "Validation Error",
+        "Add at least one line item with a service name",
+      );
       return;
     }
 
     // Check for invalid quantities
-    const invalidQty = validItems.some(item => item.quantity <= 0);
+    const invalidQty = validItems.some((item) => item.quantity <= 0);
     if (invalidQty) {
       toastError("Validation Error", "All quantities must be greater than 0");
       return;

@@ -50,7 +50,9 @@ export function useBatchTriage() {
   const queryClient = useQueryClient();
 
   return useMutation({
-    mutationFn: async (ticketIds: string[]): Promise<Record<string, TicketTriageResult>> => {
+    mutationFn: async (
+      ticketIds: string[],
+    ): Promise<Record<string, TicketTriageResult>> => {
       try {
         const response = await apiClient.post("/ai/tickets/batch-triage", {
           ticket_ids: ticketIds,
@@ -76,11 +78,14 @@ export function useTicketAutoResponse(ticketId: string | undefined) {
     queryFn: async () => {
       if (!ticketId) return null;
       try {
-        const response = await apiClient.get(`/ai/tickets/${ticketId}/auto-response`);
+        const response = await apiClient.get(
+          `/ai/tickets/${ticketId}/auto-response`,
+        );
         return response.data;
       } catch {
         return {
-          response: "Thank you for contacting us. We've received your request and a team member will review it shortly.",
+          response:
+            "Thank you for contacting us. We've received your request and a team member will review it shortly.",
           tone: "professional",
         };
       }
@@ -114,16 +119,36 @@ export function useSimilarTickets(title: string, description: string) {
 /**
  * Generate demo triage result based on content analysis
  */
-function generateDemoTriage(title: string, description: string): TicketTriageResult {
+function generateDemoTriage(
+  title: string,
+  description: string,
+): TicketTriageResult {
   const content = `${title} ${description}`.toLowerCase();
 
   // Determine type
   let suggested_type: TicketType = "task";
-  if (content.includes("bug") || content.includes("error") || content.includes("broken") || content.includes("not working") || content.includes("issue")) {
+  if (
+    content.includes("bug") ||
+    content.includes("error") ||
+    content.includes("broken") ||
+    content.includes("not working") ||
+    content.includes("issue")
+  ) {
     suggested_type = "bug";
-  } else if (content.includes("feature") || content.includes("add") || content.includes("new") || content.includes("want") || content.includes("would like")) {
+  } else if (
+    content.includes("feature") ||
+    content.includes("add") ||
+    content.includes("new") ||
+    content.includes("want") ||
+    content.includes("would like")
+  ) {
     suggested_type = "feature";
-  } else if (content.includes("improve") || content.includes("enhance") || content.includes("better") || content.includes("upgrade")) {
+  } else if (
+    content.includes("improve") ||
+    content.includes("enhance") ||
+    content.includes("better") ||
+    content.includes("upgrade")
+  ) {
     suggested_type = "feature";
   }
 
@@ -131,13 +156,29 @@ function generateDemoTriage(title: string, description: string): TicketTriageRes
   let suggested_priority: TicketPriority = "medium";
   let urgency_score = 5;
 
-  if (content.includes("urgent") || content.includes("asap") || content.includes("critical") || content.includes("emergency") || content.includes("down")) {
+  if (
+    content.includes("urgent") ||
+    content.includes("asap") ||
+    content.includes("critical") ||
+    content.includes("emergency") ||
+    content.includes("down")
+  ) {
     suggested_priority = "urgent";
     urgency_score = 10;
-  } else if (content.includes("important") || content.includes("soon") || content.includes("high") || content.includes("blocking")) {
+  } else if (
+    content.includes("important") ||
+    content.includes("soon") ||
+    content.includes("high") ||
+    content.includes("blocking")
+  ) {
     suggested_priority = "high";
     urgency_score = 8;
-  } else if (content.includes("whenever") || content.includes("low") || content.includes("minor") || content.includes("nice to have")) {
+  } else if (
+    content.includes("whenever") ||
+    content.includes("low") ||
+    content.includes("minor") ||
+    content.includes("nice to have")
+  ) {
     suggested_priority = "low";
     urgency_score = 3;
   }
@@ -146,19 +187,44 @@ function generateDemoTriage(title: string, description: string): TicketTriageRes
   let category = "General";
   const tags: string[] = [];
 
-  if (content.includes("billing") || content.includes("invoice") || content.includes("payment") || content.includes("charge")) {
+  if (
+    content.includes("billing") ||
+    content.includes("invoice") ||
+    content.includes("payment") ||
+    content.includes("charge")
+  ) {
     category = "Billing";
     tags.push("billing");
-  } else if (content.includes("schedule") || content.includes("appointment") || content.includes("time") || content.includes("calendar")) {
+  } else if (
+    content.includes("schedule") ||
+    content.includes("appointment") ||
+    content.includes("time") ||
+    content.includes("calendar")
+  ) {
     category = "Scheduling";
     tags.push("scheduling");
-  } else if (content.includes("technician") || content.includes("service") || content.includes("repair") || content.includes("maintenance")) {
+  } else if (
+    content.includes("technician") ||
+    content.includes("service") ||
+    content.includes("repair") ||
+    content.includes("maintenance")
+  ) {
     category = "Service";
     tags.push("service");
-  } else if (content.includes("login") || content.includes("password") || content.includes("access") || content.includes("account")) {
+  } else if (
+    content.includes("login") ||
+    content.includes("password") ||
+    content.includes("access") ||
+    content.includes("account")
+  ) {
     category = "Account";
     tags.push("account");
-  } else if (content.includes("quote") || content.includes("estimate") || content.includes("price") || content.includes("cost")) {
+  } else if (
+    content.includes("quote") ||
+    content.includes("estimate") ||
+    content.includes("price") ||
+    content.includes("cost")
+  ) {
     category = "Sales";
     tags.push("sales");
   }
@@ -176,14 +242,18 @@ function generateDemoTriage(title: string, description: string): TicketTriageRes
   }
 
   // Generate auto-response suggestion
-  let auto_response_suggestion = "Thank you for reaching out. We've received your request and our team will review it shortly.";
+  let auto_response_suggestion =
+    "Thank you for reaching out. We've received your request and our team will review it shortly.";
 
   if (category === "Billing") {
-    auto_response_suggestion = "Thank you for contacting us about your billing inquiry. Our billing team will review your request and respond within 1 business day.";
+    auto_response_suggestion =
+      "Thank you for contacting us about your billing inquiry. Our billing team will review your request and respond within 1 business day.";
   } else if (category === "Scheduling") {
-    auto_response_suggestion = "Thank you for your scheduling request. Our dispatch team will contact you shortly to confirm your appointment.";
+    auto_response_suggestion =
+      "Thank you for your scheduling request. Our dispatch team will contact you shortly to confirm your appointment.";
   } else if (suggested_priority === "urgent") {
-    auto_response_suggestion = "We understand this is urgent. Your request has been marked as urgent priority and our team is being notified immediately.";
+    auto_response_suggestion =
+      "We understand this is urgent. Your request has been marked as urgent priority and our team is being notified immediately.";
   }
 
   return {

@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { useQuoteOptimization, useMarketRateAnalysis } from "@/api/hooks/usePricingAI";
+import {
+  useQuoteOptimization,
+  useMarketRateAnalysis,
+} from "@/api/hooks/usePricingAI";
 import { Button } from "@/components/ui/Button";
 
 interface LineItem {
@@ -12,7 +15,9 @@ interface PricingInsightsPanelProps {
   customerId?: string;
   lineItems: LineItem[];
   total: number;
-  onApplyOptimization?: (suggestions: Array<{ service: string; rate: number }>) => void;
+  onApplyOptimization?: (
+    suggestions: Array<{ service: string; rate: number }>,
+  ) => void;
 }
 
 /**
@@ -29,7 +34,8 @@ export function PricingInsightsPanel({
   const [activeTab, setActiveTab] = useState<"optimize" | "market">("optimize");
 
   const optimizeMutation = useQuoteOptimization();
-  const { data: marketData, isLoading: marketLoading } = useMarketRateAnalysis();
+  const { data: marketData, isLoading: marketLoading } =
+    useMarketRateAnalysis();
 
   const handleAnalyze = () => {
     if (lineItems.length === 0) return;
@@ -91,7 +97,9 @@ export function PricingInsightsPanel({
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-lg">✨</span>
-          <h4 className="font-medium text-text-primary">AI Pricing Intelligence</h4>
+          <h4 className="font-medium text-text-primary">
+            AI Pricing Intelligence
+          </h4>
         </div>
         <button
           onClick={() => setShowPanel(false)}
@@ -156,19 +164,29 @@ export function PricingInsightsPanel({
               {/* Win Probability */}
               <div className="bg-bg-card border border-border rounded-lg p-4">
                 <div className="flex items-center justify-between mb-2">
-                  <span className="text-sm text-text-muted">Win Probability</span>
-                  <span className={`text-2xl font-bold ${
-                    optimization.win_probability >= 70 ? "text-success" :
-                    optimization.win_probability >= 50 ? "text-warning" : "text-danger"
-                  }`}>
+                  <span className="text-sm text-text-muted">
+                    Win Probability
+                  </span>
+                  <span
+                    className={`text-2xl font-bold ${
+                      optimization.win_probability >= 70
+                        ? "text-success"
+                        : optimization.win_probability >= 50
+                          ? "text-warning"
+                          : "text-danger"
+                    }`}
+                  >
                     {optimization.win_probability}%
                   </span>
                 </div>
                 <div className="w-full h-2 bg-bg-tertiary rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full transition-all ${
-                      optimization.win_probability >= 70 ? "bg-success" :
-                      optimization.win_probability >= 50 ? "bg-warning" : "bg-danger"
+                      optimization.win_probability >= 70
+                        ? "bg-success"
+                        : optimization.win_probability >= 50
+                          ? "bg-warning"
+                          : "bg-danger"
                     }`}
                     style={{ width: `${optimization.win_probability}%` }}
                   />
@@ -178,13 +196,17 @@ export function PricingInsightsPanel({
               {/* Price Comparison */}
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-                  <span className="text-xs text-text-muted block">Current Total</span>
+                  <span className="text-xs text-text-muted block">
+                    Current Total
+                  </span>
                   <span className="text-lg font-bold text-text-primary">
                     ${optimization.original_total.toLocaleString()}
                   </span>
                 </div>
                 <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-                  <span className="text-xs text-text-muted block">Optimized</span>
+                  <span className="text-xs text-text-muted block">
+                    Optimized
+                  </span>
                   <span className="text-lg font-bold text-success">
                     ${optimization.optimized_total.toLocaleString()}
                   </span>
@@ -194,24 +216,43 @@ export function PricingInsightsPanel({
               {/* Recommendations */}
               {optimization.recommendations.length > 0 && (
                 <div>
-                  <span className="text-xs text-text-muted block mb-2">Price Adjustments</span>
+                  <span className="text-xs text-text-muted block mb-2">
+                    Price Adjustments
+                  </span>
                   <div className="space-y-2">
                     {optimization.recommendations.map((rec, i) => (
-                      <div key={i} className="bg-bg-card border border-border rounded-lg p-3">
+                      <div
+                        key={i}
+                        className="bg-bg-card border border-border rounded-lg p-3"
+                      >
                         <div className="flex items-center justify-between mb-1">
-                          <span className="font-medium text-text-primary">{rec.service}</span>
-                          <span className={`text-xs ${getImpactColor(rec.impact)}`}>
+                          <span className="font-medium text-text-primary">
+                            {rec.service}
+                          </span>
+                          <span
+                            className={`text-xs ${getImpactColor(rec.impact)}`}
+                          >
                             {rec.impact.toUpperCase()} IMPACT
                           </span>
                         </div>
                         <div className="flex items-center gap-2 text-sm">
-                          <span className="text-text-muted">${rec.current_rate}</span>
+                          <span className="text-text-muted">
+                            ${rec.current_rate}
+                          </span>
                           <span className="text-text-muted">→</span>
-                          <span className={rec.suggested_rate > rec.current_rate ? "text-green-400" : "text-yellow-400"}>
+                          <span
+                            className={
+                              rec.suggested_rate > rec.current_rate
+                                ? "text-green-400"
+                                : "text-yellow-400"
+                            }
+                          >
                             ${rec.suggested_rate}
                           </span>
                         </div>
-                        <p className="text-xs text-text-muted mt-1">{rec.reason}</p>
+                        <p className="text-xs text-text-muted mt-1">
+                          {rec.reason}
+                        </p>
                       </div>
                     ))}
                   </div>
@@ -221,15 +262,26 @@ export function PricingInsightsPanel({
               {/* Discount Suggestions */}
               {optimization.discount_suggestions.length > 0 && (
                 <div>
-                  <span className="text-xs text-text-muted block mb-2">Discount Opportunities</span>
+                  <span className="text-xs text-text-muted block mb-2">
+                    Discount Opportunities
+                  </span>
                   <div className="space-y-2">
                     {optimization.discount_suggestions.map((disc, i) => (
-                      <div key={i} className="flex items-center justify-between bg-green-500/10 border border-green-500/30 rounded-lg p-2">
+                      <div
+                        key={i}
+                        className="flex items-center justify-between bg-green-500/10 border border-green-500/30 rounded-lg p-2"
+                      >
                         <div>
-                          <span className="text-sm font-medium text-green-400 capitalize">{disc.type.replace("_", " ")} Discount</span>
-                          <p className="text-xs text-text-muted">{disc.reason}</p>
+                          <span className="text-sm font-medium text-green-400 capitalize">
+                            {disc.type.replace("_", " ")} Discount
+                          </span>
+                          <p className="text-xs text-text-muted">
+                            {disc.reason}
+                          </p>
                         </div>
-                        <span className="text-lg font-bold text-green-400">-{disc.percentage}%</span>
+                        <span className="text-lg font-bold text-green-400">
+                          -{disc.percentage}%
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -239,15 +291,26 @@ export function PricingInsightsPanel({
               {/* Upsell Opportunities */}
               {optimization.upsell_opportunities.length > 0 && (
                 <div>
-                  <span className="text-xs text-text-muted block mb-2">Upsell Suggestions</span>
+                  <span className="text-xs text-text-muted block mb-2">
+                    Upsell Suggestions
+                  </span>
                   <div className="space-y-2">
                     {optimization.upsell_opportunities.map((upsell, i) => (
-                      <div key={i} className="flex items-center justify-between bg-bg-card border border-border rounded-lg p-2">
+                      <div
+                        key={i}
+                        className="flex items-center justify-between bg-bg-card border border-border rounded-lg p-2"
+                      >
                         <div>
-                          <span className="text-sm font-medium text-text-primary">{upsell.service}</span>
-                          <p className="text-xs text-text-muted">{upsell.description}</p>
+                          <span className="text-sm font-medium text-text-primary">
+                            {upsell.service}
+                          </span>
+                          <p className="text-xs text-text-muted">
+                            {upsell.description}
+                          </p>
                         </div>
-                        <span className="text-sm font-medium text-success">+${upsell.price}</span>
+                        <span className="text-sm font-medium text-success">
+                          +${upsell.price}
+                        </span>
                       </div>
                     ))}
                   </div>
@@ -256,20 +319,25 @@ export function PricingInsightsPanel({
 
               {/* Competitive Analysis */}
               <div className="bg-bg-card border border-border rounded-lg p-3">
-                <span className="text-xs text-text-muted block mb-1">Competitive Analysis</span>
-                <p className="text-sm text-text-secondary">{optimization.competitive_analysis}</p>
+                <span className="text-xs text-text-muted block mb-1">
+                  Competitive Analysis
+                </span>
+                <p className="text-sm text-text-secondary">
+                  {optimization.competitive_analysis}
+                </p>
               </div>
 
               {/* Apply Button */}
-              {optimization.recommendations.length > 0 && onApplyOptimization && (
-                <Button
-                  size="sm"
-                  onClick={handleApply}
-                  className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
-                >
-                  Apply Optimized Pricing
-                </Button>
-              )}
+              {optimization.recommendations.length > 0 &&
+                onApplyOptimization && (
+                  <Button
+                    size="sm"
+                    onClick={handleApply}
+                    className="w-full bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+                  >
+                    Apply Optimized Pricing
+                  </Button>
+                )}
             </>
           )}
         </div>
@@ -289,10 +357,16 @@ export function PricingInsightsPanel({
             <>
               {/* Overall Positioning */}
               <div className="bg-bg-card border border-border rounded-lg p-4">
-                <span className="text-xs text-text-muted block mb-2">Market Position</span>
-                <p className="text-sm text-text-primary">{marketData.overall_positioning}</p>
+                <span className="text-xs text-text-muted block mb-2">
+                  Market Position
+                </span>
+                <p className="text-sm text-text-primary">
+                  {marketData.overall_positioning}
+                </p>
                 <div className="mt-2 flex items-center gap-2">
-                  <span className="text-xs text-text-muted">Revenue Opportunity:</span>
+                  <span className="text-xs text-text-muted">
+                    Revenue Opportunity:
+                  </span>
                   <span className="text-sm font-medium text-success">
                     +${marketData.revenue_opportunity?.toLocaleString()}/month
                   </span>
@@ -301,48 +375,76 @@ export function PricingInsightsPanel({
 
               {/* Service Comparison */}
               <div>
-                <span className="text-xs text-text-muted block mb-2">Service Rate Comparison</span>
+                <span className="text-xs text-text-muted block mb-2">
+                  Service Rate Comparison
+                </span>
                 <div className="space-y-2">
-                  {marketData.services?.map((service: {
-                    name: string;
-                    your_rate: number;
-                    market_avg: number;
-                    market_range: { min: number; max: number };
-                    recommendation: string;
-                  }, i: number) => {
-                    const position = service.your_rate < service.market_avg * 0.95
-                      ? "below_market"
-                      : service.your_rate > service.market_avg * 1.05
-                        ? "above_market"
-                        : "at_market";
-                    return (
-                      <div key={i} className="bg-bg-card border border-border rounded-lg p-3">
-                        <div className="flex items-center justify-between mb-2">
-                          <span className="font-medium text-text-primary">{service.name}</span>
-                          <span className={`text-xs ${getPositionColor(position)}`}>
-                            {position.replace("_", " ").toUpperCase()}
-                          </span>
-                        </div>
-                        <div className="grid grid-cols-3 gap-2 text-center text-sm mb-2">
-                          <div>
-                            <span className="text-xs text-text-muted block">Your Rate</span>
-                            <span className="font-medium text-text-primary">${service.your_rate}</span>
-                          </div>
-                          <div>
-                            <span className="text-xs text-text-muted block">Market Avg</span>
-                            <span className="font-medium text-text-secondary">${service.market_avg}</span>
-                          </div>
-                          <div>
-                            <span className="text-xs text-text-muted block">Range</span>
-                            <span className="font-medium text-text-secondary">
-                              ${service.market_range.min}-${service.market_range.max}
+                  {marketData.services?.map(
+                    (
+                      service: {
+                        name: string;
+                        your_rate: number;
+                        market_avg: number;
+                        market_range: { min: number; max: number };
+                        recommendation: string;
+                      },
+                      i: number,
+                    ) => {
+                      const position =
+                        service.your_rate < service.market_avg * 0.95
+                          ? "below_market"
+                          : service.your_rate > service.market_avg * 1.05
+                            ? "above_market"
+                            : "at_market";
+                      return (
+                        <div
+                          key={i}
+                          className="bg-bg-card border border-border rounded-lg p-3"
+                        >
+                          <div className="flex items-center justify-between mb-2">
+                            <span className="font-medium text-text-primary">
+                              {service.name}
+                            </span>
+                            <span
+                              className={`text-xs ${getPositionColor(position)}`}
+                            >
+                              {position.replace("_", " ").toUpperCase()}
                             </span>
                           </div>
+                          <div className="grid grid-cols-3 gap-2 text-center text-sm mb-2">
+                            <div>
+                              <span className="text-xs text-text-muted block">
+                                Your Rate
+                              </span>
+                              <span className="font-medium text-text-primary">
+                                ${service.your_rate}
+                              </span>
+                            </div>
+                            <div>
+                              <span className="text-xs text-text-muted block">
+                                Market Avg
+                              </span>
+                              <span className="font-medium text-text-secondary">
+                                ${service.market_avg}
+                              </span>
+                            </div>
+                            <div>
+                              <span className="text-xs text-text-muted block">
+                                Range
+                              </span>
+                              <span className="font-medium text-text-secondary">
+                                ${service.market_range.min}-$
+                                {service.market_range.max}
+                              </span>
+                            </div>
+                          </div>
+                          <p className="text-xs text-purple-400">
+                            → {service.recommendation}
+                          </p>
                         </div>
-                        <p className="text-xs text-purple-400">→ {service.recommendation}</p>
-                      </div>
-                    );
-                  })}
+                      );
+                    },
+                  )}
                 </div>
               </div>
             </>

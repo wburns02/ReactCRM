@@ -16,12 +16,15 @@ import type {
   DomainQuery,
   AIAction,
   ActionResult,
-  HealthStatus
-} from '@/api/types/aiAssistant';
-import type { BaseAIAdapter, UnifiedAIResponse } from './adapters/BaseAIAdapter';
-import { QueryProcessor } from './QueryProcessor';
-import { ContextManager } from './ContextManager';
-import { ActionOrchestrator } from './ActionOrchestrator';
+  HealthStatus,
+} from "@/api/types/aiAssistant";
+import type {
+  BaseAIAdapter,
+  UnifiedAIResponse,
+} from "./adapters/BaseAIAdapter";
+import { QueryProcessor } from "./QueryProcessor";
+import { ContextManager } from "./ContextManager";
+import { ActionOrchestrator } from "./ActionOrchestrator";
 
 // ===== ORCHESTRATOR INTERFACE =====
 
@@ -37,7 +40,10 @@ export interface AIOrchestrator {
   getAdapterHealth(): Promise<Record<AIDomain, HealthStatus>>;
 
   // Streaming support
-  streamQuery(naturalQuery: string, context: AIContext): AsyncGenerator<Partial<AIResponse>>;
+  streamQuery(
+    naturalQuery: string,
+    context: AIContext,
+  ): AsyncGenerator<Partial<AIResponse>>;
 }
 
 // ===== QUERY EXECUTION PLAN =====
@@ -67,9 +73,9 @@ interface QueryDependency {
 // ===== AGGREGATION STRATEGIES =====
 
 interface AggregationStrategy {
-  type: 'merge' | 'prioritize' | 'synthesize' | 'compare';
+  type: "merge" | "prioritize" | "synthesize" | "compare";
   weights?: Record<AIDomain, number>;
-  conflictResolution?: 'highest_confidence' | 'newest' | 'user_preference';
+  conflictResolution?: "highest_confidence" | "newest" | "user_preference";
 }
 
 // ===== IMPLEMENTATION =====
@@ -82,7 +88,7 @@ export class AIOrchestratorImpl implements AIOrchestrator {
   constructor(
     queryProcessor: QueryProcessor,
     _contextManager: ContextManager,
-    actionOrchestrator: ActionOrchestrator
+    actionOrchestrator: ActionOrchestrator,
   ) {
     this.queryProcessor = queryProcessor;
     this.actionOrchestrator = actionOrchestrator;
@@ -90,12 +96,18 @@ export class AIOrchestratorImpl implements AIOrchestrator {
 
   // ===== CORE OPERATIONS =====
 
-  async processQuery(naturalQuery: string, context: AIContext): Promise<AIResponse> {
+  async processQuery(
+    naturalQuery: string,
+    context: AIContext,
+  ): Promise<AIResponse> {
     const startTime = Date.now();
 
     try {
       // Step 1: Process natural language to structured query
-      const aiQuery = await this.queryProcessor.processNaturalLanguage(naturalQuery, context);
+      const aiQuery = await this.queryProcessor.processNaturalLanguage(
+        naturalQuery,
+        context,
+      );
 
       // Step 2: Create execution plan
       const executionPlan = await this.createExecutionPlan(aiQuery);
@@ -104,21 +116,37 @@ export class AIOrchestratorImpl implements AIOrchestrator {
       const domainResults = await this.executeQueryPlan(executionPlan);
 
       // Step 4: Aggregate and synthesize results
-      const aggregatedResult = await this.aggregateResults(domainResults, executionPlan.query.intent);
+      const aggregatedResult = await this.aggregateResults(
+        domainResults,
+        executionPlan.query.intent,
+      );
 
       // Step 5: Generate unified response
-      return this.generateUnifiedResponse(aiQuery, aggregatedResult, Date.now() - startTime);
-
+      return this.generateUnifiedResponse(
+        aiQuery,
+        aggregatedResult,
+        Date.now() - startTime,
+      );
     } catch (error) {
-      return this.generateErrorResponse(naturalQuery, context, error as Error, Date.now() - startTime);
+      return this.generateErrorResponse(
+        naturalQuery,
+        context,
+        error as Error,
+        Date.now() - startTime,
+      );
     }
   }
 
-  async executeAction(action: AIAction, context: AIContext): Promise<ActionResult> {
+  async executeAction(
+    action: AIAction,
+    context: AIContext,
+  ): Promise<ActionResult> {
     return this.actionOrchestrator.executeAction(action, context);
   }
 
-  async getConversation(_conversationId: string): Promise<AIConversation | null> {
+  async getConversation(
+    _conversationId: string,
+  ): Promise<AIConversation | null> {
     // Implementation would integrate with conversation storage
     // For now, return null as placeholder
     return null;
@@ -139,20 +167,22 @@ export class AIOrchestratorImpl implements AIOrchestrator {
   async getAdapterHealth(): Promise<Record<AIDomain, HealthStatus>> {
     const healthStatuses: Record<string, HealthStatus> = {};
 
-    const healthCheckPromises = Array.from(this.adapters.entries()).map(async ([domain, adapter]) => {
-      try {
-        const health = await adapter.healthCheck();
-        healthStatuses[domain] = health;
-      } catch (error) {
-        healthStatuses[domain] = {
-          status: 'unhealthy',
-          response_time_ms: 0,
-          error_rate: 1,
-          last_check: new Date().toISOString(),
-          issues: [error instanceof Error ? error.message : 'Unknown error']
-        };
-      }
-    });
+    const healthCheckPromises = Array.from(this.adapters.entries()).map(
+      async ([domain, adapter]) => {
+        try {
+          const health = await adapter.healthCheck();
+          healthStatuses[domain] = health;
+        } catch (error) {
+          healthStatuses[domain] = {
+            status: "unhealthy",
+            response_time_ms: 0,
+            error_rate: 1,
+            last_check: new Date().toISOString(),
+            issues: [error instanceof Error ? error.message : "Unknown error"],
+          };
+        }
+      },
+    );
 
     await Promise.all(healthCheckPromises);
     return healthStatuses as Record<AIDomain, HealthStatus>;
@@ -160,24 +190,30 @@ export class AIOrchestratorImpl implements AIOrchestrator {
 
   // ===== STREAMING SUPPORT =====
 
-  async* streamQuery(naturalQuery: string, context: AIContext): AsyncGenerator<Partial<AIResponse>> {
+  async *streamQuery(
+    naturalQuery: string,
+    context: AIContext,
+  ): AsyncGenerator<Partial<AIResponse>> {
     // Yield initial processing state
     yield {
       processing: {
         duration_ms: 0,
         cache_hit: false,
-        model_version: '1.0',
-        domains_involved: []
-      }
+        model_version: "1.0",
+        domains_involved: [],
+      },
     };
 
     try {
       // Process query intent
-      const aiQuery = await this.queryProcessor.processNaturalLanguage(naturalQuery, context);
+      const aiQuery = await this.queryProcessor.processNaturalLanguage(
+        naturalQuery,
+        context,
+      );
 
       yield {
         primaryResult: { intent: aiQuery.intent },
-        confidence: 0.5
+        confidence: 0.5,
       };
 
       // Create and execute plan
@@ -189,73 +225,83 @@ export class AIOrchestratorImpl implements AIOrchestrator {
 
         yield {
           supportingResults: Array.from(phaseResults.values()),
-          confidence: 0.7
+          confidence: 0.7,
         };
       }
 
       // Final aggregated result
       const finalResult = await this.processQuery(naturalQuery, context);
       yield finalResult;
-
     } catch (error) {
       yield {
-        errors: [{
-          code: 'STREAM_ERROR',
-          message: error instanceof Error ? error.message : 'Unknown streaming error',
-          recoverable: true
-        }]
+        errors: [
+          {
+            code: "STREAM_ERROR",
+            message:
+              error instanceof Error
+                ? error.message
+                : "Unknown streaming error",
+            recoverable: true,
+          },
+        ],
       };
     }
   }
 
   // ===== PRIVATE METHODS =====
 
-  private async createExecutionPlan(query: AIQuery): Promise<QueryExecutionPlan> {
+  private async createExecutionPlan(
+    query: AIQuery,
+  ): Promise<QueryExecutionPlan> {
     const intent = query.intent;
     const requiredDomains = await this.identifyRequiredDomains(intent);
 
     // Create phases based on dependencies
     const phases: QueryPhase[] = [];
 
-    if (intent.type === 'query') {
+    if (intent.type === "query") {
       // Simple query - single phase
       phases.push({
-        id: 'main_query',
-        name: 'Main Query Execution',
-        domainQueries: requiredDomains.map(domain => ({
+        id: "main_query",
+        name: "Main Query Execution",
+        domainQueries: requiredDomains.map((domain) => ({
           id: `${domain}_query`,
           domain,
           operation: intent.operation,
           parameters: intent.parameters || {},
-          priority: domain === intent.domain ? 'primary' : 'supporting'
+          priority: domain === intent.domain ? "primary" : "supporting",
         })),
         parallelExecution: true,
-        dependencies: []
+        dependencies: [],
       });
-    } else if (intent.type === 'action') {
+    } else if (intent.type === "action") {
       // Action execution might require pre-queries
       if (this.requiresDataGathering(intent)) {
         phases.push({
-          id: 'data_gathering',
-          name: 'Data Gathering',
+          id: "data_gathering",
+          name: "Data Gathering",
           domainQueries: this.getDataGatheringQueries(intent),
           parallelExecution: true,
-          dependencies: []
+          dependencies: [],
         });
       }
 
       phases.push({
-        id: 'action_execution',
-        name: 'Action Execution',
-        domainQueries: [{
-          id: 'main_action',
-          domain: intent.domain!,
-          operation: intent.operation,
-          parameters: intent.parameters || {},
-          priority: 'primary'
-        }],
+        id: "action_execution",
+        name: "Action Execution",
+        domainQueries: [
+          {
+            id: "main_action",
+            domain: intent.domain!,
+            operation: intent.operation,
+            parameters: intent.parameters || {},
+            priority: "primary",
+          },
+        ],
         parallelExecution: false,
-        dependencies: this.requiresDataGathering(intent) ? ['data_gathering'] : []
+        dependencies: this.requiresDataGathering(intent)
+          ? ["data_gathering"]
+          : [],
       });
     }
 
@@ -264,17 +310,19 @@ export class AIOrchestratorImpl implements AIOrchestrator {
       query,
       phases,
       dependencies: [],
-      estimatedDuration: this.estimateExecutionTime(phases)
+      estimatedDuration: this.estimateExecutionTime(phases),
     };
   }
 
-  private async executeQueryPlan(plan: QueryExecutionPlan): Promise<Map<string, UnifiedAIResponse>> {
+  private async executeQueryPlan(
+    plan: QueryExecutionPlan,
+  ): Promise<Map<string, UnifiedAIResponse>> {
     const results = new Map<string, UnifiedAIResponse>();
 
     for (const phase of plan.phases) {
       // Check dependencies
-      const dependenciesMet = phase.dependencies.every(dep =>
-        plan.phases.find(p => p.id === dep) ? true : false
+      const dependenciesMet = phase.dependencies.every((dep) =>
+        plan.phases.find((p) => p.id === dep) ? true : false,
       );
 
       if (!dependenciesMet) {
@@ -293,7 +341,10 @@ export class AIOrchestratorImpl implements AIOrchestrator {
     return results;
   }
 
-  private async executePhase(phase: QueryPhase, context: AIContext): Promise<Map<string, UnifiedAIResponse>> {
+  private async executePhase(
+    phase: QueryPhase,
+    context: AIContext,
+  ): Promise<Map<string, UnifiedAIResponse>> {
     const results = new Map<string, UnifiedAIResponse>();
 
     if (phase.parallelExecution) {
@@ -327,12 +378,12 @@ export class AIOrchestratorImpl implements AIOrchestrator {
 
   private async aggregateResults(
     domainResults: Map<string, UnifiedAIResponse>,
-    intent: AIIntent
+    intent: AIIntent,
   ): Promise<UnifiedAIResponse> {
     const resultsArray = Array.from(domainResults.values());
 
     if (resultsArray.length === 0) {
-      throw new Error('No results to aggregate');
+      throw new Error("No results to aggregate");
     }
 
     if (resultsArray.length === 1) {
@@ -343,11 +394,11 @@ export class AIOrchestratorImpl implements AIOrchestrator {
     const strategy = this.selectAggregationStrategy(intent);
 
     switch (strategy.type) {
-      case 'merge':
+      case "merge":
         return this.mergeResults(resultsArray);
-      case 'prioritize':
+      case "prioritize":
         return this.prioritizeResults(resultsArray, strategy.weights);
-      case 'synthesize':
+      case "synthesize":
         return this.synthesizeResults(resultsArray, intent);
       default:
         return resultsArray[0];
@@ -357,12 +408,13 @@ export class AIOrchestratorImpl implements AIOrchestrator {
   private generateUnifiedResponse(
     query: AIQuery,
     aggregatedResult: UnifiedAIResponse,
-    processingTimeMs: number
+    processingTimeMs: number,
   ): AIResponse {
     return {
       id: `response_${Date.now()}`,
       queryId: query.id,
-      conversationId: query.context.session.conversationHistory[0]?.conversationId || 'new',
+      conversationId:
+        query.context.session.conversationHistory[0]?.conversationId || "new",
 
       primaryResult: aggregatedResult.result.primary,
       supportingResults: aggregatedResult.result.supporting || [],
@@ -378,14 +430,14 @@ export class AIOrchestratorImpl implements AIOrchestrator {
       processing: {
         ...aggregatedResult.processing,
         duration_ms: processingTimeMs,
-        domains_involved: [aggregatedResult.domain]
+        domains_involved: [aggregatedResult.domain],
       },
 
       errors: aggregatedResult.errors,
       warnings: aggregatedResult.warnings,
       limitations: aggregatedResult.limitations,
 
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
   }
 
@@ -393,12 +445,12 @@ export class AIOrchestratorImpl implements AIOrchestrator {
     _naturalQuery: string,
     _context: AIContext,
     error: Error,
-    processingTimeMs: number
+    processingTimeMs: number,
   ): AIResponse {
     return {
       id: `error_response_${Date.now()}`,
       queryId: `error_${Date.now()}`,
-      conversationId: 'error',
+      conversationId: "error",
 
       primaryResult: null,
       supportingResults: [],
@@ -409,23 +461,29 @@ export class AIOrchestratorImpl implements AIOrchestrator {
 
       actionableInsights: [],
       suggestedActions: [],
-      followUpQuestions: ['Could you rephrase your question?', 'Would you like to try a simpler query?'],
+      followUpQuestions: [
+        "Could you rephrase your question?",
+        "Would you like to try a simpler query?",
+      ],
 
       processing: {
         duration_ms: processingTimeMs,
         cache_hit: false,
-        model_version: '1.0',
-        domains_involved: []
+        model_version: "1.0",
+        domains_involved: [],
       },
 
-      errors: [{
-        code: 'ORCHESTRATION_ERROR',
-        message: error.message,
-        recoverable: true,
-        suggestedFix: 'Please try rephrasing your query or contact support if the issue persists.'
-      }],
+      errors: [
+        {
+          code: "ORCHESTRATION_ERROR",
+          message: error.message,
+          recoverable: true,
+          suggestedFix:
+            "Please try rephrasing your query or contact support if the issue persists.",
+        },
+      ],
 
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     };
   }
 
@@ -451,17 +509,17 @@ export class AIOrchestratorImpl implements AIOrchestrator {
 
   private getRelatedDomains(entityType: string): AIDomain[] {
     const relationshipMap: Record<string, AIDomain[]> = {
-      'customer': ['customer-activity', 'leads', 'payments'],
-      'work_order': ['dispatch', 'scheduling', 'technicians', 'pricing'],
-      'ticket': ['tickets', 'dispatch', 'technicians'],
-      'technician': ['technicians', 'scheduling', 'dispatch']
+      customer: ["customer-activity", "leads", "payments"],
+      work_order: ["dispatch", "scheduling", "technicians", "pricing"],
+      ticket: ["tickets", "dispatch", "technicians"],
+      technician: ["technicians", "scheduling", "dispatch"],
     };
 
     return relationshipMap[entityType] || [];
   }
 
   private requiresDataGathering(intent: AIIntent): boolean {
-    return intent.type === 'action' && intent.operation.includes('create');
+    return intent.type === "action" && intent.operation.includes("create");
   }
 
   private getDataGatheringQueries(_intent: AIIntent): DomainQuery[] {
@@ -479,15 +537,15 @@ export class AIOrchestratorImpl implements AIOrchestrator {
   }
 
   private selectAggregationStrategy(intent: AIIntent): AggregationStrategy {
-    if (intent.type === 'query' && intent.operation.includes('analyze')) {
-      return { type: 'synthesize' };
+    if (intent.type === "query" && intent.operation.includes("analyze")) {
+      return { type: "synthesize" };
     }
 
-    if (intent.type === 'query' && intent.operation.includes('compare')) {
-      return { type: 'compare' };
+    if (intent.type === "query" && intent.operation.includes("compare")) {
+      return { type: "compare" };
     }
 
-    return { type: 'merge' };
+    return { type: "merge" };
   }
 
   private mergeResults(results: UnifiedAIResponse[]): UnifiedAIResponse {
@@ -497,30 +555,37 @@ export class AIOrchestratorImpl implements AIOrchestrator {
       ...primary,
       result: {
         ...primary.result,
-        supporting: results.slice(1).map(r => r.result.primary)
+        supporting: results.slice(1).map((r) => r.result.primary),
       },
-      confidence: results.reduce((sum, r) => sum + r.confidence, 0) / results.length
+      confidence:
+        results.reduce((sum, r) => sum + r.confidence, 0) / results.length,
     };
   }
 
-  private prioritizeResults(results: UnifiedAIResponse[], weights?: Record<AIDomain, number>): UnifiedAIResponse {
+  private prioritizeResults(
+    results: UnifiedAIResponse[],
+    weights?: Record<AIDomain, number>,
+  ): UnifiedAIResponse {
     if (!weights) {
       return results.reduce((best, current) =>
-        current.confidence > best.confidence ? current : best
+        current.confidence > best.confidence ? current : best,
       );
     }
 
-    const weightedResults = results.map(result => ({
+    const weightedResults = results.map((result) => ({
       result,
-      score: result.confidence * (weights[result.domain] || 1)
+      score: result.confidence * (weights[result.domain] || 1),
     }));
 
     return weightedResults.reduce((best, current) =>
-      current.score > best.score ? current : best
+      current.score > best.score ? current : best,
     ).result;
   }
 
-  private synthesizeResults(results: UnifiedAIResponse[], _intent: AIIntent): UnifiedAIResponse {
+  private synthesizeResults(
+    results: UnifiedAIResponse[],
+    _intent: AIIntent,
+  ): UnifiedAIResponse {
     // Complex synthesis - would use AI to combine insights
     // For now, return merged results
     return this.mergeResults(results);
@@ -536,30 +601,42 @@ export function useAIOrchestrator() {
   const orchestrator = new AIOrchestratorImpl(
     new QueryProcessor(),
     new ContextManager(),
-    new ActionOrchestrator()
+    new ActionOrchestrator(),
   );
 
   const processQuery = useMutation({
-    mutationFn: async ({ query, context }: { query: string; context: AIContext }) => {
+    mutationFn: async ({
+      query,
+      context,
+    }: {
+      query: string;
+      context: AIContext;
+    }) => {
       return orchestrator.processQuery(query, context);
     },
     onSuccess: () => {
       // Invalidate relevant queries
-      queryClient.invalidateQueries({ queryKey: ['ai-conversation'] });
-    }
+      queryClient.invalidateQueries({ queryKey: ["ai-conversation"] });
+    },
   });
 
   const executeAction = useMutation({
-    mutationFn: async ({ action, context }: { action: AIAction; context: AIContext }) => {
+    mutationFn: async ({
+      action,
+      context,
+    }: {
+      action: AIAction;
+      context: AIContext;
+    }) => {
       return orchestrator.executeAction(action, context);
-    }
+    },
   });
 
   const healthCheck = useQuery({
-    queryKey: ['ai-health'],
+    queryKey: ["ai-health"],
     queryFn: () => orchestrator.getAdapterHealth(),
     staleTime: 30 * 1000, // 30 seconds
-    refetchInterval: 60 * 1000 // Check every minute
+    refetchInterval: 60 * 1000, // Check every minute
   });
 
   return {
@@ -567,6 +644,6 @@ export function useAIOrchestrator() {
     executeAction: executeAction.mutateAsync,
     healthCheck: healthCheck.data,
     isProcessing: processQuery.isPending || executeAction.isPending,
-    orchestrator
+    orchestrator,
   };
 }

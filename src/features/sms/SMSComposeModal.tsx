@@ -121,13 +121,20 @@ export function SMSComposeModal({
     const lowerPrompt = prompt.toLowerCase();
     const greeting = name ? `Hi ${name}` : "Hi";
 
-    if (lowerPrompt.includes("reminder") || lowerPrompt.includes("appointment")) {
+    if (
+      lowerPrompt.includes("reminder") ||
+      lowerPrompt.includes("appointment")
+    ) {
       return `${greeting}! Just a friendly reminder about your upcoming service appointment. Reply CONFIRM to confirm or call us to reschedule.`;
     }
     if (lowerPrompt.includes("complete") || lowerPrompt.includes("done")) {
       return `${greeting}! Your service has been completed. Thank you for choosing us! Please reply with any feedback.`;
     }
-    if (lowerPrompt.includes("way") || lowerPrompt.includes("route") || lowerPrompt.includes("arriving")) {
+    if (
+      lowerPrompt.includes("way") ||
+      lowerPrompt.includes("route") ||
+      lowerPrompt.includes("arriving")
+    ) {
       return `${greeting}! Our technician is on the way and will arrive in approximately 15-20 minutes. See you soon!`;
     }
     if (lowerPrompt.includes("thank")) {
@@ -150,7 +157,9 @@ export function SMSComposeModal({
               <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/30 rounded-lg p-3">
                 <div className="flex items-center gap-2 mb-2">
                   <span className="text-lg">✨</span>
-                  <h3 className="font-medium text-text-primary text-sm">AI SMS Assistant</h3>
+                  <h3 className="font-medium text-text-primary text-sm">
+                    AI SMS Assistant
+                  </h3>
                 </div>
                 <Input
                   value={aiPrompt}
@@ -167,7 +176,11 @@ export function SMSComposeModal({
                   >
                     {generateAI.isPending ? "..." : "Generate"}
                   </Button>
-                  <Button size="sm" variant="secondary" onClick={() => setShowAiPanel(false)}>
+                  <Button
+                    size="sm"
+                    variant="secondary"
+                    onClick={() => setShowAiPanel(false)}
+                  >
                     Cancel
                   </Button>
                 </div>

@@ -1,4 +1,9 @@
-import { useQuery, useMutation, useQueryClient, useInfiniteQuery } from "@tanstack/react-query";
+import {
+  useQuery,
+  useMutation,
+  useQueryClient,
+  useInfiniteQuery,
+} from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
 import {
   permitSearchResponseSchema,
@@ -26,8 +31,10 @@ import {
 export const permitKeys = {
   all: ["permits"] as const,
   lists: () => [...permitKeys.all, "list"] as const,
-  list: (filters: PermitSearchFilters) => [...permitKeys.lists(), filters] as const,
-  infinite: (filters: PermitSearchFilters) => [...permitKeys.all, "infinite", filters] as const,
+  list: (filters: PermitSearchFilters) =>
+    [...permitKeys.lists(), filters] as const,
+  infinite: (filters: PermitSearchFilters) =>
+    [...permitKeys.all, "infinite", filters] as const,
   details: () => [...permitKeys.all, "detail"] as const,
   detail: (id: string) => [...permitKeys.details(), id] as const,
   history: (id: string) => [...permitKeys.all, "history", id] as const,
@@ -35,7 +42,8 @@ export const permitKeys = {
   duplicates: () => [...permitKeys.all, "duplicates"] as const,
   ref: {
     states: () => ["permits-ref", "states"] as const,
-    counties: (stateCode?: string) => ["permits-ref", "counties", stateCode] as const,
+    counties: (stateCode?: string) =>
+      ["permits-ref", "counties", stateCode] as const,
     systemTypes: () => ["permits-ref", "system-types"] as const,
     portals: () => ["permits-ref", "portals"] as const,
   },
@@ -48,15 +56,20 @@ function buildSearchParams(filters: PermitSearchFilters): URLSearchParams {
   const params = new URLSearchParams();
 
   if (filters.query) params.set("query", filters.query);
-  if (filters.state_codes?.length) params.set("state_codes", filters.state_codes.join(","));
-  if (filters.county_ids?.length) params.set("county_ids", filters.county_ids.join(","));
+  if (filters.state_codes?.length)
+    params.set("state_codes", filters.state_codes.join(","));
+  if (filters.county_ids?.length)
+    params.set("county_ids", filters.county_ids.join(","));
   if (filters.city) params.set("city", filters.city);
   if (filters.zip_code) params.set("zip_code", filters.zip_code);
-  if (filters.permit_date_from) params.set("permit_date_from", filters.permit_date_from);
-  if (filters.permit_date_to) params.set("permit_date_to", filters.permit_date_to);
+  if (filters.permit_date_from)
+    params.set("permit_date_from", filters.permit_date_from);
+  if (filters.permit_date_to)
+    params.set("permit_date_to", filters.permit_date_to);
   if (filters.latitude) params.set("latitude", String(filters.latitude));
   if (filters.longitude) params.set("longitude", String(filters.longitude));
-  if (filters.radius_miles) params.set("radius_miles", String(filters.radius_miles));
+  if (filters.radius_miles)
+    params.set("radius_miles", String(filters.radius_miles));
   if (filters.page) params.set("page", String(filters.page));
   if (filters.page_size) params.set("page_size", String(filters.page_size));
   if (filters.sort_by) params.set("sort_by", filters.sort_by);
@@ -80,7 +93,10 @@ export function usePermitSearch(filters: PermitSearchFilters = {}) {
       if (import.meta.env.DEV) {
         const result = permitSearchResponseSchema.safeParse(data);
         if (!result.success) {
-          console.warn("Permit search response validation failed:", result.error);
+          console.warn(
+            "Permit search response validation failed:",
+            result.error,
+          );
         }
       }
 
@@ -94,7 +110,9 @@ export function usePermitSearch(filters: PermitSearchFilters = {}) {
 /**
  * Search permits with infinite scroll
  */
-export function usePermitSearchInfinite(filters: Omit<PermitSearchFilters, "page">) {
+export function usePermitSearchInfinite(
+  filters: Omit<PermitSearchFilters, "page">,
+) {
   return useInfiniteQuery({
     queryKey: permitKeys.infinite(filters),
     queryFn: async ({ pageParam = 1 }): Promise<PermitSearchResponse> => {
@@ -277,7 +295,9 @@ export function useDuplicatePermits(status: string = "pending") {
   return useQuery({
     queryKey: [...permitKeys.duplicates(), status],
     queryFn: async (): Promise<DuplicatePair[]> => {
-      const { data } = await apiClient.get(`/permits/duplicates?status_filter=${status}`);
+      const { data } = await apiClient.get(
+        `/permits/duplicates?status_filter=${status}`,
+      );
 
       if (import.meta.env.DEV) {
         const result = duplicatePairSchema.array().safeParse(data);
@@ -308,7 +328,7 @@ export function useResolveDuplicate() {
     }): Promise<DuplicateResponse> => {
       const { data } = await apiClient.post(
         `/permits/duplicates/${duplicateId}/resolve`,
-        resolution
+        resolution,
       );
       return data;
     },

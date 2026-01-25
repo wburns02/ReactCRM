@@ -104,7 +104,9 @@ export function useWorkloadBalance() {
     queryKey: ["workload-balance"],
     queryFn: async (): Promise<WorkloadBalanceResult> => {
       try {
-        const response = await apiClient.get("/ai/technicians/workload-balance");
+        const response = await apiClient.get(
+          "/ai/technicians/workload-balance",
+        );
         return response.data;
       } catch {
         return generateDemoWorkloadBalance();
@@ -124,14 +126,23 @@ export function useTechnicianInsights(technicianId: string | undefined) {
       if (!technicianId) throw new Error("Technician ID required");
 
       try {
-        const response = await apiClient.get(`/ai/technicians/${technicianId}/insights`);
+        const response = await apiClient.get(
+          `/ai/technicians/${technicianId}/insights`,
+        );
         return response.data;
       } catch {
         return {
           performance_score: 85,
           trend: "improving" as const,
-          strengths: ["Fast job completion", "High customer ratings", "Low callback rate"],
-          improvement_areas: ["Parts inventory management", "Documentation thoroughness"],
+          strengths: [
+            "Fast job completion",
+            "High customer ratings",
+            "Low callback rate",
+          ],
+          improvement_areas: [
+            "Parts inventory management",
+            "Documentation thoroughness",
+          ],
           metrics: {
             avg_job_time: "1.2 hours",
             first_time_fix_rate: "94%",
@@ -161,7 +172,10 @@ export function useRouteOptimization() {
       startLocation?: { lat: number; lng: number };
     }) => {
       try {
-        const response = await apiClient.post("/ai/technicians/optimize-route", params);
+        const response = await apiClient.post(
+          "/ai/technicians/optimize-route",
+          params,
+        );
         return response.data;
       } catch {
         return {
@@ -187,7 +201,8 @@ function generateDemoTechnicianMatch(params: {
   requiredSkills?: string[];
   urgency?: string;
 }): TechnicianMatchResult {
-  const isEmergency = params.urgency === "emergency" || params.urgency === "high";
+  const isEmergency =
+    params.urgency === "emergency" || params.urgency === "high";
 
   const matches: TechnicianMatch[] = [
     {
@@ -195,9 +210,24 @@ function generateDemoTechnicianMatch(params: {
       technician_name: "Mike Johnson",
       match_score: 95,
       skills_match: [
-        { skill: "Septic Systems", required: true, has_skill: true, proficiency: "expert" },
-        { skill: "Pumping", required: true, has_skill: true, proficiency: "expert" },
-        { skill: "Inspections", required: false, has_skill: true, proficiency: "proficient" },
+        {
+          skill: "Septic Systems",
+          required: true,
+          has_skill: true,
+          proficiency: "expert",
+        },
+        {
+          skill: "Pumping",
+          required: true,
+          has_skill: true,
+          proficiency: "expert",
+        },
+        {
+          skill: "Inspections",
+          required: false,
+          has_skill: true,
+          proficiency: "proficient",
+        },
       ],
       availability: {
         is_available: true,
@@ -213,16 +243,32 @@ function generateDemoTechnicianMatch(params: {
         last_visit: "2024-01-15",
         customer_preference: true,
       },
-      recommendation: "Best match - Expert skills, nearby, and customer-preferred",
+      recommendation:
+        "Best match - Expert skills, nearby, and customer-preferred",
     },
     {
       technician_id: "t2",
       technician_name: "Sarah Williams",
       match_score: 82,
       skills_match: [
-        { skill: "Septic Systems", required: true, has_skill: true, proficiency: "proficient" },
-        { skill: "Pumping", required: true, has_skill: true, proficiency: "expert" },
-        { skill: "Inspections", required: false, has_skill: true, proficiency: "basic" },
+        {
+          skill: "Septic Systems",
+          required: true,
+          has_skill: true,
+          proficiency: "proficient",
+        },
+        {
+          skill: "Pumping",
+          required: true,
+          has_skill: true,
+          proficiency: "expert",
+        },
+        {
+          skill: "Inspections",
+          required: false,
+          has_skill: true,
+          proficiency: "basic",
+        },
       ],
       availability: {
         is_available: false,
@@ -245,9 +291,24 @@ function generateDemoTechnicianMatch(params: {
       technician_name: "Tom Davis",
       match_score: 75,
       skills_match: [
-        { skill: "Septic Systems", required: true, has_skill: true, proficiency: "proficient" },
-        { skill: "Pumping", required: true, has_skill: true, proficiency: "proficient" },
-        { skill: "Inspections", required: false, has_skill: false, proficiency: "none" },
+        {
+          skill: "Septic Systems",
+          required: true,
+          has_skill: true,
+          proficiency: "proficient",
+        },
+        {
+          skill: "Pumping",
+          required: true,
+          has_skill: true,
+          proficiency: "proficient",
+        },
+        {
+          skill: "Inspections",
+          required: false,
+          has_skill: false,
+          proficiency: "none",
+        },
       ],
       availability: {
         is_available: true,
@@ -273,7 +334,8 @@ function generateDemoTechnicianMatch(params: {
   // If emergency, prioritize availability
   if (isEmergency) {
     matches.sort((a, b) => {
-      if (a.availability.is_available && !b.availability.is_available) return -1;
+      if (a.availability.is_available && !b.availability.is_available)
+        return -1;
       if (!a.availability.is_available && b.availability.is_available) return 1;
       return b.match_score - a.match_score;
     });
@@ -283,7 +345,9 @@ function generateDemoTechnicianMatch(params: {
     matches,
     best_match: matches[0] || null,
     analysis: `Found ${matches.length} technicians qualified for ${params.jobType}. ${
-      isEmergency ? "Prioritizing immediately available technicians due to urgency." : "Ranked by skill match and proximity."
+      isEmergency
+        ? "Prioritizing immediately available technicians due to urgency."
+        : "Ranked by skill match and proximity."
     }`,
     factors_considered: [
       "Skill proficiency levels",
@@ -351,7 +415,9 @@ function generateDemoWorkloadBalance(): WorkloadBalanceResult {
     });
   }
 
-  const avgUtilization = technicians.reduce((sum, t) => sum + t.utilization_percentage, 0) / technicians.length;
+  const avgUtilization =
+    technicians.reduce((sum, t) => sum + t.utilization_percentage, 0) /
+    technicians.length;
   const balanceScore = Math.max(0, 100 - Math.abs(avgUtilization - 80) * 2);
 
   return {

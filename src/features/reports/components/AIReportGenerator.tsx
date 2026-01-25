@@ -1,5 +1,9 @@
 import { useState } from "react";
-import { useGenerateReport, type GeneratedReport, type KeyInsight } from "@/api/hooks/useReportAI";
+import {
+  useGenerateReport,
+  type GeneratedReport,
+  type KeyInsight,
+} from "@/api/hooks/useReportAI";
 import { Button } from "@/components/ui/Button";
 
 interface AIReportGeneratorProps {
@@ -10,11 +14,17 @@ interface AIReportGeneratorProps {
  * AI-powered report generator
  * Creates comprehensive reports with insights and recommendations
  */
-export function AIReportGenerator({ onReportGenerated }: AIReportGeneratorProps) {
+export function AIReportGenerator({
+  onReportGenerated,
+}: AIReportGeneratorProps) {
   const [showGenerator, setShowGenerator] = useState(false);
-  const [reportType, setReportType] = useState<"executive" | "operations" | "financial" | "customer" | "technician">("executive");
+  const [reportType, setReportType] = useState<
+    "executive" | "operations" | "financial" | "customer" | "technician"
+  >("executive");
   const [dateRange, setDateRange] = useState({
-    start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+    start: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split("T")[0],
     end: new Date().toISOString().split("T")[0],
   });
 
@@ -70,7 +80,10 @@ export function AIReportGenerator({ onReportGenerated }: AIReportGeneratorProps)
     }
   };
 
-  const getTrendColor = (trend?: "up" | "down" | "stable", isPositive = true) => {
+  const getTrendColor = (
+    trend?: "up" | "down" | "stable",
+    isPositive = true,
+  ) => {
     if (trend === "up") return isPositive ? "text-green-400" : "text-red-400";
     if (trend === "down") return isPositive ? "text-red-400" : "text-green-400";
     return "text-text-muted";
@@ -110,9 +123,19 @@ export function AIReportGenerator({ onReportGenerated }: AIReportGeneratorProps)
         <div className="space-y-4">
           {/* Report Type */}
           <div>
-            <label className="text-xs text-text-muted block mb-2">Report Type</label>
+            <label className="text-xs text-text-muted block mb-2">
+              Report Type
+            </label>
             <div className="grid grid-cols-3 gap-2">
-              {(["executive", "operations", "financial", "customer", "technician"] as const).map((type) => (
+              {(
+                [
+                  "executive",
+                  "operations",
+                  "financial",
+                  "customer",
+                  "technician",
+                ] as const
+              ).map((type) => (
                 <button
                   key={type}
                   onClick={() => setReportType(type)}
@@ -131,20 +154,28 @@ export function AIReportGenerator({ onReportGenerated }: AIReportGeneratorProps)
           {/* Date Range */}
           <div className="grid grid-cols-2 gap-3">
             <div>
-              <label className="text-xs text-text-muted block mb-1">Start Date</label>
+              <label className="text-xs text-text-muted block mb-1">
+                Start Date
+              </label>
               <input
                 type="date"
                 value={dateRange.start}
-                onChange={(e) => setDateRange({ ...dateRange, start: e.target.value })}
+                onChange={(e) =>
+                  setDateRange({ ...dateRange, start: e.target.value })
+                }
                 className="w-full px-3 py-2 bg-bg-card border border-border rounded-lg text-text-primary text-sm"
               />
             </div>
             <div>
-              <label className="text-xs text-text-muted block mb-1">End Date</label>
+              <label className="text-xs text-text-muted block mb-1">
+                End Date
+              </label>
               <input
                 type="date"
                 value={dateRange.end}
-                onChange={(e) => setDateRange({ ...dateRange, end: e.target.value })}
+                onChange={(e) =>
+                  setDateRange({ ...dateRange, end: e.target.value })
+                }
                 className="w-full px-3 py-2 bg-bg-card border border-border rounded-lg text-text-primary text-sm"
               />
             </div>
@@ -172,31 +203,60 @@ export function AIReportGenerator({ onReportGenerated }: AIReportGeneratorProps)
         <div className="space-y-4">
           {/* Report Header */}
           <div className="bg-bg-card border border-border rounded-lg p-4">
-            <h3 className="text-lg font-bold text-text-primary">{report.title}</h3>
+            <h3 className="text-lg font-bold text-text-primary">
+              {report.title}
+            </h3>
             <p className="text-sm text-text-muted">
-              Period: {new Date(report.period.start).toLocaleDateString()} - {new Date(report.period.end).toLocaleDateString()}
+              Period: {new Date(report.period.start).toLocaleDateString()} -{" "}
+              {new Date(report.period.end).toLocaleDateString()}
             </p>
           </div>
 
           {/* Executive Summary */}
           <div className="bg-bg-card border border-border rounded-lg p-4">
-            <h4 className="text-sm font-medium text-text-primary mb-2">Executive Summary</h4>
-            <p className="text-sm text-text-secondary">{report.executive_summary}</p>
+            <h4 className="text-sm font-medium text-text-primary mb-2">
+              Executive Summary
+            </h4>
+            <p className="text-sm text-text-secondary">
+              {report.executive_summary}
+            </p>
           </div>
 
           {/* Key Metrics */}
           {report.sections.find((s) => s.type === "metrics") && (
             <div>
-              <h4 className="text-sm font-medium text-text-muted mb-2">Key Metrics</h4>
+              <h4 className="text-sm font-medium text-text-muted mb-2">
+                Key Metrics
+              </h4>
               <div className="grid grid-cols-2 md:grid-cols-3 gap-2">
-                {(report.sections.find((s) => s.type === "metrics")?.content as { metrics: Array<{ label: string; value: string | number; change?: number; trend?: "up" | "down" | "stable" }> }).metrics.map((metric, i) => (
-                  <div key={i} className="bg-bg-card border border-border rounded-lg p-3">
-                    <span className="text-xs text-text-muted block">{metric.label}</span>
+                {(
+                  report.sections.find((s) => s.type === "metrics")
+                    ?.content as {
+                    metrics: Array<{
+                      label: string;
+                      value: string | number;
+                      change?: number;
+                      trend?: "up" | "down" | "stable";
+                    }>;
+                  }
+                ).metrics.map((metric, i) => (
+                  <div
+                    key={i}
+                    className="bg-bg-card border border-border rounded-lg p-3"
+                  >
+                    <span className="text-xs text-text-muted block">
+                      {metric.label}
+                    </span>
                     <div className="flex items-center gap-2">
-                      <span className="text-lg font-bold text-text-primary">{metric.value}</span>
+                      <span className="text-lg font-bold text-text-primary">
+                        {metric.value}
+                      </span>
                       {metric.change !== undefined && (
-                        <span className={`text-sm ${getTrendColor(metric.trend, metric.change >= 0)}`}>
-                          {getTrendIcon(metric.trend)} {Math.abs(metric.change)}%
+                        <span
+                          className={`text-sm ${getTrendColor(metric.trend, metric.change >= 0)}`}
+                        >
+                          {getTrendIcon(metric.trend)} {Math.abs(metric.change)}
+                          %
                         </span>
                       )}
                     </div>
@@ -208,20 +268,31 @@ export function AIReportGenerator({ onReportGenerated }: AIReportGeneratorProps)
 
           {/* Key Insights */}
           <div>
-            <h4 className="text-sm font-medium text-text-muted mb-2">Key Insights</h4>
+            <h4 className="text-sm font-medium text-text-muted mb-2">
+              Key Insights
+            </h4>
             <div className="space-y-2">
               {report.key_insights.map((insight, i) => (
-                <div key={i} className="bg-bg-card border border-border rounded-lg p-3">
+                <div
+                  key={i}
+                  className="bg-bg-card border border-border rounded-lg p-3"
+                >
                   <div className="flex items-center gap-2 mb-1">
                     <span>{getCategoryIcon(insight.category)}</span>
-                    <span className={`text-xs px-1.5 py-0.5 rounded ${getSignificanceColor(insight.significance)}`}>
+                    <span
+                      className={`text-xs px-1.5 py-0.5 rounded ${getSignificanceColor(insight.significance)}`}
+                    >
                       {insight.significance}
                     </span>
                     {insight.actionable && (
-                      <span className="text-xs text-purple-400">Actionable</span>
+                      <span className="text-xs text-purple-400">
+                        Actionable
+                      </span>
                     )}
                   </div>
-                  <p className="text-sm text-text-secondary">{insight.insight}</p>
+                  <p className="text-sm text-text-secondary">
+                    {insight.insight}
+                  </p>
                 </div>
               ))}
             </div>
@@ -229,21 +300,32 @@ export function AIReportGenerator({ onReportGenerated }: AIReportGeneratorProps)
 
           {/* Recommendations */}
           <div>
-            <h4 className="text-sm font-medium text-text-muted mb-2">AI Recommendations</h4>
+            <h4 className="text-sm font-medium text-text-muted mb-2">
+              AI Recommendations
+            </h4>
             <div className="space-y-2">
               {report.recommendations.slice(0, 3).map((rec, i) => (
-                <div key={i} className="bg-bg-card border border-border rounded-lg p-3">
+                <div
+                  key={i}
+                  className="bg-bg-card border border-border rounded-lg p-3"
+                >
                   <div className="flex items-center gap-2 mb-1">
-                    <span className={`text-xs px-1.5 py-0.5 rounded ${
-                      rec.priority === "high" ? "bg-red-500/20 text-red-400" :
-                      rec.priority === "medium" ? "bg-yellow-500/20 text-yellow-400" :
-                      "bg-green-500/20 text-green-400"
-                    }`}>
+                    <span
+                      className={`text-xs px-1.5 py-0.5 rounded ${
+                        rec.priority === "high"
+                          ? "bg-red-500/20 text-red-400"
+                          : rec.priority === "medium"
+                            ? "bg-yellow-500/20 text-yellow-400"
+                            : "bg-green-500/20 text-green-400"
+                      }`}
+                    >
                       {rec.priority}
                     </span>
                     <span className="text-xs text-text-muted">{rec.area}</span>
                   </div>
-                  <p className="text-sm text-text-primary">{rec.recommendation}</p>
+                  <p className="text-sm text-text-primary">
+                    {rec.recommendation}
+                  </p>
                   <div className="flex justify-between mt-2 text-xs text-text-muted">
                     <span>Impact: {rec.expected_impact}</span>
                     <span>Effort: {rec.effort}</span>

@@ -4,12 +4,7 @@
  */
 
 import { useState, useMemo } from "react";
-import {
-  Card,
-  CardHeader,
-  CardTitle,
-  CardContent,
-} from "@/components/ui/Card";
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { cn } from "@/lib/utils";
 import type { QualityHeatmapData } from "../types";
 
@@ -55,7 +50,10 @@ function formatDayLabel(dateString: string): string {
 function HeatmapSkeleton() {
   return (
     <div className="animate-pulse">
-      <div className="grid gap-1" style={{ gridTemplateColumns: "150px repeat(7, 1fr) 60px" }}>
+      <div
+        className="grid gap-1"
+        style={{ gridTemplateColumns: "150px repeat(7, 1fr) 60px" }}
+      >
         {/* Header row skeleton */}
         <div className="h-8" />
         {Array.from({ length: 7 }).map((_, i) => (
@@ -66,11 +64,20 @@ function HeatmapSkeleton() {
         {/* Data rows skeleton */}
         {Array.from({ length: 5 }).map((_, row) => (
           <>
-            <div key={`name-${row}`} className="h-10 bg-gray-200 dark:bg-gray-700 rounded" />
+            <div
+              key={`name-${row}`}
+              className="h-10 bg-gray-200 dark:bg-gray-700 rounded"
+            />
             {Array.from({ length: 7 }).map((_, col) => (
-              <div key={`cell-${row}-${col}`} className="h-10 bg-gray-200 dark:bg-gray-700 rounded" />
+              <div
+                key={`cell-${row}-${col}`}
+                className="h-10 bg-gray-200 dark:bg-gray-700 rounded"
+              />
             ))}
-            <div key={`avg-${row}`} className="h-10 bg-gray-200 dark:bg-gray-700 rounded" />
+            <div
+              key={`avg-${row}`}
+              className="h-10 bg-gray-200 dark:bg-gray-700 rounded"
+            />
           </>
         ))}
       </div>
@@ -87,7 +94,13 @@ interface TooltipProps {
   position: { x: number; y: number };
 }
 
-function Tooltip({ score, callCount, agentName, date, position }: TooltipProps) {
+function Tooltip({
+  score,
+  callCount,
+  agentName,
+  date,
+  position,
+}: TooltipProps) {
   return (
     <div
       className="fixed z-50 px-3 py-2 text-sm bg-gray-900 dark:bg-gray-100 text-white dark:text-gray-900 rounded-lg shadow-lg pointer-events-none"
@@ -98,17 +111,25 @@ function Tooltip({ score, callCount, agentName, date, position }: TooltipProps) 
       }}
     >
       <div className="font-medium">{agentName}</div>
-      <div className="text-gray-300 dark:text-gray-600">{formatDayLabel(date)}</div>
+      <div className="text-gray-300 dark:text-gray-600">
+        {formatDayLabel(date)}
+      </div>
       <div className="mt-1 flex items-center gap-2">
         <span className="font-semibold">{(score ?? 0).toFixed(0)}</span>
-        <span className={cn(
-          "text-xs px-1.5 py-0.5 rounded",
-          (score ?? 0) >= 85 ? "bg-emerald-500/20 text-emerald-300" :
-          (score ?? 0) >= 70 ? "bg-green-500/20 text-green-300" :
-          (score ?? 0) >= 55 ? "bg-amber-500/20 text-amber-300" :
-          (score ?? 0) >= 40 ? "bg-orange-500/20 text-orange-300" :
-          "bg-red-500/20 text-red-300"
-        )}>
+        <span
+          className={cn(
+            "text-xs px-1.5 py-0.5 rounded",
+            (score ?? 0) >= 85
+              ? "bg-emerald-500/20 text-emerald-300"
+              : (score ?? 0) >= 70
+                ? "bg-green-500/20 text-green-300"
+                : (score ?? 0) >= 55
+                  ? "bg-amber-500/20 text-amber-300"
+                  : (score ?? 0) >= 40
+                    ? "bg-orange-500/20 text-orange-300"
+                    : "bg-red-500/20 text-red-300",
+          )}
+        >
           {getScoreLabel(score)}
         </span>
       </div>
@@ -119,7 +140,11 @@ function Tooltip({ score, callCount, agentName, date, position }: TooltipProps) 
   );
 }
 
-export function QualityHeatmap({ data, isLoading, onCellClick }: QualityHeatmapProps) {
+export function QualityHeatmap({
+  data,
+  isLoading,
+  onCellClick,
+}: QualityHeatmapProps) {
   const [tooltip, setTooltip] = useState<TooltipProps | null>(null);
 
   // Extract unique dates from data (sorted chronologically)
@@ -130,13 +155,17 @@ export function QualityHeatmap({ data, isLoading, onCellClick }: QualityHeatmapP
         allDates.add(score.date);
       });
     });
-    return Array.from(allDates).sort((a, b) => new Date(a).getTime() - new Date(b).getTime());
+    return Array.from(allDates).sort(
+      (a, b) => new Date(a).getTime() - new Date(b).getTime(),
+    );
   }, [data]);
 
   // Calculate row averages for each agent
   const rowAverages = useMemo(() => {
     return data.map((agent) => {
-      const scores = agent.daily_scores.filter((s) => s.score !== null && s.call_count > 0);
+      const scores = agent.daily_scores.filter(
+        (s) => s.score !== null && s.call_count > 0,
+      );
       if (scores.length === 0) return null;
       const sum = scores.reduce((acc, s) => acc + s.score, 0);
       return sum / scores.length;
@@ -148,7 +177,9 @@ export function QualityHeatmap({ data, isLoading, onCellClick }: QualityHeatmapP
     return dates.map((date) => {
       const scoresForDate = data
         .map((agent) => agent.daily_scores.find((s) => s.date === date))
-        .filter((s) => s && s.score !== null && s.call_count > 0) as { score: number }[];
+        .filter((s) => s && s.score !== null && s.call_count > 0) as {
+        score: number;
+      }[];
 
       if (scoresForDate.length === 0) return null;
       const sum = scoresForDate.reduce((acc, s) => acc + s.score, 0);
@@ -160,13 +191,15 @@ export function QualityHeatmap({ data, isLoading, onCellClick }: QualityHeatmapP
   const overallAverage = useMemo(() => {
     const validAverages = rowAverages.filter((avg) => avg !== null) as number[];
     if (validAverages.length === 0) return null;
-    return validAverages.reduce((acc, avg) => acc + avg, 0) / validAverages.length;
+    return (
+      validAverages.reduce((acc, avg) => acc + avg, 0) / validAverages.length
+    );
   }, [rowAverages]);
 
   const handleMouseEnter = (
     e: React.MouseEvent,
     agent: QualityHeatmapData,
-    score: { date: string; score: number; call_count: number }
+    score: { date: string; score: number; call_count: number },
   ) => {
     setTooltip({
       score: score.score,
@@ -179,7 +212,9 @@ export function QualityHeatmap({ data, isLoading, onCellClick }: QualityHeatmapP
 
   const handleMouseMove = (e: React.MouseEvent) => {
     if (tooltip) {
-      setTooltip((prev) => prev ? { ...prev, position: { x: e.clientX, y: e.clientY } } : null);
+      setTooltip((prev) =>
+        prev ? { ...prev, position: { x: e.clientX, y: e.clientY } } : null,
+      );
     }
   };
 
@@ -290,7 +325,9 @@ export function QualityHeatmap({ data, isLoading, onCellClick }: QualityHeatmapP
 
                 {/* Score cells */}
                 {dates.map((date) => {
-                  const scoreData = agent.daily_scores.find((s) => s.date === date);
+                  const scoreData = agent.daily_scores.find(
+                    (s) => s.date === date,
+                  );
                   const score = scoreData?.score ?? null;
                   const callCount = scoreData?.call_count ?? 0;
                   const hasData = score !== null && callCount > 0;
@@ -300,14 +337,24 @@ export function QualityHeatmap({ data, isLoading, onCellClick }: QualityHeatmapP
                       key={`${agent.agent_id}-${date}`}
                       className={cn(
                         "flex items-center justify-center rounded text-sm font-medium h-10 transition-all",
-                        hasData ? getScoreColor(score) : "bg-gray-100 dark:bg-gray-800",
+                        hasData
+                          ? getScoreColor(score)
+                          : "bg-gray-100 dark:bg-gray-800",
                         hasData ? getScoreTextColor(score) : "text-gray-400",
-                        hasData && onCellClick && "cursor-pointer hover:ring-2 hover:ring-primary hover:ring-offset-1"
+                        hasData &&
+                          onCellClick &&
+                          "cursor-pointer hover:ring-2 hover:ring-primary hover:ring-offset-1",
                       )}
-                      onMouseEnter={(e) => hasData && scoreData && handleMouseEnter(e, agent, scoreData)}
+                      onMouseEnter={(e) =>
+                        hasData &&
+                        scoreData &&
+                        handleMouseEnter(e, agent, scoreData)
+                      }
                       onMouseMove={handleMouseMove}
                       onMouseLeave={handleMouseLeave}
-                      onClick={() => hasData && handleCellClick(agent.agent_id, date)}
+                      onClick={() =>
+                        hasData && handleCellClick(agent.agent_id, date)
+                      }
                     >
                       {hasData ? (score ?? 0).toFixed(0) : "-"}
                     </div>
@@ -324,7 +371,7 @@ export function QualityHeatmap({ data, isLoading, onCellClick }: QualityHeatmapP
                       : "bg-gray-100 dark:bg-gray-800",
                     rowAverages[rowIndex] !== null
                       ? getScoreTextColor(rowAverages[rowIndex])
-                      : "text-gray-400"
+                      : "text-gray-400",
                   )}
                 >
                   {rowAverages[rowIndex] !== null
@@ -343,8 +390,10 @@ export function QualityHeatmap({ data, isLoading, onCellClick }: QualityHeatmapP
                 key={`col-avg-${dates[index]}`}
                 className={cn(
                   "flex items-center justify-center rounded text-sm font-semibold h-10 border-t-2 border-gray-200 dark:border-gray-700",
-                  avg !== null ? getScoreColor(avg) : "bg-gray-100 dark:bg-gray-800",
-                  avg !== null ? getScoreTextColor(avg) : "text-gray-400"
+                  avg !== null
+                    ? getScoreColor(avg)
+                    : "bg-gray-100 dark:bg-gray-800",
+                  avg !== null ? getScoreTextColor(avg) : "text-gray-400",
                 )}
               >
                 {avg !== null ? avg.toFixed(0) : "-"}
@@ -360,7 +409,7 @@ export function QualityHeatmap({ data, isLoading, onCellClick }: QualityHeatmapP
                   : "bg-gray-100 dark:bg-gray-800",
                 overallAverage !== null
                   ? getScoreTextColor(overallAverage)
-                  : "text-gray-400"
+                  : "text-gray-400",
               )}
             >
               {overallAverage !== null ? overallAverage.toFixed(0) : "-"}

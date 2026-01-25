@@ -15,29 +15,33 @@ interface AutoSchedulePanelProps {
  * AI-powered auto-scheduling panel for predictive maintenance
  * Analyzes predictions and automatically schedules optimal service appointments
  */
-export function AutoSchedulePanel({ onScheduleCreated }: AutoSchedulePanelProps) {
+export function AutoSchedulePanel({
+  onScheduleCreated,
+}: AutoSchedulePanelProps) {
   const [showPanel, setShowPanel] = useState(false);
   const [daysAhead, setDaysAhead] = useState(14);
   const [selectedPredictions, setSelectedPredictions] = useState<string[]>([]);
 
-  const { data: predictions, isLoading: loadingPredictions } = useMaintenancePredictions({
-    days_ahead: daysAhead,
-    min_confidence: 0.7,
-  });
+  const { data: predictions, isLoading: loadingPredictions } =
+    useMaintenancePredictions({
+      days_ahead: daysAhead,
+      min_confidence: 0.7,
+    });
 
   const autoSchedule = useAutoScheduleMaintenance();
   const batchOptimize = useBatchOptimization();
 
   const handleAutoSchedule = async () => {
     const result = await autoSchedule.mutateAsync({
-      prediction_ids: selectedPredictions.length > 0 ? selectedPredictions : undefined,
+      prediction_ids:
+        selectedPredictions.length > 0 ? selectedPredictions : undefined,
       days_ahead: daysAhead,
       max_jobs_per_day: 8,
       optimize_routes: true,
     });
 
     if (result.scheduled_jobs && onScheduleCreated) {
-      onScheduleCreated(result.scheduled_jobs.map(j => j.work_order_id));
+      onScheduleCreated(result.scheduled_jobs.map((j) => j.work_order_id));
     }
   };
 
@@ -45,7 +49,9 @@ export function AutoSchedulePanel({ onScheduleCreated }: AutoSchedulePanelProps)
     await batchOptimize.mutateAsync({
       date_range: {
         start: new Date().toISOString().split("T")[0],
-        end: new Date(Date.now() + daysAhead * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+        end: new Date(Date.now() + daysAhead * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
       },
       consider_weather: true,
       balance_technician_load: true,
@@ -53,14 +59,14 @@ export function AutoSchedulePanel({ onScheduleCreated }: AutoSchedulePanelProps)
   };
 
   const togglePrediction = (id: string) => {
-    setSelectedPredictions(prev =>
-      prev.includes(id) ? prev.filter(p => p !== id) : [...prev, id]
+    setSelectedPredictions((prev) =>
+      prev.includes(id) ? prev.filter((p) => p !== id) : [...prev, id],
     );
   };
 
   const selectAll = () => {
     if (predictions?.predictions) {
-      setSelectedPredictions(predictions.predictions.map(p => p.id));
+      setSelectedPredictions(predictions.predictions.map((p) => p.id));
     }
   };
 
@@ -124,7 +130,8 @@ export function AutoSchedulePanel({ onScheduleCreated }: AutoSchedulePanelProps)
           {/* Selection Controls */}
           <div className="flex items-center justify-between">
             <span className="text-xs text-text-muted">
-              {selectedPredictions.length} of {predictions.predictions.length} selected
+              {selectedPredictions.length} of {predictions.predictions.length}{" "}
+              selected
             </span>
             <div className="flex gap-2">
               <button
@@ -158,21 +165,37 @@ export function AutoSchedulePanel({ onScheduleCreated }: AutoSchedulePanelProps)
           <div className="bg-bg-card border border-border rounded-lg p-3 mt-3">
             <div className="grid grid-cols-3 gap-4 text-center">
               <div>
-                <span className="text-xs text-text-muted block">High Priority</span>
+                <span className="text-xs text-text-muted block">
+                  High Priority
+                </span>
                 <span className="text-lg font-bold text-red-400">
-                  {predictions.predictions.filter(p => p.priority === "high" || p.priority === "critical").length}
+                  {
+                    predictions.predictions.filter(
+                      (p) => p.priority === "high" || p.priority === "critical",
+                    ).length
+                  }
                 </span>
               </div>
               <div>
-                <span className="text-xs text-text-muted block">Est. Revenue</span>
+                <span className="text-xs text-text-muted block">
+                  Est. Revenue
+                </span>
                 <span className="text-lg font-bold text-green-400">
-                  ${(predictions.summary?.total_estimated_revenue || 0).toLocaleString()}
+                  $
+                  {(
+                    predictions.summary?.total_estimated_revenue || 0
+                  ).toLocaleString()}
                 </span>
               </div>
               <div>
-                <span className="text-xs text-text-muted block">Avg Confidence</span>
+                <span className="text-xs text-text-muted block">
+                  Avg Confidence
+                </span>
                 <span className="text-lg font-bold text-purple-400">
-                  {Math.round((predictions.summary?.average_confidence || 0) * 100)}%
+                  {Math.round(
+                    (predictions.summary?.average_confidence || 0) * 100,
+                  )}
+                  %
                 </span>
               </div>
             </div>
@@ -195,8 +218,22 @@ export function AutoSchedulePanel({ onScheduleCreated }: AutoSchedulePanelProps)
           </div>
           {autoSchedule.data.optimization_summary && (
             <div className="text-xs text-text-secondary space-y-1">
-              <p>Travel time saved: {autoSchedule.data.optimization_summary.travel_time_saved_minutes} min</p>
-              <p>Route efficiency: {autoSchedule.data.optimization_summary.route_efficiency_percent}%</p>
+              <p>
+                Travel time saved:{" "}
+                {
+                  autoSchedule.data.optimization_summary
+                    .travel_time_saved_minutes
+                }{" "}
+                min
+              </p>
+              <p>
+                Route efficiency:{" "}
+                {
+                  autoSchedule.data.optimization_summary
+                    .route_efficiency_percent
+                }
+                %
+              </p>
             </div>
           )}
         </div>
@@ -217,7 +254,10 @@ export function AutoSchedulePanel({ onScheduleCreated }: AutoSchedulePanelProps)
           ) : (
             <>
               <span className="mr-2">📅</span>
-              Auto-Schedule {selectedPredictions.length > 0 ? `(${selectedPredictions.length})` : "All"}
+              Auto-Schedule{" "}
+              {selectedPredictions.length > 0
+                ? `(${selectedPredictions.length})`
+                : "All"}
             </>
           )}
         </Button>
@@ -285,7 +325,9 @@ function PredictionItem({
           </div>
         </div>
         <div className="text-right">
-          <span className={`text-xs px-2 py-0.5 rounded border ${getPriorityColor(prediction.priority)}`}>
+          <span
+            className={`text-xs px-2 py-0.5 rounded border ${getPriorityColor(prediction.priority)}`}
+          >
             {prediction.priority}
           </span>
           <span className="text-xs text-text-muted block mt-1">

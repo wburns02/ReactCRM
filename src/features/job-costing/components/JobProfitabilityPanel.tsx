@@ -10,13 +10,23 @@ interface JobProfitabilityPanelProps {
  * AI-powered job profitability analysis panel
  * Analyzes profit margins, identifies issues, and suggests optimizations
  */
-export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps) {
+export function JobProfitabilityPanel({
+  dateRange,
+}: JobProfitabilityPanelProps) {
   const [showPanel, setShowPanel] = useState(false);
-  const [activeTab, setActiveTab] = useState<"overview" | "services" | "techs" | "opportunities">("overview");
+  const [activeTab, setActiveTab] = useState<
+    "overview" | "services" | "techs" | "opportunities"
+  >("overview");
 
-  const { data: analysis, isLoading, refetch } = useJobProfitabilityAnalysis(dateRange);
+  const {
+    data: analysis,
+    isLoading,
+    refetch,
+  } = useJobProfitabilityAnalysis(dateRange);
 
-  const getTrendIcon = (trend: "up" | "down" | "stable" | "improving" | "declining") => {
+  const getTrendIcon = (
+    trend: "up" | "down" | "stable" | "improving" | "declining",
+  ) => {
     switch (trend) {
       case "up":
       case "improving":
@@ -29,7 +39,10 @@ export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps)
     }
   };
 
-  const getTrendColor = (trend: "up" | "down" | "stable" | "improving" | "declining", inverse = false) => {
+  const getTrendColor = (
+    trend: "up" | "down" | "stable" | "improving" | "declining",
+    inverse = false,
+  ) => {
     const isPositive = trend === "up" || trend === "improving";
     const isNegative = trend === "down" || trend === "declining";
     if (inverse) {
@@ -87,7 +100,9 @@ export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps)
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <span className="text-lg">&#10024;</span>
-          <h4 className="font-medium text-text-primary">AI Profitability Analysis</h4>
+          <h4 className="font-medium text-text-primary">
+            AI Profitability Analysis
+          </h4>
         </div>
         <button
           onClick={() => setShowPanel(false)}
@@ -99,22 +114,27 @@ export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps)
 
       {/* Tabs */}
       <div className="flex gap-2 mb-4 overflow-x-auto">
-        {(["overview", "services", "techs", "opportunities"] as const).map((tab) => (
-          <button
-            key={tab}
-            onClick={() => setActiveTab(tab)}
-            className={`px-3 py-1.5 rounded text-sm font-medium transition-colors whitespace-nowrap ${
-              activeTab === tab
-                ? "bg-purple-600 text-white"
-                : "bg-bg-tertiary text-text-secondary hover:bg-bg-hover"
-            }`}
-          >
-            {tab === "overview" ? "Overview" :
-              tab === "services" ? "By Service" :
-              tab === "techs" ? "By Technician" :
-              "Opportunities"}
-          </button>
-        ))}
+        {(["overview", "services", "techs", "opportunities"] as const).map(
+          (tab) => (
+            <button
+              key={tab}
+              onClick={() => setActiveTab(tab)}
+              className={`px-3 py-1.5 rounded text-sm font-medium transition-colors whitespace-nowrap ${
+                activeTab === tab
+                  ? "bg-purple-600 text-white"
+                  : "bg-bg-tertiary text-text-secondary hover:bg-bg-hover"
+              }`}
+            >
+              {tab === "overview"
+                ? "Overview"
+                : tab === "services"
+                  ? "By Service"
+                  : tab === "techs"
+                    ? "By Technician"
+                    : "Opportunities"}
+            </button>
+          ),
+        )}
       </div>
 
       {isLoading && (
@@ -132,28 +152,40 @@ export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps)
               {/* Key Metrics */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
                 <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-                  <span className="text-xs text-text-muted block mb-1">Margin</span>
-                  <span className={`text-2xl font-bold ${getMarginColor(analysis.overall_margin_percent)}`}>
+                  <span className="text-xs text-text-muted block mb-1">
+                    Margin
+                  </span>
+                  <span
+                    className={`text-2xl font-bold ${getMarginColor(analysis.overall_margin_percent)}`}
+                  >
                     {analysis.overall_margin_percent.toFixed(1)}%
                   </span>
-                  <span className={`text-xs ${getTrendColor(analysis.trend)} block`}>
+                  <span
+                    className={`text-xs ${getTrendColor(analysis.trend)} block`}
+                  >
                     {getTrendIcon(analysis.trend)} {analysis.trend_percent}%
                   </span>
                 </div>
                 <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-                  <span className="text-xs text-text-muted block mb-1">Revenue</span>
+                  <span className="text-xs text-text-muted block mb-1">
+                    Revenue
+                  </span>
                   <span className="text-2xl font-bold text-text-primary">
                     ${(analysis.total_revenue / 1000).toFixed(0)}k
                   </span>
                 </div>
                 <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-                  <span className="text-xs text-text-muted block mb-1">Costs</span>
+                  <span className="text-xs text-text-muted block mb-1">
+                    Costs
+                  </span>
                   <span className="text-2xl font-bold text-warning">
                     ${(analysis.total_costs / 1000).toFixed(0)}k
                   </span>
                 </div>
                 <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-                  <span className="text-xs text-text-muted block mb-1">Profit</span>
+                  <span className="text-xs text-text-muted block mb-1">
+                    Profit
+                  </span>
                   <span className="text-2xl font-bold text-success">
                     ${(analysis.total_profit / 1000).toFixed(0)}k
                   </span>
@@ -163,7 +195,9 @@ export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps)
               {/* Problem Areas */}
               {analysis.problem_areas.length > 0 && (
                 <div>
-                  <span className="text-xs text-text-muted block mb-2">Problem Areas</span>
+                  <span className="text-xs text-text-muted block mb-2">
+                    Problem Areas
+                  </span>
                   <div className="space-y-2">
                     {analysis.problem_areas.map((problem, i) => (
                       <div
@@ -172,11 +206,16 @@ export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps)
                       >
                         <div className="flex items-center justify-between mb-1">
                           <span className="font-medium">{problem.name}</span>
-                          <span className="text-xs uppercase">{problem.severity}</span>
+                          <span className="text-xs uppercase">
+                            {problem.severity}
+                          </span>
                         </div>
                         <p className="text-sm opacity-90">{problem.issue}</p>
                         <p className="text-xs mt-1">
-                          Impact: <span className="font-medium">${problem.impact_monthly.toLocaleString()}/month</span>
+                          Impact:{" "}
+                          <span className="font-medium">
+                            ${problem.impact_monthly.toLocaleString()}/month
+                          </span>
                         </p>
                       </div>
                     ))}
@@ -186,7 +225,9 @@ export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps)
 
               {/* Top Recommendations */}
               <div>
-                <span className="text-xs text-text-muted block mb-2">Top Recommendations</span>
+                <span className="text-xs text-text-muted block mb-2">
+                  Top Recommendations
+                </span>
                 <div className="space-y-2">
                   {analysis.recommendations.slice(0, 2).map((rec, i) => (
                     <div
@@ -194,17 +235,27 @@ export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps)
                       className="bg-bg-card border border-border rounded-lg p-3"
                     >
                       <div className="flex items-center gap-2 mb-1">
-                        <span className={`text-xs px-1.5 py-0.5 rounded ${
-                          rec.priority === "high" ? "bg-red-500/20 text-red-400" :
-                          rec.priority === "medium" ? "bg-yellow-500/20 text-yellow-400" :
-                          "bg-green-500/20 text-green-400"
-                        }`}>
+                        <span
+                          className={`text-xs px-1.5 py-0.5 rounded ${
+                            rec.priority === "high"
+                              ? "bg-red-500/20 text-red-400"
+                              : rec.priority === "medium"
+                                ? "bg-yellow-500/20 text-yellow-400"
+                                : "bg-green-500/20 text-green-400"
+                          }`}
+                        >
                           {rec.priority}
                         </span>
-                        <span className="text-xs text-text-muted">{rec.timeline}</span>
+                        <span className="text-xs text-text-muted">
+                          {rec.timeline}
+                        </span>
                       </div>
-                      <p className="text-sm font-medium text-text-primary">{rec.action}</p>
-                      <p className="text-xs text-purple-400 mt-1">{"\u2192"} {rec.expected_impact}</p>
+                      <p className="text-sm font-medium text-text-primary">
+                        {rec.action}
+                      </p>
+                      <p className="text-xs text-purple-400 mt-1">
+                        {"\u2192"} {rec.expected_impact}
+                      </p>
                     </div>
                   ))}
                 </div>
@@ -221,19 +272,27 @@ export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps)
                   className="bg-bg-card border border-border rounded-lg p-3"
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium text-text-primary">{service.service_type}</span>
-                    <span className={`text-lg font-bold ${getMarginColor(service.margin_percent)}`}>
+                    <span className="font-medium text-text-primary">
+                      {service.service_type}
+                    </span>
+                    <span
+                      className={`text-lg font-bold ${getMarginColor(service.margin_percent)}`}
+                    >
                       {service.margin_percent.toFixed(1)}%
                     </span>
                   </div>
                   <div className="grid grid-cols-3 gap-2 text-xs">
                     <div>
                       <span className="text-text-muted">Revenue</span>
-                      <span className="text-text-primary block">${(service.revenue / 1000).toFixed(1)}k</span>
+                      <span className="text-text-primary block">
+                        ${(service.revenue / 1000).toFixed(1)}k
+                      </span>
                     </div>
                     <div>
                       <span className="text-text-muted">Jobs</span>
-                      <span className="text-text-primary block">{service.job_count}</span>
+                      <span className="text-text-primary block">
+                        {service.job_count}
+                      </span>
                     </div>
                     <div>
                       <span className="text-text-muted">Trend</span>
@@ -247,10 +306,15 @@ export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps)
                     <div className="h-2 bg-bg-tertiary rounded-full overflow-hidden">
                       <div
                         className={`h-full rounded-full ${
-                          service.margin_percent >= 35 ? "bg-green-500" :
-                          service.margin_percent >= 25 ? "bg-yellow-500" : "bg-red-500"
+                          service.margin_percent >= 35
+                            ? "bg-green-500"
+                            : service.margin_percent >= 25
+                              ? "bg-yellow-500"
+                              : "bg-red-500"
                         }`}
-                        style={{ width: `${Math.min(service.margin_percent * 2, 100)}%` }}
+                        style={{
+                          width: `${Math.min(service.margin_percent * 2, 100)}%`,
+                        }}
                       />
                     </div>
                   </div>
@@ -268,31 +332,43 @@ export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps)
                   className="bg-bg-card border border-border rounded-lg p-3"
                 >
                   <div className="flex items-center justify-between mb-2">
-                    <span className="font-medium text-text-primary">{tech.technician_name}</span>
-                    <span className={`text-lg font-bold ${getMarginColor(tech.margin_percent)}`}>
+                    <span className="font-medium text-text-primary">
+                      {tech.technician_name}
+                    </span>
+                    <span
+                      className={`text-lg font-bold ${getMarginColor(tech.margin_percent)}`}
+                    >
                       {tech.margin_percent.toFixed(1)}%
                     </span>
                   </div>
                   <div className="grid grid-cols-4 gap-2 text-xs">
                     <div>
                       <span className="text-text-muted">Revenue</span>
-                      <span className="text-text-primary block">${(tech.revenue_generated / 1000).toFixed(0)}k</span>
+                      <span className="text-text-primary block">
+                        ${(tech.revenue_generated / 1000).toFixed(0)}k
+                      </span>
                     </div>
                     <div>
                       <span className="text-text-muted">Efficiency</span>
-                      <span className={`block ${tech.efficiency_score >= 90 ? "text-green-400" : tech.efficiency_score >= 80 ? "text-yellow-400" : "text-red-400"}`}>
+                      <span
+                        className={`block ${tech.efficiency_score >= 90 ? "text-green-400" : tech.efficiency_score >= 80 ? "text-yellow-400" : "text-red-400"}`}
+                      >
                         {tech.efficiency_score}%
                       </span>
                     </div>
                     <div>
                       <span className="text-text-muted">Callbacks</span>
-                      <span className={`block ${tech.callback_rate <= 3 ? "text-green-400" : tech.callback_rate <= 5 ? "text-yellow-400" : "text-red-400"}`}>
+                      <span
+                        className={`block ${tech.callback_rate <= 3 ? "text-green-400" : tech.callback_rate <= 5 ? "text-yellow-400" : "text-red-400"}`}
+                      >
                         {tech.callback_rate}%
                       </span>
                     </div>
                     <div>
                       <span className="text-text-muted">Avg Time</span>
-                      <span className="text-text-primary block">{tech.avg_job_time}h</span>
+                      <span className="text-text-primary block">
+                        {tech.avg_job_time}h
+                      </span>
                     </div>
                   </div>
                 </div>
@@ -304,9 +380,14 @@ export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps)
           {activeTab === "opportunities" && (
             <div className="space-y-3">
               <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3 text-center">
-                <span className="text-sm text-green-400 block mb-1">Total Monthly Potential</span>
+                <span className="text-sm text-green-400 block mb-1">
+                  Total Monthly Potential
+                </span>
                 <span className="text-2xl font-bold text-green-400">
-                  ${analysis.opportunities.reduce((sum, o) => sum + o.potential_monthly_gain, 0).toLocaleString()}
+                  $
+                  {analysis.opportunities
+                    .reduce((sum, o) => sum + o.potential_monthly_gain, 0)
+                    .toLocaleString()}
                 </span>
               </div>
 
@@ -321,7 +402,9 @@ export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps)
                         <span className="text-xs px-1.5 py-0.5 rounded bg-purple-500/20 text-purple-400 capitalize">
                           {opp.category.replace("_", " ")}
                         </span>
-                        <span className={`text-xs px-1.5 py-0.5 rounded ${getEffortBadge(opp.effort)}`}>
+                        <span
+                          className={`text-xs px-1.5 py-0.5 rounded ${getEffortBadge(opp.effort)}`}
+                        >
                           {opp.effort} effort
                         </span>
                       </div>
@@ -329,10 +412,16 @@ export function JobProfitabilityPanel({ dateRange }: JobProfitabilityPanelProps)
                         +${opp.potential_monthly_gain.toLocaleString()}/mo
                       </span>
                     </div>
-                    <p className="text-sm font-medium text-text-primary">{opp.title}</p>
-                    <p className="text-xs text-text-secondary mt-1">{opp.description}</p>
+                    <p className="text-sm font-medium text-text-primary">
+                      {opp.title}
+                    </p>
+                    <p className="text-xs text-text-secondary mt-1">
+                      {opp.description}
+                    </p>
                     <div className="flex items-center justify-between mt-2 text-xs">
-                      <span className="text-text-muted">Confidence: {Math.round(opp.confidence * 100)}%</span>
+                      <span className="text-text-muted">
+                        Confidence: {Math.round(opp.confidence * 100)}%
+                      </span>
                       <div className="w-16 h-1.5 bg-bg-tertiary rounded-full overflow-hidden">
                         <div
                           className="h-full bg-purple-500 rounded-full"

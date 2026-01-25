@@ -19,9 +19,9 @@ function warnMissingEndpoint(endpoint: string): void {
   if (import.meta.env.DEV) {
     console.warn(
       `[Call Intelligence] Backend endpoint not implemented: ${endpoint}\n` +
-      `The dashboard is using fallback data. To enable this feature, implement:\n` +
-      `  POST/GET ${endpoint}\n` +
-      `See backend/app/api/v2/endpoints/ for reference.`
+        `The dashboard is using fallback data. To enable this feature, implement:\n` +
+        `  POST/GET ${endpoint}\n` +
+        `See backend/app/api/v2/endpoints/ for reference.`,
     );
   }
 }
@@ -47,31 +47,145 @@ const DEFAULT_ANALYTICS: CallAnalyticsResponse = {
     auto_disposition_rate: 0.8,
     auto_disposition_accuracy: 0.85,
     sentiment_trend: [
-      { date: new Date(Date.now() - 6*24*60*60*1000).toISOString().split('T')[0], value: 6, positive: 3, neutral: 2, negative: 1 },
-      { date: new Date(Date.now() - 5*24*60*60*1000).toISOString().split('T')[0], value: 5, positive: 2, neutral: 3, negative: 0 },
-      { date: new Date(Date.now() - 4*24*60*60*1000).toISOString().split('T')[0], value: 4, positive: 1, neutral: 1, negative: 2 },
-      { date: new Date(Date.now() - 3*24*60*60*1000).toISOString().split('T')[0], value: 5, positive: 4, neutral: 1, negative: 0 },
-      { date: new Date(Date.now() - 2*24*60*60*1000).toISOString().split('T')[0], value: 5, positive: 2, neutral: 2, negative: 1 },
-      { date: new Date(Date.now() - 1*24*60*60*1000).toISOString().split('T')[0], value: 5, positive: 3, neutral: 1, negative: 1 },
-      { date: new Date().toISOString().split('T')[0], value: 5, positive: 2, neutral: 2, negative: 1 }
+      {
+        date: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 6,
+        positive: 3,
+        neutral: 2,
+        negative: 1,
+      },
+      {
+        date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 5,
+        positive: 2,
+        neutral: 3,
+        negative: 0,
+      },
+      {
+        date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 4,
+        positive: 1,
+        neutral: 1,
+        negative: 2,
+      },
+      {
+        date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 5,
+        positive: 4,
+        neutral: 1,
+        negative: 0,
+      },
+      {
+        date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 5,
+        positive: 2,
+        neutral: 2,
+        negative: 1,
+      },
+      {
+        date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 5,
+        positive: 3,
+        neutral: 1,
+        negative: 1,
+      },
+      {
+        date: new Date().toISOString().split("T")[0],
+        value: 5,
+        positive: 2,
+        neutral: 2,
+        negative: 1,
+      },
     ],
     quality_trend_data: [
-      { date: new Date(Date.now() - 6*24*60*60*1000).toISOString().split('T')[0], value: 78 },
-      { date: new Date(Date.now() - 5*24*60*60*1000).toISOString().split('T')[0], value: 81 },
-      { date: new Date(Date.now() - 4*24*60*60*1000).toISOString().split('T')[0], value: 75 },
-      { date: new Date(Date.now() - 3*24*60*60*1000).toISOString().split('T')[0], value: 86 },
-      { date: new Date(Date.now() - 2*24*60*60*1000).toISOString().split('T')[0], value: 82 },
-      { date: new Date(Date.now() - 1*24*60*60*1000).toISOString().split('T')[0], value: 84 },
-      { date: new Date().toISOString().split('T')[0], value: 82 }
+      {
+        date: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 78,
+      },
+      {
+        date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 81,
+      },
+      {
+        date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 75,
+      },
+      {
+        date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 86,
+      },
+      {
+        date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 82,
+      },
+      {
+        date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 84,
+      },
+      { date: new Date().toISOString().split("T")[0], value: 82 },
     ],
     volume_trend: [
-      { date: new Date(Date.now() - 6*24*60*60*1000).toISOString().split('T')[0], value: 6 },
-      { date: new Date(Date.now() - 5*24*60*60*1000).toISOString().split('T')[0], value: 5 },
-      { date: new Date(Date.now() - 4*24*60*60*1000).toISOString().split('T')[0], value: 4 },
-      { date: new Date(Date.now() - 3*24*60*60*1000).toISOString().split('T')[0], value: 5 },
-      { date: new Date(Date.now() - 2*24*60*60*1000).toISOString().split('T')[0], value: 5 },
-      { date: new Date(Date.now() - 1*24*60*60*1000).toISOString().split('T')[0], value: 5 },
-      { date: new Date().toISOString().split('T')[0], value: 2 }
+      {
+        date: new Date(Date.now() - 6 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 6,
+      },
+      {
+        date: new Date(Date.now() - 5 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 5,
+      },
+      {
+        date: new Date(Date.now() - 4 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 4,
+      },
+      {
+        date: new Date(Date.now() - 3 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 5,
+      },
+      {
+        date: new Date(Date.now() - 2 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 5,
+      },
+      {
+        date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
+        value: 5,
+      },
+      { date: new Date().toISOString().split("T")[0], value: 2 },
     ],
   },
   updated_at: new Date().toISOString(),
@@ -87,7 +201,7 @@ const DEFAULT_CALLS: PaginatedCallsResponse = {
       direction: "inbound",
       from_number: "+1-555-123-4567",
       to_number: "+1-214-555-0101",
-      start_time: new Date(Date.now() - 2*60*60*1000).toISOString(), // 2 hours ago
+      start_time: new Date(Date.now() - 2 * 60 * 60 * 1000).toISOString(), // 2 hours ago
       // end_time: new Date(Date.now() - 2*60*60*1000 + 8*60*1000).toISOString(), // 8 minutes later
       duration_seconds: 480,
       sentiment: "positive",
@@ -98,7 +212,7 @@ const DEFAULT_CALLS: PaginatedCallsResponse = {
       customer_id: 1,
       customer_name: "John Smith",
       has_transcript: true,
-      has_analysis: true
+      has_analysis: true,
     },
     {
       id: "demo-call-2",
@@ -107,7 +221,7 @@ const DEFAULT_CALLS: PaginatedCallsResponse = {
       to_number: "+1-555-234-5678",
       // from_name: "ECBTX Support",
       // to_name: "Sarah Johnson",
-      start_time: new Date(Date.now() - 4*60*60*1000).toISOString(), // 4 hours ago
+      start_time: new Date(Date.now() - 4 * 60 * 60 * 1000).toISOString(), // 4 hours ago
       // end_time: new Date(Date.now() - 4*60*60*1000 + 12*60*1000).toISOString(), // 12 minutes later
       duration_seconds: 720,
       sentiment: "positive",
@@ -118,7 +232,7 @@ const DEFAULT_CALLS: PaginatedCallsResponse = {
       customer_id: 2,
       customer_name: "Sarah Johnson",
       has_transcript: true,
-      has_analysis: true
+      has_analysis: true,
     },
     {
       id: "demo-call-3",
@@ -127,7 +241,7 @@ const DEFAULT_CALLS: PaginatedCallsResponse = {
       to_number: "+1-214-555-0101",
       // from_name: "Michael Brown",
       // to_name: "ECBTX Support",
-      start_time: new Date(Date.now() - 6*60*60*1000).toISOString(), // 6 hours ago
+      start_time: new Date(Date.now() - 6 * 60 * 60 * 1000).toISOString(), // 6 hours ago
       // end_time: new Date(Date.now() - 6*60*60*1000 + 5*60*1000).toISOString(), // 5 minutes later
       duration_seconds: 300,
       sentiment: "neutral",
@@ -140,7 +254,7 @@ const DEFAULT_CALLS: PaginatedCallsResponse = {
       customer_id: 3,
       customer_name: "Michael Brown",
       has_transcript: true,
-      has_analysis: true
+      has_analysis: true,
     },
     {
       id: "demo-call-4",
@@ -149,7 +263,7 @@ const DEFAULT_CALLS: PaginatedCallsResponse = {
       to_number: "+1-214-555-0101",
       // from_name: "Emily Davis",
       // to_name: "ECBTX Support",
-      start_time: new Date(Date.now() - 8*60*60*1000).toISOString(), // 8 hours ago
+      start_time: new Date(Date.now() - 8 * 60 * 60 * 1000).toISOString(), // 8 hours ago
       // end_time: new Date(Date.now() - 8*60*60*1000 + 15*60*1000).toISOString(), // 15 minutes later
       duration_seconds: 900,
       sentiment: "neutral",
@@ -162,7 +276,7 @@ const DEFAULT_CALLS: PaginatedCallsResponse = {
       customer_id: 4,
       customer_name: "Emily Davis",
       has_transcript: true,
-      has_analysis: true
+      has_analysis: true,
     },
     {
       id: "demo-call-5",
@@ -171,7 +285,7 @@ const DEFAULT_CALLS: PaginatedCallsResponse = {
       to_number: "+1-214-555-0101",
       // from_name: "David Wilson",
       // to_name: "ECBTX Support",
-      start_time: new Date(Date.now() - 24*60*60*1000).toISOString(), // 24 hours ago
+      start_time: new Date(Date.now() - 24 * 60 * 60 * 1000).toISOString(), // 24 hours ago
       // end_time: new Date(Date.now() - 24*60*60*1000 + 18*60*1000).toISOString(), // 18 minutes later
       duration_seconds: 1080,
       sentiment: "negative",
@@ -184,8 +298,8 @@ const DEFAULT_CALLS: PaginatedCallsResponse = {
       customer_id: 5,
       customer_name: "David Wilson",
       has_transcript: true,
-      has_analysis: true
-    }
+      has_analysis: true,
+    },
   ],
   total: 5,
   page: 1,
@@ -213,8 +327,8 @@ const DEFAULT_AGENT_PERFORMANCE: AgentPerformanceResponse = {
       rank: 1,
       rank_change: 0,
       strengths: ["Professional Communication", "Technical Knowledge"],
-      improvement_areas: ["Empathy", "Call Closing"]
-    }
+      improvement_areas: ["Empathy", "Call Closing"],
+    },
   ],
   total: 1,
 };
@@ -233,7 +347,7 @@ const DEFAULT_DISPOSITION_STATS: DispositionStatsResponse = {
       percentage: 20,
       auto_applied_count: 1,
       manual_count: 0,
-      avg_confidence: 85
+      avg_confidence: 85,
     },
     {
       disposition_id: "disp-2",
@@ -244,7 +358,7 @@ const DEFAULT_DISPOSITION_STATS: DispositionStatsResponse = {
       percentage: 20,
       auto_applied_count: 1,
       manual_count: 0,
-      avg_confidence: 92
+      avg_confidence: 92,
     },
     {
       disposition_id: "disp-3",
@@ -255,7 +369,7 @@ const DEFAULT_DISPOSITION_STATS: DispositionStatsResponse = {
       percentage: 20,
       auto_applied_count: 0,
       manual_count: 1,
-      avg_confidence: 75
+      avg_confidence: 75,
     },
     {
       disposition_id: "disp-4",
@@ -266,7 +380,7 @@ const DEFAULT_DISPOSITION_STATS: DispositionStatsResponse = {
       percentage: 20,
       auto_applied_count: 1,
       manual_count: 0,
-      avg_confidence: 80
+      avg_confidence: 80,
     },
     {
       disposition_id: "disp-5",
@@ -277,8 +391,8 @@ const DEFAULT_DISPOSITION_STATS: DispositionStatsResponse = {
       percentage: 20,
       auto_applied_count: 0,
       manual_count: 1,
-      avg_confidence: 60
-    }
+      avg_confidence: 60,
+    },
   ],
   total_calls: 5,
 };
@@ -292,13 +406,25 @@ const DEFAULT_QUALITY_HEATMAP: QualityHeatmapResponse = {
       agent_id: "agent-001",
       agent_name: "Demo Agent",
       daily_scores: [
-        { date: new Date(Date.now() - 1*24*60*60*1000).toISOString().split("T")[0], score: 85, call_count: 1 },
-        { date: new Date().toISOString().split("T")[0], score: 82, call_count: 4 }
-      ]
-    }
+        {
+          date: new Date(Date.now() - 1 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0],
+          score: 85,
+          call_count: 1,
+        },
+        {
+          date: new Date().toISOString().split("T")[0],
+          score: 82,
+          call_count: 4,
+        },
+      ],
+    },
   ],
   date_range: {
-    start: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+    start: new Date(Date.now() - 14 * 24 * 60 * 60 * 1000)
+      .toISOString()
+      .split("T")[0],
     end: new Date().toISOString().split("T")[0],
   },
 };
@@ -352,7 +478,7 @@ export function useCallAnalytics() {
         (() => {
           warnMissingEndpoint("/ringcentral/calls/analytics");
           return DEFAULT_ANALYTICS;
-        })()
+        })(),
       );
     },
     staleTime: 60_000, // 1 minute
@@ -453,7 +579,7 @@ export function useCallsWithAnalysis(filters?: {
         (() => {
           warnMissingEndpoint("/ringcentral/calls");
           return DEFAULT_CALLS;
-        })()
+        })(),
       );
     },
     staleTime: 30_000, // 30 seconds
@@ -471,13 +597,15 @@ export function useAgentPerformance() {
     queryFn: async (): Promise<AgentPerformanceResponse> => {
       return withFallback(
         async () => {
-          const { data } = await apiClient.get("/ringcentral/agents/performance");
+          const { data } = await apiClient.get(
+            "/ringcentral/agents/performance",
+          );
           return data;
         },
         (() => {
           warnMissingEndpoint("/ringcentral/agents/performance");
           return DEFAULT_AGENT_PERFORMANCE;
-        })()
+        })(),
       );
     },
     staleTime: 120_000, // 2 minutes
@@ -529,13 +657,15 @@ export function useCoachingInsights() {
     queryFn: async (): Promise<CoachingInsightsResponse> => {
       return withFallback(
         async () => {
-          const { data } = await apiClient.get("/ringcentral/coaching/insights");
+          const { data } = await apiClient.get(
+            "/ringcentral/coaching/insights",
+          );
           return data;
         },
         (() => {
           warnMissingEndpoint("/ringcentral/coaching/insights");
           return DEFAULT_COACHING_INSIGHTS;
-        })()
+        })(),
       );
     },
     staleTime: 300_000, // 5 minutes
@@ -580,7 +710,9 @@ export function useCallTranscript(callId: string | null) {
     queryFn: async (): Promise<TranscriptResponse | null> => {
       if (!callId) return null;
       try {
-        const { data } = await apiClient.get(`/ringcentral/calls/${callId}/transcript`);
+        const { data } = await apiClient.get(
+          `/ringcentral/calls/${callId}/transcript`,
+        );
         return data;
       } catch (error) {
         console.error("Failed to fetch transcript:", error);
@@ -608,7 +740,9 @@ export function useAnalysisStatus() {
   return useQuery({
     queryKey: ["call-analysis-status"],
     queryFn: async (): Promise<AnalysisStatusResponse> => {
-      const { data } = await apiClient.get("/ringcentral/calls/analysis-status");
+      const { data } = await apiClient.get(
+        "/ringcentral/calls/analysis-status",
+      );
       return data;
     },
     staleTime: 30_000, // 30 seconds
@@ -642,7 +776,7 @@ export function useAnalyzeCall() {
       force?: boolean;
     }): Promise<AnalyzeCallResponse> => {
       const { data } = await apiClient.post(
-        `/ringcentral/calls/analyze/${callId}${force ? "?force=true" : ""}`
+        `/ringcentral/calls/analyze/${callId}${force ? "?force=true" : ""}`,
       );
       return data;
     },
@@ -651,7 +785,9 @@ export function useAnalyzeCall() {
       if (data.status === "queued") {
         // Poll for updates after a short delay (analysis takes ~10s)
         setTimeout(() => {
-          queryClient.invalidateQueries({ queryKey: ["call-transcript", callId] });
+          queryClient.invalidateQueries({
+            queryKey: ["call-transcript", callId],
+          });
           queryClient.invalidateQueries({ queryKey: ["calls-with-analysis"] });
           queryClient.invalidateQueries({ queryKey: ["call-analytics"] });
         }, 10000);

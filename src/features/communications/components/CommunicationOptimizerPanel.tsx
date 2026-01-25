@@ -12,12 +12,19 @@ import { Button } from "@/components/ui/Button";
  */
 export function CommunicationOptimizerPanel() {
   const [showPanel, setShowPanel] = useState(false);
-  const [activeTab, setActiveTab] = useState<"analytics" | "optimize" | "generate">("analytics");
+  const [activeTab, setActiveTab] = useState<
+    "analytics" | "optimize" | "generate"
+  >("analytics");
   const [messageToOptimize, setMessageToOptimize] = useState("");
-  const [selectedPurpose, setSelectedPurpose] = useState<"appointment" | "followup" | "promotion" | "reminder">("followup");
-  const [selectedContext, setSelectedContext] = useState<"after_service" | "missed_appointment" | "quote_sent" | "overdue_payment">("after_service");
+  const [selectedPurpose, setSelectedPurpose] = useState<
+    "appointment" | "followup" | "promotion" | "reminder"
+  >("followup");
+  const [selectedContext, setSelectedContext] = useState<
+    "after_service" | "missed_appointment" | "quote_sent" | "overdue_payment"
+  >("after_service");
 
-  const { data: analytics, isLoading: loadingAnalytics } = useCommunicationAnalytics();
+  const { data: analytics, isLoading: loadingAnalytics } =
+    useCommunicationAnalytics();
   const optimizeMessage = useOptimizeMessage();
   const generateFollowUp = useGenerateFollowUp();
 
@@ -55,7 +62,9 @@ export function CommunicationOptimizerPanel() {
       <div className="flex items-center justify-between mb-4">
         <div className="flex items-center gap-2">
           <span className="text-lg">&#10024;</span>
-          <h4 className="font-medium text-text-primary">Communication Optimizer</h4>
+          <h4 className="font-medium text-text-primary">
+            Communication Optimizer
+          </h4>
         </div>
         <button
           onClick={() => setShowPanel(false)}
@@ -77,9 +86,11 @@ export function CommunicationOptimizerPanel() {
                 : "bg-bg-tertiary text-text-secondary hover:bg-bg-hover"
             }`}
           >
-            {tab === "analytics" ? "Analytics" :
-              tab === "optimize" ? "Optimize" :
-              "Generate"}
+            {tab === "analytics"
+              ? "Analytics"
+              : tab === "optimize"
+                ? "Optimize"
+                : "Generate"}
           </button>
         ))}
       </div>
@@ -92,58 +103,88 @@ export function CommunicationOptimizerPanel() {
               <div className="animate-spin h-4 w-4 border-2 border-purple-500 border-t-transparent rounded-full" />
               <span className="text-sm">Analyzing...</span>
             </div>
-          ) : analytics && (
-            <>
-              {/* Key Metrics */}
-              <div className="grid grid-cols-3 gap-3">
-                <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-                  <span className="text-2xl font-bold text-primary">{(analytics.response_rate * 100).toFixed(0)}%</span>
-                  <span className="text-xs text-text-muted block">Response Rate</span>
+          ) : (
+            analytics && (
+              <>
+                {/* Key Metrics */}
+                <div className="grid grid-cols-3 gap-3">
+                  <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
+                    <span className="text-2xl font-bold text-primary">
+                      {(analytics.response_rate * 100).toFixed(0)}%
+                    </span>
+                    <span className="text-xs text-text-muted block">
+                      Response Rate
+                    </span>
+                  </div>
+                  <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
+                    <span className="text-2xl font-bold text-text-primary">
+                      {analytics.avg_response_time_hours.toFixed(1)}h
+                    </span>
+                    <span className="text-xs text-text-muted block">
+                      Avg Response
+                    </span>
+                  </div>
+                  <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
+                    <span className="text-2xl font-bold text-green-400">
+                      {analytics.best_performing_channel.toUpperCase()}
+                    </span>
+                    <span className="text-xs text-text-muted block">
+                      Best Channel
+                    </span>
+                  </div>
                 </div>
-                <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-                  <span className="text-2xl font-bold text-text-primary">{analytics.avg_response_time_hours.toFixed(1)}h</span>
-                  <span className="text-xs text-text-muted block">Avg Response</span>
-                </div>
-                <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-                  <span className="text-2xl font-bold text-green-400">{analytics.best_performing_channel.toUpperCase()}</span>
-                  <span className="text-xs text-text-muted block">Best Channel</span>
-                </div>
-              </div>
 
-              {/* Channel Comparison */}
-              <div>
-                <span className="text-xs text-text-muted block mb-2">Channel Performance</span>
-                <div className="space-y-2">
-                  {analytics.by_channel.map((ch, i) => (
-                    <div key={i} className="bg-bg-card border border-border rounded-lg p-2">
-                      <div className="flex items-center justify-between mb-1">
-                        <span className="text-sm font-medium text-text-primary">{ch.channel}</span>
-                        <span className="text-sm font-bold text-green-400">{(ch.response_rate * 100).toFixed(0)}%</span>
+                {/* Channel Comparison */}
+                <div>
+                  <span className="text-xs text-text-muted block mb-2">
+                    Channel Performance
+                  </span>
+                  <div className="space-y-2">
+                    {analytics.by_channel.map((ch, i) => (
+                      <div
+                        key={i}
+                        className="bg-bg-card border border-border rounded-lg p-2"
+                      >
+                        <div className="flex items-center justify-between mb-1">
+                          <span className="text-sm font-medium text-text-primary">
+                            {ch.channel}
+                          </span>
+                          <span className="text-sm font-bold text-green-400">
+                            {(ch.response_rate * 100).toFixed(0)}%
+                          </span>
+                        </div>
+                        <div className="h-1.5 bg-bg-tertiary rounded-full overflow-hidden">
+                          <div
+                            className="h-full bg-purple-500 rounded-full"
+                            style={{ width: `${ch.response_rate * 100}%` }}
+                          />
+                        </div>
                       </div>
-                      <div className="h-1.5 bg-bg-tertiary rounded-full overflow-hidden">
-                        <div
-                          className="h-full bg-purple-500 rounded-full"
-                          style={{ width: `${ch.response_rate * 100}%` }}
-                        />
-                      </div>
-                    </div>
-                  ))}
+                    ))}
+                  </div>
                 </div>
-              </div>
 
-              {/* AI Suggestions */}
-              <div>
-                <span className="text-xs text-text-muted block mb-2">AI Suggestions</span>
-                <div className="space-y-2">
-                  {analytics.suggestions.map((suggestion, i) => (
-                    <div key={i} className="bg-bg-card border border-border rounded-lg p-2 flex gap-2">
-                      <span className="text-purple-400">{"→"}</span>
-                      <p className="text-xs text-text-secondary">{suggestion}</p>
-                    </div>
-                  ))}
+                {/* AI Suggestions */}
+                <div>
+                  <span className="text-xs text-text-muted block mb-2">
+                    AI Suggestions
+                  </span>
+                  <div className="space-y-2">
+                    {analytics.suggestions.map((suggestion, i) => (
+                      <div
+                        key={i}
+                        className="bg-bg-card border border-border rounded-lg p-2 flex gap-2"
+                      >
+                        <span className="text-purple-400">{"→"}</span>
+                        <p className="text-xs text-text-secondary">
+                          {suggestion}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
                 </div>
-              </div>
-            </>
+              </>
+            )
           )}
         </div>
       )}
@@ -152,7 +193,9 @@ export function CommunicationOptimizerPanel() {
       {activeTab === "optimize" && (
         <div className="space-y-4">
           <div>
-            <label className="text-xs text-text-muted block mb-1">Message to Optimize</label>
+            <label className="text-xs text-text-muted block mb-1">
+              Message to Optimize
+            </label>
             <textarea
               value={messageToOptimize}
               onChange={(e) => setMessageToOptimize(e.target.value)}
@@ -162,9 +205,13 @@ export function CommunicationOptimizerPanel() {
           </div>
 
           <div>
-            <label className="text-xs text-text-muted block mb-1">Purpose</label>
+            <label className="text-xs text-text-muted block mb-1">
+              Purpose
+            </label>
             <div className="flex gap-2">
-              {(["appointment", "followup", "promotion", "reminder"] as const).map((p) => (
+              {(
+                ["appointment", "followup", "promotion", "reminder"] as const
+              ).map((p) => (
                 <button
                   key={p}
                   onClick={() => setSelectedPurpose(p)}
@@ -192,27 +239,44 @@ export function CommunicationOptimizerPanel() {
           {optimizeMessage.data && (
             <div className="space-y-3">
               <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
-                <span className="text-xs text-green-400 block mb-1">Optimized Message</span>
-                <p className="text-sm text-text-primary">{optimizeMessage.data.optimized}</p>
+                <span className="text-xs text-green-400 block mb-1">
+                  Optimized Message
+                </span>
+                <p className="text-sm text-text-primary">
+                  {optimizeMessage.data.optimized}
+                </p>
               </div>
 
               <div className="grid grid-cols-3 gap-2 text-center">
                 <div className="bg-bg-card border border-border rounded p-2">
-                  <span className="text-lg font-bold text-purple-400">{optimizeMessage.data.tone_score}</span>
+                  <span className="text-lg font-bold text-purple-400">
+                    {optimizeMessage.data.tone_score}
+                  </span>
                   <span className="text-xs text-text-muted block">Tone</span>
                 </div>
                 <div className="bg-bg-card border border-border rounded p-2">
-                  <span className="text-lg font-bold text-blue-400">{optimizeMessage.data.clarity_score}</span>
+                  <span className="text-lg font-bold text-blue-400">
+                    {optimizeMessage.data.clarity_score}
+                  </span>
                   <span className="text-xs text-text-muted block">Clarity</span>
                 </div>
                 <div className="bg-bg-card border border-border rounded p-2">
-                  <span className="text-lg font-bold text-green-400">{(optimizeMessage.data.predicted_response_rate * 100).toFixed(0)}%</span>
-                  <span className="text-xs text-text-muted block">Response</span>
+                  <span className="text-lg font-bold text-green-400">
+                    {(
+                      optimizeMessage.data.predicted_response_rate * 100
+                    ).toFixed(0)}
+                    %
+                  </span>
+                  <span className="text-xs text-text-muted block">
+                    Response
+                  </span>
                 </div>
               </div>
 
               <div>
-                <span className="text-xs text-text-muted block mb-1">Improvements Made</span>
+                <span className="text-xs text-text-muted block mb-1">
+                  Improvements Made
+                </span>
                 <ul className="text-xs text-text-secondary space-y-1">
                   {optimizeMessage.data.improvements.map((imp, i) => (
                     <li key={i} className="flex items-center gap-1">
@@ -230,7 +294,9 @@ export function CommunicationOptimizerPanel() {
       {activeTab === "generate" && (
         <div className="space-y-4">
           <div>
-            <label className="text-xs text-text-muted block mb-2">Context</label>
+            <label className="text-xs text-text-muted block mb-2">
+              Context
+            </label>
             <div className="grid grid-cols-2 gap-2">
               {[
                 { value: "after_service", label: "After Service" },
@@ -240,7 +306,9 @@ export function CommunicationOptimizerPanel() {
               ].map((ctx) => (
                 <button
                   key={ctx.value}
-                  onClick={() => setSelectedContext(ctx.value as typeof selectedContext)}
+                  onClick={() =>
+                    setSelectedContext(ctx.value as typeof selectedContext)
+                  }
                   className={`px-3 py-2 rounded text-xs ${
                     selectedContext === ctx.value
                       ? "bg-purple-600 text-white"
@@ -268,15 +336,21 @@ export function CommunicationOptimizerPanel() {
                 {generateFollowUp.data.subject && (
                   <div className="mb-2">
                     <span className="text-xs text-text-muted">Subject:</span>
-                    <p className="text-sm font-medium text-text-primary">{generateFollowUp.data.subject}</p>
+                    <p className="text-sm font-medium text-text-primary">
+                      {generateFollowUp.data.subject}
+                    </p>
                   </div>
                 )}
                 <span className="text-xs text-text-muted">Message:</span>
-                <p className="text-sm text-text-primary mt-1">{generateFollowUp.data.message}</p>
+                <p className="text-sm text-text-primary mt-1">
+                  {generateFollowUp.data.message}
+                </p>
               </div>
               <div className="flex items-center justify-between text-xs">
                 <span className="text-text-muted">Recommended Channel:</span>
-                <span className="text-purple-400 font-medium uppercase">{generateFollowUp.data.recommended_channel}</span>
+                <span className="text-purple-400 font-medium uppercase">
+                  {generateFollowUp.data.recommended_channel}
+                </span>
               </div>
               <div className="flex gap-2">
                 <Button size="sm" variant="secondary" className="flex-1">

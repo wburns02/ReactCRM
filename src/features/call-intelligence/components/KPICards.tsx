@@ -132,7 +132,9 @@ function StarRating({ rating, max = 5 }: { rating: number; max?: number }) {
       ))}
       {hasHalfStar && (
         <span className="text-yellow-400 text-lg relative">
-          <span className="absolute inset-0 overflow-hidden w-1/2">&#9733;</span>
+          <span className="absolute inset-0 overflow-hidden w-1/2">
+            &#9733;
+          </span>
           <span className="text-gray-300">&#9733;</span>
         </span>
       )}
@@ -210,7 +212,7 @@ const KPICard = memo(function KPICard({
     <Card
       className={cn(
         "p-4 cursor-pointer transition-all duration-200 hover:shadow-md hover:border-primary/50 group",
-        isWarning && "border-warning bg-warning/5"
+        isWarning && "border-warning bg-warning/5",
       )}
       onClick={onClick}
       data-testid={`kpi-card-${id}`}
@@ -228,7 +230,7 @@ const KPICard = memo(function KPICard({
             className={cn(
               "text-3xl font-bold mb-1 truncate",
               colorClass || "text-text-primary",
-              isWarning && "text-warning"
+              isWarning && "text-warning",
             )}
           >
             {value}
@@ -266,7 +268,7 @@ const KPICard = memo(function KPICard({
                   "text-xs font-semibold px-2 py-0.5 rounded inline-flex items-center",
                   trend.direction === "up" && "text-green-700 bg-green-100",
                   trend.direction === "down" && "text-red-700 bg-red-100",
-                  trend.direction === "neutral" && "text-gray-600 bg-gray-100"
+                  trend.direction === "neutral" && "text-gray-600 bg-gray-100",
                 )}
               >
                 {trend.direction === "up" && (
@@ -336,9 +338,7 @@ function generateMockSparkline(baseValue: number, variance = 0.15): number[] {
 /**
  * Calculate trend direction from percentage change
  */
-function getTrendDirection(
-  change: number
-): "up" | "down" | "neutral" {
+function getTrendDirection(change: number): "up" | "down" | "neutral" {
   if (change > 0.5) return "up";
   if (change < -0.5) return "down";
   return "neutral";
@@ -415,9 +415,7 @@ export const KPICards = memo(function KPICards({
         subtitle: `${positiveCalls} positive, ${negativeCalls} negative`,
         trend: {
           value: 3.5,
-          direction: getTrendDirection(
-            avgSentiment >= 0 ? 3.5 : -3.5
-          ),
+          direction: getTrendDirection(avgSentiment >= 0 ? 3.5 : -3.5),
         },
         sparklineData: sentimentSparkline,
         sparklineColor:
@@ -467,10 +465,7 @@ export const KPICards = memo(function KPICards({
           value: 2.1,
           direction: getTrendDirection(2.1),
         },
-        sparklineData: generateMockSparkline(
-          avgCsat || 3.5,
-          0.08
-        ),
+        sparklineData: generateMockSparkline(avgCsat || 3.5, 0.08),
         sparklineColor: CHART_COLORS.purple,
         icon: "⭐",
         stars: avgCsat,
@@ -511,10 +506,7 @@ export const KPICards = memo(function KPICards({
           value: 4.7,
           direction: getTrendDirection(4.7),
         },
-        sparklineData: generateMockSparkline(
-          autoDispositionRate || 50,
-          0.1
-        ),
+        sparklineData: generateMockSparkline(autoDispositionRate || 50, 0.1),
         sparklineColor: CHART_COLORS.info,
         icon: "🤖",
       },

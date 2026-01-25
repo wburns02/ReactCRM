@@ -15,7 +15,11 @@ export function TechnicianPerformanceStats({
   onPumpOutsClick,
   onRepairsClick,
 }: TechnicianPerformanceStatsProps) {
-  const { data: stats, isLoading, error } = useTechnicianPerformance(technicianId);
+  const {
+    data: stats,
+    isLoading,
+    error,
+  } = useTechnicianPerformance(technicianId);
 
   if (isLoading) {
     return (

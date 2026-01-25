@@ -26,14 +26,14 @@ function TableTechnicianRow({
 
   const handleRowClick = (e: React.MouseEvent) => {
     // Don't navigate if clicking interactive elements (links, buttons)
-    if ((e.target as HTMLElement).closest('a, button')) {
+    if ((e.target as HTMLElement).closest("a, button")) {
       return;
     }
     navigate(`/technicians/${technician.id}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       navigate(`/technicians/${technician.id}`);
     }

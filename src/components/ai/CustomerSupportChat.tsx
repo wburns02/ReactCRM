@@ -3,7 +3,15 @@
  * RAG-powered AI chat for customer support using R730 knowledge base
  */
 import { useState, useCallback, useRef, useEffect } from "react";
-import { Send, Bot, User, Loader2, AlertTriangle, RefreshCw, Sparkles } from "lucide-react";
+import {
+  Send,
+  Bot,
+  User,
+  Loader2,
+  AlertTriangle,
+  RefreshCw,
+  Sparkles,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -73,7 +81,8 @@ How can I help you today?`,
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { data: aiHealth } = useLocalAIHealth();
-  const isAIAvailable = aiHealth?.status === "healthy" || aiHealth?.status === "degraded";
+  const isAIAvailable =
+    aiHealth?.status === "healthy" || aiHealth?.status === "degraded";
 
   // Scroll to bottom when messages change
   useEffect(() => {
@@ -91,7 +100,7 @@ How can I help you today?`,
       timestamp: new Date(),
     };
 
-    setMessages(prev => [...prev, userMessage]);
+    setMessages((prev) => [...prev, userMessage]);
     setInput("");
     setIsLoading(true);
     setError(null);
@@ -102,7 +111,9 @@ How can I help you today?`,
         context,
         customerId && `Customer ID: ${customerId}`,
         customerName && `Customer: ${customerName}`,
-      ].filter(Boolean).join(". ");
+      ]
+        .filter(Boolean)
+        .join(". ");
 
       // Try R730 RAG endpoint first
       let response: RAGResponse;
@@ -119,7 +130,12 @@ How can I help you today?`,
           message: userMessage.content,
           context: queryContext,
         });
-        response = { answer: data.response || data.content || "I apologize, but I couldn't process your request." };
+        response = {
+          answer:
+            data.response ||
+            data.content ||
+            "I apologize, but I couldn't process your request.",
+        };
       }
 
       const assistantMessage: Message = {
@@ -131,15 +147,14 @@ How can I help you today?`,
         confidence: response.confidence,
       };
 
-      setMessages(prev => [...prev, assistantMessage]);
+      setMessages((prev) => [...prev, assistantMessage]);
 
       // Handle suggested actions
       if (response.suggested_actions && onActionSuggested) {
-        response.suggested_actions.forEach(action => {
+        response.suggested_actions.forEach((action) => {
           onActionSuggested(action);
         });
       }
-
     } catch (err) {
       console.error("Chat error:", err);
       setError("Failed to get response. Please try again.");
@@ -148,10 +163,11 @@ How can I help you today?`,
       const errorMessage: Message = {
         id: `error-${Date.now()}`,
         role: "assistant",
-        content: "I apologize, but I'm having trouble connecting to my knowledge base. Please try again in a moment.",
+        content:
+          "I apologize, but I'm having trouble connecting to my knowledge base. Please try again in a moment.",
         timestamp: new Date(),
       };
-      setMessages(prev => [...prev, errorMessage]);
+      setMessages((prev) => [...prev, errorMessage]);
     } finally {
       setIsLoading(false);
       inputRef.current?.focus();
@@ -159,30 +175,47 @@ How can I help you today?`,
   }, [input, isLoading, context, customerId, customerName, onActionSuggested]);
 
   // Handle enter key
-  const handleKeyPress = useCallback((e: React.KeyboardEvent) => {
-    if (e.key === "Enter" && !e.shiftKey) {
-      e.preventDefault();
-      sendMessage();
-    }
-  }, [sendMessage]);
+  const handleKeyPress = useCallback(
+    (e: React.KeyboardEvent) => {
+      if (e.key === "Enter" && !e.shiftKey) {
+        e.preventDefault();
+        sendMessage();
+      }
+    },
+    [sendMessage],
+  );
 
   // Clear chat
   const clearChat = useCallback(() => {
-    setMessages([{
-      id: "welcome-new",
-      role: "assistant",
-      content: "Chat cleared. How can I help you?",
-      timestamp: new Date(),
-    }]);
+    setMessages([
+      {
+        id: "welcome-new",
+        role: "assistant",
+        content: "Chat cleared. How can I help you?",
+        timestamp: new Date(),
+      },
+    ]);
     setError(null);
   }, []);
 
   // Quick action buttons
   const quickActions = [
-    { label: "Pumping schedule", query: "How often should I pump my septic tank?" },
-    { label: "Warning signs", query: "What are signs my septic system needs attention?" },
-    { label: "Maintenance tips", query: "What are the best practices for septic system care?" },
-    { label: "Pricing info", query: "What does septic pumping typically cost?" },
+    {
+      label: "Pumping schedule",
+      query: "How often should I pump my septic tank?",
+    },
+    {
+      label: "Warning signs",
+      query: "What are signs my septic system needs attention?",
+    },
+    {
+      label: "Maintenance tips",
+      query: "What are the best practices for septic system care?",
+    },
+    {
+      label: "Pricing info",
+      query: "What does septic pumping typically cost?",
+    },
   ];
 
   return (
@@ -193,7 +226,9 @@ How can I help you today?`,
             <Bot className="w-4 h-4" />
             AI Support Chat
             {customerName && (
-              <span className="text-text-muted font-normal">- {customerName}</span>
+              <span className="text-text-muted font-normal">
+                - {customerName}
+              </span>
             )}
           </span>
           <div className="flex items-center gap-2">
@@ -234,7 +269,9 @@ How can I help you today?`,
                     : "bg-bg-muted text-text-primary"
                 }`}
               >
-                <div className="text-sm whitespace-pre-wrap">{message.content}</div>
+                <div className="text-sm whitespace-pre-wrap">
+                  {message.content}
+                </div>
 
                 {/* Sources */}
                 {message.sources && message.sources.length > 0 && (
@@ -258,8 +295,13 @@ How can I help you today?`,
                 )}
 
                 {/* Timestamp */}
-                <div className={`text-xs mt-1 ${message.role === "user" ? "text-white/70" : "text-text-muted"}`}>
-                  {message.timestamp.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" })}
+                <div
+                  className={`text-xs mt-1 ${message.role === "user" ? "text-white/70" : "text-text-muted"}`}
+                >
+                  {message.timestamp.toLocaleTimeString([], {
+                    hour: "2-digit",
+                    minute: "2-digit",
+                  })}
                 </div>
               </div>
               {message.role === "user" && (

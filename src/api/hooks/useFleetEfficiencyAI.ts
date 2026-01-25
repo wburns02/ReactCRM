@@ -64,7 +64,9 @@ export function useFleetEfficiency(dateRange?: { start: string; end: string }) {
     queryKey: ["fleet-efficiency", dateRange],
     queryFn: async (): Promise<FleetEfficiencyMetrics> => {
       try {
-        const response = await apiClient.get("/ai/fleet/efficiency", { params: dateRange });
+        const response = await apiClient.get("/ai/fleet/efficiency", {
+          params: dateRange,
+        });
         return response.data;
       } catch {
         return generateDemoFleetMetrics();
@@ -86,7 +88,10 @@ export function useOptimizeRoutes() {
       consider_time_windows?: boolean;
     }): Promise<RouteOptimization> => {
       try {
-        const response = await apiClient.post("/ai/fleet/optimize-routes", params);
+        const response = await apiClient.post(
+          "/ai/fleet/optimize-routes",
+          params,
+        );
         return response.data;
       } catch {
         return generateDemoRouteOptimization();
@@ -106,8 +111,16 @@ export function useVehicleHealthPredictions() {
         vehicle_id: string;
         vehicle_name: string;
         health_score: number;
-        predicted_issues: Array<{ issue: string; probability: number; urgency: string }>;
-        recommended_maintenance: Array<{ task: string; due_date: string; cost_estimate: number }>;
+        predicted_issues: Array<{
+          issue: string;
+          probability: number;
+          urgency: string;
+        }>;
+        recommended_maintenance: Array<{
+          task: string;
+          due_date: string;
+          cost_estimate: number;
+        }>;
       }>;
     }> => {
       try {
@@ -131,7 +144,12 @@ export function useFuelEfficiencyAnalysis() {
       current_mpg: number;
       target_mpg: number;
       trend: "improving" | "stable" | "declining";
-      by_vehicle: Array<{ vehicle_id: string; name: string; mpg: number; vs_target: number }>;
+      by_vehicle: Array<{
+        vehicle_id: string;
+        name: string;
+        mpg: number;
+        vs_target: number;
+      }>;
       improvement_suggestions: string[];
     }> => {
       try {
@@ -204,7 +222,8 @@ function generateDemoFleetMetrics(): FleetEfficiencyMetrics {
       {
         type: "route",
         title: "Route Optimization Opportunity",
-        description: "AI analysis found 15% potential reduction in daily miles through better route sequencing",
+        description:
+          "AI analysis found 15% potential reduction in daily miles through better route sequencing",
         potential_savings: 450,
         priority: "high",
         affected_vehicles: ["v-1", "v-2", "v-3"],
@@ -212,7 +231,8 @@ function generateDemoFleetMetrics(): FleetEfficiencyMetrics {
       {
         type: "maintenance",
         title: "Preventive Maintenance Alert",
-        description: "Truck #2 showing signs of reduced efficiency - recommend tune-up",
+        description:
+          "Truck #2 showing signs of reduced efficiency - recommend tune-up",
         potential_savings: 200,
         priority: "medium",
         affected_vehicles: ["v-2"],
@@ -220,7 +240,8 @@ function generateDemoFleetMetrics(): FleetEfficiencyMetrics {
       {
         type: "fuel",
         title: "Idle Time Reduction",
-        description: "Reducing idle time to 10% target could save 50 gallons/month",
+        description:
+          "Reducing idle time to 10% target could save 50 gallons/month",
         potential_savings: 175,
         priority: "medium",
         affected_vehicles: ["v-2", "v-3"],
@@ -239,11 +260,41 @@ function generateDemoRouteOptimization(): RouteOptimization {
     fuel_saved_gallons: 2.0,
     cost_saved: 7.0,
     optimized_route: [
-      { order: 1, address: "123 Main St", customer_name: "Johnson", arrival_time: "08:00", service_duration: 60 },
-      { order: 2, address: "456 Oak Ave", customer_name: "Smith", arrival_time: "09:15", service_duration: 45 },
-      { order: 3, address: "789 Pine Rd", customer_name: "Williams", arrival_time: "10:30", service_duration: 90 },
-      { order: 4, address: "321 Elm St", customer_name: "Davis", arrival_time: "12:30", service_duration: 60 },
-      { order: 5, address: "654 Cedar Ln", customer_name: "Martinez", arrival_time: "14:00", service_duration: 45 },
+      {
+        order: 1,
+        address: "123 Main St",
+        customer_name: "Johnson",
+        arrival_time: "08:00",
+        service_duration: 60,
+      },
+      {
+        order: 2,
+        address: "456 Oak Ave",
+        customer_name: "Smith",
+        arrival_time: "09:15",
+        service_duration: 45,
+      },
+      {
+        order: 3,
+        address: "789 Pine Rd",
+        customer_name: "Williams",
+        arrival_time: "10:30",
+        service_duration: 90,
+      },
+      {
+        order: 4,
+        address: "321 Elm St",
+        customer_name: "Davis",
+        arrival_time: "12:30",
+        service_duration: 60,
+      },
+      {
+        order: 5,
+        address: "654 Cedar Ln",
+        customer_name: "Martinez",
+        arrival_time: "14:00",
+        service_duration: 45,
+      },
     ],
   };
 }
@@ -257,7 +308,13 @@ function generateDemoHealthPredictions() {
         health_score: 92,
         predicted_issues: [],
         recommended_maintenance: [
-          { task: "Oil change", due_date: new Date(Date.now() + 30 * 24 * 60 * 60 * 1000).toISOString(), cost_estimate: 85 },
+          {
+            task: "Oil change",
+            due_date: new Date(
+              Date.now() + 30 * 24 * 60 * 60 * 1000,
+            ).toISOString(),
+            cost_estimate: 85,
+          },
         ],
       },
       {
@@ -269,8 +326,20 @@ function generateDemoHealthPredictions() {
           { issue: "Battery degradation", probability: 0.45, urgency: "low" },
         ],
         recommended_maintenance: [
-          { task: "Brake inspection", due_date: new Date(Date.now() + 14 * 24 * 60 * 60 * 1000).toISOString(), cost_estimate: 150 },
-          { task: "Oil change", due_date: new Date(Date.now() + 7 * 24 * 60 * 60 * 1000).toISOString(), cost_estimate: 85 },
+          {
+            task: "Brake inspection",
+            due_date: new Date(
+              Date.now() + 14 * 24 * 60 * 60 * 1000,
+            ).toISOString(),
+            cost_estimate: 150,
+          },
+          {
+            task: "Oil change",
+            due_date: new Date(
+              Date.now() + 7 * 24 * 60 * 60 * 1000,
+            ).toISOString(),
+            cost_estimate: 85,
+          },
         ],
       },
       {
@@ -281,7 +350,13 @@ function generateDemoHealthPredictions() {
           { issue: "Tire wear", probability: 0.55, urgency: "low" },
         ],
         recommended_maintenance: [
-          { task: "Tire rotation", due_date: new Date(Date.now() + 21 * 24 * 60 * 60 * 1000).toISOString(), cost_estimate: 50 },
+          {
+            task: "Tire rotation",
+            due_date: new Date(
+              Date.now() + 21 * 24 * 60 * 60 * 1000,
+            ).toISOString(),
+            cost_estimate: 50,
+          },
         ],
       },
     ],

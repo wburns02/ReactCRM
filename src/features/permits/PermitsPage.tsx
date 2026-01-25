@@ -29,9 +29,12 @@ export function PermitsPage() {
   const { data: stats, isLoading: isLoadingStats } = usePermitStats();
 
   // Filter change handler
-  const handleFilterChange = useCallback((newFilters: Partial<PermitSearchFilters>) => {
-    setFilters((prev) => ({ ...prev, ...newFilters }));
-  }, []);
+  const handleFilterChange = useCallback(
+    (newFilters: Partial<PermitSearchFilters>) => {
+      setFilters((prev) => ({ ...prev, ...newFilters }));
+    },
+    [],
+  );
 
   // Page change handler
   const handlePageChange = useCallback((page: number) => {
@@ -51,8 +54,8 @@ export function PermitsPage() {
           National Septic Permit Database
         </h1>
         <p className="text-gray-500 mt-1">
-          Search {stats?.total_permits.toLocaleString() || "millions of"} septic permits across{" "}
-          {stats?.total_states || "50"} states
+          Search {stats?.total_permits.toLocaleString() || "millions of"} septic
+          permits across {stats?.total_states || "50"} states
         </p>
       </div>
 

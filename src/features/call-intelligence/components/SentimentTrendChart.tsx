@@ -50,7 +50,8 @@ function CustomTooltip({ active, payload, label }: any) {
   const data = payload[0]?.payload as TrendDataPoint | undefined;
   if (!data) return null;
 
-  const total = (data.positive ?? 0) + (data.neutral ?? 0) + (data.negative ?? 0);
+  const total =
+    (data.positive ?? 0) + (data.neutral ?? 0) + (data.negative ?? 0);
   const getPercentage = (value: number | undefined) => {
     if (!value || total === 0) return 0;
     return ((value / total) * 100).toFixed(1);
@@ -108,7 +109,9 @@ function CustomTooltip({ active, payload, label }: any) {
         </div>
         <div className="mt-2 pt-2 border-t border-border flex justify-between">
           <span className="text-sm font-medium text-text-secondary">Total</span>
-          <span className="text-sm font-semibold text-text-primary">{total}</span>
+          <span className="text-sm font-semibold text-text-primary">
+            {total}
+          </span>
         </div>
       </div>
     </div>
@@ -166,7 +169,7 @@ export function SentimentTrendChart({
       neutral: "sentimentGradientNeutral",
       negative: "sentimentGradientNegative",
     }),
-    []
+    [],
   );
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any

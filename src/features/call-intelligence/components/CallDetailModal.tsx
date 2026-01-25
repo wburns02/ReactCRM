@@ -43,7 +43,11 @@ import { Tabs, TabList, TabTrigger } from "@/components/ui/Tabs";
 import { cn } from "@/lib/utils";
 import { SecureCallRecordingPlayer } from "@/features/calls/components/SecureCallRecordingPlayer.tsx";
 import { useCallTranscript, useAnalyzeCall } from "../api";
-import type { CallWithAnalysis, SentimentLevel, EscalationRisk } from "../types";
+import type {
+  CallWithAnalysis,
+  SentimentLevel,
+  EscalationRisk,
+} from "../types";
 
 interface CallDetailModalProps {
   call: CallWithAnalysis | null;
@@ -88,7 +92,10 @@ function formatPhoneNumber(phone: string): string {
 }
 
 // Sentiment configuration
-const SENTIMENT_CONFIG: Record<SentimentLevel, { label: string; color: string; bgColor: string; icon: typeof TrendingUp }> = {
+const SENTIMENT_CONFIG: Record<
+  SentimentLevel,
+  { label: string; color: string; bgColor: string; icon: typeof TrendingUp }
+> = {
   positive: {
     label: "Positive",
     color: "text-success",
@@ -116,7 +123,10 @@ const SENTIMENT_CONFIG: Record<SentimentLevel, { label: string; color: string; b
 };
 
 // Escalation risk configuration
-const ESCALATION_CONFIG: Record<EscalationRisk, { label: string; color: string; bgColor: string }> = {
+const ESCALATION_CONFIG: Record<
+  EscalationRisk,
+  { label: string; color: string; bgColor: string }
+> = {
   low: {
     label: "Low Risk",
     color: "text-success",
@@ -166,7 +176,10 @@ function QualityProgressBar({
       </div>
       <div className="h-2 bg-bg-muted rounded-full overflow-hidden">
         <div
-          className={cn("h-full rounded-full transition-all duration-500", getColor(value))}
+          className={cn(
+            "h-full rounded-full transition-all duration-500",
+            getColor(value),
+          )}
           style={{ width: `${value}%` }}
         />
       </div>
@@ -191,10 +204,11 @@ function parseTranscript(transcriptText: string | null): TranscriptEntry[] {
   const entries: TranscriptEntry[] = [];
 
   // Try to parse as structured format (Speaker: text or [timestamp] Speaker: text)
-  const lines = transcriptText.split(/\n+/).filter(line => line.trim());
+  const lines = transcriptText.split(/\n+/).filter((line) => line.trim());
 
   // Pattern: [timestamp] Speaker: text or Speaker: text or Speaker (timestamp): text
-  const speakerPattern = /^(?:\[?(\d+:\d+(?::\d+)?)\]?\s*)?(?:(Agent|Customer|Speaker\s*\d*|Rep|Representative|Caller|CSR)[\s:]+)?(.+)$/i;
+  const speakerPattern =
+    /^(?:\[?(\d+:\d+(?::\d+)?)\]?\s*)?(?:(Agent|Customer|Speaker\s*\d*|Rep|Representative|Caller|CSR)[\s:]+)?(.+)$/i;
 
   let lineIndex = 0;
   for (const line of lines) {
@@ -206,11 +220,12 @@ function parseTranscript(transcriptText: string | null): TranscriptEntry[] {
 
       // Determine speaker type based on keywords
       const speakerLower = speakerRaw.toLowerCase();
-      const isAgent = speakerLower.includes("agent") ||
-                      speakerLower.includes("rep") ||
-                      speakerLower.includes("csr");
-      const isCustomer = speakerLower.includes("customer") ||
-                         speakerLower.includes("caller");
+      const isAgent =
+        speakerLower.includes("agent") ||
+        speakerLower.includes("rep") ||
+        speakerLower.includes("csr");
+      const isCustomer =
+        speakerLower.includes("customer") || speakerLower.includes("caller");
 
       // Alternate speakers if no clear label
       let speaker: "customer" | "agent";
@@ -233,7 +248,7 @@ function parseTranscript(transcriptText: string | null): TranscriptEntry[] {
     entries.push({
       speaker: "agent",
       text: transcriptText,
-      timestamp: "0:00"
+      timestamp: "0:00",
     });
   }
 
@@ -259,8 +274,18 @@ interface DispositionHistoryEntry {
 
 function getMockDispositionHistory(): DispositionHistoryEntry[] {
   return [
-    { disposition: "Service Request", timestamp: "2026-01-14T10:35:00Z", source: "ai", confidence: 94 },
-    { disposition: "Scheduled Appointment", timestamp: "2026-01-14T10:36:00Z", source: "ai", confidence: 98 },
+    {
+      disposition: "Service Request",
+      timestamp: "2026-01-14T10:35:00Z",
+      source: "ai",
+      confidence: 94,
+    },
+    {
+      disposition: "Scheduled Appointment",
+      timestamp: "2026-01-14T10:36:00Z",
+      source: "ai",
+      confidence: 98,
+    },
   ];
 }
 
@@ -285,14 +310,17 @@ function getMockCoachingInsights(): CoachingData {
   };
 }
 
-export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps) {
+export function CallDetailModal({
+  call,
+  isOpen,
+  onClose,
+}: CallDetailModalProps) {
   const [activeTab, setActiveTab] = useState("overview");
   const [analyzeStatus, setAnalyzeStatus] = useState<string | null>(null);
 
   // Fetch real transcript data from API
-  const { data: transcriptData, isLoading: isTranscriptLoading } = useCallTranscript(
-    isOpen && call ? call.id : null
-  );
+  const { data: transcriptData, isLoading: isTranscriptLoading } =
+    useCallTranscript(isOpen && call ? call.id : null);
 
   // Analyze call mutation
   const analyzeMutation = useAnalyzeCall();
@@ -309,7 +337,7 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
         onClose();
       }
     },
-    [isOpen, onClose]
+    [isOpen, onClose],
   );
 
   useEffect(() => {
@@ -342,7 +370,10 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
   if (!call) {
     return (
       <div className="fixed inset-0 z-50 flex items-center justify-center">
-        <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+        <div
+          className="absolute inset-0 bg-black/60 backdrop-blur-sm"
+          onClick={onClose}
+        />
         <div className="relative bg-bg-card rounded-xl p-8 shadow-2xl">
           <div className="flex flex-col items-center gap-4">
             <div className="w-12 h-12 border-4 border-primary border-t-transparent rounded-full animate-spin" />
@@ -354,20 +385,27 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
   }
 
   // Safely get config with fallbacks for missing/undefined values
-  const sentimentConfig = SENTIMENT_CONFIG[call.sentiment] || SENTIMENT_CONFIG.neutral;
-  const escalationConfig = ESCALATION_CONFIG[call.escalation_risk] || ESCALATION_CONFIG.low;
+  const sentimentConfig =
+    SENTIMENT_CONFIG[call.sentiment] || SENTIMENT_CONFIG.neutral;
+  const escalationConfig =
+    ESCALATION_CONFIG[call.escalation_risk] || ESCALATION_CONFIG.low;
   const SentimentIcon = sentimentConfig?.icon || Activity;
-  const DirectionIcon = call.direction === "inbound" ? PhoneIncoming : PhoneOutgoing;
+  const DirectionIcon =
+    call.direction === "inbound" ? PhoneIncoming : PhoneOutgoing;
   // Use real transcript from API, parsed into entries
   const transcript = parsedTranscript;
-  const hasTranscriptData = transcriptData?.has_transcript || parsedTranscript.length > 0;
+  const hasTranscriptData =
+    transcriptData?.has_transcript || parsedTranscript.length > 0;
   const dispositionHistory = getMockDispositionHistory();
   const coaching = getMockCoachingInsights();
 
   return (
     <div className="fixed inset-0 z-50 flex items-start justify-center overflow-y-auto py-4 px-4">
       {/* Backdrop */}
-      <div className="fixed inset-0 bg-black/60 backdrop-blur-sm" onClick={onClose} />
+      <div
+        className="fixed inset-0 bg-black/60 backdrop-blur-sm"
+        onClick={onClose}
+      />
 
       {/* Modal */}
       <div className="relative bg-bg-card border border-border rounded-xl shadow-2xl w-full max-w-5xl min-h-[80vh] flex flex-col my-auto">
@@ -382,7 +420,7 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                     "p-2 rounded-lg",
                     call.direction === "inbound"
                       ? "bg-success/10 text-success"
-                      : "bg-info/10 text-info"
+                      : "bg-info/10 text-info",
                   )}
                 >
                   <DirectionIcon className="w-5 h-5" />
@@ -403,7 +441,8 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                 <div className="flex items-center gap-2">
                   <Phone className="w-4 h-4" />
                   <span>
-                    {formatPhoneNumber(call.from_number)} → {formatPhoneNumber(call.to_number)}
+                    {formatPhoneNumber(call.from_number)} →{" "}
+                    {formatPhoneNumber(call.to_number)}
                   </span>
                 </div>
                 <div className="flex items-center gap-2">
@@ -417,11 +456,18 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
 
               {/* Quick badges */}
               <div className="flex flex-wrap items-center gap-2 mt-4">
-                <Badge className={cn(sentimentConfig.bgColor, sentimentConfig.color)}>
+                <Badge
+                  className={cn(sentimentConfig.bgColor, sentimentConfig.color)}
+                >
                   <SentimentIcon className="w-3 h-3 mr-1" />
                   {sentimentConfig.label}
                 </Badge>
-                <Badge className={cn(escalationConfig.bgColor, escalationConfig.color)}>
+                <Badge
+                  className={cn(
+                    escalationConfig.bgColor,
+                    escalationConfig.color,
+                  )}
+                >
                   <AlertTriangle className="w-3 h-3 mr-1" />
                   {escalationConfig.label}
                 </Badge>
@@ -441,7 +487,12 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
             </div>
 
             {/* Close button */}
-            <Button variant="ghost" size="sm" onClick={onClose} className="flex-shrink-0">
+            <Button
+              variant="ghost"
+              size="sm"
+              onClick={onClose}
+              className="flex-shrink-0"
+            >
               <X className="w-5 h-5" />
             </Button>
           </div>
@@ -510,13 +561,26 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
                     {/* Sentiment */}
                     <div className="text-center p-4 rounded-lg bg-bg-muted">
-                      <SentimentIcon className={cn("w-8 h-8 mx-auto mb-2", sentimentConfig.color)} />
-                      <p className="text-sm text-text-secondary mb-1">Sentiment</p>
-                      <p className={cn("text-lg font-bold", sentimentConfig.color)}>
+                      <SentimentIcon
+                        className={cn(
+                          "w-8 h-8 mx-auto mb-2",
+                          sentimentConfig.color,
+                        )}
+                      />
+                      <p className="text-sm text-text-secondary mb-1">
+                        Sentiment
+                      </p>
+                      <p
+                        className={cn(
+                          "text-lg font-bold",
+                          sentimentConfig.color,
+                        )}
+                      >
                         {sentimentConfig.label}
                       </p>
                       <p className="text-xs text-text-muted mt-1">
-                        Score: {call.sentiment_score > 0 ? "+" : ""}{call.sentiment_score}
+                        Score: {call.sentiment_score > 0 ? "+" : ""}
+                        {call.sentiment_score}
                       </p>
                     </div>
 
@@ -529,10 +593,12 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                             ? "text-success"
                             : call.quality_score >= 60
                               ? "text-warning"
-                              : "text-danger"
+                              : "text-danger",
                         )}
                       />
-                      <p className="text-sm text-text-secondary mb-1">Quality Score</p>
+                      <p className="text-sm text-text-secondary mb-1">
+                        Quality Score
+                      </p>
                       <p
                         className={cn(
                           "text-lg font-bold",
@@ -540,7 +606,7 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                             ? "text-success"
                             : call.quality_score >= 60
                               ? "text-warning"
-                              : "text-danger"
+                              : "text-danger",
                         )}
                       >
                         {call.quality_score}%
@@ -557,15 +623,19 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                             ? "text-success"
                             : (call.csat_prediction || 0) >= 3
                               ? "text-warning"
-                              : "text-danger"
+                              : "text-danger",
                         )}
                       />
-                      <p className="text-sm text-text-secondary mb-1">CSAT Prediction</p>
+                      <p className="text-sm text-text-secondary mb-1">
+                        CSAT Prediction
+                      </p>
                       <p className="text-lg font-bold text-text-primary">
                         {call.csat_prediction?.toFixed(1) || "N/A"} / 5
                       </p>
                       <p className="text-xs text-text-muted mt-1">
-                        {(call.csat_prediction || 0) >= 4 ? "Very Satisfied" : "Satisfied"}
+                        {(call.csat_prediction || 0) >= 4
+                          ? "Very Satisfied"
+                          : "Satisfied"}
                       </p>
                     </div>
                   </div>
@@ -573,7 +643,7 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
               </Card>
 
               {/* Topics & Keywords */}
-              {(call.topics && call.topics.length > 0) && (
+              {call.topics && call.topics.length > 0 && (
                 <Card>
                   <CardHeader>
                     <CardTitle className="flex items-center gap-2 text-lg">
@@ -650,15 +720,19 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                 <CardContent>
                   <div className="flex items-center gap-4">
                     <div
-                      className={cn(
-                        "p-4 rounded-xl",
-                        escalationConfig.bgColor
-                      )}
+                      className={cn("p-4 rounded-xl", escalationConfig.bgColor)}
                     >
-                      <AlertTriangle className={cn("w-8 h-8", escalationConfig.color)} />
+                      <AlertTriangle
+                        className={cn("w-8 h-8", escalationConfig.color)}
+                      />
                     </div>
                     <div>
-                      <p className={cn("text-xl font-bold", escalationConfig.color)}>
+                      <p
+                        className={cn(
+                          "text-xl font-bold",
+                          escalationConfig.color,
+                        )}
+                      >
                         {escalationConfig.label}
                       </p>
                       <p className="text-sm text-text-secondary">
@@ -729,7 +803,9 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                     </CardTitle>
                   </CardHeader>
                   <CardContent>
-                    <p className="text-text-secondary whitespace-pre-wrap">{transcriptData.ai_summary}</p>
+                    <p className="text-text-secondary whitespace-pre-wrap">
+                      {transcriptData.ai_summary}
+                    </p>
                   </CardContent>
                 </Card>
               )}
@@ -751,7 +827,9 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                   {isTranscriptLoading ? (
                     <div className="flex items-center justify-center py-12">
                       <Loader2 className="w-8 h-8 text-primary animate-spin" />
-                      <span className="ml-3 text-text-secondary">Loading transcript...</span>
+                      <span className="ml-3 text-text-secondary">
+                        Loading transcript...
+                      </span>
                     </div>
                   ) : hasTranscriptData && transcript.length > 0 ? (
                     <div className="space-y-4">
@@ -760,7 +838,9 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                           key={index}
                           className={cn(
                             "flex gap-3 p-3 rounded-lg",
-                            entry.speaker === "agent" ? "bg-primary/5" : "bg-bg-muted"
+                            entry.speaker === "agent"
+                              ? "bg-primary/5"
+                              : "bg-bg-muted",
                           )}
                         >
                           <div
@@ -768,7 +848,7 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                               "flex-shrink-0 w-8 h-8 rounded-full flex items-center justify-center",
                               entry.speaker === "agent"
                                 ? "bg-primary text-white"
-                                : "bg-gray-500 text-white"
+                                : "bg-gray-500 text-white",
                             )}
                           >
                             {entry.speaker === "agent" ? (
@@ -780,27 +860,37 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                           <div className="flex-1">
                             <div className="flex items-center gap-2 mb-1">
                               <span className="font-semibold text-sm text-text-primary">
-                                {entry.speaker === "agent" ? call.agent_name || "Agent" : "Customer"}
+                                {entry.speaker === "agent"
+                                  ? call.agent_name || "Agent"
+                                  : "Customer"}
                               </span>
-                              <span className="text-xs text-text-muted">{entry.timestamp}</span>
+                              <span className="text-xs text-text-muted">
+                                {entry.timestamp}
+                              </span>
                             </div>
                             <p className="text-text-secondary">{entry.text}</p>
                           </div>
                         </div>
                       ))}
                     </div>
-                  ) : call.has_recording && transcriptData?.transcription_hint ? (
+                  ) : call.has_recording &&
+                    transcriptData?.transcription_hint ? (
                     <div className="text-center py-12">
                       <FileText className="w-12 h-12 text-text-muted mx-auto mb-4" />
-                      <p className="text-text-secondary">{transcriptData.transcription_hint}</p>
+                      <p className="text-text-secondary">
+                        {transcriptData.transcription_hint}
+                      </p>
                       <p className="text-sm text-text-muted mt-1">
-                        Status: {transcriptData?.transcription_status || "pending"}
+                        Status:{" "}
+                        {transcriptData?.transcription_status || "pending"}
                       </p>
                     </div>
                   ) : (
                     <div className="text-center py-12">
                       <FileText className="w-12 h-12 text-text-muted mx-auto mb-4" />
-                      <p className="text-text-secondary">No transcript available for this call.</p>
+                      <p className="text-text-secondary">
+                        No transcript available for this call.
+                      </p>
                       <p className="text-sm text-text-muted mt-1">
                         {call.has_recording
                           ? "Transcription may still be processing."
@@ -834,14 +924,18 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                         <div
                           className={cn(
                             "absolute left-2.5 w-3 h-3 rounded-full border-2 border-bg-card",
-                            entry.source === "ai" ? "bg-primary" : "bg-success"
+                            entry.source === "ai" ? "bg-primary" : "bg-success",
                           )}
                         />
 
                         <div className="bg-bg-muted rounded-lg p-4">
                           <div className="flex items-center justify-between mb-2">
                             <div className="flex items-center gap-2">
-                              <Badge variant={entry.source === "ai" ? "info" : "success"}>
+                              <Badge
+                                variant={
+                                  entry.source === "ai" ? "info" : "success"
+                                }
+                              >
                                 {entry.source === "ai" ? (
                                   <>
                                     <Brain className="w-3 h-3 mr-1" />
@@ -883,15 +977,21 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
           <div className="flex items-center gap-3 text-sm text-text-muted">
             <span>Call ID: {call.id}</span>
             {analyzeStatus && (
-              <span className={cn(
-                "px-2 py-1 rounded text-xs",
-                analyzeStatus === "queued" ? "bg-info/20 text-info" :
-                analyzeStatus === "already_analyzed" ? "bg-warning/20 text-warning" :
-                "bg-success/20 text-success"
-              )}>
-                {analyzeStatus === "queued" ? "Analysis started..." :
-                 analyzeStatus === "already_analyzed" ? "Already analyzed" :
-                 analyzeStatus}
+              <span
+                className={cn(
+                  "px-2 py-1 rounded text-xs",
+                  analyzeStatus === "queued"
+                    ? "bg-info/20 text-info"
+                    : analyzeStatus === "already_analyzed"
+                      ? "bg-warning/20 text-warning"
+                      : "bg-success/20 text-success",
+                )}
+              >
+                {analyzeStatus === "queued"
+                  ? "Analysis started..."
+                  : analyzeStatus === "already_analyzed"
+                    ? "Already analyzed"
+                    : analyzeStatus}
               </span>
             )}
           </div>
@@ -915,7 +1015,7 @@ export function CallDetailModal({ call, isOpen, onClose }: CallDetailModalProps)
                       onError: () => {
                         setAnalyzeStatus("error");
                       },
-                    }
+                    },
                   );
                 }}
                 disabled={analyzeMutation.isPending}

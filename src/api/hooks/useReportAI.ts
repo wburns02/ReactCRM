@@ -81,7 +81,13 @@ export interface ReportTemplate {
 export function useGenerateReport() {
   return useMutation({
     mutationFn: async (params: {
-      reportType: "executive" | "operations" | "financial" | "customer" | "technician" | "custom";
+      reportType:
+        | "executive"
+        | "operations"
+        | "financial"
+        | "customer"
+        | "technician"
+        | "custom";
       dateRange: { start: string; end: string };
       customSections?: string[];
       focusAreas?: string[];
@@ -121,7 +127,8 @@ export function useGenerateInsights() {
             "Customer satisfaction scores remained stable at 4.7/5, with notable improvement in response time ratings.",
             "Technician utilization improved by 8%, indicating more efficient scheduling.",
           ],
-          summary: "Overall performance shows positive trends across key metrics with opportunities for further optimization in customer acquisition.",
+          summary:
+            "Overall performance shows positive trends across key metrics with opportunities for further optimization in customer acquisition.",
           anomalies: [
             "Unusually high volume of emergency calls on Tuesdays - consider adding capacity",
             "Payment cycle extending slightly - worth monitoring",
@@ -185,9 +192,19 @@ function generateDemoReport(params: {
     type: "metrics",
     content: {
       metrics: [
-        { label: "Total Revenue", value: "$125,450", change: 12.5, trend: "up" },
+        {
+          label: "Total Revenue",
+          value: "$125,450",
+          change: 12.5,
+          trend: "up",
+        },
         { label: "Jobs Completed", value: 245, change: 8, trend: "up" },
-        { label: "Customer Satisfaction", value: "4.7/5", change: 0.2, trend: "up" },
+        {
+          label: "Customer Satisfaction",
+          value: "4.7/5",
+          change: 0.2,
+          trend: "up",
+        },
         { label: "First-Time Fix Rate", value: "94%", change: 2, trend: "up" },
         { label: "Average Job Value", value: "$512", change: 4.5, trend: "up" },
         { label: "New Customers", value: 32, change: -5, trend: "down" },
@@ -208,7 +225,8 @@ function generateDemoReport(params: {
         { week: "Week 3", revenue: 29800 },
         { week: "Week 4", revenue: 35950 },
       ],
-      description: "Revenue showed consistent growth with a strong finish to the period.",
+      description:
+        "Revenue showed consistent growth with a strong finish to the period.",
     } as ChartContent,
   });
 
@@ -244,25 +262,29 @@ function generateDemoReport(params: {
   const keyInsights: KeyInsight[] = [
     {
       category: "financial",
-      insight: "Revenue per job increased 4.5% due to successful upselling of preventive maintenance packages",
+      insight:
+        "Revenue per job increased 4.5% due to successful upselling of preventive maintenance packages",
       significance: "high",
       actionable: true,
     },
     {
       category: "operational",
-      insight: "Tuesday and Wednesday show 30% higher job volume - consider adding capacity",
+      insight:
+        "Tuesday and Wednesday show 30% higher job volume - consider adding capacity",
       significance: "medium",
       actionable: true,
     },
     {
       category: "customer",
-      insight: "Response time improved by 18 minutes on average, correlating with higher satisfaction scores",
+      insight:
+        "Response time improved by 18 minutes on average, correlating with higher satisfaction scores",
       significance: "high",
       actionable: false,
     },
     {
       category: "performance",
-      insight: "First-time fix rate varies significantly by service type - inspections at 98%, repairs at 89%",
+      insight:
+        "First-time fix rate varies significantly by service type - inspections at 98%, repairs at 89%",
       significance: "medium",
       actionable: true,
     },
@@ -272,7 +294,8 @@ function generateDemoReport(params: {
     {
       priority: "high",
       area: "Marketing",
-      recommendation: "Launch targeted campaign to address declining new customer acquisition",
+      recommendation:
+        "Launch targeted campaign to address declining new customer acquisition",
       expected_impact: "15-20% increase in new customers",
       effort: "medium",
     },
@@ -286,14 +309,16 @@ function generateDemoReport(params: {
     {
       priority: "medium",
       area: "Training",
-      recommendation: "Focus repair training to improve first-time fix rate for complex repairs",
+      recommendation:
+        "Focus repair training to improve first-time fix rate for complex repairs",
       expected_impact: "5% improvement in FTF rate, reduced callbacks",
       effort: "low",
     },
     {
       priority: "low",
       area: "Technology",
-      recommendation: "Implement automated follow-up system for maintenance reminders",
+      recommendation:
+        "Implement automated follow-up system for maintenance reminders",
       expected_impact: "10% increase in repeat business",
       effort: "medium",
     },
@@ -308,6 +333,12 @@ function generateDemoReport(params: {
     executive_summary: `Performance for ${periodLabel} exceeded expectations with ${12.5}% revenue growth and improved customer satisfaction. Key focus areas for the coming period include customer acquisition and operational efficiency during peak days.`,
     key_insights: keyInsights,
     recommendations,
-    data_sources: ["Work Orders", "Invoices", "Customer Feedback", "Technician Logs", "Financial Records"],
+    data_sources: [
+      "Work Orders",
+      "Invoices",
+      "Customer Feedback",
+      "Technician Logs",
+      "Financial Records",
+    ],
   };
 }

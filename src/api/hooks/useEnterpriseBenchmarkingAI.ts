@@ -87,7 +87,9 @@ export function useIndustryBenchmarks(params?: {
     queryKey: ["industry-benchmarks", params],
     queryFn: async (): Promise<IndustryBenchmark[]> => {
       try {
-        const response = await apiClient.get("/ai/benchmarks/industry", { params });
+        const response = await apiClient.get("/ai/benchmarks/industry", {
+          params,
+        });
         return response.data;
       } catch {
         return generateDemoIndustryBenchmarks();
@@ -105,7 +107,9 @@ export function useCompetitiveAnalysis() {
     queryKey: ["competitive-analysis"],
     queryFn: async (): Promise<CompetitiveAnalysis> => {
       try {
-        const response = await apiClient.get("/ai/benchmarks/competitive-analysis");
+        const response = await apiClient.get(
+          "/ai/benchmarks/competitive-analysis",
+        );
         return response.data;
       } catch {
         return generateDemoCompetitiveAnalysis();
@@ -127,7 +131,9 @@ export function usePeerComparison(params?: {
     queryKey: ["peer-comparison", params],
     queryFn: async (): Promise<PeerComparison> => {
       try {
-        const response = await apiClient.get("/ai/benchmarks/peer-comparison", { params });
+        const response = await apiClient.get("/ai/benchmarks/peer-comparison", {
+          params,
+        });
         return response.data;
       } catch {
         return generateDemoPeerComparison();
@@ -146,15 +152,24 @@ export function useRequestBenchmarkReport() {
       metrics: string[];
       comparison_type: "industry" | "region" | "size";
       date_range: { start: string; end: string };
-    }): Promise<{ report_id: string; status: string; estimated_completion: string }> => {
+    }): Promise<{
+      report_id: string;
+      status: string;
+      estimated_completion: string;
+    }> => {
       try {
-        const response = await apiClient.post("/ai/benchmarks/custom-report", params);
+        const response = await apiClient.post(
+          "/ai/benchmarks/custom-report",
+          params,
+        );
         return response.data;
       } catch {
         return {
           report_id: `report-${Date.now()}`,
           status: "processing",
-          estimated_completion: new Date(Date.now() + 5 * 60 * 1000).toISOString(),
+          estimated_completion: new Date(
+            Date.now() + 5 * 60 * 1000,
+          ).toISOString(),
         };
       }
     },
@@ -252,7 +267,8 @@ function generateDemoCompetitiveAnalysis(): CompetitiveAnalysis {
       {
         area: "Customer Service",
         score: 88,
-        description: "Above-average response times and customer satisfaction scores",
+        description:
+          "Above-average response times and customer satisfaction scores",
         competitive_advantage: true,
       },
       {
@@ -284,28 +300,32 @@ function generateDemoCompetitiveAnalysis(): CompetitiveAnalysis {
       {
         area: "Pricing Competitiveness",
         gap: 12,
-        description: "Prices slightly above market average without clear value differentiation",
+        description:
+          "Prices slightly above market average without clear value differentiation",
         improvement_priority: "low",
       },
     ],
     opportunities: [
       {
         title: "Commercial Market Expansion",
-        description: "Growing demand for commercial septic services in nearby industrial parks",
+        description:
+          "Growing demand for commercial septic services in nearby industrial parks",
         market_size_potential: 450000,
         investment_required: "medium",
         time_to_value: "6-12 months",
       },
       {
         title: "Maintenance Plan Upselling",
-        description: "Only 18% of customers on recurring plans vs 35% industry standard",
+        description:
+          "Only 18% of customers on recurring plans vs 35% industry standard",
         market_size_potential: 180000,
         investment_required: "low",
         time_to_value: "3-6 months",
       },
       {
         title: "Emergency Services Premium",
-        description: "Market opportunity for 24/7 emergency response at premium pricing",
+        description:
+          "Market opportunity for 24/7 emergency response at premium pricing",
         market_size_potential: 120000,
         investment_required: "low",
         time_to_value: "1-3 months",

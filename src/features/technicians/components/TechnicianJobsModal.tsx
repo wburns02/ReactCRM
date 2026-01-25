@@ -28,7 +28,7 @@ export function TechnicianJobsModal({
     technicianId,
     jobCategory,
     page,
-    pageSize
+    pageSize,
   );
 
   if (!isOpen) return null;
@@ -67,10 +67,7 @@ export function TechnicianJobsModal({
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
-      <div
-        className="absolute inset-0 bg-black/60"
-        onClick={onClose}
-      />
+      <div className="absolute inset-0 bg-black/60" onClick={onClose} />
 
       {/* Modal */}
       <div className="relative bg-[#1a1f2e] border border-gray-700 rounded-lg shadow-xl w-full max-w-5xl max-h-[85vh] flex flex-col mx-4">
@@ -87,8 +84,18 @@ export function TechnicianJobsModal({
             onClick={onClose}
             className="text-gray-400 hover:text-white transition-colors p-2"
           >
-            <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+            <svg
+              className="w-6 h-6"
+              fill="none"
+              stroke="currentColor"
+              viewBox="0 0 24 24"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M6 18L18 6M6 6l12 12"
+              />
             </svg>
           </button>
         </div>
@@ -105,7 +112,10 @@ export function TechnicianJobsModal({
             </div>
           ) : data?.items.length === 0 ? (
             <div className="text-center py-12">
-              <p className="text-gray-400">No {jobCategory === "pump_outs" ? "pump out" : "repair"} jobs found</p>
+              <p className="text-gray-400">
+                No {jobCategory === "pump_outs" ? "pump out" : "repair"} jobs
+                found
+              </p>
             </div>
           ) : (
             <table className="w-full">
@@ -147,7 +157,9 @@ export function TechnicianJobsModal({
                     {jobCategory === "pump_outs" ? (
                       <>
                         <td className="py-3 pr-4 text-right text-white">
-                          {job.gallons_pumped ? `${job.gallons_pumped.toLocaleString()}` : "-"}
+                          {job.gallons_pumped
+                            ? `${job.gallons_pumped.toLocaleString()}`
+                            : "-"}
                         </td>
                         <td className="py-3 pr-4 text-right text-gray-400">
                           {formatDuration(job.duration_minutes)}
@@ -159,10 +171,14 @@ export function TechnicianJobsModal({
                           {job.job_type || "-"}
                         </td>
                         <td className="py-3 pr-4 text-right text-gray-400">
-                          {job.labor_hours ? `${job.labor_hours.toFixed(1)}h` : "-"}
+                          {job.labor_hours
+                            ? `${job.labor_hours.toFixed(1)}h`
+                            : "-"}
                         </td>
                         <td className="py-3 pr-4 text-right text-gray-400">
-                          {job.parts_cost ? formatCurrency(job.parts_cost) : "-"}
+                          {job.parts_cost
+                            ? formatCurrency(job.parts_cost)
+                            : "-"}
                         </td>
                       </>
                     )}

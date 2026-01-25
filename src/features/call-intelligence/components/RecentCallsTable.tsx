@@ -18,7 +18,11 @@ import {
   ChevronRight,
 } from "lucide-react";
 import { cn, formatDate, formatPhone } from "@/lib/utils";
-import type { CallWithAnalysis, SentimentLevel, DispositionCategory } from "../types";
+import type {
+  CallWithAnalysis,
+  SentimentLevel,
+  DispositionCategory,
+} from "../types";
 
 // ============================================================================
 // Types
@@ -34,7 +38,11 @@ interface RecentCallsTableProps {
   onCallClick: (callId: string) => void;
 }
 
-type SortField = "start_time" | "duration_seconds" | "sentiment_score" | "quality_score";
+type SortField =
+  | "start_time"
+  | "duration_seconds"
+  | "sentiment_score"
+  | "quality_score";
 type SortDirection = "asc" | "desc";
 
 // ============================================================================
@@ -65,14 +73,23 @@ function formatTime(dateString: string): string {
 /**
  * Get sentiment badge variant and label
  */
-function getSentimentBadge(sentiment: SentimentLevel, score: number): { variant: "success" | "warning" | "danger" | "info"; label: string } {
+function getSentimentBadge(
+  sentiment: SentimentLevel,
+  score: number,
+): { variant: "success" | "warning" | "danger" | "info"; label: string } {
   switch (sentiment) {
     case "positive":
-      return { variant: "success", label: `Positive (${score > 0 ? "+" : ""}${score})` };
+      return {
+        variant: "success",
+        label: `Positive (${score > 0 ? "+" : ""}${score})`,
+      };
     case "negative":
       return { variant: "danger", label: `Negative (${score})` };
     case "mixed":
-      return { variant: "warning", label: `Mixed (${score > 0 ? "+" : ""}${score})` };
+      return {
+        variant: "warning",
+        label: `Mixed (${score > 0 ? "+" : ""}${score})`,
+      };
     case "neutral":
     default:
       return { variant: "info", label: `Neutral (${score})` };
@@ -82,7 +99,9 @@ function getSentimentBadge(sentiment: SentimentLevel, score: number): { variant:
 /**
  * Get disposition badge variant
  */
-function getDispositionVariant(category?: DispositionCategory): "success" | "warning" | "danger" | "default" {
+function getDispositionVariant(
+  category?: DispositionCategory,
+): "success" | "warning" | "danger" | "default" {
   switch (category) {
     case "positive":
       return "success";
@@ -147,7 +166,7 @@ function SortableHeader({
             "h-3 w-3 -mb-1",
             isActive && currentDirection === "asc"
               ? "text-primary"
-              : "text-text-muted"
+              : "text-text-muted",
           )}
         />
         <ChevronDown
@@ -155,7 +174,7 @@ function SortableHeader({
             "h-3 w-3 -mt-1",
             isActive && currentDirection === "desc"
               ? "text-primary"
-              : "text-text-muted"
+              : "text-text-muted",
           )}
         />
       </span>
@@ -211,7 +230,10 @@ function QualityIndicator({ score }: { score: number }) {
       </span>
       <div className="w-16 h-1.5 bg-bg-muted rounded-full overflow-hidden">
         <div
-          className={cn("h-full rounded-full transition-all", getQualityBarColor(score))}
+          className={cn(
+            "h-full rounded-full transition-all",
+            getQualityBarColor(score),
+          )}
           style={{ width: `${score}%` }}
         />
       </div>
@@ -301,7 +323,7 @@ function Pagination({
             >
               {pageNum}
             </Button>
-          )
+          ),
         )}
 
         <Button
@@ -354,7 +376,8 @@ export function RecentCallsTable({
 
     switch (sortField) {
       case "start_time":
-        comparison = new Date(a.start_time).getTime() - new Date(b.start_time).getTime();
+        comparison =
+          new Date(a.start_time).getTime() - new Date(b.start_time).getTime();
         break;
       case "duration_seconds":
         comparison = a.duration_seconds - b.duration_seconds;
@@ -444,15 +467,24 @@ export function RecentCallsTable({
               ) : sortedCalls.length === 0 ? (
                 // Empty state
                 <tr>
-                  <td colSpan={8} className="px-4 py-12 text-center text-text-secondary">
+                  <td
+                    colSpan={8}
+                    className="px-4 py-12 text-center text-text-secondary"
+                  >
                     No calls found
                   </td>
                 </tr>
               ) : (
                 // Data rows
                 sortedCalls.map((call) => {
-                  const sentimentBadge = getSentimentBadge(call.sentiment, call.sentiment_score);
-                  const phoneNumber = call.direction === "inbound" ? call.from_number : call.to_number;
+                  const sentimentBadge = getSentimentBadge(
+                    call.sentiment,
+                    call.sentiment_score,
+                  );
+                  const phoneNumber =
+                    call.direction === "inbound"
+                      ? call.from_number
+                      : call.to_number;
 
                   return (
                     <tr
@@ -523,7 +555,9 @@ export function RecentCallsTable({
                       <td className="px-4 py-3 whitespace-nowrap">
                         {call.disposition ? (
                           <Badge
-                            variant={getDispositionVariant(call.disposition_category)}
+                            variant={getDispositionVariant(
+                              call.disposition_category,
+                            )}
                             size="sm"
                           >
                             {call.disposition}

@@ -5,7 +5,14 @@ import { apiClient } from "../client";
  * Email classification result
  */
 export interface EmailClassification {
-  category: "service_request" | "complaint" | "inquiry" | "billing" | "feedback" | "spam" | "other";
+  category:
+    | "service_request"
+    | "complaint"
+    | "inquiry"
+    | "billing"
+    | "feedback"
+    | "spam"
+    | "other";
   confidence: number;
   priority: "high" | "medium" | "low";
   sentiment: "positive" | "neutral" | "negative";
@@ -60,12 +67,17 @@ export function useInboxClassifications(emailIds: string[]) {
     queryKey: ["inbox-classifications", emailIds],
     queryFn: async (): Promise<Record<string, EmailClassification>> => {
       try {
-        const response = await apiClient.post("/ai/emails/bulk-classify", { email_ids: emailIds });
+        const response = await apiClient.post("/ai/emails/bulk-classify", {
+          email_ids: emailIds,
+        });
         return response.data;
       } catch {
         const result: Record<string, EmailClassification> = {};
-        emailIds.forEach(id => {
-          result[id] = generateDemoClassification("Service Request", "Need septic pumping");
+        emailIds.forEach((id) => {
+          result[id] = generateDemoClassification(
+            "Service Request",
+            "Need septic pumping",
+          );
         });
         return result;
       }
@@ -86,7 +98,10 @@ export function useGenerateEmailResponse() {
       tone?: "professional" | "friendly" | "formal";
     }): Promise<{ subject: string; body: string }> => {
       try {
-        const response = await apiClient.post("/ai/emails/generate-response", params);
+        const response = await apiClient.post(
+          "/ai/emails/generate-response",
+          params,
+        );
         return response.data;
       } catch {
         return generateDemoResponse(params.classification);
@@ -95,7 +110,10 @@ export function useGenerateEmailResponse() {
   });
 }
 
-function generateDemoClassification(subject: string, body: string): EmailClassification {
+function generateDemoClassification(
+  subject: string,
+  body: string,
+): EmailClassification {
   const lowerSubject = subject.toLowerCase();
   const lowerBody = body.toLowerCase();
 
@@ -103,24 +121,48 @@ function generateDemoClassification(subject: string, body: string): EmailClassif
   let priority: EmailClassification["priority"] = "medium";
   let sentiment: EmailClassification["sentiment"] = "neutral";
 
-  if (lowerSubject.includes("emergency") || lowerBody.includes("urgent") || lowerBody.includes("backup")) {
+  if (
+    lowerSubject.includes("emergency") ||
+    lowerBody.includes("urgent") ||
+    lowerBody.includes("backup")
+  ) {
     category = "service_request";
     priority = "high";
-  } else if (lowerSubject.includes("quote") || lowerBody.includes("estimate") || lowerBody.includes("price")) {
+  } else if (
+    lowerSubject.includes("quote") ||
+    lowerBody.includes("estimate") ||
+    lowerBody.includes("price")
+  ) {
     category = "inquiry";
     priority = "medium";
-  } else if (lowerSubject.includes("bill") || lowerBody.includes("invoice") || lowerBody.includes("payment")) {
+  } else if (
+    lowerSubject.includes("bill") ||
+    lowerBody.includes("invoice") ||
+    lowerBody.includes("payment")
+  ) {
     category = "billing";
     priority = "medium";
-  } else if (lowerSubject.includes("complaint") || lowerBody.includes("unhappy") || lowerBody.includes("problem")) {
+  } else if (
+    lowerSubject.includes("complaint") ||
+    lowerBody.includes("unhappy") ||
+    lowerBody.includes("problem")
+  ) {
     category = "complaint";
     priority = "high";
     sentiment = "negative";
-  } else if (lowerSubject.includes("thank") || lowerBody.includes("great job") || lowerBody.includes("excellent")) {
+  } else if (
+    lowerSubject.includes("thank") ||
+    lowerBody.includes("great job") ||
+    lowerBody.includes("excellent")
+  ) {
     category = "feedback";
     sentiment = "positive";
     priority = "low";
-  } else if (lowerBody.includes("pump") || lowerBody.includes("septic") || lowerBody.includes("service")) {
+  } else if (
+    lowerBody.includes("pump") ||
+    lowerBody.includes("septic") ||
+    lowerBody.includes("service")
+  ) {
     category = "service_request";
   }
 
@@ -129,27 +171,46 @@ function generateDemoClassification(subject: string, body: string): EmailClassif
     confidence: 0.82 + Math.random() * 0.15,
     priority,
     sentiment,
-    intent: category === "service_request" ? "Customer wants to schedule a service" :
-            category === "inquiry" ? "Customer seeking information or quote" :
-            category === "complaint" ? "Customer expressing dissatisfaction" :
-            category === "billing" ? "Billing or payment related question" :
-            category === "feedback" ? "Customer sharing feedback" : "General communication",
-    suggested_response_template: category === "service_request" ? "service_scheduling" :
-                                 category === "inquiry" ? "quote_response" :
-                                 category === "complaint" ? "complaint_acknowledgment" :
-                                 undefined,
-    suggested_assignee: category === "billing" ? "billing@company.com" :
-                        category === "complaint" ? "manager@company.com" :
-                        "dispatch@company.com",
+    intent:
+      category === "service_request"
+        ? "Customer wants to schedule a service"
+        : category === "inquiry"
+          ? "Customer seeking information or quote"
+          : category === "complaint"
+            ? "Customer expressing dissatisfaction"
+            : category === "billing"
+              ? "Billing or payment related question"
+              : category === "feedback"
+                ? "Customer sharing feedback"
+                : "General communication",
+    suggested_response_template:
+      category === "service_request"
+        ? "service_scheduling"
+        : category === "inquiry"
+          ? "quote_response"
+          : category === "complaint"
+            ? "complaint_acknowledgment"
+            : undefined,
+    suggested_assignee:
+      category === "billing"
+        ? "billing@company.com"
+        : category === "complaint"
+          ? "manager@company.com"
+          : "dispatch@company.com",
     extracted_data: {
       customer_name: undefined,
       phone: undefined,
       address: undefined,
-      service_type: lowerBody.includes("pump") ? "pumping" :
-                    lowerBody.includes("repair") ? "repair" :
-                    lowerBody.includes("inspect") ? "inspection" : undefined,
+      service_type: lowerBody.includes("pump")
+        ? "pumping"
+        : lowerBody.includes("repair")
+          ? "repair"
+          : lowerBody.includes("inspect")
+            ? "inspection"
+            : undefined,
       preferred_date: undefined,
-      urgency_indicators: priority === "high" ? ["urgent", "emergency", "asap"] : [],
+      urgency_indicators:
+        priority === "high" ? ["urgent", "emergency", "asap"] : [],
     },
     auto_actions: [
       {
@@ -166,7 +227,10 @@ function generateDemoClassification(subject: string, body: string): EmailClassif
   };
 }
 
-function generateDemoResponse(classification: EmailClassification): { subject: string; body: string } {
+function generateDemoResponse(classification: EmailClassification): {
+  subject: string;
+  body: string;
+} {
   const responses: Record<string, { subject: string; body: string }> = {
     service_request: {
       subject: "Re: Your Service Request",

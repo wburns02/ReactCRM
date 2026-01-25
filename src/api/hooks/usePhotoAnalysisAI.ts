@@ -63,12 +63,16 @@ export function useBatchAnalyzePhotos() {
       work_order_id: string;
     }): Promise<{ results: PhotoAnalysisResult[]; summary: string }> => {
       try {
-        const response = await apiClient.post("/ai/photos/batch-analyze", params);
+        const response = await apiClient.post(
+          "/ai/photos/batch-analyze",
+          params,
+        );
         return response.data;
       } catch {
         return {
           results: params.image_urls.map(() => generateDemoAnalysis()),
-          summary: "All photos meet documentation requirements. Equipment condition appears good.",
+          summary:
+            "All photos meet documentation requirements. Equipment condition appears good.",
         };
       }
     },
@@ -85,12 +89,16 @@ export function useGeneratePhotoReport() {
       include_analysis: boolean;
     }): Promise<{ report_url: string; summary: string }> => {
       try {
-        const response = await apiClient.post("/ai/photos/generate-report", params);
+        const response = await apiClient.post(
+          "/ai/photos/generate-report",
+          params,
+        );
         return response.data;
       } catch {
         return {
           report_url: `/reports/photo-documentation-${params.work_order_id}.pdf`,
-          summary: "Photo documentation complete with 4 before photos, 3 during photos, and 4 after photos.",
+          summary:
+            "Photo documentation complete with 4 before photos, 3 during photos, and 4 after photos.",
         };
       }
     },
@@ -114,8 +122,10 @@ function generateDemoAnalysis(context?: string): PhotoAnalysisResult {
     ],
     equipment_condition: {
       overall: Math.random() > 0.3 ? "good" : "fair",
-      issues_detected: Math.random() > 0.6 ? [] : ["Minor surface cracks visible on lid"],
-      recommended_actions: Math.random() > 0.6 ? [] : ["Monitor lid condition at next service"],
+      issues_detected:
+        Math.random() > 0.6 ? [] : ["Minor surface cracks visible on lid"],
+      recommended_actions:
+        Math.random() > 0.6 ? [] : ["Monitor lid condition at next service"],
     },
     documentation_check: {
       is_before_photo: isBeforePhoto || Math.random() > 0.5,
@@ -129,6 +139,8 @@ function generateDemoAnalysis(context?: string): PhotoAnalysisResult {
       : isAfterPhoto
         ? "After service: Clean access area, lid secured"
         : "Work in progress: Pumping equipment connected",
-    suggested_tags: ["septic", "pumping", context || "documentation"].filter(Boolean),
+    suggested_tags: ["septic", "pumping", context || "documentation"].filter(
+      Boolean,
+    ),
   };
 }

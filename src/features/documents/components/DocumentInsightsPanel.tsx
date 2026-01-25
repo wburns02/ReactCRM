@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { useDocumentSummary, useDocumentCategorization } from "@/api/hooks/useDocumentAI";
+import {
+  useDocumentSummary,
+  useDocumentCategorization,
+} from "@/api/hooks/useDocumentAI";
 import { Button } from "@/components/ui/Button";
 
 interface DocumentInsightsPanelProps {
@@ -11,9 +14,16 @@ interface DocumentInsightsPanelProps {
  * AI-powered document insights panel
  * Displays summary, extracted data, and intelligent categorization
  */
-export function DocumentInsightsPanel({ documentId, fileName }: DocumentInsightsPanelProps) {
+export function DocumentInsightsPanel({
+  documentId,
+  fileName,
+}: DocumentInsightsPanelProps) {
   const [showPanel, setShowPanel] = useState(false);
-  const { data: summary, isLoading, refetch } = useDocumentSummary(showPanel ? documentId : undefined);
+  const {
+    data: summary,
+    isLoading,
+    refetch,
+  } = useDocumentSummary(showPanel ? documentId : undefined);
   const categorizeMutation = useDocumentCategorization();
 
   const handleCategorize = async () => {
@@ -69,7 +79,9 @@ export function DocumentInsightsPanel({ documentId, fileName }: DocumentInsights
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-lg">✨</span>
-          <h4 className="font-medium text-text-primary">AI Document Insights</h4>
+          <h4 className="font-medium text-text-primary">
+            AI Document Insights
+          </h4>
         </div>
         <button
           onClick={() => setShowPanel(false)}
@@ -95,12 +107,16 @@ export function DocumentInsightsPanel({ documentId, fileName }: DocumentInsights
                 {summary.document_type}
               </span>
               {fileName && (
-                <span className="text-xs text-text-muted truncate max-w-[200px]">{fileName}</span>
+                <span className="text-xs text-text-muted truncate max-w-[200px]">
+                  {fileName}
+                </span>
               )}
             </div>
             <div className="flex items-center gap-2">
               <span className="text-xs text-text-muted">Confidence</span>
-              <span className="text-sm font-medium text-text-primary">{summary.confidence}%</span>
+              <span className="text-sm font-medium text-text-primary">
+                {summary.confidence}%
+              </span>
             </div>
           </div>
 
@@ -113,10 +129,15 @@ export function DocumentInsightsPanel({ documentId, fileName }: DocumentInsights
           {/* Key Points */}
           {summary.key_points.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Key Points</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Key Points
+              </span>
               <ul className="space-y-1">
                 {summary.key_points.map((point, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
+                  <li
+                    key={i}
+                    className="flex items-start gap-2 text-sm text-text-secondary"
+                  >
                     <span className="text-purple-400">•</span>
                     <span>{point}</span>
                   </li>
@@ -128,10 +149,15 @@ export function DocumentInsightsPanel({ documentId, fileName }: DocumentInsights
           {/* Extracted Data */}
           {Object.keys(summary.extracted_data).length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Extracted Data</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Extracted Data
+              </span>
               <div className="grid grid-cols-2 gap-2">
                 {Object.entries(summary.extracted_data).map(([key, value]) => (
-                  <div key={key} className="bg-bg-card border border-border rounded-lg p-2">
+                  <div
+                    key={key}
+                    className="bg-bg-card border border-border rounded-lg p-2"
+                  >
                     <span className="text-xs text-text-muted block capitalize">
                       {key.replace(/_/g, " ")}
                     </span>
@@ -149,7 +175,9 @@ export function DocumentInsightsPanel({ documentId, fileName }: DocumentInsights
           {/* Entities */}
           {summary.entities.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Entities Mentioned</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Entities Mentioned
+              </span>
               <div className="flex flex-wrap gap-2">
                 {summary.entities.map((entity, i) => (
                   <span
@@ -167,15 +195,26 @@ export function DocumentInsightsPanel({ documentId, fileName }: DocumentInsights
           {/* Dates Mentioned */}
           {summary.dates_mentioned.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Important Dates</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Important Dates
+              </span>
               <div className="space-y-2">
                 {summary.dates_mentioned.map((date, i) => (
-                  <div key={i} className="flex items-center justify-between bg-bg-card border border-border rounded-lg p-2">
+                  <div
+                    key={i}
+                    className="flex items-center justify-between bg-bg-card border border-border rounded-lg p-2"
+                  >
                     <div className="flex items-center gap-2">
-                      <span className="text-sm font-mono text-text-primary">{date.date}</span>
-                      <span className="text-xs text-text-muted">{date.context}</span>
+                      <span className="text-sm font-mono text-text-primary">
+                        {date.date}
+                      </span>
+                      <span className="text-xs text-text-muted">
+                        {date.context}
+                      </span>
                     </div>
-                    <span className={`px-2 py-0.5 rounded text-xs ${getDateTypeColor(date.type)}`}>
+                    <span
+                      className={`px-2 py-0.5 rounded text-xs ${getDateTypeColor(date.type)}`}
+                    >
                       {date.type}
                     </span>
                   </div>
@@ -187,10 +226,15 @@ export function DocumentInsightsPanel({ documentId, fileName }: DocumentInsights
           {/* Monetary Values */}
           {summary.monetary_values.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Monetary Values</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Monetary Values
+              </span>
               <div className="space-y-1">
                 {summary.monetary_values.map((value, i) => (
-                  <div key={i} className="flex items-center justify-between text-sm">
+                  <div
+                    key={i}
+                    className="flex items-center justify-between text-sm"
+                  >
                     <span className="text-text-secondary">{value.context}</span>
                     <span className="font-medium text-success">
                       ${value.amount.toLocaleString()} {value.currency}
@@ -204,7 +248,9 @@ export function DocumentInsightsPanel({ documentId, fileName }: DocumentInsights
           {/* Auto-categorization */}
           {categorizeMutation.data && (
             <div className="bg-bg-card border border-border rounded-lg p-3">
-              <span className="text-xs text-text-muted block mb-2">AI Categorization</span>
+              <span className="text-xs text-text-muted block mb-2">
+                AI Categorization
+              </span>
               <div className="flex items-center gap-2 mb-2">
                 <span className="px-2 py-1 bg-blue-500/20 text-blue-400 rounded text-sm">
                   {categorizeMutation.data.category}
@@ -217,11 +263,16 @@ export function DocumentInsightsPanel({ documentId, fileName }: DocumentInsights
               </div>
               {categorizeMutation.data.suggested_tags.length > 0 && (
                 <div className="flex flex-wrap gap-1">
-                  {categorizeMutation.data.suggested_tags.map((tag: string, i: number) => (
-                    <span key={i} className="px-1.5 py-0.5 bg-bg-tertiary text-text-muted text-xs rounded">
-                      #{tag}
-                    </span>
-                  ))}
+                  {categorizeMutation.data.suggested_tags.map(
+                    (tag: string, i: number) => (
+                      <span
+                        key={i}
+                        className="px-1.5 py-0.5 bg-bg-tertiary text-text-muted text-xs rounded"
+                      >
+                        #{tag}
+                      </span>
+                    ),
+                  )}
                 </div>
               )}
             </div>

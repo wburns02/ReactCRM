@@ -5,9 +5,9 @@
  * Includes sync status, manual sync trigger, and permit data table.
  */
 
-import { useState } from 'react';
-import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
-import { apiClient } from '@/api/client';
+import { useState } from "react";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 import {
   FileText,
   RefreshCw,
@@ -15,9 +15,9 @@ import {
   CheckCircle,
   AlertCircle,
   Clock,
-  Download
-} from 'lucide-react';
-import { getPermitDocumentUrl } from '@/utils/geocivixProxy';
+  Download,
+} from "lucide-react";
+import { getPermitDocumentUrl } from "@/utils/geocivixProxy";
 
 interface GeocivixPermit {
   issuance_id: string;
@@ -55,40 +55,44 @@ export function GeocivixPermitsList() {
 
   // Fetch portal status
   const { data: portalStatus } = useQuery<GeocivixStatus>({
-    queryKey: ['geocivix-status'],
+    queryKey: ["geocivix-status"],
     queryFn: async () => {
-      const response = await apiClient.get('/geocivix/status');
+      const response = await apiClient.get("/geocivix/status");
       return response.data;
     },
-    staleTime: 60000
+    staleTime: 60000,
   });
 
   // Fetch permits
-  const { data: permitsData, isLoading, error } = useQuery({
-    queryKey: ['geocivix-permits', page],
+  const {
+    data: permitsData,
+    isLoading,
+    error,
+  } = useQuery({
+    queryKey: ["geocivix-permits", page],
     queryFn: async () => {
-      const response = await apiClient.get('/geocivix/permits', {
-        params: { skip: page * pageSize, limit: pageSize }
+      const response = await apiClient.get("/geocivix/permits", {
+        params: { skip: page * pageSize, limit: pageSize },
       });
       return response.data;
     },
-    staleTime: 30000
+    staleTime: 30000,
   });
 
   // Sync mutation
   const syncMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiClient.post('/geocivix/sync');
+      const response = await apiClient.post("/geocivix/sync");
       return response.data as SyncResponse;
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ['geocivix-permits'] });
-      queryClient.invalidateQueries({ queryKey: ['geocivix-status'] });
-    }
+      queryClient.invalidateQueries({ queryKey: ["geocivix-permits"] });
+      queryClient.invalidateQueries({ queryKey: ["geocivix-status"] });
+    },
   });
 
   const formatDate = (dateStr: string | null) => {
-    if (!dateStr) return 'N/A';
+    if (!dateStr) return "N/A";
     try {
       return new Date(dateStr).toLocaleDateString();
     } catch {
@@ -98,7 +102,7 @@ export function GeocivixPermitsList() {
 
   const getStatusBadge = (status: string) => {
     const statusLower = status.toLowerCase();
-    if (statusLower.includes('issued') || statusLower.includes('approved')) {
+    if (statusLower.includes("issued") || statusLower.includes("approved")) {
       return (
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
           <CheckCircle className="w-3 h-3 mr-1" />
@@ -106,7 +110,7 @@ export function GeocivixPermitsList() {
         </span>
       );
     }
-    if (statusLower.includes('pending') || statusLower.includes('review')) {
+    if (statusLower.includes("pending") || statusLower.includes("review")) {
       return (
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-yellow-100 text-yellow-800">
           <Clock className="w-3 h-3 mr-1" />
@@ -114,7 +118,11 @@ export function GeocivixPermitsList() {
         </span>
       );
     }
-    if (statusLower.includes('expired') || statusLower.includes('closed') || statusLower.includes('denied')) {
+    if (
+      statusLower.includes("expired") ||
+      statusLower.includes("closed") ||
+      statusLower.includes("denied")
+    ) {
       return (
         <span className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-red-100 text-red-800">
           <AlertCircle className="w-3 h-3 mr-1" />
@@ -152,8 +160,10 @@ export function GeocivixPermitsList() {
             disabled={syncMutation.isPending}
             className="inline-flex items-center px-4 py-2 border border-transparent text-sm font-medium rounded-md shadow-sm text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 disabled:opacity-50 disabled:cursor-not-allowed"
           >
-            <RefreshCw className={`w-4 h-4 mr-2 ${syncMutation.isPending ? 'animate-spin' : ''}`} />
-            {syncMutation.isPending ? 'Syncing...' : 'Sync Now'}
+            <RefreshCw
+              className={`w-4 h-4 mr-2 ${syncMutation.isPending ? "animate-spin" : ""}`}
+            />
+            {syncMutation.isPending ? "Syncing..." : "Sync Now"}
           </button>
         </div>
       </div>
@@ -168,7 +178,9 @@ export function GeocivixPermitsList() {
                 Sync completed successfully
               </p>
               <p className="text-sm text-green-700">
-                {syncMutation.data.inserted} inserted, {syncMutation.data.updated} updated, {syncMutation.data.errors} errors
+                {syncMutation.data.inserted} inserted,{" "}
+                {syncMutation.data.updated} updated, {syncMutation.data.errors}{" "}
+                errors
               </p>
             </div>
           </div>
@@ -180,11 +192,10 @@ export function GeocivixPermitsList() {
           <div className="flex">
             <AlertCircle className="h-5 w-5 text-red-400" />
             <div className="ml-3">
-              <p className="text-sm font-medium text-red-800">
-                Sync failed
-              </p>
+              <p className="text-sm font-medium text-red-800">Sync failed</p>
               <p className="text-sm text-red-700">
-                {(syncMutation.error as Error)?.message || 'Unknown error occurred'}
+                {(syncMutation.error as Error)?.message ||
+                  "Unknown error occurred"}
               </p>
             </div>
           </div>
@@ -226,7 +237,10 @@ export function GeocivixPermitsList() {
                   </dt>
                   <dd className="text-sm font-semibold text-gray-900 truncate">
                     <a
-                      href={portalStatus?.portal_url || 'https://williamson.geocivix.com/secure/'}
+                      href={
+                        portalStatus?.portal_url ||
+                        "https://williamson.geocivix.com/secure/"
+                      }
                       target="_blank"
                       rel="noopener noreferrer"
                       className="text-indigo-600 hover:text-indigo-900"
@@ -252,7 +266,7 @@ export function GeocivixPermitsList() {
                     Sync Status
                   </dt>
                   <dd className="text-sm font-semibold text-gray-900">
-                    {portalStatus?.last_synced ? 'Active' : 'Never Synced'}
+                    {portalStatus?.last_synced ? "Active" : "Never Synced"}
                   </dd>
                 </dl>
               </div>
@@ -300,7 +314,10 @@ export function GeocivixPermitsList() {
               </thead>
               <tbody className="bg-white divide-y divide-gray-200">
                 {permitsData?.permits?.map((permit: GeocivixPermit) => (
-                  <tr key={permit.issuance_id || permit.permit_number} className="hover:bg-gray-50">
+                  <tr
+                    key={permit.issuance_id || permit.permit_number}
+                    className="hover:bg-gray-50"
+                  >
                     <td className="px-6 py-4 whitespace-nowrap">
                       <div className="flex items-center">
                         <FileText className="h-4 w-4 text-gray-400 mr-2" />
@@ -324,7 +341,11 @@ export function GeocivixPermitsList() {
                     <td className="px-6 py-4 whitespace-nowrap text-sm">
                       {permit.document_url ? (
                         <a
-                          href={getPermitDocumentUrl(`https://williamson.geocivix.com${permit.document_url}`) || '#'}
+                          href={
+                            getPermitDocumentUrl(
+                              `https://williamson.geocivix.com${permit.document_url}`,
+                            ) || "#"
+                          }
                           target="_blank"
                           rel="noopener noreferrer"
                           className="inline-flex items-center text-indigo-600 hover:text-indigo-900"
@@ -338,10 +359,15 @@ export function GeocivixPermitsList() {
                     </td>
                   </tr>
                 ))}
-                {(!permitsData?.permits || permitsData.permits.length === 0) && (
+                {(!permitsData?.permits ||
+                  permitsData.permits.length === 0) && (
                   <tr>
-                    <td colSpan={6} className="px-6 py-8 text-center text-gray-500">
-                      No permits found. Click "Sync Now" to fetch permits from Geocivix.
+                    <td
+                      colSpan={6}
+                      className="px-6 py-8 text-center text-gray-500"
+                    >
+                      No permits found. Click "Sync Now" to fetch permits from
+                      Geocivix.
                     </td>
                   </tr>
                 )}
@@ -370,11 +396,15 @@ export function GeocivixPermitsList() {
                 <div className="hidden sm:flex-1 sm:flex sm:items-center sm:justify-between">
                   <div>
                     <p className="text-sm text-gray-700">
-                      Showing <span className="font-medium">{page * pageSize + 1}</span> to{' '}
+                      Showing{" "}
+                      <span className="font-medium">{page * pageSize + 1}</span>{" "}
+                      to{" "}
                       <span className="font-medium">
                         {Math.min((page + 1) * pageSize, permitsData.total)}
-                      </span>{' '}
-                      of <span className="font-medium">{permitsData.total}</span> results
+                      </span>{" "}
+                      of{" "}
+                      <span className="font-medium">{permitsData.total}</span>{" "}
+                      results
                     </p>
                   </div>
                   <div>

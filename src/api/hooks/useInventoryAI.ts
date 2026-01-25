@@ -58,16 +58,22 @@ export interface InventoryOverviewResult {
 /**
  * Get AI demand forecast for an inventory item
  */
-export function useDemandForecast(itemId: string | undefined, days: number = 30) {
+export function useDemandForecast(
+  itemId: string | undefined,
+  days: number = 30,
+) {
   return useQuery({
     queryKey: ["demand-forecast", itemId, days],
     queryFn: async (): Promise<DemandForecastResult> => {
       if (!itemId) throw new Error("Item ID required");
 
       try {
-        const response = await apiClient.get(`/ai/inventory/${itemId}/forecast`, {
-          params: { days },
-        });
+        const response = await apiClient.get(
+          `/ai/inventory/${itemId}/forecast`,
+          {
+            params: { days },
+          },
+        );
         return response.data;
       } catch {
         // Demo fallback
@@ -97,7 +103,9 @@ export function useInventoryOverview() {
       } catch {
         // Demo fallback
         try {
-          const itemsRes = await apiClient.get("/inventory", { params: { page_size: 100 } });
+          const itemsRes = await apiClient.get("/inventory", {
+            params: { page_size: 100 },
+          });
           return generateDemoOverview(itemsRes.data?.items || []);
         } catch {
           return generateDemoOverview([]);
@@ -118,7 +126,10 @@ export function useBatchForecast() {
       days: number;
     }): Promise<DemandForecastResult[]> => {
       try {
-        const response = await apiClient.post("/ai/inventory/batch-forecast", params);
+        const response = await apiClient.post(
+          "/ai/inventory/batch-forecast",
+          params,
+        );
         return response.data;
       } catch {
         return [];
@@ -135,17 +146,20 @@ export function useReorderSuggestions() {
     queryKey: ["reorder-suggestions"],
     queryFn: async () => {
       try {
-        const response = await apiClient.get("/ai/inventory/reorder-suggestions");
+        const response = await apiClient.get(
+          "/ai/inventory/reorder-suggestions",
+        );
         return response.data;
       } catch {
         return {
           suggestions: [
             {
-              item_name: "PVC Pipe 4\"",
+              item_name: 'PVC Pipe 4"',
               current_stock: 12,
               recommended_order: 50,
               urgency: "soon",
-              reason: "Based on historical usage, stock will be depleted in 14 days",
+              reason:
+                "Based on historical usage, stock will be depleted in 14 days",
             },
             {
               item_name: "Septic Tank Risers",
@@ -170,9 +184,16 @@ export function useReorderSuggestions() {
 export function useInventoryOptimization() {
   return useMutation({
     mutationFn: async (): Promise<{
-      excess_inventory: Array<{ item: string; excess_quantity: number; tied_up_value: number }>;
+      excess_inventory: Array<{
+        item: string;
+        excess_quantity: number;
+        tied_up_value: number;
+      }>;
       bundling_opportunities: Array<{ items: string[]; frequency: number }>;
-      supplier_consolidation: Array<{ current_suppliers: number; recommended: string }>;
+      supplier_consolidation: Array<{
+        current_suppliers: number;
+        recommended: string;
+      }>;
       total_savings_potential: number;
     }> => {
       try {
@@ -181,13 +202,20 @@ export function useInventoryOptimization() {
       } catch {
         return {
           excess_inventory: [
-            { item: "Outdated Filter Model", excess_quantity: 25, tied_up_value: 375 },
+            {
+              item: "Outdated Filter Model",
+              excess_quantity: 25,
+              tied_up_value: 375,
+            },
           ],
           bundling_opportunities: [
             { items: ["Pump Kit", "Gasket Set", "Filter"], frequency: 15 },
           ],
           supplier_consolidation: [
-            { current_suppliers: 3, recommended: "Consolidate to 2 suppliers for volume discounts" },
+            {
+              current_suppliers: 3,
+              recommended: "Consolidate to 2 suppliers for volume discounts",
+            },
           ],
           total_savings_potential: 2500,
         };
@@ -208,11 +236,15 @@ interface InventoryItemData {
 /**
  * Generate demo forecast
  */
-function generateDemoForecast(item: InventoryItemData | null, days: number): DemandForecastResult {
+function generateDemoForecast(
+  item: InventoryItemData | null,
+  days: number,
+): DemandForecastResult {
   const currentStock = item?.quantity || 50;
   const dailyUsage = 2 + Math.random() * 3; // 2-5 units per day
   const predictedUsage = Math.round(dailyUsage * days);
-  const daysUntilStockout = currentStock > 0 ? Math.round(currentStock / dailyUsage) : 0;
+  const daysUntilStockout =
+    currentStock > 0 ? Math.round(currentStock / dailyUsage) : 0;
 
   let urgency: "critical" | "soon" | "normal" | "not_needed" = "normal";
   let shouldReorder = false;
@@ -230,7 +262,11 @@ function generateDemoForecast(item: InventoryItemData | null, days: number): Dem
     urgency = "not_needed";
   }
 
-  const trends: Array<"increasing" | "stable" | "decreasing"> = ["increasing", "stable", "decreasing"];
+  const trends: Array<"increasing" | "stable" | "decreasing"> = [
+    "increasing",
+    "stable",
+    "decreasing",
+  ];
   const trend = trends[Math.floor(Math.random() * 3)];
 
   return {
@@ -242,18 +278,30 @@ function generateDemoForecast(item: InventoryItemData | null, days: number): Dem
     confidence: 70 + Math.floor(Math.random() * 25),
     reorder_recommendation: {
       should_reorder: shouldReorder,
-      recommended_quantity: Math.max(0, Math.round(predictedUsage * 1.5 - currentStock)),
-      optimal_order_date: new Date(Date.now() + (daysUntilStockout - 7) * 24 * 60 * 60 * 1000)
+      recommended_quantity: Math.max(
+        0,
+        Math.round(predictedUsage * 1.5 - currentStock),
+      ),
+      optimal_order_date: new Date(
+        Date.now() + (daysUntilStockout - 7) * 24 * 60 * 60 * 1000,
+      )
         .toISOString()
         .split("T")[0],
-      estimated_stockout_date: daysUntilStockout > 0
-        ? new Date(Date.now() + daysUntilStockout * 24 * 60 * 60 * 1000).toISOString().split("T")[0]
-        : undefined,
+      estimated_stockout_date:
+        daysUntilStockout > 0
+          ? new Date(Date.now() + daysUntilStockout * 24 * 60 * 60 * 1000)
+              .toISOString()
+              .split("T")[0]
+          : undefined,
       urgency,
     },
     usage_trend: trend,
     seasonal_factors: [
-      { month: "Summer", multiplier: 1.3, notes: "Higher demand during peak season" },
+      {
+        month: "Summer",
+        multiplier: 1.3,
+        notes: "Higher demand during peak season",
+      },
       { month: "Winter", multiplier: 0.8, notes: "Reduced service calls" },
     ],
     historical_accuracy: 75 + Math.floor(Math.random() * 20),
@@ -263,22 +311,52 @@ function generateDemoForecast(item: InventoryItemData | null, days: number): Dem
 /**
  * Generate demo overview
  */
-function generateDemoOverview(items: InventoryItemData[]): InventoryOverviewResult {
+function generateDemoOverview(
+  items: InventoryItemData[],
+): InventoryOverviewResult {
   const totalItems = items.length || 45;
-  const totalValue = items.reduce((sum, item) => sum + (item.quantity * (item.unit_cost || 10)), 0) || 15000;
-  const lowStockItems = items.filter((item) => item.quantity < (item.reorder_point || 10)).length || 5;
+  const totalValue =
+    items.reduce(
+      (sum, item) => sum + item.quantity * (item.unit_cost || 10),
+      0,
+    ) || 15000;
+  const lowStockItems =
+    items.filter((item) => item.quantity < (item.reorder_point || 10)).length ||
+    5;
 
   return {
     total_items: totalItems,
     total_value: totalValue,
     low_stock_items: lowStockItems,
     critical_items: [
-      { id: "1", name: "PVC Coupling 4\"", current_stock: 5, days_until_stockout: 3 },
-      { id: "2", name: "Septic Pump Float", current_stock: 2, days_until_stockout: 5 },
+      {
+        id: "1",
+        name: 'PVC Coupling 4"',
+        current_stock: 5,
+        days_until_stockout: 3,
+      },
+      {
+        id: "2",
+        name: "Septic Pump Float",
+        current_stock: 2,
+        days_until_stockout: 5,
+      },
     ],
     slow_moving_items: [
-      { id: "3", name: "Specialty Fitting", days_since_last_use: 90, quantity: 15, value: 225 },
-      { id: "4", name: "Legacy Part XY-100", days_since_last_use: 120, quantity: 8, value: 160 },
+      {
+        id: "3",
+        name: "Specialty Fitting",
+        days_since_last_use: 90,
+        quantity: 15,
+        value: 225,
+      },
+      {
+        id: "4",
+        name: "Legacy Part XY-100",
+        days_since_last_use: 120,
+        quantity: 8,
+        value: 160,
+      },
     ],
     optimization_suggestions: [
       "Consider liquidating 3 slow-moving items to free up $385 in working capital",

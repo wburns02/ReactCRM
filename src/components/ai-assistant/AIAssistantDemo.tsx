@@ -4,17 +4,20 @@
  * Simple demonstration interface for testing the Unified AI Assistant
  */
 
-import React, { useState, useRef, useEffect } from 'react';
-import { useAIAssistant, useAIHealth } from '@/api/hooks/ai-assistant';
-import type { AIMessage, AIAction } from '@/api/types/aiAssistant';
+import React, { useState, useRef, useEffect } from "react";
+import { useAIAssistant, useAIHealth } from "@/api/hooks/ai-assistant";
+import type { AIMessage, AIAction } from "@/api/types/aiAssistant";
 
 interface AIAssistantDemoProps {
   conversationId?: string;
   className?: string;
 }
 
-export function AIAssistantDemo({ conversationId, className }: AIAssistantDemoProps) {
-  const [message, setMessage] = useState('');
+export function AIAssistantDemo({
+  conversationId,
+  className,
+}: AIAssistantDemoProps) {
+  const [message, setMessage] = useState("");
   const messagesEndRef = useRef<HTMLDivElement>(null);
 
   const {
@@ -24,14 +27,14 @@ export function AIAssistantDemo({ conversationId, className }: AIAssistantDemoPr
     isLoading,
     error,
     context,
-    clearConversation
+    clearConversation,
   } = useAIAssistant(conversationId);
 
   const { isHealthy, unhealthyDomains } = useAIHealth();
 
   // Auto-scroll to bottom when new messages arrive
   useEffect(() => {
-    messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' });
+    messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
   }, [messages]);
 
   const handleSendMessage = async (e: React.FormEvent) => {
@@ -39,12 +42,12 @@ export function AIAssistantDemo({ conversationId, className }: AIAssistantDemoPr
     if (!message.trim() || isLoading) return;
 
     const userMessage = message.trim();
-    setMessage('');
+    setMessage("");
 
     try {
       await sendMessage(userMessage);
     } catch (error) {
-      console.error('Failed to send message:', error);
+      console.error("Failed to send message:", error);
     }
   };
 
@@ -52,30 +55,30 @@ export function AIAssistantDemo({ conversationId, className }: AIAssistantDemoPr
     try {
       await executeAction(action);
     } catch (error) {
-      console.error('Failed to execute action:', error);
+      console.error("Failed to execute action:", error);
     }
   };
 
   const renderMessage = (msg: AIMessage) => {
-    const isUser = msg.role === 'user';
-    const isSystem = msg.role === 'system';
+    const isUser = msg.role === "user";
+    const isSystem = msg.role === "system";
 
     return (
       <div
         key={msg.id}
-        className={`mb-4 ${isUser ? 'ml-8' : 'mr-8'} ${isSystem ? 'mx-4' : ''}`}
+        className={`mb-4 ${isUser ? "ml-8" : "mr-8"} ${isSystem ? "mx-4" : ""}`}
       >
         <div
           className={`rounded-lg p-3 ${
             isUser
-              ? 'bg-blue-500 text-white ml-auto max-w-xs'
+              ? "bg-blue-500 text-white ml-auto max-w-xs"
               : isSystem
-              ? 'bg-yellow-100 text-yellow-800 text-center text-sm'
-              : 'bg-gray-100 text-gray-900 max-w-md'
+                ? "bg-yellow-100 text-yellow-800 text-center text-sm"
+                : "bg-gray-100 text-gray-900 max-w-md"
           }`}
         >
           <div className="text-sm font-medium mb-1">
-            {isUser ? 'You' : isSystem ? 'System' : 'AI Assistant'}
+            {isUser ? "You" : isSystem ? "System" : "AI Assistant"}
             {msg.confidence && (
               <span className="ml-2 text-xs opacity-75">
                 ({Math.round(msg.confidence * 100)}% confident)
@@ -91,7 +94,9 @@ export function AIAssistantDemo({ conversationId, className }: AIAssistantDemoPr
         {/* Render suggested actions */}
         {msg.actions && msg.actions.length > 0 && (
           <div className="mt-2 space-y-2">
-            <div className="text-xs font-medium text-gray-600">Suggested Actions:</div>
+            <div className="text-xs font-medium text-gray-600">
+              Suggested Actions:
+            </div>
             {msg.actions.map((action) => (
               <div
                 key={action.id}
@@ -99,7 +104,8 @@ export function AIAssistantDemo({ conversationId, className }: AIAssistantDemoPr
               >
                 <div className="font-medium">{action.operation}</div>
                 <div className="text-gray-600 text-xs mb-2">
-                  Domain: {action.domain} | Confidence: {Math.round(action.confidence * 100)}%
+                  Domain: {action.domain} | Confidence:{" "}
+                  {Math.round(action.confidence * 100)}%
                 </div>
                 <div className="flex gap-2">
                   <button
@@ -110,7 +116,7 @@ export function AIAssistantDemo({ conversationId, className }: AIAssistantDemoPr
                     Execute
                   </button>
                   <button
-                    onClick={() => console.log('Action details:', action)}
+                    onClick={() => console.log("Action details:", action)}
                     className="px-3 py-1 bg-gray-500 text-white rounded text-xs hover:bg-gray-600"
                   >
                     Details
@@ -124,12 +130,16 @@ export function AIAssistantDemo({ conversationId, className }: AIAssistantDemoPr
         {/* Render suggestions */}
         {msg.metadata?.suggestions && msg.metadata.suggestions.length > 0 && (
           <div className="mt-2 space-y-1">
-            <div className="text-xs font-medium text-gray-600">Quick suggestions:</div>
+            <div className="text-xs font-medium text-gray-600">
+              Quick suggestions:
+            </div>
             <div className="flex flex-wrap gap-2">
               {msg.metadata.suggestions.map((suggestion) => (
                 <button
                   key={suggestion.id}
-                  onClick={() => setMessage(suggestion.query || suggestion.title)}
+                  onClick={() =>
+                    setMessage(suggestion.query || suggestion.title)
+                  }
                   className="px-2 py-1 bg-gray-200 text-gray-700 rounded text-xs hover:bg-gray-300"
                 >
                   {suggestion.title}
@@ -143,15 +153,19 @@ export function AIAssistantDemo({ conversationId, className }: AIAssistantDemoPr
   };
 
   return (
-    <div className={`flex flex-col h-full bg-white border border-gray-200 rounded-lg ${className}`}>
+    <div
+      className={`flex flex-col h-full bg-white border border-gray-200 rounded-lg ${className}`}
+    >
       {/* Header */}
       <div className="flex items-center justify-between p-4 border-b border-gray-200">
         <div>
           <h3 className="text-lg font-semibold">AI Assistant</h3>
           <div className="text-sm text-gray-500">
-            Status: {isHealthy ? '🟢 Healthy' : '🔴 Issues Detected'}
+            Status: {isHealthy ? "🟢 Healthy" : "🔴 Issues Detected"}
             {unhealthyDomains.length > 0 && (
-              <span className="ml-2">({unhealthyDomains.join(', ')} unavailable)</span>
+              <span className="ml-2">
+                ({unhealthyDomains.join(", ")} unavailable)
+              </span>
             )}
           </div>
         </div>
@@ -170,7 +184,10 @@ export function AIAssistantDemo({ conversationId, className }: AIAssistantDemoPr
         <div className="p-2 bg-gray-50 border-b border-gray-200 text-xs text-gray-600">
           <div>Page: {context.app.currentPage}</div>
           {context.app.currentEntity && (
-            <div>Entity: {context.app.currentEntity.type} #{context.app.currentEntity.id}</div>
+            <div>
+              Entity: {context.app.currentEntity.type} #
+              {context.app.currentEntity.id}
+            </div>
           )}
           <div>Role: {context.user.role}</div>
         </div>
@@ -182,7 +199,8 @@ export function AIAssistantDemo({ conversationId, className }: AIAssistantDemoPr
           <div className="text-center text-gray-500 mt-8">
             <div className="text-lg mb-2">👋 Hello! I'm your AI Assistant</div>
             <div className="text-sm">
-              Ask me anything about customers, work orders, schedules, or any other CRM operations.
+              Ask me anything about customers, work orders, schedules, or any
+              other CRM operations.
             </div>
             <div className="mt-4 text-xs space-y-1">
               <div>Try asking:</div>
@@ -213,7 +231,10 @@ export function AIAssistantDemo({ conversationId, className }: AIAssistantDemoPr
       </div>
 
       {/* Input */}
-      <form onSubmit={handleSendMessage} className="p-4 border-t border-gray-200">
+      <form
+        onSubmit={handleSendMessage}
+        className="p-4 border-t border-gray-200"
+      >
         <div className="flex space-x-2">
           <input
             type="text"
@@ -252,8 +273,8 @@ export function AIAssistantOrb() {
         onClick={() => setIsOpen(true)}
         className={`fixed bottom-6 right-6 w-12 h-12 rounded-full shadow-lg transition-all duration-200 z-50 ${
           isHealthy
-            ? 'bg-gradient-to-r from-blue-500 to-purple-600 hover:scale-110'
-            : 'bg-gray-400'
+            ? "bg-gradient-to-r from-blue-500 to-purple-600 hover:scale-110"
+            : "bg-gray-400"
         }`}
         title="Open AI Assistant"
       >
@@ -292,18 +313,18 @@ export function AIAssistantHotkey() {
 
   useEffect(() => {
     const handleKeyDown = (event: KeyboardEvent) => {
-      if ((event.ctrlKey || event.metaKey) && event.key === 'k') {
+      if ((event.ctrlKey || event.metaKey) && event.key === "k") {
         event.preventDefault();
         setIsOpen(true);
       }
 
-      if (event.key === 'Escape') {
+      if (event.key === "Escape") {
         setIsOpen(false);
       }
     };
 
-    document.addEventListener('keydown', handleKeyDown);
-    return () => document.removeEventListener('keydown', handleKeyDown);
+    document.addEventListener("keydown", handleKeyDown);
+    return () => document.removeEventListener("keydown", handleKeyDown);
   }, []);
 
   if (!isOpen) return null;

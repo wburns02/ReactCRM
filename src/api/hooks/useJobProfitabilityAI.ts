@@ -98,14 +98,20 @@ export interface JobProfitability {
 /**
  * Get overall profitability analysis
  */
-export function useJobProfitabilityAnalysis(dateRange?: { start: string; end: string }) {
+export function useJobProfitabilityAnalysis(dateRange?: {
+  start: string;
+  end: string;
+}) {
   return useQuery({
     queryKey: ["job-profitability", dateRange],
     queryFn: async (): Promise<JobProfitabilityAnalysis> => {
       try {
-        const response = await apiClient.get("/ai/jobs/profitability/analysis", {
-          params: dateRange,
-        });
+        const response = await apiClient.get(
+          "/ai/jobs/profitability/analysis",
+          {
+            params: dateRange,
+          },
+        );
         return response.data;
       } catch {
         return generateDemoProfitabilityAnalysis();
@@ -151,7 +157,10 @@ export function usePricingScenarioAnalysis() {
       recommendation: string;
     }> => {
       try {
-        const response = await apiClient.post("/ai/jobs/profitability/scenario", params);
+        const response = await apiClient.post(
+          "/ai/jobs/profitability/scenario",
+          params,
+        );
         return response.data;
       } catch {
         const volumeImpact = params.price_change_percent > 0 ? -0.5 : 0.3;
@@ -159,13 +168,16 @@ export function usePricingScenarioAnalysis() {
           current_margin: 32,
           projected_margin: 32 + params.price_change_percent * 0.8,
           current_volume: 150,
-          projected_volume: Math.round(150 * (1 + volumeImpact * params.price_change_percent / 10)),
+          projected_volume: Math.round(
+            150 * (1 + (volumeImpact * params.price_change_percent) / 10),
+          ),
           net_profit_change: params.price_change_percent * 450,
-          recommendation: params.price_change_percent > 10
-            ? "Price increase may significantly impact volume. Consider phased approach."
-            : params.price_change_percent > 0
-            ? "Moderate price increase recommended with value justification."
-            : "Price reduction may attract new customers but impact margins.",
+          recommendation:
+            params.price_change_percent > 10
+              ? "Price increase may significantly impact volume. Consider phased approach."
+              : params.price_change_percent > 0
+                ? "Moderate price increase recommended with value justification."
+                : "Price reduction may attract new customers but impact margins.",
         };
       }
     },
@@ -325,7 +337,8 @@ function generateDemoProfitabilityAnalysis(): JobProfitabilityAnalysis {
       {
         category: "pricing",
         title: "Increase Commercial Rates",
-        description: "Commercial segment shows strong demand elasticity - 5% price increase projected to maintain volume",
+        description:
+          "Commercial segment shows strong demand elasticity - 5% price increase projected to maintain volume",
         potential_monthly_gain: 7250,
         effort: "low",
         confidence: 0.85,

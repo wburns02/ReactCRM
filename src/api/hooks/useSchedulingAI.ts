@@ -108,7 +108,10 @@ export function useSmartSlotSuggestion() {
       requiredSkills?: string[];
     }): Promise<SmartSlotResult> => {
       try {
-        const response = await apiClient.post("/ai/schedule/suggest-slot", params);
+        const response = await apiClient.post(
+          "/ai/schedule/suggest-slot",
+          params,
+        );
         return response.data;
       } catch {
         return generateDemoSlotSuggestions(params);
@@ -154,7 +157,11 @@ export function useScheduleAnalysis(date?: string) {
           efficiency_score: 72,
           utilization_by_tech: [
             { technician: "Mike J.", utilization: 95, status: "optimal" },
-            { technician: "Sarah W.", utilization: 65, status: "underutilized" },
+            {
+              technician: "Sarah W.",
+              utilization: 65,
+              status: "underutilized",
+            },
             { technician: "Tom D.", utilization: 88, status: "optimal" },
           ],
         };
@@ -186,7 +193,12 @@ export function useAutoFillGaps() {
             { job_id: "WO-NEW-2", time: "2:00 PM", technician: "Sarah W." },
           ],
           remaining_gaps: [
-            { technician: "Tom D.", start: "11:00 AM", end: "12:00 PM", reason: "No matching jobs in area" },
+            {
+              technician: "Tom D.",
+              start: "11:00 AM",
+              end: "12:00 PM",
+              reason: "No matching jobs in area",
+            },
           ],
           capacity_increase: 15,
         };
@@ -198,7 +210,9 @@ export function useAutoFillGaps() {
 /**
  * Generate demo schedule optimization
  */
-function generateDemoScheduleOptimization(_date: string): ScheduleOptimizationResult {
+function generateDemoScheduleOptimization(
+  _date: string,
+): ScheduleOptimizationResult {
   return {
     optimized_schedule: [
       {
@@ -241,7 +255,7 @@ function generateDemoScheduleOptimization(_date: string): ScheduleOptimizationRe
     savings: {
       drive_time_saved_hours: 0.75,
       drive_time_saved_percent: 23,
-      fuel_cost_saved: 18.50,
+      fuel_cost_saved: 18.5,
       additional_job_capacity: 1,
     },
     conflicts_resolved: [
@@ -286,7 +300,8 @@ function generateDemoSlotSuggestions(params: {
   estimatedDuration: number;
   preferredDate?: string;
 }): SmartSlotResult {
-  const baseDate = params.preferredDate || new Date().toISOString().split("T")[0];
+  const baseDate =
+    params.preferredDate || new Date().toISOString().split("T")[0];
 
   return {
     suggested_slots: [
@@ -321,7 +336,9 @@ function generateDemoSlotSuggestions(params: {
         customer_preference_match: true,
       },
       {
-        date: new Date(new Date(baseDate).getTime() + 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+        date: new Date(new Date(baseDate).getTime() + 24 * 60 * 60 * 1000)
+          .toISOString()
+          .split("T")[0],
         start_time: "9:00 AM",
         end_time: "10:30 AM",
         technician_id: "t1",

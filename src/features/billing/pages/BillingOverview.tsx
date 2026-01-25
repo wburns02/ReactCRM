@@ -18,11 +18,13 @@ function AIBillingInsights({ stats }: { stats: BillingStats | undefined }) {
       const result = await analyzeAI.mutateAsync({
         type: "billing",
         data: stats ? { ...stats } : {},
-        question: "Analyze this billing data and provide actionable insights about revenue trends, collection efficiency, and payment patterns.",
+        question:
+          "Analyze this billing data and provide actionable insights about revenue trends, collection efficiency, and payment patterns.",
       });
       // Combine summary and insights into a formatted string
-      const formattedInsights = result.analysis ||
-        (result.summary + "\n\n" + (result.insights || []).join("\n"));
+      const formattedInsights =
+        result.analysis ||
+        result.summary + "\n\n" + (result.insights || []).join("\n");
       setInsights(formattedInsights || "Analysis complete.");
     } catch {
       // Demo fallback
@@ -45,7 +47,8 @@ No billing data available yet. Once you have invoices and payments:
 
     const outstanding = data.outstanding_invoices || 0;
     const revenue = data.total_revenue || 0;
-    const collectionRate = revenue > 0 ? ((revenue - outstanding) / revenue * 100).toFixed(1) : 0;
+    const collectionRate =
+      revenue > 0 ? (((revenue - outstanding) / revenue) * 100).toFixed(1) : 0;
 
     return `**AI Billing Analysis (Demo Mode)**
 

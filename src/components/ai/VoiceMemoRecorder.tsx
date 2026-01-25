@@ -3,11 +3,24 @@
  * Record and transcribe voice memos using Whisper AI on R730
  */
 import { useState, useCallback, useRef, useEffect } from "react";
-import { Mic, Square, Play, Pause, Upload, Loader2, AlertTriangle, CheckCircle, Trash2 } from "lucide-react";
+import {
+  Mic,
+  Square,
+  Play,
+  Pause,
+  Upload,
+  Loader2,
+  AlertTriangle,
+  CheckCircle,
+  Trash2,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
-import { useLocalAIHealth, useAudioUploadTranscriptionMutation } from "@/hooks/useLocalAI";
+import {
+  useLocalAIHealth,
+  useAudioUploadTranscriptionMutation,
+} from "@/hooks/useLocalAI";
 
 interface VoiceMemoRecorderProps {
   onTranscriptionComplete?: (result: TranscriptionResult) => void;
@@ -27,7 +40,13 @@ interface TranscriptionResult {
   duration_seconds: number;
 }
 
-type RecordingState = "idle" | "recording" | "paused" | "recorded" | "transcribing" | "complete";
+type RecordingState =
+  | "idle"
+  | "recording"
+  | "paused"
+  | "recorded"
+  | "transcribing"
+  | "complete";
 
 /**
  * Voice memo recorder with AI transcription
@@ -42,7 +61,8 @@ export function VoiceMemoRecorder({
   const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
   const [audioUrl, setAudioUrl] = useState<string | null>(null);
   const [duration, setDuration] = useState(0);
-  const [transcription, setTranscription] = useState<TranscriptionResult | null>(null);
+  const [transcription, setTranscription] =
+    useState<TranscriptionResult | null>(null);
   const [error, setError] = useState<string | null>(null);
 
   const mediaRecorderRef = useRef<MediaRecorder | null>(null);
@@ -53,14 +73,18 @@ export function VoiceMemoRecorder({
   const { data: aiHealth } = useLocalAIHealth();
   const transcriptionMutation = useAudioUploadTranscriptionMutation();
 
-  const isAIAvailable = aiHealth?.status === "healthy" || aiHealth?.status === "degraded";
+  const isAIAvailable =
+    aiHealth?.status === "healthy" || aiHealth?.status === "degraded";
 
   // Clean up on unmount
   useEffect(() => {
     return () => {
       if (timerRef.current) clearInterval(timerRef.current);
       if (audioUrl) URL.revokeObjectURL(audioUrl);
-      if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
+      if (
+        mediaRecorderRef.current &&
+        mediaRecorderRef.current.state !== "inactive"
+      ) {
         mediaRecorderRef.current.stop();
       }
     };
@@ -73,7 +97,9 @@ export function VoiceMemoRecorder({
       const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
 
       const mediaRecorder = new MediaRecorder(stream, {
-        mimeType: MediaRecorder.isTypeSupported("audio/webm") ? "audio/webm" : "audio/mp4",
+        mimeType: MediaRecorder.isTypeSupported("audio/webm")
+          ? "audio/webm"
+          : "audio/mp4",
       });
 
       mediaRecorderRef.current = mediaRecorder;
@@ -86,14 +112,16 @@ export function VoiceMemoRecorder({
       };
 
       mediaRecorder.onstop = () => {
-        const blob = new Blob(audioChunksRef.current, { type: mediaRecorder.mimeType });
+        const blob = new Blob(audioChunksRef.current, {
+          type: mediaRecorder.mimeType,
+        });
         setAudioBlob(blob);
         const url = URL.createObjectURL(blob);
         setAudioUrl(url);
         setRecordingState("recorded");
 
         // Stop all tracks
-        stream.getTracks().forEach(track => track.stop());
+        stream.getTracks().forEach((track) => track.stop());
 
         if (onRecordingComplete) {
           onRecordingComplete(blob);
@@ -106,7 +134,7 @@ export function VoiceMemoRecorder({
 
       // Start timer
       timerRef.current = setInterval(() => {
-        setDuration(prev => {
+        setDuration((prev) => {
           const newDuration = prev + 1;
           if (newDuration >= maxDurationSeconds) {
             stopRecording();
@@ -114,7 +142,6 @@ export function VoiceMemoRecorder({
           return newDuration;
         });
       }, 1000);
-
     } catch (err) {
       console.error("Failed to start recording:", err);
       setError("Could not access microphone. Please check permissions.");
@@ -123,7 +150,10 @@ export function VoiceMemoRecorder({
 
   // Stop recording
   const stopRecording = useCallback(() => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state !== "inactive") {
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state !== "inactive"
+    ) {
       mediaRecorderRef.current.stop();
     }
     if (timerRef.current) {
@@ -134,7 +164,10 @@ export function VoiceMemoRecorder({
 
   // Pause recording
   const pauseRecording = useCallback(() => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state === "recording") {
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state === "recording"
+    ) {
       mediaRecorderRef.current.pause();
       setRecordingState("paused");
       if (timerRef.current) clearInterval(timerRef.current);
@@ -143,11 +176,14 @@ export function VoiceMemoRecorder({
 
   // Resume recording
   const resumeRecording = useCallback(() => {
-    if (mediaRecorderRef.current && mediaRecorderRef.current.state === "paused") {
+    if (
+      mediaRecorderRef.current &&
+      mediaRecorderRef.current.state === "paused"
+    ) {
       mediaRecorderRef.current.resume();
       setRecordingState("recording");
       timerRef.current = setInterval(() => {
-        setDuration(prev => prev + 1);
+        setDuration((prev) => prev + 1);
       }, 1000);
     }
   }, []);
@@ -161,8 +197,11 @@ export function VoiceMemoRecorder({
 
     try {
       // Determine file extension from blob type
-      const ext = audioBlob.type.includes("webm") ? "webm" :
-                  audioBlob.type.includes("mp4") ? "m4a" : "webm";
+      const ext = audioBlob.type.includes("webm")
+        ? "webm"
+        : audioBlob.type.includes("mp4")
+          ? "m4a"
+          : "webm";
       const filename = `recording.${ext}`;
 
       // Upload and transcribe using the API
@@ -185,7 +224,6 @@ export function VoiceMemoRecorder({
       if (onTranscriptionComplete) {
         onTranscriptionComplete(transcriptionResult);
       }
-
     } catch (err) {
       console.error("Transcription failed:", err);
       setError("Failed to transcribe audio. Please try again.");
@@ -260,11 +298,12 @@ export function VoiceMemoRecorder({
           </div>
 
           {/* Max duration warning */}
-          {recordingState === "recording" && duration > maxDurationSeconds - 30 && (
-            <p className="text-xs text-warning">
-              {maxDurationSeconds - duration} seconds remaining
-            </p>
-          )}
+          {recordingState === "recording" &&
+            duration > maxDurationSeconds - 30 && (
+              <p className="text-xs text-warning">
+                {maxDurationSeconds - duration} seconds remaining
+              </p>
+            )}
 
           {/* Control Buttons */}
           <div className="flex items-center gap-3">
@@ -325,68 +364,79 @@ export function VoiceMemoRecorder({
           {/* Status Text */}
           <p className="text-sm text-text-muted">
             {recordingState === "idle" && "Tap to start recording"}
-            {recordingState === "recording" && "Recording... Tap square to stop"}
+            {recordingState === "recording" &&
+              "Recording... Tap square to stop"}
             {recordingState === "paused" && "Paused - tap mic to resume"}
-            {recordingState === "transcribing" && "Transcribing with Whisper AI..."}
+            {recordingState === "transcribing" &&
+              "Transcribing with Whisper AI..."}
           </p>
         </div>
 
         {/* Audio Preview */}
-        {audioUrl && recordingState !== "idle" && recordingState !== "recording" && recordingState !== "paused" && (
-          <div className="space-y-3">
-            <div className="flex items-center gap-3 p-3 bg-bg-muted rounded-lg">
-              <audio ref={audioRef} src={audioUrl} className="hidden" />
-              <Button
-                variant="outline"
-                size="sm"
-                onClick={togglePlayback}
-                className="rounded-full"
-              >
-                <Play className="w-4 h-4" />
-              </Button>
-              <div className="flex-1">
-                <p className="text-sm text-text-primary">Voice Memo</p>
-                <p className="text-xs text-text-muted">{formatDuration(duration)}</p>
+        {audioUrl &&
+          recordingState !== "idle" &&
+          recordingState !== "recording" &&
+          recordingState !== "paused" && (
+            <div className="space-y-3">
+              <div className="flex items-center gap-3 p-3 bg-bg-muted rounded-lg">
+                <audio ref={audioRef} src={audioUrl} className="hidden" />
+                <Button
+                  variant="outline"
+                  size="sm"
+                  onClick={togglePlayback}
+                  className="rounded-full"
+                >
+                  <Play className="w-4 h-4" />
+                </Button>
+                <div className="flex-1">
+                  <p className="text-sm text-text-primary">Voice Memo</p>
+                  <p className="text-xs text-text-muted">
+                    {formatDuration(duration)}
+                  </p>
+                </div>
+                <Button
+                  variant="ghost"
+                  size="sm"
+                  onClick={reset}
+                  className="text-text-muted hover:text-danger"
+                >
+                  <Trash2 className="w-4 h-4" />
+                </Button>
               </div>
-              <Button
-                variant="ghost"
-                size="sm"
-                onClick={reset}
-                className="text-text-muted hover:text-danger"
-              >
-                <Trash2 className="w-4 h-4" />
-              </Button>
+
+              {/* Transcribe Button */}
+              {recordingState === "recorded" && (
+                <Button
+                  variant="primary"
+                  className="w-full"
+                  onClick={transcribeRecording}
+                  disabled={!isAIAvailable}
+                >
+                  <Upload className="w-4 h-4 mr-2" />
+                  Transcribe with AI
+                </Button>
+              )}
+
+              {/* Transcribing State */}
+              {recordingState === "transcribing" && (
+                <div className="flex items-center justify-center gap-2 p-4">
+                  <Loader2 className="w-5 h-5 animate-spin text-primary" />
+                  <span className="text-sm text-text-secondary">
+                    Processing audio...
+                  </span>
+                </div>
+              )}
             </div>
-
-            {/* Transcribe Button */}
-            {recordingState === "recorded" && (
-              <Button
-                variant="primary"
-                className="w-full"
-                onClick={transcribeRecording}
-                disabled={!isAIAvailable}
-              >
-                <Upload className="w-4 h-4 mr-2" />
-                Transcribe with AI
-              </Button>
-            )}
-
-            {/* Transcribing State */}
-            {recordingState === "transcribing" && (
-              <div className="flex items-center justify-center gap-2 p-4">
-                <Loader2 className="w-5 h-5 animate-spin text-primary" />
-                <span className="text-sm text-text-secondary">Processing audio...</span>
-              </div>
-            )}
-          </div>
-        )}
+          )}
 
         {/* Transcription Result */}
         {transcription && recordingState === "complete" && (
           <div className="space-y-3">
             <div className="flex items-center gap-2">
               <CheckCircle className="w-4 h-4 text-success" />
-              <h4 className="text-sm font-medium text-text-primary">Transcription</h4>
+              <h4 className="text-sm font-medium text-text-primary">
+                Transcription
+              </h4>
             </div>
             <div className="p-3 bg-bg-muted rounded-lg">
               <p className="text-sm text-text-primary whitespace-pre-wrap">
@@ -395,7 +445,10 @@ export function VoiceMemoRecorder({
               <div className="flex items-center gap-2 mt-2 text-xs text-text-muted">
                 <span>Language: {transcription.language}</span>
                 <span>•</span>
-                <span>Duration: {formatDuration(Math.round(transcription.duration_seconds))}</span>
+                <span>
+                  Duration:{" "}
+                  {formatDuration(Math.round(transcription.duration_seconds))}
+                </span>
               </div>
             </div>
 
@@ -407,11 +460,16 @@ export function VoiceMemoRecorder({
                 </summary>
                 <div className="mt-2 space-y-1 max-h-40 overflow-y-auto">
                   {transcription.segments.map((segment, index) => (
-                    <div key={index} className="flex gap-2 text-xs p-2 bg-bg-muted/50 rounded">
+                    <div
+                      key={index}
+                      className="flex gap-2 text-xs p-2 bg-bg-muted/50 rounded"
+                    >
                       <span className="text-text-muted font-mono">
                         {formatDuration(Math.round(segment.start))}
                       </span>
-                      <span className="text-text-secondary">{segment.text}</span>
+                      <span className="text-text-secondary">
+                        {segment.text}
+                      </span>
                     </div>
                   ))}
                 </div>
@@ -452,7 +510,9 @@ export function VoiceRecordButton({
       disabled={disabled}
       onClick={() => setIsRecording(!isRecording)}
     >
-      <Mic className={`w-4 h-4 mr-1 ${isRecording ? "text-danger animate-pulse" : ""}`} />
+      <Mic
+        className={`w-4 h-4 mr-1 ${isRecording ? "text-danger animate-pulse" : ""}`}
+      />
       {isRecording ? "Recording..." : "Voice Memo"}
     </Button>
   );

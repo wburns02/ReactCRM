@@ -67,11 +67,15 @@ export function useTranscriptAnalysis() {
       sentiment: CallSentimentResult;
     }> => {
       try {
-        const response = await apiClient.post("/ai/calls/analyze-transcript", params);
+        const response = await apiClient.post(
+          "/ai/calls/analyze-transcript",
+          params,
+        );
         return response.data;
       } catch {
         return {
-          summary: "Call analysis in demo mode. Connect to AI backend for full analysis.",
+          summary:
+            "Call analysis in demo mode. Connect to AI backend for full analysis.",
           key_points: ["Customer inquiry handled", "Information provided"],
           action_items: ["Follow up within 24 hours"],
           sentiment: generateDemoSentiment(),
@@ -91,7 +95,9 @@ export function useCallQualityScore(callId: number | string | undefined) {
       if (!callId) return null;
 
       try {
-        const response = await apiClient.get(`/ai/calls/${callId}/quality-score`);
+        const response = await apiClient.get(
+          `/ai/calls/${callId}/quality-score`,
+        );
         return response.data;
       } catch {
         return {
@@ -125,10 +131,7 @@ export function useAgentCoaching(callId: number | string | undefined) {
         return response.data;
       } catch {
         return {
-          strengths: [
-            "Good rapport building",
-            "Clear communication",
-          ],
+          strengths: ["Good rapport building", "Clear communication"],
           areas_for_improvement: [
             "Could use more empathy statements when customer expresses frustration",
             "Consider offering proactive solutions",
@@ -151,9 +154,13 @@ export function useAgentCoaching(callId: number | string | undefined) {
  */
 export function useBatchCallAnalysis() {
   return useMutation({
-    mutationFn: async (callIds: number[]): Promise<Record<number, CallSentimentResult>> => {
+    mutationFn: async (
+      callIds: number[],
+    ): Promise<Record<number, CallSentimentResult>> => {
       try {
-        const response = await apiClient.post("/ai/calls/batch-analyze", { call_ids: callIds });
+        const response = await apiClient.post("/ai/calls/batch-analyze", {
+          call_ids: callIds,
+        });
         return response.data;
       } catch {
         return {};
@@ -166,7 +173,11 @@ export function useBatchCallAnalysis() {
  * Generate demo sentiment data
  */
 function generateDemoSentiment(): CallSentimentResult {
-  const sentiments: Array<"positive" | "neutral" | "negative"> = ["positive", "neutral", "negative"];
+  const sentiments: Array<"positive" | "neutral" | "negative"> = [
+    "positive",
+    "neutral",
+    "negative",
+  ];
   const randomSentiment = sentiments[Math.floor(Math.random() * 3)];
 
   let score = 0;
@@ -207,23 +218,28 @@ function generateDemoSentiment(): CallSentimentResult {
     {
       timestamp: "2:15",
       type: randomSentiment === "negative" ? "negative" : "positive",
-      description: randomSentiment === "negative"
-        ? "Customer expressed frustration with wait time"
-        : "Agent provided helpful solution",
+      description:
+        randomSentiment === "negative"
+          ? "Customer expressed frustration with wait time"
+          : "Agent provided helpful solution",
     },
     {
       timestamp: "4:00",
       type: randomSentiment === "positive" ? "positive" : "neutral",
-      description: randomSentiment === "positive"
-        ? "Customer thanked agent for quick resolution"
-        : "Call concluded with next steps",
+      description:
+        randomSentiment === "positive"
+          ? "Customer thanked agent for quick resolution"
+          : "Call concluded with next steps",
     },
   ];
 
   const summaries: Record<string, string> = {
-    positive: "This was a successful customer interaction. The customer's needs were addressed effectively and they expressed satisfaction with the service provided.",
-    neutral: "This was a standard customer interaction. The agent handled the inquiry professionally and provided the requested information.",
-    negative: "This call showed signs of customer dissatisfaction. The customer expressed concerns that may require follow-up attention.",
+    positive:
+      "This was a successful customer interaction. The customer's needs were addressed effectively and they expressed satisfaction with the service provided.",
+    neutral:
+      "This was a standard customer interaction. The agent handled the inquiry professionally and provided the requested information.",
+    negative:
+      "This call showed signs of customer dissatisfaction. The customer expressed concerns that may require follow-up attention.",
   };
 
   return {
@@ -236,11 +252,19 @@ function generateDemoSentiment(): CallSentimentResult {
     customer_satisfaction_indicator: satisfaction,
     escalation_risk: escalationRisk,
     summary: summaries[randomSentiment],
-    action_items: randomSentiment === "negative"
-      ? ["Follow up with customer within 24 hours", "Review complaint handling process"]
-      : ["Log interaction for future reference"],
-    coaching_tips: randomSentiment === "negative"
-      ? ["Use more empathy statements", "Acknowledge frustration before providing solutions"]
-      : ["Great job maintaining positive tone"],
+    action_items:
+      randomSentiment === "negative"
+        ? [
+            "Follow up with customer within 24 hours",
+            "Review complaint handling process",
+          ]
+        : ["Log interaction for future reference"],
+    coaching_tips:
+      randomSentiment === "negative"
+        ? [
+            "Use more empathy statements",
+            "Acknowledge frustration before providing solutions",
+          ]
+        : ["Great job maintaining positive tone"],
   };
 }

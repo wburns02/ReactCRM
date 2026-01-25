@@ -11,8 +11,8 @@ import type {
   HealthStatus,
   AIError,
   AIAction,
-  ActionResult
-} from '@/api/types/aiAssistant';
+  ActionResult,
+} from "@/api/types/aiAssistant";
 
 // ===== BASE ADAPTER INTERFACE =====
 
@@ -23,8 +23,14 @@ export interface BaseAIAdapter<TQuery = unknown, TResult = unknown> {
   readonly isAvailable: boolean;
 
   // Core operations
-  query(request: TQuery, context: AIContext): Promise<UnifiedAIResponse<TResult>>;
-  stream?(request: TQuery, context: AIContext): AsyncIterator<StreamChunk<TResult>>;
+  query(
+    request: TQuery,
+    context: AIContext,
+  ): Promise<UnifiedAIResponse<TResult>>;
+  stream?(
+    request: TQuery,
+    context: AIContext,
+  ): AsyncIterator<StreamChunk<TResult>>;
   validate(request: TQuery): ValidationResult;
 
   // Action execution (optional)
@@ -81,19 +87,19 @@ export interface ResponseMetadata {
 }
 
 export interface ActionableInsight {
-  type: 'opportunity' | 'risk' | 'optimization' | 'information';
-  category: 'opportunity' | 'risk' | 'optimization' | 'information';
+  type: "opportunity" | "risk" | "optimization" | "information";
+  category: "opportunity" | "risk" | "optimization" | "information";
   title: string;
   description: string;
-  priority: 'low' | 'medium' | 'high' | 'critical';
+  priority: "low" | "medium" | "high" | "critical";
   confidence: number;
   estimated_impact?: {
-    type: 'time_saved' | 'cost_saved' | 'revenue_opportunity';
+    type: "time_saved" | "cost_saved" | "revenue_opportunity";
     amount: number;
     unit: string;
   };
   estimatedValue?: {
-    type: 'time_saved' | 'cost_saved' | 'revenue_opportunity';
+    type: "time_saved" | "cost_saved" | "revenue_opportunity";
     amount: number;
     unit: string;
   };
@@ -104,14 +110,14 @@ export interface ActionableInsight {
 export interface AIWarning {
   code: string;
   message: string;
-  severity: 'low' | 'medium' | 'high';
+  severity: "low" | "medium" | "high";
 }
 
 // ===== STREAMING SUPPORT =====
 
 export interface StreamChunk<T> {
   chunk_id: string;
-  chunk_type: 'partial' | 'complete' | 'error';
+  chunk_type: "partial" | "complete" | "error";
   data: Partial<T>;
   is_final: boolean;
 }
@@ -165,7 +171,10 @@ export interface ConfidenceNormalizer {
 
 // ===== BASE ADAPTER IMPLEMENTATION =====
 
-export abstract class BaseAIAdapterImpl<TQuery, TResult> implements BaseAIAdapter<TQuery, TResult> {
+export abstract class BaseAIAdapterImpl<
+  TQuery,
+  TResult,
+> implements BaseAIAdapter<TQuery, TResult> {
   abstract readonly domain: AIDomain;
   abstract readonly capabilities: AICapability[];
   abstract readonly version: string;
@@ -182,22 +191,31 @@ export abstract class BaseAIAdapterImpl<TQuery, TResult> implements BaseAIAdapte
     return this._isHealthy;
   }
 
-  abstract query(request: TQuery, context: AIContext): Promise<UnifiedAIResponse<TResult>>;
+  abstract query(
+    request: TQuery,
+    context: AIContext,
+  ): Promise<UnifiedAIResponse<TResult>>;
 
   validate(request: TQuery): ValidationResult {
     // Basic validation - override in subclasses for specific validation
     if (!request) {
       return {
         valid: false,
-        errors: [{ field: 'request', message: 'Request is required', code: 'REQUIRED' }],
-        warnings: []
+        errors: [
+          {
+            field: "request",
+            message: "Request is required",
+            code: "REQUIRED",
+          },
+        ],
+        warnings: [],
       };
     }
 
     return {
       valid: true,
       errors: [],
-      warnings: []
+      warnings: [],
     };
   }
 
@@ -213,22 +231,24 @@ export abstract class BaseAIAdapterImpl<TQuery, TResult> implements BaseAIAdapte
       this._lastHealthCheck = new Date();
 
       return {
-        status: 'healthy',
+        status: "healthy",
         response_time_ms: responseTime,
         error_rate: 0,
         last_check: this._lastHealthCheck.toISOString(),
-        issues: []
+        issues: [],
       };
     } catch (error) {
       const responseTime = Date.now() - startTime;
       this._isHealthy = false;
 
       return {
-        status: 'unhealthy',
+        status: "unhealthy",
         response_time_ms: responseTime,
         error_rate: 1,
         last_check: new Date().toISOString(),
-        issues: [error instanceof Error ? error.message : 'Unknown health check error']
+        issues: [
+          error instanceof Error ? error.message : "Unknown health check error",
+        ],
       };
     }
   }
@@ -241,11 +261,11 @@ export abstract class BaseAIAdapterImpl<TQuery, TResult> implements BaseAIAdapte
   protected transformToUnified(
     originalResult: unknown,
     context: AIContext,
-    metadata?: Partial<ResponseMetadata>
+    metadata?: Partial<ResponseMetadata>,
   ): UnifiedAIResponse<TResult> {
     return {
       domain: this.domain,
-      operation: 'query',
+      operation: "query",
       result: {
         primary: originalResult as TResult,
         metadata: {
@@ -254,8 +274,8 @@ export abstract class BaseAIAdapterImpl<TQuery, TResult> implements BaseAIAdapte
           demo_data_used: false,
           context_used: this.extractContextUsage(context),
           generated_at: new Date().toISOString(),
-          ...metadata
-        }
+          ...metadata,
+        },
       },
       confidence: this.extractConfidence(originalResult),
       completeness: this.calculateCompleteness(originalResult),
@@ -263,8 +283,8 @@ export abstract class BaseAIAdapterImpl<TQuery, TResult> implements BaseAIAdapte
       processing: {
         duration_ms: 0, // Will be set by orchestrator
         cache_hit: false,
-        model_version: this.version
-      }
+        model_version: this.version,
+      },
     };
   }
 
@@ -273,29 +293,36 @@ export abstract class BaseAIAdapterImpl<TQuery, TResult> implements BaseAIAdapte
   protected extractContextUsage(context: AIContext): string[] {
     const used: string[] = [];
 
-    if (context.user) used.push('user_context');
-    if (context.app.currentEntity) used.push('current_entity');
-    if (context.domain) used.push('domain_context');
-    if (context.session.conversationHistory.length > 0) used.push('conversation_history');
+    if (context.user) used.push("user_context");
+    if (context.app.currentEntity) used.push("current_entity");
+    if (context.domain) used.push("domain_context");
+    if (context.session.conversationHistory.length > 0)
+      used.push("conversation_history");
 
     return used;
   }
 
   protected extractConfidence(result: unknown): number {
     // Try to extract confidence from common patterns
-    if (typeof result === 'object' && result !== null) {
+    if (typeof result === "object" && result !== null) {
       const obj = result as Record<string, unknown>;
 
-      if (typeof obj.confidence === 'number') {
-        return this.confidenceNormalizer.normalizeConfidence(this.domain, obj.confidence);
+      if (typeof obj.confidence === "number") {
+        return this.confidenceNormalizer.normalizeConfidence(
+          this.domain,
+          obj.confidence,
+        );
       }
 
-      if (typeof obj.grade === 'string') {
+      if (typeof obj.grade === "string") {
         return this.confidenceNormalizer.gradeToConfidence(obj.grade);
       }
 
-      if (typeof obj.score === 'number' && typeof obj.max_score === 'number') {
-        return this.confidenceNormalizer.scoreToConfidence(obj.score, obj.max_score);
+      if (typeof obj.score === "number" && typeof obj.max_score === "number") {
+        return this.confidenceNormalizer.scoreToConfidence(
+          obj.score,
+          obj.max_score,
+        );
       }
     }
 
@@ -307,11 +334,11 @@ export abstract class BaseAIAdapterImpl<TQuery, TResult> implements BaseAIAdapte
     // Basic completeness calculation - can be overridden
     if (!result) return 0;
 
-    if (typeof result === 'object' && result !== null) {
+    if (typeof result === "object" && result !== null) {
       const obj = result as Record<string, unknown>;
       const totalFields = Object.keys(obj).length;
-      const filledFields = Object.values(obj).filter(value =>
-        value !== null && value !== undefined && value !== ''
+      const filledFields = Object.values(obj).filter(
+        (value) => value !== null && value !== undefined && value !== "",
       ).length;
 
       return totalFields > 0 ? filledFields / totalFields : 0;
@@ -329,30 +356,30 @@ export abstract class BaseAIAdapterImpl<TQuery, TResult> implements BaseAIAdapte
 class ConfidenceNormalizerImpl implements ConfidenceNormalizer {
   normalizeConfidence(domain: AIDomain, originalConfidence: unknown): number {
     switch (domain) {
-      case 'leads':
+      case "leads":
         // Lead scoring uses A-F grades
-        if (typeof originalConfidence === 'string') {
+        if (typeof originalConfidence === "string") {
           return this.gradeToConfidence(originalConfidence);
         }
         break;
 
-      case 'tickets':
+      case "tickets":
         // Ticket AI uses 1-10 urgency scores
-        if (typeof originalConfidence === 'number') {
+        if (typeof originalConfidence === "number") {
           return this.scoreToConfidence(originalConfidence, 10);
         }
         break;
 
-      case 'pricing':
+      case "pricing":
         // Pricing AI uses percentage effectiveness
-        if (typeof originalConfidence === 'number') {
+        if (typeof originalConfidence === "number") {
           return this.percentageToConfidence(originalConfidence);
         }
         break;
 
       default:
         // Most modules already use 0-1 scale
-        if (typeof originalConfidence === 'number') {
+        if (typeof originalConfidence === "number") {
           return Math.min(Math.max(originalConfidence, 0), 1);
         }
     }
@@ -362,9 +389,13 @@ class ConfidenceNormalizerImpl implements ConfidenceNormalizer {
 
   gradeToConfidence(grade: string): number {
     const gradeMap: Record<string, number> = {
-      'A': 0.95, 'B': 0.80, 'C': 0.65, 'D': 0.45, 'F': 0.25
+      A: 0.95,
+      B: 0.8,
+      C: 0.65,
+      D: 0.45,
+      F: 0.25,
     };
-    return gradeMap[grade.toUpperCase()] || 0.50;
+    return gradeMap[grade.toUpperCase()] || 0.5;
   }
 
   scoreToConfidence(score: number, maxScore: number): number {

@@ -44,9 +44,9 @@ export function EmailComposeModal({
     try {
       await sendEmail.mutateAsync({
         customer_id: customerId ? parseInt(customerId, 10) : undefined,
-        to: email,  // Backend expects "to" not "email"
+        to: email, // Backend expects "to" not "email"
         subject,
-        body,  // Backend expects "body" not "message"
+        body, // Backend expects "body" not "message"
       });
       toastSuccess("Email sent successfully");
       onClose();
@@ -106,7 +106,10 @@ export function EmailComposeModal({
   };
 
   // Demo email generator for when backend unavailable
-  function generateDemoEmail(prompt: string, name?: string): { subject: string; body: string } {
+  function generateDemoEmail(
+    prompt: string,
+    name?: string,
+  ): { subject: string; body: string } {
     const lowerPrompt = prompt.toLowerCase();
     const greeting = name ? `Dear ${name}` : "Dear Valued Customer";
 
@@ -140,7 +143,10 @@ The Service Team`,
       };
     }
 
-    if (lowerPrompt.includes("appointment") || lowerPrompt.includes("schedule")) {
+    if (
+      lowerPrompt.includes("appointment") ||
+      lowerPrompt.includes("schedule")
+    ) {
       return {
         subject: "Your Upcoming Appointment Confirmation",
         body: `${greeting},
@@ -199,10 +205,13 @@ The Service Team`,
               <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/30 rounded-lg p-4">
                 <div className="flex items-center gap-2 mb-3">
                   <span className="text-lg">✨</span>
-                  <h3 className="font-medium text-text-primary">AI Email Assistant</h3>
+                  <h3 className="font-medium text-text-primary">
+                    AI Email Assistant
+                  </h3>
                 </div>
                 <p className="text-sm text-text-secondary mb-3">
-                  Describe what you want to say and AI will draft a professional email for you.
+                  Describe what you want to say and AI will draft a professional
+                  email for you.
                 </p>
                 <textarea
                   value={aiPrompt}
@@ -219,32 +228,49 @@ The Service Team`,
                   >
                     {generateAI.isPending ? "Generating..." : "Generate Draft"}
                   </Button>
-                  <Button variant="secondary" onClick={() => setShowAiPanel(false)}>
+                  <Button
+                    variant="secondary"
+                    onClick={() => setShowAiPanel(false)}
+                  >
                     Cancel
                   </Button>
                 </div>
                 <div className="mt-3 flex flex-wrap gap-2">
-                  <span className="text-xs text-text-muted">Quick prompts:</span>
+                  <span className="text-xs text-text-muted">
+                    Quick prompts:
+                  </span>
                   <button
-                    onClick={() => setAiPrompt("Write a follow-up email checking on their satisfaction")}
+                    onClick={() =>
+                      setAiPrompt(
+                        "Write a follow-up email checking on their satisfaction",
+                      )
+                    }
                     className="text-xs px-2 py-1 rounded bg-bg-tertiary hover:bg-bg-hover text-text-secondary"
                   >
                     Follow-up
                   </button>
                   <button
-                    onClick={() => setAiPrompt("Write a thank you email for their recent service")}
+                    onClick={() =>
+                      setAiPrompt(
+                        "Write a thank you email for their recent service",
+                      )
+                    }
                     className="text-xs px-2 py-1 rounded bg-bg-tertiary hover:bg-bg-hover text-text-secondary"
                   >
                     Thank You
                   </button>
                   <button
-                    onClick={() => setAiPrompt("Write an appointment reminder email")}
+                    onClick={() =>
+                      setAiPrompt("Write an appointment reminder email")
+                    }
                     className="text-xs px-2 py-1 rounded bg-bg-tertiary hover:bg-bg-hover text-text-secondary"
                   >
                     Appointment
                   </button>
                   <button
-                    onClick={() => setAiPrompt("Write an invoice/payment reminder email")}
+                    onClick={() =>
+                      setAiPrompt("Write an invoice/payment reminder email")
+                    }
                     className="text-xs px-2 py-1 rounded bg-bg-tertiary hover:bg-bg-hover text-text-secondary"
                   >
                     Payment

@@ -125,9 +125,13 @@ export function useOnboardingRecommendations() {
  */
 export function useCompleteOnboardingTask() {
   return useMutation({
-    mutationFn: async (taskId: string): Promise<{ success: boolean; next_task?: OnboardingTask }> => {
+    mutationFn: async (
+      taskId: string,
+    ): Promise<{ success: boolean; next_task?: OnboardingTask }> => {
       try {
-        const response = await apiClient.patch(`/onboarding/steps/${taskId}`, { status: 'completed' });
+        const response = await apiClient.patch(`/onboarding/steps/${taskId}`, {
+          status: "completed",
+        });
         return response.data;
       } catch {
         return { success: true };
@@ -143,7 +147,9 @@ export function useSkipOnboardingTask() {
   return useMutation({
     mutationFn: async (taskId: string): Promise<{ success: boolean }> => {
       try {
-        const response = await apiClient.post(`/onboarding/steps/${taskId}/skip`);
+        const response = await apiClient.post(
+          `/onboarding/steps/${taskId}/skip`,
+        );
         return response.data;
       } catch {
         return { success: true };
@@ -197,7 +203,12 @@ function generateDemoOnboardingProgress(): OnboardingProgress {
       is_current: true,
       is_complete: false,
     },
-    completed_tasks: ["create-account", "verify-email", "company-profile", "first-customer"],
+    completed_tasks: [
+      "create-account",
+      "verify-email",
+      "company-profile",
+      "first-customer",
+    ],
     pending_tasks: [
       {
         id: "create-work-order",
@@ -255,7 +266,8 @@ function generateDemoContextualHelp(page: string): ContextualHelp[] {
       {
         id: "help-1",
         title: "Quick Tip: Work Order Status",
-        content: "Drag work orders between columns to update their status quickly. The system will automatically notify relevant parties.",
+        content:
+          "Drag work orders between columns to update their status quickly. The system will automatically notify relevant parties.",
         type: "tip",
         relevance_score: 0.95,
         related_feature: "work-order-management",
@@ -263,7 +275,8 @@ function generateDemoContextualHelp(page: string): ContextualHelp[] {
       {
         id: "help-2",
         title: "New Feature: AI Scheduling",
-        content: "Try our AI-powered scheduling assistant to automatically find the best time slots based on technician availability and location.",
+        content:
+          "Try our AI-powered scheduling assistant to automatically find the best time slots based on technician availability and location.",
         type: "feature",
         relevance_score: 0.88,
         related_feature: "ai-scheduling",
@@ -274,7 +287,8 @@ function generateDemoContextualHelp(page: string): ContextualHelp[] {
       {
         id: "help-3",
         title: "Customer Health Scores",
-        content: "The health score indicates how likely a customer is to remain active. Scores below 60 may need attention.",
+        content:
+          "The health score indicates how likely a customer is to remain active. Scores below 60 may need attention.",
         type: "tutorial",
         relevance_score: 0.92,
         related_feature: "customer-health",
@@ -284,7 +298,8 @@ function generateDemoContextualHelp(page: string): ContextualHelp[] {
       {
         id: "help-4",
         title: "Drag & Drop Scheduling",
-        content: "Simply drag unassigned work orders from the sidebar onto a technician's timeline to schedule them.",
+        content:
+          "Simply drag unassigned work orders from the sidebar onto a technician's timeline to schedule them.",
         type: "tip",
         relevance_score: 0.97,
         related_feature: "scheduling",
@@ -294,7 +309,8 @@ function generateDemoContextualHelp(page: string): ContextualHelp[] {
       {
         id: "help-default",
         title: "Need Help?",
-        content: "Click the help icon in the bottom right to access tutorials, documentation, and support.",
+        content:
+          "Click the help icon in the bottom right to access tutorials, documentation, and support.",
         type: "tip",
         relevance_score: 0.7,
         related_feature: "help-center",
@@ -313,7 +329,8 @@ function generateDemoRecommendations(): OnboardingRecommendation[] {
     {
       id: "rec-1",
       title: "Import Your Customer Data",
-      description: "You haven't imported any existing customer data yet. Importing customers will help you get started faster.",
+      description:
+        "You haven't imported any existing customer data yet. Importing customers will help you get started faster.",
       reason: "Based on your account age and current customer count",
       priority: "high",
       estimated_impact: "Save 2-3 hours of manual data entry",
@@ -327,7 +344,8 @@ function generateDemoRecommendations(): OnboardingRecommendation[] {
     {
       id: "rec-2",
       title: "Set Up Automated Reminders",
-      description: "Automated appointment reminders can reduce no-shows by up to 40%.",
+      description:
+        "Automated appointment reminders can reduce no-shows by up to 40%.",
       reason: "You have scheduled work orders but no reminder templates",
       priority: "medium",
       estimated_impact: "Reduce no-shows and improve customer satisfaction",
@@ -341,10 +359,12 @@ function generateDemoRecommendations(): OnboardingRecommendation[] {
     {
       id: "rec-3",
       title: "Complete Your Company Profile",
-      description: "A complete company profile improves customer communications and invoice professionalism.",
+      description:
+        "A complete company profile improves customer communications and invoice professionalism.",
       reason: "Missing: logo, business hours, service areas",
       priority: "low",
-      estimated_impact: "Professional appearance on all customer-facing documents",
+      estimated_impact:
+        "Professional appearance on all customer-facing documents",
       next_steps: [
         "Go to Settings > Company Profile",
         "Upload your company logo",
@@ -358,29 +378,38 @@ function generateDemoRecommendations(): OnboardingRecommendation[] {
 /**
  * Generate demo feature tour
  */
-function generateDemoTour(featureId: string): { steps: TourStep[]; estimated_duration: number } {
-  const tours: Record<string, { steps: TourStep[]; estimated_duration: number }> = {
+function generateDemoTour(featureId: string): {
+  steps: TourStep[];
+  estimated_duration: number;
+} {
+  const tours: Record<
+    string,
+    { steps: TourStep[]; estimated_duration: number }
+  > = {
     "work-orders": {
       steps: [
         {
           id: "step-1",
           target: "[data-tour='create-button']",
           title: "Create Work Orders",
-          content: "Click here to create a new work order. You can also use keyboard shortcut Ctrl+N.",
+          content:
+            "Click here to create a new work order. You can also use keyboard shortcut Ctrl+N.",
           position: "bottom",
         },
         {
           id: "step-2",
           target: "[data-tour='filters']",
           title: "Filter & Search",
-          content: "Use filters to find specific work orders by status, date, technician, or customer.",
+          content:
+            "Use filters to find specific work orders by status, date, technician, or customer.",
           position: "bottom",
         },
         {
           id: "step-3",
           target: "[data-tour='kanban']",
           title: "Kanban View",
-          content: "Drag work orders between columns to update their status. Changes are saved automatically.",
+          content:
+            "Drag work orders between columns to update their status. Changes are saved automatically.",
           position: "left",
         },
       ],
@@ -392,14 +421,16 @@ function generateDemoTour(featureId: string): { steps: TourStep[]; estimated_dur
           id: "step-1",
           target: "[data-tour='unscheduled']",
           title: "Unscheduled Work Orders",
-          content: "Work orders waiting to be scheduled appear here. Drag them to the timeline to schedule.",
+          content:
+            "Work orders waiting to be scheduled appear here. Drag them to the timeline to schedule.",
           position: "right",
         },
         {
           id: "step-2",
           target: "[data-tour='timeline']",
           title: "Technician Timeline",
-          content: "Each row shows a technician's schedule. Hover to see details, drag to reschedule.",
+          content:
+            "Each row shows a technician's schedule. Hover to see details, drag to reschedule.",
           position: "bottom",
         },
       ],

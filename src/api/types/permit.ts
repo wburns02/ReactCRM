@@ -7,13 +7,30 @@ import { z } from "zod";
 
 // ===== ENUMS =====
 
-export const duplicateStatusSchema = z.enum(["pending", "merged", "rejected", "reviewed"]);
+export const duplicateStatusSchema = z.enum([
+  "pending",
+  "merged",
+  "rejected",
+  "reviewed",
+]);
 export type DuplicateStatus = z.infer<typeof duplicateStatusSchema>;
 
-export const duplicateDetectionMethodSchema = z.enum(["address_hash", "fuzzy_match", "semantic", "manual"]);
-export type DuplicateDetectionMethod = z.infer<typeof duplicateDetectionMethodSchema>;
+export const duplicateDetectionMethodSchema = z.enum([
+  "address_hash",
+  "fuzzy_match",
+  "semantic",
+  "manual",
+]);
+export type DuplicateDetectionMethod = z.infer<
+  typeof duplicateDetectionMethodSchema
+>;
 
-export const importBatchStatusSchema = z.enum(["pending", "processing", "completed", "failed"]);
+export const importBatchStatusSchema = z.enum([
+  "pending",
+  "processing",
+  "completed",
+  "failed",
+]);
 export type ImportBatchStatus = z.infer<typeof importBatchStatusSchema>;
 
 export const changeSourceSchema = z.enum(["scraper", "manual", "merge", "api"]);
@@ -211,7 +228,9 @@ export const batchIngestionResponseSchema = z.object({
   stats: batchIngestionStatsSchema,
   message: z.string(),
 });
-export type BatchIngestionResponse = z.infer<typeof batchIngestionResponseSchema>;
+export type BatchIngestionResponse = z.infer<
+  typeof batchIngestionResponseSchema
+>;
 
 // ===== DUPLICATE SCHEMAS =====
 

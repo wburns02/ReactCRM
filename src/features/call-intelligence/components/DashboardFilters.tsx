@@ -53,13 +53,21 @@ const DATE_PRESETS: { id: DatePreset; label: string }[] = [
   { id: "custom", label: "Custom" },
 ];
 
-const SENTIMENT_OPTIONS: { value: SentimentLevel; label: string; color: string }[] = [
+const SENTIMENT_OPTIONS: {
+  value: SentimentLevel;
+  label: string;
+  color: string;
+}[] = [
   { value: "positive", label: "Positive", color: "text-green-600" },
   { value: "neutral", label: "Neutral", color: "text-yellow-600" },
   { value: "negative", label: "Negative", color: "text-red-600" },
 ];
 
-const ESCALATION_OPTIONS: { value: EscalationRisk; label: string; color: string }[] = [
+const ESCALATION_OPTIONS: {
+  value: EscalationRisk;
+  label: string;
+  color: string;
+}[] = [
   { value: "low", label: "Low", color: "text-green-600" },
   { value: "medium", label: "Medium", color: "text-yellow-600" },
   { value: "high", label: "High", color: "text-orange-600" },
@@ -73,7 +81,10 @@ const ESCALATION_OPTIONS: { value: EscalationRisk; label: string; color: string 
 /**
  * Get the start date for a preset
  */
-function getPresetDateRange(preset: DatePreset): { start: string; end: string } {
+function getPresetDateRange(preset: DatePreset): {
+  start: string;
+  end: string;
+} {
   const now = new Date();
   const end = now.toISOString().split("T")[0];
   let start: string;
@@ -115,10 +126,16 @@ function detectPreset(dateRange: { start: string; end: string }): DatePreset {
   if (dateRange.start === today && dateRange.end === today) {
     return "today";
   }
-  if (dateRange.start === weekAgo.toISOString().split("T")[0] && dateRange.end === today) {
+  if (
+    dateRange.start === weekAgo.toISOString().split("T")[0] &&
+    dateRange.end === today
+  ) {
     return "7d";
   }
-  if (dateRange.start === monthAgo.toISOString().split("T")[0] && dateRange.end === today) {
+  if (
+    dateRange.start === monthAgo.toISOString().split("T")[0] &&
+    dateRange.end === today
+  ) {
     return "30d";
   }
   return "custom";
@@ -216,7 +233,7 @@ function MultiSelectDropdown({
           "flex items-center gap-2 px-3 py-2 rounded-md border bg-bg-card text-sm",
           "hover:bg-bg-hover transition-colors min-w-[140px] justify-between",
           isOpen ? "border-primary ring-2 ring-primary/20" : "border-border",
-          selected.length > 0 && "border-primary/50"
+          selected.length > 0 && "border-primary/50",
         )}
       >
         <span className="flex items-center gap-2 text-text-secondary">
@@ -235,7 +252,7 @@ function MultiSelectDropdown({
           <ChevronDown
             className={cn(
               "h-4 w-4 text-text-muted transition-transform",
-              isOpen && "rotate-180"
+              isOpen && "rotate-180",
             )}
           />
         </span>
@@ -286,7 +303,7 @@ function MultiSelectDropdown({
                     className={cn(
                       "flex items-center gap-3 px-3 py-2 cursor-pointer w-full text-left",
                       "hover:bg-bg-hover transition-colors",
-                      selected.includes(option.id) && "bg-primary/5"
+                      selected.includes(option.id) && "bg-primary/5",
                     )}
                   >
                     <div
@@ -294,20 +311,22 @@ function MultiSelectDropdown({
                         "w-4 h-4 rounded border flex items-center justify-center transition-colors",
                         selected.includes(option.id)
                           ? "bg-primary border-primary"
-                          : "border-border"
+                          : "border-border",
                       )}
                     >
                       {selected.includes(option.id) && (
                         <Check className="h-3 w-3 text-white" />
                       )}
                     </div>
-                    <span className="text-sm text-text-primary">{option.name}</span>
+                    <span className="text-sm text-text-primary">
+                      {option.name}
+                    </span>
                   </button>
                 ))
               )}
             </div>
           </div>,
-          document.body
+          document.body,
         )}
     </div>
   );
@@ -382,7 +401,7 @@ function QualityRangeSlider({ min, max, onChange }: QualityRangeSliderProps) {
           "flex items-center gap-2 px-3 py-2 rounded-md border bg-bg-card text-sm",
           "hover:bg-bg-hover transition-colors min-w-[120px] justify-between",
           isOpen ? "border-primary ring-2 ring-primary/20" : "border-border",
-          isFiltered && "border-primary/50"
+          isFiltered && "border-primary/50",
         )}
       >
         <span className="flex items-center gap-2 text-text-secondary">
@@ -399,7 +418,7 @@ function QualityRangeSlider({ min, max, onChange }: QualityRangeSliderProps) {
           <ChevronDown
             className={cn(
               "h-4 w-4 text-text-muted transition-transform",
-              isOpen && "rotate-180"
+              isOpen && "rotate-180",
             )}
           />
         </span>
@@ -434,14 +453,19 @@ function QualityRangeSlider({ min, max, onChange }: QualityRangeSliderProps) {
               {/* Min/Max inputs */}
               <div className="flex items-center gap-3">
                 <div className="flex-1">
-                  <label className="text-xs text-text-muted mb-1 block">Min</label>
+                  <label className="text-xs text-text-muted mb-1 block">
+                    Min
+                  </label>
                   <Input
                     type="number"
                     min={0}
                     max={localMax}
                     value={localMin}
                     onChange={(e) => {
-                      const val = Math.max(0, Math.min(Number(e.target.value), localMax));
+                      const val = Math.max(
+                        0,
+                        Math.min(Number(e.target.value), localMax),
+                      );
                       setLocalMin(val);
                     }}
                     className="h-8"
@@ -449,14 +473,19 @@ function QualityRangeSlider({ min, max, onChange }: QualityRangeSliderProps) {
                 </div>
                 <div className="flex-shrink-0 text-text-muted pt-5">-</div>
                 <div className="flex-1">
-                  <label className="text-xs text-text-muted mb-1 block">Max</label>
+                  <label className="text-xs text-text-muted mb-1 block">
+                    Max
+                  </label>
                   <Input
                     type="number"
                     min={localMin}
                     max={100}
                     value={localMax}
                     onChange={(e) => {
-                      const val = Math.max(localMin, Math.min(Number(e.target.value), 100));
+                      const val = Math.max(
+                        localMin,
+                        Math.min(Number(e.target.value), 100),
+                      );
                       setLocalMax(val);
                     }}
                     className="h-8"
@@ -477,7 +506,7 @@ function QualityRangeSlider({ min, max, onChange }: QualityRangeSliderProps) {
               </Button>
             </div>
           </div>,
-          document.body
+          document.body,
         )}
     </div>
   );
@@ -565,7 +594,9 @@ function CheckboxFilterGroup<T extends string>({
           "flex items-center gap-2 px-3 py-2 rounded-md border bg-bg-card text-sm",
           "hover:bg-bg-hover transition-colors min-w-[120px] justify-between",
           isOpen ? "border-primary ring-2 ring-primary/20" : "border-border",
-          selected.length > 0 && selected.length < options.length && "border-primary/50"
+          selected.length > 0 &&
+            selected.length < options.length &&
+            "border-primary/50",
         )}
       >
         <span className="flex items-center gap-2 text-text-secondary">
@@ -584,7 +615,7 @@ function CheckboxFilterGroup<T extends string>({
           <ChevronDown
             className={cn(
               "h-4 w-4 text-text-muted transition-transform",
-              isOpen && "rotate-180"
+              isOpen && "rotate-180",
             )}
           />
         </span>
@@ -611,14 +642,19 @@ function CheckboxFilterGroup<T extends string>({
                     onChange={() => toggleOption(option.value)}
                     size="sm"
                   />
-                  <span className={cn("text-sm", option.color || "text-text-primary")}>
+                  <span
+                    className={cn(
+                      "text-sm",
+                      option.color || "text-text-primary",
+                    )}
+                  >
                     {option.label}
                   </span>
                 </label>
               ))}
             </div>
           </div>,
-          document.body
+          document.body,
         )}
     </div>
   );
@@ -672,7 +708,7 @@ function MobileFilterDrawer({
           "fixed inset-x-0 bottom-0 z-50 bg-bg-card rounded-t-xl shadow-xl",
           "transform transition-transform duration-300 ease-out",
           "max-h-[80vh] overflow-hidden flex flex-col",
-          isOpen ? "translate-y-0" : "translate-y-full"
+          isOpen ? "translate-y-0" : "translate-y-full",
         )}
       >
         {/* Header */}
@@ -711,7 +747,7 @@ function MobileFilterDrawer({
         </div>
       </div>
     </>,
-    document.body
+    document.body,
   );
 }
 
@@ -730,7 +766,10 @@ export function DashboardFilters({
   const [showCustomDates, setShowCustomDates] = useState(false);
 
   // Detect current date preset
-  const currentPreset = useMemo(() => detectPreset(filters.dateRange), [filters.dateRange]);
+  const currentPreset = useMemo(
+    () => detectPreset(filters.dateRange),
+    [filters.dateRange],
+  );
 
   // Count active filters
   const activeFilterCount = useMemo(() => {
@@ -740,7 +779,8 @@ export function DashboardFilters({
     if (filters.dispositions.length > 0) count++;
     if (filters.sentiment.length > 0 && filters.sentiment.length < 3) count++;
     if (filters.qualityRange.min > 0 || filters.qualityRange.max < 100) count++;
-    if (filters.escalationRisk.length > 0 && filters.escalationRisk.length < 4) count++;
+    if (filters.escalationRisk.length > 0 && filters.escalationRisk.length < 4)
+      count++;
     return count;
   }, [filters, currentPreset]);
 
@@ -755,7 +795,7 @@ export function DashboardFilters({
         onChange({ ...filters, dateRange: newRange });
       }
     },
-    [filters, onChange]
+    [filters, onChange],
   );
 
   // Handle custom date change
@@ -766,7 +806,7 @@ export function DashboardFilters({
         dateRange: { ...filters.dateRange, [field]: value },
       });
     },
-    [filters, onChange]
+    [filters, onChange],
   );
 
   // Handle agent filter change
@@ -774,7 +814,7 @@ export function DashboardFilters({
     (selected: string[]) => {
       onChange({ ...filters, agents: selected });
     },
-    [filters, onChange]
+    [filters, onChange],
   );
 
   // Handle disposition filter change
@@ -782,7 +822,7 @@ export function DashboardFilters({
     (selected: string[]) => {
       onChange({ ...filters, dispositions: selected });
     },
-    [filters, onChange]
+    [filters, onChange],
   );
 
   // Handle sentiment filter change
@@ -790,7 +830,7 @@ export function DashboardFilters({
     (selected: SentimentLevel[]) => {
       onChange({ ...filters, sentiment: selected });
     },
-    [filters, onChange]
+    [filters, onChange],
   );
 
   // Handle quality range change
@@ -798,7 +838,7 @@ export function DashboardFilters({
     (range: { min: number; max: number }) => {
       onChange({ ...filters, qualityRange: range });
     },
-    [filters, onChange]
+    [filters, onChange],
   );
 
   // Handle escalation filter change
@@ -806,7 +846,7 @@ export function DashboardFilters({
     (selected: EscalationRisk[]) => {
       onChange({ ...filters, escalationRisk: selected });
     },
-    [filters, onChange]
+    [filters, onChange],
   );
 
   // Filter content (shared between desktop and mobile)

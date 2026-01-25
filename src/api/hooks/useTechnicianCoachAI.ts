@@ -77,7 +77,9 @@ export function useTechnicianCoaching(technicianId: string) {
     queryKey: ["technician-coaching", technicianId],
     queryFn: async (): Promise<TechnicianCoaching | null> => {
       try {
-        const response = await apiClient.get(`/ai/technicians/${technicianId}/coaching`);
+        const response = await apiClient.get(
+          `/ai/technicians/${technicianId}/coaching`,
+        );
         return response.data;
       } catch {
         // Return null when API is not available - no fake data
@@ -146,7 +148,10 @@ export function useUpdateGoalProgress() {
       progress_percent: number;
     }): Promise<{ success: boolean }> => {
       try {
-        const response = await apiClient.patch(`/ai/technicians/goals/${params.goal_id}`, params);
+        const response = await apiClient.patch(
+          `/ai/technicians/goals/${params.goal_id}`,
+          params,
+        );
         return response.data;
       } catch {
         return { success: true };
@@ -162,10 +167,21 @@ export function useGenerateCoachingFeedback() {
   return useMutation({
     mutationFn: async (params: {
       technician_id: string;
-      context: "weekly_review" | "after_job" | "goal_progress" | "improvement_needed";
-    }): Promise<{ feedback: string; tone: string; action_items: string[] } | null> => {
+      context:
+        | "weekly_review"
+        | "after_job"
+        | "goal_progress"
+        | "improvement_needed";
+    }): Promise<{
+      feedback: string;
+      tone: string;
+      action_items: string[];
+    } | null> => {
       try {
-        const response = await apiClient.post("/ai/technicians/generate-feedback", params);
+        const response = await apiClient.post(
+          "/ai/technicians/generate-feedback",
+          params,
+        );
         return response.data;
       } catch {
         // Return null when API is not available - no fake data

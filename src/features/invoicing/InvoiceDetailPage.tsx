@@ -65,7 +65,9 @@ function AIPaymentPrediction({ invoice }: { invoice: Invoice }) {
   function generateDemoPrediction(inv: Invoice) {
     const dueDate = inv.due_date ? new Date(inv.due_date) : new Date();
     const today = new Date();
-    const daysUntilDue = Math.ceil((dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24));
+    const daysUntilDue = Math.ceil(
+      (dueDate.getTime() - today.getTime()) / (1000 * 60 * 60 * 24),
+    );
     const amount = inv.total || 0;
 
     // Simulate prediction based on invoice data
@@ -90,9 +92,11 @@ function AIPaymentPrediction({ invoice }: { invoice: Invoice }) {
 
     let recommendation = "";
     if (riskLevel === "high") {
-      recommendation = "Consider sending a personal follow-up call or offering a payment plan.";
+      recommendation =
+        "Consider sending a personal follow-up call or offering a payment plan.";
     } else if (riskLevel === "medium") {
-      recommendation = "Send a friendly payment reminder email with payment link.";
+      recommendation =
+        "Send a friendly payment reminder email with payment link.";
     } else {
       recommendation = "Payment expected on time. No action needed.";
     }
@@ -116,7 +120,8 @@ function AIPaymentPrediction({ invoice }: { invoice: Invoice }) {
         {!showPrediction ? (
           <div className="space-y-3">
             <p className="text-sm text-text-secondary">
-              AI can predict when this invoice will be paid and recommend actions.
+              AI can predict when this invoice will be paid and recommend
+              actions.
             </p>
             <Button
               size="sm"
@@ -130,19 +135,29 @@ function AIPaymentPrediction({ invoice }: { invoice: Invoice }) {
         ) : prediction ? (
           <div className="space-y-4">
             <div className="flex items-center justify-between">
-              <span className="text-sm text-text-muted">Payment Likelihood</span>
-              <span className={`font-bold ${
-                prediction.likelihood >= 70 ? "text-success" :
-                prediction.likelihood >= 40 ? "text-warning" : "text-danger"
-              }`}>
+              <span className="text-sm text-text-muted">
+                Payment Likelihood
+              </span>
+              <span
+                className={`font-bold ${
+                  prediction.likelihood >= 70
+                    ? "text-success"
+                    : prediction.likelihood >= 40
+                      ? "text-warning"
+                      : "text-danger"
+                }`}
+              >
                 {prediction.likelihood}%
               </span>
             </div>
             <div className="w-full bg-bg-muted rounded-full h-2">
               <div
                 className={`h-2 rounded-full ${
-                  prediction.likelihood >= 70 ? "bg-success" :
-                  prediction.likelihood >= 40 ? "bg-warning" : "bg-danger"
+                  prediction.likelihood >= 70
+                    ? "bg-success"
+                    : prediction.likelihood >= 40
+                      ? "bg-warning"
+                      : "bg-danger"
                 }`}
                 style={{ width: `${prediction.likelihood}%` }}
               />
@@ -155,17 +170,23 @@ function AIPaymentPrediction({ invoice }: { invoice: Invoice }) {
             </div>
             <div className="flex items-center justify-between text-sm">
               <span className="text-text-muted">Risk Level</span>
-              <span className={`px-2 py-0.5 rounded text-xs font-medium ${
-                prediction.riskLevel === "low" ? "bg-success/20 text-success" :
-                prediction.riskLevel === "medium" ? "bg-warning/20 text-warning" :
-                "bg-danger/20 text-danger"
-              }`}>
+              <span
+                className={`px-2 py-0.5 rounded text-xs font-medium ${
+                  prediction.riskLevel === "low"
+                    ? "bg-success/20 text-success"
+                    : prediction.riskLevel === "medium"
+                      ? "bg-warning/20 text-warning"
+                      : "bg-danger/20 text-danger"
+                }`}
+              >
                 {prediction.riskLevel.toUpperCase()}
               </span>
             </div>
             <div className="pt-2 border-t border-border">
               <p className="text-xs text-text-muted mb-1">Recommendation:</p>
-              <p className="text-sm text-text-secondary">{prediction.recommendation}</p>
+              <p className="text-sm text-text-secondary">
+                {prediction.recommendation}
+              </p>
             </div>
             <Button
               size="sm"

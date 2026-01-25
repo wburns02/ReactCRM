@@ -138,7 +138,12 @@ export function AppLayout() {
       badge: "GPU",
       items: [
         { path: "/ai-assistant", label: "AI Assistant", icon: "✨" },
-        { path: "/call-intelligence", label: "Call Intelligence", icon: "📞", badge: "NEW" },
+        {
+          path: "/call-intelligence",
+          label: "Call Intelligence",
+          icon: "📞",
+          badge: "NEW",
+        },
         { path: "/analytics/bi", label: "BI Dashboard", icon: "📊" },
         { path: "/analytics/ftfr", label: "First-Time Fix Rate", icon: "✔" },
         {

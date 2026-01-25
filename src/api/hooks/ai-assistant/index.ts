@@ -10,14 +10,14 @@ export {
   useAIQuery,
   useAIActions,
   useAIHealth,
-  aiAssistantKeys
-} from './useAIAssistant';
+  aiAssistantKeys,
+} from "./useAIAssistant";
 
 // Core orchestration
-export { AIOrchestratorImpl } from './AIOrchestrator';
-export { QueryProcessor } from './QueryProcessor';
-export { ContextManager, useContextManager } from './ContextManager';
-export { ActionOrchestrator } from './ActionOrchestrator';
+export { AIOrchestratorImpl } from "./AIOrchestrator";
+export { QueryProcessor } from "./QueryProcessor";
+export { ContextManager, useContextManager } from "./ContextManager";
+export { ActionOrchestrator } from "./ActionOrchestrator";
 
 // Base adapter system
 export {
@@ -25,37 +25,37 @@ export {
   type BaseAIAdapter,
   type UnifiedAIResponse,
   type AdapterSchema,
-  type AdapterExample
-} from './adapters/BaseAIAdapter';
+  type AdapterExample,
+} from "./adapters/BaseAIAdapter";
 
 // Specific adapters
 export {
   ActivityAIAdapter,
   validateActivityQuery,
   type ActivityQuery,
-  type ActivityResult
-} from './adapters/ActivityAIAdapter';
+  type ActivityResult,
+} from "./adapters/ActivityAIAdapter";
 
 export {
   DispatchAIAdapter,
   validateDispatchQuery,
   type DispatchQuery,
-  type DispatchResult
-} from './adapters/DispatchAIAdapter';
+  type DispatchResult,
+} from "./adapters/DispatchAIAdapter";
 
 export {
   TicketAIAdapter,
   validateTicketQuery,
   type TicketQuery,
-  type TicketResult
-} from './adapters/TicketAIAdapter';
+  type TicketResult,
+} from "./adapters/TicketAIAdapter";
 
 export {
   SearchAIAdapter,
   validateSearchQuery,
   type SearchQuery,
-  type SearchResult
-} from './adapters/SearchAIAdapter';
+  type SearchResult,
+} from "./adapters/SearchAIAdapter";
 
 // Re-export types for convenience
 export type {
@@ -74,5 +74,5 @@ export type {
   ActionableInsight,
   AISuggestion,
   AIPreferences,
-  ExecutiveModeSettings
-} from '@/api/types/aiAssistant';
+  ExecutiveModeSettings,
+} from "@/api/types/aiAssistant";

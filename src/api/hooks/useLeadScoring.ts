@@ -70,9 +70,13 @@ export function useLeadScore(prospectId: string | undefined) {
  */
 export function useBatchLeadScoring() {
   return useMutation({
-    mutationFn: async (prospectIds: string[]): Promise<Record<string, LeadScoreResult>> => {
+    mutationFn: async (
+      prospectIds: string[],
+    ): Promise<Record<string, LeadScoreResult>> => {
       try {
-        const response = await apiClient.post("/ai/leads/batch-score", { prospect_ids: prospectIds });
+        const response = await apiClient.post("/ai/leads/batch-score", {
+          prospect_ids: prospectIds,
+        });
         return response.data;
       } catch {
         return {};
@@ -91,7 +95,9 @@ export function useConversionPrediction(prospectId: string | undefined) {
       if (!prospectId) return null;
 
       try {
-        const response = await apiClient.get(`/ai/leads/${prospectId}/conversion-prediction`);
+        const response = await apiClient.get(
+          `/ai/leads/${prospectId}/conversion-prediction`,
+        );
         return response.data;
       } catch {
         return {
@@ -118,7 +124,9 @@ export function useLeadRecommendations(prospectId: string | undefined) {
       if (!prospectId) return null;
 
       try {
-        const response = await apiClient.get(`/ai/leads/${prospectId}/recommendations`);
+        const response = await apiClient.get(
+          `/ai/leads/${prospectId}/recommendations`,
+        );
         return response.data;
       } catch {
         return {
@@ -129,10 +137,18 @@ export function useLeadRecommendations(prospectId: string | undefined) {
             "Address pricing questions",
           ],
           objection_handlers: [
-            { objection: "Too expensive", response: "Highlight ROI and long-term value" },
-            { objection: "Need to think about it", response: "Offer a trial or pilot program" },
+            {
+              objection: "Too expensive",
+              response: "Highlight ROI and long-term value",
+            },
+            {
+              objection: "Need to think about it",
+              response: "Offer a trial or pilot program",
+            },
           ],
-          optimal_follow_up_date: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+          optimal_follow_up_date: new Date(Date.now() + 2 * 24 * 60 * 60 * 1000)
+            .toISOString()
+            .split("T")[0],
         };
       }
     },
@@ -175,7 +191,12 @@ function generateDemoScore(prospect: ProspectData | null): LeadScoreResult {
     score += sourceScore;
     factors.push({
       name: "Lead Source",
-      impact: sourceScore > 10 ? "positive" : sourceScore > 5 ? "neutral" : "negative",
+      impact:
+        sourceScore > 10
+          ? "positive"
+          : sourceScore > 5
+            ? "neutral"
+            : "negative",
       weight: sourceScore,
       description: `${prospect.lead_source} leads have ${sourceScore > 10 ? "high" : "moderate"} conversion rates`,
     });
@@ -195,7 +216,8 @@ function generateDemoScore(prospect: ProspectData | null): LeadScoreResult {
   score += stageScore;
   factors.push({
     name: "Sales Stage",
-    impact: stageScore > 10 ? "positive" : stageScore > 0 ? "neutral" : "negative",
+    impact:
+      stageScore > 10 ? "positive" : stageScore > 0 ? "neutral" : "negative",
     weight: stageScore,
     description: `${prospect.prospect_stage.replace("_", " ")} stage indicates ${stageScore > 10 ? "strong" : "early"} interest`,
   });
@@ -242,7 +264,8 @@ function generateDemoScore(prospect: ProspectData | null): LeadScoreResult {
 
   // Age of lead (newer is better)
   const daysSinceCreation = Math.floor(
-    (Date.now() - new Date(prospect.created_at).getTime()) / (1000 * 60 * 60 * 24)
+    (Date.now() - new Date(prospect.created_at).getTime()) /
+      (1000 * 60 * 60 * 24),
   );
   if (daysSinceCreation < 7) {
     score += 10;
@@ -297,13 +320,17 @@ function generateDemoScore(prospect: ProspectData | null): LeadScoreResult {
   const recommended_actions: string[] = [];
   if (!hasPhone) recommended_actions.push("Get phone number");
   if (!hasEmail) recommended_actions.push("Get email address");
-  if (prospect.prospect_stage === "new_lead") recommended_actions.push("Make initial contact within 24h");
-  if (prospect.prospect_stage === "qualified") recommended_actions.push("Send proposal");
-  if (prospect.prospect_stage === "quoted") recommended_actions.push("Schedule follow-up call");
+  if (prospect.prospect_stage === "new_lead")
+    recommended_actions.push("Make initial contact within 24h");
+  if (prospect.prospect_stage === "qualified")
+    recommended_actions.push("Send proposal");
+  if (prospect.prospect_stage === "quoted")
+    recommended_actions.push("Schedule follow-up call");
   if (daysSinceCreation > 14 && prospect.prospect_stage === "contacted") {
     recommended_actions.push("Re-engage with new offer");
   }
-  if (recommended_actions.length === 0) recommended_actions.push("Continue nurturing relationship");
+  if (recommended_actions.length === 0)
+    recommended_actions.push("Continue nurturing relationship");
 
   return {
     score,

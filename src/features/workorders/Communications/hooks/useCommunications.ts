@@ -109,9 +109,9 @@ export function useSendEmail() {
       // Payload must match backend SendEmailRequest schema: to, subject, body
       const payload = {
         customer_id: customerId ? parseInt(customerId, 10) : undefined,
-        to,  // Backend expects "to" not "email"
+        to, // Backend expects "to" not "email"
         subject,
-        body,  // Backend expects "body" not "message"
+        body, // Backend expects "body" not "message"
         template_id: templateId,
       };
       const response = await apiClient.post<SendNotificationResponse>(

@@ -64,7 +64,8 @@ export function TechnicianDetailPage() {
   const assignedWorkOrders = useMemo(() => {
     if (!workOrdersData?.items || !id) return [];
     return workOrdersData.items.filter(
-      (wo) => wo.technician_id === id || wo.assigned_technician === technicianName,
+      (wo) =>
+        wo.technician_id === id || wo.assigned_technician === technicianName,
     );
   }, [workOrdersData, id, technicianName]);
 
@@ -92,7 +93,8 @@ export function TechnicianDetailPage() {
   // Modal states
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
-  const [jobsModalCategory, setJobsModalCategory] = useState<JobCategory | null>(null);
+  const [jobsModalCategory, setJobsModalCategory] =
+    useState<JobCategory | null>(null);
 
   // Handlers for performance stats clicks
   const handlePumpOutsClick = useCallback(() => {

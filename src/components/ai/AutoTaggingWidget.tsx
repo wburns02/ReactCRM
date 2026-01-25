@@ -16,7 +16,12 @@ interface AutoTaggingWidgetProps {
  * AI-powered auto-tagging widget
  * Suggests and applies tags based on entity content
  */
-export function AutoTaggingWidget({ entityType, entityId, content, onTagsApplied }: AutoTaggingWidgetProps) {
+export function AutoTaggingWidget({
+  entityType,
+  entityId,
+  content,
+  onTagsApplied,
+}: AutoTaggingWidgetProps) {
   const [showSuggestions, setShowSuggestions] = useState(false);
   const [selectedTags, setSelectedTags] = useState<Set<string>>(new Set());
 
@@ -29,7 +34,7 @@ export function AutoTaggingWidget({ entityType, entityId, content, onTagsApplied
   const applyTags = useApplyTags();
 
   const handleToggleTag = (tag: string) => {
-    setSelectedTags(prev => {
+    setSelectedTags((prev) => {
       const newSet = new Set(prev);
       if (newSet.has(tag)) {
         newSet.delete(tag);
@@ -56,12 +61,18 @@ export function AutoTaggingWidget({ entityType, entityId, content, onTagsApplied
 
   const getCategoryColor = (category: string) => {
     switch (category) {
-      case "priority": return "bg-red-500/20 text-red-400 border-red-500/30";
-      case "customer": return "bg-blue-500/20 text-blue-400 border-blue-500/30";
-      case "service": return "bg-green-500/20 text-green-400 border-green-500/30";
-      case "location": return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
-      case "equipment": return "bg-purple-500/20 text-purple-400 border-purple-500/30";
-      default: return "bg-gray-500/20 text-gray-400 border-gray-500/30";
+      case "priority":
+        return "bg-red-500/20 text-red-400 border-red-500/30";
+      case "customer":
+        return "bg-blue-500/20 text-blue-400 border-blue-500/30";
+      case "service":
+        return "bg-green-500/20 text-green-400 border-green-500/30";
+      case "location":
+        return "bg-yellow-500/20 text-yellow-400 border-yellow-500/30";
+      case "equipment":
+        return "bg-purple-500/20 text-purple-400 border-purple-500/30";
+      default:
+        return "bg-gray-500/20 text-gray-400 border-gray-500/30";
     }
   };
 
@@ -80,7 +91,9 @@ export function AutoTaggingWidget({ entityType, entityId, content, onTagsApplied
   return (
     <div className="bg-bg-card border border-purple-500/30 rounded-lg p-3">
       <div className="flex items-center justify-between mb-2">
-        <span className="text-xs text-purple-400 font-medium">AI Tag Suggestions</span>
+        <span className="text-xs text-purple-400 font-medium">
+          AI Tag Suggestions
+        </span>
         <button
           onClick={() => setShowSuggestions(false)}
           className="text-text-muted hover:text-text-primary text-xs"
@@ -108,14 +121,18 @@ export function AutoTaggingWidget({ entityType, entityId, content, onTagsApplied
                 }`}
               >
                 <div className="flex items-center justify-between mb-1">
-                  <span className={`text-xs px-1.5 py-0.5 rounded border ${getCategoryColor(suggestion.category)}`}>
+                  <span
+                    className={`text-xs px-1.5 py-0.5 rounded border ${getCategoryColor(suggestion.category)}`}
+                  >
                     {suggestion.tag}
                   </span>
                   <span className="text-xs text-text-muted">
                     {Math.round(suggestion.confidence * 100)}%
                   </span>
                 </div>
-                <p className="text-xs text-text-secondary">{suggestion.reason}</p>
+                <p className="text-xs text-text-secondary">
+                  {suggestion.reason}
+                </p>
               </div>
             ))}
           </div>
@@ -126,11 +143,15 @@ export function AutoTaggingWidget({ entityType, entityId, content, onTagsApplied
             disabled={selectedTags.size === 0 || applyTags.isPending}
             className="w-full"
           >
-            {applyTags.isPending ? "Applying..." : `Apply ${selectedTags.size} Tag${selectedTags.size !== 1 ? "s" : ""}`}
+            {applyTags.isPending
+              ? "Applying..."
+              : `Apply ${selectedTags.size} Tag${selectedTags.size !== 1 ? "s" : ""}`}
           </Button>
         </>
       ) : (
-        <p className="text-xs text-text-muted py-2">No tag suggestions available.</p>
+        <p className="text-xs text-text-muted py-2">
+          No tag suggestions available.
+        </p>
       )}
     </div>
   );

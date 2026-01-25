@@ -114,10 +114,15 @@ export function useAutoScheduleMaintenance() {
       optimize_routes?: boolean;
     }): Promise<AutoScheduleResult> => {
       try {
-        const response = await apiClient.post("/ai/maintenance/auto-schedule", params);
+        const response = await apiClient.post(
+          "/ai/maintenance/auto-schedule",
+          params,
+        );
         return response.data;
       } catch {
-        return generateDemoAutoScheduleResult(params.prediction_ids?.length || 5);
+        return generateDemoAutoScheduleResult(
+          params.prediction_ids?.length || 5,
+        );
       }
     },
   });
@@ -134,7 +139,10 @@ export function useBatchOptimization() {
       balance_technician_load?: boolean;
     }): Promise<BatchOptimizationResult> => {
       try {
-        const response = await apiClient.post("/ai/maintenance/batch-optimize", params);
+        const response = await apiClient.post(
+          "/ai/maintenance/batch-optimize",
+          params,
+        );
         return response.data;
       } catch {
         return {
@@ -159,21 +167,37 @@ export function useEquipmentHealthPrediction(equipmentId: string) {
     queryKey: ["equipment-health-prediction", equipmentId],
     queryFn: async () => {
       try {
-        const response = await apiClient.get(`/ai/equipment/${equipmentId}/health-prediction`);
+        const response = await apiClient.get(
+          `/ai/equipment/${equipmentId}/health-prediction`,
+        );
         return response.data;
       } catch {
         return {
           equipment_id: equipmentId,
           health_score: 78,
-          predicted_failure_date: new Date(Date.now() + 90 * 24 * 60 * 60 * 1000).toISOString(),
+          predicted_failure_date: new Date(
+            Date.now() + 90 * 24 * 60 * 60 * 1000,
+          ).toISOString(),
           failure_probability: 0.23,
           recommended_actions: [
-            { action: "Schedule preventive pump inspection", urgency: "medium", cost_estimate: 150 },
-            { action: "Replace filter media", urgency: "low", cost_estimate: 85 },
+            {
+              action: "Schedule preventive pump inspection",
+              urgency: "medium",
+              cost_estimate: 150,
+            },
+            {
+              action: "Replace filter media",
+              urgency: "low",
+              cost_estimate: 85,
+            },
           ],
           risk_factors: [
             { factor: "Age", impact: "high", value: "8 years" },
-            { factor: "Usage frequency", impact: "medium", value: "Above average" },
+            {
+              factor: "Usage frequency",
+              impact: "medium",
+              value: "Above average",
+            },
             { factor: "Last service", impact: "low", value: "6 months ago" },
           ],
         };
@@ -187,16 +211,58 @@ export function useEquipmentHealthPrediction(equipmentId: string) {
 /**
  * Generate demo predictions
  */
-function generateDemoPredictions(daysAhead: number): MaintenancePredictionsResponse {
+function generateDemoPredictions(
+  daysAhead: number,
+): MaintenancePredictionsResponse {
   const customers = [
-    { id: "c1", name: "Johnson Residence", equipment: "Septic Tank", type: "Pumping" },
-    { id: "c2", name: "Martinez Family", equipment: "Aerobic System", type: "Inspection" },
-    { id: "c3", name: "Smith Commercial", equipment: "Grease Trap", type: "Cleaning" },
-    { id: "c4", name: "Wilson Property", equipment: "Septic Tank", type: "Repair" },
-    { id: "c5", name: "Davis Restaurant", equipment: "Grease Trap", type: "Pumping" },
-    { id: "c6", name: "Thompson Home", equipment: "Pump Station", type: "Maintenance" },
-    { id: "c7", name: "Garcia Business", equipment: "Septic Tank", type: "Inspection" },
-    { id: "c8", name: "Brown Residence", equipment: "Aerobic System", type: "Service" },
+    {
+      id: "c1",
+      name: "Johnson Residence",
+      equipment: "Septic Tank",
+      type: "Pumping",
+    },
+    {
+      id: "c2",
+      name: "Martinez Family",
+      equipment: "Aerobic System",
+      type: "Inspection",
+    },
+    {
+      id: "c3",
+      name: "Smith Commercial",
+      equipment: "Grease Trap",
+      type: "Cleaning",
+    },
+    {
+      id: "c4",
+      name: "Wilson Property",
+      equipment: "Septic Tank",
+      type: "Repair",
+    },
+    {
+      id: "c5",
+      name: "Davis Restaurant",
+      equipment: "Grease Trap",
+      type: "Pumping",
+    },
+    {
+      id: "c6",
+      name: "Thompson Home",
+      equipment: "Pump Station",
+      type: "Maintenance",
+    },
+    {
+      id: "c7",
+      name: "Garcia Business",
+      equipment: "Septic Tank",
+      type: "Inspection",
+    },
+    {
+      id: "c8",
+      name: "Brown Residence",
+      equipment: "Aerobic System",
+      type: "Service",
+    },
   ];
 
   const predictions: MaintenancePredictionItem[] = customers.map((c, i) => ({
@@ -206,14 +272,28 @@ function generateDemoPredictions(daysAhead: number): MaintenancePredictionsRespo
     equipment_id: `eq-${c.id}`,
     equipment_type: c.equipment,
     service_type: c.type,
-    predicted_date: new Date(Date.now() + (i + 1) * (daysAhead / 8) * 24 * 60 * 60 * 1000).toISOString(),
+    predicted_date: new Date(
+      Date.now() + (i + 1) * (daysAhead / 8) * 24 * 60 * 60 * 1000,
+    ).toISOString(),
     confidence: 0.7 + Math.random() * 0.25,
     priority: i < 2 ? "critical" : i < 4 ? "high" : i < 6 ? "medium" : "low",
     estimated_revenue: 250 + Math.floor(Math.random() * 500),
     factors: [
-      { name: "Time since last service", weight: 0.4, value: `${Math.floor(Math.random() * 12) + 6} months` },
-      { name: "Equipment age", weight: 0.3, value: `${Math.floor(Math.random() * 10) + 2} years` },
-      { name: "Usage pattern", weight: 0.3, value: i % 2 === 0 ? "Heavy" : "Normal" },
+      {
+        name: "Time since last service",
+        weight: 0.4,
+        value: `${Math.floor(Math.random() * 12) + 6} months`,
+      },
+      {
+        name: "Equipment age",
+        weight: 0.3,
+        value: `${Math.floor(Math.random() * 10) + 2} years`,
+      },
+      {
+        name: "Usage pattern",
+        weight: 0.3,
+        value: i % 2 === 0 ? "Heavy" : "Normal",
+      },
     ],
     recommended_technician_id: `tech-${(i % 4) + 1}`,
     recommended_time_slot: i % 2 === 0 ? "morning" : "afternoon",
@@ -223,9 +303,16 @@ function generateDemoPredictions(daysAhead: number): MaintenancePredictionsRespo
     predictions,
     summary: {
       total_predictions: predictions.length,
-      high_priority_count: predictions.filter(p => p.priority === "high" || p.priority === "critical").length,
-      total_estimated_revenue: predictions.reduce((sum, p) => sum + p.estimated_revenue, 0),
-      average_confidence: predictions.reduce((sum, p) => sum + p.confidence, 0) / predictions.length,
+      high_priority_count: predictions.filter(
+        (p) => p.priority === "high" || p.priority === "critical",
+      ).length,
+      total_estimated_revenue: predictions.reduce(
+        (sum, p) => sum + p.estimated_revenue,
+        0,
+      ),
+      average_confidence:
+        predictions.reduce((sum, p) => sum + p.confidence, 0) /
+        predictions.length,
       by_equipment_type: {
         "Septic Tank": 3,
         "Grease Trap": 2,
@@ -247,7 +334,12 @@ function generateDemoPredictions(daysAhead: number): MaintenancePredictionsRespo
  */
 function generateDemoAutoScheduleResult(count: number): AutoScheduleResult {
   const scheduledJobs: ScheduledJob[] = [];
-  const technicians = ["Mike Johnson", "Sarah Williams", "Tom Davis", "Lisa Chen"];
+  const technicians = [
+    "Mike Johnson",
+    "Sarah Williams",
+    "Tom Davis",
+    "Lisa Chen",
+  ];
 
   for (let i = 0; i < count; i++) {
     const date = new Date(Date.now() + (i + 1) * 2 * 24 * 60 * 60 * 1000);

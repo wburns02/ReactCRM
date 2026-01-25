@@ -9,19 +9,24 @@ import {
   type UnifiedAIResponse,
   type AdapterSchema,
   type AdapterExample,
-  type ActionableInsight
-} from './BaseAIAdapter';
+  type ActionableInsight,
+} from "./BaseAIAdapter";
 import type {
   AIDomain,
   AICapability,
   AIContext,
-  HealthStatus
-} from '@/api/types/aiAssistant';
+  HealthStatus,
+} from "@/api/types/aiAssistant";
 
 // ===== SEARCH QUERY TYPES =====
 
 export interface SearchQuery {
-  operation: 'semantic_search' | 'entity_lookup' | 'suggestion' | 'recent_items' | 'advanced_filter';
+  operation:
+    | "semantic_search"
+    | "entity_lookup"
+    | "suggestion"
+    | "recent_items"
+    | "advanced_filter";
   parameters: SearchParameters;
 }
 
@@ -32,10 +37,17 @@ export interface SearchParameters {
   limit?: number;
   offset?: number;
   include_archived?: boolean;
-  sort_by?: 'relevance' | 'date' | 'name' | 'activity';
+  sort_by?: "relevance" | "date" | "name" | "activity";
 }
 
-export type EntityType = 'customer' | 'work_order' | 'ticket' | 'technician' | 'invoice' | 'equipment' | 'document';
+export type EntityType =
+  | "customer"
+  | "work_order"
+  | "ticket"
+  | "technician"
+  | "invoice"
+  | "equipment"
+  | "document";
 
 export interface SearchFilters {
   date_range?: { start: string; end: string };
@@ -68,11 +80,16 @@ export interface SearchHit {
 export interface SearchFacets {
   by_type: Record<EntityType, number>;
   by_status: Record<string, number>;
-  by_date: { recent: number; this_week: number; this_month: number; older: number };
+  by_date: {
+    recent: number;
+    this_week: number;
+    this_month: number;
+    older: number;
+  };
 }
 
 export interface SearchSuggestion {
-  type: 'query' | 'filter' | 'entity';
+  type: "query" | "filter" | "entity";
   text: string;
   description?: string;
   action?: { type: string; payload: Record<string, unknown> };
@@ -93,16 +110,22 @@ export interface QuickAction {
 
 // ===== SEARCH AI ADAPTER =====
 
-export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult> {
-  readonly domain: AIDomain = 'search';
-  readonly version = '1.0.0';
+export class SearchAIAdapter extends BaseAIAdapterImpl<
+  SearchQuery,
+  SearchResult
+> {
+  readonly domain: AIDomain = "search";
+  readonly version = "1.0.0";
   readonly capabilities: AICapability[] = [
-    'query',
-    'recommendation',
-    'classification'
+    "query",
+    "recommendation",
+    "classification",
   ];
 
-  async query(request: SearchQuery, context: AIContext): Promise<UnifiedAIResponse<SearchResult>> {
+  async query(
+    request: SearchQuery,
+    context: AIContext,
+  ): Promise<UnifiedAIResponse<SearchResult>> {
     const startTime = Date.now();
 
     try {
@@ -113,8 +136,14 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
       const response = this.transformToUnified(result, context);
 
       // Add search-specific insights
-      response.actionable_insights = this.generateSearchInsights(result, request);
-      response.follow_up_questions = this.generateFollowUpQuestions(result, request);
+      response.actionable_insights = this.generateSearchInsights(
+        result,
+        request,
+      );
+      response.follow_up_questions = this.generateFollowUpQuestions(
+        result,
+        request,
+      );
 
       // Add processing time
       response.processing.duration_ms = Date.now() - startTime;
@@ -126,79 +155,88 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
   }
 
   protected getSourceHookName(): string {
-    return 'useSmartSearch';
+    return "useSmartSearch";
   }
 
   getSchema(): AdapterSchema {
     return {
       query_schema: {
-        type: 'object',
+        type: "object",
         properties: {
           operation: {
-            type: 'string',
-            enum: ['semantic_search', 'entity_lookup', 'suggestion', 'recent_items', 'advanced_filter']
+            type: "string",
+            enum: [
+              "semantic_search",
+              "entity_lookup",
+              "suggestion",
+              "recent_items",
+              "advanced_filter",
+            ],
           },
           parameters: {
-            type: 'object',
+            type: "object",
             properties: {
-              query: { type: 'string' },
-              entity_types: { type: 'array', items: { type: 'string' } },
-              filters: { type: 'object' },
-              limit: { type: 'number' },
-              offset: { type: 'number' },
-              include_archived: { type: 'boolean' },
-              sort_by: { type: 'string', enum: ['relevance', 'date', 'name', 'activity'] }
+              query: { type: "string" },
+              entity_types: { type: "array", items: { type: "string" } },
+              filters: { type: "object" },
+              limit: { type: "number" },
+              offset: { type: "number" },
+              include_archived: { type: "boolean" },
+              sort_by: {
+                type: "string",
+                enum: ["relevance", "date", "name", "activity"],
+              },
             },
-            required: ['query']
-          }
+            required: ["query"],
+          },
         },
-        required: ['operation', 'parameters']
+        required: ["operation", "parameters"],
       },
       response_schema: {
-        type: 'object',
+        type: "object",
         properties: {
-          results: { type: 'array' },
-          total_count: { type: 'number' },
-          facets: { type: 'object' },
-          suggestions: { type: 'array' },
-          query_understanding: { type: 'object' }
-        }
-      }
+          results: { type: "array" },
+          total_count: { type: "number" },
+          facets: { type: "object" },
+          suggestions: { type: "array" },
+          query_understanding: { type: "object" },
+        },
+      },
     };
   }
 
   getExamples(): AdapterExample[] {
     return [
       {
-        name: 'Semantic customer search',
-        description: 'Search for customers using natural language',
+        name: "Semantic customer search",
+        description: "Search for customers using natural language",
         query: {
-          operation: 'semantic_search',
+          operation: "semantic_search",
           parameters: {
-            query: 'customers with HVAC issues this week',
-            entity_types: ['customer', 'work_order']
-          }
+            query: "customers with HVAC issues this week",
+            entity_types: ["customer", "work_order"],
+          },
         },
         expected_response: {
-          results: [{ title: 'Acme Corp', relevance_score: 0.95 }],
-          total_count: 15
-        }
+          results: [{ title: "Acme Corp", relevance_score: 0.95 }],
+          total_count: 15,
+        },
       },
       {
-        name: 'Quick entity lookup',
-        description: 'Look up a specific entity by ID or name',
+        name: "Quick entity lookup",
+        description: "Look up a specific entity by ID or name",
         query: {
-          operation: 'entity_lookup',
+          operation: "entity_lookup",
           parameters: {
-            query: 'WO-12345',
-            entity_types: ['work_order']
-          }
+            query: "WO-12345",
+            entity_types: ["work_order"],
+          },
         },
         expected_response: {
-          results: [{ id: 'WO-12345', title: 'HVAC Repair' }],
-          total_count: 1
-        }
-      }
+          results: [{ id: "WO-12345", title: "HVAC Repair" }],
+          total_count: 1,
+        },
+      },
     ];
   }
 
@@ -206,18 +244,18 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
 
   private async executeSearchOperation(
     request: SearchQuery,
-    context: AIContext
+    context: AIContext,
   ): Promise<SearchResult> {
     switch (request.operation) {
-      case 'semantic_search':
+      case "semantic_search":
         return this.performSemanticSearch(request.parameters, context);
-      case 'entity_lookup':
+      case "entity_lookup":
         return this.performEntityLookup(request.parameters, context);
-      case 'suggestion':
+      case "suggestion":
         return this.generateSuggestions(request.parameters, context);
-      case 'recent_items':
+      case "recent_items":
         return this.getRecentItems(request.parameters, context);
-      case 'advanced_filter':
+      case "advanced_filter":
         return this.performAdvancedFilter(request.parameters, context);
       default:
         return this.getDefaultResult();
@@ -226,7 +264,7 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
 
   private performSemanticSearch(
     params: SearchParameters,
-    context: AIContext
+    context: AIContext,
   ): SearchResult {
     const query = params.query.toLowerCase();
 
@@ -234,76 +272,106 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
     const results: SearchHit[] = [];
 
     // Search customers
-    if (!params.entity_types || params.entity_types.includes('customer')) {
+    if (!params.entity_types || params.entity_types.includes("customer")) {
       const customers = context.domain.customers || [];
       customers.forEach((c, i) => {
-        if (c.name.toLowerCase().includes(query) || query.includes('customer')) {
+        if (
+          c.name.toLowerCase().includes(query) ||
+          query.includes("customer")
+        ) {
           results.push({
             id: c.id,
-            entity_type: 'customer',
+            entity_type: "customer",
             title: c.name,
             subtitle: `${c.tier} customer`,
             description: `Risk: ${c.risk_level} | Interactions: ${c.recent_interactions}`,
             relevance_score: 0.95 - i * 0.05,
             metadata: { tier: c.tier, risk: c.risk_level },
             actions: [
-              { label: 'View', action: { type: 'navigate', payload: { path: `/customers/${c.id}` } } },
-              { label: 'Call', action: { type: 'call', payload: { customer_id: c.id } } }
-            ]
+              {
+                label: "View",
+                action: {
+                  type: "navigate",
+                  payload: { path: `/customers/${c.id}` },
+                },
+              },
+              {
+                label: "Call",
+                action: { type: "call", payload: { customer_id: c.id } },
+              },
+            ],
           });
         }
       });
     }
 
     // Search work orders
-    if (!params.entity_types || params.entity_types.includes('work_order')) {
+    if (!params.entity_types || params.entity_types.includes("work_order")) {
       const workOrders = context.domain.workOrders || [];
       workOrders.forEach((wo, i) => {
         if (
           wo.service_type.toLowerCase().includes(query) ||
           wo.status.toLowerCase().includes(query) ||
-          query.includes('work order') ||
-          query.includes('job')
+          query.includes("work order") ||
+          query.includes("job")
         ) {
           results.push({
             id: wo.id,
-            entity_type: 'work_order',
+            entity_type: "work_order",
             title: `${wo.service_type} - ${wo.id}`,
             subtitle: `Status: ${wo.status}`,
-            description: `Priority: ${wo.priority} | Scheduled: ${wo.scheduled_date || 'Unscheduled'}`,
-            relevance_score: 0.90 - i * 0.05,
+            description: `Priority: ${wo.priority} | Scheduled: ${wo.scheduled_date || "Unscheduled"}`,
+            relevance_score: 0.9 - i * 0.05,
             metadata: { status: wo.status, priority: wo.priority },
             actions: [
-              { label: 'View', action: { type: 'navigate', payload: { path: `/work-orders/${wo.id}` } } },
-              { label: 'Schedule', action: { type: 'schedule', payload: { work_order_id: wo.id } } }
-            ]
+              {
+                label: "View",
+                action: {
+                  type: "navigate",
+                  payload: { path: `/work-orders/${wo.id}` },
+                },
+              },
+              {
+                label: "Schedule",
+                action: { type: "schedule", payload: { work_order_id: wo.id } },
+              },
+            ],
           });
         }
       });
     }
 
     // Search technicians
-    if (!params.entity_types || params.entity_types.includes('technician')) {
+    if (!params.entity_types || params.entity_types.includes("technician")) {
       const technicians = context.domain.technicians || [];
       technicians.forEach((t, i) => {
         if (
           t.name.toLowerCase().includes(query) ||
-          t.skills.some(s => s.toLowerCase().includes(query)) ||
-          query.includes('technician') ||
-          query.includes('tech')
+          t.skills.some((s) => s.toLowerCase().includes(query)) ||
+          query.includes("technician") ||
+          query.includes("tech")
         ) {
           results.push({
             id: t.id,
-            entity_type: 'technician',
+            entity_type: "technician",
             title: t.name,
             subtitle: `Status: ${t.status}`,
-            description: `Skills: ${t.skills.join(', ')}`,
+            description: `Skills: ${t.skills.join(", ")}`,
             relevance_score: 0.88 - i * 0.05,
             metadata: { status: t.status, skills: t.skills },
             actions: [
-              { label: 'View', action: { type: 'navigate', payload: { path: `/technicians/${t.id}` } } },
-              { label: 'Assign Job', action: { type: 'assign', payload: { technician_id: t.id } } }
-            ]
+              {
+                label: "View",
+                action: {
+                  type: "navigate",
+                  payload: { path: `/technicians/${t.id}` },
+                },
+              },
+              {
+                label: "Assign Job",
+                action: { type: "assign", payload: { technician_id: t.id } },
+              },
+            ],
           });
         }
       });
@@ -313,30 +381,39 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
     if (results.length === 0) {
       results.push(
         {
-          id: 'demo-1',
-          entity_type: 'customer',
-          title: 'Acme Corporation',
-          subtitle: 'VIP Customer',
-          description: 'Last service: 2 days ago | 5 active work orders',
+          id: "demo-1",
+          entity_type: "customer",
+          title: "Acme Corporation",
+          subtitle: "VIP Customer",
+          description: "Last service: 2 days ago | 5 active work orders",
           highlight: `Match for "${query}"`,
           relevance_score: 0.95,
-          metadata: { tier: 'vip', active_orders: 5 },
+          metadata: { tier: "vip", active_orders: 5 },
           actions: [
-            { label: 'View', action: { type: 'navigate', payload: { path: '/customers/1' } } }
-          ]
+            {
+              label: "View",
+              action: { type: "navigate", payload: { path: "/customers/1" } },
+            },
+          ],
         },
         {
-          id: 'demo-2',
-          entity_type: 'work_order',
-          title: 'HVAC Installation - WO-5678',
-          subtitle: 'Scheduled for tomorrow',
-          description: 'Customer: Acme Corp | Tech: Mike Johnson',
+          id: "demo-2",
+          entity_type: "work_order",
+          title: "HVAC Installation - WO-5678",
+          subtitle: "Scheduled for tomorrow",
+          description: "Customer: Acme Corp | Tech: Mike Johnson",
           relevance_score: 0.88,
-          metadata: { status: 'scheduled', priority: 'high' },
+          metadata: { status: "scheduled", priority: "high" },
           actions: [
-            { label: 'View', action: { type: 'navigate', payload: { path: '/work-orders/5678' } } }
-          ]
-        }
+            {
+              label: "View",
+              action: {
+                type: "navigate",
+                payload: { path: "/work-orders/5678" },
+              },
+            },
+          ],
+        },
       );
     }
 
@@ -352,24 +429,24 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
       total_count: results.length,
       facets: this.calculateFacets(results),
       suggestions: this.generateQuerySuggestions(query, results),
-      query_understanding: this.analyzeQuery(query)
+      query_understanding: this.analyzeQuery(query),
     };
   }
 
   private performEntityLookup(
     params: SearchParameters,
-    _context: AIContext
+    _context: AIContext,
   ): SearchResult {
     const query = params.query.toUpperCase();
 
     // Detect entity type from query pattern
-    let entityType: EntityType = 'work_order';
-    if (query.startsWith('WO-') || query.startsWith('WO')) {
-      entityType = 'work_order';
-    } else if (query.startsWith('TKT-') || query.startsWith('TICKET')) {
-      entityType = 'ticket';
-    } else if (query.startsWith('INV-')) {
-      entityType = 'invoice';
+    let entityType: EntityType = "work_order";
+    if (query.startsWith("WO-") || query.startsWith("WO")) {
+      entityType = "work_order";
+    } else if (query.startsWith("TKT-") || query.startsWith("TICKET")) {
+      entityType = "ticket";
+    } else if (query.startsWith("INV-")) {
+      entityType = "invoice";
     }
 
     return {
@@ -377,82 +454,108 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
         {
           id: query,
           entity_type: entityType,
-          title: `${entityType === 'work_order' ? 'Work Order' : entityType} ${query}`,
-          subtitle: 'Direct lookup result',
+          title: `${entityType === "work_order" ? "Work Order" : entityType} ${query}`,
+          subtitle: "Direct lookup result",
           relevance_score: 1.0,
           metadata: { exact_match: true },
           actions: [
-            { label: 'View', action: { type: 'navigate', payload: { path: `/${entityType}s/${query}` } } }
-          ]
-        }
+            {
+              label: "View",
+              action: {
+                type: "navigate",
+                payload: { path: `/${entityType}s/${query}` },
+              },
+            },
+          ],
+        },
       ],
       total_count: 1,
-      facets: { by_type: { [entityType]: 1 } as Record<EntityType, number>, by_status: {}, by_date: { recent: 1, this_week: 0, this_month: 0, older: 0 } },
+      facets: {
+        by_type: { [entityType]: 1 } as Record<EntityType, number>,
+        by_status: {},
+        by_date: { recent: 1, this_week: 0, this_month: 0, older: 0 },
+      },
       suggestions: [],
       query_understanding: {
-        detected_intent: 'entity_lookup',
-        extracted_entities: [{ type: entityType, value: query, confidence: 1.0 }],
+        detected_intent: "entity_lookup",
+        extracted_entities: [
+          { type: entityType, value: query, confidence: 1.0 },
+        ],
         query_expansion: [],
-        confidence: 1.0
-      }
+        confidence: 1.0,
+      },
     };
   }
 
   private generateSuggestions(
     params: SearchParameters,
-    _context: AIContext
+    _context: AIContext,
   ): SearchResult {
     const query = params.query.toLowerCase();
 
     const suggestions: SearchSuggestion[] = [
       {
-        type: 'query',
+        type: "query",
         text: `${query} this week`,
-        description: 'Narrow to recent items'
+        description: "Narrow to recent items",
       },
       {
-        type: 'filter',
+        type: "filter",
         text: `${query} status:open`,
-        description: 'Show only open items'
+        description: "Show only open items",
       },
       {
-        type: 'entity',
+        type: "entity",
         text: `${query} customer`,
-        description: 'Search customers only'
+        description: "Search customers only",
       },
       {
-        type: 'query',
+        type: "query",
         text: `${query} urgent`,
-        description: 'Show urgent items only'
-      }
+        description: "Show urgent items only",
+      },
     ];
 
     return {
       results: [],
       total_count: 0,
-      facets: { by_type: {} as Record<EntityType, number>, by_status: {}, by_date: { recent: 0, this_week: 0, this_month: 0, older: 0 } },
+      facets: {
+        by_type: {} as Record<EntityType, number>,
+        by_status: {},
+        by_date: { recent: 0, this_week: 0, this_month: 0, older: 0 },
+      },
       suggestions,
-      query_understanding: this.analyzeQuery(query)
+      query_understanding: this.analyzeQuery(query),
     };
   }
 
   private getRecentItems(
     params: SearchParameters,
-    context: AIContext
+    context: AIContext,
   ): SearchResult {
     const recentActivity = context.app.recentActivity || [];
 
-    const results: SearchHit[] = recentActivity.slice(0, params.limit || 10).map((activity, i) => ({
-      id: activity.entity.id,
-      entity_type: activity.entity.type as EntityType,
-      title: `${activity.entity.type} ${activity.entity.id}`,
-      subtitle: `${activity.type} - ${new Date(activity.timestamp).toLocaleString()}`,
-      relevance_score: 1 - i * 0.05,
-      metadata: activity.details || {},
-      actions: [
-        { label: 'View', action: { type: 'navigate', payload: { path: `/${activity.entity.type}s/${activity.entity.id}` } } }
-      ]
-    }));
+    const results: SearchHit[] = recentActivity
+      .slice(0, params.limit || 10)
+      .map((activity, i) => ({
+        id: activity.entity.id,
+        entity_type: activity.entity.type as EntityType,
+        title: `${activity.entity.type} ${activity.entity.id}`,
+        subtitle: `${activity.type} - ${new Date(activity.timestamp).toLocaleString()}`,
+        relevance_score: 1 - i * 0.05,
+        metadata: activity.details || {},
+        actions: [
+          {
+            label: "View",
+            action: {
+              type: "navigate",
+              payload: {
+                path: `/${activity.entity.type}s/${activity.entity.id}`,
+              },
+            },
+          },
+        ],
+      }));
 
     return {
       results,
@@ -460,17 +563,17 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
       facets: this.calculateFacets(results),
       suggestions: [],
       query_understanding: {
-        detected_intent: 'recent_items',
+        detected_intent: "recent_items",
         extracted_entities: [],
         query_expansion: [],
-        confidence: 1.0
-      }
+        confidence: 1.0,
+      },
     };
   }
 
   private performAdvancedFilter(
     params: SearchParameters,
-    context: AIContext
+    context: AIContext,
   ): SearchResult {
     // This would apply complex filters in a real implementation
     return this.performSemanticSearch(params, context);
@@ -483,15 +586,15 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
       facets: {
         by_type: {} as Record<EntityType, number>,
         by_status: {},
-        by_date: { recent: 0, this_week: 0, this_month: 0, older: 0 }
+        by_date: { recent: 0, this_week: 0, this_month: 0, older: 0 },
       },
       suggestions: [],
       query_understanding: {
-        detected_intent: 'unknown',
+        detected_intent: "unknown",
         extracted_entities: [],
         query_expansion: [],
-        confidence: 0.5
-      }
+        confidence: 0.5,
+      },
     };
   }
 
@@ -499,7 +602,7 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
     const byType: Record<EntityType, number> = {} as Record<EntityType, number>;
     const byStatus: Record<string, number> = {};
 
-    results.forEach(r => {
+    results.forEach((r) => {
       byType[r.entity_type] = (byType[r.entity_type] || 0) + 1;
       const status = r.metadata.status as string;
       if (status) {
@@ -514,27 +617,30 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
         recent: Math.floor(results.length * 0.3),
         this_week: Math.floor(results.length * 0.4),
         this_month: Math.floor(results.length * 0.2),
-        older: Math.floor(results.length * 0.1)
-      }
+        older: Math.floor(results.length * 0.1),
+      },
     };
   }
 
-  private generateQuerySuggestions(query: string, results: SearchHit[]): SearchSuggestion[] {
+  private generateQuerySuggestions(
+    query: string,
+    results: SearchHit[],
+  ): SearchSuggestion[] {
     const suggestions: SearchSuggestion[] = [];
 
     if (results.length > 10) {
       suggestions.push({
-        type: 'filter',
-        text: 'Add date filter to narrow results',
-        description: `${results.length} results found`
+        type: "filter",
+        text: "Add date filter to narrow results",
+        description: `${results.length} results found`,
       });
     }
 
-    if (results.some(r => r.entity_type === 'customer')) {
+    if (results.some((r) => r.entity_type === "customer")) {
       suggestions.push({
-        type: 'query',
+        type: "query",
         text: `${query} with open tickets`,
-        description: 'See customers with pending issues'
+        description: "See customers with pending issues",
       });
     }
 
@@ -543,44 +649,67 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
 
   private analyzeQuery(query: string): QueryUnderstanding {
     const entities: { type: string; value: string; confidence: number }[] = [];
-    let intent = 'search';
+    let intent = "search";
 
     // Detect date references
     if (/today|yesterday|this week|last week|this month/i.test(query)) {
-      entities.push({ type: 'date', value: query.match(/today|yesterday|this week|last week|this month/i)?.[0] || '', confidence: 0.95 });
+      entities.push({
+        type: "date",
+        value:
+          query.match(/today|yesterday|this week|last week|this month/i)?.[0] ||
+          "",
+        confidence: 0.95,
+      });
     }
 
     // Detect entity type references
     if (/customer|client/i.test(query)) {
-      entities.push({ type: 'entity_type', value: 'customer', confidence: 0.9 });
+      entities.push({
+        type: "entity_type",
+        value: "customer",
+        confidence: 0.9,
+      });
     }
     if (/work order|job|wo-/i.test(query)) {
-      entities.push({ type: 'entity_type', value: 'work_order', confidence: 0.9 });
+      entities.push({
+        type: "entity_type",
+        value: "work_order",
+        confidence: 0.9,
+      });
     }
     if (/ticket|issue|tkt-/i.test(query)) {
-      entities.push({ type: 'entity_type', value: 'ticket', confidence: 0.9 });
+      entities.push({ type: "entity_type", value: "ticket", confidence: 0.9 });
     }
     if (/technician|tech/i.test(query)) {
-      entities.push({ type: 'entity_type', value: 'technician', confidence: 0.9 });
+      entities.push({
+        type: "entity_type",
+        value: "technician",
+        confidence: 0.9,
+      });
     }
 
     // Detect status references
     if (/open|pending|closed|completed|scheduled/i.test(query)) {
-      entities.push({ type: 'status', value: query.match(/open|pending|closed|completed|scheduled/i)?.[0] || '', confidence: 0.85 });
+      entities.push({
+        type: "status",
+        value:
+          query.match(/open|pending|closed|completed|scheduled/i)?.[0] || "",
+        confidence: 0.85,
+      });
     }
 
     // Detect intent
     if (/show|find|search|look/i.test(query)) {
-      intent = 'search';
+      intent = "search";
     } else if (/urgent|priority|important/i.test(query)) {
-      intent = 'priority_filter';
+      intent = "priority_filter";
     }
 
     return {
       detected_intent: intent,
       extracted_entities: entities,
       query_expansion: this.expandQuery(query),
-      confidence: 0.85
+      confidence: 0.85,
     };
   }
 
@@ -589,13 +718,13 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
 
     // Add synonyms
     if (/customer/i.test(query)) {
-      expansions.push(query.replace(/customer/i, 'client'));
+      expansions.push(query.replace(/customer/i, "client"));
     }
     if (/work order/i.test(query)) {
-      expansions.push(query.replace(/work order/i, 'job'));
+      expansions.push(query.replace(/work order/i, "job"));
     }
     if (/tech/i.test(query)) {
-      expansions.push(query.replace(/tech/i, 'technician'));
+      expansions.push(query.replace(/tech/i, "technician"));
     }
 
     return expansions;
@@ -603,27 +732,27 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
 
   private generateSearchInsights(
     result: SearchResult,
-    request: SearchQuery
+    request: SearchQuery,
   ): ActionableInsight[] {
     const insights: ActionableInsight[] = [];
 
     if (result.total_count === 0) {
       insights.push({
-        type: 'information',
-        category: 'information',
-        title: 'No Results Found',
+        type: "information",
+        category: "information",
+        title: "No Results Found",
         description: `Try broadening your search or checking for typos in "${request.parameters.query}"`,
-        priority: 'low',
-        confidence: 1.0
+        priority: "low",
+        confidence: 1.0,
       });
     } else if (result.total_count > 50) {
       insights.push({
-        type: 'optimization',
-        category: 'optimization',
-        title: 'Many Results Available',
-        description: 'Consider adding filters to narrow down results',
-        priority: 'low',
-        confidence: 0.9
+        type: "optimization",
+        category: "optimization",
+        title: "Many Results Available",
+        description: "Consider adding filters to narrow down results",
+        priority: "low",
+        confidence: 0.9,
       });
     }
 
@@ -631,12 +760,12 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
     const topResult = result.results[0];
     if (topResult && topResult.relevance_score > 0.95) {
       insights.push({
-        type: 'information',
-        category: 'information',
-        title: 'High Confidence Match',
+        type: "information",
+        category: "information",
+        title: "High Confidence Match",
         description: `"${topResult.title}" appears to be an exact match`,
-        priority: 'medium',
-        confidence: topResult.relevance_score
+        priority: "medium",
+        confidence: topResult.relevance_score,
       });
     }
 
@@ -645,29 +774,39 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
 
   private generateFollowUpQuestions(
     result: SearchResult,
-    request: SearchQuery
+    request: SearchQuery,
   ): string[] {
     const questions: string[] = [];
 
     if (result.total_count > 0) {
-      questions.push(`Would you like more details about "${result.results[0]?.title}"?`);
+      questions.push(
+        `Would you like more details about "${result.results[0]?.title}"?`,
+      );
     }
 
     if (result.suggestions.length > 0) {
-      questions.push('Would you like to try one of the suggested searches?');
+      questions.push("Would you like to try one of the suggested searches?");
     }
 
-    if (request.parameters.entity_types && request.parameters.entity_types.length === 1) {
-      questions.push('Should I expand the search to include other entity types?');
+    if (
+      request.parameters.entity_types &&
+      request.parameters.entity_types.length === 1
+    ) {
+      questions.push(
+        "Should I expand the search to include other entity types?",
+      );
     }
 
     return questions;
   }
 
-  private createErrorResponse(error: unknown, startTime: number): UnifiedAIResponse<SearchResult> {
+  private createErrorResponse(
+    error: unknown,
+    startTime: number,
+  ): UnifiedAIResponse<SearchResult> {
     return {
       domain: this.domain,
-      operation: 'error',
+      operation: "error",
       result: {
         primary: this.getDefaultResult(),
         metadata: {
@@ -675,8 +814,8 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
           transformation_applied: false,
           demo_data_used: false,
           context_used: [],
-          generated_at: new Date().toISOString()
-        }
+          generated_at: new Date().toISOString(),
+        },
       },
       confidence: 0,
       completeness: 0,
@@ -684,15 +823,18 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
       processing: {
         duration_ms: Date.now() - startTime,
         cache_hit: false,
-        model_version: this.version
+        model_version: this.version,
       },
-      errors: [{
-        code: 'SEARCH_ERROR',
-        message: error instanceof Error ? error.message : 'Unknown search error',
-        domain: this.domain,
-        recoverable: true,
-        suggestedFix: 'Please try a different search query'
-      }]
+      errors: [
+        {
+          code: "SEARCH_ERROR",
+          message:
+            error instanceof Error ? error.message : "Unknown search error",
+          domain: this.domain,
+          recoverable: true,
+          suggestedFix: "Please try a different search query",
+        },
+      ],
     };
   }
 
@@ -700,11 +842,11 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
     const startTime = Date.now();
 
     return {
-      status: 'healthy',
+      status: "healthy",
       response_time_ms: Date.now() - startTime,
       error_rate: 0,
       last_check: new Date().toISOString(),
-      issues: []
+      issues: [],
     };
   }
 }
@@ -712,15 +854,21 @@ export class SearchAIAdapter extends BaseAIAdapterImpl<SearchQuery, SearchResult
 // ===== VALIDATION =====
 
 export function validateSearchQuery(query: unknown): query is SearchQuery {
-  if (!query || typeof query !== 'object') return false;
+  if (!query || typeof query !== "object") return false;
 
   const q = query as Record<string, unknown>;
 
-  const validOperations = ['semantic_search', 'entity_lookup', 'suggestion', 'recent_items', 'advanced_filter'];
+  const validOperations = [
+    "semantic_search",
+    "entity_lookup",
+    "suggestion",
+    "recent_items",
+    "advanced_filter",
+  ];
 
   return (
-    typeof q.operation === 'string' &&
+    typeof q.operation === "string" &&
     validOperations.includes(q.operation) &&
-    typeof q.parameters === 'object'
+    typeof q.parameters === "object"
   );
 }

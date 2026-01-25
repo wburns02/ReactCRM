@@ -141,7 +141,8 @@ export const localAIApi = {
    * Check health of local AI services
    */
   async checkHealth(): Promise<LocalAIHealthStatus> {
-    const { data } = await apiClient.get<LocalAIHealthStatus>("/local-ai/health");
+    const { data } =
+      await apiClient.get<LocalAIHealthStatus>("/local-ai/health");
     return data;
   },
 
@@ -161,13 +162,16 @@ export const localAIApi = {
   async analyzeImage(
     imageBase64: string,
     prompt?: string,
-    context?: string
+    context?: string,
   ): Promise<ImageAnalysisResult> {
-    const { data } = await apiClient.post<ImageAnalysisResult>("/local-ai/vision/analyze", {
-      image_base64: imageBase64,
-      prompt,
-      context,
-    });
+    const { data } = await apiClient.post<ImageAnalysisResult>(
+      "/local-ai/vision/analyze",
+      {
+        image_base64: imageBase64,
+        prompt,
+        context,
+      },
+    );
     return data;
   },
 
@@ -176,12 +180,15 @@ export const localAIApi = {
    */
   async analyzeWorkOrderPhoto(
     imageBase64: string,
-    workOrderType: string = "septic"
+    workOrderType: string = "septic",
   ): Promise<WorkOrderPhotoResult> {
-    const { data } = await apiClient.post<WorkOrderPhotoResult>("/local-ai/vision/analyze-photo", {
-      image_base64: imageBase64,
-      work_order_type: workOrderType,
-    });
+    const { data } = await apiClient.post<WorkOrderPhotoResult>(
+      "/local-ai/vision/analyze-photo",
+      {
+        image_base64: imageBase64,
+        work_order_type: workOrderType,
+      },
+    );
     return data;
   },
 
@@ -190,17 +197,23 @@ export const localAIApi = {
    */
   async uploadAndAnalyzePhoto(
     file: File,
-    workOrderType: string = "septic"
-  ): Promise<WorkOrderPhotoResult & { filename: string; file_size_bytes: number }> {
+    workOrderType: string = "septic",
+  ): Promise<
+    WorkOrderPhotoResult & { filename: string; file_size_bytes: number }
+  > {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("work_order_type", workOrderType);
 
-    const { data } = await apiClient.post("/local-ai/vision/upload-photo", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
+    const { data } = await apiClient.post(
+      "/local-ai/vision/upload-photo",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       },
-    });
+    );
     return data;
   },
 
@@ -211,12 +224,15 @@ export const localAIApi = {
    */
   async extractDocumentData(
     imageBase64: string,
-    documentType: string = "service_record"
+    documentType: string = "service_record",
   ): Promise<DocumentOCRResult> {
-    const { data } = await apiClient.post<DocumentOCRResult>("/local-ai/ocr/extract", {
-      image_base64: imageBase64,
-      document_type: documentType,
-    });
+    const { data } = await apiClient.post<DocumentOCRResult>(
+      "/local-ai/ocr/extract",
+      {
+        image_base64: imageBase64,
+        document_type: documentType,
+      },
+    );
     return data;
   },
 
@@ -225,17 +241,23 @@ export const localAIApi = {
    */
   async uploadAndExtractDocument(
     file: File,
-    documentType: string = "service_record"
-  ): Promise<DocumentOCRResult & { filename: string; file_size_bytes: number }> {
+    documentType: string = "service_record",
+  ): Promise<
+    DocumentOCRResult & { filename: string; file_size_bytes: number }
+  > {
     const formData = new FormData();
     formData.append("file", file);
     formData.append("document_type", documentType);
 
-    const { data } = await apiClient.post("/local-ai/ocr/upload-document", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
+    const { data } = await apiClient.post(
+      "/local-ai/ocr/upload-document",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       },
-    });
+    );
     return data;
   },
 
@@ -246,12 +268,15 @@ export const localAIApi = {
    */
   async transcribeAudio(
     audioUrl: string,
-    language: string = "en"
+    language: string = "en",
   ): Promise<TranscriptionResult> {
-    const { data } = await apiClient.post<TranscriptionResult>("/local-ai/transcribe", {
-      audio_url: audioUrl,
-      language,
-    });
+    const { data } = await apiClient.post<TranscriptionResult>(
+      "/local-ai/transcribe",
+      {
+        audio_url: audioUrl,
+        language,
+      },
+    );
     return data;
   },
 
@@ -261,17 +286,23 @@ export const localAIApi = {
   async uploadAndTranscribeAudio(
     file: Blob,
     language: string = "en",
-    filename: string = "recording.webm"
-  ): Promise<TranscriptionResult & { filename: string; file_size_bytes: number }> {
+    filename: string = "recording.webm",
+  ): Promise<
+    TranscriptionResult & { filename: string; file_size_bytes: number }
+  > {
     const formData = new FormData();
     formData.append("file", file, filename);
     formData.append("language", language);
 
-    const { data } = await apiClient.post("/local-ai/transcribe/upload", formData, {
-      headers: {
-        "Content-Type": "multipart/form-data",
+    const { data } = await apiClient.post(
+      "/local-ai/transcribe/upload",
+      formData,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
       },
-    });
+    );
     return data;
   },
 
@@ -282,12 +313,15 @@ export const localAIApi = {
    */
   async analyzeTranscript(
     transcript: string,
-    callMetadata?: Record<string, unknown>
+    callMetadata?: Record<string, unknown>,
   ): Promise<CallAnalysisResult> {
-    const { data } = await apiClient.post<CallAnalysisResult>("/local-ai/analyze", {
-      transcript,
-      call_metadata: callMetadata,
-    });
+    const { data } = await apiClient.post<CallAnalysisResult>(
+      "/local-ai/analyze",
+      {
+        transcript,
+        call_metadata: callMetadata,
+      },
+    );
     return data;
   },
 
@@ -296,12 +330,15 @@ export const localAIApi = {
    */
   async suggestDisposition(
     transcript: string,
-    availableDispositions: string[]
+    availableDispositions: string[],
   ): Promise<DispositionSuggestion> {
-    const { data } = await apiClient.post<DispositionSuggestion>("/local-ai/suggest-disposition", {
-      transcript,
-      available_dispositions: availableDispositions,
-    });
+    const { data } = await apiClient.post<DispositionSuggestion>(
+      "/local-ai/suggest-disposition",
+      {
+        transcript,
+        available_dispositions: availableDispositions,
+      },
+    );
     return data;
   },
 
@@ -309,11 +346,15 @@ export const localAIApi = {
    * Generate call summary
    */
   async summarizeCall(transcript: string): Promise<{ summary: string }> {
-    const { data } = await apiClient.post<{ summary: string }>("/local-ai/summarize", transcript, {
-      headers: {
-        "Content-Type": "text/plain",
+    const { data } = await apiClient.post<{ summary: string }>(
+      "/local-ai/summarize",
+      transcript,
+      {
+        headers: {
+          "Content-Type": "text/plain",
+        },
       },
-    });
+    );
     return data;
   },
 
@@ -324,12 +365,15 @@ export const localAIApi = {
    */
   async heavyAnalysis(
     prompt: string,
-    context?: string
+    context?: string,
   ): Promise<HeavyAnalysisResult> {
-    const { data } = await apiClient.post<HeavyAnalysisResult>("/local-ai/heavy/analyze", {
-      prompt,
-      context,
-    });
+    const { data } = await apiClient.post<HeavyAnalysisResult>(
+      "/local-ai/heavy/analyze",
+      {
+        prompt,
+        context,
+      },
+    );
     return data;
   },
 
@@ -340,8 +384,13 @@ export const localAIApi = {
    */
   async startBatchOCR(
     documents: BatchOCRDocument[],
-    documentType: string = "service_record"
-  ): Promise<{ job_id: string; status: string; total_documents: number; message: string }> {
+    documentType: string = "service_record",
+  ): Promise<{
+    job_id: string;
+    status: string;
+    total_documents: number;
+    message: string;
+  }> {
     const { data } = await apiClient.post("/local-ai/batch/ocr", {
       documents,
       document_type: documentType,
@@ -353,7 +402,9 @@ export const localAIApi = {
    * Get status of a batch OCR job
    */
   async getBatchStatus(jobId: string): Promise<BatchOCRJobStatus> {
-    const { data } = await apiClient.get<BatchOCRJobStatus>(`/local-ai/batch/status/${jobId}`);
+    const { data } = await apiClient.get<BatchOCRJobStatus>(
+      `/local-ai/batch/status/${jobId}`,
+    );
     return data;
   },
 
@@ -361,15 +412,21 @@ export const localAIApi = {
    * Get full results of a completed batch OCR job
    */
   async getBatchResults(jobId: string): Promise<BatchOCRJobResults> {
-    const { data } = await apiClient.get<BatchOCRJobResults>(`/local-ai/batch/results/${jobId}`);
+    const { data } = await apiClient.get<BatchOCRJobResults>(
+      `/local-ai/batch/results/${jobId}`,
+    );
     return data;
   },
 
   /**
    * List recent batch OCR jobs
    */
-  async listBatchJobs(limit: number = 50): Promise<{ jobs: BatchOCRJobStatus[] }> {
-    const { data } = await apiClient.get<{ jobs: BatchOCRJobStatus[] }>(`/local-ai/batch/jobs?limit=${limit}`);
+  async listBatchJobs(
+    limit: number = 50,
+  ): Promise<{ jobs: BatchOCRJobStatus[] }> {
+    const { data } = await apiClient.get<{ jobs: BatchOCRJobStatus[] }>(
+      `/local-ai/batch/jobs?limit=${limit}`,
+    );
     return data;
   },
 };
@@ -397,7 +454,13 @@ export async function fileToBase64(file: File): Promise<string> {
  * Validate image file type
  */
 export function isValidImageFile(file: File): boolean {
-  const validTypes = ["image/jpeg", "image/png", "image/gif", "image/webp", "image/tiff"];
+  const validTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "image/webp",
+    "image/tiff",
+  ];
   return validTypes.includes(file.type);
 }
 
@@ -405,6 +468,11 @@ export function isValidImageFile(file: File): boolean {
  * Validate document file type
  */
 export function isValidDocumentFile(file: File): boolean {
-  const validTypes = ["image/jpeg", "image/png", "image/tiff", "application/pdf"];
+  const validTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/tiff",
+    "application/pdf",
+  ];
   return validTypes.includes(file.type);
 }

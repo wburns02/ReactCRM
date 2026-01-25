@@ -10,15 +10,19 @@ interface ActivitySummaryPanelProps {
  * AI-powered activity summary panel
  * Displays summarized activity history, action items, and insights
  */
-export function ActivitySummaryPanel({ customerId }: ActivitySummaryPanelProps) {
+export function ActivitySummaryPanel({
+  customerId,
+}: ActivitySummaryPanelProps) {
   const [showPanel, setShowPanel] = useState(false);
   const [activeTab, setActiveTab] = useState<"summary" | "digest">("summary");
 
-  const { data: summary, isLoading: summaryLoading, refetch: refetchSummary } = useActivitySummary(
-    showPanel ? customerId : undefined
-  );
+  const {
+    data: summary,
+    isLoading: summaryLoading,
+    refetch: refetchSummary,
+  } = useActivitySummary(showPanel ? customerId : undefined);
   const { data: digest, isLoading: digestLoading } = useWeeklyDigest(
-    showPanel && activeTab === "digest" ? customerId : undefined
+    showPanel && activeTab === "digest" ? customerId : undefined,
   );
 
   const getSentimentColor = (sentiment: string) => {
@@ -62,7 +66,9 @@ export function ActivitySummaryPanel({ customerId }: ActivitySummaryPanelProps) 
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-lg">✨</span>
-          <h4 className="font-medium text-text-primary">AI Activity Insights</h4>
+          <h4 className="font-medium text-text-primary">
+            AI Activity Insights
+          </h4>
         </div>
         <button
           onClick={() => setShowPanel(false)}
@@ -114,28 +120,40 @@ export function ActivitySummaryPanel({ customerId }: ActivitySummaryPanelProps) 
           {/* Sentiment & Quality Row */}
           <div className="grid grid-cols-2 gap-3">
             <div className="bg-bg-card border border-border rounded-lg p-3">
-              <span className="text-xs text-text-muted block mb-1">Customer Sentiment</span>
+              <span className="text-xs text-text-muted block mb-1">
+                Customer Sentiment
+              </span>
               <div className="flex items-center gap-2">
-                <span className="text-xl">{getSentimentIcon(summary.sentiment)}</span>
-                <span className={`font-medium capitalize ${getSentimentColor(summary.sentiment)}`}>
+                <span className="text-xl">
+                  {getSentimentIcon(summary.sentiment)}
+                </span>
+                <span
+                  className={`font-medium capitalize ${getSentimentColor(summary.sentiment)}`}
+                >
                   {summary.customer_mood || summary.sentiment}
                 </span>
               </div>
             </div>
             <div className="bg-bg-card border border-border rounded-lg p-3">
-              <span className="text-xs text-text-muted block mb-1">Interaction Quality</span>
+              <span className="text-xs text-text-muted block mb-1">
+                Interaction Quality
+              </span>
               <div className="flex items-center gap-2">
                 <div className="flex-1 h-2 bg-bg-tertiary rounded-full overflow-hidden">
                   <div
                     className={`h-full rounded-full ${
-                      summary.interaction_quality >= 7 ? "bg-green-500" :
-                      summary.interaction_quality >= 4 ? "bg-yellow-500" :
-                      "bg-red-500"
+                      summary.interaction_quality >= 7
+                        ? "bg-green-500"
+                        : summary.interaction_quality >= 4
+                          ? "bg-yellow-500"
+                          : "bg-red-500"
                     }`}
                     style={{ width: `${summary.interaction_quality * 10}%` }}
                   />
                 </div>
-                <span className="text-sm font-medium text-text-primary">{summary.interaction_quality}/10</span>
+                <span className="text-sm font-medium text-text-primary">
+                  {summary.interaction_quality}/10
+                </span>
               </div>
             </div>
           </div>
@@ -143,10 +161,15 @@ export function ActivitySummaryPanel({ customerId }: ActivitySummaryPanelProps) 
           {/* Key Points */}
           {summary.key_points.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Key Points</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Key Points
+              </span>
               <ul className="space-y-1">
                 {summary.key_points.map((point, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
+                  <li
+                    key={i}
+                    className="flex items-start gap-2 text-sm text-text-secondary"
+                  >
                     <span className="text-primary mt-0.5">•</span>
                     <span>{point}</span>
                   </li>
@@ -158,7 +181,9 @@ export function ActivitySummaryPanel({ customerId }: ActivitySummaryPanelProps) 
           {/* Topics */}
           {summary.topics.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Topics Discussed</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Topics Discussed
+              </span>
               <div className="flex flex-wrap gap-2">
                 {summary.topics.map((topic) => (
                   <span
@@ -175,7 +200,9 @@ export function ActivitySummaryPanel({ customerId }: ActivitySummaryPanelProps) 
           {/* Action Items */}
           {summary.action_items.length > 0 && (
             <div className="bg-bg-card border border-border rounded-lg p-3">
-              <span className="text-xs text-text-muted block mb-2">Action Items</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Action Items
+              </span>
               <ul className="space-y-2">
                 {summary.action_items.map((item, i) => (
                   <li key={i} className="flex items-start gap-2 text-sm">
@@ -193,10 +220,15 @@ export function ActivitySummaryPanel({ customerId }: ActivitySummaryPanelProps) 
           {/* Next Steps */}
           {summary.next_steps && summary.next_steps.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Recommended Next Steps</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Recommended Next Steps
+              </span>
               <ul className="space-y-1">
                 {summary.next_steps.map((step, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
+                  <li
+                    key={i}
+                    className="flex items-start gap-2 text-sm text-text-secondary"
+                  >
                     <span className="text-blue-400">→</span>
                     <span>{step}</span>
                   </li>
@@ -231,10 +263,15 @@ export function ActivitySummaryPanel({ customerId }: ActivitySummaryPanelProps) 
           {/* Highlights */}
           {digest.highlights && digest.highlights.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Highlights</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Highlights
+              </span>
               <ul className="space-y-1">
                 {digest.highlights.map((highlight: string, i: number) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
+                  <li
+                    key={i}
+                    className="flex items-start gap-2 text-sm text-text-secondary"
+                  >
                     <span className="text-green-400">✓</span>
                     <span>{highlight}</span>
                   </li>
@@ -246,10 +283,15 @@ export function ActivitySummaryPanel({ customerId }: ActivitySummaryPanelProps) 
           {/* Pending Items */}
           {digest.pending_items && digest.pending_items.length > 0 && (
             <div className="bg-warning/10 border border-warning/30 rounded-lg p-3">
-              <span className="text-xs text-warning block mb-2">Pending Items</span>
+              <span className="text-xs text-warning block mb-2">
+                Pending Items
+              </span>
               <ul className="space-y-1">
                 {digest.pending_items.map((item: string, i: number) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
+                  <li
+                    key={i}
+                    className="flex items-start gap-2 text-sm text-text-secondary"
+                  >
                     <span className="text-warning">!</span>
                     <span>{item}</span>
                   </li>
@@ -259,21 +301,26 @@ export function ActivitySummaryPanel({ customerId }: ActivitySummaryPanelProps) 
           )}
 
           {/* Recommended Actions */}
-          {digest.recommended_actions && digest.recommended_actions.length > 0 && (
-            <div>
-              <span className="text-xs text-text-muted block mb-2">Recommended Actions</span>
-              <div className="space-y-2">
-                {digest.recommended_actions.map((action: string, i: number) => (
-                  <button
-                    key={i}
-                    className="w-full text-left px-3 py-2 bg-bg-card border border-border rounded-lg text-sm text-text-primary hover:bg-bg-hover transition-colors"
-                  >
-                    {action}
-                  </button>
-                ))}
+          {digest.recommended_actions &&
+            digest.recommended_actions.length > 0 && (
+              <div>
+                <span className="text-xs text-text-muted block mb-2">
+                  Recommended Actions
+                </span>
+                <div className="space-y-2">
+                  {digest.recommended_actions.map(
+                    (action: string, i: number) => (
+                      <button
+                        key={i}
+                        className="w-full text-left px-3 py-2 bg-bg-card border border-border rounded-lg text-sm text-text-primary hover:bg-bg-hover transition-colors"
+                      >
+                        {action}
+                      </button>
+                    ),
+                  )}
+                </div>
               </div>
-            </div>
-          )}
+            )}
         </div>
       )}
     </div>

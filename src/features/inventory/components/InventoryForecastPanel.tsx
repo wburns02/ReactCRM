@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { useInventoryOverview, useReorderSuggestions } from "@/api/hooks/useInventoryAI";
+import {
+  useInventoryOverview,
+  useReorderSuggestions,
+} from "@/api/hooks/useInventoryAI";
 import { Button } from "@/components/ui/Button";
 
 /**
@@ -8,10 +11,17 @@ import { Button } from "@/components/ui/Button";
  */
 export function InventoryForecastPanel() {
   const [showPanel, setShowPanel] = useState(false);
-  const [activeTab, setActiveTab] = useState<"overview" | "reorder">("overview");
+  const [activeTab, setActiveTab] = useState<"overview" | "reorder">(
+    "overview",
+  );
 
-  const { data: overview, isLoading: overviewLoading, refetch } = useInventoryOverview();
-  const { data: reorderData, isLoading: reorderLoading } = useReorderSuggestions();
+  const {
+    data: overview,
+    isLoading: overviewLoading,
+    refetch,
+  } = useInventoryOverview();
+  const { data: reorderData, isLoading: reorderLoading } =
+    useReorderSuggestions();
 
   const getUrgencyColor = (urgency: string) => {
     switch (urgency) {
@@ -45,7 +55,9 @@ export function InventoryForecastPanel() {
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-lg">✨</span>
-          <h4 className="font-medium text-text-primary">AI Inventory Intelligence</h4>
+          <h4 className="font-medium text-text-primary">
+            AI Inventory Intelligence
+          </h4>
         </div>
         <button
           onClick={() => setShowPanel(false)}
@@ -92,15 +104,21 @@ export function InventoryForecastPanel() {
           {/* Summary Metrics */}
           <div className="grid grid-cols-3 gap-3">
             <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-              <div className="text-2xl font-bold text-text-primary">{overview.total_items}</div>
+              <div className="text-2xl font-bold text-text-primary">
+                {overview.total_items}
+              </div>
               <div className="text-xs text-text-muted">Total Items</div>
             </div>
             <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-              <div className="text-2xl font-bold text-success">${overview.total_value.toLocaleString()}</div>
+              <div className="text-2xl font-bold text-success">
+                ${overview.total_value.toLocaleString()}
+              </div>
               <div className="text-xs text-text-muted">Total Value</div>
             </div>
             <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-              <div className={`text-2xl font-bold ${overview.low_stock_items > 0 ? "text-warning" : "text-success"}`}>
+              <div
+                className={`text-2xl font-bold ${overview.low_stock_items > 0 ? "text-warning" : "text-success"}`}
+              >
                 {overview.low_stock_items}
               </div>
               <div className="text-xs text-text-muted">Low Stock</div>
@@ -109,14 +127,20 @@ export function InventoryForecastPanel() {
 
           {/* Forecast Summary */}
           <div className="bg-bg-card border border-border rounded-lg p-3">
-            <span className="text-xs text-text-muted block mb-2">Forecast Summary</span>
-            <p className="text-sm text-text-secondary">{overview.forecast_summary}</p>
+            <span className="text-xs text-text-muted block mb-2">
+              Forecast Summary
+            </span>
+            <p className="text-sm text-text-secondary">
+              {overview.forecast_summary}
+            </p>
           </div>
 
           {/* Critical Items */}
           {overview.critical_items.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Critical Items (Reorder Now)</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Critical Items (Reorder Now)
+              </span>
               <div className="space-y-2">
                 {overview.critical_items.map((item) => (
                   <div
@@ -124,8 +148,12 @@ export function InventoryForecastPanel() {
                     className="flex items-center justify-between bg-red-500/10 border border-red-500/30 rounded-lg p-2"
                   >
                     <div>
-                      <span className="text-sm font-medium text-text-primary">{item.name}</span>
-                      <span className="text-xs text-text-muted ml-2">({item.current_stock} in stock)</span>
+                      <span className="text-sm font-medium text-text-primary">
+                        {item.name}
+                      </span>
+                      <span className="text-xs text-text-muted ml-2">
+                        ({item.current_stock} in stock)
+                      </span>
                     </div>
                     <span className="text-xs text-red-400">
                       Stockout in {item.days_until_stockout} days
@@ -139,7 +167,9 @@ export function InventoryForecastPanel() {
           {/* Slow Moving Items */}
           {overview.slow_moving_items.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Slow-Moving Inventory</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Slow-Moving Inventory
+              </span>
               <div className="space-y-2">
                 {overview.slow_moving_items.map((item) => (
                   <div
@@ -147,7 +177,9 @@ export function InventoryForecastPanel() {
                     className="flex items-center justify-between bg-bg-card border border-border rounded-lg p-2"
                   >
                     <div>
-                      <span className="text-sm font-medium text-text-primary">{item.name}</span>
+                      <span className="text-sm font-medium text-text-primary">
+                        {item.name}
+                      </span>
                       <span className="text-xs text-text-muted ml-2">
                         {item.quantity} units (${item.value})
                       </span>
@@ -164,10 +196,15 @@ export function InventoryForecastPanel() {
           {/* Optimization Suggestions */}
           {overview.optimization_suggestions.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Optimization Opportunities</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Optimization Opportunities
+              </span>
               <ul className="space-y-1">
                 {overview.optimization_suggestions.map((suggestion, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
+                  <li
+                    key={i}
+                    className="flex items-start gap-2 text-sm text-text-secondary"
+                  >
                     <span className="text-purple-400">→</span>
                     <span>{suggestion}</span>
                   </li>
@@ -184,13 +221,19 @@ export function InventoryForecastPanel() {
           {/* Priority Summary */}
           {reorderData.priority_count && (
             <div className="flex gap-2">
-              <span className={`px-2 py-1 rounded text-xs ${getUrgencyColor("critical")}`}>
+              <span
+                className={`px-2 py-1 rounded text-xs ${getUrgencyColor("critical")}`}
+              >
                 {reorderData.priority_count.critical} Critical
               </span>
-              <span className={`px-2 py-1 rounded text-xs ${getUrgencyColor("soon")}`}>
+              <span
+                className={`px-2 py-1 rounded text-xs ${getUrgencyColor("soon")}`}
+              >
                 {reorderData.priority_count.soon} Soon
               </span>
-              <span className={`px-2 py-1 rounded text-xs ${getUrgencyColor("normal")}`}>
+              <span
+                className={`px-2 py-1 rounded text-xs ${getUrgencyColor("normal")}`}
+              >
                 {reorderData.priority_count.normal} Normal
               </span>
             </div>
@@ -199,7 +242,9 @@ export function InventoryForecastPanel() {
           {/* Total Reorder Value */}
           {reorderData.total_reorder_value && (
             <div className="bg-bg-card border border-border rounded-lg p-3">
-              <span className="text-xs text-text-muted block mb-1">Estimated Reorder Value</span>
+              <span className="text-xs text-text-muted block mb-1">
+                Estimated Reorder Value
+              </span>
               <span className="text-xl font-bold text-text-primary">
                 ${reorderData.total_reorder_value.toLocaleString()}
               </span>
@@ -209,43 +254,61 @@ export function InventoryForecastPanel() {
           {/* Reorder Suggestions */}
           {reorderData.suggestions && reorderData.suggestions.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Reorder Recommendations</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Reorder Recommendations
+              </span>
               <div className="space-y-2">
-                {reorderData.suggestions.map((suggestion: {
-                  item_name: string;
-                  current_stock: number;
-                  recommended_order: number;
-                  urgency: string;
-                  reason: string;
-                }, i: number) => (
-                  <div
-                    key={i}
-                    className={`p-3 rounded-lg border ${getUrgencyColor(suggestion.urgency)}`}
-                  >
-                    <div className="flex items-center justify-between mb-2">
-                      <span className="font-medium">{suggestion.item_name}</span>
-                      <span className="text-xs uppercase">{suggestion.urgency}</span>
-                    </div>
-                    <div className="grid grid-cols-2 gap-2 text-sm mb-2">
-                      <div>
-                        <span className="text-opacity-80">Current: </span>
-                        <span className="font-medium">{suggestion.current_stock}</span>
+                {reorderData.suggestions.map(
+                  (
+                    suggestion: {
+                      item_name: string;
+                      current_stock: number;
+                      recommended_order: number;
+                      urgency: string;
+                      reason: string;
+                    },
+                    i: number,
+                  ) => (
+                    <div
+                      key={i}
+                      className={`p-3 rounded-lg border ${getUrgencyColor(suggestion.urgency)}`}
+                    >
+                      <div className="flex items-center justify-between mb-2">
+                        <span className="font-medium">
+                          {suggestion.item_name}
+                        </span>
+                        <span className="text-xs uppercase">
+                          {suggestion.urgency}
+                        </span>
                       </div>
-                      <div>
-                        <span className="text-opacity-80">Order: </span>
-                        <span className="font-medium">{suggestion.recommended_order}</span>
+                      <div className="grid grid-cols-2 gap-2 text-sm mb-2">
+                        <div>
+                          <span className="text-opacity-80">Current: </span>
+                          <span className="font-medium">
+                            {suggestion.current_stock}
+                          </span>
+                        </div>
+                        <div>
+                          <span className="text-opacity-80">Order: </span>
+                          <span className="font-medium">
+                            {suggestion.recommended_order}
+                          </span>
+                        </div>
                       </div>
+                      <p className="text-xs opacity-80">{suggestion.reason}</p>
                     </div>
-                    <p className="text-xs opacity-80">{suggestion.reason}</p>
-                  </div>
-                ))}
+                  ),
+                )}
               </div>
             </div>
           )}
 
           {/* Quick Actions */}
           <div className="flex gap-2">
-            <Button size="sm" className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700">
+            <Button
+              size="sm"
+              className="flex-1 bg-gradient-to-r from-purple-600 to-blue-600 hover:from-purple-700 hover:to-blue-700"
+            >
               Generate Purchase Order
             </Button>
             <Button size="sm" variant="secondary">

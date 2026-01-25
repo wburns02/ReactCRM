@@ -36,7 +36,7 @@ function polarToCartesian(
   centerX: number,
   centerY: number,
   radius: number,
-  angleInDegrees: number
+  angleInDegrees: number,
 ): { x: number; y: number } {
   const angleInRadians = ((angleInDegrees - 90) * Math.PI) / 180.0;
   return {
@@ -53,7 +53,7 @@ function describeArc(
   y: number,
   radius: number,
   startAngle: number,
-  endAngle: number
+  endAngle: number,
 ): string {
   const start = polarToCartesian(x, y, radius, endAngle);
   const end = polarToCartesian(x, y, radius, startAngle);
@@ -176,13 +176,19 @@ function GaugeSVG({ score, animated }: { score: number; animated: boolean }) {
 
     return zones.map((zone) => ({
       color: zone.color,
-      path: describeArc(centerX, centerY, radius, zone.startAngle, zone.endAngle),
+      path: describeArc(
+        centerX,
+        centerY,
+        radius,
+        zone.startAngle,
+        zone.endAngle,
+      ),
       innerPath: describeArc(
         centerX,
         centerY,
         innerRadius,
         zone.startAngle,
-        zone.endAngle
+        zone.endAngle,
       ),
     }));
   }, [centerX, centerY, radius, innerRadius]);

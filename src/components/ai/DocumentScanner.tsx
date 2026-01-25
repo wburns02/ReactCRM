@@ -3,7 +3,15 @@
  * Upload and extract data from documents using LLaVA OCR on R730
  */
 import { useState, useCallback, useRef } from "react";
-import { FileText, Upload, X, AlertTriangle, CheckCircle, Loader2, Copy } from "lucide-react";
+import {
+  FileText,
+  Upload,
+  X,
+  AlertTriangle,
+  CheckCircle,
+  Loader2,
+  Copy,
+} from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -38,32 +46,33 @@ export function DocumentScanner({
   const [copiedField, setCopiedField] = useState<string | null>(null);
 
   const { data: aiHealth } = useLocalAIHealth();
-  const {
-    isExtracting,
-    result,
-    error,
-    preview,
-    extractDocument,
-    reset,
-  } = useDocumentOCR();
+  const { isExtracting, result, error, preview, extractDocument, reset } =
+    useDocumentOCR();
 
-  const isAIAvailable = aiHealth?.status === "healthy" || aiHealth?.status === "degraded";
+  const isAIAvailable =
+    aiHealth?.status === "healthy" || aiHealth?.status === "degraded";
 
   // Handle file selection
-  const handleFileSelect = useCallback(async (file: File) => {
-    const extractionResult = await extractDocument(file, selectedType);
-    if (extractionResult && onExtractionComplete) {
-      onExtractionComplete(extractionResult);
-    }
-  }, [extractDocument, selectedType, onExtractionComplete]);
+  const handleFileSelect = useCallback(
+    async (file: File) => {
+      const extractionResult = await extractDocument(file, selectedType);
+      if (extractionResult && onExtractionComplete) {
+        onExtractionComplete(extractionResult);
+      }
+    },
+    [extractDocument, selectedType, onExtractionComplete],
+  );
 
   // Handle file input change
-  const handleInputChange = useCallback((e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      handleFileSelect(file);
-    }
-  }, [handleFileSelect]);
+  const handleInputChange = useCallback(
+    (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        handleFileSelect(file);
+      }
+    },
+    [handleFileSelect],
+  );
 
   // Handle drag and drop
   const handleDrag = useCallback((e: React.DragEvent) => {
@@ -76,16 +85,19 @@ export function DocumentScanner({
     }
   }, []);
 
-  const handleDrop = useCallback((e: React.DragEvent) => {
-    e.preventDefault();
-    e.stopPropagation();
-    setDragActive(false);
+  const handleDrop = useCallback(
+    (e: React.DragEvent) => {
+      e.preventDefault();
+      e.stopPropagation();
+      setDragActive(false);
 
-    const file = e.dataTransfer.files?.[0];
-    if (file) {
-      handleFileSelect(file);
-    }
-  }, [handleFileSelect]);
+      const file = e.dataTransfer.files?.[0];
+      if (file) {
+        handleFileSelect(file);
+      }
+    },
+    [handleFileSelect],
+  );
 
   // Copy field value to clipboard
   const copyToClipboard = useCallback(async (field: string, value: string) => {
@@ -100,9 +112,7 @@ export function DocumentScanner({
 
   // Format field name for display
   const formatFieldName = (field: string): string => {
-    return field
-      .replace(/_/g, " ")
-      .replace(/\b\w/g, (c) => c.toUpperCase());
+    return field.replace(/_/g, " ").replace(/\b\w/g, (c) => c.toUpperCase());
   };
 
   // Get confidence color
@@ -131,7 +141,9 @@ export function DocumentScanner({
         {/* Document Type Selector */}
         {!result && (
           <div>
-            <label className="text-xs text-text-muted mb-1 block">Document Type</label>
+            <label className="text-xs text-text-muted mb-1 block">
+              Document Type
+            </label>
             <select
               value={selectedType}
               onChange={(e) => setSelectedType(e.target.value)}
@@ -197,7 +209,9 @@ export function DocumentScanner({
                 <div className="absolute inset-0 flex items-center justify-center bg-bg-card/80">
                   <div className="flex flex-col items-center gap-2">
                     <Loader2 className="w-8 h-8 animate-spin text-primary" />
-                    <p className="text-sm text-text-secondary">Extracting data...</p>
+                    <p className="text-sm text-text-secondary">
+                      Extracting data...
+                    </p>
                   </div>
                 </div>
               )}
@@ -217,8 +231,12 @@ export function DocumentScanner({
                 {/* Confidence Score */}
                 <div className="flex items-center justify-between p-3 bg-bg-muted rounded-lg">
                   <div>
-                    <p className="text-xs text-text-muted">Extraction Confidence</p>
-                    <p className={`text-lg font-bold ${getConfidenceColor(result.confidence)}`}>
+                    <p className="text-xs text-text-muted">
+                      Extraction Confidence
+                    </p>
+                    <p
+                      className={`text-lg font-bold ${getConfidenceColor(result.confidence)}`}
+                    >
                       {Math.round(result.confidence * 100)}%
                     </p>
                   </div>
@@ -249,7 +267,9 @@ export function DocumentScanner({
                             </p>
                           </div>
                           <button
-                            onClick={() => copyToClipboard(field, value as string)}
+                            onClick={() =>
+                              copyToClipboard(field, value as string)
+                            }
                             className="p-1 opacity-0 group-hover:opacity-100 transition-opacity"
                             title="Copy to clipboard"
                           >
@@ -278,7 +298,12 @@ export function DocumentScanner({
 
                 {/* Actions */}
                 <div className="flex gap-2 pt-2">
-                  <Button variant="outline" size="sm" onClick={reset} className="flex-1">
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    onClick={reset}
+                    className="flex-1"
+                  >
                     <FileText className="w-4 h-4 mr-1" />
                     Scan Another
                   </Button>
@@ -307,15 +332,18 @@ export function DocumentScanButton({
   const fileInputRef = useRef<HTMLInputElement>(null);
   const { isExtracting, extractDocument } = useDocumentOCR();
 
-  const handleFileChange = useCallback(async (e: React.ChangeEvent<HTMLInputElement>) => {
-    const file = e.target.files?.[0];
-    if (file) {
-      const result = await extractDocument(file, documentType);
-      if (result && onExtractionComplete) {
-        onExtractionComplete(result);
+  const handleFileChange = useCallback(
+    async (e: React.ChangeEvent<HTMLInputElement>) => {
+      const file = e.target.files?.[0];
+      if (file) {
+        const result = await extractDocument(file, documentType);
+        if (result && onExtractionComplete) {
+          onExtractionComplete(result);
+        }
       }
-    }
-  }, [extractDocument, documentType, onExtractionComplete]);
+    },
+    [extractDocument, documentType, onExtractionComplete],
+  );
 
   return (
     <>

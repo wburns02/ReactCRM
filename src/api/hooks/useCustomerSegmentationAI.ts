@@ -140,7 +140,8 @@ function generateDemoSegments(): CustomerSegment[] {
     {
       id: "seg-1",
       name: "High-Value Residential",
-      description: "Residential customers with high lifetime value and regular service history",
+      description:
+        "Residential customers with high lifetime value and regular service history",
       criteria: [
         { field: "lifetime_value", operator: "greater_than", value: 2000 },
         { field: "service_count", operator: "greater_than", value: 5 },
@@ -197,7 +198,11 @@ function generateDemoSegments(): CustomerSegment[] {
       name: "New Customers",
       description: "Customers acquired in the last 6 months",
       criteria: [
-        { field: "created_at", operator: "greater_than", value: "6_months_ago" },
+        {
+          field: "created_at",
+          operator: "greater_than",
+          value: "6_months_ago",
+        },
       ],
       customer_count: 156,
       avg_lifetime_value: 450,
@@ -225,7 +230,8 @@ function generateDemoDiscoveredSegments(): DiscoveredSegment[] {
         "Higher average ticket size",
       ],
       business_opportunity: "Premium weekend service tier",
-      suggested_campaign: "Introduce weekend premium service with priority scheduling",
+      suggested_campaign:
+        "Introduce weekend premium service with priority scheduling",
       confidence: 0.87,
     },
     {
@@ -239,7 +245,8 @@ function generateDemoDiscoveredSegments(): DiscoveredSegment[] {
         "No maintenance plan",
       ],
       business_opportunity: "Convert to preventive maintenance plans",
-      suggested_campaign: "Targeted maintenance plan offer with emergency reduction guarantee",
+      suggested_campaign:
+        "Targeted maintenance plan offer with emergency reduction guarantee",
       confidence: 0.92,
     },
   ];
@@ -250,16 +257,37 @@ function generateDemoAnalytics(): SegmentationAnalytics {
     total_customers: 1456,
     segmented_customers: 1289,
     segments: [
-      { segment_name: "High-Value Residential", customer_count: 234, revenue_contribution: 0.35, growth_trend: "growing" },
-      { segment_name: "Commercial Accounts", customer_count: 89, revenue_contribution: 0.42, growth_trend: "stable" },
-      { segment_name: "At-Risk Customers", customer_count: 67, revenue_contribution: 0.05, growth_trend: "declining" },
-      { segment_name: "New Customers", customer_count: 156, revenue_contribution: 0.08, growth_trend: "growing" },
+      {
+        segment_name: "High-Value Residential",
+        customer_count: 234,
+        revenue_contribution: 0.35,
+        growth_trend: "growing",
+      },
+      {
+        segment_name: "Commercial Accounts",
+        customer_count: 89,
+        revenue_contribution: 0.42,
+        growth_trend: "stable",
+      },
+      {
+        segment_name: "At-Risk Customers",
+        customer_count: 67,
+        revenue_contribution: 0.05,
+        growth_trend: "declining",
+      },
+      {
+        segment_name: "New Customers",
+        customer_count: 156,
+        revenue_contribution: 0.08,
+        growth_trend: "growing",
+      },
     ],
     insights: [
       {
         type: "opportunity",
         title: "Untapped Commercial Potential",
-        description: "23% of residential customers have business addresses - potential for commercial conversion",
+        description:
+          "23% of residential customers have business addresses - potential for commercial conversion",
         affected_segment: "High-Value Residential",
         action_required: true,
       },
@@ -273,7 +301,8 @@ function generateDemoAnalytics(): SegmentationAnalytics {
       {
         type: "trend",
         title: "New Customer Growth",
-        description: "30% increase in new customer acquisition compared to last quarter",
+        description:
+          "30% increase in new customer acquisition compared to last quarter",
         affected_segment: "New Customers",
         action_required: false,
       },

@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import { useTechnicianMatch, type TechnicianMatch } from "@/api/hooks/useTechnicianAI";
+import {
+  useTechnicianMatch,
+  type TechnicianMatch,
+} from "@/api/hooks/useTechnicianAI";
 import { Button } from "@/components/ui/Button";
 
 interface TechnicianMatchPanelProps {
@@ -129,16 +132,23 @@ export function TechnicianMatchPanel({
           {data.best_match && (
             <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-3">
               <div className="flex items-center justify-between mb-2">
-                <span className="text-sm font-medium text-green-400">Recommended</span>
-                <span className={`text-lg font-bold ${getScoreColor(data.best_match.match_score)}`}>
+                <span className="text-sm font-medium text-green-400">
+                  Recommended
+                </span>
+                <span
+                  className={`text-lg font-bold ${getScoreColor(data.best_match.match_score)}`}
+                >
                   {data.best_match.match_score}%
                 </span>
               </div>
               <div className="flex items-center justify-between">
                 <div>
-                  <span className="font-medium text-text-primary">{data.best_match.technician_name}</span>
+                  <span className="font-medium text-text-primary">
+                    {data.best_match.technician_name}
+                  </span>
                   <p className="text-xs text-text-muted">
-                    {data.best_match.distance_miles} mi away • {data.best_match.estimated_arrival}
+                    {data.best_match.distance_miles} mi away •{" "}
+                    {data.best_match.estimated_arrival}
                   </p>
                 </div>
                 <Button
@@ -154,7 +164,9 @@ export function TechnicianMatchPanel({
 
           {/* All Matches */}
           <div>
-            <span className="text-xs text-text-muted block mb-2">All Matches</span>
+            <span className="text-xs text-text-muted block mb-2">
+              All Matches
+            </span>
             <div className="space-y-2">
               {data.matches.map((match) => (
                 <div
@@ -164,15 +176,25 @@ export function TechnicianMatchPanel({
                   <div className="flex items-start justify-between mb-2">
                     <div>
                       <div className="flex items-center gap-2">
-                        <span className="font-medium text-text-primary">{match.technician_name}</span>
-                        <span className={`text-sm font-bold ${getScoreColor(match.match_score)}`}>
+                        <span className="font-medium text-text-primary">
+                          {match.technician_name}
+                        </span>
+                        <span
+                          className={`text-sm font-bold ${getScoreColor(match.match_score)}`}
+                        >
                           {match.match_score}%
                         </span>
                       </div>
                       <p className="text-xs text-text-muted">
                         {match.distance_miles} mi • {match.estimated_arrival} •{" "}
-                        <span className={getAvailabilityColor(match.availability.is_available)}>
-                          {match.availability.is_available ? "Available now" : `Available ${match.availability.next_available}`}
+                        <span
+                          className={getAvailabilityColor(
+                            match.availability.is_available,
+                          )}
+                        >
+                          {match.availability.is_available
+                            ? "Available now"
+                            : `Available ${match.availability.next_available}`}
                         </span>
                       </p>
                     </div>
@@ -187,36 +209,47 @@ export function TechnicianMatchPanel({
 
                   {/* Skills */}
                   <div className="flex flex-wrap gap-1 mb-2">
-                    {match.skills_match.filter((s) => s.has_skill).map((skill, i) => (
-                      <span
-                        key={i}
-                        className={`text-xs px-1.5 py-0.5 rounded ${getProficiencyColor(skill.proficiency)}`}
-                      >
-                        {skill.skill}
-                        {skill.required && " *"}
-                      </span>
-                    ))}
+                    {match.skills_match
+                      .filter((s) => s.has_skill)
+                      .map((skill, i) => (
+                        <span
+                          key={i}
+                          className={`text-xs px-1.5 py-0.5 rounded ${getProficiencyColor(skill.proficiency)}`}
+                        >
+                          {skill.skill}
+                          {skill.required && " *"}
+                        </span>
+                      ))}
                   </div>
 
                   {/* Customer History */}
                   {match.customer_history.previous_visits > 0 && (
                     <div className="flex items-center gap-2 text-xs text-text-muted">
                       <span>
-                        {match.customer_history.previous_visits} previous visit{match.customer_history.previous_visits !== 1 ? "s" : ""}
+                        {match.customer_history.previous_visits} previous visit
+                        {match.customer_history.previous_visits !== 1
+                          ? "s"
+                          : ""}
                       </span>
                       <span>•</span>
-                      <span>{match.customer_history.average_rating}/5 rating</span>
+                      <span>
+                        {match.customer_history.average_rating}/5 rating
+                      </span>
                       {match.customer_history.customer_preference && (
                         <>
                           <span>•</span>
-                          <span className="text-green-400">Customer preferred</span>
+                          <span className="text-green-400">
+                            Customer preferred
+                          </span>
                         </>
                       )}
                     </div>
                   )}
 
                   {/* Recommendation */}
-                  <p className="text-xs text-purple-400 mt-2">→ {match.recommendation}</p>
+                  <p className="text-xs text-purple-400 mt-2">
+                    → {match.recommendation}
+                  </p>
                 </div>
               ))}
             </div>

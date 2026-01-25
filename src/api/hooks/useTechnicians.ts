@@ -24,7 +24,8 @@ export const technicianKeys = {
     [...technicianKeys.lists(), filters] as const,
   details: () => [...technicianKeys.all, "detail"] as const,
   detail: (id: string) => [...technicianKeys.details(), id] as const,
-  performance: (id: string) => [...technicianKeys.all, "performance", id] as const,
+  performance: (id: string) =>
+    [...technicianKeys.all, "performance", id] as const,
   jobs: (id: string, category: JobCategory, page: number) =>
     [...technicianKeys.all, "jobs", id, category, page] as const,
 };
@@ -156,7 +157,7 @@ export function useTechnicianPerformance(technicianId: string | undefined) {
     queryKey: technicianKeys.performance(technicianId!),
     queryFn: async (): Promise<TechnicianPerformanceStats> => {
       const { data } = await apiClient.get(
-        `/technicians/${technicianId}/performance`
+        `/technicians/${technicianId}/performance`,
       );
 
       if (import.meta.env.DEV) {
@@ -164,7 +165,7 @@ export function useTechnicianPerformance(technicianId: string | undefined) {
         if (!result.success) {
           console.warn(
             "Technician performance response validation failed:",
-            result.error
+            result.error,
           );
         }
       }
@@ -183,7 +184,7 @@ export function useTechnicianJobs(
   technicianId: string | undefined,
   jobCategory: JobCategory = "all",
   page: number = 1,
-  pageSize: number = 20
+  pageSize: number = 20,
 ) {
   return useQuery({
     queryKey: technicianKeys.jobs(technicianId!, jobCategory, page),
@@ -195,7 +196,7 @@ export function useTechnicianJobs(
       });
 
       const { data } = await apiClient.get(
-        `/technicians/${technicianId}/jobs?${params.toString()}`
+        `/technicians/${technicianId}/jobs?${params.toString()}`,
       );
 
       if (import.meta.env.DEV) {
@@ -203,7 +204,7 @@ export function useTechnicianJobs(
         if (!result.success) {
           console.warn(
             "Technician jobs response validation failed:",
-            result.error
+            result.error,
           );
         }
       }

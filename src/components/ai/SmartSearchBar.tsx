@@ -1,6 +1,10 @@
 import { useState, useEffect, useRef } from "react";
 import { useNavigate } from "react-router-dom";
-import { useSmartSearch, useSearchSuggestions, type SearchResultItem } from "@/api/hooks/useSearchAI";
+import {
+  useSmartSearch,
+  useSearchSuggestions,
+  type SearchResultItem,
+} from "@/api/hooks/useSearchAI";
 
 /**
  * AI-powered smart search bar with natural language processing
@@ -38,7 +42,10 @@ export function SmartSearchBar() {
   // Handle click outside
   useEffect(() => {
     const handleClickOutside = (e: MouseEvent) => {
-      if (containerRef.current && !containerRef.current.contains(e.target as Node)) {
+      if (
+        containerRef.current &&
+        !containerRef.current.contains(e.target as Node)
+      ) {
         setShowResults(false);
       }
     };
@@ -182,7 +189,11 @@ export function SmartSearchBar() {
               {searchMutation.data.query_interpretation}
               {searchMutation.data.filters_applied.length > 0 && (
                 <span className="ml-2 text-xs">
-                  ({searchMutation.data.filters_applied.map((f) => `${f.field}: ${f.value}`).join(", ")})
+                  (
+                  {searchMutation.data.filters_applied
+                    .map((f) => `${f.field}: ${f.value}`)
+                    .join(", ")}
+                  )
                 </span>
               )}
             </p>
@@ -213,7 +224,9 @@ export function SmartSearchBar() {
                           {result.relevance_score}% match
                         </span>
                       </div>
-                      <p className="text-sm text-text-muted truncate">{result.subtitle}</p>
+                      <p className="text-sm text-text-muted truncate">
+                        {result.subtitle}
+                      </p>
                       {result.highlights.length > 0 && (
                         <p className="text-xs text-purple-400 mt-1">
                           {result.highlights[0]}
@@ -231,7 +244,8 @@ export function SmartSearchBar() {
 
             {/* Search Stats */}
             <div className="px-4 py-2 bg-bg-secondary border-t border-border text-xs text-text-muted">
-              Found {searchMutation.data.total_count} results in {searchMutation.data.search_time_ms}ms
+              Found {searchMutation.data.total_count} results in{" "}
+              {searchMutation.data.search_time_ms}ms
             </div>
           </div>
         )}

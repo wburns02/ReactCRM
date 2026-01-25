@@ -26,7 +26,9 @@ export function useActivitySummary(customerId: string | undefined) {
       if (!customerId) throw new Error("Customer ID required");
 
       try {
-        const response = await apiClient.get(`/ai/customers/${customerId}/activity-summary`);
+        const response = await apiClient.get(
+          `/ai/customers/${customerId}/activity-summary`,
+        );
         return response.data;
       } catch {
         // Fetch activities and generate demo summary
@@ -56,7 +58,10 @@ export function useActivityRangeSummary() {
       endDate: string;
     }): Promise<ActivitySummaryResult> => {
       try {
-        const response = await apiClient.post("/ai/activities/summarize-range", params);
+        const response = await apiClient.post(
+          "/ai/activities/summarize-range",
+          params,
+        );
         return response.data;
       } catch {
         return generateDemoSummary([]);
@@ -72,13 +77,16 @@ export function useExtractActionItems() {
   return useMutation({
     mutationFn: async (activities: Activity[]): Promise<string[]> => {
       try {
-        const response = await apiClient.post("/ai/activities/extract-actions", {
-          activities: activities.map((a) => ({
-            type: a.activity_type,
-            description: a.description,
-            created_at: a.created_at,
-          })),
-        });
+        const response = await apiClient.post(
+          "/ai/activities/extract-actions",
+          {
+            activities: activities.map((a) => ({
+              type: a.activity_type,
+              description: a.description,
+              created_at: a.created_at,
+            })),
+          },
+        );
         return response.data.action_items || [];
       } catch {
         return extractDemoActionItems(activities);
@@ -97,7 +105,9 @@ export function useWeeklyDigest(customerId: string | undefined) {
       if (!customerId) return null;
 
       try {
-        const response = await apiClient.get(`/ai/customers/${customerId}/weekly-digest`);
+        const response = await apiClient.get(
+          `/ai/customers/${customerId}/weekly-digest`,
+        );
         return response.data;
       } catch {
         return {
@@ -108,8 +118,14 @@ export function useWeeklyDigest(customerId: string | undefined) {
             "Estimate was approved",
             "Follow-up call completed successfully",
           ],
-          pending_items: ["Invoice payment pending", "Satisfaction survey not completed"],
-          recommended_actions: ["Send payment reminder", "Schedule follow-up call"],
+          pending_items: [
+            "Invoice payment pending",
+            "Satisfaction survey not completed",
+          ],
+          recommended_actions: [
+            "Send payment reminder",
+            "Schedule follow-up call",
+          ],
         };
       }
     },
@@ -124,7 +140,8 @@ export function useWeeklyDigest(customerId: string | undefined) {
 function generateDemoSummary(activities: Activity[]): ActivitySummaryResult {
   if (activities.length === 0) {
     return {
-      summary: "No recent activity recorded for this customer. Consider reaching out to maintain engagement.",
+      summary:
+        "No recent activity recorded for this customer. Consider reaching out to maintain engagement.",
       key_points: ["No recent interactions"],
       action_items: ["Schedule initial contact", "Send introduction email"],
       sentiment: "neutral",
@@ -144,22 +161,41 @@ function generateDemoSummary(activities: Activity[]): ActivitySummaryResult {
   const actionItems: string[] = [];
 
   // Analyze activity descriptions for common topics
-  const allNotes = activities.map((a) => a.description || "").join(" ").toLowerCase();
+  const allNotes = activities
+    .map((a) => a.description || "")
+    .join(" ")
+    .toLowerCase();
 
-  if (allNotes.includes("payment") || allNotes.includes("invoice") || allNotes.includes("bill")) {
+  if (
+    allNotes.includes("payment") ||
+    allNotes.includes("invoice") ||
+    allNotes.includes("bill")
+  ) {
     topics.push("Billing");
     keyPoints.push("Customer has discussed payment/billing matters");
   }
-  if (allNotes.includes("schedule") || allNotes.includes("appointment") || allNotes.includes("time")) {
+  if (
+    allNotes.includes("schedule") ||
+    allNotes.includes("appointment") ||
+    allNotes.includes("time")
+  ) {
     topics.push("Scheduling");
     keyPoints.push("Scheduling was a discussion topic");
   }
-  if (allNotes.includes("issue") || allNotes.includes("problem") || allNotes.includes("complaint")) {
+  if (
+    allNotes.includes("issue") ||
+    allNotes.includes("problem") ||
+    allNotes.includes("complaint")
+  ) {
     topics.push("Support");
     keyPoints.push("Customer raised concerns or issues");
     actionItems.push("Follow up on reported issues");
   }
-  if (allNotes.includes("quote") || allNotes.includes("estimate") || allNotes.includes("price")) {
+  if (
+    allNotes.includes("quote") ||
+    allNotes.includes("estimate") ||
+    allNotes.includes("price")
+  ) {
     topics.push("Sales");
     keyPoints.push("Pricing or estimates were discussed");
   }
@@ -171,9 +207,19 @@ function generateDemoSummary(activities: Activity[]): ActivitySummaryResult {
 
   // Determine sentiment
   let sentiment: "positive" | "neutral" | "negative" = "neutral";
-  if (allNotes.includes("happy") || allNotes.includes("thank") || allNotes.includes("great") || allNotes.includes("satisfied")) {
+  if (
+    allNotes.includes("happy") ||
+    allNotes.includes("thank") ||
+    allNotes.includes("great") ||
+    allNotes.includes("satisfied")
+  ) {
     sentiment = "positive";
-  } else if (allNotes.includes("upset") || allNotes.includes("angry") || allNotes.includes("disappointed") || allNotes.includes("frustrated")) {
+  } else if (
+    allNotes.includes("upset") ||
+    allNotes.includes("angry") ||
+    allNotes.includes("disappointed") ||
+    allNotes.includes("frustrated")
+  ) {
     sentiment = "negative";
     actionItems.push("Address customer concerns promptly");
   }
@@ -182,26 +228,41 @@ function generateDemoSummary(activities: Activity[]): ActivitySummaryResult {
   const summary = `This customer has ${activities.length} recorded ${activities.length === 1 ? "interaction" : "interactions"} in the recent period. ${
     hasCall ? "Phone calls have been exchanged. " : ""
   }${hasEmail ? "Email communication is ongoing. " : ""}${hasMeeting ? "Meetings have been conducted. " : ""}${
-    sentiment === "positive" ? "Overall engagement appears positive." :
-    sentiment === "negative" ? "Some concerns may need attention." :
-    "Engagement level is normal."
+    sentiment === "positive"
+      ? "Overall engagement appears positive."
+      : sentiment === "negative"
+        ? "Some concerns may need attention."
+        : "Engagement level is normal."
   }`;
 
   // Default action items if none detected
   if (actionItems.length === 0) {
     actionItems.push("Continue regular communication");
-    if (!hasCall && activities.length > 2) actionItems.push("Consider a phone check-in");
+    if (!hasCall && activities.length > 2)
+      actionItems.push("Consider a phone check-in");
   }
 
   return {
     summary,
-    key_points: keyPoints.length > 0 ? keyPoints : ["Regular customer interaction maintained"],
+    key_points:
+      keyPoints.length > 0
+        ? keyPoints
+        : ["Regular customer interaction maintained"],
     action_items: actionItems,
     sentiment,
     topics: topics.length > 0 ? topics : ["General"],
-    next_steps: ["Review upcoming service schedule", "Monitor customer satisfaction"],
-    customer_mood: sentiment === "positive" ? "Satisfied" : sentiment === "negative" ? "Needs attention" : "Neutral",
-    interaction_quality: sentiment === "positive" ? 8 : sentiment === "negative" ? 4 : 6,
+    next_steps: [
+      "Review upcoming service schedule",
+      "Monitor customer satisfaction",
+    ],
+    customer_mood:
+      sentiment === "positive"
+        ? "Satisfied"
+        : sentiment === "negative"
+          ? "Needs attention"
+          : "Neutral",
+    interaction_quality:
+      sentiment === "positive" ? 8 : sentiment === "negative" ? 4 : 6,
   };
 }
 
@@ -210,7 +271,10 @@ function generateDemoSummary(activities: Activity[]): ActivitySummaryResult {
  */
 function extractDemoActionItems(activities: Activity[]): string[] {
   const items: string[] = [];
-  const notes = activities.map((a) => a.description || "").join(" ").toLowerCase();
+  const notes = activities
+    .map((a) => a.description || "")
+    .join(" ")
+    .toLowerCase();
 
   if (notes.includes("follow up") || notes.includes("follow-up")) {
     items.push("Complete scheduled follow-up");
@@ -228,5 +292,7 @@ function extractDemoActionItems(activities: Activity[]): string[] {
     items.push("Prepare or follow up on quote");
   }
 
-  return items.length > 0 ? items : ["Review customer history", "Plan next engagement"];
+  return items.length > 0
+    ? items
+    : ["Review customer history", "Plan next engagement"];
 }

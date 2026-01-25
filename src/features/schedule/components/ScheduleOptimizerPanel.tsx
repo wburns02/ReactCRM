@@ -15,13 +15,22 @@ interface ScheduleOptimizerPanelProps {
  * AI-powered schedule optimization panel
  * Provides route optimization, gap filling, and schedule analysis
  */
-export function ScheduleOptimizerPanel({ date, onApplyOptimization }: ScheduleOptimizerPanelProps) {
+export function ScheduleOptimizerPanel({
+  date,
+  onApplyOptimization,
+}: ScheduleOptimizerPanelProps) {
   const [showPanel, setShowPanel] = useState(false);
-  const [activeTab, setActiveTab] = useState<"analyze" | "optimize" | "gaps">("analyze");
+  const [activeTab, setActiveTab] = useState<"analyze" | "optimize" | "gaps">(
+    "analyze",
+  );
 
   const currentDate = date || new Date().toISOString().split("T")[0];
 
-  const { data: analysis, isLoading: analysisLoading, refetch: refetchAnalysis } = useScheduleAnalysis(currentDate);
+  const {
+    data: analysis,
+    isLoading: analysisLoading,
+    refetch: refetchAnalysis,
+  } = useScheduleAnalysis(currentDate);
   const optimizeMutation = useScheduleOptimization();
   const autoFillMutation = useAutoFillGaps();
 
@@ -87,16 +96,21 @@ export function ScheduleOptimizerPanel({ date, onApplyOptimization }: ScheduleOp
     );
   }
 
-  const isLoading = activeTab === "analyze" ? analysisLoading :
-    activeTab === "optimize" ? optimizeMutation.isPending :
-    autoFillMutation.isPending;
+  const isLoading =
+    activeTab === "analyze"
+      ? analysisLoading
+      : activeTab === "optimize"
+        ? optimizeMutation.isPending
+        : autoFillMutation.isPending;
 
   return (
     <div className="bg-gradient-to-r from-purple-500/10 to-blue-500/10 border border-purple-500/30 rounded-lg p-4">
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-lg">✨</span>
-          <h4 className="font-medium text-text-primary">AI Schedule Optimizer</h4>
+          <h4 className="font-medium text-text-primary">
+            AI Schedule Optimizer
+          </h4>
           <span className="text-xs text-text-muted">({currentDate})</span>
         </div>
         <button
@@ -145,9 +159,11 @@ export function ScheduleOptimizerPanel({ date, onApplyOptimization }: ScheduleOp
         <div className="flex items-center gap-2 text-text-secondary py-4">
           <div className="animate-spin h-4 w-4 border-2 border-purple-500 border-t-transparent rounded-full" />
           <span className="text-sm">
-            {activeTab === "analyze" ? "Analyzing schedule..." :
-              activeTab === "optimize" ? "Optimizing routes..." :
-              "Finding gaps to fill..."}
+            {activeTab === "analyze"
+              ? "Analyzing schedule..."
+              : activeTab === "optimize"
+                ? "Optimizing routes..."
+                : "Finding gaps to fill..."}
           </span>
         </div>
       )}
@@ -158,14 +174,22 @@ export function ScheduleOptimizerPanel({ date, onApplyOptimization }: ScheduleOp
           {/* Health Score */}
           <div className="grid grid-cols-2 gap-3">
             <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-              <span className="text-xs text-text-muted block mb-1">Schedule Health</span>
-              <span className={`text-2xl font-bold ${getHealthColor(analysis.overall_health)}`}>
+              <span className="text-xs text-text-muted block mb-1">
+                Schedule Health
+              </span>
+              <span
+                className={`text-2xl font-bold ${getHealthColor(analysis.overall_health)}`}
+              >
                 {analysis.overall_health}%
               </span>
             </div>
             <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-              <span className="text-xs text-text-muted block mb-1">Efficiency Score</span>
-              <span className={`text-2xl font-bold ${getHealthColor(analysis.efficiency_score)}`}>
+              <span className="text-xs text-text-muted block mb-1">
+                Efficiency Score
+              </span>
+              <span
+                className={`text-2xl font-bold ${getHealthColor(analysis.efficiency_score)}`}
+              >
                 {analysis.efficiency_score}%
               </span>
             </div>
@@ -173,45 +197,84 @@ export function ScheduleOptimizerPanel({ date, onApplyOptimization }: ScheduleOp
 
           {/* Technician Utilization */}
           <div className="bg-bg-card border border-border rounded-lg p-3">
-            <span className="text-xs text-text-muted block mb-2">Technician Utilization</span>
+            <span className="text-xs text-text-muted block mb-2">
+              Technician Utilization
+            </span>
             <div className="space-y-2">
-              {analysis.utilization_by_tech?.map((tech: { technician: string; utilization: number; status: string }, i: number) => (
-                <div key={i} className="flex items-center justify-between">
-                  <span className="text-sm text-text-primary">{tech.technician}</span>
-                  <div className="flex items-center gap-2">
-                    <div className="w-24 h-2 bg-bg-tertiary rounded-full overflow-hidden">
-                      <div
-                        className={`h-full rounded-full ${
-                          tech.status === "optimal" ? "bg-green-500" :
-                          tech.status === "underutilized" ? "bg-yellow-500" : "bg-red-500"
-                        }`}
-                        style={{ width: `${tech.utilization}%` }}
-                      />
-                    </div>
-                    <span className={`text-sm ${getUtilizationColor(tech.status)}`}>
-                      {tech.utilization}%
+              {analysis.utilization_by_tech?.map(
+                (
+                  tech: {
+                    technician: string;
+                    utilization: number;
+                    status: string;
+                  },
+                  i: number,
+                ) => (
+                  <div key={i} className="flex items-center justify-between">
+                    <span className="text-sm text-text-primary">
+                      {tech.technician}
                     </span>
+                    <div className="flex items-center gap-2">
+                      <div className="w-24 h-2 bg-bg-tertiary rounded-full overflow-hidden">
+                        <div
+                          className={`h-full rounded-full ${
+                            tech.status === "optimal"
+                              ? "bg-green-500"
+                              : tech.status === "underutilized"
+                                ? "bg-yellow-500"
+                                : "bg-red-500"
+                          }`}
+                          style={{ width: `${tech.utilization}%` }}
+                        />
+                      </div>
+                      <span
+                        className={`text-sm ${getUtilizationColor(tech.status)}`}
+                      >
+                        {tech.utilization}%
+                      </span>
+                    </div>
                   </div>
-                </div>
-              ))}
+                ),
+              )}
             </div>
           </div>
 
           {/* Issues */}
           {analysis.issues?.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Issues Found</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Issues Found
+              </span>
               <div className="space-y-2">
-                {analysis.issues.map((issue: { severity: string; type: string; description: string; suggestion: string }, i: number) => (
-                  <div key={i} className={`p-3 rounded-lg border ${getSeverityColor(issue.severity)}`}>
-                    <div className="flex items-center gap-2 mb-1">
-                      <span className="text-xs font-medium uppercase">{issue.severity}</span>
-                      <span className="text-sm font-medium">{issue.type}</span>
+                {analysis.issues.map(
+                  (
+                    issue: {
+                      severity: string;
+                      type: string;
+                      description: string;
+                      suggestion: string;
+                    },
+                    i: number,
+                  ) => (
+                    <div
+                      key={i}
+                      className={`p-3 rounded-lg border ${getSeverityColor(issue.severity)}`}
+                    >
+                      <div className="flex items-center gap-2 mb-1">
+                        <span className="text-xs font-medium uppercase">
+                          {issue.severity}
+                        </span>
+                        <span className="text-sm font-medium">
+                          {issue.type}
+                        </span>
+                      </div>
+                      <p className="text-sm opacity-90">{issue.description}</p>
+                      <p className="text-xs mt-1 opacity-75">
+                        → {issue.suggestion}
+                      </p>
                     </div>
-                    <p className="text-sm opacity-90">{issue.description}</p>
-                    <p className="text-xs mt-1 opacity-75">→ {issue.suggestion}</p>
-                  </div>
-                ))}
+                  ),
+                )}
               </div>
             </div>
           )}
@@ -219,10 +282,15 @@ export function ScheduleOptimizerPanel({ date, onApplyOptimization }: ScheduleOp
           {/* Opportunities */}
           {analysis.opportunities?.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Opportunities</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Opportunities
+              </span>
               <ul className="space-y-1">
                 {analysis.opportunities.map((opp: string, i: number) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
+                  <li
+                    key={i}
+                    className="flex items-start gap-2 text-sm text-text-secondary"
+                  >
                     <span className="text-green-400">+</span>
                     <span>{opp}</span>
                   </li>
@@ -239,7 +307,8 @@ export function ScheduleOptimizerPanel({ date, onApplyOptimization }: ScheduleOp
           {!optimizeMutation.data && !optimizeMutation.isPending && (
             <div className="text-center py-4">
               <p className="text-sm text-text-muted mb-3">
-                Optimize technician routes to minimize drive time and maximize efficiency
+                Optimize technician routes to minimize drive time and maximize
+                efficiency
               </p>
               <Button
                 size="sm"
@@ -255,14 +324,20 @@ export function ScheduleOptimizerPanel({ date, onApplyOptimization }: ScheduleOp
             <>
               {/* Savings Summary */}
               <div className="bg-green-500/10 border border-green-500/30 rounded-lg p-4">
-                <span className="text-sm text-green-400 block mb-2">Optimization Results</span>
+                <span className="text-sm text-green-400 block mb-2">
+                  Optimization Results
+                </span>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <span className="text-xs text-text-muted">Drive Time Saved</span>
+                    <span className="text-xs text-text-muted">
+                      Drive Time Saved
+                    </span>
                     <p className="text-lg font-bold text-green-400">
                       {optimizeMutation.data.savings.drive_time_saved_hours} hrs
                       <span className="text-sm ml-1">
-                        ({optimizeMutation.data.savings.drive_time_saved_percent}%)
+                        (
+                        {optimizeMutation.data.savings.drive_time_saved_percent}
+                        %)
                       </span>
                     </p>
                   </div>
@@ -275,29 +350,50 @@ export function ScheduleOptimizerPanel({ date, onApplyOptimization }: ScheduleOp
                 </div>
                 {optimizeMutation.data.savings.additional_job_capacity > 0 && (
                   <p className="text-sm text-green-400 mt-2">
-                    +{optimizeMutation.data.savings.additional_job_capacity} additional job capacity created
+                    +{optimizeMutation.data.savings.additional_job_capacity}{" "}
+                    additional job capacity created
                   </p>
                 )}
               </div>
 
               {/* Changes */}
-              {optimizeMutation.data.optimized_schedule.filter((j: { change_reason?: string }) => j.change_reason).length > 0 && (
+              {optimizeMutation.data.optimized_schedule.filter(
+                (j: { change_reason?: string }) => j.change_reason,
+              ).length > 0 && (
                 <div>
-                  <span className="text-xs text-text-muted block mb-2">Recommended Changes</span>
+                  <span className="text-xs text-text-muted block mb-2">
+                    Recommended Changes
+                  </span>
                   <div className="space-y-2">
                     {optimizeMutation.data.optimized_schedule
-                      .filter((job: { change_reason?: string }) => job.change_reason)
-                      .map((job: { job_id: string; original_time: string; optimized_time: string; change_reason?: string }) => (
-                        <div key={job.job_id} className="bg-bg-card border border-border rounded-lg p-2">
-                          <div className="flex items-center justify-between mb-1">
-                            <span className="text-sm font-medium text-text-primary">{job.job_id}</span>
-                            <span className="text-xs text-text-muted">
-                              {job.original_time} → {job.optimized_time}
-                            </span>
+                      .filter(
+                        (job: { change_reason?: string }) => job.change_reason,
+                      )
+                      .map(
+                        (job: {
+                          job_id: string;
+                          original_time: string;
+                          optimized_time: string;
+                          change_reason?: string;
+                        }) => (
+                          <div
+                            key={job.job_id}
+                            className="bg-bg-card border border-border rounded-lg p-2"
+                          >
+                            <div className="flex items-center justify-between mb-1">
+                              <span className="text-sm font-medium text-text-primary">
+                                {job.job_id}
+                              </span>
+                              <span className="text-xs text-text-muted">
+                                {job.original_time} → {job.optimized_time}
+                              </span>
+                            </div>
+                            <p className="text-xs text-purple-400">
+                              {job.change_reason}
+                            </p>
                           </div>
-                          <p className="text-xs text-purple-400">{job.change_reason}</p>
-                        </div>
-                      ))}
+                        ),
+                      )}
                   </div>
                 </div>
               )}
@@ -340,13 +436,17 @@ export function ScheduleOptimizerPanel({ date, onApplyOptimization }: ScheduleOp
               {/* Summary */}
               <div className="grid grid-cols-2 gap-3">
                 <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-                  <span className="text-xs text-text-muted block mb-1">Gaps Found</span>
+                  <span className="text-xs text-text-muted block mb-1">
+                    Gaps Found
+                  </span>
                   <span className="text-xl font-bold text-text-primary">
                     {autoFillMutation.data.gaps_found}
                   </span>
                 </div>
                 <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-                  <span className="text-xs text-text-muted block mb-1">Gaps Filled</span>
+                  <span className="text-xs text-text-muted block mb-1">
+                    Gaps Filled
+                  </span>
                   <span className="text-xl font-bold text-success">
                     {autoFillMutation.data.gaps_filled}
                   </span>
@@ -356,14 +456,29 @@ export function ScheduleOptimizerPanel({ date, onApplyOptimization }: ScheduleOp
               {/* Jobs Added */}
               {autoFillMutation.data.jobs_added?.length > 0 && (
                 <div>
-                  <span className="text-xs text-text-muted block mb-2">Jobs Added</span>
+                  <span className="text-xs text-text-muted block mb-2">
+                    Jobs Added
+                  </span>
                   <div className="space-y-2">
-                    {autoFillMutation.data.jobs_added.map((job: { job_id: string; time: string; technician: string }) => (
-                      <div key={job.job_id} className="flex items-center justify-between bg-green-500/10 border border-green-500/30 rounded-lg p-2">
-                        <span className="text-sm font-medium text-green-400">{job.job_id}</span>
-                        <span className="text-xs text-text-muted">{job.time} - {job.technician}</span>
-                      </div>
-                    ))}
+                    {autoFillMutation.data.jobs_added.map(
+                      (job: {
+                        job_id: string;
+                        time: string;
+                        technician: string;
+                      }) => (
+                        <div
+                          key={job.job_id}
+                          className="flex items-center justify-between bg-green-500/10 border border-green-500/30 rounded-lg p-2"
+                        >
+                          <span className="text-sm font-medium text-green-400">
+                            {job.job_id}
+                          </span>
+                          <span className="text-xs text-text-muted">
+                            {job.time} - {job.technician}
+                          </span>
+                        </div>
+                      ),
+                    )}
                   </div>
                 </div>
               )}
@@ -371,17 +486,38 @@ export function ScheduleOptimizerPanel({ date, onApplyOptimization }: ScheduleOp
               {/* Remaining Gaps */}
               {autoFillMutation.data.remaining_gaps?.length > 0 && (
                 <div>
-                  <span className="text-xs text-text-muted block mb-2">Remaining Gaps</span>
+                  <span className="text-xs text-text-muted block mb-2">
+                    Remaining Gaps
+                  </span>
                   <div className="space-y-2">
-                    {autoFillMutation.data.remaining_gaps.map((gap: { technician: string; start: string; end: string; reason: string }, i: number) => (
-                      <div key={i} className="bg-bg-card border border-border rounded-lg p-2">
-                        <div className="flex items-center justify-between mb-1">
-                          <span className="text-sm text-text-primary">{gap.technician}</span>
-                          <span className="text-xs text-text-muted">{gap.start} - {gap.end}</span>
+                    {autoFillMutation.data.remaining_gaps.map(
+                      (
+                        gap: {
+                          technician: string;
+                          start: string;
+                          end: string;
+                          reason: string;
+                        },
+                        i: number,
+                      ) => (
+                        <div
+                          key={i}
+                          className="bg-bg-card border border-border rounded-lg p-2"
+                        >
+                          <div className="flex items-center justify-between mb-1">
+                            <span className="text-sm text-text-primary">
+                              {gap.technician}
+                            </span>
+                            <span className="text-xs text-text-muted">
+                              {gap.start} - {gap.end}
+                            </span>
+                          </div>
+                          <p className="text-xs text-yellow-400">
+                            {gap.reason}
+                          </p>
                         </div>
-                        <p className="text-xs text-yellow-400">{gap.reason}</p>
-                      </div>
-                    ))}
+                      ),
+                    )}
                   </div>
                 </div>
               )}

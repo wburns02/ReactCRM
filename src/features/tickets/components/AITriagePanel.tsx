@@ -1,5 +1,8 @@
 import { useState, useEffect } from "react";
-import { useTicketTriage, type TicketTriageResult } from "@/api/hooks/useTicketAI";
+import {
+  useTicketTriage,
+  type TicketTriageResult,
+} from "@/api/hooks/useTicketAI";
 import { Button } from "@/components/ui/Button";
 import type { TicketType, TicketPriority } from "@/api/types/ticket";
 
@@ -22,7 +25,9 @@ export function AITriagePanel({
   onApplySuggestions,
 }: AITriagePanelProps) {
   const [showPanel, setShowPanel] = useState(false);
-  const [triageResult, setTriageResult] = useState<TicketTriageResult | null>(null);
+  const [triageResult, setTriageResult] = useState<TicketTriageResult | null>(
+    null,
+  );
   const triageMutation = useTicketTriage();
 
   // Auto-analyze when content changes significantly
@@ -113,7 +118,8 @@ export function AITriagePanel({
       {!triageResult && !triageMutation.isPending && (
         <div className="space-y-3">
           <p className="text-sm text-text-secondary">
-            AI will analyze the ticket content and suggest category, priority, and routing.
+            AI will analyze the ticket content and suggest category, priority,
+            and routing.
           </p>
           <Button
             type="button"
@@ -146,14 +152,18 @@ export function AITriagePanel({
                   style={{ width: `${triageResult.confidence}%` }}
                 />
               </div>
-              <span className="text-xs text-text-secondary">{triageResult.confidence}%</span>
+              <span className="text-xs text-text-secondary">
+                {triageResult.confidence}%
+              </span>
             </div>
           </div>
 
           {/* Suggestions Grid */}
           <div className="grid grid-cols-2 gap-3">
             <div className="bg-bg-card border border-border rounded-lg p-3">
-              <span className="text-xs text-text-muted block mb-1">Suggested Type</span>
+              <span className="text-xs text-text-muted block mb-1">
+                Suggested Type
+              </span>
               <div className="flex items-center gap-2">
                 <span>{getTypeIcon(triageResult.suggested_type)}</span>
                 <span className="font-medium text-text-primary capitalize">
@@ -163,20 +173,32 @@ export function AITriagePanel({
             </div>
 
             <div className="bg-bg-card border border-border rounded-lg p-3">
-              <span className="text-xs text-text-muted block mb-1">Suggested Priority</span>
-              <span className={`inline-block px-2 py-1 rounded text-xs font-medium border ${getPriorityColor(triageResult.suggested_priority)}`}>
+              <span className="text-xs text-text-muted block mb-1">
+                Suggested Priority
+              </span>
+              <span
+                className={`inline-block px-2 py-1 rounded text-xs font-medium border ${getPriorityColor(triageResult.suggested_priority)}`}
+              >
                 {triageResult.suggested_priority.toUpperCase()}
               </span>
             </div>
 
             <div className="bg-bg-card border border-border rounded-lg p-3">
-              <span className="text-xs text-text-muted block mb-1">Category</span>
-              <span className="font-medium text-text-primary">{triageResult.category}</span>
+              <span className="text-xs text-text-muted block mb-1">
+                Category
+              </span>
+              <span className="font-medium text-text-primary">
+                {triageResult.category}
+              </span>
             </div>
 
             <div className="bg-bg-card border border-border rounded-lg p-3">
-              <span className="text-xs text-text-muted block mb-1">Est. Resolution</span>
-              <span className="font-medium text-text-primary">{triageResult.estimated_resolution_time}</span>
+              <span className="text-xs text-text-muted block mb-1">
+                Est. Resolution
+              </span>
+              <span className="font-medium text-text-primary">
+                {triageResult.estimated_resolution_time}
+              </span>
             </div>
           </div>
 
@@ -184,14 +206,18 @@ export function AITriagePanel({
           <div className="bg-bg-card border border-border rounded-lg p-3">
             <div className="flex items-center justify-between mb-2">
               <span className="text-xs text-text-muted">Urgency Score</span>
-              <span className="text-sm font-medium text-text-primary">{triageResult.urgency_score}/10</span>
+              <span className="text-sm font-medium text-text-primary">
+                {triageResult.urgency_score}/10
+              </span>
             </div>
             <div className="w-full h-2 bg-bg-tertiary rounded-full overflow-hidden">
               <div
                 className={`h-full rounded-full ${
-                  triageResult.urgency_score >= 8 ? "bg-red-500" :
-                  triageResult.urgency_score >= 5 ? "bg-yellow-500" :
-                  "bg-green-500"
+                  triageResult.urgency_score >= 8
+                    ? "bg-red-500"
+                    : triageResult.urgency_score >= 5
+                      ? "bg-yellow-500"
+                      : "bg-green-500"
                 }`}
                 style={{ width: `${triageResult.urgency_score * 10}%` }}
               />
@@ -201,7 +227,9 @@ export function AITriagePanel({
           {/* Tags */}
           {triageResult.tags.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Suggested Tags</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Suggested Tags
+              </span>
               <div className="flex flex-wrap gap-2">
                 {triageResult.tags.map((tag) => (
                   <span
@@ -218,7 +246,9 @@ export function AITriagePanel({
           {/* Auto-response suggestion */}
           {triageResult.auto_response_suggestion && (
             <div className="bg-bg-card border border-border rounded-lg p-3">
-              <span className="text-xs text-text-muted block mb-2">Suggested Auto-Response</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Suggested Auto-Response
+              </span>
               <p className="text-sm text-text-secondary italic">
                 "{triageResult.auto_response_suggestion}"
               </p>

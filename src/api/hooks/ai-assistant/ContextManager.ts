@@ -5,7 +5,7 @@
  * comprehensive situational awareness to the AI Assistant
  */
 
-import { useLocation } from 'react-router-dom';
+import { useLocation } from "react-router-dom";
 import type {
   AIContext,
   EntityContext,
@@ -18,8 +18,8 @@ import type {
   TicketContext,
   ScheduleContext,
   TechnicianContext,
-  AIPreferences
-} from '@/api/types/aiAssistant';
+  AIPreferences,
+} from "@/api/types/aiAssistant";
 
 export class ContextManager {
   private contextCache: Map<string, AIContext> = new Map();
@@ -28,7 +28,10 @@ export class ContextManager {
 
   // ===== MAIN CONTEXT AGGREGATION =====
 
-  async aggregateContext(userId: string, sessionId: string): Promise<AIContext> {
+  async aggregateContext(
+    userId: string,
+    sessionId: string,
+  ): Promise<AIContext> {
     const cacheKey = `${userId}_${sessionId}`;
     const cached = this.getCachedContext(cacheKey);
 
@@ -42,19 +45,23 @@ export class ContextManager {
     return context;
   }
 
-  private async buildCompleteContext(userId: string, sessionId: string): Promise<AIContext> {
-    const [userContext, appContext, domainContext, sessionContext] = await Promise.all([
-      this.buildUserContext(userId),
-      this.buildAppContext(),
-      this.buildDomainContext(),
-      this.buildSessionContext(sessionId)
-    ]);
+  private async buildCompleteContext(
+    userId: string,
+    sessionId: string,
+  ): Promise<AIContext> {
+    const [userContext, appContext, domainContext, sessionContext] =
+      await Promise.all([
+        this.buildUserContext(userId),
+        this.buildAppContext(),
+        this.buildDomainContext(),
+        this.buildSessionContext(sessionId),
+      ]);
 
     return {
       user: userContext,
       app: appContext,
       domain: domainContext,
-      session: sessionContext
+      session: sessionContext,
     };
   }
 
@@ -67,44 +74,46 @@ export class ContextManager {
       role: this.getCurrentUserRole(),
       permissions: await this.getUserPermissions(userId),
       preferences: await this.getUserPreferences(userId),
-      department: await this.getUserDepartment(userId)
+      department: await this.getUserDepartment(userId),
     };
   }
 
   private getCurrentUserRole(): UserRole {
     // This would integrate with your auth system
     // For now, return a default
-    return 'manager';
+    return "manager";
   }
 
   private async getUserPermissions(_userId: string): Promise<string[]> {
     // Fetch user permissions from auth system
-    return ['read:customers', 'write:tickets', 'execute:ai_actions'];
+    return ["read:customers", "write:tickets", "execute:ai_actions"];
   }
 
   private async getUserPreferences(_userId: string): Promise<AIPreferences> {
     // Fetch from user preferences storage
     return {
-      communicationStyle: 'detailed',
-      notificationFrequency: 'immediate',
+      communicationStyle: "detailed",
+      notificationFrequency: "immediate",
       autoExecuteThreshold: 0.85,
-      preferredResponseFormat: 'structured',
+      preferredResponseFormat: "structured",
       voiceEnabled: true,
       proactiveSuggestions: true,
       executiveMode: {
         enabled: false,
         confidenceThreshold: 0.9,
-        allowedTypes: ['create', 'update'],
+        allowedTypes: ["create", "update"],
         maxAutoExecutionsPerHour: 10,
         showNotifications: true,
-        requireConnection: true
-      }
+        requireConnection: true,
+      },
     };
   }
 
-  private async getUserDepartment(_userId: string): Promise<string | undefined> {
+  private async getUserDepartment(
+    _userId: string,
+  ): Promise<string | undefined> {
     // Fetch department from HR system
-    return 'Operations';
+    return "Operations";
   }
 
   // ===== APPLICATION CONTEXT =====
@@ -115,7 +124,7 @@ export class ContextManager {
       currentEntity: await this.getCurrentEntity(),
       recentActivity: await this.getRecentActivity(),
       navigationHistory: this.getNavigationHistory(),
-      viewport: this.getViewportContext()
+      viewport: this.getViewportContext(),
     };
   }
 
@@ -131,22 +140,24 @@ export class ContextManager {
       return {
         type: entityMatch.type,
         id: entityMatch.id,
-        data: await this.fetchEntityData(entityMatch.type, entityMatch.id)
+        data: await this.fetchEntityData(entityMatch.type, entityMatch.id),
       };
     }
 
     return undefined;
   }
 
-  private extractEntityFromPath(path: string): { type: EntityContext['type']; id: string } | null {
+  private extractEntityFromPath(
+    path: string,
+  ): { type: EntityContext["type"]; id: string } | null {
     // Extract entity information from URL patterns
     const patterns = [
-      { pattern: /\/customers\/([^/]+)/, type: 'customer' as const },
-      { pattern: /\/work-orders\/([^/]+)/, type: 'work_order' as const },
-      { pattern: /\/tickets\/([^/]+)/, type: 'ticket' as const },
-      { pattern: /\/technicians\/([^/]+)/, type: 'technician' as const },
-      { pattern: /\/invoices\/([^/]+)/, type: 'invoice' as const },
-      { pattern: /\/schedule/, type: 'schedule' as const }
+      { pattern: /\/customers\/([^/]+)/, type: "customer" as const },
+      { pattern: /\/work-orders\/([^/]+)/, type: "work_order" as const },
+      { pattern: /\/tickets\/([^/]+)/, type: "ticket" as const },
+      { pattern: /\/technicians\/([^/]+)/, type: "technician" as const },
+      { pattern: /\/invoices\/([^/]+)/, type: "invoice" as const },
+      { pattern: /\/schedule/, type: "schedule" as const },
     ];
 
     for (const { pattern, type } of patterns) {
@@ -154,7 +165,7 @@ export class ContextManager {
       if (match) {
         return {
           type,
-          id: match[1] || 'current'
+          id: match[1] || "current",
         };
       }
     }
@@ -162,14 +173,17 @@ export class ContextManager {
     return null;
   }
 
-  private async fetchEntityData(type: string, id: string): Promise<Record<string, unknown> | undefined> {
+  private async fetchEntityData(
+    type: string,
+    id: string,
+  ): Promise<Record<string, unknown> | undefined> {
     try {
       // This would fetch actual entity data from APIs
       // For now, return placeholder
       return {
         id,
         type,
-        fetchedAt: new Date().toISOString()
+        fetchedAt: new Date().toISOString(),
       };
     } catch (error) {
       console.warn(`Failed to fetch entity data for ${type}:${id}`, error);
@@ -181,17 +195,17 @@ export class ContextManager {
     // Get recent user activity from activity tracking
     return [
       {
-        type: 'page_visit',
+        type: "page_visit",
         timestamp: new Date(Date.now() - 60000).toISOString(),
         entity: {
-          type: 'customer',
-          id: 'customer_123'
+          type: "customer",
+          id: "customer_123",
         },
         details: {
           duration: 120,
-          interactions: ['view', 'edit']
-        }
-      }
+          interactions: ["view", "edit"],
+        },
+      },
     ];
   }
 
@@ -199,15 +213,15 @@ export class ContextManager {
     // Get navigation history from browser or tracking system
     return [
       {
-        path: '/dashboard',
+        path: "/dashboard",
         timestamp: new Date(Date.now() - 300000).toISOString(),
-        duration: 180
+        duration: 180,
       },
       {
-        path: '/customers',
+        path: "/customers",
         timestamp: new Date(Date.now() - 120000).toISOString(),
-        duration: 120
-      }
+        duration: 120,
+      },
     ];
   }
 
@@ -220,7 +234,7 @@ export class ContextManager {
       height,
       isMobile: width < 768,
       isTablet: width >= 768 && width < 1024,
-      orientation: width > height ? 'landscape' : 'portrait'
+      orientation: width > height ? "landscape" : "portrait",
     };
   }
 
@@ -232,7 +246,7 @@ export class ContextManager {
       workOrders: await this.getWorkOrderContext(),
       tickets: await this.getTicketContext(),
       schedule: await this.getScheduleContext(),
-      technicians: await this.getTechnicianContext()
+      technicians: await this.getTechnicianContext(),
     };
   }
 
@@ -240,15 +254,17 @@ export class ContextManager {
     // Get relevant customer context based on current page/activity
     const currentEntity = await this.getCurrentEntity();
 
-    if (currentEntity?.type === 'customer') {
-      return [{
-        id: currentEntity.id,
-        name: 'John Smith Construction', // Would fetch from API
-        tier: 'vip',
-        risk_level: 'low',
-        recent_interactions: 5,
-        satisfaction_score: 8.5
-      }];
+    if (currentEntity?.type === "customer") {
+      return [
+        {
+          id: currentEntity.id,
+          name: "John Smith Construction", // Would fetch from API
+          tier: "vip",
+          risk_level: "low",
+          recent_interactions: 5,
+          satisfaction_score: 8.5,
+        },
+      ];
     }
 
     return [];
@@ -257,16 +273,18 @@ export class ContextManager {
   private async getWorkOrderContext(): Promise<WorkOrderContext[]> {
     const currentEntity = await this.getCurrentEntity();
 
-    if (currentEntity?.type === 'work_order') {
-      return [{
-        id: currentEntity.id,
-        status: 'in_progress',
-        priority: 'high',
-        technician_id: 'tech_456',
-        customer_id: 'customer_123',
-        scheduled_date: '2025-01-14T10:00:00Z',
-        service_type: 'hvac_maintenance'
-      }];
+    if (currentEntity?.type === "work_order") {
+      return [
+        {
+          id: currentEntity.id,
+          status: "in_progress",
+          priority: "high",
+          technician_id: "tech_456",
+          customer_id: "customer_123",
+          scheduled_date: "2025-01-14T10:00:00Z",
+          service_type: "hvac_maintenance",
+        },
+      ];
     }
 
     return [];
@@ -275,16 +293,18 @@ export class ContextManager {
   private async getTicketContext(): Promise<TicketContext[]> {
     const currentEntity = await this.getCurrentEntity();
 
-    if (currentEntity?.type === 'ticket') {
-      return [{
-        id: currentEntity.id,
-        status: 'open',
-        priority: 'medium',
-        category: 'maintenance',
-        assigned_to: 'tech_789',
-        customer_id: 'customer_456',
-        created_at: '2025-01-13T14:30:00Z'
-      }];
+    if (currentEntity?.type === "ticket") {
+      return [
+        {
+          id: currentEntity.id,
+          status: "open",
+          priority: "medium",
+          category: "maintenance",
+          assigned_to: "tech_789",
+          customer_id: "customer_456",
+          created_at: "2025-01-13T14:30:00Z",
+        },
+      ];
     }
 
     return [];
@@ -293,14 +313,14 @@ export class ContextManager {
   private async getScheduleContext(): Promise<ScheduleContext | undefined> {
     const path = window.location.pathname;
 
-    if (path.includes('/schedule')) {
+    if (path.includes("/schedule")) {
       return {
-        current_date: new Date().toISOString().split('T')[0],
+        current_date: new Date().toISOString().split("T")[0],
         view_type: this.extractScheduleViewType(path),
         selected_technician: this.extractSelectedTechnician(path),
         filter_criteria: await this.getScheduleFilters(),
         conflicts: 2,
-        utilization_rate: 0.85
+        utilization_rate: 0.85,
       };
     }
 
@@ -310,20 +330,22 @@ export class ContextManager {
   private async getTechnicianContext(): Promise<TechnicianContext[]> {
     const currentEntity = await this.getCurrentEntity();
 
-    if (currentEntity?.type === 'technician') {
-      return [{
-        id: currentEntity.id,
-        name: 'Mike Rodriguez',
-        status: 'available',
-        location: {
-          lat: 40.7128,
-          lng: -74.0060,
-          address: '123 Main St, New York, NY'
+    if (currentEntity?.type === "technician") {
+      return [
+        {
+          id: currentEntity.id,
+          name: "Mike Rodriguez",
+          status: "available",
+          location: {
+            lat: 40.7128,
+            lng: -74.006,
+            address: "123 Main St, New York, NY",
+          },
+          skills: ["hvac", "plumbing", "electrical"],
+          current_job: undefined,
+          rating: 4.8,
         },
-        skills: ['hvac', 'plumbing', 'electrical'],
-        current_job: undefined,
-        rating: 4.8
-      }];
+      ];
     }
 
     return [];
@@ -336,7 +358,7 @@ export class ContextManager {
       conversationHistory: await this.getConversationHistory(sessionId),
       activeIntents: await this.getActiveIntents(sessionId),
       pendingActions: await this.getPendingActions(sessionId),
-      executedActions: await this.getExecutedActions(sessionId)
+      executedActions: await this.getExecutedActions(sessionId),
     };
   }
 
@@ -388,17 +410,20 @@ export class ContextManager {
       context.app.navigationHistory.unshift(navigation);
       // Keep only last 20 navigation entries
       if (context.app.navigationHistory.length > 20) {
-        context.app.navigationHistory = context.app.navigationHistory.slice(0, 20);
+        context.app.navigationHistory = context.app.navigationHistory.slice(
+          0,
+          20,
+        );
       }
     });
   }
 
   // ===== HELPER METHODS =====
 
-  private extractScheduleViewType(path: string): 'day' | 'week' | 'month' {
-    if (path.includes('day')) return 'day';
-    if (path.includes('month')) return 'month';
-    return 'week'; // default
+  private extractScheduleViewType(path: string): "day" | "week" | "month" {
+    if (path.includes("day")) return "day";
+    if (path.includes("month")) return "month";
+    return "week"; // default
   }
 
   private extractSelectedTechnician(path: string): string | undefined {
@@ -451,7 +476,7 @@ export function useContextManager() {
   React.useEffect(() => {
     contextManager.updateNavigationContext({
       path: location.pathname,
-      timestamp: new Date().toISOString()
+      timestamp: new Date().toISOString(),
     });
   }, [location.pathname, contextManager]);
 
@@ -459,4 +484,4 @@ export function useContextManager() {
 }
 
 // Add React import for useEffect
-import React from 'react';
+import React from "react";

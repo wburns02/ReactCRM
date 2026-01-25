@@ -7,40 +7,40 @@
 // ===== CORE TYPES =====
 
 export type AIDomain =
-  | 'customer-activity'
-  | 'dispatch'
-  | 'tickets'
-  | 'scheduling'
-  | 'pricing'
-  | 'search'
-  | 'calls'
-  | 'leads'
-  | 'documents'
-  | 'contracts'
-  | 'payments'
-  | 'compliance'
-  | 'technicians'
-  | 'reports'
-  | 'inventory'
-  | 'insights';
+  | "customer-activity"
+  | "dispatch"
+  | "tickets"
+  | "scheduling"
+  | "pricing"
+  | "search"
+  | "calls"
+  | "leads"
+  | "documents"
+  | "contracts"
+  | "payments"
+  | "compliance"
+  | "technicians"
+  | "reports"
+  | "inventory"
+  | "insights";
 
 export type AICapability =
-  | 'query'
-  | 'action'
-  | 'analysis'
-  | 'prediction'
-  | 'optimization'
-  | 'summarization'
-  | 'classification'
-  | 'recommendation';
+  | "query"
+  | "action"
+  | "analysis"
+  | "prediction"
+  | "optimization"
+  | "summarization"
+  | "classification"
+  | "recommendation";
 
 export type UserRole =
-  | 'administrator'
-  | 'manager'
-  | 'technician'
-  | 'phone_agent'
-  | 'dispatcher'
-  | 'billing';
+  | "administrator"
+  | "manager"
+  | "technician"
+  | "phone_agent"
+  | "dispatcher"
+  | "billing";
 
 // ===== CONVERSATION TYPES =====
 
@@ -53,13 +53,13 @@ export interface AIConversation {
   settings: ConversationSettings;
   createdAt: string;
   lastActiveAt: string;
-  status: 'active' | 'paused' | 'completed' | 'archived';
+  status: "active" | "paused" | "completed" | "archived";
 }
 
 export interface AIMessage {
   id: string;
   conversationId: string;
-  role: 'user' | 'assistant' | 'system';
+  role: "user" | "assistant" | "system";
   content: string;
   timestamp: string;
   intent?: AIIntent;
@@ -125,7 +125,13 @@ export interface AIContext {
 }
 
 export interface EntityContext {
-  type: 'customer' | 'work_order' | 'ticket' | 'technician' | 'invoice' | 'schedule';
+  type:
+    | "customer"
+    | "work_order"
+    | "ticket"
+    | "technician"
+    | "invoice"
+    | "schedule";
   id: string;
   data?: Record<string, unknown>;
 }
@@ -148,24 +154,31 @@ export interface ViewportContext {
   height: number;
   isMobile: boolean;
   isTablet: boolean;
-  orientation?: 'portrait' | 'landscape';
+  orientation?: "portrait" | "landscape";
 }
 
 // ===== INTENT & QUERY TYPES =====
 
 export interface AIIntent {
-  type: 'query' | 'action' | 'conversation' | 'navigation' | 'help';
+  type: "query" | "action" | "conversation" | "navigation" | "help";
   domain?: AIDomain;
   operation: string;
   entities: ExtractedEntity[];
   confidence: number;
   parameters?: Record<string, unknown>;
   requiresAuth?: boolean;
-  priority: 'low' | 'medium' | 'high' | 'urgent';
+  priority: "low" | "medium" | "high" | "urgent";
 }
 
 export interface ExtractedEntity {
-  type: 'customer' | 'work_order' | 'ticket' | 'technician' | 'date' | 'location' | 'service_type';
+  type:
+    | "customer"
+    | "work_order"
+    | "ticket"
+    | "technician"
+    | "date"
+    | "location"
+    | "service_type";
   value: string;
   confidence: number;
   metadata?: Record<string, unknown>;
@@ -185,7 +198,7 @@ export interface DomainQuery {
   domain: AIDomain;
   operation: string;
   parameters: Record<string, unknown>;
-  priority: 'primary' | 'secondary' | 'supporting';
+  priority: "primary" | "secondary" | "supporting";
   dependencies?: string[];
 }
 
@@ -193,20 +206,27 @@ export interface DomainQuery {
 
 export interface AIAction {
   id: string;
-  type: 'create' | 'update' | 'delete' | 'schedule' | 'notify' | 'analyze' | 'optimize';
+  type:
+    | "create"
+    | "update"
+    | "delete"
+    | "schedule"
+    | "notify"
+    | "analyze"
+    | "optimize";
   domain: AIDomain;
   operation: string;
   payload: Record<string, unknown>;
   requirements: ActionRequirement[];
   rollbackData?: Record<string, unknown>;
   executedAt?: string;
-  status: 'pending' | 'executing' | 'completed' | 'failed' | 'rolled_back';
+  status: "pending" | "executing" | "completed" | "failed" | "rolled_back";
   confidence: number;
   estimatedImpact?: ActionImpact;
 }
 
 export interface ActionRequirement {
-  type: 'permission' | 'confirmation' | 'data_availability' | 'business_rule';
+  type: "permission" | "confirmation" | "data_availability" | "business_rule";
   description: string;
   satisfied: boolean;
   metadata?: Record<string, unknown>;
@@ -215,8 +235,8 @@ export interface ActionRequirement {
 export interface ActionImpact {
   time_saved_minutes?: number;
   cost_saved?: number;
-  customer_satisfaction?: 'positive' | 'neutral' | 'negative';
-  risk_level?: 'low' | 'medium' | 'high';
+  customer_satisfaction?: "positive" | "neutral" | "negative";
+  risk_level?: "low" | "medium" | "high";
 }
 
 export interface ActionResult {
@@ -276,12 +296,12 @@ export interface AIResponse {
 export interface ActionableInsight {
   title: string;
   description: string;
-  priority: 'low' | 'medium' | 'high' | 'critical';
-  category: 'opportunity' | 'risk' | 'optimization' | 'information';
+  priority: "low" | "medium" | "high" | "critical";
+  category: "opportunity" | "risk" | "optimization" | "information";
   suggestedAction?: AIAction;
   confidence: number;
   estimatedValue?: {
-    type: 'time_saved' | 'cost_saved' | 'revenue_opportunity';
+    type: "time_saved" | "cost_saved" | "revenue_opportunity";
     amount: number;
     unit: string;
   };
@@ -289,7 +309,7 @@ export interface ActionableInsight {
 
 export interface AISuggestion {
   id: string;
-  type: 'quick_action' | 'follow_up_question' | 'related_query';
+  type: "quick_action" | "follow_up_question" | "related_query";
   title: string;
   description?: string;
   action?: AIAction;
@@ -308,16 +328,16 @@ export interface AIError {
 export interface AIWarning {
   code: string;
   message: string;
-  severity: 'low' | 'medium' | 'high';
+  severity: "low" | "medium" | "high";
 }
 
 // ===== PREFERENCES & SETTINGS =====
 
 export interface AIPreferences {
-  communicationStyle: 'brief' | 'detailed' | 'technical' | 'conversational';
-  notificationFrequency: 'immediate' | 'hourly' | 'daily' | 'weekly';
+  communicationStyle: "brief" | "detailed" | "technical" | "conversational";
+  notificationFrequency: "immediate" | "hourly" | "daily" | "weekly";
   autoExecuteThreshold: number; // 0-1, confidence threshold for auto-execution
-  preferredResponseFormat: 'text' | 'structured' | 'visual';
+  preferredResponseFormat: "text" | "structured" | "visual";
   voiceEnabled: boolean;
   proactiveSuggestions: boolean;
   executiveMode: ExecutiveModeSettings;
@@ -326,7 +346,7 @@ export interface AIPreferences {
 export interface ExecutiveModeSettings {
   enabled: boolean;
   confidenceThreshold: number; // 0.8-1.0
-  allowedTypes: AIAction['type'][];
+  allowedTypes: AIAction["type"][];
   maxAutoExecutionsPerHour: number;
   showNotifications: boolean;
   requireConnection: boolean;
@@ -337,7 +357,7 @@ export interface ConversationSettings {
   retentionDays: number;
   shareWithTeam: boolean;
   encryptSensitiveData: boolean;
-  auditLevel: 'minimal' | 'standard' | 'comprehensive';
+  auditLevel: "minimal" | "standard" | "comprehensive";
 }
 
 // ===== DOMAIN-SPECIFIC CONTEXTS =====
@@ -345,8 +365,8 @@ export interface ConversationSettings {
 export interface CustomerContext {
   id: string;
   name: string;
-  tier: 'vip' | 'standard' | 'new';
-  risk_level: 'low' | 'medium' | 'high';
+  tier: "vip" | "standard" | "new";
+  risk_level: "low" | "medium" | "high";
   recent_interactions: number;
   satisfaction_score?: number;
 }
@@ -354,7 +374,7 @@ export interface CustomerContext {
 export interface WorkOrderContext {
   id: string;
   status: string;
-  priority: 'low' | 'medium' | 'high' | 'urgent';
+  priority: "low" | "medium" | "high" | "urgent";
   technician_id?: string;
   customer_id: string;
   scheduled_date?: string;
@@ -364,7 +384,7 @@ export interface WorkOrderContext {
 export interface TicketContext {
   id: string;
   status: string;
-  priority: 'low' | 'medium' | 'high' | 'urgent';
+  priority: "low" | "medium" | "high" | "urgent";
   category: string;
   assigned_to?: string;
   customer_id: string;
@@ -373,7 +393,7 @@ export interface TicketContext {
 
 export interface ScheduleContext {
   current_date: string;
-  view_type: 'day' | 'week' | 'month';
+  view_type: "day" | "week" | "month";
   selected_technician?: string;
   filter_criteria?: Record<string, unknown>;
   conflicts: number;
@@ -383,7 +403,7 @@ export interface ScheduleContext {
 export interface TechnicianContext {
   id: string;
   name: string;
-  status: 'available' | 'busy' | 'offline';
+  status: "available" | "busy" | "offline";
   location?: {
     lat: number;
     lng: number;
@@ -397,7 +417,7 @@ export interface TechnicianContext {
 // ===== HEALTH & MONITORING =====
 
 export interface HealthStatus {
-  status: 'healthy' | 'degraded' | 'unhealthy';
+  status: "healthy" | "degraded" | "unhealthy";
   response_time_ms: number;
   error_rate: number;
   last_check: string;

@@ -13,11 +13,18 @@ import { Button } from "@/components/ui/Button";
  */
 export function OnboardingAssistant() {
   const [showPanel, setShowPanel] = useState(false);
-  const [activeTab, setActiveTab] = useState<"progress" | "tasks" | "recommendations">("progress");
+  const [activeTab, setActiveTab] = useState<
+    "progress" | "tasks" | "recommendations"
+  >("progress");
   const navigate = useNavigate();
 
-  const { data: progress, isLoading: loadingProgress, refetch } = useOnboardingProgress();
-  const { data: recommendations, isLoading: loadingRecs } = useOnboardingRecommendations();
+  const {
+    data: progress,
+    isLoading: loadingProgress,
+    refetch,
+  } = useOnboardingProgress();
+  const { data: recommendations, isLoading: loadingRecs } =
+    useOnboardingRecommendations();
 
   const skipTask = useSkipOnboardingTask();
 
@@ -35,19 +42,27 @@ export function OnboardingAssistant() {
 
   const getCategoryIcon = (category: string) => {
     switch (category) {
-      case "setup": return "&#9881;";
-      case "learn": return "&#128218;";
-      case "practice": return "&#9889;";
-      case "customize": return "&#127912;";
-      default: return "&#10003;";
+      case "setup":
+        return "&#9881;";
+      case "learn":
+        return "&#128218;";
+      case "practice":
+        return "&#9889;";
+      case "customize":
+        return "&#127912;";
+      default:
+        return "&#10003;";
     }
   };
 
   const getPriorityColor = (priority: string) => {
     switch (priority) {
-      case "required": return "bg-red-500/20 text-red-400";
-      case "recommended": return "bg-yellow-500/20 text-yellow-400";
-      default: return "bg-gray-500/20 text-gray-400";
+      case "required":
+        return "bg-red-500/20 text-red-400";
+      case "recommended":
+        return "bg-yellow-500/20 text-yellow-400";
+      default:
+        return "bg-gray-500/20 text-gray-400";
     }
   };
 
@@ -75,7 +90,9 @@ export function OnboardingAssistant() {
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-2">
             <span className="text-lg">&#10024;</span>
-            <h4 className="font-medium text-text-primary">Onboarding Assistant</h4>
+            <h4 className="font-medium text-text-primary">
+              Onboarding Assistant
+            </h4>
           </div>
           <button
             onClick={() => setShowPanel(false)}
@@ -90,7 +107,9 @@ export function OnboardingAssistant() {
           <div className="mt-3">
             <div className="flex items-center justify-between text-xs mb-1">
               <span className="text-text-secondary">Setup Progress</span>
-              <span className="text-purple-400 font-medium">{progress.completion_percent}%</span>
+              <span className="text-purple-400 font-medium">
+                {progress.completion_percent}%
+              </span>
             </div>
             <div className="h-2 bg-bg-tertiary rounded-full overflow-hidden">
               <div
@@ -114,9 +133,11 @@ export function OnboardingAssistant() {
                 : "text-text-muted hover:text-text-secondary"
             }`}
           >
-            {tab === "progress" ? "Overview" :
-              tab === "tasks" ? "Tasks" :
-              "Tips"}
+            {tab === "progress"
+              ? "Overview"
+              : tab === "tasks"
+                ? "Tasks"
+                : "Tips"}
           </button>
         ))}
       </div>
@@ -135,26 +156,38 @@ export function OnboardingAssistant() {
           <div className="space-y-4">
             {/* Current Phase */}
             <div className="bg-purple-500/10 border border-purple-500/30 rounded-lg p-3">
-              <span className="text-xs text-purple-400 block mb-1">Current Phase</span>
-              <span className="font-medium text-text-primary">{progress.current_phase.name}</span>
-              <p className="text-xs text-text-secondary mt-1">{progress.current_phase.description}</p>
+              <span className="text-xs text-purple-400 block mb-1">
+                Current Phase
+              </span>
+              <span className="font-medium text-text-primary">
+                {progress.current_phase.name}
+              </span>
+              <p className="text-xs text-text-secondary mt-1">
+                {progress.current_phase.description}
+              </p>
             </div>
 
             {/* Stats */}
             <div className="grid grid-cols-2 gap-3">
               <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-                <span className="text-2xl font-bold text-green-400">{progress.completed_tasks.length}</span>
+                <span className="text-2xl font-bold text-green-400">
+                  {progress.completed_tasks.length}
+                </span>
                 <span className="text-xs text-text-muted block">Completed</span>
               </div>
               <div className="bg-bg-card border border-border rounded-lg p-3 text-center">
-                <span className="text-2xl font-bold text-text-primary">{progress.pending_tasks.length}</span>
+                <span className="text-2xl font-bold text-text-primary">
+                  {progress.pending_tasks.length}
+                </span>
                 <span className="text-xs text-text-muted block">Remaining</span>
               </div>
             </div>
 
             {/* Time Estimate */}
             <div className="text-center py-2">
-              <span className="text-xs text-text-muted">Estimated time to complete:</span>
+              <span className="text-xs text-text-muted">
+                Estimated time to complete:
+              </span>
               <span className="text-sm text-text-primary font-medium block">
                 ~{progress.estimated_time_remaining} minutes
               </span>
@@ -163,12 +196,18 @@ export function OnboardingAssistant() {
             {/* Next Task */}
             {progress.pending_tasks[0] && (
               <div>
-                <span className="text-xs text-text-muted block mb-2">Up Next</span>
+                <span className="text-xs text-text-muted block mb-2">
+                  Up Next
+                </span>
                 <div className="bg-bg-card border border-border rounded-lg p-3">
                   <div className="flex items-center gap-2 mb-2">
                     <span
                       className="text-lg"
-                      dangerouslySetInnerHTML={{ __html: getCategoryIcon(progress.pending_tasks[0].category) }}
+                      dangerouslySetInnerHTML={{
+                        __html: getCategoryIcon(
+                          progress.pending_tasks[0].category,
+                        ),
+                      }}
                     />
                     <span className="font-medium text-text-primary text-sm">
                       {progress.pending_tasks[0].title}
@@ -180,7 +219,9 @@ export function OnboardingAssistant() {
                   <Button
                     size="sm"
                     className="w-full"
-                    onClick={() => handleGoToTask(progress.pending_tasks[0].action_url)}
+                    onClick={() =>
+                      handleGoToTask(progress.pending_tasks[0].action_url)
+                    }
                   >
                     Start Task
                   </Button>
@@ -202,17 +243,27 @@ export function OnboardingAssistant() {
                   <div className="flex items-center gap-2">
                     <span
                       className="text-base"
-                      dangerouslySetInnerHTML={{ __html: getCategoryIcon(task.category) }}
+                      dangerouslySetInnerHTML={{
+                        __html: getCategoryIcon(task.category),
+                      }}
                     />
-                    <span className="font-medium text-text-primary text-sm">{task.title}</span>
+                    <span className="font-medium text-text-primary text-sm">
+                      {task.title}
+                    </span>
                   </div>
-                  <span className={`text-xs px-1.5 py-0.5 rounded ${getPriorityColor(task.priority)}`}>
+                  <span
+                    className={`text-xs px-1.5 py-0.5 rounded ${getPriorityColor(task.priority)}`}
+                  >
                     {task.priority}
                   </span>
                 </div>
-                <p className="text-xs text-text-secondary mb-2">{task.description}</p>
+                <p className="text-xs text-text-secondary mb-2">
+                  {task.description}
+                </p>
                 <div className="flex items-center justify-between">
-                  <span className="text-xs text-text-muted">~{task.estimated_minutes} min</span>
+                  <span className="text-xs text-text-muted">
+                    ~{task.estimated_minutes} min
+                  </span>
                   <div className="flex gap-2">
                     <button
                       onClick={() => handleSkipTask(task.id)}
@@ -235,7 +286,9 @@ export function OnboardingAssistant() {
             {progress.pending_tasks.length === 0 && (
               <div className="text-center py-8">
                 <span className="text-4xl block mb-2">&#127881;</span>
-                <span className="text-text-primary font-medium">All tasks complete!</span>
+                <span className="text-text-primary font-medium">
+                  All tasks complete!
+                </span>
                 <p className="text-xs text-text-secondary mt-1">
                   You've finished the onboarding process.
                 </p>
@@ -253,13 +306,22 @@ export function OnboardingAssistant() {
                 className="bg-bg-card border border-border rounded-lg p-3"
               >
                 <div className="flex items-center gap-2 mb-2">
-                  <span className={`w-2 h-2 rounded-full ${
-                    rec.priority === "high" ? "bg-red-400" :
-                    rec.priority === "medium" ? "bg-yellow-400" : "bg-gray-400"
-                  }`} />
-                  <span className="font-medium text-text-primary text-sm">{rec.title}</span>
+                  <span
+                    className={`w-2 h-2 rounded-full ${
+                      rec.priority === "high"
+                        ? "bg-red-400"
+                        : rec.priority === "medium"
+                          ? "bg-yellow-400"
+                          : "bg-gray-400"
+                    }`}
+                  />
+                  <span className="font-medium text-text-primary text-sm">
+                    {rec.title}
+                  </span>
                 </div>
-                <p className="text-xs text-text-secondary mb-2">{rec.description}</p>
+                <p className="text-xs text-text-secondary mb-2">
+                  {rec.description}
+                </p>
                 <div className="bg-purple-500/10 rounded p-2 mb-2">
                   <span className="text-xs text-purple-400">
                     {"→"} {rec.estimated_impact}

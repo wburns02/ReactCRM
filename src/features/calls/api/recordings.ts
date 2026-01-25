@@ -21,7 +21,9 @@ export function useCallRecording(callId: string | null) {
         throw new Error("Call ID is required");
       }
 
-      const { data } = await apiClient.get(`/ringcentral/calls/${callId}/recording`);
+      const { data } = await apiClient.get(
+        `/ringcentral/calls/${callId}/recording`,
+      );
       return data;
     },
     enabled: !!callId,

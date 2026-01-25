@@ -40,7 +40,9 @@ function AIReportQuery({ revenueData, pipelineData }: AIReportQueryProps) {
     try {
       sendMessage(`${query}\n\nContext: ${JSON.stringify(context)}`);
       // Get the latest assistant response
-      const latestResponse = messages.filter(m => m.role === "assistant").pop();
+      const latestResponse = messages
+        .filter((m) => m.role === "assistant")
+        .pop();
       if (latestResponse) {
         setResponse(latestResponse.content);
       }
@@ -52,7 +54,7 @@ function AIReportQuery({ revenueData, pipelineData }: AIReportQueryProps) {
 
   const buildReportContext = (
     revenue: typeof revenueData,
-    pipeline: typeof pipelineData
+    pipeline: typeof pipelineData,
   ) => {
     return {
       total_revenue: revenue?.metrics?.total_revenue || 0,
@@ -70,11 +72,15 @@ function AIReportQuery({ revenueData, pipelineData }: AIReportQueryProps) {
 
   const generateDemoResponse = (
     q: string,
-    ctx: ReturnType<typeof buildReportContext>
+    ctx: ReturnType<typeof buildReportContext>,
   ): string => {
     const lowerQ = q.toLowerCase();
 
-    if (lowerQ.includes("revenue") || lowerQ.includes("money") || lowerQ.includes("earning")) {
+    if (
+      lowerQ.includes("revenue") ||
+      lowerQ.includes("money") ||
+      lowerQ.includes("earning")
+    ) {
       const change = ctx.revenue_change;
       const trend = change >= 0 ? "increased" : "decreased";
       return `**Revenue Analysis:**
@@ -98,7 +104,11 @@ ${change >= 0 ? "Great work! Your revenue is trending upward." : "Consider revie
 ${ctx.repeat_rate > 50 ? "Excellent retention! Your customers are coming back." : "There's opportunity to improve customer retention through follow-up campaigns."}`;
     }
 
-    if (lowerQ.includes("pipeline") || lowerQ.includes("prospect") || lowerQ.includes("lead")) {
+    if (
+      lowerQ.includes("pipeline") ||
+      lowerQ.includes("prospect") ||
+      lowerQ.includes("lead")
+    ) {
       return `**Sales Pipeline Analysis:**
 
 - Total pipeline value: **$${ctx.pipeline_value.toLocaleString()}**
@@ -108,7 +118,11 @@ ${ctx.repeat_rate > 50 ? "Excellent retention! Your customers are coming back." 
 ${ctx.conversion_rate > 20 ? "Strong conversion rate! Keep up the follow-up cadence." : "Consider nurturing leads with targeted email campaigns to improve conversions."}`;
     }
 
-    if (lowerQ.includes("best") || lowerQ.includes("top") || lowerQ.includes("perform")) {
+    if (
+      lowerQ.includes("best") ||
+      lowerQ.includes("top") ||
+      lowerQ.includes("perform")
+    ) {
       return `**Performance Summary:**
 
 Your top metrics this period:
@@ -138,7 +152,9 @@ Try asking more specific questions like:
   };
 
   // Update response when messages change
-  const latestAssistantMessage = messages.filter(m => m.role === "assistant").pop();
+  const latestAssistantMessage = messages
+    .filter((m) => m.role === "assistant")
+    .pop();
 
   if (!showPanel) {
     return (

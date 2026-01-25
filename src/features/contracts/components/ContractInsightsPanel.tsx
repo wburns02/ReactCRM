@@ -1,5 +1,8 @@
 import { useState } from "react";
-import { useContractAnalysis, useRenewalRecommendations } from "@/api/hooks/useContractAI";
+import {
+  useContractAnalysis,
+  useRenewalRecommendations,
+} from "@/api/hooks/useContractAI";
 import { Button } from "@/components/ui/Button";
 
 interface ContractInsightsPanelProps {
@@ -10,16 +13,23 @@ interface ContractInsightsPanelProps {
  * AI-powered contract analysis panel
  * Displays key terms, risks, obligations, and renewal recommendations
  */
-export function ContractInsightsPanel({ contractId }: ContractInsightsPanelProps) {
+export function ContractInsightsPanel({
+  contractId,
+}: ContractInsightsPanelProps) {
   const [showPanel, setShowPanel] = useState(false);
-  const [activeTab, setActiveTab] = useState<"analysis" | "renewal">("analysis");
+  const [activeTab, setActiveTab] = useState<"analysis" | "renewal">(
+    "analysis",
+  );
 
-  const { data: analysis, isLoading: analysisLoading, refetch } = useContractAnalysis(
-    showPanel ? contractId : undefined
-  );
-  const { data: renewal, isLoading: renewalLoading } = useRenewalRecommendations(
-    showPanel && activeTab === "renewal" ? contractId : undefined
-  );
+  const {
+    data: analysis,
+    isLoading: analysisLoading,
+    refetch,
+  } = useContractAnalysis(showPanel ? contractId : undefined);
+  const { data: renewal, isLoading: renewalLoading } =
+    useRenewalRecommendations(
+      showPanel && activeTab === "renewal" ? contractId : undefined,
+    );
 
   const getRiskColor = (severity: string) => {
     switch (severity) {
@@ -88,7 +98,9 @@ export function ContractInsightsPanel({ contractId }: ContractInsightsPanelProps
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-lg">✨</span>
-          <h4 className="font-medium text-text-primary">AI Contract Analysis</h4>
+          <h4 className="font-medium text-text-primary">
+            AI Contract Analysis
+          </h4>
         </div>
         <button
           onClick={() => setShowPanel(false)}
@@ -139,17 +151,31 @@ export function ContractInsightsPanel({ contractId }: ContractInsightsPanelProps
           </div>
 
           {/* Compliance Status */}
-          <div className={`p-3 rounded-lg border ${getComplianceOverallColor(analysis.compliance_status.overall)}`}>
+          <div
+            className={`p-3 rounded-lg border ${getComplianceOverallColor(analysis.compliance_status.overall)}`}
+          >
             <div className="flex items-center justify-between mb-2">
               <span className="font-medium">Compliance Status</span>
-              <span className="text-sm uppercase">{analysis.compliance_status.overall}</span>
+              <span className="text-sm uppercase">
+                {analysis.compliance_status.overall}
+              </span>
             </div>
             <div className="space-y-1">
               {analysis.compliance_status.items.map((item, i) => (
-                <div key={i} className="flex items-center justify-between text-sm">
-                  <span className="text-text-secondary">{item.requirement}</span>
+                <div
+                  key={i}
+                  className="flex items-center justify-between text-sm"
+                >
+                  <span className="text-text-secondary">
+                    {item.requirement}
+                  </span>
                   <span className={getStatusColor(item.status)}>
-                    {item.status === "met" ? "✓" : item.status === "pending" ? "○" : "✗"} {item.status}
+                    {item.status === "met"
+                      ? "✓"
+                      : item.status === "pending"
+                        ? "○"
+                        : "✗"}{" "}
+                    {item.status}
                   </span>
                 </div>
               ))}
@@ -159,17 +185,30 @@ export function ContractInsightsPanel({ contractId }: ContractInsightsPanelProps
           {/* Key Terms */}
           {analysis.key_terms.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Key Terms</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Key Terms
+              </span>
               <div className="space-y-2">
                 {analysis.key_terms.map((term, i) => (
-                  <div key={i} className="flex items-center justify-between bg-bg-card border border-border rounded-lg p-2">
+                  <div
+                    key={i}
+                    className="flex items-center justify-between bg-bg-card border border-border rounded-lg p-2"
+                  >
                     <div>
-                      <span className="text-sm font-medium text-text-primary">{term.term}</span>
-                      <span className="text-xs text-text-muted ml-2">({term.category})</span>
+                      <span className="text-sm font-medium text-text-primary">
+                        {term.term}
+                      </span>
+                      <span className="text-xs text-text-muted ml-2">
+                        ({term.category})
+                      </span>
                     </div>
                     <div className="flex items-center gap-2">
-                      <span className="text-sm text-text-secondary">{term.value}</span>
-                      <span className={`px-1.5 py-0.5 rounded text-xs ${getImportanceColor(term.importance)}`}>
+                      <span className="text-sm text-text-secondary">
+                        {term.value}
+                      </span>
+                      <span
+                        className={`px-1.5 py-0.5 rounded text-xs ${getImportanceColor(term.importance)}`}
+                      >
                         {term.importance}
                       </span>
                     </div>
@@ -182,17 +221,24 @@ export function ContractInsightsPanel({ contractId }: ContractInsightsPanelProps
           {/* Risks */}
           {analysis.risks.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Identified Risks</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Identified Risks
+              </span>
               <div className="space-y-2">
                 {analysis.risks.map((risk, i) => (
-                  <div key={i} className={`p-3 rounded-lg border ${getRiskColor(risk.severity)}`}>
+                  <div
+                    key={i}
+                    className={`p-3 rounded-lg border ${getRiskColor(risk.severity)}`}
+                  >
                     <div className="flex items-center justify-between mb-1">
                       <span className="font-medium">{risk.type}</span>
                       <span className="text-xs uppercase">{risk.severity}</span>
                     </div>
                     <p className="text-sm mb-2">{risk.description}</p>
                     {risk.mitigation && (
-                      <p className="text-xs opacity-80">Mitigation: {risk.mitigation}</p>
+                      <p className="text-xs opacity-80">
+                        Mitigation: {risk.mitigation}
+                      </p>
                     )}
                   </div>
                 ))}
@@ -203,15 +249,26 @@ export function ContractInsightsPanel({ contractId }: ContractInsightsPanelProps
           {/* Obligations */}
           {analysis.obligations.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Obligations</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Obligations
+              </span>
               <div className="space-y-1">
                 {analysis.obligations.map((obligation, i) => (
-                  <div key={i} className="flex items-center justify-between text-sm bg-bg-card border border-border rounded-lg p-2">
+                  <div
+                    key={i}
+                    className="flex items-center justify-between text-sm bg-bg-card border border-border rounded-lg p-2"
+                  >
                     <div className="flex items-center gap-2">
-                      <span className="text-xs text-text-muted uppercase">{obligation.party}</span>
-                      <span className="text-text-secondary">{obligation.description}</span>
+                      <span className="text-xs text-text-muted uppercase">
+                        {obligation.party}
+                      </span>
+                      <span className="text-text-secondary">
+                        {obligation.description}
+                      </span>
                     </div>
-                    <span className={`text-xs ${getStatusColor(obligation.status)}`}>
+                    <span
+                      className={`text-xs ${getStatusColor(obligation.status)}`}
+                    >
                       {obligation.status}
                     </span>
                   </div>
@@ -222,7 +279,9 @@ export function ContractInsightsPanel({ contractId }: ContractInsightsPanelProps
 
           {/* Financial Summary */}
           <div className="bg-bg-card border border-border rounded-lg p-3">
-            <span className="text-xs text-text-muted block mb-2">Financial Summary</span>
+            <span className="text-xs text-text-muted block mb-2">
+              Financial Summary
+            </span>
             <div className="grid grid-cols-2 gap-2 text-sm">
               <div>
                 <span className="text-text-muted">Total Value:</span>
@@ -238,12 +297,16 @@ export function ContractInsightsPanel({ contractId }: ContractInsightsPanelProps
               </div>
               <div>
                 <span className="text-text-muted">Payment Terms:</span>
-                <span className="ml-2 text-text-primary">{analysis.financial_summary.payment_terms}</span>
+                <span className="ml-2 text-text-primary">
+                  {analysis.financial_summary.payment_terms}
+                </span>
               </div>
               {analysis.financial_summary.late_fees && (
                 <div>
                   <span className="text-text-muted">Late Fees:</span>
-                  <span className="ml-2 text-text-primary">{analysis.financial_summary.late_fees}</span>
+                  <span className="ml-2 text-text-primary">
+                    {analysis.financial_summary.late_fees}
+                  </span>
                 </div>
               )}
             </div>
@@ -252,10 +315,15 @@ export function ContractInsightsPanel({ contractId }: ContractInsightsPanelProps
           {/* Recommendations */}
           {analysis.recommendations.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Recommendations</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Recommendations
+              </span>
               <ul className="space-y-1">
                 {analysis.recommendations.map((rec, i) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
+                  <li
+                    key={i}
+                    className="flex items-start gap-2 text-sm text-text-secondary"
+                  >
                     <span className="text-purple-400">→</span>
                     <span>{rec}</span>
                   </li>
@@ -270,12 +338,18 @@ export function ContractInsightsPanel({ contractId }: ContractInsightsPanelProps
       {activeTab === "renewal" && renewal && !isLoading && (
         <div className="space-y-4">
           {/* Renewal Recommendation */}
-          <div className={`p-4 rounded-lg border ${renewal.should_renew ? "bg-green-500/10 border-green-500/30" : "bg-yellow-500/10 border-yellow-500/30"}`}>
+          <div
+            className={`p-4 rounded-lg border ${renewal.should_renew ? "bg-green-500/10 border-green-500/30" : "bg-yellow-500/10 border-yellow-500/30"}`}
+          >
             <div className="flex items-center justify-between mb-2">
               <span className="font-medium text-text-primary">
-                {renewal.should_renew ? "Recommended: Renew" : "Review Required"}
+                {renewal.should_renew
+                  ? "Recommended: Renew"
+                  : "Review Required"}
               </span>
-              <span className="text-sm text-text-secondary">{renewal.confidence}% confidence</span>
+              <span className="text-sm text-text-secondary">
+                {renewal.confidence}% confidence
+              </span>
             </div>
             <p className="text-sm text-text-secondary">
               Suggested term: {renewal.optimal_term_length}
@@ -285,41 +359,67 @@ export function ContractInsightsPanel({ contractId }: ContractInsightsPanelProps
           {/* Factors */}
           {renewal.factors && renewal.factors.length > 0 && (
             <div>
-              <span className="text-xs text-text-muted block mb-2">Decision Factors</span>
+              <span className="text-xs text-text-muted block mb-2">
+                Decision Factors
+              </span>
               <div className="space-y-2">
-                {renewal.factors.map((factor: { factor: string; impact: string; score: number }, i: number) => (
-                  <div key={i} className="flex items-center justify-between bg-bg-card border border-border rounded-lg p-2">
-                    <span className="text-sm text-text-secondary">{factor.factor}</span>
-                    <div className="flex items-center gap-2">
-                      <span className={`text-xs ${
-                        factor.impact === "positive" ? "text-green-400" :
-                        factor.impact === "negative" ? "text-red-400" :
-                        "text-yellow-400"
-                      }`}>
-                        {factor.impact}
+                {renewal.factors.map(
+                  (
+                    factor: { factor: string; impact: string; score: number },
+                    i: number,
+                  ) => (
+                    <div
+                      key={i}
+                      className="flex items-center justify-between bg-bg-card border border-border rounded-lg p-2"
+                    >
+                      <span className="text-sm text-text-secondary">
+                        {factor.factor}
                       </span>
-                      <span className="text-sm font-medium text-text-primary">{factor.score}/10</span>
+                      <div className="flex items-center gap-2">
+                        <span
+                          className={`text-xs ${
+                            factor.impact === "positive"
+                              ? "text-green-400"
+                              : factor.impact === "negative"
+                                ? "text-red-400"
+                                : "text-yellow-400"
+                          }`}
+                        >
+                          {factor.impact}
+                        </span>
+                        <span className="text-sm font-medium text-text-primary">
+                          {factor.score}/10
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                ))}
+                  ),
+                )}
               </div>
             </div>
           )}
 
           {/* Suggested Changes */}
-          {renewal.suggested_changes && renewal.suggested_changes.length > 0 && (
-            <div>
-              <span className="text-xs text-text-muted block mb-2">Suggested Changes for Renewal</span>
-              <ul className="space-y-1">
-                {renewal.suggested_changes.map((change: string, i: number) => (
-                  <li key={i} className="flex items-start gap-2 text-sm text-text-secondary">
-                    <span className="text-blue-400">•</span>
-                    <span>{change}</span>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
+          {renewal.suggested_changes &&
+            renewal.suggested_changes.length > 0 && (
+              <div>
+                <span className="text-xs text-text-muted block mb-2">
+                  Suggested Changes for Renewal
+                </span>
+                <ul className="space-y-1">
+                  {renewal.suggested_changes.map(
+                    (change: string, i: number) => (
+                      <li
+                        key={i}
+                        className="flex items-start gap-2 text-sm text-text-secondary"
+                      >
+                        <span className="text-blue-400">•</span>
+                        <span>{change}</span>
+                      </li>
+                    ),
+                  )}
+                </ul>
+              </div>
+            )}
         </div>
       )}
 

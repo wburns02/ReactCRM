@@ -88,21 +88,22 @@ const MobileWorkOrderCard = memo(function MobileWorkOrderCard({
 }: WorkOrderRowProps) {
   const navigate = useNavigate();
 
-  const customerName = wo.customer_name ||
+  const customerName =
+    wo.customer_name ||
     (wo.customer
       ? `${wo.customer.first_name} ${wo.customer.last_name}`
       : `Customer #${wo.customer_id}`);
 
   const handleCardClick = (e: React.MouseEvent) => {
     // Don't navigate if clicking interactive elements
-    if ((e.target as HTMLElement).closest('a, button')) {
+    if ((e.target as HTMLElement).closest("a, button")) {
       return;
     }
     navigate(`/work-orders/${wo.id}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       navigate(`/work-orders/${wo.id}`);
     }
@@ -228,21 +229,22 @@ const TableWorkOrderRow = memo(function TableWorkOrderRow({
 }: WorkOrderRowProps) {
   const navigate = useNavigate();
 
-  const customerName = wo.customer_name ||
+  const customerName =
+    wo.customer_name ||
     (wo.customer
       ? `${wo.customer.first_name} ${wo.customer.last_name}`
       : `Customer #${wo.customer_id}`);
 
   const handleRowClick = (e: React.MouseEvent) => {
     // Don't navigate if clicking interactive elements
-    if ((e.target as HTMLElement).closest('a, button')) {
+    if ((e.target as HTMLElement).closest("a, button")) {
       return;
     }
     navigate(`/work-orders/${wo.id}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === 'Enter' || e.key === ' ') {
+    if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
       navigate(`/work-orders/${wo.id}`);
     }

@@ -92,7 +92,10 @@ export function useQuoteOptimization() {
       total: number;
     }): Promise<QuoteOptimizationResult> => {
       try {
-        const response = await apiClient.post("/ai/pricing/optimize-quote", params);
+        const response = await apiClient.post(
+          "/ai/pricing/optimize-quote",
+          params,
+        );
         return response.data;
       } catch {
         return generateDemoQuoteOptimization(params.lineItems, params.total);
@@ -137,7 +140,8 @@ export function useMarketRateAnalysis() {
               recommendation: "Opportunity to increase by 10%",
             },
           ],
-          overall_positioning: "Your pricing is 8% below market average overall",
+          overall_positioning:
+            "Your pricing is 8% below market average overall",
           revenue_opportunity: 2500,
         };
       }
@@ -156,7 +160,9 @@ export function useCustomerPriceSensitivity(customerId: string | undefined) {
       if (!customerId) throw new Error("Customer ID required");
 
       try {
-        const response = await apiClient.get(`/ai/pricing/sensitivity/${customerId}`);
+        const response = await apiClient.get(
+          `/ai/pricing/sensitivity/${customerId}`,
+        );
         return response.data;
       } catch {
         return {
@@ -181,14 +187,16 @@ export function useCustomerPriceSensitivity(customerId: string | undefined) {
 /**
  * Generate demo pricing recommendation
  */
-function generateDemoPricingRecommendation(serviceName: string): PricingRecommendation {
+function generateDemoPricingRecommendation(
+  serviceName: string,
+): PricingRecommendation {
   const baseRates: Record<string, number> = {
     "septic pumping": 350,
     "drain cleaning": 175,
-    "inspection": 200,
-    "installation": 2500,
-    "repair": 450,
-    "maintenance": 150,
+    inspection: 200,
+    installation: 2500,
+    repair: 450,
+    maintenance: 150,
   };
 
   const lowerName = serviceName.toLowerCase();
@@ -201,7 +209,10 @@ function generateDemoPricingRecommendation(serviceName: string): PricingRecommen
   }
 
   const marketVariance = 0.1 + Math.random() * 0.2; // 10-30% variance
-  const recommendedRate = Math.round(currentRate * (1 + (Math.random() > 0.5 ? marketVariance : -marketVariance * 0.5)));
+  const recommendedRate = Math.round(
+    currentRate *
+      (1 + (Math.random() > 0.5 ? marketVariance : -marketVariance * 0.5)),
+  );
 
   const factors: PricingFactor[] = [
     {
@@ -230,9 +241,11 @@ function generateDemoPricingRecommendation(serviceName: string): PricingRecommen
     },
   ];
 
-  let marketPosition: "below_market" | "at_market" | "above_market" = "at_market";
+  let marketPosition: "below_market" | "at_market" | "above_market" =
+    "at_market";
   if (currentRate < recommendedRate * 0.95) marketPosition = "below_market";
-  else if (currentRate > recommendedRate * 1.05) marketPosition = "above_market";
+  else if (currentRate > recommendedRate * 1.05)
+    marketPosition = "above_market";
 
   return {
     service_name: serviceName,
@@ -254,7 +267,7 @@ function generateDemoPricingRecommendation(serviceName: string): PricingRecommen
  */
 function generateDemoQuoteOptimization(
   lineItems: Array<{ service: string; quantity: number; rate: number }>,
-  total: number
+  total: number,
 ): QuoteOptimizationResult {
   const recommendations: LineItemOptimization[] = [];
   let optimizedTotal = 0;
@@ -269,10 +282,14 @@ function generateDemoQuoteOptimization(
         service: item.service,
         current_rate: item.rate,
         suggested_rate: suggestedRate,
-        reason: suggestedRate > item.rate
-          ? "Market analysis suggests higher pricing is acceptable"
-          : "Slight reduction may improve conversion",
-        impact: Math.abs(suggestedRate - item.rate) > item.rate * 0.1 ? "high" : "medium",
+        reason:
+          suggestedRate > item.rate
+            ? "Market analysis suggests higher pricing is acceptable"
+            : "Slight reduction may improve conversion",
+        impact:
+          Math.abs(suggestedRate - item.rate) > item.rate * 0.1
+            ? "high"
+            : "medium",
       });
     }
   });
@@ -318,6 +335,7 @@ function generateDemoQuoteOptimization(
     discount_suggestions: discountSuggestions,
     upsell_opportunities: upsellOpportunities,
     win_probability: 65 + Math.floor(Math.random() * 25),
-    competitive_analysis: "Your quote is positioned competitively. Consider highlighting service quality and response time as differentiators.",
+    competitive_analysis:
+      "Your quote is positioned competitively. Consider highlighting service quality and response time as differentiators.",
   };
 }

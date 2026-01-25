@@ -16,7 +16,12 @@ export interface ComplianceRiskResult {
 }
 
 export interface RiskFactor {
-  type: "license" | "certification" | "inspection" | "documentation" | "training";
+  type:
+    | "license"
+    | "certification"
+    | "inspection"
+    | "documentation"
+    | "training";
   description: string;
   severity: "high" | "medium" | "low";
   due_date?: string;
@@ -91,7 +96,11 @@ export function usePredictComplianceIssues() {
       lookAheadDays: number;
     }): Promise<{
       predictions: PredictedViolation[];
-      risk_timeline: Array<{ date: string; risk_level: number; events: string[] }>;
+      risk_timeline: Array<{
+        date: string;
+        risk_level: number;
+        events: string[];
+      }>;
     }> => {
       try {
         const response = await apiClient.post("/ai/compliance/predict", params);
@@ -103,12 +112,23 @@ export function usePredictComplianceIssues() {
               type: "License Expiration",
               probability: 85,
               timeframe: "Next 30 days",
-              prevention_steps: ["Initiate renewal process", "Submit required documentation"],
+              prevention_steps: [
+                "Initiate renewal process",
+                "Submit required documentation",
+              ],
             },
           ],
           risk_timeline: [
-            { date: "2024-02-15", risk_level: 60, events: ["License renewal deadline"] },
-            { date: "2024-03-01", risk_level: 40, events: ["Quarterly inspection due"] },
+            {
+              date: "2024-02-15",
+              risk_level: 60,
+              events: ["License renewal deadline"],
+            },
+            {
+              date: "2024-03-01",
+              risk_level: 40,
+              events: ["Quarterly inspection due"],
+            },
           ],
         };
       }
@@ -178,7 +198,9 @@ export function useTechnicianComplianceAnalysis() {
     queryKey: ["technician-compliance"],
     queryFn: async () => {
       try {
-        const response = await apiClient.get("/ai/compliance/technician-analysis");
+        const response = await apiClient.get(
+          "/ai/compliance/technician-analysis",
+        );
         return response.data;
       } catch {
         return {
@@ -225,7 +247,9 @@ interface DashboardData {
 /**
  * Generate demo risk assessment
  */
-function generateDemoRiskAssessment(dashboard: DashboardData | null): ComplianceRiskResult {
+function generateDemoRiskAssessment(
+  dashboard: DashboardData | null,
+): ComplianceRiskResult {
   const summary = dashboard?.summary || {
     total_licenses: 5,
     total_certifications: 12,
@@ -308,9 +332,10 @@ function generateDemoRiskAssessment(dashboard: DashboardData | null): Compliance
         deadline: item.expiration_date,
         days_remaining: item.days_until_expiry,
         urgency,
-        action_required: urgency === "overdue"
-          ? "Immediate action required"
-          : "Initiate renewal process",
+        action_required:
+          urgency === "overdue"
+            ? "Immediate action required"
+            : "Initiate renewal process",
       });
     });
   } else {
@@ -318,7 +343,9 @@ function generateDemoRiskAssessment(dashboard: DashboardData | null): Compliance
     deadlines.push({
       item_type: "License",
       item_name: "State Contractor License",
-      deadline: new Date(Date.now() + 25 * 24 * 60 * 60 * 1000).toISOString().split("T")[0],
+      deadline: new Date(Date.now() + 25 * 24 * 60 * 60 * 1000)
+        .toISOString()
+        .split("T")[0],
       days_remaining: 25,
       urgency: "soon",
       action_required: "Submit renewal application",
@@ -328,9 +355,12 @@ function generateDemoRiskAssessment(dashboard: DashboardData | null): Compliance
   // Generate recommendations
   const recommendations: ComplianceRecommendation[] = [
     {
-      priority: riskFactors.some((f) => f.severity === "high") ? "high" : "medium",
+      priority: riskFactors.some((f) => f.severity === "high")
+        ? "high"
+        : "medium",
       category: "Renewals",
-      description: "Set up automated renewal reminders 90 days before expiration",
+      description:
+        "Set up automated renewal reminders 90 days before expiration",
       impact: "Prevent last-minute compliance gaps",
       estimated_effort: "2 hours setup",
     },

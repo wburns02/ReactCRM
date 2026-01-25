@@ -73,7 +73,8 @@ function AIPricingSuggestion() {
         laborHours = 24;
         partsEstimate = 4000;
         confidence = "Medium";
-        notes = "Full septic installation. Requires site inspection for accurate quote.";
+        notes =
+          "Full septic installation. Requires site inspection for accurate quote.";
       } else if (lower.includes("repair") || lower.includes("fix")) {
         basePrice = 500;
         laborHours = 4;
@@ -83,7 +84,11 @@ function AIPricingSuggestion() {
       }
     }
     // Drain services
-    else if (lower.includes("drain") || lower.includes("clog") || lower.includes("clear")) {
+    else if (
+      lower.includes("drain") ||
+      lower.includes("clog") ||
+      lower.includes("clear")
+    ) {
       if (lower.includes("main") || lower.includes("sewer")) {
         basePrice = 350;
         laborHours = 3;
@@ -99,7 +104,11 @@ function AIPricingSuggestion() {
       }
     }
     // Inspection services
-    else if (lower.includes("inspect") || lower.includes("camera") || lower.includes("diagnostic")) {
+    else if (
+      lower.includes("inspect") ||
+      lower.includes("camera") ||
+      lower.includes("diagnostic")
+    ) {
       basePrice = 200;
       laborHours = 1.5;
       partsEstimate = 0;
@@ -112,10 +121,11 @@ function AIPricingSuggestion() {
       laborHours = 2;
       partsEstimate = 100;
       confidence = "Low";
-      notes = "Custom service - recommend phone consultation for accurate pricing.";
+      notes =
+        "Custom service - recommend phone consultation for accurate pricing.";
     }
 
-    const total = basePrice + (laborHours * 85) + partsEstimate;
+    const total = basePrice + laborHours * 85 + partsEstimate;
 
     return {
       basePrice,
@@ -144,7 +154,9 @@ function AIPricingSuggestion() {
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-lg">✨</span>
-          <h3 className="font-medium text-text-primary">AI Pricing Assistant</h3>
+          <h3 className="font-medium text-text-primary">
+            AI Pricing Assistant
+          </h3>
         </div>
         <button
           onClick={() => setShowPanel(false)}
@@ -176,25 +188,33 @@ function AIPricingSuggestion() {
 
       <div className="flex flex-wrap gap-2 mb-3">
         <button
-          onClick={() => setJobDescription("Septic tank pumping - standard residential")}
+          onClick={() =>
+            setJobDescription("Septic tank pumping - standard residential")
+          }
           className="text-xs px-2 py-1 rounded bg-bg-tertiary hover:bg-bg-hover text-text-secondary"
         >
           Septic pumping
         </button>
         <button
-          onClick={() => setJobDescription("Main sewer line clearing with camera inspection")}
+          onClick={() =>
+            setJobDescription("Main sewer line clearing with camera inspection")
+          }
           className="text-xs px-2 py-1 rounded bg-bg-tertiary hover:bg-bg-hover text-text-secondary"
         >
           Sewer clearing
         </button>
         <button
-          onClick={() => setJobDescription("Drain cleaning - kitchen sink clog")}
+          onClick={() =>
+            setJobDescription("Drain cleaning - kitchen sink clog")
+          }
           className="text-xs px-2 py-1 rounded bg-bg-tertiary hover:bg-bg-hover text-text-secondary"
         >
           Drain cleaning
         </button>
         <button
-          onClick={() => setJobDescription("Septic system inspection and camera diagnostics")}
+          onClick={() =>
+            setJobDescription("Septic system inspection and camera diagnostics")
+          }
           className="text-xs px-2 py-1 rounded bg-bg-tertiary hover:bg-bg-hover text-text-secondary"
         >
           Inspection
@@ -207,11 +227,15 @@ function AIPricingSuggestion() {
             <span className="text-lg font-bold text-text-primary">
               Suggested Price: ${suggestion.total.toLocaleString()}
             </span>
-            <span className={`px-2 py-1 rounded text-xs font-medium ${
-              suggestion.confidence === "High" ? "bg-success/20 text-success" :
-              suggestion.confidence === "Medium" ? "bg-warning/20 text-warning" :
-              "bg-danger/20 text-danger"
-            }`}>
+            <span
+              className={`px-2 py-1 rounded text-xs font-medium ${
+                suggestion.confidence === "High"
+                  ? "bg-success/20 text-success"
+                  : suggestion.confidence === "Medium"
+                    ? "bg-warning/20 text-warning"
+                    : "bg-danger/20 text-danger"
+              }`}
+            >
               {suggestion.confidence} confidence
             </span>
           </div>
@@ -219,15 +243,23 @@ function AIPricingSuggestion() {
           <div className="grid grid-cols-3 gap-4 text-sm">
             <div>
               <span className="text-text-muted">Base Price</span>
-              <p className="font-medium text-text-primary">${suggestion.basePrice}</p>
+              <p className="font-medium text-text-primary">
+                ${suggestion.basePrice}
+              </p>
             </div>
             <div>
-              <span className="text-text-muted">Labor ({suggestion.laborHours}h @ $85/h)</span>
-              <p className="font-medium text-text-primary">${(suggestion.laborHours * 85).toFixed(0)}</p>
+              <span className="text-text-muted">
+                Labor ({suggestion.laborHours}h @ $85/h)
+              </span>
+              <p className="font-medium text-text-primary">
+                ${(suggestion.laborHours * 85).toFixed(0)}
+              </p>
             </div>
             <div>
               <span className="text-text-muted">Parts Est.</span>
-              <p className="font-medium text-text-primary">${suggestion.partsEstimate}</p>
+              <p className="font-medium text-text-primary">
+                ${suggestion.partsEstimate}
+              </p>
             </div>
           </div>
 

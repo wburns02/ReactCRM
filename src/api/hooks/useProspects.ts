@@ -164,7 +164,7 @@ export function useDeleteProspect() {
       console.error("[Prospect Delete] Failed:", error);
       toastError(
         "Failed to delete prospect",
-        "Please try again or contact support."
+        "Please try again or contact support.",
       );
     },
   });

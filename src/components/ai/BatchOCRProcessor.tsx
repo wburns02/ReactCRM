@@ -49,7 +49,12 @@ interface BatchOCRResult {
   processing_time: number;
 }
 
-type DocumentType = "service_record" | "invoice" | "permit" | "inspection" | "contract";
+type DocumentType =
+  | "service_record"
+  | "invoice"
+  | "permit"
+  | "inspection"
+  | "contract";
 
 const DOCUMENT_TYPES: { value: DocumentType; label: string }[] = [
   { value: "service_record", label: "Service Records" },
@@ -69,7 +74,8 @@ export function BatchOCRProcessor({
   maxDocuments = 100,
 }: BatchOCRProcessorProps) {
   const [documents, setDocuments] = useState<QueuedDocument[]>([]);
-  const [documentType, setDocumentType] = useState<DocumentType>("service_record");
+  const [documentType, setDocumentType] =
+    useState<DocumentType>("service_record");
   const [activeJobId, setActiveJobId] = useState<string | null>(null);
   const [error, setError] = useState<string | null>(null);
 
@@ -80,65 +86,72 @@ export function BatchOCRProcessor({
   const { data: jobStatus } = useBatchJobStatus(activeJobId);
   const { data: jobResults } = useBatchJobResults(
     activeJobId,
-    jobStatus?.status === "completed"
+    jobStatus?.status === "completed",
   );
 
-  const isAIAvailable = aiHealth?.status === "healthy" || aiHealth?.status === "degraded";
-  const isProcessing = jobStatus?.status === "processing" || jobStatus?.status === "pending";
+  const isAIAvailable =
+    aiHealth?.status === "healthy" || aiHealth?.status === "degraded";
+  const isProcessing =
+    jobStatus?.status === "processing" || jobStatus?.status === "pending";
 
   // Handle file selection
-  const handleFileSelect = useCallback(async (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files || []);
-    setError(null);
+  const handleFileSelect = useCallback(
+    async (event: React.ChangeEvent<HTMLInputElement>) => {
+      const files = Array.from(event.target.files || []);
+      setError(null);
 
-    // Validate total count
-    if (documents.length + files.length > maxDocuments) {
-      setError(`Maximum ${maxDocuments} documents allowed per batch`);
-      return;
-    }
-
-    const newDocs: QueuedDocument[] = [];
-
-    for (const file of files) {
-      if (!isValidDocumentFile(file)) {
-        setError(`Invalid file type: ${file.name}. Use JPEG, PNG, TIFF, or PDF.`);
-        continue;
+      // Validate total count
+      if (documents.length + files.length > maxDocuments) {
+        setError(`Maximum ${maxDocuments} documents allowed per batch`);
+        return;
       }
 
-      const preview = file.type.startsWith("image/")
-        ? URL.createObjectURL(file)
-        : undefined;
+      const newDocs: QueuedDocument[] = [];
 
-      newDocs.push({
-        id: `doc-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
-        file,
-        preview,
-        status: "pending",
-      });
-    }
+      for (const file of files) {
+        if (!isValidDocumentFile(file)) {
+          setError(
+            `Invalid file type: ${file.name}. Use JPEG, PNG, TIFF, or PDF.`,
+          );
+          continue;
+        }
 
-    setDocuments(prev => [...prev, ...newDocs]);
+        const preview = file.type.startsWith("image/")
+          ? URL.createObjectURL(file)
+          : undefined;
 
-    // Clear input
-    if (fileInputRef.current) {
-      fileInputRef.current.value = "";
-    }
-  }, [documents.length, maxDocuments]);
+        newDocs.push({
+          id: `doc-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`,
+          file,
+          preview,
+          status: "pending",
+        });
+      }
+
+      setDocuments((prev) => [...prev, ...newDocs]);
+
+      // Clear input
+      if (fileInputRef.current) {
+        fileInputRef.current.value = "";
+      }
+    },
+    [documents.length, maxDocuments],
+  );
 
   // Remove a document from queue
   const removeDocument = useCallback((id: string) => {
-    setDocuments(prev => {
-      const doc = prev.find(d => d.id === id);
+    setDocuments((prev) => {
+      const doc = prev.find((d) => d.id === id);
       if (doc?.preview) {
         URL.revokeObjectURL(doc.preview);
       }
-      return prev.filter(d => d.id !== id);
+      return prev.filter((d) => d.id !== id);
     });
   }, []);
 
   // Clear all documents
   const clearAll = useCallback(() => {
-    documents.forEach(doc => {
+    documents.forEach((doc) => {
       if (doc.preview) {
         URL.revokeObjectURL(doc.preview);
       }
@@ -167,7 +180,7 @@ export function BatchOCRProcessor({
             image_base64: base64,
             filename: doc.file.name,
           };
-        })
+        }),
       );
 
       // Start batch job
@@ -179,11 +192,12 @@ export function BatchOCRProcessor({
       setActiveJobId(result.job_id);
 
       // Update document statuses
-      setDocuments(prev => prev.map(doc => ({
-        ...doc,
-        status: "processing" as const,
-      })));
-
+      setDocuments((prev) =>
+        prev.map((doc) => ({
+          ...doc,
+          status: "processing" as const,
+        })),
+      );
     } catch (err) {
       console.error("Batch start error:", err);
       setError("Failed to start batch processing. Please try again.");
@@ -195,10 +209,20 @@ export function BatchOCRProcessor({
     if (!jobResults?.results) return;
 
     // Create CSV content
-    const headers = ["Filename", "Status", "Customer Name", "Address", "Phone", "Date", "Amount", "Notes"];
-    const rows = jobResults.results.map(r => {
+    const headers = [
+      "Filename",
+      "Status",
+      "Customer Name",
+      "Address",
+      "Phone",
+      "Date",
+      "Amount",
+      "Notes",
+    ];
+    const rows = jobResults.results.map((r) => {
       const ext = r.extraction || {};
-      const data = (ext as Record<string, Record<string, string>>).extracted_data || {};
+      const data =
+        (ext as Record<string, Record<string, string>>).extracted_data || {};
       return [
         r.filename,
         r.status,
@@ -270,7 +294,7 @@ export function BatchOCRProcessor({
             disabled={isProcessing}
             className="w-full px-3 py-2 text-sm border border-border rounded-lg bg-bg-card text-text-primary focus:outline-none focus:ring-2 focus:ring-primary/50"
           >
-            {DOCUMENT_TYPES.map(type => (
+            {DOCUMENT_TYPES.map((type) => (
               <option key={type.value} value={type.value}>
                 {type.label}
               </option>
@@ -300,8 +324,7 @@ export function BatchOCRProcessor({
           <p className="text-sm text-text-secondary">
             {isProcessing
               ? "Processing in progress..."
-              : "Click or drag files to upload"
-            }
+              : "Click or drag files to upload"}
           </p>
           <p className="text-xs text-text-muted mt-1">
             JPEG, PNG, TIFF, or PDF (max {maxDocuments} files)
@@ -394,8 +417,8 @@ export function BatchOCRProcessor({
                   jobStatus.status === "completed"
                     ? "bg-success"
                     : jobStatus.status === "failed"
-                    ? "bg-danger"
-                    : "bg-primary"
+                      ? "bg-danger"
+                      : "bg-primary"
                 }`}
                 style={{
                   width: `${(jobStatus.processed / jobStatus.total_documents) * 100}%`,
@@ -417,17 +440,24 @@ export function BatchOCRProcessor({
             <h4 className="text-sm font-medium text-text-primary">Results</h4>
             <div className="grid grid-cols-3 gap-2 text-center">
               <div className="p-2 bg-bg-card rounded">
-                <p className="text-lg font-bold text-text-primary">{jobResults.total_documents}</p>
+                <p className="text-lg font-bold text-text-primary">
+                  {jobResults.total_documents}
+                </p>
                 <p className="text-xs text-text-muted">Total</p>
               </div>
               <div className="p-2 bg-success/10 rounded">
                 <p className="text-lg font-bold text-success">
-                  {jobResults.results.filter(r => r.status === "success").length}
+                  {
+                    jobResults.results.filter((r) => r.status === "success")
+                      .length
+                  }
                 </p>
                 <p className="text-xs text-text-muted">Success</p>
               </div>
               <div className="p-2 bg-danger/10 rounded">
-                <p className="text-lg font-bold text-danger">{jobResults.failed}</p>
+                <p className="text-lg font-bold text-danger">
+                  {jobResults.failed}
+                </p>
                 <p className="text-xs text-text-muted">Failed</p>
               </div>
             </div>
@@ -448,7 +478,11 @@ export function BatchOCRProcessor({
             <Button
               variant="primary"
               className="flex-1"
-              disabled={!isAIAvailable || documents.length === 0 || batchMutation.isPending}
+              disabled={
+                !isAIAvailable ||
+                documents.length === 0 ||
+                batchMutation.isPending
+              }
               onClick={startProcessing}
             >
               {batchMutation.isPending ? (
@@ -465,11 +499,7 @@ export function BatchOCRProcessor({
             </Button>
           )}
           {activeJobId && jobStatus?.status === "completed" && (
-            <Button
-              variant="outline"
-              className="flex-1"
-              onClick={clearAll}
-            >
+            <Button variant="outline" className="flex-1" onClick={clearAll}>
               Process More Documents
             </Button>
           )}

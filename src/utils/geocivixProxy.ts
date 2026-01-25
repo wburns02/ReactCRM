@@ -6,14 +6,14 @@
  * links are redirected to Geocivix portal without authentication.
  */
 
-const API_BASE = import.meta.env.VITE_API_URL || '';
+const API_BASE = import.meta.env.VITE_API_URL || "";
 
 /**
  * Check if a URL is from the Geocivix portal
  */
 export function isGeocivixUrl(url: string | null | undefined): boolean {
   if (!url) return false;
-  return url.includes('geocivix.com') || url.includes('/secure/');
+  return url.includes("geocivix.com") || url.includes("/secure/");
 }
 
 /**
@@ -80,7 +80,9 @@ export function getProxyUrl(url: string | null | undefined): string | null {
  * Get URL for a permit document (PDF)
  * Uses proxy for Geocivix URLs, direct URL for others
  */
-export function getPermitDocumentUrl(pdfUrl: string | null | undefined): string | null {
+export function getPermitDocumentUrl(
+  pdfUrl: string | null | undefined,
+): string | null {
   return getProxyUrl(pdfUrl);
 }
 
@@ -88,6 +90,8 @@ export function getPermitDocumentUrl(pdfUrl: string | null | undefined): string 
  * Get URL for viewing the original permit
  * Uses proxy for Geocivix URLs, direct URL for others
  */
-export function getPermitViewUrl(permitUrl: string | null | undefined): string | null {
+export function getPermitViewUrl(
+  permitUrl: string | null | undefined,
+): string | null {
   return getProxyUrl(permitUrl);
 }

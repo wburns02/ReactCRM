@@ -133,7 +133,7 @@ const TopicListItem = memo(function TopicListItem({
       className={cn(
         "w-full flex items-center justify-between p-3 rounded-lg",
         "bg-bg-muted/50 hover:bg-bg-muted transition-colors",
-        "cursor-pointer text-left group"
+        "cursor-pointer text-left group",
       )}
     >
       <div className="flex items-center gap-3">
@@ -145,7 +145,12 @@ const TopicListItem = memo(function TopicListItem({
         </span>
       </div>
       <div className="flex items-center gap-2">
-        <span className={cn("text-xs font-medium", getSentimentColorClass(topic.sentiment))}>
+        <span
+          className={cn(
+            "text-xs font-medium",
+            getSentimentColorClass(topic.sentiment),
+          )}
+        >
           {topic.count} calls
         </span>
       </div>
@@ -167,7 +172,7 @@ const TrainingCard = memo(function TrainingCard({
     <div
       className={cn(
         "p-4 rounded-lg border border-border",
-        "bg-bg-card hover:shadow-md transition-shadow"
+        "bg-bg-card hover:shadow-md transition-shadow",
       )}
     >
       <div className="flex items-start justify-between gap-3 mb-2">
@@ -179,7 +184,8 @@ const TrainingCard = memo(function TrainingCard({
         </Badge>
       </div>
       <p className="text-xs text-text-secondary">
-        {recommendation.agents_affected} agent{recommendation.agents_affected !== 1 ? "s" : ""} affected
+        {recommendation.agents_affected} agent
+        {recommendation.agents_affected !== 1 ? "s" : ""} affected
       </p>
     </div>
   );

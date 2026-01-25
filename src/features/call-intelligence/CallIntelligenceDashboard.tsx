@@ -107,7 +107,7 @@ function DashboardFiltersPanel({
         },
       });
     },
-    [filters, onFiltersChange]
+    [filters, onFiltersChange],
   );
 
   if (!isOpen) {
@@ -132,10 +132,14 @@ function DashboardFiltersPanel({
                   onClick={() => handleDateRangeChange(range)}
                   className={cn(
                     "capitalize",
-                    filters.dateRange && "bg-bg-muted"
+                    filters.dateRange && "bg-bg-muted",
                   )}
                 >
-                  {range === "week" ? "Last 7 Days" : range === "month" ? "Last 30 Days" : "Today"}
+                  {range === "week"
+                    ? "Last 7 Days"
+                    : range === "month"
+                      ? "Last 30 Days"
+                      : "Today"}
                 </Button>
               ))}
             </div>
@@ -153,7 +157,10 @@ function DashboardFiltersPanel({
                 const value = e.target.value;
                 onFiltersChange({
                   ...filters,
-                  sentiment: value === "all" ? [] : [value as "positive" | "neutral" | "negative"],
+                  sentiment:
+                    value === "all"
+                      ? []
+                      : [value as "positive" | "neutral" | "negative"],
                 });
               }}
             >
@@ -176,7 +183,8 @@ function DashboardFiltersPanel({
                 const value = e.target.value;
                 onFiltersChange({
                   ...filters,
-                  escalationRisk: value === "all" ? [] : [value as EscalationRisk],
+                  escalationRisk:
+                    value === "all" ? [] : [value as EscalationRisk],
                 });
               }}
             >
@@ -227,7 +235,10 @@ function AgentLeaderboard({
         <CardContent>
           <div className="space-y-3">
             {Array.from({ length: 5 }).map((_, i) => (
-              <div key={i} className="flex items-center gap-3 p-3 rounded-lg bg-bg-muted">
+              <div
+                key={i}
+                className="flex items-center gap-3 p-3 rounded-lg bg-bg-muted"
+              >
                 <Skeleton variant="circular" className="w-10 h-10" />
                 <div className="flex-1 space-y-2">
                   <Skeleton variant="text" className="h-4 w-32" />
@@ -259,7 +270,7 @@ function AgentLeaderboard({
 
   // Sort by quality score descending
   const sortedAgents = [...agents].sort(
-    (a, b) => b.avg_quality_score - a.avg_quality_score
+    (a, b) => b.avg_quality_score - a.avg_quality_score,
   );
 
   const getRankBadgeClass = (rank: number) => {
@@ -293,7 +304,7 @@ function AgentLeaderboard({
               <div
                 className={cn(
                   "flex items-center justify-center w-8 h-8 rounded-full text-sm font-bold",
-                  getRankBadgeClass(index + 1)
+                  getRankBadgeClass(index + 1),
                 )}
               >
                 {index + 1}
@@ -426,14 +437,16 @@ function CoachingInsightsPanel({
               Focus Areas
             </h4>
             <div className="flex flex-wrap gap-2">
-              {(insights?.top_improvements ?? []).slice(0, 3).map((improvement) => (
-                <span
-                  key={improvement.name}
-                  className="px-2 py-1 bg-amber-50 text-amber-700 text-sm rounded-full"
-                >
-                  {improvement.name}
-                </span>
-              ))}
+              {(insights?.top_improvements ?? [])
+                .slice(0, 3)
+                .map((improvement) => (
+                  <span
+                    key={improvement.name}
+                    className="px-2 py-1 bg-amber-50 text-amber-700 text-sm rounded-full"
+                  >
+                    {improvement.name}
+                  </span>
+                ))}
             </div>
           </div>
 
@@ -444,31 +457,33 @@ function CoachingInsightsPanel({
                 Recommended Training
               </h4>
               <div className="space-y-2">
-                {(insights?.recommended_training ?? []).slice(0, 3).map((training) => (
-                  <button
-                    key={training.module}
-                    type="button"
-                    className="w-full flex items-center justify-between p-2 rounded-lg bg-bg-muted hover:bg-bg-hover transition-colors text-left"
-                    onClick={() => onInsightClick?.(training.module)}
-                  >
-                    <span className="text-sm text-text-primary">
-                      {training.module}
-                    </span>
-                    <div className="flex items-center gap-2">
-                      <span className="text-xs text-text-secondary">
-                        {training.agents_affected} agents
+                {(insights?.recommended_training ?? [])
+                  .slice(0, 3)
+                  .map((training) => (
+                    <button
+                      key={training.module}
+                      type="button"
+                      className="w-full flex items-center justify-between p-2 rounded-lg bg-bg-muted hover:bg-bg-hover transition-colors text-left"
+                      onClick={() => onInsightClick?.(training.module)}
+                    >
+                      <span className="text-sm text-text-primary">
+                        {training.module}
                       </span>
-                      <span
-                        className={cn(
-                          "px-2 py-0.5 text-xs rounded",
-                          getPriorityBadge(training.priority)
-                        )}
-                      >
-                        {training.priority}
-                      </span>
-                    </div>
-                  </button>
-                ))}
+                      <div className="flex items-center gap-2">
+                        <span className="text-xs text-text-secondary">
+                          {training.agents_affected} agents
+                        </span>
+                        <span
+                          className={cn(
+                            "px-2 py-0.5 text-xs rounded",
+                            getPriorityBadge(training.priority),
+                          )}
+                        >
+                          {training.priority}
+                        </span>
+                      </div>
+                    </button>
+                  ))}
               </div>
             </div>
           )}
@@ -596,9 +611,22 @@ function RecentCallsTable({
                 <th className="text-left py-3 px-2 font-medium text-text-secondary">
                   Duration
                 </th>
-                <th className="text-center py-3 px-2 font-medium text-text-secondary" title="Recording Available">
-                  <svg className="w-4 h-4 mx-auto" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z" />
+                <th
+                  className="text-center py-3 px-2 font-medium text-text-secondary"
+                  title="Recording Available"
+                >
+                  <svg
+                    className="w-4 h-4 mx-auto"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"
+                    />
                   </svg>
                 </th>
                 <th className="text-left py-3 px-2 font-medium text-text-secondary">
@@ -639,14 +667,23 @@ function RecentCallsTable({
                   <td className="py-3 px-2 text-center">
                     {(call.has_recording || call.recording_url) && (
                       <span title="Recording available">
-                        <svg className="w-4 h-4 mx-auto text-green-600" fill="currentColor" viewBox="0 0 24 24">
+                        <svg
+                          className="w-4 h-4 mx-auto text-green-600"
+                          fill="currentColor"
+                          viewBox="0 0 24 24"
+                        >
                           <path d="M12 14c1.66 0 3-1.34 3-3V5c0-1.66-1.34-3-3-3S9 3.34 9 5v6c0 1.66 1.34 3 3 3zm-1 1.93c-3.94-.49-7-3.85-7-7.93h2c0 3.31 2.69 6 6 6s6-2.69 6-6h2c0 4.08-3.06 7.44-7 7.93V20h4v2H8v-2h4v-4.07z" />
                         </svg>
                       </span>
                     )}
                   </td>
                   <td className="py-3 px-2">
-                    <span className={cn("font-medium", getSentimentColor(call.sentiment))}>
+                    <span
+                      className={cn(
+                        "font-medium",
+                        getSentimentColor(call.sentiment),
+                      )}
+                    >
                       {call.sentiment}
                     </span>
                   </td>
@@ -659,7 +696,7 @@ function RecentCallsTable({
                     <span
                       className={cn(
                         "px-2 py-0.5 text-xs rounded capitalize",
-                        getRiskBadgeClass(call.escalation_risk)
+                        getRiskBadgeClass(call.escalation_risk),
                       )}
                     >
                       {call.escalation_risk}
@@ -691,7 +728,9 @@ export function CallIntelligenceDashboard() {
   const [showRecordingsOnly, setShowRecordingsOnly] = useState(true); // Default to RingCentral calls with recordings
 
   // Modal state
-  const [selectedCall, setSelectedCall] = useState<CallWithAnalysis | null>(null);
+  const [selectedCall, setSelectedCall] = useState<CallWithAnalysis | null>(
+    null,
+  );
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   // KPI Detail Modal state
@@ -713,12 +752,20 @@ export function CallIntelligenceDashboard() {
 
   // Extract data from queries with robust error handling
   const metrics = analyticsQuery.data?.metrics;
-  const calls = Array.isArray(callsQuery.data?.items) ? callsQuery.data.items : [];
+  const calls = Array.isArray(callsQuery.data?.items)
+    ? callsQuery.data.items
+    : [];
   const totalCallsInQuery = callsQuery.data?.total || 0;
-  const agents = Array.isArray(agentPerformanceQuery.data?.agents) ? agentPerformanceQuery.data.agents : [];
-  const dispositions = Array.isArray(dispositionStatsQuery.data?.dispositions) ? dispositionStatsQuery.data.dispositions : [];
+  const agents = Array.isArray(agentPerformanceQuery.data?.agents)
+    ? agentPerformanceQuery.data.agents
+    : [];
+  const dispositions = Array.isArray(dispositionStatsQuery.data?.dispositions)
+    ? dispositionStatsQuery.data.dispositions
+    : [];
   const totalDispositionCalls = dispositionStatsQuery.data?.total_calls || 0;
-  const heatmapData = Array.isArray(qualityHeatmapQuery.data?.data) ? qualityHeatmapQuery.data.data : [];
+  const heatmapData = Array.isArray(qualityHeatmapQuery.data?.data)
+    ? qualityHeatmapQuery.data.data
+    : [];
   const coachingInsights = coachingInsightsQuery.data?.insights;
 
   // Auto-refresh dashboard every 60 seconds for real-time updates
@@ -742,7 +789,7 @@ export function CallIntelligenceDashboard() {
     // Calculate overall risk score based on escalation rate and critical calls
     const riskScore = Math.min(
       100,
-      metrics.escalation_rate + (metrics.critical_risk_calls > 0 ? 20 : 0)
+      metrics.escalation_rate + (metrics.critical_risk_calls > 0 ? 20 : 0),
     );
 
     // Estimate risk distribution (this would come from the API in production)
@@ -750,9 +797,10 @@ export function CallIntelligenceDashboard() {
     const highRisk = metrics.high_risk_calls || 0;
     const criticalRisk = metrics.critical_risk_calls || 0;
     const mediumRisk = Math.floor(
-      totalCalls * (metrics.escalation_rate / 100) - highRisk - criticalRisk
+      totalCalls * (metrics.escalation_rate / 100) - highRisk - criticalRisk,
     );
-    const lowRisk = totalCalls - highRisk - criticalRisk - Math.max(0, mediumRisk);
+    const lowRisk =
+      totalCalls - highRisk - criticalRisk - Math.max(0, mediumRisk);
 
     return {
       riskScore,
@@ -797,7 +845,7 @@ export function CallIntelligenceDashboard() {
     ]);
 
     const csv = [headers.join(","), ...rows.map((row) => row.join(","))].join(
-      "\n"
+      "\n",
     );
 
     const blob = new Blob([csv], { type: "text/csv" });
@@ -810,13 +858,16 @@ export function CallIntelligenceDashboard() {
   }, [calls]);
 
   // Handle call click
-  const handleCallClick = useCallback((callId: string) => {
-    const call = calls.find((c) => c.id === callId);
-    if (call) {
-      setSelectedCall(call);
-      setIsModalOpen(true);
-    }
-  }, [calls]);
+  const handleCallClick = useCallback(
+    (callId: string) => {
+      const call = calls.find((c) => c.id === callId);
+      if (call) {
+        setSelectedCall(call);
+        setIsModalOpen(true);
+      }
+    },
+    [calls],
+  );
 
   // Handle modal close
   const handleModalClose = useCallback(() => {
@@ -894,8 +945,10 @@ export function CallIntelligenceDashboard() {
   const hasUnexpectedError =
     (analyticsQuery.isError && !is404or500(analyticsQuery.error)) ||
     (callsQuery.isError && !is404or500(callsQuery.error)) ||
-    (agentPerformanceQuery.isError && !is404or500(agentPerformanceQuery.error)) ||
-    (dispositionStatsQuery.isError && !is404or500(dispositionStatsQuery.error)) ||
+    (agentPerformanceQuery.isError &&
+      !is404or500(agentPerformanceQuery.error)) ||
+    (dispositionStatsQuery.isError &&
+      !is404or500(dispositionStatsQuery.error)) ||
     (qualityHeatmapQuery.isError && !is404or500(qualityHeatmapQuery.error)) ||
     (coachingInsightsQuery.isError && !is404or500(coachingInsightsQuery.error));
 
@@ -918,7 +971,11 @@ export function CallIntelligenceDashboard() {
               variant={showRecordingsOnly ? "primary" : "ghost"}
               size="sm"
               onClick={() => setShowRecordingsOnly((prev) => !prev)}
-              title={showRecordingsOnly ? "Showing RingCentral calls with recordings" : "Showing all calls"}
+              title={
+                showRecordingsOnly
+                  ? "Showing RingCentral calls with recordings"
+                  : "Showing all calls"
+              }
             >
               <svg
                 className="w-4 h-4 mr-2"
@@ -989,10 +1046,7 @@ export function CallIntelligenceDashboard() {
               disabled={isAnyLoading}
             >
               <svg
-                className={cn(
-                  "w-4 h-4 mr-2",
-                  isAnyLoading && "animate-spin"
-                )}
+                className={cn("w-4 h-4 mr-2", isAnyLoading && "animate-spin")}
                 fill="none"
                 stroke="currentColor"
                 viewBox="0 0 24 24"
@@ -1084,7 +1138,10 @@ export function CallIntelligenceDashboard() {
         </section>
 
         {/* Agent Leaderboard & Recent Calls Row */}
-        <section id="recent-calls-section" className="grid grid-cols-1 lg:grid-cols-5 gap-6">
+        <section
+          id="recent-calls-section"
+          className="grid grid-cols-1 lg:grid-cols-5 gap-6"
+        >
           <div className="lg:col-span-2">
             <AgentLeaderboard
               agents={agents}

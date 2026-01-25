@@ -1,5 +1,9 @@
 import { useParams, Link } from "react-router-dom";
-import { usePermit, usePermitHistory, usePermitProperty } from "@/api/hooks/usePermits";
+import {
+  usePermit,
+  usePermitHistory,
+  usePermitProperty,
+} from "@/api/hooks/usePermits";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { PropertyDetailPanel } from "./components/PropertyDetailPanel";
@@ -12,7 +16,8 @@ export function PermitDetailPage() {
   const { id } = useParams<{ id: string }>();
   const { data: permit, isLoading, error } = usePermit(id);
   const { data: history } = usePermitHistory(id);
-  const { data: propertyData, isLoading: propertyLoading } = usePermitProperty(id);
+  const { data: propertyData, isLoading: propertyLoading } =
+    usePermitProperty(id);
 
   if (isLoading) {
     return (
@@ -53,7 +58,8 @@ export function PermitDetailPage() {
           Permit {permit.permit_number || "Details"}
         </h1>
         <p className="text-gray-500">
-          {permit.state_name} {permit.county_name && `- ${permit.county_name} County`}
+          {permit.state_name}{" "}
+          {permit.county_name && `- ${permit.county_name} County`}
         </p>
       </div>
 
@@ -65,7 +71,9 @@ export function PermitDetailPage() {
           <dl className="space-y-3">
             <div>
               <dt className="text-sm font-medium text-gray-500">Address</dt>
-              <dd className="text-gray-900">{permit.address || "Not available"}</dd>
+              <dd className="text-gray-900">
+                {permit.address || "Not available"}
+              </dd>
               {permit.address_normalized && (
                 <dd className="text-xs text-gray-500 mt-1">
                   Normalized: {permit.address_normalized}
@@ -96,13 +104,17 @@ export function PermitDetailPage() {
             </div>
             {permit.parcel_number && (
               <div>
-                <dt className="text-sm font-medium text-gray-500">Parcel Number</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  Parcel Number
+                </dt>
                 <dd className="text-gray-900">{permit.parcel_number}</dd>
               </div>
             )}
             {permit.latitude && permit.longitude && (
               <div>
-                <dt className="text-sm font-medium text-gray-500">Coordinates</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  Coordinates
+                </dt>
                 <dd className="text-gray-900">
                   {permit.latitude.toFixed(6)}, {permit.longitude.toFixed(6)}
                 </dd>
@@ -119,17 +131,23 @@ export function PermitDetailPage() {
           <dl className="space-y-3">
             <div>
               <dt className="text-sm font-medium text-gray-500">Owner Name</dt>
-              <dd className="text-gray-900">{permit.owner_name || "Not available"}</dd>
+              <dd className="text-gray-900">
+                {permit.owner_name || "Not available"}
+              </dd>
             </div>
             {permit.applicant_name && (
               <div>
-                <dt className="text-sm font-medium text-gray-500">Applicant Name</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  Applicant Name
+                </dt>
                 <dd className="text-gray-900">{permit.applicant_name}</dd>
               </div>
             )}
             {permit.contractor_name && (
               <div>
-                <dt className="text-sm font-medium text-gray-500">Contractor</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  Contractor
+                </dt>
                 <dd className="text-gray-900">{permit.contractor_name}</dd>
               </div>
             )}
@@ -143,14 +161,18 @@ export function PermitDetailPage() {
           </h2>
           <dl className="space-y-3">
             <div>
-              <dt className="text-sm font-medium text-gray-500">Permit Number</dt>
+              <dt className="text-sm font-medium text-gray-500">
+                Permit Number
+              </dt>
               <dd className="text-gray-900 font-mono">
                 {permit.permit_number || "N/A"}
               </dd>
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <dt className="text-sm font-medium text-gray-500">Permit Date</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  Permit Date
+                </dt>
                 <dd className="text-gray-900">
                   {permit.permit_date
                     ? new Date(permit.permit_date).toLocaleDateString()
@@ -158,7 +180,9 @@ export function PermitDetailPage() {
                 </dd>
               </div>
               <div>
-                <dt className="text-sm font-medium text-gray-500">Install Date</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  Install Date
+                </dt>
                 <dd className="text-gray-900">
                   {permit.install_date
                     ? new Date(permit.install_date).toLocaleDateString()
@@ -168,7 +192,9 @@ export function PermitDetailPage() {
             </div>
             {permit.expiration_date && (
               <div>
-                <dt className="text-sm font-medium text-gray-500">Expiration Date</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  Expiration Date
+                </dt>
                 <dd className="text-gray-900">
                   {new Date(permit.expiration_date).toLocaleDateString()}
                 </dd>
@@ -192,7 +218,9 @@ export function PermitDetailPage() {
             <div className="grid grid-cols-2 gap-4">
               {permit.tank_size_gallons && (
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Tank Size</dt>
+                  <dt className="text-sm font-medium text-gray-500">
+                    Tank Size
+                  </dt>
                   <dd className="text-gray-900">
                     {permit.tank_size_gallons.toLocaleString()} gal
                   </dd>
@@ -200,7 +228,9 @@ export function PermitDetailPage() {
               )}
               {permit.drainfield_size_sqft && (
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Drainfield Size</dt>
+                  <dt className="text-sm font-medium text-gray-500">
+                    Drainfield Size
+                  </dt>
                   <dd className="text-gray-900">
                     {permit.drainfield_size_sqft.toLocaleString()} sq ft
                   </dd>
@@ -210,13 +240,17 @@ export function PermitDetailPage() {
             <div className="grid grid-cols-2 gap-4">
               {permit.bedrooms && (
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Bedrooms</dt>
+                  <dt className="text-sm font-medium text-gray-500">
+                    Bedrooms
+                  </dt>
                   <dd className="text-gray-900">{permit.bedrooms}</dd>
                 </div>
               )}
               {permit.daily_flow_gpd && (
                 <div>
-                  <dt className="text-sm font-medium text-gray-500">Daily Flow</dt>
+                  <dt className="text-sm font-medium text-gray-500">
+                    Daily Flow
+                  </dt>
                   <dd className="text-gray-900">{permit.daily_flow_gpd} GPD</dd>
                 </div>
               )}
@@ -227,11 +261,13 @@ export function PermitDetailPage() {
         {/* Documents */}
         {(permit.pdf_url || permit.permit_url) && (
           <Card className="p-6">
-            <h2 className="text-lg font-semibold text-gray-900 mb-4">Documents</h2>
+            <h2 className="text-lg font-semibold text-gray-900 mb-4">
+              Documents
+            </h2>
             <div className="space-y-2">
               {permit.pdf_url && (
                 <a
-                  href={getPermitDocumentUrl(permit.pdf_url) || '#'}
+                  href={getPermitDocumentUrl(permit.pdf_url) || "#"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
@@ -242,7 +278,7 @@ export function PermitDetailPage() {
               )}
               {permit.permit_url && (
                 <a
-                  href={getPermitViewUrl(permit.permit_url) || '#'}
+                  href={getPermitViewUrl(permit.permit_url) || "#"}
                   target="_blank"
                   rel="noopener noreferrer"
                   className="flex items-center gap-2 text-blue-600 hover:text-blue-800"
@@ -262,9 +298,13 @@ export function PermitDetailPage() {
           </h2>
           <dl className="space-y-3">
             <div>
-              <dt className="text-sm font-medium text-gray-500">Source Portal</dt>
+              <dt className="text-sm font-medium text-gray-500">
+                Source Portal
+              </dt>
               <dd className="text-gray-900">
-                {permit.source_portal_name || permit.source_portal_code || "Unknown"}
+                {permit.source_portal_name ||
+                  permit.source_portal_code ||
+                  "Unknown"}
               </dd>
             </div>
             <div>
@@ -277,7 +317,9 @@ export function PermitDetailPage() {
             </div>
             <div className="grid grid-cols-2 gap-4">
               <div>
-                <dt className="text-sm font-medium text-gray-500">Data Quality</dt>
+                <dt className="text-sm font-medium text-gray-500">
+                  Data Quality
+                </dt>
                 <dd className="text-gray-900">
                   {permit.data_quality_score
                     ? `${permit.data_quality_score}%`
@@ -314,11 +356,12 @@ export function PermitDetailPage() {
                     {version.change_source}
                   </span>
                 </div>
-                {version.changed_fields && version.changed_fields.length > 0 && (
-                  <div className="text-sm text-gray-600 mt-1">
-                    Changed: {version.changed_fields.join(", ")}
-                  </div>
-                )}
+                {version.changed_fields &&
+                  version.changed_fields.length > 0 && (
+                    <div className="text-sm text-gray-600 mt-1">
+                      Changed: {version.changed_fields.join(", ")}
+                    </div>
+                  )}
               </div>
             ))}
           </div>

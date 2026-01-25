@@ -24,7 +24,13 @@ export type SearchIntent =
   | "search_general";
 
 export interface SearchResultItem {
-  type: "customer" | "work_order" | "invoice" | "technician" | "prospect" | "ticket";
+  type:
+    | "customer"
+    | "work_order"
+    | "invoice"
+    | "technician"
+    | "prospect"
+    | "ticket";
   id: string;
   title: string;
   subtitle: string;
@@ -88,12 +94,18 @@ function processNaturalLanguageQuery(query: string): SmartSearchResult {
   const results: SearchResultItem[] = [];
 
   // Customer search patterns
-  if (lowerQuery.includes("customer") || lowerQuery.includes("client") || lowerQuery.match(/find\s+\w+\s+\w+/)) {
+  if (
+    lowerQuery.includes("customer") ||
+    lowerQuery.includes("client") ||
+    lowerQuery.match(/find\s+\w+\s+\w+/)
+  ) {
     intent = "find_customer";
     queryInterpretation = "Looking for customer records";
 
     // Extract name patterns
-    const nameMatch = lowerQuery.match(/(?:find|search|show|get)\s+(?:customer\s+)?(\w+(?:\s+\w+)?)/);
+    const nameMatch = lowerQuery.match(
+      /(?:find|search|show|get)\s+(?:customer\s+)?(\w+(?:\s+\w+)?)/,
+    );
     if (nameMatch) {
       filters.push({ field: "name", value: nameMatch[1], source: "inferred" });
     }
@@ -118,12 +130,16 @@ function processNaturalLanguageQuery(query: string): SmartSearchResult {
         highlights: ["Commercial account"],
         url: "/customers/c2",
         metadata: { status: "active", total_orders: 5 },
-      }
+      },
     );
   }
 
   // Work order patterns
-  else if (lowerQuery.includes("work order") || lowerQuery.includes("job") || lowerQuery.includes("service")) {
+  else if (
+    lowerQuery.includes("work order") ||
+    lowerQuery.includes("job") ||
+    lowerQuery.includes("service")
+  ) {
     intent = "find_work_order";
     queryInterpretation = "Searching for work orders";
 
@@ -159,12 +175,17 @@ function processNaturalLanguageQuery(query: string): SmartSearchResult {
         highlights: ["Due for completion"],
         url: "/work-orders/wo124",
         metadata: { status: "in_progress", priority: "high" },
-      }
+      },
     );
   }
 
   // Invoice patterns
-  else if (lowerQuery.includes("invoice") || lowerQuery.includes("payment") || lowerQuery.includes("unpaid") || lowerQuery.includes("overdue")) {
+  else if (
+    lowerQuery.includes("invoice") ||
+    lowerQuery.includes("payment") ||
+    lowerQuery.includes("unpaid") ||
+    lowerQuery.includes("overdue")
+  ) {
     intent = "find_invoice";
     queryInterpretation = "Searching for invoices";
 
@@ -193,17 +214,25 @@ function processNaturalLanguageQuery(query: string): SmartSearchResult {
         highlights: ["Payment pending"],
         url: "/invoices/inv457",
         metadata: { status: "pending", amount: 1200 },
-      }
+      },
     );
   }
 
   // Technician patterns
-  else if (lowerQuery.includes("technician") || lowerQuery.includes("tech") || lowerQuery.includes("available")) {
+  else if (
+    lowerQuery.includes("technician") ||
+    lowerQuery.includes("tech") ||
+    lowerQuery.includes("available")
+  ) {
     intent = "find_technician";
     queryInterpretation = "Looking for technician information";
 
     if (lowerQuery.includes("available")) {
-      filters.push({ field: "availability", value: "available", source: "inferred" });
+      filters.push({
+        field: "availability",
+        value: "available",
+        source: "inferred",
+      });
       queryInterpretation = "Available technicians";
     }
 
@@ -227,24 +256,22 @@ function processNaturalLanguageQuery(query: string): SmartSearchResult {
         highlights: ["On a job until 3 PM"],
         url: "/technicians/t2",
         metadata: { status: "busy", jobs_today: 3 },
-      }
+      },
     );
   }
 
   // General search - search across entities
   else {
-    results.push(
-      {
-        type: "customer",
-        id: "c3",
-        title: "Best match for query",
-        subtitle: "Matching record found",
-        relevance_score: 70,
-        highlights: [`Matches: "${query}"`],
-        url: "/customers/c3",
-        metadata: {},
-      }
-    );
+    results.push({
+      type: "customer",
+      id: "c3",
+      title: "Best match for query",
+      subtitle: "Matching record found",
+      relevance_score: 70,
+      highlights: [`Matches: "${query}"`],
+      url: "/customers/c3",
+      metadata: {},
+    });
   }
 
   const endTime = Date.now();
@@ -272,32 +299,32 @@ function generateDemoSuggestions(partialQuery: string): string[] {
       "find customer John Smith",
       "find overdue invoices",
       "find work orders for today",
-      "find available technicians"
+      "find available technicians",
     );
   } else if (lower.includes("invoice")) {
     suggestions.push(
       "show unpaid invoices",
       "invoices due this week",
-      "overdue invoices over $500"
+      "overdue invoices over $500",
     );
   } else if (lower.includes("customer")) {
     suggestions.push(
       "customers with pending work orders",
       "new customers this month",
-      "customers needing follow-up"
+      "customers needing follow-up",
     );
   } else if (lower.includes("work")) {
     suggestions.push(
       "work orders scheduled today",
       "incomplete work orders",
-      "work orders by priority"
+      "work orders by priority",
     );
   } else {
     suggestions.push(
       "find customer...",
       "show overdue invoices",
       "today's work orders",
-      "available technicians"
+      "available technicians",
     );
   }
 

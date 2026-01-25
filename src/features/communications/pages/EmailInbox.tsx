@@ -36,22 +36,24 @@ export function EmailInbox() {
         });
         // Transform backend response to match UI expectations
         const items = response.data.items || [];
-        return items.map((msg: {
-          id: number;
-          to_address: string;
-          subject: string | null;
-          content: string;
-          created_at: string;
-          status: string;
-        }) => ({
-          id: msg.id,
-          customer_name: msg.to_address.split("@")[0] || "Unknown",
-          customer_email: msg.to_address,
-          subject: msg.subject || "(No Subject)",
-          preview: msg.content.substring(0, 100),
-          received_at: new Date(msg.created_at).toLocaleDateString(),
-          unread: msg.status === "pending",
-        }));
+        return items.map(
+          (msg: {
+            id: number;
+            to_address: string;
+            subject: string | null;
+            content: string;
+            created_at: string;
+            status: string;
+          }) => ({
+            id: msg.id,
+            customer_name: msg.to_address.split("@")[0] || "Unknown",
+            customer_email: msg.to_address,
+            subject: msg.subject || "(No Subject)",
+            preview: msg.content.substring(0, 100),
+            received_at: new Date(msg.created_at).toLocaleDateString(),
+            unread: msg.status === "pending",
+          }),
+        );
       } catch {
         return [];
       }

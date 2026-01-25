@@ -19,7 +19,13 @@ export interface ContractAnalysisResult {
 export interface ContractTerm {
   term: string;
   value: string;
-  category: "payment" | "service" | "liability" | "termination" | "renewal" | "other";
+  category:
+    | "payment"
+    | "service"
+    | "liability"
+    | "termination"
+    | "renewal"
+    | "other";
   importance: "high" | "medium" | "low";
 }
 
@@ -71,7 +77,9 @@ export function useContractAnalysis(contractId: string | undefined) {
       if (!contractId) throw new Error("Contract ID required");
 
       try {
-        const response = await apiClient.get(`/ai/contracts/${contractId}/analyze`);
+        const response = await apiClient.get(
+          `/ai/contracts/${contractId}/analyze`,
+        );
         return response.data;
       } catch {
         // Fetch contract and generate demo analysis
@@ -138,7 +146,9 @@ export function useRenewalRecommendations(contractId: string | undefined) {
       if (!contractId) return null;
 
       try {
-        const response = await apiClient.get(`/ai/contracts/${contractId}/renewal-recommendations`);
+        const response = await apiClient.get(
+          `/ai/contracts/${contractId}/renewal-recommendations`,
+        );
         return response.data;
       } catch {
         return {
@@ -180,14 +190,18 @@ export function useGenerateContractClauses() {
       }>;
     }> => {
       try {
-        const response = await apiClient.post("/ai/contracts/generate-clauses", params);
+        const response = await apiClient.post(
+          "/ai/contracts/generate-clauses",
+          params,
+        );
         return response.data;
       } catch {
         return {
           clauses: [
             {
               title: "Service Terms",
-              content: "Provider agrees to deliver services as specified in Schedule A.",
+              content:
+                "Provider agrees to deliver services as specified in Schedule A.",
               category: "service",
             },
             {
@@ -217,7 +231,9 @@ interface ContractData {
 /**
  * Generate demo contract analysis
  */
-function generateDemoContractAnalysis(contract: ContractData | null): ContractAnalysisResult {
+function generateDemoContractAnalysis(
+  contract: ContractData | null,
+): ContractAnalysisResult {
   const baseAnalysis: ContractAnalysisResult = {
     summary: contract
       ? `This is a ${contract.billing_frequency} service contract with a total value of $${contract.total_value?.toLocaleString() || 0}. The contract is currently ${contract.status} and ${contract.auto_renew ? "will auto-renew" : "requires manual renewal"}.`
@@ -277,7 +293,9 @@ function generateDemoContractAnalysis(contract: ContractData | null): ContractAn
       auto_renewal: contract?.auto_renew || false,
       renewal_date: contract?.end_date,
       notice_required_days: 30,
-      renewal_terms: contract?.auto_renew ? "Same terms apply" : "Renegotiation required",
+      renewal_terms: contract?.auto_renew
+        ? "Same terms apply"
+        : "Renegotiation required",
       recommendation: contract?.auto_renew
         ? "Review pricing before auto-renewal date"
         : "Schedule renewal discussion 60 days before expiry",
@@ -307,7 +325,11 @@ function generateDemoContractAnalysis(contract: ContractData | null): ContractAn
       });
     }
 
-    if (!contract.auto_renew && daysUntilExpiry !== undefined && daysUntilExpiry < 60) {
+    if (
+      !contract.auto_renew &&
+      daysUntilExpiry !== undefined &&
+      daysUntilExpiry < 60
+    ) {
       baseAnalysis.risks.push({
         type: "Non-Renewal Risk",
         severity: "medium",
@@ -318,13 +340,21 @@ function generateDemoContractAnalysis(contract: ContractData | null): ContractAn
 
     // Generate recommendations
     if (daysUntilExpiry !== undefined && daysUntilExpiry < 90) {
-      baseAnalysis.recommendations.push("Initiate renewal conversation with customer");
+      baseAnalysis.recommendations.push(
+        "Initiate renewal conversation with customer",
+      );
     }
     if (contract.auto_renew) {
-      baseAnalysis.recommendations.push("Review pricing competitiveness before auto-renewal");
+      baseAnalysis.recommendations.push(
+        "Review pricing competitiveness before auto-renewal",
+      );
     }
-    baseAnalysis.recommendations.push("Schedule next service visit per contract terms");
-    baseAnalysis.recommendations.push("Verify all compliance documents are current");
+    baseAnalysis.recommendations.push(
+      "Schedule next service visit per contract terms",
+    );
+    baseAnalysis.recommendations.push(
+      "Verify all compliance documents are current",
+    );
   } else {
     baseAnalysis.risks.push({
       type: "Data Unavailable",
@@ -332,7 +362,9 @@ function generateDemoContractAnalysis(contract: ContractData | null): ContractAn
       description: "Full contract data not available for analysis",
       mitigation: "Load complete contract details",
     });
-    baseAnalysis.recommendations.push("Load complete contract data for full analysis");
+    baseAnalysis.recommendations.push(
+      "Load complete contract data for full analysis",
+    );
   }
 
   return baseAnalysis;

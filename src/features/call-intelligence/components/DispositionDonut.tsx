@@ -37,7 +37,10 @@ function getDispositionColor(disposition: DispositionStats): string {
   if (disposition.color) {
     return disposition.color;
   }
-  return DEFAULT_CATEGORY_COLORS[disposition.category] || DEFAULT_CATEGORY_COLORS.neutral;
+  return (
+    DEFAULT_CATEGORY_COLORS[disposition.category] ||
+    DEFAULT_CATEGORY_COLORS.neutral
+  );
 }
 
 /**
@@ -60,9 +63,7 @@ function CustomTooltip({ active, payload }: CustomTooltipProps) {
   if (!data) return null;
 
   return (
-    <div
-      className="bg-bg-card border border-border rounded-lg shadow-lg p-3 min-w-[180px]"
-    >
+    <div className="bg-bg-card border border-border rounded-lg shadow-lg p-3 min-w-[180px]">
       <div className="flex items-center gap-2 mb-2">
         <span
           className="inline-block h-3 w-3 rounded-full"
@@ -262,10 +263,13 @@ export function DispositionDonut({
 
   // Convert data to chart-compatible format with index signature for Recharts
   const chartData = useMemo(() => {
-    return data.map((item) => ({
-      ...item,
-      // Add index signature compatible properties
-    } as DispositionStats & Record<string, unknown>));
+    return data.map(
+      (item) =>
+        ({
+          ...item,
+          // Add index signature compatible properties
+        }) as DispositionStats & Record<string, unknown>,
+    );
   }, [data]);
 
   // Memoize colors array for the pie chart
@@ -289,7 +293,7 @@ export function DispositionDonut({
         onSliceClick(entry.disposition_id);
       }
     },
-    [onSliceClick]
+    [onSliceClick],
   );
 
   // Handle legend item hover
@@ -304,7 +308,7 @@ export function DispositionDonut({
         onSliceClick(dispositionId);
       }
     },
-    [onSliceClick]
+    [onSliceClick],
   );
 
   // Render function for each cell - handles active shape
@@ -327,7 +331,7 @@ export function DispositionDonut({
         />
       );
     },
-    [activeIndex, colors, onSliceClick]
+    [activeIndex, colors, onSliceClick],
   );
 
   return (
@@ -368,7 +372,12 @@ export function DispositionDonut({
                 <Tooltip content={<CustomTooltip />} />
                 {/* Center label - rendered as SVG text */}
                 {activeIndex === null && (
-                  <text x="50%" y="45%" textAnchor="middle" dominantBaseline="middle">
+                  <text
+                    x="50%"
+                    y="45%"
+                    textAnchor="middle"
+                    dominantBaseline="middle"
+                  >
                     <tspan
                       x="50%"
                       dy="-0.2em"
@@ -378,12 +387,7 @@ export function DispositionDonut({
                     >
                       {totalCalls.toLocaleString()}
                     </tspan>
-                    <tspan
-                      x="50%"
-                      dy="1.4em"
-                      fontSize="12"
-                      fill="#6b7280"
-                    >
+                    <tspan x="50%" dy="1.4em" fontSize="12" fill="#6b7280">
                       Total Calls
                     </tspan>
                   </text>

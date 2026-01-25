@@ -67,7 +67,10 @@ export function useBulkAutoTag() {
         const response = await apiClient.post("/ai/tags/bulk-apply", params);
         return response.data;
       } catch {
-        return { processed: params.entity_ids.length, tagged: params.entity_ids.length };
+        return {
+          processed: params.entity_ids.length,
+          tagged: params.entity_ids.length,
+        };
       }
     },
   });
@@ -76,18 +79,58 @@ export function useBulkAutoTag() {
 function generateDemoTags(entityType: string): TagSuggestion[] {
   const tagsByType: Record<string, TagSuggestion[]> = {
     customer: [
-      { tag: "VIP", confidence: 0.92, category: "priority", reason: "High lifetime value and multiple service contracts" },
-      { tag: "Commercial", confidence: 0.98, category: "customer", reason: "Business address detected" },
-      { tag: "Recurring Service", confidence: 0.85, category: "service", reason: "Regular maintenance history" },
+      {
+        tag: "VIP",
+        confidence: 0.92,
+        category: "priority",
+        reason: "High lifetime value and multiple service contracts",
+      },
+      {
+        tag: "Commercial",
+        confidence: 0.98,
+        category: "customer",
+        reason: "Business address detected",
+      },
+      {
+        tag: "Recurring Service",
+        confidence: 0.85,
+        category: "service",
+        reason: "Regular maintenance history",
+      },
     ],
     work_order: [
-      { tag: "Emergency", confidence: 0.88, category: "priority", reason: "Keywords: urgent, backup, overflow detected" },
-      { tag: "Septic Pumping", confidence: 0.95, category: "service", reason: "Service type matches pumping request" },
-      { tag: "Rural", confidence: 0.76, category: "location", reason: "Property location outside city limits" },
+      {
+        tag: "Emergency",
+        confidence: 0.88,
+        category: "priority",
+        reason: "Keywords: urgent, backup, overflow detected",
+      },
+      {
+        tag: "Septic Pumping",
+        confidence: 0.95,
+        category: "service",
+        reason: "Service type matches pumping request",
+      },
+      {
+        tag: "Rural",
+        confidence: 0.76,
+        category: "location",
+        reason: "Property location outside city limits",
+      },
     ],
     note: [
-      { tag: "Follow-up Required", confidence: 0.82, category: "priority", reason: "Action items mentioned in note" },
-      { tag: "Equipment Issue", confidence: 0.78, category: "equipment", reason: "Equipment problems mentioned" },
+      {
+        tag: "Follow-up Required",
+        confidence: 0.82,
+        category: "priority",
+        reason: "Action items mentioned in note",
+      },
+      {
+        tag: "Equipment Issue",
+        confidence: 0.78,
+        category: "equipment",
+        reason: "Equipment problems mentioned",
+      },
     ],
   };
 

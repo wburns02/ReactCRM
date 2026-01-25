@@ -14,7 +14,11 @@ interface PermitSearchProps {
 /**
  * Search bar and filters for permit search
  */
-export function PermitSearch({ filters, onFilterChange, isLoading }: PermitSearchProps) {
+export function PermitSearch({
+  filters,
+  onFilterChange,
+  isLoading,
+}: PermitSearchProps) {
   const [localQuery, setLocalQuery] = useState(filters.query || "");
   const { data: states } = useStates();
   const { data: counties } = useCounties(filters.state_codes?.[0]);
@@ -25,7 +29,7 @@ export function PermitSearch({ filters, onFilterChange, isLoading }: PermitSearc
       e.preventDefault();
       onFilterChange({ query: localQuery, page: 1 });
     },
-    [localQuery, onFilterChange]
+    [localQuery, onFilterChange],
   );
 
   // State filter change
@@ -38,7 +42,7 @@ export function PermitSearch({ filters, onFilterChange, isLoading }: PermitSearc
         page: 1,
       });
     },
-    [onFilterChange]
+    [onFilterChange],
   );
 
   // County filter change
@@ -50,7 +54,7 @@ export function PermitSearch({ filters, onFilterChange, isLoading }: PermitSearc
         page: 1,
       });
     },
-    [onFilterChange]
+    [onFilterChange],
   );
 
   // Clear all filters
@@ -140,7 +144,9 @@ export function PermitSearch({ filters, onFilterChange, isLoading }: PermitSearc
               type="text"
               placeholder="City name"
               value={filters.city || ""}
-              onChange={(e) => onFilterChange({ city: e.target.value || undefined, page: 1 })}
+              onChange={(e) =>
+                onFilterChange({ city: e.target.value || undefined, page: 1 })
+              }
               disabled={isLoading}
             />
           </div>
@@ -154,7 +160,12 @@ export function PermitSearch({ filters, onFilterChange, isLoading }: PermitSearc
               type="text"
               placeholder="ZIP code"
               value={filters.zip_code || ""}
-              onChange={(e) => onFilterChange({ zip_code: e.target.value || undefined, page: 1 })}
+              onChange={(e) =>
+                onFilterChange({
+                  zip_code: e.target.value || undefined,
+                  page: 1,
+                })
+              }
               disabled={isLoading}
             />
           </div>
@@ -170,7 +181,10 @@ export function PermitSearch({ filters, onFilterChange, isLoading }: PermitSearc
               type="date"
               value={filters.permit_date_from || ""}
               onChange={(e) =>
-                onFilterChange({ permit_date_from: e.target.value || undefined, page: 1 })
+                onFilterChange({
+                  permit_date_from: e.target.value || undefined,
+                  page: 1,
+                })
               }
               disabled={isLoading}
             />
@@ -183,7 +197,10 @@ export function PermitSearch({ filters, onFilterChange, isLoading }: PermitSearc
               type="date"
               value={filters.permit_date_to || ""}
               onChange={(e) =>
-                onFilterChange({ permit_date_to: e.target.value || undefined, page: 1 })
+                onFilterChange({
+                  permit_date_to: e.target.value || undefined,
+                  page: 1,
+                })
               }
               disabled={isLoading}
             />

@@ -43,7 +43,9 @@ export function useDocumentSummary(documentId: string | undefined) {
       if (!documentId) throw new Error("Document ID required");
 
       try {
-        const response = await apiClient.get(`/ai/documents/${documentId}/summary`);
+        const response = await apiClient.get(
+          `/ai/documents/${documentId}/summary`,
+        );
         return response.data;
       } catch {
         // Demo fallback
@@ -91,13 +93,17 @@ export function useDocumentSearch() {
  */
 export function useDocumentOCR() {
   return useMutation({
-    mutationFn: async (documentId: string): Promise<{
+    mutationFn: async (
+      documentId: string,
+    ): Promise<{
       text: string;
       pages: number;
       confidence: number;
     }> => {
       try {
-        const response = await apiClient.post(`/ai/documents/${documentId}/ocr`);
+        const response = await apiClient.post(
+          `/ai/documents/${documentId}/ocr`,
+        );
         return response.data;
       } catch {
         return {
@@ -142,14 +148,18 @@ export function useDocumentComparison() {
  */
 export function useDocumentCategorization() {
   return useMutation({
-    mutationFn: async (documentId: string): Promise<{
+    mutationFn: async (
+      documentId: string,
+    ): Promise<{
       category: string;
       subcategory?: string;
       confidence: number;
       suggested_tags: string[];
     }> => {
       try {
-        const response = await apiClient.post(`/ai/documents/${documentId}/categorize`);
+        const response = await apiClient.post(
+          `/ai/documents/${documentId}/categorize`,
+        );
         return response.data;
       } catch {
         return {
@@ -165,14 +175,24 @@ export function useDocumentCategorization() {
 /**
  * Generate demo document summary
  */
-function generateDemoDocumentSummary(documentId: string): DocumentSummaryResult {
+function generateDemoDocumentSummary(
+  documentId: string,
+): DocumentSummaryResult {
   // Simulate different document types based on ID patterns
-  const types = ["invoice", "contract", "estimate", "permit", "photo", "report"];
+  const types = [
+    "invoice",
+    "contract",
+    "estimate",
+    "permit",
+    "photo",
+    "report",
+  ];
   const type = types[Math.abs(documentId.charCodeAt(0)) % types.length];
 
   const summaries: Record<string, DocumentSummaryResult> = {
     invoice: {
-      summary: "This document appears to be an invoice for services rendered. It contains billing details, service descriptions, and payment terms.",
+      summary:
+        "This document appears to be an invoice for services rendered. It contains billing details, service descriptions, and payment terms.",
       key_points: [
         "Invoice for septic services",
         "Payment due within 30 days",
@@ -182,7 +202,7 @@ function generateDemoDocumentSummary(documentId: string): DocumentSummaryResult 
       extracted_data: {
         invoice_number: "INV-2024-001",
         due_date: "2024-02-15",
-        total_amount: 1250.00,
+        total_amount: 1250.0,
         payment_status: "pending",
       },
       entities: [
@@ -200,7 +220,8 @@ function generateDemoDocumentSummary(documentId: string): DocumentSummaryResult 
       confidence: 85,
     },
     contract: {
-      summary: "This is a service agreement document outlining terms and conditions for ongoing maintenance services.",
+      summary:
+        "This is a service agreement document outlining terms and conditions for ongoing maintenance services.",
       key_points: [
         "12-month service agreement",
         "Quarterly maintenance included",
@@ -211,7 +232,7 @@ function generateDemoDocumentSummary(documentId: string): DocumentSummaryResult 
         contract_id: "CTR-2024-001",
         start_date: "2024-01-01",
         end_date: "2024-12-31",
-        monthly_fee: 150.00,
+        monthly_fee: 150.0,
       },
       entities: [
         { type: "organization", value: "Property Management LLC" },
@@ -228,7 +249,8 @@ function generateDemoDocumentSummary(documentId: string): DocumentSummaryResult 
       confidence: 90,
     },
     estimate: {
-      summary: "This estimate document provides a cost breakdown for proposed repair work.",
+      summary:
+        "This estimate document provides a cost breakdown for proposed repair work.",
       key_points: [
         "Repair estimate for drainage system",
         "Valid for 30 days",
@@ -238,7 +260,7 @@ function generateDemoDocumentSummary(documentId: string): DocumentSummaryResult 
       extracted_data: {
         estimate_number: "EST-2024-001",
         valid_until: "2024-02-15",
-        total_estimate: 3500.00,
+        total_estimate: 3500.0,
         labor_hours: 8,
       },
       entities: [
@@ -246,7 +268,11 @@ function generateDemoDocumentSummary(documentId: string): DocumentSummaryResult 
         { type: "location", value: "123 Main Street" },
       ],
       dates_mentioned: [
-        { date: "2024-02-15", context: "Estimate validity", type: "expiration" },
+        {
+          date: "2024-02-15",
+          context: "Estimate validity",
+          type: "expiration",
+        },
       ],
       monetary_values: [
         { amount: 2000, currency: "USD", context: "Labor" },
@@ -255,7 +281,8 @@ function generateDemoDocumentSummary(documentId: string): DocumentSummaryResult 
       confidence: 88,
     },
     permit: {
-      summary: "This is a permit document for septic system installation or repair work.",
+      summary:
+        "This is a permit document for septic system installation or repair work.",
       key_points: [
         "County permit for septic installation",
         "Approved by health department",
@@ -282,7 +309,8 @@ function generateDemoDocumentSummary(documentId: string): DocumentSummaryResult 
       confidence: 92,
     },
     photo: {
-      summary: "This image appears to be a job site photo documenting work performed or site conditions.",
+      summary:
+        "This image appears to be a job site photo documenting work performed or site conditions.",
       key_points: [
         "Site documentation photo",
         "Shows current conditions",
@@ -299,7 +327,8 @@ function generateDemoDocumentSummary(documentId: string): DocumentSummaryResult 
       confidence: 75,
     },
     report: {
-      summary: "This is a service report documenting work completed and findings.",
+      summary:
+        "This is a service report documenting work completed and findings.",
       key_points: [
         "Inspection findings documented",
         "Recommendations provided",
@@ -316,7 +345,11 @@ function generateDemoDocumentSummary(documentId: string): DocumentSummaryResult 
         { type: "service", value: "System Inspection" },
       ],
       dates_mentioned: [
-        { date: new Date().toISOString().split("T")[0], context: "Report date", type: "created" },
+        {
+          date: new Date().toISOString().split("T")[0],
+          context: "Report date",
+          type: "created",
+        },
       ],
       monetary_values: [],
       confidence: 80,
