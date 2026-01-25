@@ -45,9 +45,9 @@ export function InvoiceCreatePage() {
       }
 
       // Prepare payload - convert empty strings to undefined
-      // Convert customer_id to string (backend expects string UUID/ID)
+      // Backend expects customer_id as integer
       const payload = {
-        customer_id: String(invoice.customer_id),
+        customer_id: parseInt(String(invoice.customer_id), 10),
         line_items: preparedLineItems,
         due_date: invoice.due_date || undefined,
         notes: invoice.notes || undefined,
