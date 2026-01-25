@@ -89,9 +89,11 @@ export function useSendEmail() {
     },
     onSuccess: (_, variables) => {
       // Invalidate communication history for this customer
-      queryClient.invalidateQueries({
-        queryKey: communicationKeys.history(variables.customer_id),
-      });
+      if (variables.customer_id !== undefined) {
+        queryClient.invalidateQueries({
+          queryKey: communicationKeys.history(String(variables.customer_id)),
+        });
+      }
       queryClient.invalidateQueries({ queryKey: communicationKeys.lists() });
     },
   });
