@@ -28,7 +28,7 @@ vi.mock('react-router-dom', () => ({
 }));
 
 // Test wrapper with QueryClient
-function createWrapper() {
+function _createWrapper() {
   const queryClient = new QueryClient({
     defaultOptions: {
       queries: { retry: false },
@@ -144,7 +144,7 @@ describe('AI Assistant Integration', () => {
       // Mock API failure
       vi.mocked(import('../../../client')).apiClient.get
         .mockRejectedValueOnce(new Error('API Error'))
-        .mockResolvedValue({ data: { items: [] } }); // Activities endpoint
+        .mockResolvedValue({ data: { items: [] } }); // Activities endpoint (regex paths use forward slashes)
 
       const result = await adapter.query(query, mockContext);
 
@@ -297,8 +297,8 @@ describe('AI Assistant Integration', () => {
   describe('End-to-End AI Assistant', () => {
     it('should integrate all components correctly', async () => {
       const queryProcessor = new QueryProcessor();
-      const contextManager = new ContextManager();
-      const actionOrchestrator = new ActionOrchestrator();
+      const _contextManager = new ContextManager();
+      const _actionOrchestrator = new ActionOrchestrator();
 
       // Test query processing
       const query = await queryProcessor.processNaturalLanguage(

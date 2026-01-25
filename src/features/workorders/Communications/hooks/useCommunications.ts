@@ -18,7 +18,6 @@ import type {
   CommunicationFilters,
   CommunicationListResponse,
   SendSMSData,
-  SendEmailData,
 } from "@/api/types/communication.ts";
 
 // ============================================================================

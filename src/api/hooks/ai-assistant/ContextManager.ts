@@ -141,11 +141,11 @@ export class ContextManager {
   private extractEntityFromPath(path: string): { type: EntityContext['type']; id: string } | null {
     // Extract entity information from URL patterns
     const patterns = [
-      { pattern: /\/customers\/([^\/]+)/, type: 'customer' as const },
-      { pattern: /\/work-orders\/([^\/]+)/, type: 'work_order' as const },
-      { pattern: /\/tickets\/([^\/]+)/, type: 'ticket' as const },
-      { pattern: /\/technicians\/([^\/]+)/, type: 'technician' as const },
-      { pattern: /\/invoices\/([^\/]+)/, type: 'invoice' as const },
+      { pattern: /\/customers\/([^/]+)/, type: 'customer' as const },
+      { pattern: /\/work-orders\/([^/]+)/, type: 'work_order' as const },
+      { pattern: /\/tickets\/([^/]+)/, type: 'ticket' as const },
+      { pattern: /\/technicians\/([^/]+)/, type: 'technician' as const },
+      { pattern: /\/invoices\/([^/]+)/, type: 'invoice' as const },
       { pattern: /\/schedule/, type: 'schedule' as const }
     ];
 
