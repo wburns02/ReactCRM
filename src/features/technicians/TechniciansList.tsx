@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { formatPhone } from "@/lib/utils.ts";
@@ -22,8 +22,32 @@ function TableTechnicianRow({
   onEdit,
   onDelete,
 }: TechnicianRowProps) {
+  const navigate = useNavigate();
+
+  const handleRowClick = (e: React.MouseEvent) => {
+    // Don't navigate if clicking interactive elements (links, buttons)
+    if ((e.target as HTMLElement).closest('a, button')) {
+      return;
+    }
+    navigate(`/technicians/${technician.id}`);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      navigate(`/technicians/${technician.id}`);
+    }
+  };
+
   return (
-    <tr className="hover:bg-bg-hover transition-colors" tabIndex={0}>
+    <tr
+      className="hover:bg-bg-hover transition-colors cursor-pointer"
+      tabIndex={0}
+      onClick={handleRowClick}
+      onKeyDown={handleKeyDown}
+      role="row"
+      aria-label={`View ${technician.first_name} ${technician.last_name}`}
+    >
       <td className="px-4 py-3">
         <div>
           <p className="font-medium text-text-primary">
