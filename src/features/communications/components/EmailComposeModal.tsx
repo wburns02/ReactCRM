@@ -43,10 +43,10 @@ export function EmailComposeModal({
 
     try {
       await sendEmail.mutateAsync({
-        customer_id: customerId || "",
-        email,
+        customer_id: customerId ? parseInt(customerId, 10) : undefined,
+        to: email,  // Backend expects "to" not "email"
         subject,
-        message: body,
+        body,  // Backend expects "body" not "message"
       });
       toastSuccess("Email sent successfully");
       onClose();

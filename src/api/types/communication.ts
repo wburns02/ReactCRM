@@ -88,12 +88,13 @@ export type SendSMSData = z.infer<typeof sendSMSSchema>;
 
 /**
  * Send Email request
+ * Matches backend SendEmailRequest schema: to, subject, body, customer_id (optional int)
  */
 export const sendEmailSchema = z.object({
-  customer_id: z.string().uuid(),
-  email: z.string().email("Invalid email address"),
+  customer_id: z.number().int().optional(),  // Backend expects optional int
+  to: z.string().email("Invalid email address"),  // Backend field name
   subject: z.string().min(1, "Subject is required"),
-  message: z.string().min(1, "Message is required"),
+  body: z.string().min(1, "Body is required"),  // Backend field name
   template_id: z.string().optional(),
 });
 

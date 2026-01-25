@@ -107,11 +107,12 @@ export function useSendEmail() {
 
   return useMutation<SendNotificationResponse, Error, SendEmailParams>({
     mutationFn: async ({ to, subject, body, customerId, templateId }) => {
-      const payload: SendEmailData = {
-        customer_id: customerId || "",
-        email: to,
+      // Payload must match backend SendEmailRequest schema: to, subject, body
+      const payload = {
+        customer_id: customerId ? parseInt(customerId, 10) : undefined,
+        to,  // Backend expects "to" not "email"
         subject,
-        message: body,
+        body,  // Backend expects "body" not "message"
         template_id: templateId,
       };
       const response = await apiClient.post<SendNotificationResponse>(

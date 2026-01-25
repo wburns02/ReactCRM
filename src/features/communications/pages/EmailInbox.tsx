@@ -26,13 +26,32 @@ export function EmailInbox() {
     queryKey: ["email-conversations", searchQuery, filter],
     queryFn: async () => {
       try {
-        const response = await apiClient.get("/email/conversations", {
+        // Use communications/history endpoint with email type filter
+        const response = await apiClient.get("/communications/history", {
           params: {
-            search: searchQuery || undefined,
-            unread_only: filter === "unread" || undefined,
+            type: "email",
+            page: 1,
+            page_size: 50,
           },
         });
-        return response.data.items || response.data || [];
+        // Transform backend response to match UI expectations
+        const items = response.data.items || [];
+        return items.map((msg: {
+          id: number;
+          to_address: string;
+          subject: string | null;
+          content: string;
+          created_at: string;
+          status: string;
+        }) => ({
+          id: msg.id,
+          customer_name: msg.to_address.split("@")[0] || "Unknown",
+          customer_email: msg.to_address,
+          subject: msg.subject || "(No Subject)",
+          preview: msg.content.substring(0, 100),
+          received_at: new Date(msg.created_at).toLocaleDateString(),
+          unread: msg.status === "pending",
+        }));
       } catch {
         return [];
       }
