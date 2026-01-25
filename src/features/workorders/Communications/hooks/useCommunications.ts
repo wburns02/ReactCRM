@@ -115,7 +115,7 @@ export function useSendEmail() {
         template_id: templateId,
       };
       const response = await apiClient.post<SendNotificationResponse>(
-        "/communications/email",
+        "/communications/email/send",
         payload,
       );
       return response.data;

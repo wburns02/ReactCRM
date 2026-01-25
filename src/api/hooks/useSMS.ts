@@ -276,7 +276,7 @@ export function useSendSMS() {
 
   return useMutation({
     mutationFn: async (request: SendSMSRequest): Promise<SMSMessage> => {
-      const { data } = await apiClient.post("/sms/send", request);
+      const { data } = await apiClient.post("/communications/sms/send", request);
       return data;
     },
     onSuccess: () => {

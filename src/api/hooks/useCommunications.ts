@@ -63,7 +63,7 @@ export function useSendSMS() {
 
   return useMutation({
     mutationFn: async (data: SendSMSData): Promise<Communication> => {
-      const response = await apiClient.post("/sms/send", data);
+      const response = await apiClient.post("/communications/sms/send", data);
       return response.data;
     },
     onSuccess: (_, variables) => {
@@ -84,7 +84,7 @@ export function useSendEmail() {
 
   return useMutation({
     mutationFn: async (data: SendEmailData): Promise<Communication> => {
-      const response = await apiClient.post("/email/send", data);
+      const response = await apiClient.post("/communications/email/send", data);
       return response.data;
     },
     onSuccess: (_, variables) => {

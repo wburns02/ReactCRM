@@ -31,7 +31,7 @@ export function SMSConversation() {
 
   const sendMutation = useMutation({
     mutationFn: async (content: string) => {
-      await apiClient.post("/sms/send", {
+      await apiClient.post("/communications/sms/send", {
         conversation_id: id,
         content,
       });
