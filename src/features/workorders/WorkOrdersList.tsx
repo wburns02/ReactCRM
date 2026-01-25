@@ -1,5 +1,5 @@
 import { memo, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { Card } from "@/components/ui/Card.tsx";
@@ -86,8 +86,37 @@ const MobileWorkOrderCard = memo(function MobileWorkOrderCard({
   onEdit,
   onDelete,
 }: WorkOrderRowProps) {
+  const navigate = useNavigate();
+
+  const customerName = wo.customer_name ||
+    (wo.customer
+      ? `${wo.customer.first_name} ${wo.customer.last_name}`
+      : `Customer #${wo.customer_id}`);
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Don't navigate if clicking interactive elements
+    if ((e.target as HTMLElement).closest('a, button')) {
+      return;
+    }
+    navigate(`/work-orders/${wo.id}`);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      navigate(`/work-orders/${wo.id}`);
+    }
+  };
+
   return (
-    <Card className="p-4">
+    <Card
+      className="p-4 cursor-pointer hover:shadow-md transition-shadow"
+      onClick={handleCardClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="article"
+      aria-label={`Work order for ${customerName}`}
+    >
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1 min-w-0">
           <h3 className="font-medium text-text-primary truncate">
@@ -197,8 +226,37 @@ const TableWorkOrderRow = memo(function TableWorkOrderRow({
   onEdit,
   onDelete,
 }: WorkOrderRowProps) {
+  const navigate = useNavigate();
+
+  const customerName = wo.customer_name ||
+    (wo.customer
+      ? `${wo.customer.first_name} ${wo.customer.last_name}`
+      : `Customer #${wo.customer_id}`);
+
+  const handleRowClick = (e: React.MouseEvent) => {
+    // Don't navigate if clicking interactive elements
+    if ((e.target as HTMLElement).closest('a, button')) {
+      return;
+    }
+    navigate(`/work-orders/${wo.id}`);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      navigate(`/work-orders/${wo.id}`);
+    }
+  };
+
   return (
-    <tr className="hover:bg-bg-hover transition-colors" tabIndex={0}>
+    <tr
+      className="hover:bg-bg-hover transition-colors cursor-pointer"
+      tabIndex={0}
+      onClick={handleRowClick}
+      onKeyDown={handleKeyDown}
+      role="row"
+      aria-label={`View work order for ${customerName}`}
+    >
       <td className="px-4 py-3">
         <div>
           <p className="font-medium text-text-primary">
