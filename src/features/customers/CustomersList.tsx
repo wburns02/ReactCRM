@@ -1,5 +1,5 @@
 import { memo, useCallback } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { Card } from "@/components/ui/Card.tsx";
@@ -26,8 +26,32 @@ const MobileCustomerCard = memo(function MobileCustomerCard({
   onEdit,
   onDelete,
 }: CustomerRowProps) {
+  const navigate = useNavigate();
+
+  const handleCardClick = (e: React.MouseEvent) => {
+    // Don't navigate if clicking interactive elements
+    if ((e.target as HTMLElement).closest('a, button')) {
+      return;
+    }
+    navigate(`/customers/${customer.id}`);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      navigate(`/customers/${customer.id}`);
+    }
+  };
+
   return (
-    <Card className="p-4">
+    <Card
+      className="p-4 cursor-pointer hover:shadow-md transition-shadow"
+      onClick={handleCardClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="article"
+      aria-label={`Customer: ${customer.first_name} ${customer.last_name}`}
+    >
       <div className="flex items-start justify-between mb-3">
         <div className="flex-1 min-w-0">
           <h3 className="font-medium text-text-primary truncate">
@@ -130,8 +154,32 @@ const TableCustomerRow = memo(function TableCustomerRow({
   onEdit,
   onDelete,
 }: CustomerRowProps) {
+  const navigate = useNavigate();
+
+  const handleRowClick = (e: React.MouseEvent) => {
+    // Don't navigate if clicking interactive elements
+    if ((e.target as HTMLElement).closest('a, button')) {
+      return;
+    }
+    navigate(`/customers/${customer.id}`);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === 'Enter' || e.key === ' ') {
+      e.preventDefault();
+      navigate(`/customers/${customer.id}`);
+    }
+  };
+
   return (
-    <tr className="hover:bg-bg-hover transition-colors" tabIndex={0}>
+    <tr
+      className="hover:bg-bg-hover transition-colors cursor-pointer"
+      tabIndex={0}
+      onClick={handleRowClick}
+      onKeyDown={handleKeyDown}
+      role="row"
+      aria-label={`View ${customer.first_name} ${customer.last_name}`}
+    >
       <td className="px-4 py-3">
         <div>
           <p className="font-medium text-text-primary">
