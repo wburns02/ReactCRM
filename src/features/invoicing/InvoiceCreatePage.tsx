@@ -2,9 +2,12 @@ import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
+import { CustomerSelect } from "@/features/workorders/components/CustomerSelect";
 
 interface LineItem {
-  description: string;
+  service: string;
+  description?: string;
   quantity: number;
   rate: number;
 }
@@ -18,20 +21,67 @@ export function InvoiceCreatePage() {
 
   const [invoice, setInvoice] = useState({
     customer_id: "",
-    customer_name: "",
     due_date: "",
     notes: "",
-    line_items: [{ description: "", quantity: 1, rate: 0 }] as LineItem[],
+    line_items: [{ service: "", description: "", quantity: 1, rate: 0 }] as LineItem[],
   });
 
   const createMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiClient.post("/invoices", invoice);
+      // Prepare line items with calculated amount
+      const preparedLineItems = invoice.line_items
+        .filter(item => item.service.trim() !== "") // Filter out empty items
+        .map(item => ({
+          service: item.service,
+          description: item.description || "",
+          quantity: item.quantity,
+          rate: item.rate,
+          amount: item.quantity * item.rate,
+        }));
+
+      // Validate we have at least one line item
+      if (preparedLineItems.length === 0) {
+        throw new Error("At least one line item with a service name is required");
+      }
+
+      // Prepare payload - convert empty strings to undefined
+      const payload = {
+        customer_id: invoice.customer_id,
+        line_items: preparedLineItems,
+        due_date: invoice.due_date || undefined,
+        notes: invoice.notes || undefined,
+        status: "draft",
+      };
+
+      const response = await apiClient.post("/invoices/", payload);
       return response.data;
     },
     onSuccess: (data) => {
+      toastSuccess("Invoice created", `Invoice #${data.invoice_number || data.id} created successfully`);
       queryClient.invalidateQueries({ queryKey: ["invoices"] });
       navigate(`/invoices/${data.id}`);
+    },
+    onError: (error: unknown) => {
+      console.error("Invoice creation failed:", error);
+
+      // Extract error details
+      const err = error as { response?: { data?: { detail?: unknown } }; message?: string };
+
+      if (err.response?.data?.detail) {
+        const details = err.response.data.detail;
+        if (Array.isArray(details)) {
+          const messages = details.map((d: { msg?: string }) => d.msg || "Unknown error").join(", ");
+          toastError("Validation Error", messages);
+        } else if (typeof details === "string") {
+          toastError("Error", details);
+        } else {
+          toastError("Error", "Failed to create invoice");
+        }
+      } else if (err.message) {
+        toastError("Error", err.message);
+      } else {
+        toastError("Error", "Failed to create invoice");
+      }
     },
   });
 
@@ -40,7 +90,7 @@ export function InvoiceCreatePage() {
       ...invoice,
       line_items: [
         ...invoice.line_items,
-        { description: "", quantity: 1, rate: 0 },
+        { service: "", description: "", quantity: 1, rate: 0 },
       ],
     });
   };
@@ -61,8 +111,32 @@ export function InvoiceCreatePage() {
       ...invoice,
       line_items: items.length
         ? items
-        : [{ description: "", quantity: 1, rate: 0 }],
+        : [{ service: "", description: "", quantity: 1, rate: 0 }],
     });
+  };
+
+  const validateAndSubmit = () => {
+    // Validate customer
+    if (!invoice.customer_id) {
+      toastError("Validation Error", "Please select a customer");
+      return;
+    }
+
+    // Validate line items
+    const validItems = invoice.line_items.filter(item => item.service.trim() !== "");
+    if (validItems.length === 0) {
+      toastError("Validation Error", "Add at least one line item with a service name");
+      return;
+    }
+
+    // Check for invalid quantities
+    const invalidQty = validItems.some(item => item.quantity <= 0);
+    if (invalidQty) {
+      toastError("Validation Error", "All quantities must be greater than 0");
+      return;
+    }
+
+    createMutation.mutate();
   };
 
   const subtotal = invoice.line_items.reduce(
@@ -90,22 +164,19 @@ export function InvoiceCreatePage() {
       <div className="grid lg:grid-cols-3 gap-6">
         {/* Form */}
         <div className="lg:col-span-2 space-y-6">
-          {/* Customer Info */}
+          {/* Customer Selection */}
           <div className="bg-bg-card border border-border rounded-lg p-4">
             <h2 className="font-medium text-text-primary mb-4">Customer</h2>
             <div className="grid md:grid-cols-2 gap-4">
               <div>
                 <label className="block text-sm text-text-muted mb-1">
-                  Customer Name
+                  Select Customer *
                 </label>
-                <input
-                  type="text"
-                  value={invoice.customer_name}
-                  onChange={(e) =>
-                    setInvoice({ ...invoice, customer_name: e.target.value })
+                <CustomerSelect
+                  value={invoice.customer_id}
+                  onChange={(customerId) =>
+                    setInvoice({ ...invoice, customer_id: customerId })
                   }
-                  placeholder="Enter customer name"
-                  className="w-full px-4 py-2 border border-border rounded-lg bg-bg-body text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
                 />
               </div>
               <div>
@@ -136,21 +207,30 @@ export function InvoiceCreatePage() {
               </button>
             </div>
 
+            {/* Line Items Header */}
+            <div className="hidden md:flex gap-3 items-center mb-2 text-sm text-text-muted font-medium">
+              <div className="flex-1">Service *</div>
+              <div className="w-24 text-center">Qty *</div>
+              <div className="w-32 text-center">Rate ($)</div>
+              <div className="w-28 text-right">Amount</div>
+              <div className="w-10"></div>
+            </div>
+
             <div className="space-y-3">
               {invoice.line_items.map((item, index) => (
                 <div key={index} className="flex gap-3 items-start">
                   <div className="flex-1">
                     <input
                       type="text"
-                      value={item.description}
+                      value={item.service}
                       onChange={(e) =>
-                        updateLineItem(index, "description", e.target.value)
+                        updateLineItem(index, "service", e.target.value)
                       }
-                      placeholder="Description"
-                      className="w-full px-3 py-2 border border-border rounded-lg bg-bg-body text-text-primary text-sm"
+                      placeholder="Service name"
+                      className="w-full px-3 py-2 border border-border rounded-lg bg-bg-body text-text-primary text-base"
                     />
                   </div>
-                  <div className="w-20">
+                  <div className="w-24">
                     <input
                       type="number"
                       value={item.quantity}
@@ -163,10 +243,10 @@ export function InvoiceCreatePage() {
                       }
                       placeholder="Qty"
                       min="1"
-                      className="w-full px-3 py-2 border border-border rounded-lg bg-bg-body text-text-primary text-sm"
+                      className="w-full px-3 py-2 border border-border rounded-lg bg-bg-body text-text-primary text-base text-center"
                     />
                   </div>
-                  <div className="w-28">
+                  <div className="w-32">
                     <input
                       type="number"
                       value={item.rate}
@@ -179,15 +259,16 @@ export function InvoiceCreatePage() {
                       }
                       placeholder="Rate"
                       step="0.01"
-                      className="w-full px-3 py-2 border border-border rounded-lg bg-bg-body text-text-primary text-sm"
+                      className="w-full px-3 py-2 border border-border rounded-lg bg-bg-body text-text-primary text-base text-right"
                     />
                   </div>
-                  <div className="w-24 py-2 text-right text-text-primary">
+                  <div className="w-28 py-2 text-right text-text-primary font-medium">
                     ${(item.quantity * item.rate).toFixed(2)}
                   </div>
                   <button
                     onClick={() => removeLineItem(index)}
-                    className="text-danger hover:bg-danger/10 p-2 rounded"
+                    className="text-danger hover:bg-danger/10 p-2 rounded text-xl leading-none"
+                    title="Remove item"
                   >
                     &times;
                   </button>
@@ -232,15 +313,26 @@ export function InvoiceCreatePage() {
 
             <div className="mt-6 space-y-2">
               <button
-                onClick={() => createMutation.mutate()}
-                disabled={createMutation.isPending || !invoice.customer_name}
-                className="w-full py-2 bg-primary text-white rounded-lg font-medium disabled:opacity-50"
+                onClick={validateAndSubmit}
+                disabled={createMutation.isPending}
+                className="w-full py-2 bg-primary text-white rounded-lg font-medium disabled:opacity-50 hover:bg-primary-dark transition-colors"
               >
                 {createMutation.isPending ? "Creating..." : "Create Invoice"}
               </button>
-              <button className="w-full py-2 border border-border rounded-lg text-text-secondary hover:bg-bg-hover">
-                Save as Draft
-              </button>
+              <Link to="/invoices">
+                <button className="w-full py-2 border border-border rounded-lg text-text-secondary hover:bg-bg-hover transition-colors">
+                  Cancel
+                </button>
+              </Link>
+            </div>
+
+            {/* Validation hints */}
+            <div className="mt-4 text-xs text-text-muted">
+              <p>* Required fields</p>
+              <ul className="mt-1 list-disc list-inside space-y-1">
+                <li>Select a customer</li>
+                <li>Add at least one line item</li>
+              </ul>
             </div>
           </div>
         </div>
