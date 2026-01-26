@@ -181,6 +181,37 @@ test.describe("Payment Plans Page", () => {
     }
   });
 
+  test("invoice dropdown shows correct state", async ({ page }) => {
+    await page.goto(`${BASE_URL}/billing/payment-plans`);
+    await page.waitForLoadState("networkidle");
+
+    // Open modal
+    await page.getByRole("button", { name: /create payment plan/i }).click();
+    const modal = page.getByRole("dialog");
+    await expect(modal).toBeVisible({ timeout: 5000 });
+
+    // Wait for invoices to load
+    await page.waitForTimeout(2000);
+
+    // Check dropdown exists and is not showing "Loading invoices..."
+    const dropdown = page.locator('select').first();
+    await expect(dropdown).toBeVisible();
+
+    // Should have loaded (not showing loading text)
+    await expect(page.getByText("Loading invoices...")).not.toBeVisible();
+
+    // Get option count
+    const options = await dropdown.locator('option').all();
+    const optionCount = options.length;
+
+    // Either shows invoices or shows "No unpaid invoices" message
+    if (optionCount === 1) {
+      // Only placeholder, should show message
+      await expect(page.getByText("No unpaid invoices available")).toBeVisible();
+    }
+    // If there are invoices, that's also a valid state
+  });
+
   test("no critical console errors on page load", async ({ page }) => {
     const errors: string[] = [];
     page.on("console", (msg) => {
