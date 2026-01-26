@@ -10,7 +10,7 @@ import {
   DialogBody,
   DialogFooter,
 } from "@/components/ui/Dialog";
-import { toastSuccess, toastError } from "@/lib/toast";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 interface PaymentPlan {
   id: number;
