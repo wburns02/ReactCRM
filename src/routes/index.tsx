@@ -187,6 +187,11 @@ const PaymentPlansPage = lazy(() =>
     default: m.PaymentPlansPage,
   })),
 );
+const PaymentPlanDetailPage = lazy(() =>
+  import("@/features/billing/pages/PaymentPlanDetailPage.tsx").then((m) => ({
+    default: m.PaymentPlanDetailPage,
+  })),
+);
 const PublicPaymentPage = lazy(() =>
   import("@/features/billing/pages/PublicPaymentPage.tsx").then((m) => ({
     default: m.PublicPaymentPage,
@@ -1315,6 +1320,14 @@ export function AppRoutes() {
           element={
             <Suspense fallback={<PageLoader />}>
               <PaymentPlansPage />
+            </Suspense>
+          }
+        />
+        <Route
+          path="billing/payment-plans/:id"
+          element={
+            <Suspense fallback={<PageLoader />}>
+              <PaymentPlanDetailPage />
             </Suspense>
           }
         />

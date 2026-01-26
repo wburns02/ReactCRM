@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useNavigate } from "react-router-dom";
 import { apiClient } from "@/api/client";
 import { Button } from "@/components/ui/Button";
 import {
@@ -336,6 +337,7 @@ function CreatePaymentPlanModal({
  * Payment Plans Management Page
  */
 export function PaymentPlansPage() {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState<
     "all" | "active" | "completed" | "overdue"
   >("all");
@@ -498,7 +500,20 @@ export function PaymentPlansPage() {
               </thead>
               <tbody className="divide-y divide-border">
                 {plans?.map((plan: PaymentPlan) => (
-                  <tr key={plan.id} className="hover:bg-bg-hover">
+                  <tr
+                    key={plan.id}
+                    className="hover:bg-bg-hover cursor-pointer transition-colors"
+                    tabIndex={0}
+                    onClick={() =>
+                      navigate(`/billing/payment-plans/${plan.id}`)
+                    }
+                    onKeyDown={(e) => {
+                      if (e.key === "Enter" || e.key === " ") {
+                        e.preventDefault();
+                        navigate(`/billing/payment-plans/${plan.id}`);
+                      }
+                    }}
+                  >
                     <td className="px-4 py-3">
                       <p className="font-medium text-text-primary">
                         {plan.customer_name}
@@ -530,9 +545,16 @@ export function PaymentPlansPage() {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-right">
-                      <button className="text-primary hover:underline text-sm">
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          navigate(`/billing/payment-plans/${plan.id}`);
+                        }}
+                      >
                         View
-                      </button>
+                      </Button>
                     </td>
                   </tr>
                 ))}
