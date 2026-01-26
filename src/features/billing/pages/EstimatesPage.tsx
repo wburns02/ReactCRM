@@ -391,6 +391,14 @@ function CreateEstimateModal({
             <label className="block text-sm font-medium text-text-secondary mb-2">
               Line Items *
             </label>
+            {/* Column Headers */}
+            <div className="grid grid-cols-12 gap-2 mb-2 px-3">
+              <div className="col-span-4 text-xs font-medium text-text-muted">Service</div>
+              <div className="col-span-3 text-xs font-medium text-text-muted">Description</div>
+              <div className="col-span-2 text-xs font-medium text-text-muted">Qty</div>
+              <div className="col-span-2 text-xs font-medium text-text-muted">Rate</div>
+              <div className="col-span-1"></div>
+            </div>
             <div className="space-y-3">
               {lineItems.map((item, index) => (
                 <div
