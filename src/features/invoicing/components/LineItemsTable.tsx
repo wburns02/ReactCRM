@@ -150,7 +150,7 @@ export function LineItemsTable({
                           parseFloat(e.target.value) || 0,
                         )
                       }
-                      className="w-16 text-center text-base font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      className="w-20 text-center text-base font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
                   )}
                 </td>
@@ -172,7 +172,7 @@ export function LineItemsTable({
                           parseFloat(e.target.value) || 0,
                         )
                       }
-                      className="w-24 text-right text-base [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+                      className="w-28 text-right text-base [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
                   )}
                 </td>

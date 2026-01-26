@@ -180,7 +180,7 @@ export interface DialogContentProps {
   children: ReactNode;
   className?: string;
   /** Width size preset */
-  size?: "sm" | "md" | "lg" | "xl";
+  size?: "sm" | "md" | "lg" | "xl" | "2xl";
 }
 
 export function DialogContent({
@@ -198,6 +198,7 @@ export function DialogContent({
           "w-[500px]": size === "md",
           "w-[600px]": size === "lg",
           "w-[800px]": size === "xl",
+          "w-[1100px]": size === "2xl",
         },
         className,
       )}

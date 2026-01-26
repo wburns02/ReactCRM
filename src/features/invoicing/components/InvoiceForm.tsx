@@ -130,7 +130,7 @@ export function InvoiceForm({
 
   return (
     <Dialog open={open} onClose={handleClose} disableOverlayClose={isDirty}>
-      <DialogContent size="xl">
+      <DialogContent size="2xl">
         <DialogHeader onClose={handleClose}>
           {isEdit ? "Edit Invoice" : "Create Invoice"}
         </DialogHeader>
@@ -232,7 +232,7 @@ export function InvoiceForm({
                       step="0.01"
                       {...register("tax_rate")}
                       placeholder="0"
-                      className="w-24 text-center"
+                      className="w-28 text-center"
                     />
                   </div>
                 </div>
