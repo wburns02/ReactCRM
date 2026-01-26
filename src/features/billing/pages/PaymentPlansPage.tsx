@@ -82,8 +82,6 @@ function CreatePaymentPlanModal({
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const invoices: InvoiceOption[] = (invoicesData?.items || [])
-    // Filter to only show invoices that aren't fully paid (can have payment plans)
-    .filter((inv: any) => inv.status !== "paid" && inv.status !== "void")
     .map((inv: any) => ({
       id: String(inv.id),
       invoice_number: inv.invoice_number || `INV-${inv.id}`,
@@ -95,7 +93,9 @@ function CreatePaymentPlanModal({
       total: inv.total || 0,
       balance_due: inv.balance_due ?? inv.amount_due ?? inv.total ?? 0,
       status: inv.status || "draft",
-    }));
+    }))
+    // Filter to only show invoices with a balance due (can have payment plans)
+    .filter((inv) => inv.balance_due > 0);
 
   // Auto-fill amount when invoice is selected
   useEffect(() => {
