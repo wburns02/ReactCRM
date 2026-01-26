@@ -13,6 +13,8 @@ import {
   DialogFooter,
 } from "@/components/ui/Dialog";
 import { CustomerSelect } from "@/features/workorders/components/CustomerSelect";
+import { ServiceSelector } from "../components/ServiceSelector";
+import type { PresetService } from "../constants/septicServices";
 
 /**
  * AI Smart Pricing Assistant for Estimates
@@ -298,11 +300,64 @@ function CreateEstimateModal({
   const [lineItems, setLineItems] = useState<LineItemInput[]>([
     { service: "", description: "", quantity: 1, rate: 0 },
   ]);
-  const [taxRate, setTaxRate] = useState(0);
+  const [taxRate, setTaxRate] = useState(8.25); // Default Texas sales tax
   const [notes, setNotes] = useState("");
   const [validDays, setValidDays] = useState(30);
 
   const createQuote = useCreateQuote();
+
+  // Add a preset service from the selector
+  const handleSelectService = (service: PresetService) => {
+    // Check if we have an empty first line item, replace it
+    if (
+      lineItems.length === 1 &&
+      !lineItems[0].service &&
+      lineItems[0].rate === 0
+    ) {
+      setLineItems([
+        {
+          service: service.name,
+          description: service.description || "",
+          quantity: 1,
+          rate: service.rate,
+        },
+      ]);
+    } else {
+      // Add new line item
+      setLineItems([
+        ...lineItems,
+        {
+          service: service.name,
+          description: service.description || "",
+          quantity: 1,
+          rate: service.rate,
+        },
+      ]);
+    }
+  };
+
+  // Add multiple services from a package
+  const handleSelectPackage = (
+    items: { name: string; rate: number; description: string }[],
+  ) => {
+    const newItems = items.map((item) => ({
+      service: item.name,
+      description: item.description,
+      quantity: 1,
+      rate: item.rate,
+    }));
+
+    // Replace empty first item or append
+    if (
+      lineItems.length === 1 &&
+      !lineItems[0].service &&
+      lineItems[0].rate === 0
+    ) {
+      setLineItems(newItems);
+    } else {
+      setLineItems([...lineItems, ...newItems]);
+    }
+  };
 
   const addLineItem = () => {
     setLineItems([
@@ -386,6 +441,17 @@ function CreateEstimateModal({
             <CustomerSelect value={customerId} onChange={setCustomerId} />
           </div>
 
+          {/* Service Selector */}
+          <div>
+            <label className="block text-sm font-medium text-text-secondary mb-2">
+              Add Services
+            </label>
+            <ServiceSelector
+              onSelectService={handleSelectService}
+              onSelectPackage={handleSelectPackage}
+            />
+          </div>
+
           {/* Line Items */}
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-2">
@@ -393,10 +459,18 @@ function CreateEstimateModal({
             </label>
             {/* Column Headers */}
             <div className="grid grid-cols-12 gap-2 mb-2 px-3">
-              <div className="col-span-4 text-xs font-medium text-text-muted">Service</div>
-              <div className="col-span-3 text-xs font-medium text-text-muted">Description</div>
-              <div className="col-span-2 text-xs font-medium text-text-muted">Qty</div>
-              <div className="col-span-2 text-xs font-medium text-text-muted">Rate</div>
+              <div className="col-span-4 text-xs font-medium text-text-muted">
+                Service
+              </div>
+              <div className="col-span-3 text-xs font-medium text-text-muted">
+                Description
+              </div>
+              <div className="col-span-2 text-xs font-medium text-text-muted">
+                Qty
+              </div>
+              <div className="col-span-2 text-xs font-medium text-text-muted">
+                Rate
+              </div>
               <div className="col-span-1"></div>
             </div>
             <div className="space-y-3">

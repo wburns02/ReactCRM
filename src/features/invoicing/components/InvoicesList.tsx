@@ -1,4 +1,4 @@
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Button } from "@/components/ui/Button.tsx";
 import { InvoiceStatusBadge } from "./InvoiceStatusBadge.tsx";
 import { formatDate, formatCurrency } from "@/lib/utils.ts";
@@ -28,6 +28,7 @@ export function InvoicesList({
   onEdit,
   onDelete,
 }: InvoicesListProps) {
+  const navigate = useNavigate();
   const totalPages = Math.ceil(total / pageSize);
   const startItem = (page - 1) * pageSize + 1;
   const endItem = Math.min(page * pageSize, total);
@@ -105,13 +106,21 @@ export function InvoicesList({
             {invoices.map((invoice) => (
               <tr
                 key={invoice.id}
-                className="hover:bg-bg-hover transition-colors"
+                className="hover:bg-bg-hover transition-colors cursor-pointer group"
                 tabIndex={0}
+                onClick={() => navigate(`/invoices/${invoice.id}`)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    navigate(`/invoices/${invoice.id}`);
+                  }
+                }}
               >
                 <td className="px-4 py-3">
                   <Link
                     to={`/invoices/${invoice.id}`}
                     className="font-mono text-sm text-text-link hover:underline"
+                    onClick={(e) => e.stopPropagation()}
                   >
                     {invoice.invoice_number || invoice.id.slice(0, 8)}
                   </Link>
@@ -153,7 +162,10 @@ export function InvoicesList({
                 </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-2">
-                    <Link to={`/invoices/${invoice.id}`}>
+                    <Link
+                      to={`/invoices/${invoice.id}`}
+                      onClick={(e) => e.stopPropagation()}
+                    >
                       <Button
                         variant="ghost"
                         size="sm"
@@ -166,7 +178,10 @@ export function InvoicesList({
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => onEdit(invoice)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onEdit(invoice);
+                        }}
                         aria-label="Edit invoice"
                       >
                         Edit
@@ -176,7 +191,10 @@ export function InvoicesList({
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => onDelete(invoice)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onDelete(invoice);
+                        }}
                         aria-label="Delete invoice"
                         className="text-danger hover:text-danger"
                       >
