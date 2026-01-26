@@ -34,6 +34,19 @@ import {
 const PAGE_SIZE = 20;
 
 /**
+ * Get a descriptive label for the current filter state
+ */
+function getFilterLabel(status: string, count: number): string {
+  const statusLabel = status ? INVOICE_STATUS_LABELS[status as InvoiceStatus] : "";
+  const countText = count === 1 ? "invoice" : "invoices";
+
+  if (status && statusLabel) {
+    return `${count} ${statusLabel} ${countText}`;
+  }
+  return `${count} ${countText}`;
+}
+
+/**
  * Invoices list page with filtering and CRUD operations
  */
 export function InvoicesPage() {
@@ -212,8 +225,8 @@ export function InvoicesPage() {
       <Card>
         <CardHeader>
           <CardTitle>
-            {data?.total
-              ? `${data.total} invoice${data.total !== 1 ? "s" : ""}`
+            {data?.total !== undefined
+              ? getFilterLabel(filters.status || "", data.total)
               : "Invoices"}
           </CardTitle>
         </CardHeader>
