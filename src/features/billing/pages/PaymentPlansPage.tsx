@@ -98,9 +98,9 @@ function CreatePaymentPlanModal({
       status: inv.status || "draft",
     }))
     // Filter to show invoices that can have payment plans:
-    // - Must have a positive total
     // - Must not be fully paid or voided
-    .filter((inv) => inv.total > 0 && inv.status !== "paid" && inv.status !== "void");
+    // - Allows Draft, Sent, and Overdue invoices regardless of total
+    .filter((inv) => inv.status !== "paid" && inv.status !== "void");
 
   // Auto-fill amount when invoice is selected
   useEffect(() => {
