@@ -7,6 +7,9 @@ import {
   CardContent,
 } from "@/components/ui/Card.tsx";
 import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Textarea } from "@/components/ui/Textarea.tsx";
+import { Label } from "@/components/ui/Label.tsx";
 import {
   Dialog,
   DialogContent,
@@ -21,6 +24,11 @@ import {
   useSendInvoice,
   useMarkInvoicePaid,
 } from "@/api/hooks/useInvoices.ts";
+import {
+  useGenerateInvoicePDF,
+  useSendInvoiceEmail,
+  useGeneratePaymentLink,
+} from "@/features/workorders/Payments/hooks/usePayments.ts";
 import { InvoiceForm } from "./components/InvoiceForm.tsx";
 import { InvoiceStatusBadge } from "./components/InvoiceStatusBadge.tsx";
 import { LineItemsTable } from "./components/LineItemsTable.tsx";
@@ -28,6 +36,7 @@ import { CustomerFinancingCard } from "@/features/financing";
 import { formatDate, formatCurrency } from "@/lib/utils.ts";
 import type { Invoice, InvoiceFormData } from "@/api/types/invoice.ts";
 import { useAIAnalyze } from "@/hooks/useAI";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 /**
  * AI Payment Prediction Card
@@ -220,6 +229,14 @@ export function InvoiceDetailPage() {
   // Modal states
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isEmailModalOpen, setIsEmailModalOpen] = useState(false);
+  const [sendEmailAddress, setSendEmailAddress] = useState("");
+  const [emailMessage, setEmailMessage] = useState("");
+
+  // Payment/PDF hooks
+  const pdfMutation = useGenerateInvoicePDF();
+  const emailMutation = useSendInvoiceEmail();
+  const paymentLinkMutation = useGeneratePaymentLink();
 
   const handleUpdate = useCallback(
     async (data: InvoiceFormData) => {
@@ -249,6 +266,58 @@ export function InvoiceDetailPage() {
       await markPaidMutation.mutateAsync(id);
     }
   }, [id, markPaidMutation]);
+
+  // Download PDF handler
+  const handleDownloadPDF = useCallback(async () => {
+    if (!id) return;
+    try {
+      const result = await pdfMutation.mutateAsync(id);
+      const link = document.createElement("a");
+      link.href = result.url;
+      link.download = `Invoice-${invoice?.invoice_number || id}.pdf`;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+      window.URL.revokeObjectURL(result.url);
+      toastSuccess("PDF Downloaded", "Invoice PDF has been downloaded.");
+    } catch {
+      toastError("Download Failed", "Could not generate PDF. Please try again.");
+    }
+  }, [id, pdfMutation, invoice?.invoice_number]);
+
+  // Send email handler
+  const handleSendEmail = useCallback(async () => {
+    if (!id || !sendEmailAddress) return;
+    try {
+      await emailMutation.mutateAsync({
+        invoiceId: id,
+        email: sendEmailAddress,
+        includePaymentLink: true,
+      });
+      setIsEmailModalOpen(false);
+      setSendEmailAddress("");
+      setEmailMessage("");
+      toastSuccess("Invoice Sent", `Invoice sent to ${sendEmailAddress}`);
+    } catch {
+      toastError("Send Failed", "Could not send invoice. Please try again.");
+    }
+  }, [id, sendEmailAddress, emailMutation]);
+
+  // Pay online handler
+  const handlePayOnline = useCallback(async () => {
+    if (!id) return;
+    try {
+      const result = await paymentLinkMutation.mutateAsync(id);
+      window.open(result.url, "_blank");
+    } catch {
+      toastError("Payment Link Failed", "Could not generate payment link.");
+    }
+  }, [id, paymentLinkMutation]);
+
+  // Print handler
+  const handlePrint = useCallback(() => {
+    window.print();
+  }, []);
 
   if (isLoading) {
     return (

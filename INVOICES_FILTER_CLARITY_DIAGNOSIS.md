@@ -1,67 +1,72 @@
-# Invoices Filter Clarity Diagnosis
+# Invoices Filter Clarity - Diagnosis
 
 ## Date: 2026-01-26
 
-## Problem Statement
-When users select a status filter (All, Draft, Sent, Paid, Overdue, Void), there is no clear visual indication of which filter is currently active. Users can easily get confused about what invoices they are viewing.
+## Issue Summary
 
-## Current Implementation Analysis
+When selecting status filters on the Invoices page (Draft, Sent, Paid, etc.), the card title label does NOT update to show the current filter status.
 
-### File: `/src/features/invoicing/InvoicesPage.tsx`
+## Expected Behavior
 
-### Filter Controls (Lines 156-172)
-```tsx
-<Select value={filters.status || ""} onChange={handleStatusChange}>
-  <option value="">All Statuses</option>
-  {Object.entries(INVOICE_STATUS_LABELS).map(([value, label]) => (
-    <option key={value} value={value}>{label}</option>
-  ))}
-</Select>
-```
+- Default (All): "7 invoices"
+- Draft filter: "6 Draft invoices"
+- Sent filter: "1 Sent invoice"
+- Paid filter: "0 Paid invoices"
 
-### Table Header (Lines 213-218)
-```tsx
+## Actual Behavior (CONFIRMED BUG)
+
+- Default (All): "7 invoices" (correct)
+- Draft filter: "6 invoices" (MISSING "Draft")
+- Sent filter: "1 invoice" (MISSING "Sent")
+- Paid filter: "Invoices" (MISSING count AND status)
+
+## Root Cause Analysis
+
+### Code Review: src/features/invoicing/InvoicesPage.tsx
+
+The `getFilterLabel` function (lines 39-47) appears correctly implemented:
+
+\`\`\`tsx
+function getFilterLabel(status: string, count: number): string {
+  const statusLabel = status ? INVOICE_STATUS_LABELS[status as InvoiceStatus] : "";
+  const countText = count === 1 ? "invoice" : "invoices";
+
+  if (status && statusLabel) {
+    return \`\${count} \${statusLabel} \${countText}\`;
+  }
+  return \`\${count} \${countText}\`;
+}
+\`\`\`
+
+Called in CardTitle (lines 227-231):
+
+\`\`\`tsx
 <CardTitle>
-  {data?.total
-    ? `${data.total} invoice${data.total !== 1 ? "s" : ""}`
+  {data?.total !== undefined
+    ? getFilterLabel(filters.status || "", data.total)
     : "Invoices"}
 </CardTitle>
-```
+\`\`\`
 
-## Root Causes Identified
+### Root Cause
 
-### 1. No Filter Status Label
-- The CardTitle only shows count: "7 invoices" or "Invoices"
-- It does NOT show which filter is active
-- Users see "7 invoices" but don't know if that's All, Draft, Sent, etc.
+The deployed version may not include this getFilterLabel function, OR there's a build/deployment caching issue. The test results show:
+- "Paid filter title: Invoices" - this means data.total is undefined (falls back to "Invoices")
+- "Draft filter title: 6 invoices" - shows count but NOT "Draft"
 
-### 2. Dropdown is the Only Indicator
-- The dropdown itself shows the selected value
-- But dropdowns are easy to miss or ignore
-- No prominent label above table to confirm current filter
+This indicates the code is NOT running the branch that includes the status label.
 
-### 3. No Visual Feedback on Filter Change
-- When switching filters, only the data changes
-- No badge, chip, or text updates to confirm the change
+## Files to Modify
 
-## Available Status Filters
-- `""` (empty) → "All Statuses"
-- `draft` → "Draft"
-- `sent` → "Sent"
-- `paid` → "Paid"
-- `overdue` → "Overdue"
-- `void` → "Void"
+- `src/features/invoicing/InvoicesPage.tsx` - Verify and fix label display logic
 
-## Expected 2026 Best Practices
-1. Prominent label: "Viewing Draft Invoices" or "7 Draft Invoices"
-2. Badge/chip with current filter and X to clear
-3. Clear visual distinction when filter is active vs. all
-4. Consistent pattern with other list pages
+## Test Results (Current State)
 
-## Fix Required
-
-Update the CardTitle to reflect the current filter:
-- When no filter: "7 invoices" (current)
-- When filter active: "7 Draft invoices" or "Viewing Draft Invoices (7)"
-
-Also consider adding a filter badge/chip above the table.
+| Test | Expected | Actual | Status |
+|------|----------|--------|--------|
+| Default shows count | "X invoices" | "7 invoices" | PASS |
+| Draft shows status | "X Draft invoices" | "6 invoices" | FAIL |
+| Sent shows status | "X Sent invoices" | "1 invoice" | FAIL |
+| Paid shows status | "X Paid invoices" | "Invoices" | FAIL |
+| Clear filters button works | Shows/hides correctly | Works | PASS |
+| No console errors | No errors | No errors | PASS |

@@ -37,7 +37,9 @@ const PAGE_SIZE = 20;
  * Get a descriptive label for the current filter state
  */
 function getFilterLabel(status: string, count: number): string {
-  const statusLabel = status ? INVOICE_STATUS_LABELS[status as InvoiceStatus] : "";
+  const statusLabel = status
+    ? INVOICE_STATUS_LABELS[status as InvoiceStatus]
+    : "";
   const countText = count === 1 ? "invoice" : "invoices";
 
   if (status && statusLabel) {

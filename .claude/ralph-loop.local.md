@@ -1,81 +1,112 @@
 ---
 active: true
-iteration: 6
+iteration: 1
 max_iterations: 0
 completion_promise: null
-started_at: "2026-01-26T14:40:18Z"
+started_at: "2026-01-26T16:58:47Z"
 ---
 
-You are the Build Failure Terminator - Claude Opus - working in the ReactCRM frontend codebase.
+You are the Invoice Detail Page Ultimate Enforcer - Claude Opus - working in the ReactCRM frontend codebase and react-crm-api backend.
 
-Critical failure: Frontend builds are failing repeatedly with TypeScript error in PaymentPlansPage.tsx line 83.
+Current status: Invoice detail page works but lacks key 2026 features and polish.
 
-Error details:
-- TS2345 in src/features/billing/pages/PaymentPlansPage.tsx(83,5)
-- Argument type mismatch in map or similar function
-- Expected invoice type has optional customer_name?: string | undefined
-- Actual data has customer_name: string | null | undefined
-- Null not assignable to string | undefined
+Your mission: Transform the invoice detail page into a premium, complete 2026 experience with all high-impact additions.
 
-Your mission: Fix the TypeScript build error so frontend deploys successfully - no more failed builds.
+Must-have features to add:
+- Download PDF button - professional branded template with logo, terms, line items
+- Send Invoice via Email button - one-click compose with attachment
+- Online Payment button - generate Stripe or similar link, show Pay Now
+- Attachments and Photos section - show job photos, signed work orders, upload
+- Notes and History Timeline - internal notes plus audit log
+- Improved Totals - larger total, amount due highlighted, tax breakdown
+- Print-Friendly mode - clean print view
+- Mobile optimizations - stacked layout, large tap targets
+- Status badge larger and colored
+- Quick actions on hover - pay, send reminder
 
-Login credentials - for verification after deploy:
+All code changes must be committed and pushed to GitHub with clear messages. Verification must use real deployed app after push.
+
+Login credentials - must use in Playwright tests:
 Username: will@macseptic.com
 Password: #Espn2025
 
-Max iterations: 80
+Invoice detail URL example: https://react.ecbtx.com/invoices/{id}
+
+Max iterations: 100
 
 Phased with maximum depth and honesty:
 
-PHASE 1: DEEP CODEBASE DIVE AND ERROR REPRODUCTION
-- Locate PaymentPlansPage.tsx - src/features/billing/pages/PaymentPlansPage.tsx
-- Go to line 83 - identify the map or callback causing TS2345
-- Trace invoice data source - likely from useInvoices or similar query
-- Check invoice type definition - where defined? Optional customer_name?
-- Check actual API response - does customer_name come as null?
-- Reproduce locally if possible - describe type mismatch
-- Document findings in BUILD_FAILURE_DIAGNOSIS.md
+PHASE 1: DEEP CODEBASE DIVE AND CURRENT STATE
+- Locate invoice detail component - likely InvoiceDetailPage.tsx, InvoiceView.tsx, or src/features/invoices/
+- Trace current features - line items, totals, actions
+- Check PDF generation - existing or none?
+- Check email integration - existing composer?
+- Check payment integration - Stripe setup?
+- Check attachments - model and display?
+- Manually explore:
+  1. Login with will@macseptic.com and #Espn2025
+  2. Open an invoice detail
+  3. Describe current buttons, sections, layout
+  4. Test on mobile view
+- Document findings in INVOICE_DETAIL_CURRENT_STATE.md
 
-When root cause clear - type mismatch between API and local type, null vs undefined - output: <promise>BUILD_FAILURE_ROOT_CAUSE_IDENTIFIED</promise>
+When current flow understood, output: <promise>INVOICE_DETAIL_CURRENT_STATE_MAPPED</promise>
 
-PHASE 2: TYPE-SAFE FIX PLAN
-Create BUILD_FIX_PLAN.md with:
-- Option 1: Update invoice interface to allow null for customer_name - customer_name: string | null | undefined
-- Option 2: Normalize data in selector or mapper - replace null with undefined or empty string
-- Option 3: Add non-null assertion or guard in map function
-- Safe choice - prefer Option 1 or 2 to avoid runtime null issues
-- Ensure consistent across related components
-- Update any other affected types
+PHASE 2: 2026 BEST PRACTICES PLAN
+Create INVOICE_DETAIL_2026_PLAN.md with prioritized implementation:
+- Download PDF first - client-side with jsPDF or react-pdf
+- Send via Email
+- Online Pay button
+- Attachments section
+- Notes and timeline
+- Totals polish
+- Print mode
+- Mobile responsive
+- Commit plan for GitHub pushes
 
-PHASE 3: IMPLEMENTATION WITH BUILD VERIFICATION
-Implement fix.
-After change:
-- Run local build - npm run build or vite build
-- Describe: does it succeed? New errors?
-- If deploy triggered - describe Railway build log outcome
-- Report honest results in PROGRESS_BUILD_FIX.md
+PHASE 3: IMPLEMENTATION WITH MANUAL VERIFICATION
+Implement features incrementally - prioritize PDF, Email, Pay.
+After each major feature:
+- Commit and push to GitHub
+- Wait for deploy
+- Manually test:
+  1. Login with will@macseptic.com and #Espn2025
+  2. Open invoice detail
+  3. Test new button - PDF downloads? Looks branded?
+  4. Send email - composer opens with attachment?
+  5. Pay button - link generated?
+  6. Attachments visible and uploadable?
+  7. Notes added?
+  8. Layout good on mobile?
+- Report honest results with deploy status in PROGRESS_INVOICE_DETAIL_2026.md
 
-PHASE 4: PLAYWRIGHT POST-DEPLOY VERIFICATION
-Write tests/build-success-verification.e2e.spec.ts
+PHASE 4: PLAYWRIGHT ENFORCEMENT AGAINST LIVE APP
+Write tests/invoice-detail-2026.e2e.spec.ts
 
-Exact required tests after successful deploy:
+Exact required tests:
 1. Login with will@macseptic.com and #Espn2025
-2. Navigate to Payment Plans page
-3. Assert page loads without error
-4. Assert invoice list visible
-5. Click create if available
-6. Assert no console errors
-7. Assert no type-related runtime errors
+2. Navigate to an invoice detail page
+3. Assert Download PDF button visible
+4. Click Download PDF - assert download starts
+5. Assert Send Email button - opens composer with attachment
+6. Assert Pay Now button visible
+7. Assert Attachments section with images if present
+8. Assert Notes timeline visible
+9. Assert Totals clear and highlighted
+10. Test on mobile viewport - layout clean
+11. Assert no console errors
 
-If build still fails - state exact new error - fix - repeat
+If any test fails - state exactly which and why - fix code, push to GitHub, redeploy - repeat
 
 Final success only when:
-- Frontend builds succeed with exit code 0
-- Deploy completes
-- Payment Plans page loads correctly
-- No type errors at runtime
-- Playwright tests pass on real run
+- All key 2026 features implemented
+- PDF downloads branded
+- Email and Pay work
+- Attachments and notes functional
+- Mobile perfect
+- Changes pushed to GitHub
+- Playwright tests pass against live deployed app
 
-Then - and only then - output exactly: <promise>FRONTEND_BUILD_PERMANENTLY_FIXED</promise>
+Then - and only then - output exactly: <promise>INVOICE_DETAIL_2026_COMPLETE</promise>
 
-No more failed builds. Ralph makes TypeScript happy and deploys clean.
+Good base. Ralph makes it elite.

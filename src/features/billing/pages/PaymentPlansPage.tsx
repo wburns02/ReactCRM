@@ -85,9 +85,10 @@ function CreatePaymentPlanModal({
     .map((inv: any) => ({
       id: String(inv.id),
       invoice_number: inv.invoice_number || `INV-${inv.id}`,
-      customer_name: inv.customer_name || inv.customer?.first_name
-        ? `${inv.customer?.first_name || ""} ${inv.customer?.last_name || ""}`.trim()
-        : "Unknown Customer",
+      customer_name:
+        inv.customer_name || inv.customer?.first_name
+          ? `${inv.customer?.first_name || ""} ${inv.customer?.last_name || ""}`.trim()
+          : "Unknown Customer",
       customer_id:
         typeof inv.customer_id === "string"
           ? parseInt(inv.customer_id)

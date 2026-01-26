@@ -272,7 +272,9 @@ export function EstimateDetailPage() {
             )}
             <div className="flex justify-between text-lg font-semibold text-text-primary border-t border-border pt-2">
               <span>Total</span>
-              <span className="text-primary">${estimate?.total?.toFixed(2) || "0.00"}</span>
+              <span className="text-primary">
+                ${estimate?.total?.toFixed(2) || "0.00"}
+              </span>
             </div>
           </div>
         </div>
