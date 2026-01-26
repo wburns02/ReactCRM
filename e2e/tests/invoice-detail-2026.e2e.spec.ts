@@ -169,8 +169,8 @@ test.describe("Invoice Detail Page 2026", () => {
     await page.waitForURL(/\/invoices\/[\w-]+/);
     await page.waitForTimeout(1000);
 
-    // Check for totals elements
-    const subtotalText = page.getByText("Subtotal");
+    // Check for totals elements - use first() to handle multiple matches
+    const subtotalText = page.getByText("Subtotal").first();
     await expect(subtotalText).toBeVisible({ timeout: 5000 });
 
     const totalText = page.getByText("Total").first();
