@@ -74,15 +74,17 @@ function CreatePaymentPlanModal({
 
   const queryClient = useQueryClient();
 
-  // Fetch unpaid invoices for the dropdown
+  // Fetch all invoices for the dropdown (filter unpaid client-side)
+  // Valid statuses: draft, sent, paid, overdue, void
   const { data: invoicesData, isLoading: invoicesLoading } = useInvoices({
-    status: "unpaid",
     page_size: 100,
   });
 
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const invoices: InvoiceOption[] = (invoicesData?.items || []).map(
-    (inv: any) => ({
+  const invoices: InvoiceOption[] = (invoicesData?.items || [])
+    // Filter to only show invoices that aren't fully paid (can have payment plans)
+    .filter((inv: any) => inv.status !== "paid" && inv.status !== "void")
+    .map((inv: any) => ({
       id: String(inv.id),
       invoice_number: inv.invoice_number || `INV-${inv.id}`,
       customer_name: inv.customer_name || "Unknown Customer",
@@ -92,9 +94,8 @@ function CreatePaymentPlanModal({
           : inv.customer_id || 0,
       total: inv.total || 0,
       balance_due: inv.balance_due ?? inv.amount_due ?? inv.total ?? 0,
-      status: inv.status || "unpaid",
-    }),
-  );
+      status: inv.status || "draft",
+    }));
 
   // Auto-fill amount when invoice is selected
   useEffect(() => {
