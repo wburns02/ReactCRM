@@ -1,8 +1,7 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
 import { Button } from "@/components/ui/Button";
-import { Input } from "@/components/ui/Input";
 import {
   Dialog,
   DialogContent,
@@ -11,6 +10,7 @@ import {
   DialogFooter,
 } from "@/components/ui/Dialog";
 import { toastSuccess, toastError } from "@/components/ui/Toast";
+import { useInvoices } from "@/api/hooks/useInvoices";
 
 interface PaymentPlan {
   id: number;
@@ -42,6 +42,16 @@ interface PaymentPlanCreateData {
   frequency: string;
 }
 
+interface InvoiceOption {
+  id: string;
+  invoice_number: string;
+  customer_name: string;
+  customer_id: number;
+  total: number;
+  balance_due: number;
+  status: string;
+}
+
 /**
  * Create Payment Plan Modal
  */
@@ -54,8 +64,7 @@ function CreatePaymentPlanModal({
   onClose: () => void;
   onSuccess: () => void;
 }) {
-  const [customerName, setCustomerName] = useState("");
-  const [invoiceId, setInvoiceId] = useState("");
+  const [selectedInvoiceId, setSelectedInvoiceId] = useState("");
   const [totalAmount, setTotalAmount] = useState("");
   const [installments, setInstallments] = useState("4");
   const [frequency, setFrequency] = useState<"weekly" | "biweekly" | "monthly">(
@@ -63,6 +72,45 @@ function CreatePaymentPlanModal({
   );
 
   const queryClient = useQueryClient();
+
+  // Fetch unpaid invoices for the dropdown
+  const { data: invoicesData, isLoading: invoicesLoading } = useInvoices({
+    status: "unpaid",
+    page_size: 100,
+  });
+
+  const invoices: InvoiceOption[] = (invoicesData?.items || []).map(
+    (inv: {
+      id: string | number;
+      invoice_number?: string;
+      customer_name?: string;
+      customer_id?: number;
+      total?: number;
+      balance_due?: number;
+      amount_due?: number;
+      status?: string;
+    }) => ({
+      id: String(inv.id),
+      invoice_number: inv.invoice_number || `INV-${inv.id}`,
+      customer_name: inv.customer_name || "Unknown Customer",
+      customer_id: inv.customer_id || 0,
+      total: inv.total || 0,
+      balance_due: inv.balance_due ?? inv.amount_due ?? inv.total ?? 0,
+      status: inv.status || "unpaid",
+    }),
+  );
+
+  // Auto-fill amount when invoice is selected
+  useEffect(() => {
+    if (selectedInvoiceId) {
+      const invoice = invoices.find((inv) => inv.id === selectedInvoiceId);
+      if (invoice) {
+        setTotalAmount(String(invoice.balance_due || invoice.total));
+      }
+    }
+  }, [selectedInvoiceId, invoices]);
+
+  const selectedInvoice = invoices.find((inv) => inv.id === selectedInvoiceId);
 
   const createMutation = useMutation({
     mutationFn: async (data: PaymentPlanCreateData) => {
@@ -83,8 +131,7 @@ function CreatePaymentPlanModal({
   });
 
   const handleReset = () => {
-    setCustomerName("");
-    setInvoiceId("");
+    setSelectedInvoiceId("");
     setTotalAmount("");
     setInstallments("4");
     setFrequency("monthly");
@@ -92,12 +139,8 @@ function CreatePaymentPlanModal({
 
   const handleSubmit = () => {
     // Basic validation
-    if (!customerName.trim()) {
-      toastError("Customer name is required");
-      return;
-    }
-    if (!invoiceId || parseInt(invoiceId) <= 0) {
-      toastError("Valid invoice ID is required");
+    if (!selectedInvoiceId) {
+      toastError("Please select an invoice");
       return;
     }
     if (!totalAmount || parseFloat(totalAmount) <= 0) {
@@ -110,8 +153,8 @@ function CreatePaymentPlanModal({
     }
 
     const data: PaymentPlanCreateData = {
-      customer_id: 1, // Using demo customer ID - in production would be from selection
-      invoice_id: parseInt(invoiceId),
+      customer_id: selectedInvoice?.customer_id || 0,
+      invoice_id: parseInt(selectedInvoiceId),
       total_amount: parseFloat(totalAmount),
       installments: parseInt(installments),
       frequency,
@@ -130,45 +173,72 @@ function CreatePaymentPlanModal({
       <DialogContent size="md">
         <DialogHeader onClose={onClose}>Create Payment Plan</DialogHeader>
         <DialogBody className="space-y-4">
-          {/* Customer Name */}
+          {/* Invoice Selection */}
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">
-              Customer Name *
+              Select Invoice *
             </label>
-            <Input
-              value={customerName}
-              onChange={(e) => setCustomerName(e.target.value)}
-              placeholder="Enter customer name"
-            />
+            <select
+              value={selectedInvoiceId}
+              onChange={(e) => setSelectedInvoiceId(e.target.value)}
+              className="w-full px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
+              disabled={invoicesLoading}
+            >
+              <option value="">
+                {invoicesLoading ? "Loading invoices..." : "Select an invoice"}
+              </option>
+              {invoices.map((invoice) => (
+                <option key={invoice.id} value={invoice.id}>
+                  {invoice.invoice_number} - {invoice.customer_name} ($
+                  {invoice.balance_due.toLocaleString()})
+                </option>
+              ))}
+            </select>
+            {invoices.length === 0 && !invoicesLoading && (
+              <p className="text-sm text-text-muted mt-1">
+                No unpaid invoices available
+              </p>
+            )}
           </div>
 
-          {/* Invoice ID */}
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
-              Invoice ID *
-            </label>
-            <Input
-              type="number"
-              value={invoiceId}
-              onChange={(e) => setInvoiceId(e.target.value)}
-              placeholder="Enter invoice number"
-              min={1}
-            />
-          </div>
+          {/* Selected Invoice Details */}
+          {selectedInvoice && (
+            <div className="bg-bg-hover p-3 rounded-lg text-sm">
+              <div className="flex justify-between">
+                <span className="text-text-muted">Customer:</span>
+                <span className="text-text-primary font-medium">
+                  {selectedInvoice.customer_name}
+                </span>
+              </div>
+              <div className="flex justify-between mt-1">
+                <span className="text-text-muted">Balance Due:</span>
+                <span className="text-text-primary font-medium">
+                  ${selectedInvoice.balance_due.toLocaleString()}
+                </span>
+              </div>
+            </div>
+          )}
 
           {/* Total Amount */}
           <div>
             <label className="block text-sm font-medium text-text-secondary mb-1">
-              Total Amount *
+              Amount to Finance *
             </label>
-            <Input
+            <input
               type="number"
               value={totalAmount}
               onChange={(e) => setTotalAmount(e.target.value)}
               placeholder="0.00"
               min={0}
               step={0.01}
+              className="w-full px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
             />
+            {selectedInvoice &&
+              parseFloat(totalAmount) > selectedInvoice.balance_due && (
+                <p className="text-sm text-warning mt-1">
+                  Amount exceeds invoice balance
+                </p>
+              )}
           </div>
 
           {/* Number of Installments */}
