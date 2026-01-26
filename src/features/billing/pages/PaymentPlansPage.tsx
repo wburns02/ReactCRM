@@ -80,21 +80,16 @@ function CreatePaymentPlanModal({
     page_size: 100,
   });
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const invoices: InvoiceOption[] = (invoicesData?.items || []).map(
-    (inv: {
-      id: string | number;
-      invoice_number?: string;
-      customer_name?: string;
-      customer_id?: number;
-      total?: number;
-      balance_due?: number;
-      amount_due?: number;
-      status?: string;
-    }) => ({
+    (inv: any) => ({
       id: String(inv.id),
       invoice_number: inv.invoice_number || `INV-${inv.id}`,
       customer_name: inv.customer_name || "Unknown Customer",
-      customer_id: inv.customer_id || 0,
+      customer_id:
+        typeof inv.customer_id === "string"
+          ? parseInt(inv.customer_id)
+          : inv.customer_id || 0,
       total: inv.total || 0,
       balance_due: inv.balance_due ?? inv.amount_due ?? inv.total ?? 0,
       status: inv.status || "unpaid",

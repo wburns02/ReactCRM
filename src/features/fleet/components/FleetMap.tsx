@@ -1,5 +1,12 @@
 import { useState, useEffect } from "react";
-import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from "react-leaflet";
+import {
+  MapContainer,
+  TileLayer,
+  Marker,
+  Popup,
+  Polyline,
+  useMap,
+} from "react-leaflet";
 import * as L from "leaflet";
 import { useFleetLocations, useVehicleHistory } from "../api.ts";
 import { VehicleInfoPopup } from "./VehicleInfoPopup.tsx";
@@ -16,7 +23,9 @@ interface FleetMapProps {
  * Color-coded by status, rotated by heading
  */
 function createVehicleIcon(status: string, heading: number): L.DivIcon {
-  const color = VEHICLE_STATUS_COLORS[status as keyof typeof VEHICLE_STATUS_COLORS] || "#9ca3af";
+  const color =
+    VEHICLE_STATUS_COLORS[status as keyof typeof VEHICLE_STATUS_COLORS] ||
+    "#9ca3af";
 
   // SVG arrow pointing up, will be rotated by heading
   const svg = `
@@ -44,7 +53,7 @@ function FitBounds({ vehicles }: { vehicles: Vehicle[] }) {
     if (vehicles.length === 0) return;
 
     const bounds = L.latLngBounds(
-      vehicles.map((v) => [v.location.lat, v.location.lng] as L.LatLngTuple)
+      vehicles.map((v) => [v.location.lat, v.location.lng] as L.LatLngTuple),
     );
 
     // Add padding so markers aren't at the edge
@@ -111,7 +120,9 @@ export function FleetMap({
       >
         <div className="text-center">
           <div className="text-4xl mb-3">🚛</div>
-          <p className="text-text-secondary font-medium">No vehicles available</p>
+          <p className="text-text-secondary font-medium">
+            No vehicles available
+          </p>
           <p className="text-sm text-text-muted mt-1">
             Ensure Samsara is configured and vehicles are active
           </p>
@@ -121,15 +132,22 @@ export function FleetMap({
   }
 
   // Calculate center from vehicles if available
-  const centerLat = vehicles.reduce((sum, v) => sum + v.location.lat, 0) / vehicles.length;
-  const centerLng = vehicles.reduce((sum, v) => sum + v.location.lng, 0) / vehicles.length;
-  const center: [number, number] = vehicles.length > 0 ? [centerLat, centerLng] : defaultCenter;
+  const centerLat =
+    vehicles.reduce((sum, v) => sum + v.location.lat, 0) / vehicles.length;
+  const centerLng =
+    vehicles.reduce((sum, v) => sum + v.location.lng, 0) / vehicles.length;
+  const center: [number, number] =
+    vehicles.length > 0 ? [centerLat, centerLng] : defaultCenter;
 
   // Build history polyline points
-  const historyPoints: [number, number][] = history?.map((p) => [p.lat, p.lng]) || [];
+  const historyPoints: [number, number][] =
+    history?.map((p) => [p.lat, p.lng]) || [];
 
   return (
-    <div className="relative rounded-lg overflow-hidden border border-border" style={{ height }}>
+    <div
+      className="relative rounded-lg overflow-hidden border border-border"
+      style={{ height }}
+    >
       <MapContainer
         center={center}
         zoom={defaultZoom}
@@ -180,22 +198,36 @@ export function FleetMap({
 
       {/* Legend overlay */}
       <div className="absolute bottom-4 left-4 bg-white rounded-lg shadow-lg p-3 text-xs z-[1000]">
-        <div className="font-semibold mb-2 text-text-primary">Vehicle Status</div>
+        <div className="font-semibold mb-2 text-text-primary">
+          Vehicle Status
+        </div>
         <div className="space-y-1">
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: VEHICLE_STATUS_COLORS.moving }} />
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: VEHICLE_STATUS_COLORS.moving }}
+            />
             <span>Moving</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: VEHICLE_STATUS_COLORS.idling }} />
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: VEHICLE_STATUS_COLORS.idling }}
+            />
             <span>Idling</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: VEHICLE_STATUS_COLORS.stopped }} />
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: VEHICLE_STATUS_COLORS.stopped }}
+            />
             <span>Stopped</span>
           </div>
           <div className="flex items-center gap-2">
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: VEHICLE_STATUS_COLORS.offline }} />
+            <div
+              className="w-3 h-3 rounded-full"
+              style={{ backgroundColor: VEHICLE_STATUS_COLORS.offline }}
+            />
             <span>Offline</span>
           </div>
         </div>
