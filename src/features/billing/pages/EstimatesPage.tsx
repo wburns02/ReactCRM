@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useQuotes, useCreateQuote } from "@/api/hooks/useQuotes";
 import type { Quote, QuoteFormData } from "@/api/types/quote";
 import { useAIGenerate } from "@/hooks/useAI";
@@ -410,7 +410,7 @@ function CreateEstimateModal({
         rate: item.rate,
       })),
       tax_rate: taxRate,
-      valid_until: validUntil.toISOString().split("T")[0],
+      valid_until: validUntil.toISOString(), // Full ISO datetime for backend
       notes: notes || undefined,
     };
 
@@ -641,6 +641,7 @@ function CreateEstimateModal({
  * Estimates List Page
  */
 export function EstimatesPage() {
+  const navigate = useNavigate();
   const [filter, setFilter] = useState<
     "all" | "pending" | "accepted" | "declined"
   >("all");
@@ -766,7 +767,11 @@ export function EstimatesPage() {
               </thead>
               <tbody className="divide-y divide-border">
                 {estimates.map((estimate: Quote) => (
-                  <tr key={estimate.id} className="hover:bg-bg-hover">
+                  <tr
+                    key={estimate.id}
+                    className="hover:bg-bg-hover cursor-pointer transition-colors"
+                    onClick={() => navigate(`/estimates/${estimate.id}`)}
+                  >
                     <td className="px-4 py-3 font-medium text-text-primary">
                       {estimate.quote_number}
                     </td>
@@ -804,6 +809,7 @@ export function EstimatesPage() {
                       <Link
                         to={`/estimates/${estimate.id}`}
                         className="text-primary hover:underline text-sm"
+                        onClick={(e) => e.stopPropagation()}
                       >
                         View
                       </Link>

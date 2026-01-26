@@ -31,8 +31,8 @@ test.describe('Payroll Page - Modern 2026', () => {
     const response = await page.goto(`${BASE_URL}/payroll`);
     expect(response?.status()).toBeLessThan(500);
 
-    // Check page renders
-    const heading = page.getByRole('heading', { name: /payroll/i });
+    // Check page renders - use exact match for main heading
+    const heading = page.getByRole('heading', { name: 'Payroll', exact: true });
     await expect(heading).toBeVisible({ timeout: 10000 });
   });
 
@@ -52,11 +52,11 @@ test.describe('Payroll Page - Modern 2026', () => {
     await page.goto(`${BASE_URL}/payroll`);
     await page.waitForLoadState('networkidle');
 
-    // Check for tabs - Pay Periods, Time Entries, Commissions, Pay Rates
-    const periodsTab = page.getByRole('tab', { name: /pay periods/i });
-    const timeEntriesTab = page.getByRole('tab', { name: /time entries/i });
-    const commissionsTab = page.getByRole('tab', { name: /commissions/i });
-    const payRatesTab = page.getByRole('tab', { name: /pay rates/i });
+    // Check for tab buttons - Pay Periods, Time Entries, Commissions, Pay Rates
+    const periodsTab = page.getByRole('button', { name: /pay periods/i });
+    const timeEntriesTab = page.getByRole('button', { name: /time entries/i });
+    const commissionsTab = page.getByRole('button', { name: /commissions/i });
+    const payRatesTab = page.getByRole('button', { name: /pay rates/i });
 
     // At least some tabs should be visible
     const anyTabVisible = await periodsTab.isVisible() ||
@@ -72,7 +72,7 @@ test.describe('Payroll Page - Modern 2026', () => {
     await page.waitForLoadState('networkidle');
 
     // Click Time Entries tab
-    const timeEntriesTab = page.getByRole('tab', { name: /time entries/i });
+    const timeEntriesTab = page.getByRole('button', { name: /time entries/i });
     if (await timeEntriesTab.isVisible()) {
       await timeEntriesTab.click();
 
@@ -91,7 +91,7 @@ test.describe('Payroll Page - Modern 2026', () => {
     await page.waitForLoadState('networkidle');
 
     // Click Commissions tab
-    const commissionsTab = page.getByRole('tab', { name: /commissions/i });
+    const commissionsTab = page.getByRole('button', { name: /commissions/i });
     if (await commissionsTab.isVisible()) {
       await commissionsTab.click();
 
@@ -110,7 +110,7 @@ test.describe('Payroll Page - Modern 2026', () => {
     await page.waitForLoadState('networkidle');
 
     // Click Pay Rates tab
-    const payRatesTab = page.getByRole('tab', { name: /pay rates/i });
+    const payRatesTab = page.getByRole('button', { name: /pay rates/i });
     if (await payRatesTab.isVisible()) {
       await payRatesTab.click();
 
@@ -139,7 +139,7 @@ test.describe('Payroll Page - Modern 2026', () => {
     // Click through tabs to trigger API calls
     const tabs = ['time entries', 'commissions', 'pay rates'];
     for (const tabName of tabs) {
-      const tab = page.getByRole('tab', { name: new RegExp(tabName, 'i') });
+      const tab = page.getByRole('button', { name: new RegExp(tabName, 'i') });
       if (await tab.isVisible()) {
         await tab.click();
         await page.waitForTimeout(1000);

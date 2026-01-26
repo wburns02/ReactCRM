@@ -407,6 +407,22 @@ body {
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.6) !important;
 }
 
+/* Vehicle marker styles for Fleet Map */
+.vehicle-marker {
+  background: none !important;
+  border: none !important;
+  cursor: pointer;
+  transition: transform 0.15s ease;
+}
+
+.vehicle-marker:hover {
+  transform: scale(1.15);
+}
+
+.vehicle-marker svg {
+  filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.3));
+}
+
 /* Leaflet popup enhancements */
 .leaflet-popup-content-wrapper {
   border-radius: 8px;

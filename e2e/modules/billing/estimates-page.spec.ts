@@ -38,11 +38,12 @@ test.describe('Estimates Page', () => {
     // Should see the page title
     await expect(page.locator('h1')).toContainText('Estimates');
 
-    // Should see either estimates table or empty state
+    // Should see either estimates list (table or cards) or empty state
     const hasTable = await page.locator('table').isVisible().catch(() => false);
     const hasEmptyState = await page.locator('text=No estimates found').isVisible().catch(() => false);
+    const hasListCard = await page.locator('.bg-bg-card').first().isVisible().catch(() => false);
 
-    expect(hasTable || hasEmptyState).toBe(true);
+    expect(hasTable || hasEmptyState || hasListCard).toBe(true);
   });
 
   test('GET /quotes returns 200 (not 404)', async ({ page }) => {

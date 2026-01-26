@@ -1,7 +1,9 @@
-import { useState, useEffect, useRef } from "react";
+import { useState, useEffect } from "react";
+import { MapContainer, TileLayer, Marker, Popup, Polyline, useMap } from "react-leaflet";
+import * as L from "leaflet";
 import { useFleetLocations, useVehicleHistory } from "../api.ts";
-import { VehicleMarker } from "./VehicleMarker.tsx";
 import { VehicleInfoPopup } from "./VehicleInfoPopup.tsx";
+import { VEHICLE_STATUS_COLORS } from "../types.ts";
 import type { Vehicle } from "../types.ts";
 
 interface FleetMapProps {
@@ -10,9 +12,51 @@ interface FleetMapProps {
 }
 
 /**
+ * Create a custom arrow marker icon for vehicles
+ * Color-coded by status, rotated by heading
+ */
+function createVehicleIcon(status: string, heading: number): L.DivIcon {
+  const color = VEHICLE_STATUS_COLORS[status as keyof typeof VEHICLE_STATUS_COLORS] || "#9ca3af";
+
+  // SVG arrow pointing up, will be rotated by heading
+  const svg = `
+    <svg width="36" height="36" viewBox="0 0 36 36" xmlns="http://www.w3.org/2000/svg" style="transform: rotate(${heading}deg);">
+      <path d="M18 4 L28 28 L18 22 L8 28 Z" fill="${color}" stroke="white" stroke-width="2"/>
+    </svg>
+  `;
+
+  return L.divIcon({
+    html: svg,
+    className: "vehicle-marker",
+    iconSize: [36, 36],
+    iconAnchor: [18, 18],
+    popupAnchor: [0, -18],
+  });
+}
+
+/**
+ * Component to fit map bounds to all vehicles
+ */
+function FitBounds({ vehicles }: { vehicles: Vehicle[] }) {
+  const map = useMap();
+
+  useEffect(() => {
+    if (vehicles.length === 0) return;
+
+    const bounds = L.latLngBounds(
+      vehicles.map((v) => [v.location.lat, v.location.lng] as L.LatLngTuple)
+    );
+
+    // Add padding so markers aren't at the edge
+    map.fitBounds(bounds, { padding: [50, 50], maxZoom: 14 });
+  }, [vehicles, map]);
+
+  return null;
+}
+
+/**
  * Map showing all vehicles with real-time location updates
- * Note: This is a simplified map implementation.
- * In production, you would integrate with Google Maps, Mapbox, or Leaflet.
+ * Uses Leaflet with OpenStreetMap tiles
  */
 export function FleetMap({
   height = "600px",
@@ -25,49 +69,9 @@ export function FleetMap({
     showHistory ? 1 : undefined,
   );
 
-  const mapRef = useRef<HTMLDivElement>(null);
-  const [mapBounds, setMapBounds] = useState({
-    minLat: 0,
-    maxLat: 0,
-    minLng: 0,
-    maxLng: 0,
-  });
-
-  // Calculate map bounds based on vehicle locations
-  useEffect(() => {
-    if (!vehicles || vehicles.length === 0) return;
-
-    const lats = vehicles.map((v) => v.location.lat);
-    const lngs = vehicles.map((v) => v.location.lng);
-
-    setMapBounds({
-      minLat: Math.min(...lats),
-      maxLat: Math.max(...lats),
-      minLng: Math.min(...lngs),
-      maxLng: Math.max(...lngs),
-    });
-  }, [vehicles]);
-
-  // Convert lat/lng to pixel coordinates
-  const latLngToPixel = (
-    lat: number,
-    lng: number,
-  ): { x: number; y: number } => {
-    if (!mapRef.current) return { x: 0, y: 0 };
-
-    const bounds = mapBounds;
-    const latRange = bounds.maxLat - bounds.minLat || 1;
-    const lngRange = bounds.maxLng - bounds.minLng || 1;
-
-    const padding = 50; // pixels
-    const width = mapRef.current.clientWidth - padding * 2;
-    const height = mapRef.current.clientHeight - padding * 2;
-
-    const x = ((lng - bounds.minLng) / lngRange) * width + padding;
-    const y = ((bounds.maxLat - lat) / latRange) * height + padding;
-
-    return { x, y };
-  };
+  // Default center (Texas - adjust based on your fleet location)
+  const defaultCenter: [number, number] = [30.2672, -97.7431]; // Austin, TX
+  const defaultZoom = 10;
 
   if (isLoading) {
     return (
@@ -106,115 +110,113 @@ export function FleetMap({
         style={{ height }}
       >
         <div className="text-center">
-          <p className="text-text-secondary">No vehicles available</p>
+          <div className="text-4xl mb-3">🚛</div>
+          <p className="text-text-secondary font-medium">No vehicles available</p>
+          <p className="text-sm text-text-muted mt-1">
+            Ensure Samsara is configured and vehicles are active
+          </p>
         </div>
       </div>
     );
   }
 
+  // Calculate center from vehicles if available
+  const centerLat = vehicles.reduce((sum, v) => sum + v.location.lat, 0) / vehicles.length;
+  const centerLng = vehicles.reduce((sum, v) => sum + v.location.lng, 0) / vehicles.length;
+  const center: [number, number] = vehicles.length > 0 ? [centerLat, centerLng] : defaultCenter;
+
+  // Build history polyline points
+  const historyPoints: [number, number][] = history?.map((p) => [p.lat, p.lng]) || [];
+
   return (
-    <div
-      className="relative rounded-lg overflow-hidden border border-border"
-      style={{ height }}
-    >
-      {/* Map Container - Simple grid background to represent map */}
-      <div
-        ref={mapRef}
-        className="w-full h-full bg-gradient-to-br from-blue-50 to-green-50 relative"
-        style={{
-          backgroundImage: `
-            linear-gradient(rgba(0,0,0,0.05) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(0,0,0,0.05) 1px, transparent 1px)
-          `,
-          backgroundSize: "50px 50px",
-        }}
+    <div className="relative rounded-lg overflow-hidden border border-border" style={{ height }}>
+      <MapContainer
+        center={center}
+        zoom={defaultZoom}
+        style={{ height: "100%", width: "100%" }}
+        className="z-0"
       >
-        {/* Vehicle Trail/Path (if history is available) */}
-        {selectedVehicle && history && history.length > 0 && (
-          <svg className="absolute inset-0 w-full h-full pointer-events-none">
-            <path
-              d={history
-                .map((point, index) => {
-                  const { x, y } = latLngToPixel(point.lat, point.lng);
-                  return `${index === 0 ? "M" : "L"} ${x} ${y}`;
-                })
-                .join(" ")}
-              stroke="#3b82f6"
-              strokeWidth="2"
-              fill="none"
-              strokeDasharray="5,5"
-              opacity="0.6"
-            />
-          </svg>
+        {/* OpenStreetMap tiles - free, no API key needed */}
+        <TileLayer
+          attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+        />
+
+        {/* Auto-fit bounds to vehicles */}
+        <FitBounds vehicles={vehicles} />
+
+        {/* Vehicle history trail */}
+        {selectedVehicle && historyPoints.length > 1 && (
+          <Polyline
+            positions={historyPoints}
+            color="#3b82f6"
+            weight={3}
+            opacity={0.7}
+            dashArray="8, 8"
+          />
         )}
 
-        {/* Vehicle Markers */}
-        {vehicles.map((vehicle) => {
-          const { x, y } = latLngToPixel(
-            vehicle.location.lat,
-            vehicle.location.lng,
-          );
+        {/* Vehicle markers */}
+        {vehicles.map((vehicle) => (
+          <Marker
+            key={vehicle.id}
+            position={[vehicle.location.lat, vehicle.location.lng]}
+            icon={createVehicleIcon(vehicle.status, vehicle.location.heading)}
+            eventHandlers={{
+              click: () => setSelectedVehicle(vehicle),
+            }}
+          >
+            <Popup>
+              <div className="min-w-[200px]">
+                <VehicleInfoPopup
+                  vehicle={vehicle}
+                  onClose={() => setSelectedVehicle(null)}
+                />
+              </div>
+            </Popup>
+          </Marker>
+        ))}
+      </MapContainer>
 
-          return (
-            <div
-              key={vehicle.id}
-              className="absolute"
-              style={{
-                left: `${x}px`,
-                top: `${y}px`,
-                transform: "translate(-50%, -50%)",
-              }}
-            >
-              <VehicleMarker
-                vehicle={vehicle}
-                onClick={setSelectedVehicle}
-                isSelected={selectedVehicle?.id === vehicle.id}
-              />
-            </div>
-          );
-        })}
-
-        {/* Info Popup */}
-        {selectedVehicle && (
-          <div className="absolute top-4 right-4 z-10">
-            <VehicleInfoPopup
-              vehicle={selectedVehicle}
-              onClose={() => setSelectedVehicle(null)}
-            />
+      {/* Legend overlay */}
+      <div className="absolute bottom-4 left-4 bg-white rounded-lg shadow-lg p-3 text-xs z-[1000]">
+        <div className="font-semibold mb-2 text-text-primary">Vehicle Status</div>
+        <div className="space-y-1">
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: VEHICLE_STATUS_COLORS.moving }} />
+            <span>Moving</span>
           </div>
-        )}
-
-        {/* Legend */}
-        <div className="absolute bottom-4 left-4 bg-white rounded-lg shadow-lg p-3 text-xs">
-          <div className="font-semibold mb-2 text-text-primary">
-            Vehicle Status
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: VEHICLE_STATUS_COLORS.idling }} />
+            <span>Idling</span>
           </div>
-          <div className="space-y-1">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-success" />
-              <span>Moving</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-warning" />
-              <span>Idling</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-danger" />
-              <span>Stopped</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 rounded-full bg-text-muted" />
-              <span>Offline</span>
-            </div>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: VEHICLE_STATUS_COLORS.stopped }} />
+            <span>Stopped</span>
           </div>
-        </div>
-
-        {/* Live Update Indicator */}
-        <div className="absolute top-4 left-4 bg-white rounded-lg shadow-lg px-3 py-2 text-xs flex items-center gap-2">
-          <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
-          <span className="font-medium text-text-primary">Live Updates</span>
+          <div className="flex items-center gap-2">
+            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: VEHICLE_STATUS_COLORS.offline }} />
+            <span>Offline</span>
+          </div>
         </div>
       </div>
+
+      {/* Live update indicator */}
+      <div className="absolute top-4 left-4 bg-white rounded-lg shadow-lg px-3 py-2 text-xs flex items-center gap-2 z-[1000]">
+        <div className="w-2 h-2 rounded-full bg-success animate-pulse" />
+        <span className="font-medium text-text-primary">Live Updates</span>
+        <span className="text-text-muted">• {vehicles.length} vehicles</span>
+      </div>
+
+      {/* Selected vehicle info panel */}
+      {selectedVehicle && (
+        <div className="absolute top-4 right-4 z-[1000]">
+          <VehicleInfoPopup
+            vehicle={selectedVehicle}
+            onClose={() => setSelectedVehicle(null)}
+          />
+        </div>
+      )}
     </div>
   );
 }
