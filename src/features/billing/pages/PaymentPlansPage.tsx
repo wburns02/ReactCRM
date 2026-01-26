@@ -1,10 +1,21 @@
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@/components/ui/Dialog";
+import { toastSuccess, toastError } from "@/lib/toast";
 
 interface PaymentPlan {
   id: number;
   customer_name: string;
+  customer_id: number;
   invoice_id: number;
   total_amount: number;
   amount_paid: number;
@@ -23,6 +34,234 @@ interface PaymentPlanStats {
   overdue_amount: number;
 }
 
+interface PaymentPlanCreateData {
+  customer_id: number;
+  invoice_id: number;
+  total_amount: number;
+  installments: number;
+  frequency: string;
+}
+
+/**
+ * Create Payment Plan Modal
+ */
+function CreatePaymentPlanModal({
+  open,
+  onClose,
+  onSuccess,
+}: {
+  open: boolean;
+  onClose: () => void;
+  onSuccess: () => void;
+}) {
+  const [customerName, setCustomerName] = useState("");
+  const [invoiceId, setInvoiceId] = useState("");
+  const [totalAmount, setTotalAmount] = useState("");
+  const [installments, setInstallments] = useState("4");
+  const [frequency, setFrequency] = useState<"weekly" | "biweekly" | "monthly">(
+    "monthly",
+  );
+
+  const queryClient = useQueryClient();
+
+  const createMutation = useMutation({
+    mutationFn: async (data: PaymentPlanCreateData) => {
+      const response = await apiClient.post("/payment-plans/", data);
+      return response.data;
+    },
+    onSuccess: () => {
+      toastSuccess("Payment plan created successfully");
+      queryClient.invalidateQueries({ queryKey: ["payment-plans"] });
+      queryClient.invalidateQueries({ queryKey: ["payment-plans-stats"] });
+      onSuccess();
+      handleReset();
+      onClose();
+    },
+    onError: (error: Error) => {
+      toastError(error.message || "Failed to create payment plan");
+    },
+  });
+
+  const handleReset = () => {
+    setCustomerName("");
+    setInvoiceId("");
+    setTotalAmount("");
+    setInstallments("4");
+    setFrequency("monthly");
+  };
+
+  const handleSubmit = () => {
+    // Basic validation
+    if (!customerName.trim()) {
+      toastError("Customer name is required");
+      return;
+    }
+    if (!invoiceId || parseInt(invoiceId) <= 0) {
+      toastError("Valid invoice ID is required");
+      return;
+    }
+    if (!totalAmount || parseFloat(totalAmount) <= 0) {
+      toastError("Valid total amount is required");
+      return;
+    }
+    if (!installments || parseInt(installments) <= 0) {
+      toastError("Number of installments must be greater than 0");
+      return;
+    }
+
+    const data: PaymentPlanCreateData = {
+      customer_id: 1, // Using demo customer ID - in production would be from selection
+      invoice_id: parseInt(invoiceId),
+      total_amount: parseFloat(totalAmount),
+      installments: parseInt(installments),
+      frequency,
+    };
+
+    createMutation.mutate(data);
+  };
+
+  const installmentAmount =
+    totalAmount && installments
+      ? (parseFloat(totalAmount) / parseInt(installments)).toFixed(2)
+      : "0.00";
+
+  return (
+    <Dialog open={open} onClose={onClose} ariaLabel="Create Payment Plan">
+      <DialogContent size="md">
+        <DialogHeader onClose={onClose}>Create Payment Plan</DialogHeader>
+        <DialogBody className="space-y-4">
+          {/* Customer Name */}
+          <div>
+            <label className="block text-sm font-medium text-text-secondary mb-1">
+              Customer Name *
+            </label>
+            <Input
+              value={customerName}
+              onChange={(e) => setCustomerName(e.target.value)}
+              placeholder="Enter customer name"
+            />
+          </div>
+
+          {/* Invoice ID */}
+          <div>
+            <label className="block text-sm font-medium text-text-secondary mb-1">
+              Invoice ID *
+            </label>
+            <Input
+              type="number"
+              value={invoiceId}
+              onChange={(e) => setInvoiceId(e.target.value)}
+              placeholder="Enter invoice number"
+              min={1}
+            />
+          </div>
+
+          {/* Total Amount */}
+          <div>
+            <label className="block text-sm font-medium text-text-secondary mb-1">
+              Total Amount *
+            </label>
+            <Input
+              type="number"
+              value={totalAmount}
+              onChange={(e) => setTotalAmount(e.target.value)}
+              placeholder="0.00"
+              min={0}
+              step={0.01}
+            />
+          </div>
+
+          {/* Number of Installments */}
+          <div>
+            <label className="block text-sm font-medium text-text-secondary mb-1">
+              Number of Installments *
+            </label>
+            <select
+              value={installments}
+              onChange={(e) => setInstallments(e.target.value)}
+              className="w-full px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+              <option value="2">2 payments</option>
+              <option value="3">3 payments</option>
+              <option value="4">4 payments</option>
+              <option value="6">6 payments</option>
+              <option value="12">12 payments</option>
+              <option value="24">24 payments</option>
+            </select>
+          </div>
+
+          {/* Payment Frequency */}
+          <div>
+            <label className="block text-sm font-medium text-text-secondary mb-1">
+              Payment Frequency *
+            </label>
+            <select
+              value={frequency}
+              onChange={(e) =>
+                setFrequency(
+                  e.target.value as "weekly" | "biweekly" | "monthly",
+                )
+              }
+              className="w-full px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
+            >
+              <option value="weekly">Weekly</option>
+              <option value="biweekly">Bi-weekly</option>
+              <option value="monthly">Monthly</option>
+            </select>
+          </div>
+
+          {/* Payment Summary */}
+          {totalAmount && parseFloat(totalAmount) > 0 && (
+            <div className="bg-bg-hover p-4 rounded-lg">
+              <h4 className="text-sm font-medium text-text-secondary mb-2">
+                Payment Summary
+              </h4>
+              <div className="space-y-1 text-sm">
+                <div className="flex justify-between">
+                  <span className="text-text-muted">Total Amount:</span>
+                  <span className="text-text-primary font-medium">
+                    ${parseFloat(totalAmount).toLocaleString()}
+                  </span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-text-muted">Installments:</span>
+                  <span className="text-text-primary">{installments}</span>
+                </div>
+                <div className="flex justify-between">
+                  <span className="text-text-muted">Frequency:</span>
+                  <span className="text-text-primary capitalize">
+                    {frequency}
+                  </span>
+                </div>
+                <div className="flex justify-between border-t border-border pt-2 mt-2">
+                  <span className="text-text-secondary font-medium">
+                    Each Payment:
+                  </span>
+                  <span className="text-primary font-bold">
+                    ${installmentAmount}
+                  </span>
+                </div>
+              </div>
+            </div>
+          )}
+        </DialogBody>
+        <DialogFooter>
+          <Button variant="secondary" onClick={onClose}>
+            Cancel
+          </Button>
+          <Button
+            variant="primary"
+            onClick={handleSubmit}
+            disabled={createMutation.isPending}
+          >
+            {createMutation.isPending ? "Creating..." : "Create Payment Plan"}
+          </Button>
+        </DialogFooter>
+      </DialogContent>
+    </Dialog>
+  );
+}
+
 /**
  * Payment Plans Management Page
  */
@@ -30,8 +269,13 @@ export function PaymentPlansPage() {
   const [filter, setFilter] = useState<
     "all" | "active" | "completed" | "overdue"
   >("all");
+  const [showCreateModal, setShowCreateModal] = useState(false);
 
-  const { data: plans, isLoading } = useQuery({
+  const {
+    data: plans,
+    isLoading,
+    refetch,
+  } = useQuery({
     queryKey: ["payment-plans", filter],
     queryFn: async () => {
       try {
@@ -89,9 +333,9 @@ export function PaymentPlansPage() {
             Manage customer financing and payment plans
           </p>
         </div>
-        <button className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium">
+        <Button variant="primary" onClick={() => setShowCreateModal(true)}>
           Create Payment Plan
-        </button>
+        </Button>
       </div>
 
       {/* Stats */}
@@ -227,6 +471,13 @@ export function PaymentPlansPage() {
           </div>
         )}
       </div>
+
+      {/* Create Payment Plan Modal */}
+      <CreatePaymentPlanModal
+        open={showCreateModal}
+        onClose={() => setShowCreateModal(false)}
+        onSuccess={() => refetch()}
+      />
     </div>
   );
 }
