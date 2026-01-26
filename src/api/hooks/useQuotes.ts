@@ -33,7 +33,7 @@ export function useQuotes(filters: QuoteFilters = {}) {
       if (filters.status) params.set("status", filters.status);
       if (filters.customer_id) params.set("customer_id", filters.customer_id);
 
-      const url = "/quotes?" + params.toString();
+      const url = "/quotes/?" + params.toString();
       const { data } = await apiClient.get(url);
 
       // Handle both array and paginated response
@@ -109,7 +109,7 @@ export function useCreateQuote() {
         total,
       };
 
-      const response = await apiClient.post("/quotes", quoteData);
+      const response = await apiClient.post("/quotes/", quoteData);
       return response.data;
     },
     onSuccess: () => {

@@ -15,6 +15,14 @@ interface PaymentPlan {
   status: string;
 }
 
+interface PaymentPlanStats {
+  active_plans: number;
+  total_outstanding: number;
+  due_this_week: number;
+  overdue_count: number;
+  overdue_amount: number;
+}
+
 /**
  * Payment Plans Management Page
  */
@@ -27,12 +35,30 @@ export function PaymentPlansPage() {
     queryKey: ["payment-plans", filter],
     queryFn: async () => {
       try {
-        const response = await apiClient.get("/payment-plans", {
+        const response = await apiClient.get("/payment-plans/", {
           params: { status: filter !== "all" ? filter : undefined },
         });
         return response.data.items || response.data || [];
       } catch {
         return [];
+      }
+    },
+  });
+
+  const { data: stats } = useQuery<PaymentPlanStats>({
+    queryKey: ["payment-plans-stats"],
+    queryFn: async () => {
+      try {
+        const response = await apiClient.get("/payment-plans/stats/summary");
+        return response.data;
+      } catch {
+        return {
+          active_plans: 0,
+          total_outstanding: 0,
+          due_this_week: 0,
+          overdue_count: 0,
+          overdue_amount: 0,
+        };
       }
     },
   });
@@ -72,19 +98,27 @@ export function PaymentPlansPage() {
       <div className="grid grid-cols-4 gap-4 mb-6">
         <div className="bg-bg-card border border-border rounded-lg p-4">
           <p className="text-sm text-text-muted">Active Plans</p>
-          <p className="text-2xl font-bold text-success">--</p>
+          <p className="text-2xl font-bold text-success">
+            {stats?.active_plans ?? "--"}
+          </p>
         </div>
         <div className="bg-bg-card border border-border rounded-lg p-4">
           <p className="text-sm text-text-muted">Total Outstanding</p>
-          <p className="text-2xl font-bold text-warning">$--</p>
+          <p className="text-2xl font-bold text-warning">
+            ${stats?.total_outstanding?.toLocaleString() ?? "--"}
+          </p>
         </div>
         <div className="bg-bg-card border border-border rounded-lg p-4">
           <p className="text-sm text-text-muted">Due This Week</p>
-          <p className="text-2xl font-bold text-info">$--</p>
+          <p className="text-2xl font-bold text-info">
+            ${stats?.due_this_week?.toLocaleString() ?? "--"}
+          </p>
         </div>
         <div className="bg-bg-card border border-border rounded-lg p-4">
           <p className="text-sm text-text-muted">Overdue</p>
-          <p className="text-2xl font-bold text-danger">--</p>
+          <p className="text-2xl font-bold text-danger">
+            {stats?.overdue_count ?? "--"}
+          </p>
         </div>
       </div>
 
