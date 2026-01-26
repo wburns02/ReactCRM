@@ -21,7 +21,6 @@ import {
   useInvoice,
   useUpdateInvoice,
   useDeleteInvoice,
-  useSendInvoice,
   useMarkInvoicePaid,
 } from "@/api/hooks/useInvoices.ts";
 import {
@@ -223,7 +222,6 @@ export function InvoiceDetailPage() {
   const { data: invoice, isLoading, error } = useInvoice(id);
   const updateMutation = useUpdateInvoice();
   const deleteMutation = useDeleteInvoice();
-  const sendMutation = useSendInvoice();
   const markPaidMutation = useMarkInvoicePaid();
 
   // Modal states
@@ -254,12 +252,6 @@ export function InvoiceDetailPage() {
       navigate("/invoices");
     }
   }, [id, deleteMutation, navigate]);
-
-  const handleSend = useCallback(async () => {
-    if (id) {
-      await sendMutation.mutateAsync(id);
-    }
-  }, [id, sendMutation]);
 
   const handleMarkPaid = useCallback(async () => {
     if (id) {
@@ -359,9 +351,9 @@ export function InvoiceDetailPage() {
       : `Customer #${invoice.customer_id}`);
 
   return (
-    <div className="p-6">
+    <div className="p-6 print:p-0 print:bg-white">
       {/* Header */}
-      <div className="flex items-center justify-between mb-6">
+      <div className="flex flex-col lg:flex-row lg:items-center justify-between mb-6 gap-4 print:hidden">
         <div className="flex items-center gap-4">
           <Link
             to="/invoices"
@@ -381,31 +373,147 @@ export function InvoiceDetailPage() {
             </p>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-          {invoice.status === "draft" && (
-            <Button
-              variant="primary"
-              onClick={handleSend}
-              disabled={sendMutation.isPending}
+
+        {/* Premium Action Bar */}
+        <div className="flex flex-wrap items-center gap-2">
+          {/* Download PDF */}
+          <Button
+            variant="outline"
+            onClick={handleDownloadPDF}
+            disabled={pdfMutation.isPending}
+            className="min-h-[44px] sm:min-h-0"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 mr-2"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
             >
-              {sendMutation.isPending ? "Sending..." : "Send Invoice"}
-            </Button>
-          )}
+              <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4" />
+              <polyline points="7 10 12 15 17 10" />
+              <line x1="12" y1="15" x2="12" y2="3" />
+            </svg>
+            {pdfMutation.isPending ? "Generating..." : "Download PDF"}
+          </Button>
+
+          {/* Send Email */}
+          <Button
+            variant="outline"
+            onClick={() => {
+              setSendEmailAddress(invoice.customer?.email || "");
+              setIsEmailModalOpen(true);
+            }}
+            className="min-h-[44px] sm:min-h-0"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 mr-2"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+              <polyline points="22,6 12,13 2,6" />
+            </svg>
+            Send Email
+          </Button>
+
+          {/* Print */}
+          <Button
+            variant="ghost"
+            onClick={handlePrint}
+            className="min-h-[44px] sm:min-h-0"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              className="h-4 w-4 mr-2"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              strokeWidth="2"
+            >
+              <polyline points="6 9 6 2 18 2 18 9" />
+              <path d="M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2" />
+              <rect x="6" y="14" width="12" height="8" />
+            </svg>
+            Print
+          </Button>
+
+          {/* Pay Online - only for unpaid invoices */}
           {invoice.status !== "paid" && invoice.status !== "void" && (
             <Button
               variant="primary"
-              onClick={handleMarkPaid}
-              disabled={markPaidMutation.isPending}
+              onClick={handlePayOnline}
+              disabled={paymentLinkMutation.isPending}
+              className="min-h-[44px] sm:min-h-0"
             >
-              {markPaidMutation.isPending ? "Processing..." : "Mark as Paid"}
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-4 w-4 mr-2"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+              >
+                <rect x="1" y="4" width="22" height="16" rx="2" ry="2" />
+                <line x1="1" y1="10" x2="23" y2="10" />
+              </svg>
+              {paymentLinkMutation.isPending ? "Loading..." : "Pay Online"}
             </Button>
           )}
-          <Button variant="secondary" onClick={() => setIsEditOpen(true)}>
+
+          {/* Mark as Paid */}
+          {invoice.status !== "paid" && invoice.status !== "void" && (
+            <Button
+              variant="secondary"
+              onClick={handleMarkPaid}
+              disabled={markPaidMutation.isPending}
+              className="min-h-[44px] sm:min-h-0"
+            >
+              {markPaidMutation.isPending ? "Processing..." : "Mark Paid"}
+            </Button>
+          )}
+
+          {/* Edit */}
+          <Button
+            variant="secondary"
+            onClick={() => setIsEditOpen(true)}
+            className="min-h-[44px] sm:min-h-0"
+          >
             Edit
           </Button>
-          <Button variant="danger" onClick={() => setIsDeleteOpen(true)}>
+
+          {/* Delete */}
+          <Button
+            variant="danger"
+            onClick={() => setIsDeleteOpen(true)}
+            className="min-h-[44px] sm:min-h-0"
+          >
             Delete
           </Button>
+        </div>
+      </div>
+
+      {/* Print Header - only visible when printing */}
+      <div className="hidden print:block mb-8">
+        <div className="flex justify-between items-start">
+          <div>
+            <h1 className="text-3xl font-bold text-gray-900">INVOICE</h1>
+            <p className="text-lg text-gray-600 mt-1">
+              {invoice.invoice_number || invoice.id.slice(0, 8)}
+            </p>
+          </div>
+          <div className="text-right">
+            <p className="text-sm text-gray-600">
+              Date: {formatDate(invoice.created_at)}
+            </p>
+            <p className="text-sm text-gray-600">
+              Due: {invoice.due_date ? formatDate(invoice.due_date) : "On Receipt"}
+            </p>
+          </div>
         </div>
       </div>
 
@@ -463,33 +571,71 @@ export function InvoiceDetailPage() {
             </CardContent>
           </Card>
 
-          {/* Totals */}
-          <Card>
-            <CardHeader>
-              <CardTitle>Invoice Totals</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="space-y-3">
+          {/* Premium Totals */}
+          <Card className="print:border-gray-300">
+            <CardContent className="py-6">
+              <div className="w-full sm:w-72 ml-auto space-y-3">
                 <div className="flex justify-between text-base">
-                  <span className="text-text-secondary">Subtotal:</span>
+                  <span className="text-text-secondary">Subtotal</span>
                   <span className="text-text-primary font-medium">
                     {formatCurrency(invoice.subtotal)}
                   </span>
                 </div>
-                <div className="flex justify-between text-base">
-                  <span className="text-text-secondary">
-                    Tax ({invoice.tax_rate}%):
-                  </span>
-                  <span className="text-text-primary font-medium">
-                    {formatCurrency(invoice.tax)}
-                  </span>
-                </div>
-                <div className="flex justify-between text-xl font-semibold border-t border-border pt-3">
-                  <span className="text-text-primary">Total:</span>
-                  <span className="text-text-primary">
+
+                {invoice.tax > 0 && (
+                  <div className="flex justify-between text-base">
+                    <span className="text-text-secondary">
+                      Tax ({invoice.tax_rate}%)
+                    </span>
+                    <span className="text-text-primary font-medium">
+                      {formatCurrency(invoice.tax)}
+                    </span>
+                  </div>
+                )}
+
+                <div className="border-t border-border pt-3 mt-3" />
+
+                <div className="flex justify-between text-2xl font-bold">
+                  <span className="text-text-primary">Total</span>
+                  <span className="text-primary">
                     {formatCurrency(invoice.total)}
                   </span>
                 </div>
+
+                {/* Show payment status for paid invoices */}
+                {invoice.status === "paid" && invoice.paid_date && (
+                  <div className="flex items-center justify-end gap-2 text-success mt-2">
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      className="h-5 w-5"
+                      viewBox="0 0 24 24"
+                      fill="none"
+                      stroke="currentColor"
+                      strokeWidth="2"
+                    >
+                      <path d="M22 11.08V12a10 10 0 11-5.93-9.14" />
+                      <polyline points="22 4 12 14.01 9 11.01" />
+                    </svg>
+                    <span className="font-medium">
+                      Paid on {formatDate(invoice.paid_date)}
+                    </span>
+                  </div>
+                )}
+
+                {/* Balance due for unpaid */}
+                {invoice.status !== "paid" && invoice.status !== "void" && (
+                  <div className="bg-warning/10 border border-warning/30 rounded-lg p-3 mt-3">
+                    <div className="flex justify-between text-lg font-semibold text-warning">
+                      <span>Balance Due</span>
+                      <span>{formatCurrency(invoice.total)}</span>
+                    </div>
+                    {invoice.due_date && (
+                      <p className="text-sm text-text-muted mt-1">
+                        Due by {formatDate(invoice.due_date)}
+                      </p>
+                    )}
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -668,6 +814,107 @@ export function InvoiceDetailPage() {
               disabled={deleteMutation.isPending}
             >
               {deleteMutation.isPending ? "Deleting..." : "Delete"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Email Compose Modal */}
+      <Dialog open={isEmailModalOpen} onClose={() => setIsEmailModalOpen(false)}>
+        <DialogContent size="md">
+          <DialogHeader onClose={() => setIsEmailModalOpen(false)}>
+            Send Invoice via Email
+          </DialogHeader>
+          <DialogBody>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="email-to">Recipient Email</Label>
+                <Input
+                  id="email-to"
+                  type="email"
+                  value={sendEmailAddress}
+                  onChange={(e) => setSendEmailAddress(e.target.value)}
+                  placeholder="customer@example.com"
+                  className="mt-1"
+                />
+              </div>
+              <div>
+                <Label htmlFor="email-message">Personal Message (optional)</Label>
+                <Textarea
+                  id="email-message"
+                  value={emailMessage}
+                  onChange={(e) => setEmailMessage(e.target.value)}
+                  placeholder="Add a personal note to include with the invoice..."
+                  rows={4}
+                  className="mt-1"
+                />
+              </div>
+              <div className="bg-bg-muted/50 rounded-lg p-3 text-sm text-text-muted">
+                <p className="flex items-center gap-2">
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <circle cx="12" cy="12" r="10" />
+                    <line x1="12" y1="16" x2="12" y2="12" />
+                    <line x1="12" y1="8" x2="12.01" y2="8" />
+                  </svg>
+                  A secure payment link will be included in the email.
+                </p>
+              </div>
+            </div>
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              variant="secondary"
+              onClick={() => setIsEmailModalOpen(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleSendEmail}
+              disabled={!sendEmailAddress || emailMutation.isPending}
+            >
+              {emailMutation.isPending ? (
+                <span className="flex items-center gap-2">
+                  <svg className="animate-spin h-4 w-4" viewBox="0 0 24 24">
+                    <circle
+                      cx="12"
+                      cy="12"
+                      r="10"
+                      stroke="currentColor"
+                      strokeWidth="4"
+                      fill="none"
+                      opacity="0.25"
+                    />
+                    <path
+                      fill="currentColor"
+                      d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z"
+                    />
+                  </svg>
+                  Sending...
+                </span>
+              ) : (
+                <>
+                  <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    className="h-4 w-4 mr-2"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2"
+                  >
+                    <line x1="22" y1="2" x2="11" y2="13" />
+                    <polygon points="22,2 15,22 11,13 2,9 22,2" />
+                  </svg>
+                  Send Invoice
+                </>
+              )}
             </Button>
           </DialogFooter>
         </DialogContent>
