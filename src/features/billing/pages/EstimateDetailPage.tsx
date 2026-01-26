@@ -1,40 +1,55 @@
 import { Link, useParams } from "react-router-dom";
-import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { useQuote, useSendQuote } from "@/api/hooks/useQuotes";
 import { apiClient } from "@/api/client";
 
 /**
  * Estimate Detail Page
+ *
+ * Uses the /quotes/ API endpoint (estimates are quotes in this system)
  */
 export function EstimateDetailPage() {
   const { id } = useParams<{ id: string }>();
   const queryClient = useQueryClient();
 
-  const { data: estimate, isLoading } = useQuery({
-    queryKey: ["estimate", id],
-    queryFn: async () => {
-      const response = await apiClient.get(`/estimates/${id}`);
-      return response.data;
-    },
-    enabled: !!id,
-  });
+  // Use the correct useQuote hook that calls /quotes/{id}
+  const { data: estimate, isLoading, error } = useQuote(id);
 
-  const sendMutation = useMutation({
-    mutationFn: async () => {
-      await apiClient.post(`/estimates/${id}/send`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["estimate", id] });
-    },
-  });
+  // Use the send quote hook
+  const sendMutation = useSendQuote();
 
   const convertMutation = useMutation({
     mutationFn: async () => {
-      await apiClient.post(`/estimates/${id}/convert-to-invoice`);
+      await apiClient.post(`/quotes/${id}/convert`);
     },
     onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["estimate", id] });
+      queryClient.invalidateQueries({ queryKey: ["quotes"] });
     },
   });
+
+  // Helper to get customer display name
+  const getCustomerName = () => {
+    if (estimate?.customer) {
+      return `${estimate.customer.first_name} ${estimate.customer.last_name}`.trim();
+    }
+    return estimate?.customer_name || "N/A";
+  };
+
+  // Helper to format date
+  const formatDate = (dateStr: string | null | undefined) => {
+    if (!dateStr) return "N/A";
+    try {
+      return new Date(dateStr).toLocaleDateString();
+    } catch {
+      return dateStr;
+    }
+  };
+
+  // Handle PDF download
+  const handleDownloadPDF = () => {
+    // Open print dialog with estimate content
+    window.print();
+  };
 
   const getStatusColor = (status: string) => {
     switch (status?.toLowerCase()) {
@@ -59,27 +74,46 @@ export function EstimateDetailPage() {
     );
   }
 
-  return (
-    <div className="p-6">
-      {/* Header */}
-      <div className="mb-6">
+  if (error) {
+    return (
+      <div className="p-6">
         <Link
           to="/estimates"
-          className="text-text-muted hover:text-text-primary mb-2 inline-block"
+          className="text-text-muted hover:text-text-primary mb-4 inline-block"
+        >
+          &larr; Back to Estimates
+        </Link>
+        <div className="bg-danger/10 border border-danger/30 rounded-lg p-6 text-center">
+          <p className="text-danger font-medium">Failed to load estimate</p>
+          <p className="text-text-muted text-sm mt-2">
+            {error instanceof Error ? error.message : "Unknown error"}
+          </p>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="p-6 print:p-0">
+      {/* Header */}
+      <div className="mb-6 print:mb-4">
+        <Link
+          to="/estimates"
+          className="text-text-muted hover:text-text-primary mb-2 inline-block print:hidden"
         >
           &larr; Back to Estimates
         </Link>
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-semibold text-text-primary">
-              Estimate #{estimate?.id || id}
+              Estimate {estimate?.quote_number || `#${id}`}
             </h1>
-            <p className="text-text-muted">{estimate?.customer_name}</p>
+            <p className="text-text-muted">{getCustomerName()}</p>
           </div>
-          <div className="flex gap-2">
+          <div className="flex gap-2 print:hidden">
             {estimate?.status === "draft" && (
               <button
-                onClick={() => sendMutation.mutate()}
+                onClick={() => id && sendMutation.mutate(id)}
                 disabled={sendMutation.isPending}
                 className="px-4 py-2 bg-info text-white rounded-lg text-sm font-medium disabled:opacity-50"
               >
@@ -97,7 +131,10 @@ export function EstimateDetailPage() {
                   : "Convert to Invoice"}
               </button>
             )}
-            <button className="px-4 py-2 border border-border rounded-lg text-text-secondary text-sm font-medium hover:bg-bg-hover">
+            <button
+              onClick={handleDownloadPDF}
+              className="px-4 py-2 border border-border rounded-lg text-text-secondary text-sm font-medium hover:bg-bg-hover"
+            >
               Download PDF
             </button>
           </div>
@@ -105,11 +142,11 @@ export function EstimateDetailPage() {
       </div>
 
       {/* Status */}
-      <div className="bg-bg-card border border-border rounded-lg p-4 mb-6">
+      <div className="bg-bg-card border border-border rounded-lg p-4 mb-6 print:border-gray-300">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
             <span
-              className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(estimate?.status)}`}
+              className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(estimate?.status || "draft")} print:bg-gray-100 print:text-gray-700`}
             >
               {estimate?.status?.toUpperCase() || "DRAFT"}
             </span>
@@ -117,33 +154,30 @@ export function EstimateDetailPage() {
           <div className="text-right">
             <p className="text-sm text-text-muted">Valid Until</p>
             <p className="font-medium text-text-primary">
-              {estimate?.valid_until || "N/A"}
+              {formatDate(estimate?.valid_until)}
             </p>
           </div>
         </div>
       </div>
 
       {/* Customer Info */}
-      <div className="grid md:grid-cols-2 gap-6 mb-6">
-        <div className="bg-bg-card border border-border rounded-lg p-4">
+      <div className="grid md:grid-cols-2 gap-6 mb-6 print:grid-cols-2">
+        <div className="bg-bg-card border border-border rounded-lg p-4 print:border-gray-300">
           <h2 className="font-medium text-text-primary mb-3">Customer</h2>
           <div className="space-y-2">
-            <p className="text-text-secondary">
-              {estimate?.customer_name || "N/A"}
+            <p className="text-text-secondary font-medium">
+              {getCustomerName()}
             </p>
             <p className="text-sm text-text-muted">
-              {estimate?.customer_email || "N/A"}
+              {estimate?.customer?.email || "N/A"}
             </p>
             <p className="text-sm text-text-muted">
-              {estimate?.customer_phone || "N/A"}
-            </p>
-            <p className="text-sm text-text-muted">
-              {estimate?.customer_address || "N/A"}
+              {estimate?.customer?.phone || "N/A"}
             </p>
           </div>
         </div>
 
-        <div className="bg-bg-card border border-border rounded-lg p-4">
+        <div className="bg-bg-card border border-border rounded-lg p-4 print:border-gray-300">
           <h2 className="font-medium text-text-primary mb-3">
             Estimate Details
           </h2>
@@ -151,13 +185,13 @@ export function EstimateDetailPage() {
             <div className="flex justify-between">
               <span className="text-text-muted">Created</span>
               <span className="text-text-primary">
-                {estimate?.created_at || "N/A"}
+                {formatDate(estimate?.created_at)}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-text-muted">Work Order</span>
+              <span className="text-text-muted">Tax Rate</span>
               <span className="text-text-primary">
-                {estimate?.work_order_id ? `#${estimate.work_order_id}` : "N/A"}
+                {estimate?.tax_rate ? `${estimate.tax_rate}%` : "N/A"}
               </span>
             </div>
           </div>
@@ -165,26 +199,28 @@ export function EstimateDetailPage() {
       </div>
 
       {/* Line Items */}
-      <div className="bg-bg-card border border-border rounded-lg mb-6">
+      <div className="bg-bg-card border border-border rounded-lg mb-6 print:border-gray-300">
         <div className="p-4 border-b border-border">
           <h2 className="font-medium text-text-primary">Line Items</h2>
         </div>
         <div className="p-4">
-          {estimate?.line_items?.length > 0 ? (
+          {(estimate?.line_items?.length ?? 0) > 0 ? (
             <table className="w-full">
               <thead>
-                <tr className="text-left text-sm text-text-muted">
+                <tr className="text-left text-sm text-text-muted border-b border-border">
+                  <th className="pb-2">Service</th>
                   <th className="pb-2">Description</th>
-                  <th className="pb-2">Qty</th>
-                  <th className="pb-2">Rate</th>
+                  <th className="pb-2 text-center">Qty</th>
+                  <th className="pb-2 text-right">Rate</th>
                   <th className="pb-2 text-right">Amount</th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {estimate.line_items.map(
+                {estimate?.line_items?.map(
                   (
                     item: {
-                      description: string;
+                      service?: string;
+                      description?: string;
                       quantity: number;
                       rate: number;
                       amount: number;
@@ -192,15 +228,20 @@ export function EstimateDetailPage() {
                     index: number,
                   ) => (
                     <tr key={index}>
-                      <td className="py-2 text-text-primary">
-                        {item.description}
+                      <td className="py-3 text-text-primary font-medium">
+                        {item.service || "Service"}
                       </td>
-                      <td className="py-2 text-text-secondary">
+                      <td className="py-3 text-text-secondary text-sm">
+                        {item.description || "-"}
+                      </td>
+                      <td className="py-3 text-text-secondary text-center">
                         {item.quantity}
                       </td>
-                      <td className="py-2 text-text-secondary">${item.rate}</td>
-                      <td className="py-2 text-right text-text-primary">
-                        ${item.amount}
+                      <td className="py-3 text-text-secondary text-right">
+                        ${item.rate?.toFixed(2)}
+                      </td>
+                      <td className="py-3 text-right text-text-primary font-medium">
+                        ${item.amount?.toFixed(2)}
                       </td>
                     </tr>
                   ),
@@ -208,7 +249,7 @@ export function EstimateDetailPage() {
               </tbody>
             </table>
           ) : (
-            <div className="text-center py-4 text-text-muted">
+            <div className="text-center py-6 text-text-muted">
               No line items
             </div>
           )}
@@ -216,24 +257,36 @@ export function EstimateDetailPage() {
       </div>
 
       {/* Total */}
-      <div className="bg-bg-card border border-border rounded-lg p-4">
+      <div className="bg-bg-card border border-border rounded-lg p-4 print:border-gray-300">
         <div className="flex justify-end">
           <div className="w-64 space-y-2">
             <div className="flex justify-between text-text-secondary">
               <span>Subtotal</span>
-              <span>${estimate?.subtotal?.toLocaleString() || "0"}</span>
+              <span>${estimate?.subtotal?.toFixed(2) || "0.00"}</span>
             </div>
-            <div className="flex justify-between text-text-secondary">
-              <span>Tax</span>
-              <span>${estimate?.tax?.toLocaleString() || "0"}</span>
-            </div>
+            {(estimate?.tax_rate ?? 0) > 0 && (
+              <div className="flex justify-between text-text-secondary">
+                <span>Tax ({estimate?.tax_rate}%)</span>
+                <span>${estimate?.tax?.toFixed(2) || "0.00"}</span>
+              </div>
+            )}
             <div className="flex justify-between text-lg font-semibold text-text-primary border-t border-border pt-2">
               <span>Total</span>
-              <span>${estimate?.total?.toLocaleString() || "0"}</span>
+              <span className="text-primary">${estimate?.total?.toFixed(2) || "0.00"}</span>
             </div>
           </div>
         </div>
       </div>
+
+      {/* Notes */}
+      {estimate?.notes && (
+        <div className="bg-bg-card border border-border rounded-lg p-4 mt-6 print:border-gray-300">
+          <h2 className="font-medium text-text-primary mb-2">Notes</h2>
+          <p className="text-text-secondary text-sm whitespace-pre-wrap">
+            {estimate.notes}
+          </p>
+        </div>
+      )}
     </div>
   );
 }
