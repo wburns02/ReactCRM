@@ -38,6 +38,19 @@ import { useAIAnalyze } from "@/hooks/useAI";
 import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 /**
+ * Invoice Detail Page - 2026 Premium Features
+ *
+ * Features:
+ * - Download PDF button with direct file download
+ * - Send Email with compose modal
+ * - Pay Online with payment link generation
+ * - Print with CSS print styles
+ * - AI Payment Prediction
+ * - Customer Financing integration
+ * - Mobile-responsive design
+ */
+
+/**
  * AI Payment Prediction Card
  */
 function AIPaymentPrediction({ invoice }: { invoice: Invoice }) {

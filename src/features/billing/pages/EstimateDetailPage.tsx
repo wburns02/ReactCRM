@@ -238,10 +238,10 @@ export function EstimateDetailPage() {
                         {item.quantity}
                       </td>
                       <td className="py-3 text-text-secondary text-right">
-                        ${item.rate?.toFixed(2)}
+                        ${Number(item.rate ?? 0).toFixed(2)}
                       </td>
                       <td className="py-3 text-right text-text-primary font-medium">
-                        ${item.amount?.toFixed(2)}
+                        ${Number(item.amount ?? 0).toFixed(2)}
                       </td>
                     </tr>
                   ),
@@ -262,18 +262,18 @@ export function EstimateDetailPage() {
           <div className="w-64 space-y-2">
             <div className="flex justify-between text-text-secondary">
               <span>Subtotal</span>
-              <span>${estimate?.subtotal?.toFixed(2) || "0.00"}</span>
+              <span>${Number(estimate?.subtotal ?? 0).toFixed(2)}</span>
             </div>
-            {(estimate?.tax_rate ?? 0) > 0 && (
+            {Number(estimate?.tax_rate ?? 0) > 0 && (
               <div className="flex justify-between text-text-secondary">
                 <span>Tax ({estimate?.tax_rate}%)</span>
-                <span>${estimate?.tax?.toFixed(2) || "0.00"}</span>
+                <span>${Number(estimate?.tax ?? 0).toFixed(2)}</span>
               </div>
             )}
             <div className="flex justify-between text-lg font-semibold text-text-primary border-t border-border pt-2">
               <span>Total</span>
               <span className="text-primary">
-                ${estimate?.total?.toFixed(2) || "0.00"}
+                ${Number(estimate?.total ?? 0).toFixed(2)}
               </span>
             </div>
           </div>
