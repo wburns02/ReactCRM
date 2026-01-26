@@ -85,17 +85,22 @@ function CreatePaymentPlanModal({
     .map((inv: any) => ({
       id: String(inv.id),
       invoice_number: inv.invoice_number || `INV-${inv.id}`,
-      customer_name: inv.customer_name || "Unknown Customer",
+      customer_name: inv.customer_name || inv.customer?.first_name
+        ? `${inv.customer?.first_name || ""} ${inv.customer?.last_name || ""}`.trim()
+        : "Unknown Customer",
       customer_id:
         typeof inv.customer_id === "string"
           ? parseInt(inv.customer_id)
           : inv.customer_id || 0,
       total: inv.total || 0,
+      // Use balance_due if available, otherwise use total for unpaid invoices
       balance_due: inv.balance_due ?? inv.amount_due ?? inv.total ?? 0,
       status: inv.status || "draft",
     }))
-    // Filter to only show invoices with a balance due (can have payment plans)
-    .filter((inv) => inv.balance_due > 0);
+    // Filter to show invoices that can have payment plans:
+    // - Must have a positive total
+    // - Must not be fully paid or voided
+    .filter((inv) => inv.total > 0 && inv.status !== "paid" && inv.status !== "void");
 
   // Auto-fill amount when invoice is selected
   useEffect(() => {
