@@ -320,7 +320,7 @@ function CreateEstimateModal({
   const updateLineItem = (
     index: number,
     field: keyof LineItemInput,
-    value: string | number
+    value: string | number,
   ) => {
     const updated = [...lineItems];
     updated[index] = { ...updated[index], [field]: value };
@@ -329,13 +329,16 @@ function CreateEstimateModal({
 
   const subtotal = lineItems.reduce(
     (sum, item) => sum + item.quantity * item.rate,
-    0
+    0,
   );
   const tax = subtotal * (taxRate / 100);
   const total = subtotal + tax;
 
   const handleSubmit = async () => {
-    if (!customerId || lineItems.some((item) => !item.service || item.rate <= 0)) {
+    if (
+      !customerId ||
+      lineItems.some((item) => !item.service || item.rate <= 0)
+    ) {
       return;
     }
 
@@ -418,7 +421,11 @@ function CreateEstimateModal({
                       placeholder="Qty"
                       value={item.quantity}
                       onChange={(e) =>
-                        updateLineItem(index, "quantity", parseFloat(e.target.value) || 0)
+                        updateLineItem(
+                          index,
+                          "quantity",
+                          parseFloat(e.target.value) || 0,
+                        )
                       }
                       min={0}
                       step={0.1}
@@ -430,7 +437,11 @@ function CreateEstimateModal({
                       placeholder="Rate"
                       value={item.rate}
                       onChange={(e) =>
-                        updateLineItem(index, "rate", parseFloat(e.target.value) || 0)
+                        updateLineItem(
+                          index,
+                          "rate",
+                          parseFloat(e.target.value) || 0,
+                        )
                       }
                       min={0}
                       step={0.01}
@@ -530,7 +541,11 @@ function CreateEstimateModal({
           <Button
             variant="primary"
             onClick={handleSubmit}
-            disabled={createQuote.isPending || !customerId || lineItems.some((item) => !item.service)}
+            disabled={
+              createQuote.isPending ||
+              !customerId ||
+              lineItems.some((item) => !item.service)
+            }
           >
             {createQuote.isPending ? "Creating..." : "Create Estimate"}
           </Button>
@@ -550,8 +565,13 @@ export function EstimatesPage() {
   const [showCreateModal, setShowCreateModal] = useState(false);
 
   // Use quotes API - estimates are quotes in this system
-  const { data: quotesData, isLoading, refetch } = useQuotes({
-    status: filter !== "all" ? (filter === "pending" ? "draft" : filter) : undefined,
+  const {
+    data: quotesData,
+    isLoading,
+    refetch,
+  } = useQuotes({
+    status:
+      filter !== "all" ? (filter === "pending" ? "draft" : filter) : undefined,
   });
 
   const estimates = quotesData?.items || [];
@@ -671,7 +691,8 @@ export function EstimatesPage() {
                     <td className="px-4 py-3">
                       <div>
                         <p className="font-medium text-text-primary">
-                          {estimate.customer?.first_name} {estimate.customer?.last_name}
+                          {estimate.customer?.first_name}{" "}
+                          {estimate.customer?.last_name}
                           {!estimate.customer && estimate.customer_name}
                         </p>
                         {estimate.customer?.email && (

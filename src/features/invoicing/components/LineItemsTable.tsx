@@ -134,7 +134,9 @@ export function LineItemsTable({
                 </td>
                 <td className="px-4 py-3 text-center">
                   {readOnly ? (
-                    <span className="text-text-primary font-medium">{item.quantity}</span>
+                    <span className="text-text-primary font-medium">
+                      {item.quantity}
+                    </span>
                   ) : (
                     <Input
                       type="number"
