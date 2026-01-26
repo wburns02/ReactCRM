@@ -80,10 +80,10 @@ export function LineItemsTable({
               <th className="px-4 py-3 text-left text-xs font-semibold text-text-secondary uppercase tracking-wider">
                 Description
               </th>
-              <th className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider w-24">
+              <th className="px-4 py-3 text-center text-xs font-semibold text-text-secondary uppercase tracking-wider w-20">
                 Qty
               </th>
-              <th className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider w-32">
+              <th className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider w-28">
                 Rate
               </th>
               <th className="px-4 py-3 text-right text-xs font-semibold text-text-secondary uppercase tracking-wider w-32">
@@ -132,14 +132,14 @@ export function LineItemsTable({
                     />
                   )}
                 </td>
-                <td className="px-4 py-3 text-right">
+                <td className="px-4 py-3 text-center">
                   {readOnly ? (
-                    <span className="text-text-primary">{item.quantity}</span>
+                    <span className="text-text-primary font-medium">{item.quantity}</span>
                   ) : (
                     <Input
                       type="number"
                       min="0"
-                      step="0.01"
+                      step="1"
                       value={item.quantity}
                       onChange={(e) =>
                         handleUpdateItem(
@@ -148,13 +148,13 @@ export function LineItemsTable({
                           parseFloat(e.target.value) || 0,
                         )
                       }
-                      className="text-right"
+                      className="w-16 text-center text-base font-medium [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
                   )}
                 </td>
                 <td className="px-4 py-3 text-right">
                   {readOnly ? (
-                    <span className="text-text-primary">
+                    <span className="text-text-primary font-medium">
                       {formatCurrency(item.rate)}
                     </span>
                   ) : (
@@ -170,7 +170,7 @@ export function LineItemsTable({
                           parseFloat(e.target.value) || 0,
                         )
                       }
-                      className="text-right"
+                      className="w-24 text-right text-base [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
                     />
                   )}
                 </td>

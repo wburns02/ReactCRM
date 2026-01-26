@@ -221,7 +221,7 @@ export function InvoiceForm({
                 Tax & Totals
               </h4>
               <div className="space-y-3">
-                <div className="grid grid-cols-2 gap-4">
+                <div className="flex items-end gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="tax_rate">Tax Rate (%)</Label>
                     <Input
@@ -232,6 +232,7 @@ export function InvoiceForm({
                       step="0.01"
                       {...register("tax_rate")}
                       placeholder="0"
+                      className="w-24 text-center"
                     />
                   </div>
                 </div>

@@ -1,78 +1,59 @@
 # Email System Failure Diagnosis
 
-## Date: 2026-01-25
+## Error Summary
 
-## Problems
-1. GET /api/v2/email/conversations returns 404 Not Found
-2. POST /api/v2/communications/email/send returns 422 Unprocessable Content
+1. **GET /api/v2/email/conversations -> 404 Not Found**
+2. **POST /api/v2/communications/email/send -> 422 Unprocessable Content**
 
 ## Root Cause Analysis
 
-### Issue 1: Email Conversations 404
+### Issue 1: 404 on `/email/conversations`
 
-**Frontend (EmailInbox.tsx line 29):**
-```typescript
-const response = await apiClient.get("/email/conversations", { ... });
-```
-This calls `GET /api/v2/email/conversations` which DOES NOT EXIST in the backend.
+**Problem:** The frontend calls `GET /api/v2/email/conversations` but this endpoint doesn't exist.
 
-**Backend available endpoints:**
-- `GET /api/v2/communications/history` - communication history with pagination
-- No `/email/conversations` endpoint exists
+**Where it's called:**
+- `EmailConversation.tsx:28` calls `/email/conversations/${id}` for viewing email threads
 
-**Fix Required:** Either:
-- Option A: Add `GET /api/v2/email/conversations` endpoint to backend
-- Option B: Change frontend to use `GET /api/v2/communications/history?type=email`
+**Backend reality:**
+- Communications router is at `/communications/*`
+- Correct endpoint is `GET /communications/history?type=email`
+- No `/email/*` router exists except for `/email-marketing/*`
 
-### Issue 2: Email Send 422
+**Fix:** Add `/email/conversations` and `/email/reply` endpoints to backend
 
-**Frontend sends (EmailComposeModal.tsx + types):**
-```typescript
+### Issue 2: 422 on `/communications/email/send`
+
+**Problem:** Field name mismatch between deployed frontend and backend.
+
+**Frontend sends (DEPLOYED):**
+```json
 {
-  customer_id: "string-uuid",  // Frontend type says string UUID
-  email: "test@example.com",   // Wrong field name
-  subject: "Test Subject",
-  message: "Test body"         // Wrong field name
+  "customer_id": "",
+  "email": "test@example.com",
+  "subject": "Test Subject",
+  "message": "Test body"
 }
 ```
 
-**Backend expects (SendEmailRequest schema):**
+**Backend expects (SendEmailRequest):**
 ```python
-{
-  customer_id: int | None,     # Integer, not string
-  to: "test@example.com",      # Field is "to" not "email"
-  subject: "Test Subject",
-  body: "Test body"            # Field is "body" not "message"
-}
+class SendEmailRequest(BaseModel):
+    customer_id: Optional[int] = None
+    to: str  # NOT "email"
+    subject: str
+    body: str  # NOT "message"
+    source: str = "react"
 ```
 
-**Mismatches:**
-| Frontend Field | Backend Field | Issue |
-|---------------|---------------|-------|
-| `email` | `to` | Wrong field name |
-| `message` | `body` | Wrong field name |
-| `customer_id: string` | `customer_id: int` | Type mismatch |
+**Validation errors:**
+1. `customer_id: ""` can't parse empty string as int
+2. `to` field is missing (frontend sends `email`)
+3. `body` field is missing (frontend sends `message`)
 
-**Fix Required:** Fix frontend to send correct field names:
-- `email` → `to`
-- `message` → `body`
-- Handle customer_id type (empty string or null for optional int)
+**Fix:** Update backend schema to accept both old and new field names via aliases
 
-## Files Affected
+## Files to Modify
 
-### Frontend Files to Fix:
-1. `/src/api/types/communication.ts` - SendEmailData schema
-2. `/src/features/communications/components/EmailComposeModal.tsx` - field names
-3. `/src/features/communications/pages/EmailInbox.tsx` - endpoint path
-
-### Backend Files (no changes needed):
-- `/app/api/v2/communications.py` - routes are correct
-- `/app/schemas/message.py` - schemas are correct
-
-## Summary
-
-The email system failures are due to:
-1. Non-existent `/email/conversations` endpoint (404)
-2. Field name mismatches between frontend and backend (422)
-
-No backend changes needed - only frontend fixes required.
+### Backend
+- `/home/will/projects/react-crm-api/app/schemas/message.py` - Add field aliases
+- `/home/will/projects/react-crm-api/app/api/v2/communications.py` - Add email conversations endpoints
