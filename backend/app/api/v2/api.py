@@ -5,7 +5,7 @@ Main API router for v2 endpoints.
 from fastapi import APIRouter
 
 from app.api.v2.endpoints import ai_assistant, ringcentral, call_dispositions, webhooks, jobs, local_ai, admin_tools
-from app.api.v2.endpoints import deployment_test, permits, properties
+from app.api.v2.endpoints import deployment_test, permits, properties, roles, work_orders, quotes, estimates
 try:
     from app.api.v2.endpoints import geocivix
     GEOCIVIX_AVAILABLE = True
@@ -94,3 +94,31 @@ if GEOCIVIX_AVAILABLE and geocivix:
         prefix="",  # Endpoints already have /geocivix prefix
         tags=["geocivix"]
     )
+
+# Role switching endpoints (demo mode feature)
+api_router.include_router(
+    roles.router,
+    prefix="/roles",
+    tags=["roles"]
+)
+
+# Work order management endpoints
+api_router.include_router(
+    work_orders.router,
+    prefix="/work-orders",
+    tags=["work-orders"]
+)
+
+# Quote/Estimate management endpoints
+api_router.include_router(
+    quotes.router,
+    prefix="/quotes",
+    tags=["quotes"]
+)
+
+# Estimates alias endpoints (maps to quotes)
+api_router.include_router(
+    estimates.router,
+    prefix="/estimates",
+    tags=["estimates"]
+)
