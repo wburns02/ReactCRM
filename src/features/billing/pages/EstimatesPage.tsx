@@ -1,20 +1,21 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
-import { useQuotes, useCreateQuote } from "@/api/hooks/useQuotes";
-import type { Quote, QuoteFormData } from "@/api/types/quote";
+import { Link } from "react-router-dom";
+import { useQuery, useQueryClient } from "@tanstack/react-query";
+import { apiClient } from "@/api/client";
 import { useAIGenerate } from "@/hooks/useAI";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import {
-  Dialog,
-  DialogContent,
-  DialogHeader,
-  DialogBody,
-  DialogFooter,
-} from "@/components/ui/Dialog";
-import { CustomerSelect } from "@/features/workorders/components/CustomerSelect";
-import { ServiceSelector } from "../components/ServiceSelector";
-import type { PresetService } from "../constants/septicServices";
+import { CreateEstimateModal } from "../components/CreateEstimateModal";
+
+interface Estimate {
+  id: number;
+  customer_name: string;
+  customer_email: string;
+  total: number;
+  status: string;
+  created_at: string;
+  valid_until: string;
+}
 
 /**
  * AI Smart Pricing Assistant for Estimates
@@ -73,8 +74,7 @@ function AIPricingSuggestion() {
         laborHours = 24;
         partsEstimate = 4000;
         confidence = "Medium";
-        notes =
-          "Full septic installation. Requires site inspection for accurate quote.";
+        notes = "Full septic installation. Requires site inspection for accurate quote.";
       } else if (lower.includes("repair") || lower.includes("fix")) {
         basePrice = 500;
         laborHours = 4;
@@ -84,11 +84,7 @@ function AIPricingSuggestion() {
       }
     }
     // Drain services
-    else if (
-      lower.includes("drain") ||
-      lower.includes("clog") ||
-      lower.includes("clear")
-    ) {
+    else if (lower.includes("drain") || lower.includes("clog") || lower.includes("clear")) {
       if (lower.includes("main") || lower.includes("sewer")) {
         basePrice = 350;
         laborHours = 3;
@@ -104,11 +100,7 @@ function AIPricingSuggestion() {
       }
     }
     // Inspection services
-    else if (
-      lower.includes("inspect") ||
-      lower.includes("camera") ||
-      lower.includes("diagnostic")
-    ) {
+    else if (lower.includes("inspect") || lower.includes("camera") || lower.includes("diagnostic")) {
       basePrice = 200;
       laborHours = 1.5;
       partsEstimate = 0;
@@ -121,11 +113,10 @@ function AIPricingSuggestion() {
       laborHours = 2;
       partsEstimate = 100;
       confidence = "Low";
-      notes =
-        "Custom service - recommend phone consultation for accurate pricing.";
+      notes = "Custom service - recommend phone consultation for accurate pricing.";
     }
 
-    const total = basePrice + laborHours * 85 + partsEstimate;
+    const total = basePrice + (laborHours * 85) + partsEstimate;
 
     return {
       basePrice,
@@ -154,9 +145,7 @@ function AIPricingSuggestion() {
       <div className="flex items-center justify-between mb-3">
         <div className="flex items-center gap-2">
           <span className="text-lg">✨</span>
-          <h3 className="font-medium text-text-primary">
-            AI Pricing Assistant
-          </h3>
+          <h3 className="font-medium text-text-primary">AI Pricing Assistant</h3>
         </div>
         <button
           onClick={() => setShowPanel(false)}
@@ -188,33 +177,25 @@ function AIPricingSuggestion() {
 
       <div className="flex flex-wrap gap-2 mb-3">
         <button
-          onClick={() =>
-            setJobDescription("Septic tank pumping - standard residential")
-          }
+          onClick={() => setJobDescription("Septic tank pumping - standard residential")}
           className="text-xs px-2 py-1 rounded bg-bg-tertiary hover:bg-bg-hover text-text-secondary"
         >
           Septic pumping
         </button>
         <button
-          onClick={() =>
-            setJobDescription("Main sewer line clearing with camera inspection")
-          }
+          onClick={() => setJobDescription("Main sewer line clearing with camera inspection")}
           className="text-xs px-2 py-1 rounded bg-bg-tertiary hover:bg-bg-hover text-text-secondary"
         >
           Sewer clearing
         </button>
         <button
-          onClick={() =>
-            setJobDescription("Drain cleaning - kitchen sink clog")
-          }
+          onClick={() => setJobDescription("Drain cleaning - kitchen sink clog")}
           className="text-xs px-2 py-1 rounded bg-bg-tertiary hover:bg-bg-hover text-text-secondary"
         >
           Drain cleaning
         </button>
         <button
-          onClick={() =>
-            setJobDescription("Septic system inspection and camera diagnostics")
-          }
+          onClick={() => setJobDescription("Septic system inspection and camera diagnostics")}
           className="text-xs px-2 py-1 rounded bg-bg-tertiary hover:bg-bg-hover text-text-secondary"
         >
           Inspection
@@ -227,15 +208,11 @@ function AIPricingSuggestion() {
             <span className="text-lg font-bold text-text-primary">
               Suggested Price: ${suggestion.total.toLocaleString()}
             </span>
-            <span
-              className={`px-2 py-1 rounded text-xs font-medium ${
-                suggestion.confidence === "High"
-                  ? "bg-success/20 text-success"
-                  : suggestion.confidence === "Medium"
-                    ? "bg-warning/20 text-warning"
-                    : "bg-danger/20 text-danger"
-              }`}
-            >
+            <span className={`px-2 py-1 rounded text-xs font-medium ${
+              suggestion.confidence === "High" ? "bg-success/20 text-success" :
+              suggestion.confidence === "Medium" ? "bg-warning/20 text-warning" :
+              "bg-danger/20 text-danger"
+            }`}>
               {suggestion.confidence} confidence
             </span>
           </div>
@@ -243,23 +220,15 @@ function AIPricingSuggestion() {
           <div className="grid grid-cols-3 gap-4 text-sm">
             <div>
               <span className="text-text-muted">Base Price</span>
-              <p className="font-medium text-text-primary">
-                ${suggestion.basePrice}
-              </p>
+              <p className="font-medium text-text-primary">${suggestion.basePrice}</p>
             </div>
             <div>
-              <span className="text-text-muted">
-                Labor ({suggestion.laborHours}h @ $85/h)
-              </span>
-              <p className="font-medium text-text-primary">
-                ${(suggestion.laborHours * 85).toFixed(0)}
-              </p>
+              <span className="text-text-muted">Labor ({suggestion.laborHours}h @ $85/h)</span>
+              <p className="font-medium text-text-primary">${(suggestion.laborHours * 85).toFixed(0)}</p>
             </div>
             <div>
               <span className="text-text-muted">Parts Est.</span>
-              <p className="font-medium text-text-primary">
-                ${suggestion.partsEstimate}
-              </p>
+              <p className="font-medium text-text-primary">${suggestion.partsEstimate}</p>
             </div>
           </div>
 
@@ -275,415 +244,41 @@ function AIPricingSuggestion() {
 }
 
 /**
- * Line Item interface for form
- */
-interface LineItemInput {
-  service: string;
-  description: string;
-  quantity: number;
-  rate: number;
-}
-
-/**
- * Create Estimate Modal
- */
-function CreateEstimateModal({
-  open,
-  onClose,
-  onSuccess,
-}: {
-  open: boolean;
-  onClose: () => void;
-  onSuccess: () => void;
-}) {
-  const [customerId, setCustomerId] = useState<string>("");
-  const [lineItems, setLineItems] = useState<LineItemInput[]>([
-    { service: "", description: "", quantity: 1, rate: 0 },
-  ]);
-  const [taxRate, setTaxRate] = useState(8.25); // Default Texas sales tax
-  const [notes, setNotes] = useState("");
-  const [validDays, setValidDays] = useState(30);
-
-  const createQuote = useCreateQuote();
-
-  // Add a preset service from the selector
-  const handleSelectService = (service: PresetService) => {
-    // Check if we have an empty first line item, replace it
-    if (
-      lineItems.length === 1 &&
-      !lineItems[0].service &&
-      lineItems[0].rate === 0
-    ) {
-      setLineItems([
-        {
-          service: service.name,
-          description: service.description || "",
-          quantity: 1,
-          rate: service.rate,
-        },
-      ]);
-    } else {
-      // Add new line item
-      setLineItems([
-        ...lineItems,
-        {
-          service: service.name,
-          description: service.description || "",
-          quantity: 1,
-          rate: service.rate,
-        },
-      ]);
-    }
-  };
-
-  // Add multiple services from a package
-  const handleSelectPackage = (
-    items: { name: string; rate: number; description: string }[],
-  ) => {
-    const newItems = items.map((item) => ({
-      service: item.name,
-      description: item.description,
-      quantity: 1,
-      rate: item.rate,
-    }));
-
-    // Replace empty first item or append
-    if (
-      lineItems.length === 1 &&
-      !lineItems[0].service &&
-      lineItems[0].rate === 0
-    ) {
-      setLineItems(newItems);
-    } else {
-      setLineItems([...lineItems, ...newItems]);
-    }
-  };
-
-  const addLineItem = () => {
-    setLineItems([
-      ...lineItems,
-      { service: "", description: "", quantity: 1, rate: 0 },
-    ]);
-  };
-
-  const removeLineItem = (index: number) => {
-    if (lineItems.length > 1) {
-      setLineItems(lineItems.filter((_, i) => i !== index));
-    }
-  };
-
-  const updateLineItem = (
-    index: number,
-    field: keyof LineItemInput,
-    value: string | number,
-  ) => {
-    const updated = [...lineItems];
-    updated[index] = { ...updated[index], [field]: value };
-    setLineItems(updated);
-  };
-
-  const subtotal = lineItems.reduce(
-    (sum, item) => sum + item.quantity * item.rate,
-    0,
-  );
-  const tax = subtotal * (taxRate / 100);
-  const total = subtotal + tax;
-
-  const handleSubmit = async () => {
-    if (
-      !customerId ||
-      lineItems.some((item) => !item.service || item.rate <= 0)
-    ) {
-      return;
-    }
-
-    const validUntil = new Date();
-    validUntil.setDate(validUntil.getDate() + validDays);
-
-    const data: QuoteFormData = {
-      customer_id: parseInt(customerId),
-      status: "draft",
-      line_items: lineItems.map((item) => ({
-        service: item.service,
-        description: item.description || undefined,
-        quantity: item.quantity,
-        rate: item.rate,
-      })),
-      tax_rate: taxRate,
-      valid_until: validUntil.toISOString(), // Full ISO datetime for backend
-      notes: notes || undefined,
-    };
-
-    try {
-      await createQuote.mutateAsync(data);
-      onSuccess();
-      onClose();
-      // Reset form
-      setCustomerId("");
-      setLineItems([{ service: "", description: "", quantity: 1, rate: 0 }]);
-      setTaxRate(0);
-      setNotes("");
-    } catch (err) {
-      console.error("Failed to create estimate:", err);
-    }
-  };
-
-  return (
-    <Dialog open={open} onClose={onClose} ariaLabel="Create Estimate">
-      <DialogContent size="lg">
-        <DialogHeader onClose={onClose}>Create New Estimate</DialogHeader>
-        <DialogBody className="space-y-4 max-h-[60vh] overflow-y-auto">
-          {/* Customer Selection */}
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
-              Customer *
-            </label>
-            <CustomerSelect value={customerId} onChange={setCustomerId} />
-          </div>
-
-          {/* Service Selector */}
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-2">
-              Add Services
-            </label>
-            <ServiceSelector
-              onSelectService={handleSelectService}
-              onSelectPackage={handleSelectPackage}
-            />
-          </div>
-
-          {/* Line Items */}
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-2">
-              Line Items *
-            </label>
-            {/* Column Headers */}
-            <div className="grid grid-cols-12 gap-2 mb-2 px-3">
-              <div className="col-span-4 text-xs font-medium text-text-muted">
-                Service
-              </div>
-              <div className="col-span-3 text-xs font-medium text-text-muted">
-                Description
-              </div>
-              <div className="col-span-2 text-xs font-medium text-text-muted">
-                Qty
-              </div>
-              <div className="col-span-2 text-xs font-medium text-text-muted">
-                Rate
-              </div>
-              <div className="col-span-1"></div>
-            </div>
-            <div className="space-y-3">
-              {lineItems.map((item, index) => (
-                <div
-                  key={index}
-                  className="grid grid-cols-12 gap-2 items-start p-3 bg-bg-muted rounded-lg"
-                >
-                  <div className="col-span-4">
-                    <Input
-                      placeholder="Service"
-                      value={item.service}
-                      onChange={(e) =>
-                        updateLineItem(index, "service", e.target.value)
-                      }
-                    />
-                  </div>
-                  <div className="col-span-3">
-                    <Input
-                      placeholder="Description"
-                      value={item.description}
-                      onChange={(e) =>
-                        updateLineItem(index, "description", e.target.value)
-                      }
-                    />
-                  </div>
-                  <div className="col-span-2">
-                    <Input
-                      type="number"
-                      placeholder="Qty"
-                      value={item.quantity}
-                      onChange={(e) =>
-                        updateLineItem(
-                          index,
-                          "quantity",
-                          parseFloat(e.target.value) || 0,
-                        )
-                      }
-                      min={0}
-                      step={0.1}
-                    />
-                  </div>
-                  <div className="col-span-2">
-                    <Input
-                      type="number"
-                      placeholder="Rate"
-                      value={item.rate}
-                      onChange={(e) =>
-                        updateLineItem(
-                          index,
-                          "rate",
-                          parseFloat(e.target.value) || 0,
-                        )
-                      }
-                      min={0}
-                      step={0.01}
-                    />
-                  </div>
-                  <div className="col-span-1 flex justify-end">
-                    <button
-                      type="button"
-                      onClick={() => removeLineItem(index)}
-                      className="text-danger hover:text-danger/80 p-1"
-                      disabled={lineItems.length === 1}
-                    >
-                      ✕
-                    </button>
-                  </div>
-                  <div className="col-span-12 text-right text-sm text-text-muted">
-                    Amount: ${(item.quantity * item.rate).toFixed(2)}
-                  </div>
-                </div>
-              ))}
-            </div>
-            <Button
-              type="button"
-              variant="secondary"
-              size="sm"
-              onClick={addLineItem}
-              className="mt-2"
-            >
-              + Add Line Item
-            </Button>
-          </div>
-
-          {/* Tax Rate & Valid Days */}
-          <div className="grid grid-cols-2 gap-4">
-            <div>
-              <label className="block text-sm font-medium text-text-secondary mb-1">
-                Tax Rate (%)
-              </label>
-              <Input
-                type="number"
-                value={taxRate}
-                onChange={(e) => setTaxRate(parseFloat(e.target.value) || 0)}
-                min={0}
-                max={100}
-                step={0.1}
-              />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-text-secondary mb-1">
-                Valid for (days)
-              </label>
-              <Input
-                type="number"
-                value={validDays}
-                onChange={(e) => setValidDays(parseInt(e.target.value) || 30)}
-                min={1}
-              />
-            </div>
-          </div>
-
-          {/* Notes */}
-          <div>
-            <label className="block text-sm font-medium text-text-secondary mb-1">
-              Notes
-            </label>
-            <textarea
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="Additional notes for this estimate..."
-              className="w-full px-3 py-2 border border-border rounded-lg bg-bg-card text-text-primary resize-none"
-              rows={3}
-            />
-          </div>
-
-          {/* Totals */}
-          <div className="bg-bg-hover p-4 rounded-lg space-y-2">
-            <div className="flex justify-between text-sm">
-              <span className="text-text-secondary">Subtotal</span>
-              <span className="text-text-primary">${subtotal.toFixed(2)}</span>
-            </div>
-            {taxRate > 0 && (
-              <div className="flex justify-between text-sm">
-                <span className="text-text-secondary">Tax ({taxRate}%)</span>
-                <span className="text-text-primary">${tax.toFixed(2)}</span>
-              </div>
-            )}
-            <div className="flex justify-between text-lg font-semibold border-t border-border pt-2">
-              <span className="text-text-primary">Total</span>
-              <span className="text-primary">${total.toFixed(2)}</span>
-            </div>
-          </div>
-        </DialogBody>
-        <DialogFooter>
-          <Button variant="secondary" onClick={onClose}>
-            Cancel
-          </Button>
-          <Button
-            variant="primary"
-            onClick={handleSubmit}
-            disabled={
-              createQuote.isPending ||
-              !customerId ||
-              lineItems.some((item) => !item.service)
-            }
-          >
-            {createQuote.isPending ? "Creating..." : "Create Estimate"}
-          </Button>
-        </DialogFooter>
-      </DialogContent>
-    </Dialog>
-  );
-}
-
-/**
  * Estimates List Page
  */
 export function EstimatesPage() {
-  const navigate = useNavigate();
   const [filter, setFilter] = useState<
     "all" | "pending" | "accepted" | "declined"
   >("all");
-  const [showCreateModal, setShowCreateModal] = useState(false);
+  const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
+  const queryClient = useQueryClient();
 
-  // Use quotes API - estimates are quotes in this system
-  const {
-    data: quotesData,
-    isLoading,
-    refetch,
-  } = useQuotes({
-    status:
-      filter !== "all" ? (filter === "pending" ? "draft" : filter) : undefined,
+  const { data: estimates, isLoading } = useQuery({
+    queryKey: ["estimates", filter],
+    queryFn: async () => {
+      try {
+        const response = await apiClient.get("/estimates", {
+          params: { status: filter !== "all" ? filter : undefined },
+        });
+        return response.data.items || response.data || [];
+      } catch {
+        return [];
+      }
+    },
   });
-
-  const estimates = quotesData?.items || [];
 
   const getStatusColor = (status: string) => {
     switch (status?.toLowerCase()) {
-      case "draft":
       case "pending":
         return "bg-warning/20 text-warning";
-      case "sent":
-        return "bg-blue-500/20 text-blue-500";
       case "accepted":
         return "bg-success/20 text-success";
       case "declined":
-      case "rejected":
         return "bg-danger/20 text-danger";
       case "expired":
         return "bg-text-muted/20 text-text-muted";
       default:
         return "bg-text-muted/20 text-text-muted";
-    }
-  };
-
-  const formatDate = (dateStr: string | null) => {
-    if (!dateStr) return "-";
-    try {
-      return new Date(dateStr).toLocaleDateString();
-    } catch {
-      return dateStr;
     }
   };
 
@@ -698,9 +293,12 @@ export function EstimatesPage() {
             Create and manage customer estimates
           </p>
         </div>
-        <Button variant="primary" onClick={() => setShowCreateModal(true)}>
+        <button
+          onClick={() => setIsCreateModalOpen(true)}
+          className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-medium hover:bg-primary/90 transition-colors"
+        >
           Create Estimate
-        </Button>
+        </button>
       </div>
 
       {/* AI Pricing Assistant */}
@@ -729,7 +327,7 @@ export function EstimatesPage() {
           <div className="p-8 flex items-center justify-center">
             <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-primary"></div>
           </div>
-        ) : estimates.length === 0 ? (
+        ) : estimates?.length === 0 ? (
           <div className="p-8 text-center text-text-muted">
             <span className="text-4xl block mb-2">📊</span>
             <p>No estimates found</p>
@@ -742,9 +340,6 @@ export function EstimatesPage() {
             <table className="w-full">
               <thead className="bg-bg-hover">
                 <tr>
-                  <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">
-                    Estimate #
-                  </th>
                   <th className="text-left px-4 py-3 text-sm font-medium text-text-secondary">
                     Customer
                   </th>
@@ -766,27 +361,16 @@ export function EstimatesPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {estimates.map((estimate: Quote) => (
-                  <tr
-                    key={estimate.id}
-                    className="hover:bg-bg-hover cursor-pointer transition-colors"
-                    onClick={() => navigate(`/estimates/${estimate.id}`)}
-                  >
-                    <td className="px-4 py-3 font-medium text-text-primary">
-                      {estimate.quote_number}
-                    </td>
+                {estimates?.map((estimate: Estimate) => (
+                  <tr key={estimate.id} className="hover:bg-bg-hover">
                     <td className="px-4 py-3">
                       <div>
                         <p className="font-medium text-text-primary">
-                          {estimate.customer?.first_name}{" "}
-                          {estimate.customer?.last_name}
-                          {!estimate.customer && estimate.customer_name}
+                          {estimate.customer_name}
                         </p>
-                        {estimate.customer?.email && (
-                          <p className="text-sm text-text-muted">
-                            {estimate.customer.email}
-                          </p>
-                        )}
+                        <p className="text-sm text-text-muted">
+                          {estimate.customer_email}
+                        </p>
                       </div>
                     </td>
                     <td className="px-4 py-3 font-medium text-text-primary">
@@ -800,16 +384,15 @@ export function EstimatesPage() {
                       </span>
                     </td>
                     <td className="px-4 py-3 text-sm text-text-muted">
-                      {formatDate(estimate.created_at)}
+                      {estimate.created_at}
                     </td>
                     <td className="px-4 py-3 text-sm text-text-muted">
-                      {formatDate(estimate.valid_until)}
+                      {estimate.valid_until}
                     </td>
                     <td className="px-4 py-3 text-right">
                       <Link
                         to={`/estimates/${estimate.id}`}
                         className="text-primary hover:underline text-sm"
-                        onClick={(e) => e.stopPropagation()}
                       >
                         View
                       </Link>
@@ -824,9 +407,12 @@ export function EstimatesPage() {
 
       {/* Create Estimate Modal */}
       <CreateEstimateModal
-        open={showCreateModal}
-        onClose={() => setShowCreateModal(false)}
-        onSuccess={() => refetch()}
+        open={isCreateModalOpen}
+        onClose={() => setIsCreateModalOpen(false)}
+        onSuccess={() => {
+          queryClient.invalidateQueries({ queryKey: ["estimates"] });
+          queryClient.invalidateQueries({ queryKey: ["quotes"] });
+        }}
       />
     </div>
   );
