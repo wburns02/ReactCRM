@@ -36,13 +36,16 @@ setup('authenticate', async ({ page, baseURL }) => {
   // Also set session state so the auth check passes
   await page.evaluate(() => {
     localStorage.setItem('crm_onboarding_completed', 'true');
-    // Set session state - this is needed for the auth check to pass
-    // The session_state in sessionStorage indicates authentication status
-    sessionStorage.setItem('session_state', JSON.stringify({
+    // Set session state in BOTH sessionStorage AND localStorage
+    // sessionStorage for the frontend's quick auth check
+    // localStorage so it persists in Playwright's storageState
+    const sessionState = JSON.stringify({
       isAuthenticated: true,
       lastValidated: Date.now(),
-      userId: '2', // Test user ID
-    }));
+      userId: '1', // Test user ID
+    });
+    sessionStorage.setItem('session_state', sessionState);
+    localStorage.setItem('session_state', sessionState);
     // SECURITY: Clean up any legacy auth tokens - use HTTP-only cookies instead
     localStorage.removeItem('auth_token');
     localStorage.removeItem('token');

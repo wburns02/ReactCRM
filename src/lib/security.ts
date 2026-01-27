@@ -66,13 +66,22 @@ const SESSION_KEY = "session_state";
 const SESSION_VALIDATION_INTERVAL = 5 * 60 * 1000; // 5 minutes
 
 /**
- * Get session state from sessionStorage (not the token!)
+ * Get session state from sessionStorage or localStorage (not the token!)
  * This is safe to store client-side as it's just metadata
+ * Checks sessionStorage first (faster), falls back to localStorage (persisted)
  */
 export function getSessionState(): SessionState | null {
   try {
-    const state = sessionStorage.getItem(SESSION_KEY);
+    // Check sessionStorage first (normal browser flow)
+    let state = sessionStorage.getItem(SESSION_KEY);
     if (state) {
+      return JSON.parse(state);
+    }
+    // Fall back to localStorage (for Playwright tests where sessionStorage isn't persisted)
+    state = localStorage.getItem(SESSION_KEY);
+    if (state) {
+      // Restore to sessionStorage for future quick access
+      sessionStorage.setItem(SESSION_KEY, state);
       return JSON.parse(state);
     }
   } catch {
@@ -82,17 +91,20 @@ export function getSessionState(): SessionState | null {
 }
 
 /**
- * Update session state
+ * Update session state (stores in both sessionStorage and localStorage)
  */
 export function setSessionState(state: SessionState): void {
-  sessionStorage.setItem(SESSION_KEY, JSON.stringify(state));
+  const stateJson = JSON.stringify(state);
+  sessionStorage.setItem(SESSION_KEY, stateJson);
+  localStorage.setItem(SESSION_KEY, stateJson);
 }
 
 /**
- * Clear session state
+ * Clear session state (clears from both sessionStorage and localStorage)
  */
 export function clearSessionState(): void {
   sessionStorage.removeItem(SESSION_KEY);
+  localStorage.removeItem(SESSION_KEY);
 }
 
 /**
