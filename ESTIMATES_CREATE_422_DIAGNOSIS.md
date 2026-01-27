@@ -71,3 +71,58 @@ The estimate creation functionality is fully operational:
 ---
 *Verified: 2026-01-27*
 *Tests: e2e/modules/estimates-creation.spec.ts*
+
+## Latest Verification (2026-01-27 23:03 UTC)
+
+### Playwright Test Results
+
+Executed comprehensive diagnosis test with full network capture:
+
+**Request Payload Captured:**
+```json
+{
+  "customer_id": 1,
+  "status": "draft",
+  "line_items": [
+    {
+      "service": "Septic Tank Pumping",
+      "description": "Standard residential pumping",
+      "quantity": 1,
+      "rate": 350,
+      "amount": 350
+    }
+  ],
+  "tax_rate": 8.25,
+  "valid_until": "2026-02-28",
+  "notes": "Test estimate for 422 diagnosis",
+  "subtotal": 350,
+  "tax": 28.88,
+  "total": 378.88
+}
+```
+
+**API Response (201 Created):**
+```json
+{
+  "id": 66,
+  "quote_number": "Q-20260127-EA05FDB5",
+  "customer_id": 1,
+  "subtotal": "350.00",
+  "tax_rate": "8.25",
+  "tax": "28.88",
+  "total": "378.88",
+  "status": "draft",
+  "valid_until": "2026-02-28T00:00:00",
+  "created_at": "2026-01-27T23:03:29.009160Z"
+}
+```
+
+**UI Verification:**
+- Modal closed after submission: ✅
+- Success toast displayed: "Estimate Created - The estimate has been created successfully"
+- No console errors: ✅
+- No 422 network errors: ✅
+
+<promise>ESTIMATES_CREATE_422_ROOT_CAUSE_IDENTIFIED</promise>
+
+**Status:** The fix from commit `fee671a` (Math.round() for decimal values) is working correctly. Estimate creation is fully operational.
