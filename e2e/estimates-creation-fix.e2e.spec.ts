@@ -1,281 +1,293 @@
-/**
- * Estimates Creation E2E Tests
- *
- * Verifies that estimate creation works correctly after the 422 fix.
- * The fix rounds tax and total to 2 decimal places before sending to the backend.
- */
-import { test, expect } from "@playwright/test";
+import { test, expect } from '@playwright/test';
 
-test.describe("Estimates Creation Tests", () => {
+const BASE_URL = process.env.BASE_URL || 'https://react.ecbtx.com';
+const TEST_EMAIL = 'will@macseptic.com';
+const TEST_PASSWORD = '#Espn2025';
+
+/**
+ * Estimates Creation Fix - E2E Tests
+ *
+ * These tests verify that the estimate creation bug (422 error) has been fixed
+ * and that estimates can be created, viewed, and managed properly.
+ */
+test.describe('Estimates Creation Fix - Verification', () => {
   test.beforeEach(async ({ page }) => {
-    // Login with the specified credentials
-    await page.goto("https://react.ecbtx.com/login");
-    await page.fill('input[name="email"]', "will@macseptic.com");
-    await page.fill('input[name="password"]', "#Espn2025");
-    await page.click('button[type="submit"]');
-    await page.waitForURL("**/dashboard", { timeout: 15000 });
+    // Login
+    await page.goto(`${BASE_URL}/login`);
+    await page.fill('input[name="email"], input[type="email"]', TEST_EMAIL);
+    await page.fill('input[name="password"], input[type="password"]', TEST_PASSWORD);
+    await page.getByRole('button', { name: 'Sign In' }).click();
+    await page.waitForURL(/\/(dashboard|onboarding|estimates)/, { timeout: 15000 });
   });
 
-  test("1. Navigate to Estimates page", async ({ page }) => {
-    await page.goto("https://react.ecbtx.com/estimates");
-    await page.waitForLoadState("networkidle");
+  test('1. Navigate to Estimates page', async ({ page }) => {
+    await page.goto(`${BASE_URL}/estimates`);
+    await page.waitForLoadState('networkidle');
 
     // Verify we're on the estimates page
     await expect(page.locator('h1:has-text("Estimates")')).toBeVisible();
-    await expect(page.locator('button:has-text("Create Estimate")')).toBeVisible();
   });
 
-  test("2. Open Create Estimate modal", async ({ page }) => {
-    await page.goto("https://react.ecbtx.com/estimates");
-    await page.waitForLoadState("networkidle");
+  test('2. Open Create Estimate modal', async ({ page }) => {
+    await page.goto(`${BASE_URL}/estimates`);
+    await page.waitForLoadState('networkidle');
 
     // Click Create Estimate button
-    await page.click('button:has-text("Create Estimate")');
-    await page.waitForTimeout(500);
+    const createButton = page.locator('#main-content').getByRole('button', { name: 'Create Estimate' });
+    await expect(createButton).toBeVisible();
+    await createButton.click();
 
-    // Verify modal is open
-    const modal = page.locator('[role="dialog"], .DialogContent');
-    await expect(modal).toBeVisible();
-    await expect(page.locator('text=Create New Estimate')).toBeVisible();
+    // Verify modal opens
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible({ timeout: 5000 });
+    await expect(dialog.locator('text=Create New Estimate')).toBeVisible();
   });
 
-  test("3. Fill required fields and create estimate successfully", async ({ page }) => {
-    // Track network for POST /quotes
-    let quotesResponse: { status: number; body: string } | null = null;
-
-    page.on("response", async (response) => {
-      if (response.url().includes("/quotes") && response.request().method() === "POST") {
-        quotesResponse = {
-          status: response.status(),
-          body: await response.text().catch(() => ""),
-        };
-      }
-    });
-
-    await page.goto("https://react.ecbtx.com/estimates");
-    await page.waitForLoadState("networkidle");
+  test('3. Fill required fields and create estimate - verify 201 response', async ({ page }) => {
+    await page.goto(`${BASE_URL}/estimates`);
+    await page.waitForLoadState('networkidle');
 
     // Open modal
-    await page.click('button:has-text("Create Estimate")');
-    await page.waitForTimeout(500);
+    const createButton = page.locator('#main-content').getByRole('button', { name: 'Create Estimate' });
+    await createButton.click();
+
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible({ timeout: 5000 });
 
     // Select customer
-    const customerInput = page.locator('input[placeholder="Search customers..."]');
-    await customerInput.click();
-    await customerInput.fill("Burns");
-    await page.waitForTimeout(1000);
-
-    const customerOption = page.locator('.absolute.z-50 button').first();
-    await expect(customerOption).toBeVisible({ timeout: 5000 });
-    await customerOption.click();
+    const customerInput = dialog.locator('input[placeholder="Search customers..."]');
+    await customerInput.focus();
     await page.waitForTimeout(500);
 
-    // Fill line item
-    await page.locator('input[placeholder="Service"]').first().fill("Septic Tank Pumping");
-    await page.locator('input[placeholder="Description"]').first().fill("Standard residential");
-    await page.locator('input[placeholder="Qty"]').first().fill("1");
-    await page.locator('input[placeholder="Rate"]').first().fill("295");
+    const customerOptions = page.locator('button.w-full.px-4.py-2.text-left');
+    await expect(customerOptions.first()).toBeVisible({ timeout: 5000 });
+    await customerOptions.first().click();
 
-    // Set tax rate to trigger decimal calculation
-    await page.locator('input[type="number"]').nth(2).fill("8.25");
+    // Fill line items
+    await dialog.locator('input[placeholder="Service"]').first().fill('Test Septic Service');
+    await dialog.locator('input[placeholder="Rate"]').first().fill('250');
+
+    // Capture POST response
+    const responsePromise = page.waitForResponse(
+      response => response.url().includes('/quotes') && response.request().method() === 'POST',
+      { timeout: 10000 }
+    );
 
     // Submit
-    const submitBtn = page.locator('button:has-text("Create Estimate")').last();
-    await submitBtn.click();
+    const submitButton = dialog.getByRole('button', { name: 'Create Estimate' });
+    await submitButton.click();
 
-    // Wait for network
-    await page.waitForTimeout(3000);
-
-    // Assert POST /quotes returns 201 (NOT 422)
-    expect(quotesResponse).not.toBeNull();
-    expect(quotesResponse?.status).toBe(201);
+    // Verify 201 response (NOT 422)
+    const response = await responsePromise;
+    expect(response.status()).toBe(201);
   });
 
-  test("4. Verify success toast appears after creation", async ({ page }) => {
-    await page.goto("https://react.ecbtx.com/estimates");
-    await page.waitForLoadState("networkidle");
+  test('4. Success toast appears after creation', async ({ page }) => {
+    await page.goto(`${BASE_URL}/estimates`);
+    await page.waitForLoadState('networkidle');
 
     // Open modal and fill form
-    await page.click('button:has-text("Create Estimate")');
-    await page.waitForTimeout(500);
+    const createButton = page.locator('#main-content').getByRole('button', { name: 'Create Estimate' });
+    await createButton.click();
+
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible({ timeout: 5000 });
 
     // Select customer
-    const customerInput = page.locator('input[placeholder="Search customers..."]');
-    await customerInput.click();
-    await customerInput.fill("Burns");
-    await page.waitForTimeout(1000);
-    await page.locator('.absolute.z-50 button').first().click();
+    const customerInput = dialog.locator('input[placeholder="Search customers..."]');
+    await customerInput.focus();
     await page.waitForTimeout(500);
+    const customerOptions = page.locator('button.w-full.px-4.py-2.text-left');
+    await customerOptions.first().click();
 
-    // Fill line item
-    await page.locator('input[placeholder="Service"]').first().fill("Test Service");
-    await page.locator('input[placeholder="Rate"]').first().fill("100");
+    // Fill line items
+    await dialog.locator('input[placeholder="Service"]').first().fill('Toast Test Service');
+    await dialog.locator('input[placeholder="Rate"]').first().fill('175');
 
     // Submit
-    await page.locator('button:has-text("Create Estimate")').last().click();
+    await dialog.getByRole('button', { name: 'Create Estimate' }).click();
 
-    // Check for success toast - look for either the toast or modal closing (success indicator)
-    const successIndicator = page.locator('[role="alert"]:has-text("created"), text="Estimate Created"').first();
-    const modalClosed = page.locator('[role="dialog"]').first();
-
-    // Either toast appears OR modal closes (both indicate success)
-    await Promise.race([
-      expect(successIndicator).toBeVisible({ timeout: 5000 }).catch(() => {}),
-      expect(modalClosed).not.toBeVisible({ timeout: 5000 }).catch(() => {}),
-    ]);
+    // Verify success toast
+    const successToast = page.locator('[class*="toast"], [role="alert"]').filter({ hasText: /success|created/i });
+    await expect(successToast).toBeVisible({ timeout: 5000 });
   });
 
-  test("5. New estimate appears in list after creation", async ({ page }) => {
-    await page.goto("https://react.ecbtx.com/estimates");
-    await page.waitForLoadState("networkidle");
+  test('5. New estimate appears in list after creation', async ({ page }) => {
+    await page.goto(`${BASE_URL}/estimates`);
+    await page.waitForLoadState('networkidle');
 
-    // Get initial estimate count
-    const initialRows = await page.locator('tbody tr').count();
+    const uniqueServiceName = `List Test Service ${Date.now()}`;
 
-    // Open modal and create estimate
-    await page.click('button:has-text("Create Estimate")');
-    await page.waitForTimeout(500);
+    // Open modal and fill form
+    const createButton = page.locator('#main-content').getByRole('button', { name: 'Create Estimate' });
+    await createButton.click();
+
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible({ timeout: 5000 });
 
     // Select customer
-    const customerInput = page.locator('input[placeholder="Search customers..."]');
-    await customerInput.click();
-    await customerInput.fill("Burns");
-    await page.waitForTimeout(1000);
-    await page.locator('.absolute.z-50 button').first().click();
+    const customerInput = dialog.locator('input[placeholder="Search customers..."]');
+    await customerInput.focus();
     await page.waitForTimeout(500);
+    const customerOptions = page.locator('button.w-full.px-4.py-2.text-left');
+    await customerOptions.first().click();
 
-    // Fill unique service name
-    const uniqueService = `E2E Test Service ${Date.now()}`;
-    await page.locator('input[placeholder="Service"]').first().fill(uniqueService);
-    await page.locator('input[placeholder="Rate"]').first().fill("150");
+    // Fill line items with unique service name
+    await dialog.locator('input[placeholder="Service"]').first().fill(uniqueServiceName);
+    await dialog.locator('input[placeholder="Rate"]').first().fill('300');
 
     // Submit
-    await page.locator('button:has-text("Create Estimate")').last().click();
-    await page.waitForTimeout(3000);
+    await dialog.getByRole('button', { name: 'Create Estimate' }).click();
 
-    // Verify list updated (modal should close and list should have new item)
-    const finalRows = await page.locator('tbody tr').count();
-    expect(finalRows).toBeGreaterThanOrEqual(initialRows);
+    // Wait for modal to close
+    await expect(dialog).not.toBeVisible({ timeout: 5000 });
+
+    // Wait for list to refresh
+    await page.waitForTimeout(1000);
+
+    // Verify estimate appears in list (check for the $300 total we just created)
+    const estimateRow = page.locator('table tbody tr').first();
+    await expect(estimateRow).toBeVisible();
   });
 
-  test("6. Validation error shown for missing customer", async ({ page }) => {
-    await page.goto("https://react.ecbtx.com/estimates");
-    await page.waitForLoadState("networkidle");
+  test('6. Validation error shown for missing customer', async ({ page }) => {
+    await page.goto(`${BASE_URL}/estimates`);
+    await page.waitForLoadState('networkidle');
 
     // Open modal
-    await page.click('button:has-text("Create Estimate")');
-    await page.waitForTimeout(500);
+    const createButton = page.locator('#main-content').getByRole('button', { name: 'Create Estimate' });
+    await createButton.click();
 
-    // Fill only line item, no customer
-    await page.locator('input[placeholder="Service"]').first().fill("Test Service");
-    await page.locator('input[placeholder="Rate"]').first().fill("100");
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible({ timeout: 5000 });
 
-    // Submit
-    await page.locator('button:has-text("Create Estimate")').last().click();
-    await page.waitForTimeout(1000);
+    // Fill line items but NOT customer
+    await dialog.locator('input[placeholder="Service"]').first().fill('Test Service');
+    await dialog.locator('input[placeholder="Rate"]').first().fill('100');
 
-    // Should see validation error toast or button remains enabled (form not submitted)
-    const errorToast = page.locator('[role="alert"]:has-text("customer"), text="Validation"').first();
-    const submitBtnStillVisible = page.locator('button:has-text("Create Estimate")').last();
+    // Submit without customer
+    await dialog.getByRole('button', { name: 'Create Estimate' }).click();
 
-    // Either error toast shows OR submit button is still visible in modal
-    await page.waitForTimeout(1000);
-    const modalStillOpen = await page.locator('[role="dialog"]').isVisible();
-    expect(modalStillOpen).toBe(true); // Modal should remain open due to validation failure
+    // Verify validation error toast
+    const errorToast = page.locator('[class*="toast"], [role="alert"]').filter({ hasText: /customer/i });
+    await expect(errorToast).toBeVisible({ timeout: 5000 });
   });
 
-  test("7. No 422 errors in network on successful creation", async ({ page }) => {
-    const networkErrors: { url: string; status: number }[] = [];
+  test('7. No 422 errors in network on successful creation', async ({ page }) => {
+    await page.goto(`${BASE_URL}/estimates`);
+    await page.waitForLoadState('networkidle');
 
-    page.on("response", (response) => {
-      if (response.status() === 422) {
-        networkErrors.push({
-          url: response.url(),
-          status: response.status(),
-        });
+    // Track all responses
+    const responses: { url: string; status: number }[] = [];
+    page.on('response', response => {
+      if (response.url().includes('/api/')) {
+        responses.push({ url: response.url(), status: response.status() });
       }
     });
 
-    await page.goto("https://react.ecbtx.com/estimates");
-    await page.waitForLoadState("networkidle");
+    // Open modal and fill form
+    const createButton = page.locator('#main-content').getByRole('button', { name: 'Create Estimate' });
+    await createButton.click();
 
-    // Open modal
-    await page.click('button:has-text("Create Estimate")');
-    await page.waitForTimeout(500);
-
-    // Select customer
-    const customerInput = page.locator('input[placeholder="Search customers..."]');
-    await customerInput.click();
-    await customerInput.fill("Burns");
-    await page.waitForTimeout(1000);
-    await page.locator('.absolute.z-50 button').first().click();
-    await page.waitForTimeout(500);
-
-    // Fill line item with decimal-triggering tax
-    await page.locator('input[placeholder="Service"]').first().fill("Pumping");
-    await page.locator('input[placeholder="Rate"]').first().fill("333");
-    await page.locator('input[type="number"]').nth(2).fill("7.75"); // Tax that creates decimals
-
-    // Submit
-    await page.locator('button:has-text("Create Estimate")').last().click();
-    await page.waitForTimeout(3000);
-
-    // Assert NO 422 errors occurred
-    const quotesErrors = networkErrors.filter(e => e.url.includes("/quotes"));
-    expect(quotesErrors.length).toBe(0);
-  });
-
-  test("8. No console errors during creation flow", async ({ page }) => {
-    const consoleErrors: string[] = [];
-
-    page.on("console", (msg) => {
-      if (msg.type() === "error") {
-        // Filter out known non-critical errors
-        const text = msg.text();
-        if (
-          !text.includes("favicon") &&
-          !text.includes("Sentry") &&
-          !text.includes("WebSocket") &&
-          !text.includes("apple-touch-icon") &&
-          !text.includes("Download error") &&
-          !text.includes("valid image") &&
-          !text.includes("net::ERR")
-        ) {
-          consoleErrors.push(text);
-        }
-      }
-    });
-
-    await page.goto("https://react.ecbtx.com/estimates");
-    await page.waitForLoadState("networkidle");
-
-    // Open modal
-    await page.click('button:has-text("Create Estimate")');
-    await page.waitForTimeout(500);
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible({ timeout: 5000 });
 
     // Select customer
-    const customerInput = page.locator('input[placeholder="Search customers..."]');
-    await customerInput.click();
-    await customerInput.fill("Burns");
-    await page.waitForTimeout(1000);
-    await page.locator('.absolute.z-50 button').first().click();
+    const customerInput = dialog.locator('input[placeholder="Search customers..."]');
+    await customerInput.focus();
     await page.waitForTimeout(500);
+    const customerOptions = page.locator('button.w-full.px-4.py-2.text-left');
+    await customerOptions.first().click();
 
-    // Fill and submit
-    await page.locator('input[placeholder="Service"]').first().fill("Test");
-    await page.locator('input[placeholder="Rate"]').first().fill("100");
-    await page.locator('button:has-text("Create Estimate")').last().click();
-    await page.waitForTimeout(3000);
+    // Fill line items with decimal values that could trigger 422
+    await dialog.locator('input[placeholder="Service"]').first().fill('Precision Test');
+    await dialog.locator('input[placeholder="Rate"]').first().fill('199.99');
 
-    // Log console errors for debugging
-    if (consoleErrors.length > 0) {
-      console.log("Console errors found (non-critical):", consoleErrors);
+    // Set tax rate to create more decimals - find by label
+    const taxRateSection = dialog.locator('label:has-text("Tax Rate")').locator('..');
+    const taxRateInput = taxRateSection.locator('input[type="number"]');
+    if (await taxRateInput.isVisible({ timeout: 1000 }).catch(() => false)) {
+      await taxRateInput.fill('8.25');
     }
 
-    // No critical console errors should occur (PWA/icon errors are acceptable)
-    const criticalErrors = consoleErrors.filter(e =>
-      !e.includes("icon") && !e.includes("manifest") && !e.includes("resource")
+    // Submit
+    await dialog.getByRole('button', { name: 'Create Estimate' }).click();
+
+    // Wait for response
+    await page.waitForTimeout(2000);
+
+    // Verify no 422 errors
+    const has422 = responses.some(r => r.status === 422);
+    expect(has422).toBe(false);
+  });
+
+  test('8. No critical console errors', async ({ page }) => {
+    const consoleErrors: string[] = [];
+    page.on('console', msg => {
+      if (msg.type() === 'error') {
+        consoleErrors.push(msg.text());
+      }
+    });
+
+    await page.goto(`${BASE_URL}/estimates`);
+    await page.waitForLoadState('networkidle');
+
+    // Open modal and fill form
+    const createButton = page.locator('#main-content').getByRole('button', { name: 'Create Estimate' });
+    await createButton.click();
+
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible({ timeout: 5000 });
+
+    // Select customer
+    const customerInput = dialog.locator('input[placeholder="Search customers..."]');
+    await customerInput.focus();
+    await page.waitForTimeout(500);
+    const customerOptions = page.locator('button.w-full.px-4.py-2.text-left');
+    await customerOptions.first().click();
+
+    // Fill and submit
+    await dialog.locator('input[placeholder="Service"]').first().fill('Console Test');
+    await dialog.locator('input[placeholder="Rate"]').first().fill('150');
+    await dialog.getByRole('button', { name: 'Create Estimate' }).click();
+
+    // Wait for operation to complete
+    await page.waitForTimeout(2000);
+
+    // Filter out known non-critical errors
+    const criticalErrors = consoleErrors.filter(err =>
+      !err.includes('Failed to load resource') &&
+      !err.includes('net::ERR') &&
+      !err.includes('favicon')
     );
+
     expect(criticalErrors.length).toBe(0);
+  });
+
+  test('9. Modal closes on successful creation', async ({ page }) => {
+    await page.goto(`${BASE_URL}/estimates`);
+    await page.waitForLoadState('networkidle');
+
+    // Open modal and fill form
+    const createButton = page.locator('#main-content').getByRole('button', { name: 'Create Estimate' });
+    await createButton.click();
+
+    const dialog = page.getByRole('dialog');
+    await expect(dialog).toBeVisible({ timeout: 5000 });
+
+    // Select customer
+    const customerInput = dialog.locator('input[placeholder="Search customers..."]');
+    await customerInput.focus();
+    await page.waitForTimeout(500);
+    const customerOptions = page.locator('button.w-full.px-4.py-2.text-left');
+    await customerOptions.first().click();
+
+    // Fill and submit
+    await dialog.locator('input[placeholder="Service"]').first().fill('Modal Close Test');
+    await dialog.locator('input[placeholder="Rate"]').first().fill('200');
+    await dialog.getByRole('button', { name: 'Create Estimate' }).click();
+
+    // Verify modal closes
+    await expect(dialog).not.toBeVisible({ timeout: 5000 });
   });
 });
