@@ -54,7 +54,7 @@ async function isOnLoginPage(page: Page): Promise<boolean> {
 }
 
 test.describe('All Features Navigation Tests', () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page, context }) => {
     // Set up auth cookie if provided
     if (process.env.AUTH_COOKIE) {
       await page.context().addCookies([
@@ -66,6 +66,17 @@ test.describe('All Features Navigation Tests', () => {
         },
       ]);
     }
+
+    // Add init script that runs BEFORE page JavaScript
+    // This ensures session_state is in sessionStorage before the app checks auth
+    await context.addInitScript(() => {
+      // Restore session_state from localStorage to sessionStorage
+      // This runs before React/the app loads
+      const sessionState = localStorage.getItem('session_state');
+      if (sessionState) {
+        sessionStorage.setItem('session_state', sessionState);
+      }
+    });
 
     // Navigate to base URL first to set localStorage in correct origin
     await page.goto(BASE_URL);
@@ -133,7 +144,7 @@ test.describe('All Features Navigation Tests', () => {
 });
 
 test.describe('Sidebar Navigation Tests', () => {
-  test.beforeEach(async ({ page }) => {
+  test.beforeEach(async ({ page, context }) => {
     if (process.env.AUTH_COOKIE) {
       await page.context().addCookies([
         {
@@ -144,6 +155,11 @@ test.describe('Sidebar Navigation Tests', () => {
         },
       ]);
     }
+    // Add init script to restore session_state before page JS runs
+    await context.addInitScript(() => {
+      const sessionState = localStorage.getItem('session_state');
+      if (sessionState) sessionStorage.setItem('session_state', sessionState);
+    });
   });
 
   test('all sidebar links are visible and clickable', async ({ page }) => {
@@ -225,6 +241,14 @@ test.describe('Root URL Redirect', () => {
 });
 
 test.describe('404 Page Tests', () => {
+  test.beforeEach(async ({ context }) => {
+    // Add init script to restore session_state before page JS runs
+    await context.addInitScript(() => {
+      const sessionState = localStorage.getItem('session_state');
+      if (sessionState) sessionStorage.setItem('session_state', sessionState);
+    });
+  });
+
   test('404 page shows correct content', async ({ page }) => {
     await page.goto(`${BASE_URL}/nonexistent-page-xyz`);
 
