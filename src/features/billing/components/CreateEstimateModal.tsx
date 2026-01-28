@@ -122,19 +122,36 @@ export function CreateEstimateModal({
     } catch (error: unknown) {
       console.error("Failed to create estimate:", error);
 
-      // Extract error message from 422 response
+      // Extract error message from 422 response with field-level details
       let errorMessage = "Failed to create estimate. Please try again.";
       if (error && typeof error === "object" && "response" in error) {
-        const axiosError = error as { response?: { data?: { detail?: string | Array<{ msg: string }> } } };
+        const axiosError = error as {
+          response?: {
+            status?: number;
+            data?: {
+              detail?: string | Array<{ loc?: string[]; msg: string; type?: string }>;
+            };
+          };
+        };
+        const status = axiosError.response?.status;
         const detail = axiosError.response?.data?.detail;
-        if (typeof detail === "string") {
+
+        if (status === 422 && Array.isArray(detail) && detail.length > 0) {
+          // Pydantic validation errors - extract field names from loc array
+          errorMessage = detail
+            .map((d) => {
+              const field = d.loc?.slice(1).join(" > ") || "field";
+              return `${field}: ${d.msg}`;
+            })
+            .join("; ");
+        } else if (typeof detail === "string") {
           errorMessage = detail;
         } else if (Array.isArray(detail) && detail.length > 0) {
           errorMessage = detail.map((d) => d.msg).join(", ");
         }
       }
 
-      toastError("Error", errorMessage);
+      toastError("Validation Error", errorMessage);
     }
   };
 

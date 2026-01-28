@@ -1,45 +1,49 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import { useQuery, useQueryClient } from "@tanstack/react-query";
-import { apiClient } from "@/api/client";
+import { useQueryClient } from "@tanstack/react-query";
+import { useQuotes } from "@/api/hooks/useQuotes";
+import { type Quote } from "@/api/types/quote";
 import { useAIGenerate } from "@/hooks/useAI";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { CreateEstimateModal } from "../components/CreateEstimateModal";
-
-interface Estimate {
-  id: number;
-  customer_name: string;
-  customer_email: string;
-  total: number;
-  status: string;
-  created_at: string;
-  valid_until: string;
-}
 
 /**
  * Clickable Estimate Row Component
  * Makes the entire row clickable to navigate to estimate details
  */
 function EstimateRow({
-  estimate,
+  quote,
   getStatusColor,
 }: {
-  estimate: Estimate;
+  quote: Quote;
   getStatusColor: (status: string) => string;
 }) {
   const navigate = useNavigate();
 
   const handleRowClick = () => {
-    navigate(`/estimates/${estimate.id}`);
+    navigate(`/estimates/${quote.id}`);
   };
 
   const handleKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Enter" || e.key === " ") {
       e.preventDefault();
-      navigate(`/estimates/${estimate.id}`);
+      navigate(`/estimates/${quote.id}`);
     }
   };
+
+  // Extract customer display info
+  const customerName = quote.customer_name ||
+    (quote.customer ? `${quote.customer.first_name} ${quote.customer.last_name}` : "Unknown Customer");
+  const customerEmail = quote.customer?.email || "";
+
+  // Format dates for display
+  const createdAt = quote.created_at
+    ? new Date(quote.created_at).toLocaleDateString()
+    : "";
+  const validUntil = quote.valid_until
+    ? new Date(quote.valid_until).toLocaleDateString()
+    : "";
 
   return (
     <tr
@@ -48,36 +52,36 @@ function EstimateRow({
       onKeyDown={handleKeyDown}
       tabIndex={0}
       role="button"
-      aria-label={`View estimate for ${estimate.customer_name || "customer"}`}
+      aria-label={`View estimate for ${customerName}`}
     >
       <td className="px-4 py-3">
         <div>
           <p className="font-medium text-text-primary">
-            {estimate.customer_name}
+            {customerName}
           </p>
-          <p className="text-sm text-text-muted">{estimate.customer_email}</p>
+          <p className="text-sm text-text-muted">{customerEmail}</p>
         </div>
       </td>
       <td className="px-4 py-3 font-medium text-text-primary">
-        ${estimate.total?.toLocaleString() || "0"}
+        ${quote.total?.toLocaleString() || "0"}
       </td>
       <td className="px-4 py-3">
         <span
-          className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(estimate.status)}`}
+          className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(quote.status)}`}
         >
-          {estimate.status}
+          {quote.status}
         </span>
       </td>
       <td className="px-4 py-3 text-sm text-text-muted">
-        {estimate.created_at}
+        {createdAt}
       </td>
       <td className="px-4 py-3 text-sm text-text-muted">
-        {estimate.valid_until}
+        {validUntil}
       </td>
       <td className="px-4 py-3 text-right">
         <div onClick={(e) => e.stopPropagation()}>
           <Link
-            to={`/estimates/${estimate.id}`}
+            to={`/estimates/${quote.id}`}
             className="text-primary hover:underline text-sm"
           >
             View
@@ -324,19 +328,10 @@ export function EstimatesPage() {
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const queryClient = useQueryClient();
 
-  const { data: estimates, isLoading } = useQuery({
-    queryKey: ["estimates", filter],
-    queryFn: async () => {
-      try {
-        const response = await apiClient.get("/estimates", {
-          params: { status: filter !== "all" ? filter : undefined },
-        });
-        return response.data.items || response.data || [];
-      } catch {
-        return [];
-      }
-    },
+  const { data: quotesData, isLoading } = useQuotes({
+    status: filter !== "all" ? filter : undefined,
   });
+  const estimates = quotesData?.items || [];
 
   const getStatusColor = (status: string) => {
     switch (status?.toLowerCase()) {
@@ -432,10 +427,10 @@ export function EstimatesPage() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-border">
-                {estimates?.map((estimate: Estimate) => (
+                {estimates?.map((quote: Quote) => (
                   <EstimateRow
-                    key={estimate.id}
-                    estimate={estimate}
+                    key={quote.id}
+                    quote={quote}
                     getStatusColor={getStatusColor}
                   />
                 ))}
@@ -450,7 +445,6 @@ export function EstimatesPage() {
         open={isCreateModalOpen}
         onClose={() => setIsCreateModalOpen(false)}
         onSuccess={() => {
-          queryClient.invalidateQueries({ queryKey: ["estimates"] });
           queryClient.invalidateQueries({ queryKey: ["quotes"] });
         }}
       />
