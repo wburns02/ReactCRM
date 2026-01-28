@@ -4,6 +4,12 @@ import { LoginPage } from "@/features/auth/LoginPage.tsx";
 import { PageLoader, WidgetWrapper } from "../utils";
 
 // Lazy-loaded public components
+const LandingPage = lazy(() =>
+  import("@/features/landing/index.ts").then((m) => ({
+    default: m.LandingPage,
+  }))
+);
+
 const CustomerTrackingPage = lazy(() =>
   import("@/features/tracking/index.ts").then((m) => ({
     default: m.CustomerTrackingPage,
@@ -36,11 +42,21 @@ const StatusWidget = lazy(() =>
 
 /**
  * Public routes - no authentication required
- * Includes: login, embeddable widgets, tracking, public payment
+ * Includes: landing page, login, embeddable widgets, tracking, public payment
  */
 export function PublicRoutes() {
   return (
     <>
+      {/* Public landing page - customer-facing lead capture */}
+      <Route
+        path="/home"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <LandingPage />
+          </Suspense>
+        }
+      />
+
       {/* Public login route */}
       <Route path="/login" element={<LoginPage />} />
 
