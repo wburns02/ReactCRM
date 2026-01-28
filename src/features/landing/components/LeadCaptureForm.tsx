@@ -4,8 +4,10 @@ import { useLeadSubmit } from "../hooks/useLeadSubmit";
 import {
   leadFormSchema,
   SERVICE_OPTIONS,
+  PREFERRED_TIME_OPTIONS,
   type UTMParams,
   type LeadSubmitData,
+  type PreferredTime,
 } from "../types/lead";
 
 // Form input types (match the schema)
@@ -15,6 +17,7 @@ interface FormInputs {
   email?: string;
   phone: string;
   service_type: "pumping" | "inspection" | "repair" | "installation" | "emergency" | "other";
+  preferred_time?: PreferredTime;
   address?: string;
   message?: string;
   sms_consent?: boolean;
@@ -30,6 +33,7 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
     handleSubmit,
     formState: { errors },
     reset,
+    watch,
   } = useForm<FormInputs>({
     resolver: zodResolver(leadFormSchema),
     defaultValues: {
@@ -37,11 +41,14 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
       last_name: "",
       email: "",
       phone: "",
+      preferred_time: undefined,
       address: "",
       message: "",
       sms_consent: false,
     },
   });
+
+  const selectedTime = watch("preferred_time");
 
   const { mutate: submitLead, isPending, isSuccess, isError } = useLeadSubmit();
 
@@ -106,6 +113,7 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
             {...register("first_name")}
             type="text"
             placeholder="John"
+            autoComplete="given-name"
             className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors ${
               errors.first_name ? "border-red-500" : "border-gray-300"
             }`}
@@ -124,6 +132,7 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
             {...register("last_name")}
             type="text"
             placeholder="Smith"
+            autoComplete="family-name"
             className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors ${
               errors.last_name ? "border-red-500" : "border-gray-300"
             }`}
@@ -146,6 +155,7 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
             {...register("phone")}
             type="tel"
             placeholder="(555) 123-4567"
+            autoComplete="tel"
             className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors ${
               errors.phone ? "border-red-500" : "border-gray-300"
             }`}
@@ -162,6 +172,7 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
             {...register("email")}
             type="email"
             placeholder="john@example.com"
+            autoComplete="email"
             className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors ${
               errors.email ? "border-red-500" : "border-gray-300"
             }`}
@@ -195,6 +206,35 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
             {errors.service_type.message}
           </p>
         )}
+      </div>
+
+      {/* Preferred Time - Quick Select */}
+      <div>
+        <label className="block text-sm font-medium text-gray-700 mb-2">
+          When do you need service?{" "}
+          <span className="text-gray-400 font-normal">(optional)</span>
+        </label>
+        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
+          {PREFERRED_TIME_OPTIONS.map((option) => (
+            <label
+              key={option.value}
+              className={`flex items-center justify-center gap-2 px-3 py-2.5 border rounded-lg cursor-pointer transition-all text-sm font-medium ${
+                selectedTime === option.value
+                  ? "border-primary bg-primary/10 text-primary"
+                  : "border-gray-200 hover:border-gray-300 text-gray-700 hover:bg-gray-50"
+              }`}
+            >
+              <input
+                type="radio"
+                {...register("preferred_time")}
+                value={option.value}
+                className="sr-only"
+              />
+              <span>{option.icon}</span>
+              <span>{option.label}</span>
+            </label>
+          ))}
+        </div>
       </div>
 
       {/* Address */}

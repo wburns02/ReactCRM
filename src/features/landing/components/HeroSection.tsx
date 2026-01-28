@@ -24,6 +24,19 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
         <div className="grid lg:grid-cols-2 gap-12 items-center">
           {/* Left: Content */}
           <div className="text-white">
+            {/* MAC Septic Logo/Brand */}
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-lg">
+                <svg className="w-10 h-10 text-mac-dark-blue" viewBox="0 0 24 24" fill="currentColor">
+                  <path d="M19 8h-1V6c0-1.1-.9-2-2-2H8C6.9 4 6 4.9 6 6v2H5c-1.1 0-2 .9-2 2v5h2v5h14v-5h2v-5c0-1.1-.9-2-2-2zM8 6h8v2H8V6zm9 14H7v-3h10v3zm2-5H5v-3c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v3z"/>
+                </svg>
+              </div>
+              <div>
+                <h2 className="text-2xl font-bold tracking-tight">MAC Septic</h2>
+                <p className="text-sm text-blue-200">Central Texas Experts</p>
+              </div>
+            </div>
+
             {/* Badge */}
             <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur px-4 py-2 rounded-full text-sm mb-6">
               <span className="w-2 h-2 bg-green-400 rounded-full animate-pulse" />
@@ -34,7 +47,7 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
               Fast, Reliable{" "}
               <span className="text-mac-light-blue">Septic Service</span> in
-              East Central Texas
+              Central Texas
             </h1>
 
             {/* Subheadline */}
