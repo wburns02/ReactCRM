@@ -29,14 +29,14 @@ test.describe("Customer View from Invoice Detail", () => {
     await expect(page.locator('h1:has-text("Invoices")')).toBeVisible();
 
     // Click on first invoice row to view details
-    const firstInvoiceLink = page.locator('tbody tr a, tbody tr').first();
+    const firstInvoiceLink = page.locator('tbody tr a[href^="/invoices/"]').first();
     await firstInvoiceLink.click();
 
-    // Wait for invoice detail page
-    await page.waitForURL(/.*\/invoices\/\d+/, { timeout: 10000 });
+    // Wait for invoice detail page (UUIDs or any ID format)
+    await page.waitForURL(/.*\/invoices\/[^\/]+/, { timeout: 10000 });
 
-    // Verify we're on invoice detail page
-    await expect(page.locator('text=Customer')).toBeVisible();
+    // Verify we're on invoice detail page by checking for View Customer button
+    await expect(page.getByRole("button", { name: /view customer/i })).toBeVisible({ timeout: 5000 });
   });
 
   test("2. Click View Customer button", async ({ page }) => {
@@ -44,17 +44,17 @@ test.describe("Customer View from Invoice Detail", () => {
     await page.goto("https://react.ecbtx.com/invoices");
     await page.waitForLoadState("networkidle");
 
-    const firstInvoiceLink = page.locator('tbody tr a, tbody tr').first();
+    const firstInvoiceLink = page.locator('tbody tr a[href^="/invoices/"]').first();
     await firstInvoiceLink.click();
-    await page.waitForURL(/.*\/invoices\/\d+/, { timeout: 10000 });
+    await page.waitForURL(/.*\/invoices\/[^\/]+/, { timeout: 10000 });
 
     // Find and click View Customer button
     const viewCustomerBtn = page.getByRole("button", { name: /view customer/i });
     await expect(viewCustomerBtn).toBeVisible({ timeout: 5000 });
     await viewCustomerBtn.click();
 
-    // Should navigate to customer detail page
-    await page.waitForURL(/.*\/customers\/\d+/, { timeout: 10000 });
+    // Should navigate to customer detail page (UUIDs or integer IDs)
+    await page.waitForURL(/.*\/customers\/[^\/]+/, { timeout: 10000 });
   });
 
   test("3. Customer detail page loads with customer data", async ({ page }) => {
@@ -62,13 +62,13 @@ test.describe("Customer View from Invoice Detail", () => {
     await page.goto("https://react.ecbtx.com/invoices");
     await page.waitForLoadState("networkidle");
 
-    const firstInvoiceLink = page.locator('tbody tr a, tbody tr').first();
+    const firstInvoiceLink = page.locator('tbody tr a[href^="/invoices/"]').first();
     await firstInvoiceLink.click();
-    await page.waitForURL(/.*\/invoices\/\d+/, { timeout: 10000 });
+    await page.waitForURL(/.*\/invoices\/[^\/]+/, { timeout: 10000 });
 
     const viewCustomerBtn = page.getByRole("button", { name: /view customer/i });
     await viewCustomerBtn.click();
-    await page.waitForURL(/.*\/customers\/\d+/, { timeout: 10000 });
+    await page.waitForURL(/.*\/customers\/[^\/]+/, { timeout: 10000 });
     await page.waitForLoadState("networkidle");
 
     // Verify customer detail page shows customer data
@@ -88,7 +88,7 @@ test.describe("Customer View from Invoice Detail", () => {
     page.on("response", async (response) => {
       if (response.url().includes("/customers/") && response.request().method() === "GET") {
         // Capture the specific customer detail request, not list
-        if (response.url().match(/\/customers\/\d+$/)) {
+        if (response.url().match(/\/customers\/[^\/\?]+$/)) {
           customerApiStatus = response.status();
           customerApiUrl = response.url();
         }
@@ -99,13 +99,13 @@ test.describe("Customer View from Invoice Detail", () => {
     await page.goto("https://react.ecbtx.com/invoices");
     await page.waitForLoadState("networkidle");
 
-    const firstInvoiceLink = page.locator('tbody tr a, tbody tr').first();
+    const firstInvoiceLink = page.locator('tbody tr a[href^="/invoices/"]').first();
     await firstInvoiceLink.click();
-    await page.waitForURL(/.*\/invoices\/\d+/, { timeout: 10000 });
+    await page.waitForURL(/.*\/invoices\/[^\/]+/, { timeout: 10000 });
 
     const viewCustomerBtn = page.getByRole("button", { name: /view customer/i });
     await viewCustomerBtn.click();
-    await page.waitForURL(/.*\/customers\/\d+/, { timeout: 10000 });
+    await page.waitForURL(/.*\/customers\/[^\/]+/, { timeout: 10000 });
     await page.waitForLoadState("networkidle");
 
     // Wait for API to complete
@@ -135,13 +135,13 @@ test.describe("Customer View from Invoice Detail", () => {
     await page.goto("https://react.ecbtx.com/invoices");
     await page.waitForLoadState("networkidle");
 
-    const firstInvoiceLink = page.locator('tbody tr a, tbody tr').first();
+    const firstInvoiceLink = page.locator('tbody tr a[href^="/invoices/"]').first();
     await firstInvoiceLink.click();
-    await page.waitForURL(/.*\/invoices\/\d+/, { timeout: 10000 });
+    await page.waitForURL(/.*\/invoices\/[^\/]+/, { timeout: 10000 });
 
     const viewCustomerBtn = page.getByRole("button", { name: /view customer/i });
     await viewCustomerBtn.click();
-    await page.waitForURL(/.*\/customers\/\d+/, { timeout: 10000 });
+    await page.waitForURL(/.*\/customers\/[^\/]+/, { timeout: 10000 });
     await page.waitForLoadState("networkidle");
 
     // No 422 errors should have occurred
@@ -172,13 +172,13 @@ test.describe("Customer View from Invoice Detail", () => {
     await page.goto("https://react.ecbtx.com/invoices");
     await page.waitForLoadState("networkidle");
 
-    const firstInvoiceLink = page.locator('tbody tr a, tbody tr').first();
+    const firstInvoiceLink = page.locator('tbody tr a[href^="/invoices/"]').first();
     await firstInvoiceLink.click();
-    await page.waitForURL(/.*\/invoices\/\d+/, { timeout: 10000 });
+    await page.waitForURL(/.*\/invoices\/[^\/]+/, { timeout: 10000 });
 
     const viewCustomerBtn = page.getByRole("button", { name: /view customer/i });
     await viewCustomerBtn.click();
-    await page.waitForURL(/.*\/customers\/\d+/, { timeout: 10000 });
+    await page.waitForURL(/.*\/customers\/[^\/]+/, { timeout: 10000 });
     await page.waitForLoadState("networkidle");
 
     // Filter critical errors
