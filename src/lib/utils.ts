@@ -47,3 +47,16 @@ export function formatPhone(phone: string | null | undefined): string {
   // Return original if not 10 digits
   return phone;
 }
+
+/**
+ * Check if a value is a valid entity ID (non-null, non-undefined, not "null"/"undefined" strings)
+ * Returns true if the ID can be safely used in API calls and URLs
+ */
+export function isValidId(id: string | number | null | undefined): id is string | number {
+  if (id === null || id === undefined) return false;
+  if (typeof id === 'string') {
+    const normalized = id.trim().toLowerCase();
+    return normalized !== '' && normalized !== 'null' && normalized !== 'undefined';
+  }
+  return typeof id === 'number' && !isNaN(id) && isFinite(id);
+}
