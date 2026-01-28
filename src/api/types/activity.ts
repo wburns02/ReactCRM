@@ -60,7 +60,7 @@ export interface ActivityFilters {
  * Create/update activity request
  */
 export const activityFormSchema = z.object({
-  customer_id: z.string().uuid(),
+  customer_id: z.string().min(1, "Customer ID is required"),
   activity_type: activityTypeSchema,
   description: z.string().min(1, "Description is required"),
   activity_date: z.string().optional(),

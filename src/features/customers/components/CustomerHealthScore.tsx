@@ -1,6 +1,7 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import { useWorkOrders } from "@/api/hooks/useWorkOrders.ts";
 import { usePayments } from "@/api/hooks/usePayments.ts";
+import { useUpdateCustomer } from "@/api/hooks/useCustomers.ts";
 import {
   Card,
   CardHeader,
@@ -9,7 +10,18 @@ import {
 } from "@/components/ui/Card.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
 import { Button } from "@/components/ui/Button.tsx";
+import { Input } from "@/components/ui/Input.tsx";
+import { Label } from "@/components/ui/Label.tsx";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@/components/ui/Dialog.tsx";
 import { cn, formatCurrency, formatDate } from "@/lib/utils.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
+import { EmailComposeModal } from "@/features/communications/components/EmailComposeModal.tsx";
 import type { Customer } from "@/api/types/customer.ts";
 import type { WorkOrder } from "@/api/types/workOrder.ts";
 import type { Payment } from "@/api/types/payment.ts";
@@ -304,6 +316,29 @@ export function CustomerHealthScore({
   customer,
   className,
 }: CustomerHealthScoreProps) {
+  // Modal state
+  const [showFollowupModal, setShowFollowupModal] = useState(false);
+  const [showEmailModal, setShowEmailModal] = useState(false);
+  const [followupDate, setFollowupDate] = useState(
+    customer.next_follow_up_date || new Date().toISOString().split("T")[0]
+  );
+
+  // Update customer mutation for scheduling follow-up
+  const updateCustomer = useUpdateCustomer();
+
+  const handleScheduleFollowup = async () => {
+    try {
+      await updateCustomer.mutateAsync({
+        id: String(customer.id),
+        data: { next_follow_up_date: followupDate },
+      });
+      toastSuccess("Follow-up Scheduled", `Follow-up scheduled for ${formatDate(followupDate)}`);
+      setShowFollowupModal(false);
+    } catch (error) {
+      toastError("Failed to Schedule", "Could not schedule follow-up. Please try again.");
+    }
+  };
+
   // Fetch work orders and payments for this customer
   const { data: workOrdersData } = useWorkOrders({
     page: 1,
@@ -506,14 +541,72 @@ export function CustomerHealthScore({
 
         {/* Quick Actions */}
         <div className="flex gap-2 mt-4 pt-4 border-t border-border">
-          <Button size="sm" variant="secondary">
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={() => setShowFollowupModal(true)}
+          >
             Schedule Follow-up
           </Button>
-          <Button size="sm" variant="secondary">
+          <Button
+            size="sm"
+            variant="secondary"
+            onClick={() => setShowEmailModal(true)}
+            disabled={!customer.email}
+          >
             Send Email
           </Button>
         </div>
       </CardContent>
+
+      {/* Schedule Follow-up Modal */}
+      <Dialog open={showFollowupModal} onClose={() => setShowFollowupModal(false)}>
+        <DialogContent size="sm">
+          <DialogHeader onClose={() => setShowFollowupModal(false)}>
+            Schedule Follow-up
+          </DialogHeader>
+          <DialogBody>
+            <div className="space-y-4">
+              <p className="text-sm text-text-secondary">
+                Set a follow-up date for {customer.first_name} {customer.last_name}
+              </p>
+              <div className="space-y-2">
+                <Label htmlFor="followup_date">Follow-up Date</Label>
+                <Input
+                  id="followup_date"
+                  type="date"
+                  value={followupDate}
+                  onChange={(e) => setFollowupDate(e.target.value)}
+                  min={new Date().toISOString().split("T")[0]}
+                />
+              </div>
+            </div>
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              variant="secondary"
+              onClick={() => setShowFollowupModal(false)}
+            >
+              Cancel
+            </Button>
+            <Button
+              onClick={handleScheduleFollowup}
+              disabled={updateCustomer.isPending || !followupDate}
+            >
+              {updateCustomer.isPending ? "Scheduling..." : "Schedule"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Email Compose Modal */}
+      <EmailComposeModal
+        open={showEmailModal}
+        onClose={() => setShowEmailModal(false)}
+        defaultEmail={customer.email || ""}
+        customerId={String(customer.id)}
+        customerName={`${customer.first_name} ${customer.last_name}`}
+      />
     </Card>
   );
 }
