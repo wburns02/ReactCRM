@@ -35,7 +35,7 @@ export function useActivities(filters: ActivityFilters = {}) {
       if (filters.activity_type)
         params.set("activity_type", filters.activity_type);
 
-      const { data } = await apiClient.get(`/activities/?${params.toString()}`);
+      const { data } = await apiClient.get(`/activities?${params.toString()}`);
 
       // Validate response in development
       if (import.meta.env.DEV) {
@@ -84,7 +84,7 @@ export function useCreateActivity() {
 
   return useMutation({
     mutationFn: async (data: ActivityFormData): Promise<Activity> => {
-      const response = await apiClient.post("/activities/", data);
+      const response = await apiClient.post("/activities", data);
       return response.data;
     },
     onSuccess: () => {

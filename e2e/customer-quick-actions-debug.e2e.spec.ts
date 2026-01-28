@@ -14,74 +14,79 @@ test.describe("Customer Quick Actions Debug", () => {
     // Navigate directly to a customer detail page
     await page.goto("/customers/1");
     await page.waitForLoadState("networkidle");
-    await page.waitForTimeout(2000); // Wait for page to fully render
+    await page.waitForTimeout(2000);
 
     console.log("=== CUSTOMER DETAIL PAGE LOADED ===");
     console.log("URL:", page.url());
 
-    // Look for Quick Actions section
-    const quickActionsHeading = page.locator('text="Quick Actions"');
-    const quickActionsCount = await quickActionsHeading.count();
-    console.log("Quick Actions sections found:", quickActionsCount);
-
-    // Look for Schedule Follow-up button anywhere
+    // Look for Schedule Follow-up button
     const scheduleFollowUpBtn = page.locator('button:has-text("Schedule Follow-up"), button:has-text("Schedule Follow-Up")');
     const scheduleFollowUpCount = await scheduleFollowUpBtn.count();
     console.log("Schedule Follow-up buttons found:", scheduleFollowUpCount);
 
-    // Look for Send Email button anywhere
+    // Look for Send Email button
     const sendEmailBtn = page.locator('button:has-text("Send Email")');
     const sendEmailCount = await sendEmailBtn.count();
     console.log("Send Email buttons found:", sendEmailCount);
 
-    // Look for Log Activity button anywhere
+    // Look for Log Activity button
     const logActivityBtn = page.locator('button:has-text("Log Activity")');
     const logActivityCount = await logActivityBtn.count();
     console.log("Log Activity buttons found:", logActivityCount);
 
-    // Try clicking Schedule Follow-up if it exists
+    // Test Schedule Follow-up
     if (scheduleFollowUpCount > 0) {
       console.log("\n=== Testing Schedule Follow-up ===");
       await scheduleFollowUpBtn.first().click();
       await page.waitForTimeout(1000);
 
-      // Check for any modal or dialog
-      const modal = page.locator('[role="dialog"], .modal, [data-state="open"]');
+      const modal = page.locator('[role="dialog"]');
       const modalCount = await modal.count();
-      console.log("Modals opened after Schedule Follow-up click:", modalCount);
+      console.log("Modal opened:", modalCount > 0 ? "YES" : "NO");
+
+      // Close modal
+      if (modalCount > 0) {
+        const cancelBtn = page.locator('button:has-text("Cancel")').first();
+        await cancelBtn.click();
+        await page.waitForTimeout(500);
+      }
     }
 
-    // Try clicking Send Email if it exists
+    // Test Send Email
     if (sendEmailCount > 0) {
       console.log("\n=== Testing Send Email ===");
       await sendEmailBtn.first().click();
       await page.waitForTimeout(1000);
 
-      // Check for any modal or dialog or composer
-      const modal = page.locator('[role="dialog"], .modal, [data-state="open"]');
+      const modal = page.locator('[role="dialog"]');
       const modalCount = await modal.count();
-      console.log("Modals opened after Send Email click:", modalCount);
+      console.log("Modal opened:", modalCount > 0 ? "YES" : "NO");
+
+      // Close modal
+      if (modalCount > 0) {
+        const cancelBtn = page.locator('button:has-text("Cancel")').first();
+        await cancelBtn.click();
+        await page.waitForTimeout(500);
+      }
     }
 
-    // Try clicking Log Activity if it exists
+    // Test Log Activity
     if (logActivityCount > 0) {
       console.log("\n=== Testing Log Activity ===");
       await logActivityBtn.first().click();
       await page.waitForTimeout(1000);
 
-      // Check for any modal or dialog
-      const modal = page.locator('[role="dialog"], .modal, [data-state="open"]');
+      const modal = page.locator('[role="dialog"]');
       const modalCount = await modal.count();
-      console.log("Modals opened after Log Activity click:", modalCount);
+      console.log("Modal opened:", modalCount > 0 ? "YES" : "NO");
 
-      // Check if we can see form fields
       if (modalCount > 0) {
-        const activityTypeSelect = page.locator('select[id="activity_type"], select[name="activity_type"]');
-        const descriptionInput = page.locator('textarea[id="description"], textarea[name="description"]');
-        console.log("Activity type select exists:", (await activityTypeSelect.count()) > 0);
-        console.log("Description textarea exists:", (await descriptionInput.count()) > 0);
+        const activityTypeSelect = page.locator('select[id="activity_type"]');
+        const descriptionInput = page.locator('textarea[id="description"]');
+        console.log("Activity type select:", (await activityTypeSelect.count()) > 0 ? "EXISTS" : "MISSING");
+        console.log("Description textarea:", (await descriptionInput.count()) > 0 ? "EXISTS" : "MISSING");
 
-        // Try filling and submitting
+        // Fill form
         if ((await activityTypeSelect.count()) > 0) {
           await activityTypeSelect.selectOption("note");
         }
@@ -89,23 +94,21 @@ test.describe("Customer Quick Actions Debug", () => {
           await descriptionInput.fill("Test activity from Playwright");
         }
 
-        // Look for submit button
-        const submitBtn = page.locator('button[type="submit"]:has-text("Save"), button[type="submit"]:has-text("Log"), button:has-text("Save Activity")');
-        const submitBtnCount = await submitBtn.count();
-        console.log("Submit buttons found:", submitBtnCount);
+        // Submit
+        const submitBtn = page.locator('button[type="submit"]:has-text("Log Activity")');
+        console.log("Submit button:", (await submitBtn.count()) > 0 ? "EXISTS" : "MISSING");
 
-        if (submitBtnCount > 0) {
-          // Setup response listener
+        if ((await submitBtn.count()) > 0) {
           const responsePromise = page.waitForResponse(
             (resp) => resp.url().includes("/activities") && resp.request().method() === "POST",
             { timeout: 5000 }
           ).catch(() => null);
 
-          await submitBtn.first().click();
+          await submitBtn.click();
 
           const response = await responsePromise;
           if (response) {
-            console.log("Activity POST response status:", response.status());
+            console.log("Activity POST status:", response.status());
           } else {
             console.log("No POST to /activities detected");
           }
@@ -113,9 +116,6 @@ test.describe("Customer Quick Actions Debug", () => {
       }
     }
 
-    // List all buttons on the page for debugging
-    console.log("\n=== ALL BUTTONS ON PAGE ===");
-    const allButtons = await page.locator("button").allTextContents();
-    console.log("Buttons:", allButtons.filter(b => b.trim()).join(", "));
+    console.log("\n=== TEST COMPLETE ===");
   });
 });
