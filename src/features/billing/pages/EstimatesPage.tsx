@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useQuery, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
 import { useAIGenerate } from "@/hooks/useAI";
@@ -15,6 +15,77 @@ interface Estimate {
   status: string;
   created_at: string;
   valid_until: string;
+}
+
+/**
+ * Clickable Estimate Row Component
+ * Makes the entire row clickable to navigate to estimate details
+ */
+function EstimateRow({
+  estimate,
+  getStatusColor,
+}: {
+  estimate: Estimate;
+  getStatusColor: (status: string) => string;
+}) {
+  const navigate = useNavigate();
+
+  const handleRowClick = () => {
+    navigate(`/estimates/${estimate.id}`);
+  };
+
+  const handleKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      navigate(`/estimates/${estimate.id}`);
+    }
+  };
+
+  return (
+    <tr
+      className="hover:bg-bg-hover cursor-pointer transition-colors"
+      onClick={handleRowClick}
+      onKeyDown={handleKeyDown}
+      tabIndex={0}
+      role="button"
+      aria-label={`View estimate for ${estimate.customer_name || "customer"}`}
+    >
+      <td className="px-4 py-3">
+        <div>
+          <p className="font-medium text-text-primary">
+            {estimate.customer_name}
+          </p>
+          <p className="text-sm text-text-muted">{estimate.customer_email}</p>
+        </div>
+      </td>
+      <td className="px-4 py-3 font-medium text-text-primary">
+        ${estimate.total?.toLocaleString() || "0"}
+      </td>
+      <td className="px-4 py-3">
+        <span
+          className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(estimate.status)}`}
+        >
+          {estimate.status}
+        </span>
+      </td>
+      <td className="px-4 py-3 text-sm text-text-muted">
+        {estimate.created_at}
+      </td>
+      <td className="px-4 py-3 text-sm text-text-muted">
+        {estimate.valid_until}
+      </td>
+      <td className="px-4 py-3 text-right">
+        <div onClick={(e) => e.stopPropagation()}>
+          <Link
+            to={`/estimates/${estimate.id}`}
+            className="text-primary hover:underline text-sm"
+          >
+            View
+          </Link>
+        </div>
+      </td>
+    </tr>
+  );
 }
 
 /**
@@ -362,42 +433,11 @@ export function EstimatesPage() {
               </thead>
               <tbody className="divide-y divide-border">
                 {estimates?.map((estimate: Estimate) => (
-                  <tr key={estimate.id} className="hover:bg-bg-hover">
-                    <td className="px-4 py-3">
-                      <div>
-                        <p className="font-medium text-text-primary">
-                          {estimate.customer_name}
-                        </p>
-                        <p className="text-sm text-text-muted">
-                          {estimate.customer_email}
-                        </p>
-                      </div>
-                    </td>
-                    <td className="px-4 py-3 font-medium text-text-primary">
-                      ${estimate.total?.toLocaleString() || "0"}
-                    </td>
-                    <td className="px-4 py-3">
-                      <span
-                        className={`px-2 py-1 rounded-full text-xs font-medium ${getStatusColor(estimate.status)}`}
-                      >
-                        {estimate.status}
-                      </span>
-                    </td>
-                    <td className="px-4 py-3 text-sm text-text-muted">
-                      {estimate.created_at}
-                    </td>
-                    <td className="px-4 py-3 text-sm text-text-muted">
-                      {estimate.valid_until}
-                    </td>
-                    <td className="px-4 py-3 text-right">
-                      <Link
-                        to={`/estimates/${estimate.id}`}
-                        className="text-primary hover:underline text-sm"
-                      >
-                        View
-                      </Link>
-                    </td>
-                  </tr>
+                  <EstimateRow
+                    key={estimate.id}
+                    estimate={estimate}
+                    getStatusColor={getStatusColor}
+                  />
                 ))}
               </tbody>
             </table>
