@@ -8,6 +8,7 @@ import {
   CheckCircle,
   DollarSign,
   ExternalLink,
+  Pencil,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -22,6 +23,7 @@ interface CommissionsTableProps {
   onPageChange: (page: number) => void;
   onApprove: (id: string) => Promise<void>;
   onMarkPaid: (id: string) => Promise<void>;
+  onEdit?: (commission: Commission) => void;
   sortBy?: string;
   sortOrder?: "asc" | "desc";
   onSortChange?: (field: string) => void;
@@ -60,6 +62,7 @@ export function CommissionsTable({
   onPageChange,
   onApprove,
   onMarkPaid,
+  onEdit,
   sortBy,
   sortOrder,
   onSortChange,
@@ -211,7 +214,7 @@ export function CommissionsTable({
                   />
                 </td>
                 <td className="px-4 py-3 text-sm text-text-primary whitespace-nowrap">
-                  {formatDate(commission.created_at)}
+                  {formatDate(commission.earned_date || commission.created_at || "")}
                 </td>
                 <td className="px-4 py-3">
                   <div className="font-medium text-text-primary">
@@ -220,19 +223,23 @@ export function CommissionsTable({
                   </div>
                 </td>
                 <td className="px-4 py-3">
-                  <Link
-                    to={`/work-orders/${commission.work_order_id}`}
-                    className="text-primary hover:underline flex items-center gap-1"
-                  >
-                    #{commission.work_order_number || commission.work_order_id}
-                    <ExternalLink className="w-3 h-3" />
-                  </Link>
+                  {commission.work_order_id ? (
+                    <Link
+                      to={`/work-orders/${commission.work_order_id}`}
+                      className="text-primary hover:underline flex items-center gap-1"
+                    >
+                      #{commission.work_order_number || commission.work_order_id}
+                      <ExternalLink className="w-3 h-3" />
+                    </Link>
+                  ) : (
+                    <span className="text-text-muted text-sm">-</span>
+                  )}
                 </td>
                 <td className="px-4 py-3 text-sm text-text-primary">
-                  {formatCurrency(commission.job_total)}
+                  {formatCurrency(commission.base_amount || commission.job_total || 0)}
                 </td>
                 <td className="px-4 py-3 text-sm text-text-muted">
-                  {(commission.commission_rate * 100).toFixed(0)}%
+                  {((commission.rate || commission.commission_rate || 0) * 100).toFixed(0)}%
                 </td>
                 <td className="px-4 py-3">
                   <span className="text-lg font-bold text-success">
@@ -250,6 +257,17 @@ export function CommissionsTable({
                 </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-2">
+                    {/* Edit button - show for pending commissions */}
+                    {commission.status === "pending" && onEdit && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => onEdit(commission)}
+                        className="text-text-muted hover:text-text-primary"
+                      >
+                        <Pencil className="w-3 h-3" />
+                      </Button>
+                    )}
                     {commission.status === "pending" && (
                       <Button
                         variant="primary"
@@ -264,16 +282,28 @@ export function CommissionsTable({
                       </Button>
                     )}
                     {commission.status === "approved" && (
-                      <Button
-                        variant="secondary"
-                        size="sm"
-                        onClick={() => handleMarkPaid(commission.id)}
-                        disabled={markingPaidId === commission.id}
-                        className="bg-success/20 hover:bg-success/30 text-success"
-                      >
-                        <DollarSign className="w-3 h-3 mr-1" />
-                        {markingPaidId === commission.id ? "..." : "Mark Paid"}
-                      </Button>
+                      <>
+                        {onEdit && (
+                          <Button
+                            variant="ghost"
+                            size="sm"
+                            onClick={() => onEdit(commission)}
+                            className="text-text-muted hover:text-text-primary"
+                          >
+                            <Pencil className="w-3 h-3" />
+                          </Button>
+                        )}
+                        <Button
+                          variant="secondary"
+                          size="sm"
+                          onClick={() => handleMarkPaid(commission.id)}
+                          disabled={markingPaidId === commission.id}
+                          className="bg-success/20 hover:bg-success/30 text-success"
+                        >
+                          <DollarSign className="w-3 h-3 mr-1" />
+                          {markingPaidId === commission.id ? "..." : "Mark Paid"}
+                        </Button>
+                      </>
                     )}
                     {commission.status === "paid" && (
                       <span className="text-xs text-text-muted">Completed</span>

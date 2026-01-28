@@ -46,15 +46,23 @@ export interface Commission {
   id: string;
   technician_id: string;
   technician_name?: string;
-  work_order_id: string;
+  work_order_id?: string;
   work_order_number?: string;
+  invoice_id?: string;
   payroll_period_id?: string;
-  job_total: number;
-  commission_rate: number;
+  commission_type?: "job_completion" | "upsell" | "referral" | "bonus";
+  base_amount: number; // Job total or amount commission is based on
+  rate: number; // Commission rate as decimal (0.05 = 5%)
+  rate_type?: "percent" | "fixed";
   commission_amount: number;
   status: "pending" | "approved" | "paid";
-  notes?: string;
-  created_at: string;
+  description?: string;
+  earned_date?: string;
+  created_at?: string;
+  // Legacy compatibility aliases
+  job_total?: number; // Alias for base_amount
+  commission_rate?: number; // Alias for rate
+  notes?: string; // Alias for description
 }
 
 export interface TechnicianPayRate {
@@ -100,11 +108,26 @@ export interface UpdateTimeEntryInput {
   notes?: string;
 }
 
+export interface CreateCommissionInput {
+  technician_id: string;
+  work_order_id?: string;
+  invoice_id?: string;
+  commission_type?: "job_completion" | "upsell" | "referral" | "bonus";
+  base_amount: number;
+  rate: number;
+  rate_type?: "percent" | "fixed";
+  commission_amount?: number; // If not provided, calculated from base_amount * rate
+  earned_date?: string;
+  description?: string;
+}
+
 export interface UpdateCommissionInput {
   status?: "pending" | "approved" | "paid";
-  commission_rate?: number;
+  base_amount?: number;
+  rate?: number;
   commission_amount?: number;
-  notes?: string;
+  description?: string;
+  commission_type?: "job_completion" | "upsell" | "referral" | "bonus";
 }
 
 export interface UpdatePayRateInput {

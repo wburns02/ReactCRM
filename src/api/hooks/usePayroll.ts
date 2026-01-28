@@ -9,6 +9,7 @@ import type {
   CreatePayrollPeriodInput,
   UpdatePayrollPeriodInput,
   UpdateTimeEntryInput,
+  CreateCommissionInput,
   UpdateCommissionInput,
   UpdatePayRateInput,
   CommissionStats,
@@ -262,6 +263,41 @@ export function useBulkApproveCommissions() {
         },
       );
       return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["payroll", "commissions"] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
+    },
+  });
+}
+
+/**
+ * Create a new commission
+ */
+export function useCreateCommission() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (input: CreateCommissionInput): Promise<Commission> => {
+      const { data } = await apiClient.post("/payroll/commissions", input);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["payroll", "commissions"] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
+    },
+  });
+}
+
+/**
+ * Delete a commission (only pending can be deleted)
+ */
+export function useDeleteCommission() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (commissionId: string): Promise<void> => {
+      await apiClient.delete(`/payroll/commissions/${commissionId}`);
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["payroll", "commissions"] });

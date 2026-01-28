@@ -7,7 +7,7 @@ import {
   useBulkMarkPaidCommissions,
 } from "@/api/hooks/usePayroll.ts";
 import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
-import type { CommissionFilters } from "@/api/types/payroll.ts";
+import type { CommissionFilters, Commission } from "@/api/types/payroll.ts";
 import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 
 import { CommissionStatsCards } from "./CommissionStatsCards.tsx";
@@ -16,9 +16,10 @@ import { CommissionsTable } from "./CommissionsTable.tsx";
 import { BulkActionsBar } from "./BulkActionsBar.tsx";
 import { CommissionLeaderboard } from "./CommissionLeaderboard.tsx";
 import { CommissionInsightsPanel } from "./CommissionInsightsPanel.tsx";
+import { CommissionFormModal } from "./CommissionFormModal.tsx";
 import { ExportButton } from "./ExportButton.tsx";
 import { Button } from "@/components/ui/Button.tsx";
-import { LayoutList, Trophy } from "lucide-react";
+import { LayoutList, Trophy, Plus } from "lucide-react";
 
 type TabType = "list" | "insights";
 
@@ -52,6 +53,10 @@ export function CommissionsDashboard({
 
   // Active view tab
   const [activeTab, setActiveTab] = useState<TabType>("list");
+
+  // Commission form modal state
+  const [showFormModal, setShowFormModal] = useState(false);
+  const [editingCommission, setEditingCommission] = useState<Commission | null>(null);
 
   // Data fetching
   const { data: stats, isLoading: statsLoading } = useCommissionStats();
@@ -132,6 +137,22 @@ export function CommissionsDashboard({
     setSelectedIds(new Set());
   };
 
+  // Modal handlers
+  const handleAddCommission = useCallback(() => {
+    setEditingCommission(null);
+    setShowFormModal(true);
+  }, []);
+
+  const handleEditCommission = useCallback((commission: Commission) => {
+    setEditingCommission(commission);
+    setShowFormModal(true);
+  }, []);
+
+  const handleCloseFormModal = useCallback(() => {
+    setShowFormModal(false);
+    setEditingCommission(null);
+  }, []);
+
   const technicians = techniciansData?.items || [];
 
   return (
@@ -169,7 +190,18 @@ export function CommissionsDashboard({
             Leaderboard & Insights
           </Button>
         </div>
-        <ExportButton filters={filters} />
+        <div className="flex items-center gap-2">
+          <Button
+            variant="primary"
+            size="sm"
+            onClick={handleAddCommission}
+            className="flex items-center gap-2"
+          >
+            <Plus className="w-4 h-4" />
+            Add Commission
+          </Button>
+          <ExportButton filters={filters} />
+        </div>
       </div>
 
       {/* Tab Content */}
@@ -198,6 +230,7 @@ export function CommissionsDashboard({
             onPageChange={handlePageChange}
             onApprove={handleApprove}
             onMarkPaid={handleMarkPaid}
+            onEdit={handleEditCommission}
           />
         </div>
       )}
@@ -208,6 +241,13 @@ export function CommissionsDashboard({
           <CommissionInsightsPanel />
         </div>
       )}
+
+      {/* Add/Edit Commission Modal */}
+      <CommissionFormModal
+        open={showFormModal}
+        onClose={handleCloseFormModal}
+        commission={editingCommission}
+      />
     </div>
   );
 }
