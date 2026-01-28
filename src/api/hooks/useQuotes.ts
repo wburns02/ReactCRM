@@ -215,3 +215,44 @@ export function useSendQuote() {
     },
   });
 }
+
+/**
+ * Download estimate/quote as PDF
+ */
+export function useDownloadEstimatePDF() {
+  return useMutation({
+    mutationFn: async (estimateId: string): Promise<{ success: boolean }> => {
+      const response = await apiClient.get(`/quotes/${estimateId}/pdf`, {
+        responseType: "blob",
+      });
+
+      // Create blob from response
+      const blob = new Blob([response.data], { type: "application/pdf" });
+
+      // Create download link
+      const url = window.URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+
+      // Extract filename from Content-Disposition header or use default
+      const contentDisposition = response.headers["content-disposition"];
+      let filename = `Estimate_${estimateId}.pdf`;
+      if (contentDisposition) {
+        const filenameMatch = contentDisposition.match(/filename="?([^"]+)"?/);
+        if (filenameMatch) {
+          filename = filenameMatch[1];
+        }
+      }
+
+      link.download = filename;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Cleanup
+      window.URL.revokeObjectURL(url);
+
+      return { success: true };
+    },
+  });
+}

@@ -1,6 +1,8 @@
 import { Link, useParams } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
+import { useDownloadEstimatePDF } from "@/api/hooks/useQuotes";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 
 /**
  * Estimate Detail Page
@@ -8,6 +10,21 @@ import { apiClient } from "@/api/client";
 export function EstimateDetailPage() {
   const { id } = useParams<{ id: string }>();
   const queryClient = useQueryClient();
+
+  const downloadPDF = useDownloadEstimatePDF();
+
+  const handleDownloadPDF = () => {
+    if (!id) return;
+    downloadPDF.mutate(id, {
+      onSuccess: () => {
+        toastSuccess("PDF Downloaded", "Your estimate PDF has been downloaded.");
+      },
+      onError: (error) => {
+        console.error("PDF download failed:", error);
+        toastError("Download Failed", "Failed to download PDF. Please try again.");
+      },
+    });
+  };
 
   const { data: estimate, isLoading } = useQuery({
     queryKey: ["estimate", id],
@@ -97,8 +114,12 @@ export function EstimateDetailPage() {
                   : "Convert to Invoice"}
               </button>
             )}
-            <button className="px-4 py-2 border border-border rounded-lg text-text-secondary text-sm font-medium hover:bg-bg-hover">
-              Download PDF
+            <button
+              onClick={handleDownloadPDF}
+              disabled={downloadPDF.isPending}
+              className="px-4 py-2 border border-border rounded-lg text-text-secondary text-sm font-medium hover:bg-bg-hover disabled:opacity-50 disabled:cursor-not-allowed"
+            >
+              {downloadPDF.isPending ? "Downloading..." : "Download PDF"}
             </button>
           </div>
         </div>
