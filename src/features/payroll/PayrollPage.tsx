@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -19,7 +20,6 @@ import {
   useTimeEntries,
   usePayRates,
   useCreatePayrollPeriod,
-  useUpdatePayrollPeriod,
   useApprovePayrollPeriod,
   useUpdateTimeEntry,
   useBulkApproveTimeEntries,
@@ -64,38 +64,14 @@ function TabButton({
  * Pay Periods Tab
  */
 function PayPeriodsTab() {
+  const navigate = useNavigate();
   const { data: periods, isLoading } = usePayrollPeriods();
   const createPeriod = useCreatePayrollPeriod();
-  const updatePeriod = useUpdatePayrollPeriod();
   const approvePeriod = useApprovePayrollPeriod();
   const [showCreate, setShowCreate] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [periodToApprove, setPeriodToApprove] = useState<PayrollPeriod | null>(null);
-  const [periodToEdit, setPeriodToEdit] = useState<PayrollPeriod | null>(null);
-  const [editStartDate, setEditStartDate] = useState("");
-  const [editEndDate, setEditEndDate] = useState("");
-
-  useEffect(() => {
-    if (periodToEdit) {
-      setEditStartDate(periodToEdit.start_date);
-      setEditEndDate(periodToEdit.end_date);
-    }
-  }, [periodToEdit]);
-
-  const handleUpdate = async () => {
-    if (!periodToEdit || !editStartDate || !editEndDate) return;
-    try {
-      await updatePeriod.mutateAsync({
-        periodId: periodToEdit.id,
-        input: { start_date: editStartDate, end_date: editEndDate },
-      });
-      toastSuccess("Period Updated", "Dates updated successfully");
-      setPeriodToEdit(null);
-    } catch (error) {
-      toastError("Update Failed", getErrorMessage(error));
-    }
-  };
 
   const handleApprovePeriod = async () => {
     if (!periodToApprove) return;
@@ -151,7 +127,11 @@ function PayPeriodsTab() {
 
       <div className="space-y-3">
         {periods?.map((period) => (
-          <Card key={period.id} className="p-4">
+          <Card
+            key={period.id}
+            className="p-4 cursor-pointer hover:shadow-md transition-shadow"
+            onClick={() => navigate(`/payroll/${period.id}`)}
+          >
             <div className="flex items-start justify-between mb-3">
               <div>
                 <div className="font-medium text-text-primary">
@@ -195,25 +175,31 @@ function PayPeriodsTab() {
                   {formatCurrency(period.total_net_pay)}
                 </div>
               </div>
-              {period.status === "draft" && (
-                <div className="flex gap-2">
-                  <Button
-                    variant="secondary"
-                    size="sm"
-                    onClick={() => setPeriodToEdit(period)}
-                  >
-                    Edit
-                  </Button>
+              <div className="flex gap-2">
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    navigate(`/payroll/${period.id}`);
+                  }}
+                >
+                  View
+                </Button>
+                {period.status === "draft" && (
                   <Button
                     variant="primary"
                     size="sm"
-                    onClick={() => setPeriodToApprove(period)}
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setPeriodToApprove(period);
+                    }}
                     disabled={approvePeriod.isPending}
                   >
                     Approve
                   </Button>
-                </div>
-              )}
+                )}
+              </div>
             </div>
           </Card>
         ))}
@@ -292,49 +278,6 @@ function PayPeriodsTab() {
         variant="primary"
         isLoading={approvePeriod.isPending}
       />
-
-      {/* Edit Dialog */}
-      <Dialog open={!!periodToEdit} onClose={() => setPeriodToEdit(null)}>
-        <DialogContent>
-          <DialogHeader onClose={() => setPeriodToEdit(null)}>
-            Edit Payroll Period
-          </DialogHeader>
-          <DialogBody>
-            <div className="space-y-4">
-              <div>
-                <Label htmlFor="edit-start-date">Start Date</Label>
-                <Input
-                  id="edit-start-date"
-                  type="date"
-                  value={editStartDate}
-                  onChange={(e) => setEditStartDate(e.target.value)}
-                />
-              </div>
-              <div>
-                <Label htmlFor="edit-end-date">End Date</Label>
-                <Input
-                  id="edit-end-date"
-                  type="date"
-                  value={editEndDate}
-                  onChange={(e) => setEditEndDate(e.target.value)}
-                />
-              </div>
-            </div>
-          </DialogBody>
-          <DialogFooter>
-            <Button variant="secondary" onClick={() => setPeriodToEdit(null)}>
-              Cancel
-            </Button>
-            <Button
-              variant="primary"
-              onClick={handleUpdate}
-              disabled={!editStartDate || !editEndDate || updatePeriod.isPending}
-            >
-              {updatePeriod.isPending ? "Saving..." : "Save Changes"}
-            </Button>
-          </DialogFooter>
-        </DialogContent>
-      </Dialog>
     </div>
   );
 }

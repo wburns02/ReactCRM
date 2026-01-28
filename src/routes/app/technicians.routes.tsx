@@ -39,6 +39,12 @@ const PayrollPage = lazy(() =>
   }))
 );
 
+const PayrollPeriodDetailPage = lazy(() =>
+  import("@/features/payroll/PayrollPeriodDetailPage.tsx").then((m) => ({
+    default: m.PayrollPeriodDetailPage,
+  }))
+);
+
 /**
  * Technician routes - technicians, schedule, service intervals, employee portal
  */
@@ -99,6 +105,14 @@ export function TechnicianRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <PayrollPage />
+          </Suspense>
+        }
+      />
+      <Route
+        path="payroll/:periodId"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <PayrollPeriodDetailPage />
           </Suspense>
         }
       />
