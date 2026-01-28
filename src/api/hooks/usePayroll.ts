@@ -68,6 +68,9 @@ export function useApprovePayrollPeriod() {
         queryKey: ["payroll", "periods", periodId],
       });
     },
+    onError: (error) => {
+      console.error("Failed to approve payroll period:", error);
+    },
   });
 }
 

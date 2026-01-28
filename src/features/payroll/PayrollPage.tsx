@@ -10,7 +10,10 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  ConfirmDialog,
 } from "@/components/ui/Dialog";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
+import { getErrorMessage } from "@/api/client";
 import {
   usePayrollPeriods,
   useTimeEntries,
@@ -24,6 +27,7 @@ import {
   useBulkApproveCommissions,
 } from "@/api/hooks/usePayroll";
 import { formatDate, formatCurrency } from "@/lib/utils";
+import type { PayrollPeriod } from "@/api/types/payroll";
 
 type TabType = "periods" | "time-entries" | "commissions" | "pay-rates";
 
@@ -63,6 +67,22 @@ function PayPeriodsTab() {
   const [showCreate, setShowCreate] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
+  const [periodToApprove, setPeriodToApprove] = useState<PayrollPeriod | null>(null);
+
+  const handleApprovePeriod = async () => {
+    if (!periodToApprove) return;
+    try {
+      await approvePeriod.mutateAsync(periodToApprove.id);
+      toastSuccess(
+        "Period Approved",
+        `Payroll period ${formatDate(periodToApprove.start_date)} - ${formatDate(periodToApprove.end_date)} approved successfully`
+      );
+      setPeriodToApprove(null);
+    } catch (error) {
+      toastError("Approval Failed", getErrorMessage(error));
+      setPeriodToApprove(null);
+    }
+  };
 
   const handleCreate = async () => {
     if (!startDate || !endDate) return;
@@ -151,7 +171,7 @@ function PayPeriodsTab() {
                 <Button
                   variant="primary"
                   size="sm"
-                  onClick={() => approvePeriod.mutate(period.id)}
+                  onClick={() => setPeriodToApprove(period)}
                   disabled={approvePeriod.isPending}
                 >
                   Approve
@@ -219,6 +239,22 @@ function PayPeriodsTab() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Approve Confirmation Dialog */}
+      <ConfirmDialog
+        open={!!periodToApprove}
+        onClose={() => setPeriodToApprove(null)}
+        onConfirm={handleApprovePeriod}
+        title="Approve Payroll Period"
+        message={
+          periodToApprove
+            ? `Are you sure you want to approve the payroll period from ${formatDate(periodToApprove.start_date)} to ${formatDate(periodToApprove.end_date)}? This action cannot be undone.`
+            : ""
+        }
+        confirmLabel="Approve"
+        variant="primary"
+        isLoading={approvePeriod.isPending}
+      />
     </div>
   );
 }
