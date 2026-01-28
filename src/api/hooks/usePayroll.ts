@@ -17,6 +17,8 @@ import type {
   CommissionLeaderboardEntry,
   CommissionFilters,
   CommissionListResponse,
+  WorkOrderForCommission,
+  CommissionCalculation,
 } from "@/api/types/payroll.ts";
 
 /**
@@ -525,6 +527,44 @@ export function useExportCommissions() {
         params,
         responseType: "blob",
       });
+      return data;
+    },
+  });
+}
+
+/**
+ * Commission Auto-Calculation Hooks
+ */
+
+/**
+ * Fetch completed work orders that don't have commissions yet
+ */
+export function useWorkOrdersForCommission(params?: {
+  technician_id?: string;
+  job_type?: string;
+}) {
+  return useQuery({
+    queryKey: ["payroll", "work-orders-for-commission", params],
+    queryFn: async (): Promise<WorkOrderForCommission[]> => {
+      const { data } = await apiClient.get("/payroll/work-orders-for-commission", {
+        params,
+      });
+      return data.work_orders || [];
+    },
+    staleTime: 30_000,
+  });
+}
+
+/**
+ * Calculate commission for a work order (with dump fee deduction if applicable)
+ */
+export function useCalculateCommission() {
+  return useMutation({
+    mutationFn: async (input: {
+      work_order_id: string;
+      dump_site_id?: string;
+    }): Promise<CommissionCalculation> => {
+      const { data } = await apiClient.post("/payroll/commissions/calculate", input);
       return data;
     },
   });
