@@ -116,6 +116,10 @@ export const workOrderSchema = z.object({
   // Work details
   checklist: z.record(z.string(), z.unknown()).nullable(),
   notes: z.string().nullable(),
+  // Pumping details (for pump-out jobs)
+  gallons_pumped: z.number().nullable().optional(),
+  dump_site_id: z.string().nullable().optional(),
+  dump_fee: z.number().nullable().optional(),
   // Timestamps
   created_at: z.string().nullable(),
   updated_at: z.string().nullable(),
@@ -163,6 +167,10 @@ export const workOrderFormSchema = z.object({
   service_city: z.string().optional(),
   service_state: z.string().max(2, "Use 2-letter state code").optional(),
   service_postal_code: z.string().optional(),
+  // Pumping details
+  gallons_pumped: z.coerce.number().min(0).optional(),
+  dump_site_id: z.string().optional(),
+  dump_fee: z.coerce.number().min(0).optional(),
   // Work details
   notes: z.string().optional(),
 });

@@ -48,6 +48,7 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
     },
   });
 
+  // Watch for form state changes to highlight selected time
   const selectedTime = watch("preferred_time");
 
   const { mutate: submitLead, isPending, isSuccess, isError } = useLeadSubmit();

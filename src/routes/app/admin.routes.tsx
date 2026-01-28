@@ -47,6 +47,13 @@ const SMSSettingsPage = lazy(() =>
   }))
 );
 
+// Dump Sites
+const DumpSitesPage = lazy(() =>
+  import("@/features/admin/DumpSitesPage.tsx").then((m) => ({
+    default: m.DumpSitesPage,
+  }))
+);
+
 /**
  * Admin routes - Users, Settings, Import, Integrations, Notifications
  */
@@ -117,6 +124,16 @@ export function AdminRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <SMSSettingsPage />
+          </Suspense>
+        }
+      />
+
+      {/* Dump Sites */}
+      <Route
+        path="admin/dump-sites"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <DumpSitesPage />
           </Suspense>
         }
       />

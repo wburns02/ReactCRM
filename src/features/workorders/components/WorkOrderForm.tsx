@@ -25,6 +25,8 @@ import {
 } from "@/api/types/workOrder.ts";
 import { useCustomers } from "@/api/hooks/useCustomers.ts";
 import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
+import { useDumpSites } from "@/api/hooks/useDumpSites.ts";
+import { formatCurrency } from "@/lib/utils";
 
 export interface WorkOrderFormProps {
   open: boolean;
@@ -46,13 +48,14 @@ export function WorkOrderForm({
 }: WorkOrderFormProps) {
   const isEdit = !!workOrder;
 
-  // Fetch customers and technicians for dropdowns
+  // Fetch customers, technicians, and dump sites for dropdowns
   const { data: customersData } = useCustomers({ page: 1, page_size: 200 });
   const { data: techniciansData } = useTechnicians({
     page: 1,
     page_size: 100,
     active_only: true,
   });
+  const { data: dumpSites } = useDumpSites({ is_active: true });
 
   const customers = customersData?.items || [];
   const technicians = techniciansData?.items || [];
@@ -62,6 +65,8 @@ export function WorkOrderForm({
     handleSubmit,
     formState: { errors, isDirty },
     reset,
+    watch,
+    setValue,
   } = useForm<WorkOrderFormData>({
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
     resolver: zodResolver(workOrderFormSchema) as any,
@@ -83,6 +88,10 @@ export function WorkOrderForm({
           service_city: workOrder.service_city || "",
           service_state: workOrder.service_state || "",
           service_postal_code: workOrder.service_postal_code || "",
+          // Pumping fields
+          gallons_pumped: workOrder.gallons_pumped || undefined,
+          dump_site_id: workOrder.dump_site_id || "",
+          dump_fee: workOrder.dump_fee || undefined,
           notes: workOrder.notes || "",
         }
       : {
@@ -125,6 +134,10 @@ export function WorkOrderForm({
       service_city: data.service_city || undefined,
       service_state: data.service_state || undefined,
       service_postal_code: data.service_postal_code || undefined,
+      // Pumping fields
+      gallons_pumped: data.gallons_pumped || undefined,
+      dump_site_id: data.dump_site_id || undefined,
+      dump_fee: data.dump_fee || undefined,
       notes: data.notes || undefined,
     };
 
@@ -360,6 +373,88 @@ export function WorkOrderForm({
                 </div>
               </div>
             </div>
+
+            {/* Pumping Details - Only show for pumping jobs */}
+            {watch("job_type") === "pumping" && (
+              <div>
+                <h4 className="text-sm font-medium text-text-secondary mb-3 uppercase tracking-wide">
+                  Pumping Details
+                </h4>
+                <div className="grid grid-cols-2 gap-4">
+                  <div className="space-y-2">
+                    <Label htmlFor="gallons_pumped">Gallons Pumped</Label>
+                    <Input
+                      id="gallons_pumped"
+                      type="number"
+                      min="0"
+                      step="1"
+                      {...register("gallons_pumped")}
+                      placeholder="Enter gallons"
+                      onChange={(e) => {
+                        const gallons = parseInt(e.target.value) || 0;
+                        const siteId = watch("dump_site_id");
+                        const site = dumpSites?.find((s) => s.id === siteId);
+                        if (site && gallons > 0) {
+                          setValue("dump_fee", gallons * site.fee_per_gallon);
+                        }
+                      }}
+                    />
+                    <p className="text-xs text-text-secondary">
+                      Enter the number of gallons pumped
+                    </p>
+                  </div>
+
+                  <div className="space-y-2">
+                    <Label htmlFor="dump_site_id">Dump Site</Label>
+                    <Select
+                      id="dump_site_id"
+                      {...register("dump_site_id")}
+                      onChange={(e) => {
+                        const siteId = e.target.value;
+                        const site = dumpSites?.find((s) => s.id === siteId);
+                        const gallons = watch("gallons_pumped") || 0;
+                        if (site && gallons > 0) {
+                          setValue("dump_fee", gallons * site.fee_per_gallon);
+                        }
+                      }}
+                    >
+                      <option value="">Select dump site...</option>
+                      {dumpSites?.map((site) => (
+                        <option key={site.id} value={site.id}>
+                          {site.name} ({site.address_state}) - {(site.fee_per_gallon * 100).toFixed(1)}¢/gal
+                        </option>
+                      ))}
+                    </Select>
+                    <p className="text-xs text-text-secondary">
+                      Select where waste was disposed
+                    </p>
+                  </div>
+
+                  {/* Auto-calculated dump fee display */}
+                  {watch("gallons_pumped") && watch("dump_site_id") && (
+                    <div className="col-span-2 bg-bg-muted rounded-lg p-4">
+                      <div className="flex justify-between items-center">
+                        <div>
+                          <span className="text-sm text-text-secondary">Dump Fee Calculation</span>
+                          <div className="text-xs text-text-muted mt-1">
+                            {watch("gallons_pumped")} gallons × {
+                              dumpSites?.find((s) => s.id === watch("dump_site_id"))?.fee_per_gallon
+                                ? (dumpSites.find((s) => s.id === watch("dump_site_id"))!.fee_per_gallon * 100).toFixed(1) + "¢"
+                                : "0¢"
+                            }/gallon
+                          </div>
+                        </div>
+                        <div className="text-xl font-bold text-primary">
+                          {formatCurrency(watch("dump_fee") || 0)}
+                        </div>
+                      </div>
+                    </div>
+                  )}
+
+                  <input type="hidden" {...register("dump_fee")} />
+                </div>
+              </div>
+            )}
 
             {/* Notes */}
             <div>

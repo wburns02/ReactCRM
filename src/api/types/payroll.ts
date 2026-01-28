@@ -7,6 +7,7 @@ export interface PayrollPeriod {
   start_date: string;
   end_date: string;
   status: "draft" | "processing" | "approved" | "paid" | "void";
+  period_type?: "weekly" | "biweekly" | "monthly";
   total_hours: number;
   total_overtime_hours: number;
   total_gross_pay: number;
@@ -59,6 +60,13 @@ export interface Commission {
   description?: string;
   earned_date?: string;
   created_at?: string;
+  // Auto-calc fields
+  job_type?: string;
+  gallons_pumped?: number;
+  dump_site_id?: string;
+  dump_fee_per_gallon?: number;
+  dump_fee_amount?: number;
+  commissionable_amount?: number;
   // Legacy compatibility aliases
   job_total?: number; // Alias for base_amount
   commission_rate?: number; // Alias for rate
@@ -69,8 +77,10 @@ export interface TechnicianPayRate {
   id: string;
   technician_id: string;
   technician_name?: string;
-  hourly_rate: number;
-  overtime_rate: number;
+  pay_type: "hourly" | "salary";
+  hourly_rate: number | null | undefined;
+  overtime_rate: number | null | undefined;
+  salary_amount: number | null | undefined;
   commission_rate: number;
   effective_date: string;
   end_date?: string;
@@ -119,6 +129,13 @@ export interface CreateCommissionInput {
   commission_amount?: number; // If not provided, calculated from base_amount * rate
   earned_date?: string;
   description?: string;
+  // Auto-calc fields
+  dump_site_id?: string;
+  job_type?: string;
+  gallons_pumped?: number;
+  dump_fee_per_gallon?: number;
+  dump_fee_amount?: number;
+  commissionable_amount?: number;
 }
 
 export interface UpdateCommissionInput {
@@ -131,8 +148,11 @@ export interface UpdateCommissionInput {
 }
 
 export interface UpdatePayRateInput {
-  hourly_rate?: number;
-  overtime_rate?: number;
+  technician_id?: string;
+  pay_type?: "hourly" | "salary";
+  hourly_rate?: number | null;
+  overtime_rate?: number | null;
+  salary_amount?: number | null;
   commission_rate?: number;
   effective_date?: string;
   end_date?: string;
@@ -207,4 +227,42 @@ export interface CommissionListResponse {
   total: number;
   page: number;
   page_size: number;
+}
+
+/**
+ * Commission Auto-Calculation Types
+ */
+
+export interface WorkOrderForCommission {
+  id: string;
+  job_type: string;
+  total_amount: number;
+  estimated_gallons?: number;
+  technician_id?: string;
+  technician_name?: string;
+  scheduled_date?: string;
+  service_address?: string;
+  commission_rate: number;
+  requires_dump_site: boolean;
+}
+
+export interface CommissionCalculation {
+  work_order_id: string;
+  technician_id?: string;
+  technician_name?: string;
+  job_type: string;
+  job_total: number;
+  gallons?: number;
+  dump_site_id?: string;
+  dump_site_name?: string;
+  dump_fee_per_gallon?: number;
+  dump_fee_total?: number;
+  commissionable_amount: number;
+  commission_rate: number;
+  commission_amount: number;
+  breakdown: {
+    formula: string;
+    calculation: string;
+    steps: string[];
+  };
 }
