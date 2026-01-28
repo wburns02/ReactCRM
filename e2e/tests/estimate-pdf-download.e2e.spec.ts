@@ -3,8 +3,8 @@ import { test, expect } from "@playwright/test";
 /**
  * Estimate PDF Download E2E Tests
  *
- * Tests the PDF download functionality on estimate detail pages.
- * Verifies button works, file downloads, and no errors occur.
+ * Tests the client-side PDF generation using jsPDF.
+ * PDF is generated entirely in the browser - no backend API call.
  */
 test.describe("Estimate PDF Download", () => {
   test.beforeEach(async ({ page }) => {
@@ -32,24 +32,14 @@ test.describe("Estimate PDF Download", () => {
     await page.waitForURL(/\/estimates\/\d+/, { timeout: 5000 });
     await page.waitForLoadState("networkidle");
 
-    // Assert Download PDF button is visible
+    // Assert Download PDF button is visible and enabled
     const downloadButton = page.getByRole("button", { name: /download pdf/i });
     await expect(downloadButton).toBeVisible();
-    console.log("Download PDF button is visible");
+    await expect(downloadButton).toBeEnabled();
+    console.log("Download PDF button is visible and enabled");
   });
 
   test("2. Click Download PDF triggers file download", async ({ page }) => {
-    // Track network errors
-    const networkErrors: { url: string; status: number }[] = [];
-    page.on("response", async (response) => {
-      if (response.url().includes("/pdf") && response.status() >= 400) {
-        networkErrors.push({
-          url: response.url(),
-          status: response.status(),
-        });
-      }
-    });
-
     // Navigate to estimates
     await page.goto("https://react.ecbtx.com/estimates");
     await page.waitForLoadState("networkidle");
@@ -64,33 +54,26 @@ test.describe("Estimate PDF Download", () => {
     await page.waitForLoadState("networkidle");
 
     // Set up download listener before clicking
-    const downloadPromise = page.waitForEvent("download", { timeout: 30000 });
+    const downloadPromise = page.waitForEvent("download", { timeout: 15000 });
 
     // Click Download PDF button
     const downloadButton = page.getByRole("button", { name: /download pdf/i });
     await expect(downloadButton).toBeVisible();
     await downloadButton.click();
 
-    // Button should show loading state
-    await expect(downloadButton).toHaveText(/downloading/i, { timeout: 2000 });
-    console.log("Button shows loading state");
-
-    // Wait for download
+    // Wait for download (jsPDF generates client-side and triggers blob download)
     const download = await downloadPromise;
 
     // Verify download
     const filename = download.suggestedFilename();
     console.log(`Downloaded file: ${filename}`);
 
-    // Assert filename contains Estimate
+    // Assert filename starts with Estimate_ and ends with .pdf
     expect(filename.toLowerCase()).toContain("estimate");
-    expect(filename.toLowerCase()).toEndWith(".pdf");
+    expect(filename.toLowerCase()).toMatch(/\.pdf$/);
 
-    // Verify no network errors
-    const pdfErrors = networkErrors.filter((e) => e.url.includes("/pdf"));
-    expect(pdfErrors.length, `PDF errors: ${JSON.stringify(pdfErrors)}`).toBe(
-      0
-    );
+    // After download, button should return to normal state
+    await expect(downloadButton).toHaveText(/download pdf/i, { timeout: 5000 });
 
     console.log("PDF download successful!");
   });
@@ -115,11 +98,13 @@ test.describe("Estimate PDF Download", () => {
     await page.waitForURL(/\/estimates\/\d+/, { timeout: 5000 });
     await page.waitForLoadState("networkidle");
 
-    let downloadPromise = page.waitForEvent("download", { timeout: 30000 });
+    let downloadPromise = page.waitForEvent("download", { timeout: 15000 });
     let downloadButton = page.getByRole("button", { name: /download pdf/i });
     await downloadButton.click();
     let download = await downloadPromise;
-    console.log(`First PDF: ${download.suggestedFilename()}`);
+    const firstFilename = download.suggestedFilename();
+    console.log(`First PDF: ${firstFilename}`);
+    expect(firstFilename.toLowerCase()).toMatch(/\.pdf$/);
 
     // Go back and test second estimate
     await page.goto("https://react.ecbtx.com/estimates");
@@ -129,11 +114,13 @@ test.describe("Estimate PDF Download", () => {
     await page.waitForURL(/\/estimates\/\d+/, { timeout: 5000 });
     await page.waitForLoadState("networkidle");
 
-    downloadPromise = page.waitForEvent("download", { timeout: 30000 });
+    downloadPromise = page.waitForEvent("download", { timeout: 15000 });
     downloadButton = page.getByRole("button", { name: /download pdf/i });
     await downloadButton.click();
     download = await downloadPromise;
-    console.log(`Second PDF: ${download.suggestedFilename()}`);
+    const secondFilename = download.suggestedFilename();
+    console.log(`Second PDF: ${secondFilename}`);
+    expect(secondFilename.toLowerCase()).toMatch(/\.pdf$/);
 
     console.log("Multiple estimates PDF download works!");
   });
@@ -158,7 +145,7 @@ test.describe("Estimate PDF Download", () => {
     await page.waitForLoadState("networkidle");
 
     // Download PDF
-    const downloadPromise = page.waitForEvent("download", { timeout: 30000 });
+    const downloadPromise = page.waitForEvent("download", { timeout: 15000 });
     const downloadButton = page.getByRole("button", { name: /download pdf/i });
     await downloadButton.click();
     await downloadPromise;
@@ -166,11 +153,12 @@ test.describe("Estimate PDF Download", () => {
     // Wait for any async errors
     await page.waitForTimeout(2000);
 
-    // Filter relevant errors
+    // Filter relevant errors (ignore common benign ones)
     const relevantErrors = consoleErrors.filter(
       (e) =>
         !e.includes("ResizeObserver") &&
-        !e.includes("Download the React DevTools")
+        !e.includes("Download the React DevTools") &&
+        !e.includes("third-party cookie")
     );
 
     if (relevantErrors.length > 0) {
@@ -184,20 +172,22 @@ test.describe("Estimate PDF Download", () => {
     console.log("No console errors during PDF download");
   });
 
-  test("5. No 4xx/5xx errors on PDF endpoint", async ({ page }) => {
-    const apiErrors: { url: string; status: number; body?: string }[] = [];
+  test("5. No network errors during PDF download (client-side generation)", async ({
+    page,
+  }) => {
+    const apiErrors: { url: string; status: number }[] = [];
 
+    // Track any unexpected 4xx/5xx errors during the flow
     page.on("response", async (response) => {
-      if (response.url().includes("/pdf") && response.status() >= 400) {
-        let body = "";
-        try {
-          body = await response.text();
-        } catch {}
-        apiErrors.push({
-          url: response.url(),
-          status: response.status(),
-          body,
-        });
+      const url = response.url();
+      const status = response.status();
+      // Only track errors on our API domain (not third-party)
+      if (
+        url.includes("railway.app") &&
+        status >= 400 &&
+        !url.includes("/pdf") // PDF is now client-side, no backend call expected
+      ) {
+        apiErrors.push({ url, status });
       }
     });
 
@@ -212,13 +202,13 @@ test.describe("Estimate PDF Download", () => {
     await page.waitForURL(/\/estimates\/\d+/, { timeout: 5000 });
     await page.waitForLoadState("networkidle");
 
-    // Download PDF
-    const downloadPromise = page.waitForEvent("download", { timeout: 30000 });
+    // Download PDF (client-side, no API call)
+    const downloadPromise = page.waitForEvent("download", { timeout: 15000 });
     const downloadButton = page.getByRole("button", { name: /download pdf/i });
     await downloadButton.click();
     await downloadPromise;
 
-    // Verify no API errors
+    // Verify no API errors occurred during the flow
     if (apiErrors.length > 0) {
       console.log("API errors found:", JSON.stringify(apiErrors, null, 2));
     }
@@ -226,80 +216,30 @@ test.describe("Estimate PDF Download", () => {
     expect(apiErrors.length, `API errors: ${JSON.stringify(apiErrors)}`).toBe(
       0
     );
-    console.log("No API errors on PDF endpoint");
+    console.log("No network errors during PDF download");
   });
-});
 
-test.describe("Estimate PDF API Tests", () => {
-  test("API: GET /quotes/{id}/pdf returns PDF", async ({ request }) => {
-    const API_URL =
-      process.env.API_URL ||
-      "https://react-crm-api-production.up.railway.app";
+  test("6. Success toast appears after PDF download", async ({ page }) => {
+    // Navigate to estimate detail
+    await page.goto("https://react.ecbtx.com/estimates");
+    await page.waitForLoadState("networkidle");
 
-    // Login to get token
-    const loginResponse = await request.post(`${API_URL}/api/v2/auth/login`, {
-      data: {
-        email: "will@macseptic.com",
-        password: "#Espn2025",
-      },
-    });
+    const firstEstimate = page.locator("table tbody tr").first();
+    await expect(firstEstimate).toBeVisible({ timeout: 10000 });
+    await firstEstimate.click();
 
-    if (loginResponse.status() !== 200) {
-      console.log("Login failed, skipping API test");
-      test.skip();
-      return;
-    }
+    await page.waitForURL(/\/estimates\/\d+/, { timeout: 5000 });
+    await page.waitForLoadState("networkidle");
 
-    const loginData = await loginResponse.json();
-    const token = loginData.access_token;
+    // Download PDF
+    const downloadPromise = page.waitForEvent("download", { timeout: 15000 });
+    const downloadButton = page.getByRole("button", { name: /download pdf/i });
+    await downloadButton.click();
+    await downloadPromise;
 
-    // First get list of quotes to find a valid ID
-    const listResponse = await request.get(`${API_URL}/api/v2/quotes/`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    });
-
-    const listData = await listResponse.json();
-    const quotes = listData.items || listData;
-
-    if (!quotes || quotes.length === 0) {
-      console.log("No quotes found, skipping API test");
-      test.skip();
-      return;
-    }
-
-    const quoteId = quotes[0].id;
-    console.log(`Testing PDF endpoint for quote ID: ${quoteId}`);
-
-    // Request PDF
-    const pdfResponse = await request.get(
-      `${API_URL}/api/v2/quotes/${quoteId}/pdf`,
-      {
-        headers: {
-          Authorization: `Bearer ${token}`,
-        },
-      }
-    );
-
-    // Assert successful response
-    expect(pdfResponse.status()).toBe(200);
-
-    // Assert content type is PDF
-    const contentType = pdfResponse.headers()["content-type"];
-    expect(contentType).toContain("application/pdf");
-
-    // Assert Content-Disposition header
-    const contentDisposition = pdfResponse.headers()["content-disposition"];
-    expect(contentDisposition).toContain("attachment");
-    expect(contentDisposition.toLowerCase()).toContain("estimate");
-
-    // Assert response has content
-    const body = await pdfResponse.body();
-    expect(body.length).toBeGreaterThan(1000); // PDF should be > 1KB
-
-    console.log(
-      `PDF API test passed - ${body.length} bytes, filename: ${contentDisposition}`
-    );
+    // Check for success toast notification
+    const toast = page.locator("text=PDF Downloaded");
+    await expect(toast).toBeVisible({ timeout: 5000 });
+    console.log("Success toast appeared after PDF download");
   });
 });
