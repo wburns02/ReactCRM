@@ -1,6 +1,6 @@
 # Estimates Creation 422 Bug - Diagnosis Report
 
-**Date**: 2026-01-27
+**Date**: 2026-01-27 (Updated: 2026-01-28)
 **Status**: ✅ FULLY FIXED AND VERIFIED
 
 ## Problem Statement (Original)
@@ -34,18 +34,19 @@ const tax = Math.round(subtotal * (data.tax_rate / 100) * 100) / 100;
 const total = Math.round((subtotal + tax) * 100) / 100;
 ```
 
-## Verification Results
+## Verification Results (2026-01-28)
 
-### Playwright E2E Tests (8/8 Pass)
+### Playwright E2E Tests (7/7 Pass)
 ```
-✓ Create Estimate button opens modal
-✓ Can fill estimate form
-✓ Create Estimate form submission works (POST /quotes → 201)
-✓ Shows success toast on estimate creation
-✓ Modal closes after successful creation
-✓ Shows validation error when customer not selected
-✓ No 422 errors in network
-✓ authenticate
+✓ 1. Create estimate - success flow with all fields (9.7s)
+✓ 2. Create estimate - minimal fields (no optional data) (10.5s)
+✓ 3. Create estimate - validation error (no customer) (7.4s)
+✓ 4. Create estimate - validation error (no line items) (9.0s)
+✓ 5. Create estimate - no 422 errors on valid data (10.7s)
+✓ 6. Verify no console errors during estimate creation (11.6s)
+✓ Auth setup
+
+7 passed (18.3s)
 ```
 
 ### API Health Check
@@ -57,6 +58,54 @@ const total = Math.round((subtotal + tax) * 100) / 100;
 - `POST /api/v2/quotes` → 201 Created
 - `GET /api/v2/estimates/` → 200 OK
 
+## Latest Verification (2026-01-28 10:58 UTC)
+
+### Request Payload Captured:
+```json
+{
+  "customer_id": 1,
+  "status": "draft",
+  "line_items": [
+    {
+      "service": "Septic Tank Pumping",
+      "description": "Standard service",
+      "quantity": 1,
+      "rate": 350,
+      "amount": 350
+    }
+  ],
+  "tax_rate": 8.25,
+  "valid_until": "2026-02-28",
+  "notes": "Test estimate from Playwright",
+  "subtotal": 350,
+  "tax": 28.88,
+  "total": 378.88
+}
+```
+
+### API Response (201 Created):
+```json
+{
+  "id": 95,
+  "quote_number": "Q-20260128-62047A6A",
+  "customer_id": 1,
+  "subtotal": "350.00",
+  "tax_rate": "8.25",
+  "tax": "28.88",
+  "total": "378.88",
+  "status": "draft",
+  "valid_until": "2026-02-28T00:00:00",
+  "created_at": "2026-01-28T10:57:12.036532Z"
+}
+```
+
+### UI Verification:
+- Modal closed after submission: ✅
+- Success toast displayed: "Estimate Created - The estimate has been created successfully"
+- No console errors: ✅
+- No 422 network errors: ✅
+- Estimate appears in list: ✅
+
 ## Conclusion
 
 The estimate creation functionality is fully operational:
@@ -66,62 +115,11 @@ The estimate creation functionality is fully operational:
 4. ✅ Modal closes after creation
 5. ✅ Estimate appears in list
 6. ✅ No 422 errors
-7. ✅ Error handling for validation issues
+7. ✅ Error handling for validation issues works correctly
 
 ---
-*Verified: 2026-01-27*
-*Tests: e2e/modules/estimates-creation.spec.ts*
-
-## Latest Verification (2026-01-27 23:03 UTC)
-
-### Playwright Test Results
-
-Executed comprehensive diagnosis test with full network capture:
-
-**Request Payload Captured:**
-```json
-{
-  "customer_id": 1,
-  "status": "draft",
-  "line_items": [
-    {
-      "service": "Septic Tank Pumping",
-      "description": "Standard residential pumping",
-      "quantity": 1,
-      "rate": 350,
-      "amount": 350
-    }
-  ],
-  "tax_rate": 8.25,
-  "valid_until": "2026-02-28",
-  "notes": "Test estimate for 422 diagnosis",
-  "subtotal": 350,
-  "tax": 28.88,
-  "total": 378.88
-}
-```
-
-**API Response (201 Created):**
-```json
-{
-  "id": 66,
-  "quote_number": "Q-20260127-EA05FDB5",
-  "customer_id": 1,
-  "subtotal": "350.00",
-  "tax_rate": "8.25",
-  "tax": "28.88",
-  "total": "378.88",
-  "status": "draft",
-  "valid_until": "2026-02-28T00:00:00",
-  "created_at": "2026-01-27T23:03:29.009160Z"
-}
-```
-
-**UI Verification:**
-- Modal closed after submission: ✅
-- Success toast displayed: "Estimate Created - The estimate has been created successfully"
-- No console errors: ✅
-- No 422 network errors: ✅
+*Last Verified: 2026-01-28*
+*Tests: e2e/tests/estimates-creation-fix.e2e.spec.ts*
 
 <promise>ESTIMATES_CREATE_422_ROOT_CAUSE_IDENTIFIED</promise>
 
