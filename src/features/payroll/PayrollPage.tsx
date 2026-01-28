@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
@@ -17,17 +17,20 @@ import { getErrorMessage } from "@/api/client";
 import {
   usePayrollPeriods,
   useTimeEntries,
-  useCommissions,
   usePayRates,
   useCreatePayrollPeriod,
+  useUpdatePayrollPeriod,
   useApprovePayrollPeriod,
   useUpdateTimeEntry,
   useBulkApproveTimeEntries,
-  useUpdateCommission,
-  useBulkApproveCommissions,
+  useCreatePayRate,
+  useUpdatePayRate,
+  useDeletePayRate,
 } from "@/api/hooks/usePayroll";
+import { useTechnicians } from "@/api/hooks/useTechnicians";
+import { CommissionsDashboard } from "./components/CommissionsDashboard";
 import { formatDate, formatCurrency } from "@/lib/utils";
-import type { PayrollPeriod } from "@/api/types/payroll";
+import type { PayrollPeriod, TechnicianPayRate } from "@/api/types/payroll";
 
 type TabType = "periods" | "time-entries" | "commissions" | "pay-rates";
 
@@ -63,11 +66,36 @@ function TabButton({
 function PayPeriodsTab() {
   const { data: periods, isLoading } = usePayrollPeriods();
   const createPeriod = useCreatePayrollPeriod();
+  const updatePeriod = useUpdatePayrollPeriod();
   const approvePeriod = useApprovePayrollPeriod();
   const [showCreate, setShowCreate] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [periodToApprove, setPeriodToApprove] = useState<PayrollPeriod | null>(null);
+  const [periodToEdit, setPeriodToEdit] = useState<PayrollPeriod | null>(null);
+  const [editStartDate, setEditStartDate] = useState("");
+  const [editEndDate, setEditEndDate] = useState("");
+
+  useEffect(() => {
+    if (periodToEdit) {
+      setEditStartDate(periodToEdit.start_date);
+      setEditEndDate(periodToEdit.end_date);
+    }
+  }, [periodToEdit]);
+
+  const handleUpdate = async () => {
+    if (!periodToEdit || !editStartDate || !editEndDate) return;
+    try {
+      await updatePeriod.mutateAsync({
+        periodId: periodToEdit.id,
+        input: { start_date: editStartDate, end_date: editEndDate },
+      });
+      toastSuccess("Period Updated", "Dates updated successfully");
+      setPeriodToEdit(null);
+    } catch (error) {
+      toastError("Update Failed", getErrorMessage(error));
+    }
+  };
 
   const handleApprovePeriod = async () => {
     if (!periodToApprove) return;
@@ -168,14 +196,23 @@ function PayPeriodsTab() {
                 </div>
               </div>
               {period.status === "draft" && (
-                <Button
-                  variant="primary"
-                  size="sm"
-                  onClick={() => setPeriodToApprove(period)}
-                  disabled={approvePeriod.isPending}
-                >
-                  Approve
-                </Button>
+                <div className="flex gap-2">
+                  <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => setPeriodToEdit(period)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
+                    variant="primary"
+                    size="sm"
+                    onClick={() => setPeriodToApprove(period)}
+                    disabled={approvePeriod.isPending}
+                  >
+                    Approve
+                  </Button>
+                </div>
               )}
             </div>
           </Card>
@@ -255,6 +292,49 @@ function PayPeriodsTab() {
         variant="primary"
         isLoading={approvePeriod.isPending}
       />
+
+      {/* Edit Dialog */}
+      <Dialog open={!!periodToEdit} onClose={() => setPeriodToEdit(null)}>
+        <DialogContent>
+          <DialogHeader onClose={() => setPeriodToEdit(null)}>
+            Edit Payroll Period
+          </DialogHeader>
+          <DialogBody>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="edit-start-date">Start Date</Label>
+                <Input
+                  id="edit-start-date"
+                  type="date"
+                  value={editStartDate}
+                  onChange={(e) => setEditStartDate(e.target.value)}
+                />
+              </div>
+              <div>
+                <Label htmlFor="edit-end-date">End Date</Label>
+                <Input
+                  id="edit-end-date"
+                  type="date"
+                  value={editEndDate}
+                  onChange={(e) => setEditEndDate(e.target.value)}
+                />
+              </div>
+            </div>
+          </DialogBody>
+          <DialogFooter>
+            <Button variant="secondary" onClick={() => setPeriodToEdit(null)}>
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleUpdate}
+              disabled={!editStartDate || !editEndDate || updatePeriod.isPending}
+            >
+              {updatePeriod.isPending ? "Saving..." : "Save Changes"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }
@@ -423,121 +503,10 @@ function TimeEntriesTab() {
 }
 
 /**
- * Commissions Tab
+ * Commissions Tab - Full Dashboard with stats, filtering, leaderboard, and insights
  */
 function CommissionsTab() {
-  const { data: commissions, isLoading } = useCommissions({
-    status: "pending",
-  });
-  const updateCommission = useUpdateCommission();
-  const bulkApprove = useBulkApproveCommissions();
-  const [selected, setSelected] = useState<Set<string>>(new Set());
-
-  const toggleSelect = (id: string) => {
-    const newSelected = new Set(selected);
-    if (newSelected.has(id)) {
-      newSelected.delete(id);
-    } else {
-      newSelected.add(id);
-    }
-    setSelected(newSelected);
-  };
-
-  const handleBulkApprove = async () => {
-    await bulkApprove.mutateAsync(Array.from(selected));
-    setSelected(new Set());
-  };
-
-  const handleApprove = async (commissionId: string) => {
-    await updateCommission.mutateAsync({
-      commissionId,
-      input: { status: "approved" },
-    });
-  };
-
-  if (isLoading) {
-    return <div className="animate-pulse h-48 bg-bg-muted rounded-lg" />;
-  }
-
-  return (
-    <div className="space-y-4">
-      <div className="flex justify-between items-center">
-        <h3 className="text-lg font-semibold text-text-primary">
-          Pending Commissions
-        </h3>
-        {selected.size > 0 && (
-          <Button
-            variant="primary"
-            onClick={handleBulkApprove}
-            disabled={bulkApprove.isPending}
-          >
-            Approve Selected ({selected.size})
-          </Button>
-        )}
-      </div>
-
-      <div className="space-y-3">
-        {commissions?.map((commission) => (
-          <Card key={commission.id} className="p-4">
-            <div className="flex items-start gap-3">
-              <input
-                type="checkbox"
-                checked={selected.has(commission.id)}
-                onChange={() => toggleSelect(commission.id)}
-                className="mt-1 rounded border-border"
-              />
-              <div className="flex-1">
-                <div className="flex items-start justify-between">
-                  <div>
-                    <div className="font-medium text-text-primary">
-                      {commission.technician_name ||
-                        `Tech #${commission.technician_id}`}
-                    </div>
-                    <div className="text-sm text-text-secondary">
-                      WO #
-                      {commission.work_order_number || commission.work_order_id}
-                    </div>
-                  </div>
-                  <div className="text-right">
-                    <div className="text-lg font-bold text-success">
-                      {formatCurrency(commission.commission_amount)}
-                    </div>
-                    <div className="text-xs text-text-secondary">
-                      {(commission.commission_rate * 100).toFixed(0)}% of{" "}
-                      {formatCurrency(commission.job_total)}
-                    </div>
-                  </div>
-                </div>
-
-                <div className="flex gap-2 mt-3">
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    onClick={() => handleApprove(commission.id)}
-                    disabled={updateCommission.isPending}
-                  >
-                    Approve
-                  </Button>
-                </div>
-              </div>
-            </div>
-          </Card>
-        ))}
-      </div>
-
-      {(!commissions || commissions.length === 0) && (
-        <Card className="p-8 text-center">
-          <div className="text-4xl mb-4">💵</div>
-          <h3 className="font-medium text-text-primary mb-2">
-            No Pending Commissions
-          </h3>
-          <p className="text-sm text-text-secondary">
-            All commissions have been processed.
-          </p>
-        </Card>
-      )}
-    </div>
-  );
+  return <CommissionsDashboard />;
 }
 
 /**

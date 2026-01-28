@@ -7,9 +7,15 @@ import type {
   TechnicianPayRate,
   PayrollSummary,
   CreatePayrollPeriodInput,
+  UpdatePayrollPeriodInput,
   UpdateTimeEntryInput,
   UpdateCommissionInput,
   UpdatePayRateInput,
+  CommissionStats,
+  CommissionInsight,
+  CommissionLeaderboardEntry,
+  CommissionFilters,
+  CommissionListResponse,
 } from "@/api/types/payroll.ts";
 
 /**
@@ -48,6 +54,35 @@ export function useCreatePayrollPeriod() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
+    },
+  });
+}
+
+export function useUpdatePayrollPeriod() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async ({
+      periodId,
+      input,
+    }: {
+      periodId: string;
+      input: UpdatePayrollPeriodInput;
+    }): Promise<PayrollPeriod> => {
+      const { data } = await apiClient.patch(
+        `/payroll/periods/${periodId}`,
+        input,
+      );
+      return data;
+    },
+    onSuccess: (_, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
+      queryClient.invalidateQueries({
+        queryKey: ["payroll", "periods", variables.periodId],
+      });
+    },
+    onError: (error) => {
+      console.error("Failed to update payroll period:", error);
     },
   });
 }
@@ -301,6 +336,19 @@ export function useUpdatePayRate() {
   });
 }
 
+export function useDeletePayRate() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (rateId: string): Promise<void> => {
+      await apiClient.delete(`/payroll/pay-rates/${rateId}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["payroll", "pay-rates"] });
+    },
+  });
+}
+
 /**
  * Export Payroll
  */
@@ -320,6 +368,127 @@ export function useExportPayroll() {
           responseType: "blob",
         },
       );
+      return data;
+    },
+  });
+}
+
+/**
+ * Commission Dashboard Hooks
+ */
+
+/**
+ * Fetch commission statistics for KPI cards
+ */
+export function useCommissionStats(params?: { period_id?: string }) {
+  return useQuery({
+    queryKey: ["payroll", "commissions", "stats", params],
+    queryFn: async (): Promise<CommissionStats> => {
+      const { data } = await apiClient.get("/payroll/commissions/stats", {
+        params,
+      });
+      return data;
+    },
+    staleTime: 30_000,
+  });
+}
+
+/**
+ * Fetch AI-generated commission insights
+ */
+export function useCommissionInsights() {
+  return useQuery({
+    queryKey: ["payroll", "commissions", "insights"],
+    queryFn: async (): Promise<CommissionInsight[]> => {
+      const { data } = await apiClient.get("/payroll/commissions/insights");
+      return data.insights || [];
+    },
+    staleTime: 60_000,
+  });
+}
+
+/**
+ * Fetch commission leaderboard
+ */
+export function useCommissionLeaderboard(period?: string) {
+  return useQuery({
+    queryKey: ["payroll", "commissions", "leaderboard", period],
+    queryFn: async (): Promise<CommissionLeaderboardEntry[]> => {
+      const { data } = await apiClient.get("/payroll/commissions/leaderboard", {
+        params: period ? { period_id: period } : undefined,
+      });
+      return data.entries || [];
+    },
+    staleTime: 60_000,
+  });
+}
+
+/**
+ * Enhanced commissions list with filtering and pagination
+ */
+export function useCommissionsList(filters: CommissionFilters) {
+  return useQuery({
+    queryKey: ["payroll", "commissions", "list", filters],
+    queryFn: async (): Promise<CommissionListResponse> => {
+      const params = new URLSearchParams();
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== "" && value !== "all") {
+          params.set(key, String(value));
+        }
+      });
+      const { data } = await apiClient.get(
+        `/payroll/commissions?${params.toString()}`,
+      );
+      return {
+        commissions: data.commissions || [],
+        total: data.total || 0,
+        page: data.page || 1,
+        page_size: data.page_size || 20,
+      };
+    },
+    staleTime: 15_000,
+  });
+}
+
+/**
+ * Bulk mark commissions as paid
+ */
+export function useBulkMarkPaidCommissions() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (commissionIds: string[]): Promise<{ paid: number }> => {
+      const { data } = await apiClient.post(
+        "/payroll/commissions/bulk-mark-paid",
+        {
+          commission_ids: commissionIds,
+        },
+      );
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["payroll", "commissions"] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
+    },
+  });
+}
+
+/**
+ * Export commissions to CSV
+ */
+export function useExportCommissions() {
+  return useMutation({
+    mutationFn: async (filters: CommissionFilters): Promise<Blob> => {
+      const params = new URLSearchParams();
+      Object.entries(filters).forEach(([key, value]) => {
+        if (value !== undefined && value !== "" && value !== "all") {
+          params.set(key, String(value));
+        }
+      });
+      const { data } = await apiClient.get("/payroll/commissions/export", {
+        params,
+        responseType: "blob",
+      });
       return data;
     },
   });

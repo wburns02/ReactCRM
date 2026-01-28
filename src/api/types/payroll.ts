@@ -88,6 +88,11 @@ export interface CreatePayrollPeriodInput {
   end_date: string;
 }
 
+export interface UpdatePayrollPeriodInput {
+  start_date?: string;
+  end_date?: string;
+}
+
 export interface UpdateTimeEntryInput {
   status?: "pending" | "approved" | "rejected";
   regular_hours?: number;
@@ -109,4 +114,74 @@ export interface UpdatePayRateInput {
   effective_date?: string;
   end_date?: string;
   is_active?: boolean;
+}
+
+/**
+ * Commission Dashboard Types
+ */
+
+export interface CommissionStats {
+  total_commissions: number;
+  pending_count: number;
+  pending_amount: number;
+  approved_count: number;
+  approved_amount: number;
+  paid_count: number;
+  paid_amount: number;
+  average_per_job: number;
+  total_jobs: number;
+  comparison_to_last_period: {
+    total_change_pct: number;
+    average_change_pct: number;
+  };
+}
+
+export interface CommissionInsight {
+  id: string;
+  type: "trend" | "alert" | "opportunity";
+  severity: "info" | "warning" | "success";
+  title: string;
+  description: string;
+  metric?: {
+    label: string;
+    value: string;
+    change?: string;
+  };
+  action?: {
+    label: string;
+    callback_type: string;
+    entity_id?: string;
+  };
+}
+
+export interface CommissionLeaderboardEntry {
+  technician_id: string;
+  technician_name: string;
+  rank: number;
+  rank_change: number;
+  total_earned: number;
+  jobs_completed: number;
+  average_commission: number;
+  commission_rate: number;
+  trend: "up" | "down" | "neutral";
+  trend_percentage: number;
+}
+
+export interface CommissionFilters {
+  status?: "all" | "pending" | "approved" | "paid";
+  technician_id?: string;
+  commission_type?: "job_completion" | "upsell" | "referral" | "all";
+  date_from?: string;
+  date_to?: string;
+  page?: number;
+  page_size?: number;
+  sort_by?: string;
+  sort_order?: "asc" | "desc";
+}
+
+export interface CommissionListResponse {
+  commissions: Commission[];
+  total: number;
+  page: number;
+  page_size: number;
 }
