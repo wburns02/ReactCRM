@@ -57,7 +57,7 @@ export function CommissionsDashboard({
   const { data: stats, isLoading: statsLoading } = useCommissionStats();
   const { data: commissionsData, isLoading: listLoading } =
     useCommissionsList(filters);
-  const { data: techniciansData } = useTechnicians({ is_active: true });
+  const { data: techniciansData } = useTechnicians({ active_only: true });
 
   // Mutations
   const updateCommission = useUpdateCommission();

@@ -521,8 +521,8 @@ function PayRateFormModal({
   onClose: () => void;
   editingRate: TechnicianPayRate | null;
 }) {
-  const { data: techniciansData } = useTechnicians({ is_active: true });
-  const technicians = techniciansData?.technicians || [];
+  const { data: techniciansData } = useTechnicians({ active_only: true });
+  const technicians = techniciansData?.items || [];
 
   const createRate = useCreatePayRate();
   const updateRate = useUpdatePayRate();
