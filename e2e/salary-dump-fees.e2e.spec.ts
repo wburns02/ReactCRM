@@ -22,14 +22,16 @@ test.describe("Salary Pay Rates and Dump Fees", () => {
     test("Pay rate form shows salary/hourly toggle", async ({ page }) => {
       await page.goto("/payroll");
       await page.waitForLoadState("networkidle");
+      await page.waitForTimeout(2000);
 
       // Navigate to Pay Rates tab
       const payRatesTab = page.locator("button", { hasText: /Pay Rates/i });
       await payRatesTab.click();
       await page.waitForLoadState("networkidle");
+      await page.waitForTimeout(1000);
 
-      // Click Add Pay Rate button
-      const addButton = page.locator('button:has-text("Add Pay Rate")');
+      // Click Add Rate button
+      const addButton = page.locator('button:has-text("Add Rate"), button:has-text("Add First Pay Rate")').first();
       await expect(addButton).toBeVisible({ timeout: 10000 });
       await addButton.click();
 
@@ -57,7 +59,7 @@ test.describe("Salary Pay Rates and Dump Fees", () => {
       await page.waitForLoadState("networkidle");
 
       // Click Add Pay Rate button
-      await page.locator('button:has-text("Add Pay Rate")').click();
+      await page.locator('button:has-text("Add Rate"), button:has-text("Add First Pay Rate")').click();
       const modal = page.locator('[role="dialog"]');
       await expect(modal).toBeVisible({ timeout: 5000 });
 
@@ -87,7 +89,7 @@ test.describe("Salary Pay Rates and Dump Fees", () => {
       await page.waitForLoadState("networkidle");
 
       // Click Add Pay Rate button
-      await page.locator('button:has-text("Add Pay Rate")').click();
+      await page.locator('button:has-text("Add Rate"), button:has-text("Add First Pay Rate")').click();
       const modal = page.locator('[role="dialog"]');
       await expect(modal).toBeVisible({ timeout: 5000 });
 
