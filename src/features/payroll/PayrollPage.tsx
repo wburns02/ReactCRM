@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+// PayrollPage v2 - with View buttons and detail navigation
 import { useNavigate } from "react-router-dom";
 import { Card } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -471,8 +472,10 @@ function PayRateFormModal({
   const updateRate = useUpdatePayRate();
 
   const [technicianId, setTechnicianId] = useState("");
+  const [payType, setPayType] = useState<"hourly" | "salary">("hourly");
   const [hourlyRate, setHourlyRate] = useState("");
   const [overtimeRate, setOvertimeRate] = useState("");
+  const [salaryAmount, setSalaryAmount] = useState("");
   const [commissionRate, setCommissionRate] = useState("");
   const [effectiveDate, setEffectiveDate] = useState("");
 
@@ -480,8 +483,10 @@ function PayRateFormModal({
   useEffect(() => {
     if (editingRate) {
       setTechnicianId(editingRate.technician_id);
+      setPayType(editingRate.pay_type || "hourly");
       setHourlyRate(editingRate.hourly_rate?.toString() || "");
       setOvertimeRate(editingRate.overtime_rate?.toString() || "");
+      setSalaryAmount(editingRate.salary_amount?.toString() || "");
       setCommissionRate(
         editingRate.commission_rate
           ? (editingRate.commission_rate * 100).toString()
@@ -490,8 +495,10 @@ function PayRateFormModal({
       setEffectiveDate(editingRate.effective_date || "");
     } else {
       setTechnicianId("");
+      setPayType("hourly");
       setHourlyRate("");
       setOvertimeRate("");
+      setSalaryAmount("");
       setCommissionRate("");
       setEffectiveDate(new Date().toISOString().split("T")[0]);
     }
@@ -509,12 +516,19 @@ function PayRateFormModal({
   };
 
   const handleSubmit = async () => {
-    if (!technicianId || !hourlyRate) return;
+    // Validation: For hourly, require hourly rate; for salary, require salary amount
+    if (!technicianId) return;
+    if (payType === "hourly" && !hourlyRate) return;
+    if (payType === "salary" && !salaryAmount) return;
 
     const rateData = {
       technician_id: technicianId,
-      hourly_rate: parseFloat(hourlyRate),
-      overtime_rate: overtimeRate ? parseFloat(overtimeRate) : parseFloat(hourlyRate) * 1.5,
+      pay_type: payType,
+      hourly_rate: payType === "hourly" ? parseFloat(hourlyRate) : null,
+      overtime_rate: payType === "hourly" && hourlyRate
+        ? (overtimeRate ? parseFloat(overtimeRate) : parseFloat(hourlyRate) * 1.5)
+        : null,
+      salary_amount: payType === "salary" ? parseFloat(salaryAmount) : null,
       commission_rate: commissionRate ? parseFloat(commissionRate) / 100 : 0,
       effective_date: effectiveDate || new Date().toISOString().split("T")[0],
       is_active: true,
@@ -538,7 +552,10 @@ function PayRateFormModal({
   };
 
   const isLoading = createRate.isPending || updateRate.isPending;
-  const isValid = technicianId && hourlyRate && parseFloat(hourlyRate) > 0;
+  const isValid = technicianId && (
+    (payType === "hourly" && hourlyRate && parseFloat(hourlyRate) > 0) ||
+    (payType === "salary" && salaryAmount && parseFloat(salaryAmount) > 0)
+  );
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -572,43 +589,102 @@ function PayRateFormModal({
               )}
             </div>
 
-            {/* Hourly Rate */}
+            {/* Pay Type Selection */}
             <div>
-              <Label htmlFor="hourly-rate">Hourly Rate ($) *</Label>
-              <Input
-                id="hourly-rate"
-                type="number"
-                step="0.01"
-                min="0"
-                max="500"
-                placeholder="25.00"
-                value={hourlyRate}
-                onChange={(e) => handleHourlyRateChange(e.target.value)}
-              />
+              <Label htmlFor="pay-type">Pay Type *</Label>
+              <div className="flex gap-4 mt-2">
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="pay-type"
+                    value="hourly"
+                    checked={payType === "hourly"}
+                    onChange={() => setPayType("hourly")}
+                    className="w-4 h-4 text-primary"
+                  />
+                  <span className="text-text-primary">Hourly</span>
+                </label>
+                <label className="flex items-center gap-2 cursor-pointer">
+                  <input
+                    type="radio"
+                    name="pay-type"
+                    value="salary"
+                    checked={payType === "salary"}
+                    onChange={() => setPayType("salary")}
+                    className="w-4 h-4 text-primary"
+                  />
+                  <span className="text-text-primary">Salary</span>
+                </label>
+              </div>
               <p className="text-xs text-text-secondary mt-1">
-                Base hourly pay rate for regular hours
+                {payType === "hourly"
+                  ? "Paid based on hours worked"
+                  : "Fixed annual salary (typically for full-time employees)"}
               </p>
             </div>
 
-            {/* Overtime Rate */}
-            <div>
-              <Label htmlFor="overtime-rate">Overtime Rate ($)</Label>
-              <Input
-                id="overtime-rate"
-                type="number"
-                step="0.01"
-                min="0"
-                max="750"
-                placeholder="37.50"
-                value={overtimeRate}
-                onChange={(e) => setOvertimeRate(e.target.value)}
-              />
-              <p className="text-xs text-text-secondary mt-1">
-                Defaults to 1.5x hourly rate if left empty
-              </p>
-            </div>
+            {/* Hourly Fields - Show only for hourly pay type */}
+            {payType === "hourly" && (
+              <>
+                {/* Hourly Rate */}
+                <div>
+                  <Label htmlFor="hourly-rate">Hourly Rate ($) *</Label>
+                  <Input
+                    id="hourly-rate"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    max="500"
+                    placeholder="25.00"
+                    value={hourlyRate}
+                    onChange={(e) => handleHourlyRateChange(e.target.value)}
+                  />
+                  <p className="text-xs text-text-secondary mt-1">
+                    Base hourly pay rate for regular hours
+                  </p>
+                </div>
 
-            {/* Commission Rate */}
+                {/* Overtime Rate */}
+                <div>
+                  <Label htmlFor="overtime-rate">Overtime Rate ($)</Label>
+                  <Input
+                    id="overtime-rate"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    max="750"
+                    placeholder="37.50"
+                    value={overtimeRate}
+                    onChange={(e) => setOvertimeRate(e.target.value)}
+                  />
+                  <p className="text-xs text-text-secondary mt-1">
+                    Defaults to 1.5x hourly rate if left empty
+                  </p>
+                </div>
+              </>
+            )}
+
+            {/* Salary Fields - Show only for salary pay type */}
+            {payType === "salary" && (
+              <div>
+                <Label htmlFor="salary-amount">Annual Salary ($) *</Label>
+                <Input
+                  id="salary-amount"
+                  type="number"
+                  step="1000"
+                  min="0"
+                  max="500000"
+                  placeholder="60000"
+                  value={salaryAmount}
+                  onChange={(e) => setSalaryAmount(e.target.value)}
+                />
+                <p className="text-xs text-text-secondary mt-1">
+                  Fixed annual salary amount (e.g., 60000 for $60,000/year)
+                </p>
+              </div>
+            )}
+
+            {/* Commission Rate - Applies to both hourly and salary */}
             <div>
               <Label htmlFor="commission-rate">Commission Rate (%)</Label>
               <Input
@@ -617,12 +693,12 @@ function PayRateFormModal({
                 step="0.5"
                 min="0"
                 max="100"
-                placeholder="5"
+                placeholder="20"
                 value={commissionRate}
                 onChange={(e) => setCommissionRate(e.target.value)}
               />
               <p className="text-xs text-text-secondary mt-1">
-                Percentage of job total earned as commission (0-100%)
+                Percentage of job total earned as commission (applies to {payType === "salary" ? "salary + commission" : "hourly + commission"} employees)
               </p>
             </div>
 
@@ -772,24 +848,56 @@ function PayRatesTab() {
               </div>
             </div>
 
+            {/* Pay Type Badge */}
+            <div className="mb-3">
+              <Badge variant={rate.pay_type === "salary" ? "primary" : "secondary"}>
+                {rate.pay_type === "salary" ? "Salary" : "Hourly"}
+              </Badge>
+            </div>
+
             {/* Rate Details Grid */}
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-sm mb-4">
-              <div className="bg-bg-muted/50 rounded-lg p-3">
-                <div className="text-text-secondary text-xs uppercase tracking-wide">
-                  Hourly Rate
-                </div>
-                <div className="font-bold text-lg text-text-primary">
-                  {formatCurrency(rate.hourly_rate)}<span className="text-sm font-normal">/hr</span>
-                </div>
-              </div>
-              <div className="bg-bg-muted/50 rounded-lg p-3">
-                <div className="text-text-secondary text-xs uppercase tracking-wide">
-                  Overtime Rate
-                </div>
-                <div className="font-bold text-lg text-text-primary">
-                  {formatCurrency(rate.overtime_rate)}<span className="text-sm font-normal">/hr</span>
-                </div>
-              </div>
+              {rate.pay_type === "salary" ? (
+                <>
+                  {/* Salary Display */}
+                  <div className="bg-bg-muted/50 rounded-lg p-3">
+                    <div className="text-text-secondary text-xs uppercase tracking-wide">
+                      Annual Salary
+                    </div>
+                    <div className="font-bold text-lg text-text-primary">
+                      {formatCurrency(rate.salary_amount || 0)}<span className="text-sm font-normal">/yr</span>
+                    </div>
+                  </div>
+                  <div className="bg-bg-muted/50 rounded-lg p-3">
+                    <div className="text-text-secondary text-xs uppercase tracking-wide">
+                      Monthly
+                    </div>
+                    <div className="font-bold text-lg text-text-primary">
+                      {formatCurrency((rate.salary_amount || 0) / 12)}<span className="text-sm font-normal">/mo</span>
+                    </div>
+                  </div>
+                </>
+              ) : (
+                <>
+                  {/* Hourly Display */}
+                  <div className="bg-bg-muted/50 rounded-lg p-3">
+                    <div className="text-text-secondary text-xs uppercase tracking-wide">
+                      Hourly Rate
+                    </div>
+                    <div className="font-bold text-lg text-text-primary">
+                      {formatCurrency(rate.hourly_rate || 0)}<span className="text-sm font-normal">/hr</span>
+                    </div>
+                  </div>
+                  <div className="bg-bg-muted/50 rounded-lg p-3">
+                    <div className="text-text-secondary text-xs uppercase tracking-wide">
+                      Overtime Rate
+                    </div>
+                    <div className="font-bold text-lg text-text-primary">
+                      {formatCurrency(rate.overtime_rate)}<span className="text-sm font-normal">/hr</span>
+                    </div>
+                  </div>
+                </>
+              )}
               <div className="bg-bg-muted/50 rounded-lg p-3">
                 <div className="text-text-secondary text-xs uppercase tracking-wide">
                   Commission
@@ -800,12 +908,14 @@ function PayRatesTab() {
               </div>
               <div className="bg-bg-muted/50 rounded-lg p-3">
                 <div className="text-text-secondary text-xs uppercase tracking-wide">
-                  OT Multiplier
+                  {rate.pay_type === "salary" ? "Pay Period" : "OT Multiplier"}
                 </div>
                 <div className="font-bold text-lg text-text-primary">
-                  {rate.hourly_rate > 0
-                    ? (rate.overtime_rate / rate.hourly_rate).toFixed(1)
-                    : "1.5"}x
+                  {rate.pay_type === "salary"
+                    ? "Bi-weekly"
+                    : (rate.hourly_rate && rate.hourly_rate > 0 && rate.overtime_rate)
+                      ? (rate.overtime_rate / rate.hourly_rate).toFixed(1) + "x"
+                      : "1.5x"}
                 </div>
               </div>
             </div>
