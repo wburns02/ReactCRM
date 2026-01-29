@@ -1,11 +1,36 @@
+import { useState } from "react";
 import type { UTMParams } from "../types/lead";
 import { LeadCaptureForm } from "./LeadCaptureForm";
+import { BookingForm } from "./BookingForm";
+import { CTAOptionTabs, type CTAOption } from "./CTAOptionTabs";
 
 interface CTASectionProps {
   utmParams: UTMParams;
 }
 
+// Benefits for Book & Pay option
+const BOOK_BENEFITS = [
+  "Skip the scheduling wait",
+  "Instant confirmation",
+  "Secure payment (not charged until service)",
+  "Same-day service available",
+  "$575 base price, transparent overage",
+];
+
+// Benefits for Get Quote option
+const QUOTE_BENEFITS = [
+  "Free, no-obligation quotes",
+  "Same-day service often available",
+  "Upfront pricing - no hidden fees",
+  "Licensed, insured, and experienced",
+  "Family-owned since 1996",
+];
+
 export function CTASection({ utmParams }: CTASectionProps) {
+  const [activeOption, setActiveOption] = useState<CTAOption>("book");
+
+  const benefits = activeOption === "book" ? BOOK_BENEFITS : QUOTE_BENEFITS;
+
   return (
     <section
       id="quote"
@@ -16,22 +41,19 @@ export function CTASection({ utmParams }: CTASectionProps) {
           {/* Left: Content */}
           <div className="text-white">
             <h2 className="text-3xl md:text-4xl font-bold mb-6">
-              Ready for Reliable Septic Service?
+              {activeOption === "book"
+                ? "Ready to Book Your Service?"
+                : "Ready for Reliable Septic Service?"}
             </h2>
             <p className="text-xl text-blue-100 mb-8">
-              Get your free quote today. Most requests receive a response within
-              1 business hour.
+              {activeOption === "book"
+                ? "Schedule now at $575 and get instant confirmation."
+                : "Get your free quote today. Most requests receive a response within 1 business hour."}
             </p>
 
-            {/* Benefits list */}
+            {/* Benefits list - dynamic based on selection */}
             <ul className="space-y-4 mb-8">
-              {[
-                "Free, no-obligation quotes",
-                "Same-day service often available",
-                "Upfront pricing - no hidden fees",
-                "Licensed, insured, and experienced",
-                "Family-owned since 1996",
-              ].map((benefit, index) => (
+              {benefits.map((benefit, index) => (
                 <li key={index} className="flex items-center gap-3">
                   <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center shrink-0">
                     <svg
@@ -73,17 +95,57 @@ export function CTASection({ utmParams }: CTASectionProps) {
             </div>
           </div>
 
-          {/* Right: Form */}
+          {/* Right: Form with Tabs */}
           <div className="bg-white rounded-xl p-6 md:p-8 shadow-2xl">
-            <div className="text-center mb-6">
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">
-                Get Your Free Quote
-              </h3>
-              <p className="text-gray-600">
-                Fill out the form and we'll get back to you ASAP
-              </p>
-            </div>
-            <LeadCaptureForm utmParams={utmParams} />
+            {/* Tab Selector */}
+            <CTAOptionTabs
+              activeOption={activeOption}
+              onChange={setActiveOption}
+            />
+
+            {/* Book & Pay Content */}
+            {activeOption === "book" && (
+              <div
+                role="tabpanel"
+                id="panel-book"
+                aria-labelledby="tab-book"
+              >
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold text-gray-900">
+                    Schedule & Pay
+                  </h3>
+                  <div className="flex items-center justify-center gap-2 mt-2">
+                    <span className="text-3xl font-bold text-green-600">
+                      $575
+                    </span>
+                    <span className="text-gray-500">up to 1,750 gal</span>
+                  </div>
+                  <p className="text-sm text-gray-500 mt-1">
+                    Card pre-authorized, charged after service
+                  </p>
+                </div>
+                <BookingForm testMode={true} />
+              </div>
+            )}
+
+            {/* Get Quote Content */}
+            {activeOption === "quote" && (
+              <div
+                role="tabpanel"
+                id="panel-quote"
+                aria-labelledby="tab-quote"
+              >
+                <div className="text-center mb-6">
+                  <h3 className="text-2xl font-bold text-gray-900">
+                    Get Your Free Quote
+                  </h3>
+                  <p className="text-gray-600">
+                    Fill out the form and we'll get back to you ASAP
+                  </p>
+                </div>
+                <LeadCaptureForm utmParams={utmParams} />
+              </div>
+            )}
           </div>
         </div>
       </div>
