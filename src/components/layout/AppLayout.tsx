@@ -167,6 +167,7 @@ export function AppLayout() {
         { path: "/users", label: "Users", icon: "👤" },
         { path: "/admin", label: "Settings", icon: "⚙️" },
         { path: "/admin/import", label: "Data Import", icon: "📥" },
+        { path: "/admin/dump-sites", label: "Dump Sites", icon: "🚛" },
       ],
     },
   ];
