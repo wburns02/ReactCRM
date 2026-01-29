@@ -16,6 +16,7 @@ export interface DumpSite {
   notes?: string;
   contact_name?: string;
   contact_phone?: string;
+  hours_of_operation?: string;
   created_at?: string;
   updated_at?: string;
 }
@@ -33,6 +34,7 @@ export interface CreateDumpSiteInput {
   notes?: string;
   contact_name?: string;
   contact_phone?: string;
+  hours_of_operation?: string;
 }
 
 export interface UpdateDumpSiteInput {
@@ -48,6 +50,7 @@ export interface UpdateDumpSiteInput {
   notes?: string;
   contact_name?: string;
   contact_phone?: string;
+  hours_of_operation?: string;
 }
 
 export interface DumpSiteListResponse {

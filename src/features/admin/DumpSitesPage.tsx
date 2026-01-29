@@ -182,6 +182,13 @@ export function DumpSitesPage() {
                           </div>
                         </div>
 
+                        {/* Hours of Operation */}
+                        {site.hours_of_operation && (
+                          <div className="text-sm text-text-secondary mb-3">
+                            <span className="font-medium">Hours:</span> {site.hours_of_operation}
+                          </div>
+                        )}
+
                         {/* Contact Info */}
                         {(site.contact_name || site.contact_phone) && (
                           <div className="text-sm text-text-secondary mb-3">
@@ -308,6 +315,7 @@ function DumpSiteFormModal({
   const [feePerGallon, setFeePerGallon] = useState("");
   const [contactName, setContactName] = useState("");
   const [contactPhone, setContactPhone] = useState("");
+  const [hoursOfOperation, setHoursOfOperation] = useState("");
   const [notes, setNotes] = useState("");
   const [isActive, setIsActive] = useState(true);
 
@@ -319,9 +327,10 @@ function DumpSiteFormModal({
       setAddressCity(editingSite.address_city || "");
       setAddressLine1(editingSite.address_line1 || "");
       setAddressPostalCode(editingSite.address_postal_code || "");
-      setFeePerGallon((editingSite.fee_per_gallon * 100).toString()); // Convert to cents for display
+      setFeePerGallon(Math.round(editingSite.fee_per_gallon * 100).toString()); // Convert to cents, fix floating point
       setContactName(editingSite.contact_name || "");
       setContactPhone(editingSite.contact_phone || "");
+      setHoursOfOperation(editingSite.hours_of_operation || "");
       setNotes(editingSite.notes || "");
       setIsActive(editingSite.is_active);
     } else {
@@ -333,6 +342,7 @@ function DumpSiteFormModal({
       setFeePerGallon("");
       setContactName("");
       setContactPhone("");
+      setHoursOfOperation("");
       setNotes("");
       setIsActive(true);
     }
@@ -342,7 +352,7 @@ function DumpSiteFormModal({
   const handleStateChange = (state: string) => {
     setAddressState(state);
     if (!editingSite && STATE_FEE_SUGGESTIONS[state] && !feePerGallon) {
-      setFeePerGallon((STATE_FEE_SUGGESTIONS[state] * 100).toString());
+      setFeePerGallon(Math.round(STATE_FEE_SUGGESTIONS[state] * 100).toString());
     }
   };
 
@@ -360,6 +370,7 @@ function DumpSiteFormModal({
       fee_per_gallon: feeInDollars,
       contact_name: contactName || undefined,
       contact_phone: contactPhone || undefined,
+      hours_of_operation: hoursOfOperation || undefined,
       notes: notes || undefined,
       is_active: isActive,
     };
@@ -498,6 +509,20 @@ function DumpSiteFormModal({
                   />
                 </div>
               </div>
+            </div>
+
+            {/* Hours of Operation */}
+            <div>
+              <Label htmlFor="hours-operation">Hours of Operation</Label>
+              <Input
+                id="hours-operation"
+                placeholder="Mon-Fri 7AM-5PM, Sat 8AM-12PM"
+                value={hoursOfOperation}
+                onChange={(e) => setHoursOfOperation(e.target.value)}
+              />
+              <p className="text-xs text-text-secondary mt-1">
+                e.g., "Mon-Fri 7AM-5PM", "24/7", "Weekdays Only"
+              </p>
             </div>
 
             {/* Notes */}
