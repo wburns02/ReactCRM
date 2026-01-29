@@ -455,8 +455,32 @@ export function CommissionFormModal({
               </div>
             )}
 
+            {/* Warning: Dump fees exceed job total */}
+            {calculationResult?.warning && !manualMode && (
+              <div className="p-4 bg-warning/10 border border-warning/30 rounded-lg">
+                <div className="flex items-start gap-2 mb-3">
+                  <AlertCircle className="w-5 h-5 text-warning mt-0.5" />
+                  <div>
+                    <p className="text-sm font-medium text-warning">Warning: No Commission Earned</p>
+                    <p className="text-xs text-text-secondary">{calculationResult.warning}</p>
+                  </div>
+                </div>
+                <div className="space-y-1 font-mono text-sm">
+                  {calculationResult.breakdown.steps.map((step, i) => (
+                    <p key={i} className="text-text-secondary">{step}</p>
+                  ))}
+                </div>
+                <div className="mt-3 pt-3 border-t border-warning/30 flex justify-between items-center">
+                  <span className="text-sm font-medium">Total Commission:</span>
+                  <span className="text-lg font-bold text-warning">
+                    {formatCurrency(calculationResult.commission_amount)}
+                  </span>
+                </div>
+              </div>
+            )}
+
             {/* Calculation Result Display */}
-            {calculationResult && !manualMode && (
+            {calculationResult && !calculationResult.warning && !manualMode && (
               <div className="p-4 bg-success/10 border border-success/30 rounded-lg">
                 <div className="flex items-start gap-2 mb-3">
                   <CheckCircle className="w-5 h-5 text-success mt-0.5" />

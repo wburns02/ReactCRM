@@ -267,4 +267,5 @@ export interface CommissionCalculation {
     calculation: string;
     steps: string[];
   };
+  warning?: string; // Warning message when dump fees exceed job total
 }

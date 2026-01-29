@@ -629,3 +629,21 @@ export function useCalculateCommission() {
     },
   });
 }
+
+/**
+ * Fetch commission rate configuration by job type
+ */
+export function useCommissionRates() {
+  return useQuery({
+    queryKey: ["payroll", "commission-rates"],
+    queryFn: async () => {
+      const { data } = await apiClient.get("/payroll/commission-rates");
+      return data.rates as Array<{
+        job_type: string;
+        rate: number;
+        apply_dump_fee: boolean;
+      }>;
+    },
+    staleTime: 300_000, // 5 minutes
+  });
+}
