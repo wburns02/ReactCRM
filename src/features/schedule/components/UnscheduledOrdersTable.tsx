@@ -1,4 +1,5 @@
 import { useState, useMemo } from "react";
+import { Link } from "react-router-dom";
 import { useDraggable, useDroppable } from "@dnd-kit/core";
 import { CSS } from "@dnd-kit/utilities";
 import { Input } from "@/components/ui/Input.tsx";
@@ -115,15 +116,13 @@ function DraggableWorkOrderRow({ workOrder }: { workOrder: WorkOrder }) {
 
       {/* Actions */}
       <td className="px-3 py-2">
-        <button
-          className="text-xs text-primary hover:text-primary-hover"
-          onClick={(e) => {
-            e.stopPropagation();
-            // TODO: Open work order detail
-          }}
+        <Link
+          to={`/work-orders/${workOrder.id}`}
+          onClick={(e) => e.stopPropagation()}
+          className="text-xs text-primary hover:text-primary-hover hover:underline"
         >
           View
-        </button>
+        </Link>
       </td>
     </tr>
   );
