@@ -11,6 +11,7 @@ import {
   DialogHeader,
   DialogBody,
   DialogFooter,
+  ConfirmDialog,
 } from "@/components/ui/Dialog";
 import { toastSuccess, toastError } from "@/components/ui/Toast";
 import { getErrorMessage } from "@/api/client";
@@ -20,7 +21,12 @@ import {
   usePayrollSummary,
   useTimeEntries,
   useCommissions,
+  useCreateTimeEntry,
+  useUpdateTimeEntry,
+  useDeleteTimeEntry,
 } from "@/api/hooks/usePayroll";
+import { useTechnicians } from "@/api/hooks/useTechnicians";
+import type { TimeEntry } from "@/api/types/payroll";
 import { formatDate, formatCurrency } from "@/lib/utils";
 
 /**
@@ -40,10 +46,26 @@ export function PayrollPeriodDetailPage() {
   const { data: timeEntries } = useTimeEntries({ payroll_period_id: periodId });
   const { data: commissions } = useCommissions({ payroll_period_id: periodId });
 
+  // Time Entry CRUD hooks
+  const createEntry = useCreateTimeEntry();
+  const updateEntry = useUpdateTimeEntry();
+  const deleteEntry = useDeleteTimeEntry();
+  const { data: technicians } = useTechnicians();
+
   // Edit modal state
   const [showEditModal, setShowEditModal] = useState(false);
   const [editStartDate, setEditStartDate] = useState("");
   const [editEndDate, setEditEndDate] = useState("");
+
+  // Time Entry form state
+  const [showEntryForm, setShowEntryForm] = useState(false);
+  const [editingEntry, setEditingEntry] = useState<TimeEntry | null>(null);
+  const [entryToDelete, setEntryToDelete] = useState<TimeEntry | null>(null);
+  const [formTechnicianId, setFormTechnicianId] = useState("");
+  const [formDate, setFormDate] = useState("");
+  const [formClockIn, setFormClockIn] = useState("");
+  const [formClockOut, setFormClockOut] = useState("");
+  const [formNotes, setFormNotes] = useState("");
 
   // Active tab
   const [activeTab, setActiveTab] = useState<"overview" | "time" | "commissions" | "technicians">("overview");
@@ -67,6 +89,80 @@ export function PayrollPeriodDetailPage() {
       setShowEditModal(false);
     } catch (err) {
       toastError("Update Failed", getErrorMessage(err));
+    }
+  };
+
+  // Time Entry handlers
+  const resetEntryForm = () => {
+    setShowEntryForm(false);
+    setEditingEntry(null);
+    setFormTechnicianId("");
+    setFormDate("");
+    setFormClockIn("");
+    setFormClockOut("");
+    setFormNotes("");
+  };
+
+  const openAddEntryForm = () => {
+    resetEntryForm();
+    // Pre-fill date from period start
+    if (period) {
+      setFormDate(period.start_date);
+    }
+    setShowEntryForm(true);
+  };
+
+  const openEditEntryForm = (entry: TimeEntry) => {
+    setEditingEntry(entry);
+    setFormTechnicianId(entry.technician_id);
+    setFormDate(entry.date);
+    // Extract time from ISO datetime
+    setFormClockIn(entry.clock_in?.split("T")[1]?.slice(0, 5) || "");
+    setFormClockOut(entry.clock_out?.split("T")[1]?.slice(0, 5) || "");
+    setFormNotes(entry.notes || "");
+    setShowEntryForm(true);
+  };
+
+  const handleSaveEntry = async () => {
+    if (!formTechnicianId || !formDate || !formClockIn) return;
+    try {
+      const clockInDateTime = `${formDate}T${formClockIn}:00`;
+      const clockOutDateTime = formClockOut ? `${formDate}T${formClockOut}:00` : undefined;
+
+      if (editingEntry) {
+        await updateEntry.mutateAsync({
+          entryId: editingEntry.id,
+          input: {
+            clock_in: clockInDateTime,
+            clock_out: clockOutDateTime,
+            notes: formNotes || undefined,
+          },
+        });
+        toastSuccess("Entry Updated", "Time entry updated successfully");
+      } else {
+        await createEntry.mutateAsync({
+          technician_id: formTechnicianId,
+          entry_date: formDate,
+          clock_in: clockInDateTime,
+          clock_out: clockOutDateTime,
+          notes: formNotes || undefined,
+        });
+        toastSuccess("Entry Created", "Time entry created successfully");
+      }
+      resetEntryForm();
+    } catch (error) {
+      toastError("Save Failed", getErrorMessage(error));
+    }
+  };
+
+  const handleDeleteEntry = async () => {
+    if (!entryToDelete) return;
+    try {
+      await deleteEntry.mutateAsync(entryToDelete.id);
+      toastSuccess("Entry Deleted", "Time entry deleted successfully");
+      setEntryToDelete(null);
+    } catch (error) {
+      toastError("Delete Failed", getErrorMessage(error));
     }
   };
 
@@ -254,7 +350,12 @@ export function PayrollPeriodDetailPage() {
 
         {activeTab === "time" && (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-text-primary">Time Entries</h3>
+            <div className="flex justify-between items-center">
+              <h3 className="text-lg font-semibold text-text-primary">Time Entries</h3>
+              <Button variant="primary" size="sm" onClick={openAddEntryForm}>
+                + Add Entry
+              </Button>
+            </div>
             {timeEntries && timeEntries.length > 0 ? (
               <div className="space-y-3">
                 {timeEntries.map((entry) => (
@@ -263,10 +364,23 @@ export function PayrollPeriodDetailPage() {
                       <div className="font-medium">{entry.technician_name || `Tech #${entry.technician_id}`}</div>
                       <div className="text-sm text-text-muted">{formatDate(entry.date)}</div>
                     </div>
-                    <div className="text-right">
-                      <div className="font-medium">{entry.regular_hours.toFixed(1)} hrs</div>
-                      {entry.overtime_hours > 0 && (
-                        <div className="text-sm text-warning">+{entry.overtime_hours.toFixed(1)} OT</div>
+                    <div className="flex items-center gap-3">
+                      <div className="text-right mr-2">
+                        <div className="font-medium">{entry.regular_hours.toFixed(1)} hrs</div>
+                        {entry.overtime_hours > 0 && (
+                          <div className="text-sm text-warning">+{entry.overtime_hours.toFixed(1)} OT</div>
+                        )}
+                      </div>
+                      <Badge variant={entry.status === "approved" ? "success" : entry.status === "rejected" ? "danger" : "secondary"}>
+                        {entry.status}
+                      </Badge>
+                      <Button variant="secondary" size="sm" onClick={() => openEditEntryForm(entry)}>
+                        Edit
+                      </Button>
+                      {entry.status === "pending" && (
+                        <Button variant="danger" size="sm" onClick={() => setEntryToDelete(entry)}>
+                          Delete
+                        </Button>
                       )}
                     </div>
                   </div>
@@ -385,6 +499,108 @@ export function PayrollPeriodDetailPage() {
           </DialogFooter>
         </DialogContent>
       </Dialog>
+
+      {/* Time Entry Form Modal */}
+      <Dialog open={showEntryForm} onClose={resetEntryForm}>
+        <DialogContent>
+          <DialogHeader onClose={resetEntryForm}>
+            {editingEntry ? "Edit Time Entry" : "Add Time Entry"}
+          </DialogHeader>
+          <DialogBody>
+            <div className="space-y-4">
+              <div>
+                <Label htmlFor="entry-technician">Technician *</Label>
+                <select
+                  id="entry-technician"
+                  value={formTechnicianId}
+                  onChange={(e) => setFormTechnicianId(e.target.value)}
+                  disabled={!!editingEntry}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                >
+                  <option value="">Select a technician...</option>
+                  {technicians?.items?.map((tech) => (
+                    <option key={tech.id} value={tech.id}>
+                      {tech.first_name} {tech.last_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+              <div>
+                <Label htmlFor="entry-date">Date *</Label>
+                <Input
+                  id="entry-date"
+                  type="date"
+                  value={formDate}
+                  onChange={(e) => setFormDate(e.target.value)}
+                />
+              </div>
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="entry-clock-in">Clock In *</Label>
+                  <Input
+                    id="entry-clock-in"
+                    type="time"
+                    value={formClockIn}
+                    onChange={(e) => setFormClockIn(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="entry-clock-out">Clock Out</Label>
+                  <Input
+                    id="entry-clock-out"
+                    type="time"
+                    value={formClockOut}
+                    onChange={(e) => setFormClockOut(e.target.value)}
+                  />
+                </div>
+              </div>
+              <div>
+                <Label htmlFor="entry-notes">Notes</Label>
+                <textarea
+                  id="entry-notes"
+                  value={formNotes}
+                  onChange={(e) => setFormNotes(e.target.value)}
+                  rows={3}
+                  placeholder="Optional notes about this time entry..."
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                />
+              </div>
+            </div>
+          </DialogBody>
+          <DialogFooter>
+            <Button variant="secondary" onClick={resetEntryForm}>
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleSaveEntry}
+              disabled={!formTechnicianId || !formDate || !formClockIn || createEntry.isPending || updateEntry.isPending}
+            >
+              {createEntry.isPending || updateEntry.isPending
+                ? "Saving..."
+                : editingEntry
+                  ? "Update Entry"
+                  : "Create Entry"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Time Entry Confirmation */}
+      <ConfirmDialog
+        open={!!entryToDelete}
+        onClose={() => setEntryToDelete(null)}
+        onConfirm={handleDeleteEntry}
+        title="Delete Time Entry"
+        message={
+          entryToDelete
+            ? `Are you sure you want to delete this time entry for ${entryToDelete.technician_name || "this technician"} on ${formatDate(entryToDelete.date)}? This action cannot be undone.`
+            : ""
+        }
+        confirmLabel="Delete"
+        variant="danger"
+        isLoading={deleteEntry.isPending}
+      />
     </div>
   );
 }
