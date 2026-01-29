@@ -1,13 +1,13 @@
 import { useForm, type SubmitHandler } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useLeadSubmit } from "../hooks/useLeadSubmit";
+import { AvailabilityPicker } from "./AvailabilityPicker";
 import {
   leadFormSchema,
   SERVICE_OPTIONS,
-  PREFERRED_TIME_OPTIONS,
   type UTMParams,
   type LeadSubmitData,
-  type PreferredTime,
+  type TimeSlot,
 } from "../types/lead";
 
 // Form input types (match the schema)
@@ -17,7 +17,9 @@ interface FormInputs {
   email?: string;
   phone: string;
   service_type: "pumping" | "inspection" | "repair" | "installation" | "emergency" | "other";
-  preferred_time?: PreferredTime;
+  preferred_date?: string;
+  preferred_time_slot?: TimeSlot;
+  is_asap?: boolean;
   address?: string;
   message?: string;
   sms_consent?: boolean;
@@ -34,6 +36,7 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
     formState: { errors },
     reset,
     watch,
+    setValue,
   } = useForm<FormInputs>({
     resolver: zodResolver(leadFormSchema),
     defaultValues: {
@@ -41,15 +44,20 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
       last_name: "",
       email: "",
       phone: "",
-      preferred_time: undefined,
+      preferred_date: undefined,
+      preferred_time_slot: undefined,
+      is_asap: false,
       address: "",
       message: "",
       sms_consent: false,
     },
   });
 
-  // Watch for form state changes to highlight selected time
-  const selectedTime = watch("preferred_time");
+  // Watch for form state changes
+  const selectedDate = watch("preferred_date");
+  const selectedTimeSlot = watch("preferred_time_slot");
+  const isAsap = watch("is_asap") ?? false;
+  const serviceType = watch("service_type");
 
   const { mutate: submitLead, isPending, isSuccess, isError } = useLeadSubmit();
 
@@ -209,34 +217,16 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
         )}
       </div>
 
-      {/* Preferred Time - Quick Select */}
-      <div>
-        <label className="block text-sm font-medium text-gray-700 mb-2">
-          When do you need service?{" "}
-          <span className="text-gray-400 font-normal">(optional)</span>
-        </label>
-        <div className="grid grid-cols-2 sm:grid-cols-3 gap-2">
-          {PREFERRED_TIME_OPTIONS.map((option) => (
-            <label
-              key={option.value}
-              className={`flex items-center justify-center gap-2 px-3 py-2.5 border rounded-lg cursor-pointer transition-all text-sm font-medium ${
-                selectedTime === option.value
-                  ? "border-primary bg-primary/10 text-primary"
-                  : "border-gray-200 hover:border-gray-300 text-gray-700 hover:bg-gray-50"
-              }`}
-            >
-              <input
-                type="radio"
-                {...register("preferred_time")}
-                value={option.value}
-                className="sr-only"
-              />
-              <span>{option.icon}</span>
-              <span>{option.label}</span>
-            </label>
-          ))}
-        </div>
-      </div>
+      {/* Availability Picker - Date & Time Selection */}
+      <AvailabilityPicker
+        selectedDate={selectedDate}
+        selectedTimeSlot={selectedTimeSlot}
+        isAsap={isAsap}
+        onDateChange={(date) => setValue("preferred_date", date)}
+        onTimeSlotChange={(slot) => setValue("preferred_time_slot", slot)}
+        onAsapChange={(asap) => setValue("is_asap", asap)}
+        serviceType={serviceType}
+      />
 
       {/* Address */}
       <div>
