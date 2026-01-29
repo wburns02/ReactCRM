@@ -302,3 +302,207 @@ export const UNITS = [
   { value: "load", label: "Load" },
   { value: "day", label: "Day" },
 ];
+
+// ========================
+// Calculation Types
+// ========================
+
+export interface LaborCalculation {
+  technician_id: string;
+  technician_name: string;
+  hours: number;
+  pay_type: "hourly" | "salary";
+  hourly_rate?: number;
+  annual_salary?: number;
+  hourly_equivalent?: number;
+  overtime_multiplier?: number;
+  regular_hours: number;
+  overtime_hours: number;
+  regular_cost: number;
+  overtime_cost: number;
+  total_labor_cost: number;
+  commission_rate: number;
+  source: "pay_rate" | "default";
+}
+
+export interface DumpFeeCalculation {
+  dump_site_id: string;
+  dump_site_name: string;
+  state: string;
+  gallons: number;
+  fee_per_gallon: number;
+  total_dump_fee: number;
+}
+
+export interface CommissionCalculation {
+  technician_id: string;
+  technician_name: string;
+  job_total: number;
+  dump_fee: number;
+  commissionable_amount: number;
+  commission_rate_percent: number;
+  commission_amount: number;
+  net_to_company: number;
+}
+
+export interface TechnicianPayRate {
+  technician_id: string;
+  name: string;
+  pay_type: "hourly" | "salary";
+  hourly_rate: number | null;
+  salary_amount: number | null;
+  commission_rate: number;
+  has_pay_rate: boolean;
+}
+
+export interface DumpSiteOption {
+  id: string;
+  name: string;
+  city: string | null;
+  state: string;
+  fee_per_gallon: number;
+}
+
+export interface RecentWorkOrder {
+  id: string;
+  customer_id: number | null;
+  job_type: string | null;
+  status: string | null;
+  total_amount: number;
+  scheduled_start: string | null;
+  technician_id: string | null;
+  created_at: string | null;
+}
+
+// ========================
+// Calculation API Functions
+// ========================
+
+async function calculateLabor(
+  technicianId: string,
+  hours: number,
+): Promise<LaborCalculation> {
+  const params = new URLSearchParams({
+    technician_id: technicianId,
+    hours: String(hours),
+  });
+  const { data } = await apiClient.get<LaborCalculation>(
+    `/job-costing/calculate/labor?${params}`,
+  );
+  return data;
+}
+
+async function calculateDumpFee(
+  dumpSiteId: string,
+  gallons: number,
+): Promise<DumpFeeCalculation> {
+  const params = new URLSearchParams({
+    dump_site_id: dumpSiteId,
+    gallons: String(gallons),
+  });
+  const { data } = await apiClient.get<DumpFeeCalculation>(
+    `/job-costing/calculate/dump-fee?${params}`,
+  );
+  return data;
+}
+
+async function calculateCommission(
+  technicianId: string,
+  jobTotal: number,
+  dumpFee: number = 0,
+): Promise<CommissionCalculation> {
+  const params = new URLSearchParams({
+    technician_id: technicianId,
+    job_total: String(jobTotal),
+    dump_fee: String(dumpFee),
+  });
+  const { data } = await apiClient.get<CommissionCalculation>(
+    `/job-costing/calculate/commission?${params}`,
+  );
+  return data;
+}
+
+async function fetchTechnicianPayRates(): Promise<{
+  technicians: TechnicianPayRate[];
+  total: number;
+}> {
+  const { data } = await apiClient.get<{
+    technicians: TechnicianPayRate[];
+    total: number;
+  }>("/job-costing/technicians/pay-rates");
+  return data;
+}
+
+async function fetchDumpSitesForCosting(): Promise<{
+  sites: DumpSiteOption[];
+  total: number;
+}> {
+  const { data } = await apiClient.get<{
+    sites: DumpSiteOption[];
+    total: number;
+  }>("/job-costing/dump-sites/list");
+  return data;
+}
+
+async function fetchRecentWorkOrders(
+  limit: number = 20,
+): Promise<{ work_orders: RecentWorkOrder[]; total: number }> {
+  const { data } = await apiClient.get<{
+    work_orders: RecentWorkOrder[];
+    total: number;
+  }>(`/job-costing/work-orders/recent?limit=${limit}`);
+  return data;
+}
+
+// ========================
+// Calculation Hooks
+// ========================
+
+export function useCalculateLabor(technicianId: string, hours: number) {
+  return useQuery({
+    queryKey: ["calculate-labor", technicianId, hours],
+    queryFn: () => calculateLabor(technicianId, hours),
+    enabled: !!technicianId && hours > 0,
+  });
+}
+
+export function useCalculateDumpFee(dumpSiteId: string, gallons: number) {
+  return useQuery({
+    queryKey: ["calculate-dump-fee", dumpSiteId, gallons],
+    queryFn: () => calculateDumpFee(dumpSiteId, gallons),
+    enabled: !!dumpSiteId && gallons > 0,
+  });
+}
+
+export function useCalculateCommission(
+  technicianId: string,
+  jobTotal: number,
+  dumpFee: number = 0,
+) {
+  return useQuery({
+    queryKey: ["calculate-commission", technicianId, jobTotal, dumpFee],
+    queryFn: () => calculateCommission(technicianId, jobTotal, dumpFee),
+    enabled: !!technicianId && jobTotal > 0,
+  });
+}
+
+export function useTechnicianPayRates() {
+  return useQuery({
+    queryKey: ["technician-pay-rates"],
+    queryFn: fetchTechnicianPayRates,
+  });
+}
+
+export function useDumpSitesForCosting() {
+  return useQuery({
+    queryKey: ["dump-sites-costing"],
+    queryFn: fetchDumpSitesForCosting,
+  });
+}
+
+export function useRecentWorkOrders(limit: number = 20) {
+  return useQuery({
+    queryKey: ["recent-work-orders", limit],
+    queryFn: () => fetchRecentWorkOrders(limit),
+  });
+}
