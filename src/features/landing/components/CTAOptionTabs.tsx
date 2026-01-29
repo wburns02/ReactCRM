@@ -23,7 +23,7 @@ export function CTAOptionTabs({ activeOption, onChange }: CTAOptionTabsProps) {
           "relative flex flex-col items-center p-4 rounded-xl border-2 transition-all",
           activeOption === "book"
             ? "border-green-500 bg-green-50 shadow-lg scale-[1.02]"
-            : "border-gray-200 hover:border-green-300 hover:bg-green-50/50"
+            : "border-gray-200 hover:border-green-300 hover:bg-green-50/50",
         )}
       >
         {/* Badge */}
@@ -47,7 +47,7 @@ export function CTAOptionTabs({ activeOption, onChange }: CTAOptionTabsProps) {
           "flex flex-col items-center p-4 rounded-xl border-2 transition-all",
           activeOption === "quote"
             ? "border-blue-500 bg-blue-50 shadow-lg scale-[1.02]"
-            : "border-gray-200 hover:border-blue-300 hover:bg-blue-50/50"
+            : "border-gray-200 hover:border-blue-300 hover:bg-blue-50/50",
         )}
       >
         <MessageSquare className="w-6 h-6 text-blue-600 mb-1" />

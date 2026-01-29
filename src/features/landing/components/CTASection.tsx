@@ -105,11 +105,7 @@ export function CTASection({ utmParams }: CTASectionProps) {
 
             {/* Book & Pay Content */}
             {activeOption === "book" && (
-              <div
-                role="tabpanel"
-                id="panel-book"
-                aria-labelledby="tab-book"
-              >
+              <div role="tabpanel" id="panel-book" aria-labelledby="tab-book">
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold text-gray-900">
                     Schedule & Pay
@@ -130,11 +126,7 @@ export function CTASection({ utmParams }: CTASectionProps) {
 
             {/* Get Quote Content */}
             {activeOption === "quote" && (
-              <div
-                role="tabpanel"
-                id="panel-quote"
-                aria-labelledby="tab-quote"
-              >
+              <div role="tabpanel" id="panel-quote" aria-labelledby="tab-quote">
                 <div className="text-center mb-6">
                   <h3 className="text-2xl font-bold text-gray-900">
                     Get Your Free Quote
