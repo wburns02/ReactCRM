@@ -31,7 +31,7 @@ export function AvailabilityPicker({
     // Fallback: Generate next 5 weekdays if API fails
     const days: DayAvailability[] = [];
     const today = new Date();
-    let current = new Date(today);
+    const current = new Date(today);
 
     while (days.length < 5) {
       if (current.getDay() !== 0 && current.getDay() !== 6) {
