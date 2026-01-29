@@ -107,8 +107,8 @@ export function useCreateQuote() {
         subtotal,
         tax,
         total,
-        // Convert date string to ISO datetime format for backend compatibility
-        valid_until: data.valid_until ? `${data.valid_until}T00:00:00` : undefined,
+        // Pass date as-is (YYYY-MM-DD) - backend handles the format
+        valid_until: data.valid_until || undefined,
       };
 
       const response = await apiClient.post("/quotes/", quoteData);

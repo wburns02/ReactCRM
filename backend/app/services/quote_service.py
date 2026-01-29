@@ -78,6 +78,12 @@ class QuoteService:
         # Generate unique quote number
         quote_number = self._generate_quote_number()
 
+        # Parse valid_until - handle both YYYY-MM-DD and YYYY-MM-DDTHH:MM:SS formats
+        valid_until_date = None
+        if data.valid_until:
+            date_str = data.valid_until.split('T')[0]  # Extract date part only
+            valid_until_date = date.fromisoformat(date_str)
+
         quote = Quote(
             quote_number=quote_number,
             customer_id=data.customer_id,
@@ -87,7 +93,7 @@ class QuoteService:
             tax_rate=data.tax_rate,
             tax=tax,
             total=total,
-            valid_until=date.fromisoformat(data.valid_until) if data.valid_until else None,
+            valid_until=valid_until_date,
             notes=data.notes,
             terms=data.terms
         )
@@ -156,10 +162,14 @@ class QuoteService:
             update_data["tax"] = tax
             update_data["total"] = total
 
-        # Handle date conversion
+        # Handle date conversion - handle both YYYY-MM-DD and YYYY-MM-DDTHH:MM:SS formats
         if "valid_until" in update_data:
             val = update_data["valid_until"]
-            update_data["valid_until"] = date.fromisoformat(val) if val else None
+            if val:
+                date_str = val.split('T')[0]  # Extract date part only
+                update_data["valid_until"] = date.fromisoformat(date_str)
+            else:
+                update_data["valid_until"] = None
 
         for field, value in update_data.items():
             setattr(quote, field, value)

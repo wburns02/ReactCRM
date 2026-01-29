@@ -100,6 +100,20 @@ export function CreateEstimateModal({
       return;
     }
 
+    // Validate quantities are greater than 0
+    const invalidQuantity = validLineItems.some((item) => item.quantity <= 0);
+    if (invalidQuantity) {
+      toastError("Validation Error", "All quantities must be greater than 0");
+      return;
+    }
+
+    // Validate rates are non-negative
+    const invalidRate = validLineItems.some((item) => item.rate < 0);
+    if (invalidRate) {
+      toastError("Validation Error", "Rates cannot be negative");
+      return;
+    }
+
     try {
       await createQuote.mutateAsync({
         customer_id: parseInt(customerId, 10),
@@ -221,13 +235,15 @@ export function CreateEstimateModal({
                       min={0.01}
                       step={0.01}
                       value={item.quantity}
-                      onChange={(e) =>
+                      onChange={(e) => {
+                        const val = parseFloat(e.target.value);
+                        // Ensure quantity is at least 0.01 (backend requires > 0)
                         handleLineItemChange(
                           index,
                           "quantity",
-                          parseFloat(e.target.value) || 0
-                        )
-                      }
+                          isNaN(val) ? 1 : Math.max(0.01, val)
+                        );
+                      }}
                       disabled={createQuote.isPending}
                     />
                   </div>
