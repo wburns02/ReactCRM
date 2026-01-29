@@ -1,8 +1,13 @@
 import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
+import { useAcceptQuote, useDeclineQuote, useSendQuote } from "@/api/hooks/useQuotes";
+import { type QuoteStatus } from "@/api/types/quote";
 import { toastSuccess, toastError } from "@/components/ui/Toast";
+import { Dialog, DialogContent, DialogHeader, DialogBody, DialogFooter } from "@/components/ui/Dialog";
+import { Button } from "@/components/ui/Button";
+import { EstimateStatusBar } from "../components/EstimateStatusBar";
 import { jsPDF } from "jspdf";
 
 /**
@@ -231,7 +236,6 @@ function generateEstimatePDF(estimate: Record<string, unknown>) {
     doc.setTextColor(80, 80, 80);
     const termLines = doc.splitTextToSize(estimate.terms as string, pageWidth - 40);
     doc.text(termLines, 15, y);
-    y += termLines.length * 5 + 8;
   }
 
   // --- Footer ---
@@ -254,12 +258,17 @@ function generateEstimatePDF(estimate: Record<string, unknown>) {
 }
 
 /**
- * Estimate Detail Page
+ * Estimate Detail Page with visual status bar and action buttons
  */
 export function EstimateDetailPage() {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const queryClient = useQueryClient();
   const [isDownloading, setIsDownloading] = useState(false);
+  const [confirmDialog, setConfirmDialog] = useState<{
+    type: "accept" | "decline" | null;
+    open: boolean;
+  }>({ type: null, open: false });
 
   const { data: estimate, isLoading } = useQuery({
     queryKey: ["estimate", id],
@@ -270,21 +279,24 @@ export function EstimateDetailPage() {
     enabled: !!id,
   });
 
-  const sendMutation = useMutation({
-    mutationFn: async () => {
-      await apiClient.post(`/estimates/${id}/send`);
-    },
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["estimate", id] });
-    },
-  });
+  const sendMutation = useSendQuote();
+  const acceptMutation = useAcceptQuote();
+  const declineMutation = useDeclineQuote();
 
   const convertMutation = useMutation({
     mutationFn: async () => {
-      await apiClient.post(`/estimates/${id}/convert-to-invoice`);
+      const response = await apiClient.post(`/estimates/${id}/convert-to-invoice`);
+      return response.data;
     },
-    onSuccess: () => {
+    onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["estimate", id] });
+      toastSuccess("Invoice Created", "The estimate has been converted to an invoice.");
+      if (data?.invoice_id) {
+        navigate(`/invoices/${data.invoice_id}`);
+      }
+    },
+    onError: () => {
+      toastError("Error", "Failed to convert estimate to invoice.");
     },
   });
 
@@ -305,20 +317,51 @@ export function EstimateDetailPage() {
     }
   };
 
-  const getStatusColor = (status: string) => {
-    switch (status?.toLowerCase()) {
-      case "pending":
-        return "bg-warning/20 text-warning";
-      case "sent":
-        return "bg-info/20 text-info";
-      case "accepted":
-        return "bg-success/20 text-success";
-      case "declined":
-        return "bg-danger/20 text-danger";
-      default:
-        return "bg-text-muted/20 text-text-muted";
-    }
+  const handleSend = () => {
+    if (!id) return;
+    sendMutation.mutate(id, {
+      onSuccess: () => {
+        toastSuccess("Estimate Sent", "The estimate has been sent to the customer.");
+      },
+      onError: () => {
+        toastError("Error", "Failed to send estimate. Please try again.");
+      },
+    });
   };
+
+  const handleAccept = () => {
+    if (!id) return;
+    acceptMutation.mutate(id, {
+      onSuccess: () => {
+        toastSuccess("Estimate Accepted", "The estimate has been marked as accepted.");
+        setConfirmDialog({ type: null, open: false });
+      },
+      onError: () => {
+        toastError("Error", "Failed to accept estimate. Please try again.");
+        setConfirmDialog({ type: null, open: false });
+      },
+    });
+  };
+
+  const handleDecline = () => {
+    if (!id) return;
+    declineMutation.mutate(id, {
+      onSuccess: () => {
+        toastSuccess("Estimate Declined", "The estimate has been marked as declined.");
+        setConfirmDialog({ type: null, open: false });
+      },
+      onError: () => {
+        toastError("Error", "Failed to decline estimate. Please try again.");
+        setConfirmDialog({ type: null, open: false });
+      },
+    });
+  };
+
+  const status = (estimate?.status || "draft") as QuoteStatus;
+  const canSend = status === "draft";
+  const canAcceptDecline = status === "sent";
+  const canConvert = status === "accepted";
+  const isTerminal = status === "declined" || status === "expired" || status === "invoiced";
 
   if (isLoading) {
     return (
@@ -341,60 +384,77 @@ export function EstimateDetailPage() {
         <div className="flex items-center justify-between">
           <div>
             <h1 className="text-2xl font-semibold text-text-primary">
-              Estimate #{estimate?.id || id}
+              Estimate #{estimate?.quote_number || estimate?.id || id}
             </h1>
             <p className="text-text-muted">{estimate?.customer_name}</p>
           </div>
-          <div className="flex gap-2">
-            {estimate?.status === "draft" && (
-              <button
-                onClick={() => sendMutation.mutate()}
-                disabled={sendMutation.isPending}
-                className="px-4 py-2 bg-info text-white rounded-lg text-sm font-medium disabled:opacity-50"
-              >
-                {sendMutation.isPending ? "Sending..." : "Send to Customer"}
-              </button>
-            )}
-            {estimate?.status === "accepted" && (
-              <button
-                onClick={() => convertMutation.mutate()}
-                disabled={convertMutation.isPending}
-                className="px-4 py-2 bg-success text-white rounded-lg text-sm font-medium disabled:opacity-50"
-              >
-                {convertMutation.isPending
-                  ? "Converting..."
-                  : "Convert to Invoice"}
-              </button>
-            )}
-            <button
-              onClick={handleDownloadPDF}
-              disabled={isDownloading || !estimate}
-              className="px-4 py-2 border border-border rounded-lg text-text-secondary text-sm font-medium hover:bg-bg-hover disabled:opacity-50 disabled:cursor-not-allowed"
-            >
-              {isDownloading ? "Generating..." : "Download PDF"}
-            </button>
-          </div>
+          <button
+            onClick={handleDownloadPDF}
+            disabled={isDownloading || !estimate}
+            className="px-4 py-2 border border-border rounded-lg text-text-secondary text-sm font-medium hover:bg-bg-hover disabled:opacity-50 disabled:cursor-not-allowed"
+          >
+            {isDownloading ? "Generating..." : "Download PDF"}
+          </button>
         </div>
       </div>
 
-      {/* Status */}
-      <div className="bg-bg-card border border-border rounded-lg p-4 mb-6">
-        <div className="flex items-center justify-between">
-          <div className="flex items-center gap-3">
-            <span
-              className={`px-3 py-1 rounded-full text-sm font-medium ${getStatusColor(estimate?.status)}`}
-            >
-              {estimate?.status?.toUpperCase() || "DRAFT"}
-            </span>
+      {/* Status Progress Bar */}
+      <EstimateStatusBar status={status} invoiceId={estimate?.invoice_id} />
+
+      {/* Action Buttons */}
+      {!isTerminal && (
+        <div className="bg-bg-card border border-border rounded-lg p-4 mb-6">
+          <div className="flex items-center justify-center gap-4">
+            {canSend && (
+              <Button
+                variant="primary"
+                onClick={handleSend}
+                disabled={sendMutation.isPending}
+                className="min-w-[160px]"
+              >
+                {sendMutation.isPending ? "Sending..." : "Send to Customer"}
+              </Button>
+            )}
+
+            {canAcceptDecline && (
+              <>
+                <Button
+                  variant="primary"
+                  onClick={() => setConfirmDialog({ type: "accept", open: true })}
+                  disabled={acceptMutation.isPending}
+                  className="min-w-[140px] bg-green-600 hover:bg-green-700"
+                >
+                  {acceptMutation.isPending ? "..." : "Accept"}
+                </Button>
+                <Button
+                  variant="secondary"
+                  onClick={() => setConfirmDialog({ type: "decline", open: true })}
+                  disabled={declineMutation.isPending}
+                  className="min-w-[140px] text-red-600 border-red-200 hover:bg-red-50"
+                >
+                  {declineMutation.isPending ? "..." : "Decline"}
+                </Button>
+              </>
+            )}
+
+            {canConvert && (
+              <Button
+                variant="primary"
+                onClick={() => convertMutation.mutate()}
+                disabled={convertMutation.isPending}
+                className="min-w-[180px] bg-purple-600 hover:bg-purple-700"
+              >
+                {convertMutation.isPending ? "Converting..." : "Convert to Invoice"}
+              </Button>
+            )}
           </div>
-          <div className="text-right">
-            <p className="text-sm text-text-muted">Valid Until</p>
-            <p className="font-medium text-text-primary">
-              {estimate?.valid_until || "N/A"}
-            </p>
-          </div>
+          <p className="text-center text-sm text-text-muted mt-2">
+            {canSend && "Ready to send this estimate to the customer"}
+            {canAcceptDecline && "Record the customer's response to this estimate"}
+            {canConvert && "Customer accepted - ready to create an invoice"}
+          </p>
         </div>
-      </div>
+      )}
 
       {/* Customer Info */}
       <div className="grid md:grid-cols-2 gap-6 mb-6">
@@ -406,7 +466,7 @@ export function EstimateDetailPage() {
                 to={`/customers/${estimate.customer_id}`}
                 className="text-sm text-primary hover:underline"
               >
-                View Customer →
+                View Customer &rarr;
               </Link>
             )}
           </div>
@@ -415,32 +475,34 @@ export function EstimateDetailPage() {
               {estimate?.customer_name || "N/A"}
             </p>
             {estimate?.customer_email && (
-              <p className="text-sm text-text-muted">
-                {estimate.customer_email}
-              </p>
+              <p className="text-sm text-text-muted">{estimate.customer_email}</p>
             )}
             {estimate?.customer_phone && (
-              <p className="text-sm text-text-muted">
-                {estimate.customer_phone}
-              </p>
+              <p className="text-sm text-text-muted">{estimate.customer_phone}</p>
             )}
             {estimate?.customer_address && (
-              <p className="text-sm text-text-muted">
-                {estimate.customer_address}
-              </p>
+              <p className="text-sm text-text-muted">{estimate.customer_address}</p>
             )}
           </div>
         </div>
 
         <div className="bg-bg-card border border-border rounded-lg p-4">
-          <h2 className="font-medium text-text-primary mb-3">
-            Estimate Details
-          </h2>
+          <h2 className="font-medium text-text-primary mb-3">Estimate Details</h2>
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-text-muted">Created</span>
               <span className="text-text-primary">
-                {estimate?.created_at || "N/A"}
+                {estimate?.created_at
+                  ? new Date(estimate.created_at).toLocaleDateString()
+                  : "N/A"}
+              </span>
+            </div>
+            <div className="flex justify-between">
+              <span className="text-text-muted">Valid Until</span>
+              <span className="text-text-primary">
+                {estimate?.valid_until
+                  ? new Date(estimate.valid_until).toLocaleDateString()
+                  : "N/A"}
               </span>
             </div>
             <div className="flex justify-between">
@@ -485,9 +547,7 @@ export function EstimateDetailPage() {
                       <td className="py-2 text-text-primary">
                         {item.service || item.description}
                       </td>
-                      <td className="py-2 text-text-secondary">
-                        {item.quantity}
-                      </td>
+                      <td className="py-2 text-text-secondary">{item.quantity}</td>
                       <td className="py-2 text-text-secondary">${item.rate}</td>
                       <td className="py-2 text-right text-text-primary">
                         ${item.amount}
@@ -498,9 +558,7 @@ export function EstimateDetailPage() {
               </tbody>
             </table>
           ) : (
-            <div className="text-center py-4 text-text-muted">
-              No line items
-            </div>
+            <div className="text-center py-4 text-text-muted">No line items</div>
           )}
         </div>
       </div>
@@ -524,6 +582,52 @@ export function EstimateDetailPage() {
           </div>
         </div>
       </div>
+
+      {/* Confirmation Dialog */}
+      <Dialog
+        open={confirmDialog.open}
+        onOpenChange={(open) => setConfirmDialog({ ...confirmDialog, open })}
+      >
+        <DialogContent>
+          <DialogHeader onClose={() => setConfirmDialog({ type: null, open: false })}>
+            {confirmDialog.type === "accept" ? "Accept Estimate" : "Decline Estimate"}
+          </DialogHeader>
+          <DialogBody>
+            <p className="text-text-secondary">
+              {confirmDialog.type === "accept" ? (
+                <>
+                  Are you sure you want to mark this estimate as <strong className="text-green-600">accepted</strong>?
+                  You'll be able to convert it to an invoice.
+                </>
+              ) : (
+                <>
+                  Are you sure you want to mark this estimate as <strong className="text-red-600">declined</strong>?
+                  This action can be undone by editing the estimate.
+                </>
+              )}
+            </p>
+          </DialogBody>
+          <DialogFooter>
+            <Button
+              variant="secondary"
+              onClick={() => setConfirmDialog({ type: null, open: false })}
+            >
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+              onClick={confirmDialog.type === "accept" ? handleAccept : handleDecline}
+              className={
+                confirmDialog.type === "accept"
+                  ? "bg-green-600 hover:bg-green-700"
+                  : "bg-red-600 hover:bg-red-700"
+              }
+            >
+              {confirmDialog.type === "accept" ? "Accept" : "Decline"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </div>
   );
 }

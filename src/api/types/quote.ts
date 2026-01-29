@@ -11,6 +11,7 @@ export const quoteStatusSchema = z.enum([
   "accepted",
   "declined",
   "expired",
+  "invoiced", // Terminal state after conversion to invoice
 ]);
 export type QuoteStatus = z.infer<typeof quoteStatusSchema>;
 
@@ -20,6 +21,76 @@ export const QUOTE_STATUS_LABELS: Record<QuoteStatus, string> = {
   accepted: "Accepted",
   declined: "Declined",
   expired: "Expired",
+  invoiced: "Invoiced",
+};
+
+/**
+ * Status stage order for progress bar visualization
+ * Main flow: draft → sent → accepted → invoiced
+ */
+export const QUOTE_STAGE_ORDER = ["draft", "sent", "accepted", "invoiced"] as const;
+
+/**
+ * Status metadata for UI components
+ */
+export interface QuoteStatusMeta {
+  label: string;
+  color: string;
+  bgClass: string;
+  textClass: string;
+  icon: string;
+  description: string;
+}
+
+export const QUOTE_STATUS_META: Record<QuoteStatus, QuoteStatusMeta> = {
+  draft: {
+    label: "Draft",
+    color: "#6b7280",
+    bgClass: "bg-gray-100",
+    textClass: "text-gray-700",
+    icon: "📝",
+    description: "Estimate created, ready to send to customer",
+  },
+  sent: {
+    label: "Sent",
+    color: "#3b82f6",
+    bgClass: "bg-blue-100",
+    textClass: "text-blue-700",
+    icon: "✉️",
+    description: "Sent to customer, awaiting response",
+  },
+  accepted: {
+    label: "Accepted",
+    color: "#10b981",
+    bgClass: "bg-green-100",
+    textClass: "text-green-700",
+    icon: "✅",
+    description: "Customer accepted, ready to convert to invoice",
+  },
+  declined: {
+    label: "Declined",
+    color: "#ef4444",
+    bgClass: "bg-red-100",
+    textClass: "text-red-700",
+    icon: "❌",
+    description: "Customer declined this estimate",
+  },
+  expired: {
+    label: "Expired",
+    color: "#9ca3af",
+    bgClass: "bg-gray-100",
+    textClass: "text-gray-500",
+    icon: "⏰",
+    description: "Estimate validity period has passed",
+  },
+  invoiced: {
+    label: "Invoiced",
+    color: "#8b5cf6",
+    bgClass: "bg-purple-100",
+    textClass: "text-purple-700",
+    icon: "💰",
+    description: "Converted to invoice",
+  },
 };
 
 /**

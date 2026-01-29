@@ -217,6 +217,42 @@ export function useSendQuote() {
 }
 
 /**
+ * Accept quote/estimate - marks as accepted by customer
+ */
+export function useAcceptQuote() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: string): Promise<Quote> => {
+      const response = await apiClient.post(`/quotes/${id}/accept`);
+      return response.data;
+    },
+    onSuccess: (_, id) => {
+      queryClient.invalidateQueries({ queryKey: quoteKeys.detail(id) });
+      queryClient.invalidateQueries({ queryKey: quoteKeys.lists() });
+    },
+  });
+}
+
+/**
+ * Decline quote/estimate - marks as declined by customer
+ */
+export function useDeclineQuote() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (id: string): Promise<Quote> => {
+      const response = await apiClient.post(`/quotes/${id}/decline`);
+      return response.data;
+    },
+    onSuccess: (_, id) => {
+      queryClient.invalidateQueries({ queryKey: quoteKeys.detail(id) });
+      queryClient.invalidateQueries({ queryKey: quoteKeys.lists() });
+    },
+  });
+}
+
+/**
  * Download estimate/quote as PDF
  */
 export function useDownloadEstimatePDF() {
