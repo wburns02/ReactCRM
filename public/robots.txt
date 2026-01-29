@@ -1,0 +1,26 @@
+# robots.txt for MAC Septic Services
+# https://react.ecbtx.com
+
+User-agent: *
+Allow: /
+Allow: /home
+Allow: /privacy
+
+# Disallow CRM/admin areas
+Disallow: /customers
+Disallow: /leads
+Disallow: /jobs
+Disallow: /schedule
+Disallow: /invoices
+Disallow: /estimates
+Disallow: /work-orders
+Disallow: /reports
+Disallow: /settings
+Disallow: /admin
+Disallow: /api/
+
+# Sitemap location
+Sitemap: https://react.ecbtx.com/sitemap.xml
+
+# Crawl delay (optional - be polite to crawlers)
+Crawl-delay: 1

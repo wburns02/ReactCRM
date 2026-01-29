@@ -7,6 +7,7 @@ import { TestimonialsSection } from "./components/TestimonialsSection";
 import { FAQSection } from "./components/FAQSection";
 import { CTASection } from "./components/CTASection";
 import { LandingFooter } from "./components/LandingFooter";
+import { SEOHead } from "./components/SEOHead";
 import type { UTMParams } from "./types/lead";
 
 /**
@@ -65,6 +66,9 @@ export function LandingPage() {
 
   return (
     <div className="min-h-screen bg-white">
+      {/* SEO Structured Data */}
+      <SEOHead />
+
       {/* Hero Section */}
       <HeroSection utmParams={utmParams} />
 
