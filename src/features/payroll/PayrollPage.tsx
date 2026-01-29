@@ -111,13 +111,21 @@ function PayPeriodsTab() {
 
   const handleCreate = async () => {
     if (!startDate || !endDate) return;
-    await createPeriod.mutateAsync({
-      start_date: startDate,
-      end_date: endDate,
-    });
-    setShowCreate(false);
-    setStartDate("");
-    setEndDate("");
+    try {
+      await createPeriod.mutateAsync({
+        start_date: startDate,
+        end_date: endDate,
+      });
+      toastSuccess(
+        "Period Created",
+        `Payroll period ${formatDate(startDate)} - ${formatDate(endDate)} created successfully`
+      );
+      setShowCreate(false);
+      setStartDate("");
+      setEndDate("");
+    } catch (error) {
+      toastError("Creation Failed", getErrorMessage(error));
+    }
   };
 
   const statusColors: Record<
