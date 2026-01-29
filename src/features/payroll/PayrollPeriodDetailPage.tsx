@@ -70,6 +70,16 @@ export function PayrollPeriodDetailPage() {
   // Active tab
   const [activeTab, setActiveTab] = useState<"overview" | "time" | "commissions" | "technicians">("overview");
 
+  // Helper to get technician name from ID
+  const getTechnicianName = (technicianId: string): string => {
+    const tech = technicians?.items?.find(t => t.id === technicianId);
+    if (tech) {
+      return `${tech.first_name} ${tech.last_name}`;
+    }
+    // Shortened UUID as fallback if technician not found
+    return `Tech #${technicianId.slice(0, 8)}...`;
+  };
+
   // Populate edit form when period loads
   useEffect(() => {
     if (period) {
@@ -361,7 +371,7 @@ export function PayrollPeriodDetailPage() {
                 {timeEntries.map((entry) => (
                   <div key={entry.id} className="flex justify-between items-center p-3 bg-bg-muted rounded-lg">
                     <div>
-                      <div className="font-medium">{entry.technician_name || `Tech #${entry.technician_id}`}</div>
+                      <div className="font-medium">{entry.technician_name || getTechnicianName(entry.technician_id)}</div>
                       <div className="text-sm text-text-muted">{formatDate(entry.date)}</div>
                     </div>
                     <div className="flex items-center gap-3">
@@ -400,7 +410,7 @@ export function PayrollPeriodDetailPage() {
                 {commissions.map((comm) => (
                   <div key={comm.id} className="flex justify-between items-center p-3 bg-bg-muted rounded-lg">
                     <div>
-                      <div className="font-medium">{comm.technician_name || `Tech #${comm.technician_id}`}</div>
+                      <div className="font-medium">{comm.technician_name || getTechnicianName(comm.technician_id)}</div>
                       <div className="text-sm text-text-muted">Work Order #{comm.work_order_id}</div>
                     </div>
                     <div className="text-right">
@@ -594,7 +604,7 @@ export function PayrollPeriodDetailPage() {
         title="Delete Time Entry"
         message={
           entryToDelete
-            ? `Are you sure you want to delete this time entry for ${entryToDelete.technician_name || "this technician"} on ${formatDate(entryToDelete.date)}? This action cannot be undone.`
+            ? `Are you sure you want to delete this time entry for ${entryToDelete.technician_name || getTechnicianName(entryToDelete.technician_id)} on ${formatDate(entryToDelete.date)}? This action cannot be undone.`
             : ""
         }
         confirmLabel="Delete"
