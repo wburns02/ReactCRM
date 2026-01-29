@@ -1,7 +1,7 @@
 interface PricingCardProps {
-  basePrice: number;
-  includedGallons: number;
-  overageRate: number;
+  basePrice: number | string;
+  includedGallons: number | string;
+  overageRate: number | string;
   serviceName?: string;
 }
 
@@ -11,6 +11,15 @@ export function PricingCard({
   overageRate = 0.45,
   serviceName = "Septic Tank Pumping",
 }: PricingCardProps) {
+  // Convert to numbers in case API returns strings
+  const basePriceNum =
+    typeof basePrice === "string" ? parseFloat(basePrice) : basePrice;
+  const includedGallonsNum =
+    typeof includedGallons === "string"
+      ? parseInt(includedGallons, 10)
+      : includedGallons;
+  const overageRateNum =
+    typeof overageRate === "string" ? parseFloat(overageRate) : overageRate;
   return (
     <div className="bg-white border-2 border-primary/20 rounded-xl p-6 shadow-sm">
       {/* Header */}
@@ -27,7 +36,9 @@ export function PricingCard({
       {/* Price */}
       <div className="mb-4">
         <div className="flex items-baseline gap-1">
-          <span className="text-4xl font-bold text-primary">${basePrice}</span>
+          <span className="text-4xl font-bold text-primary">
+            ${basePriceNum}
+          </span>
         </div>
       </div>
 
@@ -61,7 +72,7 @@ export function PricingCard({
           </svg>
           <span>
             Covers up to{" "}
-            <strong>{includedGallons.toLocaleString()} gallons</strong>
+            <strong>{includedGallonsNum.toLocaleString()} gallons</strong>
           </span>
         </li>
         <li className="flex items-center gap-2 text-gray-700">
@@ -111,8 +122,8 @@ export function PricingCard({
           <div>
             <p className="text-blue-800 font-medium">Larger tanks?</p>
             <p className="text-blue-700">
-              Just <strong>${overageRate.toFixed(2)}/gallon</strong> for any
-              volume over {includedGallons.toLocaleString()} gallons. Our
+              Just <strong>${overageRateNum.toFixed(2)}/gallon</strong> for any
+              volume over {includedGallonsNum.toLocaleString()} gallons. Our
               technician will measure on-site.
             </p>
           </div>
