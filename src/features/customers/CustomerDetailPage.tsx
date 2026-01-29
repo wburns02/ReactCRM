@@ -34,6 +34,7 @@ import { ActivityTimeline } from "@/features/activities";
 import { AttachmentList } from "@/features/documents";
 import { DialButton, CallLog } from "@/features/phone/index.ts";
 import { CustomerHealthScore } from "./components/CustomerHealthScore.tsx";
+import { CustomerEmailHistory } from "./components/CustomerEmailHistory.tsx";
 
 /**
  * Customer detail page - view/edit individual customer
@@ -480,6 +481,15 @@ export function CustomerDetailPage() {
         {/* Call History */}
         <div className="lg:col-span-2">
           <CallLog customerId={id} limit={5} />
+        </div>
+
+        {/* Email History */}
+        <div className="lg:col-span-2">
+          <CustomerEmailHistory
+            customerId={id!}
+            customerEmail={customer.email ?? undefined}
+            customerName={`${customer.first_name} ${customer.last_name}`}
+          />
         </div>
 
         {/* Activity Timeline */}
