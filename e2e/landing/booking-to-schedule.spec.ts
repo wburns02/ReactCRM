@@ -100,11 +100,19 @@ test.describe("Booking to Schedule Integration", () => {
       await firstDate.click();
     }
 
-    // Select time slot
-    const morningButton = panel.locator("button", { hasText: "Morning" });
-    if (await morningButton.isVisible()) {
+    // Select time slot - try Morning first, then Afternoon, then Any
+    const morningButton = panel.locator("button:not([disabled])", { hasText: "Morning" });
+    const afternoonButton = panel.locator("button:not([disabled])", { hasText: "Afternoon" });
+    const anyButton = panel.locator("button:not([disabled])", { hasText: "Any" });
+
+    if (await morningButton.isVisible({ timeout: 1000 }).catch(() => false)) {
       await morningButton.click();
+    } else if (await afternoonButton.isVisible({ timeout: 1000 }).catch(() => false)) {
+      await afternoonButton.click();
+    } else if (await anyButton.isVisible({ timeout: 1000 }).catch(() => false)) {
+      await anyButton.click();
     }
+    // If no time slots available, continue anyway - form may work without explicit selection
 
     // Check overage acknowledgment
     const checkboxes = await panel.locator('input[type="checkbox"]').all();
