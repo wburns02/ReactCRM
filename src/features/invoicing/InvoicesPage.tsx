@@ -1,4 +1,5 @@
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
+import { useDebounce } from "@/hooks/useDebounce.ts";
 import {
   Card,
   CardHeader,
@@ -36,6 +37,13 @@ const PAGE_SIZE = 20;
 /**
  * Get a descriptive label for the current filter state
  */
+function getSearchPlaceholder(): string {
+  return "Search name, email, phone, invoice #...";
+}
+
+/**
+ * Get a descriptive label for the current filter state
+ */
 function getFilterLabel(status: string, count: number): string {
   const statusLabel = status
     ? INVOICE_STATUS_LABELS[status as InvoiceStatus]
@@ -52,6 +60,12 @@ function getFilterLabel(status: string, count: number): string {
  * Invoices list page with filtering and CRUD operations
  */
 export function InvoicesPage() {
+  // Search input state (immediate)
+  const [searchInput, setSearchInput] = useState("");
+
+  // Debounced search value (300ms delay for API calls)
+  const debouncedSearch = useDebounce(searchInput, 300);
+
   // Filters state
   const [filters, setFilters] = useState<InvoiceFilters>({
     page: 1,
@@ -60,6 +74,15 @@ export function InvoicesPage() {
     date_from: "",
     date_to: "",
   });
+
+  // Sync debounced search to filters
+  useEffect(() => {
+    setFilters((prev) => ({
+      ...prev,
+      search: debouncedSearch || undefined,
+      page: 1,
+    }));
+  }, [debouncedSearch]);
 
   // Form modal state
   const [isFormOpen, setIsFormOpen] = useState(false);
@@ -168,6 +191,14 @@ export function InvoicesPage() {
       <Card className="mb-6">
         <CardContent className="py-4">
           <div className="flex flex-wrap items-center gap-4">
+            <div className="flex-1 min-w-64 max-w-md">
+              <Input
+                type="search"
+                placeholder={getSearchPlaceholder()}
+                value={searchInput}
+                onChange={(e) => setSearchInput(e.target.value)}
+              />
+            </div>
             <div className="w-48">
               <Select
                 value={filters.status || ""}
@@ -202,19 +233,21 @@ export function InvoicesPage() {
                 placeholder="To date"
               />
             </div>
-            {(filters.status || filters.date_from || filters.date_to) && (
+            {(searchInput || filters.status || filters.date_from || filters.date_to) && (
               <Button
                 variant="ghost"
                 size="sm"
-                onClick={() =>
+                onClick={() => {
+                  setSearchInput("");
                   setFilters((prev) => ({
                     ...prev,
                     status: "",
                     date_from: "",
                     date_to: "",
+                    search: undefined,
                     page: 1,
-                  }))
-                }
+                  }));
+                }}
               >
                 Clear filters
               </Button>

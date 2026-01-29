@@ -86,6 +86,7 @@ export interface InvoiceFilters {
   customer_id?: string;
   date_from?: string;
   date_to?: string;
+  search?: string; // Search invoice number, customer name, email, phone, address
 }
 
 /**
