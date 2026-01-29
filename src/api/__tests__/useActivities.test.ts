@@ -81,7 +81,7 @@ describe("useActivities hooks", () => {
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
       expect(result.current.data).toEqual(mockListResponse);
-      expect(apiClient.get).toHaveBeenCalledWith("/activities/?");
+      expect(apiClient.get).toHaveBeenCalledWith("/activities?");
     });
 
     it("passes filters to query params", async () => {
@@ -166,7 +166,7 @@ describe("useActivities hooks", () => {
 
       await waitFor(() => expect(result.current.isSuccess).toBe(true));
 
-      expect(apiClient.post).toHaveBeenCalledWith("/activities/", newActivity);
+      expect(apiClient.post).toHaveBeenCalledWith("/activities", newActivity);
       expect(invalidateSpy).toHaveBeenCalledWith({
         queryKey: activityKeys.lists(),
       });
