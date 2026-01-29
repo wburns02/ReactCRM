@@ -116,6 +116,8 @@ export interface UpdateTimeEntryInput {
   regular_hours?: number;
   overtime_hours?: number;
   notes?: string;
+  clock_in?: string;
+  clock_out?: string;
 }
 
 export interface CreateCommissionInput {

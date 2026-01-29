@@ -22,8 +22,11 @@ import {
   usePayRates,
   useCreatePayrollPeriod,
   useApprovePayrollPeriod,
+  useDeletePayrollPeriod,
   useUpdateTimeEntry,
   useBulkApproveTimeEntries,
+  useCreateTimeEntry,
+  useDeleteTimeEntry,
   useCreatePayRate,
   useUpdatePayRate,
   useDeletePayRate,
@@ -31,7 +34,7 @@ import {
 import { useTechnicians } from "@/api/hooks/useTechnicians";
 import { CommissionsDashboard } from "./components/CommissionsDashboard";
 import { formatDate, formatCurrency } from "@/lib/utils";
-import type { PayrollPeriod, TechnicianPayRate } from "@/api/types/payroll";
+import type { PayrollPeriod, TechnicianPayRate, TimeEntry } from "@/api/types/payroll";
 
 type TabType = "periods" | "time-entries" | "commissions" | "pay-rates";
 
@@ -69,10 +72,12 @@ function PayPeriodsTab() {
   const { data: periods, isLoading } = usePayrollPeriods();
   const createPeriod = useCreatePayrollPeriod();
   const approvePeriod = useApprovePayrollPeriod();
+  const deletePeriod = useDeletePayrollPeriod();
   const [showCreate, setShowCreate] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
   const [periodToApprove, setPeriodToApprove] = useState<PayrollPeriod | null>(null);
+  const [periodToDelete, setPeriodToDelete] = useState<PayrollPeriod | null>(null);
 
   const handleApprovePeriod = async () => {
     if (!periodToApprove) return;
@@ -86,6 +91,21 @@ function PayPeriodsTab() {
     } catch (error) {
       toastError("Approval Failed", getErrorMessage(error));
       setPeriodToApprove(null);
+    }
+  };
+
+  const handleDeletePeriod = async () => {
+    if (!periodToDelete) return;
+    try {
+      await deletePeriod.mutateAsync(periodToDelete.id);
+      toastSuccess(
+        "Period Deleted",
+        `Payroll period ${formatDate(periodToDelete.start_date)} - ${formatDate(periodToDelete.end_date)} deleted successfully`
+      );
+      setPeriodToDelete(null);
+    } catch (error) {
+      toastError("Delete Failed", getErrorMessage(error));
+      setPeriodToDelete(null);
     }
   };
 
@@ -188,17 +208,30 @@ function PayPeriodsTab() {
                   View
                 </Button>
                 {period.status === "draft" && (
-                  <Button
-                    variant="primary"
-                    size="sm"
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setPeriodToApprove(period);
-                    }}
-                    disabled={approvePeriod.isPending}
-                  >
-                    Approve
-                  </Button>
+                  <>
+                    <Button
+                      variant="primary"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setPeriodToApprove(period);
+                      }}
+                      disabled={approvePeriod.isPending}
+                    >
+                      Approve
+                    </Button>
+                    <Button
+                      variant="danger"
+                      size="sm"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        setPeriodToDelete(period);
+                      }}
+                      disabled={deletePeriod.isPending}
+                    >
+                      Delete
+                    </Button>
+                  </>
                 )}
               </div>
             </div>
@@ -279,6 +312,22 @@ function PayPeriodsTab() {
         variant="primary"
         isLoading={approvePeriod.isPending}
       />
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDialog
+        open={!!periodToDelete}
+        onClose={() => setPeriodToDelete(null)}
+        onConfirm={handleDeletePeriod}
+        title="Delete Payroll Period"
+        message={
+          periodToDelete
+            ? `Are you sure you want to delete the payroll period from ${formatDate(periodToDelete.start_date)} to ${formatDate(periodToDelete.end_date)}? This will also delete all associated time entries and commissions. This action cannot be undone.`
+            : ""
+        }
+        confirmLabel="Delete"
+        variant="danger"
+        isLoading={deletePeriod.isPending}
+      />
     </div>
   );
 }
@@ -288,9 +337,88 @@ function PayPeriodsTab() {
  */
 function TimeEntriesTab() {
   const { data: entries, isLoading } = useTimeEntries({ status: "pending" });
+  const { data: techniciansData } = useTechnicians({ active_only: true });
+  const technicians = techniciansData?.items || [];
   const updateEntry = useUpdateTimeEntry();
+  const createEntry = useCreateTimeEntry();
+  const deleteEntry = useDeleteTimeEntry();
   const bulkApprove = useBulkApproveTimeEntries();
   const [selected, setSelected] = useState<Set<string>>(new Set());
+  const [showEntryForm, setShowEntryForm] = useState(false);
+  const [editingEntry, setEditingEntry] = useState<TimeEntry | null>(null);
+  const [entryToDelete, setEntryToDelete] = useState<TimeEntry | null>(null);
+
+  // Form state for add/edit
+  const [formTechnicianId, setFormTechnicianId] = useState("");
+  const [formDate, setFormDate] = useState("");
+  const [formClockIn, setFormClockIn] = useState("");
+  const [formClockOut, setFormClockOut] = useState("");
+  const [formNotes, setFormNotes] = useState("");
+
+  const resetForm = () => {
+    setFormTechnicianId("");
+    setFormDate("");
+    setFormClockIn("");
+    setFormClockOut("");
+    setFormNotes("");
+    setEditingEntry(null);
+    setShowEntryForm(false);
+  };
+
+  const openEditForm = (entry: TimeEntry) => {
+    setEditingEntry(entry);
+    setFormTechnicianId(entry.technician_id);
+    setFormDate(entry.date);
+    setFormClockIn(entry.clock_in ? new Date(entry.clock_in).toTimeString().slice(0, 5) : "");
+    setFormClockOut(entry.clock_out ? new Date(entry.clock_out).toTimeString().slice(0, 5) : "");
+    setFormNotes(entry.notes || "");
+    setShowEntryForm(true);
+  };
+
+  const handleSaveEntry = async () => {
+    if (!formTechnicianId || !formDate || !formClockIn) return;
+
+    const clockInDateTime = `${formDate}T${formClockIn}:00`;
+    const clockOutDateTime = formClockOut ? `${formDate}T${formClockOut}:00` : undefined;
+
+    try {
+      if (editingEntry) {
+        await updateEntry.mutateAsync({
+          entryId: editingEntry.id,
+          input: {
+            clock_in: clockInDateTime,
+            clock_out: clockOutDateTime,
+            notes: formNotes || undefined,
+          },
+        });
+        toastSuccess("Entry Updated", "Time entry updated successfully");
+      } else {
+        await createEntry.mutateAsync({
+          technician_id: formTechnicianId,
+          entry_date: formDate,
+          clock_in: clockInDateTime,
+          clock_out: clockOutDateTime,
+          notes: formNotes || undefined,
+        });
+        toastSuccess("Entry Created", "Time entry created successfully");
+      }
+      resetForm();
+    } catch (error) {
+      toastError("Save Failed", getErrorMessage(error));
+    }
+  };
+
+  const handleDeleteEntry = async () => {
+    if (!entryToDelete) return;
+    try {
+      await deleteEntry.mutateAsync(entryToDelete.id);
+      toastSuccess("Entry Deleted", "Time entry deleted successfully");
+      setEntryToDelete(null);
+    } catch (error) {
+      toastError("Delete Failed", getErrorMessage(error));
+      setEntryToDelete(null);
+    }
+  };
 
   const toggleSelect = (id: string) => {
     const newSelected = new Set(selected);
@@ -333,15 +461,26 @@ function TimeEntriesTab() {
         <h3 className="text-lg font-semibold text-text-primary">
           Pending Time Entries
         </h3>
-        {selected.size > 0 && (
+        <div className="flex gap-2">
+          {selected.size > 0 && (
+            <Button
+              variant="secondary"
+              onClick={handleBulkApprove}
+              disabled={bulkApprove.isPending}
+            >
+              Approve Selected ({selected.size})
+            </Button>
+          )}
           <Button
             variant="primary"
-            onClick={handleBulkApprove}
-            disabled={bulkApprove.isPending}
+            onClick={() => {
+              resetForm();
+              setShowEntryForm(true);
+            }}
           >
-            Approve Selected ({selected.size})
+            + Add Entry
           </Button>
-        )}
+        </div>
       </div>
 
       {entries && entries.length > 0 && (
@@ -411,6 +550,13 @@ function TimeEntriesTab() {
 
                 <div className="flex gap-2 mt-3">
                   <Button
+                    variant="secondary"
+                    size="sm"
+                    onClick={() => openEditForm(entry)}
+                  >
+                    Edit
+                  </Button>
+                  <Button
                     variant="primary"
                     size="sm"
                     onClick={() => handleApprove(entry.id)}
@@ -419,12 +565,20 @@ function TimeEntriesTab() {
                     Approve
                   </Button>
                   <Button
-                    variant="danger"
+                    variant="secondary"
                     size="sm"
                     onClick={() => handleReject(entry.id)}
                     disabled={updateEntry.isPending}
                   >
                     Reject
+                  </Button>
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => setEntryToDelete(entry)}
+                    disabled={deleteEntry.isPending}
+                  >
+                    Delete
                   </Button>
                 </div>
               </div>
@@ -442,6 +596,115 @@ function TimeEntriesTab() {
           </p>
         </Card>
       )}
+
+      {/* Add/Edit Time Entry Dialog */}
+      <Dialog open={showEntryForm} onClose={resetForm}>
+        <DialogContent>
+          <DialogHeader onClose={resetForm}>
+            {editingEntry ? "Edit Time Entry" : "Add Time Entry"}
+          </DialogHeader>
+          <DialogBody>
+            <div className="space-y-4">
+              {/* Technician Selection */}
+              <div>
+                <Label htmlFor="entry-technician">Technician *</Label>
+                <select
+                  id="entry-technician"
+                  value={formTechnicianId}
+                  onChange={(e) => setFormTechnicianId(e.target.value)}
+                  disabled={!!editingEntry}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
+                >
+                  <option value="">Select a technician...</option>
+                  {technicians.map((tech) => (
+                    <option key={tech.id} value={tech.id}>
+                      {tech.first_name} {tech.last_name}
+                    </option>
+                  ))}
+                </select>
+              </div>
+
+              {/* Date */}
+              <div>
+                <Label htmlFor="entry-date">Date *</Label>
+                <Input
+                  id="entry-date"
+                  type="date"
+                  value={formDate}
+                  onChange={(e) => setFormDate(e.target.value)}
+                />
+              </div>
+
+              {/* Clock In/Out Times */}
+              <div className="grid grid-cols-2 gap-4">
+                <div>
+                  <Label htmlFor="entry-clock-in">Clock In *</Label>
+                  <Input
+                    id="entry-clock-in"
+                    type="time"
+                    value={formClockIn}
+                    onChange={(e) => setFormClockIn(e.target.value)}
+                  />
+                </div>
+                <div>
+                  <Label htmlFor="entry-clock-out">Clock Out</Label>
+                  <Input
+                    id="entry-clock-out"
+                    type="time"
+                    value={formClockOut}
+                    onChange={(e) => setFormClockOut(e.target.value)}
+                  />
+                </div>
+              </div>
+
+              {/* Notes */}
+              <div>
+                <Label htmlFor="entry-notes">Notes</Label>
+                <textarea
+                  id="entry-notes"
+                  value={formNotes}
+                  onChange={(e) => setFormNotes(e.target.value)}
+                  rows={3}
+                  placeholder="Optional notes about this time entry..."
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary resize-none"
+                />
+              </div>
+            </div>
+          </DialogBody>
+          <DialogFooter>
+            <Button variant="secondary" onClick={resetForm}>
+              Cancel
+            </Button>
+            <Button
+              variant="primary"
+              onClick={handleSaveEntry}
+              disabled={!formTechnicianId || !formDate || !formClockIn || createEntry.isPending || updateEntry.isPending}
+            >
+              {createEntry.isPending || updateEntry.isPending
+                ? "Saving..."
+                : editingEntry
+                  ? "Update Entry"
+                  : "Create Entry"}
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Delete Time Entry Confirmation Dialog */}
+      <ConfirmDialog
+        open={!!entryToDelete}
+        onClose={() => setEntryToDelete(null)}
+        onConfirm={handleDeleteEntry}
+        title="Delete Time Entry"
+        message={
+          entryToDelete
+            ? `Are you sure you want to delete the time entry for ${entryToDelete.technician_name || "this technician"} on ${formatDate(entryToDelete.date)}? This action cannot be undone.`
+            : ""
+        }
+        confirmLabel="Delete"
+        variant="danger"
+        isLoading={deleteEntry.isPending}
+      />
     </div>
   );
 }

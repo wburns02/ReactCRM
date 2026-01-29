@@ -131,6 +131,22 @@ export function useProcessPayrollPeriod() {
   });
 }
 
+export function useDeletePayrollPeriod() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (periodId: string): Promise<void> => {
+      await apiClient.delete(`/payroll/periods/${periodId}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
+    },
+    onError: (error) => {
+      console.error("Failed to delete payroll period:", error);
+    },
+  });
+}
+
 /**
  * Payroll Summary for a Period
  */
@@ -206,6 +222,50 @@ export function useBulkApproveTimeEntries() {
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: ["payroll", "time-entries"] });
       queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
+    },
+  });
+}
+
+export function useCreateTimeEntry() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (input: {
+      technician_id: string;
+      entry_date: string;
+      clock_in: string;
+      clock_out?: string;
+      work_order_id?: string;
+      entry_type?: string;
+      break_minutes?: number;
+      notes?: string;
+    }): Promise<TimeEntry> => {
+      const { data } = await apiClient.post("/payroll/time-entries", input);
+      return data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["payroll", "time-entries"] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
+    },
+    onError: (error) => {
+      console.error("Failed to create time entry:", error);
+    },
+  });
+}
+
+export function useDeleteTimeEntry() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (entryId: string): Promise<void> => {
+      await apiClient.delete(`/payroll/time-entries/${entryId}`);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["payroll", "time-entries"] });
+      queryClient.invalidateQueries({ queryKey: ["payroll", "periods"] });
+    },
+    onError: (error) => {
+      console.error("Failed to delete time entry:", error);
     },
   });
 }
