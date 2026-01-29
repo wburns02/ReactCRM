@@ -5,7 +5,7 @@ Main API router for v2 endpoints.
 from fastapi import APIRouter
 
 from app.api.v2.endpoints import ai_assistant, ringcentral, call_dispositions, webhooks, jobs, local_ai, admin_tools
-from app.api.v2.endpoints import deployment_test, permits, properties, roles, work_orders, quotes, estimates
+from app.api.v2.endpoints import deployment_test, permits, properties, roles, work_orders, quotes, estimates, availability, payroll
 try:
     from app.api.v2.endpoints import geocivix
     GEOCIVIX_AVAILABLE = True
@@ -121,4 +121,18 @@ api_router.include_router(
     estimates.router,
     prefix="/estimates",
     tags=["estimates"]
+)
+
+# Availability slots endpoint (PUBLIC - for lead form)
+api_router.include_router(
+    availability.router,
+    prefix="/availability",
+    tags=["availability"]
+)
+
+# Payroll management endpoints (periods, time entries, commissions, pay rates)
+api_router.include_router(
+    payroll.router,
+    prefix="/payroll",
+    tags=["payroll"]
 )
