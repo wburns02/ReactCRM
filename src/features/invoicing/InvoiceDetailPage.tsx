@@ -350,8 +350,8 @@ export function InvoiceDetailPage() {
                     </a>
                   )}
                 </div>
-                {isValidId(invoice.customer_id) && (
-                  <Link to={`/customers/${invoice.customer_id}`}>
+                {(invoice.customer?.id || isValidId(invoice.customer_id)) && (
+                  <Link to={`/customers/${invoice.customer?.id || invoice.customer_id}`}>
                     <Button variant="ghost" size="sm">
                       View Customer
                     </Button>
