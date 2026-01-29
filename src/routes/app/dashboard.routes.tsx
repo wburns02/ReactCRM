@@ -6,13 +6,13 @@ import { PageLoader } from "../utils";
 const DashboardPage = lazy(() =>
   import("@/features/dashboard/DashboardPage.tsx").then((m) => ({
     default: m.DashboardPage,
-  }))
+  })),
 );
 
 const CommandCenter = lazy(() =>
   import("@/features/dashboard/CommandCenter.tsx").then((m) => ({
     default: m.CommandCenter,
-  }))
+  })),
 );
 
 /**

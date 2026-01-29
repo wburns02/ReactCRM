@@ -6,55 +6,55 @@ import { PageLoader } from "../utils";
 const BillingOverview = lazy(() =>
   import("@/features/billing/pages/BillingOverview.tsx").then((m) => ({
     default: m.BillingOverview,
-  }))
+  })),
 );
 
 const EstimatesPage = lazy(() =>
   import("@/features/billing/pages/EstimatesPage.tsx").then((m) => ({
     default: m.EstimatesPage,
-  }))
+  })),
 );
 
 const EstimateDetailPage = lazy(() =>
   import("@/features/billing/pages/EstimateDetailPage.tsx").then((m) => ({
     default: m.EstimateDetailPage,
-  }))
+  })),
 );
 
 const PaymentPlansPage = lazy(() =>
   import("@/features/billing/pages/PaymentPlansPage.tsx").then((m) => ({
     default: m.PaymentPlansPage,
-  }))
+  })),
 );
 
 const PaymentPlanDetailPage = lazy(() =>
   import("@/features/billing/pages/PaymentPlanDetailPage.tsx").then((m) => ({
     default: m.PaymentPlanDetailPage,
-  }))
+  })),
 );
 
 const InvoicesPage = lazy(() =>
   import("@/features/invoicing/InvoicesPage.tsx").then((m) => ({
     default: m.InvoicesPage,
-  }))
+  })),
 );
 
 const InvoiceDetailPage = lazy(() =>
   import("@/features/invoicing/InvoiceDetailPage.tsx").then((m) => ({
     default: m.InvoiceDetailPage,
-  }))
+  })),
 );
 
 const InvoiceCreatePage = lazy(() =>
   import("@/features/invoicing/InvoiceCreatePage.tsx").then((m) => ({
     default: m.InvoiceCreatePage,
-  }))
+  })),
 );
 
 const PaymentsPage = lazy(() =>
   import("@/features/payments/PaymentsPage.tsx").then((m) => ({
     default: m.PaymentsPage,
-  }))
+  })),
 );
 
 /**

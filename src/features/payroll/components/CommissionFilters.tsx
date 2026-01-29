@@ -48,7 +48,8 @@ export function CommissionFilters({
   const handleTypeChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     onFiltersChange({
       ...filters,
-      commission_type: e.target.value as CommissionFiltersType["commission_type"],
+      commission_type: e.target
+        .value as CommissionFiltersType["commission_type"],
       page: 1,
     });
   };

@@ -1,5 +1,9 @@
 import { useMemo } from "react";
-import { useNextAvailable, formatDateShort, type DayAvailability } from "../hooks/useAvailability";
+import {
+  useNextAvailable,
+  formatDateShort,
+  type DayAvailability,
+} from "../hooks/useAvailability";
 import { TIME_SLOT_OPTIONS, type TimeSlot } from "../types/lead";
 
 interface AvailabilityPickerProps {
@@ -21,12 +25,16 @@ export function AvailabilityPicker({
   onAsapChange,
   serviceType,
 }: AvailabilityPickerProps) {
-  const { data: availability, isLoading, error } = useNextAvailable(serviceType);
+  const {
+    data: availability,
+    isLoading,
+    error,
+  } = useNextAvailable(serviceType);
 
   // Get next 5 available weekdays from API or generate fallback
   const availableDays = useMemo(() => {
     if (availability?.slots) {
-      return availability.slots.filter(slot => slot.available).slice(0, 5);
+      return availability.slots.filter((slot) => slot.available).slice(0, 5);
     }
     // Fallback: Generate next 5 weekdays if API fails
     const days: DayAvailability[] = [];
@@ -41,8 +49,18 @@ export function AvailabilityPicker({
           is_weekend: false,
           available: true,
           time_windows: [
-            { start: "08:00", end: "12:00", available: true, slots_remaining: 3 },
-            { start: "12:00", end: "17:00", available: true, slots_remaining: 3 },
+            {
+              start: "08:00",
+              end: "12:00",
+              available: true,
+              slots_remaining: 3,
+            },
+            {
+              start: "12:00",
+              end: "17:00",
+              available: true,
+              slots_remaining: 3,
+            },
           ],
         });
       }
@@ -116,7 +134,11 @@ export function AvailabilityPicker({
         <span className="text-xl">⚡</span>
         <span>ASAP / Emergency</span>
         {isAsap && (
-          <svg className="w-5 h-5 ml-auto" fill="currentColor" viewBox="0 0 20 20">
+          <svg
+            className="w-5 h-5 ml-auto"
+            fill="currentColor"
+            viewBox="0 0 20 20"
+          >
             <path
               fillRule="evenodd"
               d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -147,7 +169,9 @@ export function AvailabilityPicker({
             {availableDays.map((day) => {
               const isSelected = selectedDate === day.date;
               const dateObj = new Date(day.date + "T00:00:00");
-              const dayOfWeek = dateObj.toLocaleDateString("en-US", { weekday: "short" });
+              const dayOfWeek = dateObj.toLocaleDateString("en-US", {
+                weekday: "short",
+              });
               const dayNum = dateObj.getDate();
 
               return (
@@ -160,14 +184,20 @@ export function AvailabilityPicker({
                     isSelected
                       ? "border-primary bg-primary/10 text-primary"
                       : day.available
-                      ? "border-gray-200 hover:border-primary/50 text-gray-700 hover:bg-gray-50"
-                      : "border-gray-100 text-gray-300 cursor-not-allowed"
+                        ? "border-gray-200 hover:border-primary/50 text-gray-700 hover:bg-gray-50"
+                        : "border-gray-100 text-gray-300 cursor-not-allowed"
                   }`}
                 >
-                  <span className="text-xs font-medium uppercase">{dayOfWeek}</span>
+                  <span className="text-xs font-medium uppercase">
+                    {dayOfWeek}
+                  </span>
                   <span className="text-lg font-bold">{dayNum}</span>
                   {isSelected && (
-                    <svg className="w-4 h-4 mt-0.5" fill="currentColor" viewBox="0 0 20 20">
+                    <svg
+                      className="w-4 h-4 mt-0.5"
+                      fill="currentColor"
+                      viewBox="0 0 20 20"
+                    >
                       <path
                         fillRule="evenodd"
                         d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z"
@@ -191,7 +221,9 @@ export function AvailabilityPicker({
           <div className="grid grid-cols-3 gap-2">
             {TIME_SLOT_OPTIONS.map((option) => {
               const isSelected = selectedTimeSlot === option.value;
-              const isAvailable = getTimeWindowAvailability(option.value as TimeSlot);
+              const isAvailable = getTimeWindowAvailability(
+                option.value as TimeSlot,
+              );
 
               return (
                 <button
@@ -203,13 +235,15 @@ export function AvailabilityPicker({
                     isSelected
                       ? "border-primary bg-primary/10 text-primary"
                       : isAvailable
-                      ? "border-gray-200 hover:border-primary/50 text-gray-700 hover:bg-gray-50"
-                      : "border-gray-100 text-gray-300 cursor-not-allowed"
+                        ? "border-gray-200 hover:border-primary/50 text-gray-700 hover:bg-gray-50"
+                        : "border-gray-100 text-gray-300 cursor-not-allowed"
                   }`}
                 >
                   <span className="text-lg">{option.icon}</span>
                   <span className="text-sm font-medium">{option.label}</span>
-                  <span className="text-xs text-gray-500">{option.description}</span>
+                  <span className="text-xs text-gray-500">
+                    {option.description}
+                  </span>
                 </button>
               );
             })}
@@ -225,13 +259,23 @@ export function AvailabilityPicker({
             <span className="text-red-600 font-semibold">ASAP / Emergency</span>
           ) : (
             <>
-              <span className="font-semibold">{formatDateShort(selectedDate!)}</span>
+              <span className="font-semibold">
+                {formatDateShort(selectedDate!)}
+              </span>
               {selectedTimeSlot && (
                 <span>
                   {" "}
                   -{" "}
-                  {TIME_SLOT_OPTIONS.find((o) => o.value === selectedTimeSlot)?.label}{" "}
-                  ({TIME_SLOT_OPTIONS.find((o) => o.value === selectedTimeSlot)?.description})
+                  {
+                    TIME_SLOT_OPTIONS.find((o) => o.value === selectedTimeSlot)
+                      ?.label
+                  }{" "}
+                  (
+                  {
+                    TIME_SLOT_OPTIONS.find((o) => o.value === selectedTimeSlot)
+                      ?.description
+                  }
+                  )
                 </span>
               )}
             </>

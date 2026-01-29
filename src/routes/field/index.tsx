@@ -7,49 +7,49 @@ import { PageLoader } from "../utils";
 const FieldLayout = lazy(() =>
   import("@/features/field/FieldLayout.tsx").then((m) => ({
     default: m.FieldLayout,
-  }))
+  })),
 );
 
 const MyJobsPage = lazy(() =>
   import("@/features/field/pages/MyJobsPage.tsx").then((m) => ({
     default: m.MyJobsPage,
-  }))
+  })),
 );
 
 const JobDetailPage = lazy(() =>
   import("@/features/field/pages/JobDetailPage.tsx").then((m) => ({
     default: m.JobDetailPage,
-  }))
+  })),
 );
 
 const JobCompletionFlow = lazy(() =>
   import("@/features/field/pages/JobCompletionFlow.tsx").then((m) => ({
     default: m.JobCompletionFlow,
-  }))
+  })),
 );
 
 const RouteView = lazy(() =>
   import("@/features/field/pages/RouteView.tsx").then((m) => ({
     default: m.RouteView,
-  }))
+  })),
 );
 
 const RouteDetail = lazy(() =>
   import("@/features/field/pages/RouteDetail.tsx").then((m) => ({
     default: m.RouteDetail,
-  }))
+  })),
 );
 
 const TechStatsPage = lazy(() =>
   import("@/features/field/pages/TechStatsPage.tsx").then((m) => ({
     default: m.TechStatsPage,
-  }))
+  })),
 );
 
 const TechProfilePage = lazy(() =>
   import("@/features/field/pages/TechProfilePage.tsx").then((m) => ({
     default: m.TechProfilePage,
-  }))
+  })),
 );
 
 /**

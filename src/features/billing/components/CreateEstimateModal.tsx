@@ -59,7 +59,7 @@ export function CreateEstimateModal({
   const handleLineItemChange = (
     index: number,
     field: keyof LineItemInput,
-    value: string | number
+    value: string | number,
   ) => {
     const updated = [...lineItems];
     updated[index] = { ...updated[index], [field]: value };
@@ -129,7 +129,10 @@ export function CreateEstimateModal({
         notes: notes || undefined,
       });
 
-      toastSuccess("Estimate Created", "The estimate has been created successfully");
+      toastSuccess(
+        "Estimate Created",
+        "The estimate has been created successfully",
+      );
       resetForm();
       onSuccess?.();
       onClose();
@@ -143,7 +146,9 @@ export function CreateEstimateModal({
           response?: {
             status?: number;
             data?: {
-              detail?: string | Array<{ loc?: string[]; msg: string; type?: string }>;
+              detail?:
+                | string
+                | Array<{ loc?: string[]; msg: string; type?: string }>;
             };
           };
         };
@@ -223,7 +228,11 @@ export function CreateEstimateModal({
                       placeholder="Description"
                       value={item.description}
                       onChange={(e) =>
-                        handleLineItemChange(index, "description", e.target.value)
+                        handleLineItemChange(
+                          index,
+                          "description",
+                          e.target.value,
+                        )
                       }
                       disabled={createQuote.isPending}
                     />
@@ -241,7 +250,7 @@ export function CreateEstimateModal({
                         handleLineItemChange(
                           index,
                           "quantity",
-                          isNaN(val) ? 1 : Math.max(0.01, val)
+                          isNaN(val) ? 1 : Math.max(0.01, val),
                         );
                       }}
                       disabled={createQuote.isPending}
@@ -258,7 +267,7 @@ export function CreateEstimateModal({
                         handleLineItemChange(
                           index,
                           "rate",
-                          parseFloat(e.target.value) || 0
+                          parseFloat(e.target.value) || 0,
                         )
                       }
                       disabled={createQuote.isPending}
@@ -356,7 +365,9 @@ export function CreateEstimateModal({
             </div>
             <div className="flex justify-between text-lg font-semibold border-t border-border pt-2">
               <span className="text-text-primary">Total:</span>
-              <span className="text-primary">${calculateTotal().toFixed(2)}</span>
+              <span className="text-primary">
+                ${calculateTotal().toFixed(2)}
+              </span>
             </div>
           </div>
         </DialogBody>

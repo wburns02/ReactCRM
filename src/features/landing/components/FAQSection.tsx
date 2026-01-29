@@ -58,9 +58,7 @@ export function FAQSection() {
               className="border border-gray-200 rounded-lg overflow-hidden"
             >
               <button
-                onClick={() =>
-                  setOpenIndex(openIndex === index ? null : index)
-                }
+                onClick={() => setOpenIndex(openIndex === index ? null : index)}
                 className="w-full flex items-center justify-between p-5 text-left bg-white hover:bg-gray-50 transition-colors"
               >
                 <span className="font-semibold text-gray-900 pr-4">

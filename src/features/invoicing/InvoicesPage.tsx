@@ -233,7 +233,10 @@ export function InvoicesPage() {
                 placeholder="To date"
               />
             </div>
-            {(searchInput || filters.status || filters.date_from || filters.date_to) && (
+            {(searchInput ||
+              filters.status ||
+              filters.date_from ||
+              filters.date_to) && (
               <Button
                 variant="ghost"
                 size="sm"

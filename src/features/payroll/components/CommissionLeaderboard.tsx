@@ -1,10 +1,19 @@
 import { useState } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { useCommissionLeaderboard } from "@/api/hooks/usePayroll.ts";
 import { TrendingUp, TrendingDown, Minus, Trophy, Users } from "lucide-react";
 
-type SortField = "rank" | "total_earned" | "jobs_completed" | "average_commission";
+type SortField =
+  | "rank"
+  | "total_earned"
+  | "jobs_completed"
+  | "average_commission";
 
 const RANK_MEDALS: Record<
   number,
@@ -81,9 +90,7 @@ function RankChange({ change }: { change: number }) {
   }
 
   return (
-    <span
-      className={`text-xs ${change > 0 ? "text-success" : "text-danger"}`}
-    >
+    <span className={`text-xs ${change > 0 ? "text-success" : "text-danger"}`}>
       {change > 0 ? "+" : ""}
       {change}
     </span>

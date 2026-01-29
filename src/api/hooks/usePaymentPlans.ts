@@ -35,7 +35,7 @@ export function useRecordPaymentPlanPayment() {
       const { planId, ...payload } = data;
       const response = await apiClient.post(
         `/payment-plans/${planId}/payments`,
-        payload
+        payload,
       );
       return response.data;
     },

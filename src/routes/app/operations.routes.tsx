@@ -6,47 +6,47 @@ import { PageLoader } from "../utils";
 const EquipmentPage = lazy(() =>
   import("@/features/equipment/EquipmentPage.tsx").then((m) => ({
     default: m.EquipmentPage,
-  }))
+  })),
 );
 
 const EquipmentHealthPage = lazy(() =>
   import("@/features/equipment/index.ts").then((m) => ({
     default: m.EquipmentHealthPage,
-  }))
+  })),
 );
 
 // Inventory
 const InventoryPage = lazy(() =>
   import("@/features/inventory/InventoryPage.tsx").then((m) => ({
     default: m.InventoryPage,
-  }))
+  })),
 );
 
 // Fleet
 const FleetMapPage = lazy(() =>
   import("@/features/fleet/index.ts").then((m) => ({
     default: m.FleetMapPage,
-  }))
+  })),
 );
 
 // Tracking
 const TrackingDashboard = lazy(() =>
   import("@/features/tracking/index.ts").then((m) => ({
     default: m.TrackingDashboard,
-  }))
+  })),
 );
 
 const TechnicianTracker = lazy(() =>
   import("@/features/tracking/index.ts").then((m) => ({
     default: m.TechnicianTracker,
-  }))
+  })),
 );
 
 // Predictive Maintenance
 const PredictiveMaintenancePage = lazy(() =>
   import("@/features/predictive-maintenance/index.ts").then((m) => ({
     default: m.PredictiveMaintenancePage,
-  }))
+  })),
 );
 
 /**

@@ -1,5 +1,10 @@
 import { useState } from "react";
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card.tsx";
+import {
+  Card,
+  CardHeader,
+  CardTitle,
+  CardContent,
+} from "@/components/ui/Card.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { useCommissionInsights } from "@/api/hooks/usePayroll.ts";
 import type { CommissionInsight } from "@/api/types/payroll.ts";
@@ -78,7 +83,12 @@ function InsightCard({ insight }: { insight: CommissionInsight }) {
 }
 
 export function CommissionInsightsPanel() {
-  const { data: insights, isLoading, refetch, isFetching } = useCommissionInsights();
+  const {
+    data: insights,
+    isLoading,
+    refetch,
+    isFetching,
+  } = useCommissionInsights();
   const [expanded, setExpanded] = useState(true);
 
   if (!expanded) {

@@ -26,7 +26,7 @@ import { MiscRoutes } from "./app/misc.routes";
 const OnboardingWizard = lazy(() =>
   import("@/features/onboarding/index.ts").then((m) => ({
     default: m.OnboardingWizard,
-  }))
+  })),
 );
 
 /**

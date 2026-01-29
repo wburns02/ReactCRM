@@ -1,19 +1,21 @@
 import { useQuery } from "@tanstack/react-query";
 
 // API base URL - use environment variable for production
-const API_BASE_URL = import.meta.env.VITE_API_URL || "https://react-crm-api-production.up.railway.app/api/v2";
+const API_BASE_URL =
+  import.meta.env.VITE_API_URL ||
+  "https://react-crm-api-production.up.railway.app/api/v2";
 
 // Types matching the backend API response
 export interface TimeWindow {
-  start: string;  // "08:00"
-  end: string;    // "12:00"
+  start: string; // "08:00"
+  end: string; // "12:00"
   available: boolean;
   slots_remaining: number;
 }
 
 export interface DayAvailability {
-  date: string;       // "2026-01-30"
-  day_name: string;   // "Thursday"
+  date: string; // "2026-01-30"
+  day_name: string; // "Thursday"
   is_weekend: boolean;
   available: boolean;
   time_windows: TimeWindow[];
@@ -36,7 +38,9 @@ interface UseAvailabilityOptions {
 /**
  * Fetch availability slots from the CRM API
  */
-async function fetchAvailability(options: UseAvailabilityOptions): Promise<AvailabilityResponse> {
+async function fetchAvailability(
+  options: UseAvailabilityOptions,
+): Promise<AvailabilityResponse> {
   const params = new URLSearchParams();
 
   if (options.startDate) {
@@ -63,7 +67,9 @@ async function fetchAvailability(options: UseAvailabilityOptions): Promise<Avail
 /**
  * Fetch next available slots (up to 5 available days)
  */
-async function fetchNextAvailable(serviceType?: string): Promise<AvailabilityResponse> {
+async function fetchNextAvailable(
+  serviceType?: string,
+): Promise<AvailabilityResponse> {
   const params = new URLSearchParams();
 
   if (serviceType) {
@@ -92,7 +98,7 @@ export function useAvailability(options: UseAvailabilityOptions = {}) {
     queryFn: () => fetchAvailability({ startDate, endDate, serviceType }),
     enabled,
     staleTime: 5 * 60 * 1000, // 5 minutes
-    gcTime: 10 * 60 * 1000,   // 10 minutes
+    gcTime: 10 * 60 * 1000, // 10 minutes
   });
 }
 

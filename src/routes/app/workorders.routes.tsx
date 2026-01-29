@@ -6,31 +6,31 @@ import { PageLoader } from "../utils";
 const WorkOrdersPage = lazy(() =>
   import("@/features/workorders/WorkOrdersPage.tsx").then((m) => ({
     default: m.WorkOrdersPage,
-  }))
+  })),
 );
 
 const WorkOrderDetailPage = lazy(() =>
   import("@/features/workorders/WorkOrderDetailPage.tsx").then((m) => ({
     default: m.WorkOrderDetailPage,
-  }))
+  })),
 );
 
 const CalendarView = lazy(() =>
   import("@/features/workorders/views/CalendarView.tsx").then((m) => ({
     default: m.CalendarView,
-  }))
+  })),
 );
 
 const KanbanBoard = lazy(() =>
   import("@/features/workorders/views/KanbanBoard.tsx").then((m) => ({
     default: m.KanbanBoard,
-  }))
+  })),
 );
 
 const MapView = lazy(() =>
   import("@/features/workorders/views/MapView.tsx").then((m) => ({
     default: m.MapView,
-  }))
+  })),
 );
 
 /**

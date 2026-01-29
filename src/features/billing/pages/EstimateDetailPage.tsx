@@ -2,10 +2,20 @@ import { useState } from "react";
 import { Link, useParams, useNavigate } from "react-router-dom";
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client";
-import { useAcceptQuote, useDeclineQuote, useSendQuote } from "@/api/hooks/useQuotes";
+import {
+  useAcceptQuote,
+  useDeclineQuote,
+  useSendQuote,
+} from "@/api/hooks/useQuotes";
 import { type QuoteStatus } from "@/api/types/quote";
 import { toastSuccess, toastError } from "@/components/ui/Toast";
-import { Dialog, DialogContent, DialogHeader, DialogBody, DialogFooter } from "@/components/ui/Dialog";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@/components/ui/Dialog";
 import { Button } from "@/components/ui/Button";
 import { EstimateStatusBar } from "../components/EstimateStatusBar";
 import { jsPDF } from "jspdf";
@@ -30,7 +40,11 @@ function generateEstimatePDF(estimate: Record<string, unknown>) {
 
   doc.setFontSize(10);
   doc.setFont("helvetica", "normal");
-  doc.text("Professional Septic Solutions  |  Texas Licensed & Insured", 15, 26);
+  doc.text(
+    "Professional Septic Solutions  |  Texas Licensed & Insured",
+    15,
+    26,
+  );
 
   doc.setFontSize(28);
   doc.setFont("helvetica", "bold");
@@ -59,19 +73,33 @@ function generateEstimatePDF(estimate: Record<string, unknown>) {
   let createdDate = "N/A";
   if (estimate.created_at) {
     try {
-      createdDate = new Date(estimate.created_at as string).toLocaleDateString("en-US", {
-        year: "numeric", month: "long", day: "numeric",
-      });
-    } catch { createdDate = String(estimate.created_at).slice(0, 10); }
+      createdDate = new Date(estimate.created_at as string).toLocaleDateString(
+        "en-US",
+        {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        },
+      );
+    } catch {
+      createdDate = String(estimate.created_at).slice(0, 10);
+    }
   }
 
   let validUntil = "N/A";
   if (estimate.valid_until) {
     try {
-      validUntil = new Date(estimate.valid_until as string).toLocaleDateString("en-US", {
-        year: "numeric", month: "long", day: "numeric",
-      });
-    } catch { validUntil = String(estimate.valid_until).slice(0, 10); }
+      validUntil = new Date(estimate.valid_until as string).toLocaleDateString(
+        "en-US",
+        {
+          year: "numeric",
+          month: "long",
+          day: "numeric",
+        },
+      );
+    } catch {
+      validUntil = String(estimate.valid_until).slice(0, 10);
+    }
   }
 
   doc.text(createdDate, 15, y);
@@ -107,8 +135,10 @@ function generateEstimatePDF(estimate: Record<string, unknown>) {
   }
 
   const contactParts: string[] = [];
-  if (estimate.customer_email) contactParts.push(estimate.customer_email as string);
-  if (estimate.customer_phone) contactParts.push(estimate.customer_phone as string);
+  if (estimate.customer_email)
+    contactParts.push(estimate.customer_email as string);
+  if (estimate.customer_phone)
+    contactParts.push(estimate.customer_phone as string);
   if (contactParts.length > 0) {
     doc.text(contactParts.join("  |  "), 20, y);
   }
@@ -116,7 +146,8 @@ function generateEstimatePDF(estimate: Record<string, unknown>) {
   y += 16;
 
   // --- Line Items Table ---
-  const lineItems = (estimate.line_items as Array<Record<string, unknown>>) || [];
+  const lineItems =
+    (estimate.line_items as Array<Record<string, unknown>>) || [];
 
   // Table header
   doc.setFillColor(79, 70, 229);
@@ -141,7 +172,8 @@ function generateEstimatePDF(estimate: Record<string, unknown>) {
     y += 12;
   } else {
     for (const item of lineItems) {
-      const desc = (item.service as string) || (item.description as string) || "";
+      const desc =
+        (item.service as string) || (item.description as string) || "";
       const qty = Number(item.quantity || 1);
       const rate = Number(item.rate || 0);
       const amount = Number(item.amount || qty * rate);
@@ -156,7 +188,9 @@ function generateEstimatePDF(estimate: Record<string, unknown>) {
       doc.text(desc, 20, y + 2);
       doc.text(String(qty), 115, y + 2);
       doc.text(`$${rate.toFixed(2)}`, 140, y + 2);
-      doc.text(`$${amount.toFixed(2)}`, pageWidth - 20, y + 2, { align: "right" });
+      doc.text(`$${amount.toFixed(2)}`, pageWidth - 20, y + 2, {
+        align: "right",
+      });
 
       // Bottom border
       doc.setDrawColor(230, 230, 230);
@@ -220,7 +254,10 @@ function generateEstimatePDF(estimate: Record<string, unknown>) {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.setTextColor(80, 80, 80);
-    const noteLines = doc.splitTextToSize(estimate.notes as string, pageWidth - 40);
+    const noteLines = doc.splitTextToSize(
+      estimate.notes as string,
+      pageWidth - 40,
+    );
     doc.text(noteLines, 15, y);
     y += noteLines.length * 5 + 8;
   }
@@ -234,7 +271,10 @@ function generateEstimatePDF(estimate: Record<string, unknown>) {
     doc.setFont("helvetica", "normal");
     doc.setFontSize(10);
     doc.setTextColor(80, 80, 80);
-    const termLines = doc.splitTextToSize(estimate.terms as string, pageWidth - 40);
+    const termLines = doc.splitTextToSize(
+      estimate.terms as string,
+      pageWidth - 40,
+    );
     doc.text(termLines, 15, y);
   }
 
@@ -248,7 +288,7 @@ function generateEstimatePDF(estimate: Record<string, unknown>) {
     "Thank you for considering Mac Septic Services!",
     pageWidth / 2,
     footerY,
-    { align: "center" }
+    { align: "center" },
   );
 
   // Save
@@ -285,12 +325,17 @@ export function EstimateDetailPage() {
 
   const convertMutation = useMutation({
     mutationFn: async () => {
-      const response = await apiClient.post(`/estimates/${id}/convert-to-invoice`);
+      const response = await apiClient.post(
+        `/estimates/${id}/convert-to-invoice`,
+      );
       return response.data;
     },
     onSuccess: (data) => {
       queryClient.invalidateQueries({ queryKey: ["estimate", id] });
-      toastSuccess("Invoice Created", "The estimate has been converted to an invoice.");
+      toastSuccess(
+        "Invoice Created",
+        "The estimate has been converted to an invoice.",
+      );
       if (data?.invoice_id) {
         navigate(`/invoices/${data.invoice_id}`);
       }
@@ -311,7 +356,10 @@ export function EstimateDetailPage() {
       toastSuccess("PDF Downloaded", `${filename} has been downloaded.`);
     } catch (error) {
       console.error("PDF generation failed:", error);
-      toastError("Download Failed", "Failed to generate PDF. Please try again.");
+      toastError(
+        "Download Failed",
+        "Failed to generate PDF. Please try again.",
+      );
     } finally {
       setIsDownloading(false);
     }
@@ -321,7 +369,10 @@ export function EstimateDetailPage() {
     if (!id) return;
     sendMutation.mutate(id, {
       onSuccess: () => {
-        toastSuccess("Estimate Sent", "The estimate has been sent to the customer.");
+        toastSuccess(
+          "Estimate Sent",
+          "The estimate has been sent to the customer.",
+        );
       },
       onError: () => {
         toastError("Error", "Failed to send estimate. Please try again.");
@@ -333,7 +384,10 @@ export function EstimateDetailPage() {
     if (!id) return;
     acceptMutation.mutate(id, {
       onSuccess: () => {
-        toastSuccess("Estimate Accepted", "The estimate has been marked as accepted.");
+        toastSuccess(
+          "Estimate Accepted",
+          "The estimate has been marked as accepted.",
+        );
         setConfirmDialog({ type: null, open: false });
       },
       onError: () => {
@@ -347,7 +401,10 @@ export function EstimateDetailPage() {
     if (!id) return;
     declineMutation.mutate(id, {
       onSuccess: () => {
-        toastSuccess("Estimate Declined", "The estimate has been marked as declined.");
+        toastSuccess(
+          "Estimate Declined",
+          "The estimate has been marked as declined.",
+        );
         setConfirmDialog({ type: null, open: false });
       },
       onError: () => {
@@ -361,7 +418,8 @@ export function EstimateDetailPage() {
   const canSend = status === "draft";
   const canAcceptDecline = status === "sent";
   const canConvert = status === "accepted";
-  const isTerminal = status === "declined" || status === "expired" || status === "invoiced";
+  const isTerminal =
+    status === "declined" || status === "expired" || status === "invoiced";
 
   if (isLoading) {
     return (
@@ -420,7 +478,9 @@ export function EstimateDetailPage() {
               <>
                 <Button
                   variant="primary"
-                  onClick={() => setConfirmDialog({ type: "accept", open: true })}
+                  onClick={() =>
+                    setConfirmDialog({ type: "accept", open: true })
+                  }
                   disabled={acceptMutation.isPending}
                   className="min-w-[140px] bg-green-600 hover:bg-green-700"
                 >
@@ -428,7 +488,9 @@ export function EstimateDetailPage() {
                 </Button>
                 <Button
                   variant="secondary"
-                  onClick={() => setConfirmDialog({ type: "decline", open: true })}
+                  onClick={() =>
+                    setConfirmDialog({ type: "decline", open: true })
+                  }
                   disabled={declineMutation.isPending}
                   className="min-w-[140px] text-red-600 border-red-200 hover:bg-red-50"
                 >
@@ -444,13 +506,16 @@ export function EstimateDetailPage() {
                 disabled={convertMutation.isPending}
                 className="min-w-[180px] bg-purple-600 hover:bg-purple-700"
               >
-                {convertMutation.isPending ? "Converting..." : "Convert to Invoice"}
+                {convertMutation.isPending
+                  ? "Converting..."
+                  : "Convert to Invoice"}
               </Button>
             )}
           </div>
           <p className="text-center text-sm text-text-muted mt-2">
             {canSend && "Ready to send this estimate to the customer"}
-            {canAcceptDecline && "Record the customer's response to this estimate"}
+            {canAcceptDecline &&
+              "Record the customer's response to this estimate"}
             {canConvert && "Customer accepted - ready to create an invoice"}
           </p>
         </div>
@@ -475,19 +540,27 @@ export function EstimateDetailPage() {
               {estimate?.customer_name || "N/A"}
             </p>
             {estimate?.customer_email && (
-              <p className="text-sm text-text-muted">{estimate.customer_email}</p>
+              <p className="text-sm text-text-muted">
+                {estimate.customer_email}
+              </p>
             )}
             {estimate?.customer_phone && (
-              <p className="text-sm text-text-muted">{estimate.customer_phone}</p>
+              <p className="text-sm text-text-muted">
+                {estimate.customer_phone}
+              </p>
             )}
             {estimate?.customer_address && (
-              <p className="text-sm text-text-muted">{estimate.customer_address}</p>
+              <p className="text-sm text-text-muted">
+                {estimate.customer_address}
+              </p>
             )}
           </div>
         </div>
 
         <div className="bg-bg-card border border-border rounded-lg p-4">
-          <h2 className="font-medium text-text-primary mb-3">Estimate Details</h2>
+          <h2 className="font-medium text-text-primary mb-3">
+            Estimate Details
+          </h2>
           <div className="space-y-2">
             <div className="flex justify-between">
               <span className="text-text-muted">Created</span>
@@ -547,7 +620,9 @@ export function EstimateDetailPage() {
                       <td className="py-2 text-text-primary">
                         {item.service || item.description}
                       </td>
-                      <td className="py-2 text-text-secondary">{item.quantity}</td>
+                      <td className="py-2 text-text-secondary">
+                        {item.quantity}
+                      </td>
                       <td className="py-2 text-text-secondary">${item.rate}</td>
                       <td className="py-2 text-right text-text-primary">
                         ${item.amount}
@@ -558,7 +633,9 @@ export function EstimateDetailPage() {
               </tbody>
             </table>
           ) : (
-            <div className="text-center py-4 text-text-muted">No line items</div>
+            <div className="text-center py-4 text-text-muted">
+              No line items
+            </div>
           )}
         </div>
       </div>
@@ -589,20 +666,26 @@ export function EstimateDetailPage() {
         onOpenChange={(open) => setConfirmDialog({ ...confirmDialog, open })}
       >
         <DialogContent>
-          <DialogHeader onClose={() => setConfirmDialog({ type: null, open: false })}>
-            {confirmDialog.type === "accept" ? "Accept Estimate" : "Decline Estimate"}
+          <DialogHeader
+            onClose={() => setConfirmDialog({ type: null, open: false })}
+          >
+            {confirmDialog.type === "accept"
+              ? "Accept Estimate"
+              : "Decline Estimate"}
           </DialogHeader>
           <DialogBody>
             <p className="text-text-secondary">
               {confirmDialog.type === "accept" ? (
                 <>
-                  Are you sure you want to mark this estimate as <strong className="text-green-600">accepted</strong>?
-                  You'll be able to convert it to an invoice.
+                  Are you sure you want to mark this estimate as{" "}
+                  <strong className="text-green-600">accepted</strong>? You'll
+                  be able to convert it to an invoice.
                 </>
               ) : (
                 <>
-                  Are you sure you want to mark this estimate as <strong className="text-red-600">declined</strong>?
-                  This action can be undone by editing the estimate.
+                  Are you sure you want to mark this estimate as{" "}
+                  <strong className="text-red-600">declined</strong>? This
+                  action can be undone by editing the estimate.
                 </>
               )}
             </p>
@@ -616,7 +699,9 @@ export function EstimateDetailPage() {
             </Button>
             <Button
               variant="primary"
-              onClick={confirmDialog.type === "accept" ? handleAccept : handleDecline}
+              onClick={
+                confirmDialog.type === "accept" ? handleAccept : handleDecline
+              }
               className={
                 confirmDialog.type === "accept"
                   ? "bg-green-600 hover:bg-green-700"

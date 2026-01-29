@@ -179,7 +179,9 @@ export function CommissionsTable({
                 />
               </th>
               <SortableHeader field="created_at">Date</SortableHeader>
-              <SortableHeader field="technician_name">Technician</SortableHeader>
+              <SortableHeader field="technician_name">
+                Technician
+              </SortableHeader>
               <th className="px-4 py-3 text-left text-xs font-semibold text-text-muted uppercase tracking-wider">
                 Work Order
               </th>
@@ -214,7 +216,9 @@ export function CommissionsTable({
                   />
                 </td>
                 <td className="px-4 py-3 text-sm text-text-primary whitespace-nowrap">
-                  {formatDate(commission.earned_date || commission.created_at || "")}
+                  {formatDate(
+                    commission.earned_date || commission.created_at || "",
+                  )}
                 </td>
                 <td className="px-4 py-3">
                   <div className="font-medium text-text-primary">
@@ -228,7 +232,8 @@ export function CommissionsTable({
                       to={`/work-orders/${commission.work_order_id}`}
                       className="text-primary hover:underline flex items-center gap-1"
                     >
-                      #{commission.work_order_number || commission.work_order_id}
+                      #
+                      {commission.work_order_number || commission.work_order_id}
                       <ExternalLink className="w-3 h-3" />
                     </Link>
                   ) : (
@@ -236,10 +241,15 @@ export function CommissionsTable({
                   )}
                 </td>
                 <td className="px-4 py-3 text-sm text-text-primary">
-                  {formatCurrency(commission.base_amount || commission.job_total || 0)}
+                  {formatCurrency(
+                    commission.base_amount || commission.job_total || 0,
+                  )}
                 </td>
                 <td className="px-4 py-3 text-sm text-text-muted">
-                  {((commission.rate || commission.commission_rate || 0) * 100).toFixed(0)}%
+                  {(
+                    (commission.rate || commission.commission_rate || 0) * 100
+                  ).toFixed(0)}
+                  %
                 </td>
                 <td className="px-4 py-3">
                   <span className="text-lg font-bold text-success">
@@ -276,9 +286,7 @@ export function CommissionsTable({
                         disabled={approvingId === commission.id}
                       >
                         <CheckCircle className="w-3 h-3 mr-1" />
-                        {approvingId === commission.id
-                          ? "..."
-                          : "Approve"}
+                        {approvingId === commission.id ? "..." : "Approve"}
                       </Button>
                     )}
                     {commission.status === "approved" && (
@@ -301,7 +309,9 @@ export function CommissionsTable({
                           className="bg-success/20 hover:bg-success/30 text-success"
                         >
                           <DollarSign className="w-3 h-3 mr-1" />
-                          {markingPaidId === commission.id ? "..." : "Mark Paid"}
+                          {markingPaidId === commission.id
+                            ? "..."
+                            : "Mark Paid"}
                         </Button>
                       </>
                     )}

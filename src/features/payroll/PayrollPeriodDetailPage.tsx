@@ -68,11 +68,13 @@ export function PayrollPeriodDetailPage() {
   const [formNotes, setFormNotes] = useState("");
 
   // Active tab
-  const [activeTab, setActiveTab] = useState<"overview" | "time" | "commissions" | "technicians">("overview");
+  const [activeTab, setActiveTab] = useState<
+    "overview" | "time" | "commissions" | "technicians"
+  >("overview");
 
   // Helper to get technician name from ID
   const getTechnicianName = (technicianId: string): string => {
-    const tech = technicians?.items?.find(t => t.id === technicianId);
+    const tech = technicians?.items?.find((t) => t.id === technicianId);
     if (tech) {
       return `${tech.first_name} ${tech.last_name}`;
     }
@@ -137,7 +139,9 @@ export function PayrollPeriodDetailPage() {
     if (!formTechnicianId || !formDate || !formClockIn) return;
     try {
       const clockInDateTime = `${formDate}T${formClockIn}:00`;
-      const clockOutDateTime = formClockOut ? `${formDate}T${formClockOut}:00` : undefined;
+      const clockOutDateTime = formClockOut
+        ? `${formDate}T${formClockOut}:00`
+        : undefined;
 
       if (editingEntry) {
         await updateEntry.mutateAsync({
@@ -176,7 +180,10 @@ export function PayrollPeriodDetailPage() {
     }
   };
 
-  const statusColors: Record<string, "default" | "warning" | "success" | "danger" | "secondary"> = {
+  const statusColors: Record<
+    string,
+    "default" | "warning" | "success" | "danger" | "secondary"
+  > = {
     draft: "secondary",
     processing: "warning",
     approved: "default",
@@ -206,9 +213,7 @@ export function PayrollPeriodDetailPage() {
           <p className="text-text-muted mb-4">
             The payroll period you're looking for doesn't exist.
           </p>
-          <Button onClick={() => navigate("/payroll")}>
-            Back to Payroll
-          </Button>
+          <Button onClick={() => navigate("/payroll")}>Back to Payroll</Button>
         </div>
       </div>
     );
@@ -231,7 +236,8 @@ export function PayrollPeriodDetailPage() {
             {formatDate(period.start_date)} - {formatDate(period.end_date)}
           </h1>
           <p className="text-text-muted">
-            {period.period_type || "Biweekly"} Period • {period.technician_count} technicians
+            {period.period_type || "Biweekly"} Period •{" "}
+            {period.technician_count} technicians
           </p>
         </div>
         <div className="flex items-center gap-3">
@@ -320,11 +326,15 @@ export function PayrollPeriodDetailPage() {
       <Card className="p-6">
         {activeTab === "overview" && (
           <div className="space-y-6">
-            <h3 className="text-lg font-semibold text-text-primary">Period Details</h3>
+            <h3 className="text-lg font-semibold text-text-primary">
+              Period Details
+            </h3>
             <div className="grid grid-cols-2 gap-4">
               <div>
                 <div className="text-sm text-text-muted">Start Date</div>
-                <div className="font-medium">{formatDate(period.start_date)}</div>
+                <div className="font-medium">
+                  {formatDate(period.start_date)}
+                </div>
               </div>
               <div>
                 <div className="text-sm text-text-muted">End Date</div>
@@ -336,22 +346,29 @@ export function PayrollPeriodDetailPage() {
               </div>
               <div>
                 <div className="text-sm text-text-muted">Period Type</div>
-                <div className="font-medium capitalize">{period.period_type || "Biweekly"}</div>
+                <div className="font-medium capitalize">
+                  {period.period_type || "Biweekly"}
+                </div>
               </div>
               <div>
                 <div className="text-sm text-text-muted">Commissions</div>
-                <div className="font-medium">{formatCurrency(period.total_commissions || 0)}</div>
+                <div className="font-medium">
+                  {formatCurrency(period.total_commissions || 0)}
+                </div>
               </div>
               <div>
                 <div className="text-sm text-text-muted">Deductions</div>
-                <div className="font-medium">{formatCurrency(period.total_deductions || 0)}</div>
+                <div className="font-medium">
+                  {formatCurrency(period.total_deductions || 0)}
+                </div>
               </div>
             </div>
 
             {period.approved_at && (
               <div className="pt-4 border-t border-border">
                 <div className="text-sm text-text-muted">
-                  Approved by {period.approved_by} on {formatDate(period.approved_at)}
+                  Approved by {period.approved_by} on{" "}
+                  {formatDate(period.approved_at)}
                 </div>
               </div>
             )}
@@ -361,7 +378,9 @@ export function PayrollPeriodDetailPage() {
         {activeTab === "time" && (
           <div className="space-y-4">
             <div className="flex justify-between items-center">
-              <h3 className="text-lg font-semibold text-text-primary">Time Entries</h3>
+              <h3 className="text-lg font-semibold text-text-primary">
+                Time Entries
+              </h3>
               <Button variant="primary" size="sm" onClick={openAddEntryForm}>
                 + Add Entry
               </Button>
@@ -369,26 +388,54 @@ export function PayrollPeriodDetailPage() {
             {timeEntries && timeEntries.length > 0 ? (
               <div className="space-y-3">
                 {timeEntries.map((entry) => (
-                  <div key={entry.id} className="flex justify-between items-center p-3 bg-bg-muted rounded-lg">
+                  <div
+                    key={entry.id}
+                    className="flex justify-between items-center p-3 bg-bg-muted rounded-lg"
+                  >
                     <div>
-                      <div className="font-medium">{entry.technician_name || getTechnicianName(entry.technician_id)}</div>
-                      <div className="text-sm text-text-muted">{formatDate(entry.date)}</div>
+                      <div className="font-medium">
+                        {entry.technician_name ||
+                          getTechnicianName(entry.technician_id)}
+                      </div>
+                      <div className="text-sm text-text-muted">
+                        {formatDate(entry.date)}
+                      </div>
                     </div>
                     <div className="flex items-center gap-3">
                       <div className="text-right mr-2">
-                        <div className="font-medium">{entry.regular_hours.toFixed(1)} hrs</div>
+                        <div className="font-medium">
+                          {entry.regular_hours.toFixed(1)} hrs
+                        </div>
                         {entry.overtime_hours > 0 && (
-                          <div className="text-sm text-warning">+{entry.overtime_hours.toFixed(1)} OT</div>
+                          <div className="text-sm text-warning">
+                            +{entry.overtime_hours.toFixed(1)} OT
+                          </div>
                         )}
                       </div>
-                      <Badge variant={entry.status === "approved" ? "success" : entry.status === "rejected" ? "danger" : "secondary"}>
+                      <Badge
+                        variant={
+                          entry.status === "approved"
+                            ? "success"
+                            : entry.status === "rejected"
+                              ? "danger"
+                              : "secondary"
+                        }
+                      >
                         {entry.status}
                       </Badge>
-                      <Button variant="secondary" size="sm" onClick={() => openEditEntryForm(entry)}>
+                      <Button
+                        variant="secondary"
+                        size="sm"
+                        onClick={() => openEditEntryForm(entry)}
+                      >
                         Edit
                       </Button>
                       {entry.status === "pending" && (
-                        <Button variant="danger" size="sm" onClick={() => setEntryToDelete(entry)}>
+                        <Button
+                          variant="danger"
+                          size="sm"
+                          onClick={() => setEntryToDelete(entry)}
+                        >
                           Delete
                         </Button>
                       )}
@@ -397,25 +444,47 @@ export function PayrollPeriodDetailPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-text-muted text-center py-8">No time entries for this period</p>
+              <p className="text-text-muted text-center py-8">
+                No time entries for this period
+              </p>
             )}
           </div>
         )}
 
         {activeTab === "commissions" && (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-text-primary">Commissions</h3>
+            <h3 className="text-lg font-semibold text-text-primary">
+              Commissions
+            </h3>
             {commissions && commissions.length > 0 ? (
               <div className="space-y-3">
                 {commissions.map((comm) => (
-                  <div key={comm.id} className="flex justify-between items-center p-3 bg-bg-muted rounded-lg">
+                  <div
+                    key={comm.id}
+                    className="flex justify-between items-center p-3 bg-bg-muted rounded-lg"
+                  >
                     <div>
-                      <div className="font-medium">{comm.technician_name || getTechnicianName(comm.technician_id)}</div>
-                      <div className="text-sm text-text-muted">Work Order #{comm.work_order_id}</div>
+                      <div className="font-medium">
+                        {comm.technician_name ||
+                          getTechnicianName(comm.technician_id)}
+                      </div>
+                      <div className="text-sm text-text-muted">
+                        Work Order #{comm.work_order_id}
+                      </div>
                     </div>
                     <div className="text-right">
-                      <div className="font-medium text-success">{formatCurrency(comm.commission_amount)}</div>
-                      <Badge variant={comm.status === "paid" ? "success" : comm.status === "approved" ? "default" : "warning"}>
+                      <div className="font-medium text-success">
+                        {formatCurrency(comm.commission_amount)}
+                      </div>
+                      <Badge
+                        variant={
+                          comm.status === "paid"
+                            ? "success"
+                            : comm.status === "approved"
+                              ? "default"
+                              : "warning"
+                        }
+                      >
                         {comm.status}
                       </Badge>
                     </div>
@@ -423,21 +492,32 @@ export function PayrollPeriodDetailPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-text-muted text-center py-8">No commissions for this period</p>
+              <p className="text-text-muted text-center py-8">
+                No commissions for this period
+              </p>
             )}
           </div>
         )}
 
         {activeTab === "technicians" && (
           <div className="space-y-4">
-            <h3 className="text-lg font-semibold text-text-primary">Technician Breakdown</h3>
+            <h3 className="text-lg font-semibold text-text-primary">
+              Technician Breakdown
+            </h3>
             {summaries && summaries.length > 0 ? (
               <div className="space-y-3">
                 {summaries.map((summary) => (
-                  <div key={summary.technician_id} className="p-4 bg-bg-muted rounded-lg">
+                  <div
+                    key={summary.technician_id}
+                    className="p-4 bg-bg-muted rounded-lg"
+                  >
                     <div className="flex justify-between items-start mb-2">
-                      <div className="font-medium">{summary.technician_name}</div>
-                      <div className="text-lg font-bold text-success">{formatCurrency(summary.net_pay)}</div>
+                      <div className="font-medium">
+                        {summary.technician_name}
+                      </div>
+                      <div className="text-lg font-bold text-success">
+                        {formatCurrency(summary.net_pay)}
+                      </div>
                     </div>
                     <div className="grid grid-cols-4 gap-2 text-sm">
                       <div>
@@ -461,7 +541,9 @@ export function PayrollPeriodDetailPage() {
                 ))}
               </div>
             ) : (
-              <p className="text-text-muted text-center py-8">No technician data for this period</p>
+              <p className="text-text-muted text-center py-8">
+                No technician data for this period
+              </p>
             )}
           </div>
         )}
@@ -502,7 +584,9 @@ export function PayrollPeriodDetailPage() {
             <Button
               variant="primary"
               onClick={handleUpdate}
-              disabled={!editStartDate || !editEndDate || updatePeriod.isPending}
+              disabled={
+                !editStartDate || !editEndDate || updatePeriod.isPending
+              }
             >
               {updatePeriod.isPending ? "Saving..." : "Save Changes"}
             </Button>
@@ -584,7 +668,13 @@ export function PayrollPeriodDetailPage() {
             <Button
               variant="primary"
               onClick={handleSaveEntry}
-              disabled={!formTechnicianId || !formDate || !formClockIn || createEntry.isPending || updateEntry.isPending}
+              disabled={
+                !formTechnicianId ||
+                !formDate ||
+                !formClockIn ||
+                createEntry.isPending ||
+                updateEntry.isPending
+              }
             >
               {createEntry.isPending || updateEntry.isPending
                 ? "Saving..."

@@ -39,7 +39,11 @@ export function PaymentPlanDetailPage() {
   // Mutation for recording payments
   const recordPayment = useRecordPaymentPlanPayment();
 
-  const { data: plan, isLoading, error } = useQuery({
+  const {
+    data: plan,
+    isLoading,
+    error,
+  } = useQuery({
     queryKey: ["payment-plan", id],
     queryFn: async (): Promise<PaymentPlan> => {
       const response = await apiClient.get(`/payment-plans/${id}`);
@@ -82,7 +86,10 @@ export function PaymentPlanDetailPage() {
       });
       // Invalidate query to refresh the plan data
       queryClient.invalidateQueries({ queryKey: ["payment-plan", id] });
-      toastSuccess("Payment Recorded", "The payment has been recorded successfully");
+      toastSuccess(
+        "Payment Recorded",
+        "The payment has been recorded successfully",
+      );
       setShowPaymentModal(false);
     } catch {
       toastError("Error", "Failed to record payment. Please try again.");
@@ -232,7 +239,11 @@ export function PaymentPlanDetailPage() {
                     <p className="text-sm text-text-muted">Per installment</p>
                   </div>
                   <span className="text-text-primary">
-                    ${(plan.total_amount / plan.installments).toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
+                    $
+                    {(plan.total_amount / plan.installments).toLocaleString(
+                      undefined,
+                      { minimumFractionDigits: 2, maximumFractionDigits: 2 },
+                    )}
                   </span>
                 </div>
                 {plan.next_payment_date && (
@@ -245,9 +256,13 @@ export function PaymentPlanDetailPage() {
                         Upcoming payment date
                       </p>
                     </div>
-                    <span className={`font-medium ${
-                      plan.status === "overdue" ? "text-danger" : "text-text-primary"
-                    }`}>
+                    <span
+                      className={`font-medium ${
+                        plan.status === "overdue"
+                          ? "text-danger"
+                          : "text-text-primary"
+                      }`}
+                    >
                       {new Date(plan.next_payment_date).toLocaleDateString()}
                     </span>
                   </div>
@@ -296,7 +311,9 @@ export function PaymentPlanDetailPage() {
             <CardContent className="space-y-3 text-sm">
               <div className="flex justify-between">
                 <span className="text-text-muted">Plan ID</span>
-                <span className="text-text-primary font-medium">#{plan.id}</span>
+                <span className="text-text-primary font-medium">
+                  #{plan.id}
+                </span>
               </div>
               <div className="flex justify-between">
                 <span className="text-text-muted">Customer ID</span>

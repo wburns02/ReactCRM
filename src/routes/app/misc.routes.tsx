@@ -6,46 +6,46 @@ import { PageLoader } from "../utils";
 const TicketsPage = lazy(() =>
   import("@/features/tickets/TicketsPage.tsx").then((m) => ({
     default: m.TicketsPage,
-  }))
+  })),
 );
 
 const TicketDetailPage = lazy(() =>
   import("@/features/tickets/TicketDetailPage.tsx").then((m) => ({
     default: m.TicketDetailPage,
-  }))
+  })),
 );
 
 // Marketplace
 const MarketplacePage = lazy(() =>
   import("@/features/marketplace/index.ts").then((m) => ({
     default: m.MarketplacePage,
-  }))
+  })),
 );
 
 // AI Assistant
 const AIAssistantPage = lazy(() =>
   import("@/features/ai-assistant/index.ts").then((m) => ({
     default: m.AIAssistantPage,
-  }))
+  })),
 );
 
 // Onboarding
 const OnboardingWizard = lazy(() =>
   import("@/features/onboarding/index.ts").then((m) => ({
     default: m.OnboardingWizard,
-  }))
+  })),
 );
 
 const SetupWizard = lazy(() =>
   import("@/features/onboarding/index.ts").then((m) => ({
     default: m.SetupWizard,
-  }))
+  })),
 );
 
 const HelpCenter = lazy(() =>
   import("@/features/onboarding/index.ts").then((m) => ({
     default: m.HelpCenter,
-  }))
+  })),
 );
 
 /**

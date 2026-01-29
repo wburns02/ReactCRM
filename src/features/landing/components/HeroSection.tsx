@@ -27,12 +27,18 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
             {/* MAC Septic Logo/Brand */}
             <div className="flex items-center gap-3 mb-6">
               <div className="w-14 h-14 bg-white rounded-xl flex items-center justify-center shadow-lg">
-                <svg className="w-10 h-10 text-mac-dark-blue" viewBox="0 0 24 24" fill="currentColor">
-                  <path d="M19 8h-1V6c0-1.1-.9-2-2-2H8C6.9 4 6 4.9 6 6v2H5c-1.1 0-2 .9-2 2v5h2v5h14v-5h2v-5c0-1.1-.9-2-2-2zM8 6h8v2H8V6zm9 14H7v-3h10v3zm2-5H5v-3c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v3z"/>
+                <svg
+                  className="w-10 h-10 text-mac-dark-blue"
+                  viewBox="0 0 24 24"
+                  fill="currentColor"
+                >
+                  <path d="M19 8h-1V6c0-1.1-.9-2-2-2H8C6.9 4 6 4.9 6 6v2H5c-1.1 0-2 .9-2 2v5h2v5h14v-5h2v-5c0-1.1-.9-2-2-2zM8 6h8v2H8V6zm9 14H7v-3h10v3zm2-5H5v-3c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v3z" />
                 </svg>
               </div>
               <div>
-                <h2 className="text-2xl font-bold tracking-tight">MAC Septic</h2>
+                <h2 className="text-2xl font-bold tracking-tight">
+                  MAC Septic
+                </h2>
                 <p className="text-sm text-blue-200">Central Texas Experts</p>
               </div>
             </div>
@@ -106,7 +112,11 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
                 </span>
               </div>
               <div className="flex items-center gap-2 text-blue-200">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
                   <path
                     fillRule="evenodd"
                     d="M2.166 4.999A11.954 11.954 0 0010 1.944 11.954 11.954 0 0017.834 5c.11.65.166 1.32.166 2.001 0 5.225-3.34 9.67-8 11.317C5.34 16.67 2 12.225 2 7c0-.682.057-1.35.166-2.001zm11.541 3.708a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
@@ -116,7 +126,11 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
                 <span>Licensed & Insured</span>
               </div>
               <div className="flex items-center gap-2 text-blue-200">
-                <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                <svg
+                  className="w-5 h-5"
+                  fill="currentColor"
+                  viewBox="0 0 20 20"
+                >
                   <path
                     fillRule="evenodd"
                     d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-12a1 1 0 10-2 0v4a1 1 0 00.293.707l2.828 2.829a1 1 0 101.415-1.415L11 9.586V6z"

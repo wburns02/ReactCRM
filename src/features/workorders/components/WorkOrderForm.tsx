@@ -421,7 +421,8 @@ export function WorkOrderForm({
                       <option value="">Select dump site...</option>
                       {dumpSites?.map((site) => (
                         <option key={site.id} value={site.id}>
-                          {site.name} ({site.address_state}) - {(site.fee_per_gallon * 100).toFixed(1)}¢/gal
+                          {site.name} ({site.address_state}) -{" "}
+                          {(site.fee_per_gallon * 100).toFixed(1)}¢/gal
                         </option>
                       ))}
                     </Select>
@@ -435,13 +436,21 @@ export function WorkOrderForm({
                     <div className="col-span-2 bg-bg-muted rounded-lg p-4">
                       <div className="flex justify-between items-center">
                         <div>
-                          <span className="text-sm text-text-secondary">Dump Fee Calculation</span>
+                          <span className="text-sm text-text-secondary">
+                            Dump Fee Calculation
+                          </span>
                           <div className="text-xs text-text-muted mt-1">
-                            {watch("gallons_pumped")} gallons × {
-                              dumpSites?.find((s) => s.id === watch("dump_site_id"))?.fee_per_gallon
-                                ? (dumpSites.find((s) => s.id === watch("dump_site_id"))!.fee_per_gallon * 100).toFixed(1) + "¢"
-                                : "0¢"
-                            }/gallon
+                            {watch("gallons_pumped")} gallons ×{" "}
+                            {dumpSites?.find(
+                              (s) => s.id === watch("dump_site_id"),
+                            )?.fee_per_gallon
+                              ? (
+                                  dumpSites.find(
+                                    (s) => s.id === watch("dump_site_id"),
+                                  )!.fee_per_gallon * 100
+                                ).toFixed(1) + "¢"
+                              : "0¢"}
+                            /gallon
                           </div>
                         </div>
                         <div className="text-xl font-bold text-primary">

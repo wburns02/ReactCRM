@@ -28,7 +28,12 @@ export const QUOTE_STATUS_LABELS: Record<QuoteStatus, string> = {
  * Status stage order for progress bar visualization
  * Main flow: draft → sent → accepted → invoiced
  */
-export const QUOTE_STAGE_ORDER = ["draft", "sent", "accepted", "invoiced"] as const;
+export const QUOTE_STAGE_ORDER = [
+  "draft",
+  "sent",
+  "accepted",
+  "invoiced",
+] as const;
 
 /**
  * Status metadata for UI components

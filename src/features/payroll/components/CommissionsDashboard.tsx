@@ -56,7 +56,9 @@ export function CommissionsDashboard({
 
   // Commission form modal state
   const [showFormModal, setShowFormModal] = useState(false);
-  const [editingCommission, setEditingCommission] = useState<Commission | null>(null);
+  const [editingCommission, setEditingCommission] = useState<Commission | null>(
+    null,
+  );
 
   // Data fetching
   const { data: stats, isLoading: statsLoading } = useCommissionStats();

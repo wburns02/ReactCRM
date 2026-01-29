@@ -6,25 +6,25 @@ import { PageLoader } from "../utils";
 const MultiRegionDashboard = lazy(() =>
   import("@/features/enterprise/index.ts").then((m) => ({
     default: m.MultiRegionDashboard,
-  }))
+  })),
 );
 
 const FranchiseManagement = lazy(() =>
   import("@/features/enterprise/index.ts").then((m) => ({
     default: m.FranchiseManagement,
-  }))
+  })),
 );
 
 const RolePermissions = lazy(() =>
   import("@/features/enterprise/index.ts").then((m) => ({
     default: m.RolePermissions,
-  }))
+  })),
 );
 
 const EnterpriseComplianceDashboard = lazy(() =>
   import("@/features/enterprise/index.ts").then((m) => ({
     default: m.ComplianceDashboard,
-  }))
+  })),
 );
 
 /**

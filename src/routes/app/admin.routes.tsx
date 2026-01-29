@@ -6,52 +6,52 @@ import { PageLoader } from "../utils";
 const UsersPage = lazy(() =>
   import("@/features/users/UsersPage.tsx").then((m) => ({
     default: m.UsersPage,
-  }))
+  })),
 );
 
 const AdminSettingsPage = lazy(() =>
   import("@/features/admin/AdminSettingsPage.tsx").then((m) => ({
     default: m.AdminSettingsPage,
-  }))
+  })),
 );
 
 const DataImportPage = lazy(() =>
   import("@/features/import/index.ts").then((m) => ({
     default: m.DataImportPage,
-  }))
+  })),
 );
 
 const IntegrationsPage = lazy(() =>
   import("@/features/integrations/index.ts").then((m) => ({
     default: m.IntegrationsPage,
-  }))
+  })),
 );
 
 // Notifications
 const NotificationsListPage = lazy(() =>
   import("@/features/notifications/index.ts").then((m) => ({
     default: m.NotificationsListPage,
-  }))
+  })),
 );
 
 const NotificationSettingsPage = lazy(() =>
   import("@/features/notifications/index.ts").then((m) => ({
     default: m.NotificationSettingsPage,
-  }))
+  })),
 );
 
 // SMS Settings
 const SMSSettingsPage = lazy(() =>
   import("@/features/sms/index.ts").then((m) => ({
     default: m.SMSSettingsPage,
-  }))
+  })),
 );
 
 // Dump Sites
 const DumpSitesPage = lazy(() =>
   import("@/features/admin/DumpSitesPage.tsx").then((m) => ({
     default: m.DumpSitesPage,
-  }))
+  })),
 );
 
 /**

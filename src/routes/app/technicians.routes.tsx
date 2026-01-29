@@ -6,43 +6,43 @@ import { PageLoader } from "../utils";
 const TechniciansPage = lazy(() =>
   import("@/features/technicians/TechniciansPage.tsx").then((m) => ({
     default: m.TechniciansPage,
-  }))
+  })),
 );
 
 const TechnicianDetailPage = lazy(() =>
   import("@/features/technicians/TechnicianDetailPage.tsx").then((m) => ({
     default: m.TechnicianDetailPage,
-  }))
+  })),
 );
 
 const SchedulePage = lazy(() =>
   import("@/features/schedule/SchedulePage.tsx").then((m) => ({
     default: m.SchedulePage,
-  }))
+  })),
 );
 
 const ServiceIntervalsPage = lazy(() =>
   import("@/features/service-intervals/index.ts").then((m) => ({
     default: m.ServiceIntervalsPage,
-  }))
+  })),
 );
 
 const EmployeePortalPage = lazy(() =>
   import("@/features/employee/EmployeePortalPage.tsx").then((m) => ({
     default: m.EmployeePortalPage,
-  }))
+  })),
 );
 
 const PayrollPage = lazy(() =>
   import("@/features/payroll/PayrollPage.tsx").then((m) => ({
     default: m.PayrollPage,
-  }))
+  })),
 );
 
 const PayrollPeriodDetailPage = lazy(() =>
   import("@/features/payroll/PayrollPeriodDetailPage.tsx").then((m) => ({
     default: m.PayrollPeriodDetailPage,
-  }))
+  })),
 );
 
 /**

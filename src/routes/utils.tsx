@@ -55,11 +55,11 @@ export function LazyRoute({
  */
 export function lazyLoad<T extends Record<string, unknown>>(
   importFn: () => Promise<T>,
-  exportName: keyof T
+  exportName: keyof T,
 ): React.LazyExoticComponent<React.ComponentType> {
   return React.lazy(() =>
     importFn().then((module) => ({
       default: module[exportName] as React.ComponentType,
-    }))
+    })),
   );
 }

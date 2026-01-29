@@ -97,7 +97,10 @@ export function useCreateQuote() {
       }));
 
       // Calculate totals - round to 2 decimal places for API compatibility
-      const subtotal = Math.round(lineItems.reduce((sum, item) => sum + item.amount, 0) * 100) / 100;
+      const subtotal =
+        Math.round(
+          lineItems.reduce((sum, item) => sum + item.amount, 0) * 100,
+        ) / 100;
       const tax = Math.round(subtotal * (data.tax_rate / 100) * 100) / 100;
       const total = Math.round((subtotal + tax) * 100) / 100;
 

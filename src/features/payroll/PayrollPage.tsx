@@ -34,7 +34,11 @@ import {
 import { useTechnicians } from "@/api/hooks/useTechnicians";
 import { CommissionsDashboard } from "./components/CommissionsDashboard";
 import { formatDate, formatCurrency } from "@/lib/utils";
-import type { PayrollPeriod, TechnicianPayRate, TimeEntry } from "@/api/types/payroll";
+import type {
+  PayrollPeriod,
+  TechnicianPayRate,
+  TimeEntry,
+} from "@/api/types/payroll";
 
 type TabType = "periods" | "time-entries" | "commissions" | "pay-rates";
 
@@ -76,8 +80,12 @@ function PayPeriodsTab() {
   const [showCreate, setShowCreate] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
-  const [periodToApprove, setPeriodToApprove] = useState<PayrollPeriod | null>(null);
-  const [periodToDelete, setPeriodToDelete] = useState<PayrollPeriod | null>(null);
+  const [periodToApprove, setPeriodToApprove] = useState<PayrollPeriod | null>(
+    null,
+  );
+  const [periodToDelete, setPeriodToDelete] = useState<PayrollPeriod | null>(
+    null,
+  );
 
   const handleApprovePeriod = async () => {
     if (!periodToApprove) return;
@@ -85,7 +93,7 @@ function PayPeriodsTab() {
       await approvePeriod.mutateAsync(periodToApprove.id);
       toastSuccess(
         "Period Approved",
-        `Payroll period ${formatDate(periodToApprove.start_date)} - ${formatDate(periodToApprove.end_date)} approved successfully`
+        `Payroll period ${formatDate(periodToApprove.start_date)} - ${formatDate(periodToApprove.end_date)} approved successfully`,
       );
       setPeriodToApprove(null);
     } catch (error) {
@@ -100,7 +108,7 @@ function PayPeriodsTab() {
       await deletePeriod.mutateAsync(periodToDelete.id);
       toastSuccess(
         "Period Deleted",
-        `Payroll period ${formatDate(periodToDelete.start_date)} - ${formatDate(periodToDelete.end_date)} deleted successfully`
+        `Payroll period ${formatDate(periodToDelete.start_date)} - ${formatDate(periodToDelete.end_date)} deleted successfully`,
       );
       setPeriodToDelete(null);
     } catch (error) {
@@ -118,7 +126,7 @@ function PayPeriodsTab() {
       });
       toastSuccess(
         "Period Created",
-        `Payroll period ${formatDate(startDate)} - ${formatDate(endDate)} created successfully`
+        `Payroll period ${formatDate(startDate)} - ${formatDate(endDate)} created successfully`,
       );
       setShowCreate(false);
       setStartDate("");
@@ -377,8 +385,14 @@ function TimeEntriesTab() {
     setEditingEntry(entry);
     setFormTechnicianId(entry.technician_id);
     setFormDate(entry.date);
-    setFormClockIn(entry.clock_in ? new Date(entry.clock_in).toTimeString().slice(0, 5) : "");
-    setFormClockOut(entry.clock_out ? new Date(entry.clock_out).toTimeString().slice(0, 5) : "");
+    setFormClockIn(
+      entry.clock_in ? new Date(entry.clock_in).toTimeString().slice(0, 5) : "",
+    );
+    setFormClockOut(
+      entry.clock_out
+        ? new Date(entry.clock_out).toTimeString().slice(0, 5)
+        : "",
+    );
     setFormNotes(entry.notes || "");
     setShowEntryForm(true);
   };
@@ -387,7 +401,9 @@ function TimeEntriesTab() {
     if (!formTechnicianId || !formDate || !formClockIn) return;
 
     const clockInDateTime = `${formDate}T${formClockIn}:00`;
-    const clockOutDateTime = formClockOut ? `${formDate}T${formClockOut}:00` : undefined;
+    const clockOutDateTime = formClockOut
+      ? `${formDate}T${formClockOut}:00`
+      : undefined;
 
     try {
       if (editingEntry) {
@@ -686,7 +702,13 @@ function TimeEntriesTab() {
             <Button
               variant="primary"
               onClick={handleSaveEntry}
-              disabled={!formTechnicianId || !formDate || !formClockIn || createEntry.isPending || updateEntry.isPending}
+              disabled={
+                !formTechnicianId ||
+                !formDate ||
+                !formClockIn ||
+                createEntry.isPending ||
+                updateEntry.isPending
+              }
             >
               {createEntry.isPending || updateEntry.isPending
                 ? "Saving..."
@@ -761,7 +783,7 @@ function PayRateFormModal({
       setCommissionRate(
         editingRate.commission_rate
           ? (editingRate.commission_rate * 100).toString()
-          : ""
+          : "",
       );
       setEffectiveDate(editingRate.effective_date || "");
     } else {
@@ -796,9 +818,12 @@ function PayRateFormModal({
       technician_id: technicianId,
       pay_type: payType,
       hourly_rate: payType === "hourly" ? parseFloat(hourlyRate) : null,
-      overtime_rate: payType === "hourly" && hourlyRate
-        ? (overtimeRate ? parseFloat(overtimeRate) : parseFloat(hourlyRate) * 1.5)
-        : null,
+      overtime_rate:
+        payType === "hourly" && hourlyRate
+          ? overtimeRate
+            ? parseFloat(overtimeRate)
+            : parseFloat(hourlyRate) * 1.5
+          : null,
       salary_amount: payType === "salary" ? parseFloat(salaryAmount) : null,
       commission_rate: commissionRate ? parseFloat(commissionRate) / 100 : 0,
       effective_date: effectiveDate || new Date().toISOString().split("T")[0],
@@ -811,7 +836,10 @@ function PayRateFormModal({
           rateId: editingRate.id,
           input: rateData,
         });
-        toastSuccess("Pay Rate Updated", "The pay rate has been updated successfully.");
+        toastSuccess(
+          "Pay Rate Updated",
+          "The pay rate has been updated successfully.",
+        );
       } else {
         await createRate.mutateAsync(rateData);
         toastSuccess("Pay Rate Created", "New pay rate has been configured.");
@@ -823,10 +851,10 @@ function PayRateFormModal({
   };
 
   const isLoading = createRate.isPending || updateRate.isPending;
-  const isValid = technicianId && (
-    (payType === "hourly" && hourlyRate && parseFloat(hourlyRate) > 0) ||
-    (payType === "salary" && salaryAmount && parseFloat(salaryAmount) > 0)
-  );
+  const isValid =
+    technicianId &&
+    ((payType === "hourly" && hourlyRate && parseFloat(hourlyRate) > 0) ||
+      (payType === "salary" && salaryAmount && parseFloat(salaryAmount) > 0));
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -969,7 +997,11 @@ function PayRateFormModal({
                 onChange={(e) => setCommissionRate(e.target.value)}
               />
               <p className="text-xs text-text-secondary mt-1">
-                Percentage of job total earned as commission (applies to {payType === "salary" ? "salary + commission" : "hourly + commission"} employees)
+                Percentage of job total earned as commission (applies to{" "}
+                {payType === "salary"
+                  ? "salary + commission"
+                  : "hourly + commission"}{" "}
+                employees)
               </p>
             </div>
 
@@ -1017,8 +1049,12 @@ function PayRatesTab() {
   const deleteRate = useDeletePayRate();
 
   const [showForm, setShowForm] = useState(false);
-  const [editingRate, setEditingRate] = useState<TechnicianPayRate | null>(null);
-  const [rateToDelete, setRateToDelete] = useState<TechnicianPayRate | null>(null);
+  const [editingRate, setEditingRate] = useState<TechnicianPayRate | null>(
+    null,
+  );
+  const [rateToDelete, setRateToDelete] = useState<TechnicianPayRate | null>(
+    null,
+  );
 
   const handleOpenCreate = () => {
     setEditingRate(null);
@@ -1041,7 +1077,7 @@ function PayRatesTab() {
       await deleteRate.mutateAsync(rateToDelete.id);
       toastSuccess(
         "Pay Rate Deleted",
-        `Pay rate for ${rateToDelete.technician_name || "technician"} has been removed.`
+        `Pay rate for ${rateToDelete.technician_name || "technician"} has been removed.`,
       );
       setRateToDelete(null);
     } catch (error) {
@@ -1121,7 +1157,9 @@ function PayRatesTab() {
 
             {/* Pay Type Badge */}
             <div className="mb-3">
-              <Badge variant={rate.pay_type === "salary" ? "primary" : "secondary"}>
+              <Badge
+                variant={rate.pay_type === "salary" ? "primary" : "secondary"}
+              >
                 {rate.pay_type === "salary" ? "Salary" : "Hourly"}
               </Badge>
             </div>
@@ -1136,7 +1174,8 @@ function PayRatesTab() {
                       Annual Salary
                     </div>
                     <div className="font-bold text-lg text-text-primary">
-                      {formatCurrency(rate.salary_amount || 0)}<span className="text-sm font-normal">/yr</span>
+                      {formatCurrency(rate.salary_amount || 0)}
+                      <span className="text-sm font-normal">/yr</span>
                     </div>
                   </div>
                   <div className="bg-bg-muted/50 rounded-lg p-3">
@@ -1144,7 +1183,8 @@ function PayRatesTab() {
                       Monthly
                     </div>
                     <div className="font-bold text-lg text-text-primary">
-                      {formatCurrency((rate.salary_amount || 0) / 12)}<span className="text-sm font-normal">/mo</span>
+                      {formatCurrency((rate.salary_amount || 0) / 12)}
+                      <span className="text-sm font-normal">/mo</span>
                     </div>
                   </div>
                 </>
@@ -1156,7 +1196,8 @@ function PayRatesTab() {
                       Hourly Rate
                     </div>
                     <div className="font-bold text-lg text-text-primary">
-                      {formatCurrency(rate.hourly_rate || 0)}<span className="text-sm font-normal">/hr</span>
+                      {formatCurrency(rate.hourly_rate || 0)}
+                      <span className="text-sm font-normal">/hr</span>
                     </div>
                   </div>
                   <div className="bg-bg-muted/50 rounded-lg p-3">
@@ -1164,7 +1205,8 @@ function PayRatesTab() {
                       Overtime Rate
                     </div>
                     <div className="font-bold text-lg text-text-primary">
-                      {formatCurrency(rate.overtime_rate)}<span className="text-sm font-normal">/hr</span>
+                      {formatCurrency(rate.overtime_rate)}
+                      <span className="text-sm font-normal">/hr</span>
                     </div>
                   </div>
                 </>
@@ -1184,7 +1226,9 @@ function PayRatesTab() {
                 <div className="font-bold text-lg text-text-primary">
                   {rate.pay_type === "salary"
                     ? "Bi-weekly"
-                    : (rate.hourly_rate && rate.hourly_rate > 0 && rate.overtime_rate)
+                    : rate.hourly_rate &&
+                        rate.hourly_rate > 0 &&
+                        rate.overtime_rate
                       ? (rate.overtime_rate / rate.hourly_rate).toFixed(1) + "x"
                       : "1.5x"}
                 </div>

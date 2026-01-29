@@ -320,7 +320,7 @@ export function CustomerHealthScore({
   const [showFollowupModal, setShowFollowupModal] = useState(false);
   const [showEmailModal, setShowEmailModal] = useState(false);
   const [followupDate, setFollowupDate] = useState(
-    customer.next_follow_up_date || new Date().toISOString().split("T")[0]
+    customer.next_follow_up_date || new Date().toISOString().split("T")[0],
   );
 
   // Update customer mutation for scheduling follow-up
@@ -332,10 +332,16 @@ export function CustomerHealthScore({
         id: String(customer.id),
         data: { next_follow_up_date: followupDate },
       });
-      toastSuccess("Follow-up Scheduled", `Follow-up scheduled for ${formatDate(followupDate)}`);
+      toastSuccess(
+        "Follow-up Scheduled",
+        `Follow-up scheduled for ${formatDate(followupDate)}`,
+      );
       setShowFollowupModal(false);
     } catch (error) {
-      toastError("Failed to Schedule", "Could not schedule follow-up. Please try again.");
+      toastError(
+        "Failed to Schedule",
+        "Could not schedule follow-up. Please try again.",
+      );
     }
   };
 
@@ -560,7 +566,10 @@ export function CustomerHealthScore({
       </CardContent>
 
       {/* Schedule Follow-up Modal */}
-      <Dialog open={showFollowupModal} onClose={() => setShowFollowupModal(false)}>
+      <Dialog
+        open={showFollowupModal}
+        onClose={() => setShowFollowupModal(false)}
+      >
         <DialogContent size="sm">
           <DialogHeader onClose={() => setShowFollowupModal(false)}>
             Schedule Follow-up
@@ -568,7 +577,8 @@ export function CustomerHealthScore({
           <DialogBody>
             <div className="space-y-4">
               <p className="text-sm text-text-secondary">
-                Set a follow-up date for {customer.first_name} {customer.last_name}
+                Set a follow-up date for {customer.first_name}{" "}
+                {customer.last_name}
               </p>
               <div className="space-y-2">
                 <Label htmlFor="followup_date">Follow-up Date</Label>

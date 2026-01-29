@@ -17,7 +17,9 @@ import type { TimeSlot } from "../types/lead";
 const bookingSchema = z.object({
   first_name: z.string().min(1, "First name is required"),
   last_name: z.string().min(1, "Last name is required"),
-  email: z.union([z.string().email("Please enter a valid email"), z.literal("")]).optional(),
+  email: z
+    .union([z.string().email("Please enter a valid email"), z.literal("")])
+    .optional(),
   phone: z
     .string()
     .min(10, "Please enter a valid phone number")
@@ -38,11 +40,20 @@ interface BookingFormProps {
 
 export function BookingForm({ testMode = true }: BookingFormProps) {
   const [selectedDate, setSelectedDate] = useState<string | undefined>();
-  const [selectedTimeSlot, setSelectedTimeSlot] = useState<TimeSlot | undefined>();
+  const [selectedTimeSlot, setSelectedTimeSlot] = useState<
+    TimeSlot | undefined
+  >();
   const [isAsap, setIsAsap] = useState(false);
 
   const { data: pricing } = usePricing("pumping");
-  const { mutate: createBooking, isPending, isSuccess, isError, error, data: bookingResult } = useCreateBooking();
+  const {
+    mutate: createBooking,
+    isPending,
+    isSuccess,
+    isError,
+    error,
+    data: bookingResult,
+  } = useCreateBooking();
 
   const {
     register,
@@ -85,7 +96,9 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
       time_slot: isAsap ? "morning" : selectedTimeSlot,
       overage_acknowledged: data.overage_acknowledged,
       sms_consent: data.sms_consent ?? false,
-      notes: isAsap ? "ASAP/Emergency Request. " + (data.notes || "") : data.notes,
+      notes: isAsap
+        ? "ASAP/Emergency Request. " + (data.notes || "")
+        : data.notes,
       test_mode: testMode,
     };
 
@@ -104,23 +117,47 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
     return (
       <div className="bg-green-50 border-2 border-green-200 rounded-xl p-8 text-center">
         <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
-          <svg className="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M5 13l4 4L19 7" />
+          <svg
+            className="w-8 h-8 text-green-600"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M5 13l4 4L19 7"
+            />
           </svg>
         </div>
-        <h3 className="text-2xl font-bold text-green-800 mb-2">Booking Confirmed!</h3>
+        <h3 className="text-2xl font-bold text-green-800 mb-2">
+          Booking Confirmed!
+        </h3>
         <p className="text-green-700 mb-4">
           Your septic tank pumping service has been scheduled.
         </p>
         <div className="bg-white rounded-lg p-4 text-left mb-4 max-w-md mx-auto">
           <div className="space-y-2 text-sm">
-            <p><strong>Confirmation #:</strong> {bookingResult.id.slice(0, 8).toUpperCase()}</p>
-            <p><strong>Date:</strong> {formatBookingDate(bookingResult.scheduled_date)}</p>
+            <p>
+              <strong>Confirmation #:</strong>{" "}
+              {bookingResult.id.slice(0, 8).toUpperCase()}
+            </p>
+            <p>
+              <strong>Date:</strong>{" "}
+              {formatBookingDate(bookingResult.scheduled_date)}
+            </p>
             {bookingResult.time_slot && (
-              <p><strong>Time:</strong> {formatTimeSlot(bookingResult.time_slot)}</p>
+              <p>
+                <strong>Time:</strong> {formatTimeSlot(bookingResult.time_slot)}
+              </p>
             )}
-            <p><strong>Service:</strong> Septic Tank Pumping</p>
-            <p><strong>Amount:</strong> ${bookingResult.base_price}</p>
+            <p>
+              <strong>Service:</strong> Septic Tank Pumping
+            </p>
+            <p>
+              <strong>Amount:</strong> ${bookingResult.base_price}
+            </p>
             {bookingResult.is_test && (
               <p className="text-orange-600 font-medium">
                 (Test booking - no payment charged)
@@ -134,7 +171,10 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
         </p>
         <p className="text-sm text-gray-600 mt-4">
           Questions? Call us at{" "}
-          <a href="tel:+19365641440" className="font-bold text-primary underline">
+          <a
+            href="tel:+19365641440"
+            className="font-bold text-primary underline"
+          >
             (936) 564-1440
           </a>
         </p>
@@ -154,8 +194,8 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
       {/* Test Mode Banner */}
       {testMode && (
         <div className="bg-orange-50 border border-orange-200 rounded-lg p-3 text-sm text-orange-800">
-          <strong>Test Mode:</strong> No real payment will be charged.
-          This is for testing the booking flow.
+          <strong>Test Mode:</strong> No real payment will be charged. This is
+          for testing the booking flow.
         </div>
       )}
 
@@ -177,7 +217,9 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
               }`}
             />
             {errors.first_name && (
-              <p className="text-red-500 text-sm mt-1">{errors.first_name.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.first_name.message}
+              </p>
             )}
           </div>
           <div>
@@ -194,7 +236,9 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
               }`}
             />
             {errors.last_name && (
-              <p className="text-red-500 text-sm mt-1">{errors.last_name.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.last_name.message}
+              </p>
             )}
           </div>
         </div>
@@ -215,7 +259,9 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
               }`}
             />
             {errors.phone && (
-              <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.phone.message}
+              </p>
             )}
           </div>
           <div>
@@ -232,7 +278,9 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
               }`}
             />
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+              <p className="text-red-500 text-sm mt-1">
+                {errors.email.message}
+              </p>
             )}
           </div>
         </div>
@@ -284,17 +332,26 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
               id="overage_acknowledged"
               className="mt-1 w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary"
             />
-            <label htmlFor="overage_acknowledged" className="text-sm text-gray-700 leading-tight">
-              <strong>I understand</strong> that if my tank exceeds 1,750 gallons,
-              I will be charged <strong>$0.45 for each additional gallon</strong>.
+            <label
+              htmlFor="overage_acknowledged"
+              className="text-sm text-gray-700 leading-tight"
+            >
+              <strong>I understand</strong> that if my tank exceeds 1,750
+              gallons, I will be charged{" "}
+              <strong>$0.45 for each additional gallon</strong>.
               {!testMode && (
-                <> My card will be pre-authorized for <strong>$775</strong> and the
-                final amount will be captured after service.</>
+                <>
+                  {" "}
+                  My card will be pre-authorized for <strong>$775</strong> and
+                  the final amount will be captured after service.
+                </>
               )}
             </label>
           </div>
           {errors.overage_acknowledged && (
-            <p className="text-red-500 text-sm mt-2">{errors.overage_acknowledged.message}</p>
+            <p className="text-red-500 text-sm mt-2">
+              {errors.overage_acknowledged.message}
+            </p>
           )}
         </div>
 
@@ -306,9 +363,12 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
             id="sms_consent"
             className="mt-1 w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
           />
-          <label htmlFor="sms_consent" className="text-sm text-gray-600 leading-tight">
-            I agree to receive SMS updates about my service appointment.
-            Message and data rates may apply.
+          <label
+            htmlFor="sms_consent"
+            className="text-sm text-gray-600 leading-tight"
+          >
+            I agree to receive SMS updates about my service appointment. Message
+            and data rates may apply.
           </label>
         </div>
 
@@ -316,7 +376,8 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
         {isError && (
           <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
             <p className="text-red-700 text-sm">
-              {(error as Error)?.message || "Something went wrong. Please try again or call us directly at "}
+              {(error as Error)?.message ||
+                "Something went wrong. Please try again or call us directly at "}
               <a href="tel:+19365641440" className="font-bold underline">
                 (936) 564-1440
               </a>
@@ -360,7 +421,11 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
         {/* Security note */}
         <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
           <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-            <path fillRule="evenodd" d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z" clipRule="evenodd" />
+            <path
+              fillRule="evenodd"
+              d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
+              clipRule="evenodd"
+            />
           </svg>
           <span>Secure payment powered by Clover</span>
         </div>

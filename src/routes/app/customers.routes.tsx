@@ -6,31 +6,31 @@ import { PageLoader } from "../utils";
 const ProspectsPage = lazy(() =>
   import("@/features/prospects/ProspectsPage.tsx").then((m) => ({
     default: m.ProspectsPage,
-  }))
+  })),
 );
 
 const ProspectDetailPage = lazy(() =>
   import("@/features/prospects/ProspectDetailPage.tsx").then((m) => ({
     default: m.ProspectDetailPage,
-  }))
+  })),
 );
 
 const CustomersPage = lazy(() =>
   import("@/features/customers/CustomersPage.tsx").then((m) => ({
     default: m.CustomersPage,
-  }))
+  })),
 );
 
 const CustomerDetailPage = lazy(() =>
   import("@/features/customers/CustomerDetailPage.tsx").then((m) => ({
     default: m.CustomerDetailPage,
-  }))
+  })),
 );
 
 const CustomerSuccessPage = lazy(() =>
   import("@/features/customer-success/index.ts").then((m) => ({
     default: m.CustomerSuccessPage,
-  }))
+  })),
 );
 
 /**

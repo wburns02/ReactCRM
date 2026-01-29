@@ -6,74 +6,74 @@ import { PageLoader } from "../utils";
 const ReportsPage = lazy(() =>
   import("@/features/reports/pages/ReportsPage.tsx").then((m) => ({
     default: m.ReportsPage,
-  }))
+  })),
 );
 
 const RevenueReport = lazy(() =>
   import("@/features/reports/pages/RevenueReport.tsx").then((m) => ({
     default: m.RevenueReport,
-  }))
+  })),
 );
 
 const TechnicianPerformance = lazy(() =>
   import("@/features/reports/pages/TechnicianPerformance.tsx").then((m) => ({
     default: m.TechnicianPerformance,
-  }))
+  })),
 );
 
 const CLVReportPage = lazy(() =>
   import("@/features/reports/pages/CLVReportPage.tsx").then((m) => ({
     default: m.CLVReportPage,
-  }))
+  })),
 );
 
 const ServiceReportPage = lazy(() =>
   import("@/features/reports/pages/ServiceReportPage.tsx").then((m) => ({
     default: m.ServiceReportPage,
-  }))
+  })),
 );
 
 const LocationReportPage = lazy(() =>
   import("@/features/reports/pages/LocationReportPage.tsx").then((m) => ({
     default: m.LocationReportPage,
-  }))
+  })),
 );
 
 // Analytics lazy imports
 const FTFRDashboard = lazy(() =>
   import("@/features/analytics/index.ts").then((m) => ({
     default: m.FTFRDashboard,
-  }))
+  })),
 );
 
 const BIDashboard = lazy(() =>
   import("@/features/analytics/index.ts").then((m) => ({
     default: m.BIDashboard,
-  }))
+  })),
 );
 
 const OperationsCommandCenter = lazy(() =>
   import("@/features/analytics/index.ts").then((m) => ({
     default: m.OperationsCommandCenter,
-  }))
+  })),
 );
 
 const FinancialDashboard = lazy(() =>
   import("@/features/analytics/index.ts").then((m) => ({
     default: m.FinancialDashboard,
-  }))
+  })),
 );
 
 const PerformanceScorecard = lazy(() =>
   import("@/features/analytics/index.ts").then((m) => ({
     default: m.PerformanceScorecard,
-  }))
+  })),
 );
 
 const AIInsightsPanel = lazy(() =>
   import("@/features/analytics/index.ts").then((m) => ({
     default: m.AIInsightsPanel,
-  }))
+  })),
 );
 
 /**

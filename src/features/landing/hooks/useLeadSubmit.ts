@@ -39,7 +39,9 @@ function formatSchedulingPreference(data: LeadSubmitData): string {
 
 export function useLeadSubmit() {
   return useMutation({
-    mutationFn: async (data: LeadSubmitData): Promise<CustomerCreateResponse> => {
+    mutationFn: async (
+      data: LeadSubmitData,
+    ): Promise<CustomerCreateResponse> => {
       // Build lead notes with scheduling preference
       const schedulingPref = formatSchedulingPreference(data);
       const noteParts = [

@@ -19,8 +19,19 @@ import {
   useWorkOrdersForCommission,
   useCalculateCommission,
 } from "@/api/hooks/usePayroll.ts";
-import type { Commission, CreateCommissionInput, CommissionCalculation } from "@/api/types/payroll.ts";
-import { DollarSign, Percent, Trash2, Calculator, AlertCircle, CheckCircle } from "lucide-react";
+import type {
+  Commission,
+  CreateCommissionInput,
+  CommissionCalculation,
+} from "@/api/types/payroll.ts";
+import {
+  DollarSign,
+  Percent,
+  Trash2,
+  Calculator,
+  AlertCircle,
+  CheckCircle,
+} from "lucide-react";
 
 interface CommissionFormModalProps {
   open: boolean;
@@ -36,13 +47,16 @@ const COMMISSION_TYPES = [
 ] as const;
 
 // Commission rates by job type (must match backend)
-const COMMISSION_RATES: Record<string, { rate: number; applyDumpFee: boolean }> = {
-  pumping: { rate: 0.20, applyDumpFee: true },
-  grease_trap: { rate: 0.20, applyDumpFee: true },
+const COMMISSION_RATES: Record<
+  string,
+  { rate: number; applyDumpFee: boolean }
+> = {
+  pumping: { rate: 0.2, applyDumpFee: true },
+  grease_trap: { rate: 0.2, applyDumpFee: true },
   inspection: { rate: 0.15, applyDumpFee: false },
   repair: { rate: 0.15, applyDumpFee: false },
-  installation: { rate: 0.10, applyDumpFee: false },
-  emergency: { rate: 0.20, applyDumpFee: false },
+  installation: { rate: 0.1, applyDumpFee: false },
+  emergency: { rate: 0.2, applyDumpFee: false },
   maintenance: { rate: 0.15, applyDumpFee: false },
   camera_inspection: { rate: 0.15, applyDumpFee: false },
 };
@@ -76,7 +90,8 @@ export function CommissionFormModal({
   const [technicianId, setTechnicianId] = useState("");
   const [selectedWorkOrderId, setSelectedWorkOrderId] = useState("");
   const [dumpSiteId, setDumpSiteId] = useState("");
-  const [commissionType, setCommissionType] = useState<string>("job_completion");
+  const [commissionType, setCommissionType] =
+    useState<string>("job_completion");
   const [baseAmount, setBaseAmount] = useState("");
   const [rate, setRate] = useState("");
   const [rateType, setRateType] = useState<"percent" | "fixed">("percent");
@@ -91,12 +106,16 @@ export function CommissionFormModal({
   const [gallons, setGallons] = useState<number | null>(null);
   const [dumpFeePerGallon, setDumpFeePerGallon] = useState<number | null>(null);
   const [dumpFeeAmount, setDumpFeeAmount] = useState<number | null>(null);
-  const [commissionableAmount, setCommissionableAmount] = useState<number | null>(null);
-  const [calculationResult, setCalculationResult] = useState<CommissionCalculation | null>(null);
+  const [commissionableAmount, setCommissionableAmount] = useState<
+    number | null
+  >(null);
+  const [calculationResult, setCalculationResult] =
+    useState<CommissionCalculation | null>(null);
 
   // Hooks
   const { data: techniciansData } = useTechnicians({ active_only: true });
-  const { data: workOrders, isLoading: workOrdersLoading } = useWorkOrdersForCommission();
+  const { data: workOrders, isLoading: workOrdersLoading } =
+    useWorkOrdersForCommission();
   const { data: dumpSites } = useDumpSites({ is_active: true });
   const createCommission = useCreateCommission();
   const updateCommission = useUpdateCommission();
@@ -106,7 +125,9 @@ export function CommissionFormModal({
   const technicians = techniciansData?.items || [];
 
   // Determine if dump site is needed
-  const requiresDumpSite = jobType ? COMMISSION_RATES[jobType]?.applyDumpFee : false;
+  const requiresDumpSite = jobType
+    ? COMMISSION_RATES[jobType]?.applyDumpFee
+    : false;
 
   // Reset form when modal opens
   useEffect(() => {
@@ -116,8 +137,12 @@ export function CommissionFormModal({
         setTechnicianId(commission.technician_id);
         setSelectedWorkOrderId(commission.work_order_id || "");
         setCommissionType(commission.commission_type || "job_completion");
-        setBaseAmount(String(commission.base_amount || commission.job_total || ""));
-        setRate(String((commission.rate || commission.commission_rate || 0) * 100)); // Convert decimal to percentage
+        setBaseAmount(
+          String(commission.base_amount || commission.job_total || ""),
+        );
+        setRate(
+          String((commission.rate || commission.commission_rate || 0) * 100),
+        ); // Convert decimal to percentage
         setRateType(commission.rate_type || "percent");
         setCommissionAmount(String(commission.commission_amount || ""));
         setEarnedDate(commission.earned_date || "");
@@ -155,89 +180,95 @@ export function CommissionFormModal({
   }, [open, commission]);
 
   // Handle work order selection
-  const handleWorkOrderSelect = useCallback(async (workOrderId: string) => {
-    setSelectedWorkOrderId(workOrderId);
+  const handleWorkOrderSelect = useCallback(
+    async (workOrderId: string) => {
+      setSelectedWorkOrderId(workOrderId);
 
-    if (!workOrderId) {
-      // Reset auto-calc fields
-      setTechnicianId("");
-      setJobType("");
-      setGallons(null);
-      setBaseAmount("");
-      setRate("");
-      setDumpSiteId("");
-      setDumpFeePerGallon(null);
-      setDumpFeeAmount(null);
-      setCommissionableAmount(null);
-      setCommissionAmount("");
-      setCalculationResult(null);
-      return;
-    }
+      if (!workOrderId) {
+        // Reset auto-calc fields
+        setTechnicianId("");
+        setJobType("");
+        setGallons(null);
+        setBaseAmount("");
+        setRate("");
+        setDumpSiteId("");
+        setDumpFeePerGallon(null);
+        setDumpFeeAmount(null);
+        setCommissionableAmount(null);
+        setCommissionAmount("");
+        setCalculationResult(null);
+        return;
+      }
 
-    // Find the selected work order
-    const wo = workOrders?.find(w => w.id === workOrderId);
-    if (!wo) return;
+      // Find the selected work order
+      const wo = workOrders?.find((w) => w.id === workOrderId);
+      if (!wo) return;
 
-    // Auto-fill from work order
-    setTechnicianId(wo.technician_id || "");
-    setJobType(wo.job_type);
-    setGallons(wo.estimated_gallons || null);
-    setBaseAmount(String(wo.total_amount || ""));
+      // Auto-fill from work order
+      setTechnicianId(wo.technician_id || "");
+      setJobType(wo.job_type);
+      setGallons(wo.estimated_gallons || null);
+      setBaseAmount(String(wo.total_amount || ""));
 
-    // Set rate based on job type
-    const rateConfig = COMMISSION_RATES[wo.job_type];
-    if (rateConfig) {
-      setRate(String(rateConfig.rate * 100));
-    }
+      // Set rate based on job type
+      const rateConfig = COMMISSION_RATES[wo.job_type];
+      if (rateConfig) {
+        setRate(String(rateConfig.rate * 100));
+      }
 
-    // If doesn't require dump site, calculate immediately
-    if (!rateConfig?.applyDumpFee) {
+      // If doesn't require dump site, calculate immediately
+      if (!rateConfig?.applyDumpFee) {
+        try {
+          const result = await calculateCommission.mutateAsync({
+            work_order_id: workOrderId,
+          });
+          setCalculationResult(result);
+          setCommissionAmount(String(result.commission_amount));
+          setCommissionableAmount(result.commissionable_amount);
+        } catch (error) {
+          console.error("Auto-calculate error:", error);
+        }
+      }
+    },
+    [workOrders, calculateCommission],
+  );
+
+  // Handle dump site selection and calculate
+  const handleDumpSiteSelect = useCallback(
+    async (siteId: string) => {
+      setDumpSiteId(siteId);
+
+      if (!siteId || !selectedWorkOrderId) {
+        setDumpFeePerGallon(null);
+        setDumpFeeAmount(null);
+        setCommissionableAmount(null);
+        setCommissionAmount("");
+        setCalculationResult(null);
+        return;
+      }
+
+      // Find the selected dump site
+      const site = dumpSites?.find((s) => s.id === siteId);
+      if (site) {
+        setDumpFeePerGallon(site.fee_per_gallon);
+      }
+
+      // Calculate commission with dump site
       try {
         const result = await calculateCommission.mutateAsync({
-          work_order_id: workOrderId,
+          work_order_id: selectedWorkOrderId,
+          dump_site_id: siteId,
         });
         setCalculationResult(result);
         setCommissionAmount(String(result.commission_amount));
+        setDumpFeeAmount(result.dump_fee_total || null);
         setCommissionableAmount(result.commissionable_amount);
       } catch (error) {
-        console.error("Auto-calculate error:", error);
+        toastError("Calculation Error", getErrorMessage(error));
       }
-    }
-  }, [workOrders, calculateCommission]);
-
-  // Handle dump site selection and calculate
-  const handleDumpSiteSelect = useCallback(async (siteId: string) => {
-    setDumpSiteId(siteId);
-
-    if (!siteId || !selectedWorkOrderId) {
-      setDumpFeePerGallon(null);
-      setDumpFeeAmount(null);
-      setCommissionableAmount(null);
-      setCommissionAmount("");
-      setCalculationResult(null);
-      return;
-    }
-
-    // Find the selected dump site
-    const site = dumpSites?.find(s => s.id === siteId);
-    if (site) {
-      setDumpFeePerGallon(site.fee_per_gallon);
-    }
-
-    // Calculate commission with dump site
-    try {
-      const result = await calculateCommission.mutateAsync({
-        work_order_id: selectedWorkOrderId,
-        dump_site_id: siteId,
-      });
-      setCalculationResult(result);
-      setCommissionAmount(String(result.commission_amount));
-      setDumpFeeAmount(result.dump_fee_total || null);
-      setCommissionableAmount(result.commissionable_amount);
-    } catch (error) {
-      toastError("Calculation Error", getErrorMessage(error));
-    }
-  }, [selectedWorkOrderId, dumpSites, calculateCommission]);
+    },
+    [selectedWorkOrderId, dumpSites, calculateCommission],
+  );
 
   // Manual calculation fallback (when not using work order)
   useEffect(() => {
@@ -267,7 +298,10 @@ export function CommissionFormModal({
       return;
     }
     if (requiresDumpSite && !dumpSiteId && !manualMode) {
-      toastError("Validation Error", "Please select a dump site for pumping jobs");
+      toastError(
+        "Validation Error",
+        "Please select a dump site for pumping jobs",
+      );
       return;
     }
 
@@ -281,16 +315,21 @@ export function CommissionFormModal({
             rate: parseFloat(rate) / 100, // Convert percentage to decimal
             commission_amount: parseFloat(commissionAmount),
             description: description || undefined,
-            commission_type: commissionType as CreateCommissionInput["commission_type"],
+            commission_type:
+              commissionType as CreateCommissionInput["commission_type"],
           },
         });
-        toastSuccess("Commission Updated", "Commission has been updated successfully");
+        toastSuccess(
+          "Commission Updated",
+          "Commission has been updated successfully",
+        );
       } else {
         // Create new commission
         const input: CreateCommissionInput = {
           technician_id: technicianId,
           work_order_id: selectedWorkOrderId || undefined,
-          commission_type: commissionType as CreateCommissionInput["commission_type"],
+          commission_type:
+            commissionType as CreateCommissionInput["commission_type"],
           base_amount: parseFloat(baseAmount),
           rate: parseFloat(rate) / 100, // Convert percentage to decimal
           rate_type: rateType,
@@ -382,7 +421,9 @@ export function CommissionFormModal({
                     onChange={() => setManualMode(false)}
                     className="text-primary"
                   />
-                  <span className="text-sm">Auto-Calculate from Work Order</span>
+                  <span className="text-sm">
+                    Auto-Calculate from Work Order
+                  </span>
                 </label>
                 <label className="flex items-center gap-2 cursor-pointer">
                   <input
@@ -409,11 +450,14 @@ export function CommissionFormModal({
                   className="w-full px-3 py-2 rounded-lg border border-border bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
                 >
                   <option value="">
-                    {workOrdersLoading ? "Loading..." : "Select a completed work order..."}
+                    {workOrdersLoading
+                      ? "Loading..."
+                      : "Select a completed work order..."}
                   </option>
                   {workOrders?.map((wo) => (
                     <option key={wo.id} value={wo.id}>
-                      {wo.scheduled_date} - {wo.job_type.toUpperCase()} - {formatCurrency(wo.total_amount)}
+                      {wo.scheduled_date} - {wo.job_type.toUpperCase()} -{" "}
+                      {formatCurrency(wo.total_amount)}
                       {wo.technician_name ? ` (${wo.technician_name})` : ""}
                     </option>
                   ))}
@@ -432,9 +476,12 @@ export function CommissionFormModal({
                 <div className="flex items-start gap-2 mb-3">
                   <AlertCircle className="w-5 h-5 text-warning mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-warning">Dump Site Required</p>
+                    <p className="text-sm font-medium text-warning">
+                      Dump Site Required
+                    </p>
                     <p className="text-xs text-text-secondary">
-                      Select the dump site to calculate dump fees for this {jobType} job
+                      Select the dump site to calculate dump fees for this{" "}
+                      {jobType} job
                     </p>
                   </div>
                 </div>
@@ -448,7 +495,8 @@ export function CommissionFormModal({
                   <option value="">Select a dump site...</option>
                   {dumpSites?.map((site) => (
                     <option key={site.id} value={site.id}>
-                      {site.name} ({site.address_state}) - ${site.fee_per_gallon.toFixed(4)}/gallon
+                      {site.name} ({site.address_state}) - $
+                      {site.fee_per_gallon.toFixed(4)}/gallon
                     </option>
                   ))}
                 </select>
@@ -461,13 +509,19 @@ export function CommissionFormModal({
                 <div className="flex items-start gap-2 mb-3">
                   <AlertCircle className="w-5 h-5 text-warning mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-warning">Warning: No Commission Earned</p>
-                    <p className="text-xs text-text-secondary">{calculationResult.warning}</p>
+                    <p className="text-sm font-medium text-warning">
+                      Warning: No Commission Earned
+                    </p>
+                    <p className="text-xs text-text-secondary">
+                      {calculationResult.warning}
+                    </p>
                   </div>
                 </div>
                 <div className="space-y-1 font-mono text-sm">
                   {calculationResult.breakdown.steps.map((step, i) => (
-                    <p key={i} className="text-text-secondary">{step}</p>
+                    <p key={i} className="text-text-secondary">
+                      {step}
+                    </p>
                   ))}
                 </div>
                 <div className="mt-3 pt-3 border-t border-warning/30 flex justify-between items-center">
@@ -485,13 +539,19 @@ export function CommissionFormModal({
                 <div className="flex items-start gap-2 mb-3">
                   <CheckCircle className="w-5 h-5 text-success mt-0.5" />
                   <div>
-                    <p className="text-sm font-medium text-success">Commission Calculated</p>
-                    <p className="text-xs text-text-secondary">{calculationResult.breakdown.formula}</p>
+                    <p className="text-sm font-medium text-success">
+                      Commission Calculated
+                    </p>
+                    <p className="text-xs text-text-secondary">
+                      {calculationResult.breakdown.formula}
+                    </p>
                   </div>
                 </div>
                 <div className="space-y-1 font-mono text-sm">
                   {calculationResult.breakdown.steps.map((step, i) => (
-                    <p key={i} className="text-text-secondary">{step}</p>
+                    <p key={i} className="text-text-secondary">
+                      {step}
+                    </p>
                   ))}
                 </div>
                 <div className="mt-3 pt-3 border-t border-success/30 flex justify-between items-center">
@@ -510,7 +570,9 @@ export function CommissionFormModal({
                 id="technician"
                 value={technicianId}
                 onChange={(e) => setTechnicianId(e.target.value)}
-                disabled={isEditing || (!manualMode && selectedWorkOrderId !== "")}
+                disabled={
+                  isEditing || (!manualMode && selectedWorkOrderId !== "")
+                }
                 className="w-full px-3 py-2 rounded-lg border border-border bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary disabled:opacity-50"
               >
                 <option value="">Select a technician...</option>
@@ -544,15 +606,23 @@ export function CommissionFormModal({
               <div className="grid grid-cols-3 gap-4 p-3 bg-bg-muted rounded-lg">
                 <div>
                   <span className="text-xs text-text-secondary">Job Type</span>
-                  <p className="font-medium capitalize">{jobType.replace("_", " ")}</p>
+                  <p className="font-medium capitalize">
+                    {jobType.replace("_", " ")}
+                  </p>
                 </div>
                 <div>
-                  <span className="text-xs text-text-secondary">Commission Rate</span>
-                  <p className="font-medium">{formatPercent(COMMISSION_RATES[jobType]?.rate || 0.15)}</p>
+                  <span className="text-xs text-text-secondary">
+                    Commission Rate
+                  </span>
+                  <p className="font-medium">
+                    {formatPercent(COMMISSION_RATES[jobType]?.rate || 0.15)}
+                  </p>
                 </div>
                 {gallons && (
                   <div>
-                    <span className="text-xs text-text-secondary">Est. Gallons</span>
+                    <span className="text-xs text-text-secondary">
+                      Est. Gallons
+                    </span>
                     <p className="font-medium">{gallons.toLocaleString()}</p>
                   </div>
                 )}
@@ -565,7 +635,9 @@ export function CommissionFormModal({
                 {/* Work Order ID (Optional) */}
                 {manualMode && (
                   <div>
-                    <Label htmlFor="work-order-manual">Work Order ID (Optional)</Label>
+                    <Label htmlFor="work-order-manual">
+                      Work Order ID (Optional)
+                    </Label>
                     <Input
                       id="work-order-manual"
                       type="text"
@@ -604,7 +676,9 @@ export function CommissionFormModal({
                     <select
                       id="rate-type"
                       value={rateType}
-                      onChange={(e) => setRateType(e.target.value as "percent" | "fixed")}
+                      onChange={(e) =>
+                        setRateType(e.target.value as "percent" | "fixed")
+                      }
                       className="w-full px-3 py-2 rounded-lg border border-border bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
                     >
                       <option value="percent">Percentage</option>
@@ -698,14 +772,18 @@ export function CommissionFormModal({
                   </Button>
                 ) : (
                   <div className="flex items-center gap-2 p-3 bg-danger/10 rounded-lg">
-                    <span className="text-sm text-danger">Delete this commission?</span>
+                    <span className="text-sm text-danger">
+                      Delete this commission?
+                    </span>
                     <Button
                       variant="danger"
                       size="sm"
                       onClick={handleDelete}
                       disabled={deleteCommission.isPending}
                     >
-                      {deleteCommission.isPending ? "Deleting..." : "Yes, Delete"}
+                      {deleteCommission.isPending
+                        ? "Deleting..."
+                        : "Yes, Delete"}
                     </Button>
                     <Button
                       variant="ghost"

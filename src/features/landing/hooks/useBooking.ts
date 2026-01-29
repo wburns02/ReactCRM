@@ -58,7 +58,7 @@ export interface BookingResponse {
  */
 async function fetchPricing(serviceType: string): Promise<PricingInfo> {
   const response = await fetch(
-    `${API_BASE_URL}/bookings/pricing?service_type=${serviceType}`
+    `${API_BASE_URL}/bookings/pricing?service_type=${serviceType}`,
   );
 
   if (!response.ok) {
@@ -71,7 +71,9 @@ async function fetchPricing(serviceType: string): Promise<PricingInfo> {
 /**
  * Create a new booking with payment pre-authorization
  */
-async function createBooking(data: BookingCreateData): Promise<BookingResponse> {
+async function createBooking(
+  data: BookingCreateData,
+): Promise<BookingResponse> {
   const response = await fetch(`${API_BASE_URL}/bookings/create`, {
     method: "POST",
     headers: {

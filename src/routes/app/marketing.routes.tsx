@@ -6,31 +6,31 @@ import { PageLoader } from "../utils";
 const MarketingHubPage = lazy(() =>
   import("@/features/marketing/MarketingHubPage.tsx").then((m) => ({
     default: m.MarketingHubPage,
-  }))
+  })),
 );
 
 const GoogleAdsPage = lazy(() =>
   import("@/features/marketing/google-ads/GoogleAdsPage.tsx").then((m) => ({
     default: m.GoogleAdsPage,
-  }))
+  })),
 );
 
 const ReviewsPage = lazy(() =>
   import("@/features/marketing/reviews/ReviewsPage.tsx").then((m) => ({
     default: m.ReviewsPage,
-  }))
+  })),
 );
 
 const AIContentPage = lazy(() =>
   import("@/features/marketing/ai-content/AIContentPage.tsx").then((m) => ({
     default: m.AIContentPage,
-  }))
+  })),
 );
 
 const EmailMarketingPage = lazy(() =>
   import("@/features/email-marketing/EmailMarketingPage.tsx").then((m) => ({
     default: m.EmailMarketingPage,
-  }))
+  })),
 );
 
 /**

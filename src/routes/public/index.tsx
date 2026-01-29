@@ -7,37 +7,37 @@ import { PageLoader, WidgetWrapper } from "../utils";
 const LandingPage = lazy(() =>
   import("@/features/landing/index.ts").then((m) => ({
     default: m.LandingPage,
-  }))
+  })),
 );
 
 const CustomerTrackingPage = lazy(() =>
   import("@/features/tracking/index.ts").then((m) => ({
     default: m.CustomerTrackingPage,
-  }))
+  })),
 );
 
 const PublicPaymentPage = lazy(() =>
   import("@/features/billing/pages/PublicPaymentPage.tsx").then((m) => ({
     default: m.PublicPaymentPage,
-  }))
+  })),
 );
 
 const BookingWidget = lazy(() =>
   import("@/features/widgets/index.ts").then((m) => ({
     default: m.BookingWidget,
-  }))
+  })),
 );
 
 const PaymentWidget = lazy(() =>
   import("@/features/widgets/index.ts").then((m) => ({
     default: m.PaymentWidget,
-  }))
+  })),
 );
 
 const StatusWidget = lazy(() =>
   import("@/features/widgets/index.ts").then((m) => ({
     default: m.StatusWidget,
-  }))
+  })),
 );
 
 /**

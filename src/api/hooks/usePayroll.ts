@@ -606,9 +606,12 @@ export function useWorkOrdersForCommission(params?: {
   return useQuery({
     queryKey: ["payroll", "work-orders-for-commission", params],
     queryFn: async (): Promise<WorkOrderForCommission[]> => {
-      const { data } = await apiClient.get("/payroll/work-orders-for-commission", {
-        params,
-      });
+      const { data } = await apiClient.get(
+        "/payroll/work-orders-for-commission",
+        {
+          params,
+        },
+      );
       return data.work_orders || [];
     },
     staleTime: 30_000,
@@ -624,7 +627,10 @@ export function useCalculateCommission() {
       work_order_id: string;
       dump_site_id?: string;
     }): Promise<CommissionCalculation> => {
-      const { data } = await apiClient.post("/payroll/commissions/calculate", input);
+      const { data } = await apiClient.post(
+        "/payroll/commissions/calculate",
+        input,
+      );
       return data;
     },
   });

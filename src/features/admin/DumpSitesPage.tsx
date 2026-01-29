@@ -4,7 +4,13 @@ import { Button } from "@/components/ui/Button.tsx";
 import { Input } from "@/components/ui/Input.tsx";
 import { Label } from "@/components/ui/Label.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
-import { Dialog, DialogContent, DialogHeader, DialogBody, DialogFooter } from "@/components/ui/Dialog.tsx";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogBody,
+  DialogFooter,
+} from "@/components/ui/Dialog.tsx";
 import { toastSuccess, toastError } from "@/components/ui/Toast.tsx";
 import { getErrorMessage } from "@/api/client";
 import { formatCurrency } from "@/lib/utils";
@@ -14,21 +20,70 @@ import {
   useUpdateDumpSite,
   useDeleteDumpSite,
 } from "@/api/hooks/useDumpSites.ts";
-import type { DumpSite, CreateDumpSiteInput, UpdateDumpSiteInput } from "@/api/types/dumpSite.ts";
+import type {
+  DumpSite,
+  CreateDumpSiteInput,
+  UpdateDumpSiteInput,
+} from "@/api/types/dumpSite.ts";
 
 // Common US state codes for the dropdown
 const STATE_CODES = [
-  "AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DE", "FL", "GA",
-  "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
-  "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-  "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
-  "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY",
+  "AL",
+  "AK",
+  "AZ",
+  "AR",
+  "CA",
+  "CO",
+  "CT",
+  "DE",
+  "FL",
+  "GA",
+  "HI",
+  "ID",
+  "IL",
+  "IN",
+  "IA",
+  "KS",
+  "KY",
+  "LA",
+  "ME",
+  "MD",
+  "MA",
+  "MI",
+  "MN",
+  "MS",
+  "MO",
+  "MT",
+  "NE",
+  "NV",
+  "NH",
+  "NJ",
+  "NM",
+  "NY",
+  "NC",
+  "ND",
+  "OH",
+  "OK",
+  "OR",
+  "PA",
+  "RI",
+  "SC",
+  "SD",
+  "TN",
+  "TX",
+  "UT",
+  "VT",
+  "VA",
+  "WA",
+  "WV",
+  "WI",
+  "WY",
 ];
 
 // Default fee rates by state (for suggestion only)
 const STATE_FEE_SUGGESTIONS: Record<string, number> = {
   TX: 0.07,
-  SC: 0.10,
+  SC: 0.1,
   TN: 0.12,
 };
 
@@ -64,7 +119,10 @@ export function DumpSitesPage() {
     if (!siteToDelete) return;
     try {
       await deleteDumpSite.mutateAsync(siteToDelete.id);
-      toastSuccess("Dump Site Deactivated", "The dump site has been marked as inactive.");
+      toastSuccess(
+        "Dump Site Deactivated",
+        "The dump site has been marked as inactive.",
+      );
       setSiteToDelete(null);
     } catch (error) {
       toastError("Error", getErrorMessage(error));
@@ -72,12 +130,16 @@ export function DumpSitesPage() {
   };
 
   // Group sites by state for display
-  const sitesByState = sites?.reduce((acc, site) => {
-    const state = site.address_state || "Other";
-    if (!acc[state]) acc[state] = [];
-    acc[state].push(site);
-    return acc;
-  }, {} as Record<string, DumpSite[]>) || {};
+  const sitesByState =
+    sites?.reduce(
+      (acc, site) => {
+        const state = site.address_state || "Other";
+        if (!acc[state]) acc[state] = [];
+        acc[state].push(site);
+        return acc;
+      },
+      {} as Record<string, DumpSite[]>,
+    ) || {};
 
   return (
     <div className="h-full overflow-auto">
@@ -108,7 +170,9 @@ export function DumpSitesPage() {
               >
                 <option value="">All States</option>
                 {STATE_CODES.map((code) => (
-                  <option key={code} value={code}>{code}</option>
+                  <option key={code} value={code}>
+                    {code}
+                  </option>
                 ))}
               </select>
             </div>
@@ -150,21 +214,31 @@ export function DumpSitesPage() {
                     <Badge variant="secondary">{stateSites.length}</Badge>
                     {STATE_FEE_SUGGESTIONS[state] && (
                       <span className="text-sm font-normal text-text-secondary">
-                        (Standard: {(STATE_FEE_SUGGESTIONS[state] * 100).toFixed(0)}¢/gal)
+                        (Standard:{" "}
+                        {(STATE_FEE_SUGGESTIONS[state] * 100).toFixed(0)}¢/gal)
                       </span>
                     )}
                   </h2>
                   <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
                     {stateSites.map((site) => (
-                      <Card key={site.id} className={`p-4 ${!site.is_active ? "opacity-60" : ""}`}>
+                      <Card
+                        key={site.id}
+                        className={`p-4 ${!site.is_active ? "opacity-60" : ""}`}
+                      >
                         <div className="flex justify-between items-start mb-2">
                           <div>
-                            <h3 className="font-semibold text-text-primary">{site.name}</h3>
+                            <h3 className="font-semibold text-text-primary">
+                              {site.name}
+                            </h3>
                             {site.address_city && (
-                              <p className="text-sm text-text-secondary">{site.address_city}</p>
+                              <p className="text-sm text-text-secondary">
+                                {site.address_city}
+                              </p>
                             )}
                           </div>
-                          <Badge variant={site.is_active ? "success" : "secondary"}>
+                          <Badge
+                            variant={site.is_active ? "success" : "secondary"}
+                          >
                             {site.is_active ? "Active" : "Inactive"}
                           </Badge>
                         </div>
@@ -185,15 +259,20 @@ export function DumpSitesPage() {
                         {/* Hours of Operation */}
                         {site.hours_of_operation && (
                           <div className="text-sm text-text-secondary mb-3">
-                            <span className="font-medium">Hours:</span> {site.hours_of_operation}
+                            <span className="font-medium">Hours:</span>{" "}
+                            {site.hours_of_operation}
                           </div>
                         )}
 
                         {/* Contact Info */}
                         {(site.contact_name || site.contact_phone) && (
                           <div className="text-sm text-text-secondary mb-3">
-                            {site.contact_name && <div>Contact: {site.contact_name}</div>}
-                            {site.contact_phone && <div>Phone: {site.contact_phone}</div>}
+                            {site.contact_name && (
+                              <div>Contact: {site.contact_name}</div>
+                            )}
+                            {site.contact_phone && (
+                              <div>Phone: {site.contact_phone}</div>
+                            )}
                           </div>
                         )}
 
@@ -264,17 +343,16 @@ export function DumpSitesPage() {
             </DialogHeader>
             <DialogBody>
               <p className="text-text-primary">
-                Are you sure you want to deactivate <strong>{siteToDelete?.name}</strong>?
+                Are you sure you want to deactivate{" "}
+                <strong>{siteToDelete?.name}</strong>?
               </p>
               <p className="text-text-secondary mt-2">
-                This will mark the site as inactive. It can be reactivated later.
+                This will mark the site as inactive. It can be reactivated
+                later.
               </p>
             </DialogBody>
             <DialogFooter>
-              <Button
-                variant="secondary"
-                onClick={() => setSiteToDelete(null)}
-              >
+              <Button variant="secondary" onClick={() => setSiteToDelete(null)}>
                 Cancel
               </Button>
               <Button
@@ -352,7 +430,9 @@ function DumpSiteFormModal({
   const handleStateChange = (state: string) => {
     setAddressState(state);
     if (!editingSite && STATE_FEE_SUGGESTIONS[state] && !feePerGallon) {
-      setFeePerGallon(Math.round(STATE_FEE_SUGGESTIONS[state] * 100).toString());
+      setFeePerGallon(
+        Math.round(STATE_FEE_SUGGESTIONS[state] * 100).toString(),
+      );
     }
   };
 
@@ -381,7 +461,10 @@ function DumpSiteFormModal({
           siteId: editingSite.id,
           input: siteData,
         });
-        toastSuccess("Dump Site Updated", "The dump site has been updated successfully.");
+        toastSuccess(
+          "Dump Site Updated",
+          "The dump site has been updated successfully.",
+        );
       } else {
         await createDumpSite.mutateAsync(siteData as CreateDumpSiteInput);
         toastSuccess("Dump Site Created", "New dump site has been added.");
@@ -393,7 +476,8 @@ function DumpSiteFormModal({
   };
 
   const isLoading = createDumpSite.isPending || updateDumpSite.isPending;
-  const isValid = name && addressState && feePerGallon && parseFloat(feePerGallon) > 0;
+  const isValid =
+    name && addressState && feePerGallon && parseFloat(feePerGallon) > 0;
 
   return (
     <Dialog open={open} onClose={onClose}>
@@ -426,7 +510,9 @@ function DumpSiteFormModal({
                 >
                   <option value="">Select state...</option>
                   {STATE_CODES.map((code) => (
-                    <option key={code} value={code}>{code}</option>
+                    <option key={code} value={code}>
+                      {code}
+                    </option>
                   ))}
                 </select>
               </div>
@@ -480,7 +566,8 @@ function DumpSiteFormModal({
                 Enter fee in cents (e.g., 7 for 7¢/gallon = $0.07/gallon)
                 {addressState && STATE_FEE_SUGGESTIONS[addressState] && (
                   <span className="ml-2 text-primary">
-                    Suggested for {addressState}: {(STATE_FEE_SUGGESTIONS[addressState] * 100).toFixed(0)}¢
+                    Suggested for {addressState}:{" "}
+                    {(STATE_FEE_SUGGESTIONS[addressState] * 100).toFixed(0)}¢
                   </span>
                 )}
               </p>
@@ -488,7 +575,9 @@ function DumpSiteFormModal({
 
             {/* Contact Information */}
             <div className="border-t border-border pt-4 mt-4">
-              <h4 className="font-medium text-text-primary mb-3">Contact Information</h4>
+              <h4 className="font-medium text-text-primary mb-3">
+                Contact Information
+              </h4>
               <div className="grid grid-cols-2 gap-4">
                 <div>
                   <Label htmlFor="contact-name">Contact Name</Label>
@@ -564,11 +653,7 @@ function DumpSiteFormModal({
             onClick={handleSubmit}
             disabled={!isValid || isLoading}
           >
-            {isLoading
-              ? "Saving..."
-              : editingSite
-                ? "Update Site"
-                : "Add Site"}
+            {isLoading ? "Saving..." : editingSite ? "Update Site" : "Add Site"}
           </Button>
         </DialogFooter>
       </DialogContent>

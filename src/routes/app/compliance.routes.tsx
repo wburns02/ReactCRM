@@ -6,41 +6,41 @@ import { PageLoader } from "../utils";
 const ComplianceDashboard = lazy(() =>
   import("@/features/compliance/index.ts").then((m) => ({
     default: m.ComplianceDashboard,
-  }))
+  })),
 );
 
 // Permits
 const PermitsPage = lazy(() =>
   import("@/features/permits/index.ts").then((m) => ({
     default: m.PermitsPage,
-  }))
+  })),
 );
 
 const PermitDetailPage = lazy(() =>
   import("@/features/permits/index.ts").then((m) => ({
     default: m.PermitDetailPage,
-  }))
+  })),
 );
 
 // Contracts
 const ContractsPage = lazy(() =>
   import("@/features/contracts/index.ts").then((m) => ({
     default: m.ContractsPage,
-  }))
+  })),
 );
 
 // Time Tracking
 const TimesheetsPage = lazy(() =>
   import("@/features/time-tracking/index.ts").then((m) => ({
     default: m.TimesheetsPage,
-  }))
+  })),
 );
 
 // Job Costing
 const JobCostingPage = lazy(() =>
   import("@/features/job-costing/index.ts").then((m) => ({
     default: m.JobCostingPage,
-  }))
+  })),
 );
 
 /**

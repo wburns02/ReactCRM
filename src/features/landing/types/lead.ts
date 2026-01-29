@@ -49,7 +49,12 @@ export const PREFERRED_TIME_OPTIONS = [
 // Time slot options for display
 export const TIME_SLOT_OPTIONS = [
   { value: "morning", label: "Morning", description: "8am - 12pm", icon: "🌅" },
-  { value: "afternoon", label: "Afternoon", description: "12pm - 5pm", icon: "☀️" },
+  {
+    value: "afternoon",
+    label: "Afternoon",
+    description: "12pm - 5pm",
+    icon: "☀️",
+  },
   { value: "any", label: "Any Time", description: "I'm flexible", icon: "🕐" },
 ] as const;
 
@@ -57,7 +62,9 @@ export const TIME_SLOT_OPTIONS = [
 export const leadFormSchema = z.object({
   first_name: z.string().min(1, "First name is required"),
   last_name: z.string().min(1, "Last name is required"),
-  email: z.union([z.string().email("Please enter a valid email"), z.literal("")]).optional(),
+  email: z
+    .union([z.string().email("Please enter a valid email"), z.literal("")])
+    .optional(),
   phone: z
     .string()
     .min(10, "Please enter a valid phone number")
@@ -84,7 +91,7 @@ export interface LeadSubmitData {
   phone: string;
   service_type: ServiceType;
   // New availability fields
-  preferred_date?: string;       // YYYY-MM-DD
+  preferred_date?: string; // YYYY-MM-DD
   preferred_time_slot?: TimeSlot;
   is_asap?: boolean;
   // Legacy field

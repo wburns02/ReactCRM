@@ -19,7 +19,10 @@ export function useDumpSites(params?: DumpSiteFilters) {
   return useQuery({
     queryKey: ["dump-sites", params],
     queryFn: async (): Promise<DumpSite[]> => {
-      const { data } = await apiClient.get<DumpSiteListResponse>("/dump-sites", { params });
+      const { data } = await apiClient.get<DumpSiteListResponse>(
+        "/dump-sites",
+        { params },
+      );
       return data.sites || [];
     },
     staleTime: 60_000, // Cache for 1 minute

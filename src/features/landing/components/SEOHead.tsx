@@ -207,7 +207,7 @@ export function SEOHead() {
 
     // Remove existing scripts if present (for HMR)
     const existingLocalBusiness = document.getElementById(
-      "local-business-schema"
+      "local-business-schema",
     );
     const existingFaq = document.getElementById("faq-schema");
     if (existingLocalBusiness) existingLocalBusiness.remove();

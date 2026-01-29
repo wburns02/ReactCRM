@@ -16,7 +16,13 @@ interface FormInputs {
   last_name: string;
   email?: string;
   phone: string;
-  service_type: "pumping" | "inspection" | "repair" | "installation" | "emergency" | "other";
+  service_type:
+    | "pumping"
+    | "inspection"
+    | "repair"
+    | "installation"
+    | "emergency"
+    | "other";
   preferred_date?: string;
   preferred_time_slot?: TimeSlot;
   is_asap?: boolean;

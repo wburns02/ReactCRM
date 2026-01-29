@@ -6,6 +6,5 @@ export interface RouteConfig {
   children?: RouteConfig[];
 }
 
-export type LazyComponent<T = Record<string, unknown>> = React.LazyExoticComponent<
-  React.ComponentType<T>
->;
+export type LazyComponent<T = Record<string, unknown>> =
+  React.LazyExoticComponent<React.ComponentType<T>>;
