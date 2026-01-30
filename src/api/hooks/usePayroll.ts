@@ -45,6 +45,19 @@ export function usePayrollPeriod(periodId: string) {
   });
 }
 
+/**
+ * Get current or most recent payroll period
+ */
+export function useCurrentPayrollPeriod() {
+  return useQuery({
+    queryKey: ["payroll", "periods", "current"],
+    queryFn: async (): Promise<PayrollPeriod> => {
+      const { data } = await apiClient.get("/payroll/periods/current");
+      return data;
+    },
+  });
+}
+
 export function useCreatePayrollPeriod() {
   const queryClient = useQueryClient();
 

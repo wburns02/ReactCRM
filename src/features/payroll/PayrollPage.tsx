@@ -33,6 +33,7 @@ import {
 } from "@/api/hooks/usePayroll";
 import { useTechnicians } from "@/api/hooks/useTechnicians";
 import { CommissionsDashboard } from "./components/CommissionsDashboard";
+import { PayrollSummaryDashboard } from "./components/PayrollSummaryDashboard";
 import { formatDate, formatCurrency } from "@/lib/utils";
 import type {
   PayrollPeriod,
@@ -40,7 +41,7 @@ import type {
   TimeEntry,
 } from "@/api/types/payroll";
 
-type TabType = "periods" | "time-entries" | "commissions" | "pay-rates";
+type TabType = "summary" | "periods" | "time-entries" | "commissions" | "pay-rates";
 
 /**
  * Tab Button
@@ -1304,7 +1305,7 @@ function PayRatesTab() {
  * Main Payroll Page
  */
 export function PayrollPage() {
-  const [activeTab, setActiveTab] = useState<TabType>("periods");
+  const [activeTab, setActiveTab] = useState<TabType>("summary");
 
   return (
     <div className="space-y-6">
@@ -1318,6 +1319,12 @@ export function PayrollPage() {
 
       {/* Tabs */}
       <div className="flex flex-wrap gap-2">
+        <TabButton
+          active={activeTab === "summary"}
+          onClick={() => setActiveTab("summary")}
+        >
+          Summary
+        </TabButton>
         <TabButton
           active={activeTab === "periods"}
           onClick={() => setActiveTab("periods")}
@@ -1345,6 +1352,7 @@ export function PayrollPage() {
       </div>
 
       {/* Content */}
+      {activeTab === "summary" && <PayrollSummaryDashboard />}
       {activeTab === "periods" && <PayPeriodsTab />}
       {activeTab === "time-entries" && <TimeEntriesTab />}
       {activeTab === "commissions" && <CommissionsTab />}
