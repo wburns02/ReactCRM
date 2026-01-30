@@ -488,21 +488,24 @@ test.describe('Payroll Work Orders Commissions Integration', () => {
 
 ---
 
-## Verification Results (2026-01-30)
+## Verification Results (2026-01-30) - COMPLETE ✅
 
-### API Tests Passed:
-- ✅ Health check returns version 2.8.0
-- ✅ Work orders endpoint returns items list
-- ✅ Payroll commissions endpoint returns items list
-- ✅ Work order complete endpoint exists (404 for invalid ID)
-- ✅ Work order complete endpoint works (200, returns commission info)
+### Issues Fixed:
+1. **Status not persisting**: Fixed by using ORM setattr instead of raw SQL (handles PostgreSQL ENUM)
+2. **Missing database columns**: Added `dump_site_id`, `job_type`, `gallons_pumped`, `dump_fee_per_gallon`, `dump_fee_amount`, `commissionable_amount` to commissions table via `/payroll/commissions/fix-table` endpoint
 
-### Commission Auto-Creation:
-- When work order has `technician_id` and `total_amount` set, commission is auto-created
-- Commission is linked to current open payroll period
+### Full Integration Test Passed:
+- ✅ Work order completion persists status correctly
+- ✅ Commissions auto-created on completion
+- ✅ Commission rates correct by job type:
+    - Pumping: 20% ($500 → $100 commission)
+    - Inspection: 15% ($300 → $45 commission)
+    - Emergency: 20% ($800 → $160 commission)
+- ✅ Commissions appear in payroll list (9 total commissions created)
+- ✅ No commission when no technician assigned
+
+### Commission Auto-Creation Logic:
+- When work order has `technician_id` and `total_amount` > 0, commission is auto-created
+- Commission is linked to current open payroll period (if one exists)
 - Dump fee deduction applies for pumping/grease_trap jobs when dump_site_id provided
-
-### Notes:
-- Current test work orders don't have technician_id or total_amount set
-- Commission creation properly returns null when validation fails (expected behavior)
-- Full E2E commission flow requires work order with technician assigned and revenue set
+- Returns null when validation fails (expected behavior - technician or amount missing)
