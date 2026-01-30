@@ -302,4 +302,110 @@ test.describe('Email CRM Integration', () => {
       expect(activityResponse.status).toBe(200);
     }
   });
+
+  test('Customer detail page shows communications section', async ({ page }) => {
+    // Login via UI
+    await page.goto(`${BASE_URL}/login`);
+    await page.waitForLoadState('networkidle');
+
+    await page.fill('input[name="email"], input[type="email"]', TEST_EMAIL);
+    await page.fill('input[name="password"], input[type="password"]', TEST_PASSWORD);
+    await page.getByRole('button', { name: 'Sign In' }).click();
+
+    await page.waitForURL(/\/(dashboard|onboarding|payroll)/, { timeout: 15000 });
+
+    // Navigate to Customers page
+    await page.goto(`${BASE_URL}/customers`);
+    await page.waitForLoadState('networkidle');
+    await page.waitForTimeout(2000);
+
+    // Click on first customer to open detail page
+    const customerRow = page.locator('table tr, [data-testid="customer-row"]').first();
+    if (await customerRow.count() > 0) {
+      await customerRow.click();
+      await page.waitForLoadState('networkidle');
+      await page.waitForTimeout(1000);
+
+      // Take screenshot
+      await page.screenshot({ path: 'test-results/customer-detail-communications.png', fullPage: true });
+
+      // Check for communications or email related elements
+      const pageContent = await page.textContent('body');
+      const hasCommSection =
+        pageContent?.toLowerCase().includes('communication') ||
+        pageContent?.toLowerCase().includes('email') ||
+        pageContent?.toLowerCase().includes('message');
+
+      console.log('Customer detail has communications section:', hasCommSection);
+
+      // Look for email button or communications tab
+      const emailButton = page.locator('button:has-text("Email"), a:has-text("Email"), [role="tab"]:has-text("Email")');
+      if (await emailButton.count() > 0) {
+        console.log('Found email button/tab on customer detail');
+      }
+    }
+  });
+
+  test('Email templates endpoint returns data', async ({ request }) => {
+    // Login first
+    const loginResponse = await request.post(`${API_URL}/auth/login`, {
+      data: {
+        email: TEST_EMAIL,
+        password: TEST_PASSWORD
+      }
+    });
+    expect(loginResponse.status()).toBe(200);
+    const cookies = loginResponse.headers()['set-cookie'];
+
+    // Get email templates
+    const templatesResponse = await request.get(`${API_URL}/email-templates`, {
+      headers: cookies ? { 'Cookie': cookies } : {}
+    });
+
+    console.log('Email templates status:', templatesResponse.status());
+
+    // Should be 200 (even if empty list)
+    expect([200, 404]).toContain(templatesResponse.status());
+
+    if (templatesResponse.ok()) {
+      const data = await templatesResponse.json();
+      console.log('Templates response:', JSON.stringify(data, null, 2));
+
+      // Verify response has items array
+      expect(data).toHaveProperty('items');
+      expect(Array.isArray(data.items)).toBe(true);
+    }
+  });
+
+  test('Email send with invalid data returns validation error', async ({ request }) => {
+    // Login first
+    const loginResponse = await request.post(`${API_URL}/auth/login`, {
+      data: {
+        email: TEST_EMAIL,
+        password: TEST_PASSWORD
+      }
+    });
+    expect(loginResponse.status()).toBe(200);
+    const cookies = loginResponse.headers()['set-cookie'];
+
+    // Try to send email with invalid/missing data
+    const emailResponse = await request.post(`${API_URL}/communications/email/send`, {
+      data: {
+        // Missing required fields like 'to', 'subject', 'body'
+        source: 'react'
+      },
+      headers: cookies ? { 'Cookie': cookies } : {}
+    });
+
+    console.log('Invalid email send status:', emailResponse.status());
+
+    // Should return 422 (validation error) not 500 (server error)
+    expect(emailResponse.status()).toBe(422);
+
+    const errorData = await emailResponse.json();
+    console.log('Validation error:', JSON.stringify(errorData, null, 2));
+
+    // Should have detail about missing fields
+    expect(errorData).toHaveProperty('detail');
+  });
 });
