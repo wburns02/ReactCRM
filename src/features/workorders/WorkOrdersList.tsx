@@ -126,7 +126,7 @@ const MobileWorkOrderCard = memo(function MobileWorkOrderCard({
                 ? `${wo.customer.first_name} ${wo.customer.last_name}`
                 : `Customer #${wo.customer_id}`)}
           </h3>
-          <p className="text-xs text-text-muted">WO #{wo.id}</p>
+          <p className="text-xs text-text-muted">{wo.work_order_number || `WO-${wo.id.slice(0, 8)}`}</p>
         </div>
         <Badge variant={getStatusVariant(wo.status as WorkOrderStatus)}>
           {WORK_ORDER_STATUS_LABELS[wo.status as WorkOrderStatus] || wo.status}

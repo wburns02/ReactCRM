@@ -24,6 +24,7 @@ interface CommissionsTableProps {
   onApprove: (id: string) => Promise<void>;
   onMarkPaid: (id: string) => Promise<void>;
   onEdit?: (commission: Commission) => void;
+  onRowClick?: (commission: Commission) => void;
   sortBy?: string;
   sortOrder?: "asc" | "desc";
   onSortChange?: (field: string) => void;
@@ -63,6 +64,7 @@ export function CommissionsTable({
   onApprove,
   onMarkPaid,
   onEdit,
+  onRowClick,
   sortBy,
   sortOrder,
   onSortChange,
@@ -204,9 +206,10 @@ export function CommissionsTable({
             {commissions.map((commission) => (
               <tr
                 key={commission.id}
-                className={`hover:bg-bg-muted/30 ${selectedIds.has(commission.id) ? "bg-primary/5" : ""}`}
+                onClick={() => onRowClick?.(commission)}
+                className={`hover:bg-bg-muted/30 transition-colors ${selectedIds.has(commission.id) ? "bg-primary/5" : ""} ${onRowClick ? "cursor-pointer" : ""}`}
               >
-                <td className="px-4 py-3">
+                <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
                   <input
                     type="checkbox"
                     checked={selectedIds.has(commission.id)}
@@ -226,7 +229,7 @@ export function CommissionsTable({
                       `Tech #${commission.technician_id}`}
                   </div>
                 </td>
-                <td className="px-4 py-3">
+                <td className="px-4 py-3" onClick={(e) => e.stopPropagation()}>
                   {commission.work_order_id ? (
                     <Link
                       to={`/work-orders/${commission.work_order_id}`}
@@ -265,7 +268,7 @@ export function CommissionsTable({
                       commission.status.slice(1)}
                   </Badge>
                 </td>
-                <td className="px-4 py-3 text-right">
+                <td className="px-4 py-3 text-right" onClick={(e) => e.stopPropagation()}>
                   <div className="flex justify-end gap-2">
                     {/* Edit button - show for pending commissions */}
                     {commission.status === "pending" && onEdit && (

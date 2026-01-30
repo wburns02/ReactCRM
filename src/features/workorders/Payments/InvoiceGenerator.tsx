@@ -59,6 +59,7 @@ export interface CustomerInfo {
 
 export interface WorkOrderReference {
   id: string;
+  work_order_number?: string;
   jobType: string;
   scheduledDate?: string;
   status: string;
@@ -261,7 +262,7 @@ export function InvoiceGenerator({
                 Work Order Reference
               </h4>
               <div className="p-4 bg-bg-hover/50 rounded-lg">
-                <p className="font-semibold">WO #{workOrder.id}</p>
+                <p className="font-semibold">{workOrder.work_order_number || `WO-${workOrder.id.slice(0, 8)}`}</p>
                 <p className="text-sm text-text-secondary mt-1">
                   Type:{" "}
                   <span className="capitalize">

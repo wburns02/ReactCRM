@@ -330,7 +330,7 @@ export function MobileWorkOrderView({
       <div className="p-4 bg-bg-card border-b border-border">
         <div className="flex items-center justify-between mb-2">
           <h1 className="text-xl font-bold text-text-primary">
-            WO #{workOrder.id.slice(-6).toUpperCase()}
+            {workOrder.work_order_number || `WO-${workOrder.id.slice(0, 8)}`}
           </h1>
           <Badge
             variant="default"

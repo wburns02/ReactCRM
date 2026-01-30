@@ -80,6 +80,7 @@ export const PRIORITY_LABELS: Record<Priority, string> = {
  */
 export const workOrderSchema = z.object({
   id: z.string(),
+  work_order_number: z.string().nullable().optional(),
   customer_id: z.union([z.string(), z.number()]).transform(String),
   customer_name: z.string().nullable().optional(),
   customer: z

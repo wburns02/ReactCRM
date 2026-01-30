@@ -17,6 +17,7 @@ import { BulkActionsBar } from "./BulkActionsBar.tsx";
 import { CommissionLeaderboard } from "./CommissionLeaderboard.tsx";
 import { CommissionInsightsPanel } from "./CommissionInsightsPanel.tsx";
 import { CommissionFormModal } from "./CommissionFormModal.tsx";
+import { CommissionDetailModal } from "./CommissionDetailModal.tsx";
 import { ExportButton } from "./ExportButton.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { LayoutList, Trophy, Plus } from "lucide-react";
@@ -57,6 +58,11 @@ export function CommissionsDashboard({
   // Commission form modal state
   const [showFormModal, setShowFormModal] = useState(false);
   const [editingCommission, setEditingCommission] = useState<Commission | null>(
+    null,
+  );
+
+  // Commission detail modal state (read-only view)
+  const [detailCommission, setDetailCommission] = useState<Commission | null>(
     null,
   );
 
@@ -150,6 +156,16 @@ export function CommissionsDashboard({
     setShowFormModal(true);
   }, []);
 
+  const handleRowClick = useCallback((commission: Commission) => {
+    setDetailCommission(commission);
+  }, []);
+
+  const handleDetailModalEdit = useCallback((commission: Commission) => {
+    setDetailCommission(null);
+    setEditingCommission(commission);
+    setShowFormModal(true);
+  }, []);
+
   const handleCloseFormModal = useCallback(() => {
     setShowFormModal(false);
     setEditingCommission(null);
@@ -233,6 +249,7 @@ export function CommissionsDashboard({
             onApprove={handleApprove}
             onMarkPaid={handleMarkPaid}
             onEdit={handleEditCommission}
+            onRowClick={handleRowClick}
           />
         </div>
       )}
@@ -249,6 +266,14 @@ export function CommissionsDashboard({
         open={showFormModal}
         onClose={handleCloseFormModal}
         commission={editingCommission}
+      />
+
+      {/* Commission Detail Modal (read-only view) */}
+      <CommissionDetailModal
+        commission={detailCommission}
+        open={!!detailCommission}
+        onClose={() => setDetailCommission(null)}
+        onEdit={handleDetailModalEdit}
       />
     </div>
   );

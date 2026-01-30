@@ -311,7 +311,7 @@ export function FieldServiceMode({
           </button>
           <div className="flex-1 text-center">
             <h1 className="font-bold text-text-primary">
-              WO #{workOrder.id.slice(-6).toUpperCase()}
+              {workOrder.work_order_number || `WO-${workOrder.id.slice(0, 8)}`}
             </h1>
             <p className="text-sm text-text-secondary">
               {JOB_TYPE_LABELS[workOrder.job_type]}
