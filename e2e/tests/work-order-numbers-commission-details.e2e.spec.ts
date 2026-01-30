@@ -188,5 +188,11 @@ test.describe("Work Order Numbers + Commission Details", () => {
 
     // Verify technician_name is a real name, not a fallback
     expect(commission.technician_name).not.toMatch(/^Tech #/);
+
+    // Verify work_order_number is in WO-NNNNNN format (if work order exists)
+    if (commission.work_order_id) {
+      expect(commission.work_order_number).toBeDefined();
+      expect(commission.work_order_number).toMatch(/^WO-\d{6}$/);
+    }
   });
 });
