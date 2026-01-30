@@ -217,6 +217,9 @@ test.describe("Payroll-Work Orders-Commissions API Integration", () => {
     expect(firstCommission.id).toBeDefined();
     expect(firstCommission.commission_amount).toBeDefined();
     expect(firstCommission.status).toBeDefined();
+    // Verify technician name is included (not just ID)
+    expect(firstCommission.technician_name).toBeDefined();
+    expect(firstCommission.technician_name).not.toMatch(/^Tech #/);
   });
 
   test("7. Approve commission changes status to approved", async ({
