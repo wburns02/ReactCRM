@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/Card.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
+import { Select } from "@/components/ui/Select.tsx";
 import { useToast } from "@/components/ui/Toast";
 import {
   useMarketingTasks,
@@ -321,9 +322,14 @@ export function MarketingTasksPage() {
   const [runningTask, setRunningTask] = useState<string | null>(null);
   const [checkingService, setCheckingService] = useState<string | null>(null);
   const [resolvingAlert, setResolvingAlert] = useState<string | null>(null);
+  const [selectedSite, setSelectedSite] = useState<string>("all");
 
   // Fetch dashboard data
   const { data, isLoading, error, refetch } = useMarketingTasks();
+
+  // Set default selected site when data loads
+  const sites = data?.sites || [];
+  const selectedSiteData = sites.find((s) => s.id === selectedSite);
 
   // Mutations
   const triggerHealthCheck = useTriggerHealthCheck();
@@ -400,7 +406,26 @@ export function MarketingTasksPage() {
             Monitor SEO services, scheduled tasks, and alerts
           </p>
         </div>
-        <div className="flex gap-2">
+        <div className="flex items-center gap-3">
+          {/* Site Selector */}
+          <div className="flex items-center gap-2">
+            <label htmlFor="site-selector" className="text-sm text-text-secondary whitespace-nowrap">
+              Site:
+            </label>
+            <Select
+              id="site-selector"
+              value={selectedSite}
+              onChange={(e) => setSelectedSite(e.target.value)}
+              className="w-[200px]"
+            >
+              <option value="all">All Sites</option>
+              {sites.map((site) => (
+                <option key={site.id} value={site.id}>
+                  {site.name} ({site.domain})
+                </option>
+              ))}
+            </Select>
+          </div>
           {data?.lastUpdated && (
             <Badge variant="info">
               Updated: {new Date(data.lastUpdated).toLocaleTimeString()}
@@ -411,6 +436,28 @@ export function MarketingTasksPage() {
           </Button>
         </div>
       </div>
+
+      {/* Selected Site Info */}
+      {selectedSite !== "all" && selectedSiteData && (
+        <Card className="bg-primary/5 border-primary/20">
+          <CardContent className="py-3">
+            <div className="flex items-center justify-between">
+              <div className="flex items-center gap-4">
+                <span className="font-medium text-primary">{selectedSiteData.name}</span>
+                <a
+                  href={selectedSiteData.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="text-sm text-text-secondary hover:text-primary"
+                >
+                  {selectedSiteData.url}
+                </a>
+              </div>
+              <StatusBadge status={selectedSiteData.status} />
+            </div>
+          </CardContent>
+        </Card>
+      )}
 
       {/* Tabs */}
       <div className="flex flex-wrap gap-2">
