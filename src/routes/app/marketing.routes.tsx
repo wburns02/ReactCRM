@@ -9,6 +9,12 @@ const MarketingHubPage = lazy(() =>
   })),
 );
 
+const MarketingTasksPage = lazy(() =>
+  import("@/features/marketing/tasks/MarketingTasksPage.tsx").then((m) => ({
+    default: m.MarketingTasksPage,
+  })),
+);
+
 const GoogleAdsPage = lazy(() =>
   import("@/features/marketing/google-ads/GoogleAdsPage.tsx").then((m) => ({
     default: m.GoogleAdsPage,
@@ -69,6 +75,15 @@ export function MarketingRoutes() {
         element={
           <Suspense fallback={<PageLoader />}>
             <AIContentPage />
+          </Suspense>
+        }
+      />
+      {/* Marketing Tasks Dashboard - No sidebar link, URL bookmark only */}
+      <Route
+        path="marketing/tasks"
+        element={
+          <Suspense fallback={<PageLoader />}>
+            <MarketingTasksPage />
           </Suspense>
         }
       />
