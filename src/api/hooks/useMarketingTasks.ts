@@ -222,3 +222,158 @@ export function useTriggerScheduledTask() {
     },
   });
 }
+
+// =============================================================================
+// CONTENT GENERATOR HOOKS
+// =============================================================================
+
+interface ContentGenerateRequest {
+  contentType: "blog" | "faq" | "gbp_post" | "service_description";
+  topic: string;
+  targetLength?: number;
+  tone?: string;
+}
+
+interface ContentGenerateResponse {
+  success: boolean;
+  content: string;
+  contentType: string;
+  topic: string;
+  demoMode: boolean;
+  message: string;
+}
+
+/**
+ * Generate AI content
+ */
+export function useGenerateContent() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (request: ContentGenerateRequest): Promise<ContentGenerateResponse> => {
+      const response = await apiClient.post<ContentGenerateResponse>(
+        "/marketing-hub/tasks/content/generate",
+        request,
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      // Refresh content list
+      queryClient.invalidateQueries({
+        queryKey: ["marketing", "content"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: marketingTasksKeys.dashboard(),
+      });
+    },
+  });
+}
+
+// =============================================================================
+// GBP SYNC HOOKS
+// =============================================================================
+
+interface GBPStatus {
+  success: boolean;
+  connected: boolean;
+  lastSync: string;
+  profileName: string;
+  profileUrl: string;
+  stats: {
+    totalPosts: number;
+    totalReviews: number;
+    averageRating: number;
+    pendingResponses: number;
+    viewsThisMonth: number;
+    callsThisMonth: number;
+  };
+  demoMode: boolean;
+  message?: string;
+}
+
+interface GBPSyncResponse {
+  success: boolean;
+  message: string;
+  syncedAt: string;
+  demoMode: boolean;
+}
+
+interface GBPPostRequest {
+  title: string;
+  content: string;
+  callToAction?: string;
+  actionUrl?: string;
+}
+
+interface GBPPostResponse {
+  success: boolean;
+  postId: string;
+  message: string;
+  publishedAt: string;
+  demoMode: boolean;
+}
+
+/**
+ * Get GBP sync status
+ */
+export function useGBPStatus() {
+  return useQuery({
+    queryKey: [...marketingTasksKeys.all, "gbp", "status"],
+    queryFn: async (): Promise<GBPStatus> => {
+      const response = await apiClient.get<GBPStatus>(
+        "/marketing-hub/tasks/gbp/status",
+      );
+      return response.data;
+    },
+    staleTime: 60000,
+  });
+}
+
+/**
+ * Trigger GBP sync
+ */
+export function useTriggerGBPSync() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (): Promise<GBPSyncResponse> => {
+      const response = await apiClient.post<GBPSyncResponse>(
+        "/marketing-hub/tasks/gbp/sync",
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [...marketingTasksKeys.all, "gbp"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: marketingTasksKeys.dashboard(),
+      });
+    },
+  });
+}
+
+/**
+ * Create and publish a GBP post
+ */
+export function useCreateGBPPost() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (request: GBPPostRequest): Promise<GBPPostResponse> => {
+      const response = await apiClient.post<GBPPostResponse>(
+        "/marketing-hub/tasks/gbp/post",
+        request,
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: [...marketingTasksKeys.all, "gbp"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: marketingTasksKeys.dashboard(),
+      });
+    },
+  });
+}

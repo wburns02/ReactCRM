@@ -45,6 +45,8 @@ import {
   ContentDetail,
   ReviewsDetail,
   VitalsDetail,
+  ContentGeneratorModal,
+  GBPSyncModal,
 } from "./components";
 
 type TabType = "overview" | "services" | "scheduled" | "alerts" | "sites";
@@ -709,6 +711,10 @@ export function MarketingTasksPage() {
   const [drawerOpen, setDrawerOpen] = useState(false);
   const [drawerType, setDrawerType] = useState<DrawerType>(null);
 
+  // Modal states for action buttons
+  const [contentGeneratorOpen, setContentGeneratorOpen] = useState(false);
+  const [gbpSyncOpen, setGbpSyncOpen] = useState(false);
+
   const openDrawer = (type: DrawerType) => {
     setDrawerType(type);
     setDrawerOpen(true);
@@ -995,6 +1001,46 @@ export function MarketingTasksPage() {
           {/* Overview Tab */}
           {activeTab === "overview" && (
             <div className="space-y-6">
+              {/* Primary Action Buttons */}
+              <Card className="bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
+                <CardContent className="py-4">
+                  <div className="flex flex-col md:flex-row md:items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <span className="text-2xl">⚡</span>
+                      <div>
+                        <div className="font-medium text-primary">Quick Actions</div>
+                        <div className="text-sm text-text-secondary">Generate content or sync your GBP</div>
+                      </div>
+                    </div>
+                    <div className="flex flex-wrap gap-3">
+                      <Button
+                        onClick={() => setContentGeneratorOpen(true)}
+                        variant="primary"
+                        className="flex items-center gap-2"
+                      >
+                        <span>🤖</span>
+                        Generate Content
+                      </Button>
+                      <Button
+                        onClick={() => setGbpSyncOpen(true)}
+                        variant="secondary"
+                        className="flex items-center gap-2"
+                      >
+                        <span>📍</span>
+                        Sync GBP
+                      </Button>
+                      <ActionButton
+                        onClick={handleRunAllChecks}
+                        isLoading={runningAllChecks}
+                        icon="🔄"
+                      >
+                        Run All Checks
+                      </ActionButton>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
               {/* Score Gauges */}
               <div className="grid grid-cols-2 md:grid-cols-5 gap-4">
                 <ScoreGauge
@@ -1287,6 +1333,18 @@ export function MarketingTasksPage() {
           {drawerType === "vitals" && <VitalsDetail isEnabled={drawerOpen} />}
         </DetailDrawer>
       )}
+
+      {/* Content Generator Modal */}
+      <ContentGeneratorModal
+        isOpen={contentGeneratorOpen}
+        onClose={() => setContentGeneratorOpen(false)}
+      />
+
+      {/* GBP Sync Modal */}
+      <GBPSyncModal
+        isOpen={gbpSyncOpen}
+        onClose={() => setGbpSyncOpen(false)}
+      />
     </div>
   );
 }
