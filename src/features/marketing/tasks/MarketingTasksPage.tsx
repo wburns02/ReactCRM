@@ -397,7 +397,7 @@ function ServiceHealthCard({
   onCheck: () => void;
   isChecking: boolean;
 }) {
-  const isUnreachable = service.status === "unreachable" || service.status === "down";
+  const isUnreachable = service.status === "down" || service.status === "unknown";
 
   return (
     <Card className={isUnreachable ? "border-danger/30 bg-danger/5" : ""}>
