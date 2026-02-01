@@ -196,13 +196,13 @@ export function KeywordsDetail({ isEnabled }: KeywordsDetailProps) {
                     </span>
                   </td>
                   <td className="py-3 text-right text-gray-600">
-                    {kw.impressions.toLocaleString()}
+                    {(kw.impressions ?? 0).toLocaleString()}
                   </td>
                   <td className="py-3 text-right text-gray-600">
-                    {kw.clicks.toLocaleString()}
+                    {(kw.clicks ?? 0).toLocaleString()}
                   </td>
                   <td className="py-3 text-right text-gray-600">
-                    {kw.ctr.toFixed(1)}%
+                    {(kw.ctr ?? 0).toFixed(1)}%
                   </td>
                 </tr>
               ))

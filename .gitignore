@@ -55,3 +55,8 @@ __pycache__/
 # OpenGov auth tokens (sensitive)
 scrapers/opengov/auth_token.json
 scrapers/opengov/storage_state.json
+
+# Ralph loop state files (prevent orphaned loops from being committed)
+**/.claude/ralph-loop.local.md
+**/ralph-loop.local.md
+Already have records/all_permits_complete.csv
