@@ -37,6 +37,15 @@ import type {
   MarketingAlert,
   MarketingTaskSite,
 } from "@/api/types/marketingTasks.ts";
+import type { DrawerType } from "@/api/types/marketingDetails";
+import {
+  DetailDrawer,
+  KeywordsDetail,
+  PagesDetail,
+  ContentDetail,
+  ReviewsDetail,
+  VitalsDetail,
+} from "./components";
 
 type TabType = "overview" | "services" | "scheduled" | "alerts" | "sites";
 
@@ -695,7 +704,50 @@ export function MarketingTasksPage() {
   const [resolvingAlert, setResolvingAlert] = useState<string | null>(null);
   const [selectedSite, setSelectedSite] = useState<string>("all");
   const [runningAllChecks, setRunningAllChecks] = useState(false);
-  const [checkingPageSpeed, setCheckingPageSpeed] = useState(false);
+
+  // Detail drawer state
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [drawerType, setDrawerType] = useState<DrawerType>(null);
+
+  const openDrawer = (type: DrawerType) => {
+    setDrawerType(type);
+    setDrawerOpen(true);
+  };
+
+  const closeDrawer = () => {
+    setDrawerOpen(false);
+    // Delay clearing type to allow animation to complete
+    setTimeout(() => setDrawerType(null), 300);
+  };
+
+  // Drawer configuration
+  const drawerConfig: Record<NonNullable<DrawerType>, { title: string; subtitle: string; icon: string }> = {
+    keywords: {
+      title: "Tracked Keywords",
+      subtitle: "Words people search to find your business",
+      icon: "🔑",
+    },
+    pages: {
+      title: "Indexed Pages",
+      subtitle: "Pages Google knows about on your website",
+      icon: "📄",
+    },
+    content: {
+      title: "Generated Content",
+      subtitle: "Blog posts and articles created for you",
+      icon: "✍️",
+    },
+    reviews: {
+      title: "Customer Reviews",
+      subtitle: "What people are saying about your business",
+      icon: "⭐",
+    },
+    vitals: {
+      title: "Website Speed",
+      subtitle: "How fast your website loads for visitors",
+      icon: "⚡",
+    },
+  };
 
   // Fetch dashboard data
   const { data, isLoading, error, refetch } = useMarketingTasks();
@@ -793,26 +845,6 @@ export function MarketingTasksPage() {
       });
     } finally {
       setRunningAllChecks(false);
-    }
-  };
-
-  const handlePageSpeedCheck = async () => {
-    setCheckingPageSpeed(true);
-    try {
-      await triggerTask.mutateAsync("pagespeed-check");
-      addToast({
-        title: "PageSpeed Check Started",
-        description: "Checking your website speed...",
-        variant: "success",
-      });
-    } catch (err) {
-      addToast({
-        title: "PageSpeed Check Failed",
-        description: err instanceof Error ? err.message : "Please try again.",
-        variant: "error",
-      });
-    } finally {
-      setCheckingPageSpeed(false);
     }
   };
 
@@ -968,32 +1000,35 @@ export function MarketingTasksPage() {
                 <ScoreGauge
                   value={data.metrics.performanceScore || 0}
                   label="Speed Score"
-                  tooltip="How fast your website loads - higher is better! 80+ is great."
-                  onClick={handlePageSpeedCheck}
-                  isLoading={checkingPageSpeed}
+                  tooltip="How fast your website loads - higher is better! 80+ is great. Click to see details!"
+                  onClick={() => openDrawer("vitals")}
                 />
                 <ScoreGauge
                   value={data.metrics.seoScore || 0}
                   label="SEO Score"
-                  tooltip="How easy it is for Google to find your site. 80+ means you're doing great!"
+                  tooltip="How easy it is for Google to find your site. 80+ means you're doing great! Click for details."
+                  onClick={() => openDrawer("vitals")}
                 />
                 <MetricBar
                   value={data.metrics.trackedKeywords}
                   max={50}
                   label="Keywords"
-                  tooltip="These are the words people type into Google to find businesses like yours."
+                  tooltip="These are the words people type into Google to find businesses like yours. Click to see them!"
+                  onClick={() => openDrawer("keywords")}
                 />
                 <MetricBar
                   value={data.metrics.indexedPages}
                   max={500}
                   label="Pages Found"
-                  tooltip="The number of pages on your site that Google knows about."
+                  tooltip="The number of pages on your site that Google knows about. Click to see the list!"
+                  onClick={() => openDrawer("pages")}
                 />
                 <MetricBar
                   value={data.metrics.contentGenerated}
                   max={100}
                   label="Content Made"
-                  tooltip="Blog posts and articles we've created to help people find you."
+                  tooltip="Blog posts and articles we've created to help people find you. Click to read them!"
+                  onClick={() => openDrawer("content")}
                 />
               </div>
 
@@ -1042,12 +1077,15 @@ export function MarketingTasksPage() {
 
               {/* Quick Stats */}
               <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-                <Card className="hover:shadow-md transition-shadow">
+                <Card
+                  className="hover:shadow-md transition-shadow cursor-pointer"
+                  onClick={() => openDrawer("content")}
+                >
                   <CardContent className="pt-4 pb-4">
                     <div className="flex items-center gap-3">
                       <span className="text-3xl">📝</span>
                       <div>
-                        <Tooltip content="Blog posts published to your Google Business Profile.">
+                        <Tooltip content="Blog posts published to your Google Business Profile. Click to see them!">
                           <div className="text-sm text-text-secondary">Published Posts</div>
                         </Tooltip>
                         <div className="text-2xl font-bold text-primary">{data.metrics.publishedPosts}</div>
@@ -1055,12 +1093,15 @@ export function MarketingTasksPage() {
                     </div>
                   </CardContent>
                 </Card>
-                <Card className="hover:shadow-md transition-shadow">
+                <Card
+                  className="hover:shadow-md transition-shadow cursor-pointer"
+                  onClick={() => openDrawer("reviews")}
+                >
                   <CardContent className="pt-4 pb-4">
                     <div className="flex items-center gap-3">
                       <span className="text-3xl">⭐</span>
                       <div>
-                        <Tooltip content="Customer reviews from Google and other sites.">
+                        <Tooltip content="Customer reviews from Google and other sites. Click to see them all!">
                           <div className="text-sm text-text-secondary">Total Reviews</div>
                         </Tooltip>
                         <div className="text-2xl font-bold text-primary">{data.metrics.totalReviews}</div>
@@ -1071,12 +1112,15 @@ export function MarketingTasksPage() {
                     </div>
                   </CardContent>
                 </Card>
-                <Card className="hover:shadow-md transition-shadow">
+                <Card
+                  className="hover:shadow-md transition-shadow cursor-pointer"
+                  onClick={() => openDrawer("reviews")}
+                >
                   <CardContent className="pt-4 pb-4">
                     <div className="flex items-center gap-3">
                       <span className="text-3xl">💬</span>
                       <div>
-                        <Tooltip content="Reviews that need your response.">
+                        <Tooltip content="Reviews that need your response. Click to reply!">
                           <div className="text-sm text-text-secondary">Need Response</div>
                         </Tooltip>
                         <div className="text-2xl font-bold text-primary">{data.metrics.pendingResponses}</div>
@@ -1226,6 +1270,23 @@ export function MarketingTasksPage() {
 
       {/* Quick Actions FAB */}
       <QuickActions onRunAllChecks={handleRunAllChecks} isRunning={runningAllChecks} />
+
+      {/* Detail Drawer */}
+      {drawerType && (
+        <DetailDrawer
+          isOpen={drawerOpen}
+          onClose={closeDrawer}
+          title={drawerConfig[drawerType].title}
+          subtitle={drawerConfig[drawerType].subtitle}
+          icon={drawerConfig[drawerType].icon}
+        >
+          {drawerType === "keywords" && <KeywordsDetail isEnabled={drawerOpen} />}
+          {drawerType === "pages" && <PagesDetail isEnabled={drawerOpen} />}
+          {drawerType === "content" && <ContentDetail isEnabled={drawerOpen} />}
+          {drawerType === "reviews" && <ReviewsDetail isEnabled={drawerOpen} />}
+          {drawerType === "vitals" && <VitalsDetail isEnabled={drawerOpen} />}
+        </DetailDrawer>
+      )}
     </div>
   );
 }
