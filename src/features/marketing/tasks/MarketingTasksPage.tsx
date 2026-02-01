@@ -16,6 +16,7 @@ import {
 } from "@/components/ui/Card.tsx";
 import { Button } from "@/components/ui/Button.tsx";
 import { Badge } from "@/components/ui/Badge.tsx";
+import { useToast } from "@/components/ui/Toast";
 import {
   useMarketingTasks,
   useTriggerHealthCheck,
@@ -329,6 +330,9 @@ export function MarketingTasksPage() {
   const resolveAlert = useResolveMarketingAlert();
   const triggerTask = useTriggerScheduledTask();
 
+  // Toast notifications
+  const { addToast } = useToast();
+
   const handleHealthCheck = async (serviceName: string) => {
     setCheckingService(serviceName);
     try {
@@ -341,7 +345,18 @@ export function MarketingTasksPage() {
   const handleResolveAlert = async (alertId: string) => {
     setResolvingAlert(alertId);
     try {
-      await resolveAlert.mutateAsync(alertId);
+      const result = await resolveAlert.mutateAsync(alertId);
+      addToast({
+        title: "Alert Resolved",
+        description: result.message || "The alert has been dismissed.",
+        variant: "success",
+      });
+    } catch (error) {
+      addToast({
+        title: "Failed to Resolve Alert",
+        description: error instanceof Error ? error.message : "Please try again.",
+        variant: "error",
+      });
     } finally {
       setResolvingAlert(null);
     }
