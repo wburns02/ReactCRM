@@ -2,7 +2,6 @@ import { useState } from "react";
 import {
   useCurrentPayrollPeriod,
   usePayrollSummary,
-  usePayrollPeriods,
 } from "@/api/hooks/usePayroll";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
@@ -21,8 +20,6 @@ import {
   PieChart,
   Pie,
   Cell,
-  LineChart,
-  Line,
 } from "recharts";
 
 // Colors for charts
@@ -218,8 +215,8 @@ export function PayrollSummaryDashboard() {
     period?.id || ""
   );
 
-  // Get historical periods for trend comparison
-  const { data: allPeriods } = usePayrollPeriods();
+  // Get historical periods for trend comparison (future enhancement)
+  // const { data: allPeriods } = usePayrollPeriods();
 
   // Status badge colors
   const statusColors: Record<
@@ -335,12 +332,12 @@ export function PayrollSummaryDashboard() {
     { name: "Commissions", value: totals.commissions, color: CHART_COLORS.success },
   ].filter((d) => d.value > 0);
 
-  const techPayData =
-    summaries?.map((s) => ({
-      name: s.technician_name?.split(" ")[0] || "Unknown",
-      pay: s.gross_pay || 0,
-      hours: (s.regular_hours || 0) + (s.overtime_hours || 0),
-    })) || [];
+  // Future: For trend chart
+  // const techPayData = summaries?.map((s) => ({
+  //   name: s.technician_name?.split(" ")[0] || "Unknown",
+  //   pay: s.gross_pay || 0,
+  //   hours: (s.regular_hours || 0) + (s.overtime_hours || 0),
+  // })) || [];
 
   // Generate alerts
   const alerts: Array<{
@@ -632,7 +629,7 @@ export function PayrollSummaryDashboard() {
                     paddingAngle={5}
                     dataKey="value"
                     label={({ name, percent }) =>
-                      `${name}: ${(percent * 100).toFixed(0)}%`
+                      `${name || ""}: ${(((percent as number) || 0) * 100).toFixed(0)}%`
                     }
                     labelLine={false}
                   >
@@ -644,7 +641,7 @@ export function PayrollSummaryDashboard() {
                     ))}
                   </Pie>
                   <Tooltip
-                    formatter={(value: number) => formatCurrency(value)}
+                    formatter={(value) => formatCurrency(Number(value))}
                     contentStyle={{
                       backgroundColor: "#1f2937",
                       border: "none",
