@@ -16,21 +16,10 @@ import { test, expect } from "@playwright/test";
 
 const API_BASE = "https://react-crm-api-production.up.railway.app";
 
+// Use shared auth setup
+test.use({ storageState: ".auth/user.json" });
+
 test.describe("Top Issues Fix Verification", () => {
-  test.beforeEach(async ({ page }) => {
-    // Login
-    await page.goto("/login");
-    await page.waitForLoadState("networkidle");
-
-    // Fill login form
-    await page.fill('input[name="email"], input[type="email"]', "will@macseptic.com");
-    await page.fill('input[name="password"], input[type="password"]', "password");
-    await page.click('button[type="submit"]');
-
-    // Wait for dashboard
-    await page.waitForURL(/dashboard|\/$/);
-    await page.waitForLoadState("networkidle");
-  });
 
   test("Issue #2: Payroll page loads and has export functionality", async ({ page }) => {
     // Navigate to Payroll
@@ -130,13 +119,13 @@ test.describe("Top Issues Fix Verification", () => {
 });
 
 test.describe("Invoice Customer Data Verification (API Level)", () => {
+  // Use shared auth
+  test.use({ storageState: ".auth/user.json" });
+
   test("Invoice list API returns customer data", async ({ request, page }) => {
-    // First login to get session
-    await page.goto("/login");
-    await page.fill('input[name="email"], input[type="email"]', "will@macseptic.com");
-    await page.fill('input[name="password"], input[type="password"]', "password");
-    await page.click('button[type="submit"]');
-    await page.waitForURL(/dashboard|\/$/);
+    // Navigate to invoice page first to get session cookies
+    await page.goto("/invoices");
+    await page.waitForLoadState("networkidle");
 
     // Get cookies from page context
     const cookies = await page.context().cookies();
