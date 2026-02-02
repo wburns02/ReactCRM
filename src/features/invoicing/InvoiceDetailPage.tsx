@@ -27,7 +27,7 @@ import { InvoiceForm } from "./components/InvoiceForm.tsx";
 import { InvoiceStatusBadge } from "./components/InvoiceStatusBadge.tsx";
 import { LineItemsTable } from "./components/LineItemsTable.tsx";
 import { CustomerFinancingCard } from "@/features/financing";
-import { StripeCheckout } from "@/features/payments/components/StripeCheckout.tsx";
+import { CloverCheckout } from "@/features/payments/components/CloverCheckout.tsx";
 import { formatDate, formatCurrency, isValidId } from "@/lib/utils.ts";
 import type { Invoice, InvoiceFormData } from "@/api/types/invoice.ts";
 import { useAIAnalyze } from "@/hooks/useAI";
@@ -634,7 +634,7 @@ export function InvoiceDetailPage() {
       {/* Payment Modal */}
       <Dialog open={isPaymentOpen} onClose={() => setIsPaymentOpen(false)}>
         <DialogContent size="md">
-          <StripeCheckout
+          <CloverCheckout
             invoiceId={invoice.id}
             amount={invoice.total}
             customerEmail={invoice.customer?.email}
