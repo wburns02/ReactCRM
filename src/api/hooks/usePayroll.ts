@@ -472,8 +472,9 @@ export function useExportPayroll() {
       periodId: string;
       format: "csv" | "pdf" | "nacha";
     }): Promise<Blob> => {
-      const { data } = await apiClient.get(
-        `/payroll/periods/${periodId}/export`,
+      const { data } = await apiClient.post(
+        `/payroll/${periodId}/export`,
+        null,
         {
           params: { format },
           responseType: "blob",

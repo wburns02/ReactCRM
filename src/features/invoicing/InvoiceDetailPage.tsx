@@ -1,5 +1,6 @@
 import { useState, useCallback } from "react";
 import { useParams, useNavigate, Link } from "react-router-dom";
+import { useQueryClient } from "@tanstack/react-query";
 import {
   Card,
   CardHeader,
@@ -20,14 +21,17 @@ import {
   useDeleteInvoice,
   useSendInvoice,
   useMarkInvoicePaid,
+  invoiceKeys,
 } from "@/api/hooks/useInvoices.ts";
 import { InvoiceForm } from "./components/InvoiceForm.tsx";
 import { InvoiceStatusBadge } from "./components/InvoiceStatusBadge.tsx";
 import { LineItemsTable } from "./components/LineItemsTable.tsx";
 import { CustomerFinancingCard } from "@/features/financing";
+import { StripeCheckout } from "@/features/payments/components/StripeCheckout.tsx";
 import { formatDate, formatCurrency, isValidId } from "@/lib/utils.ts";
 import type { Invoice, InvoiceFormData } from "@/api/types/invoice.ts";
 import { useAIAnalyze } from "@/hooks/useAI";
+import { CreditCard } from "lucide-react";
 
 /**
  * AI Payment Prediction Card
@@ -210,6 +214,7 @@ function AIPaymentPrediction({ invoice }: { invoice: Invoice }) {
 export function InvoiceDetailPage() {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
+  const queryClient = useQueryClient();
 
   const { data: invoice, isLoading, error } = useInvoice(id);
   const updateMutation = useUpdateInvoice();
@@ -220,6 +225,14 @@ export function InvoiceDetailPage() {
   // Modal states
   const [isEditOpen, setIsEditOpen] = useState(false);
   const [isDeleteOpen, setIsDeleteOpen] = useState(false);
+  const [isPaymentOpen, setIsPaymentOpen] = useState(false);
+
+  // Handle successful payment
+  const handlePaymentSuccess = useCallback(() => {
+    setIsPaymentOpen(false);
+    // Refresh invoice data
+    queryClient.invalidateQueries({ queryKey: invoiceKeys.detail(id!) });
+  }, [id, queryClient]);
 
   const handleUpdate = useCallback(
     async (data: InvoiceFormData) => {
@@ -323,13 +336,22 @@ export function InvoiceDetailPage() {
             </Button>
           )}
           {invoice.status !== "paid" && invoice.status !== "void" && (
-            <Button
-              variant="primary"
-              onClick={handleMarkPaid}
-              disabled={markPaidMutation.isPending}
-            >
-              {markPaidMutation.isPending ? "Processing..." : "Mark as Paid"}
-            </Button>
+            <>
+              <Button
+                variant="primary"
+                onClick={() => setIsPaymentOpen(true)}
+              >
+                <CreditCard className="mr-2 h-4 w-4" />
+                Pay Now
+              </Button>
+              <Button
+                variant="secondary"
+                onClick={handleMarkPaid}
+                disabled={markPaidMutation.isPending}
+              >
+                {markPaidMutation.isPending ? "Processing..." : "Mark as Paid"}
+              </Button>
+            </>
           )}
           <Button variant="secondary" onClick={() => setIsEditOpen(true)}>
             Edit
@@ -606,6 +628,19 @@ export function InvoiceDetailPage() {
               {deleteMutation.isPending ? "Deleting..." : "Delete"}
             </Button>
           </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      {/* Payment Modal */}
+      <Dialog open={isPaymentOpen} onClose={() => setIsPaymentOpen(false)}>
+        <DialogContent size="md">
+          <StripeCheckout
+            invoiceId={invoice.id}
+            amount={invoice.total}
+            customerEmail={invoice.customer?.email}
+            onSuccess={handlePaymentSuccess}
+            onCancel={() => setIsPaymentOpen(false)}
+          />
         </DialogContent>
       </Dialog>
     </div>

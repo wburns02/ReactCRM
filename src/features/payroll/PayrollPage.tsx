@@ -30,6 +30,7 @@ import {
   useCreatePayRate,
   useUpdatePayRate,
   useDeletePayRate,
+  useExportPayroll,
 } from "@/api/hooks/usePayroll";
 import { useTechnicians } from "@/api/hooks/useTechnicians";
 import { CommissionsDashboard } from "./components/CommissionsDashboard";
@@ -78,6 +79,7 @@ function PayPeriodsTab() {
   const createPeriod = useCreatePayrollPeriod();
   const approvePeriod = useApprovePayrollPeriod();
   const deletePeriod = useDeletePayrollPeriod();
+  const exportPayroll = useExportPayroll();
   const [showCreate, setShowCreate] = useState(false);
   const [startDate, setStartDate] = useState("");
   const [endDate, setEndDate] = useState("");
@@ -87,6 +89,23 @@ function PayPeriodsTab() {
   const [periodToDelete, setPeriodToDelete] = useState<PayrollPeriod | null>(
     null,
   );
+
+  const handleExport = async (periodId: string, format: "csv" | "pdf" | "nacha") => {
+    try {
+      const blob = await exportPayroll.mutateAsync({ periodId, format });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `payroll_${periodId}.${format}`;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      toastSuccess("Export Complete", `Payroll exported as ${format.toUpperCase()}`);
+    } catch (error) {
+      toastError("Export Failed", getErrorMessage(error));
+    }
+  };
 
   const handleApprovePeriod = async () => {
     if (!periodToApprove) return;
@@ -223,6 +242,17 @@ function PayPeriodsTab() {
                   }}
                 >
                   View
+                </Button>
+                <Button
+                  variant="secondary"
+                  size="sm"
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    handleExport(period.id, "csv");
+                  }}
+                  disabled={exportPayroll.isPending}
+                >
+                  {exportPayroll.isPending ? "Exporting..." : "Export CSV"}
                 </Button>
                 {period.status === "draft" && (
                   <>
