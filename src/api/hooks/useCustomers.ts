@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { validateResponse } from "../validateResponse.ts";
 import {
   customerListResponseSchema,
   customerSchema,
@@ -38,18 +39,12 @@ export function useCustomers(filters: CustomerFilters = {}) {
       const url = "/customers/?" + params.toString();
       const { data } = await apiClient.get(url);
 
-      // Validate response in development
-      if (import.meta.env.DEV) {
-        const result = customerListResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Customer list response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        customerListResponseSchema,
+        data,
+        "/customers"
+      );
     },
     staleTime: 30_000, // 30 seconds
   });
@@ -64,14 +59,8 @@ export function useCustomer(id: string | undefined) {
     queryFn: async (): Promise<Customer> => {
       const { data } = await apiClient.get("/customers/" + id);
 
-      if (import.meta.env.DEV) {
-        const result = customerSchema.safeParse(data);
-        if (!result.success) {
-          console.warn("Customer response validation failed:", result.error);
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(customerSchema, data, `/customers/${id}`);
     },
     enabled: !!id,
   });

@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { validateResponse } from "../validateResponse.ts";
 import { toastSuccess, toastError } from "@/components/ui/Toast";
 import {
   prospectListResponseSchema,
@@ -39,18 +40,12 @@ export function useProspects(filters: ProspectFilters = {}) {
 
       const { data } = await apiClient.get(`/prospects/?${params.toString()}`);
 
-      // Validate response in development
-      if (import.meta.env.DEV) {
-        const result = prospectListResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Prospect list response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        prospectListResponseSchema,
+        data,
+        "/prospects"
+      );
     },
     staleTime: 30_000, // 30 seconds
   });
@@ -65,14 +60,8 @@ export function useProspect(id: string | undefined) {
     queryFn: async (): Promise<Prospect> => {
       const { data } = await apiClient.get(`/prospects/${id}`);
 
-      if (import.meta.env.DEV) {
-        const result = prospectSchema.safeParse(data);
-        if (!result.success) {
-          console.warn("Prospect response validation failed:", result.error);
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(prospectSchema, data, `/prospects/${id}`);
     },
     enabled: !!id,
   });

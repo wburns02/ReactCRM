@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { validateResponse } from "../validateResponse.ts";
 import { FEATURE_FLAGS } from "@/lib/feature-flags.ts";
 import {
   documentListResponseSchema,
@@ -49,18 +50,12 @@ export function useDocuments(
         `/attachments/?${params.toString()}`,
       );
 
-      // Validate response in development
-      if (import.meta.env.DEV) {
-        const result = documentListResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Document list response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        documentListResponseSchema,
+        data,
+        "/attachments"
+      );
     },
     enabled: !!entityId && FEATURE_FLAGS.attachments,
     staleTime: 30_000, // 30 seconds
@@ -104,14 +99,12 @@ export function useUploadDocument() {
         },
       });
 
-      if (import.meta.env.DEV) {
-        const result = uploadResponseSchema.safeParse(response.data);
-        if (!result.success) {
-          console.warn("Upload response validation failed:", result.error);
-        }
-      }
-
-      return response.data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        uploadResponseSchema,
+        response.data,
+        "/attachments/upload"
+      );
     },
     onSuccess: (_, variables) => {
       // Invalidate documents for this entity

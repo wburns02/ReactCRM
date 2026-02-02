@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { validateResponse } from "../validateResponse.ts";
 import {
   equipmentListResponseSchema,
   equipmentSchema,
@@ -38,18 +39,12 @@ export function useEquipment(filters: EquipmentFilters = {}) {
       const url = "/equipment/?" + params.toString();
       const { data } = await apiClient.get(url);
 
-      // Validate response in development
-      if (import.meta.env.DEV) {
-        const result = equipmentListResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Equipment list response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        equipmentListResponseSchema,
+        data,
+        "/equipment"
+      );
     },
     staleTime: 30_000, // 30 seconds
   });
@@ -64,14 +59,8 @@ export function useEquipmentItem(id: string | undefined) {
     queryFn: async (): Promise<Equipment> => {
       const { data } = await apiClient.get("/equipment/" + id);
 
-      if (import.meta.env.DEV) {
-        const result = equipmentSchema.safeParse(data);
-        if (!result.success) {
-          console.warn("Equipment response validation failed:", result.error);
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(equipmentSchema, data, `/equipment/${id}`);
     },
     enabled: !!id,
   });

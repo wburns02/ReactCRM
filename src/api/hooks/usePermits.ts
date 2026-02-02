@@ -5,6 +5,7 @@ import {
   useInfiniteQuery,
 } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { validateResponse, validateArrayResponse } from "../validateResponse.ts";
 import {
   permitSearchResponseSchema,
   permitResponseSchema,
@@ -90,17 +91,12 @@ export function usePermitSearch(filters: PermitSearchFilters = {}) {
       const url = "/permits/search?" + params.toString();
       const { data } = await apiClient.get(url);
 
-      if (import.meta.env.DEV) {
-        const result = permitSearchResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Permit search response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        permitSearchResponseSchema,
+        data,
+        "/permits/search"
+      );
     },
     staleTime: 30_000, // 30 seconds
     enabled: true,
@@ -141,14 +137,8 @@ export function usePermit(id: string | undefined) {
     queryFn: async (): Promise<PermitResponse> => {
       const { data } = await apiClient.get(`/permits/${id}`);
 
-      if (import.meta.env.DEV) {
-        const result = permitResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn("Permit response validation failed:", result.error);
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(permitResponseSchema, data, `/permits/${id}`);
     },
     enabled: !!id,
   });
@@ -163,14 +153,8 @@ export function usePermitHistory(id: string | undefined) {
     queryFn: async (): Promise<PermitHistory> => {
       const { data } = await apiClient.get(`/permits/${id}/history`);
 
-      if (import.meta.env.DEV) {
-        const result = permitHistorySchema.safeParse(data);
-        if (!result.success) {
-          console.warn("Permit history validation failed:", result.error);
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(permitHistorySchema, data, `/permits/${id}/history`);
     },
     enabled: !!id,
   });
@@ -275,14 +259,12 @@ export function usePermitStats() {
     queryFn: async (): Promise<PermitStatsOverview> => {
       const { data } = await apiClient.get("/permits/stats/overview");
 
-      if (import.meta.env.DEV) {
-        const result = permitStatsOverviewSchema.safeParse(data);
-        if (!result.success) {
-          console.warn("Permit stats validation failed:", result.error);
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        permitStatsOverviewSchema,
+        data,
+        "/permits/stats/overview"
+      );
     },
     staleTime: 60_000, // 1 minute
   });
@@ -299,14 +281,12 @@ export function useDuplicatePermits(status: string = "pending") {
         `/permits/duplicates?status_filter=${status}`,
       );
 
-      if (import.meta.env.DEV) {
-        const result = duplicatePairSchema.array().safeParse(data);
-        if (!result.success) {
-          console.warn("Duplicate pairs validation failed:", result.error);
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateArrayResponse(
+        duplicatePairSchema,
+        data,
+        "/permits/duplicates"
+      );
     },
     staleTime: 30_000,
   });

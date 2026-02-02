@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { validateResponse } from "../validateResponse.ts";
 import {
   activityListResponseSchema,
   activitySchema,
@@ -37,18 +38,12 @@ export function useActivities(filters: ActivityFilters = {}) {
 
       const { data } = await apiClient.get(`/activities?${params.toString()}`);
 
-      // Validate response in development
-      if (import.meta.env.DEV) {
-        const result = activityListResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Activity list response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        activityListResponseSchema,
+        data,
+        "/activities"
+      );
     },
     staleTime: 30_000, // 30 seconds
   });
@@ -63,14 +58,8 @@ export function useActivity(id: string | undefined) {
     queryFn: async (): Promise<Activity> => {
       const { data } = await apiClient.get(`/activities/${id}`);
 
-      if (import.meta.env.DEV) {
-        const result = activitySchema.safeParse(data);
-        if (!result.success) {
-          console.warn("Activity response validation failed:", result.error);
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(activitySchema, data, `/activities/${id}`);
     },
     enabled: !!id,
   });

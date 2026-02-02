@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { validateResponse } from "../validateResponse.ts";
 import {
   invoiceListResponseSchema,
   invoiceSchema,
@@ -49,18 +50,12 @@ export function useInvoices(filters: InvoiceFilters = {}) {
         };
       }
 
-      // Validate response in development
-      if (import.meta.env.DEV) {
-        const result = invoiceListResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Invoice list response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        invoiceListResponseSchema,
+        data,
+        "/invoices"
+      );
     },
     staleTime: 30_000, // 30 seconds
   });
@@ -75,14 +70,8 @@ export function useInvoice(id: string | undefined) {
     queryFn: async (): Promise<Invoice> => {
       const { data } = await apiClient.get("/invoices/" + id);
 
-      if (import.meta.env.DEV) {
-        const result = invoiceSchema.safeParse(data);
-        if (!result.success) {
-          console.warn("Invoice response validation failed:", result.error);
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(invoiceSchema, data, `/invoices/${id}`);
     },
     enabled: !!id,
   });

@@ -224,17 +224,303 @@ export function useTriggerScheduledTask() {
 }
 
 // =============================================================================
-// CONTENT GENERATOR HOOKS
+// CONTENT GENERATOR HOOKS (World-Class AI Content Generation)
 // =============================================================================
 
+// Types
+export type ContentType = "blog" | "faq" | "gbp_post" | "service_description";
+export type ToneType = "professional" | "friendly" | "casual" | "authoritative" | "educational";
+export type AudienceType = "homeowners" | "businesses" | "property_managers" | "contractors" | "general";
+export type AIModelType = "auto" | "openai/gpt-4o" | "openai/gpt-4o-mini" | "anthropic/claude-3.5-sonnet" | "local/qwen2.5:7b" | "local/llama3.1:70b";
+
+interface AIModelInfo {
+  id: string;
+  display_name: string;
+  description: string;
+  provider: string;
+  speed: "fast" | "medium" | "slow";
+  quality: "good" | "great" | "excellent";
+  cost: "free" | "low" | "medium" | "high";
+  available: boolean;
+  recommended_for: string[];
+}
+
+interface AIModelHealthResponse {
+  models: AIModelInfo[];
+  recommended_model: string;
+  local_available: boolean;
+  cloud_available: boolean;
+}
+
+interface ContentIdea {
+  id: string;
+  topic: string;
+  description: string;
+  suggested_type: ContentType;
+  keywords: string[];
+  estimated_word_count: number;
+  difficulty: "easy" | "medium" | "hard";
+  seasonality: string | null;
+  hook: string;
+}
+
+interface IdeaGenerateRequest {
+  keywords: string[];
+  content_type?: ContentType;
+  audience?: AudienceType;
+  count?: number;
+  seasonality?: string;
+  model?: AIModelType;
+}
+
+interface IdeaGenerateResponse {
+  success: boolean;
+  ideas: ContentIdea[];
+  model_used: string;
+  generation_time_ms: number;
+  demo_mode: boolean;
+}
+
+interface GeneratedContent {
+  id: string;
+  title: string;
+  content: string;
+  content_type: ContentType;
+  meta_description: string | null;
+  model_used: string;
+  generation_time_ms: number;
+  word_count: number;
+  seo_score: number | null;
+  readability_score: number | null;
+  keyword_density: Record<string, number> | null;
+}
+
 interface ContentGenerateRequest {
-  contentType: "blog" | "faq" | "gbp_post" | "service_description";
+  content_type: ContentType;
+  topic: string;
+  tone?: ToneType;
+  audience?: AudienceType;
+  target_keywords?: string[];
+  word_count?: number;
+  model?: AIModelType;
+  include_cta?: boolean;
+  include_meta?: boolean;
+}
+
+interface ContentGenerateResponse {
+  success: boolean;
+  content: GeneratedContent;
+  demo_mode: boolean;
+  message: string;
+}
+
+interface ContentVariant {
+  variant_label: string;
+  title: string;
+  content: string;
+  hook_style: string;
+  seo_score: number | null;
+  readability_score: number | null;
+}
+
+interface VariantGenerateRequest {
+  content_type: ContentType;
+  topic: string;
+  tone?: ToneType;
+  audience?: AudienceType;
+  target_keywords?: string[];
+  word_count?: number;
+  model?: AIModelType;
+  variant_count?: number;
+  variation_style?: "tone" | "structure" | "hook" | "mixed";
+}
+
+interface VariantGenerateResponse {
+  success: boolean;
+  variant_group_id: string;
+  content_type: ContentType;
+  topic: string;
+  variants: ContentVariant[];
+  model_used: string;
+  total_generation_time_ms: number;
+  demo_mode: boolean;
+}
+
+interface SEOAnalyzeRequest {
+  content: string;
+  target_keywords?: string[];
+  content_type?: ContentType;
+}
+
+interface KeywordAnalysis {
+  keyword: string;
+  count: number;
+  density: number;
+  in_title: boolean;
+  in_first_paragraph: boolean;
+  in_headings: boolean;
+  optimal: boolean;
+}
+
+interface SEOAnalyzeResponse {
+  success: boolean;
+  overall_score: number;
+  keyword_analysis: KeywordAnalysis[];
+  missing_keywords: string[];
+  has_headings: boolean;
+  heading_count: number;
+  suggestions: string[];
+  suggested_meta_description: string | null;
+}
+
+interface ReadabilityAnalyzeRequest {
+  content: string;
+}
+
+interface ReadabilityAnalyzeResponse {
+  success: boolean;
+  flesch_reading_ease: number;
+  flesch_kincaid_grade: number;
+  word_count: number;
+  sentence_count: number;
+  avg_words_per_sentence: number;
+  avg_syllables_per_word: number;
+  reading_level: string;
+  target_audience: string;
+  suggestions: string[];
+}
+
+// Query Keys
+export const contentGeneratorKeys = {
+  all: ["content-generator"] as const,
+  models: () => [...contentGeneratorKeys.all, "models"] as const,
+  modelsHealth: () => [...contentGeneratorKeys.all, "models", "health"] as const,
+  ideas: () => [...contentGeneratorKeys.all, "ideas"] as const,
+  library: (filters?: Record<string, unknown>) => [...contentGeneratorKeys.all, "library", filters] as const,
+};
+
+/**
+ * Get available AI models
+ */
+export function useAIModels() {
+  return useQuery({
+    queryKey: contentGeneratorKeys.models(),
+    queryFn: async (): Promise<AIModelInfo[]> => {
+      const response = await apiClient.get<AIModelInfo[]>("/content-generator/models");
+      return response.data;
+    },
+    staleTime: 60000,
+  });
+}
+
+/**
+ * Get AI model health status
+ */
+export function useAIModelHealth() {
+  return useQuery({
+    queryKey: contentGeneratorKeys.modelsHealth(),
+    queryFn: async (): Promise<AIModelHealthResponse> => {
+      const response = await apiClient.get<AIModelHealthResponse>("/content-generator/models/health");
+      return response.data;
+    },
+    staleTime: 30000,
+  });
+}
+
+/**
+ * Generate content ideas using AI
+ */
+export function useGenerateIdeas() {
+  return useMutation({
+    mutationFn: async (request: IdeaGenerateRequest): Promise<IdeaGenerateResponse> => {
+      const response = await apiClient.post<IdeaGenerateResponse>(
+        "/content-generator/ideas/generate",
+        request,
+      );
+      return response.data;
+    },
+  });
+}
+
+/**
+ * Generate AI content (new world-class endpoint)
+ */
+export function useGenerateContent() {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: async (request: ContentGenerateRequest): Promise<ContentGenerateResponse> => {
+      const response = await apiClient.post<ContentGenerateResponse>(
+        "/content-generator/generate",
+        request,
+      );
+      return response.data;
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({
+        queryKey: ["marketing", "content"],
+      });
+      queryClient.invalidateQueries({
+        queryKey: marketingTasksKeys.dashboard(),
+      });
+    },
+  });
+}
+
+/**
+ * Generate multiple content variants for A/B testing
+ */
+export function useGenerateVariants() {
+  return useMutation({
+    mutationFn: async (request: VariantGenerateRequest): Promise<VariantGenerateResponse> => {
+      const response = await apiClient.post<VariantGenerateResponse>(
+        "/content-generator/generate/variants",
+        request,
+      );
+      return response.data;
+    },
+  });
+}
+
+/**
+ * Analyze content for SEO
+ */
+export function useAnalyzeSEO() {
+  return useMutation({
+    mutationFn: async (request: SEOAnalyzeRequest): Promise<SEOAnalyzeResponse> => {
+      const response = await apiClient.post<SEOAnalyzeResponse>(
+        "/content-generator/analyze/seo",
+        request,
+      );
+      return response.data;
+    },
+  });
+}
+
+/**
+ * Analyze content readability
+ */
+export function useAnalyzeReadability() {
+  return useMutation({
+    mutationFn: async (request: ReadabilityAnalyzeRequest): Promise<ReadabilityAnalyzeResponse> => {
+      const response = await apiClient.post<ReadabilityAnalyzeResponse>(
+        "/content-generator/analyze/readability",
+        request,
+      );
+      return response.data;
+    },
+  });
+}
+
+// Legacy hook for backwards compatibility (maps to new endpoint)
+interface LegacyContentGenerateRequest {
+  contentType: ContentType;
   topic: string;
   targetLength?: number;
   tone?: string;
 }
 
-interface ContentGenerateResponse {
+interface LegacyContentGenerateResponse {
   success: boolean;
   content: string;
   contentType: string;
@@ -244,27 +530,28 @@ interface ContentGenerateResponse {
 }
 
 /**
- * Generate AI content
+ * @deprecated Use useGenerateContent instead
  */
-export function useGenerateContent() {
-  const queryClient = useQueryClient();
+export function useLegacyGenerateContent() {
+  const generateMutation = useGenerateContent();
 
   return useMutation({
-    mutationFn: async (request: ContentGenerateRequest): Promise<ContentGenerateResponse> => {
-      const response = await apiClient.post<ContentGenerateResponse>(
-        "/marketing-hub/tasks/content/generate",
-        request,
-      );
-      return response.data;
-    },
-    onSuccess: () => {
-      // Refresh content list
-      queryClient.invalidateQueries({
-        queryKey: ["marketing", "content"],
+    mutationFn: async (request: LegacyContentGenerateRequest): Promise<LegacyContentGenerateResponse> => {
+      const result = await generateMutation.mutateAsync({
+        content_type: request.contentType,
+        topic: request.topic,
+        word_count: request.targetLength || 500,
+        tone: (request.tone as ToneType) || "professional",
       });
-      queryClient.invalidateQueries({
-        queryKey: marketingTasksKeys.dashboard(),
-      });
+
+      return {
+        success: result.success,
+        content: result.content.content,
+        contentType: result.content.content_type,
+        topic: request.topic,
+        demoMode: result.demo_mode,
+        message: result.message,
+      };
     },
   });
 }

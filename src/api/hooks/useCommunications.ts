@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { validateResponse } from "../validateResponse.ts";
 import {
   communicationListResponseSchema,
   type Communication,
@@ -37,18 +38,12 @@ export function useCommunicationHistory(customerId: string | undefined) {
         `/communications/history?${params.toString()}`,
       );
 
-      // Validate response in development
-      if (import.meta.env.DEV) {
-        const result = communicationListResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Communication history response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        communicationListResponseSchema,
+        data,
+        "/communications/history"
+      );
     },
     enabled: !!customerId,
     staleTime: 30_000, // 30 seconds

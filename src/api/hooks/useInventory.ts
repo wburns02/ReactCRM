@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { validateResponse } from "../validateResponse.ts";
 import {
   inventoryListResponseSchema,
   inventoryItemSchema,
@@ -40,18 +41,12 @@ export function useInventory(filters: InventoryFilters = {}) {
       const url = "/inventory/?" + params.toString();
       const { data } = await apiClient.get(url);
 
-      // Validate response in development
-      if (import.meta.env.DEV) {
-        const result = inventoryListResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Inventory list response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        inventoryListResponseSchema,
+        data,
+        "/inventory"
+      );
     },
     staleTime: 30_000, // 30 seconds
   });
@@ -66,17 +61,8 @@ export function useInventoryItem(id: string | undefined) {
     queryFn: async (): Promise<InventoryItem> => {
       const { data } = await apiClient.get("/inventory/" + id);
 
-      if (import.meta.env.DEV) {
-        const result = inventoryItemSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Inventory item response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(inventoryItemSchema, data, `/inventory/${id}`);
     },
     enabled: !!id,
   });

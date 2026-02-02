@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { validateResponse } from "../validateResponse.ts";
 import {
   technicianListResponseSchema,
   technicianSchema,
@@ -47,18 +48,12 @@ export function useTechnicians(filters: TechnicianFilters = {}) {
       const url = "/technicians/?" + params.toString();
       const { data } = await apiClient.get(url);
 
-      // Validate response in development
-      if (import.meta.env.DEV) {
-        const result = technicianListResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Technician list response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        technicianListResponseSchema,
+        data,
+        "/technicians"
+      );
     },
     staleTime: 30_000, // 30 seconds
   });
@@ -73,14 +68,8 @@ export function useTechnician(id: string | undefined) {
     queryFn: async (): Promise<Technician> => {
       const { data } = await apiClient.get("/technicians/" + id);
 
-      if (import.meta.env.DEV) {
-        const result = technicianSchema.safeParse(data);
-        if (!result.success) {
-          console.warn("Technician response validation failed:", result.error);
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(technicianSchema, data, `/technicians/${id}`);
     },
     enabled: !!id,
   });
@@ -160,17 +149,12 @@ export function useTechnicianPerformance(technicianId: string | undefined) {
         `/technicians/${technicianId}/performance`,
       );
 
-      if (import.meta.env.DEV) {
-        const result = technicianPerformanceStatsSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Technician performance response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        technicianPerformanceStatsSchema,
+        data,
+        `/technicians/${technicianId}/performance`
+      );
     },
     enabled: !!technicianId,
     staleTime: 30_000, // 30 seconds
@@ -199,17 +183,12 @@ export function useTechnicianJobs(
         `/technicians/${technicianId}/jobs?${params.toString()}`,
       );
 
-      if (import.meta.env.DEV) {
-        const result = technicianJobsResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Technician jobs response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        technicianJobsResponseSchema,
+        data,
+        `/technicians/${technicianId}/jobs`
+      );
     },
     enabled: !!technicianId,
     staleTime: 30_000, // 30 seconds

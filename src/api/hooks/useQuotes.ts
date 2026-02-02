@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { validateResponse } from "../validateResponse.ts";
 import {
   quoteListResponseSchema,
   quoteSchema,
@@ -46,15 +47,12 @@ export function useQuotes(filters: QuoteFilters = {}) {
         };
       }
 
-      // Validate response in development
-      if (import.meta.env.DEV) {
-        const result = quoteListResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn("Quote list response validation failed:", result.error);
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        quoteListResponseSchema,
+        data,
+        "/quotes"
+      );
     },
     staleTime: 30_000, // 30 seconds
   });
@@ -69,14 +67,8 @@ export function useQuote(id: string | undefined) {
     queryFn: async (): Promise<Quote> => {
       const { data } = await apiClient.get("/quotes/" + id);
 
-      if (import.meta.env.DEV) {
-        const result = quoteSchema.safeParse(data);
-        if (!result.success) {
-          console.warn("Quote response validation failed:", result.error);
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(quoteSchema, data, `/quotes/${id}`);
     },
     enabled: !!id,
   });

@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { validateResponse } from "../validateResponse.ts";
 import {
   workOrderListResponseSchema,
   workOrderSchema,
@@ -48,18 +49,12 @@ export function useWorkOrders(filters: WorkOrderFilters = {}) {
         };
       }
 
-      // Validate response in development
-      if (import.meta.env.DEV) {
-        const result = workOrderListResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Work order list response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        workOrderListResponseSchema,
+        data,
+        "/work-orders"
+      );
     },
     staleTime: 30_000, // 30 seconds
   });
@@ -74,14 +69,8 @@ export function useWorkOrder(id: string | undefined) {
     queryFn: async (): Promise<WorkOrder> => {
       const { data } = await apiClient.get("/work-orders/" + id);
 
-      if (import.meta.env.DEV) {
-        const result = workOrderSchema.safeParse(data);
-        if (!result.success) {
-          console.warn("Work order response validation failed:", result.error);
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(workOrderSchema, data, `/work-orders/${id}`);
     },
     enabled: !!id,
   });

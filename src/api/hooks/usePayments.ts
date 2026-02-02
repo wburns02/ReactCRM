@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
+import { validateResponse } from "../validateResponse.ts";
 import {
   paymentListResponseSchema,
   paymentSchema,
@@ -51,18 +52,12 @@ export function usePayments(filters: PaymentFilters = {}) {
         };
       }
 
-      // Validate response in development
-      if (import.meta.env.DEV) {
-        const result = paymentListResponseSchema.safeParse(data);
-        if (!result.success) {
-          console.warn(
-            "Payment list response validation failed:",
-            result.error,
-          );
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(
+        paymentListResponseSchema,
+        data,
+        "/payments"
+      );
     },
     staleTime: 30_000, // 30 seconds
   });
@@ -77,14 +72,8 @@ export function usePayment(id: string | undefined) {
     queryFn: async (): Promise<Payment> => {
       const { data } = await apiClient.get("/payments/" + id);
 
-      if (import.meta.env.DEV) {
-        const result = paymentSchema.safeParse(data);
-        if (!result.success) {
-          console.warn("Payment response validation failed:", result.error);
-        }
-      }
-
-      return data;
+      // Validate response in ALL environments (reports to Sentry if invalid)
+      return validateResponse(paymentSchema, data, `/payments/${id}`);
     },
     enabled: !!id,
   });
