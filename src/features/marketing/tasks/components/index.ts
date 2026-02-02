@@ -12,3 +12,5 @@ export { ReviewsDetail } from "./ReviewsDetail";
 export { VitalsDetail } from "./VitalsDetail";
 export { ContentGeneratorModal } from "./ContentGeneratorModal";
 export { GBPSyncModal } from "./GBPSyncModal";
+export { WhatsHappening } from "./WhatsHappening";
+export { InsightsTips } from "./InsightsTips";

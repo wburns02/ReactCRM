@@ -19,7 +19,7 @@ export interface ServiceHealth {
   name: string;
   port: number;
   description: string;
-  status: "healthy" | "degraded" | "down" | "unknown";
+  status: "healthy" | "degraded" | "down" | "unknown" | "local" | "unreachable";
   lastCheck: string;
   details: {
     model_loaded?: boolean;
@@ -78,4 +78,5 @@ export interface MarketingTasksResponse {
   alerts: MarketingAlert[];
   metrics: MarketingMetrics;
   lastUpdated: string;
+  demoMode: boolean; // True when using fallback data (services unreachable)
 }

@@ -47,6 +47,8 @@ import {
   VitalsDetail,
   ContentGeneratorModal,
   GBPSyncModal,
+  WhatsHappening,
+  InsightsTips,
 } from "./components";
 
 type TabType = "overview" | "services" | "scheduled" | "alerts" | "sites";
@@ -106,6 +108,7 @@ function Tooltip({
 
 // ============================================================================
 // SCORE GAUGE COMPONENT - Circular progress for scores (0-100)
+// Made intuitive for a 12-year-old!
 // ============================================================================
 function ScoreGauge({
   value,
@@ -113,12 +116,16 @@ function ScoreGauge({
   tooltip,
   onClick,
   isLoading,
+  lastChecked,
+  isDemoData,
 }: {
   value: number;
   label: string;
   tooltip: string;
   onClick?: () => void;
   isLoading?: boolean;
+  lastChecked?: string;
+  isDemoData?: boolean;
 }) {
   const [animatedValue, setAnimatedValue] = useState(0);
 
@@ -128,27 +135,70 @@ function ScoreGauge({
     return () => clearTimeout(timer);
   }, [value]);
 
-  // Color based on score
-  const getColor = (v: number) => {
-    if (v >= 80) return { stroke: "#22c55e", bg: "bg-green-50", text: "text-green-600" };
-    if (v >= 50) return { stroke: "#eab308", bg: "bg-yellow-50", text: "text-yellow-600" };
-    return { stroke: "#ef4444", bg: "bg-red-50", text: "text-red-600" };
+  // Color and emoji based on score - kid-friendly!
+  const getScoreInfo = (v: number) => {
+    if (v >= 80) return {
+      stroke: "#22c55e",
+      bg: "bg-green-50",
+      text: "text-green-600",
+      emoji: "🚀",
+      verdict: "Great!"
+    };
+    if (v >= 50) return {
+      stroke: "#eab308",
+      bg: "bg-yellow-50",
+      text: "text-yellow-600",
+      emoji: "👍",
+      verdict: "OK"
+    };
+    if (v > 0) return {
+      stroke: "#ef4444",
+      bg: "bg-red-50",
+      text: "text-red-600",
+      emoji: "🐌",
+      verdict: "Slow"
+    };
+    // No data yet
+    return {
+      stroke: "#9ca3af",
+      bg: "bg-gray-50",
+      text: "text-gray-500",
+      emoji: "⏳",
+      verdict: "Checking..."
+    };
   };
 
-  const color = getColor(value);
+  const scoreInfo = getScoreInfo(value);
   const circumference = 2 * Math.PI * 40;
-  const strokeDashoffset = circumference - (animatedValue / 100) * circumference;
+  const strokeDashoffset = value > 0
+    ? circumference - (animatedValue / 100) * circumference
+    : circumference; // Empty circle if no data
+
+  // Format last checked time
+  const formatLastChecked = (dateStr?: string) => {
+    if (!dateStr) return "Never checked";
+    const date = new Date(dateStr);
+    const now = new Date();
+    const diffMs = now.getTime() - date.getTime();
+    const diffMins = Math.floor(diffMs / 60000);
+
+    if (diffMins < 1) return "Just now";
+    if (diffMins < 60) return `${diffMins}m ago`;
+    if (diffMins < 1440) return `${Math.floor(diffMins / 60)}h ago`;
+    return date.toLocaleDateString();
+  };
 
   const content = (
     <Card
-      className={`${onClick ? "cursor-pointer hover:shadow-md hover:scale-[1.02] transition-all" : ""} ${color.bg}`}
+      className={`${onClick ? "cursor-pointer hover:shadow-md hover:scale-[1.02] transition-all" : ""} ${scoreInfo.bg}`}
       onClick={onClick}
     >
       <CardContent className="pt-4 pb-4 flex flex-col items-center">
         <div className="relative w-24 h-24">
           {isLoading ? (
-            <div className="absolute inset-0 flex items-center justify-center">
+            <div className="absolute inset-0 flex flex-col items-center justify-center">
               <Spinner size="lg" />
+              <div className="text-xs text-text-secondary mt-2">Checking...</div>
             </div>
           ) : (
             <>
@@ -167,7 +217,7 @@ function ScoreGauge({
                   cy="48"
                   r="40"
                   fill="none"
-                  stroke={color.stroke}
+                  stroke={scoreInfo.stroke}
                   strokeWidth="8"
                   strokeDasharray={circumference}
                   strokeDashoffset={strokeDashoffset}
@@ -175,9 +225,19 @@ function ScoreGauge({
                   className="transition-all duration-1000 ease-out"
                 />
               </svg>
-              {/* Value in center */}
-              <div className={`absolute inset-0 flex items-center justify-center text-2xl font-bold ${color.text}`}>
-                {value || "-"}
+              {/* Value in center - ALWAYS show actual number */}
+              <div className={`absolute inset-0 flex flex-col items-center justify-center ${scoreInfo.text}`}>
+                {value > 0 ? (
+                  <>
+                    <span className="text-2xl font-bold">{value}</span>
+                    <span className="text-xs">{scoreInfo.emoji} {scoreInfo.verdict}</span>
+                  </>
+                ) : (
+                  <>
+                    <span className="text-lg">{scoreInfo.emoji}</span>
+                    <span className="text-xs">{scoreInfo.verdict}</span>
+                  </>
+                )}
               </div>
             </>
           )}
@@ -185,8 +245,18 @@ function ScoreGauge({
         <Tooltip content={tooltip}>
           <div className="text-sm text-text-secondary mt-2 font-medium">{label}</div>
         </Tooltip>
+        {/* Last checked timestamp */}
+        <div className="text-xs text-text-secondary mt-1">
+          {formatLastChecked(lastChecked)}
+        </div>
+        {/* Demo data indicator */}
+        {isDemoData && value > 0 && (
+          <div className="text-xs text-yellow-600 mt-1 flex items-center gap-1">
+            <span>📊</span> Demo data
+          </div>
+        )}
         {onClick && (
-          <div className="text-xs text-primary mt-1">Click to check</div>
+          <div className="text-xs text-primary mt-1 font-medium">Click for details →</div>
         )}
       </CardContent>
     </Card>
@@ -1048,12 +1118,16 @@ export function MarketingTasksPage() {
                   label="Speed Score"
                   tooltip="How fast your website loads - higher is better! 80+ is great. Click to see details!"
                   onClick={() => openDrawer("vitals")}
+                  lastChecked={data.lastUpdated}
+                  isDemoData={data.demoMode}
                 />
                 <ScoreGauge
                   value={data.metrics.seoScore || 0}
                   label="SEO Score"
                   tooltip="How easy it is for Google to find your site. 80+ means you're doing great! Click for details."
                   onClick={() => openDrawer("vitals")}
+                  lastChecked={data.lastUpdated}
+                  isDemoData={data.demoMode}
                 />
                 <MetricBar
                   value={data.metrics.trackedKeywords}
@@ -1078,12 +1152,12 @@ export function MarketingTasksPage() {
                 />
               </div>
 
-              {/* Service Health Summary */}
+              {/* Service Health Summary - Simplified for non-technical users */}
               <Card>
                 <CardHeader>
                   <div className="flex items-center justify-between">
                     <CardTitle className="flex items-center gap-2">
-                      <span>🔧</span> Service Health
+                      <span>🔧</span> Marketing Tools Status
                     </CardTitle>
                     <ActionButton
                       onClick={handleRunAllChecks}
@@ -1096,27 +1170,49 @@ export function MarketingTasksPage() {
                 </CardHeader>
                 <CardContent>
                   <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-                    {data.services.map((service) => (
-                      <div
-                        key={service.service}
-                        className="flex items-center justify-between p-4 bg-surface-secondary rounded-lg hover:shadow-sm transition-shadow cursor-pointer"
-                        onClick={() => setActiveTab("services")}
-                      >
-                        <div className="flex items-center gap-3">
-                          <span className="text-xl">
-                            {service.service === "seo-monitor" ? "📊" :
-                             service.service === "content-gen" ? "✨" : "📍"}
-                          </span>
-                          <div>
-                            <div className="font-medium">{service.name}</div>
-                            <div className="text-xs text-text-secondary">
-                              Port {service.port}
+                    {data.services.map((service) => {
+                      // Plain English descriptions for each service
+                      const friendlyDescriptions: Record<string, string> = {
+                        "seo-monitor": "Tracks your Google rankings",
+                        "content-gen": "Creates blog posts for you",
+                        "gbp-sync": "Updates your Google Business Profile",
+                      };
+                      // Friendly status labels
+                      const getStatusLabel = (status: string) => {
+                        switch (status) {
+                          case "healthy": return { text: "Working", color: "text-green-600", bg: "bg-green-50" };
+                          case "degraded": return { text: "Slow", color: "text-yellow-600", bg: "bg-yellow-50" };
+                          case "local": return { text: "Ready", color: "text-blue-600", bg: "bg-blue-50" };
+                          case "down": return { text: "Offline", color: "text-red-600", bg: "bg-red-50" };
+                          default: return { text: "Checking...", color: "text-gray-600", bg: "bg-gray-50" };
+                        }
+                      };
+                      const statusInfo = getStatusLabel(service.status);
+
+                      return (
+                        <div
+                          key={service.service}
+                          className={`flex items-center justify-between p-4 rounded-lg hover:shadow-sm transition-shadow cursor-pointer ${statusInfo.bg}`}
+                          onClick={() => setActiveTab("services")}
+                        >
+                          <div className="flex items-center gap-3">
+                            <span className="text-xl">
+                              {service.service === "seo-monitor" ? "📊" :
+                               service.service === "content-gen" ? "✨" : "📍"}
+                            </span>
+                            <div>
+                              <div className="font-medium">{service.name}</div>
+                              <div className="text-xs text-text-secondary">
+                                {friendlyDescriptions[service.service] || service.description}
+                              </div>
                             </div>
                           </div>
+                          <span className={`text-sm font-medium ${statusInfo.color}`}>
+                            {statusInfo.text}
+                          </span>
                         </div>
-                        <StatusBadge status={service.status} />
-                      </div>
-                    ))}
+                      );
+                    })}
                   </div>
                 </CardContent>
               </Card>
@@ -1197,6 +1293,22 @@ export function MarketingTasksPage() {
                     </div>
                   </CardContent>
                 </Card>
+              </div>
+
+              {/* What's Happening & Insights - New sections for 12-year-old friendliness */}
+              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <WhatsHappening
+                  metrics={data.metrics}
+                  scheduledTasks={data.scheduledTasks}
+                  services={data.services}
+                  lastUpdated={data.lastUpdated}
+                  demoMode={data.demoMode}
+                />
+                <InsightsTips
+                  metrics={data.metrics}
+                  onOpenContentGenerator={() => setContentGeneratorOpen(true)}
+                  onOpenGBPSync={() => setGbpSyncOpen(true)}
+                />
               </div>
             </div>
           )}
