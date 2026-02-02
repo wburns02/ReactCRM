@@ -99,8 +99,8 @@ test.describe("Top Issues Annihilation Verification", () => {
       expect(data).toHaveProperty("status", "healthy");
       expect(data).toHaveProperty("version");
       expect(typeof data.version).toBe("string");
-      // Verify we're on the latest version with RBAC
-      expect(data.version).toBe("2.8.8");
+      // Verify we're on the latest version with RBAC + is_admin
+      expect(data.version).toBe("2.8.9");
     });
 
     test("customers endpoint requires authentication", async ({
