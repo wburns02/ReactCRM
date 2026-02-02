@@ -637,7 +637,7 @@ export function InvoiceDetailPage() {
           <CloverCheckout
             invoiceId={invoice.id}
             amount={invoice.total}
-            customerEmail={invoice.customer?.email}
+            customerEmail={invoice.customer?.email ?? undefined}
             onSuccess={handlePaymentSuccess}
             onCancel={() => setIsPaymentOpen(false)}
           />

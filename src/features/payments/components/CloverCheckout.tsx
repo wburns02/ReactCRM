@@ -64,8 +64,7 @@ export function CloverCheckout({
 }: CloverCheckoutProps) {
   const [isProcessing, setIsProcessing] = useState(false);
   const [error, setError] = useState<string | null>(null);
-  const [cardToken, setCardToken] = useState<string | null>(null);
-  const iframeRef = useRef<HTMLIFrameElement>(null);
+  // Note: cardToken state reserved for future Clover tokenization integration
   const cloverInstanceRef = useRef<any>(null);
 
   const { data: config, isLoading: configLoading, error: configError } = useCloverConfig();
