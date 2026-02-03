@@ -1,5 +1,6 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "@/api/client.ts";
+import { validateResponse } from "@/api/validateResponse.ts";
 import type {
   PayrollPeriod,
   TimeEntry,
@@ -20,6 +21,14 @@ import type {
   WorkOrderForCommission,
   CommissionCalculation,
 } from "@/api/types/payroll.ts";
+import {
+  payrollPeriodsResponseSchema,
+  timeEntriesResponseSchema,
+  commissionsResponseSchema,
+  payRatesResponseSchema,
+  payrollSummaryResponseSchema,
+  payrollPeriodSchema,
+} from "@/api/types/payroll.ts";
 
 /**
  * Payroll Periods
@@ -29,7 +38,12 @@ export function usePayrollPeriods(params?: { status?: string; year?: number }) {
     queryKey: ["payroll", "periods", params],
     queryFn: async (): Promise<PayrollPeriod[]> => {
       const { data } = await apiClient.get("/payroll/periods", { params });
-      return data.periods || [];
+      const validated = validateResponse(
+        payrollPeriodsResponseSchema,
+        data,
+        "/payroll/periods"
+      );
+      return validated.periods || [];
     },
   });
 }
@@ -39,7 +53,7 @@ export function usePayrollPeriod(periodId: string) {
     queryKey: ["payroll", "periods", periodId],
     queryFn: async (): Promise<PayrollPeriod> => {
       const { data } = await apiClient.get(`/payroll/periods/${periodId}`);
-      return data;
+      return validateResponse(payrollPeriodSchema, data, `/payroll/periods/${periodId}`);
     },
     enabled: !!periodId,
   });
@@ -170,7 +184,12 @@ export function usePayrollSummary(periodId: string) {
       const { data } = await apiClient.get(
         `/payroll/periods/${periodId}/summary`,
       );
-      return data.summaries || [];
+      const validated = validateResponse(
+        payrollSummaryResponseSchema,
+        data,
+        `/payroll/periods/${periodId}/summary`
+      );
+      return validated.summaries || [];
     },
     enabled: !!periodId,
   });
@@ -190,7 +209,12 @@ export function useTimeEntries(params?: {
     queryKey: ["payroll", "time-entries", params],
     queryFn: async (): Promise<TimeEntry[]> => {
       const { data } = await apiClient.get("/payroll/time-entries", { params });
-      return data.entries || [];
+      const validated = validateResponse(
+        timeEntriesResponseSchema,
+        data,
+        "/payroll/time-entries"
+      );
+      return validated.entries || [];
     },
   });
 }
@@ -295,7 +319,12 @@ export function useCommissions(params?: {
     queryKey: ["payroll", "commissions", params],
     queryFn: async (): Promise<Commission[]> => {
       const { data } = await apiClient.get("/payroll/commissions", { params });
-      return data.commissions || [];
+      const validated = validateResponse(
+        commissionsResponseSchema,
+        data,
+        "/payroll/commissions"
+      );
+      return validated.commissions || [];
     },
   });
 }
@@ -392,7 +421,12 @@ export function usePayRates(params?: {
     queryKey: ["payroll", "pay-rates", params],
     queryFn: async (): Promise<TechnicianPayRate[]> => {
       const { data } = await apiClient.get("/payroll/pay-rates", { params });
-      return data.rates || [];
+      const validated = validateResponse(
+        payRatesResponseSchema,
+        data,
+        "/payroll/pay-rates"
+      );
+      return validated.rates || [];
     },
   });
 }

@@ -269,3 +269,126 @@ export interface CommissionCalculation {
   };
   warning?: string; // Warning message when dump fees exceed job total
 }
+
+// =============================================
+// ZOD SCHEMAS FOR API RESPONSE VALIDATION
+// =============================================
+
+import { z } from "zod";
+
+export const payrollPeriodSchema = z.object({
+  id: z.string(),
+  start_date: z.string(),
+  end_date: z.string(),
+  status: z.enum(["draft", "processing", "approved", "paid", "void"]),
+  period_type: z.enum(["weekly", "biweekly", "monthly"]).optional(),
+  total_hours: z.number(),
+  total_overtime_hours: z.number(),
+  total_gross_pay: z.number(),
+  total_commissions: z.number(),
+  total_deductions: z.number(),
+  total_net_pay: z.number(),
+  technician_count: z.number(),
+  created_at: z.string(),
+  approved_at: z.string().optional(),
+  approved_by: z.string().optional(),
+  paid_at: z.string().optional(),
+});
+
+export const payrollPeriodsResponseSchema = z.object({
+  periods: z.array(payrollPeriodSchema),
+});
+
+export const timeEntrySchema = z.object({
+  id: z.string(),
+  technician_id: z.string(),
+  technician_name: z.string().optional(),
+  payroll_period_id: z.string().optional(),
+  work_order_id: z.string().optional(),
+  work_order_number: z.string().optional(),
+  date: z.string(),
+  clock_in: z.string(),
+  clock_out: z.string().optional(),
+  regular_hours: z.number(),
+  overtime_hours: z.number(),
+  break_minutes: z.number(),
+  status: z.enum(["pending", "approved", "rejected"]),
+  notes: z.string().optional(),
+  clock_in_latitude: z.number().optional(),
+  clock_in_longitude: z.number().optional(),
+  clock_out_latitude: z.number().optional(),
+  clock_out_longitude: z.number().optional(),
+  created_at: z.string(),
+});
+
+export const timeEntriesResponseSchema = z.object({
+  entries: z.array(timeEntrySchema),
+});
+
+export const commissionSchema = z.object({
+  id: z.string(),
+  technician_id: z.string(),
+  technician_name: z.string().optional(),
+  work_order_id: z.string().optional(),
+  work_order_number: z.string().optional(),
+  invoice_id: z.string().optional(),
+  payroll_period_id: z.string().optional(),
+  commission_type: z.enum(["job_completion", "upsell", "referral", "bonus"]).optional(),
+  base_amount: z.number(),
+  rate: z.number(),
+  rate_type: z.enum(["percent", "fixed"]).optional(),
+  commission_amount: z.number(),
+  status: z.enum(["pending", "approved", "paid"]),
+  description: z.string().optional(),
+  earned_date: z.string().optional(),
+  created_at: z.string().optional(),
+  job_type: z.string().optional(),
+  gallons_pumped: z.number().optional(),
+  dump_site_id: z.string().optional(),
+  dump_fee_per_gallon: z.number().optional(),
+  dump_fee_amount: z.number().optional(),
+  commissionable_amount: z.number().optional(),
+  job_total: z.number().optional(),
+  commission_rate: z.number().optional(),
+  notes: z.string().optional(),
+});
+
+export const commissionsResponseSchema = z.object({
+  commissions: z.array(commissionSchema),
+});
+
+export const payRateSchema = z.object({
+  id: z.string(),
+  technician_id: z.string(),
+  technician_name: z.string().optional(),
+  pay_type: z.enum(["hourly", "salary"]),
+  hourly_rate: z.number().nullable(),
+  overtime_rate: z.number().nullable(),
+  salary_amount: z.number().nullable(),
+  commission_rate: z.number(),
+  effective_date: z.string(),
+  end_date: z.string().optional(),
+  is_active: z.boolean(),
+});
+
+export const payRatesResponseSchema = z.object({
+  rates: z.array(payRateSchema),
+});
+
+export const payrollSummarySchema = z.object({
+  technician_id: z.string(),
+  technician_name: z.string(),
+  regular_hours: z.number(),
+  overtime_hours: z.number(),
+  regular_pay: z.number(),
+  overtime_pay: z.number(),
+  total_commissions: z.number(),
+  gross_pay: z.number(),
+  deductions: z.number(),
+  net_pay: z.number(),
+  jobs_completed: z.number(),
+});
+
+export const payrollSummaryResponseSchema = z.object({
+  summaries: z.array(payrollSummarySchema),
+});

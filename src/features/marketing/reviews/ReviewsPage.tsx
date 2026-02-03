@@ -14,26 +14,58 @@ import {
   useGenerateAIContent,
   type PendingReview,
 } from "@/api/hooks/useMarketingHub.ts";
+import {
+  useAllSocialReviews,
+  useReplyToFacebookReview,
+  type SocialReview,
+} from "@/api/hooks/useSocialIntegrations.ts";
+
+type CombinedReview = (PendingReview | SocialReview) & {
+  source: "gbp" | "yelp" | "facebook";
+};
 
 export function ReviewsPage() {
-  const [selectedReview, setSelectedReview] = useState<PendingReview | null>(
+  const [selectedReview, setSelectedReview] = useState<CombinedReview | null>(
     null,
   );
   const [replyText, setReplyText] = useState("");
   const [isGenerating, setIsGenerating] = useState(false);
+  const [platformFilter, setPlatformFilter] = useState<string>("all");
 
-  const { data: reviewsData, isLoading } = usePendingReviews();
+  const { data: reviewsData, isLoading: gbpLoading } = usePendingReviews();
+  const { data: socialReviewsData, isLoading: socialLoading } =
+    useAllSocialReviews();
   const replyMutation = useReplyToReview();
+  const facebookReplyMutation = useReplyToFacebookReview();
   const generateContent = useGenerateAIContent();
 
-  const handleGenerateResponse = async (review: PendingReview) => {
+  // Combine reviews from all sources
+  const allReviews: CombinedReview[] = [
+    ...(reviewsData?.reviews?.map((r) => ({ ...r, source: "gbp" as const })) ||
+      []),
+    ...(socialReviewsData?.reviews?.map((r) => ({
+      ...r,
+      source: r.platform as "yelp" | "facebook",
+      responded: r.has_response,
+    })) || []),
+  ];
+
+  // Filter by platform
+  const filteredReviews =
+    platformFilter === "all"
+      ? allReviews
+      : allReviews.filter((r) => r.source === platformFilter);
+
+  const isLoading = gbpLoading || socialLoading;
+
+  const handleGenerateResponse = async (review: CombinedReview) => {
     setIsGenerating(true);
     try {
       const result = await generateContent.mutateAsync({
         type: "ad_copy", // We'll use this as a general text generation
         context: {
           task: "review_response",
-          rating: String(review.rating),
+          rating: String(review.rating ?? 0),
           reviewText: review.text,
           authorName: review.author,
           businessName: "MAC Septic",
@@ -60,14 +92,44 @@ export function ReviewsPage() {
     if (!selectedReview || !replyText.trim()) return;
 
     try {
-      await replyMutation.mutateAsync({
-        review_id: selectedReview.id,
-        reply: replyText,
-      });
+      if (selectedReview.source === "facebook") {
+        await facebookReplyMutation.mutateAsync({
+          reviewId: selectedReview.id,
+          reply: replyText,
+        });
+      } else {
+        await replyMutation.mutateAsync({
+          review_id: selectedReview.id,
+          reply: replyText,
+        });
+      }
       setSelectedReview(null);
       setReplyText("");
     } catch (error) {
       console.error("Failed to submit reply:", error);
+    }
+  };
+
+  const getPlatformBadge = (source: string) => {
+    switch (source) {
+      case "yelp":
+        return (
+          <Badge variant="secondary" className="bg-red-100 text-red-700">
+            Yelp
+          </Badge>
+        );
+      case "facebook":
+        return (
+          <Badge variant="secondary" className="bg-blue-100 text-blue-700">
+            Facebook
+          </Badge>
+        );
+      default:
+        return (
+          <Badge variant="secondary" className="bg-green-100 text-green-700">
+            Google
+          </Badge>
+        );
     }
   };
 
@@ -96,9 +158,36 @@ export function ReviewsPage() {
             </p>
           </div>
         </div>
-        <Badge variant="info">
-          {reviewsData?.reviews?.length || 0} pending
-        </Badge>
+        <Badge variant="info">{allReviews.length} total</Badge>
+      </div>
+
+      {/* Platform Filter */}
+      <div className="flex gap-2">
+        {[
+          { id: "all", label: "All Platforms" },
+          { id: "gbp", label: "Google" },
+          { id: "yelp", label: "Yelp" },
+          { id: "facebook", label: "Facebook" },
+        ].map((platform) => (
+          <button
+            key={platform.id}
+            onClick={() => setPlatformFilter(platform.id)}
+            className={`px-3 py-1.5 text-sm rounded-md transition-colors ${
+              platformFilter === platform.id
+                ? "bg-primary text-white"
+                : "bg-surface-hover text-text-secondary hover:bg-surface-active"
+            }`}
+          >
+            {platform.label}
+            <span className="ml-1.5 text-xs opacity-70">
+              (
+              {platform.id === "all"
+                ? allReviews.length
+                : allReviews.filter((r) => r.source === platform.id).length}
+              )
+            </span>
+          </button>
+        ))}
       </div>
 
       {/* Stats */}
@@ -107,7 +196,7 @@ export function ReviewsPage() {
           <CardContent className="pt-6">
             <div className="text-sm text-text-secondary">Total Reviews</div>
             <div className="text-2xl font-bold text-text-primary">
-              {reviewsData?.reviews?.length || 0}
+              {filteredReviews.length}
             </div>
           </CardContent>
         </Card>
@@ -115,7 +204,7 @@ export function ReviewsPage() {
           <CardContent className="pt-6">
             <div className="text-sm text-text-secondary">5-Star</div>
             <div className="text-2xl font-bold text-success">
-              {reviewsData?.reviews?.filter((r) => r.rating === 5).length || 0}
+              {filteredReviews.filter((r) => r.rating === 5).length}
             </div>
           </CardContent>
         </Card>
@@ -123,7 +212,7 @@ export function ReviewsPage() {
           <CardContent className="pt-6">
             <div className="text-sm text-text-secondary">4-Star</div>
             <div className="text-2xl font-bold text-primary">
-              {reviewsData?.reviews?.filter((r) => r.rating === 4).length || 0}
+              {filteredReviews.filter((r) => r.rating === 4).length}
             </div>
           </CardContent>
         </Card>
@@ -131,7 +220,10 @@ export function ReviewsPage() {
           <CardContent className="pt-6">
             <div className="text-sm text-text-secondary">Needs Attention</div>
             <div className="text-2xl font-bold text-warning">
-              {reviewsData?.reviews?.filter((r) => r.rating <= 3).length || 0}
+              {
+                filteredReviews.filter((r) => r.rating && r.rating <= 3)
+                  .length
+              }
             </div>
           </CardContent>
         </Card>
@@ -149,15 +241,23 @@ export function ReviewsPage() {
                 <div className="h-24 bg-surface-hover rounded"></div>
                 <div className="h-24 bg-surface-hover rounded"></div>
               </div>
-            ) : reviewsData?.reviews?.length ? (
-              <div className="space-y-4">
-                {reviewsData.reviews.map((review) => {
-                  const sentiment = getReviewSentiment(review.rating);
+            ) : filteredReviews.length ? (
+              <div className="space-y-4 max-h-[600px] overflow-y-auto">
+                {filteredReviews.map((review) => {
+                  const rating = review.rating || 0;
+                  const sentiment = getReviewSentiment(rating);
+                  const responded =
+                    "responded" in review
+                      ? review.responded
+                      : "has_response" in review
+                        ? review.has_response
+                        : false;
                   return (
                     <div
-                      key={review.id}
+                      key={`${review.source}-${review.id}`}
                       className={`p-4 border rounded-lg cursor-pointer transition-colors ${
-                        selectedReview?.id === review.id
+                        selectedReview?.id === review.id &&
+                        selectedReview?.source === review.source
                           ? "border-primary bg-primary/5"
                           : "border-border hover:border-primary/50"
                       }`}
@@ -168,11 +268,14 @@ export function ReviewsPage() {
                     >
                       <div className="flex items-start justify-between mb-2">
                         <div>
-                          <div className="flex items-center gap-2">
-                            <span className="text-yellow-500">
-                              {"★".repeat(review.rating)}
-                              {"☆".repeat(5 - review.rating)}
-                            </span>
+                          <div className="flex items-center gap-2 flex-wrap">
+                            {getPlatformBadge(review.source)}
+                            {rating > 0 && (
+                              <span className="text-yellow-500">
+                                {"★".repeat(Math.round(rating))}
+                                {"☆".repeat(5 - Math.round(rating))}
+                              </span>
+                            )}
                             <Badge variant={sentiment.variant}>
                               {sentiment.label}
                             </Badge>
@@ -182,13 +285,17 @@ export function ReviewsPage() {
                           </p>
                         </div>
                         <span className="text-xs text-text-secondary">
-                          {review.date}
+                          {"date" in review
+                            ? typeof review.date === "string"
+                              ? new Date(review.date).toLocaleDateString()
+                              : review.date
+                            : ""}
                         </span>
                       </div>
                       <p className="text-sm text-text-secondary line-clamp-3">
                         {review.text}
                       </p>
-                      {review.responded && (
+                      {responded && (
                         <Badge variant="success" className="mt-2">
                           Responded
                         </Badge>
@@ -218,11 +325,14 @@ export function ReviewsPage() {
               <div className="space-y-4">
                 {/* Selected Review */}
                 <div className="p-4 bg-surface-hover rounded-lg">
-                  <div className="flex items-center gap-2 mb-2">
-                    <span className="text-yellow-500">
-                      {"★".repeat(selectedReview.rating)}
-                      {"☆".repeat(5 - selectedReview.rating)}
-                    </span>
+                  <div className="flex items-center gap-2 mb-2 flex-wrap">
+                    {getPlatformBadge(selectedReview.source)}
+                    {selectedReview.rating && selectedReview.rating > 0 && (
+                      <span className="text-yellow-500">
+                        {"★".repeat(Math.round(selectedReview.rating))}
+                        {"☆".repeat(5 - Math.round(selectedReview.rating))}
+                      </span>
+                    )}
                     <span className="text-sm font-medium">
                       {selectedReview.author}
                     </span>
@@ -300,17 +410,39 @@ export function ReviewsPage() {
                   <Button
                     variant="primary"
                     onClick={handleSubmitReply}
-                    disabled={!replyText.trim() || replyMutation.isPending}
+                    disabled={
+                      !replyText.trim() ||
+                      replyMutation.isPending ||
+                      facebookReplyMutation.isPending ||
+                      selectedReview?.source === "yelp"
+                    }
                     className="flex-1"
                   >
-                    {replyMutation.isPending ? "Sending..." : "Send Response"}
+                    {replyMutation.isPending || facebookReplyMutation.isPending
+                      ? "Sending..."
+                      : selectedReview?.source === "yelp"
+                        ? "Reply on Yelp.com"
+                        : "Send Response"}
                   </Button>
                 </div>
 
-                <p className="text-xs text-text-secondary">
-                  Note: Response will be queued. Connect Google Business Profile
-                  to post directly.
-                </p>
+                {selectedReview?.source === "yelp" ? (
+                  <div className="p-3 bg-warning/10 border border-warning/30 rounded-lg">
+                    <p className="text-xs text-warning-foreground">
+                      Note: Yelp does not allow responding to reviews via their
+                      API. Please respond directly on Yelp.com.
+                    </p>
+                  </div>
+                ) : selectedReview?.source === "facebook" ? (
+                  <p className="text-xs text-text-secondary">
+                    Your response will be posted as a comment on Facebook.
+                  </p>
+                ) : (
+                  <p className="text-xs text-text-secondary">
+                    Note: Response will be queued. Connect Google Business
+                    Profile to post directly.
+                  </p>
+                )}
               </div>
             ) : (
               <div className="text-center py-12 text-text-secondary">
