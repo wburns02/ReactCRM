@@ -1,14 +1,26 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, lazy, Suspense } from "react";
 import { HeroSection } from "./components/HeroSection";
 import { TrustSignals } from "./components/TrustSignals";
 import { ServicesSection } from "./components/ServicesSection";
-import { HowItWorksSection } from "./components/HowItWorksSection";
-import { TestimonialsSection } from "./components/TestimonialsSection";
-import { FAQSection } from "./components/FAQSection";
 import { CTASection } from "./components/CTASection";
 import { LandingFooter } from "./components/LandingFooter";
 import { SEOHead } from "./components/SEOHead";
 import type { UTMParams } from "./types/lead";
+
+// Lazy load below-fold sections for faster LCP/FCP
+const HowItWorksSection = lazy(() =>
+  import("./components/HowItWorksSection").then((m) => ({
+    default: m.HowItWorksSection,
+  }))
+);
+const TestimonialsSection = lazy(() =>
+  import("./components/TestimonialsSection").then((m) => ({
+    default: m.TestimonialsSection,
+  }))
+);
+const FAQSection = lazy(() =>
+  import("./components/FAQSection").then((m) => ({ default: m.FAQSection }))
+);
 
 /**
  * Landing Page - Public-facing page for lead capture
@@ -78,14 +90,17 @@ export function LandingPage() {
       {/* Services Section */}
       <ServicesSection />
 
-      {/* How It Works */}
-      <HowItWorksSection />
+      {/* Below-fold sections - lazy loaded for faster initial render */}
+      <Suspense fallback={<div className="min-h-[200px]" />}>
+        {/* How It Works */}
+        <HowItWorksSection />
 
-      {/* Testimonials */}
-      <TestimonialsSection />
+        {/* Testimonials */}
+        <TestimonialsSection />
 
-      {/* FAQ Section */}
-      <FAQSection />
+        {/* FAQ Section */}
+        <FAQSection />
+      </Suspense>
 
       {/* Final CTA with Form */}
       <CTASection utmParams={utmParams} />
