@@ -40,10 +40,12 @@ interface CommissionFormModalProps {
 }
 
 const COMMISSION_TYPES = [
-  { value: "job_completion", label: "Job Completion" },
-  { value: "upsell", label: "Upsell" },
-  { value: "referral", label: "Referral" },
-  { value: "bonus", label: "Bonus" },
+  { value: "pump_out", label: "Pump Out", rate: 0.20, hasDumpFees: true },
+  { value: "service", label: "Service", rate: 0.15, hasDumpFees: false },
+  { value: "job_completion", label: "Job Completion", rate: null, hasDumpFees: false },
+  { value: "upsell", label: "Upsell", rate: null, hasDumpFees: false },
+  { value: "referral", label: "Referral", rate: null, hasDumpFees: false },
+  { value: "bonus", label: "Bonus", rate: null, hasDumpFees: false },
 ] as const;
 
 // Commission rates by job type (must match backend)
@@ -100,6 +102,7 @@ export function CommissionFormModal({
   const [description, setDescription] = useState("");
   const [showDeleteConfirm, setShowDeleteConfirm] = useState(false);
   const [manualMode, setManualMode] = useState(false);
+  const [manualDumpFee, setManualDumpFee] = useState("");
 
   // Auto-calc state
   const [jobType, setJobType] = useState("");
@@ -174,6 +177,7 @@ export function CommissionFormModal({
         setCommissionableAmount(null);
         setManualMode(false);
         setCalculationResult(null);
+        setManualDumpFee("");
       }
       setShowDeleteConfirm(false);
     }
@@ -270,19 +274,42 @@ export function CommissionFormModal({
     [selectedWorkOrderId, dumpSites, calculateCommission],
   );
 
-  // Manual calculation fallback (when not using work order)
+  // Smart calculation for manual mode based on commission type
   useEffect(() => {
-    if (manualMode && rateType === "percent" && baseAmount && rate) {
-      const base = parseFloat(baseAmount);
-      const rateDecimal = parseFloat(rate) / 100;
-      if (!isNaN(base) && !isNaN(rateDecimal)) {
-        const calculated = base * rateDecimal;
-        setCommissionAmount(calculated.toFixed(2));
+    if (!manualMode || !baseAmount) return;
+
+    const base = parseFloat(baseAmount);
+    if (isNaN(base)) return;
+
+    // Determine if using smart rates (pump_out or service)
+    if (commissionType === "pump_out") {
+      const dumpFee = parseFloat(manualDumpFee || "0") || 0;
+      const commissionable = Math.max(0, base - dumpFee);
+      const commission = commissionable * 0.2;
+      setCommissionAmount(commission.toFixed(2));
+      setRate("20"); // Show rate in UI
+      setCommissionableAmount(commissionable);
+      setDumpFeeAmount(dumpFee);
+    } else if (commissionType === "service") {
+      const commission = base * 0.15;
+      setCommissionAmount(commission.toFixed(2));
+      setRate("15"); // Show rate in UI
+      setCommissionableAmount(base);
+      setDumpFeeAmount(null);
+      setManualDumpFee(""); // Clear dump fee when switching to service
+    } else {
+      // Legacy types - use user-entered rate
+      if (rateType === "percent" && rate) {
+        const rateDecimal = parseFloat(rate) / 100;
+        if (!isNaN(rateDecimal)) {
+          const calculated = base * rateDecimal;
+          setCommissionAmount(calculated.toFixed(2));
+        }
+      } else if (rateType === "fixed" && rate) {
+        setCommissionAmount(rate);
       }
-    } else if (manualMode && rateType === "fixed" && rate) {
-      setCommissionAmount(rate);
     }
-  }, [manualMode, baseAmount, rate, rateType]);
+  }, [manualMode, baseAmount, manualDumpFee, commissionType, rate, rateType]);
 
   const handleSubmit = useCallback(async () => {
     if (!technicianId) {
@@ -336,12 +363,16 @@ export function CommissionFormModal({
           commission_amount: parseFloat(commissionAmount),
           earned_date: earnedDate || undefined,
           description: description || undefined,
-          // Auto-calc fields
+          // Auto-calc fields (from work order mode)
           dump_site_id: dumpSiteId || undefined,
           job_type: jobType || undefined,
           gallons_pumped: gallons || undefined,
           dump_fee_per_gallon: dumpFeePerGallon || undefined,
-          dump_fee_amount: dumpFeeAmount || undefined,
+          // Include dump fees for manual pump_out entries
+          dump_fee_amount:
+            manualMode && commissionType === "pump_out" && manualDumpFee
+              ? parseFloat(manualDumpFee)
+              : dumpFeeAmount || undefined,
           commissionable_amount: commissionableAmount || undefined,
         };
         await createCommission.mutateAsync(input);
@@ -371,6 +402,7 @@ export function CommissionFormModal({
     commissionableAmount,
     requiresDumpSite,
     manualMode,
+    manualDumpFee,
     createCommission,
     updateCommission,
     onClose,
@@ -596,10 +628,82 @@ export function CommissionFormModal({
                 {COMMISSION_TYPES.map((type) => (
                   <option key={type.value} value={type.value}>
                     {type.label}
+                    {type.rate !== null ? ` (${(type.rate * 100).toFixed(0)}%)` : ""}
                   </option>
                 ))}
               </select>
+              {(commissionType === "pump_out" || commissionType === "service") && (
+                <p className="text-xs text-text-secondary mt-1">
+                  {commissionType === "pump_out"
+                    ? "20% commission on (Job Total - Dump Fees)"
+                    : "15% commission on Job Total"}
+                </p>
+              )}
             </div>
+
+            {/* Dump Fees Input (Manual Mode - Pump Out only) */}
+            {manualMode && commissionType === "pump_out" && (
+              <div>
+                <Label htmlFor="manual-dump-fee">Dump Fees *</Label>
+                <div className="relative">
+                  <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
+                  <Input
+                    id="manual-dump-fee"
+                    type="number"
+                    step="0.01"
+                    min="0"
+                    placeholder="50.00"
+                    value={manualDumpFee}
+                    onChange={(e) => setManualDumpFee(e.target.value)}
+                    className="pl-9"
+                  />
+                </div>
+                <p className="text-xs text-text-secondary mt-1">
+                  Dump site fees deducted before calculating commission
+                </p>
+              </div>
+            )}
+
+            {/* Manual Mode Calculation Preview for Pump Out / Service */}
+            {manualMode &&
+              baseAmount &&
+              (commissionType === "pump_out" || commissionType === "service") && (
+                <div className="p-4 bg-primary/10 border border-primary/30 rounded-lg">
+                  <div className="flex items-start gap-2 mb-2">
+                    <Calculator className="w-5 h-5 text-primary mt-0.5" />
+                    <p className="text-sm font-medium text-primary">
+                      Commission Preview
+                    </p>
+                  </div>
+                  <div className="space-y-1 font-mono text-sm text-text-secondary">
+                    {commissionType === "pump_out" ? (
+                      <>
+                        <p>Job Total: {formatCurrency(parseFloat(baseAmount) || 0)}</p>
+                        <p>
+                          - Dump Fees:{" "}
+                          {formatCurrency(parseFloat(manualDumpFee || "0"))}
+                        </p>
+                        <p>
+                          = Commissionable:{" "}
+                          {formatCurrency(commissionableAmount || 0)}
+                        </p>
+                        <p>× 20% Rate</p>
+                      </>
+                    ) : (
+                      <>
+                        <p>Job Total: {formatCurrency(parseFloat(baseAmount) || 0)}</p>
+                        <p>× 15% Rate</p>
+                      </>
+                    )}
+                  </div>
+                  <div className="mt-2 pt-2 border-t border-primary/30 flex justify-between items-center">
+                    <span className="text-sm font-medium">Commission:</span>
+                    <span className="text-lg font-bold text-primary">
+                      {formatCurrency(parseFloat(commissionAmount || "0"))}
+                    </span>
+                  </div>
+                </div>
+              )}
 
             {/* Job Details (shown for auto-calc) */}
             {!manualMode && jobType && (
@@ -669,46 +773,51 @@ export function CommissionFormModal({
                   </div>
                 </div>
 
-                {/* Rate Type & Rate */}
-                <div className="grid grid-cols-2 gap-4">
-                  <div>
-                    <Label htmlFor="rate-type">Rate Type</Label>
-                    <select
-                      id="rate-type"
-                      value={rateType}
-                      onChange={(e) =>
-                        setRateType(e.target.value as "percent" | "fixed")
-                      }
-                      className="w-full px-3 py-2 rounded-lg border border-border bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
-                    >
-                      <option value="percent">Percentage</option>
-                      <option value="fixed">Fixed Amount</option>
-                    </select>
-                  </div>
-                  <div>
-                    <Label htmlFor="rate">
-                      {rateType === "percent" ? "Rate (%)" : "Fixed Amount ($)"}
-                    </Label>
-                    <div className="relative">
-                      {rateType === "percent" ? (
-                        <Percent className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
-                      ) : (
-                        <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
-                      )}
-                      <Input
-                        id="rate"
-                        type="number"
-                        step="0.1"
-                        min="0"
-                        max={rateType === "percent" ? "100" : undefined}
-                        placeholder={rateType === "percent" ? "15" : "50.00"}
-                        value={rate}
-                        onChange={(e) => setRate(e.target.value)}
-                        className="pl-9"
-                      />
+                {/* Rate Type & Rate - Only for legacy types (not pump_out or service) */}
+                {commissionType !== "pump_out" &&
+                  commissionType !== "service" && (
+                    <div className="grid grid-cols-2 gap-4">
+                      <div>
+                        <Label htmlFor="rate-type">Rate Type</Label>
+                        <select
+                          id="rate-type"
+                          value={rateType}
+                          onChange={(e) =>
+                            setRateType(e.target.value as "percent" | "fixed")
+                          }
+                          className="w-full px-3 py-2 rounded-lg border border-border bg-bg-primary text-text-primary focus:outline-none focus:ring-2 focus:ring-primary"
+                        >
+                          <option value="percent">Percentage</option>
+                          <option value="fixed">Fixed Amount</option>
+                        </select>
+                      </div>
+                      <div>
+                        <Label htmlFor="rate">
+                          {rateType === "percent"
+                            ? "Rate (%)"
+                            : "Fixed Amount ($)"}
+                        </Label>
+                        <div className="relative">
+                          {rateType === "percent" ? (
+                            <Percent className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
+                          ) : (
+                            <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-text-secondary" />
+                          )}
+                          <Input
+                            id="rate"
+                            type="number"
+                            step="0.1"
+                            min="0"
+                            max={rateType === "percent" ? "100" : undefined}
+                            placeholder={rateType === "percent" ? "15" : "50.00"}
+                            value={rate}
+                            onChange={(e) => setRate(e.target.value)}
+                            className="pl-9"
+                          />
+                        </div>
+                      </div>
                     </div>
-                  </div>
-                </div>
+                  )}
 
                 {/* Calculated Commission Amount */}
                 <div>

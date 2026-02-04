@@ -51,7 +51,7 @@ export interface Commission {
   work_order_number?: string;
   invoice_id?: string;
   payroll_period_id?: string;
-  commission_type?: "job_completion" | "upsell" | "referral" | "bonus";
+  commission_type?: "job_completion" | "upsell" | "referral" | "bonus" | "pump_out" | "service";
   base_amount: number; // Job total or amount commission is based on
   rate: number; // Commission rate as decimal (0.05 = 5%)
   rate_type?: "percent" | "fixed";
@@ -124,7 +124,7 @@ export interface CreateCommissionInput {
   technician_id: string;
   work_order_id?: string;
   invoice_id?: string;
-  commission_type?: "job_completion" | "upsell" | "referral" | "bonus";
+  commission_type?: "job_completion" | "upsell" | "referral" | "bonus" | "pump_out" | "service";
   base_amount: number;
   rate: number;
   rate_type?: "percent" | "fixed";
@@ -146,7 +146,7 @@ export interface UpdateCommissionInput {
   rate?: number;
   commission_amount?: number;
   description?: string;
-  commission_type?: "job_completion" | "upsell" | "referral" | "bonus";
+  commission_type?: "job_completion" | "upsell" | "referral" | "bonus" | "pump_out" | "service";
 }
 
 export interface UpdatePayRateInput {
@@ -215,7 +215,7 @@ export interface CommissionLeaderboardEntry {
 export interface CommissionFilters {
   status?: "all" | "pending" | "approved" | "paid";
   technician_id?: string;
-  commission_type?: "job_completion" | "upsell" | "referral" | "all";
+  commission_type?: "job_completion" | "upsell" | "referral" | "bonus" | "pump_out" | "service" | "all";
   date_from?: string;
   date_to?: string;
   page?: number;
@@ -333,7 +333,7 @@ export const commissionSchema = z.object({
   work_order_number: z.string().optional(),
   invoice_id: z.string().optional(),
   payroll_period_id: z.string().optional(),
-  commission_type: z.enum(["job_completion", "upsell", "referral", "bonus"]).optional(),
+  commission_type: z.enum(["job_completion", "upsell", "referral", "bonus", "pump_out", "service"]).optional(),
   base_amount: z.number(),
   rate: z.number(),
   rate_type: z.enum(["percent", "fixed"]).optional(),
