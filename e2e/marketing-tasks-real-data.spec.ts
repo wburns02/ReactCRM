@@ -1,18 +1,15 @@
 /**
  * Marketing Tasks Real Data Enforcement Test
  *
- * Verifies that the Marketing Tasks page shows real data where available.
+ * Verifies that the Marketing Tasks page shows REAL data from:
+ * - Google PageSpeed Insights API (Speed Score, SEO Score)
+ * - Sitemap.xml parsing (Pages Found)
  *
- * CURRENT STATE:
+ * CURRENT STATE (API key configured):
  * - Pages Found: REAL (from sitemap.xml - 23 pages)
- * - Speed Score: DEMO (requires GOOGLE_PAGESPEED_API_KEY)
- * - SEO Score: DEMO (requires GOOGLE_PAGESPEED_API_KEY)
- *
- * TO GET FULLY REAL DATA:
- * 1. Go to https://console.cloud.google.com/
- * 2. Enable "PageSpeed Insights API"
- * 3. Create an API key
- * 4. Add GOOGLE_PAGESPEED_API_KEY to Railway environment variables
+ * - Speed Score: REAL (from Google PageSpeed Insights API)
+ * - SEO Score: REAL (from Google PageSpeed Insights API)
+ * - No demo indicators shown
  */
 
 import { test, expect } from "@playwright/test";
@@ -105,13 +102,13 @@ test.describe("Marketing Tasks - Real Data Verification", () => {
     expect(criticalErrors.length, "Should have no 5xx errors").toBe(0);
     console.log("✓ No 5xx errors");
 
-    // Assert: Demo indicator shows (expected until API key added)
-    expect(hasDemoIndicator, "Demo indicator should show until API key configured").toBe(true);
-    console.log("✓ Demo indicator shown correctly (API key not configured)");
+    // Assert: Demo indicator should NOT show when API key is configured
+    expect(hasDemoIndicator, "Demo indicator should NOT show when API key configured").toBe(false);
+    console.log("✓ No demo indicator - real data is showing!");
 
     console.log("\n=== SUMMARY ===");
     console.log("✓ Sitemap page count: REAL (23 pages from sitemap.xml)");
-    console.log("⚠ PageSpeed scores: DEMO (requires GOOGLE_PAGESPEED_API_KEY)");
+    console.log("✓ PageSpeed scores: REAL (from Google PageSpeed Insights API)");
     console.log("✓ Page loads without critical errors");
   });
 });
