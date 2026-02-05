@@ -9,6 +9,7 @@ import {
   DollarSign,
   ExternalLink,
   Pencil,
+  Trash2,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 
@@ -24,6 +25,7 @@ interface CommissionsTableProps {
   onApprove: (id: string) => Promise<void>;
   onMarkPaid: (id: string) => Promise<void>;
   onEdit?: (commission: Commission) => void;
+  onDelete?: (commission: Commission) => void;
   onRowClick?: (commission: Commission) => void;
   sortBy?: string;
   sortOrder?: "asc" | "desc";
@@ -64,6 +66,7 @@ export function CommissionsTable({
   onApprove,
   onMarkPaid,
   onEdit,
+  onDelete,
   onRowClick,
   sortBy,
   sortOrder,
@@ -279,6 +282,18 @@ export function CommissionsTable({
                         className="text-text-muted hover:text-text-primary"
                       >
                         <Pencil className="w-3 h-3" />
+                      </Button>
+                    )}
+                    {/* Delete button - show for pending commissions */}
+                    {commission.status === "pending" && onDelete && (
+                      <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => onDelete(commission)}
+                        className="text-danger hover:text-danger hover:bg-danger/10"
+                        aria-label="Delete commission"
+                      >
+                        <Trash2 className="w-3 h-3" />
                       </Button>
                     )}
                     {commission.status === "pending" && (

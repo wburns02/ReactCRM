@@ -9,12 +9,14 @@ import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
 import type { Commission } from "@/api/types/payroll";
 import { Link } from "react-router-dom";
+import { Trash2 } from "lucide-react";
 
 interface CommissionDetailModalProps {
   commission: Commission | null;
   open: boolean;
   onClose: () => void;
   onEdit?: (commission: Commission) => void;
+  onDelete?: (commission: Commission) => void;
 }
 
 /**
@@ -26,6 +28,7 @@ export function CommissionDetailModal({
   open,
   onClose,
   onEdit,
+  onDelete,
 }: CommissionDetailModalProps) {
   if (!commission) return null;
 
@@ -229,6 +232,19 @@ export function CommissionDetailModal({
         </DialogBody>
 
         <DialogFooter>
+          {onDelete && commission.status === "pending" && (
+            <Button
+              variant="danger"
+              onClick={() => {
+                onDelete(commission);
+                onClose();
+              }}
+              className="mr-auto"
+            >
+              <Trash2 className="w-4 h-4 mr-1" />
+              Delete
+            </Button>
+          )}
           <Button variant="secondary" onClick={onClose}>
             Close
           </Button>

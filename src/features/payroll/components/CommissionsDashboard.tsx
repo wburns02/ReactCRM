@@ -5,6 +5,7 @@ import {
   useUpdateCommission,
   useBulkApproveCommissions,
   useBulkMarkPaidCommissions,
+  useDeleteCommission,
 } from "@/api/hooks/usePayroll.ts";
 import { useTechnicians } from "@/api/hooks/useTechnicians.ts";
 import type { CommissionFilters, Commission } from "@/api/types/payroll.ts";
@@ -20,6 +21,7 @@ import { CommissionFormModal } from "./CommissionFormModal.tsx";
 import { CommissionDetailModal } from "./CommissionDetailModal.tsx";
 import { ExportButton } from "./ExportButton.tsx";
 import { Button } from "@/components/ui/Button.tsx";
+import { ConfirmDialog } from "@/components/ui/Dialog.tsx";
 import { LayoutList, Trophy, Plus } from "lucide-react";
 
 type TabType = "list" | "insights";
@@ -66,6 +68,10 @@ export function CommissionsDashboard({
     null,
   );
 
+  // Commission delete state
+  const [commissionToDelete, setCommissionToDelete] =
+    useState<Commission | null>(null);
+
   // Data fetching
   const { data: stats, isLoading: statsLoading } = useCommissionStats();
   const { data: commissionsData, isLoading: listLoading } =
@@ -76,6 +82,7 @@ export function CommissionsDashboard({
   const updateCommission = useUpdateCommission();
   const bulkApprove = useBulkApproveCommissions();
   const bulkMarkPaid = useBulkMarkPaidCommissions();
+  const deleteCommission = useDeleteCommission();
 
   // Handlers
   const handleApprove = useCallback(
@@ -139,6 +146,21 @@ export function CommissionsDashboard({
       toastError("Error", getErrorMessage(error));
     }
   }, [bulkMarkPaid, selectedIds]);
+
+  const handleDeleteCommission = useCallback(async () => {
+    if (!commissionToDelete) return;
+    try {
+      await deleteCommission.mutateAsync(commissionToDelete.id);
+      toastSuccess(
+        "Commission Deleted",
+        `Commission for ${commissionToDelete.technician_name || "technician"} has been deleted`,
+      );
+      setCommissionToDelete(null);
+      setDetailCommission(null);
+    } catch (error) {
+      toastError("Delete Failed", getErrorMessage(error));
+    }
+  }, [deleteCommission, commissionToDelete]);
 
   const handlePageChange = (page: number) => {
     setFilters((prev) => ({ ...prev, page }));
@@ -249,6 +271,7 @@ export function CommissionsDashboard({
             onApprove={handleApprove}
             onMarkPaid={handleMarkPaid}
             onEdit={handleEditCommission}
+            onDelete={setCommissionToDelete}
             onRowClick={handleRowClick}
           />
         </div>
@@ -274,6 +297,23 @@ export function CommissionsDashboard({
         open={!!detailCommission}
         onClose={() => setDetailCommission(null)}
         onEdit={handleDetailModalEdit}
+        onDelete={setCommissionToDelete}
+      />
+
+      {/* Delete Confirmation Dialog */}
+      <ConfirmDialog
+        open={!!commissionToDelete}
+        onClose={() => setCommissionToDelete(null)}
+        onConfirm={handleDeleteCommission}
+        title="Delete Commission"
+        message={
+          commissionToDelete
+            ? `Are you sure you want to delete this $${commissionToDelete.commission_amount.toFixed(2)} commission for ${commissionToDelete.technician_name || "this technician"}? This action cannot be undone.`
+            : ""
+        }
+        confirmLabel="Delete Commission"
+        variant="danger"
+        isLoading={deleteCommission.isPending}
       />
     </div>
   );
