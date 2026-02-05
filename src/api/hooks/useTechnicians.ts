@@ -1,6 +1,7 @@
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { apiClient } from "../client.ts";
 import { validateResponse } from "../validateResponse.ts";
+import { toastSuccess, toastError } from "@/components/ui/Toast";
 import {
   technicianListResponseSchema,
   technicianSchema,
@@ -88,6 +89,14 @@ export function useCreateTechnician() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: technicianKeys.lists() });
+      toastSuccess("Technician created", "The new technician has been added.");
+    },
+    onError: (error) => {
+      console.error("[Technician Create] Failed:", error);
+      toastError(
+        "Failed to create technician",
+        "Please try again or contact support.",
+      );
     },
   });
 }
@@ -114,6 +123,14 @@ export function useUpdateTechnician() {
         queryKey: technicianKeys.detail(variables.id),
       });
       queryClient.invalidateQueries({ queryKey: technicianKeys.lists() });
+      toastSuccess("Technician updated", "Changes have been saved.");
+    },
+    onError: (error) => {
+      console.error("[Technician Update] Failed:", error);
+      toastError(
+        "Failed to update technician",
+        "Please try again or contact support.",
+      );
     },
   });
 }
@@ -130,6 +147,14 @@ export function useDeleteTechnician() {
     },
     onSuccess: () => {
       queryClient.invalidateQueries({ queryKey: technicianKeys.lists() });
+      toastSuccess("Technician deactivated", "The technician has been marked as inactive.");
+    },
+    onError: (error) => {
+      console.error("[Technician Delete] Failed:", error);
+      toastError(
+        "Failed to delete technician",
+        "Please try again or contact support.",
+      );
     },
   });
 }
