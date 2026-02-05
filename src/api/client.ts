@@ -5,10 +5,13 @@ import {
   clearSessionState,
   markSessionInvalid,
   dispatchSecurityEvent,
-  hasLegacyToken,
-  getLegacyToken,
   cleanupLegacyAuth,
 } from "@/lib/security";
+import {
+  parseError,
+  ErrorCodes,
+  type ProblemDetail,
+} from "./errorHandler";
 
 /**
  * API client configured for FastAPI backend with secure cookie auth
@@ -17,7 +20,11 @@ import {
  * SECURITY ARCHITECTURE:
  * - Primary: HTTP-only, Secure, SameSite=Strict cookies (XSS-safe)
  * - CSRF tokens sent in header for state-changing requests
- * - Legacy Bearer token support for migration (will be removed)
+ * - Cookie-based auth only (legacy Bearer token removed)
+ *
+ * OBSERVABILITY:
+ * - X-Correlation-ID: Session-level ID for tracing user journeys
+ * - X-Request-ID: Per-request ID for individual request tracing
  *
  * Backend: https://react-crm-api-production.up.railway.app/api/v2
  * Repository: wburns02/react-crm-api
@@ -26,6 +33,19 @@ import {
 const API_BASE_URL =
   import.meta.env.VITE_API_URL ||
   "https://react-crm-api-production.up.railway.app/api/v2";
+
+/**
+ * Generate a session-level correlation ID for tracing user journeys.
+ * This persists for the browser session and links all requests from one user.
+ */
+const SESSION_CORRELATION_ID = crypto.randomUUID();
+
+/**
+ * Generate a unique request ID for each API call.
+ */
+function generateRequestId(): string {
+  return crypto.randomUUID();
+}
 
 export const apiClient: AxiosInstance = axios.create({
   baseURL: API_BASE_URL,
@@ -40,32 +60,31 @@ export const apiClient: AxiosInstance = axios.create({
 /**
  * Request interceptor
  * - Adds CSRF token for state-changing requests
- * - Adds legacy Bearer token (migration period only)
  * - Tracks requests for debugging
  */
 apiClient.interceptors.request.use(
   (config) => {
     const method = config.method?.toUpperCase() || "GET";
+    const requestId = generateRequestId();
+
+    // OBSERVABILITY: Add correlation headers for distributed tracing
+    config.headers["X-Correlation-ID"] = SESSION_CORRELATION_ID;
+    config.headers["X-Request-ID"] = requestId;
 
     // SECURITY: Add CSRF token and other security headers
     const securityHeaders = getSecurityHeaders(method);
     Object.assign(config.headers, securityHeaders);
 
-    // MIGRATION: Add Bearer token from localStorage if exists
-    // This will be removed after full migration to cookie auth
-    // TODO: Remove this block after migration is complete
-    if (hasLegacyToken()) {
-      const token = getLegacyToken();
-      if (token) {
-        config.headers.Authorization = `Bearer ${token}`;
-      }
-    }
-
-    // Add breadcrumb for API request tracking
+    // Add breadcrumb for API request tracking with correlation info
     addBreadcrumb(
       `API ${method} ${config.url}`,
       "http",
-      { method, url: config.url },
+      {
+        method,
+        url: config.url,
+        correlation_id: SESSION_CORRELATION_ID,
+        request_id: requestId,
+      },
       "info",
     );
 
@@ -97,6 +116,9 @@ apiClient.interceptors.response.use(
     const status = error.response?.status;
     const url = error.config?.url;
 
+    // Parse RFC 7807 error response if available
+    const problem = parseError(error);
+
     addBreadcrumb(
       `API Error ${status || "network"} ${url}`,
       "http",
@@ -104,6 +126,8 @@ apiClient.interceptors.response.use(
         status,
         url,
         message: error.message,
+        error_code: problem?.code,
+        trace_id: problem?.trace_id,
       },
       "error",
     );
@@ -113,6 +137,8 @@ apiClient.interceptors.response.use(
       captureException(error, {
         url,
         status,
+        error_code: problem?.code,
+        trace_id: problem?.trace_id,
         response: error.response?.data,
       });
     }
@@ -147,16 +173,14 @@ apiClient.interceptors.response.use(
       }
     }
 
-    // Handle CSRF errors
+    // Handle CSRF errors (using RFC 7807 error code or legacy string matching)
     if (status === 403) {
-      const responseData = error.response?.data as
-        | Record<string, unknown>
-        | undefined;
-      const errorMessage = responseData?.error || responseData?.detail || "";
-      if (
-        typeof errorMessage === "string" &&
-        errorMessage.toLowerCase().includes("csrf")
-      ) {
+      const isCsrfError =
+        problem?.code === ErrorCodes.CSRF_INVALID ||
+        (typeof problem?.detail === "string" &&
+          problem.detail.toLowerCase().includes("csrf"));
+
+      if (isCsrfError) {
         dispatchSecurityEvent("csrf:missing");
         // Refresh the page to get a new CSRF token
         window.location.reload();
@@ -192,11 +216,9 @@ export function clearAuthToken(): void {
 }
 
 /**
- * Check if user has a stored token or active session
- * Uses session state first (faster), falls back to legacy token check
+ * Check if user has an active session
  */
 export function hasAuthToken(): boolean {
-  // Check session state first
   const sessionState = sessionStorage.getItem("session_state");
   if (sessionState) {
     try {
@@ -209,8 +231,7 @@ export function hasAuthToken(): boolean {
     }
   }
 
-  // MIGRATION: Fall back to legacy token check
-  return hasLegacyToken();
+  return false;
 }
 
 /**
@@ -219,7 +240,8 @@ export function hasAuthToken(): boolean {
 export { getSessionState } from "@/lib/security";
 
 /**
- * Type-safe API error
+ * Type-safe API error (legacy format)
+ * @deprecated Use ProblemDetail from errorHandler.ts for RFC 7807 format
  */
 export interface ApiErrorResponse {
   error: string;
@@ -229,20 +251,37 @@ export interface ApiErrorResponse {
 
 /**
  * Check if error is an API error with our expected shape
+ * Supports both legacy format and RFC 7807 ProblemDetail
  */
 export function isApiError(
   error: unknown,
-): error is AxiosError<ApiErrorResponse> {
-  return axios.isAxiosError(error) && error.response?.data?.error !== undefined;
+): error is AxiosError<ApiErrorResponse | ProblemDetail> {
+  if (!axios.isAxiosError(error)) return false;
+  const data = error.response?.data;
+  // Check for legacy format or RFC 7807 format
+  return (
+    data?.error !== undefined ||
+    (data?.code !== undefined && data?.trace_id !== undefined)
+  );
 }
 
 /**
  * Extract error message from API error or unknown error
+ * Supports both legacy format and RFC 7807 ProblemDetail
  */
 export function getErrorMessage(error: unknown): string {
-  if (isApiError(error)) {
-    return error.response?.data.error || "An error occurred";
+  // Try RFC 7807 format first
+  const problem = parseError(error);
+  if (problem) {
+    return problem.detail;
   }
+
+  // Fall back to legacy format
+  if (isApiError(error)) {
+    const data = error.response?.data as ApiErrorResponse;
+    return data.error || "An error occurred";
+  }
+
   if (error instanceof Error) {
     return error.message;
   }

@@ -7,6 +7,7 @@
 
 import { useQuery, useMutation, useQueryClient } from "@tanstack/react-query";
 import { useCallback, useMemo, useState } from "react";
+import { apiClient } from "../../client";
 import { AIOrchestratorImpl } from "./AIOrchestrator";
 import { QueryProcessor } from "./QueryProcessor";
 import { ContextManager } from "./ContextManager";
@@ -110,9 +111,23 @@ export function useAIAssistant(conversationId?: string): UseAIAssistantReturn {
     queryFn: async (): Promise<AIMessage[]> => {
       if (!conversationId) return [];
 
-      // TODO: Implement conversation storage and retrieval
-      // For now, return empty array
-      return [];
+      try {
+        const { data } = await apiClient.get(
+          `/ai/conversations/${conversationId}/messages`,
+        );
+        return (data.messages || []).map(
+          (m: Record<string, unknown>) =>
+            ({
+              id: m.id as string,
+              conversationId: conversationId,
+              role: m.role as string,
+              content: m.content as string,
+              timestamp: m.created_at as string,
+            }) as AIMessage,
+        );
+      } catch {
+        return [];
+      }
     },
     enabled: !!conversationId,
     staleTime: 0, // Always fresh

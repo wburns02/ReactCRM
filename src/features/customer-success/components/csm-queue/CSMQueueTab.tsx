@@ -10,6 +10,9 @@ import {
   useCSMWeeklyOutcomes,
   useStartCSMTask,
   useCompleteCSMTask,
+  useRescheduleCSMTask,
+  useEscalateCSMTask,
+  useSnoozeCSMTask,
 } from "../../../../api/hooks/useCustomerSuccess";
 import type {
   CSMQueueTask,
@@ -51,6 +54,9 @@ export function CSMQueueTab() {
   // Mutations
   const startTask = useStartCSMTask();
   const completeTask = useCompleteCSMTask();
+  const rescheduleTask = useRescheduleCSMTask();
+  const escalateTask = useEscalateCSMTask();
+  const snoozeTask = useSnoozeCSMTask();
 
   // Use demo data if API returns empty
   const tasks = useMemo(() => {
@@ -157,19 +163,49 @@ export function CSMQueueTab() {
     }
   };
 
-  const handleReschedule = (taskId: number) => {
-    // TODO: Open reschedule modal
-    console.log("Reschedule task:", taskId);
+  const handleReschedule = async (taskId: number) => {
+    const newDate = window.prompt("Reschedule to (YYYY-MM-DD):");
+    if (!newDate) return;
+    const reason = window.prompt("Reason for rescheduling:") || "Rescheduled";
+    try {
+      await rescheduleTask.mutateAsync({
+        taskId,
+        data: { new_due_date: newDate, reason },
+      });
+    } catch (error) {
+      console.error("Failed to reschedule task:", error);
+    }
   };
 
-  const handleEscalate = (taskId: number) => {
-    // TODO: Open escalate modal
-    console.log("Escalate task:", taskId);
+  const handleEscalate = async (taskId: number) => {
+    const reason = window.prompt("Reason for escalation:");
+    if (!reason) return;
+    try {
+      await escalateTask.mutateAsync({
+        taskId,
+        data: { reason },
+      });
+    } catch (error) {
+      console.error("Failed to escalate task:", error);
+    }
   };
 
-  const handleSnooze = (taskId: number) => {
-    // TODO: Open snooze modal
-    console.log("Snooze task:", taskId);
+  const handleSnooze = async (taskId: number) => {
+    const hours = window.prompt("Snooze for how many hours?", "24");
+    if (!hours) return;
+    const snoozeUntil = new Date(
+      Date.now() + parseInt(hours, 10) * 60 * 60 * 1000,
+    ).toISOString();
+    const reason = window.prompt("Reason for snoozing:") || "Snoozed";
+    try {
+      await snoozeTask.mutateAsync({
+        taskId,
+        snoozeUntil,
+        reason,
+      });
+    } catch (error) {
+      console.error("Failed to snooze task:", error);
+    }
   };
 
   return (
