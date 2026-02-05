@@ -19,32 +19,6 @@ export interface CreatePaymentIntentResponse {
   currency: string;
 }
 
-export interface PaymentMethod {
-  id: string;
-  type: "card" | "us_bank_account" | "ach_debit";
-  card?: {
-    brand: string;
-    last4: string;
-    exp_month: number;
-    exp_year: number;
-  };
-  bank_account?: {
-    bank_name: string;
-    last4: string;
-    account_type: string;
-  };
-  created: number;
-  is_default: boolean;
-}
-
-export interface SavedPaymentMethod {
-  id: string;
-  stripe_payment_method_id: string;
-  type: string;
-  last4: string;
-  brand?: string;
-  is_default: boolean;
-}
 
 export interface PaymentResult {
   success: boolean;
@@ -106,70 +80,9 @@ export function useConfirmPayment() {
   });
 }
 
-/**
- * Get saved payment methods for a customer
- */
-export function useCustomerPaymentMethods(customerId: number) {
-  return useQuery({
-    queryKey: ["stripe", "payment-methods", customerId],
-    queryFn: async (): Promise<SavedPaymentMethod[]> => {
-      const { data } = await apiClient.get(
-        `/payments/stripe/customer/${customerId}/payment-methods`,
-      );
-      return data.payment_methods || [];
-    },
-    enabled: !!customerId,
-  });
-}
-
-/**
- * Save a new payment method for customer
- */
-export function useSavePaymentMethod() {
-  return useMutation({
-    mutationFn: async (params: {
-      customer_id: number;
-      payment_method_id: string;
-      set_as_default?: boolean;
-    }): Promise<SavedPaymentMethod> => {
-      const { data } = await apiClient.post(
-        "/payments/stripe/save-payment-method",
-        params,
-      );
-      return data;
-    },
-  });
-}
-
-/**
- * Delete a saved payment method
- */
-export function useDeletePaymentMethod() {
-  return useMutation({
-    mutationFn: async (paymentMethodId: string): Promise<void> => {
-      await apiClient.delete(
-        `/payments/stripe/payment-methods/${paymentMethodId}`,
-      );
-    },
-  });
-}
-
-/**
- * Set default payment method
- */
-export function useSetDefaultPaymentMethod() {
-  return useMutation({
-    mutationFn: async (params: {
-      customer_id: number;
-      payment_method_id: string;
-    }): Promise<void> => {
-      await apiClient.post(
-        "/payments/stripe/set-default-payment-method",
-        params,
-      );
-    },
-  });
-}
+// NOTE: Saved payment method hooks (useCustomerPaymentMethods, useSavePaymentMethod,
+// useDeletePaymentMethod, useSetDefaultPaymentMethod) removed 2026-02-05.
+// Stripe saved payments deprecated in favor of Clover POS integration.
 
 /**
  * Process a payment using a saved payment method

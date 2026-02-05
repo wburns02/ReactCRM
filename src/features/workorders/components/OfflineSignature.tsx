@@ -13,6 +13,7 @@ import { useState, useRef, useEffect, useCallback } from "react";
 import { Button } from "@/components/ui/Button";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
+import { toastWarning, toastError } from "@/components/ui/Toast";
 import { useOnlineStatus } from "@/hooks/usePWA";
 import { apiClient } from "@/api/client";
 import {
@@ -258,7 +259,7 @@ export function OfflineSignature({
   // Save signature
   const handleSave = useCallback(async () => {
     if (!hasSignature || !signerName.trim()) {
-      alert("Please sign and enter your name");
+      toastWarning("Signature Required", "Please sign and enter your name.");
       return;
     }
 
@@ -297,7 +298,7 @@ export function OfflineSignature({
       }
     } catch (err) {
       console.error("Failed to save signature:", err);
-      alert("Failed to save signature. Please try again.");
+      toastError("Save Failed", "Failed to save signature. Please try again.");
     } finally {
       setIsSaving(false);
     }

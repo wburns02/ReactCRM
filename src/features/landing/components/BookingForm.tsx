@@ -12,6 +12,7 @@ import {
   type BookingCreateData,
 } from "../hooks/useBooking";
 import type { TimeSlot } from "../types/lead";
+import { toastWarning } from "@/components/ui/Toast";
 
 // Form validation schema
 const bookingSchema = z.object({
@@ -76,7 +77,7 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
 
   const onSubmit: SubmitHandler<BookingFormData> = (data) => {
     if (!selectedDate && !isAsap) {
-      alert("Please select a date for your service");
+      toastWarning("Date Required", "Please select a date for your service.");
       return;
     }
 

@@ -90,7 +90,7 @@ function PayPeriodsTab() {
     null,
   );
 
-  const handleExport = async (periodId: string, format: "csv" | "pdf" | "nacha") => {
+  const handleExport = async (periodId: string, format: "csv") => {
     try {
       const blob = await exportPayroll.mutateAsync({ periodId, format });
       const url = URL.createObjectURL(blob);

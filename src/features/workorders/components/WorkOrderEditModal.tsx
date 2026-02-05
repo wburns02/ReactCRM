@@ -32,6 +32,7 @@ import { Label } from "@/components/ui/Label";
 import { Card } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { cn } from "@/lib/utils";
+import { toastInfo } from "@/components/ui/Toast";
 
 // Feature components
 import PhotoCapture, {
@@ -997,8 +998,7 @@ export function WorkOrderEditModal({
                           type="button"
                           variant="outline"
                           onClick={() => {
-                            // Placeholder for smart scheduling feature
-                            alert("Smart scheduling feature coming soon!");
+                            toastInfo("Coming Soon", "Smart scheduling feature is under development.");
                           }}
                         >
                           <svg

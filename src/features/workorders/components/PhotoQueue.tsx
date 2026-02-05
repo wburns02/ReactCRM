@@ -15,6 +15,7 @@ import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/Card";
 import { Badge } from "@/components/ui/Badge";
 import { useOnlineStatus } from "@/hooks/usePWA";
 import { apiClient } from "@/api/client";
+import { toastWarning } from "@/components/ui/Toast";
 import {
   addPhotoToQueue,
   getPhotosForWorkOrder,
@@ -202,7 +203,7 @@ export function PhotoQueue({
 
       for (const file of Array.from(files)) {
         if (photos.length >= maxPhotos) {
-          alert(`Maximum ${maxPhotos} photos allowed`);
+          toastWarning("Photo Limit", `Maximum ${maxPhotos} photos allowed.`);
           break;
         }
 

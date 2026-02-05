@@ -12,6 +12,7 @@
 
 import { useState } from "react";
 import { cn } from "@/lib/utils.ts";
+import { toastInfo, toastWarning } from "@/components/ui/Toast";
 
 // Types
 export type ResourceType =
@@ -672,7 +673,7 @@ function ResourceDetailModal({
           </p>
           <div className="flex gap-2">
             <button
-              onClick={() => alert("Like functionality coming soon!")}
+              onClick={() => toastInfo("Coming Soon", "Like functionality is under development.")}
               className="px-4 py-2 text-sm text-gray-600 dark:text-gray-300 hover:text-primary transition-colors flex items-center gap-1"
             >
               <svg
@@ -716,9 +717,7 @@ function ResourceDetailModal({
             {!resource.url && (
               <button
                 onClick={() =>
-                  alert(
-                    `Opening "${resource.title}"...\n\nResource viewer coming soon!`,
-                  )
+                  toastInfo("Coming Soon", `Resource viewer for "${resource.title}" is under development.`)
                 }
                 className="px-4 py-2 bg-primary text-white text-sm rounded-lg hover:bg-primary-hover transition-colors flex items-center gap-1"
               >
@@ -785,17 +784,15 @@ export function CollaborationHub() {
 
   const handlePostNote = () => {
     if (!noteText.trim()) {
-      alert("Please enter a note before posting.");
+      toastWarning("Empty Note", "Please enter a note before posting.");
       return;
     }
-    alert(
-      `Note posted successfully!\n\nVisibility: ${noteVisibility}\nContent: ${noteText.substring(0, 100)}${noteText.length > 100 ? "..." : ""}\n\nNote posting to backend coming soon!`,
-    );
+    toastInfo("Coming Soon", "Note posting to backend is under development.");
     setNoteText("");
   };
 
   const handleAddResource = () => {
-    alert("Add new resource\n\nResource upload is coming soon!");
+    toastInfo("Coming Soon", "Resource upload is under development.");
   };
 
   return (

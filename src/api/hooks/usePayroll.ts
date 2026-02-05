@@ -506,7 +506,7 @@ export function useExportPayroll() {
       format,
     }: {
       periodId: string;
-      format: "csv" | "pdf" | "nacha";
+      format: "csv";
     }): Promise<Blob> => {
       const { data } = await apiClient.post(
         `/payroll/${periodId}/export`,
