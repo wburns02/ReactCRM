@@ -39,11 +39,11 @@ export function TestimonialsSection() {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-gray-50">
+    <section aria-labelledby="testimonials-heading" className="py-16 md:py-24 bg-gray-50">
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-mac-dark-blue mb-4">
+          <h2 id="testimonials-heading" className="text-3xl md:text-4xl font-bold text-mac-dark-blue mb-4">
             What Our Customers Say
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -52,7 +52,7 @@ export function TestimonialsSection() {
           </p>
           {/* Google Reviews badge */}
           <div className="inline-flex items-center gap-2 mt-4 bg-white px-4 py-2 rounded-full shadow-sm">
-            <svg className="w-5 h-5" viewBox="0 0 24 24">
+            <svg className="w-5 h-5" viewBox="0 0 24 24" aria-hidden="true">
               <path
                 fill="#4285F4"
                 d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z"
@@ -83,7 +83,7 @@ export function TestimonialsSection() {
               className="bg-white rounded-xl p-6 shadow-sm hover:shadow-md transition-shadow"
             >
               {/* Stars */}
-              <div className="flex gap-1 mb-4">
+              <div className="flex gap-1 mb-4" aria-hidden="true">
                 {[...Array(testimonial.rating)].map((_, i) => (
                   <svg
                     key={i}
@@ -94,6 +94,7 @@ export function TestimonialsSection() {
                   </svg>
                 ))}
               </div>
+              <span className="sr-only">{testimonial.rating} out of 5 stars</span>
 
               {/* Quote */}
               <p className="text-gray-700 mb-4 leading-relaxed">
@@ -129,7 +130,8 @@ export function TestimonialsSection() {
             className="inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-hover transition-colors"
           >
             Read all reviews on Google
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <span className="sr-only">(opens in new tab)</span>
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path d="M11 3a1 1 0 100 2h2.586l-6.293 6.293a1 1 0 101.414 1.414L15 6.414V9a1 1 0 102 0V4a1 1 0 00-1-1h-5z" />
               <path d="M5 5a2 2 0 00-2 2v8a2 2 0 002 2h8a2 2 0 002-2v-3a1 1 0 10-2 0v3H5V7h3a1 1 0 000-2H5z" />
             </svg>

@@ -115,13 +115,14 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
   // Success state
   if (isSuccess && bookingResult) {
     return (
-      <div className="bg-green-50 border-2 border-green-200 rounded-xl p-8 text-center">
+      <div className="bg-green-50 border-2 border-green-200 rounded-xl p-8 text-center" role="status">
         <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <svg
             className="w-8 h-8 text-green-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -200,43 +201,53 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
       )}
 
       {/* Booking Form */}
-      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
         {/* Name fields */}
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              First Name <span className="text-red-500">*</span>
+            <label htmlFor="book-first-name" className="block text-sm font-medium text-gray-700 mb-1.5">
+              First Name <span aria-hidden="true" className="text-red-500">*</span>
+              <span className="sr-only">(required)</span>
             </label>
             <input
               {...register("first_name")}
+              id="book-first-name"
               type="text"
               placeholder="John"
               autoComplete="given-name"
+              aria-required="true"
+              aria-invalid={!!errors.first_name}
+              aria-describedby={errors.first_name ? "book-first-name-error" : undefined}
               className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors ${
                 errors.first_name ? "border-red-500" : "border-gray-300"
               }`}
             />
             {errors.first_name && (
-              <p className="text-red-500 text-sm mt-1">
+              <p id="book-first-name-error" className="text-red-500 text-sm mt-1" role="alert">
                 {errors.first_name.message}
               </p>
             )}
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Last Name <span className="text-red-500">*</span>
+            <label htmlFor="book-last-name" className="block text-sm font-medium text-gray-700 mb-1.5">
+              Last Name <span aria-hidden="true" className="text-red-500">*</span>
+              <span className="sr-only">(required)</span>
             </label>
             <input
               {...register("last_name")}
+              id="book-last-name"
               type="text"
               placeholder="Smith"
               autoComplete="family-name"
+              aria-required="true"
+              aria-invalid={!!errors.last_name}
+              aria-describedby={errors.last_name ? "book-last-name-error" : undefined}
               className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors ${
                 errors.last_name ? "border-red-500" : "border-gray-300"
               }`}
             />
             {errors.last_name && (
-              <p className="text-red-500 text-sm mt-1">
+              <p id="book-last-name-error" className="text-red-500 text-sm mt-1" role="alert">
                 {errors.last_name.message}
               </p>
             )}
@@ -246,39 +257,47 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
         {/* Contact fields */}
         <div className="grid md:grid-cols-2 gap-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
-              Phone Number <span className="text-red-500">*</span>
+            <label htmlFor="book-phone" className="block text-sm font-medium text-gray-700 mb-1.5">
+              Phone Number <span aria-hidden="true" className="text-red-500">*</span>
+              <span className="sr-only">(required)</span>
             </label>
             <input
               {...register("phone")}
+              id="book-phone"
               type="tel"
               placeholder="(555) 123-4567"
               autoComplete="tel"
+              aria-required="true"
+              aria-invalid={!!errors.phone}
+              aria-describedby={errors.phone ? "book-phone-error" : undefined}
               className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors ${
                 errors.phone ? "border-red-500" : "border-gray-300"
               }`}
             />
             {errors.phone && (
-              <p className="text-red-500 text-sm mt-1">
+              <p id="book-phone-error" className="text-red-500 text-sm mt-1" role="alert">
                 {errors.phone.message}
               </p>
             )}
           </div>
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-1.5">
+            <label htmlFor="book-email" className="block text-sm font-medium text-gray-700 mb-1.5">
               Email Address
             </label>
             <input
               {...register("email")}
+              id="book-email"
               type="email"
               placeholder="john@example.com"
               autoComplete="email"
+              aria-invalid={!!errors.email}
+              aria-describedby={errors.email ? "book-email-error" : undefined}
               className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors ${
                 errors.email ? "border-red-500" : "border-gray-300"
               }`}
             />
             {errors.email && (
-              <p className="text-red-500 text-sm mt-1">
+              <p id="book-email-error" className="text-red-500 text-sm mt-1" role="alert">
                 {errors.email.message}
               </p>
             )}
@@ -287,11 +306,12 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
 
         {/* Service Address */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label htmlFor="book-address" className="block text-sm font-medium text-gray-700 mb-1.5">
             Service Address
           </label>
           <input
             {...register("service_address")}
+            id="book-address"
             type="text"
             placeholder="123 Main St, City, TX"
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
@@ -311,12 +331,13 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
 
         {/* Notes */}
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label htmlFor="book-notes" className="block text-sm font-medium text-gray-700 mb-1.5">
             Special Instructions{" "}
             <span className="text-gray-400 font-normal">(optional)</span>
           </label>
           <textarea
             {...register("notes")}
+            id="book-notes"
             rows={2}
             placeholder="Gate code, directions to tank, etc."
             className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors resize-none"
@@ -330,6 +351,9 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
               type="checkbox"
               {...register("overage_acknowledged")}
               id="overage_acknowledged"
+              aria-required="true"
+              aria-invalid={!!errors.overage_acknowledged}
+              aria-describedby={errors.overage_acknowledged ? "overage-error" : undefined}
               className="mt-1 w-5 h-5 text-primary border-gray-300 rounded focus:ring-primary"
             />
             <label
@@ -349,7 +373,7 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
             </label>
           </div>
           {errors.overage_acknowledged && (
-            <p className="text-red-500 text-sm mt-2">
+            <p id="overage-error" className="text-red-500 text-sm mt-2" role="alert">
               {errors.overage_acknowledged.message}
             </p>
           )}
@@ -360,11 +384,11 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
           <input
             type="checkbox"
             {...register("sms_consent")}
-            id="sms_consent"
+            id="book-sms-consent"
             className="mt-1 w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
           />
           <label
-            htmlFor="sms_consent"
+            htmlFor="book-sms-consent"
             className="text-sm text-gray-600 leading-tight"
           >
             I agree to receive SMS updates about my service appointment. Message
@@ -374,7 +398,7 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
 
         {/* Error message */}
         {isError && (
-          <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
+          <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center" role="alert">
             <p className="text-red-700 text-sm">
               {(error as Error)?.message ||
                 "Something went wrong. Please try again or call us directly at "}
@@ -393,7 +417,7 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
         >
           {isPending ? (
             <span className="flex items-center justify-center gap-2">
-              <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24">
+              <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24" aria-hidden="true">
                 <circle
                   className="opacity-25"
                   cx="12"
@@ -420,7 +444,7 @@ export function BookingForm({ testMode = true }: BookingFormProps) {
 
         {/* Security note */}
         <div className="flex items-center justify-center gap-2 text-xs text-gray-500">
-          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+          <svg className="w-4 h-4" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
             <path
               fillRule="evenodd"
               d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"

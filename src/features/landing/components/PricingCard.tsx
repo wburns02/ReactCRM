@@ -49,6 +49,7 @@ export function PricingCard({
             className="w-5 h-5 text-green-500 flex-shrink-0"
             fill="currentColor"
             viewBox="0 0 20 20"
+            aria-hidden="true"
           >
             <path
               fillRule="evenodd"
@@ -63,6 +64,7 @@ export function PricingCard({
             className="w-5 h-5 text-green-500 flex-shrink-0"
             fill="currentColor"
             viewBox="0 0 20 20"
+            aria-hidden="true"
           >
             <path
               fillRule="evenodd"
@@ -80,6 +82,7 @@ export function PricingCard({
             className="w-5 h-5 text-green-500 flex-shrink-0"
             fill="currentColor"
             viewBox="0 0 20 20"
+            aria-hidden="true"
           >
             <path
               fillRule="evenodd"
@@ -94,6 +97,7 @@ export function PricingCard({
             className="w-5 h-5 text-green-500 flex-shrink-0"
             fill="currentColor"
             viewBox="0 0 20 20"
+            aria-hidden="true"
           >
             <path
               fillRule="evenodd"
@@ -112,6 +116,7 @@ export function PricingCard({
             className="w-5 h-5 text-blue-500 flex-shrink-0 mt-0.5"
             fill="currentColor"
             viewBox="0 0 20 20"
+            aria-hidden="true"
           >
             <path
               fillRule="evenodd"

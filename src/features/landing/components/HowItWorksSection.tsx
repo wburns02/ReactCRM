@@ -6,7 +6,7 @@ export function HowItWorksSection() {
       description:
         "Fill out our quick form or call us directly. Tell us about your septic needs and we'll provide a free estimate.",
       icon: (
-        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
         </svg>
       ),
@@ -17,7 +17,7 @@ export function HowItWorksSection() {
       description:
         "We'll confirm your appointment quickly - often same-day or next-day service is available.",
       icon: (
-        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M19 3h-1V1h-2v2H8V1H6v2H5c-1.11 0-1.99.9-1.99 2L3 19c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm0 16H5V8h14v11zM9 10H7v2h2v-2zm4 0h-2v2h2v-2zm4 0h-2v2h2v-2z" />
         </svg>
       ),
@@ -28,7 +28,7 @@ export function HowItWorksSection() {
       description:
         "Our licensed technicians handle everything professionally. Relax knowing your septic system is in expert hands.",
       icon: (
-        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+        <svg className="w-8 h-8" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
           <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z" />
         </svg>
       ),
@@ -36,11 +36,11 @@ export function HowItWorksSection() {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section aria-labelledby="how-it-works-heading" className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-mac-dark-blue mb-4">
+          <h2 id="how-it-works-heading" className="text-3xl md:text-4xl font-bold text-mac-dark-blue mb-4">
             How It Works
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -86,7 +86,7 @@ export function HowItWorksSection() {
             className="inline-flex items-center gap-2 bg-cta hover:bg-cta-hover text-white px-8 py-4 rounded-lg font-semibold text-lg transition-all hover:scale-105 shadow-lg"
           >
             Get Started Now
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path
                 fillRule="evenodd"
                 d="M10.293 3.293a1 1 0 011.414 0l6 6a1 1 0 010 1.414l-6 6a1 1 0 01-1.414-1.414L14.586 11H3a1 1 0 110-2h11.586l-4.293-4.293a1 1 0 010-1.414z"

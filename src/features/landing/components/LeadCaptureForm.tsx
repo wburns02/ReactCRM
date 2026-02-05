@@ -85,13 +85,14 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
   // Success state
   if (isSuccess) {
     return (
-      <div className="bg-green-50 border-2 border-green-200 rounded-xl p-8 text-center">
+      <div className="bg-green-50 border-2 border-green-200 rounded-xl p-8 text-center" role="status">
         <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
           <svg
             className="w-8 h-8 text-green-600"
             fill="none"
             stroke="currentColor"
             viewBox="0 0 24 24"
+            aria-hidden="true"
           >
             <path
               strokeLinecap="round"
@@ -117,43 +118,53 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
+    <form onSubmit={handleSubmit(onSubmit)} className="space-y-5" noValidate>
       {/* Name fields */}
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
-            First Name <span className="text-red-500">*</span>
+          <label htmlFor="lead-first-name" className="block text-sm font-medium text-gray-700 mb-1.5">
+            First Name <span aria-hidden="true" className="text-red-500">*</span>
+            <span className="sr-only">(required)</span>
           </label>
           <input
             {...register("first_name")}
+            id="lead-first-name"
             type="text"
             placeholder="John"
             autoComplete="given-name"
+            aria-required="true"
+            aria-invalid={!!errors.first_name}
+            aria-describedby={errors.first_name ? "lead-first-name-error" : undefined}
             className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors ${
               errors.first_name ? "border-red-500" : "border-gray-300"
             }`}
           />
           {errors.first_name && (
-            <p className="text-red-500 text-sm mt-1">
+            <p id="lead-first-name-error" className="text-red-500 text-sm mt-1" role="alert">
               {errors.first_name.message}
             </p>
           )}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
-            Last Name <span className="text-red-500">*</span>
+          <label htmlFor="lead-last-name" className="block text-sm font-medium text-gray-700 mb-1.5">
+            Last Name <span aria-hidden="true" className="text-red-500">*</span>
+            <span className="sr-only">(required)</span>
           </label>
           <input
             {...register("last_name")}
+            id="lead-last-name"
             type="text"
             placeholder="Smith"
             autoComplete="family-name"
+            aria-required="true"
+            aria-invalid={!!errors.last_name}
+            aria-describedby={errors.last_name ? "lead-last-name-error" : undefined}
             className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors ${
               errors.last_name ? "border-red-500" : "border-gray-300"
             }`}
           />
           {errors.last_name && (
-            <p className="text-red-500 text-sm mt-1">
+            <p id="lead-last-name-error" className="text-red-500 text-sm mt-1" role="alert">
               {errors.last_name.message}
             </p>
           )}
@@ -163,48 +174,61 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
       {/* Contact fields */}
       <div className="grid md:grid-cols-2 gap-4">
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
-            Phone Number <span className="text-red-500">*</span>
+          <label htmlFor="lead-phone" className="block text-sm font-medium text-gray-700 mb-1.5">
+            Phone Number <span aria-hidden="true" className="text-red-500">*</span>
+            <span className="sr-only">(required)</span>
           </label>
           <input
             {...register("phone")}
+            id="lead-phone"
             type="tel"
             placeholder="(555) 123-4567"
             autoComplete="tel"
+            aria-required="true"
+            aria-invalid={!!errors.phone}
+            aria-describedby={errors.phone ? "lead-phone-error" : undefined}
             className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors ${
               errors.phone ? "border-red-500" : "border-gray-300"
             }`}
           />
           {errors.phone && (
-            <p className="text-red-500 text-sm mt-1">{errors.phone.message}</p>
+            <p id="lead-phone-error" className="text-red-500 text-sm mt-1" role="alert">{errors.phone.message}</p>
           )}
         </div>
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">
+          <label htmlFor="lead-email" className="block text-sm font-medium text-gray-700 mb-1.5">
             Email Address
           </label>
           <input
             {...register("email")}
+            id="lead-email"
             type="email"
             placeholder="john@example.com"
             autoComplete="email"
+            aria-invalid={!!errors.email}
+            aria-describedby={errors.email ? "lead-email-error" : undefined}
             className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors ${
               errors.email ? "border-red-500" : "border-gray-300"
             }`}
           />
           {errors.email && (
-            <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+            <p id="lead-email-error" className="text-red-500 text-sm mt-1" role="alert">{errors.email.message}</p>
           )}
         </div>
       </div>
 
       {/* Service type */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
-          Service Needed <span className="text-red-500">*</span>
+        <label htmlFor="lead-service-type" className="block text-sm font-medium text-gray-700 mb-1.5">
+          Service Needed <span aria-hidden="true" className="text-red-500">*</span>
+          <span className="sr-only">(required)</span>
         </label>
         <select
           {...register("service_type")}
+          id="lead-service-type"
+          aria-required="true"
+          aria-invalid={!!errors.service_type}
+          aria-describedby={errors.service_type ? "lead-service-type-error" : undefined}
           className={`w-full px-4 py-3 border rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors bg-white ${
             errors.service_type ? "border-red-500" : "border-gray-300"
           }`}
@@ -217,7 +241,7 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
           ))}
         </select>
         {errors.service_type && (
-          <p className="text-red-500 text-sm mt-1">
+          <p id="lead-service-type-error" className="text-red-500 text-sm mt-1" role="alert">
             {errors.service_type.message}
           </p>
         )}
@@ -236,12 +260,13 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
 
       {/* Address */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label htmlFor="lead-address" className="block text-sm font-medium text-gray-700 mb-1.5">
           Service Address{" "}
           <span className="text-gray-400 font-normal">(optional)</span>
         </label>
         <input
           {...register("address")}
+          id="lead-address"
           type="text"
           placeholder="123 Main St, City, TX"
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors"
@@ -250,12 +275,13 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
 
       {/* Message */}
       <div>
-        <label className="block text-sm font-medium text-gray-700 mb-1.5">
+        <label htmlFor="lead-message" className="block text-sm font-medium text-gray-700 mb-1.5">
           Additional Details{" "}
           <span className="text-gray-400 font-normal">(optional)</span>
         </label>
         <textarea
           {...register("message")}
+          id="lead-message"
           rows={3}
           placeholder="Tell us more about your septic needs..."
           className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-primary focus:border-primary transition-colors resize-none"
@@ -267,11 +293,11 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
         <input
           type="checkbox"
           {...register("sms_consent")}
-          id="sms_consent"
+          id="lead-sms-consent"
           className="mt-1 w-4 h-4 text-primary border-gray-300 rounded focus:ring-primary"
         />
         <label
-          htmlFor="sms_consent"
+          htmlFor="lead-sms-consent"
           className="text-sm text-gray-600 leading-tight"
         >
           I agree to receive SMS updates about my service request. Message and
@@ -281,7 +307,7 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
 
       {/* Error message */}
       {isError && (
-        <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center">
+        <div className="bg-red-50 border border-red-200 rounded-lg p-4 text-center" role="alert">
           <p className="text-red-700 text-sm">
             Something went wrong. Please try again or call us directly at{" "}
             <a href="tel:+19365641440" className="font-bold underline">
@@ -299,7 +325,7 @@ export function LeadCaptureForm({ utmParams }: LeadCaptureFormProps) {
       >
         {isPending ? (
           <span className="flex items-center justify-center gap-2">
-            <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24">
+            <svg className="animate-spin w-5 h-5" viewBox="0 0 24 24" aria-hidden="true">
               <circle
                 className="opacity-25"
                 cx="12"

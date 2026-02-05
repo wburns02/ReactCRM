@@ -9,7 +9,7 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
   const quoteUrl = `#quote${utmParams.utm_source ? `?utm_source=${utmParams.utm_source}` : ""}`;
 
   return (
-    <section className="relative bg-gradient-to-br from-mac-dark-blue via-mac-navy to-mac-dark-blue overflow-hidden">
+    <section aria-label="MAC Septic Services - Hero" className="relative bg-gradient-to-br from-mac-dark-blue via-mac-navy to-mac-dark-blue overflow-hidden">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-10">
         <div
@@ -31,14 +31,15 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
                   className="w-10 h-10 text-mac-dark-blue"
                   viewBox="0 0 24 24"
                   fill="currentColor"
+                  aria-hidden="true"
                 >
                   <path d="M19 8h-1V6c0-1.1-.9-2-2-2H8C6.9 4 6 4.9 6 6v2H5c-1.1 0-2 .9-2 2v5h2v5h14v-5h2v-5c0-1.1-.9-2-2-2zM8 6h8v2H8V6zm9 14H7v-3h10v3zm2-5H5v-3c0-.55.45-1 1-1h12c.55 0 1 .45 1 1v3z" />
                 </svg>
               </div>
               <div>
-                <h2 className="text-2xl font-bold tracking-tight">
+                <p className="text-2xl font-bold tracking-tight">
                   MAC Septic
-                </h2>
+                </p>
                 <p className="text-sm text-blue-200">Central Texas Experts</p>
               </div>
             </div>
@@ -74,6 +75,7 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
               </a>
               <a
                 href="tel:+19365641440"
+                aria-label="Call MAC Septic at (936) 564-1440"
                 className="bg-white/10 hover:bg-white/20 text-white px-8 py-4 rounded-lg font-semibold text-lg text-center border border-white/30 transition-all flex items-center justify-center gap-2"
               >
                 <svg
@@ -81,6 +83,7 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -96,7 +99,7 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
             {/* Trust badges row */}
             <div className="flex flex-wrap items-center gap-6 text-sm">
               <div className="flex items-center gap-2">
-                <div className="flex text-yellow-400">
+                <div className="flex text-yellow-400" aria-hidden="true">
                   {[1, 2, 3, 4, 5].map((i) => (
                     <svg
                       key={i}
@@ -107,7 +110,8 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
                     </svg>
                   ))}
                 </div>
-                <span className="text-white">
+                <span className="sr-only">Rated 4.9 out of 5 stars from 500+ reviews</span>
+                <span className="text-white" aria-hidden="true">
                   4.9 <span className="text-blue-200">(500+ reviews)</span>
                 </span>
               </div>
@@ -116,6 +120,7 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
                   className="w-5 h-5"
                   fill="currentColor"
                   viewBox="0 0 20 20"
+                  aria-hidden="true"
                 >
                   <path
                     fillRule="evenodd"
@@ -130,6 +135,7 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
                   className="w-5 h-5"
                   fill="currentColor"
                   viewBox="0 0 20 20"
+                  aria-hidden="true"
                 >
                   <path
                     fillRule="evenodd"
@@ -156,6 +162,7 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
                     className="w-48 h-48"
                     fill="currentColor"
                     viewBox="0 0 24 24"
+                    aria-hidden="true"
                   >
                     <path d="M20 8h-3V4H3c-1.1 0-2 .9-2 2v11h2c0 1.66 1.34 3 3 3s3-1.34 3-3h6c0 1.66 1.34 3 3 3s3-1.34 3-3h2v-5l-3-4zM6 18.5c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5zm13.5-9l1.96 2.5H17V9.5h2.5zm-1.5 9c-.83 0-1.5-.67-1.5-1.5s.67-1.5 1.5-1.5 1.5.67 1.5 1.5-.67 1.5-1.5 1.5z" />
                   </svg>
@@ -178,7 +185,7 @@ export function HeroSection({ utmParams }: HeroSectionProps) {
 
       {/* Bottom wave */}
       <div className="absolute bottom-0 left-0 right-0">
-        <svg viewBox="0 0 1440 120" fill="none" className="w-full h-auto">
+        <svg viewBox="0 0 1440 120" fill="none" className="w-full h-auto" aria-hidden="true">
           <path
             d="M0 120L60 110C120 100 240 80 360 70C480 60 600 60 720 65C840 70 960 80 1080 85C1200 90 1320 90 1380 90L1440 90V120H1380C1320 120 1200 120 1080 120C960 120 840 120 720 120C600 120 480 120 360 120C240 120 120 120 60 120H0Z"
             fill="white"

@@ -34,13 +34,14 @@ export function CTASection({ utmParams }: CTASectionProps) {
   return (
     <section
       id="quote"
+      aria-labelledby="cta-heading"
       className="py-16 md:py-24 bg-gradient-to-br from-mac-dark-blue to-mac-navy"
     >
       <div className="container mx-auto px-4">
         <div className="grid lg:grid-cols-2 gap-12 items-start max-w-6xl mx-auto">
           {/* Left: Content */}
           <div className="text-white">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 id="cta-heading" className="text-3xl md:text-4xl font-bold mb-6">
               {activeOption === "book"
                 ? "Ready to Book Your Service?"
                 : "Ready for Reliable Septic Service?"}
@@ -55,7 +56,7 @@ export function CTASection({ utmParams }: CTASectionProps) {
             <ul className="space-y-4 mb-8">
               {benefits.map((benefit, index) => (
                 <li key={index} className="flex items-center gap-3">
-                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center shrink-0">
+                  <div className="w-6 h-6 bg-green-500 rounded-full flex items-center justify-center shrink-0" aria-hidden="true">
                     <svg
                       className="w-4 h-4 text-white"
                       fill="currentColor"
@@ -78,12 +79,14 @@ export function CTASection({ utmParams }: CTASectionProps) {
               <h3 className="font-semibold mb-4">Prefer to call?</h3>
               <a
                 href="tel:+19365641440"
+                aria-label="Call MAC Septic at (936) 564-1440"
                 className="flex items-center gap-3 text-2xl font-bold hover:text-mac-light-blue transition-colors"
               >
                 <svg
                   className="w-8 h-8"
                   fill="currentColor"
                   viewBox="0 0 20 20"
+                  aria-hidden="true"
                 >
                   <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
                 </svg>

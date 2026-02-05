@@ -77,12 +77,21 @@ export function LandingPage() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <main className="min-h-screen bg-white">
+      {/* Skip to main content link for keyboard users */}
+      <a
+        href="#landing-content"
+        className="sr-only focus:not-sr-only focus:absolute focus:z-[200] focus:top-4 focus:left-4 focus:px-4 focus:py-2 focus:bg-mac-dark-blue focus:text-white focus:rounded-md focus:outline-none focus:ring-2 focus:ring-white focus:ring-offset-2"
+      >
+        Skip to main content
+      </a>
+
       {/* SEO Structured Data */}
       <SEOHead />
 
       {/* Hero Section */}
-      <HeroSection utmParams={utmParams} />
+      <div id="landing-content">
+        <HeroSection utmParams={utmParams} />
 
       {/* Trust Signals Bar */}
       <TrustSignals />
@@ -107,15 +116,17 @@ export function LandingPage() {
 
       {/* Footer */}
       <LandingFooter />
+      </div>
 
       {/* Sticky Mobile CTA */}
-      <div className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg p-4 md:hidden z-50">
+      <nav aria-label="Quick actions" className="fixed bottom-0 left-0 right-0 bg-white border-t shadow-lg p-4 md:hidden z-50">
         <div className="flex gap-3">
           <a
             href="tel:+19365641440"
+            aria-label="Call MAC Septic at (936) 564-1440"
             className="flex-1 bg-mac-dark-blue text-white py-3 px-4 rounded-lg font-semibold text-center flex items-center justify-center gap-2"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
             </svg>
             Call
@@ -127,10 +138,10 @@ export function LandingPage() {
             Get Quote
           </a>
         </div>
-      </div>
+      </nav>
 
       {/* Bottom padding for mobile sticky CTA */}
       <div className="h-20 md:hidden" />
-    </div>
+    </main>
   );
 }

@@ -37,11 +37,11 @@ export function FAQSection() {
   ];
 
   return (
-    <section className="py-16 md:py-24 bg-white">
+    <section aria-labelledby="faq-heading" className="py-16 md:py-24 bg-white">
       <div className="container mx-auto px-4">
         {/* Section header */}
         <div className="text-center mb-12">
-          <h2 className="text-3xl md:text-4xl font-bold text-mac-dark-blue mb-4">
+          <h2 id="faq-heading" className="text-3xl md:text-4xl font-bold text-mac-dark-blue mb-4">
             Frequently Asked Questions
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -52,45 +52,56 @@ export function FAQSection() {
 
         {/* FAQ accordion */}
         <div className="max-w-3xl mx-auto space-y-4">
-          {faqs.map((faq, index) => (
-            <div
-              key={index}
-              className="border border-gray-200 rounded-lg overflow-hidden"
-            >
-              <button
-                onClick={() => setOpenIndex(openIndex === index ? null : index)}
-                className="w-full flex items-center justify-between p-5 text-left bg-white hover:bg-gray-50 transition-colors"
-              >
-                <span className="font-semibold text-gray-900 pr-4">
-                  {faq.question}
-                </span>
-                <svg
-                  className={`w-5 h-5 text-gray-500 shrink-0 transition-transform ${
-                    openIndex === index ? "rotate-180" : ""
-                  }`}
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M19 9l-7 7-7-7"
-                  />
-                </svg>
-              </button>
+          {faqs.map((faq, index) => {
+            const isOpen = openIndex === index;
+            const buttonId = `faq-button-${index}`;
+            const panelId = `faq-panel-${index}`;
+
+            return (
               <div
-                className={`overflow-hidden transition-all duration-300 ${
-                  openIndex === index ? "max-h-96" : "max-h-0"
-                }`}
+                key={index}
+                className="border border-gray-200 rounded-lg overflow-hidden"
               >
-                <div className="p-5 pt-0 text-gray-600 leading-relaxed">
-                  {faq.answer}
+                <button
+                  id={buttonId}
+                  onClick={() => setOpenIndex(isOpen ? null : index)}
+                  aria-expanded={isOpen}
+                  aria-controls={panelId}
+                  className="w-full flex items-center justify-between p-5 text-left bg-white hover:bg-gray-50 transition-colors"
+                >
+                  <span className="font-semibold text-gray-900 pr-4">
+                    {faq.question}
+                  </span>
+                  <svg
+                    className={`w-5 h-5 text-gray-500 shrink-0 transition-transform ${
+                      isOpen ? "rotate-180" : ""
+                    }`}
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M19 9l-7 7-7-7"
+                    />
+                  </svg>
+                </button>
+                <div
+                  id={panelId}
+                  role="region"
+                  aria-labelledby={buttonId}
+                  hidden={!isOpen}
+                >
+                  <div className="p-5 pt-0 text-gray-600 leading-relaxed">
+                    {faq.answer}
+                  </div>
                 </div>
               </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
 
         {/* Still have questions */}
@@ -98,9 +109,10 @@ export function FAQSection() {
           <p className="text-gray-600 mb-4">Still have questions?</p>
           <a
             href="tel:+19365641440"
+            aria-label="Call MAC Septic at (936) 564-1440"
             className="inline-flex items-center gap-2 text-primary font-semibold hover:text-primary-hover transition-colors"
           >
-            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+            <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" aria-hidden="true">
               <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
             </svg>
             Call us at (936) 564-1440

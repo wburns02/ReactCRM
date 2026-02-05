@@ -23,12 +23,12 @@
   /* ============================================
      COLORS - UI Semantic
      ============================================ */
-  --color-primary: #0091ae;
-  --color-primary-hover: #007a92;
+  --color-primary: #007189;
+  --color-primary-hover: #005f73;
   --color-primary-light: #e6f4f7;
 
-  --color-cta: #ff7a59;
-  --color-cta-hover: #ff5a2e;
+  --color-cta: #c74b20;
+  --color-cta-hover: #a83d18;
 
   --color-success: #198754;
   --color-success-light: #d1e7dd;
@@ -65,7 +65,7 @@
   --color-text-primary: #33475b;
   --color-text-secondary: #6c757d;
   --color-text-muted: #9ca3af;
-  --color-text-link: #0091ae;
+  --color-text-link: #007189;
 
   /* ============================================
      COLORS - Status (Work Orders)
