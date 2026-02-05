@@ -1,4 +1,5 @@
 import { create } from "zustand";
+import { useMemo } from "react";
 import type { Vehicle, VehicleStatus } from "../types.ts";
 
 export type MapStyle = "streets" | "dark" | "satellite";
@@ -68,23 +69,23 @@ export const useFleetStore = create<FleetState>((set) => ({
 }));
 
 /**
- * Selector: get filtered vehicles
+ * Selector: get filtered vehicles.
+ * Uses separate subscriptions + useMemo to avoid new array refs on unrelated state changes.
  */
-export function useFilteredVehicles() {
-  return useFleetStore((state) => {
-    let vehicles = state.vehicles;
+export function useFilteredVehicles(): Vehicle[] {
+  const vehicles = useFleetStore((s) => s.vehicles);
+  const filters = useFleetStore((s) => s.filters);
 
-    // Filter by status
-    if (state.filters.status.length > 0) {
-      vehicles = vehicles.filter((v) =>
-        state.filters.status.includes(v.status),
-      );
+  return useMemo(() => {
+    let result = vehicles;
+
+    if (filters.status.length > 0) {
+      result = result.filter((v) => filters.status.includes(v.status));
     }
 
-    // Filter by search
-    if (state.filters.search) {
-      const query = state.filters.search.toLowerCase();
-      vehicles = vehicles.filter(
+    if (filters.search) {
+      const query = filters.search.toLowerCase();
+      result = result.filter(
         (v) =>
           v.name.toLowerCase().includes(query) ||
           v.vin?.toLowerCase().includes(query) ||
@@ -92,31 +93,39 @@ export function useFilteredVehicles() {
       );
     }
 
-    return vehicles;
-  });
+    return result;
+  }, [vehicles, filters]);
 }
 
 /**
- * Selector: get selected vehicle
+ * Selector: get selected vehicle.
+ * Only recomputes when vehicles or selectedVehicleId changes.
  */
-export function useSelectedVehicle() {
-  return useFleetStore((state) =>
-    state.vehicles.find((v) => v.id === state.selectedVehicleId) ?? null,
-  );
+export function useSelectedVehicle(): Vehicle | null {
+  const vehicles = useFleetStore((s) => s.vehicles);
+  const selectedVehicleId = useFleetStore((s) => s.selectedVehicleId);
+
+  return useMemo(() => {
+    if (!selectedVehicleId) return null;
+    return vehicles.find((v) => v.id === selectedVehicleId) ?? null;
+  }, [vehicles, selectedVehicleId]);
 }
 
 /**
- * Selector: get vehicle status counts
+ * Selector: get vehicle status counts.
+ * Only recomputes when vehicles change, returns stable object via useMemo.
  */
 export function useVehicleStatusCounts() {
-  return useFleetStore((state) => {
+  const vehicles = useFleetStore((s) => s.vehicles);
+
+  return useMemo(() => {
     const counts = { total: 0, moving: 0, idling: 0, stopped: 0, offline: 0 };
-    for (const v of state.vehicles) {
+    for (const v of vehicles) {
       counts.total++;
       if (v.status in counts) {
         counts[v.status as keyof typeof counts]++;
       }
     }
     return counts;
-  });
+  }, [vehicles]);
 }

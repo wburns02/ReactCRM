@@ -9,7 +9,11 @@ import Map, {
   type MapRef,
 } from "react-map-gl/maplibre";
 import "maplibre-gl/dist/maplibre-gl.css";
-import { useFleetStore, useFilteredVehicles, useSelectedVehicle } from "../stores/fleetStore.ts";
+import {
+  useFleetStore,
+  useFilteredVehicles,
+  useSelectedVehicle,
+} from "../stores/fleetStore.ts";
 import { useVehicleHistory } from "../api.ts";
 import { VehicleInfoPopup } from "./VehicleInfoPopup.tsx";
 import { VEHICLE_STATUS_COLORS } from "../types.ts";
@@ -119,17 +123,20 @@ export function FleetMap({ height = "100%" }: FleetMapProps) {
   const vehicles = useFilteredVehicles();
   const selectedVehicle = useSelectedVehicle();
   const selectVehicle = useFleetStore((s) => s.selectVehicle);
+  const selectedVehicleId = useFleetStore((s) => s.selectedVehicleId);
   const mapStyle = useFleetStore((s) => s.mapStyle);
   const showTrails = useFleetStore((s) => s.showTrails);
   const [showPopup, setShowPopup] = useState(false);
   const [mapLoaded, setMapLoaded] = useState(false);
+  const initialFitDone = useRef(false);
+  const prevSelectedIdRef = useRef<string | null>(null);
 
   const { data: history } = useVehicleHistory(
-    showTrails ? selectedVehicle?.id : undefined,
+    showTrails && selectedVehicleId ? selectedVehicleId : undefined,
     1,
   );
 
-  // Fit bounds to all vehicles on initial load
+  // Fit bounds to all vehicles
   const fitBounds = useCallback(() => {
     if (!mapRef.current || vehicles.length === 0) return;
 
@@ -159,18 +166,23 @@ export function FleetMap({ height = "100%" }: FleetMapProps) {
     });
   }, [vehicles]);
 
-  // Fit bounds on first data load
+  // Fit bounds on first data load only
   useEffect(() => {
-    if (mapLoaded && vehicles.length > 0) {
+    if (mapLoaded && vehicles.length > 0 && !initialFitDone.current) {
+      initialFitDone.current = true;
       fitBounds();
     }
-    // Only run on initial load
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [mapLoaded, vehicles.length > 0]);
+  }, [mapLoaded, vehicles.length, fitBounds]);
 
-  // Fly to selected vehicle
+  // Fly to selected vehicle — only when selection ID changes
   useEffect(() => {
-    if (!mapRef.current || !selectedVehicle) return;
+    if (prevSelectedIdRef.current === selectedVehicleId) return;
+    prevSelectedIdRef.current = selectedVehicleId;
+
+    if (!mapRef.current || !selectedVehicle) {
+      setShowPopup(false);
+      return;
+    }
 
     mapRef.current.flyTo({
       center: [selectedVehicle.location.lng, selectedVehicle.location.lat],
@@ -178,7 +190,7 @@ export function FleetMap({ height = "100%" }: FleetMapProps) {
       duration: 800,
     });
     setShowPopup(true);
-  }, [selectedVehicle]);
+  }, [selectedVehicleId, selectedVehicle]);
 
   // Draw history trail
   useEffect(() => {
@@ -253,7 +265,6 @@ export function FleetMap({ height = "100%" }: FleetMapProps) {
     >
       <Map
         ref={mapRef}
-        mapLib={maplibregl}
         mapStyle={MAP_STYLES[mapStyle]}
         initialViewState={{
           longitude: -84.0,
