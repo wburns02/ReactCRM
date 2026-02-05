@@ -377,7 +377,7 @@ export function PaymentHistory({
                           )}
                         </div>
                         <p className="text-sm text-text-secondary">
-                          {new Date(payment.payment_date).toLocaleDateString(
+                          {new Date(payment.payment_date || payment.created_at || "").toLocaleDateString(
                             "en-US",
                             {
                               month: "short",

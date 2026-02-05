@@ -237,7 +237,7 @@ export function RefundProcessor({
             <div>
               <p className="text-xs text-text-muted">Date</p>
               <p className="text-sm">
-                {new Date(payment.payment_date).toLocaleDateString()}
+                {new Date(payment.payment_date || payment.created_at || "").toLocaleDateString()}
               </p>
             </div>
           </div>

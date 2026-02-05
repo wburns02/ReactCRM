@@ -342,6 +342,7 @@ export function PaymentsPage() {
                 onPageChange={handlePageChange}
                 onEdit={handleEdit}
                 onDelete={handleDelete}
+                onRowClick={handleEdit}
               />
             </CardContent>
           </Card>

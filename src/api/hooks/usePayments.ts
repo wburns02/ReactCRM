@@ -164,9 +164,11 @@ export function usePaymentStats() {
       const firstDayOfMonth = new Date(now.getFullYear(), now.getMonth(), 1);
 
       payments.forEach((payment) => {
+        const amount = Number(payment.amount) || 0;
+
         // Total received (completed payments)
         if (payment.status === "completed") {
-          stats.totalReceived += payment.amount;
+          stats.totalReceived += amount;
           stats.completed++;
         }
 
@@ -181,9 +183,12 @@ export function usePaymentStats() {
         }
 
         // This month's payments
-        const paymentDate = new Date(payment.payment_date);
-        if (paymentDate >= firstDayOfMonth && payment.status === "completed") {
-          stats.thisMonth += payment.amount;
+        const dateStr = payment.payment_date || payment.created_at;
+        if (dateStr) {
+          const paymentDate = new Date(dateStr);
+          if (paymentDate >= firstDayOfMonth && payment.status === "completed") {
+            stats.thisMonth += amount;
+          }
         }
       });
 

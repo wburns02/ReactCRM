@@ -45,7 +45,7 @@ export const PAYMENT_STATUS_LABELS: Record<PaymentStatus, string> = {
  * Payment schema - validates API responses
  */
 export const paymentSchema = z.object({
-  id: z.string(),
+  id: z.union([z.string(), z.number()]).transform(String),
   invoice_id: z.string().nullable().optional(),
   customer_id: z
     .union([z.string(), z.number()])
@@ -63,15 +63,16 @@ export const paymentSchema = z.object({
     })
     .nullable()
     .optional(),
-  amount: z.number(),
+  amount: z.union([z.number(), z.string().transform(Number)]),
   payment_method: paymentMethodSchema,
   status: paymentStatusSchema,
   transaction_id: z.string().nullable().optional(),
   reference_number: z.string().nullable().optional(),
   notes: z.string().nullable().optional(),
-  payment_date: z.string(),
-  created_at: z.string().nullable(),
-  updated_at: z.string().nullable(),
+  description: z.string().nullable().optional(),
+  payment_date: z.string().nullable().optional(),
+  created_at: z.string().nullable().optional(),
+  updated_at: z.string().nullable().optional(),
 });
 
 export type Payment = z.infer<typeof paymentSchema>;

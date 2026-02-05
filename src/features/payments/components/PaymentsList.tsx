@@ -18,6 +18,7 @@ interface PaymentsListProps {
   onPageChange: (page: number) => void;
   onEdit?: (payment: Payment) => void;
   onDelete?: (payment: Payment) => void;
+  onRowClick?: (payment: Payment) => void;
 }
 
 /**
@@ -52,6 +53,7 @@ export function PaymentsList({
   onPageChange,
   onEdit,
   onDelete,
+  onRowClick,
 }: PaymentsListProps) {
   const totalPages = Math.ceil(total / pageSize);
   const startItem = (page - 1) * pageSize + 1;
@@ -130,8 +132,15 @@ export function PaymentsList({
             {payments.map((payment) => (
               <tr
                 key={payment.id}
-                className="hover:bg-bg-hover transition-colors"
+                className="hover:bg-bg-hover transition-colors cursor-pointer"
                 tabIndex={0}
+                onClick={() => onRowClick?.(payment)}
+                onKeyDown={(e) => {
+                  if (e.key === "Enter" || e.key === " ") {
+                    e.preventDefault();
+                    onRowClick?.(payment);
+                  }
+                }}
               >
                 <td className="px-4 py-3">
                   <div>
@@ -139,7 +148,9 @@ export function PaymentsList({
                       {payment.customer_name ||
                         (payment.customer
                           ? `${payment.customer.first_name} ${payment.customer.last_name}`
-                          : `Customer #${payment.customer_id}`)}
+                          : payment.customer_id
+                            ? `Customer #${payment.customer_id}`
+                            : "Clover POS Payment")}
                     </p>
                     {payment.customer?.email && (
                       <p className="text-sm text-text-secondary">
@@ -153,6 +164,7 @@ export function PaymentsList({
                     <Link
                       to={`/invoices/${payment.invoice_id}`}
                       className="text-text-link hover:underline text-sm"
+                      onClick={(e) => e.stopPropagation()}
                     >
                       View Invoice
                     </Link>
@@ -162,7 +174,7 @@ export function PaymentsList({
                 </td>
                 <td className="px-4 py-3 text-right">
                   <span className="font-semibold text-text-primary">
-                    {formatCurrency(payment.amount)}
+                    {formatCurrency(Number(payment.amount) || 0)}
                   </span>
                 </td>
                 <td className="px-4 py-3">
@@ -174,7 +186,7 @@ export function PaymentsList({
                   </Badge>
                 </td>
                 <td className="px-4 py-3 text-sm text-text-secondary">
-                  {formatDate(payment.payment_date)}
+                  {formatDate(payment.payment_date || payment.created_at)}
                 </td>
                 <td className="px-4 py-3 text-right">
                   <div className="flex justify-end gap-2">
@@ -182,7 +194,10 @@ export function PaymentsList({
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => onEdit(payment)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onEdit(payment);
+                        }}
                         aria-label="Edit payment"
                       >
                         Edit
@@ -192,7 +207,10 @@ export function PaymentsList({
                       <Button
                         variant="ghost"
                         size="sm"
-                        onClick={() => onDelete(payment)}
+                        onClick={(e) => {
+                          e.stopPropagation();
+                          onDelete(payment);
+                        }}
                         aria-label="Delete payment"
                         className="text-danger hover:text-danger"
                       >
