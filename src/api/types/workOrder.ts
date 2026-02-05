@@ -150,7 +150,7 @@ export interface WorkOrderFilters {
  * Create/update work order request
  */
 export const workOrderFormSchema = z.object({
-  customer_id: z.coerce.number().min(1, "Customer is required"),
+  customer_id: z.string().min(1, "Customer is required"),
   job_type: jobTypeSchema,
   status: workOrderStatusSchema.default("draft"),
   priority: prioritySchema.default("normal"),

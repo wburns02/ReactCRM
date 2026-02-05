@@ -46,7 +46,7 @@ export interface SurveyQuestion {
 export interface SurveyResponse {
   id: number;
   survey_id: number;
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   score?: number;
   feedback?: string;
@@ -148,7 +148,7 @@ const sampleResponses: SurveyResponse[] = [
   {
     id: 1,
     survey_id: 1,
-    customer_id: 1,
+    customer_id: "1",
     customer_name: "Acme Corp",
     score: 9,
     feedback: "Great service!",
@@ -158,7 +158,7 @@ const sampleResponses: SurveyResponse[] = [
   {
     id: 2,
     survey_id: 1,
-    customer_id: 2,
+    customer_id: "2",
     customer_name: "TechStart Inc",
     score: 7,
     feedback: "Good but room for improvement",
@@ -168,7 +168,7 @@ const sampleResponses: SurveyResponse[] = [
   {
     id: 3,
     survey_id: 1,
-    customer_id: 3,
+    customer_id: "3",
     customer_name: "Global Services",
     score: 4,
     feedback: "Had issues with support",
@@ -178,7 +178,7 @@ const sampleResponses: SurveyResponse[] = [
   {
     id: 4,
     survey_id: 1,
-    customer_id: 4,
+    customer_id: "4",
     customer_name: "Local Business Co",
     score: 10,
     feedback: "Absolutely love it!",

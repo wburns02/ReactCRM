@@ -68,14 +68,14 @@ export interface SMSStats {
 export interface SendSMSRequest {
   to_phone: string;
   message: string;
-  customer_id?: number;
+  customer_id?: string;
   work_order_id?: string;
   template_id?: string;
   template_variables?: Record<string, string>;
 }
 
 export interface SMSConversation {
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   customer_phone: string;
   last_message: string;

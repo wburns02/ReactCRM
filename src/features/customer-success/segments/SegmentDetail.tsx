@@ -432,7 +432,7 @@ export function SegmentDetail({
 interface MembersTabProps {
   members: Array<{
     id: number;
-    customer_id: number;
+    customer_id: string;
     customer_name: string;
     email: string;
     health_score: number | null;

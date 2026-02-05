@@ -65,7 +65,7 @@ export interface ContentSuggestion {
 }
 
 export interface CustomerInsight {
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   risk_level: "low" | "medium" | "high" | "critical";
   engagement_trend: "improving" | "stable" | "declining";

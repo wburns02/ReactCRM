@@ -17,7 +17,7 @@ export interface ServiceInterval {
 
 export interface CustomerServiceSchedule {
   id: string;
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   service_interval_id: string;
   service_interval_name: string;
@@ -33,7 +33,7 @@ export interface CustomerServiceSchedule {
 export interface ServiceReminder {
   id: string;
   customer_service_schedule_id: string;
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   customer_phone?: string;
   customer_email?: string;
@@ -78,11 +78,11 @@ export const serviceIntervalKeys = {
     [...serviceIntervalKeys.lists(), filters] as const,
   detail: (id: string) => [...serviceIntervalKeys.all, "detail", id] as const,
   schedules: () => [...serviceIntervalKeys.all, "schedules"] as const,
-  schedule: (filters?: { status?: string; customer_id?: number }) =>
+  schedule: (filters?: { status?: string; customer_id?: string }) =>
     [...serviceIntervalKeys.schedules(), filters] as const,
   reminders: () => [...serviceIntervalKeys.all, "reminders"] as const,
   stats: () => [...serviceIntervalKeys.all, "stats"] as const,
-  customerSchedule: (customerId: number) =>
+  customerSchedule: (customerId: string) =>
     [...serviceIntervalKeys.all, "customer", customerId] as const,
 };
 
@@ -183,7 +183,7 @@ export function useDeleteServiceInterval() {
  */
 export function useCustomerServiceSchedules(filters?: {
   status?: string;
-  customer_id?: number;
+  customer_id?: string;
   limit?: number;
 }) {
   return useQuery({
@@ -215,7 +215,7 @@ export function useCustomerServiceSchedules(filters?: {
  * Get schedules for a specific customer
  * Returns empty array if endpoint not implemented (404)
  */
-export function useCustomerSchedule(customerId: number) {
+export function useCustomerSchedule(customerId: string) {
   return useQuery({
     queryKey: serviceIntervalKeys.customerSchedule(customerId),
     queryFn: async (): Promise<CustomerServiceSchedule[]> => {
@@ -238,7 +238,7 @@ export function useAssignServiceInterval() {
 
   return useMutation({
     mutationFn: async (params: {
-      customer_id: number;
+      customer_id: string;
       service_interval_id: string;
       last_service_date?: string;
       notes?: string;

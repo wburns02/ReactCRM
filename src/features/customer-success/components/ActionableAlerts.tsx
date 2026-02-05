@@ -24,7 +24,7 @@ import {
 
 interface ActionableAlertsProps {
   filters?: DetractorQueueFilters;
-  onViewCustomer?: (customerId: number) => void;
+  onViewCustomer?: (customerId: string) => void;
   className?: string;
 }
 
@@ -126,7 +126,7 @@ interface AlertCardProps {
   alert: DetractorAlert;
   onDismiss: (alertId: number, reason?: string) => void;
   onCreateAction: (alert: DetractorAlert, actionType: SurveyActionType) => void;
-  onViewCustomer?: (customerId: number) => void;
+  onViewCustomer?: (customerId: string) => void;
   isDismissing: boolean;
 }
 

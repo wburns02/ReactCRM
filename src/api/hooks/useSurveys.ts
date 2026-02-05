@@ -73,7 +73,7 @@ export interface SurveyQuestion {
 export interface SurveyResponse {
   id: number;
   survey_id: number;
-  customer_id: number;
+  customer_id: string;
   customer_name?: string;
   overall_score?: number;
   sentiment?: Sentiment;
@@ -151,7 +151,7 @@ export interface AIInsight {
   severity: UrgencyLevel;
   title: string;
   description: string;
-  customer_id?: number;
+  customer_id?: string;
   customer_name?: string;
   response_id?: number;
   score?: number;
@@ -179,7 +179,7 @@ export interface ThemeAnalysis {
 }
 
 export interface ChurnRiskIndicator {
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   risk_score: number;
   risk_level: "high" | "medium" | "low";
@@ -195,7 +195,7 @@ export interface CompetitorMention {
 
 export interface ActionRecommendation {
   action_type: "callback" | "ticket" | "offer" | "appointment" | "email";
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   priority: UrgencyLevel;
   reason: string;
@@ -206,7 +206,7 @@ export interface DetractorQueueItem {
   response_id: number;
   survey_id: number;
   survey_name: string;
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   score: number;
   feedback: string;

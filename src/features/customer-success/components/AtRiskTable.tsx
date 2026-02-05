@@ -11,7 +11,7 @@ import type { HealthStatus, ScoreTrend } from "@/api/types/customerSuccess.ts";
 
 interface AtRiskCustomer {
   id: number;
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   overall_score: number;
   status: HealthStatus;

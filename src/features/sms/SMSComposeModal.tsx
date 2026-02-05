@@ -15,7 +15,7 @@ interface SMSComposeModalProps {
   open: boolean;
   onClose: () => void;
   defaultPhone?: string;
-  customerId?: number;
+  customerId?: string;
   workOrderId?: string;
   customerName?: string;
 }

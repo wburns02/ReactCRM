@@ -785,7 +785,7 @@ export interface CSOverview {
 }
 
 export interface AtRiskCustomer {
-  customer_id: number;
+  customer_id: string;
   overall_score: number;
   health_status: HealthStatus;
   churn_probability: number | null;
@@ -805,7 +805,7 @@ export interface TaskSummary {
 // ============================================
 
 export interface HealthScoreFormData {
-  customer_id: number;
+  customer_id: string;
   overall_score?: number;
   health_status?: HealthStatus;
   product_adoption_score?: number;
@@ -859,7 +859,7 @@ export interface PlaybookFormData {
 }
 
 export interface CSTaskFormData {
-  customer_id: number;
+  customer_id: string;
   title: string;
   description?: string;
   task_type: TaskType;
@@ -876,7 +876,7 @@ export interface CSTaskFormData {
 }
 
 export interface TouchpointFormData {
-  customer_id: number;
+  customer_id: string;
   touchpoint_type: TouchpointType;
   subject?: string;
   summary?: string;

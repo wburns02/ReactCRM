@@ -120,7 +120,7 @@ function calculateRetryDelay(retries: number): number {
 function workOrderToCache(wo: WorkOrder): CachedWorkOrder {
   return {
     id: wo.id,
-    customer_id: parseInt(String(wo.customer_id), 10),
+    customer_id: String(wo.customer_id),
     job_type: wo.job_type,
     status: wo.status,
     priority: wo.priority,

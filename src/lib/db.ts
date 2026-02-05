@@ -112,7 +112,7 @@ export interface CachedCustomer {
 
 export interface CachedWorkOrder {
   id: string;
-  customer_id: number;
+  customer_id: string;
   job_type: string;
   status: string;
   priority?: string;
@@ -120,7 +120,7 @@ export interface CachedWorkOrder {
   time_window_start?: string;
   time_window_end?: string;
   estimated_duration_hours?: number;
-  technician_id?: number;
+  technician_id?: string;
   assigned_technician?: string;
   assigned_vehicle?: string;
   service_address_line1?: string;

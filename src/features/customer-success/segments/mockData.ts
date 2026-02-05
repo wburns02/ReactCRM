@@ -439,7 +439,7 @@ export const mockSegments: Segment[] = [...systemSegments, ...userSegments];
 
 export interface SegmentMember {
   id: number;
-  customer_id: number;
+  customer_id: string;
   segment_id: number;
   customer_name: string;
   email: string;
@@ -458,7 +458,7 @@ export const mockSegmentMembers: Record<number, SegmentMember[]> = {
   1: [
     {
       id: 1,
-      customer_id: 101,
+      customer_id: "101",
       segment_id: 1,
       customer_name: "Sarah Johnson",
       email: "sarah.johnson@techcorp.com",
@@ -473,7 +473,7 @@ export const mockSegmentMembers: Record<number, SegmentMember[]> = {
     },
     {
       id: 2,
-      customer_id: 102,
+      customer_id: "102",
       segment_id: 1,
       customer_name: "Robert Chen",
       email: "robert@industrialco.com",
@@ -488,7 +488,7 @@ export const mockSegmentMembers: Record<number, SegmentMember[]> = {
     },
     {
       id: 3,
-      customer_id: 103,
+      customer_id: "103",
       segment_id: 1,
       customer_name: "Emily Davis",
       email: "emily@hoameadows.org",
@@ -506,7 +506,7 @@ export const mockSegmentMembers: Record<number, SegmentMember[]> = {
   2: [
     {
       id: 4,
-      customer_id: 201,
+      customer_id: "201",
       segment_id: 2,
       customer_name: "Mike Thompson",
       email: "mike.t@startup.io",
@@ -521,7 +521,7 @@ export const mockSegmentMembers: Record<number, SegmentMember[]> = {
     },
     {
       id: 5,
-      customer_id: 202,
+      customer_id: "202",
       segment_id: 2,
       customer_name: "Lisa Wilson",
       email: "lisa@wilsonhome.com",
@@ -538,7 +538,7 @@ export const mockSegmentMembers: Record<number, SegmentMember[]> = {
   102: [
     {
       id: 6,
-      customer_id: 301,
+      customer_id: "301",
       segment_id: 102,
       customer_name: "James Morrison",
       email: "james@morrisongroup.com",
@@ -553,7 +553,7 @@ export const mockSegmentMembers: Record<number, SegmentMember[]> = {
     },
     {
       id: 7,
-      customer_id: 302,
+      customer_id: "302",
       segment_id: 102,
       customer_name: "Patricia Hayes",
       email: "patricia@hayesproperties.com",

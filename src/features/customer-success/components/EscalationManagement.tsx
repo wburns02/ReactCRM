@@ -33,7 +33,7 @@ export interface Escalation {
   id: number;
   title: string;
   description: string;
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   type: EscalationType;
   priority: EscalationPriority;
@@ -76,7 +76,7 @@ const sampleEscalations: Escalation[] = [
     id: 1,
     title: "Critical production outage",
     description: "Customer experiencing complete system unavailability",
-    customer_id: 1,
+    customer_id: "1",
     customer_name: "Acme Corp",
     type: "technical",
     priority: "critical",
@@ -120,7 +120,7 @@ const sampleEscalations: Escalation[] = [
     id: 2,
     title: "Billing discrepancy - overcharge",
     description: "Customer claims they were charged twice for last month",
-    customer_id: 2,
+    customer_id: "2",
     customer_name: "TechStart Inc",
     type: "billing",
     priority: "high",
@@ -137,7 +137,7 @@ const sampleEscalations: Escalation[] = [
     id: 3,
     title: "Executive sponsor requesting meeting",
     description: "VP of Operations wants to discuss contract renewal terms",
-    customer_id: 3,
+    customer_id: "3",
     customer_name: "Global Services",
     type: "executive",
     priority: "high",
@@ -153,7 +153,7 @@ const sampleEscalations: Escalation[] = [
     id: 4,
     title: "Customer considering cancellation",
     description: "Long-term customer mentioned switching to competitor",
-    customer_id: 4,
+    customer_id: "4",
     customer_name: "Regional Solutions",
     type: "retention",
     priority: "critical",
@@ -170,7 +170,7 @@ const sampleEscalations: Escalation[] = [
     id: 5,
     title: "Service quality complaint",
     description: "Multiple missed appointments in the past month",
-    customer_id: 5,
+    customer_id: "5",
     customer_name: "Local Business Co",
     type: "service",
     priority: "medium",

@@ -48,7 +48,7 @@ export interface ComplianceForm {
   template_id: string;
   template_name: string;
   work_order_id?: string;
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   property_address: string;
   status: "draft" | "completed" | "submitted" | "approved" | "rejected";
@@ -266,7 +266,7 @@ export function useCreateComplianceForm() {
   return useMutation({
     mutationFn: async (params: {
       template_id: string;
-      customer_id: number;
+      customer_id: string;
       work_order_id?: string;
       property_address: string;
     }): Promise<ComplianceForm> => {

@@ -105,8 +105,8 @@ interface RequiredPhoto {
 // ============================================================================
 
 interface CustomerSelectProps {
-  value: number;
-  onChange: (value: number) => void;
+  value: string;
+  onChange: (value: string) => void;
   disabled?: boolean;
   error?: string;
 }
@@ -139,7 +139,7 @@ function CustomerSelect({
   }, [customers, searchQuery]);
 
   const selectedCustomer = useMemo(
-    () => customers.find((c) => Number(c.id) === value),
+    () => customers.find((c) => String(c.id) === String(value)),
     [customers, value],
   );
 
@@ -188,10 +188,10 @@ function CustomerSelect({
                   type="button"
                   className={cn(
                     "w-full px-4 py-2 text-left hover:bg-bg-hover",
-                    Number(customer.id) === value && "bg-primary/10",
+                    String(customer.id) === String(value) && "bg-primary/10",
                   )}
                   onClick={() => {
-                    onChange(Number(customer.id));
+                    onChange(String(customer.id));
                     setSearchQuery("");
                     setIsOpen(false);
                   }}
@@ -426,7 +426,7 @@ export function WorkOrderEditModal({
     resolver: zodResolver(workOrderFormSchema) as any,
     defaultValues: workOrder
       ? {
-          customer_id: Number(workOrder.customer_id),
+          customer_id: String(workOrder.customer_id),
           job_type: workOrder.job_type as JobType,
           status: workOrder.status as WorkOrderStatus,
           priority: workOrder.priority as Priority,
@@ -445,7 +445,7 @@ export function WorkOrderEditModal({
           notes: workOrder.notes || "",
         }
       : {
-          customer_id: 0,
+          customer_id: "",
           job_type: "pumping" as JobType,
           status: "draft" as WorkOrderStatus,
           priority: "normal" as Priority,
@@ -610,7 +610,7 @@ export function WorkOrderEditModal({
   // Get customer info for child components
   const { data: customersData } = useCustomers({ page: 1, page_size: 200 });
   const selectedCustomer = customersData?.items?.find(
-    (c) => Number(c.id) === customerId,
+    (c) => String(c.id) === String(customerId),
   );
 
   // Sample activity log for history tab (would come from API in production)
@@ -638,7 +638,7 @@ export function WorkOrderEditModal({
           </div>
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <form onSubmit={handleSubmit(handleFormSubmit as any)}>
           <DialogBody className="p-0">
             <Tabs
               value={activeTab}

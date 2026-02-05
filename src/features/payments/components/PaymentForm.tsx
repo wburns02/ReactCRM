@@ -31,7 +31,7 @@ export interface PaymentFormProps {
   payment?: Payment | null;
   isLoading?: boolean;
   prefilledInvoiceId?: string;
-  prefilledCustomerId?: number;
+  prefilledCustomerId?: string;
 }
 
 /**
@@ -70,7 +70,7 @@ export function PaymentForm({
     defaultValues: payment
       ? {
           invoice_id: payment.invoice_id || "",
-          customer_id: Number(payment.customer_id),
+          customer_id: String(payment.customer_id),
           amount: payment.amount,
           payment_method: payment.payment_method as PaymentMethod,
           status: payment.status as PaymentStatus,
@@ -81,7 +81,7 @@ export function PaymentForm({
         }
       : {
           invoice_id: prefilledInvoiceId || "",
-          customer_id: prefilledCustomerId || 0,
+          customer_id: prefilledCustomerId || "",
           amount: 0,
           payment_method: "card" as PaymentMethod,
           status: "completed" as PaymentStatus,
@@ -118,7 +118,7 @@ export function PaymentForm({
           {isEdit ? "Edit Payment" : "Record Payment"}
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <form onSubmit={handleSubmit(handleFormSubmit as any)}>
           <DialogBody className="space-y-6">
             {/* Customer & Invoice */}
             <div>

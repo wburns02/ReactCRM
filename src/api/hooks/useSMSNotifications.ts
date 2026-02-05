@@ -136,7 +136,7 @@ const DEFAULT_STATS: SMSDeliveryStats = {
 };
 
 const DEFAULT_PREFERENCES: CustomerSMSPreferences = {
-  customer_id: 0,
+  customer_id: "0",
   sms_enabled: true,
   opt_out_status: "opted_in",
   booking_confirmation: true,
@@ -923,7 +923,7 @@ export function useLookupCustomerByPhone() {
   return useMutation({
     mutationFn: async (
       phone: string,
-    ): Promise<{ customer_id: number; customer_name: string } | null> => {
+    ): Promise<{ customer_id: string; customer_name: string } | null> => {
       const { data } = await apiClient.get(
         `/sms/notifications/lookup?phone=${encodeURIComponent(phone)}`,
       );

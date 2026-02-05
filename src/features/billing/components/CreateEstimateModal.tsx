@@ -116,7 +116,7 @@ export function CreateEstimateModal({
 
     try {
       await createQuote.mutateAsync({
-        customer_id: parseInt(customerId, 10),
+        customer_id: customerId,
         status: "draft",
         line_items: validLineItems.map((item) => ({
           service: item.service,

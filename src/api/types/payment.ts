@@ -101,7 +101,7 @@ export interface PaymentFilters {
  */
 export const paymentFormSchema = z.object({
   invoice_id: z.string().optional(),
-  customer_id: z.coerce.number().min(1, "Customer is required"),
+  customer_id: z.string().min(1, "Customer is required"),
   amount: z.coerce.number().min(0.01, "Amount must be greater than 0"),
   payment_method: paymentMethodSchema,
   status: paymentStatusSchema.default("completed"),

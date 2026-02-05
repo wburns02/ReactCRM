@@ -35,7 +35,7 @@ export type ActionPriority = "low" | "medium" | "high" | "critical";
 export interface SurveyAction {
   id: number;
   survey_response_id: number;
-  customer_id: number;
+  customer_id: string;
   customer_name?: string;
   action_type: SurveyActionType;
   status: ActionStatus;
@@ -72,7 +72,7 @@ export interface DetractorAlert {
   response_id: number;
   survey_id: number;
   survey_name: string;
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   customer_email?: string;
   score: number;
@@ -401,7 +401,7 @@ export function useScheduleCallback() {
       scheduledTime,
       notes,
     }: {
-      customerId: number;
+      customerId: string;
       responseId: number;
       scheduledTime?: string;
       notes?: string;
@@ -440,7 +440,7 @@ export function useCreateTicketFromResponse() {
       description,
       priority,
     }: {
-      customerId: number;
+      customerId: string;
       responseId: number;
       title: string;
       description?: string;
@@ -480,7 +480,7 @@ export function useGenerateOffer() {
       offerType,
       notes,
     }: {
-      customerId: number;
+      customerId: string;
       responseId: number;
       offerType?: "discount" | "credit" | "upgrade" | "custom";
       notes?: string;
@@ -518,7 +518,7 @@ export function useSendFollowUpEmail() {
       emailType,
       customMessage,
     }: {
-      customerId: number;
+      customerId: string;
       responseId: number;
       emailType?: "apology" | "follow_up" | "resolution" | "thank_you";
       customMessage?: string;
@@ -557,7 +557,7 @@ export function useBookAppointment() {
       preferredTime,
       notes,
     }: {
-      customerId: number;
+      customerId: string;
       responseId: number;
       appointmentType?: "call" | "video" | "in_person";
       preferredTime?: string;

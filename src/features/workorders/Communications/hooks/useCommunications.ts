@@ -108,7 +108,7 @@ export function useSendEmail() {
     mutationFn: async ({ to, subject, body, customerId, templateId }) => {
       // Payload must match backend SendEmailRequest schema: to, subject, body
       const payload = {
-        customer_id: customerId ? parseInt(customerId, 10) : undefined,
+        customer_id: customerId || undefined,
         to, // Backend expects "to" not "email"
         subject,
         body, // Backend expects "body" not "message"

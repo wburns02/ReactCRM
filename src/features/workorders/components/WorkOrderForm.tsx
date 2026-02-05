@@ -72,7 +72,7 @@ export function WorkOrderForm({
     resolver: zodResolver(workOrderFormSchema) as any,
     defaultValues: workOrder
       ? {
-          customer_id: Number(workOrder.customer_id),
+          customer_id: String(workOrder.customer_id),
           job_type: workOrder.job_type as JobType,
           status: workOrder.status as WorkOrderStatus,
           priority: workOrder.priority as Priority,
@@ -95,7 +95,7 @@ export function WorkOrderForm({
           notes: workOrder.notes || "",
         }
       : {
-          customer_id: 0,
+          customer_id: "",
           job_type: "pumping" as JobType,
           status: "draft" as WorkOrderStatus,
           priority: "normal" as Priority,
@@ -152,7 +152,7 @@ export function WorkOrderForm({
           {isEdit ? "Edit Work Order" : "Create Work Order"}
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <form onSubmit={handleSubmit(handleFormSubmit as any)}>
           <DialogBody className="space-y-6 max-h-[60vh] overflow-y-auto">
             {/* Customer & Job Type */}
             <div>

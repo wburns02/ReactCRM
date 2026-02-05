@@ -55,7 +55,7 @@ export function TriggerPlaybookModal({
     try {
       await triggerMutation.mutateAsync({
         playbook_id: playbook.id,
-        customer_id: parseInt(selectedCustomerId, 10),
+        customer_id: selectedCustomerId,
         reason: triggerReason || undefined,
       });
       onSuccess?.();

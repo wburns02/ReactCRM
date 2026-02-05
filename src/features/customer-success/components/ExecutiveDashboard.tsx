@@ -189,7 +189,7 @@ export function ExecutiveDashboard({
     atRiskData?.items?.slice(0, 5).map(
       (
         item: {
-          customer_id: number;
+          customer_id: string;
           customer_name?: string;
           overall_score: number;
           churn_probability?: number;

@@ -130,7 +130,7 @@ export function useInvoicePaymentHistory(invoiceId: string) {
 export function useSetupACHPayment() {
   return useMutation({
     mutationFn: async (params: {
-      customer_id: number;
+      customer_id: string;
       email: string;
     }): Promise<{
       setup_intent_client_secret: string;

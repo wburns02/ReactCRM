@@ -335,7 +335,7 @@ function OverviewTab() {
           <AtRiskTable
             customers={(atRiskData?.items || []).map(
               (item: {
-                customer_id: number;
+                customer_id: string;
                 overall_score: number;
                 health_status: string;
                 churn_probability?: number;

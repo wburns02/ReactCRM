@@ -113,7 +113,7 @@ export function useProcessPayment() {
     ): Promise<ProcessPaymentResult> => {
       try {
         const paymentData: PaymentFormData = {
-          customer_id: 0, // Will be populated from work order on server
+          customer_id: "", // Will be populated from work order on server
           amount: params.amount,
           payment_method:
             params.method === "ach" ? "bank_transfer" : params.method,
@@ -199,7 +199,7 @@ export function useCreateInvoice() {
       );
 
       const invoiceData: InvoiceFormData = {
-        customer_id: Number(params.customerId),
+        customer_id: params.customerId,
         work_order_id: params.workOrderId,
         status: "draft",
         line_items: params.lineItems.map((item) => ({

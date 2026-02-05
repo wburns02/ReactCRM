@@ -94,7 +94,7 @@ export function TwilioSMSPanel({
       const response = await apiClient.post("/communications/sms/send", {
         to: customerPhone,
         body,
-        customer_id: parseInt(customerId),
+        customer_id: customerId,
         source: workOrderId ? `work_order:${workOrderId}` : "manual",
       });
       return response.data;

@@ -16,7 +16,7 @@ import { useInvoices } from "@/api/hooks/useInvoices";
 interface PaymentPlan {
   id: number;
   customer_name: string;
-  customer_id: number;
+  customer_id: string;
   invoice_id: number;
   total_amount: number;
   amount_paid: number;
@@ -36,7 +36,7 @@ interface PaymentPlanStats {
 }
 
 interface PaymentPlanCreateData {
-  customer_id: number;
+  customer_id: string;
   invoice_id: number;
   total_amount: number;
   installments: number;
@@ -47,7 +47,7 @@ interface InvoiceOption {
   id: string;
   invoice_number: string;
   customer_name: string;
-  customer_id: number;
+  customer_id: string;
   total: number;
   balance_due: number;
   status: string;
@@ -89,10 +89,7 @@ function CreatePaymentPlanModal({
         inv.customer_name || inv.customer?.first_name
           ? `${inv.customer?.first_name || ""} ${inv.customer?.last_name || ""}`.trim()
           : "Unknown Customer",
-      customer_id:
-        typeof inv.customer_id === "string"
-          ? parseInt(inv.customer_id)
-          : inv.customer_id || 0,
+      customer_id: String(inv.customer_id || ""),
       total: inv.total || 0,
       // Use balance_due if available, otherwise use total for unpaid invoices
       balance_due: inv.balance_due ?? inv.amount_due ?? inv.total ?? 0,
@@ -156,7 +153,7 @@ function CreatePaymentPlanModal({
     }
 
     const data: PaymentPlanCreateData = {
-      customer_id: selectedInvoice?.customer_id || 0,
+      customer_id: selectedInvoice?.customer_id || "",
       invoice_id: parseInt(selectedInvoiceId),
       total_amount: parseFloat(totalAmount),
       installments: parseInt(installments),

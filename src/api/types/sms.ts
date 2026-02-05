@@ -214,7 +214,7 @@ export interface SMSNotification {
  * Customer SMS preferences
  */
 export interface CustomerSMSPreferences {
-  customer_id: number;
+  customer_id: string;
   sms_enabled: boolean;
   opt_out_status: OptOutStatus;
   opt_out_date?: string;
@@ -248,7 +248,7 @@ export interface CustomerSMSPreferences {
  */
 export interface ScheduledNotification {
   id: string;
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   customer_phone: string;
   template_id: string;
@@ -273,7 +273,7 @@ export interface InboundSMS {
   twilio_sid: string;
 
   // Parsed information
-  customer_id?: number;
+  customer_id?: string;
   customer_name?: string;
   is_opt_out: boolean; // Contains STOP, UNSUBSCRIBE, etc.
   is_opt_in: boolean; // Contains START, SUBSCRIBE, etc.
@@ -292,7 +292,7 @@ export interface InboundSMS {
  * SMS conversation thread
  */
 export interface SMSConversation {
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   customer_phone: string;
   last_message: string;
@@ -347,7 +347,7 @@ export interface SMSDeliveryStats {
  * Send notification request
  */
 export interface SendNotificationRequest {
-  customer_id: number;
+  customer_id: string;
   phone: string;
   template_id?: string;
   trigger: NotificationTrigger;
@@ -438,7 +438,7 @@ export interface ETANotificationData {
   work_order_id: string;
   technician_id: string;
   technician_name: string;
-  customer_id: number;
+  customer_id: string;
   customer_phone: string;
   current_location: {
     lat: number;
@@ -490,7 +490,7 @@ export interface BulkSendResponse {
   failed: number;
   skipped: number; // Opted-out customers
   errors: Array<{
-    customer_id: number;
+    customer_id: string;
     error: string;
   }>;
 }

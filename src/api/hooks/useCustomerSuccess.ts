@@ -67,7 +67,7 @@ export const csKeys = {
   journeyDetail: (id: number) => [...csKeys.journeys, "detail", id] as const,
   journeyEnrollments: (id: number) =>
     [...csKeys.journeys, "enrollments", id] as const,
-  customerEnrollments: (customerId: number) =>
+  customerEnrollments: (customerId: string) =>
     [...csKeys.journeys, "customer-enrollments", customerId] as const,
 
   // Playbooks
@@ -77,7 +77,7 @@ export const csKeys = {
   playbookDetail: (id: number) => [...csKeys.playbooks, "detail", id] as const,
   playbookExecutions: (id: number) =>
     [...csKeys.playbooks, "executions", id] as const,
-  customerExecutions: (customerId: number) =>
+  customerExecutions: (customerId: string) =>
     [...csKeys.playbooks, "customer-executions", customerId] as const,
 
   // Tasks
@@ -98,7 +98,7 @@ export const csKeys = {
     [...csKeys.touchpoints, "list", filters] as const,
   touchpointDetail: (id: number) =>
     [...csKeys.touchpoints, "detail", id] as const,
-  customerTimeline: (customerId: number, days: number) =>
+  customerTimeline: (customerId: string, days: number) =>
     [...csKeys.touchpoints, "timeline", customerId, days] as const,
   touchpointSummary: (customerId?: number, days?: number) =>
     [...csKeys.touchpoints, "summary", customerId, days] as const,
@@ -364,7 +364,7 @@ export function useEnrollCustomer() {
 
   return useMutation({
     mutationFn: async (data: {
-      customer_id: number;
+      customer_id: string;
       journey_id: number;
       reason?: string;
     }): Promise<JourneyEnrollment> => {
@@ -659,7 +659,7 @@ export function useTriggerPlaybook() {
   return useMutation({
     mutationFn: async (data: {
       playbook_id: number;
-      customer_id: number;
+      customer_id: string;
       reason?: string;
     }): Promise<PlaybookExecution> => {
       const response = await apiClient.post("/cs/playbooks/trigger", data);
@@ -937,7 +937,7 @@ export function useTouchpoints(filters: TouchpointFilters = {}) {
 }
 
 export function useCustomerTimeline(
-  customerId: number | undefined,
+  customerId: string | undefined,
   days: number = 90,
 ) {
   return useQuery({
@@ -1507,13 +1507,13 @@ export interface EscalationFilters {
   escalation_type?: string;
   severity?: string;
   status?: string;
-  customer_id?: number;
+  customer_id?: string;
   assigned_to_user_id?: number;
   search?: string;
 }
 
 export interface EscalationFormData {
-  customer_id: number;
+  customer_id: string;
   title: string;
   description: string;
   escalation_type?: string;

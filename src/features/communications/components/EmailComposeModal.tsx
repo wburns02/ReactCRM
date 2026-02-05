@@ -43,7 +43,7 @@ export function EmailComposeModal({
 
     try {
       await sendEmail.mutateAsync({
-        customer_id: customerId ? parseInt(customerId, 10) : undefined,
+        customer_id: customerId || undefined,
         to: email, // Backend expects "to" not "email"
         subject,
         body, // Backend expects "body" not "message"

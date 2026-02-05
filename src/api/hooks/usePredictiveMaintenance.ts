@@ -6,7 +6,7 @@ import { apiClient, withFallback } from "@/api/client";
  */
 export interface MaintenancePrediction {
   id: string;
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   address: string;
   equipment_type:
@@ -43,7 +43,7 @@ export interface PredictionSummary {
 
 export interface MaintenanceAlert {
   id: string;
-  customer_id: number;
+  customer_id: string;
   customer_name: string;
   alert_type: "overdue" | "upcoming" | "risk_increase" | "weather_impact";
   severity: "info" | "warning" | "urgent";

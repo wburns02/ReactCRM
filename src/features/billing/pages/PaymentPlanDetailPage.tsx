@@ -12,7 +12,7 @@ import type { PaymentFormData } from "@/api/types/payment";
 interface PaymentPlan {
   id: number;
   customer_name: string;
-  customer_id: number;
+  customer_id: string;
   invoice_id: number;
   total_amount: number;
   amount_paid: number;

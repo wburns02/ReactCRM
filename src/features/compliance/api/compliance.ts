@@ -44,7 +44,7 @@ export interface Inspection {
   id: string;
   inspection_number: string;
   inspection_type: string;
-  customer_id: number;
+  customer_id: string;
   property_address?: string | null;
   system_type?: string | null;
   scheduled_date?: string | null;

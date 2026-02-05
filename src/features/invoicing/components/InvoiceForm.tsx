@@ -72,7 +72,7 @@ export function InvoiceForm({
     resolver: zodResolver(invoiceFormSchema) as any,
     defaultValues: invoice
       ? {
-          customer_id: Number(invoice.customer_id),
+          customer_id: String(invoice.customer_id),
           work_order_id: invoice.work_order_id || "",
           status: invoice.status as InvoiceStatus,
           line_items: invoice.line_items,
@@ -82,7 +82,7 @@ export function InvoiceForm({
           terms: invoice.terms || "",
         }
       : {
-          customer_id: 0,
+          customer_id: "",
           work_order_id: "",
           status: "draft" as InvoiceStatus,
           line_items: [{ service: "", description: "", quantity: 1, rate: 0 }],
@@ -135,7 +135,7 @@ export function InvoiceForm({
           {isEdit ? "Edit Invoice" : "Create Invoice"}
         </DialogHeader>
 
-        <form onSubmit={handleSubmit(handleFormSubmit)}>
+        <form onSubmit={handleSubmit(handleFormSubmit as any)}>
           <DialogBody className="space-y-6 max-h-[70vh] overflow-y-auto">
             {/* Customer & Work Order */}
             <div>

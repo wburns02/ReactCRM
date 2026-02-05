@@ -10,7 +10,7 @@ export interface Contract {
   contract_number: string;
   name: string;
   contract_type: string;
-  customer_id: number;
+  customer_id: string;
   customer_name: string | null;
   start_date: string;
   end_date: string;
@@ -43,7 +43,7 @@ export interface ContractTemplate {
 export interface ContractFilters {
   page?: number;
   page_size?: number;
-  customer_id?: number;
+  customer_id?: string;
   status?: string;
   contract_type?: string;
   expiring_within_days?: number;
@@ -52,7 +52,7 @@ export interface ContractFilters {
 export interface ContractCreate {
   name: string;
   contract_type: string;
-  customer_id: number;
+  customer_id: string;
   customer_name?: string;
   template_id?: string;
   start_date: string;
@@ -97,7 +97,7 @@ export interface ContractUpdate {
 
 export interface GenerateContractRequest {
   template_id: string;
-  customer_id: number;
+  customer_id: string;
   customer_name?: string;
   start_date: string;
   total_value?: number;

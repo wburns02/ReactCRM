@@ -154,7 +154,7 @@ export interface TrackingLink {
   token: string;
   tracking_url: string;
   work_order_id: number;
-  customer_id: number;
+  customer_id: string;
   technician_id: number;
   status: "active" | "expired" | "viewed" | "completed";
   expires_at: string;

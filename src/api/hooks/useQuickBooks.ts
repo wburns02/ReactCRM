@@ -26,7 +26,7 @@ export interface QBSyncSettings {
 }
 
 export interface QBCustomerMapping {
-  crm_customer_id: number;
+  crm_customer_id: string;
   qb_customer_id: string;
   crm_customer_name: string;
   qb_customer_name: string;
@@ -310,7 +310,7 @@ export function useMapCustomerToQB() {
 
   return useMutation({
     mutationFn: async (params: {
-      crm_customer_id: number;
+      crm_customer_id: string;
       qb_customer_id: string;
     }): Promise<QBCustomerMapping> => {
       const { data } = await apiClient.post(

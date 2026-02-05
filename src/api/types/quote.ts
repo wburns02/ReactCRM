@@ -151,7 +151,7 @@ export interface QuoteFilters {
  * Create/update quote request
  */
 export const quoteFormSchema = z.object({
-  customer_id: z.coerce.number().min(1, "Customer is required"),
+  customer_id: z.string().min(1, "Customer is required"),
   status: quoteStatusSchema.default("draft"),
   line_items: z
     .array(

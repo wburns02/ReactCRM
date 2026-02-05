@@ -22,7 +22,7 @@ import {
 // ============================================
 
 interface QuickActionButtonsProps {
-  customerId: number;
+  customerId: string;
   responseId: number;
   availableActions?: SurveyActionType[];
   suggestedActions?: SurveyActionType[];
@@ -493,7 +493,7 @@ export function QuickActionButtons({
 // ============================================
 
 interface CompactQuickActionsProps {
-  customerId: number;
+  customerId: string;
   responseId: number;
   onActionClick: (actionType: SurveyActionType) => void;
   className?: string;
@@ -528,7 +528,7 @@ export function CompactQuickActions({
 // ============================================
 
 interface ActionPanelProps {
-  customerId: number;
+  customerId: string;
   responseId: number;
   customerName: string;
   score?: number;

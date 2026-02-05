@@ -105,7 +105,7 @@ export type LineItemFormData = z.infer<typeof lineItemFormSchema>;
  * Create/update invoice request
  */
 export const invoiceFormSchema = z.object({
-  customer_id: z.coerce.number().min(1, "Customer is required"),
+  customer_id: z.string().min(1, "Customer is required"),
   work_order_id: z.string().optional(),
   status: invoiceStatusSchema.default("draft"),
   line_items: z

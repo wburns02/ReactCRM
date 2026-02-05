@@ -22,7 +22,7 @@ import {
 interface CreateActionModalProps {
   isOpen: boolean;
   onClose: () => void;
-  customerId: number;
+  customerId: string;
   customerName: string;
   responseId: number;
   surveyId: number;

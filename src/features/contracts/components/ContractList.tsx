@@ -9,7 +9,7 @@ import { Button } from "@/components/ui/Button.tsx";
 import { formatDate, formatCurrency } from "@/lib/utils.ts";
 
 interface ContractListProps {
-  customerId?: number;
+  customerId?: string;
   onContractSelect?: (contract: Contract) => void;
 }
 
