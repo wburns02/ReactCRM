@@ -127,7 +127,6 @@ export function AppLayout() {
         { path: "/marketing/ads", label: "Google Ads", icon: "📈" },
         { path: "/marketing/reviews", label: "Reviews", icon: "⭐" },
         { path: "/marketing/ai-content", label: "AI Content", icon: "🤖" },
-        { path: "/email-marketing", label: "Email Marketing", icon: "📧" },
         { path: "/reports", label: "Reports", icon: "📈" },
       ],
     },
