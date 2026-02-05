@@ -47,7 +47,11 @@ export const PAYMENT_STATUS_LABELS: Record<PaymentStatus, string> = {
 export const paymentSchema = z.object({
   id: z.string(),
   invoice_id: z.string().nullable().optional(),
-  customer_id: z.union([z.string(), z.number()]).transform(String),
+  customer_id: z
+    .union([z.string(), z.number()])
+    .transform(String)
+    .nullable()
+    .optional(),
   customer_name: z.string().nullable().optional(),
   customer: z
     .object({
