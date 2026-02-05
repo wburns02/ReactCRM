@@ -194,8 +194,9 @@ export function TechniciansPage() {
         </CardContent>
       </Card>
 
-      {/* Create/Edit Form Modal */}
+      {/* Create/Edit Form Modal — key forces remount so useForm gets fresh defaultValues */}
       <TechnicianForm
+        key={editingTechnician?.id ?? "new"}
         open={isFormOpen}
         onClose={() => {
           setIsFormOpen(false);
